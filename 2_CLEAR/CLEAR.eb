@@ -1,0 +1,18 @@
+easyblock = "PythonPackage"
+
+name = "CLEAR"
+version = "20210117"
+local_commit = "64bc22d52d99466a044848992fd0d775a983d60c"
+
+homepage = "https://github.com/YangLab/CLEAR"
+description = "Direct comparison of circular and linear RNA expression"
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+source_urls = ["https://github.com/YangLab/CLEAR/archive"]
+sources = ["%s.tar.gz" % local_commit]
+
+dependencies = [
+    ('Python', '2.7.18'),
+
+]
