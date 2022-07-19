@@ -36,6 +36,9 @@ dependencies = [
 
 preconfigopts = './autogen.sh && '
 configopts = '--with-boost=$EBROOTBOOST'
+postinstallcmds = [
+    "ls %(installdir)s",
+    "sed -i 's|#!/usr/bin/env python|#!/usr/bin/env python2|g' %(installdir)s/bin/tophat"]
 
 parallel = 1
 

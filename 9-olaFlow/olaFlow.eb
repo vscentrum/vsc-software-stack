@@ -1,0 +1,30 @@
+easyblock = 'Tarball'
+
+name = 'olaFlow'
+version = '20210820'
+local_commit = 'b3039e055a22ea0b8c7dc9f735f15686976559f6'
+
+homepage = 'https://olaflow.github.io/'
+description = """olaFlow CFD Suite is a free and open source project committed to bringing the latest
+advances for the simulation of wave dynamics to the OpenFOAM® and FOAM-extend communities."""
+
+sources = [{
+    'source_urls': ['https://github.com/phicau/olaFlow/archive/'],
+    'filename': '%s.tar.gz' % local_commit,
+    'download_filename': '%(name)s-%(version)s.tar.gz',
+}]
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('OpenFOAM', 'v2112')
+]
+
+postinstallcmds = ["source $EBROOTOPENFOAM/OpenFOAM-v2112/etc/bashrc && ./allMake"]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ["/"]
+}
+
+moduleclass = 'cae'
