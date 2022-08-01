@@ -1,0 +1,23 @@
+easyblock = 'PythonPackage'
+
+name = 'how_are_we_stranded_here'
+version = '1.0.1'
+
+homepage = 'https://github.com/signalbash/how_are_we_stranded_here'
+description = "Python package for testing strandedness of RNA-Seq fastq files"
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+source_urls = ["https://github.com/signalbash/how_are_we_stranded_here/archive/refs/tags/"]
+sources = ["v%(version)s.tar.gz"]
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('RSeQC', '4.0.0'),
+    ('SciPy-bundle', '2021.10'),
+    ('kallisto', '0.48.0')
+]
+
+use_pip = True
+sanity_pip_check = True
+download_dep_fail = True

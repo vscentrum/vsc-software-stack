@@ -18,11 +18,16 @@ builddependencies = [
 ]
 
 preinstallopts = "export CMAKE_BUILD_PARALLEL_LEVEL=%(parallel)s && "
-configopts = ['-DRAVEN_BUILD_EXE=1 -G Ninja ']
+configopts = ['-DPYBIND11_FINDPYTHON=ON -DRAVEN_BUILD_EXE=1 -G Ninja ']
 
 dependencies = [
     ('Python', '3.9.6'),
     ('zlib', '1.2.11'),
+    ('Racon', '1.5.0'),
+    ('bioparser', '3.0.15'),
+    ('Cereal', '1.3.0', '', True),
+    ('pybind11', '2.7.1'),
+    ('googletest', '1.11.0'),
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -38,6 +43,8 @@ exts_list = [
         'source_urls': ['https://github.com/lbcb-sci/raven/archive/refs/tags/'],
         'sources': ['%(version)s.tar.gz'],
         'checksums': ['00009e9027761fa28313db4e2b5c5f40ebc10e6631b43b755e321ac6bbcc2c06'],
+        'preinstallopts': 'sed -i \'s|cmake_args += \["-GNinja"\]|cmake_args += \["-GNinja", \
+	            "-DPYBIND11_FINDPYTHON=ON", "-DPython_FIND_STRATEGY=LOCATION"\]|\' setup.py && '
     }),
 ]
 
