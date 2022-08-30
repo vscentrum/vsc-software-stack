@@ -15,6 +15,7 @@ dependencies = [
     ('StringTie', '2.2.1', versionsuffix),
     ('pybedtools', '0.8.2', versionsuffix),
     ('SciPy-bundle', '2021.10', versionsuffix),
+    ('CIRCexplorer2', '2.3.8', versionsuffix),
 ]
 
 use_pip = True
@@ -23,9 +24,6 @@ download_dep_fail = True
 
 local_commit = "64bc22d52d99466a044848992fd0d775a983d60c"
 exts_list = [
-    ('CIRCexplorer2', '2.3.8', {
-        'modulename': False,
-    }),
     (name, version, {
         'source_urls': ["https://github.com/YangLab/CLEAR/archive"],
         'sources': ["%s.tar.gz" % local_commit],
@@ -34,7 +32,7 @@ exts_list = [
 ]
 
 sanity_check_paths = {
-    'files': ['bin/clear_quant', 'bin/fetch_ucsc.py'],
+    'files': ['bin/clear_quant'],
     'dirs': []
 }
 

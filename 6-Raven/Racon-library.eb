@@ -1,0 +1,102 @@
+# Author: Pavel Grochal (INUITS)
+# License: GPLv2
+
+easyblock = 'CMakeMake'
+
+name = 'Racon'
+version = '1.5.0'
+versionsuffix = '-library'
+
+homepage = 'https://github.com/lbcb-sci/racon/'
+description = "Ultrafast consensus module for raw de novo genome assembly of long uncorrected reads"
+
+toolchain = {'name': 'GCCcore', 'version': '11.2.0'}
+
+local_commit = 'e0c761da58f41184887978e775e1e87dd6ea8fcb'
+local_vendor_dir = '%%(builddir)s/racon-%s/vendor' % local_commit
+local_extract_cmd_pattern = 'tar -C %s/%s --strip-components=1 -xf %%s'
+
+sources = [
+    {
+        'source_urls': ['https://github.com/lbcb-sci/racon/archive/'],
+        'filename': '%s.tar.gz' % local_commit,
+    },
+    {
+        'source_urls': ['https://github.com/clara-genomics/ClaraGenomicsAnalysis/archive'],
+        'filename': 'ClaraGenomicsAnalysis-20190814.tar.gz',
+        'download_filename': '416af9f1817a4a70745b3f7cdb7418125159f75c.tar.gz',
+        #'extract_cmd': local_extract_cmd_pattern % (local_vendor_dir, 'ClaraGenomicsAnalysis'),
+    },
+    {
+        'source_urls': ['https://github.com/rvaser/bioparser/archive'],
+        'filename': 'bioparser-20190817.tar.gz',
+        'download_filename': '0d66534d75b319f43ce5c59fe6548eee48f8f651.tar.gz',
+        #'extract_cmd': local_extract_cmd_pattern % (local_vendor_dir, 'bioparser'),
+    },
+    {
+        'source_urls': ['https://github.com/martinsos/edlib/archive'],
+        'filename': 'edlib-20171127.tar.gz',
+        'download_filename': 'ee36875e944b63abf6f9b9e14c010b445529427d.tar.gz',
+        #'extract_cmd': local_extract_cmd_pattern % (local_vendor_dir, 'edlib'),
+    },
+    {
+        'source_urls': ['https://github.com/google/googletest/archive'],
+        'filename': 'googletest-20180131.tar.gz',
+        'download_filename': 'ea31cb15f0c2ab9f5f5b18e82311eb522989d747.tar.gz',
+        #'extract_cmd': local_extract_cmd_pattern % (local_vendor_dir, 'googletest'),
+    },
+    {
+        'source_urls': ['https://github.com/rvaser/logger/archive'],
+        'filename': 'logger-20190728.tar.gz',
+        'download_filename': 'b88c8ee8ba59fd07b40c022957b7bdce1a5f8502.tar.gz',
+        #'extract_cmd': local_extract_cmd_pattern % (local_vendor_dir, 'logger'),
+    },
+    {
+        'source_urls': ['https://github.com/rvaser/rampler/archive'],
+        'filename': 'rampler-20190905.tar.gz',
+        'download_filename': 'a6dec0140878ba81da90387c77740756fefa4920.tar.gz',
+        #'extract_cmd': local_extract_cmd_pattern % (local_vendor_dir, 'rampler'),
+    },
+    {
+        'source_urls': ['https://github.com/rvaser/spoa/archive'],
+        'filename': 'spoa-20180523.tar.gz',
+        'download_filename': '11219575bdcb356c57fb32f54cf23b8da2abc4f0.tar.gz',
+        #'extract_cmd': local_extract_cmd_pattern % (local_vendor_dir, 'spoa'),
+    },
+    {
+        'source_urls': ['https://github.com/rvaser/thread_pool/archive'],
+        'filename': 'thread_pool-20190530.tar.gz',
+        'download_filename': '048da9485390ee8b8a7ecedccc598a06ca4429e2.tar.gz',
+        #'extract_cmd': local_extract_cmd_pattern % (local_vendor_dir, 'thread_pool'),
+    },
+    {
+        'source_urls': ['https://github.com/google/benchmark/archive'],
+        'filename': 'benchmark-20190513.tar.gz',
+        'download_filename': '090faecb454fbd6e6e17a75ef8146acb037118d4.tar.gz',
+        #'extract_cmd': local_extract_cmd_pattern % (local_vendor_dir, 'ClaraGenomicsAnalysis/3rdparty/benchmark'),
+    },
+    {
+        'source_urls': ['https://github.com/gabime/spdlog/archive'],
+        'filename': 'spdlog-20190417.tar.gz',
+        'download_filename': '366935142780e3754b358542f0fd5ed83793b263.tar.gz',
+        #'extract_cmd': local_extract_cmd_pattern % (local_vendor_dir, 'ClaraGenomicsAnalysis/3rdparty/spdlog'),
+    },
+]
+# patches = [
+#     ('%(name)s-%(version)s_patch_bioparsers_zlib.patch')
+# ]
+
+builddependencies = [
+    ('CMake', '3.22.1'),
+    ('zlib', '1.2.11'),
+]
+
+#configopts = '-Dracon_enable_cuda=ON'
+
+sanity_check_paths = {
+    'files': ['bin/racon'],
+    'dirs': [],
+}
+sanity_check_commands = ['racon --help']
+
+moduleclass = 'bio'
