@@ -1,0 +1,26 @@
+easyblock = 'CMakeMake'
+
+name = 'openLISEM'
+local_commit = 'c1ed3c5'
+version = '6.848'
+
+homepage = 'https://lisemmodel.com'
+description = """Lisem (Lisem Integrated Spatial Earth Modeller) is a free and open-source software tool that allows
+users to manipulate geo-spatial data."""
+
+source_urls = ['https://github.com/vjetten/openlisem/archive/']
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
+checksums = ['21a3cad9514028d6a61e84ba95006cb0debe7a6046cfce254058012777c24c3f']
+
+toolchain = {'name': 'GCC', 'version': '10.3.0'}
+
+builddependencies = [('CMake', '3.20.1')]
+
+dependencies = [
+    ('Qwt', '6.2.0'),
+    ('Qt5', '5.15.2'),
+]
+
+configopts = "-DOMP_INCLUDE_DIRS=$EBROOTGCC/lib/gcc/%(arch)s-pc-linux-gnu/$EBVERSIONGCC/include"
+
+moduleclass = 'cae'
