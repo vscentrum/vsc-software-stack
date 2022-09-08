@@ -37,16 +37,20 @@ install_cmd += "export PYTHONUNBUFFERED=1 && "
 
 install_cmd += "cp $HOMETEL/configs/systel.edf.cfg $HOMETEL/configs/systel.easybuild.cfg && "
 install_cmd += "sed -i 's/S9.gfortran/easybuild/g' $HOMETEL/configs/systel.easybuild.cfg && "
-# strip out use of AED and MED (optional dependencies)
+# strip out use of AED, GOTM, MED (optional dependencies)
 install_cmd += "sed -i 's/\(^[a-z]*_aed:\).*/\\1/g' $HOMETEL/configs/systel.easybuild.cfg && "
+install_cmd += "sed -i 's/\(^[a-z]*_gotm:\).*/\\1/g' $HOMETEL/configs/systel.easybuild.cfg && "
 install_cmd += "sed -i 's/\(^[a-z]*_med:\).*/\\1/g' $HOMETEL/configs/systel.easybuild.cfg && "
 # replace -O2 with desired compiler options
 install_cmd += 'sed -i "s/-O2/$F90FLAGS/g" $HOMETEL/configs/systel.easybuild.cfg && '
+# fix linker option for BLAS
+install_cmd += 'sed -i "s/ -lblas/ $LIBBLAS/g" $HOMETEL/configs/systel.easybuild.cfg && '
 # downgrade Fortran compiler error to warning
 install_cmd += "sed -i 's/^fflags_gfo:/fflags_gfo: -fallow-invalid-boz/g' $HOMETEL/configs/systel.easybuild.cfg && "
 install_cmd += "export SYSTELCFG=$HOMETEL/configs/systel.easybuild.cfg && "
 install_cmd += "export USETELCFG=easybuild && "
 
+install_cmd += "export SCALAPACKHOME=$EBROOTSCALAPACK && "
 install_cmd += "export METISHOME=$EBROOTMETIS && "
 install_cmd += "export SCOTCHHOME=$EBROOTSCOTCH && "
 install_cmd += "export MUMPSHOME=$EBROOTMUMPS && "
