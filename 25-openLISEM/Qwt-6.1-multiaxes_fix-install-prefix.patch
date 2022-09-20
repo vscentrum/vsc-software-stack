@@ -1,0 +1,17 @@
+inject correct installation path
+author: Davide Vanzo (Vanderbilt University), ported to Qwt 6.1-ma by Kenneth Hoste (HPC-UGent)
+--- qwt-git/qwtconfig.pri.orig	2022-09-20 09:53:38.956009638 +0200
++++ qwt-git/qwtconfig.pri	2022-09-20 09:55:08.554279888 +0200
+@@ -16,10 +16,10 @@
+ # Install paths
+ ######################################################################
+ 
+-QWT_INSTALL_PREFIX = $$[QT_INSTALL_PREFIX]
++QWT_INSTALL_PREFIX = $$(QWT_PREFIX)
+ 
+ unix {
+-    QWT_INSTALL_PREFIX    = /usr/local/qwt-$$QWT_VERSION-ma
++    QWT_INSTALL_PREFIX    = $$(QWT_PREFIX)
+     # QWT_INSTALL_PREFIX = /usr/local/qwt-$$QWT_VERSION-ma-qt-$$QT_VERSION
+ }
+ 
