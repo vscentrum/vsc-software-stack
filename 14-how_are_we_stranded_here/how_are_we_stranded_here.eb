@@ -31,6 +31,9 @@ components = [
         'source_urls': ['https://github.com/pachterlab/kallisto/archive/refs/tags/'],
         'easyblock': 'CMakeMake',
         'patches': ['%(name)s-%(version)s-include_limits.patch'],
+        'preconfigopts': "cd ../%(name)s-%(version)s/ext/htslib/ && \
+                        sed -i '/AC_PROG_CC/a AC_CANONICAL_HOST' configure.ac && \
+                        autoreconf -i && autoheader && autoconf && cd - && "
     }),
     (name, version, {
         'source_urls': ["https://github.com/signalbash/how_are_we_stranded_here/archive/refs/tags/"],

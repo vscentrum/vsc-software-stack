@@ -1,0 +1,55 @@
+easyblock = 'Bundle'
+
+name = 'openLISEM'
+local_commit = 'c1ed3c527f3a2e552d55b33a4f072f7b1e55000f'
+version = '6.848'
+
+homepage = 'https://lisemmodel.com'
+description = """Lisem (Lisem Integrated Spatial Earth Modeller) is a free and open-source software tool that allows
+users to manipulate geo-spatial data."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'extra_cxxflags': "-fpermissive"}
+
+builddependencies = [
+    ('CMake', '3.23.1'),
+    ('pkgconf', '1.8.0'),
+]
+
+dependencies = [
+    ('Qt5', '5.15.5'),
+    ('GDAL', '3.5.0'),
+]
+
+# replace hardcoded Windows-style include statement for omp.h with Linux equivalent
+local_openlisem_preconfigopts = "cd %(builddir)s/openlisem-*/ && "
+local_openlisem_preconfigopts += " sed -i 's@^#include.*\\omp.h.*@#include <omp.h>@g' include/model.h && cd - && "
+
+components = [
+    ('Qwt', '6.1', {
+        'source_urls': ['https://github.com/vjetten/openlisem/releases/download/openLisem/'],
+        'sources': ['qwt-%(version)s-ma.zip'],
+        'patches': ['Qwt-6.1_fix-install-prefix.patch'],
+        'checksums': [
+            '1924dbfdeb986ac1a7b35a67937959f40f258ba2a897f29c7d367975ff1154b5',  # qwt-6.1-ma.zip
+            # Qwt-6.1_fix-install-prefix.patch
+            '60ae0d3f1eda6ed0559082ed346b63249f1e3c916215b1aebf08e1b76f22ada9',
+        ],
+        'easyblock': 'ConfigureMake',
+        'start_dir': 'qwt-%(version)s-ma',
+        'skipsteps': ['configure'],
+        'prebuildopts': "export QWT_PREFIX=%(installdir)s && qmake qwt.pro QMAKE=qmake && ",
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/vjetten/openlisem/archive/'],
+        'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['21a3cad9514028d6a61e84ba95006cb0debe7a6046cfce254058012777c24c3f'],
+        'easyblock': 'CMakeMake',
+        'start_dir': '',
+        'preconfigopts': local_openlisem_preconfigopts,
+        ###'configopts': "-DOMP_INCLUDE_DIRS=$EBROOTGCC/lib/gcc/%(arch)s-pc-linux-gnu/$EBVERSIONGCC/include"
+    }),
+]
+
+
+moduleclass = 'cae'
