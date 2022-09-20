@@ -1,0 +1,30 @@
+easyblock = "Tarball"
+
+name = "GUSHR"
+version = "master"
+
+homepage = "https://bioinf.uni-greifswald.de/augustus/"
+description = ""
+
+toolchain = {"name": "foss", "version": "2021b"}
+
+# https://github.com/Gaius-Augustus/Augustus/archive
+github_account = "Gaius-Augustus"
+
+# no versioned source tarballs available, download from https://github.com/Gaius-Augustus/GUSHR/archive/master.tar.gz
+sources = ["%(version)s.tar.gz"]
+
+dependencies = [
+    ("Java", "1.8", "", True),
+    ("AUGUSTUS", "3.4.0"),
+]
+
+sanity_check_paths = {
+    "files": ["gushr.py"],
+    "dirs": [],
+}
+sanity_check_commands = [
+    "cd example; ./download_rnaseq.sh ; cd - ; ./gushr.py -t example/augustus.gtf -b example/RNAseq.bam -g example/genome.fa -o utrs"
+]
+
+moduleclass = "bio"

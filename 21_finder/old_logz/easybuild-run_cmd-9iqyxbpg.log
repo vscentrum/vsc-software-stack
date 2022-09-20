@@ -1,0 +1,302 @@
+# output for command: make  -j 8
+
+g++ -c -o subexon-info.o -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  SubexonInfo.cpp -lbam -lz -lm -lpthread 
+g++ -c -o stats.o -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  stats.cpp -lbam -lz -lm -lpthread 
+g++ -c -o subexon-graph.o -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  SubexonGraph.cpp -lbam -lz -lm -lpthread 
+g++ -c -o combine-subexons.o -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  CombineSubexons.cpp -lbam -lz -lm -lpthread 
+g++ -c -o classes.o -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  classes.cpp -lbam -lz -lm -lpthread 
+g++ -c -o constraints.o -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  Constraints.cpp -lbam -lz -lm -lpthread 
+g++ -c -o transcript-decider.o -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  TranscriptDecider.cpp -lbam -lz -lm -lpthread 
+g++ -c -o vote-transcripts.o -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  Vote.cpp -lbam -lz -lm -lpthread 
+stats.cpp: In function long double digammal(long double):
+stats.cpp:74:38: warning: ISO C++17 does not allow register storage class specifier [-Wregister]
+   74 |                 register long double Tn_1 = 1.0L ;      /* T_{n-1}(x), started at n=1 */
+      |                                      ^~~~
+stats.cpp:75:38: warning: ISO C++17 does not allow register storage class specifier [-Wregister]
+   75 |                 register long double Tn = x-2.0L ;      /* T_{n}(x) , started at n=1 */
+      |                                      ^~
+stats.cpp:76:38: warning: ISO C++17 does not allow register storage class specifier [-Wregister]
+   76 |                 register long double resul = Kncoe[0] + Kncoe[1]*Tn ;
+      |                                      ^~~~~
+g++ -c -o junc.o -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  FindJunction.cpp -lbam -lz -lm -lpthread 
+FindJunction.cpp: In function bool CompareJunctions(int, char*):
+FindJunction.cpp:546:107: warning: array subscript has type char [-Wchar-subscripts]
+  546 |                                                                 ++count[ nucToNum[  col[9][pos + j] - 'A' ] ] ;
+      |                                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+FindJunction.cpp:526:29: warning: variable softStart set but not used [-Wunused-but-set-variable]
+  526 |                         int softStart = -1 ;
+      |                             ^~~~~~~~~
+FindJunction.cpp:527:29: warning: variable softEnd set but not used [-Wunused-but-set-variable]
+  527 |                         int softEnd = 0 ;
+      |                             ^~~~~~~
+FindJunction.cpp:532:29: warning: unused variable readLen [-Wunused-variable]
+  532 |                         int readLen = strlen( col[9] ) ;
+      |                             ^~~~~~~
+FindJunction.cpp: In function int main(int, char**):
+FindJunction.cpp:968:41: warning: format %s expects argument of type char*, but argument 3 has type char (*)[4097] [-Wformat=]
+  968 |                         sscanf( line, "%s%s%s%s%s%s%s%s%s%s%s", col, col + 1, col + 2, col + 3, col + 4,
+      |                                        ~^                       ~~~
+      |                                         |                       |
+      |                                         char*                   char (*)[4097]
+FindJunction.cpp:968:43: warning: format %s expects argument of type char*, but argument 4 has type char (*)[4097] [-Wformat=]
+  968 |                         sscanf( line, "%s%s%s%s%s%s%s%s%s%s%s", col, col + 1, col + 2, col + 3, col + 4,
+      |                                          ~^                          ~~~~~~~
+      |                                           |                              |
+      |                                           char*                          char (*)[4097]
+FindJunction.cpp:968:45: warning: format %s expects argument of type char*, but argument 5 has type char (*)[4097] [-Wformat=]
+  968 |                         sscanf( line, "%s%s%s%s%s%s%s%s%s%s%s", col, col + 1, col + 2, col + 3, col + 4,
+      |                                            ~^                                 ~~~~~~~
+      |                                             |                                     |
+      |                                             char*                                 char (*)[4097]
+FindJunction.cpp:968:47: warning: format %s expects argument of type char*, but argument 6 has type char (*)[4097] [-Wformat=]
+  968 |                         sscanf( line, "%s%s%s%s%s%s%s%s%s%s%s", col, col + 1, col + 2, col + 3, col + 4,
+      |                                              ~^                                        ~~~~~~~
+      |                                               |                                            |
+      |                                               char*                                        char (*)[4097]
+FindJunction.cpp:968:49: warning: format %s expects argument of type char*, but argument 7 has type char (*)[4097] [-Wformat=]
+  968 |                         sscanf( line, "%s%s%s%s%s%s%s%s%s%s%s", col, col + 1, col + 2, col + 3, col + 4,
+      |                                                ~^                                               ~~~~~~~
+      |                                                 |                                                   |
+      |                                                 char*                                               char (*)[4097]
+FindJunction.cpp:968:51: warning: format %s expects argument of type char*, but argument 8 has type char (*)[4097] [-Wformat=]
+  968 |                         sscanf( line, "%s%s%s%s%s%s%s%s%s%s%s", col, col + 1, col + 2, col + 3, col + 4,
+      |                                                  ~^
+      |                                                   |
+      |                                                   char*
+  969 |                                         col + 5, col + 6, col + 7, col + 8, col + 9,  col + 10 ) ;
+      |                                         ~~~~~~~    
+      |                                             |
+      |                                             char (*)[4097]
+FindJunction.cpp:968:53: warning: format %s expects argument of type char*, but argument 9 has type char (*)[4097] [-Wformat=]
+  968 |                         sscanf( line, "%s%s%s%s%s%s%s%s%s%s%s", col, col + 1, col + 2, col + 3, col + 4,
+      |                                                    ~^
+      |                                                     |
+      |                                                     char*
+  969 |                                         col + 5, col + 6, col + 7, col + 8, col + 9,  col + 10 ) ;
+      |                                                  ~~~~~~~
+      |                                                      |
+      |                                                      char (*)[4097]
+FindJunction.cpp:968:55: warning: format %s expects argument of type char*, but argument 10 has type char (*)[4097] [-Wformat=]
+  968 |                         sscanf( line, "%s%s%s%s%s%s%s%s%s%s%s", col, col + 1, col + 2, col + 3, col + 4,
+      |                                                      ~^
+      |                                                       |
+      |                                                       char*
+  969 |                                         col + 5, col + 6, col + 7, col + 8, col + 9,  col + 10 ) ;
+      |                                                           ~~~~~~~
+      |                                                               |
+      |                                                               char (*)[4097]
+FindJunction.cpp:968:57: warning: format %s expects argument of type char*, but argument 11 has type char (*)[4097] [-Wformat=]
+  968 |                         sscanf( line, "%s%s%s%s%s%s%s%s%s%s%s", col, col + 1, col + 2, col + 3, col + 4,
+      |                                                        ~^
+      |                                                         |
+      |                                                         char*
+  969 |                                         col + 5, col + 6, col + 7, col + 8, col + 9,  col + 10 ) ;
+      |                                                                    ~~~~~~~
+      |                                                                        |
+      |                                                                        char (*)[4097]
+FindJunction.cpp:968:59: warning: format %s expects argument of type char*, but argument 12 has type char (*)[4097] [-Wformat=]
+  968 |                         sscanf( line, "%s%s%s%s%s%s%s%s%s%s%s", col, col + 1, col + 2, col + 3, col + 4,
+      |                                                          ~^
+      |                                                           |
+      |                                                           char*
+  969 |                                         col + 5, col + 6, col + 7, col + 8, col + 9,  col + 10 ) ;
+      |                                                                             ~~~~~~~
+      |                                                                                 |
+      |                                                                                 char (*)[4097]
+FindJunction.cpp:968:61: warning: format %s expects argument of type char*, but argument 13 has type char (*)[4097] [-Wformat=]
+  968 |                         sscanf( line, "%s%s%s%s%s%s%s%s%s%s%s", col, col + 1, col + 2, col + 3, col + 4,
+      |                                                            ~^
+      |                                                             |
+      |                                                             char*
+  969 |                                         col + 5, col + 6, col + 7, col + 8, col + 9,  col + 10 ) ;
+      |                                                                                       ~~~~~~~~
+      |                                                                                           |
+      |                                                                                           char (*)[4097]
+FindJunction.cpp:972:32: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+  972 |                         if ( p = strstr( line, "NH" ) )
+      |                              ~~^~~~~~~~~~~~~~~~~~~~~~
+FindJunction.cpp: In function void cigar2string(bam1_core_t*, uint32_t*, char*):
+FindJunction.cpp:742:24: warning: opcode may be used uninitialized in this function [-Wmaybe-uninitialized]
+  742 |                 sprintf( out_cigar + strlen( out_cigar ), "%d%c", l, opcode ) ;
+      |                 ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+FindJunction.cpp: In function int main(int, char**):
+FindJunction.cpp:742:24: warning: opcode may be used uninitialized in this function [-Wmaybe-uninitialized]
+  742 |                 sprintf( out_cigar + strlen( out_cigar ), "%d%c", l, opcode ) ;
+      |                 ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+FindJunction.cpp:725:14: note: opcode was declared here
+  725 |         char opcode ;
+      |              ^~~~~~
+g++ -c -o grader.o -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  grader.cpp -lbam -lz -lm -lpthread 
+grader.cpp: In function int main(int, char**):
+grader.cpp:777:22: warning: variable flag set but not used [-Wunused-but-set-variable]
+  777 |                 bool flag = false ;
+      |                      ^~~~
+In file included from SubexonGraph.hpp:5,
+                 from SubexonGraph.cpp:1:
+blocks.hpp: In member function int Blocks::BuildExonBlocks(Alignments&):
+blocks.hpp:362:37: warning: variable eid set but not used [-Wunused-but-set-variable]
+  362 |                                 int eid = 0 ; // the exonblock id that the segment update
+      |                                     ^~~
+In file included from SubexonGraph.hpp:5,
+                 from TranscriptDecider.hpp:10,
+                 from TranscriptDecider.cpp:1:
+blocks.hpp: In member function int Blocks::BuildExonBlocks(Alignments&):
+blocks.hpp:362:37: warning: variable eid set but not used [-Wunused-but-set-variable]
+  362 |                                 int eid = 0 ; // the exonblock id that the segment update
+      |                                     ^~~
+In file included from SubexonGraph.hpp:5,
+                 from classes.cpp:7:
+blocks.hpp: In member function int Blocks::BuildExonBlocks(Alignments&):
+blocks.hpp:362:37: warning: variable eid set but not used [-Wunused-but-set-variable]
+  362 |                                 int eid = 0 ; // the exonblock id that the segment update
+      |                                     ^~~
+In file included from SubexonGraph.hpp:5,
+                 from Constraints.hpp:12,
+                 from Constraints.cpp:1:
+blocks.hpp: In member function int Blocks::BuildExonBlocks(Alignments&):
+blocks.hpp:362:37: warning: variable eid set but not used [-Wunused-but-set-variable]
+  362 |                                 int eid = 0 ; // the exonblock id that the segment update
+      |                                     ^~~
+In file included from SubexonGraph.hpp:5,
+                 from TranscriptDecider.hpp:10,
+                 from Vote.cpp:11:
+blocks.hpp: In member function int Blocks::BuildExonBlocks(Alignments&):
+blocks.hpp:362:37: warning: variable eid set but not used [-Wunused-but-set-variable]
+  362 |                                 int eid = 0 ; // the exonblock id that the segment update
+      |                                     ^~~
+In file included from CombineSubexons.cpp:10:
+blocks.hpp: In member function int Blocks::BuildExonBlocks(Alignments&):
+blocks.hpp:362:37: warning: variable eid set but not used [-Wunused-but-set-variable]
+  362 |                                 int eid = 0 ; // the exonblock id that the segment update
+      |                                     ^~~
+CombineSubexons.cpp: In function void CleanUpSubexonConnections(std::vector<_subexon>&):
+CombineSubexons.cpp:509:25: warning: this for clause does not guard... [-Wmisleading-indentation]
+  509 |                         for ( ; k < seCnt ; ++k )
+      |                         ^~~
+CombineSubexons.cpp:512:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the for
+  512 |                                 if ( subexons[k].start == subexons[i].next[j]
+      |                                 ^~
+In file included from SubexonInfo.cpp:15:
+blocks.hpp: In member function int Blocks::BuildExonBlocks(Alignments&):
+blocks.hpp:362:37: warning: variable eid set but not used [-Wunused-but-set-variable]
+  362 |                                 int eid = 0 ; // the exonblock id that the segment update
+      |                                     ^~~
+CombineSubexons.cpp: In function int main(int, char**):
+CombineSubexons.cpp:594:22: warning: unused variable chrName [-Wunused-variable]
+  594 |                 char chrName[50] ;
+      |                      ^~~~~~~
+CombineSubexons.cpp:1209:33: warning: unused variable se [-Wunused-variable]
+ 1209 |                 struct _subexon se ;
+      |                                 ^~
+CombineSubexons.cpp:1210:38: warning: unused variable sp [-Wunused-variable]
+ 1210 |                 struct _subexonSplit sp ;
+      |                                      ^~
+CombineSubexons.cpp:1211:22: warning: unused variable chrName [-Wunused-variable]
+ 1211 |                 char chrName[50] ;
+      |                      ^~~~~~~
+SubexonInfo.cpp: In function void GradientDescentGammaDistribution(double&, double&, double, double, double, double, double, double, double*, double*, int):
+SubexonInfo.cpp:429:30: warning: variable flag set but not used [-Wunused-but-set-variable]
+  429 |                         bool flag = false ;
+      |                              ^~~~
+CombineSubexons.cpp:1155:16: warning: unused variable avgIrPiCov [-Wunused-variable]
+ 1155 |         double avgIrPiCov = 0 ;
+      |                ^~~~~~~~~~
+CombineSubexons.cpp:1160:16: warning: unused variable avgOverhangPiCov [-Wunused-variable]
+ 1160 |         double avgOverhangPiCov = 0 ;
+      |                ^~~~~~~~~~~~~~~~
+Vote.cpp: In function int main(int, char**):
+Vote.cpp:404:13: warning: variable prevGid set but not used [-Wunused-but-set-variable]
+  404 |         int prevGid = -1 ;
+      |             ^~~~~~~
+TranscriptDecider.cpp: In member function void TranscriptDecider::AugmentTranscripts(_subexon*, std::vector<_transcript>&, int, bool):
+TranscriptDecider.cpp:1234:60: warning: comparison of integer expressions of different signedness: std::vector<_transcript>::size_type {aka long unsigned int} and int [-Wsign-compare]
+ 1234 |                                 if ( alltranscripts.size() >= limit )
+      |                                      ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+TranscriptDecider.cpp:1255:60: warning: comparison of integer expressions of different signedness: std::vector<_transcript>::size_type {aka long unsigned int} and int [-Wsign-compare]
+ 1255 |                                 if ( alltranscripts.size() >= limit )
+      |                                      ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+TranscriptDecider.cpp:1299:92: warning: comparison of integer expressions of different signedness: std::vector<_transcript>::size_type {aka long unsigned int} and int [-Wsign-compare]
+ 1299 |                                                                 if ( alltranscripts.size() >= limit )
+      |                                                                      ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+TranscriptDecider.cpp:1349:92: warning: comparison of integer expressions of different signedness: std::vector<_transcript>::size_type {aka long unsigned int} and int [-Wsign-compare]
+ 1349 |                                                                 if ( alltranscripts.size() >= limit )
+      |                                                                      ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+TranscriptDecider.cpp: In member function void TranscriptDecider::PickTranscripts(_subexon*, std::vector<_transcript>&, Constraints&, SubexonCorrelation&, std::vector<_transcript>&):
+TranscriptDecider.cpp:1481:32: warning: variable firstRegion set but not used [-Wunused-but-set-variable]
+ 1481 |                 struct _pair32 firstRegion, lastRegion ;
+      |                                ^~~~~~~~~~~
+TranscriptDecider.cpp:1481:45: warning: variable lastRegion set but not used [-Wunused-but-set-variable]
+ 1481 |                 struct _pair32 firstRegion, lastRegion ;
+      |                                             ^~~~~~~~~~
+TranscriptDecider.cpp:1386:13: warning: unused variable coalesceThreshold [-Wunused-variable]
+ 1386 |         int coalesceThreshold = 1024 ;
+      |             ^~~~~~~~~~~~~~~~~
+TranscriptDecider.cpp: In member function void TranscriptDecider::AbundanceEstimation(_subexon*, int, Constraints&, std::vector<_transcript>&):
+TranscriptDecider.cpp:2124:13: warning: unused variable size [-Wunused-variable]
+ 2124 |         int size ;
+      |             ^~~~
+TranscriptDecider.cpp: In member function int TranscriptDecider::RefineTranscripts(_subexon*, int, bool, std::map<int, int>*, int*, std::vector<_transcript>&, Constraints&):
+TranscriptDecider.cpp:2521:24: warning: unused variable maxFPKM [-Wunused-variable]
+ 2521 |                 double maxFPKM = -1 ;
+      |                        ^~~~~~~
+TranscriptDecider.cpp:2604:21: warning: unused variable maxCover [-Wunused-variable]
+ 2604 |                 int maxCover = -1 ;
+      |                     ^~~~~~~~
+g++ -c -o trust-splice.o -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  GetTrustedSplice.cpp -lbam -lz -lm -lpthread 
+TranscriptDecider.cpp: In member function int TranscriptDecider::Solve(_subexon*, int, std::vector<Constraints>&, SubexonCorrelation&):
+TranscriptDecider.cpp:3395:36: warning: comparison of integer expressions of different signedness: int and std::vector<_transcript>::size_type {aka long unsigned int} [-Wsign-compare]
+ 3395 |                         if ( psize != predTranscripts[i].size() )
+      |                              ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TranscriptDecider.cpp:3374:29: warning: unused variable tcCnt [-Wunused-variable]
+ 3374 |                         int tcCnt = constraints[i].matePairs.size() ;
+      |                             ^~~~~
+TranscriptDecider.cpp:3406:29: warning: unused variable tcCnt [-Wunused-variable]
+ 3406 |                         int tcCnt = constraints[i].matePairs.size() ;
+      |                             ^~~~~
+g++ -c -o add-genename.o -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  AddGeneName.cpp -lbam -lz -lm -lpthread 
+In file included from Constraints.hpp:11,
+                 from Constraints.cpp:1:
+alignments.hpp: In member function bool Alignments::IsGCRich(bool):
+alignments.hpp:487:9: warning: control reaches end of non-void function [-Wreturn-type]
+  487 |         }
+      |         ^
+AddGeneName.cpp: In function int main(int, char**):
+AddGeneName.cpp:149:16: warning: unused variable j [-Wunused-variable]
+  149 |         int i, j, k ;
+      |                ^
+AddGeneName.cpp:149:19: warning: unused variable k [-Wunused-variable]
+  149 |         int i, j, k ;
+      |                   ^
+Vote.cpp:75:19: warning: k may be used uninitialized [-Wmaybe-uninitialized]
+   75 |         int i, j, k ;
+      |                   ^
+g++ -c -o addXS.o -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  AddXS.cpp -lbam -lz -lm -lpthread 
+g++ -o vote-transcripts -I./samtools-0.1.19 -L./samtools-0.1.19 -Wall -O3  stats.o subexon-graph.o  vote-transcripts.o -lbam -lz -lm -lpthread 
+/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/bin/ld.gold: error: cannot find -lbam
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:34: vote-transcripts] Error 1
+make: *** Waiting for unfinished jobs....
+AddXS.cpp: In function int main(int, char**):
+AddXS.cpp:447:43: warning: variable to set but not used [-Wunused-but-set-variable]
+  447 |                                 int from, to ;
+      |                                           ^~
+AddXS.cpp:538:69: warning: array subscript has type char [-Wchar-subscripts]
+  538 |                                 ++count[ nucToNum[ pattern[j] - 'A' ] ] ;
+      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+AddXS.cpp:246:55: warning: chrId may be used uninitialized in this function [-Wmaybe-uninitialized]
+  246 |                         BitSequence &bs = genome[chrId] ;
+      |                                                       ^
+TranscriptDecider.cpp: In member function void TranscriptDecider::PickTranscriptsByDP(_subexon*, int, int, Constraints&, SubexonCorrelation&, _dpAttribute&, std::vector<_transcript>&):
+TranscriptDecider.cpp:976:20: warning: bestDp._dp::last may be used uninitialized in this function [-Wmaybe-uninitialized]
+  976 |         struct _dp bestDp ;
+      |                    ^~~~~~
+TranscriptDecider.cpp:976:20: warning: bestDp._dp::first may be used uninitialized in this function [-Wmaybe-uninitialized]
+TranscriptDecider.cpp:975:20: warning: maxCoverDp._dp::strand may be used uninitialized in this function [-Wmaybe-uninitialized]
+  975 |         struct _dp maxCoverDp ;
+      |                    ^~~~~~~~~~
+TranscriptDecider.cpp:1026:72: warning: maxCoverDp._dp::cnt may be used uninitialized in this function [-Wmaybe-uninitialized]
+ 1026 |                                 cachedCoverResult[ attr.minAbundance ] = ccr ;
+TranscriptDecider.cpp:975:20: warning: maxCoverDp._dp::last may be used uninitialized in this function [-Wmaybe-uninitialized]
+  975 |         struct _dp maxCoverDp ;
+      |                    ^~~~~~~~~~
+TranscriptDecider.cpp:975:20: warning: maxCoverDp._dp::first may be used uninitialized in this function [-Wmaybe-uninitialized]

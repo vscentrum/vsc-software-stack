@@ -1,0 +1,36 @@
+easyblock = "CmdCp"
+
+name = "finder"
+version = "1.1.0"
+
+homepage = "https://github.com/sagnikbanerjee15/Finder/"
+description = """finder is a gene annotator pipeline which automates the process of downloading short reads,
+aligning them and using the assembled transcripts to generate gene annotations."""
+
+toolchain = {"name": "foss", "version": "2021b"}
+toolchainopts = {"openmp": True}
+
+source_urls = [GITHUB_SOURCE]
+sources = ["v%(version)s.tar.gz"]
+
+dependencies = [
+    ("STAR", "2.7.9a"),
+    ("SAMtools", "1.15"),
+    ("BEDTools", "2.30.0"),
+    ("AUGUSTUS", "3.4.0"),
+    ("BRAKER", "2.1.6"),
+    ("GeneMark-ET", "4.65"),
+]
+
+cmds_map = [("")]
+
+files_to_copy = [([""], "bin")]
+
+sanity_check_paths = {
+    "files": [""],
+    "dirs": [],
+}
+
+sanity_check_commands = []
+
+moduleclass = "bio"
