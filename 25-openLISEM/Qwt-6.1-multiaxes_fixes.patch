@@ -1,0 +1,26 @@
+fixes to get Qwt 6.1 with multiaxes support build working
+- comment out AxisCount field, which triggers compiler error, and is unused
+- enable QWT_AXIS_COMPAT
+author: Kenneth Hoste (HPC-UGent)
+--- qwt-git/src/qwt_plot.h.orig	2022-09-20 13:18:35.258831932 +0200
++++ qwt-git/src/qwt_plot.h	2022-09-20 13:18:41.999851809 +0200
+@@ -246,7 +246,7 @@
+         xBottom = QwtAxis::XBottom,
+         xTop    = QwtAxis::XTop,
+ 
+-        axisCnt = QwtAxis::AxisCount
++        //axisCnt = QwtAxis::AxisCount
+     };
+ 
+     void enableAxis( int axisId, bool on = true )
+--- qwt-git/src/qwt_plot.h.orig	2022-09-20 17:43:00.806813248 +0200
++++ qwt-git/src/qwt_plot.h	2022-09-20 17:43:04.947825854 +0200
+@@ -29,7 +29,7 @@
+ class QwtText;
+ template< typename T > class QList;
+ 
+-#define QWT_AXIS_COMPAT 0 // flag to disable compatibilities - will be removed later
++#define QWT_AXIS_COMPAT 1 // flag to disable compatibilities - will be removed later
+ #define QWT_DUMMY_ID 0 // dummy id to help for migrating the code - will be removed later
+ 
+ /*!
