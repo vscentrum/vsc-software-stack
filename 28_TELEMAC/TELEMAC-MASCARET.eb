@@ -66,10 +66,10 @@ sanity_check_paths = {
     'dirs': ['scripts/python3'],
 }
 
-# disabled for now, because it fails - maybe due to a missing (optional?) dependency...
-#sanity_check_commands = [
-#    "cd %(installdir)s/examples/telemac2d/gouttedo && telemac2d.py t2d_gouttedo.cas --ncsize=4",
-#]
+sanity_check_commands = [
+    "tmpdir=$(mktemp -d) && cp -a %(installdir)s/examples/telemac2d/gouttedo $tmpdir/ && "
+    "cd $tmpdir/gouttedo && telemac2d.py t2d_gouttedo.cas",
+]
 
 modextrapaths = {
     'LD_LIBRARY_PATH': 'builds/easybuild/lib',
