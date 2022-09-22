@@ -10,21 +10,12 @@ toolchain = {"name": "GCC", "version": "11.2.0"}
 
 source_urls = ["https://github.com/splicebox/PsiCLASS/archive/"]
 sources = ["v%(version)s.tar.gz"]
-patches = ["PsiCLASS-samtool_as_dep.patch"]
+
 checksums = [
     "c60c0f33f9a076b97ccdba68b9140a5fb6936a5c5e309d70b3d0cf558828f73d",  # v1.0.3.tar.gz
-    # '4cb29e2a1e9e14dd83b2d3b63a9ef508255ffb8c992e8f45565a7666d3f5e72a',  # PsiCLASS-samtool_as_dep.patch
 ]
 
-dependencies = [
-    # ("SAMtools", "0.1.19"),
-    ("BamTools", "2.5.2"),
-]
-
-# using proper dependency instead
-# prebuildopts = "rm -r samtools-0.1.19 && "
-
-prebuildopts = "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%(builddir)s/%(name)s-%(version)s/samtools-0.1.19/ && "
+parallel = 1
 
 files_to_copy = ["*"]
 
