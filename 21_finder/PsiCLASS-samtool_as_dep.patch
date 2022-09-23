@@ -1,16 +1,3 @@
-# use easybuild's SAMtools, rather than the bundled one
-diff -ruN PsiCLASS-1.0.3_orig/alignments.hpp PsiCLASS-1.0.3/alignments.hpp
---- PsiCLASS-1.0.3_orig/alignments.hpp	2022-09-09 14:47:52.369970343 +0200
-+++ PsiCLASS-1.0.3/alignments.hpp	2022-09-14 10:26:26.567187000 +0200
-@@ -3,7 +3,7 @@
- #ifndef _LSONG_RSCAF_ALIGNMENT_HEADER
- #define _LSONG_RSCAF_ALIGNMENT_HEADER
- 
--#include "samtools-0.1.19/sam.h"
-+#include <sam.h>
- #include <map>
- #include <string>
- #include <assert.h>
 diff -ruN PsiCLASS-1.0.3_orig/Makefile PsiCLASS-1.0.3/Makefile
 --- PsiCLASS-1.0.3_orig/Makefile	2022-09-09 14:47:52.343258000 +0200
 +++ PsiCLASS-1.0.3/Makefile	2022-09-13 16:13:47.436239000 +0200
@@ -19,35 +6,7 @@ diff -ruN PsiCLASS-1.0.3_orig/Makefile PsiCLASS-1.0.3/Makefile
  CXXFLAGS= -Wall -O3 #-g #-std=c++11 #-Wall #-g
  #CXXFLAGS= -Wall -g #-std=c++11 #-Wall #-g
 -LINKPATH= -I./samtools-0.1.19 -L./samtools-0.1.19
-+LINKPATH= -I$(EBROOTSAMTOOLS)/include/bam
++LINKPATH= -I$(EBROOTBAMTOOLS)/include/bamtools/ -L$(EBROOTBAMTOOLS)/lib/ -I./samtools-0.1.19 -L./samtools-0.1.19
  LINKFLAGS = -lbam -lz -lm -lpthread 
  DEBUG=
  OBJECTS = stats.o subexon-graph.o 
-@@ -15,10 +15,10 @@
- all: subexon-info combine-subexons classes vote-transcripts junc grader trust-splice add-genename addXS
- 
- subexon-info: subexon-info.o $(OBJECTS)
--	if [ ! -f ./samtools-0.1.19/libbam.a ] ; \
--	        then \
--		                cd samtools-0.1.19 ; make ;\
--	fi ;
-+# 	if [ ! -f ./samtools-0.1.19/libbam.a ] ; \
-+# 	        then \
-+# 		                cd samtools-0.1.19 ; make ;\
-+# 	fi ;
- 	$(CXX) -o $@ $(LINKPATH) $(CXXFLAGS) $(OBJECTS) subexon-info.o $(LINKFLAGS)
- 
- combine-subexons: combine-subexons.o $(OBJECTS)
-diff -ruN PsiCLASS-1.0.3_orig/psiclass PsiCLASS-1.0.3/psiclass
---- PsiCLASS-1.0.3_orig/psiclass	2022-09-09 14:47:52.415297795 +0200
-+++ PsiCLASS-1.0.3/psiclass	2022-09-13 17:33:58.015749000 +0200
-@@ -193,7 +193,7 @@
- 
- if ( $mateIdx == -1 )
- {	
--	open FPsam, "$WD/samtools-0.1.19/samtools view ".$bamFiles[0]."| head -1000 |" ; 
-+	open FPsam, $ENV{EBROOTSAMTOOLS}."/bin/samtools view ".$bamFiles[0]."| head -1000 |" ; 
- 	my $flag = 0 ;
- 	while ( <FPsam> )
- 	{
-Binary files PsiCLASS-1.0.3_orig/stats.o and PsiCLASS-1.0.3/stats.o differ

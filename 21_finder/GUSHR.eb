@@ -1,22 +1,27 @@
 easyblock = "Tarball"
 
 name = "GUSHR"
-version = "master"
+version = "2020-09-28"
+local_commit = "ee26d5c"
 
-homepage = "https://bioinf.uni-greifswald.de/augustus/"
-description = ""
+homepage = "https://github.com/Gaius-Augustus/GUSHR"
+description = "Assembly-free construction of UTRs from short read RNA-Seq data on the basis of coding sequence annotation."
 
 toolchain = {"name": "foss", "version": "2021b"}
 
-# https://github.com/Gaius-Augustus/Augustus/archive
-github_account = "Gaius-Augustus"
-
-# no versioned source tarballs available, download from https://github.com/Gaius-Augustus/GUSHR/archive/master.tar.gz
-sources = ["%(version)s.tar.gz"]
+source_urls = ["https://github.com/Gaius-Augustus/GUSHR/archive"]
+sources = [
+    {
+        "download_filename": "%s.tar.gz" % local_commit,
+        "filename": SOURCE_TAR_GZ,
+    }
+]
+checksums = ['81fd9c372a45af1688c2954932f94efc4c637144f874e16be41d1b18936a5303']
 
 dependencies = [
     ("Java", "1.8", "", True),
     ("AUGUSTUS", "3.4.0"),
+    ("GLib", "2.69.1"),
 ]
 
 sanity_check_paths = {
