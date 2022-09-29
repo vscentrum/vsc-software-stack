@@ -1,0 +1,27 @@
+see https://github.com/vjetten/openlisem/commit/1684220f23654283bca6e35ce0d29ecef5cdc329 
+ 
+ #define VERSION QString("openLISEM version %1 - %2").arg(VERSIONNR).arg(DATE)
+diff --git a/lisTotalsMB.cpp b/lisTotalsMB.cpp
+index 0fe99a1..1124735 100644
+--- a/lisTotalsMB.cpp
++++ b/lisTotalsMB.cpp
+@@ -221,13 +221,15 @@ void TWorld::Totals(void)
+         // add channel vol to total
+         if (SwitchChannelBaseflow) {
+             BaseFlowTot = MapTotal(*Qbase); // total inflow in m3
+-        if (SwitchChannelBaseflowStationary)
+-            BaseFlowTot += MapTotal(*BaseFlowInflow) * _dt;
++            if (SwitchChannelBaseflowStationary)
++                BaseFlowTot += MapTotal(*BaseFlowInflow) * _dt;
++            GWlevel = MapTotal(*GWWH)/(double)nrValidCells;
++            BaseFlowTotmm = BaseFlowTot*catchmentAreaFlatMM; //mm
+         }
+-        BaseFlowTotmm = BaseFlowTot*catchmentAreaFlatMM; //mm
++
+         ChannelVolTotmm = ChannelVolTot*catchmentAreaFlatMM; //mm
+         // recalc in mm for screen output
+-        GWlevel = MapTotal(*GWWH)/(double)nrValidCells;
++
+     }
+ 
+     //=== all discharges ===//
