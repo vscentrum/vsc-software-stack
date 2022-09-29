@@ -1,0 +1,38 @@
+# author: Denis Kristak (INUITS)
+easyblock = "Binary"
+
+name = "CodAn"
+version = "1.2"
+
+homepage = "https://github.com/pjedge/longshot"
+description = """CodAn (Coding sequence Annotator) is a computational tool designed to characterize the CDS and UTR
+regions on transcripts from any Eukaryote species."""
+
+toolchain = {"name": "foss", "version": "2021b"}
+
+source_urls = ["https://github.com/pedronachtigall/CodAn/archive"]
+sources = ["v%(version)s.tar.gz"]
+
+dependencies = [
+    ("Python", "3.9.6"),
+    ("Biopython", "1.79"),
+    ("BioPerl", "1.7.8"),
+    ("Perl", "5.34.0"),
+]
+
+extract_sources = True
+
+install_cmd = "cp -r %(builddir)s/* %(installdir)s/ && "
+install_cmd += "tar -xf %(installdir)s/%(name)s-%(version)s/CodAn.tar.gz"
+install_cmd += "mv CodAn/* %(installdir)s/ && "
+install_cmd += "export PATH=$PATH:%(installdir)s/bin/ && "
+# install_cmd += "chmod -rwxr-xr-x %(installdir)s/bin/* "
+
+sanity_check_paths = {
+    "files": ["bin/%(namelower)s.py"],
+    "dirs": [],
+}
+
+# sanity_check_commands = ["%(namelower)s.py --help"]
+
+moduleclass = "bio"

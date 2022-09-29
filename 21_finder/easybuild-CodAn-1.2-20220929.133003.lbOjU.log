@@ -1,0 +1,320 @@
+== 2022-09-29 13:30:03,469 easyblock.py:304 INFO This is EasyBuild 4.6.1.dev0-r71ae5cd8517340f5c9e06aff7ed7bc6028bf91f7 (framework: 4.6.1.dev0-r6dc5424a7c9ae282b0d98a09be97a01a6b3df8c9, easyblocks: 4.6.1.dev0-r71ae5cd8517340f5c9e06aff7ed7bc6028bf91f7) on host node3701.slaking.os.
+== 2022-09-29 13:30:03,469 easyblock.py:310 INFO This is easyblock Binary from module easybuild.easyblocks.generic.binary (/user/gent/438/vsc43810/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/binary.py)
+== 2022-09-29 13:30:03,469 easyblock.py:983 INFO Build dir set to /tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b
+== 2022-09-29 13:30:03,470 easyblock.py:1040 INFO Software install dir set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b
+== 2022-09-29 13:30:03,470 easyblock.py:1045 INFO Module install dir set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/modules/all
+== 2022-09-29 13:30:03,470 easyblock.py:279 INFO Init completed for application name CodAn version 1.2
+== 2022-09-29 13:30:03,470 easyblock.py:4032 INFO Obtained application instance of for CodAn (easyblock: Binary)
+== 2022-09-29 13:30:03,471 easyconfig.py:1686 INFO Generating template values...
+== 2022-09-29 13:30:03,471 mpi.py:120 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2022-09-29 13:30:03,471 mpi.py:305 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2022-09-29 13:30:03,472 easyconfig.py:1705 INFO Template values: arch='x86_64', bitbucket_account='codan', github_account='codan', module_name='CodAn/1.2-foss-2021b', mpi_cmd_prefix='mpirun -n 1', name='CodAn', nameletter='C', nameletterlower='c', namelower='codan', perlmajver='5', perlminver='34', perlshortver='5.34', perlver='5.34.0', pymajver='3', pyminver='9', pyshortver='3.9', pyver='3.9.6', toolchain_name='foss', toolchain_version='2021b', version='1.2', version_major='1', version_major_minor='1.2', version_minor='2', versionprefix='', versionsuffix=''
+== 2022-09-29 13:30:03,474 one.py:178 INFO Skipping reformatting value for parameter 'toolchain'
+== 2022-09-29 13:30:03,476 filetools.py:1913 INFO Creating directory /tmp/vsc43810/eb-zyh48l_0/reprod_20220929133003_1016777 (parents: True, set_gid: False, sticky: False)
+== 2022-09-29 13:30:03,476 easyblock.py:4286 INFO Dumped easyconfig instance to /tmp/vsc43810/eb-zyh48l_0/reprod_20220929133003_1016777/CodAn-1.2-foss-2021b.eb
+== 2022-09-29 13:30:03,480 filetools.py:1913 INFO Creating directory /tmp/vsc43810/eb-zyh48l_0/reprod_20220929133003_1016777/easyblocks (parents: True, set_gid: False, sticky: False)
+== 2022-09-29 13:30:03,495 filetools.py:2426 INFO /user/gent/438/vsc43810/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/binary.py copied to /tmp/vsc43810/eb-zyh48l_0/reprod_20220929133003_1016777/easyblocks/binary.py
+== 2022-09-29 13:30:03,495 easyblock.py:4266 INFO Dumped easyblock binary.py required for reproduction to /tmp/vsc43810/eb-zyh48l_0/reprod_20220929133003_1016777/easyblocks
+== 2022-09-29 13:30:03,499 easyblock.py:2118 INFO Number of iterations to perform for central part of installation procedure: 1
+== 2022-09-29 13:30:03,501 build_log.py:265 INFO building and installing CodAn/1.2-foss-2021b...
+== 2022-09-29 13:30:03,515 filetools.py:2006 INFO Lock /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_haswell-ib_software_CodAn_1.2-foss-2021b.lock does not exist
+== 2022-09-29 13:30:03,516 filetools.py:1947 INFO Creating lock at /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_haswell-ib_software_CodAn_1.2-foss-2021b.lock...
+== 2022-09-29 13:30:03,516 filetools.py:1913 INFO Creating directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_haswell-ib_software_CodAn_1.2-foss-2021b.lock (parents: True, set_gid: False, sticky: False)
+== 2022-09-29 13:30:03,518 filetools.py:1956 INFO Lock created: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_haswell-ib_software_CodAn_1.2-foss-2021b.lock
+== 2022-09-29 13:30:03,518 build_log.py:265 INFO fetching files...
+== 2022-09-29 13:30:03,524 easyblock.py:3758 INFO Starting fetch step
+== 2022-09-29 13:30:03,525 easyconfig.py:1686 INFO Generating template values...
+== 2022-09-29 13:30:03,525 mpi.py:120 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2022-09-29 13:30:03,525 mpi.py:305 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2022-09-29 13:30:03,526 easyconfig.py:1705 INFO Template values: arch='x86_64', bitbucket_account='codan', builddir='/tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b', github_account='codan', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b', module_name='CodAn/1.2-foss-2021b', mpi_cmd_prefix='mpirun -n 1', name='CodAn', nameletter='C', nameletterlower='c', namelower='codan', perlmajver='5', perlminver='34', perlshortver='5.34', perlver='5.34.0', pymajver='3', pyminver='9', pyshortver='3.9', pyver='3.9.6', toolchain_name='foss', toolchain_version='2021b', version='1.2', version_major='1', version_major_minor='1.2', version_minor='2', versionprefix='', versionsuffix=''
+== 2022-09-29 13:30:03,526 easyblock.py:3766 INFO Running method fetch_step part of step fetch
+== 2022-09-29 13:30:03,526 easyblock.py:2240 WARNING Easyconfig does not specify an EasyBuild-version (key 'easybuild_version')! Assuming the latest version
+== 2022-09-29 13:30:03,527 tools.py:271 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /user/gent/438/vsc43810/easybuild/easybuild-framework/eb
+== 2022-09-29 13:30:03,528 tools.py:287 INFO Not considering /user/gent/438/vsc43810/easybuild (no easybuild/easyconfigs subdir found)
+== 2022-09-29 13:30:03,529 tools.py:295 INFO Also considering installation prefix /kyukon/home/gent/438/vsc43810/easybuild (via resolved path to 'eb')...
+== 2022-09-29 13:30:03,549 easyblock.py:794 INFO Found file v1.2.tar.gz at /data/gent/vo/001/gvo00117/easybuild/sources/c/CodAn/v1.2.tar.gz
+== 2022-09-29 13:30:03,550 easyblock.py:454 INFO Added sources: [{'name': 'v1.2.tar.gz', 'path': '/data/gent/vo/001/gvo00117/easybuild/sources/c/CodAn/v1.2.tar.gz', 'cmd': None, 'checksum': None, 'finalpath': '/tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b'}]
+== 2022-09-29 13:30:03,550 easyblock.py:2283 INFO no patches provided
+== 2022-09-29 13:30:04,421 easyblock.py:2293 INFO md5 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/c/CodAn/v1.2.tar.gz: 638e04e320db8d67e317d69cb75f1202
+== 2022-09-29 13:30:05,274 easyblock.py:2293 INFO sha256 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/c/CodAn/v1.2.tar.gz: 34962ac67dc94da0bff6e032568e38388726bf1d7efceed462d6b7c841b087b7
+== 2022-09-29 13:30:05,279 easyblock.py:2328 INFO Checking dirs that need to be created: ['/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b', '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/modules/all/CodAn', '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/modules/bio/CodAn']
+== 2022-09-29 13:30:05,281 build_log.py:265 INFO ... (took 1 secs)
+== 2022-09-29 13:30:05,284 build_log.py:265 INFO creating build dir, resetting environment...
+== 2022-09-29 13:30:05,286 easyblock.py:3758 INFO Starting ready step
+== 2022-09-29 13:30:05,287 easyconfig.py:1686 INFO Generating template values...
+== 2022-09-29 13:30:05,287 mpi.py:120 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2022-09-29 13:30:05,287 mpi.py:305 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2022-09-29 13:30:05,287 easyconfig.py:1705 INFO Template values: arch='x86_64', bitbucket_account='codan', builddir='/tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b', github_account='codan', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b', module_name='CodAn/1.2-foss-2021b', mpi_cmd_prefix='mpirun -n 1', name='CodAn', nameletter='C', nameletterlower='c', namelower='codan', perlmajver='5', perlminver='34', perlshortver='5.34', perlver='5.34.0', pymajver='3', pyminver='9', pyshortver='3.9', pyver='3.9.6', toolchain_name='foss', toolchain_version='2021b', version='1.2', version_major='1', version_major_minor='1.2', version_minor='2', versionprefix='', versionsuffix=''
+== 2022-09-29 13:30:05,287 easyblock.py:3766 INFO Running method check_readiness_step part of step ready
+== 2022-09-29 13:30:05,293 run.py:234 INFO running cmd: ulimit -u 
+== 2022-09-29 13:30:05,299 easyblock.py:2137 INFO Setting parallelism: 8
+== 2022-09-29 13:30:05,392 easyblock.py:2189 WARNING Loaded modules detected: ['cluster/slaking']
+== 2022-09-29 13:30:05,392 easyblock.py:3766 INFO Running method make_builddir part of step ready
+== 2022-09-29 13:30:05,393 easyblock.py:1065 INFO Found old directory /tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b
+== 2022-09-29 13:30:05,437 filetools.py:382 INFO Path /tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b successfully removed.
+== 2022-09-29 13:30:05,437 easyblock.py:1073 INFO Removed old directory /tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b
+== 2022-09-29 13:30:05,438 filetools.py:1913 INFO Creating directory /tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b (parents: True, set_gid: False, sticky: False)
+== 2022-09-29 13:30:05,445 easyblock.py:3766 INFO Running method reset_env part of step ready
+== 2022-09-29 13:30:05,446 easyblock.py:3766 INFO Running method handle_iterate_opts part of step ready
+== 2022-09-29 13:30:05,446 easyconfig.py:1686 INFO Generating template values...
+== 2022-09-29 13:30:05,446 mpi.py:120 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2022-09-29 13:30:05,447 mpi.py:305 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2022-09-29 13:30:05,447 easyconfig.py:1705 INFO Template values: arch='x86_64', bitbucket_account='codan', builddir='/tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b', github_account='codan', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b', module_name='CodAn/1.2-foss-2021b', mpi_cmd_prefix='mpirun -n 1', name='CodAn', nameletter='C', nameletterlower='c', namelower='codan', parallel='8', perlmajver='5', perlminver='34', perlshortver='5.34', perlver='5.34.0', pymajver='3', pyminver='9', pyshortver='3.9', pyver='3.9.6', toolchain_name='foss', toolchain_version='2021b', version='1.2', version_major='1', version_major_minor='1.2', version_minor='2', versionprefix='', versionsuffix=''
+== 2022-09-29 13:30:05,447 build_log.py:265 INFO ... (took < 1 sec)
+== 2022-09-29 13:30:05,452 build_log.py:265 INFO unpacking...
+== 2022-09-29 13:30:05,457 easyblock.py:3758 INFO Starting source step
+== 2022-09-29 13:30:05,458 easyconfig.py:1686 INFO Generating template values...
+== 2022-09-29 13:30:05,458 mpi.py:120 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2022-09-29 13:30:05,458 mpi.py:305 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2022-09-29 13:30:05,458 easyconfig.py:1705 INFO Template values: arch='x86_64', bitbucket_account='codan', builddir='/tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b', github_account='codan', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b', module_name='CodAn/1.2-foss-2021b', mpi_cmd_prefix='mpirun -n 1', name='CodAn', nameletter='C', nameletterlower='c', namelower='codan', parallel='8', perlmajver='5', perlminver='34', perlshortver='5.34', perlver='5.34.0', pymajver='3', pyminver='9', pyshortver='3.9', pyver='3.9.6', toolchain_name='foss', toolchain_version='2021b', version='1.2', version_major='1', version_major_minor='1.2', version_minor='2', versionprefix='', versionsuffix=''
+== 2022-09-29 13:30:05,459 easyblock.py:3766 INFO Running method checksum_step part of step source
+== 2022-09-29 13:30:05,459 easyblock.py:2346 INFO Checksum verification for /data/gent/vo/001/gvo00117/easybuild/sources/c/CodAn/v1.2.tar.gz using None passed.
+== 2022-09-29 13:30:05,459 easyblock.py:3766 INFO Running method extract_step part of step source
+== 2022-09-29 13:30:05,459 easyblock.py:2438 INFO Unpacking source v1.2.tar.gz
+== 2022-09-29 13:30:05,468 run.py:234 INFO running cmd: tar xzf /data/gent/vo/001/gvo00117/easybuild/sources/c/CodAn/v1.2.tar.gz 
+== 2022-09-29 13:30:07,735 build_log.py:265 INFO ... (took 2 secs)
+== 2022-09-29 13:30:07,742 build_log.py:265 INFO patching...
+== 2022-09-29 13:30:07,747 easyblock.py:3758 INFO Starting patch step
+== 2022-09-29 13:30:07,748 easyconfig.py:1686 INFO Generating template values...
+== 2022-09-29 13:30:07,748 mpi.py:120 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2022-09-29 13:30:07,749 mpi.py:305 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2022-09-29 13:30:07,749 easyconfig.py:1705 INFO Template values: arch='x86_64', bitbucket_account='codan', builddir='/tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b', github_account='codan', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b', module_name='CodAn/1.2-foss-2021b', mpi_cmd_prefix='mpirun -n 1', name='CodAn', nameletter='C', nameletterlower='c', namelower='codan', parallel='8', perlmajver='5', perlminver='34', perlshortver='5.34', perlver='5.34.0', pymajver='3', pyminver='9', pyshortver='3.9', pyver='3.9.6', toolchain_name='foss', toolchain_version='2021b', version='1.2', version_major='1', version_major_minor='1.2', version_minor='2', versionprefix='', versionsuffix=''
+== 2022-09-29 13:30:07,749 easyblock.py:3766 INFO Running method patch_step part of step patch
+== 2022-09-29 13:30:07,750 build_log.py:265 INFO ... (took < 1 sec)
+== 2022-09-29 13:30:07,755 build_log.py:265 INFO preparing...
+== 2022-09-29 13:30:07,761 easyblock.py:3758 INFO Starting prepare step
+== 2022-09-29 13:30:07,761 easyconfig.py:1686 INFO Generating template values...
+== 2022-09-29 13:30:07,762 mpi.py:120 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2022-09-29 13:30:07,762 mpi.py:305 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2022-09-29 13:30:07,763 easyconfig.py:1705 INFO Template values: arch='x86_64', bitbucket_account='codan', builddir='/tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b', github_account='codan', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b', module_name='CodAn/1.2-foss-2021b', mpi_cmd_prefix='mpirun -n 1', name='CodAn', nameletter='C', nameletterlower='c', namelower='codan', parallel='8', perlmajver='5', perlminver='34', perlshortver='5.34', perlver='5.34.0', pymajver='3', pyminver='9', pyshortver='3.9', pyver='3.9.6', toolchain_name='foss', toolchain_version='2021b', version='1.2', version_major='1', version_major_minor='1.2', version_minor='2', versionprefix='', versionsuffix=''
+== 2022-09-29 13:30:07,763 easyblock.py:3766 INFO Running method prepare_step part of step prepare
+== 2022-09-29 13:30:07,765 modules.py:626 INFO Checking whether Python/3.9.6-GCCcore-11.2.0 exists...
+== 2022-09-29 13:30:07,765 modules.py:631 INFO Module Python/3.9.6-GCCcore-11.2.0 exists (found in list of available modules)
+== 2022-09-29 13:30:07,765 modules.py:654 INFO Result for existence check of Python/3.9.6-GCCcore-11.2.0 module: True
+== 2022-09-29 13:30:07,766 modules.py:626 INFO Checking whether Biopython/1.79-foss-2021b exists...
+== 2022-09-29 13:30:07,766 modules.py:631 INFO Module Biopython/1.79-foss-2021b exists (found in list of available modules)
+== 2022-09-29 13:30:07,766 modules.py:654 INFO Result for existence check of Biopython/1.79-foss-2021b module: True
+== 2022-09-29 13:30:07,766 modules.py:626 INFO Checking whether BioPerl/1.7.8-GCCcore-11.2.0 exists...
+== 2022-09-29 13:30:07,766 modules.py:631 INFO Module BioPerl/1.7.8-GCCcore-11.2.0 exists (found in list of available modules)
+== 2022-09-29 13:30:07,766 modules.py:654 INFO Result for existence check of BioPerl/1.7.8-GCCcore-11.2.0 module: True
+== 2022-09-29 13:30:07,766 modules.py:626 INFO Checking whether Perl/5.34.0-GCCcore-11.2.0 exists...
+== 2022-09-29 13:30:07,767 modules.py:631 INFO Module Perl/5.34.0-GCCcore-11.2.0 exists (found in list of available modules)
+== 2022-09-29 13:30:07,767 modules.py:654 INFO Result for existence check of Perl/5.34.0-GCCcore-11.2.0 module: True
+== 2022-09-29 13:30:07,767 modules.py:626 INFO Checking whether foss/2021b exists...
+== 2022-09-29 13:30:07,767 modules.py:634 INFO Module foss/2021b not found in list of available modules, checking via 'module show'...
+== 2022-09-29 13:30:09,905 modules.py:654 INFO Result for existence check of foss/2021b module: True
+== 2022-09-29 13:30:12,939 environment.py:91 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64:/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ScaLAPACK/2.1.0-gompi-2021b-fb/lib:/apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenBLAS/0.3.18-GCC-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenMPI/4.1.1-GCC-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/PMIx/4.1.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libfabric/1.13.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libevent/2.1.12-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/haswell-ib/software/hwloc/2.5.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libpciaccess/0.16-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libxml2/2.9.10-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib64 (previous value: '/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64:/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib')
+== 2022-09-29 13:30:14,061 environment.py:91 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-foss-2021b/lib/python3.9/site-packages/numpy/core/lib:/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64:/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ScaLAPACK/2.1.0-gompi-2021b-fb/lib:/apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenBLAS/0.3.18-GCC-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenMPI/4.1.1-GCC-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/PMIx/4.1.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libfabric/1.13.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libevent/2.1.12-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/haswell-ib/software/hwloc/2.5.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libpciaccess/0.16-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libxml2/2.9.10-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib64 (previous value: '/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-foss-2021b/lib/python3.9/site-packages/numpy/core/lib')
+== 2022-09-29 13:30:15,169 environment.py:91 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/haswell-ib/software/DB/18.1.40-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/expat/2.4.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-foss-2021b/lib/python3.9/site-packages/numpy/core/lib:/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64:/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ScaLAPACK/2.1.0-gompi-2021b-fb/lib:/apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenBLAS/0.3.18-GCC-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenMPI/4.1.1-GCC-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/PMIx/4.1.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libfabric/1.13.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libevent/2.1.12-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/haswell-ib/software/hwloc/2.5.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libpciaccess/0.16-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libxml2/2.9.10-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib64 (previous value: '/apps/gent/RHEL8/haswell-ib/software/DB/18.1.40-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/expat/2.4.1-GCCcore-11.2.0/lib')
+== 2022-09-29 13:30:16,091 modules.py:626 INFO Checking whether foss/2021b exists...
+== 2022-09-29 13:30:16,091 modules.py:634 INFO Module foss/2021b not found in list of available modules, checking via 'module show'...
+== 2022-09-29 13:30:16,092 modules.py:654 INFO Result for existence check of foss/2021b module: True
+== 2022-09-29 13:30:16,095 toolchain.py:760 INFO List of toolchain dependency modules and toolchain definition match!
+== 2022-09-29 13:30:16,100 compiler.py:361 INFO _set_optimal_architecture: using march=native as optarch for x86_64.
+== 2022-09-29 13:30:16,139 variables.py:201 WARNING flags_for_subdirs: directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ScaLAPACK/2.1.0-gompi-2021b-fb/include was not found
+== 2022-09-29 13:30:16,151 variables.py:201 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/Biopython/1.79-foss-2021b/include was not found
+== 2022-09-29 13:30:16,154 variables.py:201 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/BioPerl/1.7.8-GCCcore-11.2.0/include was not found
+== 2022-09-29 13:30:16,156 variables.py:201 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/Perl/5.34.0-GCCcore-11.2.0/include was not found
+== 2022-09-29 13:30:16,166 environment.py:91 INFO Environment variable BLAS_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/include/flexiblas (previously undefined)
+== 2022-09-29 13:30:16,166 environment.py:91 INFO Environment variable EBVARBLAS_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/include/flexiblas (previously undefined)
+== 2022-09-29 13:30:16,166 environment.py:91 INFO Environment variable BLAS_LAPACK_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/include/flexiblas (previously undefined)
+== 2022-09-29 13:30:16,166 environment.py:91 INFO Environment variable EBVARBLAS_LAPACK_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/include/flexiblas (previously undefined)
+== 2022-09-29 13:30:16,167 environment.py:91 INFO Environment variable BLAS_LAPACK_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/lib (previously undefined)
+== 2022-09-29 13:30:16,167 environment.py:91 INFO Environment variable EBVARBLAS_LAPACK_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/lib (previously undefined)
+== 2022-09-29 13:30:16,167 environment.py:91 INFO Environment variable BLAS_LAPACK_MT_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,167 environment.py:91 INFO Environment variable EBVARBLAS_LAPACK_MT_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,167 environment.py:91 INFO Environment variable BLAS_LAPACK_MT_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,167 environment.py:91 INFO Environment variable EBVARBLAS_LAPACK_MT_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,168 environment.py:91 INFO Environment variable BLAS_LAPACK_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,168 environment.py:91 INFO Environment variable EBVARBLAS_LAPACK_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,168 environment.py:91 INFO Environment variable BLAS_LAPACK_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,168 environment.py:91 INFO Environment variable EBVARBLAS_LAPACK_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,168 environment.py:91 INFO Environment variable BLAS_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/lib (previously undefined)
+== 2022-09-29 13:30:16,169 environment.py:91 INFO Environment variable EBVARBLAS_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/lib (previously undefined)
+== 2022-09-29 13:30:16,169 environment.py:91 INFO Environment variable BLAS_MT_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,169 environment.py:91 INFO Environment variable EBVARBLAS_MT_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,169 environment.py:91 INFO Environment variable BLAS_MT_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,169 environment.py:91 INFO Environment variable EBVARBLAS_MT_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,170 environment.py:91 INFO Environment variable BLAS_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,170 environment.py:91 INFO Environment variable EBVARBLAS_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,170 environment.py:91 INFO Environment variable BLAS_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,170 environment.py:91 INFO Environment variable EBVARBLAS_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,170 environment.py:91 INFO Environment variable CC set to gcc (previously undefined)
+== 2022-09-29 13:30:16,170 environment.py:91 INFO Environment variable EBVARCC set to gcc (previously undefined)
+== 2022-09-29 13:30:16,171 environment.py:91 INFO Environment variable CFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno (previously undefined)
+== 2022-09-29 13:30:16,171 environment.py:91 INFO Environment variable EBVARCFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno (previously undefined)
+== 2022-09-29 13:30:16,171 environment.py:91 INFO Environment variable CPPFLAGS set to -I/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/include -I/apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/include -I/apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/include/flexiblas (previously undefined)
+== 2022-09-29 13:30:16,171 environment.py:91 INFO Environment variable EBVARCPPFLAGS set to -I/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/include -I/apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/include -I/apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/include/flexiblas (previously undefined)
+== 2022-09-29 13:30:16,171 environment.py:91 INFO Environment variable CXX set to g++ (previously undefined)
+== 2022-09-29 13:30:16,172 environment.py:91 INFO Environment variable EBVARCXX set to g++ (previously undefined)
+== 2022-09-29 13:30:16,172 environment.py:91 INFO Environment variable CXXFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno (previously undefined)
+== 2022-09-29 13:30:16,172 environment.py:91 INFO Environment variable EBVARCXXFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno (previously undefined)
+== 2022-09-29 13:30:16,172 environment.py:91 INFO Environment variable F77 set to gfortran (previously undefined)
+== 2022-09-29 13:30:16,172 environment.py:91 INFO Environment variable EBVARF77 set to gfortran (previously undefined)
+== 2022-09-29 13:30:16,173 environment.py:91 INFO Environment variable F90 set to gfortran (previously undefined)
+== 2022-09-29 13:30:16,173 environment.py:91 INFO Environment variable EBVARF90 set to gfortran (previously undefined)
+== 2022-09-29 13:30:16,173 environment.py:91 INFO Environment variable F90FLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno (previously undefined)
+== 2022-09-29 13:30:16,173 environment.py:91 INFO Environment variable EBVARF90FLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno (previously undefined)
+== 2022-09-29 13:30:16,173 environment.py:91 INFO Environment variable FC set to gfortran (previously undefined)
+== 2022-09-29 13:30:16,174 environment.py:91 INFO Environment variable EBVARFC set to gfortran (previously undefined)
+== 2022-09-29 13:30:16,174 environment.py:91 INFO Environment variable FCFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno (previously undefined)
+== 2022-09-29 13:30:16,174 environment.py:91 INFO Environment variable EBVARFCFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno (previously undefined)
+== 2022-09-29 13:30:16,174 environment.py:91 INFO Environment variable FFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno (previously undefined)
+== 2022-09-29 13:30:16,174 environment.py:91 INFO Environment variable EBVARFFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno (previously undefined)
+== 2022-09-29 13:30:16,175 environment.py:91 INFO Environment variable FFTW_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/include (previously undefined)
+== 2022-09-29 13:30:16,175 environment.py:91 INFO Environment variable EBVARFFTW_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/include (previously undefined)
+== 2022-09-29 13:30:16,175 environment.py:91 INFO Environment variable FFTW_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/lib (previously undefined)
+== 2022-09-29 13:30:16,175 environment.py:91 INFO Environment variable EBVARFFTW_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/lib (previously undefined)
+== 2022-09-29 13:30:16,175 environment.py:91 INFO Environment variable FFTW_SHARED_LIBS set to libfftw3.so (previously undefined)
+== 2022-09-29 13:30:16,175 environment.py:91 INFO Environment variable EBVARFFTW_SHARED_LIBS set to libfftw3.so (previously undefined)
+== 2022-09-29 13:30:16,176 environment.py:91 INFO Environment variable FFTW_SHARED_LIBS_MT set to libfftw3.so,libpthread.so (previously undefined)
+== 2022-09-29 13:30:16,176 environment.py:91 INFO Environment variable EBVARFFTW_SHARED_LIBS_MT set to libfftw3.so,libpthread.so (previously undefined)
+== 2022-09-29 13:30:16,176 environment.py:91 INFO Environment variable FFTW_STATIC_LIBS set to libfftw3.a (previously undefined)
+== 2022-09-29 13:30:16,176 environment.py:91 INFO Environment variable EBVARFFTW_STATIC_LIBS set to libfftw3.a (previously undefined)
+== 2022-09-29 13:30:16,176 environment.py:91 INFO Environment variable FFTW_STATIC_LIBS_MT set to libfftw3.a,libpthread.a (previously undefined)
+== 2022-09-29 13:30:16,177 environment.py:91 INFO Environment variable EBVARFFTW_STATIC_LIBS_MT set to libfftw3.a,libpthread.a (previously undefined)
+== 2022-09-29 13:30:16,177 environment.py:91 INFO Environment variable FFT_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/include (previously undefined)
+== 2022-09-29 13:30:16,177 environment.py:91 INFO Environment variable EBVARFFT_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/include (previously undefined)
+== 2022-09-29 13:30:16,177 environment.py:91 INFO Environment variable FFT_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/lib (previously undefined)
+== 2022-09-29 13:30:16,177 environment.py:91 INFO Environment variable EBVARFFT_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/lib (previously undefined)
+== 2022-09-29 13:30:16,178 environment.py:91 INFO Environment variable FFT_SHARED_LIBS set to libfftw3.so (previously undefined)
+== 2022-09-29 13:30:16,178 environment.py:91 INFO Environment variable EBVARFFT_SHARED_LIBS set to libfftw3.so (previously undefined)
+== 2022-09-29 13:30:16,178 environment.py:91 INFO Environment variable FFT_SHARED_LIBS_MT set to libfftw3.so,libpthread.so (previously undefined)
+== 2022-09-29 13:30:16,178 environment.py:91 INFO Environment variable EBVARFFT_SHARED_LIBS_MT set to libfftw3.so,libpthread.so (previously undefined)
+== 2022-09-29 13:30:16,178 environment.py:91 INFO Environment variable FFT_STATIC_LIBS set to libfftw3.a (previously undefined)
+== 2022-09-29 13:30:16,178 environment.py:91 INFO Environment variable EBVARFFT_STATIC_LIBS set to libfftw3.a (previously undefined)
+== 2022-09-29 13:30:16,179 environment.py:91 INFO Environment variable FFT_STATIC_LIBS_MT set to libfftw3.a,libpthread.a (previously undefined)
+== 2022-09-29 13:30:16,179 environment.py:91 INFO Environment variable EBVARFFT_STATIC_LIBS_MT set to libfftw3.a,libpthread.a (previously undefined)
+== 2022-09-29 13:30:16,179 environment.py:91 INFO Environment variable FLIBS set to -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,179 environment.py:91 INFO Environment variable EBVARFLIBS set to -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,179 environment.py:91 INFO Environment variable LAPACK_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/include/flexiblas (previously undefined)
+== 2022-09-29 13:30:16,180 environment.py:91 INFO Environment variable EBVARLAPACK_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/include/flexiblas (previously undefined)
+== 2022-09-29 13:30:16,180 environment.py:91 INFO Environment variable LAPACK_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/lib (previously undefined)
+== 2022-09-29 13:30:16,180 environment.py:91 INFO Environment variable EBVARLAPACK_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/lib (previously undefined)
+== 2022-09-29 13:30:16,180 environment.py:91 INFO Environment variable LAPACK_MT_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,180 environment.py:91 INFO Environment variable EBVARLAPACK_MT_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,181 environment.py:91 INFO Environment variable LAPACK_MT_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,181 environment.py:91 INFO Environment variable EBVARLAPACK_MT_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,181 environment.py:91 INFO Environment variable LAPACK_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,181 environment.py:91 INFO Environment variable EBVARLAPACK_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,181 environment.py:91 INFO Environment variable LAPACK_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,181 environment.py:91 INFO Environment variable EBVARLAPACK_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,182 environment.py:91 INFO Environment variable LDFLAGS set to -L/apps/gent/RHEL8/haswell-ib/software/Perl/5.34.0-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Perl/5.34.0-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/BioPerl/1.7.8-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/BioPerl/1.7.8-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/Biopython/1.79-foss-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Biopython/1.79-foss-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ScaLAPACK/2.1.0-gompi-2021b-fb/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ScaLAPACK/2.1.0-gompi-2021b-fb/lib -L/apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib (previously undefined)
+== 2022-09-29 13:30:16,182 environment.py:91 INFO Environment variable EBVARLDFLAGS set to -L/apps/gent/RHEL8/haswell-ib/software/Perl/5.34.0-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Perl/5.34.0-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/BioPerl/1.7.8-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/BioPerl/1.7.8-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/Biopython/1.79-foss-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Biopython/1.79-foss-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/FFTW/3.3.10-gompi-2021b/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ScaLAPACK/2.1.0-gompi-2021b-fb/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ScaLAPACK/2.1.0-gompi-2021b-fb/lib -L/apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/FlexiBLAS/3.0.4-GCC-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib (previously undefined)
+== 2022-09-29 13:30:16,182 environment.py:91 INFO Environment variable LIBBLAS set to -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,182 environment.py:91 INFO Environment variable EBVARLIBBLAS set to -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,183 environment.py:91 INFO Environment variable LIBBLAS_MT set to -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,183 environment.py:91 INFO Environment variable EBVARLIBBLAS_MT set to -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,183 environment.py:91 INFO Environment variable LIBFFT set to -lfftw3 (previously undefined)
+== 2022-09-29 13:30:16,183 environment.py:91 INFO Environment variable EBVARLIBFFT set to -lfftw3 (previously undefined)
+== 2022-09-29 13:30:16,183 environment.py:91 INFO Environment variable LIBFFT_MT set to -lfftw3 -lpthread (previously undefined)
+== 2022-09-29 13:30:16,183 environment.py:91 INFO Environment variable EBVARLIBFFT_MT set to -lfftw3 -lpthread (previously undefined)
+== 2022-09-29 13:30:16,184 environment.py:91 INFO Environment variable LIBLAPACK set to -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,184 environment.py:91 INFO Environment variable EBVARLIBLAPACK set to -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,184 environment.py:91 INFO Environment variable LIBLAPACK_MT set to -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,184 environment.py:91 INFO Environment variable EBVARLIBLAPACK_MT set to -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,184 environment.py:91 INFO Environment variable LIBLAPACK_MT_ONLY set to -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,185 environment.py:91 INFO Environment variable EBVARLIBLAPACK_MT_ONLY set to -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,185 environment.py:91 INFO Environment variable LIBLAPACK_ONLY set to -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,185 environment.py:91 INFO Environment variable EBVARLIBLAPACK_ONLY set to -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,185 environment.py:91 INFO Environment variable LIBS set to -lm -lpthread (previously undefined)
+== 2022-09-29 13:30:16,185 environment.py:91 INFO Environment variable EBVARLIBS set to -lm -lpthread (previously undefined)
+== 2022-09-29 13:30:16,186 environment.py:91 INFO Environment variable LIBSCALAPACK set to -lscalapack -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,186 environment.py:91 INFO Environment variable EBVARLIBSCALAPACK set to -lscalapack -lflexiblas -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,186 environment.py:91 INFO Environment variable LIBSCALAPACK_MT set to -lscalapack -lflexiblas -lpthread -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,186 environment.py:91 INFO Environment variable EBVARLIBSCALAPACK_MT set to -lscalapack -lflexiblas -lpthread -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,186 environment.py:91 INFO Environment variable LIBSCALAPACK_MT_ONLY set to -lscalapack -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,186 environment.py:91 INFO Environment variable EBVARLIBSCALAPACK_MT_ONLY set to -lscalapack -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,187 environment.py:91 INFO Environment variable LIBSCALAPACK_ONLY set to -lscalapack -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,187 environment.py:91 INFO Environment variable EBVARLIBSCALAPACK_ONLY set to -lscalapack -lgfortran (previously undefined)
+== 2022-09-29 13:30:16,187 environment.py:91 INFO Environment variable MPICC set to mpicc (previously undefined)
+== 2022-09-29 13:30:16,187 environment.py:91 INFO Environment variable EBVARMPICC set to mpicc (previously undefined)
+== 2022-09-29 13:30:16,187 environment.py:91 INFO Environment variable MPICXX set to mpicxx (previously undefined)
+== 2022-09-29 13:30:16,188 environment.py:91 INFO Environment variable EBVARMPICXX set to mpicxx (previously undefined)
+== 2022-09-29 13:30:16,188 environment.py:91 INFO Environment variable MPIF77 set to mpifort (previously undefined)
+== 2022-09-29 13:30:16,188 environment.py:91 INFO Environment variable EBVARMPIF77 set to mpifort (previously undefined)
+== 2022-09-29 13:30:16,188 environment.py:91 INFO Environment variable MPIF90 set to mpifort (previously undefined)
+== 2022-09-29 13:30:16,188 environment.py:91 INFO Environment variable EBVARMPIF90 set to mpifort (previously undefined)
+== 2022-09-29 13:30:16,189 environment.py:91 INFO Environment variable MPIFC set to mpifort (previously undefined)
+== 2022-09-29 13:30:16,189 environment.py:91 INFO Environment variable EBVARMPIFC set to mpifort (previously undefined)
+== 2022-09-29 13:30:16,189 environment.py:91 INFO Environment variable MPI_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/OpenMPI/4.1.1-GCC-11.2.0/include (previously undefined)
+== 2022-09-29 13:30:16,189 environment.py:91 INFO Environment variable EBVARMPI_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/OpenMPI/4.1.1-GCC-11.2.0/include (previously undefined)
+== 2022-09-29 13:30:16,189 environment.py:91 INFO Environment variable MPI_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/OpenMPI/4.1.1-GCC-11.2.0/lib64 (previously undefined)
+== 2022-09-29 13:30:16,190 environment.py:91 INFO Environment variable EBVARMPI_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/OpenMPI/4.1.1-GCC-11.2.0/lib64 (previously undefined)
+== 2022-09-29 13:30:16,190 environment.py:91 INFO Environment variable MPI_LIB_SHARED set to /apps/gent/RHEL8/haswell-ib/software/OpenMPI/4.1.1-GCC-11.2.0/lib64/libmpi.so (previously undefined)
+== 2022-09-29 13:30:16,190 environment.py:91 INFO Environment variable EBVARMPI_LIB_SHARED set to /apps/gent/RHEL8/haswell-ib/software/OpenMPI/4.1.1-GCC-11.2.0/lib64/libmpi.so (previously undefined)
+== 2022-09-29 13:30:16,190 environment.py:91 INFO Environment variable MPI_LIB_STATIC set to  (previously undefined)
+== 2022-09-29 13:30:16,190 environment.py:91 INFO Environment variable EBVARMPI_LIB_STATIC set to  (previously undefined)
+== 2022-09-29 13:30:16,190 environment.py:91 INFO Environment variable OMPI_CC set to gcc (previously undefined)
+== 2022-09-29 13:30:16,191 environment.py:91 INFO Environment variable EBVAROMPI_CC set to gcc (previously undefined)
+== 2022-09-29 13:30:16,191 environment.py:91 INFO Environment variable OMPI_CXX set to g++ (previously undefined)
+== 2022-09-29 13:30:16,191 environment.py:91 INFO Environment variable EBVAROMPI_CXX set to g++ (previously undefined)
+== 2022-09-29 13:30:16,191 environment.py:91 INFO Environment variable OMPI_F77 set to gfortran (previously undefined)
+== 2022-09-29 13:30:16,191 environment.py:91 INFO Environment variable EBVAROMPI_F77 set to gfortran (previously undefined)
+== 2022-09-29 13:30:16,192 environment.py:91 INFO Environment variable OMPI_F90 set to gfortran (previously undefined)
+== 2022-09-29 13:30:16,192 environment.py:91 INFO Environment variable EBVAROMPI_F90 set to gfortran (previously undefined)
+== 2022-09-29 13:30:16,192 environment.py:91 INFO Environment variable OMPI_FC set to gfortran (previously undefined)
+== 2022-09-29 13:30:16,192 environment.py:91 INFO Environment variable EBVAROMPI_FC set to gfortran (previously undefined)
+== 2022-09-29 13:30:16,192 environment.py:91 INFO Environment variable OPTFLAGS set to -O2 -ftree-vectorize -march=native (previously undefined)
+== 2022-09-29 13:30:16,193 environment.py:91 INFO Environment variable EBVAROPTFLAGS set to -O2 -ftree-vectorize -march=native (previously undefined)
+== 2022-09-29 13:30:16,193 environment.py:91 INFO Environment variable PRECFLAGS set to -fno-math-errno (previously undefined)
+== 2022-09-29 13:30:16,193 environment.py:91 INFO Environment variable EBVARPRECFLAGS set to -fno-math-errno (previously undefined)
+== 2022-09-29 13:30:16,193 environment.py:91 INFO Environment variable SCALAPACK_INC_DIR set to  (previously undefined)
+== 2022-09-29 13:30:16,193 environment.py:91 INFO Environment variable EBVARSCALAPACK_INC_DIR set to  (previously undefined)
+== 2022-09-29 13:30:16,194 environment.py:91 INFO Environment variable SCALAPACK_LIB_DIR set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ScaLAPACK/2.1.0-gompi-2021b-fb/lib (previously undefined)
+== 2022-09-29 13:30:16,194 environment.py:91 INFO Environment variable EBVARSCALAPACK_LIB_DIR set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ScaLAPACK/2.1.0-gompi-2021b-fb/lib (previously undefined)
+== 2022-09-29 13:30:16,194 environment.py:91 INFO Environment variable SCALAPACK_MT_SHARED_LIBS set to libscalapack.so,libflexiblas.so,libgfortran.so,libpthread.so (previously undefined)
+== 2022-09-29 13:30:16,194 environment.py:91 INFO Environment variable EBVARSCALAPACK_MT_SHARED_LIBS set to libscalapack.so,libflexiblas.so,libgfortran.so,libpthread.so (previously undefined)
+== 2022-09-29 13:30:16,194 environment.py:91 INFO Environment variable SCALAPACK_MT_STATIC_LIBS set to libscalapack.a,libflexiblas.a,libgfortran.a,libpthread.a (previously undefined)
+== 2022-09-29 13:30:16,195 environment.py:91 INFO Environment variable EBVARSCALAPACK_MT_STATIC_LIBS set to libscalapack.a,libflexiblas.a,libgfortran.a,libpthread.a (previously undefined)
+== 2022-09-29 13:30:16,195 environment.py:91 INFO Environment variable SCALAPACK_SHARED_LIBS set to libscalapack.so,libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,195 environment.py:91 INFO Environment variable EBVARSCALAPACK_SHARED_LIBS set to libscalapack.so,libflexiblas.so,libgfortran.so (previously undefined)
+== 2022-09-29 13:30:16,195 environment.py:91 INFO Environment variable SCALAPACK_STATIC_LIBS set to libscalapack.a,libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,195 environment.py:91 INFO Environment variable EBVARSCALAPACK_STATIC_LIBS set to libscalapack.a,libflexiblas.a,libgfortran.a (previously undefined)
+== 2022-09-29 13:30:16,196 easyblock.py:2021 INFO Using /tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b/CodAn-1.2/ as start dir
+== 2022-09-29 13:30:16,196 build_log.py:265 INFO ... (took 8 secs)
+== 2022-09-29 13:30:16,203 build_log.py:265 INFO configuring...
+== 2022-09-29 13:30:16,209 easyblock.py:3758 INFO Starting configure step
+== 2022-09-29 13:30:16,209 easyconfig.py:1686 INFO Generating template values...
+== 2022-09-29 13:30:16,210 mpi.py:120 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2022-09-29 13:30:16,210 mpi.py:305 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2022-09-29 13:30:16,210 easyconfig.py:1705 INFO Template values: arch='x86_64', bitbucket_account='codan', builddir='/tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b', github_account='codan', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b', module_name='CodAn/1.2-foss-2021b', mpi_cmd_prefix='mpirun -n 1', name='CodAn', nameletter='C', nameletterlower='c', namelower='codan', parallel='8', perlmajver='5', perlminver='34', perlshortver='5.34', perlver='5.34.0', pymajver='3', pyminver='9', pyshortver='3.9', pyver='3.9.6', toolchain_name='foss', toolchain_version='2021b', version='1.2', version_major='1', version_major_minor='1.2', version_minor='2', versionprefix='', versionsuffix=''
+== 2022-09-29 13:30:16,211 easyblock.py:3766 INFO Running method configure_step part of step configure
+== 2022-09-29 13:30:16,211 build_log.py:265 INFO ... (took < 1 sec)
+== 2022-09-29 13:30:16,217 build_log.py:265 INFO building...
+== 2022-09-29 13:30:16,223 easyblock.py:3758 INFO Starting build step
+== 2022-09-29 13:30:16,223 easyconfig.py:1686 INFO Generating template values...
+== 2022-09-29 13:30:16,224 mpi.py:120 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2022-09-29 13:30:16,224 mpi.py:305 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2022-09-29 13:30:16,224 easyconfig.py:1705 INFO Template values: arch='x86_64', bitbucket_account='codan', builddir='/tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b', github_account='codan', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b', module_name='CodAn/1.2-foss-2021b', mpi_cmd_prefix='mpirun -n 1', name='CodAn', nameletter='C', nameletterlower='c', namelower='codan', parallel='8', perlmajver='5', perlminver='34', perlshortver='5.34', perlver='5.34.0', pymajver='3', pyminver='9', pyshortver='3.9', pyver='3.9.6', toolchain_name='foss', toolchain_version='2021b', version='1.2', version_major='1', version_major_minor='1.2', version_minor='2', versionprefix='', versionsuffix=''
+== 2022-09-29 13:30:16,225 easyblock.py:3766 INFO Running method build_step part of step build
+== 2022-09-29 13:30:16,225 build_log.py:265 INFO ... (took < 1 sec)
+== 2022-09-29 13:30:16,231 build_log.py:265 INFO testing...
+== 2022-09-29 13:30:16,237 easyblock.py:3758 INFO Starting test step
+== 2022-09-29 13:30:16,238 easyconfig.py:1686 INFO Generating template values...
+== 2022-09-29 13:30:16,238 mpi.py:120 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2022-09-29 13:30:16,238 mpi.py:305 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2022-09-29 13:30:16,239 easyconfig.py:1705 INFO Template values: arch='x86_64', bitbucket_account='codan', builddir='/tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b', github_account='codan', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b', module_name='CodAn/1.2-foss-2021b', mpi_cmd_prefix='mpirun -n 1', name='CodAn', nameletter='C', nameletterlower='c', namelower='codan', parallel='8', perlmajver='5', perlminver='34', perlshortver='5.34', perlver='5.34.0', pymajver='3', pyminver='9', pyshortver='3.9', pyver='3.9.6', toolchain_name='foss', toolchain_version='2021b', version='1.2', version_major='1', version_major_minor='1.2', version_minor='2', versionprefix='', versionsuffix=''
+== 2022-09-29 13:30:16,239 easyblock.py:3766 INFO Running method test_step part of step test
+== 2022-09-29 13:30:16,239 build_log.py:265 INFO ... (took < 1 sec)
+== 2022-09-29 13:30:16,245 build_log.py:265 INFO installing...
+== 2022-09-29 13:30:16,251 easyblock.py:3758 INFO Starting install step
+== 2022-09-29 13:30:16,252 easyconfig.py:1686 INFO Generating template values...
+== 2022-09-29 13:30:16,252 mpi.py:120 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2022-09-29 13:30:16,252 mpi.py:305 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2022-09-29 13:30:16,253 easyconfig.py:1705 INFO Template values: arch='x86_64', bitbucket_account='codan', builddir='/tmp/vsc43810/easybuild/build/CodAn/1.2/foss-2021b', github_account='codan', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b', module_name='CodAn/1.2-foss-2021b', mpi_cmd_prefix='mpirun -n 1', name='CodAn', nameletter='C', nameletterlower='c', namelower='codan', parallel='8', perlmajver='5', perlminver='34', perlshortver='5.34', perlver='5.34.0', pymajver='3', pyminver='9', pyshortver='3.9', pyver='3.9.6', toolchain_name='foss', toolchain_version='2021b', version='1.2', version_major='1', version_major_minor='1.2', version_minor='2', versionprefix='', versionsuffix=''
+== 2022-09-29 13:30:16,253 easyblock.py:3766 INFO Running method stage_install_step part of step install
+== 2022-09-29 13:30:16,253 easyblock.py:3766 INFO Running method make_installdir part of step install
+== 2022-09-29 13:30:16,253 easyblock.py:1065 INFO Found old directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b
+== 2022-09-29 13:30:18,257 filetools.py:1765 INFO Adjusting permissions recursively for /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b
+== 2022-09-29 13:30:20,290 filetools.py:1765 INFO Adjusting permissions recursively for /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b
+== 2022-09-29 13:30:22,295 filetools.py:1765 INFO Adjusting permissions recursively for /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b
+== 2022-09-29 13:30:22,869 build_log.py:169 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:124 in __init__): Failed to remove directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b even after 3 attempts.
+Reasons: [PermissionError(13, 'Permission denied'), PermissionError(13, 'Permission denied'), PermissionError(13, 'Permission denied')] (at easybuild/easybuild-framework/easybuild/tools/filetools.py:385 in remove_dir)
+== 2022-09-29 13:30:22,870 build_log.py:265 INFO ... (took 6 secs)
+== 2022-09-29 13:30:22,876 filetools.py:2014 INFO Removing lock /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_haswell-ib_software_CodAn_1.2-foss-2021b.lock...
+== 2022-09-29 13:30:22,880 filetools.py:382 INFO Path /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_haswell-ib_software_CodAn_1.2-foss-2021b.lock successfully removed.
+== 2022-09-29 13:30:22,880 filetools.py:2018 INFO Lock removed: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_haswell-ib_software_CodAn_1.2-foss-2021b.lock
+== 2022-09-29 13:30:22,880 easyblock.py:4089 WARNING build failed (first 300 chars): Failed to remove directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/CodAn/1.2-foss-2021b even after 3 attempts.
+Reasons: [PermissionError(13, 'Permission denied'), PermissionError(13, 'Permission denied'), PermissionError(13, 'Permission denied')]
+== 2022-09-29 13:30:22,880 easyblock.py:319 INFO Closing log for application name CodAn version 1.2
