@@ -23,16 +23,25 @@ dependencies = [
 extract_sources = True
 
 install_cmd = "cp -r %(builddir)s/* %(installdir)s/ && "
-install_cmd += "tar -xf %(installdir)s/%(name)s-%(version)s/CodAn.tar.gz"
-install_cmd += "mv CodAn/* %(installdir)s/ && "
-install_cmd += "export PATH=$PATH:%(installdir)s/bin/ && "
-# install_cmd += "chmod -rwxr-xr-x %(installdir)s/bin/* "
+install_cmd += "tar -xf %(installdir)s/%(name)s-%(version)s/CodAn.tar.gz && "
+install_cmd += "mkdir %(installdir)s/bin && "
+install_cmd += "mv %(installdir)s/%(name)s-%(version)s/bin/* %(installdir)s/bin && "
+# install_cmd += "export PATH=$PATH:%(installdir)s/bin/ "
+install_cmd += "chmod u+rwx %(installdir)s/bin/* "
+
 
 sanity_check_paths = {
     "files": ["bin/%(namelower)s.py"],
     "dirs": [],
 }
 
-# sanity_check_commands = ["%(namelower)s.py --help"]
+local_sanity_check_cmd = "mkdir %(installdir)s/eb_test && "
+local_sanity_check_cmd += "cp %(installdir)s/%(name)s-%(version)s/models/VERT_full.zip %(installdir)s/eb_test && "
+local_sanity_check_cmd += "unzip %(installdir)s/eb_test/VERT_full.zip && "
+local_sanity_check_cmd += (
+    "codan.py -t %(installdir)s/eb_test/transcripts.fa -m VERT_full "
+)
+
+sanity_check_commands = ["%(namelower)s.py --help", local_sanity_check_cmd]
 
 moduleclass = "bio"
