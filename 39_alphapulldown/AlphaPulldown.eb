@@ -13,6 +13,7 @@ dependencies = [
     ("Python", "3.9.6"),
     ("OpenMM", "7.7.0"),
     ("Kalign", "3.3.2"),
+    ("cctbx-base", "2022.9"),
 ]
 
 use_pip = True
@@ -26,15 +27,6 @@ exts_list = [
             "sources": [
                 {"download_filename": "v%(version)s.tar.gz", "filename": SOURCE_TAR_GZ}
             ],
-        },
-    ),
-    (
-        "cctbx-base",
-        "2020.8",
-        {
-            "source_tmpl": "cctbx_base-%(version)s-0_py38h167b89d-cp38-cp38m-manylinux2010_x86_64.whl",
-            # "use_pip": True,
-            # "unpack_sources": False,
         },
     ),
     (name, version),
