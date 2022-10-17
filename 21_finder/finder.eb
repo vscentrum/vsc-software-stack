@@ -10,21 +10,24 @@ aligning them and using the assembled transcripts to generate gene annotations."
 toolchain = {"name": "foss", "version": "2021b"}
 toolchainopts = {"openmp": True}
 
-source_urls = [GITHUB_SOURCE]
-sources = ["v%(version)s.tar.gz"]
+source_urls = ['https://github.com/sagnikbanerjee15/Finder/archive/']
+sources = ["finder_v%(version)s.tar.gz"]
 
 dependencies = [
     ("STAR", "2.7.9a"),
-    ("SAMtools", "1.15"),
+    ("SAMtools", "1.14"),
     ("BEDTools", "2.30.0"),
     ("AUGUSTUS", "3.4.0"),
-    ("BRAKER", "2.1.6"),
-    ("GeneMark-ET", "4.65"),
+    (
+        "BRAKER",
+        "2.1.6",
+    ),  # https://github.com/easybuilders/easybuild-easyconfigs/pull/16156 here, but 2020b
+    ("GeneMark-ET", "4.69"),
     ("PsiCLASS", "1.0.3"),
     ("olego", "1.1.9"),
     ("GUSHR", "2020-09-28"),
     ("gffread", "0.12.7"),
-    ("BEDOPS", "2.4.35"),
+    ("BEDOPS", "2.4.41"),
     ("RegTools", "0.5.2"),
     ("BLAST+", "2.9.0"),
     ("CodAn", "1.2"),
@@ -34,6 +37,9 @@ dependencies = [
     ("Autotools", "20210726"),
     ("Python", "3.9.6"),
     ("SciPy-bundle", "2021.10"),
+    ("Trimmomatic", "0.39", "-Java-11", True),
+    ("Boost", "1.79.0"),
+    ("ruffus", "2.8.4"),
 ]
 
 cmds_map = [("")]
