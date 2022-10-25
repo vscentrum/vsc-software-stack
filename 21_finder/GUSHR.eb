@@ -19,7 +19,8 @@ sources = [
 checksums = ['81fd9c372a45af1688c2954932f94efc4c637144f874e16be41d1b18936a5303']
 
 dependencies = [
-    ("Java", "1.8", "", True),
+    # ("Java", "1.8", "", True),
+    ('Java', '11', '', True),
     ("AUGUSTUS", "3.4.0"),
     ("GLib", "2.69.1"),
 ]
@@ -29,7 +30,8 @@ sanity_check_paths = {
     "dirs": [],
 }
 sanity_check_commands = [
-    "cd example; ./download_rnaseq.sh ; cd - ; ./gushr.py -t example/augustus.gtf -b example/RNAseq.bam -g example/genome.fa -o utrs"
+    """cd example; ./download_rnaseq.sh ; cd - ;
+    ./gushr.py -t example/augustus.gtf -b example/RNAseq.bam -g example/genome.fa -o utrs"""
 ]
 
 moduleclass = "bio"

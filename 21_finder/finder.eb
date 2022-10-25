@@ -1,4 +1,4 @@
-easyblock = "CmdCp"
+easyblock = "Binary"
 
 name = "finder"
 version = "1.1.0"
@@ -29,7 +29,7 @@ dependencies = [
     ("gffread", "0.12.7"),
     ("BEDOPS", "2.4.41"),
     ("RegTools", "0.5.2"),
-    ("BLAST+", "2.9.0"),
+    ("BLAST+", "2.12.0"),
     ("CodAn", "1.2"),
     ("GffCompare", "0.12.6"),
     ("XZ", "5.2.5"),
@@ -38,19 +38,26 @@ dependencies = [
     ("Python", "3.9.6"),
     ("SciPy-bundle", "2021.10"),
     ("Trimmomatic", "0.39", "-Java-11", True),
-    ("Boost", "1.79.0"),
+    ("Boost", "1.77.0"),
     ("ruffus", "2.8.4"),
 ]
 
-cmds_map = [("")]
+extract_sources = True
 
-files_to_copy = [([""], "bin")]
+install_cmd = "cp -r %(builddir)s/Finder-%(name)s_v%(version)s/* %(installdir)s/ "
+# install_cmd += "mkdir %(installdir)s/bin && "
+# install_cmd += "mv %(installdir)s/%(name)s-%(version)s/bin/* %(installdir)s/bin && "
+# install_cmd += "chmod u+rwx %(installdir)s/bin/* "
 
 sanity_check_paths = {
-    "files": [""],
+    "files": ["run_finder"],
     "dirs": [],
 }
 
-sanity_check_commands = []
+local_sanity_cmd = """run_finder -no_cleanup -mf Arabidopsis_thaliana_metadata.csv -n 2
+-om PLANTS -gm $EBROOTGENEMARKMINET -gml $EBROOTGENEMARKMINET -out_dir FINDER_test_ARATH 
+-g Arabidopsis_thaliana.TAIR10.dna.toplevel.fa -p uniprot_ARATH.fasta -preserve """
+
+sanity_check_commands = [local_sanity_cmd]
 
 moduleclass = "bio"
