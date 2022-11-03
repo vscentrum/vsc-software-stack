@@ -10,8 +10,11 @@ aligning them and using the assembled transcripts to generate gene annotations."
 toolchain = {"name": "foss", "version": "2021b"}
 toolchainopts = {"openmp": True}
 
-source_urls = ['https://github.com/sagnikbanerjee15/Finder/archive/']
-sources = ["finder_v%(version)s.tar.gz"]
+# source_urls = ['https://github.com/sagnikbanerjee15/Finder/archive/']
+# sources = ["finder_v%(version)s.tar.gz"]
+
+source_urls = ['https://github.com/deniskristak/%(name)s/archive/']
+sources = ['master.zip']
 
 dependencies = [
     ("STAR", "2.7.9a"),
@@ -45,6 +48,7 @@ dependencies = [
 extract_sources = True
 
 install_cmd = "cp -r %(builddir)s/Finder-%(name)s_v%(version)s/* %(installdir)s/ "
+install_cmd = "cp -r %(builddir)s/Finder-master/* %(installdir)s/ "
 # install_cmd += "mkdir %(installdir)s/bin && "
 # install_cmd += "mv %(installdir)s/%(name)s-%(version)s/bin/* %(installdir)s/bin && "
 # install_cmd += "chmod u+rwx %(installdir)s/bin/* "
@@ -54,9 +58,12 @@ sanity_check_paths = {
     "dirs": [],
 }
 
-local_sanity_cmd = """run_finder -no_cleanup -mf Arabidopsis_thaliana_metadata.csv -n 2
--om PLANTS -gm $EBROOTGENEMARKMINET -gml $EBROOTGENEMARKMINET -out_dir FINDER_test_ARATH 
--g Arabidopsis_thaliana.TAIR10.dna.toplevel.fa -p uniprot_ARATH.fasta -preserve """
+local_sanity_cmd = """
+wget ftp://ftp.ensemblgenomes.org/pub/plants/release-49/fasta/arabidopsis_thaliana/dna/Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa.gz && \
+gunzip Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa.gz && \
+run_finder -no_cleanup -mf Arabidopsis_thaliana_metadata.csv -n 2 \
+-om PLANTS -gm $EBROOTGENEMARKMINET -gml $EBROOTGENEMARKMINET -out_dir FINDER_test_ARATH \
+-g ./Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa -p uniprot_ARATH.fasta -preserve """
 
 sanity_check_commands = [local_sanity_cmd]
 

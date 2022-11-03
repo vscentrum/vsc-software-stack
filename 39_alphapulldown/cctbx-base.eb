@@ -13,6 +13,7 @@ source_urls = [
     "https://raw.githubusercontent.com/cctbx/cctbx_project/master/libtbx/auto_build/"
 ]
 sources = ({"filename": "bootstrap.py", "extract_cmd": "cp %s %(builddir)s"},)
+patches = ["cctbx-base-pythonpath.patch"]
 
 dependencies = [
     ("Python", "3.9.6"),
@@ -20,7 +21,8 @@ dependencies = [
 
 install_cmd = "python bootstrap.py --with-python $EBROOTPYTHON/bin/python "
 install_cmd += "--builder=cctbx --nproc %(parallel)s -v --build-dir %(builddir)s "
-install_cmd += "--skip-base-packages 1 "
+install_cmd += "--skip-base-packages 1 --use-conda $EBROOTPYTHON/ "
+install_cmd += "hot update build "
 
 sanity_check_paths = {
     "files": ["include/libunwind.h", "lib/libunwind.%s" % SHLIB_EXT],
