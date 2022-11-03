@@ -1,0 +1,58 @@
+easyblock = 'ConfigureMake'
+
+name = 'Rust'
+version = '1.58.0'
+
+homepage = 'https://www.rust-lang.org'
+description = """Rust is a systems programming language that runs blazingly fast, prevents segfaults,
+ and guarantees thread safety."""
+
+toolchain = {'name': 'GCCcore', 'version': '11.2.0'}
+
+source_urls = ['https://static.rust-lang.org/dist/']
+sources = ['rustc-%(version)s-src.tar.gz']
+patches = ['Rust-1.58_sysroot-fix-interpreter.patch']
+checksums = [
+    '0ad531a32f3c2e996b9322c6b7262a9cfe557e49ff3363adea07b575106cd770',  # rustc-1.58.0-src.tar.gz
+    '5edd4b4610e6a2f319aac232e825b15a9fd5e749ada763b213a705e871dc188b',  # Rust-1.58_sysroot-fix-interpreter.patch
+]
+
+builddependencies = [
+    ('binutils', '2.37'),
+    ('CMake', '3.21.1'),
+    ('Python', '3.9.6', '-bare'),
+    ('pkg-config', '0.29.2'),
+]
+
+dependencies = [
+    ('OpenSSL', '1.1', '', SYSTEM),
+]
+
+configopts = "--enable-extended --sysconfdir=%(installdir)s/etc "
+
+# avoid build dependency on Ninja, which requires Python,
+# since Rust is a build dependency for cryptography that is included with Python
+configopts += "--set=llvm.ninja=false "
+
+# Use ./x.py to bootstrap so that options like -j N are correctly passed through
+# see: https://rustc-dev-guide.rust-lang.org/building/how-to-build-and-run.html#what-is-xpy
+# (ConfigureMake already adds `-j %(parallel)s` to the `build_cmd`)
+build_cmd = "./x.py build"
+install_cmd = "./x.py install -j %(parallel)s"
+
+# avoid failure when home directory is an NFS mount,
+# see https://github.com/rust-lang/cargo/issues/6652
+prebuildopts = "export CARGO_HOME=%(builddir)s/cargo && "
+preinstallopts = prebuildopts
+
+sanity_check_paths = {
+    'files': ['bin/cargo', 'bin/rustc', 'bin/rustdoc'],
+    'dirs': ['lib/rustlib', 'share/doc', 'share/man'],
+}
+
+sanity_check_commands = [
+    "cargo --version",
+    "rustc --version",
+]
+
+moduleclass = 'lang'
