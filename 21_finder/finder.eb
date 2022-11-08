@@ -13,8 +13,12 @@ toolchainopts = {"openmp": True}
 # source_urls = ['https://github.com/sagnikbanerjee15/Finder/archive/']
 # sources = ["finder_v%(version)s.tar.gz"]
 
-source_urls = ['https://github.com/deniskristak/%(name)s/archive/']
-sources = ['master.zip']
+source_urls = [
+    'https://github.com/deniskristak/%(name)s/archive/',
+    'ftp://ftp.ensemblgenomes.org/pub/plants/release-49/fasta/arabidopsis_thaliana/dna/'
+]
+
+sources = ['master.zip', 'Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa.gz']
 
 dependencies = [
     ("STAR", "2.7.9a"),
@@ -49,9 +53,7 @@ extract_sources = True
 
 install_cmd = "cp -r %(builddir)s/Finder-%(name)s_v%(version)s/* %(installdir)s/ "
 install_cmd = "cp -r %(builddir)s/Finder-master/* %(installdir)s/ "
-# install_cmd += "mkdir %(installdir)s/bin && "
-# install_cmd += "mv %(installdir)s/%(name)s-%(version)s/bin/* %(installdir)s/bin && "
-# install_cmd += "chmod u+rwx %(installdir)s/bin/* "
+
 
 sanity_check_paths = {
     "files": ["run_finder"],
@@ -59,11 +61,13 @@ sanity_check_paths = {
 }
 
 local_sanity_cmd = """
-wget ftp://ftp.ensemblgenomes.org/pub/plants/release-49/fasta/arabidopsis_thaliana/dna/Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa.gz && \
-gunzip Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa.gz && \
-run_finder -no_cleanup -mf Arabidopsis_thaliana_metadata.csv -n 2 \
--om PLANTS -gm $EBROOTGENEMARKMINET -gml $EBROOTGENEMARKMINET -out_dir FINDER_test_ARATH \
--g ./Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa -p uniprot_ARATH.fasta -preserve """
+mkdir %(builddir)s/sanity_check && cp %(installdir)s/example/Arabidopsis_thaliana_metadata.csv %(builddir)s/sanity_check && \
+cd %(builddir)s/sanity_check && touch genemark.lic && \
+cp %(builddir)s/Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa %(builddir)s/sanity_check && \
+run_finder -no_cleanup -mf $PWD/Arabidopsis_thaliana_metadata.csv -n 2 \
+-om PLANTS -gm $EBROOTGENEMARKMINET -gml genemark.lic -out_dir FINDER_test_ARATH \
+-g $PWD/Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa -p uniprot_ARATH.fasta -preserve \
+"""
 
 sanity_check_commands = [local_sanity_cmd]
 
