@@ -1,19 +1,13 @@
 easyblock = 'CMakeMakeCp'
-
 name = 'PySCF'
 version = '2.1.1'
-
 homepage = 'http://www.pyscf.org'
 description = "PySCF is an open-source collection of electronic structure modules powered by Python."
-
 toolchain = {'name': 'foss', 'version': '2022a'}
-
 source_urls = ['https://github.com/pyscf/pyscf/archive/']
 sources = ['v%(version)s.tar.gz']
 checksums = ['814240aa73f57ba96aee8264e3914c09f96ebdce1e42784da4b5e9a474ecb280']
-
 builddependencies = [('CMake', '3.23.1')]
-
 dependencies = [
     ('Python', '3.10.4'),
     ('SciPy-bundle', '2022.05'),  # for numpy, scipy
@@ -22,16 +16,14 @@ dependencies = [
     ('libxc', '5.2.3'),
     ('XCFun', '2.1.1'),
 ]
-
 exts_defaultclass = 'PythonPackage'
 exts_default_options = {
     'download_dep_fail': True,
     'use_pip': True,
 }
-
 exts_list = [
-    # ('cornell-shci', '74f77c5', {
-    #     'modulename': 'pyscf.%(name)s',
+    # ('cornell-shci', '74f77c5', {  # error
+    #     'modulename': 'pyscf.cornell_shci',
     #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
     #     'checksums': ['c90a9c6e4da2b6264ba2cb35a46db1c451ce87d9d9098d0f2aa9917f97148820'],
@@ -42,7 +34,7 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['6616e7f28a90ca00c3def30dd22c4580f5b555af5c61fec2cb09cc6dd4e7bbff'],
     }),
-    # ('dmrgscf', '4ff57bf', {
+    # ('dmrgscf', '4ff57bf', {  # error
     #     'modulename': 'pyscf.%(name)s',
     #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
@@ -54,19 +46,19 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['f492ba45dfe50c9b459e53a946a677528af0dc2097ff77ea3767aa4f46c5d9ba'],
     }),
-    # ('fciqmc', 'c7c30bb', {
-    #     'modulename': 'pyscf.%(name)s',
-    #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
-    #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-    #     'checksums': ['dfa613df36a49d7a7f1d2ff7ab7646a38adbb01c9af05d4ea7e3bcff495d8f57'],
-    # }),
-    # ('icmpspt', 'f26062b', {
+    ('fciqmc', 'c7c30bb', {
+        'modulename': 'pyscf.fciqmcscf',
+        'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['dfa613df36a49d7a7f1d2ff7ab7646a38adbb01c9af05d4ea7e3bcff495d8f57'],
+    }),
+    # ('icmpspt', 'f26062b', {  # error
     #     'modulename': 'pyscf.%(name)s',
     #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
     #     'checksums': ['8f44b317da209882e0353d2731d8bc907de450af02429e962ae9b8d3f8c95a47'],
     # }),
-    # ('mbd', '485c18c', {
+    # ('mbd', '485c18c', {  # error
     #     'modulename': 'pyscf.%(name)s',
     #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
@@ -78,7 +70,7 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['de247d17b80133655df5966341e5adb691b0df150cd9b0f1980cf62ec55229d5'],
     }),
-    # ('nao', '3d9f224', {
+    # ('nao', '3d9f224', {  # error
     #     'modulename': 'pyscf.%(name)s',
     #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
@@ -90,57 +82,48 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['4d0016a321c91ace2f1c18e4001df3f6c8de9c96602c391353102b6ad4e14076'],
     }),
-    # ('shciscf', 'dd398d2', {
+    # ('shciscf', 'dd398d2', {  # error
     #     'modulename': 'pyscf.%(name)s',
     #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
     #     'checksums': ['96032337e8877478d410f2edd8490d267a8b6ddb8fad6152b201f4da912fd694'],
     # }),
-    # ('zquatev', '4eb41b1', {
-    #     'modulename': 'pyscf.%(name)s',
+    # ('zquatev', '4eb41b1', {  # error cmake returned non-zero exit status 1
     #     'source_urls': ['https://github.com/sunqm/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
     #     'checksums': ['4caf08e3831a5d86e6bc22f3b4028cc159101cb9658d09de16e382e268a5a2e9'],
     # }),
-    # ('tblis', 'a1efbc0', {
-    #     'modulename': 'pyscf.%(name)s',
-    #     'source_urls': ['https://github.com/pyscf/pyscf-%(name)s/archive/'],
-    #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-    #     'checksums': ['55fea57bfee2cf8aef577d8d2adc1f273aa39e3ee5e6cfc2442ccc3b5353a847'],
-    # }),
+    ('tblis', 'a1efbc0', {
+        'modulename': 'pyscf.tblis_einsum',
+        'source_urls': ['https://github.com/pyscf/pyscf-%(name)s/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['55fea57bfee2cf8aef577d8d2adc1f273aa39e3ee5e6cfc2442ccc3b5353a847'],
+    }),
 ]
-
 start_dir = 'pyscf/lib'
-
 separate_build_dir = True
-
 configopts = "-DBUILD_LIBCINT=OFF -DBUILD_LIBXC=OFF -DBUILD_XCFUN=OFF"
-
 prebuildopts = "export PYSCF_INC_DIR=$EBROOTQCINT/include:$EBROOTLIBXC/lib && "
-
 files_to_copy = ['pyscf']
-
 sanity_check_paths = {
     'files': ['pyscf/__init__.py'],
     'dirs': ['pyscf/data', 'pyscf/lib'],
 }
-
 sanity_check_commands = [
-    # "python -c 'import pyscf.cornell-shci'",
+    # "python -c 'import pyscf.cornell_shci'",
     # "python -c 'import pyscf.dftd3'",
     # "python -c 'import pyscf.dmrgscf'",
     # "python -c 'import pyscf.doci'",
-    # "python -c 'import pyscf.fciqmc'",
+    # "python -c 'import pyscf.fciqmcscf'",
     # "python -c 'import pyscf.icmpspt'",
     # "python -c 'import pyscf.mbd'",
-    # "python -c 'import pyscf.naive-hci'",
+    # "python -c 'import pyscf.hci'",
     # "python -c 'import pyscf.nao'",
     # "python -c 'import pyscf.semiempirical'",
     # "python -c 'import pyscf.shciscf'",
-    # "python -c 'import pyscf.zquatev'",
-    # "python -c 'import pyscf.pyscf-tblis'",
+    # "python -c 'import zquatev'",
+    # "python -c 'import pyscf.tblis_einsum'",
 ]
-
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
-
 moduleclass = 'chem'
+
