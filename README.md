@@ -2,9 +2,9 @@ Sandbox for VSC Central Software Installation project
 
 ### Policy
 
-* Open issue per (sufficiently complex) software installation request.
+* Open one issue per (sufficiently complex) software installation request.
   * Includes basic info + initial guidelines (toolchain, easyblock, etc.)
-  * Place to discuss problems that pop up and get early feedback.
+  * Place to discuss problems that pop up and to get early feedback.
 * Work-in-progress easyconfigs in separate subdirectories (one subdirectory per open issue).
 * No pull requests (PRs) needed, no separate branches, just update `main` branch and push.
   ```
@@ -23,4 +23,5 @@ Sandbox for VSC Central Software Installation project
 * EasyBuild documentation: https://docs.easybuild.io
 * EasyBuild tutorial: https://easybuild.io/tutorial
 * VSC Slack: https://vscentrum.slack.com
-  * Requires invitation, ask Kenneth (HPC-UGent) or Sam (HPC-VUB), or anyone already in the VSC Slack.
+  * Recommended to use the `#software` channel.
+  * Requires invitation, ask Kenneth (HPC-UGent) or Sam (VUB-HPC), or anyone already in the VSC Slack.
