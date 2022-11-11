@@ -47,6 +47,7 @@ dependencies = [
     ("Trimmomatic", "0.39", "-Java-11", True),
     ("Boost", "1.77.0"),
     ("ruffus", "2.8.4"),
+    ("SRA-Toolkit", "2.10.9"),
 ]
 
 extract_sources = True
@@ -60,6 +61,10 @@ sanity_check_paths = {
     "dirs": [],
 }
 
+modextrapaths = {
+    'PATH': ['utils']
+}
+
 local_sanity_cmd = """
 mkdir %(builddir)s/sanity_check && cp %(installdir)s/example/Arabidopsis_thaliana_metadata.csv %(builddir)s/sanity_check && \
 cd %(builddir)s/sanity_check && touch genemark.lic && \
@@ -69,6 +74,7 @@ run_finder -no_cleanup -mf $PWD/Arabidopsis_thaliana_metadata.csv -n 2 \
 -g $PWD/Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa -p uniprot_ARATH.fasta -preserve \
 """
 
-sanity_check_commands = [local_sanity_cmd]
+# sanity_check_commands = [local_sanity_cmd]
+sanity_check_commands = ["finder --help"]
 
 moduleclass = "bio"
