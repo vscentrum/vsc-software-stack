@@ -1,0 +1,55 @@
+easyblock = 'PythonBundle'
+
+name = 'wandb'
+version = '0.13.5'
+
+homepage = 'https://wandb.ai'
+description = """CLI and Python API for Weights and Biases (wandb), a tool for visualizing and
+tracking your machine learning experiments."""
+
+toolchain = {'name': 'GCC', 'version': '11.2.0'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('GitPython', '3.1.24'),
+    ('PyYAML', '5.4.1'),
+    ('protobuf-python', '3.17.3')
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('docker-pycreds', '0.4.0', {
+        'checksums': ['6ce3270bcaf404cc4c3e27e4b6c70d3521deae82fb508767870fdbf772d584d4'],
+        'modulename': 'dockerpycreds',
+    }),
+    ('pathtools', '0.1.2', {
+        'checksums': ['7c35c5421a39bb82e58018febd90e3b6e5db34c5443aaaf742b3f33d4655f1c0'],
+    }),
+    ('promise', '2.3', {
+        'checksums': ['dfd18337c523ba4b6a58801c164c1904a9d4d1b1747c7d5dbf45b693a49d93d0'],
+    }),
+    ('urllib3', '1.26.12', {
+        'checksums': ['3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e'],
+    }),
+    ('sentry-sdk', '1.10.1', {
+        'checksums': ['105faf7bd7b7fa25653404619ee261527266b14103fe1389e0ce077bd23a9691'],
+    }),
+    ('setproctitle', '1.3.2', {
+        'checksums': ['b9fb97907c830d260fa0658ed58afd48a86b2b88aac521135c352ff7fd3477fd'],
+    }),
+    ('shortuuid', '1.0.10', {
+        'checksums': ['666e1e8a47379b3626ec40da17d3635212ea232b4647e808ea46d1c4b0be156e'],
+    }),
+    (name, version, {
+        'checksums': ['11f30a22e30abaa9c187e8b6aa4c12d76160b40bbe98a6f14b0dde9297bbfbe2'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['wandb', 'wb']],
+    'dirs': ['lib/python%(pyshortver)s/site-packages']
+}
+
+moduleclass = 'ai'
