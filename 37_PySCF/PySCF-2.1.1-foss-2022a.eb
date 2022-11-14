@@ -22,7 +22,7 @@ exts_default_options = {
     'use_pip': True,
 }
 exts_list = [
-    # ('cornell-shci', '74f77c5', {  # error
+    # ('cornell-shci', '74f77c5', {  # installation: OK, import: raise ImportError('settings.py not found')
     #     'modulename': 'pyscf.cornell_shci',
     #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
@@ -34,7 +34,7 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['6616e7f28a90ca00c3def30dd22c4580f5b555af5c61fec2cb09cc6dd4e7bbff'],
     }),
-    # ('dmrgscf', '4ff57bf', {  # error
+    # ('dmrgscf', '4ff57bf', {  # installation: OK, import: raise ImportError('settings.py not found')
     #     'modulename': 'pyscf.%(name)s',
     #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
@@ -52,13 +52,13 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['dfa613df36a49d7a7f1d2ff7ab7646a38adbb01c9af05d4ea7e3bcff495d8f57'],
     }),
-    # ('icmpspt', 'f26062b', {  # error
+    # ('icmpspt', 'f26062b', {  # installation: OK, import: ModuleNotFoundError: No module named 'pyscf.dmrgscf'
     #     'modulename': 'pyscf.%(name)s',
     #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
     #     'checksums': ['8f44b317da209882e0353d2731d8bc907de450af02429e962ae9b8d3f8c95a47'],
     # }),
-    # ('mbd', '485c18c', {  # error
+    # ('mbd', '485c18c', {  # installation: raise ValueError("Version string not found")
     #     'modulename': 'pyscf.%(name)s',
     #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
@@ -70,7 +70,7 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['de247d17b80133655df5966341e5adb691b0df150cd9b0f1980cf62ec55229d5'],
     }),
-    # ('nao', '3d9f224', {  # error
+    # ('nao', '3d9f224', {  # installation: OK, import: raise OSError("no file with expected extension")
     #     'modulename': 'pyscf.%(name)s',
     #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
@@ -82,13 +82,13 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['4d0016a321c91ace2f1c18e4001df3f6c8de9c96602c391353102b6ad4e14076'],
     }),
-    # ('shciscf', 'dd398d2', {  # error
-    #     'modulename': 'pyscf.%(name)s',
-    #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
-    #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-    #     'checksums': ['96032337e8877478d410f2edd8490d267a8b6ddb8fad6152b201f4da912fd694'],
-    # }),
-    # ('zquatev', '4eb41b1', {  # error cmake returned non-zero exit status 1
+    ('shciscf', 'dd398d2', {
+        'modulename': 'pyscf.%(name)s',
+        'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['96032337e8877478d410f2edd8490d267a8b6ddb8fad6152b201f4da912fd694'],
+    }),
+    # ('zquatev', '4eb41b1', {  # installation: cmake returned non-zero exit status 1
     #     'source_urls': ['https://github.com/sunqm/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
     #     'checksums': ['4caf08e3831a5d86e6bc22f3b4028cc159101cb9658d09de16e382e268a5a2e9'],
