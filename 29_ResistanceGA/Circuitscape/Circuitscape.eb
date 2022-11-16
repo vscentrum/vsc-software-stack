@@ -1,0 +1,102 @@
+easyblock = 'Bundle'
+
+name = 'Circuitscape'
+version = '5.11.2'
+_julia_ver = '1.7.2'
+versionsuffix = "-Julia-%s" % _julia_ver
+
+homepage = 'https://github.com/Circuitscape/Circuitscape.jl'
+description = "Algorithms from circuit theory to predict connectivity in heterogeneous landscapes"
+
+toolchain = SYSTEM
+
+dependencies = [
+    ('Julia', _julia_ver, '-linux-%s' % ARCH, True),
+]
+
+# install Jupyter kernel system-wide
+_kernel_dir = '%(installdir)s/jupyter'
+_ijulia_preinstall = "mkdir %s && " % _kernel_dir
+_ijulia_preinstall += "export JUPYTER_DATA_DIR=%s && " % _kernel_dir
+
+exts_defaultclass = 'JuliaPackage'
+exts_filter = ("julia -e 'using %(ext_name)s'", "")
+exts_default_options = {
+    'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+}
+
+
+exts_list = [
+    ('Preferences', '1.3.0', {
+        'source_urls': ['https://github.com/JuliaPackaging/Preferences.jl/archive/'],
+        'checksums': ['a87c1fc863fcb6240c3f4327776fa01a1f87e0d2df5a0c1850f789ce24469da2'],
+    }),
+    ('JLLWrappers', '1.4.1', {
+        'source_urls': ['https://github.com/JuliaPackaging/JLLWrappers.jl/archive/'],
+        'checksums': ['2cb61d4171e8ebc74e36ee20e6e0ba959aa5525a9c2fef5547e0993566018775'],
+    }),
+    ('CommonSolve', '0.2.3', {
+        'source_urls': ['https://github.com/SciML/CommonSolve.jl/archive/']
+    }),
+    ('Reexport', '1.2.2', {
+        'source_urls': ['https://github.com/simonster/Reexport.jl/archive/'],
+        'checksums': ['2566f7776aae9697cbf15765fc32187f46dd51200abc953a0266863ad67132b3'],
+    }),
+    ('AlgebraicMultigrid', '0.5.1', {
+        'source_urls': ['https://github.com/JuliaLinearAlgebra/AlgebraicMultigrid.jl/archive/']
+    }),
+    ('CEnum', '0.4.2', {
+        'source_urls': ['https://github.com/JuliaInterop/CEnum.jl/archive/'],
+    }),
+    ('Requires', '1.3.0', {
+        'source_urls': ['https://github.com/JuliaPackaging/Requires.jl/archive/'],
+        'checksums': ['8af4dac29839e796a651b8cb6a325b6f9c7eee5d5620b3e366b64f58325ebeb7'],
+    }),
+    ('FixedPointNumbers', '0.8.4', {
+        'source_urls': ['https://github.com/JuliaMath/FixedPointNumbers.jl/archive/'],
+    }),
+    ('ColorTypes', '0.11.1', {
+        'source_urls': ['https://github.com/JuliaGraphics/ColorTypes.jl/archive/'],
+    }),
+    ('DiskArrays', '0.3.7', {
+        'source_urls': ['https://github.com/meggart/DiskArrays.jl/archive/'],
+    }),
+    ('Extents', '0.1.1', {
+        'source_urls': ['https://github.com/rafaqz/Extents.jl/archive/'],
+    }),
+    ('Libtiff_jll', '4.4.0.+0', {
+        'source_urls': ['https://github.com/JuliaBinaryWrappers/Libtiff_jll.jl/archive/'],
+    }),
+    ('PROJ_jll', '900.100.0+0', {
+        'source_urls': ['https://github.com/JuliaBinaryWrappers/PROJ_jll.jl/archive/'],
+        'sources': ['PROJ-v%(version)s.tar.gz']
+    }),
+    ('libgeotiff_jll', '100.700.100+0', {
+        'source_urls': ['https://github.com/JuliaBinaryWrappers/libgeotiff_jll.jl/archive/'],
+        'sources': ['libgeotiff-v%(version)s.tar.gz']
+    }),
+    ('GDAL_jll', '300.500.200+0', {
+        'source_urls': ['https://github.com/JuliaBinaryWrappers/GDAL_jll.jl/archive/'],
+        'sources': ['GDAL-v%(version)s.tar.gz'],
+    }),
+    ('GDAL', '1.4.0', {
+        'source_urls': ['https://github.com/JuliaGeo/GDAL.jl/archive/'],
+    }),
+    ('ArchGDAL', '0.9.3', {
+        'source_urls': ['https://github.com/yeesian/ArchGDAL.jl/archive/'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/Circuitscape/Circuitscape.jl/archive/']
+    }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['packages'],
+}
+
+modextrapaths = {
+    'JULIA_DEPOT_PATH': '',
+}
+
+moduleclass = 'lib'
