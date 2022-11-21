@@ -1,8 +1,8 @@
-don't blindly overwrite $LD_LIBRARY_PATH (which breaks ld.gold linker because it requires a sufficiently recent libstdc++.so)
-from author: Kenneth Hoste (HPC-UGent)
-diff -ruN ncbi-vdb-2.10.9.orig/build/ld.linux.dlib.sh ncbi-vdb-2.10.9/build/ld.linux.dlib.sh
---- ncbi-vdb-2.10.9.orig/build/ld.linux.dlib.sh	2020-12-16 09:58:31.000000000 -0800
-+++ ncbi-vdb-2.10.9/build/ld.linux.dlib.sh	2021-02-24 18:59:33.565775000 -0800
+don't blindly overwrite $LD_LIBRARY_PATH
+based on work by: Kenneth Hoste (HPC-UGent)
+diff -ruN ncbi-vdb-3.0.0.orig/build/ld.linux.dlib.sh ncbi-vdb-3.0.0/build/ld.linux.dlib.sh
+--- ncbi-vdb-3.0.0.orig/build/ld.linux.dlib.sh	2022-02-10 13:50:11.000000000 -0800
++++ ncbi-vdb-3.0.0/build/ld.linux.dlib.sh	2022-09-19 16:35:44.390187000 -0700
 @@ -83,8 +83,7 @@
      done
  
@@ -20,9 +20,9 @@ diff -ruN ncbi-vdb-2.10.9.orig/build/ld.linux.dlib.sh ncbi-vdb-2.10.9/build/ld.l
 -fi
 \ No newline at end of file
 +fi
-diff -ruN ncbi-vdb-2.10.9.orig/build/ld.linux.exe.sh ncbi-vdb-2.10.9/build/ld.linux.exe.sh
---- ncbi-vdb-2.10.9.orig/build/ld.linux.exe.sh	2020-12-16 09:58:31.000000000 -0800
-+++ ncbi-vdb-2.10.9/build/ld.linux.exe.sh	2021-02-24 18:58:40.853559000 -0800
+diff -ruN ncbi-vdb-3.0.0.orig/build/ld.linux.exe.sh ncbi-vdb-3.0.0/build/ld.linux.exe.sh
+--- ncbi-vdb-3.0.0.orig/build/ld.linux.exe.sh	2022-02-10 13:50:11.000000000 -0800
++++ ncbi-vdb-3.0.0/build/ld.linux.exe.sh	2022-09-19 16:36:32.114647000 -0700
 @@ -91,8 +91,7 @@
      done
  

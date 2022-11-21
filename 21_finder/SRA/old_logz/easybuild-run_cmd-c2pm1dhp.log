@@ -1,0 +1,57 @@
+# output for command: make -C tools/driver-tool/utf8proc && sed -i 's/-sm/-sm -lmpi -lsz/' tools/pacbio-load/Makefile && find build/ -name "ld*.sh" -exec sed -i 's/-lxml2/-lxml2 -lz -llzma  -lpthread -licucore -lm /g' {} + && find build/ -name "Makefile*" -exec sed -i 's/-O3/$(EBFLAGS)/g' {} + && EBFLAGS="$CFLAGS"  make  -j 8
+
+make: Entering directory '/tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools-3.0.0/tools/driver-tool/utf8proc'
+mkdir -p /tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel/obj
+cd /tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel/obj; cmake -DTARGDIR=/tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=/tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel/ilib -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel/lib -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel/bin -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SRA-Toolkit/3.0.0-gompi-2021b -DCMAKE_C_COMPILER=/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/gcc -DCMAKE_CXX_COMPILER=/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/g++ -DVDB_BINDIR=/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ncbi-vdb/3.0.0-gompi-2021b -DVDB_LIBDIR=/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ncbi-vdb/3.0.0-gompi-2021b/lib64 -DVDB_INCDIR=/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ncbi-vdb/3.0.0-gompi-2021b/include -DPYTHON_PATH=/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/bin/python -DDIRTOTEST= -DCONFIGTOUSE= -DXML2_INCDIR=/kyukon/home/apps/RHEL8/haswell-ib/software/libxml2/2.9.10-GCCcore-11.2.0/include/libxml2 -DXML2_LIBDIR=/kyukon/home/apps/RHEL8/haswell-ib/software/libxml2/2.9.10-GCCcore-11.2.0/lib -DHDF5_INCDIR= -DHDF5_LIBDIR= /tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools-3.0.0
+CMAKE_VERSION=3.21.1
+-- The C compiler identification is GNU 11.2.0
+-- The CXX compiler identification is GNU 11.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - failed
+-- Check for working CXX compiler: /apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/g++
+-- Check for working CXX compiler: /apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/g++ - broken
+CMake Error at /kyukon/home/apps/RHEL8/haswell-ib/software/CMake/3.21.1-GCCcore-11.2.0/share/cmake-3.21/Modules/CMakeTestCXXCompiler.cmake:62 (message):
+  The C++ compiler
+
+    "/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/g++"
+
+  is not able to compile a simple test program.
+
+  It fails with the following output:
+
+    Change Dir: /tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel/obj/CMakeFiles/CMakeTmp
+    
+    Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_e8458/fast && gmake[1]: Entering directory '/tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel/obj/CMakeFiles/CMakeTmp'
+    /usr/bin/gmake  -f CMakeFiles/cmTC_e8458.dir/build.make CMakeFiles/cmTC_e8458.dir/build
+    gmake[2]: Entering directory '/tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel/obj/CMakeFiles/CMakeTmp'
+    Building CXX object CMakeFiles/cmTC_e8458.dir/testCXXCompiler.cxx.o
+    /apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/g++   -O2 -ftree-vectorize -march=native -fno-math-errno -lxml2kkt -lz -llzma  -o CMakeFiles/cmTC_e8458.dir/testCXXCompiler.cxx.o -c /tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel/obj/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+    Linking CXX executable cmTC_e8458
+    /kyukon/home/apps/RHEL8/haswell-ib/software/CMake/3.21.1-GCCcore-11.2.0/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e8458.dir/link.txt --verbose=1
+    /apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/g++ -O2 -ftree-vectorize -march=native -fno-math-errno -lxml2kkt -lz -llzma  -L/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/libxml2/2.9.10-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/libxml2/2.9.10-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.10.8-gompi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.10.8-gompi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/file/5.41-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/file/5.41-GCCcore-11.2.0/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ncbi-vdb/3.0.0-gompi-2021b/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/ncbi-vdb/3.0.0-gompi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/Java/11.0.2/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Java/11.0.2/lib -L/apps/gent/RHEL8/haswell-ib/software/Bison/3.7.6-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Bison/3.7.6-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/flex/2.6.4-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/flex/2.6.4-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/Perl/5.34.0-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Perl/5.34.0-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib  CMakeFiles/cmTC_e8458.dir/testCXXCompiler.cxx.o -o cmTC_e8458 
+    /apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/bin/ld.gold: error: cannot find -lxml2kkt
+    collect2: error: ld returned 1 exit status
+    gmake[2]: *** [CMakeFiles/cmTC_e8458.dir/build.make:99: cmTC_e8458] Error 1
+    gmake[2]: Leaving directory '/tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel/obj/CMakeFiles/CMakeTmp'
+    gmake[1]: *** [Makefile:127: cmTC_e8458/fast] Error 2
+    gmake[1]: Leaving directory '/tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel/obj/CMakeFiles/CMakeTmp'
+    
+    
+
+  
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:36 (project)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel/obj/CMakeFiles/CMakeOutput.log".
+See also "/tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools/linux/gcc/x86_64/rel/obj/CMakeFiles/CMakeError.log".
+make: *** [/tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools-3.0.0/build/Makefile.env:98: cmake_only] Error 1
+make: Leaving directory '/tmp/vsc43810/easybuild/build/SRAToolkit/3.0.0/gompi-2021b/sra-tools-3.0.0/tools/driver-tool/utf8proc'
