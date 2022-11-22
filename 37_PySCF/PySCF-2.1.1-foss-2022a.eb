@@ -21,6 +21,7 @@ exts_default_options = {
     'download_dep_fail': True,
     'use_pip': True,
 }
+
 exts_list = [
     # ('cornell-shci', '74f77c5', {  # installation: OK, import: raise ImportError('settings.py not found')
     #     'modulename': 'pyscf.cornell_shci',
@@ -58,8 +59,9 @@ exts_list = [
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
     #     'checksums': ['8f44b317da209882e0353d2731d8bc907de450af02429e962ae9b8d3f8c95a47'],
     # }),
-    # ('mbd', '485c18c', {  # installation: raise ValueError("Version string not found")
+    # ('mbd', '485c18c', {  # installation: OK, import: cannot import name 'bohr' from 'pyscf.mbd.mbd'
     #     'modulename': 'pyscf.%(name)s',
+    #     'preinstallopts': "echo '__version__ = \"0.1\"' >> pyscf/mbd/__init__.py && ",
     #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
     #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
     #     'checksums': ['de1fb14650fcb87909cae33dc318d2e213653ac4393ced7e070dfa6308d95846'],
@@ -70,10 +72,11 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['de247d17b80133655df5966341e5adb691b0df150cd9b0f1980cf62ec55229d5'],
     }),
-    # ('nao', '3d9f224', {  # installation: OK, import: raise OSError("no file with expected extension")
+    # ('nao', '3d9f224', {  # installation: OK, import: raise OSError("no file with expected extension") libnao.so ?
     #     'modulename': 'pyscf.%(name)s',
-    #     'source_urls': ['https://github.com/pyscf/%(name)s/archive/'],
-    #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+    #     'preinstallopts': "export LD_LIBRARY_PATH=%(installdir)s/lib:$LD_LIBRARY_PATH && ",
+    #     'source_urls': ['https://gitlab.com/mbarbry/pynao/-/archive/%(version)s/'],
+    #     'sources': [{'download_filename': '%(name)s-%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
     #     'checksums': ['c25e7afaa203866efef34a0c753ef3376b40c98de0433068d09f65d180a6b864'],
     # }),
     ('semiempirical', '327d65e', {
@@ -89,9 +92,16 @@ exts_list = [
         'checksums': ['96032337e8877478d410f2edd8490d267a8b6ddb8fad6152b201f4da912fd694'],
     }),
     # ('zquatev', '4eb41b1', {  # installation: cmake returned non-zero exit status 1
-    #     'source_urls': ['https://github.com/sunqm/%(name)s/archive/'],
-    #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-    #     'checksums': ['4caf08e3831a5d86e6bc22f3b4028cc159101cb9658d09de16e382e268a5a2e9'],
+    #     'sources': [{
+    #         'filename': '%(name)s-%(version)s.tar.gz',
+    #         'git_config': {
+    #             'url': 'https://github.com/sunqm/',
+    #             'repo_name': '%(name)s',
+    #             'commit': '%(version)s',
+    #             'recursive': True,
+    #         },
+    #     }],
+    #     'checksums': [None],
     # }),
     ('tblis', 'a1efbc0', {
         'modulename': 'pyscf.tblis_einsum',
