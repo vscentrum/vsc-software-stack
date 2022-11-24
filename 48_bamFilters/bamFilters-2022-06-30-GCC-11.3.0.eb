@@ -17,17 +17,21 @@ checksums = ['63a2a57093f0d360ce21775de8bb118e60cbd8856593e02c608f930745e1b463']
 dependencies = [
     ('HTSlib', '1.15.1'),
     ('BamTools', '2.5.2'),
+    ('SAMtools', '1.13'),
     ('zlib', '1.2.12'),
     ('bzip2', '1.0.8'),
 ]
+prebuildopts = 'mkdir obj && '
+buildopts = 'CC="$CC" CFLAGS="$CFLAGS" SAMTOOLS_LIBDIR="$EBROOTSAMTOOLS/lib"'
+buildopts += ' LIBS="$LIBS -lhts -lbam -lz -lbz2 -lcurl -lssl -lcrypto -llzma"'
 
 files_to_copy = [
-    (['src/bamFilters'], 'bin'),
+    (['bamFilters'], 'bin'),
 ]
 
 sanity_check_paths = {
-    'files': ['bamFilters'],
-    'dirs': ['bin']
+    'files': ['bin/bamFilters'],
+    'dirs': []
 }
 
-sanity_check_commands = ['bamFilters -h']
+sanity_check_commands = ['bamFilters -h 2>&1 | grep "Usage"']
