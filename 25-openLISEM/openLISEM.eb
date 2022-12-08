@@ -1,8 +1,8 @@
 easyblock = 'Bundle'
 
 name = 'openLISEM'
-local_commit = 'c1ed3c527f3a2e552d55b33a4f072f7b1e55000f'
-version = '6.848'
+local_commit = '9f30be42ee28935b5e52627303028d5248c824a8'
+version = '6.873'
 versionsuffix = '-debug'
 
 homepage = 'https://lisemmodel.com'
@@ -22,7 +22,6 @@ dependencies = [
     ('GDAL', '3.5.0'),
 ]
 
-#local_qwt_prebuildopts = "sed -i 's/define QWT_AXIS_COMPAT 0/define QWT_AXIS_COMPAT 1/g' src/qwt_plot.h && "
 local_qwt_prebuildopts = "export QWT_PREFIX=%(installdir)s && qmake qwt.pro && "
 
 # replace hardcoded Windows-style include statement for omp.h with Linux equivalent
@@ -65,8 +64,7 @@ components = [
     (name, version, {
         'source_urls': ['https://github.com/vjetten/openlisem/archive/'],
         'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
-        'patches': ['openLISEM-6.848_fix-MapTotal-segfault.patch'],  # 'openLISEM-6.848_fix-segfault.patch'],
-        'checksums': ['21a3cad9514028d6a61e84ba95006cb0debe7a6046cfce254058012777c24c3f'],
+        'checksums': ['1d6fdba7ccb108c00c1957a0908cccb4b2f790973667225b4b17b3804a7dc2e3'],
         'easyblock': 'CMakeMakeCp',
         'start_dir': 'openlisem-%s' % local_commit,
         'preconfigopts': local_openlisem_preconfigopts,
