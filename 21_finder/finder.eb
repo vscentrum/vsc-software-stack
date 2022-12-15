@@ -1,3 +1,4 @@
+# author: Denis Kristak (INUITS)
 easyblock = "Binary"
 
 name = "finder"
@@ -10,25 +11,25 @@ aligning them and using the assembled transcripts to generate gene annotations."
 toolchain = {"name": "foss", "version": "2021b"}
 toolchainopts = {"openmp": True}
 
-# source_urls = ['https://github.com/sagnikbanerjee15/Finder/archive/']
-# sources = ["finder_v%(version)s.tar.gz"]
-
 source_urls = [
-    'https://github.com/deniskristak/%(name)s/archive/',
+    'https://github.com/sagnikbanerjee15/Finder/archive/',
     'ftp://ftp.ensemblgenomes.org/pub/plants/release-49/fasta/arabidopsis_thaliana/dna/'
 ]
-
-sources = ['master.zip', 'Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa.gz']
+sources = ['%(name)s_v%(version)s.tar.gz', 'Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa.gz']
+patches = ['finder-%(version)s_run_bare_option.patch']
+checksums = [
+    {'finder_v1.1.0.tar.gz': 'be416a01b94f2ac183fb9c4945b09b8f40ac0e40b12e2c08c343bd2aad28bf98'},
+    {'Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa.gz':
+     '4598dbd9f6913527933e9822e0d15d7016571de1f8e925c37917e840e8a453bd'},
+    {'finder-1.1.0_run_bare_option.patch': '43ee4046bcecc1a1555ef0dc9b98487281c0344028ef6cf1428d24bbfd6cd1ca'},
+]
 
 dependencies = [
     ("STAR", "2.7.9a"),
     ("SAMtools", "1.14"),
     ("BEDTools", "2.30.0"),
     ("AUGUSTUS", "3.4.0"),
-    (
-        "BRAKER",
-        "2.1.6",
-    ),  # https://github.com/easybuilders/easybuild-easyconfigs/pull/16156 here, but 2020b
+    ("BRAKER","2.1.6"),
     ("GeneMark-ET", "4.71"),
     ("PsiCLASS", "1.0.3"),
     ("olego", "1.1.9"),
@@ -52,8 +53,7 @@ dependencies = [
 
 extract_sources = True
 
-install_cmd = "cp -r %(builddir)s/Finder-%(name)s_v%(version)s/* %(installdir)s/ "
-install_cmd = "cp -r %(builddir)s/Finder-master/* %(installdir)s/ "
+install_cmd = "cp -r %(builddir)s/Finder-finder_v%(version)s/* %(installdir)s/ "
 
 
 sanity_check_paths = {
@@ -65,16 +65,6 @@ modextrapaths = {
     'PATH': ['utils']
 }
 
-local_sanity_cmd = """
-mkdir %(builddir)s/sanity_check && cp %(installdir)s/example/Arabidopsis_thaliana_metadata.csv %(builddir)s/sanity_check && \
-cd %(builddir)s/sanity_check && touch genemark.lic && \
-cp %(builddir)s/Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa %(builddir)s/sanity_check && \
-run_finder -no_cleanup -mf $PWD/Arabidopsis_thaliana_metadata.csv -n 2 \
--om PLANTS -gm $EBROOTGENEMARKMINET -gml genemark.lic -out_dir FINDER_test_ARATH \
--g $PWD/Arabidopsis_thaliana.TAIR10.dna_sm.toplevel.fa -p uniprot_ARATH.fasta -preserve \
-"""
-
-# sanity_check_commands = [local_sanity_cmd]
 sanity_check_commands = ["finder --help"]
 
 moduleclass = "bio"

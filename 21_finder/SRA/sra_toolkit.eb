@@ -1,3 +1,4 @@
+# updated: Denis Kristak (INUITS)
 easyblock = 'ConfigureMake'
 
 name = 'SRA-Toolkit'
@@ -14,8 +15,11 @@ toolchainopts = {'extra_cflags': '-lxml2 -lz -llzma'}
 
 source_urls = ['https://github.com/ncbi/sra-tools/archive/refs/tags/']
 sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
-
 patches = ['SRA-Toolkit-%(version)s_fix-LD_LIBRARY_PATH.patch']
+checksums = [
+    {'SRA-Toolkit-3.0.0.tar.gz': 'b6e8116ecb196b91d5ee404cc978a128eec9af24bdc96f57ff7ebfaf9059a760'},
+    {'SRA-Toolkit-3.0.0_fix-LD_LIBRARY_PATH.patch': '80b764584e377150cbc706463ef2c72e517d1a3e7493f13e26d6e7875cd7d16a'},
+]
 
 builddependencies = [
     ('Perl', '5.34.0'),
@@ -29,8 +33,7 @@ builddependencies = [
 dependencies = [
     ('ncbi-vdb', '3.0.0'),
     ('file', '5.41'),  # provides libmagic
-    # ('HDF5', '1.10.8'),
-    ('HDF5', '1.12.1'),  # version 1.12.x has changes to API and is not compatible
+    ('HDF5', '1.12.1'),
     ('libxml2', '2.9.10'),
     ('Szip', '2.1.1'),
     ('zlib', '1.2.11'),
