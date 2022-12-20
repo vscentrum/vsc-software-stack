@@ -129,9 +129,12 @@ exts_list = [
         'sources': ['HDF5-v%(version)s.tar.gz'],
         'checksums': ['18524e113506f3c94243199f76d56294b316c304c1dfc2a3a6aece44c4620da4'],
     }),
-    ('libpng_jll', '1.6.37+5', {
+    ('libpng_jll', '1.6.38+0', {
         'source_urls': ['https://github.com/JuliaBinaryWrappers/libpng_jll.jl/archive/'],
-        'sources': ['libpng-v%(version)s.tar.gz'],
+        # libpng-v1.6.38+0 tag points to incorrect commit (b778f2a),
+        # cfr. https://github.com/JuliaPackaging/Yggdrasil/issues/5987,
+        # so use correct commit (7610368) directly
+        'sources': [{'download_filename': '7610368.tar.gz', 'filename': 'libpng.v%(version)s.tar.gz'}],
     }),
     ('LittleCMS_jll', '2.12.0+0', {
         'source_urls': ['https://github.com/JuliaBinaryWrappers/LittleCMS_jll.jl/archive/'],
@@ -179,7 +182,10 @@ exts_list = [
     }),
     ('Bzip2_jll', '1.0.8+0', {
         'source_urls': ['https://github.com/JuliaBinaryWrappers/Bzip2_jll.jl/archive/'],
-        'sources': ['Bzip2.v%(version)s.x86_64-linux-gnu.tar.gz'],
+        # Bzip2-v1.0.8+0 tag points to incorrect commit (61c41bd),
+        # cfr. https://github.com/JuliaPackaging/Yggdrasil/issues/5987,
+        # so use correct commit (aa035c3) directly
+        'sources': [{'download_filename': 'aa035c3.tar.gz', 'filename': 'Bzip2.v%(version)s.tar.gz'}],
     }),
     ('LZO_jll', '2.10.1+0', {
         'source_urls': ['https://github.com/JuliaBinaryWrappers/LZO_jll.jl/archive/'],
