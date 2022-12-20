@@ -13,7 +13,7 @@ dependencies = [
     ('Python', '3.9.6'),
     ('GitPython', '3.1.24'),
     ('PyYAML', '5.4.1'),
-    ('protobuf-python', '3.17.3')
+    ('protobuf-python', '4.21.9'),
 ]
 
 use_pip = True
@@ -42,6 +42,9 @@ exts_list = [
     ('shortuuid', '1.0.10', {
         'checksums': ['666e1e8a47379b3626ec40da17d3635212ea232b4647e808ea46d1c4b0be156e'],
     }),
+    #FIXME to fix AttributeError: 'NoneType' object has no attribute 'message_types_by_name'
+    # https://github.com/protocolbuffers/protobuf/issues/10075
+    # note: does not occur when using protobuf-python 4.21.9 on top of protobuf 3.21.9
     (name, version, {
         'checksums': ['11f30a22e30abaa9c187e8b6aa4c12d76160b40bbe98a6f14b0dde9297bbfbe2'],
     }),

@@ -1,4 +1,5 @@
 # This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# updated: Denis Kristak (INUITS)
 
 easyblock = "MakeCp"
 
@@ -16,6 +17,7 @@ toolchainopts = {"pic": True}
 
 source_urls = ["https://github.com/%(namelower)s/%(namelower)s/archive/"]
 sources = ["v%(version)s.tar.gz"]
+checksums = ['3b868c820d59dd38372417efc31e9be3fbdca8cf0a6b39f13fb2b822607d6194']
 
 # else build of jansson library fails with: "configure: error: C compiler cannot create executables"
 prebuildopts = "unset LIBS && "
