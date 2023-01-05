@@ -1,0 +1,24 @@
+easyblock = 'PythonPackage'
+
+name = 'scib-pipeline'
+version = '0.2.0'
+
+homepage = 'https://github.com/theislab/scib-pipeline'
+description = "Pipeline for benchmarking atlas-level single-cell integration."
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+sources = [SOURCE_TAR_GZ]
+
+dependencies = [
+    ('Python', '3.9.6'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+sanity_check_commands = [
+    "python -c 'import ruffus.graph'",
+]
+
+moduleclass = 'vis'

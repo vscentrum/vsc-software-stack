@@ -1,0 +1,38 @@
+easyblock = 'PythonPackage'
+
+name = 'scib'
+version = '1.1.1'
+
+homepage = 'https://github.com/theislab/scib'
+description = "Benchmarking atlas-level data integration in single-cell genomics."
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('Seaborn', '0.11.2'),
+    ('numba', '0.54.1'),
+    ('scanpy', '1.8.2'),
+    ('h5py', '3.6.0'),
+    ('scikit-learn', '1.0.1'),
+    ('scikit-misc', '0.1.4'),
+    # missing - louvain - louvain is down from github, but it is on pypi
+    ('leidenalg', '0.8.8'),
+    ('umap-learn', '0.5.3'),
+    ('pydot', '1.4.2'),
+    ('igraph', '0.9.5'),
+    ('python-igraph', '0.9.8'),
+    ('Deprecated', '1.2.13'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+preinstallopts = "sed -i 's|igraph>=0.10|igraph>=0.9.8|g' setup.cfg && "
+preinstallopts += "sed -i 's|louvain>=0.8||g' setup.cfg && "
+
+moduleclass = 'vis'
