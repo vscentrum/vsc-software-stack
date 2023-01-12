@@ -1,0 +1,27 @@
+easyblock = 'CMakeMake'
+
+name = 'dorado'
+version = '0.1.1'
+
+homepage = 'https://github.com/nanoporetech/dorado'
+description = """Dorado is a high-performance, easy-to-use, open source basecaller for Oxford Nanopore reads."""
+
+toolchain = {'name': 'GCC', 'version': '11.3.0'}
+
+source_urls = ['https://github.com/nanoporetech/%(name)s/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['266b613aa9ef17dbaee3339f45c0e06bb09d6679bd8c56ee311a1a65d3514e34']
+
+builddependencies = [
+    ('binutils', '2.38'),
+    ('CMake', '3.23.1'),
+]
+
+dependencies = [
+    ('HDF5', '1.12.2', '-serial'),
+    ('zstd', '1.5.2'),
+]
+
+sanity_check_commands = ["dorado --help"]
+
+moduleclass = 'math'
