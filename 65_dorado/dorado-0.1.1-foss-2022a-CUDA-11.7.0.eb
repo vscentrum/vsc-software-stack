@@ -8,14 +8,23 @@ homepage = 'https://github.com/nanoporetech/dorado'
 description = """Dorado is a high-performance, easy-to-use, open source basecaller for Oxford Nanopore reads."""
 
 toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'usempi': True}
 
 source_urls = ['https://github.com/nanoporetech/%(name)s/archive/']
-sources = ['v%(version)s.tar.gz']
-checksums = ['266b613aa9ef17dbaee3339f45c0e06bb09d6679bd8c56ee311a1a65d3514e34']
+sources = [{
+    'git_config': {
+        'url': 'https://github.com/nanoporetech',
+        'repo_name': name,
+        'tag': 'v%(version)s',
+        'recursive': True,
+    },
+    'filename': SOURCE_TAR_GZ,
+}]
+checksums = [None]
 
 builddependencies = [
     ('binutils', '2.38'),
-    ('CMake', '3.23.1'),
+    ('CMake', '3.24.3'),
 ]
 
 dependencies = [
@@ -24,12 +33,22 @@ dependencies = [
     ('PyTorch', '1.12.0', '-CUDA-%(cudaver)s'),
     ('HDF5', '1.12.2'),
     ('zstd', '1.5.2'),
+    ('libdeflate', '1.10'),
     ('kineto', '0.4.0'),
 ]
 
-configopts =  " -DCUDA_TOOLKIT_ROOT_DIR=$EBROOTCUDA"
-configopts += " -DCMAKE_CUDA_COMPILER=$EBROOTCUDA/bin/nvcc"
-configopts += " -DDORADO_LIBTORCH_DIR=$EBROOTPYTORCH/lib"
+# don't link to OpenSSL static libraries
+# fix for CMake Error "missing: OPENSSL_CRYPTO_LIBRARY" (if only shared OpenSSL libraries are available)
+preconfigopts = "sed -i '/OPENSSL_USE_STATIC_LIBS TRUE/d' ../dorado/cmake/OpenSSL.cmake && "
+preconfigopts += "export OPENSSL_ROOT_DIR=$EBROOTOPENSSL && "
+
+# fix for "error: HTSCODECS_VERSION_TEXT undeclared"
+# see https://github.com/ANGSD/angsd/issues/478
+local_htscodecs_version_h = 'dorado/3rdparty/htslib/htscodecs/htscodecs/version.h'
+preconfigopts += "echo '#define HTSCODECS_VERSION_TEXT \"1.0\"' > ../dorado/%s && " % local_htscodecs_version_h
+
+configopts =  "-DCUDA_TOOLKIT_ROOT_DIR=$EBROOTCUDA -DCMAKE_CUDA_COMPILER=$EBROOTCUDA/bin/nvcc "
+configopts += "-DDORADO_LIBTORCH_DIR=$EBROOTPYTORCH/lib "
 
 sanity_check_commands = ["dorado --help"]
 
