@@ -1,0 +1,64 @@
+[project]
+name = 'anndata2ri'
+authors = [
+    { name = 'Philipp A.', email = 'flying-sheep@web.de' },
+]
+readme = 'README.rst'
+classifiers = [
+    'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+    'Development Status :: 4 - Beta',
+    'Intended Audience :: Developers',
+    'Intended Audience :: Science/Research',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: R',
+    'Topic :: Scientific/Engineering :: Bio-Informatics',
+]
+urls.'Documentation' = 'https://icb-anndata2ri.readthedocs-hosted.com/'
+urls.'Source Code' = 'https://github.com/theislab/anndata2ri'
+urls.'Issue Tracker' = 'https://github.com/theislab/anndata2ri/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc'
+version = '%(version)s'
+requires-python = '>= 3.7'
+dependencies = [
+    'get_version',
+    'rpy2 >= 3.4.3',
+    'tzlocal',  # for pandas2ri
+    'anndata',
+]
+
+[project.optional-dependencies]
+dev = ['pre-commit']
+test = [
+    'pytest',
+    'pytest-faulthandler',
+    'pygments',
+    'scanpy',
+]
+doc = [
+    'sphinx>=3.0',
+    'sphinx-autodoc-typehints',
+    'scanpydoc',
+    'sphinx-rtd-theme>=0.5',  # Already a dep but 0.5 is prettier
+    'lxml',  # For scraping the R link info
+    'importlib_metadata; python_version < "3.8"',
+]
+
+[tool.hatch.version]
+source = 'vcs'
+raw-options = { local_scheme = 'no-local-version' }  # be able to publish dev version
+
+[tool.hatch.build.hooks.vcs]
+version-file = 'src/anndata2ri/_version.py'
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+
+[tool.isort]
+profile = 'black'
+line_length = 120
+lines_after_imports = 2
+length_sort_straight = true
+
+[build-system]
+requires = ['hatchling', 'hatch-vcs']
+build-backend = 'hatchling.build'

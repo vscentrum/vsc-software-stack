@@ -3,6 +3,8 @@ easyblock = 'PythonBundle'
 
 name = 'scib-pipeline'
 version = '0.2.0'
+# version = '20221014'
+# local_commit = 'b2ddba53016fb0574c37fed0c45cc0c490bdac7c'
 
 homepage = 'https://github.com/theislab/scib-pipeline'
 description = "Pipeline for benchmarking atlas-level single-cell integration."
@@ -52,9 +54,9 @@ local_preinstallopts += "sed -i 's|louvain>=0.8||g' setup.cfg && "
 
 # avoid hatchling requirement to install infercnvpy
 # (since installing it introduces conflicting version requirements with poetry included with Python)
-local_anndata2ri_preinstallopts = """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' """
-local_anndata2ri_preinstallopts += """-e 's/^requires = .*/requires = ["setuptools"]/g' """
-local_anndata2ri_preinstallopts += """-e 's/dynamic = \["version"\]/version = "%(version)s"/g' pyproject.toml && """
+local_anndata2ri_preinstallopts = """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' pyproject.toml && """
+local_anndata2ri_preinstallopts += """sed -i -e 's/^requires = .*/requires = ["setuptools"]/g' pyproject.toml && """
+local_anndata2ri_preinstallopts += """sed -i -e "s/dynamic = \['version'\]/version = '%(version)s'/g" pyproject.toml && """
 
 
 exts_list = [
@@ -96,9 +98,22 @@ exts_list = [
         }]}
     ),
     (name, version, {
-        'source_urls': ['https://github.com/theislab/scib-pipeline/archive/refs/tags/'],
         'source_tmpl': '%(version)s.tar.gz',
+        'source_urls': ['https://github.com/theislab/scib-pipeline/archive/'],
+        # 'sources': [
+        #     {
+        #         'download_filename': '%s.tar.gz' % local_commit,
+        #         'filename': 'scib-pipeline-%s.tar.gz' % version
+        #     }
+        # ],
         'preinstallopts': local_preinstallopts,
+        'postinstallcmds': [
+            'mkdir %(installdir)s/pipeline',
+            'cp config.yaml %(installdir)s/pipeline',
+            'cp -r scripts %(installdir)s/pipeline',
+            'cp -r Snakefile %(installdir)s/pipeline',
+        ],
+        'modulename': 'scib',
     }),
 ]
 

@@ -1,0 +1,169 @@
+# output for command: /apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/dm-tree/0.1.8-GCCcore-11.3.0  --no-deps  --ignore-installed  --no-index  --no-build-isolation  .
+
+Processing /tmp/vsc43810/easybuild/build/dmtree/0.1.8/GCCcore-11.3.0/dm-tree-0.1.8
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Building wheels for collected packages: dm-tree
+  Building wheel for dm-tree (setup.py): started
+  Building wheel for dm-tree (setup.py): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+   python setup.py bdist_wheel did not run successfully.
+   exit code: 1
+  > [64 lines of output]
+      running bdist_wheel
+      running build
+      running build_py
+      creating build
+      creating build/lib.linux-x86_64-cpython-310
+      creating build/lib.linux-x86_64-cpython-310/tree
+      copying tree/__init__.py -> build/lib.linux-x86_64-cpython-310/tree
+      copying tree/sequence.py -> build/lib.linux-x86_64-cpython-310/tree
+      copying tree/tree_benchmark.py -> build/lib.linux-x86_64-cpython-310/tree
+      copying tree/tree_test.py -> build/lib.linux-x86_64-cpython-310/tree
+      running build_ext
+      Traceback (most recent call last):
+        File "/tmp/vsc43810/easybuild/build/dmtree/0.1.8/GCCcore-11.3.0/dm-tree-0.1.8/setup.py", line 77, in _check_build_environment
+          subprocess.check_call(['cmake', '--version'])
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/subprocess.py", line 364, in check_call
+          retcode = call(*popenargs, **kwargs)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/subprocess.py", line 345, in call
+          with Popen(*popenargs, **kwargs) as p:
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/subprocess.py", line 966, in __init__
+          self._execute_child(args, executable, preexec_fn, close_fds,
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/subprocess.py", line 1842, in _execute_child
+          raise child_exception_type(errno_num, err_msg, err_filename)
+      FileNotFoundError: [Errno 2] No such file or directory: 'cmake'
+      
+      The above exception was the direct cause of the following exception:
+      
+      Traceback (most recent call last):
+        File "<string>", line 2, in <module>
+        File "<pip-setuptools-caller>", line 34, in <module>
+        File "/tmp/vsc43810/easybuild/build/dmtree/0.1.8/GCCcore-11.3.0/dm-tree-0.1.8/setup.py", line 124, in <module>
+          setuptools.setup(
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/__init__.py", line 87, in setup
+          return distutils.core.setup(**attrs)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/core.py", line 148, in setup
+          return run_commands(dist)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/core.py", line 163, in run_commands
+          dist.run_commands()
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/dist.py", line 967, in run_commands
+          self.run_command(cmd)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/dist.py", line 1214, in run_command
+          super().run_command(command)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/dist.py", line 986, in run_command
+          cmd_obj.run()
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/wheel/bdist_wheel.py", line 299, in run
+          self.run_command('build')
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/cmd.py", line 313, in run_command
+          self.distribution.run_command(command)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/dist.py", line 1214, in run_command
+          super().run_command(command)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/dist.py", line 986, in run_command
+          cmd_obj.run()
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/command/build.py", line 136, in run
+          self.run_command(cmd_name)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/cmd.py", line 313, in run_command
+          self.distribution.run_command(command)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/dist.py", line 1214, in run_command
+          super().run_command(command)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/dist.py", line 986, in run_command
+          cmd_obj.run()
+        File "/tmp/vsc43810/easybuild/build/dmtree/0.1.8/GCCcore-11.3.0/dm-tree-0.1.8/setup.py", line 70, in run
+          self._check_build_environment()
+        File "/tmp/vsc43810/easybuild/build/dmtree/0.1.8/GCCcore-11.3.0/dm-tree-0.1.8/setup.py", line 80, in _check_build_environment
+          raise RuntimeError(
+      RuntimeError: CMake must be installed to build the following extensions: _tree
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for dm-tree
+  Running setup.py clean for dm-tree
+Failed to build dm-tree
+Installing collected packages: dm-tree
+  Running setup.py install for dm-tree: started
+  Running setup.py install for dm-tree: finished with status 'error'
+  error: subprocess-exited-with-error
+  
+   Running setup.py install for dm-tree did not run successfully.
+   exit code: 1
+  > [68 lines of output]
+      running install
+      /apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+        warnings.warn(
+      running build
+      running build_py
+      creating build
+      creating build/lib.linux-x86_64-cpython-310
+      creating build/lib.linux-x86_64-cpython-310/tree
+      copying tree/__init__.py -> build/lib.linux-x86_64-cpython-310/tree
+      copying tree/sequence.py -> build/lib.linux-x86_64-cpython-310/tree
+      copying tree/tree_benchmark.py -> build/lib.linux-x86_64-cpython-310/tree
+      copying tree/tree_test.py -> build/lib.linux-x86_64-cpython-310/tree
+      running build_ext
+      Traceback (most recent call last):
+        File "/tmp/vsc43810/easybuild/build/dmtree/0.1.8/GCCcore-11.3.0/dm-tree-0.1.8/setup.py", line 77, in _check_build_environment
+          subprocess.check_call(['cmake', '--version'])
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/subprocess.py", line 364, in check_call
+          retcode = call(*popenargs, **kwargs)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/subprocess.py", line 345, in call
+          with Popen(*popenargs, **kwargs) as p:
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/subprocess.py", line 966, in __init__
+          self._execute_child(args, executable, preexec_fn, close_fds,
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/subprocess.py", line 1842, in _execute_child
+          raise child_exception_type(errno_num, err_msg, err_filename)
+      FileNotFoundError: [Errno 2] No such file or directory: 'cmake'
+      
+      The above exception was the direct cause of the following exception:
+      
+      Traceback (most recent call last):
+        File "<string>", line 2, in <module>
+        File "<pip-setuptools-caller>", line 34, in <module>
+        File "/tmp/vsc43810/easybuild/build/dmtree/0.1.8/GCCcore-11.3.0/dm-tree-0.1.8/setup.py", line 124, in <module>
+          setuptools.setup(
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/__init__.py", line 87, in setup
+          return distutils.core.setup(**attrs)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/core.py", line 148, in setup
+          return run_commands(dist)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/core.py", line 163, in run_commands
+          dist.run_commands()
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/dist.py", line 967, in run_commands
+          self.run_command(cmd)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/dist.py", line 1214, in run_command
+          super().run_command(command)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/dist.py", line 986, in run_command
+          cmd_obj.run()
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/command/install.py", line 68, in run
+          return orig.install.run(self)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/command/install.py", line 670, in run
+          self.run_command('build')
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/cmd.py", line 313, in run_command
+          self.distribution.run_command(command)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/dist.py", line 1214, in run_command
+          super().run_command(command)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/dist.py", line 986, in run_command
+          cmd_obj.run()
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/command/build.py", line 136, in run
+          self.run_command(cmd_name)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/cmd.py", line 313, in run_command
+          self.distribution.run_command(command)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/dist.py", line 1214, in run_command
+          super().run_command(command)
+        File "/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/dist.py", line 986, in run_command
+          cmd_obj.run()
+        File "/tmp/vsc43810/easybuild/build/dmtree/0.1.8/GCCcore-11.3.0/dm-tree-0.1.8/setup.py", line 70, in run
+          self._check_build_environment()
+        File "/tmp/vsc43810/easybuild/build/dmtree/0.1.8/GCCcore-11.3.0/dm-tree-0.1.8/setup.py", line 80, in _check_build_environment
+          raise RuntimeError(
+      RuntimeError: CMake must be installed to build the following extensions: _tree
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: legacy-install-failure
+
+ Encountered error while trying to install package.
+> dm-tree
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for output from the failure.
