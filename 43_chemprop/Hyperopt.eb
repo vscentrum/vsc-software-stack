@@ -1,0 +1,32 @@
+easyblock = 'PythonBundle'
+
+name = 'Hyperopt'
+version = '0.2.7'
+
+homepage = 'http://hyperopt.github.io/hyperopt/'
+description = """hyperopt is a Python library for optimizing over awkward search spaces with real-valued,
+ discrete, and conditional dimensions."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('networkx', '2.8.4'),
+    ('tqdm', '4.64.0'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('cloudpickle', '2.2.0', {
+    }),
+    ('py4j', '0.10.9.7', {
+    }),
+    ('hyperopt', version, {
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'lib'
