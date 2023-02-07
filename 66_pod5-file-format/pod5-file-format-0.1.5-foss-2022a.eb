@@ -42,16 +42,6 @@ exts_default_options = {
     'sanity_pip_check': True,
 }
 
-  # iso8601==1.1.0
-  # jsonschema==4.17.3
-  #   attrs==22.2.0
-  #   pyrsistent==0.19.3
-  # lib-pod5==0.1.5
-  # more-itertools==9.0.0
-  # pytz==2022.4
-  # vbz-h5py-plugin==1.0.1
-  #   h5py==3.7.0
-
 exts_list = [
     # ('editables', '0.3'),
     # ('packaging', '23.0'),
@@ -72,32 +62,43 @@ exts_list = [
     # ('h5py', '3.8.0'),
     # ('vbz_h5py_plugin','1.0.1'),
 
-    ('attrs', '22.2.0'),
-    ('pyrsistent', '0.19.3'),
-    ('jsonschema', '4.17.3'),
-    ('h5py', '3.7.0'),
-    ('vbz-h5py-plugin', '1.0.1'),
-    ('iso8601', '1.1.0'),
-    ('more-itertools, 9.0.0'),
-    ('pytz', '2022.4'),
+    # ('attrs', '22.2.0'),
+    # # ('pyrsistent', '0.19.3'),
+    # # ('jsonschema', '4.17.3'),
+    # ('h5py', '3.7.0'),
+    # ('vbz_h5py_plugin', '1.0.1'),
+    # ('iso8601', '1.1.0'),
+    # # ('more-itertools, 9.0.0'),
+    # # ('pytz', '2022.4'),
 
-    ('lib-pod5', version, {
-        'source_urls': source_urls,
-        'sources': sources,
-        'start_dir': 'python/lib_pod5',
-        'checksums': ['9201450fd1633343e99b90d0f3a066f722af3e864a7023f60f4e62cb55a61e44'],
-        'modulename': 'lib-pod5',
+    ('attrs', '22.2.0', {
+        'checksums': ['c9227bfc2f01993c03f68db37d1d15c9690188323c067c641f1a35ca58185f99'],
     }),
-    ('pod5', version, {
-        'source_urls': source_urls,
-        'sources': sources,
-        'start_dir': 'python/pod5',
-        'checksums': ['9201450fd1633343e99b90d0f3a066f722af3e864a7023f60f4e62cb55a61e44'],
+    ('h5py', '3.7.0', {
+        'checksums': ['3fcf37884383c5da64846ab510190720027dca0768def34dd8dcb659dbe5cbf3'],
     }),
+    ('vbz_h5py_plugin', '1.0.1', {
+        'checksums': ['c784458bb0aad6303474cb2f10956179116b35555803fd1154eb4ef362519341'],
+    }),
+    ('iso8601', '1.1.0', {
+        'checksums': ['32811e7b81deee2063ea6d2e94f8819a86d1f3811e49d23623a41fa832bef03f'],
+    }),
+
+    # ('pod5', version, {
+    #     'source_urls': source_urls,
+    #     'sources': sources,
+    #     'start_dir': 'python/pod5',
+    #     'checksums': ['9201450fd1633343e99b90d0f3a066f722af3e864a7023f60f4e62cb55a61e44'],
+    # }),
 ]
 
-# configopts = ' -DBUILD_PYTHON_WHEEL=OFF -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a"'
-configopts = ' -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a"'
+# postinstallcmds = # TODO
+
+installopts = " && export XDG_CACHE_HOME=%(builddir)s && cd %(builddir)s && "
+# installopts += "pip install --no-deps --ignore-installed --prefix %(installdir)s lib_pod5-%(version)s-*.whl"
+installopts += "pip install --no-deps --ignore-installed --prefix %(installdir)s $(ls %(installdir)s/lib_pod5-*.whl)"
+
+configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a"'
 
 # sanity_check_commands = [""]
 
