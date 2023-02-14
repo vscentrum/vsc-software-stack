@@ -2,7 +2,7 @@
 easyblock = 'PythonPackage'
 
 name = 'scib'
-version = '1.1.1'
+version = '1.1.3'
 
 homepage = 'https://github.com/theislab/scib'
 description = "Benchmarking atlas-level data integration in single-cell genomics."
@@ -10,7 +10,6 @@ description = "Benchmarking atlas-level data integration in single-cell genomics
 toolchain = {'name': 'foss', 'version': '2022a'}
 
 sources = [SOURCE_TAR_GZ]
-checksums = ['84bcebe08c956b86d887ab60a3efaa783aa56113d523d953f6c4fff40f9dc58a']
 
 dependencies = [
     ('Python', '3.10.4'),
@@ -34,6 +33,5 @@ sanity_pip_check = True
 download_dep_fail = True
 
 preinstallopts = "sed -i 's|igraph>=0.10|igraph>=0.9.8|g' setup.cfg && "
-preinstallopts += "sed -i 's|louvain>=0.8||g' setup.cfg && "
 
 moduleclass = 'data'
