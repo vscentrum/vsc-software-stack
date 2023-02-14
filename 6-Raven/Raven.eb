@@ -8,19 +8,9 @@ description = "Raven is a de novo genome assembler for long uncorrected reads."
 
 toolchain = {'name': 'GCC', 'version': '11.2.0'}
 
-local_bioparser_version = '3.0.15'
-
 source_urls = ["https://github.com/lbcb-sci/raven/archive/refs/tags/"]
-sources = [
-    {
-        'source_urls': ['https://github.com/lbcb-sci/raven/archive/refs/tags/'],
-        'filename': '%(version)s.tar.gz',
-    },
-    {
-        'source_urls': ['https://github.com/rvaser/bioparser/archive/refs/tags/'],
-        'filename': '%s.tar.gz' % local_bioparser_version,
-    }
-]
+sources = ["%(version)s.tar.gz"]
+checksums = ['00009e9027761fa28313db4e2b5c5f40ebc10e6631b43b755e321ac6bbcc2c06']
 
 builddependencies = [
     ('CMake', '3.22.1'),
@@ -28,16 +18,13 @@ builddependencies = [
 ]
 
 preinstallopts = "export CMAKE_BUILD_PARALLEL_LEVEL=%(parallel)s && "
-configopts = ['-DPYBIND11_FINDPYTHON=ON -DRAVEN_BUILD_EXE=1 -G Ninja ']
+configopts = '-DRAVEN_BUILD_EXE=1 -G Ninja '
+configopts += '-DPython3_EXECUTABLE=$EBROOTPYTHON/bin/python '
+
 
 dependencies = [
     ('Python', '3.9.6'),
     ('zlib', '1.2.11'),
-    ('Racon', '1.5.0', '-library'),
-    #('bioparser', '3.0.15'),
-    ('Cereal', '1.3.0', '', True),
-    ('pybind11', '2.7.1'),
-    ('googletest', '1.11.0'),
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -54,7 +41,8 @@ exts_list = [
         'sources': ['%(version)s.tar.gz'],
         'checksums': ['00009e9027761fa28313db4e2b5c5f40ebc10e6631b43b755e321ac6bbcc2c06'],
         'preinstallopts': 'sed -i \'s|cmake_args += \["-GNinja"\]|cmake_args += \["-GNinja", \
-	            "-DPYBIND11_FINDPYTHON=ON", "-DPython_FIND_STRATEGY=LOCATION"\]|\' setup.py && '
+            "-DPYBIND11_FINDPYTHON=ON", "-DPython_FIND_STRATEGY=LOCATION",\
+            "-DPython3_EXECUTABLE=$EBROOTPYTHON/bin/python"\]|\' setup.py && '
     }),
 ]
 
@@ -65,6 +53,9 @@ sanity_check_paths = {
     'dirs': []
 }
 
-sanity_check_commands = ["pip check"]
+sanity_check_commands = [
+    "pip check",
+    "raven --help"
+]
 
 moduleclass = "bio"

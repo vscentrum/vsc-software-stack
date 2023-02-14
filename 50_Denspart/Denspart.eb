@@ -1,0 +1,25 @@
+easyblock = 'PythonPackage'
+
+name = 'DensPart'
+version = '20220603'
+local_commit = '9bfd1e2'
+
+homepage = 'https://github.com/theochem/denspart'
+description = 'Atoms-in-molecules density partitioning schemes based on stockholder recipe'
+
+toolchain = {'name': 'intel', 'version': '2021b'}
+
+source_urls = ['https://github.com/theochem/denspart/archive/']
+sources = ['%s.tar.gz' % local_commit]
+
+dependencies = {
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('grid', '20220610'),
+}
+
+use_pip = True
+sanity_pip_check = True
+download_dep_fail = True
+
+moduleclass = "chem"
