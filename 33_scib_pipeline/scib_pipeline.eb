@@ -2,9 +2,9 @@
 easyblock = 'PythonBundle'
 
 name = 'scib-pipeline'
-version = '0.2.0'
-# version = '20221014'
-# local_commit = 'b2ddba53016fb0574c37fed0c45cc0c490bdac7c'
+# version = '0.2.0'
+version = '20221014'
+local_commit = 'b2ddba53016fb0574c37fed0c45cc0c490bdac7c'
 
 homepage = 'https://github.com/theislab/scib-pipeline'
 description = "Pipeline for benchmarking atlas-level single-cell integration."
@@ -46,8 +46,9 @@ dependencies = [
 use_pip = True
 sanity_pip_check = True
 
-local_preinstallopts = "sed -i 's|igraph>=0.10|igraph>=0.9.8|g' setup.cfg && "
-local_preinstallopts += "sed -i 's|louvain>=0.8||g' setup.cfg && "
+local_preinstallopts = ""
+# local_preinstallopts += "sed -i 's|igraph>=0.10|igraph>=0.9.8|g' setup.cfg && "
+# local_preinstallopts += "sed -i 's|louvain>=0.8||g' setup.cfg && "
 
 # local_llvmlite_preinstallopts = "export LLVM_CONFIG=${EBROOTLLVM}/bin/llvm-config && "
 # local_llvmlite_preinstallopts += "export LLVMLITE_SKIP_LLVM_VERSION_CHECK=1 && "
@@ -62,10 +63,6 @@ local_anndata2ri_preinstallopts += """sed -i -e "s/dynamic = \['version'\]/versi
 exts_list = [
     ('anndata', '0.8.0', {
     }),
-    # dateutil and click are in Python EC already
-    # ('python-dateutil', '2.8.2'),
-    # ('click', '8.1.3'),
-    # ('hatchling', '1.8.1'),
     ('anndata2ri', '1.1', {
         'preinstallopts': local_anndata2ri_preinstallopts
     }),
@@ -98,20 +95,15 @@ exts_list = [
         }]}
     ),
     (name, version, {
-        'source_tmpl': '%(version)s.tar.gz',
+        # 'source_tmpl': '%(version)s.tar.gz',
+        'source_tmpl': '%s.tar.gz' % local_commit,
         'source_urls': ['https://github.com/theislab/scib-pipeline/archive/'],
-        # 'sources': [
-        #     {
-        #         'download_filename': '%s.tar.gz' % local_commit,
-        #         'filename': 'scib-pipeline-%s.tar.gz' % version
-        #     }
-        # ],
+        'patches': ['scib-pipeline.patch'],
         'preinstallopts': local_preinstallopts,
+        'skipsteps': ['install'],
         'postinstallcmds': [
             'mkdir %(installdir)s/pipeline',
-            'cp config.yaml %(installdir)s/pipeline',
-            'cp -r scripts %(installdir)s/pipeline',
-            'cp -r Snakefile %(installdir)s/pipeline',
+            'cp -r ./* %(installdir)s/pipeline',
         ],
         'modulename': 'scib',
     }),

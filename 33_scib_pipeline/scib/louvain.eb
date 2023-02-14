@@ -1,0 +1,38 @@
+# author: Denis Kristak (INUITS)
+easyblock = 'PythonBundle'
+
+name = 'louvain'
+version = '0.8.0'
+
+homepage = 'https://pypi.org/project/louvain/'
+description = "louvain is a general algorithm for methods of community detection in large networks."
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('python-igraph', '0.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('flex', '2.6.4'),
+    ('Bison', '3.8.2'),
+    ('GLib', '2.72.1'),
+]
+local_louvain_preinstallopts = 'sed -i "s@EBROOTIGRAPH@$EBROOTIGRAPH@g" setup.py && '
+# local_louvain_preinstallopts += 'sed -i "s@EBROOTGCCCORE@$EBROOTGCCCORE@g" setup.py && '
+exts_list = [
+    ('ddt', '1.6.0', {
+        'source_urls': ['https://pypi.python.org/packages/source/d/ddt/'],
+    }),
+    (name, version, {
+        'patches': ['louvain-use_system_igraph.patch'],
+        'preinstallopts': local_louvain_preinstallopts,
+        'modulename': False,
+    }),
+]
+
+use_pip = True
+download_dep_fail = True
+sanity_pip_check = True
+
+
+moduleclass = 'lib'
