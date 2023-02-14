@@ -1,196 +1,32 @@
+/apps/gent/RHEL8/haswell-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/paramiko/transport.py:236: CryptographyDeprecationWarning: Blowfish has been deprecated
+  "class": algorithms.Blowfish,
 Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
 Job stats:
-job                       count    min threads    max threads
-----------------------  -------  -------------  -------------
-all                           1              1              1
-convert_RDS_h5ad              5              1              1
-embeddings                    1              1              1
-embeddings_single            13              1              1
-integration_prepare           2              1              1
-integration_run_python        6              1              1
-integration_run_r             5              1              1
-metrics                       1              1              1
-metrics_single               13              1              1
-total                        47              1              1
+job                  count    min threads    max threads
+-----------------  -------  -------------  -------------
+all                      1              1              1
+convert_RDS_h5ad         5              1              1
+embeddings               1              1              1
+embeddings_single        7              1              1
+integration_run_r        5              1              1
+metrics                  1              1              1
+metrics_single          13              1              1
+total                   33              1              1
 
+Select jobs to execute...
 
-[Tue Feb  7 11:47:25 2023]
-Job 2: 
-        Preparing adata
-        wildcards: hvg=full_feature,prep=h5ad,scaling=unscaled,scenario=test_data_r4
-        parameters: batch 0    conda run -n scib-pipeline-R4.0
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
+[Tue Feb 14 08:31:33 2023]
+Job 21: 
+        Metrics hvg=full_feature,method=combat,o_type=full,scaling=unscaled,scenario=test_data_r4
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/combat_full.csv
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/combat_full.csv
 
 
-[Tue Feb  7 11:47:25 2023]
-Job 10: 
-        Preparing adata
-        wildcards: hvg=full_feature,prep=RDS,scaling=unscaled,scenario=test_data_r4
-        parameters: batch 0  -r -l conda run -n scib-pipeline-R4.0
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.RDS
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.RDS
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 4: 
-        Run scanorama on unscaled data
-        feature selection: full_feature
-        dataset: test_data_r4
-        command: conda run --no-capture-output -n scib-pipeline-R4.0 python
-        hvgs: 
-        cell type option: 
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 6: 
-        Run scgen on unscaled data
-        feature selection: full_feature
-        dataset: test_data_r4
-        command: conda run --no-capture-output -n scib-pipeline-R4.0 python
-        hvgs: 
-        cell type option: -c celltype
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scgen.h5ad
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scgen.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 12: 
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/harmony.RDS
-        Run harmony on unscaled data
-        feature selection: full_feature
-        dataset: test_data_r4
-        command: conda run --no-capture-output -n scib-R4.0 Rscript
-        hvgs: 
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/harmony.RDS; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.RDS
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 14: 
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/liger.RDS
-        Run liger on unscaled data
-        feature selection: full_feature
-        dataset: test_data_r4
-        command: conda run --no-capture-output -n scib-R4.0 Rscript
-        hvgs: 
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/liger.RDS; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.RDS
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 16: 
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seurat.RDS
-        Run seurat on unscaled data
-        feature selection: full_feature
-        dataset: test_data_r4
-        command: conda run --no-capture-output -n scib-R4.0 Rscript
-        hvgs: 
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seurat.RDS; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.RDS
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 1: 
-        Run bbknn on unscaled data
-        feature selection: full_feature
-        dataset: test_data_r4
-        command: conda run --no-capture-output -n scib-pipeline-R4.0 python
-        hvgs: 
-        cell type option: 
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 18: 
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seuratrpca.RDS
-        Run seuratrpca on unscaled data
-        feature selection: full_feature
-        dataset: test_data_r4
-        command: conda run --no-capture-output -n scib-R4.0 Rscript
-        hvgs: 
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seuratrpca.RDS; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.RDS
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 3: 
-        Run combat on unscaled data
-        feature selection: full_feature
-        dataset: test_data_r4
-        command: conda run --no-capture-output -n scib-pipeline-R4.0 python
-        hvgs: 
-        cell type option: 
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 5: 
-        Run scanvi on unscaled data
-        feature selection: full_feature
-        dataset: test_data_r4
-        command: conda run --no-capture-output -n scib-pipeline-R4.0 python
-        hvgs: 
-        cell type option: -c celltype
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanvi.h5ad
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanvi.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 7: 
-        Run scvi on unscaled data
-        feature selection: full_feature
-        dataset: test_data_r4
-        command: conda run --no-capture-output -n scib-pipeline-R4.0 python
-        hvgs: 
-        cell type option: 
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scvi.h5ad
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scvi.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 9: 
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/fastmnn.RDS
-        Run fastmnn on unscaled data
-        feature selection: full_feature
-        dataset: test_data_r4
-        command: conda run --no-capture-output -n scib-R4.0 Rscript
-        hvgs: 
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/fastmnn.RDS; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.RDS
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 15: 
-        Convert integrated data from seurat into h5ad
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seurat.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seurat.RDS
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 34: 
-        SAVE EMBEDDING
-        Scenario: test_data_r4 unscaled full_feature
-        Method: bbknn knn
-        Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad
-        Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/bbknn_knn.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/bbknn_knn_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/bbknn_knn_labels.png
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/bbknn_knn.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
+[Tue Feb 14 08:31:33 2023]
 Job 38: 
         SAVE EMBEDDING
         Scenario: test_data_r4 unscaled full_feature
@@ -198,298 +34,500 @@ Job 38:
         Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanvi.h5ad
         Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanvi_embed.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanvi_embed_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanvi_embed_labels.png
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanvi_embed.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanvi.h5ad
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanvi_embed.csv
 
 
-[Tue Feb  7 11:47:25 2023]
+[Tue Feb 14 08:31:33 2023]
 Job 23: 
-        Metrics hvg=full_feature,method=scanorama,o_type=embed,scaling=unscaled,scenario=test_data_r4
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_embed.csv
+        Metrics hvg=full_feature,method=scanorama,o_type=full,scaling=unscaled,scenario=test_data_r4
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_full.csv
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_embed.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_full.csv
 
 
-[Tue Feb  7 11:47:25 2023]
-Job 8: 
-        Convert integrated data from fastmnn into h5ad
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/fastmnn.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/fastmnn.RDS
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 35: 
-        SAVE EMBEDDING
-        Scenario: test_data_r4 unscaled full_feature
-        Method: combat full
-        Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad
-        Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/combat_full.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/combat_full_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/combat_full_labels.png
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/combat_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 20: 
-        Metrics hvg=full_feature,method=bbknn,o_type=knn,scaling=unscaled,scenario=test_data_r4
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/bbknn_knn.csv
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/bbknn_knn.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 39: 
-        SAVE EMBEDDING
-        Scenario: test_data_r4 unscaled full_feature
-        Method: scgen full
-        Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scgen.h5ad
-        Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scgen_full.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scgen_full_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scgen_full_labels.png
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scgen_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scgen.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 24: 
-        Metrics hvg=full_feature,method=scanvi,o_type=embed,scaling=unscaled,scenario=test_data_r4
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanvi_embed.csv
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanvi_embed.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanvi.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 13: 
-        Convert integrated data from liger into h5ad
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/liger.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/liger.RDS
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 17: 
-        Convert integrated data from seuratrpca into h5ad
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seuratrpca.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seuratrpca.RDS
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 36: 
-        SAVE EMBEDDING
-        Scenario: test_data_r4 unscaled full_feature
-        Method: scanorama full
-        Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
-        Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanorama_full.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanorama_full_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanorama_full_labels.png
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanorama_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 21: 
-        Metrics hvg=full_feature,method=combat,o_type=full,scaling=unscaled,scenario=test_data_r4
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/combat_full.csv
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/combat_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 40: 
-        SAVE EMBEDDING
-        Scenario: test_data_r4 unscaled full_feature
-        Method: scvi embed
-        Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scvi.h5ad
-        Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scvi_embed.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scvi_embed_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scvi_embed_labels.png
-        
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scvi_embed.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scvi.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
+[Tue Feb 14 08:31:33 2023]
 Job 25: 
         Metrics hvg=full_feature,method=scgen,o_type=full,scaling=unscaled,scenario=test_data_r4
         output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scgen_full.csv
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scgen_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scgen.h5ad
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scgen_full.csv
 
 
-[Tue Feb  7 11:47:25 2023]
-Job 37: 
-        SAVE EMBEDDING
-        Scenario: test_data_r4 unscaled full_feature
-        Method: scanorama embed
-        Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
-        Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanorama_embed.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanorama_embed_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanorama_embed_labels.png
+[Tue Feb 14 08:31:33 2023]
+Job 20: 
+        Metrics hvg=full_feature,method=bbknn,o_type=knn,scaling=unscaled,scenario=test_data_r4
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/bbknn_knn.csv
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanorama_embed.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/bbknn_knn.csv
 
 
-[Tue Feb  7 11:47:25 2023]
+[Tue Feb 14 08:31:33 2023]
 Job 22: 
-        Metrics hvg=full_feature,method=scanorama,o_type=full,scaling=unscaled,scenario=test_data_r4
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_full.csv
+        Metrics hvg=full_feature,method=scanorama,o_type=embed,scaling=unscaled,scenario=test_data_r4
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_embed.csv
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_embed.csv
 
 
-[Tue Feb  7 11:47:25 2023]
+[Tue Feb 14 08:31:33 2023]
+Job 24: 
+        Metrics hvg=full_feature,method=scanvi,o_type=embed,scaling=unscaled,scenario=test_data_r4
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanvi_embed.csv
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanvi_embed.csv
+
+
+[Tue Feb 14 08:31:33 2023]
 Job 26: 
         Metrics hvg=full_feature,method=scvi,o_type=embed,scaling=unscaled,scenario=test_data_r4
         output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scvi_embed.csv
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scvi_embed.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scvi.h5ad
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scvi_embed.csv
 
-
-[Tue Feb  7 11:47:25 2023]
-Job 11: 
-        Convert integrated data from harmony into h5ad
+Options
+    type:	knn
+    batch_key:	batch
+    label_key:	celltype
+    assay:	expression
+    organism:	mouse
+    n_hvgs:	None
+    setup:	bbknn_knn
+    optimised clustering results:	/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/bbknn_knn_nmi.txt
+reading adata before integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts'
+    uns: 'iroot', 'log1p'
+    layers: 'counts'
+reading adata after integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts'
+    uns: 'iroot', 'log1p', 'neighbors', 'pca'
+    obsm: 'X_pca'
+    varm: 'PCs'
+    layers: 'counts'
+    obsp: 'connectivities', 'distances'
+reduce integrated data:
+    HVG selection:	None
+    compute neighbourhood graph:	False
+    precompute PCA:	False
+computing metrics
+type:	knn
+    ASW:	False
+    NMI:	True
+    ARI:	True
+    PCR:	False
+    cell cycle:	False
+    iso lab F1:	True
+    iso lab ASW:	False
+    HVGs:	False
+    kBET:	True
+    LISI:	True
+    Trajectory:	False
+Clustering...
+Traceback (most recent call last):
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/scripts/metrics/metrics.py", line 239, in <module>
+    results = scib.me.metrics(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/metrics.py", line 293, in metrics
+    res_max, nmi_max, nmi_all = opt_louvain(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Deprecated/1.2.13-foss-2022a/lib/python3.10/site-packages/deprecated/classic.py", line 285, in wrapper_function
+    return wrapped_(*args_, **kwargs_)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/clustering.py", line 203, in opt_louvain
+    sc.tl.louvain(adata, resolution=res, key_added=cluster_key)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scanpy/1.9.1-foss-2022a/lib/python3.10/site-packages/scanpy/tools/_louvain.py", line 138, in louvain
+    import louvain
+ModuleNotFoundError: No module named 'louvain'
+[Tue Feb 14 08:31:37 2023]
+Error in rule metrics_single:
+    jobid: 20
+    input: data/adata_norm.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad
+    output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/bbknn_knn.csv
+    shell:
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/harmony.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/harmony.RDS
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 30: 
-        Metrics hvg=full_feature,method=liger,o_type=embed,scaling=unscaled,scenario=test_data_r4
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/liger_embed.csv
+        python scripts/metrics/metrics.py -u data/adata_norm.h5ad -i /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad          -o /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/bbknn_knn.csv -m bbknn          -b batch -l celltype --type knn          --hvgs 0 --organism mouse --assay expression -v
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/liger_embed.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/liger.h5ad
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
 
-
-[Tue Feb  7 11:47:25 2023]
-Job 32: 
-        Metrics hvg=full_feature,method=seuratrpca,o_type=full,scaling=unscaled,scenario=test_data_r4
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/seuratrpca_full.csv
+Options
+    type:	full
+    batch_key:	batch
+    label_key:	celltype
+    assay:	expression
+    organism:	mouse
+    n_hvgs:	None
+    setup:	scgen_full
+    optimised clustering results:	/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scgen_full_nmi.txt
+reading adata before integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts'
+    uns: 'iroot', 'log1p'
+    layers: 'counts'
+reading adata after integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts', '_scvi_batch', '_scvi_labels'
+    uns: '_scvi_manager_uuid', '_scvi_uuid'
+    obsm: 'corrected_latent', 'latent'
+reduce integrated data:
+    HVG selection:	None
+    compute neighbourhood graph:	True on X_pca
+    precompute PCA:	True
+PCA
+Nearest Neigbours
+computing metrics
+type:	full
+    ASW:	True
+    NMI:	True
+    ARI:	True
+    PCR:	True
+    cell cycle:	True
+    iso lab F1:	True
+    iso lab ASW:	True
+    HVGs:	True
+    kBET:	True
+    LISI:	True
+    Trajectory:	False
+Clustering...
+Traceback (most recent call last):
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/scripts/metrics/metrics.py", line 239, in <module>
+    results = scib.me.metrics(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/metrics.py", line 293, in metrics
+    res_max, nmi_max, nmi_all = opt_louvain(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Deprecated/1.2.13-foss-2022a/lib/python3.10/site-packages/deprecated/classic.py", line 285, in wrapper_function
+    return wrapped_(*args_, **kwargs_)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/clustering.py", line 203, in opt_louvain
+    sc.tl.louvain(adata, resolution=res, key_added=cluster_key)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scanpy/1.9.1-foss-2022a/lib/python3.10/site-packages/scanpy/tools/_louvain.py", line 138, in louvain
+    import louvain
+ModuleNotFoundError: No module named 'louvain'
+Options
+    type:	embed
+    batch_key:	batch
+    label_key:	celltype
+    assay:	expression
+    organism:	mouse
+    n_hvgs:	None
+    setup:	scanvi_embed
+    optimised clustering results:	/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanvi_embed_nmi.txt
+reading adata before integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts'
+    uns: 'iroot', 'log1p'
+    layers: 'counts'
+reading adata after integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts'
+    uns: 'iroot', 'log1p'
+    obsm: 'X_emb'
+    layers: 'counts'
+reduce integrated data:
+    HVG selection:	None
+    compute neighbourhood graph:	True on X_emb
+    precompute PCA:	True
+PCA
+Nearest Neigbours
+computing metrics
+type:	embed
+    ASW:	True
+    NMI:	True
+    ARI:	True
+    PCR:	True
+    cell cycle:	True
+    iso lab F1:	True
+    iso lab ASW:	True
+    HVGs:	False
+    kBET:	True
+    LISI:	True
+    Trajectory:	False
+Clustering...
+Traceback (most recent call last):
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/scripts/metrics/metrics.py", line 239, in <module>
+    results = scib.me.metrics(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/metrics.py", line 293, in metrics
+    res_max, nmi_max, nmi_all = opt_louvain(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Deprecated/1.2.13-foss-2022a/lib/python3.10/site-packages/deprecated/classic.py", line 285, in wrapper_function
+    return wrapped_(*args_, **kwargs_)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/clustering.py", line 203, in opt_louvain
+    sc.tl.louvain(adata, resolution=res, key_added=cluster_key)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scanpy/1.9.1-foss-2022a/lib/python3.10/site-packages/scanpy/tools/_louvain.py", line 138, in louvain
+    import louvain
+ModuleNotFoundError: No module named 'louvain'
+Options
+    type:	embed
+    batch_key:	batch
+    label_key:	celltype
+    assay:	expression
+    organism:	mouse
+    n_hvgs:	None
+    setup:	scvi_embed
+    optimised clustering results:	/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scvi_embed_nmi.txt
+reading adata before integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts'
+    uns: 'iroot', 'log1p'
+    layers: 'counts'
+reading adata after integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts'
+    uns: 'iroot', 'log1p'
+    obsm: 'X_emb'
+    layers: 'counts'
+reduce integrated data:
+    HVG selection:	None
+    compute neighbourhood graph:	True on X_emb
+    precompute PCA:	True
+PCA
+Nearest Neigbours
+computing metrics
+type:	embed
+    ASW:	True
+    NMI:	True
+    ARI:	True
+    PCR:	True
+    cell cycle:	True
+    iso lab F1:	True
+    iso lab ASW:	True
+    HVGs:	False
+    kBET:	True
+    LISI:	True
+    Trajectory:	False
+Clustering...
+Traceback (most recent call last):
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/scripts/metrics/metrics.py", line 239, in <module>
+    results = scib.me.metrics(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/metrics.py", line 293, in metrics
+    res_max, nmi_max, nmi_all = opt_louvain(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Deprecated/1.2.13-foss-2022a/lib/python3.10/site-packages/deprecated/classic.py", line 285, in wrapper_function
+    return wrapped_(*args_, **kwargs_)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/clustering.py", line 203, in opt_louvain
+    sc.tl.louvain(adata, resolution=res, key_added=cluster_key)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scanpy/1.9.1-foss-2022a/lib/python3.10/site-packages/scanpy/tools/_louvain.py", line 138, in louvain
+    import louvain
+ModuleNotFoundError: No module named 'louvain'
+[Tue Feb 14 08:31:45 2023]
+Error in rule metrics_single:
+    jobid: 25
+    input: data/adata_norm.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scgen.h5ad
+    output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scgen_full.csv
+    shell:
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/seuratrpca_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seuratrpca.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 45: 
-        SAVE EMBEDDING
-        Scenario: test_data_r4 unscaled full_feature
-        Method: seurat full
-        Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seurat.h5ad
-        Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/seurat_full.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/seurat_full_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/seurat_full_labels.png
+        python scripts/metrics/metrics.py -u data/adata_norm.h5ad -i /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scgen.h5ad          -o /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scgen_full.csv -m scgen          -b batch -l celltype --type full          --hvgs 0 --organism mouse --assay expression -v
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/seurat_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seurat.h5ad
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
 
-
-[Tue Feb  7 11:47:25 2023]
-Job 42: 
-        SAVE EMBEDDING
-        Scenario: test_data_r4 unscaled full_feature
-        Method: fastmnn embed
-        Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/fastmnn.h5ad
-        Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/fastmnn_embed.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/fastmnn_embed_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/fastmnn_embed_labels.png
+[Tue Feb 14 08:31:46 2023]
+Error in rule metrics_single:
+    jobid: 24
+    input: data/adata_norm.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanvi.h5ad
+    output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanvi_embed.csv
+    shell:
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/fastmnn_embed.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/fastmnn.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 27: 
-        Metrics hvg=full_feature,method=fastmnn,o_type=full,scaling=unscaled,scenario=test_data_r4
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/fastmnn_full.csv
+        python scripts/metrics/metrics.py -u data/adata_norm.h5ad -i /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanvi.h5ad          -o /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanvi_embed.csv -m scanvi          -b batch -l celltype --type embed          --hvgs 0 --organism mouse --assay expression -v
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/fastmnn_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/fastmnn.h5ad
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
 
-
-[Tue Feb  7 11:47:25 2023]
-Job 44: 
-        SAVE EMBEDDING
-        Scenario: test_data_r4 unscaled full_feature
-        Method: liger embed
-        Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/liger.h5ad
-        Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/liger_embed.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/liger_embed_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/liger_embed_labels.png
+[Tue Feb 14 08:31:46 2023]
+Error in rule metrics_single:
+    jobid: 26
+    input: data/adata_norm.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scvi.h5ad
+    output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scvi_embed.csv
+    shell:
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/liger_embed.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/liger.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 29: 
-        Metrics hvg=full_feature,method=harmony,o_type=embed,scaling=unscaled,scenario=test_data_r4
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/harmony_embed.csv
+        python scripts/metrics/metrics.py -u data/adata_norm.h5ad -i /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scvi.h5ad          -o /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scvi_embed.csv -m scvi          -b batch -l celltype --type embed          --hvgs 0 --organism mouse --assay expression -v
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/harmony_embed.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/harmony.h5ad
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
 
-
-[Tue Feb  7 11:47:25 2023]
-Job 31: 
-        Metrics hvg=full_feature,method=seurat,o_type=full,scaling=unscaled,scenario=test_data_r4
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/seurat_full.csv
+Options
+    type:	full
+    batch_key:	batch
+    label_key:	celltype
+    assay:	expression
+    organism:	mouse
+    n_hvgs:	None
+    setup:	combat_full
+    optimised clustering results:	/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/combat_full_nmi.txt
+reading adata before integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts'
+    uns: 'iroot', 'log1p'
+    layers: 'counts'
+reading adata after integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts'
+    uns: 'iroot', 'log1p'
+    layers: 'counts'
+reduce integrated data:
+    HVG selection:	None
+    compute neighbourhood graph:	True on X_pca
+    precompute PCA:	True
+PCA
+Nearest Neigbours
+computing metrics
+type:	full
+    ASW:	True
+    NMI:	True
+    ARI:	True
+    PCR:	True
+    cell cycle:	True
+    iso lab F1:	True
+    iso lab ASW:	True
+    HVGs:	True
+    kBET:	True
+    LISI:	True
+    Trajectory:	False
+Clustering...
+Traceback (most recent call last):
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/scripts/metrics/metrics.py", line 239, in <module>
+    results = scib.me.metrics(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/metrics.py", line 293, in metrics
+    res_max, nmi_max, nmi_all = opt_louvain(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Deprecated/1.2.13-foss-2022a/lib/python3.10/site-packages/deprecated/classic.py", line 285, in wrapper_function
+    return wrapped_(*args_, **kwargs_)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/clustering.py", line 203, in opt_louvain
+    sc.tl.louvain(adata, resolution=res, key_added=cluster_key)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scanpy/1.9.1-foss-2022a/lib/python3.10/site-packages/scanpy/tools/_louvain.py", line 138, in louvain
+    import louvain
+ModuleNotFoundError: No module named 'louvain'
+[Tue Feb 14 08:31:47 2023]
+Error in rule metrics_single:
+    jobid: 21
+    input: data/adata_norm.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad
+    output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/combat_full.csv
+    shell:
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/seurat_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seurat.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 46: 
-        SAVE EMBEDDING
-        Scenario: test_data_r4 unscaled full_feature
-        Method: seuratrpca full
-        Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seuratrpca.h5ad
-        Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/seuratrpca_full.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/seuratrpca_full_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/seuratrpca_full_labels.png
+        python scripts/metrics/metrics.py -u data/adata_norm.h5ad -i /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad          -o /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/combat_full.csv -m combat          -b batch -l celltype --type full          --hvgs 0 --organism mouse --assay expression -v
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/seuratrpca_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seuratrpca.h5ad
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
 
-
-[Tue Feb  7 11:47:25 2023]
-Job 41: 
-        SAVE EMBEDDING
-        Scenario: test_data_r4 unscaled full_feature
-        Method: fastmnn full
-        Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/fastmnn.h5ad
-        Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/fastmnn_full.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/fastmnn_full_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/fastmnn_full_labels.png
+Options
+    type:	full
+    batch_key:	batch
+    label_key:	celltype
+    assay:	expression
+    organism:	mouse
+    n_hvgs:	None
+    setup:	scanorama_full
+    optimised clustering results:	/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_full_nmi.txt
+reading adata before integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts'
+    uns: 'iroot', 'log1p'
+    layers: 'counts'
+reading adata after integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts'
+    obsm: 'X_emb', 'X_scanorama'
+reduce integrated data:
+    HVG selection:	None
+    compute neighbourhood graph:	True on X_pca
+    precompute PCA:	True
+PCA
+Nearest Neigbours
+computing metrics
+type:	full
+    ASW:	True
+    NMI:	True
+    ARI:	True
+    PCR:	True
+    cell cycle:	True
+    iso lab F1:	True
+    iso lab ASW:	True
+    HVGs:	True
+    kBET:	True
+    LISI:	True
+    Trajectory:	False
+Clustering...
+Traceback (most recent call last):
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/scripts/metrics/metrics.py", line 239, in <module>
+    results = scib.me.metrics(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/metrics.py", line 293, in metrics
+    res_max, nmi_max, nmi_all = opt_louvain(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Deprecated/1.2.13-foss-2022a/lib/python3.10/site-packages/deprecated/classic.py", line 285, in wrapper_function
+    return wrapped_(*args_, **kwargs_)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/clustering.py", line 203, in opt_louvain
+    sc.tl.louvain(adata, resolution=res, key_added=cluster_key)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scanpy/1.9.1-foss-2022a/lib/python3.10/site-packages/scanpy/tools/_louvain.py", line 138, in louvain
+    import louvain
+ModuleNotFoundError: No module named 'louvain'
+Options
+    type:	embed
+    batch_key:	batch
+    label_key:	celltype
+    assay:	expression
+    organism:	mouse
+    n_hvgs:	None
+    setup:	scanorama_embed
+    optimised clustering results:	/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_embed_nmi.txt
+reading adata before integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts'
+    uns: 'iroot', 'log1p'
+    layers: 'counts'
+reading adata after integration
+AnnData object with n_obs × n_vars = 2730 × 3451
+    obs: 'paul15_clusters', 'celltype', 'batch', 'n_counts'
+    obsm: 'X_emb', 'X_scanorama'
+reduce integrated data:
+    HVG selection:	None
+    compute neighbourhood graph:	True on X_emb
+    precompute PCA:	True
+PCA
+Nearest Neigbours
+computing metrics
+type:	embed
+    ASW:	True
+    NMI:	True
+    ARI:	True
+    PCR:	True
+    cell cycle:	True
+    iso lab F1:	True
+    iso lab ASW:	True
+    HVGs:	False
+    kBET:	True
+    LISI:	True
+    Trajectory:	False
+Clustering...
+Traceback (most recent call last):
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/scripts/metrics/metrics.py", line 239, in <module>
+    results = scib.me.metrics(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/metrics.py", line 293, in metrics
+    res_max, nmi_max, nmi_all = opt_louvain(
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Deprecated/1.2.13-foss-2022a/lib/python3.10/site-packages/deprecated/classic.py", line 285, in wrapper_function
+    return wrapped_(*args_, **kwargs_)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib/1.1.1-foss-2022a/lib/python3.10/site-packages/scib/metrics/clustering.py", line 203, in opt_louvain
+    sc.tl.louvain(adata, resolution=res, key_added=cluster_key)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scanpy/1.9.1-foss-2022a/lib/python3.10/site-packages/scanpy/tools/_louvain.py", line 138, in louvain
+    import louvain
+ModuleNotFoundError: No module named 'louvain'
+[Tue Feb 14 08:31:56 2023]
+Error in rule metrics_single:
+    jobid: 23
+    input: data/adata_norm.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
+    output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_full.csv
+    shell:
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/fastmnn_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/fastmnn.h5ad
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 43: 
-        SAVE EMBEDDING
-        Scenario: test_data_r4 unscaled full_feature
-        Method: harmony embed
-        Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/harmony.h5ad
-        Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/harmony_embed.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/harmony_embed_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/harmony_embed_labels.png
+        python scripts/metrics/metrics.py -u data/adata_norm.h5ad -i /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad          -o /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_full.csv -m scanorama          -b batch -l celltype --type full          --hvgs 0 --organism mouse --assay expression -v
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/harmony_embed.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/harmony.h5ad
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
 
-
-[Tue Feb  7 11:47:25 2023]
-Job 28: 
-        Metrics hvg=full_feature,method=fastmnn,o_type=embed,scaling=unscaled,scenario=test_data_r4
-        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/fastmnn_embed.csv
+[Tue Feb 14 08:31:56 2023]
+Error in rule metrics_single:
+    jobid: 22
+    input: data/adata_norm.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
+    output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_embed.csv
+    shell:
         
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/fastmnn_embed.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/fastmnn.h5ad
+        python scripts/metrics/metrics.py -u data/adata_norm.h5ad -i /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad          -o /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_embed.csv -m scanorama          -b batch -l celltype --type embed          --hvgs 0 --organism mouse --assay expression -v
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
 
-
-[Tue Feb  7 11:47:25 2023]
-Job 33: Completed all embeddings
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/embeddings.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/combat_full.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/harmony_embed.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanorama_embed.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scgen_full.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/bbknn_knn.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/seuratrpca_full.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanvi_embed.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/seurat_full.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/fastmnn_embed.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/liger_embed.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/fastmnn_full.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scvi_embed.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/scanorama_full.csv
-
-
-[Tue Feb  7 11:47:25 2023]
-Job 19: Merge all metrics
-Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/metrics.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_full.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/fastmnn_full.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/combat_full.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/seurat_full.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scgen_full.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/bbknn_knn.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scvi_embed.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/fastmnn_embed.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/seuratrpca_full.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_embed.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/liger_embed.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/harmony_embed.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanvi_embed.csv
-
-
-[Tue Feb  7 11:47:25 2023]
-localrule all:
-    input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanvi.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scgen.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scvi.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/fastmnn.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/harmony.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/liger.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seurat.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seuratrpca.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/metrics.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/embeddings.csv
-    jobid: 0
-    reason: Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanvi.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/metrics.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/fastmnn.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/harmony.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/liger.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seurat.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scvi.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/R/seuratrpca.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/embeddings.csv, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scgen.h5ad
-    resources: tmpdir=/tmp
-
-Job stats:
-job                       count    min threads    max threads
-----------------------  -------  -------------  -------------
-all                           1              1              1
-convert_RDS_h5ad              5              1              1
-embeddings                    1              1              1
-embeddings_single            13              1              1
-integration_prepare           2              1              1
-integration_run_python        6              1              1
-integration_run_r             5              1              1
-metrics                       1              1              1
-metrics_single               13              1              1
-total                        47              1              1
-
-Reasons:
-    (check individual jobs above for details)
-    input files updated by another job:
-        all, convert_RDS_h5ad, embeddings, embeddings_single, integration_run_python, integration_run_r, metrics, metrics_single
-    missing output files:
-        convert_RDS_h5ad, embeddings, embeddings_single, integration_prepare, integration_run_python, integration_run_r, metrics, metrics_single
-
-This was a dry-run (flag -n). The order of jobs does not reflect the order of execution.
+Preparing dataset...
+Nearest Neigbours
+Calculating UMAP...
+Saving embedding plot for labels "celltype"...
+Saving embedding plot for batches "batch"...
+Saving embedding coordinates...
+[Tue Feb 14 08:31:59 2023]
+Finished job 38.
+1 of 33 steps (3%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2023-02-14T083133.226088.snakemake.log
