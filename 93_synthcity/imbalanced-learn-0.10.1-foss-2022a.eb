@@ -14,8 +14,11 @@ dependencies = [
     ('scikit-learn', '1.1.2'),
 ]
 
+sanity_pip_check = True
+use_pip = True
+
 exts_list = [
-    # to overwrite Python's requirement
+    # Python 3.10.4 uses joblib 1.1.0 but imbalanced-learn 0.10.1 needs joblib >=1.1.1
     ('joblib', '1.2.0', {
         'checksums': ['e1cee4a79e4af22881164f218d4311f60074197fb707e082e803b61f6d137018'],
     }),
@@ -24,9 +27,5 @@ exts_list = [
         'checksums': ['bc7609619ec3c38c442292928239ad3d10b5deb0af8a29c83822b7b57b319f8b'],
     }),
 ]
-
-use_pip = True
-
-sanity_pip_check = True
 
 moduleclass = 'tools'
