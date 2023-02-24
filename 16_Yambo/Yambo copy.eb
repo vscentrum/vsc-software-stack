@@ -20,13 +20,8 @@ sources = [
     '%(version)s.tar.gz',  # Yambo
     {
         'source_urls': ['https://github.com/yambo-code/yambo-libraries/archive/'],
-        'filename': '0.0.2.tar.gz',
+        'filename': '1.0.tar.gz',
         'extract_cmd': 'tar --strip-components=1 -xzf %s -C yambo-%(version)s/lib/yambo/',
-    },
-    {
-        'source_urls': ['https://github.com/yambo-code/yambo/files/783150/'],
-        'filename': 'libxc-2.2.3.tar.gz',
-        'extract_cmd': local_copy_cmd_pattern,
     },
     {
         'source_urls': ['https://github.com/yambo-code/yambo/files/962173/'],
@@ -46,8 +41,8 @@ dependencies = [
 
 with_configure = True
 
-configopts = 'FC=mpiifort F77=mpiifort CC=mpiicc '
-#configopts += '--prefix=%(builddir)s/%(namelower)s-%(version)s/ '
+configopts = 'FC=mpiifort CC=mpiicc '
+configopts += '--prefix=%(builddir)s/%(namelower)s-%(version)s/ '
 configopts += '--enable-open-mp --enable-hdf5-par-io '
 configopts += '--with-blas-libs="$LIBBLAS" '
 configopts += '--with-lapack-libs="$LIBLAPACK" --with-blacs-libs=mkl '
@@ -60,7 +55,7 @@ configopts += '--with-petsc-include="$EBROOTPETSC/include "'
 configopts += '--with-slepc-path="$EBROOTSLEPC" --with-libxc-path="$EBROOTLIBX" '
 configopts += '--enable-par-linalg --enable-slepc-linalg '
 
-buildopts = 'all && ls'
+buildopts = 'all && ls bin'
 
 parallel = 1
 

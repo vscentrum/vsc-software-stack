@@ -268,10 +268,7 @@ exts_list = [
         'source_urls': ['https://github.com/timholy/SnoopCompile.jl/archive/'],
         'preinstallopts': ('julia -e \'using Pkg;'
                         'Pkg.develop(PackageSpec(path="%(installdir)s/packages/SnoopCompile/SnoopCompileCore"));'
-                        'Pkg.build("SnoopCompileCore")\' && '
-                        'julia -e \'using Pkg;'
-                        'Pkg.develop(PackageSpec(path="%(installdir)s/packages/SnoopCompile/SnoopPrecompile"));'
-                        'Pkg.build("SnoopPrecompile")\' &&'),
+                        'Pkg.build("SnoopCompileCore")\'')
     }),
     ('RecipesBase', '1.0.2', {
         'source_urls': ['https://github.com/JuliaPlots/RecipesBase.jl/archive/'],
