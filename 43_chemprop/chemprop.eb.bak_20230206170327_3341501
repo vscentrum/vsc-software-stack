@@ -1,0 +1,42 @@
+easyblock = 'PythonBundle'
+
+name = 'chemprop'
+version = '1.5.2'
+
+homepage = 'https://github.com/chemprop/chemprop'
+description = 'Message Passing Neural Networks for Molecule Property Prediction'
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+
+
+dependencies = {
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('scikit-learn', '1.1.2'),
+    ('tensorboardX', '2.5.1'),
+    ('xarray', '2022.6.0'),
+    ('Hyperopt', '0.2.7'),
+    ('Flask', '2.2.2'),
+    ('PyTorch', '1.12.0'),
+    ('matplotlib', '3.5.2'),
+    ('RDKit', '2022.03.5')
+}
+
+use_pip = True
+sanity_pip_check = True
+download_dep_fail = True
+
+exts_list = [
+    ('packaging', '20.4', {}),
+    ('pandas_flavor', '0.2.0', {}),
+    ('mypy_extensions', '1.0.0'),
+    ('typing_inspect', '0.8.0'),
+    ('typed-argument-parser', '1.7.2', {
+        'modulename': 'tap'
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/chemprop/chemprop/archive/refs/tags/'],
+        'sources': ['v%(version)s.tar.gz'],
+    })
+]
