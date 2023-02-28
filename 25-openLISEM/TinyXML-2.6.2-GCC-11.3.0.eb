@@ -1,0 +1,37 @@
+easyblock = 'MakeCp'
+
+name = 'TinyXML'
+version = '2.6.2'
+
+homepage = 'https://leethomason.github.io/tinyxml2'
+description = """TinyXML2 is a simple, small, efficient, C++ XML parser that can be easily integrated
+ into other programs."""
+
+toolchain = {'name': 'GCC', 'version': '11.3.0'}
+toolchainopts = {'pic': True}
+
+source_urls = [SOURCEFORGE_SOURCE]
+sources = ['tinyxml_%s.tar.gz' % '_'.join(version.split('.'))]
+patches = ['TinyXML-2.6.2_stl.patch']
+checksums = ['15bdfdcec58a7da30adc87ac2b078e4417dbe5392f3afb719f9ba6d062645593']
+
+buildopts = 'RELEASE_CFLAGS="$CFLAGS" TINYXML_USE_STL=ON && '
+
+# also build a library, which does not get built via provided Makefile;
+# see also https://src.fedoraproject.org/rpms/tinyxml/blob/rawhide/f/tinyxml.spec
+buildopts += "$CC $CFLAGS -DTIXML_USE_STL=ON -shared -o libtinyxml.%s *.o" % SHLIB_EXT
+
+files_to_copy = [
+    (['xmltest'], 'bin'),
+    (['libtinyxml.%s' % SHLIB_EXT], 'lib'),
+    (['*.h'], 'include'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/xmltest', 'include/tinyxml.h', 'include/tinystr.h', 'lib/libtinyxml.%s' % SHLIB_EXT],
+    'dirs': [],
+}
+
+sanity_check_commands = ["xmltest"]
+
+moduleclass = 'lib'

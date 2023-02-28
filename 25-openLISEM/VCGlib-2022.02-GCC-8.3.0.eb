@@ -1,0 +1,23 @@
+easyblock = 'Tarball'
+
+name = 'VCGlib'
+version = '2022.02'
+
+homepage = 'http://vcg.isti.cnr.it/vcglib'
+description = """The Visualization and Computer Graphics Library (VCG for short) is a open source portable
+ C++ templated library for manipulation, processing and displaying with OpenGL of triangle and tetrahedral meshes."""
+
+toolchain = {'name': 'GCC', 'version': '8.3.0'}
+
+source_urls = ['https://github.com/cnr-isti-vclab/vcglib/archive/refs/tags/']
+sources = ['%(version)s.tar.gz']
+checksums = ['724f5ef6ab9b9d21ff2e9e965c2ce909cc024b29f2aa7d39e2974b28ff25bc3f']
+
+unpack_options = "--strip-components 1"
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['vcg', 'wrap'],
+}
+
+moduleclass = 'lib'

@@ -1,0 +1,26 @@
+From 440202d20e719c9e05effe2cc411ef761a652f72 Mon Sep 17 00:00:00 2001
+From: Robert Coup <robert@coup.net.nz>
+Date: Fri, 9 Sep 2022 21:32:17 +0100
+Subject: [PATCH] build: gcc8 compatibility
+
+gcc8 requires linking with libstdc++fs for access to std::filesystem
+under C++17.
+---
+ pdal/util/CMakeLists.txt | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/pdal/util/CMakeLists.txt b/pdal/util/CMakeLists.txt
+index 5b48ba848b..52e1112dcc 100644
+--- a/pdal/util/CMakeLists.txt
++++ b/pdal/util/CMakeLists.txt
+@@ -46,3 +46,10 @@ set_target_properties(${PDAL_UTIL_LIB_NAME} PROPERTIES
+     CLEAN_DIRECT_OUTPUT 1)
+ 
+ set_property(GLOBAL PROPERTY _UTIL_INCLUDED TRUE)
++
++# Compatibility for GCC8: std::filesystem requires linking with libstdc++fs
++target_link_libraries(
++  ${PDAL_UTIL_LIB_NAME}
++  PRIVATE
++  "$<$<AND:$<CXX_COMPILER_ID:GNU>,$<VERSION_LESS:$<CXX_COMPILER_VERSION>,9.0>>:-lstdc++fs>"
++)
