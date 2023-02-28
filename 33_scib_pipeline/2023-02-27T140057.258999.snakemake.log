@@ -1,0 +1,239 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count    min threads    max threads
+----------------------  -------  -------------  -------------
+all                           1              1              1
+convert_RDS_h5ad              5              1              1
+embeddings                    1              1              1
+embeddings_single            13              1              1
+integration_prepare           2              1              1
+integration_run_python        6              1              1
+integration_run_r             5              1              1
+metrics                       1              1              1
+metrics_single               13              1              1
+total                        47              1              1
+
+Select jobs to execute...
+
+[Mon Feb 27 14:00:57 2023]
+Job 2: 
+        Preparing adata
+        wildcards: hvg=full_feature,prep=h5ad,scaling=unscaled,scenario=test_data_r4
+        parameters: batch 0   
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
+
+
+[Mon Feb 27 14:00:57 2023]
+Job 10: 
+        Preparing adata
+        wildcards: hvg=full_feature,prep=RDS,scaling=unscaled,scenario=test_data_r4
+        parameters: batch 0  -r -l
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.RDS
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.RDS
+
+[Mon Feb 27 14:01:35 2023]
+Finished job 2.
+1 of 47 steps (2%) done
+Select jobs to execute...
+
+[Mon Feb 27 14:01:35 2023]
+Job 4: 
+        Run scanorama on unscaled data
+        feature selection: full_feature
+        dataset: test_data_r4
+        command: python
+        hvgs: 
+        cell type option: 
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
+
+
+[Mon Feb 27 14:01:35 2023]
+Job 6: 
+        Run scgen on unscaled data
+        feature selection: full_feature
+        dataset: test_data_r4
+        command: python
+        hvgs: 
+        cell type option: -c celltype
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scgen.h5ad
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scgen.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
+
+
+[Mon Feb 27 14:01:35 2023]
+Job 1: 
+        Run bbknn on unscaled data
+        feature selection: full_feature
+        dataset: test_data_r4
+        command: python
+        hvgs: 
+        cell type option: 
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
+
+
+[Mon Feb 27 14:01:35 2023]
+Job 3: 
+        Run combat on unscaled data
+        feature selection: full_feature
+        dataset: test_data_r4
+        command: python
+        hvgs: 
+        cell type option: 
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
+
+
+[Mon Feb 27 14:01:35 2023]
+Job 5: 
+        Run scanvi on unscaled data
+        feature selection: full_feature
+        dataset: test_data_r4
+        command: python
+        hvgs: 
+        cell type option: -c celltype
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanvi.h5ad
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanvi.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
+
+
+[Mon Feb 27 14:01:35 2023]
+Job 7: 
+        Run scvi on unscaled data
+        feature selection: full_feature
+        dataset: test_data_r4
+        command: python
+        hvgs: 
+        cell type option: 
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scvi.h5ad
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scvi.h5ad; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/prepare/unscaled/full_feature/adata_pre.h5ad
+
+[Mon Feb 27 14:02:20 2023]
+Finished job 3.
+2 of 47 steps (4%) done
+Select jobs to execute...
+
+[Mon Feb 27 14:02:20 2023]
+Job 35: 
+        SAVE EMBEDDING
+        Scenario: test_data_r4 unscaled full_feature
+        Method: combat full
+        Input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad
+        Output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/combat_full.csv /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/combat_full_batch.png /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/combat_full_labels.png
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/embeddings/unscaled/full_feature/combat_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad
+
+
+[Mon Feb 27 14:02:20 2023]
+Job 21: 
+        Metrics hvg=full_feature,method=combat,o_type=full,scaling=unscaled,scenario=test_data_r4
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/combat_full.csv
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/combat_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad
+
+[Mon Feb 27 14:02:28 2023]
+Finished job 4.
+3 of 47 steps (6%) done
+Select jobs to execute...
+
+[Mon Feb 27 14:02:28 2023]
+Job 23: 
+        Metrics hvg=full_feature,method=scanorama,o_type=embed,scaling=unscaled,scenario=test_data_r4
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_embed.csv
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_embed.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
+
+[Mon Feb 27 14:02:29 2023]
+Finished job 1.
+4 of 47 steps (9%) done
+Select jobs to execute...
+
+[Mon Feb 27 14:02:29 2023]
+Job 22: 
+        Metrics hvg=full_feature,method=scanorama,o_type=full,scaling=unscaled,scenario=test_data_r4
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_full.csv
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_full.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
+
+[Mon Feb 27 14:02:37 2023]
+Finished job 10.
+5 of 47 steps (11%) done
+Select jobs to execute...
+
+[Mon Feb 27 14:02:37 2023]
+Job 20: 
+        Metrics hvg=full_feature,method=bbknn,o_type=knn,scaling=unscaled,scenario=test_data_r4
+        output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/bbknn_knn.csv
+        
+Reason: Missing output files: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/bbknn_knn.csv; Input files updated by another job: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad
+
+[Mon Feb 27 14:03:18 2023]
+Error in rule metrics_single:
+    jobid: 20
+    input: data/adata_norm.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad
+    output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/bbknn_knn.csv
+    shell:
+        
+        python scripts/metrics/metrics.py -u data/adata_norm.h5ad -i /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/bbknn.h5ad          -o /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/bbknn_knn.csv -m bbknn          -b batch -l celltype --type knn          --hvgs 0 --organism mouse --assay expression -v
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Feb 27 14:03:20 2023]
+Error in rule metrics_single:
+    jobid: 21
+    input: data/adata_norm.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad
+    output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/combat_full.csv
+    shell:
+        
+        python scripts/metrics/metrics.py -u data/adata_norm.h5ad -i /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/combat.h5ad          -o /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/combat_full.csv -m combat          -b batch -l celltype --type full          --hvgs 0 --organism mouse --assay expression -v
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Feb 27 14:03:28 2023]
+Finished job 35.
+6 of 47 steps (13%) done
+[Mon Feb 27 14:03:55 2023]
+Error in rule metrics_single:
+    jobid: 23
+    input: data/adata_norm.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
+    output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_embed.csv
+    shell:
+        
+        python scripts/metrics/metrics.py -u data/adata_norm.h5ad -i /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad          -o /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_embed.csv -m scanorama          -b batch -l celltype --type embed          --hvgs 0 --organism mouse --assay expression -v
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Feb 27 14:03:55 2023]
+Error in rule metrics_single:
+    jobid: 22
+    input: data/adata_norm.h5ad, /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad
+    output: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_full.csv
+    shell:
+        
+        python scripts/metrics/metrics.py -u data/adata_norm.h5ad -i /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/integration/unscaled/full_feature/scanorama.h5ad          -o /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/scib-pipeline/20221014-foss-2022a/pipeline/data/test_data_r4/metrics/unscaled/full_feature/scanorama_full.csv -m scanorama          -b batch -l celltype --type full          --hvgs 0 --organism mouse --assay expression -v
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Feb 27 14:08:08 2023]
+Finished job 6.
+7 of 47 steps (15%) done
+[Mon Feb 27 14:15:11 2023]
+Finished job 7.
+8 of 47 steps (17%) done
+[Mon Feb 27 14:16:04 2023]
+Finished job 5.
+9 of 47 steps (19%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2023-02-27T140057.258999.snakemake.log

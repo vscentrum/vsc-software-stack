@@ -11,11 +11,15 @@ description = "Pipeline for benchmarking atlas-level single-cell integration."
 
 toolchain = {'name': 'foss', 'version': '2022a'}
 
+builddependencies = [
+    ('CMake', '3.23.1')
+]
+
 dependencies = [
     ('Python', '3.10.4'),
     ('PyTorch', '1.12.0'),
     ('SciPy-bundle', '2022.05'),
-    ('R-bundle-Bioconductor', '3.15', '-R-%(rver)s'),  # version suffix must be the same as R version
+    ('R-bundle-Bioconductor', '3.15', '-R-%(rver)s'),
     ('R', '4.2.1'),
     ('scib', '1.1.3'),
     ('scikit-learn', '1.1.2'),
@@ -50,15 +54,13 @@ local_preinstallopts = ""
 # local_preinstallopts += "sed -i 's|igraph>=0.10|igraph>=0.9.8|g' setup.cfg && "
 # local_preinstallopts += "sed -i 's|louvain>=0.8||g' setup.cfg && "
 
-# local_llvmlite_preinstallopts = "export LLVM_CONFIG=${EBROOTLLVM}/bin/llvm-config && "
-# local_llvmlite_preinstallopts += "export LLVMLITE_SKIP_LLVM_VERSION_CHECK=1 && "
-
 # avoid hatchling requirement to install infercnvpy
 # (since installing it introduces conflicting version requirements with poetry included with Python)
 local_anndata2ri_preinstallopts = """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' pyproject.toml && """
 local_anndata2ri_preinstallopts += """sed -i -e 's/^requires = .*/requires = ["setuptools"]/g' pyproject.toml && """
 local_anndata2ri_preinstallopts += """sed -i -e "s/dynamic = \['version'\]/version = '%(version)s'/g" pyproject.toml && """
 
+local_louvain_preinstallopts = """sed -i -e 's/,<0.10//g' setup.py && """
 
 exts_list = [
     ('anndata', '0.8.0', {
@@ -69,33 +71,20 @@ exts_list = [
     ('get_version', '3.5.4'),
     ('trvaep', '0.1.0'),
     ('annoy', '1.17.1'),
-    # ('scvi-tools', '0.14.6', {
-    #     'checksums': ['f30a8a685624e49fa8a0d9b9d53152eb7b95e28b020ebd1c564387b2250bc38a'],
-    #     # remove version restriction for setuptools, since it not actually required
-    #     'preinstallopts': "sed -i '/^setuptools/d' pyproject.toml && ",
-    #     'modulename': 'scvi',
-    # }),
     ('geosketch', '1.2'),
     ('fbpca', '1.0'),
     ('scgen', '2.1.0'),
     ('bbknn', '1.5.1'),
-    # already in python EC
-    # ('llvmlite', '0.39.1', {
-    #     'preinstallopts': local_llvmlite_preinstallopts,
-    #     'patches': ['llvmlite-0.39.1_fix-LLVM-14.patch'],
-    #     'checksums': [
-    #         {'llvmlite-0.39.1.tar.gz': 'b43abd7c82e805261c425d50335be9a6c4f84264e34d6d6e475207300005d572'},
-    #         {'llvmlite-0.39.1_fix-LLVM-14.patch': '39cde92d522cce45f8b93231059f7e2c69bc54dc7c35c4c6eaee3423f3f04d17'},
-    #     ],
-    # }),
     ('scanorama', '1.7.3'),
     ('memory-profiler', '0.61.0', {'sources': [{
         'download_filename': 'memory_profiler-%(version)s.tar.gz',
         'filename': 'memory-profiler-%(version)s.tar.gz',
         }]}
     ),
+    ('louvain', '0.7.2', {
+        'preinstallopts': local_louvain_preinstallopts
+    }),
     (name, version, {
-        # 'source_tmpl': '%(version)s.tar.gz',
         'source_tmpl': '%s.tar.gz' % local_commit,
         'source_urls': ['https://github.com/theislab/scib-pipeline/archive/'],
         'patches': ['scib-pipeline.patch'],
