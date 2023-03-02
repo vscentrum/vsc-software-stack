@@ -1,0 +1,41 @@
+easyblock = 'CMakeNinja'
+
+name = 'PDAL'
+version = '2.4.3'
+versionsuffix = '-Python-3.7.4'
+
+homepage = 'https://github.com/google/nsync'
+description = """nsync is a C library that exports various synchronization primitives, such as mutexes"""
+
+toolchain = {'name': 'foss', 'version': '2019b'}
+toolchainopts = {'cstd': 'c++11'}
+
+source_urls = ['https://github.com/PDAL/PDAL/releases/download/%(version)s/']
+sources = ['PDAL-%(version)s-src.tar.gz']
+patches = ['PDAL-2.4.3_fix-std-filesystem.patch']
+checksums = [
+    {'PDAL-2.4.3-src.tar.gz': 'abac604c6dcafdcd8a36a7d00982be966f7da00c37d89db2785637643e963e4c'},
+    {'PDAL-2.4.3_fix-std-filesystem.patch': '185c121f302eb42bece49d8be1d93553ae9830c051f9726359074eab98f3dada'},
+]
+
+builddependencies = [
+    ('CMake', '3.15.3'),
+    ('Ninja', '1.9.0'),
+]
+
+dependencies = [
+    ('GDAL', '3.0.2', versionsuffix),
+]
+
+sanity_check_paths = {
+    'files': ['bin/pdal', 'bin/pdal-config', 'lib/pkgconfig/pdal.pc', 'lib/libpdal_base.%s' % SHLIB_EXT,
+              'lib/libpdalcpp.%s' % SHLIB_EXT, 'lib/libpdal_util.%s' % SHLIB_EXT],
+    'dirs': ['include/pdal', 'lib/cmake/PDAL'],
+}
+
+sanity_check_commands = [
+    "pdal --help",
+    "pdal-config --version",
+]
+
+moduleclass = 'devel'

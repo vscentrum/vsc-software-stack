@@ -50,12 +50,13 @@ configopts += '--with-scalapack-libs=mkl '
 configopts += '--with-fft-libs="$LIBFFT" --with-fft-includedir="$FFT_INC_DIR" '
 configopts += '--with-netcdf-path="$EBROOTNETCDF" '
 configopts += '--with-netcdff-path="$EBROOTNETCDFMINFORTRAN" '
-configopts += '--with-hdf5-path="$HDF5_DIR" --with-petsc-path="$EBROOTPETSC"'
-configopts += '--with-petsc-include="$EBROOTPETSC/include "'
-configopts += '--with-slepc-path="$EBROOTSLEPC" --with-libxc-path="$EBROOTLIBX" '
+configopts += '--with-hdf5-path="$EBROOTHDF5" --with-petsc-path="$EBROOTPETSC" '
+configopts += '--with-petsc-include="$EBROOTPETSC/include" '
+configopts += '--with-slepc-path="$EBROOTSLEPC" --with-libxc-path="$EBROOTLIBXC" '
 configopts += '--enable-par-linalg --enable-slepc-linalg '
 
-buildopts = 'all && ls bin'
+prebuildopts = "export FPATH=$EBROOTPETSC/include:$EBROOTSLEPC/include:$FPATH && "
+buildopts = 'all'
 
 parallel = 1
 

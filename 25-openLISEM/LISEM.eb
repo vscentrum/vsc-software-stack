@@ -1,0 +1,49 @@
+easyblock = 'CMakeMake'
+
+name = 'LISEM'
+version = '0.2.4-2022.08.16'
+local_commit = 'd55e363'
+versionsuffix = '-Python-3.7.4'
+
+homepage = 'https://lisemmodel.com'
+description = """Lisem (Lisem Integrated Spatial Earth Modeller) is a free and open-source software tool that allows
+users to manipulate geo-spatial data."""
+
+toolchain = {'name': 'foss', 'version': '2019b'}
+
+source_urls = ['https://github.com/bastianvandenbout/LISEM/archive/']
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
+checksums = ['1bef0489d10817e19b7ea1160bbaa6caa3c0b774f91569a0830e602dfc884d17']
+
+builddependencies = [
+    ('CMake', '3.15.3'),
+    ('Eigen', '3.3.7', '', SYSTEM),
+]
+
+dependencies = [
+    ('Boost', '1.71.0'),
+    ('GMP', '6.1.2'),
+    ('Qt5', '5.13.1'),
+    ('libglvnd', '1.2.0'),
+    ('GDAL', '3.0.2', versionsuffix),
+    ('ITK', '4.13.1', versionsuffix),
+    ('OTB', '7.4.1', versionsuffix),
+    ('assimp', '5.2.5'),
+    ('PDAL', '2.4.3', versionsuffix),
+    ('GLFW', '3.3.8'),
+    ('Ceres', '2.1.0'),
+    ('Chrono', '7.0.3'),
+    ('openMVS', '2.0.1', versionsuffix),
+    ('Armadillo', '9.900.1'),
+    ('CGAL', '4.14.1', versionsuffix),
+    ('SuperLU', '5.3.0'),
+    ('openMVG', '2.0', versionsuffix),
+]
+
+preconfigopts = "sed -i 's/OTBImageList //g' %(builddir)s/LISEM-*/cmakeFindModules/externals.cmake && "
+
+configopts = "-DLISEM_USE_EXTERNALDIR=OFF -DLISEM_BUILD_CONDA=OFF -DLISEM_BUILD_INSTALLER=OFF "
+configopts += "-DLISEM_BUILD_DEPLOY=OFF -DLISEM_BUILD_DOC=OFF "
+configopts += "-DOTB_DIR=$EBROOTOTB/lib/cmake/OTB-7.4 -DChrono_DIR=$EBROOTCHRONO/lib/cmake "
+
+moduleclass = 'geo'
