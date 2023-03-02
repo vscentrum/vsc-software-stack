@@ -1,8 +1,8 @@
-easyblock = 'CMakeMake'
+easyblock = 'ConfigureMake'
 
 name = 'OPEN-SURFEX'
-version = '2021-03-28'
-local_commit = '70d2395'
+version = '9_0_0'
+local_download_version_suffix = 'v9_0_0'
 
 homepage = 'https://www.umr-cnrm.fr/surfex/spip.php?rubrique141'
 description = """
@@ -11,40 +11,24 @@ SURFEX is being developed by Météo-France and Open-SURFEX is a freely availabl
 released under terms of CECILL-C Licence.
 """
 
-toolchain = {'name': 'foss', 'version': '2022a'}
+toolchain = {'name': 'iimpi', 'version': '2022a'}
 # toolchainopts = {'usempi': True, 'openmp': True, 'pic': True}
 
-
-
-source_urls = ['https://github.com/joewkr/open-SURFEX/archive/']
-sources = ['%s.tar.gz' % local_commit]
-
-builddependencies = [
-    ('CMake', '3.23.1'),
-]
+source_urls = ['https://www.umr-cnrm.fr/surfex/data/OPEN-SURFEX/']
+sources = ['open_surfex_%s.tar.gz' % local_download_version_suffix]
+patches = ['patch_opensurfex.patch']
 
 dependencies = [
-    ('Python', '3.10.4'),
-    ('netCDF', '4.9.0'),
-    ('netCDF-Fortran', '4.6.0'),
-    ('HDF5', '1.12.2'),
-    ('cURL', '7.83.0'),
-    ('Szip', '2.1.1'),
-    ('zlib', '1.2.12'),
-    ('M4', '1.4.19'),
-    # ('grib_api', '1.24.0'),  # conflicting versions of Jasper (conflict with ecCodes)
-    ('ecCodes', '2.27.0'),
+
 ]
 
-configopts = " -DCMAKE_INSTALL_PREFIX=%(installdir)s "
-configopts += " -DBUILD_NETCDF=OFF -DBUILD_GRIB_API=OFF "
-configopts += " -DNETCDF_DIR=$EBROOTNETCDFMINFORTRAN/include "
-# configopts += " -DGRIB_API_DIR=<path to GRIB API> "
+preconfigopts = "cd src/ && "
+preconfigopts += "sed -i 's|EBROOT|$EBROOT|g' configure && "
+preconfigopts += "export OMP_NUM_THREADS=8 && "
+preconfigopts += "mkdir MYDIR && export MYDIR=$PWD/MYDIR && "
 
+configopts = " bgfortran "
 
-sanity_check_paths = {
-    'files': [],
-    'dirs': ['lib'],
-}
+preinstallopts = "cd MYDIR"
 
-moduleclass = 'bio'
+moduleclass = 'geo'

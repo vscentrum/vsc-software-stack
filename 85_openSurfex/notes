@@ -1,0 +1,35 @@
+################# notes for configure script ###############################
+
+version = '9_0_0' - this is because (docs) "Caution: the directory and all parent directories MUST NOT contain dots (.) in their names."
+
+DOCS:
+"""
+before to run an experiment (pgd, prep or offline), you need to type
+
+export OMP_NUM_THREADS=1
+"""
+
+
+replace (sed) with real stuff:
+EBROOTNETCDF
+- EBROOTNETCDF/LP64 ???
+
+EBROOTGRIBAPI
+EBROOTOPENMPI
+
+
+potentially (not in place right now) removing all `module load` crap (eb will load it itself) - but right now, let it build it's own dependencies...
+- netcdf
+- MPT
+- intel
+- intel-fc-10
+- sgi-mpt
+- sxf90
+- sxmpi
+- fortran
+- fortran/xlf ???
+
+random hardcoded crap (don't know what it's doing):
+    - /opt/intel/fce/10.1.021/bin/ifortvars.sh
+    - /usr/local/apps/module/init/sh.in 
+    - domain=$(grep .fr /etc/hosts | head -1 )
