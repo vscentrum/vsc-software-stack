@@ -25,17 +25,21 @@ dependencies = [
 skipsteps = ['configure']
 
 prebuildopts = "cd src/ && "
-prebuildopts += "sed -i 's|EBROOT|$EBROOT|g' configure && "
+# in case we need to get rid of hardcoded paths, uncomment this
+# prebuildopts += "sed -i 's|EBROOT|$EBROOT|g' configure && "
 prebuildopts += "export OMP_NUM_THREADS=%(parallel)s && "
 prebuildopts += "mkdir MYDIR && export MYDIR=$PWD/MYDIR && "
 prebuildopts += "export ARCH=LXifort && "
 prebuildopts += "export VER_MPI=NOMPI && "  # FIXME try building with MPI support?
 prebuildopts += 'export VER_CDF="$EBVERSIONNETCDF" && '
 # NEED_NCARG ? MVWORK ? NEED_TOOLS? VER_XIOS ? OPTLEVEL ? MNHENV ? VER_ECCODES ? VER_GRIBAPI ?
-prebuildopts += "./configure zifort "
+prebuildopts += "./configure zifort && "
+prebuildopts += "sed -i 's|bash --norc||g' %(builddir)s/OPEN_SURFEX_V9/conf/profile_surfex-LXifort-SFX-V9-0-NOMPI-OMP-O2-X0 && "
+prebuildopts += "echo yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy && "
+# FIXME after this step, installation ends suddenly (without error)
+prebuildopts += ". %(builddir)s/OPEN_SURFEX_V9/conf/profile_surfex-LXifort-SFX-V9-0-NOMPI-OMP-O2-X0 && "
+prebuildopts += "echo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx && "
 
-configopts = " bgfortran "
-
-preinstallopts = "cd MYDIR"
+# preinstallopts = "cd MYDIR"
 
 moduleclass = 'geo'
