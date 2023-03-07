@@ -1,0 +1,13 @@
+--- text/CMakeLists.txt.orig	2023-03-02 10:21:59.297424674 +0100
++++ text/CMakeLists.txt	2023-03-02 10:13:29.116408320 +0100
+@@ -63,5 +63,9 @@
+ 
+ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_COMPILED_WITH_CXX_ABI} -Wall ${TORCH_CXX_FLAGS}")
+ 
+-add_subdirectory(third_party)
++find_package(double-conversion)
++find_package(RE2)
++find_package(sentencepiece)
++find_package(utf8proc)
++
+ add_subdirectory(torchtext/csrc)
