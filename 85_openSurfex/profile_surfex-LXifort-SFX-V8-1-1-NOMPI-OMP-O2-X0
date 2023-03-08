@@ -1,0 +1,167 @@
+#!/bin/sh
+#SFX_LIC Copyright 1994-2014 CNRS, Meteo-France and Universite Paul Sabatier
+#SFX_LIC This is part of the SURFEX software governed by the CeCILL-C licence
+#SFX_LIC version 1. See LICENSE, CeCILL-C_V1-en.txt and CeCILL-C_V1-fr.txt  
+#SFX_LIC for details. version 1.
+##########################################################
+#                                                        #
+# ENVIRONEMMENT CONFIGURATION FOR MESONH                 #
+#                                                        #
+##########################################################
+if [ "$SRC_SURFEX" != "" ] 
+then
+##########################################################
+#                                                        #
+# ENVIRONEMENT MESONH ALLREADY SET                       #
+#                                                        #
+##########################################################
+echo 
+echo '--->' WARNING :: "profile_surfex"
+echo '--->' environment variable already initialized:  '$SRC_SURFEX'
+echo '--->' '$SRC_SURFEX="'$SRC_SURFEX'"'
+echo '--->' 'check your environnment profile_surfex or do export SRC_SURFEX="" !!!! '
+echo 
+fi
+##########################################################
+#                                                        #
+# SOME SETTING FOR MESONH                                #
+#                                                        #
+##########################################################
+#
+# SRC_SURFEX : default path to mesonh sources 
+#              MUST BE SET TO YOUR OWN MESONH PATH
+#
+export SRC_SURFEX="/tmp/vsc43810/easybuild/build/OPENSURFEX/8_1/iimpi-2022a/open_SURFEX_V8_1"   
+#
+#  Version MESONH PACKAGE :: PACK-SFX-V8-1-1 : 27/03/2012
+#
+export VERSION_XYZ=SFX-V8-1-1
+#
+#  Target Architecture/compiler Machine 
+#
+#export ARCH=LXg95,LXifort,LXNAGf95,SX8,AIX
+#
+export ARCH=LXifort
+#
+# specify supercomputer architecture (for specific hard links to libraries)
+export BULL=
+#
+#  Version of MPI
+#
+#export VER_MPI=MPIVIDE,LAMMPI,MPIAUTO,OMPI122G95
+#
+export VER_MPI=NOMPI
+#
+#  Version of OMP
+#
+export VER_OMP=OMP
+#
+# OPTIMIZATION LEVEL
+#
+#export OPTLEVEL=DEBUG,O2
+#
+export OPTLEVEL=O2
+#
+# Processor-dependent optimization
+export OPT_PROC=""
+#
+#  USER VERSION
+#
+export VER_USER=
+#
+# 'Scandollar' Post Processing default variables
+#
+export CONF_DOLLAR=/tmp/vsc43810/easybuild/build/OPENSURFEX/8_1/iimpi-2022a/open_SURFEX_V8_1/conf/post/confdollar_aeropc_default
+#
+# Version of NETCDF
+#
+export VER_CDF=CDFEXT
+export VERSION_M4=1.4.19
+export VERSION_CURL=7.50.1
+export VERSION_ZLIB=1.2.8
+export VERSION_SZIP=2.1
+export VERSION_HDF5=1.12.0
+export VERSION_CDF=4.7.4
+export VERSION_CDFF=4.5.3
+#
+# Version of GRIBAPI
+#
+export VER_GRIBAPI=GRIBAPI_EXT
+export VERSION_GRIBAPI=1.17.0
+#export GRIB_DEFINITION_PATH=${SRC_SURFEX}"/src/LIB/grib_api-1.17.0-Source/definitions"
+#
+# Version of ECCODES
+#
+export VERSION_ECCODES=2.18.0
+export VER_ECCODES=ECCODES_AUTO
+unset GRIB_DEFINITION_PATH
+#
+#
+# Version of OASIS
+#
+export VER_OASIS=NOmct
+export VERSION_OASIS=3-mct
+#
+# Version of XIOS
+#
+export VER_XIOS=0
+export VERSION_XIOS=trunk-1078
+#
+# Version of DR_HOOK
+#
+export VER_DRHOOK=BYPASS
+#
+# Version of Def integer
+#
+export MNH_INT=
+#
+#
+export OMP_NUM_THREADS=1
+#
+##########################################################
+##########################################################
+##########################################################
+#                                                        #
+#    DONT MODIFY LINES AFTER THIS  !!!!!!!!!!!!!         #         
+#                                                        #
+##########################################################
+##########################################################
+##########################################################
+#
+export XYZ="-${ARCH}${MNH_INT}-${VERSION_XYZ}-${VER_MPI}-${VER_OMP}-${OPTLEVEL}-X${VER_XIOS}${VER_USER:+-${VER_USER}}"
+#[ "x${VER_USER}" != "x" ] && export XYZ="${XYZ}-${VER_USER}"
+# PATH to find tools like "makegen, etc ..."
+export BIN_TOOLS=NO
+export PATH=.:$SRC_SURFEX/bin:$SRC_SURFEX/exe:$SRC_SURFEX/bin_tools/${BIN_TOOLS}:$PATH
+#
+export LIB_PATH=$SRC_SURFEX/LIB/netcdf4/curl-7.50.1-LXifort/lib:$SRC_SURFEX/LIB/netcdf4/szip-2.1-LXifort/lib:$SRC_SURFEX/LIB/netcdf4/zlib-1.2.8-LXifort/lib:$SRC_SURFEX/LIB/netcdf4/hdf5-1.12.0-LXifort/lib:$SRC_SURFEX/LIB/netcdf4/netcdf-4.7.4-LXifort/lib:$SRC_SURFEX/LIB/netcdf4/netcdf-fortran-4.5.3-LXifort/lib
+export LD_LIBRARY_PATH=:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/impi/2021.6.0-intel-compilers-2022.1.0/mpi/2021.6.0/libfabric/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/impi/2021.6.0-intel-compilers-2022.1.0/mpi/2021.6.0/lib/release:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/impi/2021.6.0-intel-compilers-2022.1.0/mpi/2021.6.0/lib:/apps/gent/RHEL8/haswell-ib/software/UCX/1.12.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.3.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/intel-compilers/2022.1.0/tbb/2021.6.0/lib/intel64/gcc4.8:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/intel-compilers/2022.1.0/compiler/2022.1.0/linux/compiler/lib/intel64_lin:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/intel-compilers/2022.1.0/compiler/2022.1.0/linux/lib/x64:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/intel-compilers/2022.1.0/compiler/2022.1.0/linux/lib:/apps/gent/RHEL8/haswell-ib/software/binutils/2.38-GCCcore-11.3.0/lib:/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.3.0/lib64
+#
+# NCARG_ROOT : for use of graphic tools : diaprog 
+# 
+#  The "lib" and "bin" directory version 
+#  are include in this package
+#  ( and also the full pacakge , source etc... 
+#    to be compiled for other plateforms )
+#
+export NCARG_ROOT=${NCARG_ROOT:-$SRC_SURFEX/pub/ncl_ncarg-5.2.1.Linux_x86_64}
+export PATH=$PATH:$NCARG_ROOT/bin
+# WARNING : NCARG Man not installed in that version
+export MANPATH=$MANPATH:$NCARG_ROOT/man  
+#
+# VARTTY : for graphic tty console identification
+#
+export VARTTY=`tty`
+#
+# Variable depending on $ARCH 
+#
+[ -f ${SRC_SURFEX}/conf/conf_${ARCH} ] && . ${SRC_SURFEX}/conf/conf_${ARCH}
+
+#
+# Optional Environnement variable/Module  Env
+#
+
+#start new subshell
+# 
+#sh
+

@@ -1,8 +1,8 @@
 easyblock = 'ConfigureMake'
 
 name = 'OPEN-SURFEX'
-version = '9_0_0'
-local_download_version_suffix = 'v9_0_0'
+version = '8_1'
+local_download_version_suffix = 'v8_1_20220817'
 
 homepage = 'https://www.umr-cnrm.fr/surfex/spip.php?rubrique141'
 description = """
@@ -19,25 +19,23 @@ sources = ['open_surfex_%s.tar.gz' % local_download_version_suffix]
 patches = ['patch_opensurfex.patch']
 
 dependencies = [
-
+    ('CMake', '3.23.1'),
+    ('netCDF', '4.9.0'),
 ]
 
 skipsteps = ['configure']
 
 prebuildopts = "cd src/ && "
-# in case we need to get rid of hardcoded paths, uncomment this
-# prebuildopts += "sed -i 's|EBROOT|$EBROOT|g' configure && "
-prebuildopts += "export OMP_NUM_THREADS=%(parallel)s && "
-prebuildopts += "mkdir MYDIR && export MYDIR=$PWD/MYDIR && "
-prebuildopts += "export ARCH=LXifort && "
+prebuildopts += "export OMP_NUM_THREADS=%(parallel)s && "  # no. of threads for installation
+prebuildopts += "mkdir MYDIR && export MYDIR=$PWD/MYDIR && "  # FIXME: probably not needed
+prebuildopts += "export ARCH=LXifort && "  # FIXME: probably not needed
 prebuildopts += "export VER_MPI=NOMPI && "  # FIXME try building with MPI support?
-prebuildopts += 'export VER_CDF="$EBVERSIONNETCDF" && '
+# prebuildopts += 'export VER_CDF="$EBVERSIONNETCDF" && '  # FIXME does this work? probably not
+
 # NEED_NCARG ? MVWORK ? NEED_TOOLS? VER_XIOS ? OPTLEVEL ? MNHENV ? VER_ECCODES ? VER_GRIBAPI ?
+
 prebuildopts += "./configure zifort && "
-prebuildopts += "sed -i 's|bash --norc||g' %(builddir)s/OPEN_SURFEX_V9/conf/profile_surfex-LXifort-SFX-V9-0-NOMPI-OMP-O2-X0 && "
-prebuildopts += "echo yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy && "
-# FIXME after this step, installation ends suddenly (without error)
-prebuildopts += ". %(builddir)s/OPEN_SURFEX_V9/conf/profile_surfex-LXifort-SFX-V9-0-NOMPI-OMP-O2-X0 && "
+prebuildopts += ". %(builddir)s/open_SURFEX_V8_1/conf/profile_surfex-LXifort-SFX-V8-1-1-NOMPI-OMP-O2-X0 && "
 prebuildopts += "echo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx && "
 
 # preinstallopts = "cd MYDIR"
