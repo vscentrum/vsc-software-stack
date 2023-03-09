@@ -36,8 +36,7 @@ prebuildopts += "export VER_MPI=NOMPI && "  # FIXME try building with MPI suppor
 
 prebuildopts += "./configure zifort && "
 prebuildopts += ". %(builddir)s/open_SURFEX_V8_1/conf/profile_surfex-LXifort-SFX-V8-1-1-NOMPI-OMP-O2-X0 && "
+prebuildopts += "export INCLUDE_DIRS=$EBROOTNETCDF/include && export LIBRARY_DIRS=$EBROOTNETCDF/lib && "
 prebuildopts += "echo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx && "
-
-# preinstallopts = "cd MYDIR"
 
 moduleclass = 'geo'
