@@ -1,0 +1,28 @@
+easyblock = 'CMakeMake'
+
+name = 'CTranslate2'
+version = '3.7.0'
+
+homepage = 'https://opennmt.net/CTranslate2'
+description = "CTranslate2 is a C++ and Python library for efficient inference with Transformer models"
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+source_urls = ['https://github.com/OpenNMT/CTranslate2/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['c6b7bc4c091e3451eaab2b81b30c9647f0ce36a55819b349bed3777a214bf364']
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('cxxopts', '3.0.0', '', SYSTEM),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('PyYAML', '6.0'),
+]
+
+configopts = "-DOPENMP_RUNTIME=COMP -DWITH_MKL=OFF -DWITH_OPENBLAS=ON"
+
+moduleclass = 'ai'
