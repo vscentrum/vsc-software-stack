@@ -1,0 +1,50 @@
+don't use third_party/sentencepiece, use SentencePiece dependency provided via EasyBuild instead
+author: Kenneth Hoste (HPC-UGent)
+diff -ru Tokenizer-1.37.1.orig/CMakeLists.txt Tokenizer-1.37.1/CMakeLists.txt
+--- Tokenizer-1.37.1.orig/CMakeLists.txt	2023-03-01 12:01:24.000000000 +0100
++++ Tokenizer-1.37.1/CMakeLists.txt	2023-03-13 18:32:08.267055095 +0100
+@@ -21,22 +21,6 @@
+ 
+ option(SPM_ENABLE_SHARED "" OFF)
+ option(SPM_ENABLE_TCMALLOC "" OFF)
+-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/third_party/sentencepiece EXCLUDE_FROM_ALL)
+-
+-if(MSVC)
+-  set(SENTENCEPIECE_CXX_FLAGS "/w")
+-else()
+-  set(SENTENCEPIECE_CXX_FLAGS "-Wno-all -Wno-extra -Wno-error")
+-  if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+-    set(SENTENCEPIECE_CXX_FLAGS "${SENTENCEPIECE_CXX_FLAGS} -Wno-stringop-overflow")
+-  endif()
+-endif()
+-
+-set_target_properties(
+-  sentencepiece-static
+-  sentencepiece_train-static
+-  PROPERTIES COMPILE_FLAGS ${SENTENCEPIECE_CXX_FLAGS}
+-  )
+ 
+ if(MSVC)
+   if(NOT BUILD_SHARED_LIBS)
+@@ -60,10 +44,6 @@
+   PUBLIC
+   ${CMAKE_CURRENT_SOURCE_DIR}/include
+   ${PROJECT_BINARY_DIR}
+-
+-  PRIVATE
+-  ${ICU_INCLUDE_DIRS}
+-  ${CMAKE_CURRENT_SOURCE_DIR}/third_party/sentencepiece/src
+   )
+ 
+ set(PUBLIC_HEADERS
+@@ -98,8 +78,8 @@
+ 
+ list(APPEND LINK_LIBRARIES
+   ${ICU_LIBRARIES}
+-  sentencepiece-static
+-  sentencepiece_train-static
++  sentencepiece
++  sentencepiece_train
+   )
+ 
+ if(COMMAND create_library)

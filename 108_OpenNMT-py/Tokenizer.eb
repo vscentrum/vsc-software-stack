@@ -11,7 +11,12 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 source_urls = ['https://github.com/OpenNMT/Tokenizer/archive/']
 sources = ['v%(version)s.tar.gz']
-checksums = ['99762e2dbe5586d00fbaabca93f9aa3308cff47610ca56a42132f2e60a5d7b68']
+patches = ['Tokenizer-1.37.1_use-sentencepiece-dependency.patch']
+checksums = [
+    {'v1.37.1.tar.gz': '99762e2dbe5586d00fbaabca93f9aa3308cff47610ca56a42132f2e60a5d7b68'},
+    {'Tokenizer-1.37.1_use-sentencepiece-dependency.patch':
+     'bf5534672e625a62885baf227a9163c713b8e0fa65c60dafb26ecdbb33df2278'},
+]
 
 builddependencies = [
     ('CMake', '3.24.3'),
@@ -24,6 +29,7 @@ dependencies = [
     ('SentencePiece', '0.1.97'),
 ]
 
-preconfigopts = "sed -i '/add_subdirectory.*sentencepiece/d' ../Tokenizer-%(version)s/CMakeLists.txt && "
+# SentencePiece requires C++17
+preconfigopts = "sed -i 's/CMAKE_CXX_STANDARD 11/CMAKE_CXX_STANDARD 17/g' ../Tokenizer-%(version)s/CMakeLists.txt && "
 
 moduleclass = 'lib'
