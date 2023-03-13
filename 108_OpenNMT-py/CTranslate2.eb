@@ -21,6 +21,7 @@ builddependencies = [
     ('cxxopts', '3.0.0', '', SYSTEM),
     ('spdlog', '1.11.0'),
     ('cpu_features', '0.7.0'),
+    ('pybind11', '2.9.2'),
 ]
 
 dependencies = [
@@ -35,11 +36,29 @@ preconfigopts += "sed -i 's/openblas/flexiblas/g' ../CTranslate2-%(version)s/CMa
 
 configopts = "-DENABLE_CPU_DISPATCH=OFF -DOPENMP_RUNTIME=COMP -DWITH_MKL=OFF -DWITH_OPENBLAS=ON"
 
+exts_defaultclass = 'PythonPackage'
+
+exts_list = [
+    ('ctranslate2', version, {
+        'sources': ['v%(version)s.tar.gz'],
+        'checksums': ['c6b7bc4c091e3451eaab2b81b30c9647f0ce36a55819b349bed3777a214bf364'],
+        'start_dir': 'python',
+        'download_dep_fail': True,
+        'use_pip': True,
+    }),
+]
+
 sanity_check_paths = {
     'files': ['bin/ct2-translator', 'lib/libctranslate2.%s' % SHLIB_EXT],
-    'dirs': ['include/ctranslate2'],
+    'dirs': ['include/ctranslate2', 'lib/python%(pyshortver)s/site-packages'],
 }
 
-sanity_check_commands = ["ct2-translator --help"]
+sanity_check_commands = [
+    "ct2-translator --help",
+    "python -c 'import ctranslate2'",
+    "python -m pip check",
+]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'ai'
