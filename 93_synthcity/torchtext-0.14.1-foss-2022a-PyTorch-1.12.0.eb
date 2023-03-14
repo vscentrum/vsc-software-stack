@@ -10,7 +10,6 @@ homepage = 'https://github.com/pytorch/text'
 description = "Data loaders and abstractions for text and NLP"
 
 toolchain = {'name': 'foss', 'version': '2022a'}
-toolchainopts = {'cstd': 'c++17'}
 
 # Sources are no longer available in PyPI, it only has wheels
 source_urls = ['https://github.com/pytorch/text/archive/']
@@ -18,7 +17,7 @@ sources = ['v%(version)s.tar.gz']
 patches = ['torchtext-0.14.1_deps_fix.patch']
 checksums = [
     {'v0.14.1.tar.gz': 'fd1ef3da7d9c20408c740f7dc7d02ad52a6048b46368355a1a7326d3bc4f2e63'},
-    {'torchtext-0.14.1_deps_fix.patch': 'e09e50db0df82056c91df03f803b117a3651d0560069339a08861c3419a62b38'},
+    {'torchtext-0.14.1_deps_fix.patch': 'c64bf9f50a5ed79f3a99be1cbda7e0ccae73c91fb79111e73492acbb35531230'},
 ]
 
 builddependencies = [
@@ -43,12 +42,7 @@ sanity_pip_check = True,
 
 # Disable bundled libraries to use those from EB: RE2, SentencePiece
 preinstallopts = "sed -i '/third_party/d;/^_init_submodule/d' setup.py && "
-# preinstallopts += "echo 'here' && echo $EBROOTRE2 && echo 'here' && "
 
-# configopts = "-DCXX_STANDARD=17"
-
-# installopts = "echo 'finding...' && find .. -type f -name '*.whl' &&"
-
-modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+# modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'tools'
