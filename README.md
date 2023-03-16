@@ -21,7 +21,7 @@ $ mkdir vsc-software-stack
 
 2. Clone the bare repository (we keep it in a hidden folder as it won't be used directly)
 ```bash
-$ git clone --bare git@github.com:vsccentrum/vsc-software-stack.git vsc-software-stack/.bare
+$ git clone --bare git@github.com:vscentrum/vsc-software-stack.git vsc-software-stack/.bare
 ```
 
 3. Point git to the bare repo from the root folder
