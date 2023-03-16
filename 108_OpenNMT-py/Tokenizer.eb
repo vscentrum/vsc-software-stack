@@ -11,11 +11,16 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 source_urls = ['https://github.com/OpenNMT/Tokenizer/archive/']
 sources = ['v%(version)s.tar.gz']
-patches = ['Tokenizer-1.37.1_use-sentencepiece-dependency.patch']
+patches = [
+    'Tokenizer-1.37.1_use-SentencePiece-dependency.patch',
+    'Tokenizer-1.37.1_fix-SentencePiece-SetVocabulary.patch',
+]
 checksums = [
     {'v1.37.1.tar.gz': '99762e2dbe5586d00fbaabca93f9aa3308cff47610ca56a42132f2e60a5d7b68'},
-    {'Tokenizer-1.37.1_use-sentencepiece-dependency.patch':
+    {'Tokenizer-1.37.1_use-SentencePiece-dependency.patch':
      'bf5534672e625a62885baf227a9163c713b8e0fa65c60dafb26ecdbb33df2278'},
+    {'Tokenizer-1.37.1_fix-SentencePiece-SetVocabulary.patch':
+     'ba8ea031a54038e527f12ad598e843d43a3e227322d5203956b5d2309b5407a5'},
 ]
 
 builddependencies = [
