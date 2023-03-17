@@ -1,0 +1,47 @@
+--- CTranslate2-3.7.0.orig/CMakeLists.txt	2023-02-23 09:44:13.000000000 +0100
++++ CTranslate2-3.7.0/CMakeLists.txt	2023-03-13 16:18:56.535276083 +0100
+@@ -66,7 +66,7 @@
+ endif()
+ 
+ find_package(Threads)
+-add_subdirectory(third_party/spdlog EXCLUDE_FROM_ALL)
++find_package(spdlog)
+ 
+ set(PUBLIC_INCLUDE_DIRECTORIES
+   ${CMAKE_CURRENT_SOURCE_DIR}/include
+@@ -187,7 +187,7 @@
+   set(BUILD_SHARED_LIBS_SAVED "${BUILD_SHARED_LIBS}")
+   set(BUILD_SHARED_LIBS OFF)
+   set(BUILD_TESTING OFF)
+-  add_subdirectory(third_party/cpu_features EXCLUDE_FROM_ALL)
++  find_package(CpuFeatures)
+   set(BUILD_SHARED_LIBS "${BUILD_SHARED_LIBS_SAVED}")
+   list(APPEND LIBRARIES cpu_features)
+ endif()
+@@ -374,7 +374,7 @@
+   add_definitions(-DCT2_WITH_RUY)
+   set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+   set(CPUINFO_LIBRARY_TYPE static CACHE STRING "cpuinfo library type")
+-  add_subdirectory(third_party/ruy EXCLUDE_FROM_ALL)
++  find_package(ruy)
+   unset(CMAKE_POSITION_INDEPENDENT_CODE)
+   list(APPEND LIBRARIES ruy)
+ endif()
+--- CTranslate2-3.7.0/cli/CMakeLists.txt.orig	2023-03-13 16:08:53.087701101 +0100
++++ CTranslate2-3.7.0/cli/CMakeLists.txt	2023-03-13 16:07:47.885425208 +0100
+@@ -1,15 +1,6 @@
+-if (NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../third_party/cxxopts/include")
+-  message(FATAL_ERROR "The client dependency repository (cxxopts) is missing! "
+-    "You probably didn't clone the project with --recursive. You can include it "
+-    "by calling \"git submodule update --init --recursive\"")
+-endif()
+-
+ add_executable(translator
+   translator.cc
+   )
+-target_include_directories(translator
+-  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../third_party/cxxopts/include
+-  )
+ target_link_libraries(translator
+   PRIVATE ${PROJECT_NAME}
+ )

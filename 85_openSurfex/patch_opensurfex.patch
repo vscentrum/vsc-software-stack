@@ -1,23 +1,42 @@
-diff -ruN OPEN_SURFEX_V9_orig/src/configure OPEN_SURFEX_V9/src/configure
---- OPEN_SURFEX_V9_orig/src/configure	2023-03-02 14:02:10.920642000 +0100
-+++ OPEN_SURFEX_V9/src/configure	2023-03-02 15:49:24.833550000 +0100
-@@ -182,8 +182,8 @@
- . /usr/local/apps/module/init/sh.in 
- module rm fortran ; module load fortran/xlf/13.1.0.7
- module rm netcdf  ; module load netcdf/3.6.3
--export CDF_PATH=/usr/local/apps/netcdf/3.6.3/LP64
--export GRIBAPI_PATH=/usr/local/lib/metaps/lib/grib_api/${VERSION_GRIBAPI}
-+export CDF_PATH=EBROOTNETCDF/LP64
-+export GRIBAPI_PATH=EBROOTGRIBAPI
- export LIB_GRIBAPI='${GRIB_API_LIB}'
+diff -ruN open_SURFEX_V8_1_orig/src/configure open_SURFEX_V8_1/src/configure
+--- open_SURFEX_V8_1_orig/src/configure	2023-03-08 15:41:53.162714819 +0100
++++ open_SURFEX_V8_1/src/configure	2023-03-09 17:06:29.484464000 +0100
+@@ -47,7 +47,7 @@
+     export MVWORK=${MVWORK:-NO}
+     export MNHENV=${MNHENV:-"
+ #start new subshell
+-bash --norc
++bash
+ #sh
  "}
-                       ;;
-@@ -270,7 +270,7 @@
-                 export NEED_NCARG=${NEED_NCARG:-YES}
-                 export MNHENV=${MNHENV:-"
- . /opt/intel/fce/10.1.021/bin/ifortvars.sh
--export MPI_ROOT=/usr/local/open-mpi-142-ifort
-+export MPI_ROOT=EBROOTOPENMPI
- export PATH=\$MPI_ROOT/bin:\$PATH
- export LD_LIBRARY_PATH=\$MPI_ROOT/lib:\$LD_LIBRARY_PATH
- export MANPATH=\$MPI_ROOT/share/man:\$MANPATH
+   ;;
+@@ -64,7 +64,7 @@
+     export MVWORK=${MVWORK:-NO}
+     export MNHENV=${MNHENV:-"
+ #start new subshell
+-bash --norc
++bash
+ #sh
+ "}
+   ;;
+@@ -81,7 +81,7 @@
+     export MVWORK=${MVWORK:-NO}
+     export MNHENV=${MNHENV:-"
+ #start new subshell
+-bash --norc
++bash
+ #sh
+ "}
+   ;;
+diff -ruN open_SURFEX_V8_1_orig/src/Rules.zifort.mk open_SURFEX_V8_1/src/Rules.zifort.mk
+--- open_SURFEX_V8_1_orig/src/Rules.zifort.mk	2023-03-08 16:39:38.093796000 +0100
++++ open_SURFEX_V8_1/src/Rules.zifort.mk	2023-03-08 16:40:07.892055000 +0100
+@@ -89,7 +89,7 @@
+ # NetCDF external
+ #
+ ifeq "$(VER_CDF)" "CDFEXT"
+-NETCDF = $(HOME)/hm_libs/ifort/netcdf_432
++NETCDF = $(EBROOTNETCDF)
+ NETCDF_INC = $(NETCDF)/include
+ NETCDF_LIB = $(NETCDF)/lib
+ INC_NETCDF = -I$(NETCDF_INC)

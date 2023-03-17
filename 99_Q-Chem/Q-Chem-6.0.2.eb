@@ -1,0 +1,39 @@
+easyblock = 'Bundle'
+
+name = 'Q-Chem'
+version = '6.0.2'
+
+homepage = 'https://www.q-chem.com'
+description = """Q-Chem is a comprehensive ab initio quantum chemistry software for accurate
+predictions of molecular structures, reactivities, and vibrational, electronic
+and NMR spectra."""
+
+# Install a module to set up the environment of an existing installation of Q-Chem
+# *This easyconfig does not install Q-Chem*
+
+toolchain = SYSTEM
+
+sanity_check_paths = {
+    'files': ['bin/qchem'],
+    'dirs': ['qcaux'],
+}
+
+# Emulate environment set by $QC/qcenv.sh
+# some variables defined in $QC/config/shellvar.txt
+modextrapaths = {
+    'PATH': ['bin', 'exe'],
+    'QC': '',
+    'QCAUX': 'qcaux',
+    'QCPROG_S': 'exe/qcprog.exe_s',
+    # 'BRIANQC_INSTALL_PATH': 'brianqc_qchem',  # GPU enabled installations
+}
+modextravars = {
+    'QCPLATFORM': 'LINUX_Ix86_64',
+    'QCMPI': 'seq',
+    'QCRSH': 'ssh',
+    # setting QCLOCALSCR will disable the shared scratch QCSCRATCH
+    # 'QCLOCALSCR': '/local',
+}
+modluafooter = 'setenv("QCSCRATCH", os.getenv("VSC_SCRATCH"))'
+
+moduleclass = 'chem'
