@@ -1,7 +1,8 @@
+#easyblock = 'CMakeMakeCp'
 easyblock = 'CMakeMake'
 
 name = 'OTB'
-version = '7.4.1'
+version = '8.1.1'
 versionsuffix = '-Python-3.7.4'
 
 homepage = 'https://www.orfeo-toolbox.org'
@@ -11,8 +12,6 @@ toolchain = {'name': 'foss', 'version': '2019b'}
 
 source_urls = ['https://gitlab.orfeo-toolbox.org/orfeotoolbox/otb/-/archive/%(version)s/']
 sources = [SOURCELOWER_TAR_GZ]
-patches = ['otb.patch']
-# checksums = ['239088d0b8b1440e7bdecbf1d434859ecae6ff043894fd4da562983ee546bc2a']
 
 builddependencies = [
     ('CMake', '3.15.3'),
@@ -28,16 +27,16 @@ dependencies = [
     ('TinyXML', '2.6.2'),
     ('zstd', '1.4.4'),
     ('Qt5', '5.13.1'),
-    ('OpenCV', '4.2.0', versionsuffix + '-contrib'),
+    ('OpenCV', '4.2.0', versionsuffix),
 ]
 
 # disable building of QGIS descriptors;
 # this is a workaround for a segmentation fault that occurs when otbQgisDescriptor is run during the build process
-preconfigopts = "rm -rf %(builddir)s/otb-7.4.1/Modules/Wrappers/QGIS && "
+preconfigopts = "rm -rf %(builddir)s/otb-%(version)s/Modules/Wrappers/QGIS && "
 
 # skip installation of data;
 # fails during 'make install' because share/otb directory is not found in build directory
-preconfigopts += "sed -i '/^install.*OTB_INSTALL_DATA_DIR/d' %(builddir)s/otb-7.4.1/CMakeLists.txt && "
+preconfigopts += "sed -i '/^install.*OTB_INSTALL_DATA_DIR/d' %(builddir)s/otb-%(version)s/CMakeLists.txt && "
 
 configopts = "-DOTB_USE_QT=ON -DOTB_USE_OPENCV=ON "
 configopts += "-DOPENTHREADS_LIBRARY=$EBROOTOPENSCENEGRAPH/lib/libOpenThreads.%s " % SHLIB_EXT

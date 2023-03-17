@@ -1,0 +1,12 @@
+diff -ur openMVS-2.0.1.orig/build/Templates/OpenMVSConfig.cmake.in openMVS-2.0.1/build/Templates/OpenMVSConfig.cmake.in
+--- openMVS-2.0.1.orig/build/Templates/OpenMVSConfig.cmake.in	2022-04-17 10:46:34.000000000 +0200
++++ openMVS-2.0.1/build/Templates/OpenMVSConfig.cmake.in	2023-03-12 10:18:37.632021000 +0100
+@@ -16,7 +16,7 @@
+ set(OpenMVS_DEFINITIONS "@OpenMVS_DEFINITIONS@")
+ 
+ # These are IMPORTED targets created by OpenMVSTargets.cmake
+-set(OpenMVS_LIBRARIES MVS)
++set(OpenMVS_LIBRARIES "-L$ENV{EBROOTOPENMVS}/lib/OpenMVS -lMVS")
+ set(OpenMVS_BINARIES InterfaceCOLMAP DensifyPointCloud ReconstructMesh RefineMesh TextureMesh)
+ 
+ include("${CMAKE_CURRENT_LIST_DIR}/OpenMVSTargets.cmake")

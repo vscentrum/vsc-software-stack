@@ -1,0 +1,31 @@
+easyblock = 'CMakeMake'
+
+name = 'Ceres'
+version = '2.1.0'
+
+homepage = 'http://ceres-solver.org'
+description = """Ceres Solver is an open source C++ library for modeling and solving large,
+ complicated optimization problems."""
+
+toolchain = {'name': 'foss', 'version': '2019b'}
+
+source_urls = ['http://ceres-solver.org/']
+sources = ['ceres-solver-%(version)s.tar.gz']
+checksums = ['f7d74eecde0aed75bfc51ec48c91d01fe16a6bf16bce1987a7073286701e2fc6']
+
+builddependencies = [
+    ('CMake', '3.15.3'),
+    ('Eigen', '3.3.7', '', SYSTEM),
+]
+
+dependencies = [
+    ('glog', '0.4.0'),
+    ('SuiteSparse', '5.6.0', '-METIS-5.1.0'),
+]
+
+sanity_check_paths = {
+    'files': ['lib/libceres.a'],
+    'dirs': ['include/ceres', 'lib/cmake/Ceres'],
+}
+
+moduleclass = 'phys'

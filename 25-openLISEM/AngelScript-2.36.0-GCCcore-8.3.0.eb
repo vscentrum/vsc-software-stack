@@ -1,0 +1,34 @@
+easyblock = 'CMakeMake'
+
+name = 'AngelScript'
+version = '2.36.0'
+
+homepage = 'https://www.angelcode.com/angelscript/'
+description = """
+The AngelCode Scripting Library, or AngelScript as it is also known, is an
+extremely flexible cross-platform scripting library designed to allow
+applications to extend their functionality through external scripts. It has
+been designed from the beginning to be an easy to use component, both for the
+application programmer and the script writer.
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '8.3.0'}
+
+source_urls = ['https://www.angelcode.com/angelscript/sdk/files/']
+sources = ['%(namelower)s_%(version)s.zip']
+
+builddependencies = [
+    ('CMake', '3.15.3'),
+    ('Eigen', '3.3.7', '', SYSTEM),
+]
+
+srcdir = '%(start_dir)s/angelscript/projects/cmake'
+
+configopts = ['-DBUILD_SHARED_LIBS=%s' % x for x in ['ON', 'OFF']]
+
+sanity_check_paths = {
+    'files': ['lib/libangelscript.a', 'lib/libangelscript.%s' % SHLIB_EXT, 'include/angelscript.h'],
+    'dirs':  ['lib/cmake/Angelscript'],
+}
+
+moduleclass = 'tools'
