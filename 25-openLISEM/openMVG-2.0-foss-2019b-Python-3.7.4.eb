@@ -1,0 +1,65 @@
+easyblock = 'CMakeMake'
+
+name = 'openMVG'
+version = '2.0'
+versionsuffix = '-Python-3.7.4'
+
+homepage = 'https://github.com/openMVG/openMVG'
+description = "Open Multiple View Geometry library, basis for 3D computer vision and Structure from Motion"
+
+toolchain = {'name': 'foss', 'version': '2019b'}
+
+source_urls = ['https://github.com/openMVG/openMVG/archive/refs/tags/']
+sources = [{
+    'filename': SOURCE_TAR_GZ,
+    'git_config': {
+        'url': 'https://github.com/openMVG',
+        'repo_name': 'openMVG',
+        'tag': 'v%(version)s',
+        'recursive': True,
+    },
+}]
+patches = ['openMVG-2.0_fix-cereal-dep.patch']
+checksums = [
+    None,  # openMVG-2.0.tar.gz
+    '541a9b3cf40ee21c90b78b35e2b226cb0a9dac44dde98e878b82c2fe06dc4487',  # openMVG-2.0_fix-cereal-dep.patch
+]
+
+builddependencies = [
+    ('CMake', '3.15.3'),
+    ('Eigen', '3.3.7', '', SYSTEM),
+    ('Cereal', '1.3.2', '', SYSTEM),
+]
+
+dependencies = [
+    ('zlib', '1.2.11'),
+    ('lz4', '1.9.2'),
+    ('libpng', '1.6.37'),
+    ('libjpeg-turbo', '2.0.3'),
+    ('LibTIFF', '4.0.10'),
+    ('X11', '20190717'),
+    ('Qt5', '5.13.1'),
+    ('Ceres', '2.1.0'),
+    ('FLANN', '1.9.2', versionsuffix),
+    ('CoinUtils', '2.11.6'),
+    ('Osi', '0.108.7'),
+    ('Clp', '1.17.7'),
+    ('LEMON', '1.3.1'),
+    ('OpenCV', '4.2.0', versionsuffix + '-contrib'),
+]
+
+srcdir = 'src'
+
+configopts = "-DOpenMVG_BUILD_TESTS=ON -DOpenMVG_BUILD_EXAMPLES=ON -DOpenMVG_BUILD_SOFTWARES=ON "
+configopts += "-DOpenMVG_USE_OPENCV=ON -DCEREAL_ROOT=$EBROOTCEREAL -DCERES_DIR_HINTS=$EBROOTCERES "
+# configopts += "-DOpenMVG_USE_OPENCV=ON -DCEREAL_INCLUDE_DIR_HINTS=$EBROOTCEREAL/include -DCERES_DIR_HINTS=$EBROOTCERES "
+configopts += "-DFLANN_INCLUDE_DIR_HINTS=$EBROOTFLANN/include -DCOINUTILS_INCLUDE_DIR_HINTS=$EBROOTCOINUTILS/include "
+configopts += "-DCLP_INCLUDE_DIR_HINTS=$EBROOTCLP/include -DOSI_INCLUDE_DIR_HINTS=$EBROOTOSI/include "
+configopts += "-DLEMON_INCLUDE_DIR_HINTS=$EBROOTLEMON/include "
+configopts += '-DCMAKE_EXE_LINKER_FLAGS="-L$EBROOTLIBPNG/lib -L$EBROOTZLIB/lib -L$EBROOTLZ4/lib -L$EBROOTTIFF/lib '
+configopts += '-L$EBROOTLIBJPEGMINTURBO/lib -llz4" '
+
+runtest = 'test'
+# test_cmd = 'echo $LD_LIBRARY_PATH && LD_LIBRARY_PATH=$EBROOTLIBPNG/lib:$LD_LIBRARY_PATH make'
+
+moduleclass = 'vis'

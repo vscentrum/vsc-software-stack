@@ -1,0 +1,49 @@
+easyblock = 'CMakeMake'
+
+name = 'mlpack'
+version = '4.0.1'
+
+homepage = 'https://www.mlpack.org/'
+description = """
+mlpack: a fast, header-only C++ machine learning library
+"""
+
+toolchain = {'name': 'foss', 'version': '2019b'}
+
+github_account = 'mlpack'
+source_urls = [GITHUB_SOURCE]
+sources = ['%(version)s.tar.gz']
+
+builddependencies = [
+    ('CMake', '3.15.3'),
+    ('binutils', '2.32'),
+    ('stb', '20230129', '', SYSTEM),
+    ('ensmallen', '2.19.1', '', SYSTEM),
+    ('Cereal', '1.3.2', '', SYSTEM),
+]
+
+dependencies = [
+    ('Armadillo', '9.900.1'),
+]
+
+_bins = [
+    'adaboost', 'approx_kfn', 'bayesian_linear_regression', 'cf', 'dbscan',
+    'decision_tree', 'det', 'emst', 'fastmks', 'gmm_generate',
+    'gmm_probability', 'gmm_train', 'hmm_generate', 'hmm_loglik', 'hmm_train',
+    'hmm_viterbi', 'hoeffding_tree', 'image_converter', 'kde', 'kernel_pca',
+    'kfn', 'kmeans', 'knn', 'krann', 'lars', 'linear_regression',
+    'linear_svm', 'lmnn', 'local_coordinate_coding', 'logistic_regression', 'lsh',
+    'mean_shift', 'nbc', 'nca', 'nmf', 'pca', 'perceptron',
+    'preprocess_binarize', 'preprocess_describe', 'preprocess_imputer',
+    'preprocess_one_hot_encoding', 'preprocess_scale', 'preprocess_split', 'radical',
+    'random_forest', 'range_search', 'softmax_regression', 'sparse_coding',
+]
+
+sanity_check_paths = {
+    'files': ['include/mlpack.hpp'] + ['bin/mlpack_%s' % x for x in _bins],
+    'dirs': ['lib'],
+}
+
+sanity_check_commands = ['mlpack_%s --help' % x for x in _bins]
+
+moduleclass = 'lib'

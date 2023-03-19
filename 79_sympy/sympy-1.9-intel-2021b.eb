@@ -25,8 +25,8 @@ use_pip = True
 
 # fix broken test, sympy doesn't actually use gmpy2's Decimal anywhere;
 # see https://github.com/sympy/sympy/issues/23061#issuecomment-1052424896
-#pretestopts = """sed -i "s@Decimal('0.6')@'0.6'@g" sympy/external/tests/test_pythonmpq.py && """
-#runtest = 'python setup.py test'
+pretestopts = """sed -i "s@Decimal('0.6')@'0.6'@g" sympy/external/tests/test_pythonmpq.py && """
+runtest = 'python setup.py test'
 
 sanity_pip_check = True
 
@@ -35,9 +35,6 @@ sanity_check_paths = {
     'dirs': ['lib/python%(pyshortver)s/site-packages/sympy'],
 }
 
-sanity_check_commands = [
-    "isympy --help",
-    "python -c 'import sympy; sympy.test()'",
-]
+sanity_check_commands = ["isympy --help"]
 
 moduleclass = 'math'

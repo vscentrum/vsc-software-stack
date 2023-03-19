@@ -1,0 +1,21 @@
+--- LISEM-6a5ef17d87bab4227d48673c95c12c61462114dd/lisem/algorithms/sfm/Common/Common.cpp.orig	2022-08-10 22:06:03.000000000 +0200
++++ LISEM-6a5ef17d87bab4227d48673c95c12c61462114dd/lisem/algorithms/sfm/Common/Common.cpp	2023-03-16 21:10:49.603401000 +0100
+@@ -13,14 +13,14 @@
+ 
+ namespace SEACAVE {
+ #if TD_VERBOSE == TD_VERBOSE_ON
+-__declspec(dllexport) int g_nVerbosityLevel(2);
++__attribute__((visibility("default"))) int g_nVerbosityLevel(2);
+ #endif
+ #if TD_VERBOSE == TD_VERBOSE_DEBUG
+-__declspec(dllexport) int g_nVerbosityLevel(3);
++__attribute__((visibility("default"))) int g_nVerbosityLevel(3);
+ #endif
+ 
+-__declspec(dllexport) String g_strWorkingFolder;
+-__declspec(dllexport) String g_strWorkingFolderFull;
++__attribute__((visibility("default"))) String g_strWorkingFolder;
++__attribute__((visibility("default"))) String g_strWorkingFolderFull;
+ } // namespace SEACAVE
+ 
+ #ifdef _USE_BOOST

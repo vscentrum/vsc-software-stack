@@ -1,0 +1,29 @@
+easyblock = 'CMakeMake'
+
+name = 'OpenAL-Soft'
+version = '1.23.0'
+
+homepage = ''
+description = """
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '8.3.0'}
+
+source_urls = ['https://github.com/kcat/openal-soft/archive/']
+sources = ['%(version)s.tar.gz']
+
+builddependencies = [
+    ('binutils', '2.32'),
+    ('CMake', '3.15.3'),
+    # ('Eigen', '3.3.7', '', SYSTEM),
+]
+
+# remove C++20 attributes [[likely]] and [[unlikely]] for older compilers
+preconfigopts = "find %(start_dir)s -type f -name '*.cpp' -o -name '*.h' "
+preconfigopts += "| xargs sed -i -e 's/\[\[likely\]\]//g' -e 's/\[\[unlikely\]\]//g' && "  # noqa: W605
+
+# dependencies = [('Python', '3.7.4')]
+
+# configopts = "-DPYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python"
+
+moduleclass = 'lib'

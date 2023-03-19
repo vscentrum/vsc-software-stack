@@ -14,7 +14,11 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 # Sources are no longer available in PyPI, it only has wheels
 source_urls = ['https://github.com/pytorch/text/archive/']
 sources = ['v%(version)s.tar.gz']
-checksums = ['fd1ef3da7d9c20408c740f7dc7d02ad52a6048b46368355a1a7326d3bc4f2e63']
+patches = ['torchtext-0.14.1_deps_fix.patch']
+checksums = [
+    {'v0.14.1.tar.gz': 'fd1ef3da7d9c20408c740f7dc7d02ad52a6048b46368355a1a7326d3bc4f2e63'},
+    {'torchtext-0.14.1_deps_fix.patch': 'c64bf9f50a5ed79f3a99be1cbda7e0ccae73c91fb79111e73492acbb35531230'},
+]
 
 builddependencies = [
     ('RE2', '2022-06-01'),
@@ -25,34 +29,20 @@ builddependencies = [
 dependencies = [
     ('Python', '3.10.4'),
     ('SciPy-bundle', '2022.05'),
-    ('SentencePiece', '0.1.97'),
+    ('SentencePiece', '0.1.95'),
     ('tqdm', '4.64.0'),
     ('PyTorch', local_pytorch_version),
     ('double-conversion', '3.2.0'),
+    ('utf8proc', '2.7.0'),
 ]
 
-# exts_defaultclass = 'PythonPackage'
-# exts_default_options = {
-#     'source_urls': [PYPI_SOURCE],
-#     'download_dep_fail': True,
-#     'use_pip': True,
-#     'sanity_pip_check': True,
-# }
-#
-# exts_list = [
-#     (name, version, {
-#         'source_urls': source_urls,
-#         'sources': sources,
-#         'checksums': checksums,
-#     }),
-# ]
+download_dep_fail = True,
+use_pip = True
+sanity_pip_check = True,
 
 # Disable bundled libraries to use those from EB: RE2, SentencePiece
-preinstallopts = "sed -i '/third_party/d;/^_init_submodule/d' setup.py &&"
-preinstallopts += "sed -i '/third_party/d' CMakeLists.txt &&"
+preinstallopts = "sed -i '/third_party/d;/^_init_submodule/d' setup.py && "
 
-installopts = "echo 'finding...' && find .. -type f -name '*.whl' &&"
-
-modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+# modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'tools'

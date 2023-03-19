@@ -1,0 +1,125 @@
+--- LISEM-6a5ef17d87bab4227d48673c95c12c61462114dd/lisem/algorithms/sfm/Common/Thread.h.orig	2022-08-10 22:06:03.000000000 +0200
++++ LISEM-6a5ef17d87bab4227d48673c95c12c61462114dd/lisem/algorithms/sfm/Common/Thread.h	2023-03-16 17:35:25.791785779 +0100
+@@ -8,17 +8,16 @@
+ #ifndef __SEACAVE_THREAD_H__
+ #define __SEACAVE_THREAD_H__
+ 
+-#define _MSC_VER 1950
+ // I N C L U D E S /////////////////////////////////////////////////
+ 
+-#include <windows.h>
+ #ifdef _SUPPORT_CPP11
+ #include <cstdint>
+ #else
+ #include <stdint.h>
+ #endif
+ 
+-
++//needed for setpriority and PRIO_PROCESS
++#include <sys/resource.h>
+ 
+ // D E F I N E S ///////////////////////////////////////////////////
+ 
+@@ -51,6 +50,8 @@
+ 
+ 	
+ 
++/*
++
+ 	typedef HANDLE thread_t;
+ 	typedef void* (STCALL *FncStart)(void*);
+ 
+@@ -115,7 +116,7 @@
+ 	static inline int64_t safeExchange(volatile int64_t& target, int64_t value) { return InterlockedExchange64((volatile LONGLONG*)&target, value); };
+ 	static inline int64_t safeCompareExchange(volatile int64_t& target, int64_t comp, int64_t value) { return InterlockedCompareExchange64((volatile LONGLONG*)&target, value, comp); };
+ 
+-/*
++*/
+ 
+ 	typedef pthread_t thread_t;
+ 	typedef void* (STCALL *FncStart)(void*);
+@@ -174,7 +175,6 @@
+ 	static inline int64_t safeExchange(volatile int64_t& target, int64_t value) { return __sync_val_compare_and_swap(&target, target, value); }
+ 	static inline int64_t safeCompareExchange(volatile int64_t& target, int64_t comp, int64_t value) { return __sync_val_compare_and_swap(&target, comp, value); }
+ 
+-*/
+ 
+ 	static unsigned getMaxThreads(unsigned threads) {
+ 		if (threads == 1)
+@@ -190,6 +190,7 @@
+ 
+ protected:
+ 
++/*
+ 
+ 	enum PriorityOS {
+ 		OS_IDLE = THREAD_PRIORITY_IDLE,
+@@ -204,7 +205,7 @@
+ 		return (DWORD)reinterpret_cast<size_t>(pData->fnStarter(pData->pData));
+ 	}
+ 
+-	/*
++*/
+ 
+ 	enum PriorityOS {
+ 		OS_IDLE = 19,
+@@ -213,7 +214,6 @@
+ 		OS_HIGH = -10
+ 	};
+ 
+-	*/
+ 
+ 	static inline PriorityOS convertPriority(Priority p) {
+ 		switch (p) {
+@@ -348,13 +348,15 @@
+ 
+ 	
+ 
++#ifdef _MSC_VER
++
+ 	typedef HANDLE process_t;
+ 
+ 	static inline process_t getCurrentProcessID() { return ::GetCurrentProcess(); }
+ 	static inline void setProcessPriority(process_t id, Priority p) { ::SetPriorityClass(id, convertPriority(p)); }
+ 	static inline Priority getProcessPriority(process_t id) { return convertPriority((PriorityOS)::GetPriorityClass(id)); }
+ 
+-	/*#else //_MSC_VER
++#else //_MSC_VER
+ 
+ 	typedef id_t process_t;
+ 
+@@ -362,14 +364,14 @@
+ 	static inline void setProcessPriority(process_t id, Priority p) { ::setpriority(PRIO_PROCESS, id, convertPriority(p)); }
+ 	static inline Priority getProcessPriority(process_t id) { return convertPriority((PriorityOS)::getpriority(PRIO_PROCESS, id)); }
+ 
+-	#endif //_MSC_VER*/
++#endif //_MSC_VER*/
+ 
+ 	static inline void setCurrentProcessPriority(Priority p) { setProcessPriority(getCurrentProcessID(), p); }
+ 	static inline Priority getCurrentProcessPriority() { return getProcessPriority(getCurrentProcessID()); }
+ 
+ protected:
+ 
+-	#ifdef _MSC_VER
++#ifdef _MSC_VER
+ 
+ 	enum PriorityOS {
+ 		OS_IDLE = IDLE_PRIORITY_CLASS,
+@@ -381,7 +383,7 @@
+ 		OS_REALTIME = REALTIME_PRIORITY_CLASS
+ 	};
+ 
+-	#else //_MSC_VER
++#else //_MSC_VER
+ 
+ 	enum PriorityOS {
+ 		OS_IDLE = 19,
+@@ -393,7 +395,7 @@
+ 		OS_REALTIME = -20
+ 	};
+ 
+-	#endif //_MSC_VER
++#endif //_MSC_VER
+ 
+ 	static inline PriorityOS convertPriority(Priority p) {
+ 		switch (p) {

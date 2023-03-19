@@ -1,0 +1,74 @@
+--- LISEM-6a5ef17d87bab4227d48673c95c12c61462114dd/lisem/algorithms/sfm/Common/Types.h.orig	2022-08-10 22:06:03.000000000 +0200
++++ LISEM-6a5ef17d87bab4227d48673c95c12c61462114dd/lisem/algorithms/sfm/Common/Types.h	2023-03-16 21:10:02.849986509 +0100
+@@ -11,9 +11,8 @@
+ 
+ // I N C L U D E S /////////////////////////////////////////////////
+ 
++#include <pthread.h>
+ 
+-#include <windows.h>
+-#include <tchar.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <stdarg.h>
+@@ -156,8 +155,6 @@
+ #endif
+ 
+ 
+-#define _MSC_VER 1950
+-#define _WIN32
+ // D E F I N E S ///////////////////////////////////////////////////
+ 
+ // In order to create a singleton class
+@@ -196,7 +193,11 @@
+ #endif
+ 
+ #ifndef __THREAD__
++# ifdef _MSC_VER
+ #  define __THREAD__ ((unsigned)GetCurrentThreadId())
++# else
++#  define __THREAD__ ((unsigned)pthread_self())
++# endif
+ #endif
+ 
+ #ifndef STCALL
+@@ -223,7 +224,7 @@
+ //
+ // Type defines
+ 
+-/*typedef int32_t				HRESULT;
++typedef int32_t				HRESULT;
+ 
+ typedef unsigned char		BYTE;
+ typedef unsigned short		WORD;
+@@ -252,7 +253,7 @@
+ #define _vsntprintf         vsnprintf
+ #define _vsctprintf         _vscprintf
+ 
+-int _vscprintf(LPCSTR format, va_list pargs);*/
++int _vscprintf(LPCSTR format, va_list pargs);
+ 
+ #define _T(s)               s
+ 
+@@ -2499,11 +2500,11 @@
+ 
+ 
+ // tools
+-__declspec(dllexport) String cvMat2String(const cv::Mat&, LPCSTR format="% 10.4f ");
++__attribute__((visibility("default"))) String cvMat2String(const cv::Mat&, LPCSTR format="% 10.4f ");
+ template<typename TYPE, int m, int n>
+-__declspec(dllexport) inline String cvMat2String(const TMatrix<TYPE,m,n>& mat, LPCSTR format="% 10.4f ") { return cvMat2String(cv::Mat(mat), format); }
++__attribute__((visibility("default"))) inline String cvMat2String(const TMatrix<TYPE,m,n>& mat, LPCSTR format="% 10.4f ") { return cvMat2String(cv::Mat(mat), format); }
+ template<typename TYPE>
+-__declspec(dllexport) inline String cvMat2String(const TPoint3<TYPE>& pt, LPCSTR format="% 10.4f ") { return cvMat2String(cv::Mat(pt), format); }
++__attribute__((visibility("default"))) inline String cvMat2String(const TPoint3<TYPE>& pt, LPCSTR format="% 10.4f ") { return cvMat2String(cv::Mat(pt), format); }
+ /*----------------------------------------------------------------*/
+ 
+ } // namespace SEACAVE
+@@ -2761,6 +2762,5 @@
+ #include "Ray.h"
+ #include "Octree.h"
+ #include "Util.inl"
+-#include "CUDA.h"
+ 
+ #endif // __SEACAVE_TYPES_H__
