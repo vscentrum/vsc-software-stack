@@ -71,13 +71,17 @@ $ cd vsc-software-stack/vsc
 $ git branch issue-00
 $ git checkout issue-00
 ```
-3. Add and commit the files affected by this change
+3. Add new easyconfigs from another worktree
 ```
-$ git add 00_test/TEMPLATE.eb
+$ cp ../wip/00_test/TEMPLATE.eb t/TEMPLATE/TEMPLATE.eb
+```
+4. Add and commit the files affected by this change
+```
+$ git add t/TEMPLATE/TEMPLATE.eb
 $ git commit -m "adding easiconfig TEMPLATE.eb"
 ```
-3. Push local branch to remote vsc-software-stack repo
+5. Push local branch to remote vsc-software-stack repo
 ```
 $ git push origin issue-00
 ```
-4. Create new PR in GitHub from your branch `issue-00` to `vsc` branch 
+6. Create new PR in GitHub from your branch `issue-00` to `vsc` branch 
