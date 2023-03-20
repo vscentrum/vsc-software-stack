@@ -1,0 +1,27 @@
+--- LISEM-6a5ef17d87bab4227d48673c95c12c61462114dd/lisem/algorithms/sfm/Common/Util.cpp.orig	2022-08-10 22:06:03.000000000 +0200
++++ LISEM-6a5ef17d87bab4227d48673c95c12c61462114dd/lisem/algorithms/sfm/Common/Util.cpp	2023-03-16 16:08:23.344495807 +0100
+@@ -7,13 +7,13 @@
+ 
+ #include "Common.h"
+ #include "Util.h"
+-//#ifdef _MSC_VER
++#ifdef _MSC_VER
+ #include <Shlobj.h>
+ #ifndef _USE_WINSDKOS
+ #define _USE_WINSDKOS
+ #include <VersionHelpers.h>
+ #endif
+-/*#else
++#else
+ #include <sys/utsname.h>
+ #ifdef __APPLE__
+ #include <sys/sysctl.h>
+@@ -21,7 +21,7 @@
+ #include <sys/sysinfo.h>
+ #endif
+ #include <pwd.h>
+-#endif*/
++#endif
+ 
+ using namespace SEACAVE;
+ 

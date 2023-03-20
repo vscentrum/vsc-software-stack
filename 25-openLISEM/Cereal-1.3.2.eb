@@ -20,9 +20,10 @@ source_urls = ['https://github.com/USCiLab/cereal/archive/']
 sources = ['v%(version)s.tar.gz']
 checksums = ['16a7ad9b31ba5880dac55d62b5d6f243c3ebc8d46a3514149e56b5e7ea81f85f']
 
-builddependencies = [('CMake', '3.12.1')]
+builddependencies = [('CMake', '3.15.1')]
 
 configopts = '-DJUST_INSTALL_CEREAL=ON -DSKIP_PERFORMANCE_COMPARISON=ON '
+# configopts = '-DWITH_WERROR=OFF -DSKIP_PERFORMANCE_COMPARISON=ON '
 
 sanity_check_paths = {
     'files': ['include/cereal/cereal.hpp'],
