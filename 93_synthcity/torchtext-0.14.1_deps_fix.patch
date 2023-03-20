@@ -1,3 +1,4 @@
+The error "string_view has not been declared in std" appears when not using C++17
 diff -u text/CMakeLists.txt.orig text/CMakeLists.txt
 --- text/CMakeLists.txt.orig	2023-03-08 14:33:35.618931003 +0100
 +++ text/CMakeLists.txt	2023-03-08 14:35:03.169072623 +0100
@@ -40,19 +41,6 @@ diff -u text/torchtext/csrc/CMakeLists.txt.orig text/torchtext/csrc/CMakeLists.t
    ${TORCH_INSTALL_PREFIX}/include
    ${TORCH_INSTALL_PREFIX}/include/torch/csrc/api/include
    )
-@@ -33,9 +29,9 @@
-   ${TORCH_CPU_LIBRARY}
-   re2
-   double-conversion
--  sentencepiece
--  sentencepiece_train
--  utf8proc
-+  $SENTENCEPIECE_LIBRARY
-+  $SENTENCEPIECE_TRAIN_LIBRARY
-+  $UTF8PROC_LIBRARY
-   )
-
- set(
 @@ -119,10 +115,6 @@
    set(
      EXTENSION_INCLUDE_DIRS
