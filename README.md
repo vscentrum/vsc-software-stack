@@ -24,7 +24,7 @@ $ mkdir vsc-software-stack
 $ git clone --bare git@github.com:vscentrum/vsc-software-stack.git vsc-software-stack/.bare
 ```
 
-3. Point git to the bare repo from the root folder
+3. Point git to the bare repo already from the root folder
 ```bash
 $ echo "gitdir: ./.bare" > vsc-software-stack/.git
 ```
@@ -35,3 +35,49 @@ $ cd vsc-software-stack
 $ git worktree add vsc
 $ git worktree add wip
 ```
+
+## Commits with worktrees
+
+Pushing/pulling changes in worktrees is no different than in a regular repo. As soon as you change directory into a worktree folder, you can work as if you were on a regular repo. There will be an active branch, you can create/checkout other branches and commit to any branch as usual.
+
+### Unreviewed branches
+
+Branches such `wip` do not require PRs and reviews to push changes.
+
+1. Enter the target worktree/branch
+```
+$ cd vsc-software-stack/wip
+```
+2. Add and commit the files affected by this change
+```
+$ git add 00_test/TEMPLATE.eb
+$ git commit -m "adding WIP easiconfig TEMPLATE.eb"
+```
+3. Push new commit to remote branch in vsc-software-stack repo
+```
+$ git push origin wip
+```
+
+## Reviewed branches
+
+The `vsc` requires a PR and a positive review to merge changes into it.
+
+1. Enter the target worktree/branch
+```
+$ cd vsc-software-stack/vsc
+```
+2. Create a new local branch to work on the changes
+```
+$ git branch issue-00
+$ git checkout issue-00
+```
+3. Add and commit the files affected by this change
+```
+$ git add 00_test/TEMPLATE.eb
+$ git commit -m "adding easiconfig TEMPLATE.eb"
+```
+3. Push local branch to remote vsc-software-stack repo
+```
+$ git push origin issue-00
+```
+4. Create new PR in GitHub from your branch `issue-00` to `vsc` branch 
