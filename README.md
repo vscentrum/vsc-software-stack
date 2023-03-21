@@ -78,8 +78,7 @@ $ git pull origin vsc
 ```
 3. Create a new local branch to work on the changes
 ```
-$ git branch issue-000
-$ git checkout issue-000
+$ git checkout -b 000_example
 ```
 4. Add new easyconfigs from another worktree
 ```
@@ -92,6 +91,6 @@ $ git commit -m "adding easiconfig example.eb"
 ```
 6. Push local branch to remote vsc-software-stack repo
 ```
-$ git push origin issue-000
+$ git push origin 000_example
 ```
-7. Create new PR in GitHub from your branch `issue-000` to `vsc` branch 
+7. Create new PR in GitHub from your branch `000_example` to `vsc` branch 
