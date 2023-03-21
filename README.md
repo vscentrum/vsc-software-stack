@@ -65,7 +65,7 @@ $ git pull origin wip
 3. Add and commit the files affected by this change
 ```bash
 $ git add 000_example/example.eb
-$ git commit -m "adding WIP easiconfig example.eb"
+$ git commit -m "adding WIP easyconfig example.eb"
 ```
 4. Push new commit to remote branch in vsc-software-stack repo
 ```bash
@@ -97,7 +97,7 @@ $ cp ../wip/000_example/example.eb e/example/example.eb
 5. Add and commit the files affected by this change
 ```bash
 $ git add e/example/example.eb
-$ git commit -m "adding easiconfig example.eb"
+$ git commit -m "adding easyconfig example.eb"
 ```
 6. Push local branch to remote vsc-software-stack repo
 ```bash
