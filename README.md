@@ -55,8 +55,8 @@ $ git pull origin wip
 ```
 3. Add and commit the files affected by this change
 ```
-$ git add 00_test/TEMPLATE.eb
-$ git commit -m "adding WIP easiconfig TEMPLATE.eb"
+$ git add 000_example/example.eb
+$ git commit -m "adding WIP easiconfig example.eb"
 ```
 4. Push new commit to remote branch in vsc-software-stack repo
 ```
@@ -78,20 +78,20 @@ $ git pull origin vsc
 ```
 3. Create a new local branch to work on the changes
 ```
-$ git branch issue-00
-$ git checkout issue-00
+$ git branch issue-000
+$ git checkout issue-000
 ```
 4. Add new easyconfigs from another worktree
 ```
-$ cp ../wip/00_test/TEMPLATE.eb t/TEMPLATE/TEMPLATE.eb
+$ cp ../wip/000_example/example.eb e/example/example.eb
 ```
 5. Add and commit the files affected by this change
 ```
-$ git add t/TEMPLATE/TEMPLATE.eb
-$ git commit -m "adding easiconfig TEMPLATE.eb"
+$ git add e/example/example.eb
+$ git commit -m "adding easiconfig example.eb"
 ```
 6. Push local branch to remote vsc-software-stack repo
 ```
-$ git push origin issue-00
+$ git push origin issue-000
 ```
-7. Create new PR in GitHub from your branch `issue-00` to `vsc` branch 
+7. Create new PR in GitHub from your branch `issue-000` to `vsc` branch 
