@@ -51,7 +51,8 @@ other branches and commit to any branch as usual.
 
 ### Unreviewed branches
 
-Branches such as `wip` do not require PRs and reviews to push changes.
+Branches such as `wip` or the `site-*` branches do not require PRs and reviews
+to push changes.
 
 1. Enter the target worktree/branch
 ```bash
