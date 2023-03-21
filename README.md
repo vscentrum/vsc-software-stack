@@ -4,22 +4,28 @@ Central repository of easyconfigs used in the software installations on VSC clus
 
 ## Structure
 
-The organization of this repo is structured on standard git branches, each one providing a different degree of reliability:
+The organization of this repo is structured on standard git branches, each one
+providing a different degree of reliability:
 
-* `vsc`: main branch with software installations validated by multiple VSC sites and tested
-* `site-*`: software installations validated by a single site (not necessarily tested)
+* `vsc`: main branch with software installations validated by multiple VSC
+  sites and tested
+* `site-*`: software installations validated by a single site (not necessarily
+  tested)
 * `wip`: software installations that are work-in-progress
 
 ## Bootstrap
 
-Users of this repo are encouraged to work with git worktrees. This approach allows to have all easyconfigs available in the VSC Software Stack across all its branches under a single folder in your local system.
+Users of this repo are encouraged to work with git worktrees. This approach
+allows to have all easyconfigs available in the VSC Software Stack across all
+its branches under a single folder in your local system.
 
 1. Create a new folder for this repo
 ```bash
 $ mkdir vsc-software-stack
 ```
 
-2. Clone the bare repository (we keep it in a hidden folder as it won't be used directly)
+2. Clone the bare repository (we keep it in a hidden folder as it won't be used
+   directly)
 ```bash
 $ git clone --bare git@github.com:vscentrum/vsc-software-stack.git vsc-software-stack/.bare
 ```
@@ -38,7 +44,10 @@ $ git worktree add wip
 
 ## Commits with worktrees
 
-Pushing/pulling changes in worktrees is no different than in a regular repo. As soon as you change directory into a worktree folder, you can work as if you were on a regular repo. There will be an active branch, you can create/checkout other branches and commit to any branch as usual.
+Pushing/pulling changes in worktrees is no different than in a regular repo. As
+soon as you change directory into a worktree folder, you can work as if you
+were on a regular repo. There will be an active branch, you can create/checkout
+other branches and commit to any branch as usual.
 
 ### Unreviewed branches
 
@@ -65,7 +74,8 @@ $ git push origin wip
 
 ## Reviewed branches
 
-The `vsc` branch requires a PR and a positive review (+ working test report) to merge changes into it.
+The `vsc` branch requires a PR and a positive review (+ working test report) to
+merge changes into it.
 
 1. Enter the target worktree/branch
 ```
