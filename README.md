@@ -75,7 +75,12 @@ $ git push origin wip
 ### Reviewed branches
 
 The `vsc` branch requires a PR and a positive review (+ working test report) to
-merge changes into it.
+merge changes into it. PRs should be open from a fork of the vsc-software-stack
+repo.
+
+In the following we assume the following names for the remote repos:
+* `origin`: vsc-software-stack repo in vscentrum
+* `personal`: your fork of vsc-software-stack
 
 1. Enter the target worktree/branch
 ```bash
@@ -85,6 +90,7 @@ $ cd vsc-software-stack/vsc
 ```bash
 $ git fetch origin
 $ git pull origin vsc
+$ git push personal vsc
 ```
 3. Create a new local branch to work on the changes
 ```bash
@@ -99,8 +105,9 @@ $ cp ../wip/000_example/example.eb e/example/example.eb
 $ git add e/example/example.eb
 $ git commit -m "adding easyconfig example.eb"
 ```
-6. Push local branch to remote vsc-software-stack repo
+6. Push local branch to your fork of the vsc-software-stack repo
 ```bash
-$ git push origin 000_example
+$ git push personal 000_example
 ```
-7. Create new PR in GitHub from your branch `000_example` to `vsc` branch 
+7. Create a new PR in GitHub from the branch `000_example` in your fork of the
+   vsc-software-stack to the `vsc` branch in the main vscentrum repo.
