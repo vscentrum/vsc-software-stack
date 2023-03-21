@@ -42,18 +42,23 @@ Pushing/pulling changes in worktrees is no different than in a regular repo. As 
 
 ### Unreviewed branches
 
-Branches such `wip` do not require PRs and reviews to push changes.
+Branches such as `wip` do not require PRs and reviews to push changes.
 
 1. Enter the target worktree/branch
 ```
 $ cd vsc-software-stack/wip
 ```
-2. Add and commit the files affected by this change
+2. Fetch updates in this branch from remote repository
+```
+$ git fetch origin
+$ git pull origin wip
+```
+3. Add and commit the files affected by this change
 ```
 $ git add 00_test/TEMPLATE.eb
 $ git commit -m "adding WIP easiconfig TEMPLATE.eb"
 ```
-3. Push new commit to remote branch in vsc-software-stack repo
+4. Push new commit to remote branch in vsc-software-stack repo
 ```
 $ git push origin wip
 ```
@@ -66,22 +71,27 @@ The `vsc` requires a PR and a positive review to merge changes into it.
 ```
 $ cd vsc-software-stack/vsc
 ```
-2. Create a new local branch to work on the changes
+2. Fetch updates in this branch from remote repository
+```
+$ git fetch origin
+$ git pull origin vsc
+```
+3. Create a new local branch to work on the changes
 ```
 $ git branch issue-00
 $ git checkout issue-00
 ```
-3. Add new easyconfigs from another worktree
+4. Add new easyconfigs from another worktree
 ```
 $ cp ../wip/00_test/TEMPLATE.eb t/TEMPLATE/TEMPLATE.eb
 ```
-4. Add and commit the files affected by this change
+5. Add and commit the files affected by this change
 ```
 $ git add t/TEMPLATE/TEMPLATE.eb
 $ git commit -m "adding easiconfig TEMPLATE.eb"
 ```
-5. Push local branch to remote vsc-software-stack repo
+6. Push local branch to remote vsc-software-stack repo
 ```
 $ git push origin issue-00
 ```
-6. Create new PR in GitHub from your branch `issue-00` to `vsc` branch 
+7. Create new PR in GitHub from your branch `issue-00` to `vsc` branch 
