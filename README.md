@@ -72,7 +72,7 @@ $ git commit -m "adding WIP easiconfig example.eb"
 $ git push origin wip
 ```
 
-## Reviewed branches
+### Reviewed branches
 
 The `vsc` branch requires a PR and a positive review (+ working test report) to
 merge changes into it.
