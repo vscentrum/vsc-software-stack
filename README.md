@@ -54,21 +54,21 @@ other branches and commit to any branch as usual.
 Branches such as `wip` do not require PRs and reviews to push changes.
 
 1. Enter the target worktree/branch
-```
+```bash
 $ cd vsc-software-stack/wip
 ```
 2. Fetch updates in this branch from remote repository
-```
+```bash
 $ git fetch origin
 $ git pull origin wip
 ```
 3. Add and commit the files affected by this change
-```
+```bash
 $ git add 000_example/example.eb
 $ git commit -m "adding WIP easiconfig example.eb"
 ```
 4. Push new commit to remote branch in vsc-software-stack repo
-```
+```bash
 $ git push origin wip
 ```
 
@@ -78,29 +78,29 @@ The `vsc` branch requires a PR and a positive review (+ working test report) to
 merge changes into it.
 
 1. Enter the target worktree/branch
-```
+```bash
 $ cd vsc-software-stack/vsc
 ```
 2. Fetch updates in this branch from remote repository
-```
+```bash
 $ git fetch origin
 $ git pull origin vsc
 ```
 3. Create a new local branch to work on the changes
-```
+```bash
 $ git checkout -b 000_example
 ```
 4. Add new easyconfigs from another worktree
-```
+```bash
 $ cp ../wip/000_example/example.eb e/example/example.eb
 ```
 5. Add and commit the files affected by this change
-```
+```bash
 $ git add e/example/example.eb
 $ git commit -m "adding easiconfig example.eb"
 ```
 6. Push local branch to remote vsc-software-stack repo
-```
+```bash
 $ git push origin 000_example
 ```
 7. Create new PR in GitHub from your branch `000_example` to `vsc` branch 
