@@ -65,7 +65,7 @@ $ git push origin wip
 
 ## Reviewed branches
 
-The `vsc` requires a PR and a positive review to merge changes into it.
+The `vsc` branch requires a PR and a positive review (+ working test report) to merge changes into it.
 
 1. Enter the target worktree/branch
 ```
