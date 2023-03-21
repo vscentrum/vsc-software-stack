@@ -20,27 +20,24 @@ allows to have all easyconfigs available in the VSC Software Stack across all
 its branches under a single folder in your local system.
 
 1. Create a new folder for this repo
-```bash
-$ mkdir vsc-software-stack
-```
-
+   ```bash
+   $ mkdir vsc-software-stack
+   ```
 2. Clone the bare repository (we keep it in a hidden folder as it won't be used
    directly)
-```bash
-$ git clone --bare git@github.com:vscentrum/vsc-software-stack.git vsc-software-stack/.bare
-```
-
+   ```bash
+   $ git clone --bare git@github.com:vscentrum/vsc-software-stack.git vsc-software-stack/.bare
+   ```
 3. Point git to the bare repo already from the root folder
-```bash
-$ echo "gitdir: ./.bare" > vsc-software-stack/.git
-```
-
+   ```bash
+   $ echo "gitdir: ./.bare" > vsc-software-stack/.git
+   ```
 4. Add worktrees for each branch in their own folder
-```bash
-$ cd vsc-software-stack
-$ git worktree add vsc
-$ git worktree add wip
-```
+   ```bash
+   $ cd vsc-software-stack
+   $ git worktree add vsc
+   $ git worktree add wip
+   ```
 
 ## Commits with worktrees
 
@@ -55,23 +52,23 @@ Branches such as `wip` or the `site-*` branches do not require PRs and reviews
 to push changes.
 
 1. Enter the target worktree/branch
-```bash
-$ cd vsc-software-stack/wip
-```
+   ```bash
+   $ cd vsc-software-stack/wip
+   ```
 2. Fetch updates in this branch from remote repository
-```bash
-$ git fetch origin
-$ git pull origin wip
-```
+   ```bash
+   $ git fetch origin
+   $ git pull origin wip
+   ```
 3. Add and commit the files affected by this change
-```bash
-$ git add 000_example/example.eb
-$ git commit -m "adding WIP easyconfig example.eb"
-```
+   ```bash
+   $ git add 000_example/example.eb
+   $ git commit -m "adding WIP easyconfig example.eb"
+   ```
 4. Push new commit to remote branch in vsc-software-stack repo
-```bash
-$ git push origin wip
-```
+   ```bash
+   $ git push origin wip
+   ```
 
 ### Reviewed branches
 
@@ -84,31 +81,31 @@ In the following we assume the following names for the remote repos:
 * `personal`: your fork of vsc-software-stack
 
 1. Enter the target worktree/branch
-```bash
-$ cd vsc-software-stack/vsc
-```
+   ```bash
+   $ cd vsc-software-stack/vsc
+   ```
 2. Fetch updates in this branch from remote repository
-```bash
-$ git fetch origin
-$ git pull origin vsc
-$ git push personal vsc
-```
+   ```bash
+   $ git fetch origin
+   $ git pull origin vsc
+   $ git push personal vsc
+   ```
 3. Create a new local branch to work on the changes
-```bash
-$ git checkout -b 000_example
-```
+   ```bash
+   $ git checkout -b 000_example
+   ```
 4. Add new easyconfigs from another worktree
-```bash
-$ cp ../wip/000_example/example.eb e/example/example.eb
-```
+   ```bash
+   $ cp ../wip/000_example/example.eb e/example/example.eb
+   ```
 5. Add and commit the files affected by this change
-```bash
-$ git add e/example/example.eb
-$ git commit -m "adding easyconfig example.eb"
-```
+   ```bash
+   $ git add e/example/example.eb
+   $ git commit -m "adding easyconfig example.eb"
+   ```
 6. Push local branch to your fork of the vsc-software-stack repo
-```bash
-$ git push personal 000_example
-```
+   ```bash
+   $ git push personal 000_example
+   ```
 7. Create a new PR in GitHub from the branch `000_example` in your fork of the
    vsc-software-stack to the `vsc` branch in the main vscentrum repo.
