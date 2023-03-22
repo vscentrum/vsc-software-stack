@@ -1,0 +1,29 @@
+esyblock = 'MakeCp'
+
+name = 'LoRDEC'
+version = '0.9'
+
+homepage = 'https://www.lirmm.fr/~rivals/lordec'
+description = """Program for correcting sequencing errors in long reads (e.g., PacBio, Oxford Nanopore) using highly
+accurate short reads (e.g., Illumina)."""
+
+toolchain = {'name': 'GCC', 'version': '11.3.0'}
+
+source_urls = ['https://gite.lirmm.fr/lordec/lordec-releases/uploads/800a96d81b3348e368a0ff3a260a88e1/']
+sources = ['lordec-src_%(version)s.tar.bz2']
+checksums = ['8108b82a8404fbf44c7e300d3abb43358ccc28993f90546168a20ca82536923b']
+
+dependencies = [
+    ('Boost', '1.79.0'),
+]
+
+buildopts = "AUTOMATIC_LIBBOOST_LOCAL_INSTALL=no "
+
+files_to_copy = []
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
