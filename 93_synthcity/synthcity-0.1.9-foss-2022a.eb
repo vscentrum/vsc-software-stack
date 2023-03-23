@@ -15,7 +15,7 @@ dependencies = [
     ('pydantic', '1.10.4'), # updated
     ('Redis', '7.0.8'), # updated
     ('scikit-learn', '1.1.2'),
-    ('SHAP', '0.39.0'), # updated
+    ('SHAP', '0.41.0'), # updated
     ('PyTorch', '1.12.0'),
     ('XGBoost', '1.7.2'),
     ('tqdm', '4.64.0'),
@@ -27,7 +27,7 @@ dependencies = [
     ('protobuf', '3.19.4'),
     ('Arrow', '8.0.0'),
     ('pybind11', '2.9.2'),
-    ('pytorch-lightning', '1.8.4'),
+    ('PyTorch-Lightning', '1.8.4'),
     ('spaCy', '3.4.4'),
     ('tensorboard', '2.10.0'),
     ('torchvision', '0.13.1'),
@@ -38,6 +38,7 @@ dependencies = [
     ('Optuna', '3.1.0'), # updated
     ('Cython', '0.29.33'), # updated
     ('cython-blis', '0.9.1'), # updated
+    ('torchtext', '0.14.1'), # updated
 ]
 
 download_dep_fail = True
@@ -88,10 +89,10 @@ exts_list = [
     # ('cymem', '2.0.7', {
     #     'checksums': ['e6034badb5dd4e10344211c81f16505a55553a7164adc314c75bd80cf07e57a8'],
     # }),
-    # ('decaf_synthetic_data', '0.1.5', {
-    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-    #     'checksums': ['f85d589fcaf6ed5643fa68f4fa0d356e4a2c0f38f175e5c142440af36b7a4e65'],
-    # }),
+    ('decaf_synthetic_data', '0.1.5', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['f85d589fcaf6ed5643fa68f4fa0d356e4a2c0f38f175e5c142440af36b7a4e65'],
+    }),
     # ('fastcore', '1.5.28', {
     #     'checksums': ['0c7597afb1e4d0af5d0bf6f4cd4684947511c48cd25a24d05c0c57cb87856c08'],
     # }),
@@ -101,20 +102,20 @@ exts_list = [
     # ('fastprogress', '1.0.3', {
     #     'checksums': ['7a17d2b438890f838c048eefce32c4ded47197ecc8ea042cecc33d3deb8022f5'],
     # }),
-    # ('feather-format', '0.4.1', {
-    #     'checksums': ['45f67e3745d394d4f160ca6d636bbfd4f8b68d01199dc1649b6e487d3e878903'],
-    # }),
-    # ('fflows', '0.0.3', {
-    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-    #     'checksums': ['18de7a7b98e3708ff2d5ae9f10fad625740230c4de6447906b7ca477667b78fb'],
-    # }),
-    # ('functorch', '1.13.1', {
-    #     'source_tmpl': '%(name)s-%(version)s-py2.py3-none-any.whl',
-    #     'checksums': ['a131ad83c514ad71efa1b18beeb88fd379d1c61078b2a1e29723bb85aa793d35'],
-    # }),
-    # ('geomloss', '0.2.5', {
-    #     'checksums': ['dcd851cc3c9625f384d4c18d235a790821162c34a2be503a61966b355b98456e'],
-    # }),
+    ('feather-format', '0.4.1', {
+        'checksums': ['45f67e3745d394d4f160ca6d636bbfd4f8b68d01199dc1649b6e487d3e878903'],
+    }),
+    ('fflows', '0.0.3', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['18de7a7b98e3708ff2d5ae9f10fad625740230c4de6447906b7ca477667b78fb'],
+    }),
+    ('functorch', '1.13.1', {
+        'source_tmpl': '%(name)s-%(version)s-py2.py3-none-any.whl',
+        'checksums': ['a131ad83c514ad71efa1b18beeb88fd379d1c61078b2a1e29723bb85aa793d35'],
+    }),
+    ('geomloss', '0.2.5', {
+        'checksums': ['dcd851cc3c9625f384d4c18d235a790821162c34a2be503a61966b355b98456e'],
+    }),
     # ('google-auth', '2.16.0', {
     #     'checksums': ['ed7057a101af1146f0554a769930ac9de506aeca4fd5af6543ebe791851a9fbd'],
     # }),
@@ -130,39 +131,39 @@ exts_list = [
     # ('imbalanced-learn', '0.10.1', {
     #     'checksums': ['bc7609619ec3c38c442292928239ad3d10b5deb0af8a29c83822b7b57b319f8b'],
     # }),
-    # ('inflate64', '0.3.1', {
-    #     'checksums': ['b52dd8fefd2ba179e5dfa18d6eca7e2fc822584616271c039d5ef1f9ca90c71c'],
-    # }),
-    # ('keopscore', '2.1.1', {
-    #     'checksums': ['07b4d254a28a9d4a43153663856677263dd7112912efacbad83c2a76ea0836f0'],
-    # }),
+    ('inflate64', '0.3.1', {
+        'checksums': ['b52dd8fefd2ba179e5dfa18d6eca7e2fc822584616271c039d5ef1f9ca90c71c'],
+    }),
+    ('keopscore', '2.1.1', {
+        'checksums': ['07b4d254a28a9d4a43153663856677263dd7112912efacbad83c2a76ea0836f0'],
+    }),
     # ('langcodes', '3.3.0', {
     #     'checksums': ['794d07d5a28781231ac335a1561b8442f8648ca07cd518310aeb45d6f0807ef6'],
     # }),
     # ('lightning-utilities', '0.6.0.post0', {
     #     'checksums': ['6f02cfe59e6576487e709a0e66e07671563bde9e21b40e1c567918e4d753278c'],
     # }),
-    # ('loguru', '0.6.0', {
-    #     'checksums': ['066bd06758d0a513e9836fd9c6b5a75bfb3fd36841f4b996bc60b547a309d41c'],
-    # }),
-    # ('multivolumefile', '0.2.3', {
-    #     'checksums': ['a0648d0aafbc96e59198d5c17e9acad7eb531abea51035d08ce8060dcad709d6'],
-    # }),
+    ('loguru', '0.6.0', {
+        'checksums': ['066bd06758d0a513e9836fd9c6b5a75bfb3fd36841f4b996bc60b547a309d41c'],
+    }),
+    ('multivolumefile', '0.2.3', {
+        'checksums': ['a0648d0aafbc96e59198d5c17e9acad7eb531abea51035d08ce8060dcad709d6'],
+    }),
     # ('murmurhash', '1.0.9', {
     #     'checksums': ['fe7a38cb0d3d87c14ec9dddc4932ffe2dbc77d75469ab80fd5014689b0e07b58'],
     # }),
-    # ('nflows', '0.14', {
-    #     'checksums': ['6299844a62f9999fcdf2d95cb2d01c091a50136bd17826e303aba646b2d11b55'],
-    # }),
+    ('nflows', '0.14', {
+        'checksums': ['6299844a62f9999fcdf2d95cb2d01c091a50136bd17826e303aba646b2d11b55'],
+    }),
     # ('oauthlib', '3.2.2', {
     #     'checksums': ['9859c40929662bec5d64f34d01c99e093149682a3f38915dc0655d5a633dd918'],
     # }),
-    # ('opacus', '1.3.0', {
-    #     'checksums': ['9bb0cc02f2508a86d8ce3ae67b32f8ee94edae0c432e426f54dc86a337959266'],
-    # }),
-    # ('opt_einsum', '3.3.0', {
-    #     'checksums': ['59f6475f77bbc37dcf7cd748519c0ec60722e91e63ca114e68821c0c54a46549'],
-    # }),
+    ('opacus', '1.3.0', {
+        'checksums': ['9bb0cc02f2508a86d8ce3ae67b32f8ee94edae0c432e426f54dc86a337959266'],
+    }),
+    ('opt_einsum', '3.3.0', {
+        'checksums': ['59f6475f77bbc37dcf7cd748519c0ec60722e91e63ca114e68821c0c54a46549'],
+    }),
     # ('optuna', '3.1.0', {
     #     'checksums': ['96c7c92860c8692d3aa569d749e72b121422cb4af0ed3ad4bfbc445b61416919'],
     # }),
@@ -172,42 +173,42 @@ exts_list = [
     # ('patsy', '0.5.3', {
     #     'checksums': ['bdc18001875e319bc91c812c1eb6a10be4bb13cb81eb763f466179dca3b67277'],
     # }),
-    # ('pgmpy', '0.1.21', {
-    #     'checksums': ['90e9abf636629b6c1528df5847d2861b06220d103b5da414fcc74df0ee94cbf1'],
-    # }),
+    ('pgmpy', '0.1.21', {
+        'checksums': ['90e9abf636629b6c1528df5847d2861b06220d103b5da414fcc74df0ee94cbf1'],
+    }),
     # ('preshed', '3.0.8', {
     #     'checksums': ['6c74c70078809bfddda17be96483c41d06d717934b07cab7921011d81758b357'],
     # }),
-    # ('py7zr', '0.20.2', {
-    #     'checksums': ['791ef912a295b61b91c5fe0c23adeddb80bf13500308062c082b8fec6c8c9653'],
-    # }),
+    ('py7zr', '0.20.2', {
+        'checksums': ['791ef912a295b61b91c5fe0c23adeddb80bf13500308062c082b8fec6c8c9653'],
+    }),
     # ('pyasn1-modules', '0.2.8', {
     #     'checksums': ['905f84c712230b2c592c19470d3ca8d552de726050d1d1716282a1f6146be65e'],
     # }),
-    # ('pybcj', '1.0.1', {
-    #     'checksums': ['8b682ed08caabfb7c042d4be083e28ddc692afb1deff5567111f8855071b75c3'],
-    # }),
-    # ('pycox', '0.2.3', {
-    #     'checksums': ['c209c6b24d9262db7b8edb9a886b1a3bb73c9d6db9fb4559b5fb994e30743d6f'],
-    # }),
-    # ('pycryptodomex', '3.17', {
-    #     'checksums': ['0af93aad8d62e810247beedef0261c148790c52f3cd33643791cc6396dd217c1'],
-    # }),
-    # ('pykeops', '2.1.1', {
-    #     'checksums': ['1931823c746345ce5a5805adad6baa1add772c6fe1800375f7f9a3ddb38b6f71'],
-    # }),
-    # ('pyppmd', '1.0.0', {
-    #     'checksums': ['075c9bd297e3b0a87dd7aeabca7fee668218acbe69ecc1c6511064558de8840f'],
-    # }),
+    ('pybcj', '1.0.1', {
+        'checksums': ['8b682ed08caabfb7c042d4be083e28ddc692afb1deff5567111f8855071b75c3'],
+    }),
+    ('pycox', '0.2.3', {
+        'checksums': ['c209c6b24d9262db7b8edb9a886b1a3bb73c9d6db9fb4559b5fb994e30743d6f'],
+    }),
+    ('pycryptodomex', '3.17', {
+        'checksums': ['0af93aad8d62e810247beedef0261c148790c52f3cd33643791cc6396dd217c1'],
+    }),
+    ('pykeops', '2.1.1', {
+        'checksums': ['1931823c746345ce5a5805adad6baa1add772c6fe1800375f7f9a3ddb38b6f71'],
+    }),
+    ('pyppmd', '1.0.0', {
+        'checksums': ['075c9bd297e3b0a87dd7aeabca7fee668218acbe69ecc1c6511064558de8840f'],
+    }),
     # ('pytorch-lightning', '1.9.0', {
     #     'checksums': ['5b75fe936d16ef86dae22ea1cb0a73db281605cade682c0ef44e6508a99a0b37'],
     # }),
-    # ('pyts', '0.12.0', {
-    #     'checksums': ['af85e09a14334cbe384318de6ca4379e9a30bf5bbd1aaf3a1c4a94872e9765b1'],
-    # }),
-    # ('pyzstd', '0.15.3', {
-    #     'checksums': ['ac4edab5d3955343e8f7f287e62cd2882907d46bcba4b406a1e9f84aa2887472'],
-    # }),
+    ('pyts', '0.12.0', {
+        'checksums': ['af85e09a14334cbe384318de6ca4379e9a30bf5bbd1aaf3a1c4a94872e9765b1'],
+    }),
+    ('pyzstd', '0.15.3', {
+        'checksums': ['ac4edab5d3955343e8f7f287e62cd2882907d46bcba4b406a1e9f84aa2887472'],
+    }),
     # ('requests-oauthlib', '1.3.1', {
     #     'checksums': ['75beac4a47881eeb94d5ea5d6ad31ef88856affe2332b9aafb52c6452ccf0d7a'],
     # }),
@@ -237,21 +238,21 @@ exts_list = [
     #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
     #     'checksums': ['ff26bdd583d155aa951ee3b152b3d0cffae8005dc697f72b44a8e8c2a77a8cbe'],
     # }),
-    # ('texttable', '1.6.4', {
-    #     'checksums': ['42ee7b9e15f7b225747c3fa08f43c5d6c83bc899f80ff9bae9319334824076e9'],
-    # }),
+    ('texttable', '1.6.4', {
+        'checksums': ['42ee7b9e15f7b225747c3fa08f43c5d6c83bc899f80ff9bae9319334824076e9'],
+    }),
     # ('thinc', '8.1.7', {
     #     'checksums': ['0f08f6d1fc50e28bf18814ca2b1c807cd4d59a930d713459a675e086c4779af9'],
     # }),
     # ('torchmetrics', '0.11.1', {
     #     'checksums': ['de2e9feb3316f798ab08b318302ff04e764f47e691f0847f780044279fa176ca'],
     # }),
-    # ('torchtuples', '0.2.2', {
-    #     'checksums': ['e0c7fe69977eb594fd9e81015821bb62c849be94d378bd072bdcb08cd68fffc3'],
-    # }),
-    # ('tsai', '0.3.4', {
-    #     'checksums': ['426157d827b187aff6cbc280f491b6adef0c8ebd7bdafe8361123f9f0dc06afe'],
-    # }),
+    ('torchtuples', '0.2.2', {
+        'checksums': ['e0c7fe69977eb594fd9e81015821bb62c849be94d378bd072bdcb08cd68fffc3'],
+    }),
+    ('tsai', '0.3.4', {
+        'checksums': ['426157d827b187aff6cbc280f491b6adef0c8ebd7bdafe8361123f9f0dc06afe'],
+    }),
     # ('typer', '0.7.0', {
     #     'checksums': ['ff797846578a9f2a201b53442aedeb543319466870fbe1c701eab66dd7681165'],
     # }),
