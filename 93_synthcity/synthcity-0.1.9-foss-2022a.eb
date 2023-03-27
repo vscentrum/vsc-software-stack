@@ -241,9 +241,10 @@ exts_list = [
     ('texttable', '1.6.4', {
         'checksums': ['42ee7b9e15f7b225747c3fa08f43c5d6c83bc899f80ff9bae9319334824076e9'],
     }),
-    # ('thinc', '8.1.7', {
-    #     'checksums': ['0f08f6d1fc50e28bf18814ca2b1c807cd4d59a930d713459a675e086c4779af9'],
-    # }),
+    ('thinc', '8.1.9', {
+        'checksums': ['8a1e65529c6d0796271d2a7e5ca6ea013fcb7dad69ec609d5093a25808107f51'],
+        'preinstallopts': 'sed -i \'s/blis.*/blis>=0.7.8",/g\' pyproject.toml &&',
+    }),
     # ('torchmetrics', '0.11.1', {
     #     'checksums': ['de2e9feb3316f798ab08b318302ff04e764f47e691f0847f780044279fa176ca'],
     # }),
