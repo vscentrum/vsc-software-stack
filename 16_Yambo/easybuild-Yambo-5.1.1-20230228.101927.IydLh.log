@@ -1,902 +1,0 @@
-== 2023-02-28 10:19:27,608 easyblock.py:313 INFO This is EasyBuild 4.7.1.dev0-r9b480c8b7d4e7981feddd842efbb867dc053f388 (framework: 4.7.1.dev0-r9b480c8b7d4e7981feddd842efbb867dc053f388, easyblocks: 4.6.3.dev0-r71901af353771b4f5c6443211f70fc12b9b74b0f) on host node3704.slaking.os.
-== 2023-02-28 10:19:27,608 easyblock.py:319 INFO This is easyblock MakeCp from module easybuild.easyblocks.generic.makecp (/user/gent/445/vsc44588/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/makecp.py)
-== 2023-02-28 10:19:27,608 easyblock.py:1040 INFO Build dir set to /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b
-== 2023-02-28 10:19:27,609 easyblock.py:1097 INFO Software install dir set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b
-== 2023-02-28 10:19:27,609 easyblock.py:1102 INFO Module install dir set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/modules/all
-== 2023-02-28 10:19:27,609 easyblock.py:288 INFO Init completed for application name Yambo version 5.1.1
-== 2023-02-28 10:19:27,609 easyblock.py:4168 INFO Obtained application instance of for Yambo (easyblock: MakeCp)
-== 2023-02-28 10:19:27,610 easyconfig.py:1690 INFO Generating template values...
-== 2023-02-28 10:19:27,611 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='yambo', github_account='yambo', module_name='Yambo/5.1.1-intel-2021b', name='Yambo', nameletter='Y', nameletterlower='y', namelower='yambo', parallel='1', toolchain_name='intel', toolchain_version='2021b', version='5.1.1', version_major='5', version_major_minor='5.1', version_minor='1', versionprefix='', versionsuffix=''
-== 2023-02-28 10:19:27,614 one.py:180 INFO Skipping reformatting value for parameter 'toolchain'
-== 2023-02-28 10:19:27,614 one.py:180 INFO Skipping reformatting value for parameter 'toolchainopts'
-== 2023-02-28 10:19:27,617 filetools.py:1918 INFO Creating directory /tmp/vsc44588/eb-5t1vmv2s/reprod_20230228101927_1331314 (parents: True, set_gid: False, sticky: False)
-== 2023-02-28 10:19:27,617 easyblock.py:4422 INFO Dumped easyconfig instance to /tmp/vsc44588/eb-5t1vmv2s/reprod_20230228101927_1331314/Yambo-5.1.1-intel-2021b.eb
-== 2023-02-28 10:19:27,621 filetools.py:1918 INFO Creating directory /tmp/vsc44588/eb-5t1vmv2s/reprod_20230228101927_1331314/easyblocks (parents: True, set_gid: False, sticky: False)
-== 2023-02-28 10:19:27,637 filetools.py:2431 INFO /user/gent/445/vsc44588/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/makecp.py copied to /tmp/vsc44588/eb-5t1vmv2s/reprod_20230228101927_1331314/easyblocks/makecp.py
-== 2023-02-28 10:19:27,637 easyblock.py:4402 INFO Dumped easyblock makecp.py required for reproduction to /tmp/vsc44588/eb-5t1vmv2s/reprod_20230228101927_1331314/easyblocks
-== 2023-02-28 10:19:27,652 filetools.py:2431 INFO /user/gent/445/vsc44588/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/configuremake.py copied to /tmp/vsc44588/eb-5t1vmv2s/reprod_20230228101927_1331314/easyblocks/configuremake.py
-== 2023-02-28 10:19:27,652 easyblock.py:4402 INFO Dumped easyblock configuremake.py required for reproduction to /tmp/vsc44588/eb-5t1vmv2s/reprod_20230228101927_1331314/easyblocks
-== 2023-02-28 10:19:27,655 easyblock.py:2181 INFO Number of iterations to perform for central part of installation procedure: 1
-== 2023-02-28 10:19:27,657 build_log.py:267 INFO building and installing Yambo/5.1.1-intel-2021b...
-== 2023-02-28 10:19:27,670 easyblock.py:4058 INFO Ignoring locks...
-== 2023-02-28 10:19:27,670 build_log.py:267 INFO fetching files...
-== 2023-02-28 10:19:27,676 easyblock.py:3894 INFO Starting fetch step
-== 2023-02-28 10:19:27,677 easyconfig.py:1690 INFO Generating template values...
-== 2023-02-28 10:19:27,677 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='yambo', builddir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b', github_account='yambo', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b', module_name='Yambo/5.1.1-intel-2021b', name='Yambo', nameletter='Y', nameletterlower='y', namelower='yambo', parallel='1', start_dir='None', toolchain_name='intel', toolchain_version='2021b', version='5.1.1', version_major='5', version_major_minor='5.1', version_minor='1', versionprefix='', versionsuffix=''
-== 2023-02-28 10:19:27,678 easyblock.py:3902 INFO Running method fetch_step part of step fetch
-== 2023-02-28 10:19:27,678 easyblock.py:2303 WARNING Easyconfig does not specify an EasyBuild-version (key 'easybuild_version')! Assuming the latest version
-== 2023-02-28 10:19:27,679 easyblock.py:803 INFO Considering directory in which easyconfig file is located when searching for checksums.json: /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/16_Yambo
-== 2023-02-28 10:19:27,680 tools.py:273 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /user/gent/445/vsc44588/easybuild/easybuild-framework/eb
-== 2023-02-28 10:19:27,680 tools.py:289 INFO Not considering /user/gent/445/vsc44588/easybuild (no easybuild/easyconfigs subdir found)
-== 2023-02-28 10:19:27,681 tools.py:297 INFO Also considering installation prefix /kyukon/home/gent/445/vsc44588/easybuild (via resolved path to 'eb')...
-== 2023-02-28 10:19:28,037 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Couldn't find file checksums.json anywhere, and downloading it is disabled... Paths attempted (in order): /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/16_Yambo/y/Yambo/checksums.json, /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/16_Yambo/Yambo/checksums.json, /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/16_Yambo/checksums.json, /user/gent/445/vsc44588/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/y/Yambo/checksums.json, /user/gent/445/vsc44588/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/Yambo/checksums.json, /user/gent/445/vsc44588/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/checksums.json, /user/gent/445/vsc44588/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/y/Yambo/checksums.json, /user/gent/445/vsc44588/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/Yambo/checksums.json, /user/gent/445/vsc44588/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/checksums.json, /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/checksums.json, /data/gent/vo/001/gvo00117/easybuild/sources/Yambo/checksums.json, /data/gent/vo/001/gvo00117/easybuild/sources/checksums.json, /apps/gent/sources/y/Yambo/checksums.json, /apps/gent/sources/Yambo/checksums.json, /apps/gent/sources/checksums.json  (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:870 in obtain_file)
-== 2023-02-28 10:19:28,037 easyblock.py:803 INFO Considering directory in which easyconfig file is located when searching for 5.1.1.tar.gz: /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/16_Yambo
-== 2023-02-28 10:19:28,037 tools.py:273 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /user/gent/445/vsc44588/easybuild/easybuild-framework/eb
-== 2023-02-28 10:19:28,038 tools.py:289 INFO Not considering /user/gent/445/vsc44588/easybuild (no easybuild/easyconfigs subdir found)
-== 2023-02-28 10:19:28,038 tools.py:297 INFO Also considering installation prefix /kyukon/home/gent/445/vsc44588/easybuild (via resolved path to 'eb')...
-== 2023-02-28 10:19:28,040 easyblock.py:844 INFO Found file 5.1.1.tar.gz at /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/5.1.1.tar.gz
-== 2023-02-28 10:19:28,040 easyblock.py:803 INFO Considering directory in which easyconfig file is located when searching for 1.0.tar.gz: /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/16_Yambo
-== 2023-02-28 10:19:28,041 tools.py:273 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /user/gent/445/vsc44588/easybuild/easybuild-framework/eb
-== 2023-02-28 10:19:28,041 tools.py:289 INFO Not considering /user/gent/445/vsc44588/easybuild (no easybuild/easyconfigs subdir found)
-== 2023-02-28 10:19:28,041 tools.py:297 INFO Also considering installation prefix /kyukon/home/gent/445/vsc44588/easybuild (via resolved path to 'eb')...
-== 2023-02-28 10:19:28,043 easyblock.py:844 INFO Found file 1.0.tar.gz at /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/1.0.tar.gz
-== 2023-02-28 10:19:28,043 easyblock.py:803 INFO Considering directory in which easyconfig file is located when searching for iotk-y1.2.2.tar.gz: /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/16_Yambo
-== 2023-02-28 10:19:28,044 tools.py:273 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /user/gent/445/vsc44588/easybuild/easybuild-framework/eb
-== 2023-02-28 10:19:28,044 tools.py:289 INFO Not considering /user/gent/445/vsc44588/easybuild (no easybuild/easyconfigs subdir found)
-== 2023-02-28 10:19:28,044 tools.py:297 INFO Also considering installation prefix /kyukon/home/gent/445/vsc44588/easybuild (via resolved path to 'eb')...
-== 2023-02-28 10:19:28,046 easyblock.py:844 INFO Found file iotk-y1.2.2.tar.gz at /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/iotk-y1.2.2.tar.gz
-== 2023-02-28 10:19:28,046 easyblock.py:496 INFO Added sources: [{'name': '5.1.1.tar.gz', 'path': '/data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/5.1.1.tar.gz', 'cmd': None, 'checksum': None, 'finalpath': '/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b'}, {'name': '1.0.tar.gz', 'path': '/data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/1.0.tar.gz', 'cmd': 'tar --strip-components=1 -xzf %s -C yambo-5.1.1/lib/yambo/', 'checksum': None, 'finalpath': '/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b'}, {'name': 'iotk-y1.2.2.tar.gz', 'path': '/data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/iotk-y1.2.2.tar.gz', 'cmd': 'cp %s yambo-5.1.1/lib/archive/', 'checksum': None, 'finalpath': '/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b'}]
-== 2023-02-28 10:19:28,047 easyblock.py:2346 INFO no patches provided
-== 2023-02-28 10:19:28,085 easyblock.py:2356 INFO md5 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/5.1.1.tar.gz: 09e17ed9036140e82a98ab48f21e8458
-== 2023-02-28 10:19:28,111 easyblock.py:2356 INFO sha256 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/5.1.1.tar.gz: c85036ca60507e627c47b6c6aee8241830349e88110e1ce9132ef03ab2c4e9f6
-== 2023-02-28 10:19:28,126 easyblock.py:2356 INFO md5 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/1.0.tar.gz: a93405be1177e158e1049e22db1b08d3
-== 2023-02-28 10:19:28,128 easyblock.py:2356 INFO sha256 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/1.0.tar.gz: f25d86101cc9cead9f64f05181aab1f06eac8528fea5ba5c586b2b9512cb8492
-== 2023-02-28 10:19:28,151 easyblock.py:2356 INFO md5 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/iotk-y1.2.2.tar.gz: 209f20a22a82a7eda2b7a3451293f97c
-== 2023-02-28 10:19:28,155 easyblock.py:2356 INFO sha256 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/iotk-y1.2.2.tar.gz: c0a4eb19f3e885d83d7afa52eb90658fba7cb1cb6e66049866a98dcc980de543
-== 2023-02-28 10:19:28,185 easyblock.py:2391 INFO Checking dirs that need to be created: ['/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b', '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/modules/all/Yambo', '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/modules/phys/Yambo']
-== 2023-02-28 10:19:28,209 configuremake.py:95 INFO config.guess version: 2018-08-29 (last updated: 2022-12-15T10:56:28.139000, SHA256 checksum: c02eb9cc55c86cfd1e9a794e548d25db5c9539e7b2154beb649bc6e2cbffc74c)
-== 2023-02-28 10:19:28,210 configuremake.py:150 INFO Found config.guess at /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v4.6.3.dev0/ConfigureMake/config.guess
-== 2023-02-28 10:19:28,210 build_log.py:267 INFO ... (took < 1 sec)
-== 2023-02-28 10:19:28,216 build_log.py:267 INFO creating build dir, resetting environment...
-== 2023-02-28 10:19:28,222 easyblock.py:3894 INFO Starting ready step
-== 2023-02-28 10:19:28,222 easyconfig.py:1690 INFO Generating template values...
-== 2023-02-28 10:19:28,223 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='yambo', builddir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b', github_account='yambo', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b', module_name='Yambo/5.1.1-intel-2021b', name='Yambo', nameletter='Y', nameletterlower='y', namelower='yambo', parallel='1', start_dir='None', toolchain_name='intel', toolchain_version='2021b', version='5.1.1', version_major='5', version_major_minor='5.1', version_minor='1', versionprefix='', versionsuffix=''
-== 2023-02-28 10:19:28,223 easyblock.py:3902 INFO Running method check_readiness_step part of step ready
-== 2023-02-28 10:19:28,224 easyblock.py:2200 INFO Setting parallelism: 1
-== 2023-02-28 10:19:28,347 easyblock.py:2252 WARNING Loaded modules detected: ['env/vsc/slaking', 'env/slurm/slaking', 'env/software/slaking', 'cluster/slaking']
-== 2023-02-28 10:19:28,348 easyblock.py:3902 INFO Running method make_builddir part of step ready
-== 2023-02-28 10:19:28,349 easyblock.py:1122 INFO Found old directory /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b
-== 2023-02-28 10:19:28,470 filetools.py:384 INFO Path /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b successfully removed.
-== 2023-02-28 10:19:28,470 easyblock.py:1130 INFO Removed old directory /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b
-== 2023-02-28 10:19:28,471 filetools.py:1918 INFO Creating directory /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b (parents: True, set_gid: False, sticky: False)
-== 2023-02-28 10:19:28,477 easyblock.py:3902 INFO Running method reset_env part of step ready
-== 2023-02-28 10:19:28,478 easyblock.py:3902 INFO Running method handle_iterate_opts part of step ready
-== 2023-02-28 10:19:28,478 easyconfig.py:1690 INFO Generating template values...
-== 2023-02-28 10:19:28,479 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='yambo', builddir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b', github_account='yambo', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b', module_name='Yambo/5.1.1-intel-2021b', name='Yambo', nameletter='Y', nameletterlower='y', namelower='yambo', parallel='1', start_dir='None', toolchain_name='intel', toolchain_version='2021b', version='5.1.1', version_major='5', version_major_minor='5.1', version_minor='1', versionprefix='', versionsuffix=''
-== 2023-02-28 10:19:28,480 build_log.py:267 INFO ... (took < 1 sec)
-== 2023-02-28 10:19:28,486 build_log.py:267 INFO unpacking...
-== 2023-02-28 10:19:28,492 easyblock.py:3894 INFO Starting source step
-== 2023-02-28 10:19:28,492 easyconfig.py:1690 INFO Generating template values...
-== 2023-02-28 10:19:28,493 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='yambo', builddir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b', github_account='yambo', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b', module_name='Yambo/5.1.1-intel-2021b', name='Yambo', nameletter='Y', nameletterlower='y', namelower='yambo', parallel='1', start_dir='None', toolchain_name='intel', toolchain_version='2021b', version='5.1.1', version_major='5', version_major_minor='5.1', version_minor='1', versionprefix='', versionsuffix=''
-== 2023-02-28 10:19:28,493 easyblock.py:3902 INFO Running method checksum_step part of step source
-== 2023-02-28 10:19:28,494 easyblock.py:2409 INFO Checksum verification for /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/5.1.1.tar.gz using None passed.
-== 2023-02-28 10:19:28,494 easyblock.py:2409 INFO Checksum verification for /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/1.0.tar.gz using None passed.
-== 2023-02-28 10:19:28,494 easyblock.py:2409 INFO Checksum verification for /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/iotk-y1.2.2.tar.gz using None passed.
-== 2023-02-28 10:19:28,494 easyblock.py:3902 INFO Running method extract_step part of step source
-== 2023-02-28 10:19:28,495 easyblock.py:2521 INFO Unpacking source 5.1.1.tar.gz
-== 2023-02-28 10:19:28,504 run.py:236 INFO running cmd: tar xzf /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/5.1.1.tar.gz 
-== 2023-02-28 10:19:28,666 easyblock.py:2521 INFO Unpacking source 1.0.tar.gz
-== 2023-02-28 10:19:28,673 run.py:236 INFO running cmd: tar --strip-components=1 -xzf /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/1.0.tar.gz -C yambo-5.1.1/lib/yambo/ 
-== 2023-02-28 10:19:28,701 easyblock.py:2521 INFO Unpacking source iotk-y1.2.2.tar.gz
-== 2023-02-28 10:19:28,708 run.py:236 INFO running cmd: cp /data/gent/vo/001/gvo00117/easybuild/sources/y/Yambo/iotk-y1.2.2.tar.gz yambo-5.1.1/lib/archive/ 
-== 2023-02-28 10:19:28,725 build_log.py:267 INFO ... (took < 1 sec)
-== 2023-02-28 10:19:28,730 build_log.py:267 INFO patching...
-== 2023-02-28 10:19:28,735 easyblock.py:3894 INFO Starting patch step
-== 2023-02-28 10:19:28,735 easyconfig.py:1690 INFO Generating template values...
-== 2023-02-28 10:19:28,736 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='yambo', builddir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b', github_account='yambo', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b', module_name='Yambo/5.1.1-intel-2021b', name='Yambo', nameletter='Y', nameletterlower='y', namelower='yambo', parallel='1', start_dir='None', toolchain_name='intel', toolchain_version='2021b', version='5.1.1', version_major='5', version_major_minor='5.1', version_minor='1', versionprefix='', versionsuffix=''
-== 2023-02-28 10:19:28,736 easyblock.py:3902 INFO Running method patch_step part of step patch
-== 2023-02-28 10:19:28,736 build_log.py:267 INFO ... (took < 1 sec)
-== 2023-02-28 10:19:28,741 build_log.py:267 INFO preparing...
-== 2023-02-28 10:19:28,746 easyblock.py:3894 INFO Starting prepare step
-== 2023-02-28 10:19:28,746 easyconfig.py:1690 INFO Generating template values...
-== 2023-02-28 10:19:28,747 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='yambo', builddir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b', github_account='yambo', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b', module_name='Yambo/5.1.1-intel-2021b', name='Yambo', nameletter='Y', nameletterlower='y', namelower='yambo', parallel='1', start_dir='None', toolchain_name='intel', toolchain_version='2021b', version='5.1.1', version_major='5', version_major_minor='5.1', version_minor='1', versionprefix='', versionsuffix=''
-== 2023-02-28 10:19:28,747 easyblock.py:3902 INFO Running method prepare_step part of step prepare
-== 2023-02-28 10:19:28,749 modules.py:626 INFO Checking whether HDF5/1.12.1-iimpi-2021b exists...
-== 2023-02-28 10:19:28,750 modules.py:631 INFO Module HDF5/1.12.1-iimpi-2021b exists (found in list of available modules)
-== 2023-02-28 10:19:28,750 modules.py:654 INFO Result for existence check of HDF5/1.12.1-iimpi-2021b module: True
-== 2023-02-28 10:19:28,750 modules.py:626 INFO Checking whether netCDF/4.8.1-iimpi-2021b exists...
-== 2023-02-28 10:19:28,750 modules.py:631 INFO Module netCDF/4.8.1-iimpi-2021b exists (found in list of available modules)
-== 2023-02-28 10:19:28,750 modules.py:654 INFO Result for existence check of netCDF/4.8.1-iimpi-2021b module: True
-== 2023-02-28 10:19:28,751 modules.py:626 INFO Checking whether netCDF-Fortran/4.5.3-iimpi-2021b exists...
-== 2023-02-28 10:19:28,751 modules.py:631 INFO Module netCDF-Fortran/4.5.3-iimpi-2021b exists (found in list of available modules)
-== 2023-02-28 10:19:28,751 modules.py:654 INFO Result for existence check of netCDF-Fortran/4.5.3-iimpi-2021b module: True
-== 2023-02-28 10:19:28,751 modules.py:626 INFO Checking whether PETSc/3.18.4-intel-2021b exists...
-== 2023-02-28 10:19:28,751 modules.py:631 INFO Module PETSc/3.18.4-intel-2021b exists (found in list of available modules)
-== 2023-02-28 10:19:28,752 modules.py:654 INFO Result for existence check of PETSc/3.18.4-intel-2021b module: True
-== 2023-02-28 10:19:28,752 modules.py:626 INFO Checking whether SLEPc/3.18.2-intel-2021b exists...
-== 2023-02-28 10:19:28,752 modules.py:631 INFO Module SLEPc/3.18.2-intel-2021b exists (found in list of available modules)
-== 2023-02-28 10:19:28,753 modules.py:654 INFO Result for existence check of SLEPc/3.18.2-intel-2021b module: True
-== 2023-02-28 10:19:28,753 modules.py:626 INFO Checking whether libxc/5.1.6-intel-compilers-2021.4.0 exists...
-== 2023-02-28 10:19:28,753 modules.py:631 INFO Module libxc/5.1.6-intel-compilers-2021.4.0 exists (found in list of available modules)
-== 2023-02-28 10:19:28,753 modules.py:654 INFO Result for existence check of libxc/5.1.6-intel-compilers-2021.4.0 module: True
-== 2023-02-28 10:19:28,754 modules.py:626 INFO Checking whether intel/2021b exists...
-== 2023-02-28 10:19:28,754 modules.py:634 INFO Module intel/2021b not found in list of available modules, checking via 'module show'...
-== 2023-02-28 10:19:32,419 modules.py:654 INFO Result for existence check of intel/2021b module: True
-== 2023-02-28 10:19:37,400 environment.py:93 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64:/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/libfabric/lib:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib/release:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib:/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/tbb/2021.4.0/lib/intel64/gcc4.8:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib/x64:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib:/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib64 (previous value: '/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib')
-== 2023-02-28 10:19:38,935 environment.py:93 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64:/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/libfabric/lib:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib/release:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib:/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/tbb/2021.4.0/lib/intel64/gcc4.8:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib/x64:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib:/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib64 (previous value: '/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib')
-== 2023-02-28 10:19:40,033 environment.py:93 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64:/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/libfabric/lib:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib/release:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib:/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/tbb/2021.4.0/lib/intel64/gcc4.8:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib/x64:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib:/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib64 (previous value: '/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib')
-== 2023-02-28 10:19:41,727 environment.py:93 INFO Environment variable LD_LIBRARY_PATH set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib:/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib:/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/python3.9/site-packages/numpy/core/lib:/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64:/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64:/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/libfabric/lib:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib/release:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib:/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/tbb/2021.4.0/lib/intel64/gcc4.8:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib/x64:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib:/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib64 (previous value: '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib:/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib:/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/python3.9/site-packages/numpy/core/lib:/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64:/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib')
-== 2023-02-28 10:19:42,711 environment.py:93 INFO Environment variable LD_LIBRARY_PATH set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib:/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib:/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/python3.9/site-packages/numpy/core/lib:/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64:/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64:/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/libfabric/lib:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib/release:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib:/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/tbb/2021.4.0/lib/intel64/gcc4.8:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib/x64:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib:/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib64 (previous value: '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib')
-== 2023-02-28 10:19:43,865 environment.py:93 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib:/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib:/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/python3.9/site-packages/numpy/core/lib:/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64:/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib:/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64:/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/libfabric/lib:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib/release:/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib:/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/tbb/2021.4.0/lib/intel64/gcc4.8:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib/x64:/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib:/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib:/apps/gent/RHEL8/haswell-ib/software/GCCcore/11.2.0/lib64 (previous value: '/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib')
-== 2023-02-28 10:19:43,915 modules.py:626 INFO Checking whether intel/2021b exists...
-== 2023-02-28 10:19:43,915 modules.py:634 INFO Module intel/2021b not found in list of available modules, checking via 'module show'...
-== 2023-02-28 10:19:43,915 modules.py:654 INFO Result for existence check of intel/2021b module: True
-== 2023-02-28 10:19:43,918 toolchain.py:762 INFO List of toolchain dependency modules and toolchain definition match!
-== 2023-02-28 10:19:43,924 compiler.py:363 INFO _set_optimal_architecture: using xHost as optarch for x86_64.
-== 2023-02-28 10:19:43,944 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/include was not found
-== 2023-02-28 10:19:43,945 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/lib64 was not found
-== 2023-02-28 10:19:43,945 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/lib was not found
-== 2023-02-28 10:19:43,953 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/include was not found
-== 2023-02-28 10:19:43,953 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/lib64 was not found
-== 2023-02-28 10:19:43,954 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/lib was not found
-== 2023-02-28 10:19:43,956 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/include was not found
-== 2023-02-28 10:19:43,956 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/lib64 was not found
-== 2023-02-28 10:19:43,957 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/lib was not found
-== 2023-02-28 10:19:43,963 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/include was not found
-== 2023-02-28 10:19:43,963 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/lib64 was not found
-== 2023-02-28 10:19:43,963 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/lib was not found
-== 2023-02-28 10:19:43,981 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/include was not found
-== 2023-02-28 10:19:43,982 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/lib64 was not found
-== 2023-02-28 10:19:43,982 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/lib was not found
-== 2023-02-28 10:19:44,039 environment.py:93 INFO Environment variable BLACS_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include (previously undefined)
-== 2023-02-28 10:19:44,039 environment.py:93 INFO Environment variable EBVARBLACS_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include (previously undefined)
-== 2023-02-28 10:19:44,040 environment.py:93 INFO Environment variable BLACS_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 (previously undefined)
-== 2023-02-28 10:19:44,040 environment.py:93 INFO Environment variable EBVARBLACS_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 (previously undefined)
-== 2023-02-28 10:19:44,040 environment.py:93 INFO Environment variable BLACS_MT_STATIC_LIBS set to libmkl_blacs_intelmpi_lp64.a (previously undefined)
-== 2023-02-28 10:19:44,040 environment.py:93 INFO Environment variable EBVARBLACS_MT_STATIC_LIBS set to libmkl_blacs_intelmpi_lp64.a (previously undefined)
-== 2023-02-28 10:19:44,041 environment.py:93 INFO Environment variable BLACS_STATIC_LIBS set to libmkl_blacs_intelmpi_lp64.a (previously undefined)
-== 2023-02-28 10:19:44,041 environment.py:93 INFO Environment variable EBVARBLACS_STATIC_LIBS set to libmkl_blacs_intelmpi_lp64.a (previously undefined)
-== 2023-02-28 10:19:44,041 environment.py:93 INFO Environment variable BLAS_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include (previously undefined)
-== 2023-02-28 10:19:44,041 environment.py:93 INFO Environment variable EBVARBLAS_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include (previously undefined)
-== 2023-02-28 10:19:44,042 environment.py:93 INFO Environment variable BLAS_LAPACK_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include (previously undefined)
-== 2023-02-28 10:19:44,042 environment.py:93 INFO Environment variable EBVARBLAS_LAPACK_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include (previously undefined)
-== 2023-02-28 10:19:44,042 environment.py:93 INFO Environment variable BLAS_LAPACK_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 (previously undefined)
-== 2023-02-28 10:19:44,042 environment.py:93 INFO Environment variable EBVARBLAS_LAPACK_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 (previously undefined)
-== 2023-02-28 10:19:44,043 environment.py:93 INFO Environment variable BLAS_LAPACK_MT_SHARED_LIBS set to libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_core.so,libiomp5.so,libpthread.so (previously undefined)
-== 2023-02-28 10:19:44,043 environment.py:93 INFO Environment variable EBVARBLAS_LAPACK_MT_SHARED_LIBS set to libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_core.so,libiomp5.so,libpthread.so (previously undefined)
-== 2023-02-28 10:19:44,043 environment.py:93 INFO Environment variable BLAS_LAPACK_MT_STATIC_LIBS set to libmkl_intel_lp64.a,libmkl_intel_thread.a,libmkl_core.a,libiomp5.a,libpthread.a (previously undefined)
-== 2023-02-28 10:19:44,043 environment.py:93 INFO Environment variable EBVARBLAS_LAPACK_MT_STATIC_LIBS set to libmkl_intel_lp64.a,libmkl_intel_thread.a,libmkl_core.a,libiomp5.a,libpthread.a (previously undefined)
-== 2023-02-28 10:19:44,044 environment.py:93 INFO Environment variable BLAS_LAPACK_SHARED_LIBS set to libmkl_intel_lp64.so,libmkl_sequential.so,libmkl_core.so (previously undefined)
-== 2023-02-28 10:19:44,044 environment.py:93 INFO Environment variable EBVARBLAS_LAPACK_SHARED_LIBS set to libmkl_intel_lp64.so,libmkl_sequential.so,libmkl_core.so (previously undefined)
-== 2023-02-28 10:19:44,044 environment.py:93 INFO Environment variable BLAS_LAPACK_STATIC_LIBS set to libmkl_intel_lp64.a,libmkl_sequential.a,libmkl_core.a (previously undefined)
-== 2023-02-28 10:19:44,044 environment.py:93 INFO Environment variable EBVARBLAS_LAPACK_STATIC_LIBS set to libmkl_intel_lp64.a,libmkl_sequential.a,libmkl_core.a (previously undefined)
-== 2023-02-28 10:19:44,045 environment.py:93 INFO Environment variable BLAS_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 (previously undefined)
-== 2023-02-28 10:19:44,045 environment.py:93 INFO Environment variable EBVARBLAS_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 (previously undefined)
-== 2023-02-28 10:19:44,045 environment.py:93 INFO Environment variable BLAS_MT_SHARED_LIBS set to libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_core.so,libiomp5.so,libpthread.so (previously undefined)
-== 2023-02-28 10:19:44,045 environment.py:93 INFO Environment variable EBVARBLAS_MT_SHARED_LIBS set to libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_core.so,libiomp5.so,libpthread.so (previously undefined)
-== 2023-02-28 10:19:44,046 environment.py:93 INFO Environment variable BLAS_MT_STATIC_LIBS set to libmkl_intel_lp64.a,libmkl_intel_thread.a,libmkl_core.a,libiomp5.a,libpthread.a (previously undefined)
-== 2023-02-28 10:19:44,046 environment.py:93 INFO Environment variable EBVARBLAS_MT_STATIC_LIBS set to libmkl_intel_lp64.a,libmkl_intel_thread.a,libmkl_core.a,libiomp5.a,libpthread.a (previously undefined)
-== 2023-02-28 10:19:44,046 environment.py:93 INFO Environment variable BLAS_SHARED_LIBS set to libmkl_intel_lp64.so,libmkl_sequential.so,libmkl_core.so (previously undefined)
-== 2023-02-28 10:19:44,046 environment.py:93 INFO Environment variable EBVARBLAS_SHARED_LIBS set to libmkl_intel_lp64.so,libmkl_sequential.so,libmkl_core.so (previously undefined)
-== 2023-02-28 10:19:44,046 environment.py:93 INFO Environment variable BLAS_STATIC_LIBS set to libmkl_intel_lp64.a,libmkl_sequential.a,libmkl_core.a (previously undefined)
-== 2023-02-28 10:19:44,047 environment.py:93 INFO Environment variable EBVARBLAS_STATIC_LIBS set to libmkl_intel_lp64.a,libmkl_sequential.a,libmkl_core.a (previously undefined)
-== 2023-02-28 10:19:44,047 environment.py:93 INFO Environment variable CC set to mpiicc (previously undefined)
-== 2023-02-28 10:19:44,047 environment.py:93 INFO Environment variable EBVARCC set to mpiicc (previously undefined)
-== 2023-02-28 10:19:44,047 environment.py:93 INFO Environment variable CC_SEQ set to icc (previously undefined)
-== 2023-02-28 10:19:44,048 environment.py:93 INFO Environment variable EBVARCC_SEQ set to icc (previously undefined)
-== 2023-02-28 10:19:44,048 environment.py:93 INFO Environment variable CFLAGS set to -O2 -xHost -ftz -fp-speculation=safe -fp-model source -fopenmp -mt_mpi (previously undefined)
-== 2023-02-28 10:19:44,048 environment.py:93 INFO Environment variable EBVARCFLAGS set to -O2 -xHost -ftz -fp-speculation=safe -fp-model source -fopenmp -mt_mpi (previously undefined)
-== 2023-02-28 10:19:44,048 environment.py:93 INFO Environment variable CPPFLAGS set to -I/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include (previously undefined)
-== 2023-02-28 10:19:44,049 environment.py:93 INFO Environment variable EBVARCPPFLAGS set to -I/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include (previously undefined)
-== 2023-02-28 10:19:44,049 environment.py:93 INFO Environment variable CXX set to mpiicpc (previously undefined)
-== 2023-02-28 10:19:44,049 environment.py:93 INFO Environment variable EBVARCXX set to mpiicpc (previously undefined)
-== 2023-02-28 10:19:44,049 environment.py:93 INFO Environment variable CXXFLAGS set to -O2 -xHost -ftz -fp-speculation=safe -fp-model source -fopenmp -mt_mpi (previously undefined)
-== 2023-02-28 10:19:44,050 environment.py:93 INFO Environment variable EBVARCXXFLAGS set to -O2 -xHost -ftz -fp-speculation=safe -fp-model source -fopenmp -mt_mpi (previously undefined)
-== 2023-02-28 10:19:44,050 environment.py:93 INFO Environment variable CXX_SEQ set to icpc (previously undefined)
-== 2023-02-28 10:19:44,050 environment.py:93 INFO Environment variable EBVARCXX_SEQ set to icpc (previously undefined)
-== 2023-02-28 10:19:44,050 environment.py:93 INFO Environment variable F77 set to mpiifort (previously undefined)
-== 2023-02-28 10:19:44,051 environment.py:93 INFO Environment variable EBVARF77 set to mpiifort (previously undefined)
-== 2023-02-28 10:19:44,051 environment.py:93 INFO Environment variable F77_SEQ set to ifort (previously undefined)
-== 2023-02-28 10:19:44,051 environment.py:93 INFO Environment variable EBVARF77_SEQ set to ifort (previously undefined)
-== 2023-02-28 10:19:44,051 environment.py:93 INFO Environment variable F90 set to mpiifort (previously undefined)
-== 2023-02-28 10:19:44,052 environment.py:93 INFO Environment variable EBVARF90 set to mpiifort (previously undefined)
-== 2023-02-28 10:19:44,052 environment.py:93 INFO Environment variable F90FLAGS set to -O2 -xHost -ftz -fp-speculation=safe -fp-model source -fopenmp -mt_mpi (previously undefined)
-== 2023-02-28 10:19:44,052 environment.py:93 INFO Environment variable EBVARF90FLAGS set to -O2 -xHost -ftz -fp-speculation=safe -fp-model source -fopenmp -mt_mpi (previously undefined)
-== 2023-02-28 10:19:44,052 environment.py:93 INFO Environment variable F90_SEQ set to ifort (previously undefined)
-== 2023-02-28 10:19:44,052 environment.py:93 INFO Environment variable EBVARF90_SEQ set to ifort (previously undefined)
-== 2023-02-28 10:19:44,053 environment.py:93 INFO Environment variable FC set to mpiifort (previously undefined)
-== 2023-02-28 10:19:44,053 environment.py:93 INFO Environment variable EBVARFC set to mpiifort (previously undefined)
-== 2023-02-28 10:19:44,053 environment.py:93 INFO Environment variable FCFLAGS set to -O2 -xHost -ftz -fp-speculation=safe -fp-model source -fopenmp -mt_mpi (previously undefined)
-== 2023-02-28 10:19:44,053 environment.py:93 INFO Environment variable EBVARFCFLAGS set to -O2 -xHost -ftz -fp-speculation=safe -fp-model source -fopenmp -mt_mpi (previously undefined)
-== 2023-02-28 10:19:44,054 environment.py:93 INFO Environment variable FC_SEQ set to ifort (previously undefined)
-== 2023-02-28 10:19:44,054 environment.py:93 INFO Environment variable EBVARFC_SEQ set to ifort (previously undefined)
-== 2023-02-28 10:19:44,054 environment.py:93 INFO Environment variable FFLAGS set to -O2 -xHost -ftz -fp-speculation=safe -fp-model source -fopenmp -mt_mpi (previously undefined)
-== 2023-02-28 10:19:44,054 environment.py:93 INFO Environment variable EBVARFFLAGS set to -O2 -xHost -ftz -fp-speculation=safe -fp-model source -fopenmp -mt_mpi (previously undefined)
-== 2023-02-28 10:19:44,055 environment.py:93 INFO Environment variable FFTW_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include/fftw (previously undefined)
-== 2023-02-28 10:19:44,055 environment.py:93 INFO Environment variable EBVARFFTW_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include/fftw (previously undefined)
-== 2023-02-28 10:19:44,055 environment.py:93 INFO Environment variable FFTW_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib (previously undefined)
-== 2023-02-28 10:19:44,055 environment.py:93 INFO Environment variable EBVARFFTW_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib (previously undefined)
-== 2023-02-28 10:19:44,056 environment.py:93 INFO Environment variable FFTW_SHARED_LIBS set to libfftw3x_cdft_lp64.so,libmkl_cdft_core.so,libmkl_blacs_intelmpi_lp64.so,libmkl_intel_lp64.so,libmkl_sequential.so,libmkl_core.so (previously undefined)
-== 2023-02-28 10:19:44,056 environment.py:93 INFO Environment variable EBVARFFTW_SHARED_LIBS set to libfftw3x_cdft_lp64.so,libmkl_cdft_core.so,libmkl_blacs_intelmpi_lp64.so,libmkl_intel_lp64.so,libmkl_sequential.so,libmkl_core.so (previously undefined)
-== 2023-02-28 10:19:44,056 environment.py:93 INFO Environment variable FFTW_SHARED_LIBS_MT set to libfftw3x_cdft_lp64.so,libmkl_cdft_core.so,libmkl_blacs_intelmpi_lp64.so,libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_core.so,libiomp5.so,libpthread.so (previously undefined)
-== 2023-02-28 10:19:44,056 environment.py:93 INFO Environment variable EBVARFFTW_SHARED_LIBS_MT set to libfftw3x_cdft_lp64.so,libmkl_cdft_core.so,libmkl_blacs_intelmpi_lp64.so,libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_core.so,libiomp5.so,libpthread.so (previously undefined)
-== 2023-02-28 10:19:44,057 environment.py:93 INFO Environment variable FFTW_STATIC_LIBS set to libfftw3x_cdft_lp64.a,libmkl_cdft_core.a,libmkl_blacs_intelmpi_lp64.a,libmkl_intel_lp64.a,libmkl_sequential.a,libmkl_core.a (previously undefined)
-== 2023-02-28 10:19:44,057 environment.py:93 INFO Environment variable EBVARFFTW_STATIC_LIBS set to libfftw3x_cdft_lp64.a,libmkl_cdft_core.a,libmkl_blacs_intelmpi_lp64.a,libmkl_intel_lp64.a,libmkl_sequential.a,libmkl_core.a (previously undefined)
-== 2023-02-28 10:19:44,057 environment.py:93 INFO Environment variable FFTW_STATIC_LIBS_MT set to libfftw3x_cdft_lp64.a,libmkl_cdft_core.a,libmkl_blacs_intelmpi_lp64.a,libmkl_intel_lp64.a,libmkl_intel_thread.a,libmkl_core.a,libiomp5.a,libpthread.a (previously undefined)
-== 2023-02-28 10:19:44,057 environment.py:93 INFO Environment variable EBVARFFTW_STATIC_LIBS_MT set to libfftw3x_cdft_lp64.a,libmkl_cdft_core.a,libmkl_blacs_intelmpi_lp64.a,libmkl_intel_lp64.a,libmkl_intel_thread.a,libmkl_core.a,libiomp5.a,libpthread.a (previously undefined)
-== 2023-02-28 10:19:44,058 environment.py:93 INFO Environment variable FFT_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include/fftw (previously undefined)
-== 2023-02-28 10:19:44,058 environment.py:93 INFO Environment variable EBVARFFT_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include/fftw (previously undefined)
-== 2023-02-28 10:19:44,058 environment.py:93 INFO Environment variable FFT_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib (previously undefined)
-== 2023-02-28 10:19:44,058 environment.py:93 INFO Environment variable EBVARFFT_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib (previously undefined)
-== 2023-02-28 10:19:44,058 environment.py:93 INFO Environment variable FFT_SHARED_LIBS set to libfftw3x_cdft_lp64.so,libmkl_cdft_core.so,libmkl_blacs_intelmpi_lp64.so,libmkl_intel_lp64.so,libmkl_sequential.so,libmkl_core.so (previously undefined)
-== 2023-02-28 10:19:44,059 environment.py:93 INFO Environment variable EBVARFFT_SHARED_LIBS set to libfftw3x_cdft_lp64.so,libmkl_cdft_core.so,libmkl_blacs_intelmpi_lp64.so,libmkl_intel_lp64.so,libmkl_sequential.so,libmkl_core.so (previously undefined)
-== 2023-02-28 10:19:44,059 environment.py:93 INFO Environment variable FFT_SHARED_LIBS_MT set to libfftw3x_cdft_lp64.so,libmkl_cdft_core.so,libmkl_blacs_intelmpi_lp64.so,libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_core.so,libiomp5.so,libpthread.so (previously undefined)
-== 2023-02-28 10:19:44,059 environment.py:93 INFO Environment variable EBVARFFT_SHARED_LIBS_MT set to libfftw3x_cdft_lp64.so,libmkl_cdft_core.so,libmkl_blacs_intelmpi_lp64.so,libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_core.so,libiomp5.so,libpthread.so (previously undefined)
-== 2023-02-28 10:19:44,059 environment.py:93 INFO Environment variable FFT_STATIC_LIBS set to libfftw3x_cdft_lp64.a,libmkl_cdft_core.a,libmkl_blacs_intelmpi_lp64.a,libmkl_intel_lp64.a,libmkl_sequential.a,libmkl_core.a (previously undefined)
-== 2023-02-28 10:19:44,060 environment.py:93 INFO Environment variable EBVARFFT_STATIC_LIBS set to libfftw3x_cdft_lp64.a,libmkl_cdft_core.a,libmkl_blacs_intelmpi_lp64.a,libmkl_intel_lp64.a,libmkl_sequential.a,libmkl_core.a (previously undefined)
-== 2023-02-28 10:19:44,060 environment.py:93 INFO Environment variable FFT_STATIC_LIBS_MT set to libfftw3x_cdft_lp64.a,libmkl_cdft_core.a,libmkl_blacs_intelmpi_lp64.a,libmkl_intel_lp64.a,libmkl_intel_thread.a,libmkl_core.a,libiomp5.a,libpthread.a (previously undefined)
-== 2023-02-28 10:19:44,060 environment.py:93 INFO Environment variable EBVARFFT_STATIC_LIBS_MT set to libfftw3x_cdft_lp64.a,libmkl_cdft_core.a,libmkl_blacs_intelmpi_lp64.a,libmkl_intel_lp64.a,libmkl_intel_thread.a,libmkl_core.a,libiomp5.a,libpthread.a (previously undefined)
-== 2023-02-28 10:19:44,060 environment.py:93 INFO Environment variable I_MPI_CC set to icc (previously undefined)
-== 2023-02-28 10:19:44,061 environment.py:93 INFO Environment variable EBVARI_MPI_CC set to icc (previously undefined)
-== 2023-02-28 10:19:44,061 environment.py:93 INFO Environment variable I_MPI_CXX set to icpc (previously undefined)
-== 2023-02-28 10:19:44,061 environment.py:93 INFO Environment variable EBVARI_MPI_CXX set to icpc (previously undefined)
-== 2023-02-28 10:19:44,061 environment.py:93 INFO Environment variable I_MPI_F77 set to ifort (previously undefined)
-== 2023-02-28 10:19:44,062 environment.py:93 INFO Environment variable EBVARI_MPI_F77 set to ifort (previously undefined)
-== 2023-02-28 10:19:44,062 environment.py:93 INFO Environment variable I_MPI_F90 set to ifort (previously undefined)
-== 2023-02-28 10:19:44,062 environment.py:93 INFO Environment variable EBVARI_MPI_F90 set to ifort (previously undefined)
-== 2023-02-28 10:19:44,062 environment.py:93 INFO Environment variable I_MPI_FC set to ifort (previously undefined)
-== 2023-02-28 10:19:44,063 environment.py:93 INFO Environment variable EBVARI_MPI_FC set to ifort (previously undefined)
-== 2023-02-28 10:19:44,063 environment.py:93 INFO Environment variable LAPACK_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include (previously undefined)
-== 2023-02-28 10:19:44,063 environment.py:93 INFO Environment variable EBVARLAPACK_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include (previously undefined)
-== 2023-02-28 10:19:44,063 environment.py:93 INFO Environment variable LAPACK_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 (previously undefined)
-== 2023-02-28 10:19:44,064 environment.py:93 INFO Environment variable EBVARLAPACK_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 (previously undefined)
-== 2023-02-28 10:19:44,064 environment.py:93 INFO Environment variable LAPACK_MT_SHARED_LIBS set to libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_core.so,libiomp5.so,libpthread.so (previously undefined)
-== 2023-02-28 10:19:44,064 environment.py:93 INFO Environment variable EBVARLAPACK_MT_SHARED_LIBS set to libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_core.so,libiomp5.so,libpthread.so (previously undefined)
-== 2023-02-28 10:19:44,064 environment.py:93 INFO Environment variable LAPACK_MT_STATIC_LIBS set to libmkl_intel_lp64.a,libmkl_intel_thread.a,libmkl_core.a,libiomp5.a,libpthread.a (previously undefined)
-== 2023-02-28 10:19:44,065 environment.py:93 INFO Environment variable EBVARLAPACK_MT_STATIC_LIBS set to libmkl_intel_lp64.a,libmkl_intel_thread.a,libmkl_core.a,libiomp5.a,libpthread.a (previously undefined)
-== 2023-02-28 10:19:44,065 environment.py:93 INFO Environment variable LAPACK_SHARED_LIBS set to libmkl_intel_lp64.so,libmkl_sequential.so,libmkl_core.so (previously undefined)
-== 2023-02-28 10:19:44,065 environment.py:93 INFO Environment variable EBVARLAPACK_SHARED_LIBS set to libmkl_intel_lp64.so,libmkl_sequential.so,libmkl_core.so (previously undefined)
-== 2023-02-28 10:19:44,065 environment.py:93 INFO Environment variable LAPACK_STATIC_LIBS set to libmkl_intel_lp64.a,libmkl_sequential.a,libmkl_core.a (previously undefined)
-== 2023-02-28 10:19:44,065 environment.py:93 INFO Environment variable EBVARLAPACK_STATIC_LIBS set to libmkl_intel_lp64.a,libmkl_sequential.a,libmkl_core.a (previously undefined)
-== 2023-02-28 10:19:44,066 environment.py:93 INFO Environment variable LDFLAGS set to -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64 (previously undefined)
-== 2023-02-28 10:19:44,066 environment.py:93 INFO Environment variable EBVARLDFLAGS set to -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64 (previously undefined)
-== 2023-02-28 10:19:44,066 environment.py:93 INFO Environment variable LIBBLACS set to -Wl,-Bstatic -Wl,--start-group -lmkl_blacs_intelmpi_lp64 -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,066 environment.py:93 INFO Environment variable EBVARLIBBLACS set to -Wl,-Bstatic -Wl,--start-group -lmkl_blacs_intelmpi_lp64 -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,067 environment.py:93 INFO Environment variable LIBBLACS_MT set to -Wl,-Bstatic -Wl,--start-group -lmkl_blacs_intelmpi_lp64 -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,067 environment.py:93 INFO Environment variable EBVARLIBBLACS_MT set to -Wl,-Bstatic -Wl,--start-group -lmkl_blacs_intelmpi_lp64 -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,067 environment.py:93 INFO Environment variable LIBBLAS set to -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,067 environment.py:93 INFO Environment variable EBVARLIBBLAS set to -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,068 environment.py:93 INFO Environment variable LIBBLAS_MT set to -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -Wl,--end-group -Wl,-Bdynamic -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,068 environment.py:93 INFO Environment variable EBVARLIBBLAS_MT set to -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -Wl,--end-group -Wl,-Bdynamic -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,068 environment.py:93 INFO Environment variable LIBFFT set to -Wl,-Bstatic -Wl,--start-group -lfftw3x_cdft_lp64 -lmkl_cdft_core -lmkl_blacs_intelmpi_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,068 environment.py:93 INFO Environment variable EBVARLIBFFT set to -Wl,-Bstatic -Wl,--start-group -lfftw3x_cdft_lp64 -lmkl_cdft_core -lmkl_blacs_intelmpi_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,069 environment.py:93 INFO Environment variable LIBFFT_MT set to -Wl,-Bstatic -Wl,--start-group -lfftw3x_cdft_lp64 -lmkl_cdft_core -lmkl_blacs_intelmpi_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -Wl,--end-group -Wl,-Bdynamic -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,069 environment.py:93 INFO Environment variable EBVARLIBFFT_MT set to -Wl,-Bstatic -Wl,--start-group -lfftw3x_cdft_lp64 -lmkl_cdft_core -lmkl_blacs_intelmpi_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -Wl,--end-group -Wl,-Bdynamic -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,069 environment.py:93 INFO Environment variable LIBLAPACK set to -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,069 environment.py:93 INFO Environment variable EBVARLIBLAPACK set to -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,070 environment.py:93 INFO Environment variable LIBLAPACK_MT set to -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -Wl,--end-group -Wl,-Bdynamic -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,070 environment.py:93 INFO Environment variable EBVARLIBLAPACK_MT set to -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -Wl,--end-group -Wl,-Bdynamic -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,070 environment.py:93 INFO Environment variable LIBLAPACK_MT_ONLY set to -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -Wl,--end-group -Wl,-Bdynamic -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,070 environment.py:93 INFO Environment variable EBVARLIBLAPACK_MT_ONLY set to -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -Wl,--end-group -Wl,-Bdynamic -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,071 environment.py:93 INFO Environment variable LIBLAPACK_ONLY set to -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,071 environment.py:93 INFO Environment variable EBVARLIBLAPACK_ONLY set to -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,071 environment.py:93 INFO Environment variable LIBS set to -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,071 environment.py:93 INFO Environment variable EBVARLIBS set to -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,072 environment.py:93 INFO Environment variable LIBSCALAPACK set to -Wl,-Bstatic -Wl,--start-group -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,072 environment.py:93 INFO Environment variable EBVARLIBSCALAPACK set to -Wl,-Bstatic -Wl,--start-group -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,072 environment.py:93 INFO Environment variable LIBSCALAPACK_MT set to -Wl,-Bstatic -Wl,--start-group -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -Wl,--end-group -Wl,-Bdynamic -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,072 environment.py:93 INFO Environment variable EBVARLIBSCALAPACK_MT set to -Wl,-Bstatic -Wl,--start-group -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -Wl,--end-group -Wl,-Bdynamic -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,073 environment.py:93 INFO Environment variable LIBSCALAPACK_MT_ONLY set to -Wl,-Bstatic -Wl,--start-group -lmkl_scalapack_lp64 -Wl,--end-group -Wl,-Bdynamic -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,073 environment.py:93 INFO Environment variable EBVARLIBSCALAPACK_MT_ONLY set to -Wl,-Bstatic -Wl,--start-group -lmkl_scalapack_lp64 -Wl,--end-group -Wl,-Bdynamic -liomp5 -lpthread (previously undefined)
-== 2023-02-28 10:19:44,073 environment.py:93 INFO Environment variable LIBSCALAPACK_ONLY set to -Wl,-Bstatic -Wl,--start-group -lmkl_scalapack_lp64 -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,073 environment.py:93 INFO Environment variable EBVARLIBSCALAPACK_ONLY set to -Wl,-Bstatic -Wl,--start-group -lmkl_scalapack_lp64 -Wl,--end-group -Wl,-Bdynamic (previously undefined)
-== 2023-02-28 10:19:44,074 environment.py:93 INFO Environment variable MPICC set to mpiicc (previously undefined)
-== 2023-02-28 10:19:44,074 environment.py:93 INFO Environment variable EBVARMPICC set to mpiicc (previously undefined)
-== 2023-02-28 10:19:44,074 environment.py:93 INFO Environment variable MPICH_CC set to icc (previously undefined)
-== 2023-02-28 10:19:44,074 environment.py:93 INFO Environment variable EBVARMPICH_CC set to icc (previously undefined)
-== 2023-02-28 10:19:44,075 environment.py:93 INFO Environment variable MPICH_CXX set to icpc (previously undefined)
-== 2023-02-28 10:19:44,075 environment.py:93 INFO Environment variable EBVARMPICH_CXX set to icpc (previously undefined)
-== 2023-02-28 10:19:44,075 environment.py:93 INFO Environment variable MPICH_F77 set to ifort (previously undefined)
-== 2023-02-28 10:19:44,075 environment.py:93 INFO Environment variable EBVARMPICH_F77 set to ifort (previously undefined)
-== 2023-02-28 10:19:44,075 environment.py:93 INFO Environment variable MPICH_F90 set to ifort (previously undefined)
-== 2023-02-28 10:19:44,076 environment.py:93 INFO Environment variable EBVARMPICH_F90 set to ifort (previously undefined)
-== 2023-02-28 10:19:44,076 environment.py:93 INFO Environment variable MPICH_FC set to ifort (previously undefined)
-== 2023-02-28 10:19:44,076 environment.py:93 INFO Environment variable EBVARMPICH_FC set to ifort (previously undefined)
-== 2023-02-28 10:19:44,076 environment.py:93 INFO Environment variable MPICXX set to mpiicpc (previously undefined)
-== 2023-02-28 10:19:44,077 environment.py:93 INFO Environment variable EBVARMPICXX set to mpiicpc (previously undefined)
-== 2023-02-28 10:19:44,077 environment.py:93 INFO Environment variable MPIF77 set to mpiifort (previously undefined)
-== 2023-02-28 10:19:44,077 environment.py:93 INFO Environment variable EBVARMPIF77 set to mpiifort (previously undefined)
-== 2023-02-28 10:19:44,077 environment.py:93 INFO Environment variable MPIF90 set to mpiifort (previously undefined)
-== 2023-02-28 10:19:44,078 environment.py:93 INFO Environment variable EBVARMPIF90 set to mpiifort (previously undefined)
-== 2023-02-28 10:19:44,078 environment.py:93 INFO Environment variable MPIFC set to mpiifort (previously undefined)
-== 2023-02-28 10:19:44,078 environment.py:93 INFO Environment variable EBVARMPIFC set to mpiifort (previously undefined)
-== 2023-02-28 10:19:44,078 environment.py:93 INFO Environment variable MPI_INC_DIR set to  (previously undefined)
-== 2023-02-28 10:19:44,079 environment.py:93 INFO Environment variable EBVARMPI_INC_DIR set to  (previously undefined)
-== 2023-02-28 10:19:44,079 environment.py:93 INFO Environment variable MPI_LIB_DIR set to  (previously undefined)
-== 2023-02-28 10:19:44,079 environment.py:93 INFO Environment variable EBVARMPI_LIB_DIR set to  (previously undefined)
-== 2023-02-28 10:19:44,079 environment.py:93 INFO Environment variable MPI_LIB_SHARED set to  (previously undefined)
-== 2023-02-28 10:19:44,080 environment.py:93 INFO Environment variable EBVARMPI_LIB_SHARED set to  (previously undefined)
-== 2023-02-28 10:19:44,080 environment.py:93 INFO Environment variable MPI_LIB_STATIC set to  (previously undefined)
-== 2023-02-28 10:19:44,080 environment.py:93 INFO Environment variable EBVARMPI_LIB_STATIC set to  (previously undefined)
-== 2023-02-28 10:19:44,080 environment.py:93 INFO Environment variable OPTFLAGS set to -O2 -xHost (previously undefined)
-== 2023-02-28 10:19:44,081 environment.py:93 INFO Environment variable EBVAROPTFLAGS set to -O2 -xHost (previously undefined)
-== 2023-02-28 10:19:44,081 environment.py:93 INFO Environment variable PRECFLAGS set to -ftz -fp-speculation=safe -fp-model source (previously undefined)
-== 2023-02-28 10:19:44,081 environment.py:93 INFO Environment variable EBVARPRECFLAGS set to -ftz -fp-speculation=safe -fp-model source (previously undefined)
-== 2023-02-28 10:19:44,081 environment.py:93 INFO Environment variable SCALAPACK_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include (previously undefined)
-== 2023-02-28 10:19:44,082 environment.py:93 INFO Environment variable EBVARSCALAPACK_INC_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include (previously undefined)
-== 2023-02-28 10:19:44,082 environment.py:93 INFO Environment variable SCALAPACK_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 (previously undefined)
-== 2023-02-28 10:19:44,082 environment.py:93 INFO Environment variable EBVARSCALAPACK_LIB_DIR set to /apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 (previously undefined)
-== 2023-02-28 10:19:44,082 environment.py:93 INFO Environment variable SCALAPACK_MT_SHARED_LIBS set to libmkl_scalapack_lp64.so,libmkl_blacs_intelmpi_lp64.so,libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_core.so,libiomp5.so,libpthread.so (previously undefined)
-== 2023-02-28 10:19:44,082 environment.py:93 INFO Environment variable EBVARSCALAPACK_MT_SHARED_LIBS set to libmkl_scalapack_lp64.so,libmkl_blacs_intelmpi_lp64.so,libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_core.so,libiomp5.so,libpthread.so (previously undefined)
-== 2023-02-28 10:19:44,083 environment.py:93 INFO Environment variable SCALAPACK_MT_STATIC_LIBS set to libmkl_scalapack_lp64.a,libmkl_blacs_intelmpi_lp64.a,libmkl_intel_lp64.a,libmkl_intel_thread.a,libmkl_core.a,libiomp5.a,libpthread.a (previously undefined)
-== 2023-02-28 10:19:44,083 environment.py:93 INFO Environment variable EBVARSCALAPACK_MT_STATIC_LIBS set to libmkl_scalapack_lp64.a,libmkl_blacs_intelmpi_lp64.a,libmkl_intel_lp64.a,libmkl_intel_thread.a,libmkl_core.a,libiomp5.a,libpthread.a (previously undefined)
-== 2023-02-28 10:19:44,083 environment.py:93 INFO Environment variable SCALAPACK_SHARED_LIBS set to libmkl_scalapack_lp64.so,libmkl_blacs_intelmpi_lp64.so,libmkl_intel_lp64.so,libmkl_sequential.so,libmkl_core.so (previously undefined)
-== 2023-02-28 10:19:44,083 environment.py:93 INFO Environment variable EBVARSCALAPACK_SHARED_LIBS set to libmkl_scalapack_lp64.so,libmkl_blacs_intelmpi_lp64.so,libmkl_intel_lp64.so,libmkl_sequential.so,libmkl_core.so (previously undefined)
-== 2023-02-28 10:19:44,084 environment.py:93 INFO Environment variable SCALAPACK_STATIC_LIBS set to libmkl_scalapack_lp64.a,libmkl_blacs_intelmpi_lp64.a,libmkl_intel_lp64.a,libmkl_sequential.a,libmkl_core.a (previously undefined)
-== 2023-02-28 10:19:44,084 environment.py:93 INFO Environment variable EBVARSCALAPACK_STATIC_LIBS set to libmkl_scalapack_lp64.a,libmkl_blacs_intelmpi_lp64.a,libmkl_intel_lp64.a,libmkl_sequential.a,libmkl_core.a (previously undefined)
-== 2023-02-28 10:19:44,084 easyblock.py:2084 INFO Using /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/ as start dir
-== 2023-02-28 10:19:44,085 build_log.py:267 INFO ... (took 15 secs)
-== 2023-02-28 10:19:44,091 build_log.py:267 INFO configuring...
-== 2023-02-28 10:19:44,096 easyblock.py:3894 INFO Starting configure step
-== 2023-02-28 10:19:44,097 easyconfig.py:1690 INFO Generating template values...
-== 2023-02-28 10:19:44,098 mpi.py:122 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'IntelMPI'
-== 2023-02-28 10:19:44,098 mpi.py:307 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
-== 2023-02-28 10:19:44,098 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='yambo', builddir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b', github_account='yambo', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b', module_name='Yambo/5.1.1-intel-2021b', mpi_cmd_prefix='mpirun -n 1', name='Yambo', nameletter='Y', nameletterlower='y', namelower='yambo', parallel='1', start_dir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/', toolchain_name='intel', toolchain_version='2021b', version='5.1.1', version_major='5', version_major_minor='5.1', version_minor='1', versionprefix='', versionsuffix=''
-== 2023-02-28 10:19:44,099 easyblock.py:3902 INFO Running method configure_step part of step configure
-== 2023-02-28 10:19:44,135 configuremake.py:95 INFO config.guess version: 2018-08-29 (last updated: 2022-12-15T10:56:28.139000, SHA256 checksum: c02eb9cc55c86cfd1e9a794e548d25db5c9539e7b2154beb649bc6e2cbffc74c)
-== 2023-02-28 10:19:44,143 run.py:236 INFO running cmd: /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v4.6.3.dev0/ConfigureMake/config.guess 
-== 2023-02-28 10:19:45,884 run.py:648 INFO cmd "/data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v4.6.3.dev0/ConfigureMake/config.guess" exited with exit code 0 and output:
-x86_64-pc-linux-gnu
-
-== 2023-02-28 10:19:45,885 configuremake.py:250 INFO /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v4.6.3.dev0/ConfigureMake/config.guess returned a system type 'x86_64-pc-linux-gnu'
-== 2023-02-28 10:19:45,885 configuremake.py:254 INFO Providing 'x86_64-pc-linux-gnu' as value to --build option of configure script
-== 2023-02-28 10:19:45,885 configuremake.py:258 INFO Providing 'x86_64-pc-linux-gnu' as value to --host option of configure script
-== 2023-02-28 10:19:45,895 run.py:236 INFO running cmd: export FPATH=$EBROOTPETSC/include:$FPATH &&  ./configure --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b  --build=x86_64-pc-linux-gnu  --host=x86_64-pc-linux-gnu FC=mpiifort CC=mpiicc --prefix=/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/ --enable-open-mp --enable-hdf5-par-io --with-blas-libs="$LIBBLAS" --with-lapack-libs="$LIBLAPACK" --with-blacs-libs=mkl --with-scalapack-libs=mkl --with-fft-libs="$LIBFFT" --with-fft-includedir="$FFT_INC_DIR" --with-netcdf-path="$EBROOTNETCDF" --with-netcdff-path="$EBROOTNETCDFMINFORTRAN" --with-hdf5-path="$EBROOTHDF5" --with-petsc-path="$EBROOTPETSC"--with-petsc-include="$EBROOTPETSC/include" --with-slepc-path="$EBROOTSLEPC" --with-libxc-path="$EBROOTLIBXC" --enable-par-linalg --enable-slepc-linalg  
-== 2023-02-28 10:21:16,093 run.py:648 INFO cmd "export FPATH=$EBROOTPETSC/include:$FPATH &&  ./configure --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b  --build=x86_64-pc-linux-gnu  --host=x86_64-pc-linux-gnu FC=mpiifort CC=mpiicc --prefix=/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/ --enable-open-mp --enable-hdf5-par-io --with-blas-libs="$LIBBLAS" --with-lapack-libs="$LIBLAPACK" --with-blacs-libs=mkl --with-scalapack-libs=mkl --with-fft-libs="$LIBFFT" --with-fft-includedir="$FFT_INC_DIR" --with-netcdf-path="$EBROOTNETCDF" --with-netcdff-path="$EBROOTNETCDFMINFORTRAN" --with-hdf5-path="$EBROOTHDF5" --with-petsc-path="$EBROOTPETSC"--with-petsc-include="$EBROOTPETSC/include" --with-slepc-path="$EBROOTSLEPC" --with-libxc-path="$EBROOTLIBXC" --enable-par-linalg --enable-slepc-linalg " exited with exit code 0 and output:
-checking for vim... vim
-checking for x86_64-pc-linux-gnu-gcc... mpiicc
-checking whether the C compiler works... yes
-checking for C compiler default output file name... a.out
-checking for suffix of executables... 
-checking whether we are cross compiling... no
-checking for suffix of object files... o
-checking whether we are using the GNU C compiler... yes
-checking whether mpiicc accepts -g... yes
-checking for mpiicc option to accept ISO C89... none needed
-checking how to run the C preprocessor... mpiicc -E
-checking for grep that handles long lines and -e... /usr/bin/grep
-checking for egrep... /usr/bin/grep -E
-checking for ANSI C header files... yes
-checking for sys/types.h... yes
-checking for sys/stat.h... yes
-checking for stdlib.h... yes
-checking for string.h... yes
-checking for memory.h... yes
-checking for strings.h... yes
-checking for inttypes.h... yes
-checking for stdint.h... yes
-checking for unistd.h... yes
-checking malloc.h usability... yes
-checking malloc.h presence... yes
-checking for malloc.h... yes
-checking for struct mallinfo.arena... yes
-checking for git... yes
-fatal: not a git repository (or any parent up to mount point /)
-Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
-checking for malloc.h... (cached) yes
-checking for stdlib.h... (cached) yes
-checking for unistd.h... (cached) yes
-checking for string.h... (cached) yes
-checking sys/time.h usability... yes
-checking sys/time.h presence... yes
-checking for sys/time.h... yes
-checking for size_t... yes
-checking for working alloca.h... yes
-checking for alloca... yes
-checking for an ANSI C-conforming const... yes
-checking for inline... inline
-checking for stdlib.h... (cached) yes
-checking for GNU libc compatible malloc... yes
-checking for stdlib.h... (cached) yes
-checking for GNU libc compatible realloc... yes
-checking whether lstat correctly handles trailing slash... yes
-checking whether stat accepts an empty string... no
-checking whether make sets $(MAKE)... yes
-checking for the size of a pointer... 8 bytes
-checking for x86_64-pc-linux-gnu-gcc... (cached) mpiicc
-checking whether we are using the GNU C compiler... (cached) yes
-checking whether mpiicc accepts -g... (cached) yes
-checking for mpiicc option to accept ISO C89... (cached) none needed
-checking build system type... x86_64-pc-linux-gnu
-checking host system type... x86_64-pc-linux-gnu
-checking for GNU make... make
-checking for x86_64-pc-linux-gnu-ar... no
-checking for ar... ar
-checking for x86_64-pc-linux-gnu-xlf90... mpiifort
-checking whether we are using the GNU Fortran compiler... no
-checking whether mpiifort accepts -g... yes
-checking if the current OS is supported... yes
-configure: WIDESETUP: using build_os="linux"
-configure: WIDESETUP: using F90SUFFIX=".f90"
-configure: WIDESETUP: using AR="ar"
-configure: WIDESETUP: using AR_FLAGS="-r"
-checking for Fortran flag to compile .f90 files... none
-checking for mpiifort kind and version... intel mpiifort for the Intel(R) MPI Library 2021.4 for Linux* 2021
-checking for specific mpiifort flags... (User-defined) -O2 -xHost -ftz -fp-speculation=safe -fp-model source -fopenmp -mt_mpi
-checking for specific Open-MP flags... -qopenmp
-checking for specific mpiicc flags... -O2 -std=gnu99
-checking for specific unoptimized flags... -assume bscc -O0 -g  
-checking for specific NETCDF flags... -DpgiFortran
-checking how to get verbose linking output from mpiifort... -v
-checking for Fortran libraries of mpiifort...  -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64 -L/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib/release -L/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib -L/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib -L/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/python3.9/site-packages/numpy/core/lib -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin -L/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/libfabric/lib -L/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/tbb/2021.4.0/lib/intel64/gcc4.8 -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib/x64 -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib -L/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib -L/kyukon/home/apps/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/bin/intel64/../../compiler/lib/intel64_lin -L/kyukon/home/apps/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/11.2.0/ -L/kyukon/home/apps/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/../lib/gcc/ -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib/../lib64/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib/../lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib/../lib64/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib/../lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib/../lib64/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib/../lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib/../lib64/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib/../lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib/../lib64/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib/../lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib/../lib64/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib/../lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib/../lib64/ -L/kyukon/home/apps/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/11.2.0/../../../../lib64 -L/kyukon/home/apps/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/11.2.0/../../../../lib64/ -L/lib/../lib64 -L/lib/../lib64/ -L/usr/lib/../lib64 -L/usr/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib/ -L/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/python3.9/site-packages/numpy/core/lib/ -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/ -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64/ -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib/ -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib/ -L/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib64 -L/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib/ -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib/ -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib/ -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64/ -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin/ -L/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/libfabric/lib/ -L/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib/release/ -L/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/tbb/2021.4.0/lib/intel64/gcc4.8/ -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin/ -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib/x64/ -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib/ -L/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib/ -L/kyukon/home/apps/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/11.2.0/../../../ -L/lib64 -L/lib/ -L/usr/lib64 -L/usr/lib -liomp5 -lpthread -lmpifort -lmpi -ldl -lrt -lifport -lifcoremt -limf -lsvml -lm -lipgo -lirc -lirc_s
-checking for dummy main to link with Fortran libraries... none
-checking for Fortran name-mangling scheme... lower case, underscore, no extra underscore
-checking for external C routine (test) naming scheme... test_
-checking for Fortran flag needed to accept free-form source... none
-checking fortran 90 modules inclusion flag... -I
-configure: testing C-preprocessor mpiicc -E -I/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include
-checking if C precompiler works on C source... yes
-configure: testing FC-preprocessor fpp -free -P
-checking if FC precompiler works on FC source... yes
-checking for x86_64-pc-linux-gnu-g77... mpiifort
-checking whether we are using the GNU Fortran 77 compiler... no
-checking whether mpiifort accepts -g... yes
-checking if Fortran 77 compiler mpiifort works... yes
-checking for mpiifort... no
-checking for mpiifort... mpiifort
-checking for a working mpif.h... yes
-checking for mpiifort... (cached) no
-checking for mpiifort... mpiifort
-checking for mpiicc... no
-checking for mpiicc... mpiicc
-checking for a working mpi.h... yes
-checking for MPI version... Intel(R) MPI Library 2021.4 for Linux* OS
-checking for /apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/include/mpif.h... yes
-checking how to get verbose linking output from mpiifort... -v
-checking for Fortran 77 libraries of mpiifort...  -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64 -L/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib/release -L/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib -L/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib -L/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/python3.9/site-packages/numpy/core/lib -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin -L/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/libfabric/lib -L/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/tbb/2021.4.0/lib/intel64/gcc4.8 -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib/x64 -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib -L/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib -L/kyukon/home/apps/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/bin/intel64/../../compiler/lib/intel64_lin -L/kyukon/home/apps/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/11.2.0/ -L/kyukon/home/apps/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/../lib/gcc/ -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib/../lib64/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib/../lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib/../lib64/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib/../lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib/../lib64/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib/../lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib/../lib64/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib/../lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib/../lib64/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib/../lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib/../lib64/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib/../lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib/../lib64 -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib/../lib64/ -L/kyukon/home/apps/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/11.2.0/../../../../lib64 -L/kyukon/home/apps/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/11.2.0/../../../../lib64/ -L/lib/../lib64 -L/lib/../lib64/ -L/usr/lib/../lib64 -L/usr/lib/../lib64/ -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/lib/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/lib/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Hypre/2.24.0-intel-2021b/lib/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SuiteSparse/5.8.1-intel-2021b-METIS-5.1.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/MPFR/4.1.0-GCCcore-11.2.0/lib/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/MUMPS/5.4.1-intel-2021b-metis/lib/ -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SCOTCH/6.1.2-iimpi-2021b/lib/ -L/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/METIS/5.1.0-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Boost/1.77.0-intel-compilers-2021.4.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/ICU/69.1-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/python3.9/site-packages/numpy/core/lib/ -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib64 -L/apps/gent/RHEL8/haswell-ib/software/SciPy-bundle/2021.10-intel-2021b/lib/ -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Python/3.9.6-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib64/ -L/apps/gent/RHEL8/haswell-ib/software/libffi/3.4.2-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/GMP/6.2.1-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/XZ/5.2.5-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/SQLite/3.36-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Tcl/8.6.11-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/libreadline/8.1-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/ncurses/6.2-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/bzip2/1.0.8-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib/ -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib/ -L/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/cURL/7.78.0-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib64 -L/apps/gent/RHEL8/haswell-ib/software/OpenSSL/1.1/lib/ -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib/ -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/imkl-FFTW/2021.4.0-iimpi-2021b/lib/ -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64/ -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin/ -L/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/libfabric/lib/ -L/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib/release/ -L/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/UCX/1.11.2-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/numactl/2.0.14-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/tbb/2021.4.0/lib/intel64/gcc4.8/ -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64_lin/ -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib/x64/ -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/lib/ -L/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/binutils/2.37-GCCcore-11.2.0/lib/ -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib64 -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib/ -L/kyukon/home/apps/RHEL8/haswell-ib/software/GCCcore/11.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/11.2.0/../../../ -L/lib64 -L/lib/ -L/usr/lib64 -L/usr/lib -liomp5 -lpthread -lmpifort -lmpi -ldl -lrt -lifport -lifcoremt -limf -lsvml -lm -lipgo -lirc -lirc_s
-checking for caxpy in -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic... yes
-checking for dummy main to link with Fortran 77 libraries... none
-checking for Fortran 77 name-mangling scheme... lower case, underscore, no extra underscore
-checking for cheev in -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic... yes
-checking for dlaran_ in -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic... no
-checking for FFT Library using -Wl,-Bstatic -Wl,--start-group -lfftw3x_cdft_lp64 -lmkl_cdft_core -lmkl_blacs_intelmpi_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic... FFTW (MKL) 
-checking for dlopen in -ldl... yes
-checking for internal Petsc library... to be compiled
-checking for internal Slepc library... to be compiled
-checking for blacs_set in -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64... yes
-checking for pcheev in -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64... yes
-checking for deflate in -lz ... yes
-checking for deflate in -lsz... no
-checking for dlopen in -ldl... (cached) yes
-checking for curl_version in -lcurl... yes
-checking for cos in -lm... yes
-checking for HDF5 using h5pfc/h5fc system compilers... yes - parallel lib found
-checking for NetCDF in /apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b... yes
-checking for YAML library... no
-checking for FUTILE library... no
-checking for internal IOTK library... to be compiled
-checking for ETSF_IO Library... no
-checking for libxc... Found external LibXC version=5, (should be 5)
-checking for CUDA support... no
-checking for NVTX support... configure: creating ./config.status
-config.status: creating lib/iotk/make_iotk.inc
-config.status: creating config/setup
-config.status: creating config/mk/global/defs.mk
-config.status: creating config/report
-config.status: creating config/msg_ydb
-config.status: creating src/wf_and_fft/sgfft.F
-config.status: creating src/tools/.objects
-config.status: creating config/mk/local/defs.mk
-config.status: creating config/mk/defs.mk
-config.status: creating sbin/compilation/helper.inc.sh
-config.status: creating include/branch.inc
-config.status: creating include/driver/editor.h
-config.status: creating lib/archive/git.list
-config.status: creating include/headers/common/have_malloc.h
-#
-# [VER] 5.1
-#
-# Legend: [E]=external library [C]=internal lib to be compiled [I]=internal lib already compiled [X]=used [-]=not used
-# 
-# - GENERAL CONFIGURATIONS -
-# 
-# [SYS] linux@x86_64
-# [SRC] /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1
-# [BRN] 
-# [CMP] /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1
-# [TGT] /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1
-# [BIN] /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/bin
-# [LIB] /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/lib/external
-#
-# [EDITOR] vim
-# [ MAKE ] make
-#
-# [-] Double precision
-# [X] Keep object files
-# [X] Run-Time timing profile 
-# [-] Run-Time memory profile 
-#
-# - SCRIPTS -
-#
-# [-] YDB: Yambo DataBase
-# [-] YAMBOpy: Yambo Python scripts
-# 
-# - PARALLEL/CUDA SUPPORT -
-#
-# [-] CUDA
-# [E] MPI
-# [X] OpenMP
-# 
-# - I/O -
-#
-# [X]: Parallel I/O (via HDF5)
-# [E]: HDF5 Parallel_lib
-# [E]: NETCDF Large Files Support enabled, Version 4
-# [-]: Parallel NETCDF 
-# [X]: Parallel HDF5 NO Data Compression
-# 
-# - LIBRARIES - 
-#
-# [-] FUTILE  :  
-#                  
-# [-] YAML    :  
-#                  
-# [C] IOTK    : /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/lib/external/intel/mpiifort/lib/libiotk.a (QE hdf5-support)
-#                 -I/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/lib/external/intel/mpiifort/include/
-# [-] ETSF_IO :  
-#                  
-# [E] NETCDF  : -L/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/lib -lnetcdff -L/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/lib -lnetcdf 
-#                 -I/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/include 
-# [E] HDF5    :  -L/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib /apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib/libhdf5hl_fortran.a /apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib/libhdf5_hl.a /apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib/libhdf5_fortran.a /apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib/libhdf5.a  -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib  -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib  -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib64  -L/apps/gent/RHEL8/haswell-ib/software/Szip/2.1.1-GCCcore-11.2.0/lib  -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib64  -L/apps/gent/RHEL8/haswell-ib/software/zlib/1.2.11-GCCcore-11.2.0/lib  -L/apps/gent/RHEL8/haswell-ib/software/intel-compilers/2021.4.0/compiler/2021.4.0/linux/compiler/lib/intel64 -lpthread -lsz -lz -ldl -lm -liomp5 -lpthread -Wl,-rpath -Wl,/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/lib
-#                 -I/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/include
-#
-# > MATH: (FFTW MKL) 
-#
-# [E] FFT       : -Wl,-Bstatic -Wl,--start-group -lfftw3x_cdft_lp64 -lmkl_cdft_core -lmkl_blacs_intelmpi_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic
-#                 -I/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include/fftw
-# [E] BLAS      : -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic
-# [E] LAPACK    : -Wl,-Bstatic -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -Wl,-Bdynamic
-# [E] SCALAPACK : -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64 
-# [E] BLACS     : -L/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64
-# [C] PETSC     : /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/lib/external/intel/mpiifort/single/lib/libpetsc.a -ldl 
-#                 -I/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/lib/external/intel/mpiifort/single/include 
-# [C] SLEPC     : /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/lib/external/intel/mpiifort/single/lib/libslepc.a 
-#                 -I/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/lib/external/intel/mpiifort/single/include 
-#
-# > OTHERs
-#
-# [E] LibXC     : -L/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/lib -lxcf90 -lxcf03 -lxc
-#                 -I/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/include
-# [E] MPI       : -L/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib -Xlinker --enable-new-dtags -Xlinker -rpath -Xlinker /apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib/release -Xlinker -rpath -Xlinker /apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/lib -lmpifort -lmpi -ldl -lrt -lpthread 
-#                 -I/apps/gent/RHEL8/haswell-ib/software/impi/2021.4.0-intel-compilers-2021.4.0/mpi/2021.4.0/include 
-#
-# - COMPILERS -
-#
-# FC kind = intel mpiifort for the Intel(R) MPI Library 2021.4 for Linux*
-# MPI kind= Intel(R) MPI Library 2021.4 for Linux* OS
-#
-# [ CPP ] mpiicc -E -I/apps/gent/RHEL8/haswell-ib/software/libxc/5.1.6-intel-compilers-2021.4.0/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/SLEPc/3.18.2-intel-2021b/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/PETSc/3.18.4-intel-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/netCDF-Fortran/4.5.3-iimpi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/netCDF/4.8.1-iimpi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/HDF5/1.12.1-iimpi-2021b/include -I/apps/gent/RHEL8/haswell-ib/software/imkl/2021.4.0/mkl/2021.4.0/include -D_HDF5_LIB -D_HDF5_IO -D_PAR_IO -D_MPI -D_FFTW -D_FFTW_OMP -D_SLEPC -D_SCALAPACK   -D_OPENMP -D_TIMING     -D_P2Y_QEXSD_HDF5
-# [ FPP ] fpp -free -P -D_HDF5_LIB -D_HDF5_IO -D_PAR_IO -D_MPI -D_FFTW -D_FFTW_OMP -D_SLEPC -D_SCALAPACK   -D_OPENMP -D_TIMING    
-# [ CC  ] mpiicc -O2 -std=gnu99 -D_C_US -D_FORTRAN_US
-# [ FC  ] mpiifort -O2 -xHost -ftz -fp-speculation=safe -fp-model source -fopenmp -mt_mpi  -qopenmp 
-# [ FCUF] -assume bscc -O0 -g   
-# [ F77 ] mpiifort -O2 -xHost -ftz -fp-speculation=safe -fp-model source -fopenmp -mt_mpi 
-# [ F77U] -assume bscc -O0 -g   
-# [Cmain] -nofor-main
-#
-# You can modify compilers and flags by editing the file "config/setup"
-#
-
-== 2023-02-28 10:21:16,103 build_log.py:267 INFO ... (took 1 min 32 secs)
-== 2023-02-28 10:21:16,109 build_log.py:267 INFO building...
-== 2023-02-28 10:21:16,114 easyblock.py:3894 INFO Starting build step
-== 2023-02-28 10:21:16,115 easyconfig.py:1690 INFO Generating template values...
-== 2023-02-28 10:21:16,116 mpi.py:122 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'IntelMPI'
-== 2023-02-28 10:21:16,116 mpi.py:307 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
-== 2023-02-28 10:21:16,117 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='yambo', builddir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b', github_account='yambo', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b', module_name='Yambo/5.1.1-intel-2021b', mpi_cmd_prefix='mpirun -n 1', name='Yambo', nameletter='Y', nameletterlower='y', namelower='yambo', parallel='1', start_dir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/', toolchain_name='intel', toolchain_version='2021b', version='5.1.1', version_major='5', version_major_minor='5.1', version_minor='1', versionprefix='', versionsuffix=''
-== 2023-02-28 10:21:16,117 easyblock.py:3902 INFO Running method build_step part of step build
-== 2023-02-28 10:21:16,117 configuremake.py:350 INFO Building target ''
-== 2023-02-28 10:21:16,125 run.py:236 INFO running cmd:  make  -j 1 all 
-== 2023-02-28 10:39:19,238 run.py:648 INFO cmd " make  -j 1 all" exited with exit code 0 and output:
-	[yambo] Compilation Precision check
-	           to compile in SINGLE
-\t[Ydriver-1.1.0] download
-	[SETUP] Modules detection [ #                                                                ] 0/63  	[SETUP] Modules detection [ ##                                                               ] 1/63  	[SETUP] Modules detection [ ###                                                              ] 2/63  	[SETUP] Modules detection [ ####                                                             ] 3/63  	[SETUP] Modules detection [ #####                                                            ] 4/63  	[SETUP] Modules detection [ ######                                                           ] 5/63  	[SETUP] Modules detection [ #######                                                          ] 6/63  	[SETUP] Modules detection [ ########                                                         ] 7/63  	[SETUP] Modules detection [ #########                                                        ] 8/63  	[SETUP] Modules detection [ ##########                                                       ] 9/63  	[SETUP] Modules detection [ ###########                                                      ] 10/63  	[SETUP] Modules detection [ ############                                                     ] 11/63  	[SETUP] Modules detection [ #############                                                    ] 12/63  	[SETUP] Modules detection [ ##############                                                   ] 13/63  	[SETUP] Modules detection [ ###############                                                  ] 14/63  	[SETUP] Modules detection [ ################                                                 ] 15/63  	[SETUP] Modules detection [ #################                                                ] 16/63  	[SETUP] Modules detection [ ##################                                               ] 17/63  	[SETUP] Modules detection [ ###################                                              ] 18/63  	[SETUP] Modules detection [ ####################                                             ] 19/63  	[SETUP] Modules detection [ #####################                                            ] 20/63  	[SETUP] Modules detection [ ######################                                           ] 21/63  	[SETUP] Modules detection [ #######################                                          ] 22/63  	[SETUP] Modules detection [ ########################                                         ] 23/63  	[SETUP] Modules detection [ #########################                                        ] 24/63  	[SETUP] Modules detection [ ##########################                                       ] 25/63  	[SETUP] Modules detection [ ###########################                                      ] 26/63  	[SETUP] Modules detection [ ############################                                     ] 27/63  	[SETUP] Modules detection [ #############################                                    ] 28/63  	[SETUP] Modules detection [ ##############################                                   ] 29/63  	[SETUP] Modules detection [ ###############################                                  ] 30/63  	[SETUP] Modules detection [ ################################                                 ] 31/63  	[SETUP] Modules detection [ #################################                                ] 32/63  	[SETUP] Modules detection [ ##################################                               ] 33/63  	[SETUP] Modules detection [ ###################################                              ] 34/63  	[SETUP] Modules detection [ ####################################                             ] 35/63  	[SETUP] Modules detection [ #####################################                            ] 36/63  	[SETUP] Modules detection [ ######################################                           ] 37/63  	[SETUP] Modules detection [ #######################################                          ] 38/63  	[SETUP] Modules detection [ ########################################                         ] 39/63  	[SETUP] Modules detection [ #########################################                        ] 40/63  	[SETUP] Modules detection [ ##########################################                       ] 41/63  	[SETUP] Modules detection [ ###########################################                      ] 42/63  	[SETUP] Modules detection [ ############################################                     ] 43/63  	[SETUP] Modules detection [ #############################################                    ] 44/63  	[SETUP] Modules detection [ ##############################################                   ] 45/63  	[SETUP] Modules detection [ ###############################################                  ] 46/63  	[SETUP] Modules detection [ ################################################                 ] 47/63  	[SETUP] Modules detection [ #################################################                ] 48/63  	[SETUP] Modules detection [ ##################################################               ] 49/63  	[SETUP] Modules detection [ ###################################################              ] 50/63  	[SETUP] Modules detection [ ####################################################             ] 51/63  	[SETUP] Modules detection [ #####################################################            ] 52/63  	[SETUP] Modules detection [ ######################################################           ] 53/63  	[SETUP] Modules detection [ #######################################################          ] 54/63  	[SETUP] Modules detection [ ########################################################         ] 55/63  	[SETUP] Modules detection [ #########################################################        ] 56/63  	[SETUP] Modules detection [ ##########################################################       ] 57/63  	[SETUP] Modules detection [ ###########################################################      ] 58/63  	[SETUP] Modules detection [ ############################################################     ] 59/63  	[SETUP] Modules detection [ #############################################################    ] 60/63  	[SETUP] Modules detection [ ##############################################################   ] 61/63  	[SETUP] Modules detection [ ###############################################################  ] 62/63  	[SETUP] Modules detection [ ################################################################ ] 63/63  
-	[SETUP] Dependencies [ #                                                                ] 0/63  	[SETUP] Dependencies [ ##                                                               ] 1/63  	[SETUP] Dependencies [ ###                                                              ] 2/63  	[SETUP] Dependencies [ ####                                                             ] 3/63  	[SETUP] Dependencies [ #####                                                            ] 4/63  	[SETUP] Dependencies [ ######                                                           ] 5/63  	[SETUP] Dependencies [ #######                                                          ] 6/63  	[SETUP] Dependencies [ ########                                                         ] 7/63  	[SETUP] Dependencies [ #########                                                        ] 8/63  	[SETUP] Dependencies [ ##########                                                       ] 9/63  	[SETUP] Dependencies [ ###########                                                      ] 10/63  	[SETUP] Dependencies [ ############                                                     ] 11/63  	[SETUP] Dependencies [ #############                                                    ] 12/63  	[SETUP] Dependencies [ ##############                                                   ] 13/63  	[SETUP] Dependencies [ ###############                                                  ] 14/63  	[SETUP] Dependencies [ ################                                                 ] 15/63  	[SETUP] Dependencies [ #################                                                ] 16/63  	[SETUP] Dependencies [ ##################                                               ] 17/63  	[SETUP] Dependencies [ ###################                                              ] 18/63  	[SETUP] Dependencies [ ####################                                             ] 19/63  	[SETUP] Dependencies [ #####################                                            ] 20/63  	[SETUP] Dependencies [ ######################                                           ] 21/63  	[SETUP] Dependencies [ #######################                                          ] 22/63  	[SETUP] Dependencies [ ########################                                         ] 23/63  	[SETUP] Dependencies [ #########################                                        ] 24/63  	[SETUP] Dependencies [ ##########################                                       ] 25/63  	[SETUP] Dependencies [ ###########################                                      ] 26/63  	[SETUP] Dependencies [ ############################                                     ] 27/63  	[SETUP] Dependencies [ #############################                                    ] 28/63  	[SETUP] Dependencies [ ##############################                                   ] 29/63  	[SETUP] Dependencies [ ###############################                                  ] 30/63  	[SETUP] Dependencies [ ################################                                 ] 31/63  	[SETUP] Dependencies [ #################################                                ] 32/63  	[SETUP] Dependencies [ ##################################                               ] 33/63  	[SETUP] Dependencies [ ###################################                              ] 34/63  	[SETUP] Dependencies [ ####################################                             ] 35/63  	[SETUP] Dependencies [ #####################################                            ] 36/63  	[SETUP] Dependencies [ ######################################                           ] 37/63  	[SETUP] Dependencies [ #######################################                          ] 38/63  	[SETUP] Dependencies [ ########################################                         ] 39/63  	[SETUP] Dependencies [ #########################################                        ] 40/63  	[SETUP] Dependencies [ ##########################################                       ] 41/63  	[SETUP] Dependencies [ ###########################################                      ] 42/63  	[SETUP] Dependencies [ ############################################                     ] 43/63  	[SETUP] Dependencies [ #############################################                    ] 44/63  	[SETUP] Dependencies [ ##############################################                   ] 45/63  	[SETUP] Dependencies [ ###############################################                  ] 46/63  	[SETUP] Dependencies [ ################################################                 ] 47/63  	[SETUP] Dependencies [ #################################################                ] 48/63  	[SETUP] Dependencies [ ##################################################               ] 49/63  	[SETUP] Dependencies [ ###################################################              ] 50/63  	[SETUP] Dependencies [ ####################################################             ] 51/63  	[SETUP] Dependencies [ #####################################################            ] 52/63  	[SETUP] Dependencies [ ######################################################           ] 53/63  	[SETUP] Dependencies [ #######################################################          ] 54/63  	[SETUP] Dependencies [ ########################################################         ] 55/63  	[SETUP] Dependencies [ #########################################################        ] 56/63  	[SETUP] Dependencies [ ##########################################################       ] 57/63  	[SETUP] Dependencies [ ###########################################################      ] 58/63  	[SETUP] Dependencies [ ############################################################     ] 59/63  	[SETUP] Dependencies [ #############################################################    ] 60/63  	[SETUP] Dependencies [ ##############################################################   ] 61/63  	[SETUP] Dependencies [ ###############################################################  ] 62/63  	[SETUP] Dependencies [ ################################################################ ] 63/63  
-\t[iotk-y1.2.2] configuration
-configure: error: Fortran compiler cannot create executables
-See `config.log' for more details.
-\t[iotk-y1.2.2] loclib_only compilation
-\t[iotk-y1.2.2] iotk.x compilation
-\t[iotk-y1.2.2] installation
-\t[petsc-3.14.6] download
-\t[petsc-3.14.6] configuration
-\t[petsc-3.14.6] compilation
-\t[petsc-3.14.6] installation
-chmod: cannot access '/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/lib/external/intel/mpiifort/single/lib/*petsc*.a': No such file or directory
-\t[slepc-3.14.2] download
-\t[slepc-3.14.2] configuration
-\t[slepc-3.14.2] compilation
-\t[slepc-3.14.2] installation
-chmod: cannot access '/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/lib/external/intel/mpiifort/single/lib/*slepc*.a': No such file or directory
-	[lib/qe_pseudo] qe_pseudo (checking work to be done)
-	[lib/qe_pseudo] kind
-	[lib/qe_pseudo] constants
-	[lib/qe_pseudo] radial_grids
-	[lib/qe_pseudo] atom
-	[lib/qe_pseudo] parameters
-	[lib/qe_pseudo] qe_auxdata
-	[lib/qe_pseudo] recvec
-	[lib/qe_pseudo] becmod
-	[lib/qe_pseudo] pseudo_types
-	[lib/qe_pseudo] spin_orb
-	[lib/qe_pseudo] invmat
-	[lib/qe_pseudo] uspp
-	[lib/qe_pseudo] s_psi
-	[lib/qe_pseudo] us_module
-	[lib/qe_pseudo] init_us_1
-	[lib/qe_pseudo] init_us_2
-	[lib/qe_pseudo] ylmr2
-	[lib/qe_pseudo] simpsn
-	[lib/qe_pseudo] upf_to_internal
-	[lib/qe_pseudo] read_upf_v1
-	[lib/qe_pseudo] read_upf_v2
-	[lib/qe_pseudo] upf
-	[lib/qe_pseudo] read_uspp
-	[lib/qe_pseudo] read_pseudo
-	[lib/qe_pseudo] read_ncpp
-	[lib/qe_pseudo] struct_fact
-	[lib/qe_pseudo] sph_ind
-	[lib/qe_pseudo] spinor
-	[lib/qe_pseudo] sph_bes
-	[lib/qe_pseudo] qvan2
-	[lib/qe_pseudo] setqf
-	[lib/qe_pseudo] matches
-	[lib/qe_pseudo] erf
-	[lib/qe_pseudo] allocate_nlpot
-	[lib/qe_pseudo] init_run
-	[lib/qe_pseudo] qe_pseudo_module
-	[lib/qe_pseudo] qe_errore
-	[lib/qe_pseudo] addusdens
-	[lib/qe_pseudo] sum_bec
-	[lib/qe_pseudo] d_matrix
-	[lib/qe_pseudo] libqe_pseudo.a (lib)
-	[lib/slatec] slatec (checking work to be done)
-	[lib/slatec] avint
-	[lib/slatec] xermsg
-	[lib/slatec] fdump
-	[lib/slatec] j4save
-	[lib/slatec] xercnt
-	[lib/slatec] xerhlt
-	[lib/slatec] xerprn
-	[lib/slatec] xersve
-	[lib/slatec] i1mach
-	[lib/slatec] xgetua
-	[lib/slatec] polfit
-	[lib/slatec] pcoef
-	[lib/slatec] pvalue
-	[lib/slatec] besj0
-	[lib/slatec] besj1
-	[lib/slatec] besk0
-	[lib/slatec] besk1
-	[lib/slatec] csevl
-	[lib/slatec] inits
-	[lib/slatec] r1mach
-	[lib/slatec] besi0
-	[lib/slatec] besk0e
-	[lib/slatec] besi1
-	[lib/slatec] besk1e
-	[lib/slatec] besi0e
-	[lib/slatec] besi1e
-	[lib/slatec] qage
-	[lib/slatec] qag
-	[lib/slatec] qk15
-	[lib/slatec] qk21
-	[lib/slatec] qk31
-	[lib/slatec] qk41
-	[lib/slatec] qk51
-	[lib/slatec] qk61
-	[lib/slatec] qpsrt
-	[lib/slatec] qawo
-	[lib/slatec] qawoe
-	[lib/slatec] qc25f
-	[lib/slatec] qelg
-	[lib/slatec] qcheb
-	[lib/slatec] qwgtf
-	[lib/slatec] qk15w
-	[lib/slatec] sgtsl
-	[lib/slatec] libslatec.a (lib)
-	[lib/math77] math77 (checking work to be done)
-	[lib/math77] amach
-	[lib/math77] erfin
-	[lib/math77] ermor
-	[lib/math77] ermsg
-	[lib/math77] serv1
-	[lib/math77] cwofz
-	[lib/math77] libmath77.a (lib)
-	[lib/local] local (checking work to be done)
-	[lib/local] dlaran
-	[lib/local] liblocal.a (lib)
-	[lib/yambo/driver/src/interface] interface (checking work to be done)
-	[lib/yambo/driver/src/main] main (checking work to be done)
-	[lib/yambo/driver/src/options] options (checking work to be done)
-	[lib/yambo/driver/src/interface] get_running_tool
-	[lib/yambo/driver/src/interface] get_running_project
-	[lib/yambo/driver/src/interface] get_runlevel
-	[lib/yambo/driver/src/interface] get_libraries
-	[lib/yambo/driver/src/interface] get_version
-	[lib/yambo/driver/src/interface] mod_C_driver
-	[lib/yambo/driver/src/interface] C_driver_transfer
-	[lib/yambo/driver/src/interface] libyambo_Ydriver_interface.a (lib)
-	[lib/yambo/driver/src/main] launcher
-	[lib/yambo/driver/src/main] command_line
-	[lib/yambo/driver/src/main] input_file
-	[lib/yambo/driver/src/main] load_environments
-	[lib/yambo/driver/src/main] options_maker
-	[lib/yambo/driver/src/main] title
-	[lib/yambo/driver/src/main] tool_init
-	[lib/yambo/driver/src/main] usage
-	[lib/yambo/driver/src/main] use_me
-	[lib/yambo/driver/src/main] libyambo_Ydriver_main.a (lib)
-	[lib/yambo/driver/src/options] options_help
-	[lib/yambo/driver/src/options] libyambo_Ydriver_options.a (lib)
-	[src/driver] driver (checking work to be done)
-	[src/tools] tools (checking work to be done)
-	[src/modules] modules (checking work to be done)
-	[src/memory] memory (checking work to be done)
-	[src/matrices] matrices (checking work to be done)
-	[src/linear_algebra] linear_algebra (checking work to be done)
-	[src/parallel] parallel (checking work to be done)
-	[src/parser] parser (checking work to be done)
-	[src/communicate] communicate (checking work to be done)
-	[src/common] common (checking work to be done)
-	[src/timing] timing (checking work to be done)
-	[src/Yio] Yio (checking work to be done)
-	[src/io] io (checking work to be done)
-	[src/xc_functionals] xc_functionals (checking work to be done)
-	[src/interface] interface (checking work to be done)
-	[src/stop_and_restart] stop_and_restart (checking work to be done)
-	[src/wf_and_fft] wf_and_fft (checking work to be done)
-	[src/bz_ops] bz_ops (checking work to be done)
-	[src/coulomb] coulomb (checking work to be done)
-	[src/interpolate] interpolate (checking work to be done)
-	[src/qp_control] qp_control (checking work to be done)
-	[src/setup] setup (checking work to be done)
-	[src/tddft] tddft (checking work to be done)
-	[src/dipoles] dipoles (checking work to be done)
-	[src/pol_function] pol_function (checking work to be done)
-	[src/qp] qp (checking work to be done)
-	[src/acfdt] acfdt (checking work to be done)
-	[src/bse] bse (checking work to be done)
-	[src/driver] options_control
-	[src/driver] options_interfaces
-	[src/driver] options_projects
-	[src/driver] options_yambo
-	[src/driver] options_ypp
-	[src/driver] libdriver.a (lib)
-	[src/tools] ct_cptimer
-	[src/tools] c_printing
-	[src/tools] io
-	[src/tools] stack
-	[src/tools] memstat
-	[src/tools] libtools.a (lib)
-	[src/modules] mod_pars
-	[src/modules] mod_units
-	[src/modules] mod_lexical_sort
-	[src/modules] mod_stderr
-	[src/modules] mod_openmp
-	[src/modules] mod_memory
-	[src/modules] mod_parallel
-	[src/modules] mod_com_interfcs
-	[src/modules] mod_electrons
-	[src/modules] mod_com
-	[src/modules] mod_cusolverdn_y
-	[src/modules] mod_cuda
-	[src/modules] mod_matrix_operate
-	[src/modules] mod_D_lattice
-	[src/modules] mod_descriptors
-	[src/modules] mod_R_lattice
-	[src/modules] mod_DIPOLES
-	[src/modules] mod_matrix
-	[src/modules] mod_X
-	[src/modules] mod_parallel_interface
-	[src/modules] mod_SLK
-	[src/modules] mod_drivers
-	[src/modules] mod_linear_algebra
-	[src/modules] mod_wrapper
-	[src/modules] mod_wrapper_omp
-	[src/modules] mod_FFT
-	[src/modules] mod_LIVE_t
-	[src/modules] mod_logo
-	[src/modules] mod_cutoff_ws
-	[src/modules] mod_timing
-	[src/modules] mod_wave_func
-	[src/modules] mod_xc_functionals
-	[src/modules] mod_global_XC
-	[src/modules] mod_frequency
-	[src/modules] mod_vec_operate
-	[src/modules] mod_functions
-	[src/modules] mod_zeros
-	[src/modules] mod_atom_proj
-	[src/modules] mod_pseudo
-	[src/modules] mod_QP
-	[src/modules] mod_collision_el
-	[src/modules] mod_BS
-	[src/modules] mod_BS_solvers
-	[src/modules] mod_QP_CTL
-	[src/modules] mod_TDDFT
-	[src/modules] mod_ACFDT
-	[src/modules] mod_MAGNONS
-	[src/modules] mod_DICHROISM
-	[src/modules] mod_PHOTOLUM
-	[src/modules] mod_IO_interfaces
-	[src/modules] mod_IO
-	[src/modules] mod_ELPH
-	[src/modules] mod_PHEL
-mod_interfaces.F(27): #error: can't find include file: petsc/finclude/petscsys.h
-mod_interfaces.F(28): #error: can't find include file: petsc/finclude/petscvec.h
-mod_interfaces.F(29): #error: can't find include file: petsc/finclude/petscmat.h
-mod_interfaces.F(30): #error: can't find include file: slepc/finclude/slepcsys.h
-mod_interfaces.F(31): #error: can't find include file: slepc/finclude/slepceps.h
-mod_interfaces.F(162): #error: can't find include file: petsc/finclude/petscsys.h
-mod_interfaces.F(163): #error: can't find include file: petsc/finclude/petscmat.h
-make[2]: *** [/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/config/mk/local/rules.mk:9: mod_interfaces.o] Error 7
-	[driver] yambo (checking work to be done)
-yambo linking failed. Check log/compile_yambo.log
-make[1]: *** [config/mk/global/actions/compile_yambo.mk:42: yambo] Error 1
-yambo build failed
-
-== 2023-02-28 10:39:19,244 run.py:701 INFO parse_log_for_error msg: Command used:  make  -j 1 all
-== 2023-02-28 10:39:19,245 run.py:703 INFO parse_log_for_error (some may be harmless) regExp (?<![(,-]|\w)(?:error|segmentation fault|failed)(?![(,-]|\.?\w) found:
-configure: error: Fortran compiler cannot create executables
-mod_interfaces.F(27): #error: can't find include file: petsc/finclude/petscsys.h
-mod_interfaces.F(28): #error: can't find include file: petsc/finclude/petscvec.h
-mod_interfaces.F(29): #error: can't find include file: petsc/finclude/petscmat.h
-mod_interfaces.F(30): #error: can't find include file: slepc/finclude/slepcsys.h
-mod_interfaces.F(31): #error: can't find include file: slepc/finclude/slepceps.h
-mod_interfaces.F(162): #error: can't find include file: petsc/finclude/petscsys.h
-mod_interfaces.F(163): #error: can't find include file: petsc/finclude/petscmat.h
-make[2]: *** [/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/config/mk/local/rules.mk:9: mod_interfaces.o] Error 7
-yambo linking failed. Check log/compile_yambo.log
-make[1]: *** [config/mk/global/actions/compile_yambo.mk:42: yambo] Error 1
-yambo build failed
-== 2023-02-28 10:39:19,245 run.py:660 WARNING Found 12 errors in command output (output: configure: error: Fortran compiler cannot create executables
-	mod_interfaces.F(27): #error: can't find include file: petsc/finclude/petscsys.h
-	mod_interfaces.F(28): #error: can't find include file: petsc/finclude/petscvec.h
-	mod_interfaces.F(29): #error: can't find include file: petsc/finclude/petscmat.h
-	mod_interfaces.F(30): #error: can't find include file: slepc/finclude/slepcsys.h
-	mod_interfaces.F(31): #error: can't find include file: slepc/finclude/slepceps.h
-	mod_interfaces.F(162): #error: can't find include file: petsc/finclude/petscsys.h
-	mod_interfaces.F(163): #error: can't find include file: petsc/finclude/petscmat.h
-	make[2]: *** [/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/config/mk/local/rules.mk:9: mod_interfaces.o] Error 7
-	yambo linking failed. Check log/compile_yambo.log
-	make[1]: *** [config/mk/global/actions/compile_yambo.mk:42: yambo] Error 1
-	yambo build failed)
-== 2023-02-28 10:39:19,245 build_log.py:267 INFO ... (took 18 mins 3 secs)
-== 2023-02-28 10:39:19,252 build_log.py:267 INFO testing...
-== 2023-02-28 10:39:19,258 easyblock.py:3894 INFO Starting test step
-== 2023-02-28 10:39:19,258 easyconfig.py:1690 INFO Generating template values...
-== 2023-02-28 10:39:19,259 mpi.py:122 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'IntelMPI'
-== 2023-02-28 10:39:19,259 mpi.py:307 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
-== 2023-02-28 10:39:19,260 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='yambo', builddir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b', github_account='yambo', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b', module_name='Yambo/5.1.1-intel-2021b', mpi_cmd_prefix='mpirun -n 1', name='Yambo', nameletter='Y', nameletterlower='y', namelower='yambo', parallel='1', start_dir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/', toolchain_name='intel', toolchain_version='2021b', version='5.1.1', version_major='5', version_major_minor='5.1', version_minor='1', versionprefix='', versionsuffix=''
-== 2023-02-28 10:39:19,260 easyblock.py:3902 INFO Running method test_step part of step test
-== 2023-02-28 10:39:19,261 build_log.py:267 INFO ... (took < 1 sec)
-== 2023-02-28 10:39:19,267 build_log.py:267 INFO installing...
-== 2023-02-28 10:39:19,272 easyblock.py:3894 INFO Starting install step
-== 2023-02-28 10:39:19,273 easyconfig.py:1690 INFO Generating template values...
-== 2023-02-28 10:39:19,273 mpi.py:122 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'IntelMPI'
-== 2023-02-28 10:39:19,274 mpi.py:307 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
-== 2023-02-28 10:39:19,274 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='yambo', builddir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b', github_account='yambo', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b', module_name='Yambo/5.1.1-intel-2021b', mpi_cmd_prefix='mpirun -n 1', name='Yambo', nameletter='Y', nameletterlower='y', namelower='yambo', parallel='1', start_dir='/tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/', toolchain_name='intel', toolchain_version='2021b', version='5.1.1', version_major='5', version_major_minor='5.1', version_minor='1', versionprefix='', versionsuffix=''
-== 2023-02-28 10:39:19,274 easyblock.py:3902 INFO Running method stage_install_step part of step install
-== 2023-02-28 10:39:19,275 easyblock.py:3902 INFO Running method make_installdir part of step install
-== 2023-02-28 10:39:19,277 easyblock.py:1122 INFO Found old directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b
-== 2023-02-28 10:39:19,280 filetools.py:384 INFO Path /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b successfully removed.
-== 2023-02-28 10:39:19,280 easyblock.py:1130 INFO Removed old directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b
-== 2023-02-28 10:39:19,280 filetools.py:1918 INFO Creating directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b (parents: True, set_gid: False, sticky: False)
-== 2023-02-28 10:39:19,281 easyblock.py:3902 INFO Running method install_step part of step install
-== 2023-02-28 10:39:19,282 filetools.py:1918 INFO Creating directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/haswell-ib/software/Yambo/5.1.1-intel-2021b/bin (parents: True, set_gid: False, sticky: False)
-== 2023-02-28 10:39:19,284 makecp.py:111 WARNING No files matching 'bin/*' found in start dir /tmp/vsc44588/easybuild/build/Yambo/5.1.1/intel-2021b/yambo-5.1.1/
-== 2023-02-28 10:39:19,331 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): No files matching 'bin/*' found anywhere. (at easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/makecp.py:117 in install_step)
-== 2023-02-28 10:39:19,331 build_log.py:267 INFO ... (took < 1 sec)
-== 2023-02-28 10:39:19,337 easyblock.py:4225 WARNING build failed (first 300 chars): No files matching 'bin/*' found anywhere.
-== 2023-02-28 10:39:19,338 easyblock.py:328 INFO Closing log for application name Yambo version 5.1.1
