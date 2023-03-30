@@ -2,6 +2,8 @@ easyblock = 'PythonBundle'
 
 name = 'synthcity'
 version = '0.2.4'
+local_pytorch_version = '1.12.0'
+versionsuffix = '-PyTorch-%s' % local_pytorch_version
 
 homepage = 'https://github.com/vanderschaarlab/synthcity'
 description = """A library for generating and evaluating synthetic tabular data."""
@@ -16,7 +18,7 @@ dependencies = [
     ('Redis', '7.0.8'),
     ('scikit-learn', '1.1.2'),
     ('SHAP', '0.41.0'),
-    ('PyTorch', '1.12.0'),
+    ('PyTorch', local_pytorch_version),
     ('XGBoost', '1.7.2'),
     ('tqdm', '4.64.0'),
     ('Mako', '1.2.0'),
@@ -38,11 +40,10 @@ dependencies = [
     ('Optuna', '3.1.0'),
     ('Cython', '0.29.33'),
     ('cython-blis', '0.9.1'),
-    ('torchtext', '0.14.1'),
+    ('torchtext', '0.14.1', versionsuffix),
     ('IPython', '8.5.0'),
 ]
 
-download_dep_fail = True
 sanity_pip_check = True
 use_pip = True
 
@@ -79,8 +80,9 @@ exts_list = [
         'checksums': ['4e2414d534a2ab57573365b3e6d0234dfb1d84b68b7f3b948e6fb743860a77c3'],
     }),
     ('monai', '1.1.0', {
-        'source_tmpl': 'monai-1.1.0-202212191849-py3-none-any.whl',
-        'checksums': ['28b47fc552309f1974a347fca6771969f25e98c228ef3a53a62eae250f3c0b8d'],
+        'source_urls': ['https://github.com/Project-MONAI/MONAI/archive/'],
+        'sources': ['%(version)s.tar.gz'],
+        'checksums': ['7e4129b4b9b64137f45b59667a80faac0576e4e3af48023e0aef95317f36eab9'],
     }),
     ('multivolumefile', '0.2.3', {
         'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
@@ -102,8 +104,7 @@ exts_list = [
         'checksums': ['3c442320e7822892813b4eb56e048729d3bde053a707b5bb032685af6b372246'],
     }),
     ('py7zr', '0.20.4', {
-        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-        'checksums': ['94d0c24217f6582741813ee94490a4ca82bd5f9bf35e4f8610cb588cf7445764'],
+        'checksums': ['1d01f98ea1e1f5c49940358691b2076f9a5848056426541e783de33834f59e21'],
     }),
     ('pybcj', '1.0.1', {
         'modulename': 'bcj',
@@ -136,6 +137,8 @@ exts_list = [
     }),
     ('thinc', '8.1.9', {
         'checksums': ['8a1e65529c6d0796271d2a7e5ca6ea013fcb7dad69ec609d5093a25808107f51'],
+        # we are using blis 0.9.1
+        # thinc has problems with blis>0.8.0 on Windows only (https://github.com/explosion/thinc/pull/772)
         'preinstallopts': 'sed -i "s/blis>=0.7.8,<0.8.0/blis>=0.7.8/g" setup.cfg && ',
     }),
     ('torchtuples', '0.2.2', {
