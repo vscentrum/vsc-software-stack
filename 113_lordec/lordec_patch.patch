@@ -1,0 +1,117 @@
+diff -ruN lordec-src_0.9_orig/lordec-build-SR-graph.cpp lordec-src_0.9/lordec-build-SR-graph.cpp
+--- lordec-src_0.9_orig/lordec-build-SR-graph.cpp	2023-03-28 17:09:59.877229329 +0200
++++ lordec-src_0.9/lordec-build-SR-graph.cpp	2023-03-31 14:12:40.388591000 +0200
+@@ -4,7 +4,7 @@
+ #include <fstream>
+ #include <string> 
+ #include <iostream>
+-#include <gatb/gatb_core.hpp>
++#include <gatb_core.hpp>
+ 
+ #include "lordec-gen.hpp"
+ 
+diff -ruN lordec-src_0.9_orig/lordec-correct.h lordec-src_0.9/lordec-correct.h
+--- lordec-src_0.9_orig/lordec-correct.h	2023-03-28 17:09:59.919072345 +0200
++++ lordec-src_0.9/lordec-correct.h	2023-03-31 14:12:40.388707000 +0200
+@@ -13,7 +13,7 @@
+ 
+ //#include "H5Cpp.h"
+ //#include "H5File.h"
+-#include <gatb/gatb_core.hpp>
++#include <gatb_core.hpp>
+ 
+ #include "lordec-gen.hpp"
+ 
+diff -ruN lordec-src_0.9_orig/lordec-stat.cpp lordec-src_0.9/lordec-stat.cpp
+--- lordec-src_0.9_orig/lordec-stat.cpp	2023-03-28 17:09:59.936970101 +0200
++++ lordec-src_0.9/lordec-stat.cpp	2023-03-31 14:12:40.389648000 +0200
+@@ -37,7 +37,7 @@
+ #include <fstream>
+ #include <string> 
+ #include <iostream>
+-#include <gatb/gatb_core.hpp>
++#include <gatb_core.hpp>
+ 
+ #include "lordec-gen.hpp"
+ 
+diff -ruN lordec-src_0.9_orig/lordec-trim.cpp lordec-src_0.9/lordec-trim.cpp
+--- lordec-src_0.9_orig/lordec-trim.cpp	2023-03-28 17:09:59.959542843 +0200
++++ lordec-src_0.9/lordec-trim.cpp	2023-03-31 14:12:40.389581000 +0200
+@@ -37,7 +37,7 @@
+ #include <fstream>  // for ifstream class
+ #include <iostream>
+ 
+-#include <gatb/gatb_core.hpp>
++#include <gatb_core.hpp>
+ #include "lordec-gen.hpp"
+ 
+ #define TO_STR2(x) #x
+diff -ruN lordec-src_0.9_orig/lordec-trim-split.cpp lordec-src_0.9/lordec-trim-split.cpp
+--- lordec-src_0.9_orig/lordec-trim-split.cpp	2023-03-28 17:09:59.948776170 +0200
++++ lordec-src_0.9/lordec-trim-split.cpp	2023-03-31 14:12:40.388600000 +0200
+@@ -36,7 +36,7 @@
+ #include <stdlib.h>
+ #include <fstream>  // for ifstream class
+ 
+-#include <gatb/gatb_core.hpp>
++#include <gatb_core.hpp>
+ #include "lordec-gen.hpp"
+ 
+ #define TO_STR2(x) #x
+diff -ruN lordec-src_0.9_orig/Makefile lordec-src_0.9/Makefile
+--- lordec-src_0.9_orig/Makefile	2023-03-28 17:09:59.852135606 +0200
++++ lordec-src_0.9/Makefile	2023-03-31 15:27:19.030895000 +0200
+@@ -63,7 +63,7 @@
+ $(PROG_GRAPH) $(OBJS_TEST_CORRECT) $(OBJS_CATCHTEST_CORRECT) $(OBJS_CORRECT) $(OBJS_STATS) $(OBJS_TRIM) $(OBJS_TRIM_SPLIT): boost_include/boost/graph/graph_traits.hpp
+ endif
+ # ANYWAY we need GATB (compiled and installed) to compile all the objects
+-$(PROG_GRAPH) $(OBJS_TEST_CORRECT) $(OBJS_CATCHTEST_CORRECT) $(OBJS_CORRECT) $(OBJS_STATS) $(OBJS_TRIM) $(OBJS_TRIM_SPLIT): gatb_v$(GATBVERSION)$(SUFFIX)/include/gatb/gatb_core.hpp
++# $(PROG_GRAPH) $(OBJS_TEST_CORRECT) $(OBJS_CATCHTEST_CORRECT) $(OBJS_CORRECT) $(OBJS_STATS) $(OBJS_TRIM) $(OBJS_TRIM_SPLIT): gatb_v$(GATBVERSION)$(SUFFIX)/include/gatb_core.hpp
+ 
+ # get version from a file
+ VERSION := $(shell cat version.txt)
+@@ -87,7 +87,7 @@
+ ifeq ($(AUTOMATIC_LIBBOOST_LOCAL_INSTALL),yes)
+ ADDITIONAL_INCLUDE="-Iboost_include/"
+ endif
+-GATB=gatb_v$(GATBVERSION)$(SUFFIX)
++GATB=$(EBROOTGATB)
+ CPPFLAGS = -w -I$(GATB)/include/ $(ADDITIONAL_INCLUDE) -DGATB_V$(GATBSHORTVERSION) -DLORDECVERSION=$(VERSION)$(SUFFIX) -DGATBVERSION=$(GATBVERSION)$(SUFFIX) $(MACMACROS) -std=c++0x -O3 $(CDEBUG)
+ LDFLAGS = -L$(GATB)/lib/ -lgatbcore -lhdf5$(HDFSUFFIX) -ldl -lz -lpthread -std=c++0x -O3 $(EXTRALDFLAGS)
+ CXXFLAGS = -w #-Wall  # put compiler settings here
+@@ -155,7 +155,7 @@
+ # This way we can factorize a lot.
+ 
+ lordec_%:
+-	GATBSHORTVERSION=$*;\
++	GATBSHORTVERSION=1.4.2
+ 	GATBVERSION=$(shell echo $(*) | sed 's:\(.\):.\1:g' | sed 's:^\.::g');\
+ 	GATBSHORTVERSION=$$GATBSHORTVERSION GATBVERSION=$$GATBVERSION CMAKEDEBUG=$(CMAKEDEBUG) SUFFIX=$(SUFFIX) HDFSUFFIX=$(HDFSUFFIX) CDEBUG=$(CDEBUG) EXTRALDFLAGS=$(EXTRALDFLAGS) $(MAKE) lordecbins
+ 
+@@ -174,22 +174,22 @@
+ 	@echo STATIC done
+ 
+ unittest_%:
+-	GATBSHORTVERSION=$*;\
++	GATBSHORTVERSION=142
+ 	GATBVERSION=$(shell echo $(*) | sed 's:\(.\):.\1:g' | sed 's:^\.::g');\
+ 	GATBSHORTVERSION=$$GATBSHORTVERSION GATBVERSION=$$GATBVERSION EXTRALDFLAGS="-lcppunit -static" $(MAKE) $(PROG_TEST_CORRECT)
+ 
+ catchtest_%:
+-	GATBSHORTVERSION=$*;\
++	GATBSHORTVERSION=142
+ 	GATBVERSION=$(shell echo $(*) | sed 's:\(.\):.\1:g' | sed 's:^\.::g');\
+ 	GATBSHORTVERSION=$$GATBSHORTVERSION GATBVERSION=$$GATBVERSION $(MAKE) $(PROG_CATCHTEST_CORRECT)
+ 
+ catchtestcov_%:
+-	GATBSHORTVERSION=$*;\
++	GATBSHORTVERSION=142
+ 	GATBVERSION=$(shell echo $(*) | sed 's:\(.\):.\1:g' | sed 's:^\.::g');\
+ 	EXTRALDFLAGS=-lgcov CDEBUG="-fprofile-arcs -ftest-coverage -g" GATBSHORTVERSION=$$GATBSHORTVERSION GATBVERSION=$$GATBVERSION $(MAKE) $(PROG_CATCHTEST_CORRECT)
+ 
+ ##################### COMPILE GATB ############################
+-%/include/gatb/gatb_core.hpp:
++%/include/gatb_core.hpp:
+ 		echo $@;\
+ 		rm -rf v$(GATBVERSION).tar.gz gatb-core-$(GATBVERSION) && \
+ 		wget https://github.com/GATB/gatb-core/archive/v$(GATBVERSION).tar.gz && \

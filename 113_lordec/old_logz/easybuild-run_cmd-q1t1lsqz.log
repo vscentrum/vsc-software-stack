@@ -1,0 +1,42 @@
+# output for command: make clean all  -j 8 AUTOMATIC_LIBBOOST_LOCAL_INSTALL=no
+
+rm -f lordec-correct.o utils.o unittest-lordec-correct.o catchtest-lordec-correct.o lordec-stat.o lordec-trim.o lordec-trim-split.o lordec-correct lordec-stat lordec-trim lordec-trim-split pb-stat lordec-build-SR-graph LoRDEC unittest-lordec-correct catchtest-lordec-correct
+GATBSHORTVERSION=141;\
+GATBVERSION=1.4.1;\
+GATBSHORTVERSION=$GATBSHORTVERSION GATBVERSION=$GATBVERSION CMAKEDEBUG= SUFFIX= HDFSUFFIX= CDEBUG= EXTRALDFLAGS= make lordecbins
+make[1]: Entering directory '/tmp/vsc43810/easybuild/build/LoRDEC/0.9/foss-2022a/lordec-src_0.9'
+g++ lordec-correct.cpp -w -Igatb_v1.4.1/include/  -DGATB_V141 -DLORDECVERSION=0.9 -DGATBVERSION=1.4.1  -std=c++0x -O3  -c
+g++ utils.cpp -w -Igatb_v1.4.1/include/  -DGATB_V141 -DLORDECVERSION=0.9 -DGATBVERSION=1.4.1  -std=c++0x -O3  -c
+g++ lordec-stat.cpp -w -Igatb_v1.4.1/include/  -DGATB_V141 -DLORDECVERSION=0.9 -DGATBVERSION=1.4.1  -std=c++0x -O3  -c
+g++ lordec-trim.cpp -w -Igatb_v1.4.1/include/  -DGATB_V141 -DLORDECVERSION=0.9 -DGATBVERSION=1.4.1  -std=c++0x -O3  -c
+g++ lordec-trim-split.cpp -w -Igatb_v1.4.1/include/  -DGATB_V141 -DLORDECVERSION=0.9 -DGATBVERSION=1.4.1  -std=c++0x -O3  -c
+g++  lordec-build-SR-graph.cpp -o lordec-build-SR-graph -w  -w -Igatb_v1.4.1/include/  -DGATB_V141 -DLORDECVERSION=0.9 -DGATBVERSION=1.4.1  -std=c++0x -O3  -Lgatb_v1.4.1/lib/ -lgatbcore -lhdf5 -ldl -lz -lpthread -std=c++0x -O3 
+lordec-trim.cpp:40:10: fatal error: gatb_core.hpp: No such file or directory
+   40 | #include <gatb_core.hpp>
+      |          ^~~~~~~~~~~~~~~
+lordec-trim-split.cpp:39:10: fatal error: gatb_core.hpp: No such file or directory
+   39 | #include <gatb_core.hpp>
+      |          ^~~~~~~~~~~~~~~
+compilation terminated.
+compilation terminated.
+lordec-stat.cpp:40:10: fatal error: gatb_core.hpp: No such file or directory
+   40 | #include <gatb_core.hpp>
+      |          ^~~~~~~~~~~~~~~
+compilation terminated.
+lordec-build-SR-graph.cpp:7:10: fatal error: gatb_core.hpp: No such file or directory
+    7 | #include <gatb_core.hpp>
+      |          ^~~~~~~~~~~~~~~
+compilation terminated.
+make[1]: *** [Makefile:146: lordec-trim.o] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make[1]: *** [Makefile:143: lordec-stat.o] Error 1
+make[1]: *** [Makefile:119: lordec-build-SR-graph] Error 1
+make[1]: *** [Makefile:149: lordec-trim-split.o] Error 1
+In file included from lordec-correct.cpp:37:
+lordec-correct.h:16:10: fatal error: gatb_core.hpp: No such file or directory
+   16 | #include <gatb_core.hpp>
+      |          ^~~~~~~~~~~~~~~
+compilation terminated.
+make[1]: *** [Makefile:140: lordec-correct.o] Error 1
+make[1]: Leaving directory '/tmp/vsc43810/easybuild/build/LoRDEC/0.9/foss-2022a/lordec-src_0.9'
+make: *** [Makefile:158: lordec_141] Error 2
