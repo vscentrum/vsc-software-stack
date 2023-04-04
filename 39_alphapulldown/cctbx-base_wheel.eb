@@ -1,0 +1,31 @@
+easyblock = "PythonPackage"
+
+name = "cctbx-base"
+version = "2022.8"
+
+homepage = ""
+description = """
+"""
+
+toolchain = {'name': 'foss', 'version': '2020b'}
+
+sources = [{
+    'download_filename': 'cctbx_base-2020.8-0_py38h167b89d-cp38-cp38m-manylinux2010_x86_64.whl',
+    'filename': 'cctbx_base-2020.8-cp38-cp38-manylinux2010_x86_64.whl'
+}]
+
+dependencies = [
+    ('Python', '3.8.6'),
+]
+
+use_pip = True
+download_dep_fail = True
+
+options = {'modulename': 'cctbx'}
+
+sanity_check_paths = {
+    "files": [],
+    "dirs": ['lib'],
+}
+
+moduleclass = "lib"

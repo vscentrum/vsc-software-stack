@@ -1,35 +1,32 @@
 easyblock = "PythonBundle"
 
 name = "AlphaPulldown"
-version = "0.21.6"
+version = "0.30.2"
 
 homepage = "https://github.com/KosinskiLab/AlphaPulldown"
 description = """AlphaPulldown is a Python package that streamlines protein-protein
 interaction screens and high-throughput modelling of higher-order oligomers using AlphaFold-Multimer"""
 
-toolchain = {"name": "foss", "version": "2021b"}
+toolchain = {"name": "foss", "version": "2020b"}
 
 dependencies = [
-    ("Python", "3.9.6"),
-    ("OpenMM", "7.7.0"),
-    ("Kalign", "3.3.2"),
-    ("cctbx-base", "2022.9"),
+    ('Python', '3.8.6'),
+    ("OpenMM", "7.5.0"),
+    ("Kalign", "3.3.1"),
+    ("cctbx-base", "2022.8"),
 ]
 
 use_pip = True
 
 exts_list = [
-    (
-        "PDBFixer",
-        "1.8.1",
-        {
-            "source_urls": ["https://github.com/openmm/pdbfixer/archive/refs/tags/"],
-            "sources": [
-                {"download_filename": "v%(version)s.tar.gz", "filename": SOURCE_TAR_GZ}
-            ],
-        },
-    ),
-    (name, version),
+    ("PDBFixer", "1.8.1", {
+        'source_urls': ["https://github.com/openmm/pdbfixer/archive/refs/tags/"],
+        'sources': [{"download_filename": "v%(version)s.tar.gz", "filename": SOURCE_TAR_GZ}]
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/KosinskiLab/AlphaPulldown/archive/refs/tags/'],
+        'sources': ['0.30.2.tar.gz'],
+    }),
 ]
 
 sanity_pip_check = True
