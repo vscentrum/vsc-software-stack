@@ -42,61 +42,24 @@ exts_default_options = {
     'download_dep_fail': True,
     'use_pip': True,
     'sanity_pip_check': True,
+    'installopts': '',
 }
 
-local_pyver = '3.10.4'
-local_pyver_whl = ''.join(local_pyver.split('.')[:2])
-
 exts_list = [
-    # ('editables', '0.3'),
-    # ('packaging', '23.0'),
-    # ('pathspec', '0.10.3'),
-    # ('pluggy', '1.0.0'),
-    # ('tomli', '2.0.1'),
-    # ('vcs', '0.4.0'),
-    # ('hatchling', '1.12.2'),
-    # ('hatch_fancy_pypi_readme', '22.8.0'),
-    # ('iso8601', '1.1.0'),
-    # ('attrs', '22.2.0'),
-    # ('pyrsistent', '0.19.3'),
-    # ('jsonschema', '4.17.3'),
-    # ('more-itertools', '9.0.0'),
-    # ('pyarrow', '10.0.1'),
-    # ('pytz', '2022.7.1'),
-    # ('packaging', '23.0'),
-    # ('h5py', '3.8.0'),
-    # ('vbz_h5py_plugin','1.0.1'),
-
-    # ('attrs', '22.2.0'),
-    # # ('pyrsistent', '0.19.3'),
-    # # ('jsonschema', '4.17.3'),
-    # ('h5py', '3.7.0'),
-    # ('vbz_h5py_plugin', '1.0.1'),
-    # ('iso8601', '1.1.0'),
-    # # ('more-itertools, 9.0.0'),
-    # # ('pytz', '2022.4'),
-
     ('pkgconfig', '1.5.5', {
         'checksums': ['deb4163ef11f75b520d822d9505c1f462761b4309b1bb713d08689759ea8b899'],
     }),
     ('attrs', '22.2.0', {
         'checksums': ['c9227bfc2f01993c03f68db37d1d15c9690188323c067c641f1a35ca58185f99'],
     }),
-    ('h5py', '3.8.0', {
-        'checksums': ['6fead82f0c4000cf38d53f9c030780d81bfa0220218aee13b90b7701c937d95f'],
+    ('h5py', '3.7.0', {
+        'checksums': ['3fcf37884383c5da64846ab510190720027dca0768def34dd8dcb659dbe5cbf3'],
     }),
     ('vbz_h5py_plugin', '1.0.1', {
         'checksums': ['c784458bb0aad6303474cb2f10956179116b35555803fd1154eb4ef362519341'],
     }),
     ('iso8601', '1.1.0', {
         'checksums': ['32811e7b81deee2063ea6d2e94f8819a86d1f3811e49d23623a41fa832bef03f'],
-    }),
-    ('lib_pod5', version, {
-        'source_urls': source_urls,
-        # lib_pod5-0.1.8-cp310-cp310-linux_x86_64.whl
-        'sources': ['lib_pod5-%%(version)s-cp%(v)s-cp%(v)s-linux_%%(arch)s.whl' % {'v': local_pyver_whl}],
-        'start_dir': 'python/lib_pod5',
-        'checksums': ['262b85a44b2e5e93be55bfc2d55a49c07a012b04b59aa24e1d59fd981ac58b5c'],
     }),
     ('pod5', version, {
         'source_urls': source_urls,
@@ -106,14 +69,14 @@ exts_list = [
     }),
 ]
 
-# postinstallcmds = # TODO
-
-# installopts = " && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s"
-# installopts += " && pip install --no-deps --ignore-installed --prefix %(installdir)s lib_pod5-%(version)s-*.whl"
-
 configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
 
-# sanity_check_commands = [""]
+installopts = ' && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s'
+installopts += ' && pip install --no-deps --ignore-installed --prefix %(installdir)s lib_pod5-%(version)s-*.whl'
+
+postinstallcmds = ['rm %(installdir)s/lib_pod5-%(version)s-*.whl']
+
+sanity_check_commands = ['pod5 subset --help']
 
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
