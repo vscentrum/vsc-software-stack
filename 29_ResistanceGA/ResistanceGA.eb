@@ -12,7 +12,7 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 dependencies = [
     ('R', '4.2.1'),
-    ('Circuitscape', '5.12.3'),
+    ('Circuitscape', '5.12.3', "-Julia-1.7.2", SYSTEM),
 ]
 
 exts_defaultclass = 'RPackage'
@@ -28,6 +28,12 @@ exts_default_options = {
 }
 
 exts_list = [
+    ('Suppressor', '0.2.0', {
+        'source_urls': ['https://github.com/JuliaIO/Suppressor.jl/archive/'],
+    }),
+    ('RCall', '0.13.13', {
+        'source_urls': ['https://github.com/JuliaInterop/RCall.jl/archive/'],
+    }),
     ('GA', '3.2.2', {
         'checksums': ['6245c634a11b8414bde7ed326b8c615512645489b19969619484c865e900bf8c'],
     }),
