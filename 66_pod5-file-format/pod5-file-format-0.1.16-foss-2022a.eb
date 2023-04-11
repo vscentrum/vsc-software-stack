@@ -1,0 +1,105 @@
+easyblock = 'CMakeMake'
+
+name = 'pod5-file-format'
+version = '0.1.16'
+
+homepage = 'https://github.com/nanoporetech/pod5-file-format'
+description = """POD5 is a file format for storing nanopore dna data in an easily accessible way.
+ The format is able to be written in a streaming manner which allows a sequencing
+ instrument to directly write the format."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+source_urls = ['https://github.com/nanoporetech/%(name)s/archive/']
+sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+patches = ['pod5-file-format-0.1.16_pybind_dep_fix.patch']
+checksums = [
+    {'pod5-file-format-0.1.16.tar.gz': '34d8edf0b45eaf18c1d24090aa5e24df229a7e4998353a06e840dbf56a50418b'},
+    {'pod5-file-format-0.1.16_pybind_dep_fix.patch': 'eac06f623a28f7f2ef1b96feaa345999eee68d5c2d4c2538e95c89f6219104e4'},
+]
+
+builddependencies = [
+    ('binutils', '2.38'),
+    ('CMake', '3.23.1'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('Arrow', '8.0.0'),
+    ('SciPy-bundle', '2022.05'),
+    ('zstd', '1.5.2'),
+    ('flatbuffers', '2.0.0'),
+    ('pybind11', '2.9.2'),
+    ('Boost', '1.79.0'),
+    ('build', '0.10.0'),
+]
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+    'download_dep_fail': True,
+    'use_pip': True,
+    'sanity_pip_check': True,
+}
+
+exts_list = [
+    # ('editables', '0.3'),
+    # ('packaging', '23.0'),
+    # ('pathspec', '0.10.3'),
+    # ('pluggy', '1.0.0'),
+    # ('tomli', '2.0.1'),
+    # ('vcs', '0.4.0'),
+    # ('hatchling', '1.12.2'),
+    # ('hatch_fancy_pypi_readme', '22.8.0'),
+    # ('iso8601', '1.1.0'),
+    # ('attrs', '22.2.0'),
+    # ('pyrsistent', '0.19.3'),
+    # ('jsonschema', '4.17.3'),
+    # ('more-itertools', '9.0.0'),
+    # ('pyarrow', '10.0.1'),
+    # ('pytz', '2022.7.1'),
+    # ('packaging', '23.0'),
+    # ('h5py', '3.8.0'),
+    # ('vbz_h5py_plugin','1.0.1'),
+
+    # ('attrs', '22.2.0'),
+    # # ('pyrsistent', '0.19.3'),
+    # # ('jsonschema', '4.17.3'),
+    # ('h5py', '3.7.0'),
+    # ('vbz_h5py_plugin', '1.0.1'),
+    # ('iso8601', '1.1.0'),
+    # # ('more-itertools, 9.0.0'),
+    # # ('pytz', '2022.4'),
+
+    ('attrs', '22.2.0', {
+        'checksums': ['c9227bfc2f01993c03f68db37d1d15c9690188323c067c641f1a35ca58185f99'],
+    }),
+    ('h5py', '3.8.0', {
+        'checksums': ['6fead82f0c4000cf38d53f9c030780d81bfa0220218aee13b90b7701c937d95f'],
+    }),
+    ('vbz_h5py_plugin', '1.0.1', {
+        'checksums': ['c784458bb0aad6303474cb2f10956179116b35555803fd1154eb4ef362519341'],
+    }),
+    ('iso8601', '1.1.0', {
+        'checksums': ['32811e7b81deee2063ea6d2e94f8819a86d1f3811e49d23623a41fa832bef03f'],
+    }),
+    ('pod5', version, {
+        'source_urls': source_urls,
+        'sources': sources,
+        'start_dir': 'python/pod5',
+        'checksums': ['34d8edf0b45eaf18c1d24090aa5e24df229a7e4998353a06e840dbf56a50418b'],
+    }),
+]
+
+# postinstallcmds = # TODO
+
+installopts = " && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s"
+installopts += " && pip install --no-deps --ignore-installed --prefix %(installdir)s lib_pod5-%(version)s-*.whl"
+
+configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
+
+# sanity_check_commands = [""]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+moduleclass = 'bio'
