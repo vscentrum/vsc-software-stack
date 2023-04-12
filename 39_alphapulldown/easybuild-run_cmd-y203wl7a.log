@@ -1,0 +1,41 @@
+# output for command: /apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/bin/python -m pip check
+
+ERROR: Exception:
+Traceback (most recent call last):
+  File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/lib/python3.8/site-packages/pip/_vendor/pkg_resources/__init__.py", line 3021, in _dep_map
+    return self.__dep_map
+  File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/lib/python3.8/site-packages/pip/_vendor/pkg_resources/__init__.py", line 2815, in __getattr__
+    raise AttributeError(attr)
+AttributeError: _DistInfoDistribution__dep_map
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/lib/python3.8/site-packages/pip/_vendor/pkg_resources/__init__.py", line 3012, in _parsed_pkg_info
+    return self._pkg_info
+  File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/lib/python3.8/site-packages/pip/_vendor/pkg_resources/__init__.py", line 2815, in __getattr__
+    raise AttributeError(attr)
+AttributeError: _pkg_info
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/lib/python3.8/site-packages/pip/_internal/cli/base_command.py", line 228, in _main
+    status = self.run(options, args)
+  File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/lib/python3.8/site-packages/pip/_internal/commands/check.py", line 28, in run
+    package_set, parsing_probs = create_package_set_from_installed()
+  File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/lib/python3.8/site-packages/pip/_internal/operations/check.py", line 50, in create_package_set_from_installed
+    package_set[name] = PackageDetails(dist.version, dist.requires())
+  File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/lib/python3.8/site-packages/pip/_vendor/pkg_resources/__init__.py", line 2736, in requires
+    dm = self._dep_map
+  File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/lib/python3.8/site-packages/pip/_vendor/pkg_resources/__init__.py", line 3023, in _dep_map
+    self.__dep_map = self._compute_dependencies()
+  File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/lib/python3.8/site-packages/pip/_vendor/pkg_resources/__init__.py", line 3032, in _compute_dependencies
+    for req in self._parsed_pkg_info.get_all('Requires-Dist') or []:
+  File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/lib/python3.8/site-packages/pip/_vendor/pkg_resources/__init__.py", line 3014, in _parsed_pkg_info
+    metadata = self.get_metadata(self.PKG_INFO)
+  File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/lib/python3.8/site-packages/pip/_vendor/pkg_resources/__init__.py", line 1420, in get_metadata
+    value = self._get(path)
+  File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.8.6-GCCcore-10.2.0/lib/python3.8/site-packages/pip/_vendor/pkg_resources/__init__.py", line 1616, in _get
+    with open(path, 'rb') as stream:
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/cctbx-base/2022.8-foss-2020b/lib/python3.8/site-packages/cctbx_base-2020.8.dist-info/METADATA'
