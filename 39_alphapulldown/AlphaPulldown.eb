@@ -34,12 +34,11 @@ use_pip = True
 
 exts_list = [
     ('py3Dmol', '2.0.1.post1', {
-        'modulename': False  # todo: fix this modulename
+        'modulename': 'py3Dmol',
     }),
-    ("PDBFixer", "1.8.1", {
+    ("PDBFixer", "1.7", {
         'source_urls': ["https://github.com/openmm/pdbfixer/archive/refs/tags/"],
         'sources': [{"download_filename": "v%(version)s.tar.gz", "filename": SOURCE_TAR_GZ}],
-        'modulename': False,  # todo: fix this modulename
     }),
     ('dm-haiku', '0.0.4', {
         # source tarball on PyPI is missing requirements.txt,
@@ -70,15 +69,10 @@ exts_list = [
     ('tabulate', '0.8.9', {
         'checksums': ['eb1d13f25760052e8931f2ef80aaf6045a6cceb47514db8beab24cded16f13a7'],
     }),
-    # (name, version, {
-    #     'source_urls': ['https://github.com/KosinskiLab/AlphaPulldown/archive/refs/tags/'],
-    #     'sources': ['0.30.2.tar.gz'],
-    # }),
     (name, version, {
         'source_urls': [PYPI_SOURCE],
         'sources': [SOURCELOWER_TAR_GZ],
         'patches': ['alphapulldown.patch'],
-        'modulename': False  # todo: fix this modulename
     }),
 ]
 
