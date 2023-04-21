@@ -12,10 +12,10 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 source_urls = ['https://github.com/nanoporetech/%(name)s/archive/']
 sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
-patches = ['pod5-file-format-0.1.8_pybind_dep_fix.patch']
+patches = ['pod5-file-format-0.1.8_dep_fix.patch']
 checksums = [
     {'pod5-file-format-0.1.8.tar.gz': '262b85a44b2e5e93be55bfc2d55a49c07a012b04b59aa24e1d59fd981ac58b5c'},
-    {'pod5-file-format-0.1.8_pybind_dep_fix.patch': 'eac06f623a28f7f2ef1b96feaa345999eee68d5c2d4c2538e95c89f6219104e4'},
+    {'pod5-file-format-0.1.8_dep_fix.patch': 'd05e52467387c67bc87551eccbf5a6c3253ad1c4019eaf21ad861895e9a086c6'},
 ]
 
 builddependencies = [
@@ -34,6 +34,7 @@ dependencies = [
     ('build', '0.10.0'),
     ('pkg-config', '0.29.2'),
     ('HDF5', '1.12.2'),
+    ('h5py', '3.7.0'),
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -51,9 +52,6 @@ exts_list = [
     }),
     ('attrs', '22.2.0', {
         'checksums': ['c9227bfc2f01993c03f68db37d1d15c9690188323c067c641f1a35ca58185f99'],
-    }),
-    ('h5py', '3.7.0', {
-        'checksums': ['3fcf37884383c5da64846ab510190720027dca0768def34dd8dcb659dbe5cbf3'],
     }),
     ('vbz_h5py_plugin', '1.0.1', {
         'checksums': ['c784458bb0aad6303474cb2f10956179116b35555803fd1154eb4ef362519341'],

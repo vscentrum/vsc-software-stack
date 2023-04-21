@@ -1,0 +1,104 @@
+easyblock = 'CMakeMake'
+
+name = 'pod5-file-format'
+version = '0.1.16'
+
+homepage = 'https://github.com/nanoporetech/pod5-file-format'
+description = """POD5 is a file format for storing nanopore dna data in an easily accessible way.
+ The format is able to be written in a streaming manner which allows a sequencing
+ instrument to directly write the format."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+source_urls = ['https://github.com/nanoporetech/%(name)s/archive/']
+sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+patches = ['pod5-file-format-0.1.16_dep_fix.patch']
+checksums = [
+    {'pod5-file-format-0.1.16.tar.gz': '34d8edf0b45eaf18c1d24090aa5e24df229a7e4998353a06e840dbf56a50418b'},
+    {'pod5-file-format-0.1.16_dep_fix.patch': '23e93a98bc1a61986628ae0764eac76b96caa0ead4f672cad938be3fcfe015f0'},
+]
+
+builddependencies = [
+    ('binutils', '2.39'),
+    ('CMake', '3.24.3'),
+]
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('Arrow', '11.0.0'),
+    ('SciPy-bundle', '2023.02'),
+    ('flatbuffers', '23.1.4'),
+    ('pybind11', '2.10.3'),
+    ('Boost', '1.81.0'),
+    ('build', '0.10.0'),
+    ('pkg-config', '0.29.2'),
+    ('HDF5', '1.14.0'),
+    ('h5py', '3.8.0'),
+]
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+    'download_dep_fail': True,
+    'use_pip': True,
+    'sanity_pip_check': True,
+    'installopts': '',
+}
+
+exts_list = [
+    # ('pkgconfig', '1.5.5', {
+    #     'checksums': ['deb4163ef11f75b520d822d9505c1f462761b4309b1bb713d08689759ea8b899'],
+    # }),
+    # ('attrs', '22.2.0', {
+    #     'checksums': ['c9227bfc2f01993c03f68db37d1d15c9690188323c067c641f1a35ca58185f99'],
+    # }),
+    ('vbz_h5py_plugin', '1.0.1', {
+        'checksums': ['c784458bb0aad6303474cb2f10956179116b35555803fd1154eb4ef362519341'],
+    }),
+    ('iso8601', '1.1.0', {
+        'checksums': ['32811e7b81deee2063ea6d2e94f8819a86d1f3811e49d23623a41fa832bef03f'],
+    }),
+    # # Needs to be >= 3.8.0,
+    # ('h5py', '3.8.0', {
+    #     'checksums': ['6fead82f0c4000cf38d53f9c030780d81bfa0220218aee13b90b7701c937d95f'],
+    # }),
+    # # Needs to be >= 11.0.0, overwrites Arrow's 8.0.0 version
+    # ('pyarrow', '11.0.0', {
+    #     'checksums': ['5461c57dbdb211a632a48facb9b39bbeb8a7905ec95d768078525283caef5f6d'],
+    # }),
+    ('pod5', version, {
+        'source_urls': source_urls,
+        'sources': sources,
+        'patches': ['pod5-file-format-0.1.16_dep_fix.patch'],
+        'start_dir': 'python/pod5',
+        'checksums': ['34d8edf0b45eaf18c1d24090aa5e24df229a7e4998353a06e840dbf56a50418b'],
+    }),
+]
+
+local_ver_major = version.split('.')[0]
+local_ver_minor = version.split('.')[1]
+local_ver_rev = version.split('.')[2]
+
+preconfigopts = 'cd ../%(name)s-%(version)s && '
+preconfigopts += 'rm cmake/FindArrow.cmake && '
+preconfigopts %= {"name": name, "version": version}
+preconfigopts += 'echo "__version__ = version = \'%(version)s\'" > _version.py && '
+preconfigopts += 'echo "__version_tuple__ = version_tuple = (%(maj)s, %(min)s, %(rev)s)" >> _version.py && '
+preconfigopts %= {"maj": local_ver_major, "min": local_ver_minor, "rev": local_ver_rev, "version": version}
+preconfigopts += 'python -m pod5_make_version && '
+preconfigopts += 'cp _version.py python/lib_pod5/src/lib_pod5/ && '
+preconfigopts += 'cp _version.py python/pod5/src/pod5/ && '
+preconfigopts += 'cd - && '
+
+configopts = ' -DBUILD_PYTHON_WHEEL=ON -DUTF8PROC_LIB="$EBROOTUTF8PROC/lib/libutf8proc.a" -DARROW_LIB="$EBROOTARROW/lib/libarrow.a" -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
+
+installopts = ' && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s'
+installopts += ' && pip install --no-deps --ignore-installed --prefix %(installdir)s lib_pod5-%(version)s-*.whl'
+
+postinstallcmds = ['rm %(installdir)s/lib_pod5-%(version)s-*.whl']
+
+sanity_check_commands = ['pod5 subset --help']
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+moduleclass = 'bio'
