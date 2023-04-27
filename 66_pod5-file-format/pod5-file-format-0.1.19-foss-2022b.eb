@@ -1,7 +1,7 @@
 easyblock = 'CMakeMake'
 
 name = 'pod5-file-format'
-version = '0.1.16'
+version = '0.1.19'
 
 homepage = 'https://github.com/nanoporetech/pod5-file-format'
 description = """POD5 is a file format for storing nanopore dna data in an easily accessible way.
@@ -12,10 +12,10 @@ toolchain = {'name': 'foss', 'version': '2022b'}
 
 source_urls = ['https://github.com/nanoporetech/%(name)s/archive/']
 sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
-patches = ['pod5-file-format-0.1.16_dep_fix.patch']
+patches = ['pod5-file-format-0.1.19_dep_fix.patch']
 checksums = [
-    {'pod5-file-format-0.1.16.tar.gz': '34d8edf0b45eaf18c1d24090aa5e24df229a7e4998353a06e840dbf56a50418b'},
-    {'pod5-file-format-0.1.16_dep_fix.patch': '23e93a98bc1a61986628ae0764eac76b96caa0ead4f672cad938be3fcfe015f0'},
+    {'pod5-file-format-0.1.19.tar.gz': '82aee1e146f43a2858ccd50344153aa5fcef023a893eb1ab58b1fb8a96e25d6f'},
+    {'pod5-file-format-0.1.19_dep_fix.patch': '9c84c7ad5494a5004b82cd7a0c361cf2b50faa42a3134a817af3a69f14199f51'},
 ]
 
 builddependencies = [
@@ -58,26 +58,16 @@ exts_list = [
     ('iso8601', '1.1.0', {
         'checksums': ['32811e7b81deee2063ea6d2e94f8819a86d1f3811e49d23623a41fa832bef03f'],
     }),
-    # # Needs to be >= 3.8.0,
-    # ('h5py', '3.8.0', {
-    #     'checksums': ['6fead82f0c4000cf38d53f9c030780d81bfa0220218aee13b90b7701c937d95f'],
-    # }),
-    # # Needs to be >= 11.0.0, overwrites Arrow's 8.0.0 version
-    # ('pyarrow', '11.0.0', {
-    #     'checksums': ['5461c57dbdb211a632a48facb9b39bbeb8a7905ec95d768078525283caef5f6d'],
-    # }),
     ('pod5', version, {
         'source_urls': source_urls,
         'sources': sources,
-        'patches': ['pod5-file-format-0.1.16_dep_fix.patch'],
+        'patches': ['pod5-file-format-0.1.19_dep_fix.patch'],
         'start_dir': 'python/pod5',
-        'checksums': ['34d8edf0b45eaf18c1d24090aa5e24df229a7e4998353a06e840dbf56a50418b'],
+        'checksums': ['82aee1e146f43a2858ccd50344153aa5fcef023a893eb1ab58b1fb8a96e25d6f'],
     }),
 ]
 
-local_ver_major = version.split('.')[0]
-local_ver_minor = version.split('.')[1]
-local_ver_rev = version.split('.')[2]
+local_ver_major, local_ver_minor, local_ver_rev = version.split('.')
 
 preconfigopts = 'cd ../%(name)s-%(version)s && '
 preconfigopts += 'rm cmake/FindArrow.cmake && '
@@ -90,12 +80,17 @@ preconfigopts += 'cp _version.py python/lib_pod5/src/lib_pod5/ && '
 preconfigopts += 'cp _version.py python/pod5/src/pod5/ && '
 preconfigopts += 'cd - && '
 
-configopts = ' -DBUILD_PYTHON_WHEEL=ON -DUTF8PROC_LIB="$EBROOTUTF8PROC/lib/libutf8proc.a" -DARROW_LIB="$EBROOTARROW/lib/libarrow.a" -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
+configopts = ' -DBUILD_PYTHON_WHEEL=ON -DARROW_HOME=$EBROOTARROW -DARROW_INCLUDE_DIR="$EBROOTARROW/include" -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
 
 installopts = ' && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s'
 installopts += ' && pip install --no-deps --ignore-installed --prefix %(installdir)s lib_pod5-%(version)s-*.whl'
 
 postinstallcmds = ['rm %(installdir)s/lib_pod5-%(version)s-*.whl']
+
+sanity_check_paths = {
+    'files': ['bin/pod5', 'lib/libpod5_format.a'],
+    'dirs': ['include/pod5_format', 'lib/python%(pyshortver)s/site-packages'],
+}
 
 sanity_check_commands = ['pod5 subset --help']
 
