@@ -1,0 +1,72 @@
+easyblock = 'MakeCp'
+
+name = 'vg'
+version = '1.47.0'
+
+homepage = 'https://github.com/vgteam/vg'
+description = """variation graph data structures, interchange formats,
+alignment, genotyping, and variant calling methods"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+source_urls = ['https://github.com/vgteam/vg/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['7db935e7d3a9656c37bbe118e6530e05188fea6272e4c4816cf10067a6ad09c8']
+
+builddependencies = [
+    ('binutils', '2.38'),
+    ('CMake', '3.23.1'),
+    ('protobuf', '3.19.4'),
+    ('Jansson', '2.14'),
+    # ('SDSL', '2.1.1'),  # TODO
+]
+
+dependencies = [
+    # # ('build-essential', ''),
+    # ('git', ''),
+    # # ('cmake', ''),
+    # ('pkg-config', ''),
+    # ('libncurses-dev', ''),
+    # ('libbz2-dev', ''),
+    # # ('protobuf-compiler', ''),
+    # ('libprotoc-dev', ''),
+    # ('libprotobuf-dev', ''),
+    # # ('libjansson-dev', ''),
+    # ('automake', ''),
+    # ('gettext', ''),
+    # ('autopoint', ''),
+    # ('libtool', ''),
+    # ('jq', ''),
+    # ('bsdmainutils', ''),
+    # ('bc', ''),
+    # ('rs', ''),
+    # ('parallel', ''),
+    # ('npm', ''),
+    # ('curl', ''),
+    # ('unzip', ''),
+    # ('redland-utils', ''),
+    # ('librdf-dev', ''),
+    # ('bison', ''),
+    # ('flex', ''),
+    # ('gawk', ''),
+    # ('lzma-dev', ''),
+    # ('liblzma-dev', ''),
+    # ('liblz4-dev', ''),
+    # ('libffi-dev', ''),
+    # ('libcairo-dev', ''),
+    # ('libboost-all-dev', ''),
+    # ('libzstd-devel', ''),
+    # ('pybind11-dev', ''),
+    # ('python3-pybind11', ''),
+]
+
+buildopts = 'CXX="$CXX" CXXFLAGS="$CXXFLAGS"'
+
+files_to_copy = [(['vg'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/vg'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["vg -h"]
