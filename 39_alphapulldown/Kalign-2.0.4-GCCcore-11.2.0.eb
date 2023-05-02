@@ -1,6 +1,6 @@
 # Contribution from the NIHR Biomedical Research Centre
 # Guy's and St Thomas' NHS Foundation Trust and King's College London
-# uploaded by J. Sassmannshausen
+# updated by Denis Kristak (Inuits)
 
 easyblock = "ConfigureMake"
 
@@ -16,11 +16,7 @@ toolchain = {"name": "GCCcore", "version": "11.2.0"}
 
 source_urls = ["http://msa.sbc.su.se/downloads/kalign/"]
 sources = [{"filename": SOURCELOWER_TAR_GZ, "download_filename": "current.tar.gz"}]
-checksums = [
-    "8cf20ac4e1807dc642e7ffba8f42a117313beccaee4f87c5555d53a2eeac4cbb"
-]  # kalign.tar.gz
-
-builddependencies = [("binutils", "2.37")]
+checksums = ['8cf20ac4e1807dc642e7ffba8f42a117313beccaee4f87c5555d53a2eeac4cbb']
 
 install_cmd = "mkdir %(installdir)s/bin && cp kalign %(installdir)s/bin"
 
