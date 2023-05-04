@@ -1,0 +1,84 @@
+easyblock = 'MakeCp'
+
+name = 'vg'
+version = '1.47.0'
+
+homepage = 'https://github.com/vgteam/vg'
+description = """variation graph data structures, interchange formats,
+alignment, genotyping, and variant calling methods"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+source_urls = ['https://github.com/vgteam/vg/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['7db935e7d3a9656c37bbe118e6530e05188fea6272e4c4816cf10067a6ad09c8']
+
+builddependencies = [
+    ('binutils', '2.38'),
+    ('CMake', '3.23.1'),
+    ('protobuf', '3.19.4'),
+    # ('Jansson', '2.14'),  # in deps
+    # ('SDSL', '2.1.1'),  # TODO
+]
+
+dependencies = [
+    ('pybind11', '2.9.2'),
+    ('zstd', '1.5.2'),
+    ('Boost', '1.79.0'),
+    ('cairo', '1.17.4'),
+    ('lz4', '1.9.3'),
+    ('flex', '2.6.4'),
+    ('Bison', '3.8.2'),
+    ('RDFlib', '6.2.0'),
+    ('UnZip', '6.0'),
+    ('cURL', '7.83.0'),
+    ('parallel', '20220722'),
+    # ('bc', '1.06.95'),  # TODO
+    ('jq', '1.6'),
+    ('libtool', '2.4.7'),
+    ('gettext', '0.21'),
+    ('Automake', '1.16.5'),
+    ('Jansson', '2.14'),
+    ('protobuf', '3.19.4'),
+    ('protobuf-python', '3.19.4'),  # probably needed
+    ('bzip2', '1.0.8'),
+    ('git', '2.36.0', '-nodocs'),
+    ('ncurses', '6.3'),
+    ('pkg-config', '0.29.2'),
+
+    # ('libprotoc-dev', ''),
+    # ('autopoint', ''),
+    # ('bsdmainutils', ''),
+    # ('rs', ''),
+    # ('npm', ''),
+    # ('redland-utils', ''),
+    # ('gawk', ''),
+    # ('lzma-dev', ''),
+    # ('liblzma-dev', ''),
+    # ('libffi-dev', ''),
+
+    # submodule deps
+    ('elfutils', '0.187'),
+    ('jemalloc', '5.2.1'),
+    ('libdeflate', '1.10'),
+    ('snappy', '1.1.9'),
+
+    # ('fastahack', ''),  # only 10.3.0
+    # ('fermi-lite', ''),  # only 11.2.0
+    # ('htslib', ''),  # only foss 2015a
+    # ('sparsehash', ''),  # only 10.2.0
+    # ('SSW', ''),  # only 11.2.0
+    # ('tabixpp', ''),  # only 11.2.0
+    # ('vcflib', ''),  # only 10.3.0
+]
+
+buildopts = 'CXX="$CXX" CXXFLAGS="$CXXFLAGS"'
+
+files_to_copy = [(['vg'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/vg'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["vg -h"]

@@ -1,0 +1,67 @@
+diff -u pod5-file-format-0.1.19/CMakeLists.txt.orig pod5-file-format-0.1.19/CMakeLists.txt
+--- pod5-file-format-0.1.19/CMakeLists.txt.orig 2023-04-19 15:33:19.000000000 +0200
++++ pod5-file-format-0.1.19/CMakeLists.txt      2023-04-24 14:37:19.397253822 +0200
+@@ -12,7 +12,6 @@
+     option(ENABLE_CONAN "Enable conan for dependency installation" OFF)
+ endif()
+ option(BUILD_SHARED_LIB "Build a shared library" OFF)
+-option(INSTALL_THIRD_PARTY "Install third party libraries" ON)
+
+ option(POD5_DISABLE_TESTS "Disable building all tests" OFF)
+ option(POD5_BUILD_EXAMPLES "Enable building all examples" ON)
+@@ -56,7 +55,6 @@
+
+ # Enable finding conan modules:
+ set(CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}")
+-include_directories("third_party/include")
+
+ foreach (config "Release" "Debug")
+     string(TOUPPER "${config}" config_upper)
+@@ -73,7 +71,6 @@
+
+ if (BUILD_PYTHON_WHEEL)
+     find_package (Python ${PYTHON_VERSION} EXACT COMPONENTS Interpreter Development)
+-    add_subdirectory(third_party/pybind11)
+ endif()
+
+ add_subdirectory(c++)
+diff -u pod5-file-format-0.1.19/pyproject.toml.orig pod5-file-format-0.1.19/pyproject.toml
+--- pod5-file-format-0.1.19/pyproject.toml.orig 2023-04-06 12:50:32.000000000 +0200
++++ pod5-file-format-0.1.19/pyproject.toml      2023-04-18 09:43:20.483040771 +0200
+@@ -2,7 +2,7 @@
+ # To create this file, simply pip install the root pod-file-format directory
+
+ [build-system]
+-requires = ["setuptools >= 61.0", "wheel", "setuptools_scm[toml]>=6.2"]
++requires = ["setuptools >= 61.0", "wheel"]
+ build-backend = "setuptools.build_meta"
+
+ [project]
+@@ -14,7 +14,3 @@
+ [tool.setuptools.packages.find]
+ # Ignore all files
+ exclude = ["*"]
+-
+-[tool.setuptools_scm]
+-root = "."
+-write_to = "_version.py"
+diff -u pod5-file-format-0.1.19/python/pod5/pyproject.toml.orig pod5-file-format-0.1.19/python/pod5/pyproject.toml
+--- pod5-file-format-0.1.19/python/pod5/pyproject.toml.orig     2023-04-06 12:50:32.000000000 +0200
++++ pod5-file-format-0.1.19/python/pod5/pyproject.toml  2023-04-18 13:59:52.055854106 +0200
+@@ -2,7 +2,6 @@
+ requires = [
+   "setuptools >= 61.0",
+   "wheel",
+-  "setuptools_scm[toml]>=6.2",
+ ]
+ build-backend = "setuptools.build_meta"
+
+@@ -63,8 +62,5 @@
+ where = ["src"]
+ exclude = ["test*"]
+
+-[tool.setuptools_scm]
+-root = "../.."
+-
+ [tool.black]
+ target-version = ["py37"]
