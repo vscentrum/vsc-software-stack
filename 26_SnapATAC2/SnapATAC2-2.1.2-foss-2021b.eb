@@ -96,14 +96,13 @@ exts_list = [
     # #     'checksums': ['42ee7b9e15f7b225747c3fa08f43c5d6c83bc899f80ff9bae9319334824076e9'],
     # # }),
     (name, version, {
+        'extract_sources': True,
         'source_tmpl': 'snapatac2-%(version)s.tar.gz',
         'checksums': ['a717126f12fbb3862b5d8c40100f40fde857e6e890a4b086c64e3e623b0d90ec'],
     }),
 ]
 
 extract_sources = True
-
-start_dir = 'snapatac2-core'
 
 build_cmd = 'find ../.. -type f -name "*.whl"'
 install_cmd = 'find ../.. -type f -name "*.whl"'
