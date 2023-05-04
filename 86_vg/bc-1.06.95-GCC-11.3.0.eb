@@ -1,0 +1,31 @@
+easyblock = 'ConfigureMake'
+
+name = 'bc'
+version = '1.06.95'
+
+homepage = 'https://www.gnu.org/software/bc/'
+description = """bc is an arbitrary precision numeric processing language."""
+
+source_urls = ['http://alpha.gnu.org/gnu/bc/']
+sources = [SOURCELOWER_TAR_BZ2]
+
+toolchain = {'name': 'GCC', 'version': '11.3.0'}
+
+builddependencies = [
+    ('texinfo', '7.0.2'),
+]
+
+dependencies = [
+    ('libreadline', '8.1.2'),
+    ('flex', '2.6.4'),
+    ('Bison', '3.8.2'),
+]
+
+configopts = ['--with-readline']
+
+sanity_check_paths = {
+    'files': ['bin/bc', 'bin/dc'],
+    'dirs': [],
+}
+
+moduleclass = 'system'
