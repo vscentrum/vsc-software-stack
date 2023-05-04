@@ -25,3 +25,4 @@ Sandbox for VSC Central Software Installation project
 * VSC Slack: https://vscentrum.slack.com
   * Recommended to use the `#software` channel.
   * Requires invitation, ask Kenneth (HPC-UGent) or Sam (VUB-HPC), or anyone already in the VSC Slack.
+test
