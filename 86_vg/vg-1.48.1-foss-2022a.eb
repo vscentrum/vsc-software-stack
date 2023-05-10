@@ -1,9 +1,9 @@
 easyblock = 'MakeCp'
 
 name = 'vg'
-version = '1.47.0'
+version = '1.48.1'
 
-homepage = 'https://github.com/vgteam/vg'
+homepage = 'https://github.com/PetrKralCZ/vg'
 description = """variation graph data structures, interchange formats,
 alignment, genotyping, and variant calling methods"""
 
@@ -12,7 +12,7 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 sources = [{
     'filename': '%(name)s-%(version)s.tar.gz',
     'git_config': {
-        'url': 'https://github.com/vgteam',
+        'url': 'https://github.com/PetrKralCZ',
         'repo_name': '%(namelower)s',
         'tag': 'v%(version)s',
         'recursive': True,
@@ -20,19 +20,14 @@ sources = [{
     }
 }]
 
-# patches = ['%(name)s-%(version)s_submodule_fix.patch']
-
-checksums = [
-    None,  # can't add proper SHA256 checksum, because source tarball is created locally after recursive 'git clone'
-    # '149b711745e12e9cbf82ee5426641ca146513bbe21389645018fc124676b2b96',  # vg-1.47.0_gitmodule_fix.patch
-]
+checksums = [None]
 
 builddependencies = [
     ('binutils', '2.38'),
     ('CMake', '3.23.1'),
     ('protobuf', '3.19.4'),
     # ('SDSL', '2.1.1'),  # TODO is a submodule
-    ('git', '2.36.0', '-nodocs'),
+    # ('git', '2.36.0', '-nodocs'),  # has to be on the system already
 ]
 
 dependencies = [

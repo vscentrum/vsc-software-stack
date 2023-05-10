@@ -9,30 +9,16 @@ alignment, genotyping, and variant calling methods"""
 
 toolchain = {'name': 'foss', 'version': '2022a'}
 
-sources = [{
-    'filename': '%(name)s-%(version)s.tar.gz',
-    'git_config': {
-        'url': 'https://github.com/vgteam',
-        'repo_name': '%(namelower)s',
-        'tag': 'v%(version)s',
-        'recursive': True,
-        'keep_git_dir': True,
-    }
-}]
-
-# patches = ['%(name)s-%(version)s_submodule_fix.patch']
-
-checksums = [
-    None,  # can't add proper SHA256 checksum, because source tarball is created locally after recursive 'git clone'
-    # '149b711745e12e9cbf82ee5426641ca146513bbe21389645018fc124676b2b96',  # vg-1.47.0_gitmodule_fix.patch
-]
+source_urls = ['https://github.com/vgteam/vg/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['7db935e7d3a9656c37bbe118e6530e05188fea6272e4c4816cf10067a6ad09c8']
 
 builddependencies = [
     ('binutils', '2.38'),
     ('CMake', '3.23.1'),
     ('protobuf', '3.19.4'),
-    # ('SDSL', '2.1.1'),  # TODO is a submodule
-    ('git', '2.36.0', '-nodocs'),
+    # ('Jansson', '2.14'),  # in deps
+    # ('SDSL', '2.1.1'),  # TODO
 ]
 
 dependencies = [
@@ -56,35 +42,34 @@ dependencies = [
     ('protobuf', '3.19.4'),
     ('protobuf-python', '3.19.4'),  # probably needed
     ('bzip2', '1.0.8'),
+    ('git', '2.36.0', '-nodocs'),
     ('ncurses', '6.3'),
     ('pkg-config', '0.29.2'),
-    ('XZ', '5.2.5'),
-    ('nodejs', '16.15.1'),
 
     # ('libprotoc-dev', ''),
     # ('autopoint', ''),
     # ('bsdmainutils', ''),
-    # ('rs', ''),  # TODO https://github.com/leahneukirchen/rs
-    # # ('npm', ''),  # is nodejs
+    # ('rs', ''),
+    # ('npm', ''),
     # ('redland-utils', ''),
-    # # ('gawk', ''),  # is there
-    # # ('lzma-dev', ''),  # in XZ
-    # # ('liblzma-dev', ''),
-    # # ('libffi-dev', ''),  # is there
+    # ('gawk', ''),
+    # ('lzma-dev', ''),
+    # ('liblzma-dev', ''),
+    # ('libffi-dev', ''),
 
     # submodule deps
-    # ('elfutils', '0.187'),
-    # ('jemalloc', '5.2.1'),
-    # ('libdeflate', '1.10'),
-    # ('snappy', '1.1.9'),
-    # ('htslib', '1.15.1'),
-    # ('sparsehash', '2.0.4'),
-    # ('fastahack', '1.0.0'),
-    #
-    # # ('fermi-lite', ''),  # only 11.2.0
-    # # ('SSW', ''),  # only 11.2.0
-    # # ('tabixpp', ''),  # only 11.2.0
-    # # ('vcflib', ''),  # only 10.3.0
+    ('elfutils', '0.187'),
+    ('jemalloc', '5.2.1'),
+    ('libdeflate', '1.10'),
+    ('snappy', '1.1.9'),
+    ('htslib', '1.15.1'),
+    ('sparsehash', '2.0.4'),
+    ('fastahack', '1.0.0'),
+
+    # ('fermi-lite', ''),  # only 11.2.0
+    # ('SSW', ''),  # only 11.2.0
+    # ('tabixpp', ''),  # only 11.2.0
+    # ('vcflib', ''),  # only 10.3.0
 ]
 
 buildopts = 'CXX="$CXX" CXXFLAGS="$CXXFLAGS"'
