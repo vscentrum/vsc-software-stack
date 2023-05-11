@@ -7,7 +7,7 @@ Central repository of easyconfigs used in the software installations on VSC clus
 The organization of this repo is structured in standard git branches, each one
 providing a different degree of reliability:
 
-* [vsc](https://github.com/vscentrum/vsc-software-stack/tree/vsc): main branch
+* [`vsc`](https://github.com/vscentrum/vsc-software-stack/tree/vsc): main branch
   with software installations validated and tested by multiple VSC sites
 * [`site-kul`](https://github.com/vscentrum/vsc-software-stack/tree/site-kul):
   software installations specific to clusters managed by KU Leuven
