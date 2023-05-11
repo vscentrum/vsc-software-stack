@@ -2,16 +2,23 @@
 
 Central repository of easyconfigs used in the software installations on VSC clusters.
 
-## Structure
+## Repository structure
 
-The organization of this repo is structured on standard git branches, each one
+The organization of this repo is structured in standard git branches, each one
 providing a different degree of reliability:
 
-* `vsc`: main branch with software installations validated by multiple VSC
-  sites and tested
-* `site-*`: software installations validated by a single site (not necessarily
-  tested)
-* `wip`: software installations that are work-in-progress
+* [`vsc`](https://github.com/vscentrum/vsc-software-stack/tree/vsc): main branch
+  with software installations validated and tested by multiple VSC sites
+* [`site-kul`](https://github.com/vscentrum/vsc-software-stack/tree/site-kul):
+  software installations specific to clusters managed by KU Leuven
+* [`site-ua`](https://github.com/vscentrum/vsc-software-stack/tree/site-ua):
+  software installations specific to clusters managed by UAntwerp
+* [`site-ugent`](https://github.com/vscentrum/vsc-software-stack/tree/site-ugent):
+  software installations specific to clusters managed by UGent
+* [`site-vub`](https://github.com/vscentrum/vsc-software-stack/tree/site-vub):
+  software installations specific to clusters managed by VUB
+* [`wip`](https://github.com/vscentrum/vsc-software-stack/tree/wip): software
+  installations on any site that are work-in-progress
 
 ## Bootstrap
 
@@ -109,3 +116,11 @@ In the following we assume the following names for the remote repos:
    ```
 7. Create a new PR in GitHub from the branch `000_example` in your fork of the
    vsc-software-stack to the `vsc` branch in the main vscentrum repo.
+
+## Links
+
+* EasyBuild documentation: https://docs.easybuild.io
+* EasyBuild tutorial: https://easybuild.io/tutorial
+* VSC Slack: https://vscentrum.slack.com
+  * Recommended to use the `#software` channel.
+  * Requires invitation, ask Kenneth (HPC-UGent) or Sam (VUB-HPC), or anyone already in the VSC Slack.
