@@ -2,6 +2,14 @@
 
 Central repository of easyconfigs used in the software installations on VSC clusters.
 
+## Vrije Universiteit Brussel (site-vub) branch
+
+### Policy
+
+* Unreviewed branch with software installed in VUB clusters
+
+* Push easyconfigs of software that has not yet been contributed upstream
+
 ## Structure
 
 The organization of this repo is structured on standard git branches, each one
