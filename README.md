@@ -10,16 +10,23 @@ Central repository of easyconfigs used in the software installations on VSC clus
 
 * Push easyconfigs of software that has not yet been contributed upstream
 
-## Structure
+## Repository structure
 
-The organization of this repo is structured on standard git branches, each one
+The organization of this repo is structured in standard git branches, each one
 providing a different degree of reliability:
 
-* `vsc`: main branch with software installations validated by multiple VSC
-  sites and tested
-* `site-*`: software installations validated by a single site (not necessarily
-  tested)
-* `wip`: software installations that are work-in-progress
+* [`vsc`](https://github.com/vscentrum/vsc-software-stack/tree/vsc): main branch
+  with software installations validated and tested by multiple VSC sites
+* [`site-kul`](https://github.com/vscentrum/vsc-software-stack/tree/site-kul):
+  software installations specific to clusters managed by KU Leuven
+* [`site-ua`](https://github.com/vscentrum/vsc-software-stack/tree/site-ua):
+  software installations specific to clusters managed by UAntwerp
+* [`site-ugent`](https://github.com/vscentrum/vsc-software-stack/tree/site-ugent):
+  software installations specific to clusters managed by UGent
+* [`site-vub`](https://github.com/vscentrum/vsc-software-stack/tree/site-vub):
+  software installations specific to clusters managed by VUB
+* [`wip`](https://github.com/vscentrum/vsc-software-stack/tree/wip): software
+  installations on any site that are work-in-progress
 
 ## Bootstrap
 
