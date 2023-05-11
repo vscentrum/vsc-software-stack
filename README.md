@@ -2,6 +2,12 @@
 
 Central repository of easyconfigs used in the software installations on VSC clusters.
 
+## KU Leuven (site-kul) branch
+
+### Policy
+
+* Unreviewed branch with software installed in KUL clusters
+
 ## Structure
 
 The organization of this repo is structured on standard git branches, each one
