@@ -109,3 +109,11 @@ In the following we assume the following names for the remote repos:
    ```
 7. Create a new PR in GitHub from the branch `000_example` in your fork of the
    vsc-software-stack to the `vsc` branch in the main vscentrum repo.
+
+## Links
+
+* EasyBuild documentation: https://docs.easybuild.io
+* EasyBuild tutorial: https://easybuild.io/tutorial
+* VSC Slack: https://vscentrum.slack.com
+  * Recommended to use the `#software` channel.
+  * Requires invitation, ask Kenneth (HPC-UGent) or Sam (VUB-HPC), or anyone already in the VSC Slack.
