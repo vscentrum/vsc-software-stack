@@ -15,7 +15,7 @@ providing a different degree of reliability:
   software installations specific to clusters managed by UAntwerp
 * [`site-ugent`](https://github.com/vscentrum/vsc-software-stack/tree/site-ugent):
   software installations specific to clusters managed by UGent
-* [`site-ugent`](https://github.com/vscentrum/vsc-software-stack/tree/site-vub):
+* [`site-vub`](https://github.com/vscentrum/vsc-software-stack/tree/site-vub):
   software installations specific to clusters managed by VUB
 * [`wip`](https://github.com/vscentrum/vsc-software-stack/tree/wip): software
   installations on any site that are work-in-progress
