@@ -1,0 +1,47 @@
+easyblock = 'PythonBundle'
+
+name = 'AutoKeras'
+version = '1.0.12'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://github.com/keras-team/autokeras'
+description = """
+AutoKeras: An AutoML system based on Keras. It is developed by DATA Lab at
+Texas A&M University. The goal of AutoKeras is to make machine learning
+accessible to everyone."""
+
+toolchain = {'name': 'fosscuda', 'version': '2020a'}
+
+dependencies = [
+    ('Python', '3.8.2'),
+    ('SciPy-bundle', '2020.03', versionsuffix),
+    ('TensorFlow', '2.3.1', versionsuffix),
+    ('scikit-learn', '0.23.1', versionsuffix),
+    ('tqdm', '4.47.0'),
+]
+
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_LOWER_SOURCE],
+    'sources': [SOURCELOWER_TAR_GZ],
+}
+exts_list = [
+    ('colorama', '0.4.3', {
+        'checksums': ['e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1'],
+    }),
+    ('terminaltables', '3.1.0', {
+        'checksums': ['f3eb0eb92e3833972ac36796293ca0906e998dc3be91fbe1f8615b331b853b81'],
+    }),
+    ('keras-tuner', '1.0.2', {
+        'modulename': 'kerastuner',
+        'checksums': ['a9626842bc032bb0c8f3152bbc90910f50db3221f8aa980ec82ac729692707ec'],
+    }),
+    (name, version, {
+        'checksums': ['adcd4d77e89b9b17607590cb91c03ac347aff202dbd7024c2f7b72c070aa8be4'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'lib'
