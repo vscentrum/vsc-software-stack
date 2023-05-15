@@ -1,0 +1,13 @@
+fix imports of lax_vmap_test
+author: Alex Domingo (Vrije Universiteit Brussel)
+--- tests/lax_vmap_test.py.origin	2021-11-10 11:12:00.664773000 +0100
++++ tests/lax_vmap_test.py	2021-11-10 11:12:20.241587328 +0100
+@@ -30,7 +30,7 @@
+ from jax.lib import xla_client
+ from jax._src.util import safe_map, safe_zip
+ 
+-from tests.lax_test import LAX_OPS
++from lax_test import LAX_OPS
+ 
+ from jax.config import config
+ config.parse_flags_with_absl()

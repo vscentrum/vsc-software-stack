@@ -1,0 +1,129 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Denis Kristak
+easyblock = 'PythonBundle'
+
+name = 'jax'
+version = '0.2.14'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://pypi.python.org/pypi/jax'
+description = """Composable transformations of Python+NumPy programs:
+differentiate, vectorize, JIT to GPU/TPU, and more"""
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+
+builddependencies = [
+    ('Bazel', '3.7.2'),
+    ('pytest-xdist', '2.3.0'),
+    # git 2.x required to fetch repository 'io_bazel_rules_docker'
+    ('git', '2.32.0', '-nodocs'),
+]
+
+dependencies = [
+    ('CUDA', '11.3.1', '', SYSTEM),
+    ('cuDNN', '8.2.1.32', versionsuffix, SYSTEM),
+    ('Python', '3.9.5'),
+    ('SciPy-bundle', '2021.05'),
+    ('flatbuffers-python', '2.0'),
+]
+
+# running the tests with lots of cores results in test failures because not enough threads can be started,
+# and running with a single core also results in systematic test failures
+# 4 cores seems to work best
+parallel = 4
+
+# downloading TensorFlow tarball to avoid that Bazel downloads it during the build
+# note: this *must* be the exact same commit as used in jaxlib-*/WORKSPACE
+local_tf_commit = '0a601eb3ac8c5accca11e4c34951b63d1b9fe9cf'
+local_tf_dir = 'tensorflow-%s' % local_tf_commit
+local_tf_builddir = '%(builddir)s/' + local_tf_dir
+
+# replace remote TensorFlow repository with the local one from EB
+local_jax_prebuildopts = "sed -i -f jaxlib_local-tensorflow-repo.sed WORKSPACE && "
+local_jax_prebuildopts += "sed -i 's|EB_TF_REPOPATH|%s|' WORKSPACE && " % local_tf_builddir
+local_jax_prebuildopts += "export TF_CUDA_PATHS=$EBROOTCUDA && "
+
+use_pip = True
+
+default_easyblock = 'PythonPackage'
+default_component_specs = {
+    'sources': [SOURCE_TAR_GZ],
+    'source_urls': [PYPI_SOURCE],
+    'start_dir': '%(name)s-%(version)s',
+    'use_pip': True,
+    'sanity_pip_check': True,
+    'download_dep_fail': True,
+}
+
+components = [
+    ('absl-py', '0.13.0', {
+        'options': {'modulename': 'absl'},
+        'checksums': ['6953272383486044699fd0e9f00aad167a27e08ce19aae66c6c4b10e7e767793'],
+    }),
+    ('jaxlib', '0.1.67', {
+        'sources': [
+            '%(name)s-v%(version)s.tar.gz',
+            {
+                'download_filename': '%s.tar.gz' % local_tf_commit,
+                'filename': 'tensorflow-%s.tar.gz' % local_tf_commit,
+            }
+        ],
+        'source_urls': [
+            'https://github.com/google/jax/archive/',
+            'https://github.com/tensorflow/tensorflow/archive/'
+        ],
+        'patches': [
+            ('jaxlib_local-tensorflow-repo.sed', '.'),
+            'jaxlib-0.1.70_add-bazel-args-to-shutdown.patch',
+            ('TensorFlow-%s_mlir-build-env.patch' % local_tf_commit, '../' + local_tf_dir),
+            ('TensorFlow-2.5.0_fix-find-cuda-config.patch', '../' + local_tf_dir),
+            ('TensorFlow-2.7.0_cuda-noncanonical-include-paths.patch', '../' + local_tf_dir),
+        ],
+        'checksums': [
+            # jaxlib-v0.1.67.tar.gz
+            '0ae934d816081e19cdbff9581c2db5ea880c55dcc4f8a3d62933959f68115a3a',
+            # tensorflow-0a601eb3ac8c5accca11e4c34951b63d1b9fe9cf.tar.gz
+            'bc2db06633feff5c66e6e6ecb2ad6337d2ac00f36da3b8bbecbe50a76a2e584e',
+            # jaxlib_local-tensorflow-repo.sed
+            'abb5c3b97f4e317bce9f22ed3eeea3b9715365818d8b50720d937e2d41d5c4e5',
+            # jaxlib-0.1.70_add-bazel-args-to-shutdown.patch
+            'c0ea6abd7827d3c37bdd60c30c7b0613fc86b91274c6a1a4cf13a3c7f9ce7631',
+            # TensorFlow-0a601eb3ac8c5accca11e4c34951b63d1b9fe9cf_mlir-build-env.patch
+            'e214a063e2f425666c79e40496dabb36eff8a973f1dc607fd5650ccede9c4412',
+            # TensorFlow-2.5.0_fix-find-cuda-config.patch
+            '22f068b1ee7d81b28e57a87acb561830725e9467baa169b7e8a28277871bdc2c',
+            # TensorFlow-2.7.0_cuda-noncanonical-include-paths.patch
+            '0a759010c253d49755955cd5f028e75de4a4c447dcc8f5a0d9f47cce6881a9db',
+        ],
+        'start_dir': 'jax-jaxlib-v%(version)s',
+        # disable Intel MKL-DNN on AMD nodes
+        'use_mkl_dnn': False,
+        'prebuildopts': local_jax_prebuildopts,
+    }),
+]
+
+exts_list = [
+    ('opt_einsum', '3.3.0', {
+        'checksums': ['59f6475f77bbc37dcf7cd748519c0ec60722e91e63ca114e68821c0c54a46549'],
+    }),
+    (name, version, {
+        'source_tmpl': '%(name)s-v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/google/jax/archive/'],
+        'patches': [
+            'jax-0.2.14_fix-lax-vmap-test.patch',
+            'jax-0.2.19_fix-update-of-cache-access-time.patch',
+        ],
+        'checksums': [
+            'a1082245cb310e312d011d43f6ff05e19a0eaa533137b0fdfec4a69661f83e75',  # jax-v0.2.14.tar.gz
+            # jax-0.2.14_fix-lax-vmap-test.patch
+            '260deaa79bfc0db7a50b868cc2eaa4e88e8b05df319f48241872d6cd258cd70b',
+            # jax-0.2.19_fix-update-of-cache-access-time.patch
+            'e20562f67d63cc7e3478f7a92940291b2c8e328d605426bbabf89d8c2e1dd806',
+        ],
+        'runtest': "CUDA_VISIBLE_DEVICES=0 JAX_ENABLE_X64=true TF_DISABLE_MKL=1 pytest tests",
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'tools'
