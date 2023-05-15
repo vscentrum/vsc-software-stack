@@ -1,0 +1,66 @@
+easyblock = 'Bundle'
+
+name = 'antigen.garnish'
+version = '1.1.1'
+versionsuffix = '-Python-%(pyver)s-R-%(rver)s'
+
+github_account = 'immune-health'
+homepage = 'https://github.com/immune-health/antigen.garnish'
+description = """Ensemble Antigen Prediction and Quality Analysis from DNA
+ Variants and Proteins in R."""
+
+toolchain = {'name': 'foss', 'version': '2019a'}
+
+dependencies = [
+    ('Python', '3.7.2'),
+    ('SciPy-bundle', '2019.03'),
+    ('h5py', '2.9.0'),
+    ('Biopython', '1.73'),
+    ('mhcflurry', '1.4.0', '-Python-3.7.2'),
+    ('R', '3.6.0'),
+    ('R-bundle-Bioconductor', '3.9', '-R-3.6.0'),
+    ('BLAST+', '2.9.0'),
+    ('netMHC', '4.0a', '', True),
+    ('netMHCpan', '4.0a', '', True),
+    ('netMHCII', '2.3', '', True),
+    ('netMHCIIpan', '3.2'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_list = [
+    ('future.apply', '1.3.0', {
+        'source_tmpl': '%(name)s_%(version)s.tar.gz',
+        'source_urls': ['https://cran.r-project.org/src/contrib/'],
+        'checksums': ['6374eca49bb81e05c013509c8e324cf9c5d023f9f8217b29ce7b7e12025ca371'],
+    }),
+    ('dt.inflix', 'e6db0d6', {
+        'source_tmpl': '%(version)s.tar.gz',
+        'source_urls': ['https://github.com/andrewrech/dt.inflix/archive/'],
+        'checksums': ['3583c2fae6386e2220a8dff9f349308a3fad5f0eed49759b1c475e7e8e160bb2'],
+    }),
+    ('magrittr', '496ff02', {
+        'source_tmpl': '%(version)s.tar.gz',
+        'source_urls': ['https://github.com/tidyverse/magrittr/archive/'],
+        'checksums': ['0830e3711c0b0b66dc21fe340b9796b7cd85e7ecafde1f6a685acbbd9e72cbee'],
+    }),
+    (name, version, {
+        'source_tmpl': '%(version)s.tar.gz',
+        'source_urls': ['https://github.com/%(github_account)s/%(name)s/archive'],
+        'checksums': ['2796b09ab03909bcf861f48d2038bc716ac4478e83294594e97a698675f293b6'],
+    }),
+]
+
+modextrapaths = {'R_LIBS': ''}
+
+# Path to the data files of antigen.garnish
+# Data files can be downloaded from http://get.rech.io/antigen.garnish.tar.gz
+modextravars = {'AG_DATA_DIR': '/databases/bio/%(name)s-%(version)s'}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['antigen.garnish', 'magrittr', 'dt.inflix', 'future.apply'],
+}
+
+modloadmsg = "Data files are located in /databases/bio/%(name)s-%(version)s\n"
+
+moduleclass = 'bio'
