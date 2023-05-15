@@ -1,0 +1,40 @@
+easyblock = 'PythonBundle'
+
+name = 'AutoKeras'
+version = '1.0.15'
+
+homepage = 'https://github.com/keras-team/autokeras'
+description = """
+AutoKeras: An AutoML system based on Keras. It is developed by DATA Lab at
+Texas A&M University. The goal of AutoKeras is to make machine learning
+accessible to everyone."""
+
+toolchain = {'name': 'fosscuda', 'version': '2020b'}
+
+dependencies = [
+    ('Python', '3.8.6'),
+    ('SciPy-bundle', '2020.11'),
+    ('IPython', '7.18.1'),
+    ('TensorFlow', '2.5.0'),
+    ('scikit-learn', '0.23.2'),
+    ('tqdm', '4.56.2'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('kt-legacy', '1.0.3', {
+        'modulename': 'kerastuner',
+        'checksums': ['22210db4922c2959b3c90ac9719ad7275b9e67ae289c0c01d16ae87a7b8e86ca'],
+    }),
+    ('keras-tuner', '1.0.3', {
+        'checksums': ['929a7ff1b8eb73166f95dd1dea1e5d45018e4bd33800c4a890116bff4b28ccf1'],
+    }),
+    ('autokeras', version, {
+        'checksums': ['61d40c79924e9be3010409a5d15373d979393832e9496b4406d8d31ea3d9b39a'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'lib'
