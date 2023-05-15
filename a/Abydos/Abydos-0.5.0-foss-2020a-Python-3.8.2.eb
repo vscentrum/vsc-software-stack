@@ -1,0 +1,35 @@
+easyblock = 'PythonBundle'
+
+name = 'Abydos'
+version = '0.5.0'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://github.com/chrislit/abydos'
+description = """
+Abydos is a library of phonetic algorithms, string distance measures & metrics,
+stemmers, and string fingerprinters."""
+
+toolchain = {'name': 'foss', 'version': '2020a'}
+
+dependencies = [
+    ('Python', '3.8.2'),
+    ('SciPy-bundle', '2020.03', versionsuffix),
+    ('NLTK', '3.5', versionsuffix),  # optional
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_default_options = {'source_urls': [PYPI_LOWER_SOURCE]}
+
+exts_list = [
+    ('deprecation', '2.1.0', {
+        'checksums': ['72b3bde64e5d778694b0cf68178aed03d15e15477116add3fb773e581f9518ff'],
+    }),
+    (name, version, {
+        'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
+        'checksums': ['4c02e84e18211ede6885e4347a93e64fe15b777bdce0d69ac5a8617a26baef4f'],
+    }),
+]
+
+moduleclass = 'devel'
