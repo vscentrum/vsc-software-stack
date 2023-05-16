@@ -1,0 +1,25 @@
+easyblock = 'Bundle'
+
+name = 'CESM-tools'
+version = '2'
+
+homepage = 'http://www.cesm.ucar.edu/models/cesm2/'
+description = "Bundle of tools to perform post-processing tasks on CESM data."
+
+toolchain = {'name': 'foss', 'version': '2019a'}
+
+dependencies = [
+    ('Python','3.7.2'),
+    ('git', '2.21.0'),
+    ('NCO', '4.8.1'),
+    ('NCL','6.6.2'),
+    ('CDO', '1.9.7'),
+    ('ncview', '2.1.7'),
+]
+
+modloadmsg = """The following tools to post-process CESM2 data are loaded:
+ - Python 3.7, git 2.21, NCO 4.8.1, NCL 6.6.2, CDO 1.9.7 and ncview 2.1.7
+ - List all loaded modules with `module list`"""
+
+
+moduleclass = 'geo'
