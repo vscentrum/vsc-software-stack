@@ -1,0 +1,33 @@
+easyblock = 'PythonPackage'
+
+name = 'cdo-bindings'
+version = '1.5.3'
+
+homepage = 'https://github.com/Try2Code/cdo-bindings'
+description = "Python interface to CDO."
+
+toolchain = {'name': 'foss', 'version': '2019a'}
+
+github_account = 'Try2Code'
+source_urls = [GITHUB_SOURCE]
+sources = ['%(version)s.tar.gz']
+checksums = ['dc39644408417b51df0d9e83d2981b5024a08c9674a2f11351f5bed26bdd4d9b']
+
+multi_deps = {'Python': ['3.7.2', '2.7.15']}
+
+dependencies = [
+    ('CDO', '1.9.7'),
+    ('netcdf4-python', '1.5.3'),
+]
+
+use_pip = True
+download_dep_fail = True
+
+start_dir = 'python'
+
+options = {'modulename': 'cdo'}
+
+# xarray is an optional dependency. Since it only works with Python 3, it is not enabled by default.
+modloadmsg = "If xarray is loaded, cdo-bindings will automatically enable it.\n"
+
+moduleclass = 'geo'
