@@ -1,0 +1,31 @@
+easyblock = 'Bundle'
+
+name = 'CESM-deps'
+version = '2'
+
+homepage = 'http://www.cesm.ucar.edu/models/cesm2/'
+description = """CESM is a fully-coupled, community, global climate model that provides state-of-the-art
+ computer simulations of the Earth's past, present, and future climate states."""
+
+toolchain = {'name': 'intel', 'version': '2018a'}
+
+dependencies = [
+    ('Python', '2.7.14'),
+    ('CMake', '3.11.4'),
+    ('Perl', '5.26.1'),
+    ('XML-LibXML', '2.0132', '-Perl-%(perlver)s'),
+    ('Pylint', '1.9.3'),
+    ('ESMF', '7.1.0r'),
+    ('netCDF', '4.6.0'),
+    ('netCDF-Fortran', '4.4.4'),
+    ('netCDF-C++4', '4.3.0'),
+    ('Subversion', '1.9.7'),
+    ('git', '2.16.1'),
+]
+
+usage = """Environment to run CESM2 simulations
+ - Download the code to a designated directory (e.g. git clone -b release-cesm2.0.1 https://github.com/ESCOMP/cesm.git)
+ - Download external programs (cd cesm; ./manage_externals/checkout_externals)
+ - Create case (cd cime/scripts && ./create_newcase --machine breniac --case ...)"""
+
+moduleclass = 'geo'
