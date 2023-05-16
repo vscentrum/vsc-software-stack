@@ -1,0 +1,38 @@
+easyblock = 'ConfigureMake'
+
+name = 'GapFiller'
+version = '2.1.2'
+
+homepage = 'https://sourceforge.net/projects/gapfiller'
+description = """GapFiller is a seed-and-extend local assembler to fill the gap within paired reads.
+ It can be used for both DNA and RNA and it has been tested on Illumina data."""
+
+toolchain = {'name': 'GCC', 'version': '11.3.0'}
+
+source_urls = [SOURCEFORGE_SOURCE]
+sources = [SOURCELOWER_TAR_GZ]
+patches = ['GapFillter-2.1.1_fix-typo.patch']
+checksums = [
+    {'gapfiller-2.1.2.tar.gz': 'a4c5235b1ee17e277d08cc945dbfa05af084559e546a2b7f15c9c1b703f4b237'},
+    {'GapFillter-2.1.1_fix-typo.patch': '5d11e567027887a82ffabdf0cbc3265d9fc42f770f3b4996019bdcbbb09120fd'},
+]
+
+dependencies = [
+    ('Boost', '1.79.0'),
+    ('zlib', '1.2.12'),
+]
+
+buildopts = 'bin_PROGRAMS=GapFiller '
+buildopts += 'GapFiller_CFLAGS="$CFLAGS $LDFLAGS -lz" GapFiller_CXXFLAGS="$CXXFLAGS $LDFLAGS -lz"'
+installopts = 'bin_PROGRAMS=GapFiller '
+
+postinstallcmds = ["cp -a README %(installdir)s"]
+
+sanity_check_paths = {
+    'files': ['bin/GapFiller', 'README'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["GapFiller --help"]
+
+moduleclass = 'bio'
