@@ -8,14 +8,11 @@ description = """GapFiller is a seed-and-extend local assembler to fill the gap 
  It can be used for both DNA and RNA and it has been tested on Illumina data."""
 
 toolchain = {'name': 'GCC', 'version': '11.3.0'}
+toolchainopts = {'cstd': 'c++11', 'extra_cxxflags': '-fpermissive'}
 
 source_urls = [SOURCEFORGE_SOURCE]
 sources = [SOURCELOWER_TAR_GZ]
-patches = ['GapFillter-2.1.1_fix-typo.patch']
-checksums = [
-    {'gapfiller-2.1.2.tar.gz': 'a4c5235b1ee17e277d08cc945dbfa05af084559e546a2b7f15c9c1b703f4b237'},
-    {'GapFillter-2.1.1_fix-typo.patch': '5d11e567027887a82ffabdf0cbc3265d9fc42f770f3b4996019bdcbbb09120fd'},
-]
+checksums = ['a4c5235b1ee17e277d08cc945dbfa05af084559e546a2b7f15c9c1b703f4b237']
 
 dependencies = [
     ('Boost', '1.79.0'),
