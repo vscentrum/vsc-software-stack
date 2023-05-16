@@ -15,7 +15,7 @@ sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ
 patches = ['pod5-file-format-0.1.19_dep_fix.patch']
 checksums = [
     {'pod5-file-format-0.1.19.tar.gz': '82aee1e146f43a2858ccd50344153aa5fcef023a893eb1ab58b1fb8a96e25d6f'},
-    {'pod5-file-format-0.1.19_dep_fix.patch': '564458d7cebd599bbde4ceebbb20fa6ce4ad084f9455812572aab6d4445d53ef'},
+    {'pod5-file-format-0.1.19_dep_fix.patch': 'c4d2a830200796633369bde042cb861880bf79d3d2cc235d22845674382657a4'},
 ]
 
 builddependencies = [
@@ -34,6 +34,7 @@ dependencies = [
     ('pkg-config', '0.29.2'),
     ('HDF5', '1.14.0'),
     ('h5py', '3.8.0'),
+    ('GSL', '2.7'),
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -70,7 +71,7 @@ exts_list = [
 local_ver_major, local_ver_minor, local_ver_rev = version.split('.')
 
 preconfigopts = 'cd ../%(name)s-%(version)s && '
-preconfigopts += 'rm cmake/FindArrow.cmake && '
+# preconfigopts += 'rm cmake/FindArrow.cmake && '
 preconfigopts %= {"name": name, "version": version}
 preconfigopts += 'echo "__version__ = version = \'%(version)s\'" > _version.py && '
 preconfigopts += 'echo "__version_tuple__ = version_tuple = (%(maj)s, %(min)s, %(rev)s)" >> _version.py && '
@@ -80,7 +81,8 @@ preconfigopts += 'cp _version.py python/lib_pod5/src/lib_pod5/ && '
 preconfigopts += 'cp _version.py python/pod5/src/pod5/ && '
 preconfigopts += 'cd - && '
 
-configopts = ' -DBUILD_PYTHON_WHEEL=ON -DARROW_HOME=$EBROOTARROW -DARROW_INCLUDE_DIR="$EBROOTARROW/include" -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
+configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a"'
+configopts += ' -DARROW_HOME=$EBROOTARROW -DARROW_INCLUDE_DIR="$EBROOTARROW/include" '
 
 installopts = ' && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s'
 installopts += ' && pip install --no-deps --ignore-installed --prefix %(installdir)s lib_pod5-%(version)s-*.whl'
