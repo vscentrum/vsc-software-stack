@@ -38,21 +38,11 @@ prebuildopts += "export VER_MPI=NOMPI && "  # FIXME try building with MPI suppor
 prebuildopts += "./configure zifort && "
 prebuildopts += "sed -i 's|bash --norc|bash|g' %(builddir)s/open_SURFEX_V8_1/conf/profile_surfex-LXifort-SFX-V8-1-1-NOMPI-OMP-O2-X0 && "
 prebuildopts += ". %(builddir)s/open_SURFEX_V8_1/conf/profile_surfex-LXifort-SFX-V8-1-1-NOMPI-OMP-O2-X0 && "
-<<<<<<< HEAD
 prebuildopts += "export NETCDF_INC=$EBROOTNETCDF/include && "
 prebuildopts += "export NETCDF_LIB=$EBROOTNETCDF/lib && "
 prebuildopts += "export NETCDF_INCLUDE=$EBROOTNETCDF/include && "
 prebuildopts += "echo $NETCDF_INC && "
 prebuildopts += "echo $NETCDF_LIB && "
-=======
-prebuildopts += 'export INC_NETCDF="-I${EBROOTNETCDF} -I${EBROOTNETCDFMINFORTRAN}" && '
-prebuildopts += 'export LIB_NETCDF="-L${EBROOTNETCDF} -L${EBROOTNETCDFMINFORTRAN} -lnetcdff -lnetcdf" && '
-
-# prebuildopts += "export NETCDF_INC=$EBROOTNETCDFMINFORTRAN/include && "
-# prebuildopts += "export NETCDF_LIB=$EBROOTNETCDFMINFORTRAN/lib && "
-# prebuildopts += "echo $NETCDF_INC && "
-# prebuildopts += "echo $NETCDF_LIB && "
->>>>>>> 60b8b8e8a27cf924fb52a321a93568cb14370ca1
 prebuildopts += "echo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx && "
 
 build_cmd = 'make installmaster '
