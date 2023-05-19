@@ -1,0 +1,99 @@
+easyblock = 'MakeCp'
+
+name = 'vg'
+version = '1.47.0'
+
+homepage = 'https://github.com/vgteam/vg'
+description = """variation graph data structures, interchange formats,
+alignment, genotyping, and variant calling methods"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/vgteam',
+        'repo_name': '%(namelower)s',
+        'tag': 'v%(version)s',
+        'recursive': True,
+        'keep_git_dir': True,
+    }
+}]
+
+# patches = ['%(name)s-%(version)s_submodule_fix.patch']
+
+checksums = [
+    None,  # can't add proper SHA256 checksum, because source tarball is created locally after recursive 'git clone'
+    # '149b711745e12e9cbf82ee5426641ca146513bbe21389645018fc124676b2b96',  # vg-1.47.0_gitmodule_fix.patch
+]
+
+builddependencies = [
+    ('binutils', '2.38'),
+    ('CMake', '3.23.1'),
+    ('protobuf', '3.19.4'),
+    # ('SDSL', '2.1.1'),  # TODO is a submodule
+    ('git', '2.36.0', '-nodocs'),
+]
+
+dependencies = [
+    ('pybind11', '2.9.2'),
+    ('zstd', '1.5.2'),
+    ('Boost', '1.79.0'),
+    ('cairo', '1.17.4'),
+    ('lz4', '1.9.3'),
+    ('flex', '2.6.4'),
+    ('Bison', '3.8.2'),
+    ('RDFlib', '6.2.0'),
+    ('UnZip', '6.0'),
+    ('cURL', '7.83.0'),
+    ('parallel', '20220722'),
+    # ('bc', '1.06.95'),  # TODO
+    ('jq', '1.6'),
+    ('libtool', '2.4.7'),
+    ('gettext', '0.21'),
+    ('Automake', '1.16.5'),
+    ('Jansson', '2.14'),
+    ('protobuf', '3.19.4'),
+    ('protobuf-python', '3.19.4'),  # probably needed
+    ('bzip2', '1.0.8'),
+    ('ncurses', '6.3'),
+    ('pkg-config', '0.29.2'),
+    ('XZ', '5.2.5'),
+    ('nodejs', '16.15.1'),
+
+    # ('libprotoc-dev', ''),
+    # ('autopoint', ''),
+    # ('bsdmainutils', ''),
+    # ('rs', ''),  # TODO https://github.com/leahneukirchen/rs
+    # # ('npm', ''),  # is nodejs
+    # ('redland-utils', ''),
+    # # ('gawk', ''),  # is there
+    # # ('lzma-dev', ''),  # in XZ
+    # # ('liblzma-dev', ''),
+    # # ('libffi-dev', ''),  # is there
+
+    # submodule deps
+    # ('elfutils', '0.187'),
+    # ('jemalloc', '5.2.1'),
+    # ('libdeflate', '1.10'),
+    # ('snappy', '1.1.9'),
+    # ('htslib', '1.15.1'),
+    # ('sparsehash', '2.0.4'),
+    # ('fastahack', '1.0.0'),
+    #
+    # # ('fermi-lite', ''),  # only 11.2.0
+    # # ('SSW', ''),  # only 11.2.0
+    # # ('tabixpp', ''),  # only 11.2.0
+    # # ('vcflib', ''),  # only 10.3.0
+]
+
+buildopts = 'CXX="$CXX" CXXFLAGS="$CXXFLAGS"'
+
+files_to_copy = [(['vg'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/vg'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["vg -h"]
