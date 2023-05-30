@@ -1,0 +1,25 @@
+easyblock = 'MakeCp'
+
+name = 'ESI-3D'
+version = '20230124'
+
+homepage = 'https://ematito.webs.com/programs.htm'
+description = """ESI-3D: Electron Sharing Indices Program for 3D Molecular Space Partition"""
+
+toolchain = {'name': 'intel-compilers', 'version': '2022.1.0'}
+
+# request sources from Eduard Matito: ematito(at)gmail.com
+# rename source tarball esi.tar.gz.7Apr2020 to ESI-3D-20200407.tar.gz
+sources = ['ESI-3D-20230124.tar.gz']
+checksums = ['e384934a14d2123ebcbd6bd7cddfd1d94cdfa710f073fbd0240012aa2c0002b1']
+
+buildopts = 'F90="$F90" FFLAGS="$FFLAGS"'
+
+files_to_copy = [(['ESI'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/ESI'],
+    'dirs': [],
+}
+
+moduleclass = 'chem'
