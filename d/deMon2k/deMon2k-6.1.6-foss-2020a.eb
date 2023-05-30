@@ -1,0 +1,69 @@
+easyblock = 'Bundle'
+
+name = 'deMon2k'
+version = '6.1.6'
+
+homepage = 'http://www.demon-software.com'
+description = """
+deMon (density of Montreal is a software package for density functional theory
+(DFT) calculations. It uses the linear combination of Gaussian-type orbital
+(LCGTO) approach for the self-consistent solution of the Kohn-Sham (KS) DFT
+equations. The calculation of the four-center electron repulsion integrals is
+avoided by introducing an auxiliary function basis for the variational fitting
+of the Coulomb potential."""
+
+toolchain = {'name': 'foss', 'version': '2020a'}
+toolchainopts = {'usempi': False}
+
+local_precmdopts = [
+    'CREX_ROOT=%(builddir)s',
+    'CREX_FTN=gfortran',
+    'VERSION=%(version)s',
+]
+
+local_basissets = ['BASIS', 'AUXIS', 'ECPS', 'FFDS', 'MCPS']
+
+components = [
+    ('Basis_Sets', version, {
+        'easyblock': 'Tarball',
+        'sources': [{
+            'filename': '%s.gz' % b,
+            'extract_cmd': "mkdir -p BS; cd BS/; cp %s ./; gunzip -d *.gz",
+        } for b in local_basissets],
+        'checksums': [
+            '9fd1bc77e2fbec0c407a5b6ccc0343e96803cd2361f1ed869374bfc70ee97154',  # BASIS.gz
+            '2a32d5cfd1f6810e8bfc5a115af71ef28f0c742fd934c1963bc2859f4a2891f5',  # AUXIS.gz
+            '8cf43ed0b5a6a8311b770aee7118164365db95a1ed81e1051c7000b2263acf08',  # ECPS.gz
+            'b2af32ddf727168e5497615aca9c5e274adae64604b16e1d415e85d8cc633d13',  # FFDS.gz
+            'a38f03b30198550d3d47dfc6b13d2661573d2f5115f0bee1034eb3b5e8b1d93f',  # MCPS.gz
+        ],
+        'install_type': 'subdir',
+        'start_dir': 'BS',
+    }),
+    (name, version, {
+        'easyblock': 'CmdCp',
+        'sources': [SOURCE_TAR_GZ],
+        'patches': [('CREX-3.1.sh', '.')],
+        'checksums': [
+            '464e5988dc1e691c4617a76f73a79e8db1663b0239b907c18c67280e250b70e1',  # deMon2k-6.1.6.tar.gz
+            '951042d1bf7c1f1ff4bab212820c8a91eb88ae24e702ed412a4f6b57b00d600f',  # CREX-3.1.sh
+        ],
+        'cmds_map': [('', '%s bash CREX-3.1.sh std' % ' '.join(local_precmdopts))],
+        'files_to_copy': [(['object.std.gfortran/deMon.%(version)s.std'], 'bin')],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/deMon.%(version)s.std'] +
+             ['basis_sets/%s' % b for b in local_basissets],
+    'dirs': [],
+}
+
+modloadmsg = """
+Available deMon2k basis sets files in $EBROOTDEMON2K/basis_sets/: %s
+Basis sets files have to be placed in the working directory of your job (eg. `cp $EBROOTDEMON2K/basis_sets/* ./`)
+""" % ', '.join(local_basissets)
+
+# group = 'bdemon2k'
+
+moduleclass = 'chem'
