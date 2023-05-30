@@ -1,0 +1,44 @@
+easyblock = 'PythonBundle'
+
+name = 'dask-labextension'
+version = '5.3.1'
+
+homepage = 'https://github.com/dask/dask-labextension'
+description = """This package provides a JupyterLab extension to manage Dask clusters, as well
+as embed Dask's dashboard plots directly into JupyterLab panes."""
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+
+builddependencies = [
+    ('binutils', '2.36.1'),
+    ('nodejs', '14.17.0'),
+]
+
+dependencies = [
+    ('Python', '3.9.5'),
+    ('JupyterLab', '3.2.8'),
+    ('jupyter-server-proxy', '3.2.1'),
+    ('dask', '2021.9.1'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('dask_labextension', version, {
+        'checksums': ['2448ff4666529ff3e2e793b441d3b15a0b84b2a8e9412f087d66cf7ab6b09958'],
+    }),
+]
+
+sanity_pip_check = True
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/dask_labextension', 'etc/jupyter', 'share/jupyter'],
+}
+
+modextrapaths = {
+    'JUPYTER_PATH': 'share/jupyter',
+    'JUPYTER_CONFIG_PATH': 'etc/jupyter',
+}
+
+moduleclass = 'tools'
