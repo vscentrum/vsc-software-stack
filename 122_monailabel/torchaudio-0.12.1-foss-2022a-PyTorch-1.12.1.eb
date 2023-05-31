@@ -1,0 +1,54 @@
+easyblock = 'PythonPackage'
+
+name = 'torchaudio'
+version = '0.12.1'
+local_pytorch_version = '1.12.1'
+versionsuffix = '-PyTorch-%s' % local_pytorch_version
+
+homepage = 'https://github.com/pytorch/audio'
+description = """ Data manipulation and transformation for audio signal
+processing, powered by PyTorch """
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+source_urls = ['https://github.com/pytorch/audio/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['5c0b1b8283e159a70e9a6e9157b65f5e5dbc17066780ff31ff79e75a6d23ef8e']
+
+patches = ['torchaudio-0.12.1_deps_fix.patch']
+
+# sources = [{
+#     'filename': '%(name)s-%(version)s.tar.gz',
+#     'git_config': {
+#         'url': 'https://github.com/pytorch',
+#         'repo_name': 'audio',
+#         'tag': 'v%(version)s',
+#         'recursive': True,
+#         'keep_git_dir': True,
+#     }
+# }]
+
+checksums = [None]
+
+builddependencies = [
+    ('binutils', '2.38'),
+    ('CMake', '3.23.1'),
+    ('Ninja', '1.10.2'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('PyTorch', local_pytorch_version),
+    # ('SoX', '14.4.2'),
+    # ('FFmpeg', '4.4.2'),
+]
+
+preinstallopts = 'USE_FFMPEG=1'
+installopts = '--no-use-pep517'
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+
+moduleclass = 'tools'

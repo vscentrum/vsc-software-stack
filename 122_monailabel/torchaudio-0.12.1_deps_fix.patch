@@ -1,0 +1,86 @@
+diff -u audio/setup.py.orig audio/setup.py
+--- audio/setup.py.orig 2023-05-30 13:25:19.236087779 +0200
++++ audio/setup.py      2023-05-30 13:55:22.233463459 +0200
+@@ -69,7 +69,6 @@
+         "build*",
+         "test*",
+         "torchaudio.csrc*",
+-        "third_party*",
+         "tools*",
+     ]
+     exclude_prototype = False
+@@ -83,18 +82,6 @@
+     return find_packages(exclude=exclude)
+ 
+ 
+-def _init_submodule():
+-    print(" --- Initializing submodules")
+-    try:
+-        subprocess.check_call(["git", "submodule", "init"])
+-        subprocess.check_call(["git", "submodule", "update"])
+-    except Exception:
+-        print(" --- Submodule initalization failed")
+-        print("Please run:\n\tgit submodule update --init --recursive")
+-        sys.exit(1)
+-    print(" --- Initialized submodule")
+-
+-
+ def _parse_url(path):
+     with open(path, "r") as file_:
+         for line in file_:
+@@ -104,18 +91,6 @@
+                 yield url
+ 
+ 
+-def _parse_sources():
+-    third_party_dir = ROOT_DIR / "third_party"
+-    libs = ["zlib", "bzip2", "lzma", "sox"]
+-    archive_dir = third_party_dir / "archives"
+-    archive_dir.mkdir(exist_ok=True)
+-    for lib in libs:
+-        cmake_file = third_party_dir / lib / "CMakeLists.txt"
+-        for url in _parse_url(cmake_file):
+-            path = archive_dir / os.path.basename(url)
+-            yield path, url
+-
+-
+ def _fetch_archives(src):
+     for dest, url in src:
+         if not dest.exists():
+@@ -123,16 +98,10 @@
+             torch.hub.download_url_to_file(url, dest, progress=False)
+ 
+ 
+-def _fetch_third_party_libraries():
+-    _init_submodule()
+-    if os.name != "nt":
+-        _fetch_archives(_parse_sources())
+-
+-
+ def _main():
+-    sha = _run_cmd(["git", "rev-parse", "HEAD"])
+-    branch = _run_cmd(["git", "rev-parse", "--abbrev-ref", "HEAD"])
+-    tag = _run_cmd(["git", "describe", "--tags", "--exact-match", "@"])
++    sha = "58da31733e08438f9d1816f55f54756e53872a92"
++    branch = "HEAD"
++    tag = "v0.12.1"
+     print("-- Git branch:", branch)
+     print("-- Git SHA:", sha)
+     print("-- Git tag:", tag)
+@@ -142,7 +111,6 @@
+     print("-- Building version", version)
+ 
+     _make_version_file(version, sha)
+-    _fetch_third_party_libraries()
+ 
+     setup(
+         name="torchaudio",
+diff -u audio/CMakeLists.txt.orig audio/CMakeLists.txt
+--- audio/CMakeLists.txt.orig   2023-05-30 13:51:18.264260515 +0200
++++ audio/CMakeLists.txt        2023-05-30 13:51:41.491169703 +0200
+@@ -133,5 +133,4 @@
+ # TORCH_CXX_FLAGS contains the same -D_GLIBCXX_USE_CXX11_ABI value as PyTorch
+ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall ${TORCH_CXX_FLAGS}")
+ 
+-add_subdirectory(third_party)
+ add_subdirectory(torchaudio/csrc)
