@@ -1,0 +1,36 @@
+# output for command: /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/cellpose/2.2.1-foss-2022a  --no-deps  --ignore-installed  --no-index  --no-build-isolation  .
+
+Processing /tmp/vsc43810/easybuild/build/cellpose/2.2.1/foss-2022a/fastremap/fastremap-1.13.5
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+   python setup.py egg_info did not run successfully.
+   exit code: 1
+  > [16 lines of output]
+      Error parsing
+      Traceback (most recent call last):
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pbr/core.py", line 111, in pbr
+          attrs = util.cfg_to_args(path, dist.script_args)
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pbr/util.py", line 272, in cfg_to_args
+          pbr.hooks.setup_hook(config)
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pbr/hooks/__init__.py", line 25, in setup_hook
+          metadata_config.run()
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pbr/hooks/base.py", line 27, in run
+          self.hook()
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pbr/hooks/metadata.py", line 25, in hook
+          self.config['version'] = packaging.get_version(
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pbr/packaging.py", line 872, in get_version
+          raise Exception("Versioning for this project requires either an sdist"
+      Exception: Versioning for this project requires either an sdist tarball, or access to an upstream git repository. It's also possible that there is a mismatch between the package name in setup.cfg and the argument given to pbr.version.VersionInfo. Project name fastremap was given, but was not able to be found.
+      error in setup command: Error parsing /tmp/vsc43810/easybuild/build/cellpose/2.2.1/foss-2022a/fastremap/fastremap-1.13.5/setup.cfg: Exception: Versioning for this project requires either an sdist tarball, or access to an upstream git repository. It's also possible that there is a mismatch between the package name in setup.cfg and the argument given to pbr.version.VersionInfo. Project name fastremap was given, but was not able to be found.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+ Encountered error while generating package metadata.
+> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
