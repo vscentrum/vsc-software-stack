@@ -1,0 +1,90 @@
+# output for command: make  -j 8  CC="gcc"  CXX="g++"  ADD_CFLAGS="-O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11"  ADD_LDFLAGS="-L/apps/gent/RHEL8/cascadelake-ib/software/R/4.2.1-foss-2022a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/R/4.2.1-foss-2022a/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OpenCV/4.6.0-foss-2022a-contrib/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OpenCV/4.6.0-foss-2022a-contrib/lib -L/apps/gent/RHEL8/cascadelake-ib/software/graphviz-python/0.20.1-GCCcore-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/graphviz-python/0.20.1-GCCcore-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib -L/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib"  USE_BLAS="flexiblas"
+
+Makefile:384: WARNING: Significant performance increases can be achieved by installing and enabling gperftools or jemalloc development packages
+Makefile:769: warning: overriding recipe for target 'build/libcustomop_gpu_lib.so'
+Makefile:757: warning: ignoring old recipe for target 'build/libcustomop_gpu_lib.so'
+Makefile:772: warning: overriding recipe for target 'build/libsubgraph_lib.so'
+Makefile:760: warning: ignoring old recipe for target 'build/libsubgraph_lib.so'
+mkdir -p /tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/mkldnn/build/install/lib
+cmake /tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/mkldnn -DCMAKE_INSTALL_PREFIX=/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/mkldnn/build/install -DCMAKE_INSTALL_LIBDIR=lib -B/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/mkldnn/build -DMKLDNN_ARCH_OPT_FLAGS="" -DMKLDNN_BUILD_TESTS=OFF -DMKLDNN_BUILD_EXAMPLES=OFF -DMKLDNN_ENABLE_JIT_PROFILING=OFF -DMKLDNN_LIBRARY_TYPE=STATIC -DDNNL_ENABLE_CONCURRENT_EXEC=ON
+cd /tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core; make libdmlc.a USE_SSE=1 config=/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/make/config.mk; cd /tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1
+rm -rf build/3rdparty/intgemm
+git clone https://github.com/kpu/intgemm build/3rdparty/intgemm
+cd /tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/tvm/nnvm; make lib/libnnvm.a DMLC_CORE_PATH=/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core; cd /tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1
+Cloning into 'build/3rdparty/intgemm'...
+make[1]: Entering directory '/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core'
+make[1]: Entering directory '/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/tvm/nnvm'
+g++ -c -O3 -Wall -Wno-unknown-pragmas -Iinclude -std=c++0x -fopenmp -fPIC -DDMLC_USE_HDFS=0 -DDMLC_USE_S3=0 -DDMLC_USE_AZURE=0 -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -msse2 -o line_split.o src/io/line_split.cc
+g++ -c -O3 -Wall -Wno-unknown-pragmas -Iinclude -std=c++0x -fopenmp -fPIC -DDMLC_USE_HDFS=0 -DDMLC_USE_S3=0 -DDMLC_USE_AZURE=0 -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -msse2 -o indexed_recordio_split.o src/io/indexed_recordio_split.cc
+g++ -c -O3 -Wall -Wno-unknown-pragmas -Iinclude -std=c++0x -fopenmp -fPIC -DDMLC_USE_HDFS=0 -DDMLC_USE_S3=0 -DDMLC_USE_AZURE=0 -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -msse2 -o recordio_split.o src/io/recordio_split.cc
+CMake Warning:
+  Ignoring extra path from command line:
+
+   "/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/mkldnn"
+
+
+CMake Error: The source directory "/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/mkldnn" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.
+make: *** [mkldnn.mk:50: /tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/mkldnn/build/install/lib/libdnnl.a] Error 1
+make: *** Waiting for unfinished jobs....
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/c_api/c_api_graph.o src/c_api/c_api_graph.cc >build/src/c_api/c_api_graph.d
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/c_api/c_api_symbolic.o src/c_api/c_api_symbolic.cc >build/src/c_api/c_api_symbolic.d
+g++ -shared -fPIC -std=c++11 example/extensions/lib_custom_op/gemm_lib.cc src/lib_api.cc -o build/libcustomop_lib.so -I include
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/c_api/c_api_error.o src/c_api/c_api_error.cc >build/src/c_api/c_api_error.d
+cd build/3rdparty/intgemm && git checkout -q 4172dcc209e6793dd920dec9cf9c9fc81605bd9d
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/core/pass.o src/core/pass.cc >build/src/core/pass.d
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/core/pass.cc -o build/src/core/pass.o
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/c_api/c_api_graph.cc -o build/src/c_api/c_api_graph.o
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/c_api/c_api_error.cc -o build/src/c_api/c_api_error.o
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/c_api/c_api_symbolic.cc -o build/src/c_api/c_api_symbolic.o
+g++ -c -O3 -Wall -Wno-unknown-pragmas -Iinclude -std=c++0x -fopenmp -fPIC -DDMLC_USE_HDFS=0 -DDMLC_USE_S3=0 -DDMLC_USE_AZURE=0 -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -msse2 -o input_split_base.o src/io/input_split_base.cc
+g++ -c -O3 -Wall -Wno-unknown-pragmas -Iinclude -std=c++0x -fopenmp -fPIC -DDMLC_USE_HDFS=0 -DDMLC_USE_S3=0 -DDMLC_USE_AZURE=0 -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -msse2 -o io.o src/io.cc
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/core/symbolic.o src/core/symbolic.cc >build/src/core/symbolic.d
+g++ -c -O3 -Wall -Wno-unknown-pragmas -Iinclude -std=c++0x -fopenmp -fPIC -DDMLC_USE_HDFS=0 -DDMLC_USE_S3=0 -DDMLC_USE_AZURE=0 -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -msse2 -o filesys.o src/io/filesys.cc
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/core/node.o src/core/node.cc >build/src/core/node.d
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/core/symbolic.cc -o build/src/core/symbolic.o
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/core/op.o src/core/op.cc >build/src/core/op.d
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/core/node.cc -o build/src/core/node.o
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/core/graph.o src/core/graph.cc >build/src/core/graph.d
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/core/op.cc -o build/src/core/op.o
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/core/graph.cc -o build/src/core/graph.o
+g++ -c -O3 -Wall -Wno-unknown-pragmas -Iinclude -std=c++0x -fopenmp -fPIC -DDMLC_USE_HDFS=0 -DDMLC_USE_S3=0 -DDMLC_USE_AZURE=0 -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -msse2 -o local_filesys.o src/io/local_filesys.cc
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/pass/gradient.o src/pass/gradient.cc >build/src/pass/gradient.d
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/pass/infer_shape_type.o src/pass/infer_shape_type.cc >build/src/pass/infer_shape_type.d
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/pass/gradient.cc -o build/src/pass/gradient.o
+g++ -c -O3 -Wall -Wno-unknown-pragmas -Iinclude -std=c++0x -fopenmp -fPIC -DDMLC_USE_HDFS=0 -DDMLC_USE_S3=0 -DDMLC_USE_AZURE=0 -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -msse2 -o data.o src/data.cc
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/pass/infer_shape_type.cc -o build/src/pass/infer_shape_type.o
+g++ -c -O3 -Wall -Wno-unknown-pragmas -Iinclude -std=c++0x -fopenmp -fPIC -DDMLC_USE_HDFS=0 -DDMLC_USE_S3=0 -DDMLC_USE_AZURE=0 -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -msse2 -o recordio.o src/recordio.cc
+g++ -c -O3 -Wall -Wno-unknown-pragmas -Iinclude -std=c++0x -fopenmp -fPIC -DDMLC_USE_HDFS=0 -DDMLC_USE_S3=0 -DDMLC_USE_AZURE=0 -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -msse2 -o config.o src/config.cc
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/pass/correct_layout.o src/pass/correct_layout.cc >build/src/pass/correct_layout.d
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/pass/correct_layout.cc -o build/src/pass/correct_layout.o
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/pass/order_mutation.o src/pass/order_mutation.cc >build/src/pass/order_mutation.d
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/pass/plan_memory.o src/pass/plan_memory.cc >build/src/pass/plan_memory.d
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/pass/order_mutation.cc -o build/src/pass/order_mutation.o
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/pass/plan_memory.cc -o build/src/pass/plan_memory.o
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/pass/print_graph_ir.o src/pass/print_graph_ir.cc >build/src/pass/print_graph_ir.d
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/pass/saveload_json.o src/pass/saveload_json.cc >build/src/pass/saveload_json.d
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/pass/print_graph_ir.cc -o build/src/pass/print_graph_ir.o
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/pass/saveload_json.cc -o build/src/pass/saveload_json.o
+g++ -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -MM -MT build/src/pass/place_device.o src/pass/place_device.cc >build/src/pass/place_device.d
+g++ -c -std=c++11 -Wall -O2 -Iinclude -fPIC -I/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core/include -O3 -march=native -fno-math-errno -fopenmp -fPIC -std=c++11 -c src/pass/place_device.cc -o build/src/pass/place_device.o
+ar crv lib/libnnvm.a build/src/c_api/c_api_symbolic.o build/src/c_api/c_api_graph.o build/src/c_api/c_api_error.o build/src/core/pass.o build/src/core/symbolic.o build/src/core/node.o build/src/core/op.o build/src/core/graph.o build/src/pass/gradient.o build/src/pass/infer_shape_type.o build/src/pass/correct_layout.o build/src/pass/order_mutation.o build/src/pass/plan_memory.o build/src/pass/print_graph_ir.o build/src/pass/saveload_json.o build/src/pass/place_device.o
+a - build/src/c_api/c_api_symbolic.o
+a - build/src/c_api/c_api_graph.o
+a - build/src/c_api/c_api_error.o
+a - build/src/core/pass.o
+a - build/src/core/symbolic.o
+a - build/src/core/node.o
+a - build/src/core/op.o
+a - build/src/core/graph.o
+a - build/src/pass/gradient.o
+a - build/src/pass/infer_shape_type.o
+a - build/src/pass/correct_layout.o
+a - build/src/pass/order_mutation.o
+a - build/src/pass/plan_memory.o
+a - build/src/pass/print_graph_ir.o
+a - build/src/pass/saveload_json.o
+a - build/src/pass/place_device.o
+make[1]: Leaving directory '/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/tvm/nnvm'
+ar cr libdmlc.a line_split.o indexed_recordio_split.o recordio_split.o input_split_base.o io.o filesys.o local_filesys.o data.o recordio.o config.o
+make[1]: Leaving directory '/tmp/vsc43810/easybuild/build/MXNet/1.9.1/foss-2022a/mxnet-1.9.1/3rdparty/dmlc-core'

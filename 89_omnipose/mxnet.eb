@@ -7,20 +7,31 @@ description = """Flexible and Efficient Library for Deep Learning"""
 toolchain = {'name': 'foss', 'version': '2022a'}
 toolchainopts = {'cstd': 'c++11', 'opt': True, 'pic': True, 'openmp': True}
 
-source_urls = ['https://github.com/apache/mxnet/archive']
+source_urls = [
+    'https://github.com/apache/mxnet/archive',
+    'https://github.com/oneapi-src/oneDNN/archive/',
+]
 
 # MXNet pulls in a bunch of submodules which don't have releases.
 sources = [
-    'v%(version)s.tar.gz',                                              # MXNet
-    'https://github.com/dmlc/ps-lite/archive/34fd45cae457d59850fdcb2066467778d0673f21.tar.gz',    # ps-lite
-    'https://github.com/apache/tvm/archive/efdac9439506d1de5eec91ecc795982c78e41909.tar.gz',       # tvm
+    'v%(version)s.tar.gz',  # MXNet
+    'https://github.com/dmlc/ps-lite/archive/34fd45cae457d59850fdcb2066467778d0673f21.tar.gz',  # ps-lite
+    'https://github.com/apache/tvm/archive/efdac9439506d1de5eec91ecc795982c78e41909.tar.gz',  # tvm
     'https://github.com/dmlc/dmlc-core/archive/5df8305fe699d3b503d10c60a231ab0223142407.tar.gz',  # dmlc-core
     'https://github.com/dmlc/dlpack/archive/3efc489b55385936531a06ff83425b719387ec63.tar.gz',  # dlpack
     'https://github.com/google/googletest/archive/eb9225ce361affe561592e0912320b9db84985d0.tar.gz',  # googletest
     'https://github.com/kpu/intgemm/archive/8f28282c3bd854922da638024d2659be52e892e9.tar.gz',  # intgemm
     'https://github.com/NVlabs/cub/archive/0158fa19f28619886232defd412433974af89611.tar.gz',  # cub
-    'https://github.com/oneapi-src/oneDNN/archive/58be3660fb57c4c4a3d306730e849237d1271572.tar.gz',  # oneDNN
     'https://github.com/onnx/onnx-tensorrt/archive/5df8305fe699d3b503d10c60a231ab0223142407.tar.gz',  # onnx-tensorrt
+    # oneDNN:
+    {
+        'download_filename': '58be3660fb57c4c4a3d306730e849237d1271572.tar.gz',
+        'filename': 'mkldnn.tar.gz'
+    }
+]
+
+builddependencies = [
+    ('CMake', '3.23.1'),
 ]
 
 dependencies = [
