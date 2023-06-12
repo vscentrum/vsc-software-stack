@@ -25,7 +25,12 @@ exts_list = [
         'checksums': ['5847f5e8968035b3a5b04dcfa879fb6c14dd3a42dce8994864806dcda8a4fcf2'],
     }),
     (name, version, {
-        'checksums': ['79e03908990ca0089277eb7fb14f5ad77940030f0428aa50a609b41381cee089'],
+        'modulename': '%(name)s',
+        'patches': ['cuteSV-%(version)s_dep-fix.patch'],
+        'checksums': [
+            {'cuteSV-2.0.3.tar.gz': '79e03908990ca0089277eb7fb14f5ad77940030f0428aa50a609b41381cee089'},
+            {'cuteSV-2.0.3_dep-fix.patch': 'c8743e5bc376364a90548429b190f8926c6cdae4072b80e8aab9d23785233dd2'},
+        ],
     }),
 ]
 
