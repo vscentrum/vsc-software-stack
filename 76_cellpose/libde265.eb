@@ -1,7 +1,9 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Denis Kristak
 easyblock = 'CMakeMake'
 
 name = 'libde265'
-version = '1.0.11'
+version = '1.0.8'
 
 homepage = 'https://github.com/strukturag/libde265'
 description = "libde265 is an open source implementation of the h.265 video codec"
@@ -10,6 +12,7 @@ toolchain = {'name': 'GCC', 'version': '11.3.0'}
 
 source_urls = ['https://github.com/strukturag/libde265/releases/download/v%(version)s/']
 sources = [SOURCE_TAR_GZ]
+checksums = ['2f8f12cabbdb15e53532b7c1eb964d4e15d444db1be802505e6ac97a25035bab']
 
 builddependencies = [
     ('CMake', '3.23.1'),
