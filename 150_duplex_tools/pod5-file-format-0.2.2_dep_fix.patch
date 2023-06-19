@@ -1,0 +1,25 @@
+Use our pybind11 instead of the one in git submodules
+
+Author: Petr Král (INUITS)
+diff -u pod5-file-format-0.2.2/CMakeLists.txt.orig pod5-file-format-0.2.2/CMakeLists.txt
+--- pod5-file-format-0.2.2/CMakeLists.txt.orig  2023-06-06 17:14:27.000000000 +0200
++++ pod5-file-format-0.2.2/CMakeLists.txt       2023-06-15 09:25:57.272110983 +0200
+@@ -73,7 +73,6 @@
+ 
+ if (BUILD_PYTHON_WHEEL)
+     find_package (Python ${PYTHON_VERSION} EXACT COMPONENTS Interpreter Development)
+-    add_subdirectory(third_party/pybind11)
+ endif()
+ 
+ add_subdirectory(c++)
+diff -u pod5-file-format-0.2.2/c++/CMakeLists.txt.orig pod5-file-format-0.2.2/c++/CMakeLists.txt
+--- pod5-file-format-0.2.2/c++/CMakeLists.txt.orig      2023-06-06 17:14:27.000000000 +0200
++++ pod5-file-format-0.2.2/c++/CMakeLists.txt   2023-06-15 09:43:09.748410045 +0200
+@@ -21,6 +21,7 @@
+ endif()
+ 
+ find_package(Threads REQUIRED)
++find_package(pybind11 REQUIRED)
+ 
+ find_program(
+     FLATBUFFERS_FLATC_EXECUTABLE
