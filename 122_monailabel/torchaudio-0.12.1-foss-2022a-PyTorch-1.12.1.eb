@@ -11,24 +11,18 @@ processing, powered by PyTorch """
 
 toolchain = {'name': 'foss', 'version': '2022a'}
 
-source_urls = ['https://github.com/pytorch/audio/archive']
-sources = ['v%(version)s.tar.gz']
-checksums = ['5c0b1b8283e159a70e9a6e9157b65f5e5dbc17066780ff31ff79e75a6d23ef8e']
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/pytorch',
+        'repo_name': 'audio',
+        'tag': 'v%(version)s',
+        'recursive': True,
+        'keep_git_dir': True,
+    }
+}]
 
-patches = ['torchaudio-0.12.1_deps_fix.patch']
-
-# sources = [{
-#     'filename': '%(name)s-%(version)s.tar.gz',
-#     'git_config': {
-#         'url': 'https://github.com/pytorch',
-#         'repo_name': 'audio',
-#         'tag': 'v%(version)s',
-#         'recursive': True,
-#         'keep_git_dir': True,
-#     }
-# }]
-
-# checksums = [None]
+checksums = [None]
 
 builddependencies = [
     ('binutils', '2.38'),
