@@ -23,3 +23,35 @@ diff -u pod5-file-format-0.2.2/c++/CMakeLists.txt.orig pod5-file-format-0.2.2/c+
  
  find_program(
      FLATBUFFERS_FLATC_EXECUTABLE
+diff -u pod5-file-format-0.2.2/pyproject.toml.orig pod5-file-format-0.2.2/pyproject.toml
+--- pod5-file-format-0.2.2/pyproject.toml.orig  2023-06-06 17:14:27.000000000 +0200
++++ pod5-file-format-0.2.2/pyproject.toml       2023-06-20 09:50:17.673560734 +0200
+@@ -2,7 +2,7 @@
+ # To create this file, simply pip install the root pod-file-format directory
+ 
+ [build-system]
+-requires = ["setuptools >= 61.0", "wheel", "setuptools_scm[toml]>=6.2"]
++requires = ["setuptools >= 61.0", "wheel"]
+ build-backend = "setuptools.build_meta"
+ 
+ [project]
+@@ -14,7 +14,3 @@
+ [tool.setuptools.packages.find]
+ # Ignore all files
+ exclude = ["*"]
+-
+-[tool.setuptools_scm]
+-root = "."
+-write_to = "_version.py"
+diff -u pod5-file-format-0.2.2/c++/CMakeLists.txt.orig pod5-file-format-0.2.2/c++/CMakeLists.txt
+--- pod5-file-format-0.2.2/c++/CMakeLists.txt.orig      2023-06-06 17:14:27.000000000 +0200
++++ pod5-file-format-0.2.2/c++/CMakeLists.txt   2023-06-20 11:04:13.152439044 +0200
+@@ -162,7 +162,7 @@
+ set_target_properties(pod5_format
+     PROPERTIES
+         POSITION_INDEPENDENT_CODE 1
+-        CXX_STANDARD 14
++        CXX_STANDARD 17
+         PUBLIC_HEADER "${public_headers}"
+ )
+ 

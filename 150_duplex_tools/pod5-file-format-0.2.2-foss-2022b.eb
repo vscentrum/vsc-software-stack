@@ -15,7 +15,7 @@ sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ
 patches = ['pod5-file-format-0.2.2_dep_fix.patch']
 checksums = [
     {'pod5-file-format-0.2.2.tar.gz': '4921d399d8d037058a93df2991c763b280bd8122e79bf529130413b8007d0873'},
-    {'pod5-file-format-0.2.2_dep_fix.patch': '9d39b4791ed7e4482cf7ba4df59ce4a3500f764cd2593a808b43ac33a154b4b7'},
+    {'pod5-file-format-0.2.2_dep_fix.patch': 'afd735cb8434d2a99a23a2cb6ff96ca068e996f761d5a2e5964c333dcc42813d'},
 ]
 
 builddependencies = [
@@ -64,7 +64,19 @@ exts_list = [
     }),
 ]
 
-configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
+local_ver_major, local_ver_minor, local_ver_rev = version.split('.')
+
+preconfigopts = 'cd ../%(name)s-%(version)s && '
+preconfigopts %= {"name": name, "version": version}
+preconfigopts += 'echo "__version__ = version = \'%(version)s\'" > _version.py && '
+preconfigopts += 'echo "__version_tuple__ = version_tuple = (%(maj)s, %(min)s, %(rev)s)" >> _version.py && '
+preconfigopts %= {"maj": local_ver_major, "min": local_ver_minor, "rev": local_ver_rev, "version": version}
+preconfigopts += 'python -m pod5_make_version && '
+preconfigopts += 'cp _version.py python/lib_pod5/src/lib_pod5/ && '
+preconfigopts += 'cp _version.py python/pod5/src/pod5/ && '
+preconfigopts += 'cd - && '
+
+configopts = ' -DBUILD_PYTHON_WHEEL=ON -DARROW_HOME=$EBROOTARROW -DARROW_INCLUDE_DIR="$EBROOTARROW/include" -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
 
 installopts = ' && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s'
 installopts += ' && pip install --no-deps --ignore-installed --prefix %(installdir)s lib_pod5-%(version)s-*.whl'
