@@ -1,9 +1,10 @@
 easyblock = 'PythonBundle'
 
 name = 'monailabel'
-version = '0.6.0'
+version = '0.7.0'
 
-local_cuda_version = '11.7.0'
+# local_cuda_version = '11.7.0'
+local_pytorch_version = '1.12.0'
 
 homepage = 'https://docs.monai.io/projects/label/en/latest/'
 description = """MONAI Label is an intelligent open source image labeling and learning tool
@@ -15,9 +16,10 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 dependencies = [
     ('Python', '3.10.4'),
-    ('PyTorch', '1.12.1', '-CUDA-%(local_cuda_version)s'),
+    # ('PyTorch', '1.12.0', '-CUDA-%(local_cuda_version)s'),
+    ('PyTorch', local_pytorch_version),
     ('torchvision', '0.13.1'),
-    ('torchaudio', '0.12.1'),
+    ('torchaudio', '0.12.0', '-PyTorch-%s' % local_pytorch_version),
 ]
 
 sanity_pip_check = True
@@ -25,8 +27,8 @@ use_pip = True
 
 exts_list = [
     (name, version, {
-        'source_tmpl': 'monailabel-0.6.0-202212200524-py3-none-any.whl',
-        'checksums': ['489c89080db08ff433b0d0e0c450cdcb6204c8f9dc153395312f128fdbfa8ac1'],
+        'source_tmpl': 'monailabel-0.7.0-202306100113-py3-none-any.whl',
+        'checksums': ['1ed1eba6ff3efb66eb380fe6271d4eea6ab3d2577cfba8c145ba12a076ed6d50'],
     }),
 ]
 
