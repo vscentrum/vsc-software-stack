@@ -5,7 +5,7 @@ homepage = 'https://mxnet.io/'
 description = """Flexible and Efficient Library for Deep Learning"""
 
 toolchain = {'name': 'foss', 'version': '2022a'}
-toolchainopts = {'cstd': 'c++14', 'opt': True, 'pic': True, 'openmp': True}
+toolchainopts = {'cstd': 'c++14', 'opt': True, 'pic': True, 'openmp': True, 'extra_cflags': '-lflexiblas'}
 
 source_urls = [
     'https://github.com/apache/mxnet/archive',
@@ -30,6 +30,9 @@ sources = [
         # 'download_filename': 'mkldnn.tar.gz',
         # 'filename': '5818c40f07bdb6307f9bc64e929836fe036da644.tar.gz'
     }
+]
+patches = [
+    'mxnet.patch',
 ]
 
 builddependencies = [
