@@ -1,0 +1,50 @@
+easyblock = 'Binary'
+
+name = 'cctbx-base'
+version = '2023.5'
+
+homepage = 'https://github.com/cctbx/cctbx_project'
+description = "Computational Crystallography Toolbox"
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+source_urls = ['https://github.com/cctbx/cctbx_project/releases/download/v2023.5/']
+sources = ['cctbx-%(version)s.tar.gz']
+checksums = ['9983a4296e27f5c344555f079170a9abfc1513a3788a8e6087ae156003c8b2af']
+
+builddependencies = [
+    ('SCons', '4.4.0'),
+    ('Eigen', '3.4.0'),
+    ('pybind11', '2.9.2'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('Boost', '1.79.0'),
+    ('Boost.Python', '1.79.0'),
+    ('HDF5', '1.13.1'),
+]
+
+extract_sources = True
+
+local_cfgflags = ' '.join('--config-flags="%s"' % x for x in [
+    '--use_environment_flags',
+    '--skip_phenix_dispatchers',
+])
+
+local_sconscript = 'modules/cctbx_project/boost_adaptbx/SConscript'
+
+install_cmd = "rm -r modules/{boost,eigen,scons} && "
+install_cmd += "mkdir -p modules/boost && cd modules/boost && ln -s $EBROOTBOOST/include/boost && cd - && "
+install_cmd += "ln -s lib/libtbx/auto_build/bootstrap.py && "
+install_cmd += "export CCTBX_SKIP_CHEMDATA_CACHE_REBUILD=1 && "
+install_cmd += "python bootstrap.py --help && "
+install_cmd += "python bootstrap.py build --help && "
+install_cmd += "sed -i 's/build_boost_libs = True/build_boost_libs = False/g' %s && " % local_sconscript
+install_cmd += """sed -i 's/"boost_python"/"boost_python%%(pymajver)s%%(pyminver)s"/g' %s && """ % local_sconscript
+install_cmd += "python bootstrap.py build --builder=cctbx --with-python $EBROOTPYTHON/bin/python "
+install_cmd += "--no-boost-src --nproc %%(parallel)s %s && " % local_cfgflags
+install_cmd += "ls build && cd build && ./bin/libtbx.configure cma_es crys3d fable rstbx spotinder && "
+install_cmd += "./bin/libtbx.scons -j %(parallel)s && cd - "
+
+moduleclass = 'chem'
