@@ -23,6 +23,7 @@ dependencies = [
     ('Boost', '1.79.0'),
     ('Boost.Python', '1.79.0'),
     ('HDF5', '1.13.1'),
+    ('LibTIFF', '4.3.0'),
 ]
 
 extract_sources = True
@@ -41,7 +42,8 @@ install_cmd += "export CCTBX_SKIP_CHEMDATA_CACHE_REBUILD=1 && "
 install_cmd += "python bootstrap.py --help && "
 install_cmd += "python bootstrap.py build --help && "
 install_cmd += "sed -i 's/build_boost_libs = True/build_boost_libs = False/g' %s && " % local_sconscript
-install_cmd += """sed -i 's/"boost_python"/"boost_python%%(pymajver)s%%(pyminver)s"/g' %s && """ % local_sconscript
+install_cmd += """sed -i "s/'boost_python'/'boost_python%%(pymajver)s%%(pyminver)s'/g" %s && """ % local_sconscript
+install_cmd += """sed -i 's/"boost_python"/"boost_python%(pymajver)s%(pyminver)s"/g' modules/dxtbx/SConscript && """
 install_cmd += "python bootstrap.py build --builder=cctbx --with-python $EBROOTPYTHON/bin/python "
 install_cmd += "--no-boost-src --nproc %%(parallel)s %s && " % local_cfgflags
 install_cmd += "ls build && cd build && ./bin/libtbx.configure cma_es crys3d fable rstbx spotinder && "
