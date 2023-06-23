@@ -4,7 +4,7 @@ name = 'MONAI-Label'
 version = '0.5.2'
 
 local_pytorch_version = '1.12.0'
-versionsuffix = '-PyTorch-%s' % local_pytorch_version
+versionsuffix = '-PyTorch-' + local_pytorch_version + '-CUDA-%(cudaver)s'
 
 homepage = 'https://docs.monai.io/projects/label/en/latest/'
 description = """MONAI Label is an intelligent open source image labeling and learning tool
@@ -21,14 +21,15 @@ builddependencies = [
 ]
 
 dependencies = [
+    ('CUDA', '11.7.0', '', SYSTEM),
     ('Python', '3.10.4'),
-    ('PyTorch', local_pytorch_version),
-    ('torchvision', '0.13.1'),  # CUDA
-    ('torchaudio', '0.12.0', '-PyTorch-%s' % local_pytorch_version),
+    ('PyTorch', local_pytorch_version, '-CUDA-%(cudaver)s'),
+    ('torchvision', '0.13.1', '-CUDA-%(cudaver)s'),
+    ('torchaudio', '0.12.0', '-PyTorch-' + local_pytorch_version + '-CUDA-%(cudaver)s'),
     ('requests', '2.31.0'),
     ('einops', '0.4.1'),
-    ('MONAI', '1.0.1'),
-    ('OpenCV', '4.6.0', '-contrib'),
+    ('MONAI', '1.0.1', '-CUDA-%(cudaver)s'),
+    ('OpenCV', '4.6.0', '-CUDA-%(cudaver)s' + '-contrib'),
     ('pydantic', '1.10.4'),
     ('pydicom', '2.3.0'),
     ('pydicom-seg', '0.4.1'),
