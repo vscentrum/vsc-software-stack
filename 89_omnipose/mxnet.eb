@@ -27,13 +27,13 @@ sources = [
     {
         'download_filename': '5818c40f07bdb6307f9bc64e929836fe036da644.tar.gz',
         'filename': 'mkldnn.tar.gz'
-        # 'download_filename': 'mkldnn.tar.gz',
-        # 'filename': '5818c40f07bdb6307f9bc64e929836fe036da644.tar.gz'
     }
 ]
 patches = [
     'mxnet.patch',
 ]
+
+# preinstallopts = 'mv %(builddir)s/3rdparty/* %(builddir)s  && '
 
 builddependencies = [
     ('CMake', '3.23.1'),

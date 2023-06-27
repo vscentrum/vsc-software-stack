@@ -163,8 +163,7 @@ class EB_MXNet(MakeCp):
 
     def install_step(self):
         """Specify list of files to copy"""
-        self.cfg['files_to_copy'] = ['bin', 'include', 'lib',
-                                     (['dmlc-core/include/dmlc', 'nnvm/include/nnvm'], 'include')]
+        self.cfg['files_to_copy'] = ['bin', 'include', 'lib']
         super(EB_MXNet, self).install_step()
 
     def extensions_step(self):
@@ -179,6 +178,8 @@ class EB_MXNet(MakeCp):
 
         # next up, the R bindings
         self.r_ext.src = os.path.join(self.mxnet_src_dir, "R-package")
+        print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+        print(self.r_ext.src)
         change_dir(self.r_ext.src)
         mkdir("inst")
         symlink(os.path.join(self.installdir, "lib"), os.path.join("inst", "libs"))
@@ -187,17 +188,23 @@ class EB_MXNet(MakeCp):
         # MXNet doesn't provide a list of its R dependencies by default
         write_file("NAMESPACE", R_NAMESPACE)
         change_dir(self.mxnet_src_dir)
-        self.r_ext.prerun()
+        self.r_ext.prerun()  # tried commenting this out
+        print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
         # MXNet is just weird. To install the R extension, we have to:
         # - First install the extension like it is
         # - Let R export the extension again. By doing this, all the dependencies get
         #   correctly filled and some mappings are done
         # - Reinstal the exported version
         self.r_ext.run()
+        print('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
         run_cmd("R_LIBS=%s Rscript -e \"require(mxnet); mxnet:::mxnet.export(\\\"R-package\\\")\"" % self.installdir)
+        print('ccccccccccccccccccccccccccccccccccccc')
         change_dir(self.r_ext.src)
+        print('ddddddddddddddddddddddddddddddddddddd')
         self.r_ext.run()
+        print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
         self.r_ext.postrun()
+        print('fffffffffffffffffffffffffffffffffffff')
 
     def sanity_check_step(self):
         """Check for main library files for MXNet"""
