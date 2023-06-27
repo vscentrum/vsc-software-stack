@@ -176,35 +176,35 @@ class EB_MXNet(MakeCp):
         self.py_ext.run(unpack_src=False)
         self.py_ext.postrun()
 
-        # next up, the R bindings
-        self.r_ext.src = os.path.join(self.mxnet_src_dir, "R-package")
-        print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
-        print(self.r_ext.src)
-        change_dir(self.r_ext.src)
-        mkdir("inst")
-        symlink(os.path.join(self.installdir, "lib"), os.path.join("inst", "libs"))
-        symlink(os.path.join(self.installdir, "include"), os.path.join("inst", "include"))
+        # # next up, the R bindings
+        # self.r_ext.src = os.path.join(self.mxnet_src_dir, "R-package")
+        # print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+        # print(self.r_ext.src)
+        # change_dir(self.r_ext.src)
+        # mkdir("inst")
+        # symlink(os.path.join(self.installdir, "lib"), os.path.join("inst", "libs"))
+        # symlink(os.path.join(self.installdir, "include"), os.path.join("inst", "include"))
 
-        # MXNet doesn't provide a list of its R dependencies by default
-        write_file("NAMESPACE", R_NAMESPACE)
-        change_dir(self.mxnet_src_dir)
-        self.r_ext.prerun()  # tried commenting this out
-        print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-        # MXNet is just weird. To install the R extension, we have to:
-        # - First install the extension like it is
-        # - Let R export the extension again. By doing this, all the dependencies get
-        #   correctly filled and some mappings are done
-        # - Reinstal the exported version
-        self.r_ext.run()
-        print('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
-        run_cmd("R_LIBS=%s Rscript -e \"require(mxnet); mxnet:::mxnet.export(\\\"R-package\\\")\"" % self.installdir)
-        print('ccccccccccccccccccccccccccccccccccccc')
-        change_dir(self.r_ext.src)
-        print('ddddddddddddddddddddddddddddddddddddd')
-        self.r_ext.run()
-        print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
-        self.r_ext.postrun()
-        print('fffffffffffffffffffffffffffffffffffff')
+        # # MXNet doesn't provide a list of its R dependencies by default
+        # write_file("NAMESPACE", R_NAMESPACE)
+        # change_dir(self.mxnet_src_dir)
+        # self.r_ext.prerun()  # tried commenting this out
+        # print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+        # # MXNet is just weird. To install the R extension, we have to:
+        # # - First install the extension like it is
+        # # - Let R export the extension again. By doing this, all the dependencies get
+        # #   correctly filled and some mappings are done
+        # # - Reinstal the exported version
+        # self.r_ext.run()
+        # print('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
+        # run_cmd("R_LIBS=%s Rscript -e \"require(mxnet); mxnet:::mxnet.export(\\\"R-package\\\")\"" % self.installdir)
+        # print('ccccccccccccccccccccccccccccccccccccc')
+        # change_dir(self.r_ext.src)
+        # print('ddddddddddddddddddddddddddddddddddddd')
+        # self.r_ext.run()
+        # print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
+        # self.r_ext.postrun()
+        # print('fffffffffffffffffffffffffffffffffffff')
 
     def sanity_check_step(self):
         """Check for main library files for MXNet"""
