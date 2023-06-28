@@ -15,7 +15,7 @@ homepage = 'http://ccb.jhu.edu/software/%(namelower)s/'
 description = "TopHat is a fast splice junction mapper for RNA-Seq reads."
 
 toolchain = {'name': 'gompi', 'version': '2021b'}
-toolchainopts = {'cstd': 'gnu++98', 'pic': True}
+toolchainopts = {'cstd': 'gnu++98', 'pic': True, 'static': True}
 
 source_urls = ['http://ccb.jhu.edu/software/tophat/downloads/']
 sources = ['%(namelower)s-%(version)s.tar.gz']
@@ -25,8 +25,8 @@ builddependencies = [('Autoconf', '2.71')]
 
 dependencies = [
     ('Python', '2.7.18'),
+    ('Boost', '1.77.0'),
     ('SAMtools', '1.14'),
-    ('Boost', '1.75.0'),
     ('zlib', '1.2.11'),
 ]
 

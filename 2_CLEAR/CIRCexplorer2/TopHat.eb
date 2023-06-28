@@ -15,7 +15,7 @@ homepage = 'http://ccb.jhu.edu/software/%(namelower)s/'
 description = "TopHat is a fast splice junction mapper for RNA-Seq reads."
 
 toolchain = {'name': 'GCC', 'version': '11.2.0'}
-toolchainopts = {'cstd': 'gnu++98', 'pic': True}
+toolchainopts = {'cstd': 'gnu++98', 'pic': True, 'static': True}
 
 github_account = 'infphilo'
 source_urls = [GITHUB_LOWER_SOURCE]
@@ -26,10 +26,12 @@ checksums = [
     'a33075c2affda995ddbd250933dbcaf94f68768b1eebead58a69705fc40306ef',  # tophat-2.0.13-zlib.patch
 ]
 
-builddependencies = [('Autotools', '20210726')]
+builddependencies = [
+    ('Boost', '1.75.0'),
+    ('Autotools', '20210726'),
+]
 
 dependencies = [
-    ('Boost', '1.75.0'),
     ('zlib', '1.2.11'),
     ('Python', '2.7.18'),
 ]
