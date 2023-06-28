@@ -1,0 +1,36 @@
+easyblock = 'PythonBundle'
+
+name = 'Structure_threader'
+version = '1.3.10'
+
+
+homepage = 'https://github.com/StuntsPT/Structure_threader'
+description = """A program to parallelize the runs of Structure,
+ fastStructure, MavericK and ALStructure software."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    # TODO
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    (name, version, {
+        'modulename': '%(namelower)s',
+        'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
+        'checksums': ['b4d7258e5be370a001f6715599cb60a07583e32b7a8c385b0c87874a669c38b8'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/structure_threader'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["structure_threader --help"]  # TODO --help probably not available
+
+moduleclass = 'tools'
