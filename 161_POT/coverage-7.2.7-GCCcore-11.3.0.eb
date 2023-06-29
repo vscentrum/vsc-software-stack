@@ -1,7 +1,7 @@
 easyblock = 'PythonPackage'
 
 name = 'coverage'
-version = '7.2.3'
+version = '7.2.7'
 
 homepage = 'https://coverage.readthedocs.io'
 description = """ Coverage.py is a tool for measuring code coverage of Python programs.
@@ -11,7 +11,7 @@ description = """ Coverage.py is a tool for measuring code coverage of Python pr
 toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
 
 sources = [SOURCE_TAR_GZ]
-checksums = ['d298c2815fa4891edd9abe5ad6e6cb4207104c7dd9fd13aea3fdebf6f9b91259']
+checksums = ['924d94291ca674905fe9481f12294eb11f2d3d3fd1adb20314ba89e94f44ed59']
 
 builddependencies = [
     ('binutils', '2.38'),
@@ -29,5 +29,7 @@ sanity_check_paths = {
     'files': ['bin/coverage%s' % x for x in ['', '3', '-%(pyshortver)s']],
     'dirs': ['lib/python%(pyshortver)s/site-packages/%(name)s'],
 }
+
+sanity_check_commands = ["coverage --help"]
 
 moduleclass = 'tools'
