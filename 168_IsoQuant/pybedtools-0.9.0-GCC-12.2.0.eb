@@ -6,12 +6,12 @@ version = '0.9.0'
 homepage = 'https://daler.github.io/pybedtools'
 description = "pybedtools wraps and extends BEDTools and offers feature-level manipulations from within Python."
 
-toolchain = {'name': 'GCC', 'version': '11.3.0'}
+toolchain = {'name': 'GCC', 'version': '12.2.0'}
 
 dependencies = [
-    ('Python', '3.10.4'),
+    ('Python', '3.10.8'),
     ('BEDTools', '2.30.0'),
-    ('Pysam', '0.19.1'),
+    ('Pysam', '0.21.0'),
 ]
 
 use_pip = True
@@ -19,8 +19,6 @@ sanity_pip_check = True
 
 exts_list = [
     (name, version, {
-        'source_urls': ['https://daler.github.io/pybedtools/archive'],
-        'sources': [SOURCE_TAR_GZ],
         'checksums': ['9267c92cd764173449d9c31baedac0659b4eccc3d7c05e22ec378f86c0fc30a3'],
     }),
 ]
