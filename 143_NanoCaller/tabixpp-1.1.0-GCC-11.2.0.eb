@@ -1,29 +1,30 @@
 # Author: Jasper Grimm (UoY)
+# Updated: Petr Král (INUITS)
 
 easyblock = 'ConfigureMake'
 
 name = 'tabixpp'
-version = '1.1.0'
+version = '1.1.2'
 
 homepage = 'https://github.com/ekg/tabixpp'
 description = """C++ wrapper to tabix indexer"""
 
-toolchain = {'name': 'GCC', 'version': '11.2.0'}
+toolchain = {'name': 'GCC', 'version': '12.2.0'}
 
 github_account = 'ekg'
 source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
 patches = ['%(name)s-%(version)s_use-external-HTSlib.patch']
 checksums = [
-    '56c8f1b07190aba5e1d0b738e380e726d380f0ad8b2d0df133200b0ab1f8ed88',  # v1.1.0.tar.gz
+    'c850299c3c495221818a85c9205c60185c8ed9468d5ec2ed034470bb852229dc',  # v1.1.2.tar.gz
     '65496b6e042cf54290386a33cf0de26cb1160b3ddb35216765999d790b99cab4',  # tabixpp-1.1.0_use-external-HTSlib.patch
 ]
 
 dependencies = [
-    ('zlib', '1.2.11'),
+    ('zlib', '1.2.12'),
     ('bzip2', '1.0.8'),
-    ('XZ', '5.2.5'),
-    ('HTSlib', '1.14'),
+    ('XZ', '5.2.7'),
+    ('HTSlib', '1.17'),
     ('PCRE', '8.45'),
 ]
 

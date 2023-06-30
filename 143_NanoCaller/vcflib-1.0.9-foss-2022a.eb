@@ -1,6 +1,6 @@
 # Author: Jasper Grimm (UoY)
 # Updated: Denis Kristak (INUITS)
-# Update: Petr Král (INUITS)
+# Updated: Petr Král (INUITS)
 easyblock = 'CMakeMake'
 
 name = 'vcflib'
@@ -12,14 +12,16 @@ description = """vcflib provides methods to manipulate and interpret sequence va
  described by VCF. The Variant Call Format (VCF) is a flat-file, tab-delimited textual format intended
  to concisely describe reference-indexed genetic variations between individuals."""
 
-toolchain = {'name': 'foss', 'version': '2022a'}
+toolchain = {'name': 'foss', 'version': '2022b'}
 
 source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
+
 patches = [
     '%(name)s-%(version)s_use-external-deps.patch',
     '%(name)s-%(version)s_fix-shared-linking.patch',
 ]
+
 checksums = [
     None,
     # '5fd05f46dc251a56a322809da92c93c85318036aa9ac39a2eefc4fbd39b5df6c',  # v1.0.9.tar.gz
@@ -28,26 +30,26 @@ checksums = [
 ]
 
 builddependencies = [
-    ('binutils', '2.38'),
-    ('CMake', '3.23.1'),
+    ('binutils', '2.39'),
+    ('CMake', '3.24.3'),
     ('pkg-config', '0.29.2'),
 ]
 
 dependencies = [
-    ('Python', '3.10.4'),
-    ('Perl', '5.34.1'),
-    ('R', '4.2.1'),
-    ('XZ', '5.2.5'),
+    ('Python', '3.10.8'),
+    ('Perl', '5.36.0'),
+    ('R', '4.2.2'),
+    ('XZ', '5.2.7'),
     ('zlib', '1.2.12'),
     ('bzip2', '1.0.8'),
-    ('HTSlib', '1.15.1'),
+    ('HTSlib', '1.17'),
     # ('tabixpp', '1.1.2'),  # TODO update version
-    # ('intervaltree', '0.1'),  # TODO
-    # ('fastahack', '1.0.0'),  # TODO
-    # ('filevercmp', '20191210'),  # TODO
+    ('intervaltree', '0.1'),
+    ('fastahack', '1.0.0'),
+    ('filevercmp', '20191210'),
     # ('fsom', '20151117'),  # TODO update version
-    # ('multichoose', '1.0.3'),  # TODO
-    # ('smithwaterman', '20160702'),  # TODO
+    ('multichoose', '1.0.3'),
+    ('smithwaterman', '20160702'),
 ]
 
 preconfigopts = "find %(builddir)s/%(name)s-%(version)s/src -type f "
