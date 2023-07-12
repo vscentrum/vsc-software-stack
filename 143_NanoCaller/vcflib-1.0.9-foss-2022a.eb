@@ -12,14 +12,14 @@ description = """vcflib provides methods to manipulate and interpret sequence va
  described by VCF. The Variant Call Format (VCF) is a flat-file, tab-delimited textual format intended
  to concisely describe reference-indexed genetic variations between individuals."""
 
-toolchain = {'name': 'foss', 'version': '2022b'}
+toolchain = {'name': 'foss', 'version': '2022a'}
 
 source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
 
 patches = [
-    '%(name)s-%(version)s_use-external-deps.patch',
-    '%(name)s-%(version)s_fix-shared-linking.patch',
+    # '%(name)s-%(version)s_use-external-deps.patch',
+    # '%(name)s-%(version)s_fix-shared-linking.patch',
 ]
 
 checksums = [
@@ -30,19 +30,19 @@ checksums = [
 ]
 
 builddependencies = [
-    ('binutils', '2.39'),
-    ('CMake', '3.24.3'),
+    ('binutils', '2.38'),
+    ('CMake', '3.23.1'),
     ('pkg-config', '0.29.2'),
 ]
 
 dependencies = [
-    ('Python', '3.10.8'),
-    ('Perl', '5.36.0'),
-    ('R', '4.2.2'),
-    ('XZ', '5.2.7'),
+    ('Python', '3.10.4'),
+    ('Perl', '5.34.1'),
+    ('R', '4.2.1'),
+    ('XZ', '5.2.5'),
     ('zlib', '1.2.12'),
     ('bzip2', '1.0.8'),
-    ('HTSlib', '1.17'),
+    ('HTSlib', '1.15.1'),
     ('tabixpp', '1.1.2'),
     ('intervaltree', '0.1'),
     ('fastahack', '1.0.0'),
