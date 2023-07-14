@@ -1,7 +1,6 @@
-source: https://github.com/apache/mxnet/pull/21093
 diff -ruN mxnet-1.9.1_orig/cmake/ChooseBlas.cmake mxnet-1.9.1/cmake/ChooseBlas.cmake
 --- mxnet-1.9.1_orig/cmake/ChooseBlas.cmake	2022-04-22 00:45:57.000000000 +0200
-+++ mxnet-1.9.1/cmake/ChooseBlas.cmake	2023-06-21 13:23:41.986229000 +0200
++++ mxnet-1.9.1/cmake/ChooseBlas.cmake	2023-07-10 12:13:14.448174000 +0200
 @@ -16,10 +16,11 @@
  # under the License.
  
@@ -15,7 +14,7 @@ diff -ruN mxnet-1.9.1_orig/cmake/ChooseBlas.cmake mxnet-1.9.1/cmake/ChooseBlas.c
  else()
    if(USE_MKL_IF_AVAILABLE)
      if(NOT MKL_FOUND)
-@@ -31,7 +32,15 @@
+@@ -31,7 +32,14 @@
    endif()
  endif()
  
@@ -24,7 +23,6 @@ diff -ruN mxnet-1.9.1_orig/cmake/ChooseBlas.cmake mxnet-1.9.1/cmake/ChooseBlas.c
 +  set(BLA_VENDOR FlexiBLAS)
 +  find_package(BLAS REQUIRED)
 +  include_directories(SYSTEM ${BLAS_INCLUDE_DIR})
-+  list(APPEND mshadow_LINKER_LIBS ${BLAS_LIBRARIES})
 +  add_definitions(-DMSHADOW_USE_CBLAS=1)
 +  add_definitions(-DMSHADOW_USE_MKL=0)
 +  add_definitions(-DMXNET_USE_LAPACK=1)
