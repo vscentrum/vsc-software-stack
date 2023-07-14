@@ -1,5 +1,6 @@
 # Updated: Denis Kristak (INUITS)
 # Updated: Petr Král (INUITS)
+
 easyblock = 'ConfigureMake'
 
 name = 'filevercmp'
@@ -9,7 +10,7 @@ local_commit = 'df20dcc'
 homepage = 'https://github.com/ekg/filevercmp'
 description = """filevercmp function as in sort --version-sort."""
 
-toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
 
 github_account = 'ekg'
 source_urls = [GITHUB_SOURCE]
@@ -20,7 +21,7 @@ checksums = [
     '051438f76dd04219abfb283f61101c04d748407031e180b7ae3841344416ec4f',  # filevercmp-20191210_build-libs.patch
 ]
 
-builddependencies = [('binutils', '2.39')]
+builddependencies = [('binutils', '2.38')]
 
 skipsteps = ['configure']
 

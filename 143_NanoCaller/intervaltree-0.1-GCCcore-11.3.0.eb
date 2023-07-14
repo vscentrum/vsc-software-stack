@@ -1,5 +1,6 @@
 # Updated: Denis Kristak (INUITS)
 # Updated: Petr Král (INUITS)
+
 easyblock = 'ConfigureMake'
 
 name = 'intervaltree'
@@ -11,7 +12,7 @@ description = """An interval tree can be used to efficiently find a set of numer
  interval tree using C++ templates, allowing the insertion of arbitrary types into the tree.
 """
 
-toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
 
 github_account = 'ekg'
 source_urls = [GITHUB_SOURCE]
@@ -22,7 +23,7 @@ checksums = [
     '1d69caf35af86c0a55000e1bde3f9a0f19dd63d1d2b6bd48e4e5fecbb1aaa6b0',  # intervaltree-0.1_fix-numeric_limits.patch
 ]
 
-builddependencies = [('binutils', '2.39')]
+builddependencies = [('binutils', '2.38')]
 
 skipsteps = ['configure']
 

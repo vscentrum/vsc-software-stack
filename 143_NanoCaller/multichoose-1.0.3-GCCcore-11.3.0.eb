@@ -6,7 +6,7 @@ version = '1.0.3'
 homepage = 'https://github.com/ekg/multichoose'
 description = """generate multiset combinations (n multichoose k)."""
 
-toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
 
 github_account = 'ekg'
 source_urls = [GITHUB_SOURCE]
@@ -17,7 +17,7 @@ checksums = [
     '96abf6ac1105ee596be078d6e8fb478f870a4ae33fffe70f93e627c0360cfc77',  # multichoose-1.0.3_improve-build-system.patch
 ]
 
-builddependencies = [('binutils', '2.39')]
+builddependencies = [('binutils', '2.38')]
 
 local_bins = [name, 'multipermute']
 files_to_copy = [(local_bins, 'bin'), (['*.h'], 'include/%(name)s')]

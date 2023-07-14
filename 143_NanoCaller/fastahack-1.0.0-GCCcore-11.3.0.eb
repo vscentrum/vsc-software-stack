@@ -1,5 +1,6 @@
 # Updated: Denis Kristak (INUITS)
 # Updated: Petr Král (INUITS)
+
 easyblock = 'ConfigureMake'
 
 name = 'fastahack'
@@ -8,7 +9,7 @@ version = '1.0.0'
 homepage = 'https://github.com/ekg/fastahack'
 description = """Utilities for indexing and sequence extraction from FASTA files."""
 
-toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
 
 github_account = 'ekg'
 source_urls = [GITHUB_SOURCE]
@@ -19,7 +20,7 @@ checksums = [
     '7f804486c6bafd9b1572cb5f86ff28dbebb4d6da551bde1091d6ff8f82748bf4',  # fastahack-1.0.0_build-libs.patch
 ]
 
-builddependencies = [('binutils', '2.39')]
+builddependencies = [('binutils', '2.38')]
 
 skipsteps = ['configure']
 

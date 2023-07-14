@@ -1,14 +1,10 @@
 # Patch to build static and dynamic libraries. Based on PR by outpaddling:
 #  https://github.com/ekg/fsom/pull/4
+# Updated: Petr Král (INUITS)
 
-diff -Nru fsom-a6ef318fbd347c53189384aef7f670c0e6ce89a3.orig/Makefile fsom-a6ef318fbd347c53189384aef7f670c0e6ce89a3/Makefile
---- fsom-a6ef318fbd347c53189384aef7f670c0e6ce89a3.orig/Makefile	2021-05-05 15:29:54.000000000 +0100
-+++ fsom-a6ef318fbd347c53189384aef7f670c0e6ce89a3/Makefile	2021-05-07 14:58:43.000000000 +0100
-@@ -1,5 +1,62 @@
--all:
--	g++ -w -O3 -pipe -fomit-frame-pointer -ffast-math fsom.c split.cpp main.cpp -o fsom -lm
--clean:
--	rm -f *.o fsom
+--- fsom-56695e1611d824cda97f08e932d25d08419170cd/Makefile.orig	2015-11-17 13:39:52.000000000 +0100
++++ fsom-56695e1611d824cda97f08e932d25d08419170cd/Makefile	2023-07-12 13:04:52.141543805 +0200
+@@ -1,22 +1,62 @@
 +# Use ?= to allow overriding from the env or command-line, e.g.
 +#
 +#       make CXXFLAGS="-O3 -fPIC" install
@@ -16,10 +12,11 @@ diff -Nru fsom-a6ef318fbd347c53189384aef7f670c0e6ce89a3.orig/Makefile fsom-a6ef3
 +# Package managers will override many of these variables automatically, so
 +# this is aimed at making it easy to create packages (Debian packages,
 +# FreeBSD ports, MacPorts, pkgsrc, etc.)
-+
-+CXX ?=		g++
-+CXXFLAGS ?=	-w -O3 -pipe -fomit-frame-pointer -ffast-math
-+
+ 
+ CXX ?=		g++
+ CXXFLAGS ?=	-w -O3 -pipe -fomit-frame-pointer -ffast-math
+ 
+-OBJS =	fsom.o split.o main.o
 +PREFIX ?=	/usr/local
 +STRIP ?=	strip
 +INSTALL ?=	install -c
@@ -45,7 +42,7 @@ diff -Nru fsom-a6ef318fbd347c53189384aef7f670c0e6ce89a3.orig/Makefile fsom-a6ef3
 +
 +.c.pico .cpp.pico:
 +	$(CXX) $(CXXFLAGS) -I. -fPIC -c -o $@ $<
- 
++
 +all:	$(BIN) $(SLIB) $(LIB)
 +
 +$(LIB):	$(OBJS)
@@ -65,9 +62,23 @@ diff -Nru fsom-a6ef318fbd347c53189384aef7f670c0e6ce89a3.orig/Makefile fsom-a6ef3
 +	$(INSTALL) $(BIN) $(BINDIR)
 +	$(INSTALL) *.h $(INCDIR)
 +	$(INSTALL) $(LIB) $(SLIB) $(SLIB).$(SOVERSION) $(LIBDIR)
-+
+ 
+-all:	fsom
+-
+-fsom:	${OBJS}
+-	${CXX} -o fsom ${OBJS} -lm
+-
+-fsom.o:	fsom.c
+-	${CXX} ${CXXFLAGS} -c fsom.c
+-
+-split.o: split.cpp
+-	${CXX} ${CXXFLAGS} -c split.cpp
+-
+-main.o: main.cpp
+-	${CXX} ${CXXFLAGS} -c main.cpp
 +install-strip: install
 +	$(STRIP) $(BINDIR)/$(BIN) $(LIBDIR)/$(LIB) $(LIBDIR)/$(SLIB)
-+
-+clean:
+ 
+ clean:
+-	rm -f *.o fsom
 +	rm -rf *.o *.pico $(BIN) $(LIB) $(SLIB) $(DESTDIR)
