@@ -1,7 +1,7 @@
 easyblock = 'CmdCp'
 
 name = 'RTG-Tools'
-version = '3.9.1'
+version = '3.12.1'
 versionsuffix = '-Java-%(javaver)s'
 
 homepage = 'https://www.realtimegenomics.com/products/rtg-tools'
@@ -12,10 +12,10 @@ toolchain = SYSTEM
 
 source_urls = ['https://github.com/RealTimeGenomics/rtg-tools/archive']
 sources = ['%(version)s.tar.gz']
-checksums = ['e4738c236a5a1ad13754500b2078c9500d66051ac305abf96730015230c4f830']
+checksums = ['6ee0ffe1bba7b5497aa09b147a7525b77b1808e6a71368aad440cbd64658085c']
 
-builddependencies = [('ant', '1.10.5', versionsuffix)]  # TODO update?
-dependencies = [('Java', '1.8')]  # TODO update?
+builddependencies = [('ant', '1.10.12', versionsuffix)]
+dependencies = [('Java', '17')]
 
 local_comp_cmd = 'ant runalltests && ant zip-nojre'
 local_comp_cmd += ' && unzip %(builddir)s/rtg-tools-%(version)s/dist/rtg-tools-%(version)s-unknown-nojre.zip'
