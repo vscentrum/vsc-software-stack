@@ -1,0 +1,25 @@
+easyblock = 'PythonPackage'
+
+name = 'mgen'
+version = '1.2.1'
+
+homepage = 'https://github.com/NOhs/mgen/tree/master'
+description = "Convenient matrix generation functions"
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+sources = [SOURCE_TAR_GZ]
+
+# also requires pbr, which is an extension in Python already
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05')
+]
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+
+# options = {'modulename': False}
+
+moduleclass = 'math'
