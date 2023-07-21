@@ -1,0 +1,65 @@
+easyblock = 'PythonBundle'
+
+name = 'Mikado'
+version = '2.3.4'
+
+homepage = 'https://github.com/EI-CoreBioinformatics/mikado'
+description = """Mikado is a lightweight Python3 pipeline to identify
+ the most useful or “best” set of transcripts from multiple transcript
+ assemblies. Our approach leverages transcript assemblies generated
+ by multiple methods to define expressed loci, assign a representative
+ transcript and return a set of gene models that selects against transcripts
+ that are chimeric, fragmented or with short or disrupted CDS."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('Biopython', '1.81'),
+    ('hypothesis', '6.68.2'),
+    ('networkx', '2.8.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('Pysam', '0.21.0'),
+    ('PyYAML', '6.0'),
+    ('snakemake', '7.30.2'),  # TODO update from 2022a to 2022b
+    ('pyfaidx', '0.7.2.1'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('drmaa', '0.7.9', {
+        'checksums': ['12540cd98afc40d5c0b2f38d7b0e46468d1c45192a2f401f41fc2eda9c9f5542'],
+    }),
+    ('SQLAlchemy', '2.0.19', {
+        'checksums': ['77a14fa20264af73ddcdb1e2b9c5a829b8cc6b8304d0f093271980e36c200a3f'],
+    }),
+    ('SQLAlchemy-Utils', '0.41.1', {
+        'checksums': ['a2181bff01eeb84479e38571d2c0718eb52042f9afd8c194d0d02877e84b7d74'],
+    }),
+    ('python-rapidjson', '1.10', {
+        'checksums': ['acfecbf5edb91ec72a20a125de7f56b8c2f6161eff4c65382c8ee6a2484d3540'],
+    }),
+    ('marshmallow', '3.20.1', {
+        'checksums': ['5d2371bbe42000f2b3fb5eaa065224df7d8f8597bc19a1bbfa5bfe7fba8da889'],
+    }),
+    ('dataclasses', '0.8', {
+        'checksums': ['8479067f342acf957dc82ec415d355ab5edb7e7646b90dc6e2fd1d96ad084c97'],
+    }),
+    ('marshmallow_dataclass', '8.5.14', {
+        'checksums': ['233c414dd24a6d512bcdb6fb840076bf7a29b7daaaea40634f155a5933377d2e'],
+    }),
+    ('typeguard', '4.0.0', {
+        'checksums': ['194fb3dbcb06ea9caf7088f3befee014de57961689f9c859ac5239b1ef61d987'],
+    }),
+    (name, version, {
+        'checksums': ['6d8844bacacc776214cf35cb148fa638c029b2972751d04fc1f7d0d8f3e961c2'],
+    }),
+]
+
+sanity_check_commands = [
+    "python -c 'import Mikado; Mikado.test()'"
+]
+
+moduleclass = 'bio'

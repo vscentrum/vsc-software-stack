@@ -1,0 +1,47 @@
+easyblock = 'PythonBundle'
+
+name = 'Mikado'
+version = '2.3.4'
+
+homepage = 'https://github.com/EI-CoreBioinformatics/mikado'
+description = """Mikado is a lightweight Python3 pipeline to identify
+ the most useful or “best” set of transcripts from multiple transcript
+ assemblies. Our approach leverages transcript assemblies generated
+ by multiple methods to define expressed loci, assign a representative
+ transcript and return a set of gene models that selects against transcripts
+ that are chimeric, fragmented or with short or disrupted CDS."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('Biopython', '1.81'),
+    ('hypothesis', '6.68.2'),
+    ('networkx', '2.8.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('Pysam', '0.21.0'),
+    ('PyYAML', '6.0'),
+    ('snakemake', '7.30.2'),  # TODO update from 2022a to 2022b
+    ('pyfaidx', '0.7.2.1'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('drmaa', '0.7.9'),
+    ('SQLAlchemy', '2.0.19'),
+    ('SQLAlchemy-Utils', '0.41.1'),
+    ('python-rapidjson', '1.10'),
+    ('marshmallow', '3.20.1'),
+    ('dataclasses', '0.8'),
+    ('marshmallow_dataclass', '8.5.14'),
+    ('typeguard', '4.0.0'),
+    (name, version),
+]
+
+sanity_check_commands = [
+    "python -c 'import Mikado; Mikado.test()'"
+]
+
+moduleclass = 'bio'
