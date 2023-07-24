@@ -3,7 +3,8 @@ easyblock = 'Bundle'
 name = 'ResistanceGA'
 version = '4.2-5'
 local_commit = '04326a8'
-versionsuffix = '-R-%(rver)s'
+_julia_ver = '1.9.2'
+versionsuffix = '-R-%%(rver)s-Julia-%s' % _julia_ver
 
 homepage = 'https://github.com/wpeterman/ResistanceGA'
 description = "An R package to optimize resistance surfaces using Genetic Algorithms."
@@ -12,7 +13,8 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 dependencies = [
     ('R', '4.2.1'),
-    ('Circuitscape', '5.12.3', "-Julia-1.7.2", SYSTEM),
+    ('Julia', _julia_ver, '-linux-%s' % ARCH, SYSTEM),
+    ('Circuitscape', '5.12.3', '-Julia-%s' % _julia_ver, SYSTEM),
 ]
 
 exts_defaultclass = 'RPackage'
@@ -28,12 +30,12 @@ exts_default_options = {
 }
 
 exts_list = [
-    ('Suppressor', '0.2.0', {
+    ('Suppressor', '0.2.4', {
         'easyblock': 'JuliaPackage',
         'source_urls': ['https://github.com/JuliaIO/Suppressor.jl/archive/'],
         'sources': ['v%(version)s.tar.gz'],
     }),
-    ('RCall', '0.13.13', {
+    ('RCall', '0.13.15', {
         'easyblock': 'JuliaPackage',
         'source_urls': ['https://github.com/JuliaInterop/RCall.jl/archive/'],
         'sources': ['v%(version)s.tar.gz'],

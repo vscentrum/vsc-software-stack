@@ -1,0 +1,71 @@
+easyblock = 'PythonBundle'
+
+name = 'pytest'
+version = '7.3.2'
+
+homepage = 'https://docs.pytest.org/en/latest/'
+description = """The pytest framework makes it easy to write small,
+readable tests, and can scale to support complex functional testing for
+applications and libraries."""
+
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+
+builddependencies = [
+    ('binutils', '2.38'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+]
+
+use_pip = True
+
+exts_default_options = {'source_urls': [PYPI_LOWER_SOURCE]}
+
+# Note! Some of the file system related tests may fail on shared file systems.
+# Notably TestPOSIXLocalPath.test_copy_stat_file, TestPOSIXLocalPath.test_copy_stat_dir
+# and test_source_mtime_long_long are known to fail on GPFS
+# Build with buildpath and tmpdir set to a local file system to avoid this
+# or use --ignore-test-failures
+_skip_tests = [
+    'testing/io/test_terminalwriter.py',
+    'testing/test_terminal.py',
+    'testing/test_debugging.py',
+    'testing/test_config.py',
+    'testing/test_helpconfig.py',
+]
+_ignore_tests = ' --ignore='.join(_skip_tests)
+
+exts_list = [
+    ('setuptools-scm', '7.1.0', {
+        'source_tmpl': 'setuptools_scm-%(version)s.tar.gz',
+        'checksums': ['6c508345a771aad7d56ebff0e70628bf2b0ec7573762be9960214730de278f27'],
+    }),
+    ('flit-core', '3.9.0', {
+        'source_tmpl': 'flit_core-%(version)s.tar.gz',
+    }),
+    ('flit-scm', '1.7.0', {
+        'source_tmpl': 'flit_scm-%(version)s.tar.gz',
+        'checksums': ['961bd6fb24f31bba75333c234145fff88e6de0a90fc0f7e5e7c79deca69f6bb2'],
+    }),
+    ('exceptiongroup', '1.1.2', {
+    }),
+    ('hypothesis', '6.80.0', {
+    }),
+    ('elementpath', '4.1.4', {
+    }),
+    ('xmlschema', '2.3.1', {
+    }),
+    (name, version, {
+    }),
+]
+
+sanity_check_commands = [
+    "python -c 'import pytest'",
+    'cd %%(builddir)s/%%(name)s/%%(name)s-%%(version)s && %%(installdir)s/bin/pytest --ignore=%s testing'
+    % _ignore_tests,
+]
+
+sanity_pip_check = True
+
+moduleclass = 'lib'

@@ -1,0 +1,1129 @@
+== 2023-07-04 14:03:59,469 easyblock.py:313 INFO This is EasyBuild 4.7.3.dev0-r366e71d77260adc73e8976bffeccb83b1b289c5d (framework: 4.7.3.dev0-r366e71d77260adc73e8976bffeccb83b1b289c5d, easyblocks: 4.7.3.dev0-r8a7ffbad49ed3c9a4bf658f6a76c663792342e09) on host node4004.donphan.os.
+== 2023-07-04 14:03:59,469 easyblock.py:319 INFO This is easyblock CMakePythonPackage from module easybuild.easyblocks.generic.cmakepythonpackage (/user/gent/445/vsc44588/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/cmakepythonpackage.py)
+== 2023-07-04 14:03:59,469 easyblock.py:1040 INFO Build dir set to /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0
+== 2023-07-04 14:03:59,469 easyblock.py:1097 INFO Software install dir set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0
+== 2023-07-04 14:03:59,469 easyblock.py:1102 INFO Module install dir set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/modules/all
+== 2023-07-04 14:03:59,470 easyblock.py:288 INFO Init completed for application name GenomeWorks version 2021.02.2
+== 2023-07-04 14:03:59,470 pythonpackage.py:307 INFO Using default value for expected module name (lowercase software name): 'genomeworks'
+== 2023-07-04 14:03:59,470 pythonpackage.py:371 INFO Using '%(python)s setup.py %(install_target)s --prefix=%(prefix)s %(installopts)s' as install command
+== 2023-07-04 14:03:59,470 easyblock.py:4200 INFO Obtained application instance of for GenomeWorks (easyblock: CMakePythonPackage)
+== 2023-07-04 14:03:59,470 easyconfig.py:1690 INFO Generating template values...
+== 2023-07-04 14:03:59,470 mpi.py:122 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2023-07-04 14:03:59,470 mpi.py:307 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2023-07-04 14:03:59,471 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='genomeworks', cudamajver='11', cudaminver='7', cudashortver='11.7', cudaver='11.7.0', github_account='genomeworks', module_name='GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', mpi_cmd_prefix='mpirun -n 1', name='GenomeWorks', nameletter='G', nameletterlower='g', namelower='genomeworks', pymajver='3', pyminver='10', pyshortver='3.10', pyver='3.10.4', toolchain_name='foss', toolchain_version='2022a', version='2021.02.2', version_major='2021', version_major_minor='2021.02', version_minor='02', versionprefix='', versionsuffix='-CUDA-11.7.0'
+== 2023-07-04 14:03:59,472 one.py:180 INFO Skipping reformatting value for parameter 'toolchain'
+== 2023-07-04 14:03:59,472 one.py:180 INFO Skipping reformatting value for parameter 'toolchainopts'
+== 2023-07-04 14:03:59,473 filetools.py:1913 INFO Creating directory /tmp/vsc44588/eb-26zvow2j/reprod_20230704140359_3505127 (parents: True, set_gid: False, sticky: False)
+== 2023-07-04 14:03:59,473 easyblock.py:4454 INFO Dumped easyconfig instance to /tmp/vsc44588/eb-26zvow2j/reprod_20230704140359_3505127/GenomeWorks-2021.02.2-foss-2022a-CUDA-11.7.0.eb
+== 2023-07-04 14:03:59,476 filetools.py:1913 INFO Creating directory /tmp/vsc44588/eb-26zvow2j/reprod_20230704140359_3505127/easyblocks (parents: True, set_gid: False, sticky: False)
+== 2023-07-04 14:03:59,506 filetools.py:2426 INFO /user/gent/445/vsc44588/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/cmakemake.py copied to /tmp/vsc44588/eb-26zvow2j/reprod_20230704140359_3505127/easyblocks/cmakemake.py
+== 2023-07-04 14:03:59,506 easyblock.py:4434 INFO Dumped easyblock cmakemake.py required for reproduction to /tmp/vsc44588/eb-26zvow2j/reprod_20230704140359_3505127/easyblocks
+== 2023-07-04 14:03:59,506 filetools.py:2426 INFO /user/gent/445/vsc44588/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/cmakepythonpackage.py copied to /tmp/vsc44588/eb-26zvow2j/reprod_20230704140359_3505127/easyblocks/cmakepythonpackage.py
+== 2023-07-04 14:03:59,506 easyblock.py:4434 INFO Dumped easyblock cmakepythonpackage.py required for reproduction to /tmp/vsc44588/eb-26zvow2j/reprod_20230704140359_3505127/easyblocks
+== 2023-07-04 14:03:59,527 filetools.py:2426 INFO /user/gent/445/vsc44588/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/configuremake.py copied to /tmp/vsc44588/eb-26zvow2j/reprod_20230704140359_3505127/easyblocks/configuremake.py
+== 2023-07-04 14:03:59,527 easyblock.py:4434 INFO Dumped easyblock configuremake.py required for reproduction to /tmp/vsc44588/eb-26zvow2j/reprod_20230704140359_3505127/easyblocks
+== 2023-07-04 14:03:59,554 filetools.py:2426 INFO /user/gent/445/vsc44588/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/pythonpackage.py copied to /tmp/vsc44588/eb-26zvow2j/reprod_20230704140359_3505127/easyblocks/pythonpackage.py
+== 2023-07-04 14:03:59,554 easyblock.py:4434 INFO Dumped easyblock pythonpackage.py required for reproduction to /tmp/vsc44588/eb-26zvow2j/reprod_20230704140359_3505127/easyblocks
+== 2023-07-04 14:03:59,555 easyblock.py:2209 INFO Number of iterations to perform for central part of installation procedure: 1
+== 2023-07-04 14:03:59,555 build_log.py:267 INFO building and installing GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0...
+== 2023-07-04 14:03:59,560 filetools.py:2006 INFO Lock /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_cascadelake-ampere-ib_software_GenomeWorks_2021.02.2-foss-2022a-CUDA-11.7.0.lock does not exist
+== 2023-07-04 14:03:59,560 filetools.py:1947 INFO Creating lock at /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_cascadelake-ampere-ib_software_GenomeWorks_2021.02.2-foss-2022a-CUDA-11.7.0.lock...
+== 2023-07-04 14:03:59,560 filetools.py:1913 INFO Creating directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_cascadelake-ampere-ib_software_GenomeWorks_2021.02.2-foss-2022a-CUDA-11.7.0.lock (parents: True, set_gid: False, sticky: False)
+== 2023-07-04 14:03:59,589 filetools.py:1956 INFO Lock created: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_cascadelake-ampere-ib_software_GenomeWorks_2021.02.2-foss-2022a-CUDA-11.7.0.lock
+== 2023-07-04 14:03:59,589 build_log.py:267 INFO fetching files...
+== 2023-07-04 14:03:59,591 easyblock.py:3926 INFO Starting fetch step
+== 2023-07-04 14:03:59,591 easyconfig.py:1690 INFO Generating template values...
+== 2023-07-04 14:03:59,591 mpi.py:122 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2023-07-04 14:03:59,591 mpi.py:307 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2023-07-04 14:03:59,592 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='genomeworks', builddir='/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0', cudamajver='11', cudaminver='7', cudashortver='11.7', cudaver='11.7.0', github_account='genomeworks', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', module_name='GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', mpi_cmd_prefix='mpirun -n 1', name='GenomeWorks', nameletter='G', nameletterlower='g', namelower='genomeworks', pymajver='3', pyminver='10', pyshortver='3.10', pyver='3.10.4', start_dir='None', toolchain_name='foss', toolchain_version='2022a', version='2021.02.2', version_major='2021', version_major_minor='2021.02', version_minor='02', versionprefix='', versionsuffix='-CUDA-11.7.0'
+== 2023-07-04 14:03:59,592 easyblock.py:3934 INFO Running method fetch_step part of step fetch
+== 2023-07-04 14:03:59,592 easyblock.py:2331 WARNING Easyconfig does not specify an EasyBuild-version (key 'easybuild_version')! Assuming the latest version
+== 2023-07-04 14:03:59,592 easyblock.py:803 INFO Considering directory in which easyconfig file is located when searching for checksums.json: /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/169_Bonito
+== 2023-07-04 14:03:59,592 tools.py:273 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /user/gent/445/vsc44588/easybuild/easybuild-framework/eb
+== 2023-07-04 14:03:59,593 tools.py:289 INFO Not considering /user/gent/445/vsc44588/easybuild (no easybuild/easyconfigs subdir found)
+== 2023-07-04 14:03:59,593 tools.py:297 INFO Also considering installation prefix /kyukon/home/gent/445/vsc44588/easybuild (via resolved path to 'eb')...
+== 2023-07-04 14:03:59,864 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Couldn't find file checksums.json anywhere, and downloading it is disabled... Paths attempted (in order): /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/169_Bonito/g/GenomeWorks/checksums.json, /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/169_Bonito/GenomeWorks/checksums.json, /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/169_Bonito/checksums.json, /user/gent/445/vsc44588/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/GenomeWorks/checksums.json, /user/gent/445/vsc44588/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/GenomeWorks/checksums.json, /user/gent/445/vsc44588/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/checksums.json, /user/gent/445/vsc44588/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/GenomeWorks/checksums.json, /user/gent/445/vsc44588/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/GenomeWorks/checksums.json, /user/gent/445/vsc44588/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/checksums.json, /data/gent/vo/001/gvo00117/easybuild/sources/g/GenomeWorks/checksums.json, /data/gent/vo/001/gvo00117/easybuild/sources/GenomeWorks/checksums.json, /data/gent/vo/001/gvo00117/easybuild/sources/checksums.json, /apps/gent/sources/g/GenomeWorks/checksums.json, /apps/gent/sources/GenomeWorks/checksums.json, /apps/gent/sources/checksums.json  (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:870 in obtain_file)
+== 2023-07-04 14:03:59,864 easyblock.py:803 INFO Considering directory in which easyconfig file is located when searching for GenomeWorks-2021.02.2.tar.gz: /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/169_Bonito
+== 2023-07-04 14:03:59,864 tools.py:273 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /user/gent/445/vsc44588/easybuild/easybuild-framework/eb
+== 2023-07-04 14:03:59,864 tools.py:289 INFO Not considering /user/gent/445/vsc44588/easybuild (no easybuild/easyconfigs subdir found)
+== 2023-07-04 14:03:59,864 tools.py:297 INFO Also considering installation prefix /kyukon/home/gent/445/vsc44588/easybuild (via resolved path to 'eb')...
+== 2023-07-04 14:03:59,865 easyblock.py:844 INFO Found file GenomeWorks-2021.02.2.tar.gz at /apps/gent/sources/g/GenomeWorks/GenomeWorks-2021.02.2.tar.gz
+== 2023-07-04 14:03:59,865 easyblock.py:496 INFO Added sources: [{'name': 'GenomeWorks-2021.02.2.tar.gz', 'path': '/apps/gent/sources/g/GenomeWorks/GenomeWorks-2021.02.2.tar.gz', 'cmd': None, 'checksum': None, 'finalpath': '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0'}]
+== 2023-07-04 14:03:59,865 easyblock.py:2374 INFO no patches provided
+== 2023-07-04 14:03:59,955 easyblock.py:2384 INFO md5 checksum for /apps/gent/sources/g/GenomeWorks/GenomeWorks-2021.02.2.tar.gz: 2189e57225f67e13e3d51aa3293b0b57
+== 2023-07-04 14:04:00,007 easyblock.py:2384 INFO sha256 checksum for /apps/gent/sources/g/GenomeWorks/GenomeWorks-2021.02.2.tar.gz: 6cb53ba08f23e791a018d3a97ad0714ddb1bd5f4efdb01b5fede2a6bdc548a3e
+== 2023-07-04 14:04:00,013 easyblock.py:803 INFO Considering directory in which easyconfig file is located when searching for sortedcollections-2.1.0.tar.gz: /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/169_Bonito
+== 2023-07-04 14:04:00,013 tools.py:273 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /user/gent/445/vsc44588/easybuild/easybuild-framework/eb
+== 2023-07-04 14:04:00,013 tools.py:289 INFO Not considering /user/gent/445/vsc44588/easybuild (no easybuild/easyconfigs subdir found)
+== 2023-07-04 14:04:00,013 tools.py:297 INFO Also considering installation prefix /kyukon/home/gent/445/vsc44588/easybuild (via resolved path to 'eb')...
+== 2023-07-04 14:04:00,025 easyblock.py:844 INFO Found file sortedcollections-2.1.0.tar.gz at /data/gent/vo/001/gvo00117/easybuild/sources/g/GenomeWorks/extensions/sortedcollections-2.1.0.tar.gz
+== 2023-07-04 14:04:00,048 easyblock.py:679 INFO md5 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/g/GenomeWorks/extensions/sortedcollections-2.1.0.tar.gz: 00dfa42bfd6e2e89572dc655403233c6
+== 2023-07-04 14:04:00,049 easyblock.py:679 INFO sha256 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/g/GenomeWorks/extensions/sortedcollections-2.1.0.tar.gz: d8e9609d6c580a16a1224a3dc8965789e03ebc4c3e5ffd05ada54a2fed5dcacd
+== 2023-07-04 14:04:00,049 easyblock.py:685 INFO Checksum for extension source sortedcollections-2.1.0.tar.gz verified
+== 2023-07-04 14:04:00,049 easyblock.py:532 INFO Fetched extension patches: []
+== 2023-07-04 14:04:00,049 easyblock.py:803 INFO Considering directory in which easyconfig file is located when searching for GenomeWorks-2021.02.2.tar.gz: /kyukon/home/gent/445/vsc44588/inuits/vsc-software-stack/169_Bonito
+== 2023-07-04 14:04:00,049 tools.py:273 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /user/gent/445/vsc44588/easybuild/easybuild-framework/eb
+== 2023-07-04 14:04:00,049 tools.py:289 INFO Not considering /user/gent/445/vsc44588/easybuild (no easybuild/easyconfigs subdir found)
+== 2023-07-04 14:04:00,049 tools.py:297 INFO Also considering installation prefix /kyukon/home/gent/445/vsc44588/easybuild (via resolved path to 'eb')...
+== 2023-07-04 14:04:00,050 easyblock.py:844 INFO Found file GenomeWorks-2021.02.2.tar.gz at /apps/gent/sources/g/GenomeWorks/GenomeWorks-2021.02.2.tar.gz
+== 2023-07-04 14:04:00,087 easyblock.py:679 INFO md5 checksum for /apps/gent/sources/g/GenomeWorks/GenomeWorks-2021.02.2.tar.gz: 2189e57225f67e13e3d51aa3293b0b57
+== 2023-07-04 14:04:00,138 easyblock.py:679 INFO sha256 checksum for /apps/gent/sources/g/GenomeWorks/GenomeWorks-2021.02.2.tar.gz: 6cb53ba08f23e791a018d3a97ad0714ddb1bd5f4efdb01b5fede2a6bdc548a3e
+== 2023-07-04 14:04:00,139 easyblock.py:685 INFO Checksum for extension source GenomeWorks-2021.02.2.tar.gz verified
+== 2023-07-04 14:04:00,139 easyblock.py:532 INFO Fetched extension patches: []
+== 2023-07-04 14:04:00,139 easyblock.py:2419 INFO Checking dirs that need to be created: ['/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/modules/all/GenomeWorks', '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/modules/bio/GenomeWorks']
+== 2023-07-04 14:04:00,139 filetools.py:1913 INFO Creating directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0 (parents: True, set_gid: False, sticky: False)
+== 2023-07-04 14:04:00,170 filetools.py:1913 INFO Creating directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/modules/all/GenomeWorks (parents: True, set_gid: False, sticky: False)
+== 2023-07-04 14:04:00,190 filetools.py:1913 INFO Creating directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/modules/bio/GenomeWorks (parents: True, set_gid: False, sticky: False)
+== 2023-07-04 14:04:00,233 configuremake.py:95 INFO config.guess version: 2018-08-29 (last updated: 2023-06-15T10:46:35.192122, SHA256 checksum: c02eb9cc55c86cfd1e9a794e548d25db5c9539e7b2154beb649bc6e2cbffc74c)
+== 2023-07-04 14:04:00,233 configuremake.py:150 INFO Found config.guess at /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v4.7.3.dev0/ConfigureMake/config.guess
+== 2023-07-04 14:04:00,233 build_log.py:267 INFO ... (took < 1 sec)
+== 2023-07-04 14:04:00,235 build_log.py:267 INFO creating build dir, resetting environment...
+== 2023-07-04 14:04:00,237 easyblock.py:3926 INFO Starting ready step
+== 2023-07-04 14:04:00,237 easyconfig.py:1690 INFO Generating template values...
+== 2023-07-04 14:04:00,237 mpi.py:122 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2023-07-04 14:04:00,237 mpi.py:307 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2023-07-04 14:04:00,237 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='genomeworks', builddir='/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0', cudamajver='11', cudaminver='7', cudashortver='11.7', cudaver='11.7.0', github_account='genomeworks', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', module_name='GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', mpi_cmd_prefix='mpirun -n 1', name='GenomeWorks', nameletter='G', nameletterlower='g', namelower='genomeworks', pymajver='3', pyminver='10', pyshortver='3.10', pyver='3.10.4', start_dir='None', toolchain_name='foss', toolchain_version='2022a', version='2021.02.2', version_major='2021', version_major_minor='2021.02', version_minor='02', versionprefix='', versionsuffix='-CUDA-11.7.0'
+== 2023-07-04 14:04:00,237 easyblock.py:3934 INFO Running method check_readiness_step part of step ready
+== 2023-07-04 14:04:00,242 run.py:236 INFO running cmd: ulimit -u 
+== 2023-07-04 14:04:00,245 easyblock.py:2228 INFO Setting parallelism: 8
+== 2023-07-04 14:04:00,288 easyblock.py:2280 WARNING Loaded modules detected: ['env/vsc/donphan', 'env/slurm/donphan', 'env/software/donphan', 'cluster/donphan']
+== 2023-07-04 14:04:00,289 easyblock.py:3934 INFO Running method make_builddir part of step ready
+== 2023-07-04 14:04:00,289 filetools.py:1913 INFO Creating directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0 (parents: True, set_gid: False, sticky: False)
+== 2023-07-04 14:04:00,291 easyblock.py:3934 INFO Running method reset_env part of step ready
+== 2023-07-04 14:04:00,292 easyblock.py:3934 INFO Running method handle_iterate_opts part of step ready
+== 2023-07-04 14:04:00,292 easyconfig.py:1690 INFO Generating template values...
+== 2023-07-04 14:04:00,292 mpi.py:122 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2023-07-04 14:04:00,292 mpi.py:307 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2023-07-04 14:04:00,292 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='genomeworks', builddir='/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0', cudamajver='11', cudaminver='7', cudashortver='11.7', cudaver='11.7.0', github_account='genomeworks', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', module_name='GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', mpi_cmd_prefix='mpirun -n 1', name='GenomeWorks', nameletter='G', nameletterlower='g', namelower='genomeworks', parallel='8', pymajver='3', pyminver='10', pyshortver='3.10', pyver='3.10.4', start_dir='None', toolchain_name='foss', toolchain_version='2022a', version='2021.02.2', version_major='2021', version_major_minor='2021.02', version_minor='02', versionprefix='', versionsuffix='-CUDA-11.7.0'
+== 2023-07-04 14:04:00,292 build_log.py:267 INFO ... (took < 1 sec)
+== 2023-07-04 14:04:00,294 build_log.py:267 INFO unpacking...
+== 2023-07-04 14:04:00,296 easyblock.py:3926 INFO Starting source step
+== 2023-07-04 14:04:00,296 easyconfig.py:1690 INFO Generating template values...
+== 2023-07-04 14:04:00,297 mpi.py:122 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2023-07-04 14:04:00,297 mpi.py:307 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2023-07-04 14:04:00,297 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='genomeworks', builddir='/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0', cudamajver='11', cudaminver='7', cudashortver='11.7', cudaver='11.7.0', github_account='genomeworks', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', module_name='GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', mpi_cmd_prefix='mpirun -n 1', name='GenomeWorks', nameletter='G', nameletterlower='g', namelower='genomeworks', parallel='8', pymajver='3', pyminver='10', pyshortver='3.10', pyver='3.10.4', start_dir='None', toolchain_name='foss', toolchain_version='2022a', version='2021.02.2', version_major='2021', version_major_minor='2021.02', version_minor='02', versionprefix='', versionsuffix='-CUDA-11.7.0'
+== 2023-07-04 14:04:00,297 easyblock.py:3934 INFO Running method checksum_step part of step source
+== 2023-07-04 14:04:00,297 easyblock.py:2437 INFO Checksum verification for /apps/gent/sources/g/GenomeWorks/GenomeWorks-2021.02.2.tar.gz using None passed.
+== 2023-07-04 14:04:00,297 easyblock.py:3934 INFO Running method extract_step part of step source
+== 2023-07-04 14:04:00,297 easyblock.py:2549 INFO Unpacking source GenomeWorks-2021.02.2.tar.gz
+== 2023-07-04 14:04:00,301 run.py:236 INFO running cmd: tar xzf /apps/gent/sources/g/GenomeWorks/GenomeWorks-2021.02.2.tar.gz 
+== 2023-07-04 14:04:00,912 build_log.py:267 INFO ... (took < 1 sec)
+== 2023-07-04 14:04:00,914 build_log.py:267 INFO patching...
+== 2023-07-04 14:04:00,916 easyblock.py:3926 INFO Starting patch step
+== 2023-07-04 14:04:00,916 easyconfig.py:1690 INFO Generating template values...
+== 2023-07-04 14:04:00,916 mpi.py:122 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2023-07-04 14:04:00,916 mpi.py:307 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2023-07-04 14:04:00,917 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='genomeworks', builddir='/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0', cudamajver='11', cudaminver='7', cudashortver='11.7', cudaver='11.7.0', github_account='genomeworks', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', module_name='GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', mpi_cmd_prefix='mpirun -n 1', name='GenomeWorks', nameletter='G', nameletterlower='g', namelower='genomeworks', parallel='8', pymajver='3', pyminver='10', pyshortver='3.10', pyver='3.10.4', start_dir='None', toolchain_name='foss', toolchain_version='2022a', version='2021.02.2', version_major='2021', version_major_minor='2021.02', version_minor='02', versionprefix='', versionsuffix='-CUDA-11.7.0'
+== 2023-07-04 14:04:00,917 easyblock.py:3934 INFO Running method patch_step part of step patch
+== 2023-07-04 14:04:00,917 build_log.py:267 INFO ... (took < 1 sec)
+== 2023-07-04 14:04:00,919 build_log.py:267 INFO preparing...
+== 2023-07-04 14:04:00,921 easyblock.py:3926 INFO Starting prepare step
+== 2023-07-04 14:04:00,921 easyconfig.py:1690 INFO Generating template values...
+== 2023-07-04 14:04:00,921 mpi.py:122 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2023-07-04 14:04:00,921 mpi.py:307 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2023-07-04 14:04:00,921 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='genomeworks', builddir='/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0', cudamajver='11', cudaminver='7', cudashortver='11.7', cudaver='11.7.0', github_account='genomeworks', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', module_name='GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', mpi_cmd_prefix='mpirun -n 1', name='GenomeWorks', nameletter='G', nameletterlower='g', namelower='genomeworks', parallel='8', pymajver='3', pyminver='10', pyshortver='3.10', pyver='3.10.4', start_dir='None', toolchain_name='foss', toolchain_version='2022a', version='2021.02.2', version_major='2021', version_major_minor='2021.02', version_minor='02', versionprefix='', versionsuffix='-CUDA-11.7.0'
+== 2023-07-04 14:04:00,921 easyblock.py:3934 INFO Running method prepare_step part of step prepare
+== 2023-07-04 14:04:00,922 modules.py:626 INFO Checking whether CMake/3.24.3-GCCcore-11.3.0 exists...
+== 2023-07-04 14:04:00,922 modules.py:631 INFO Module CMake/3.24.3-GCCcore-11.3.0 exists (found in list of available modules)
+== 2023-07-04 14:04:00,923 modules.py:654 INFO Result for existence check of CMake/3.24.3-GCCcore-11.3.0 module: True
+== 2023-07-04 14:04:00,923 modules.py:626 INFO Checking whether Doxygen/1.9.4-GCCcore-11.3.0 exists...
+== 2023-07-04 14:04:00,923 modules.py:631 INFO Module Doxygen/1.9.4-GCCcore-11.3.0 exists (found in list of available modules)
+== 2023-07-04 14:04:00,923 modules.py:654 INFO Result for existence check of Doxygen/1.9.4-GCCcore-11.3.0 module: True
+== 2023-07-04 14:04:00,923 modules.py:626 INFO Checking whether Python/3.10.4-GCCcore-11.3.0 exists...
+== 2023-07-04 14:04:00,923 modules.py:631 INFO Module Python/3.10.4-GCCcore-11.3.0 exists (found in list of available modules)
+== 2023-07-04 14:04:00,923 modules.py:654 INFO Result for existence check of Python/3.10.4-GCCcore-11.3.0 module: True
+== 2023-07-04 14:04:00,923 modules.py:626 INFO Checking whether CUDA/11.7.0 exists...
+== 2023-07-04 14:04:00,923 modules.py:631 INFO Module CUDA/11.7.0 exists (found in list of available modules)
+== 2023-07-04 14:04:00,923 modules.py:654 INFO Result for existence check of CUDA/11.7.0 module: True
+== 2023-07-04 14:04:00,923 modules.py:626 INFO Checking whether Autoconf/2.71-GCCcore-11.3.0 exists...
+== 2023-07-04 14:04:00,923 modules.py:631 INFO Module Autoconf/2.71-GCCcore-11.3.0 exists (found in list of available modules)
+== 2023-07-04 14:04:00,923 modules.py:654 INFO Result for existence check of Autoconf/2.71-GCCcore-11.3.0 module: True
+== 2023-07-04 14:04:00,923 modules.py:626 INFO Checking whether matplotlib/3.5.2-foss-2022a exists...
+== 2023-07-04 14:04:00,923 modules.py:631 INFO Module matplotlib/3.5.2-foss-2022a exists (found in list of available modules)
+== 2023-07-04 14:04:00,923 modules.py:654 INFO Result for existence check of matplotlib/3.5.2-foss-2022a module: True
+== 2023-07-04 14:04:00,924 modules.py:626 INFO Checking whether SciPy-bundle/2022.05-foss-2022a exists...
+== 2023-07-04 14:04:00,924 modules.py:631 INFO Module SciPy-bundle/2022.05-foss-2022a exists (found in list of available modules)
+== 2023-07-04 14:04:00,924 modules.py:654 INFO Result for existence check of SciPy-bundle/2022.05-foss-2022a module: True
+== 2023-07-04 14:04:00,924 modules.py:626 INFO Checking whether networkx/2.8.4-foss-2022a exists...
+== 2023-07-04 14:04:00,924 modules.py:631 INFO Module networkx/2.8.4-foss-2022a exists (found in list of available modules)
+== 2023-07-04 14:04:00,924 modules.py:654 INFO Result for existence check of networkx/2.8.4-foss-2022a module: True
+== 2023-07-04 14:04:00,924 modules.py:626 INFO Checking whether tqdm/4.64.0-GCCcore-11.3.0 exists...
+== 2023-07-04 14:04:00,924 modules.py:631 INFO Module tqdm/4.64.0-GCCcore-11.3.0 exists (found in list of available modules)
+== 2023-07-04 14:04:00,924 modules.py:654 INFO Result for existence check of tqdm/4.64.0-GCCcore-11.3.0 module: True
+== 2023-07-04 14:04:00,924 modules.py:626 INFO Checking whether foss/2022a exists...
+== 2023-07-04 14:04:00,924 modules.py:634 INFO Module foss/2022a not found in list of available modules, checking via 'module show'...
+== 2023-07-04 14:04:03,227 modules.py:654 INFO Result for existence check of foss/2022a module: True
+== 2023-07-04 14:04:07,994 environment.py:93 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/cascadelake-ib/software/libarchive/3.6.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/cURL/7.83.0-GCCcore-11.3.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/bzip2/1.0.8-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ncurses/6.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW.MPI/3.3.10-gompi-2022a/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenBLAS/0.3.20-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCC/1.0.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/PMIx/4.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libfabric/1.15.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCX/1.12.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libevent/2.1.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/cascadelake-ib/software/hwloc/2.7.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libpciaccess/0.16-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libxml2/2.9.13-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/XZ/5.2.5-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/numactl/2.0.14-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.38-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64 (previous value: '/apps/gent/RHEL8/cascadelake-ib/software/libarchive/3.6.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/cURL/7.83.0-GCCcore-11.3.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/bzip2/1.0.8-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ncurses/6.3-GCCcore-11.3.0/lib')
+== 2023-07-04 14:04:09,937 environment.py:93 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/cascadelake-ib/software/libiconv/1.17-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libarchive/3.6.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/cURL/7.83.0-GCCcore-11.3.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/bzip2/1.0.8-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ncurses/6.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW.MPI/3.3.10-gompi-2022a/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenBLAS/0.3.20-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCC/1.0.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/PMIx/4.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libfabric/1.15.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCX/1.12.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libevent/2.1.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/cascadelake-ib/software/hwloc/2.7.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libpciaccess/0.16-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libxml2/2.9.13-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/XZ/5.2.5-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/numactl/2.0.14-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.38-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64 (previous value: '/apps/gent/RHEL8/cascadelake-ib/software/libiconv/1.17-GCCcore-11.3.0/lib')
+== 2023-07-04 14:04:12,075 environment.py:93 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libffi/3.4.2-GCCcore-11.3.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/GMP/6.2.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/SQLite/3.38.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Tcl/8.6.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libreadline/8.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libiconv/1.17-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libarchive/3.6.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/cURL/7.83.0-GCCcore-11.3.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/bzip2/1.0.8-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ncurses/6.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW.MPI/3.3.10-gompi-2022a/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenBLAS/0.3.20-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCC/1.0.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/PMIx/4.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libfabric/1.15.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCX/1.12.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libevent/2.1.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/cascadelake-ib/software/hwloc/2.7.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libpciaccess/0.16-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libxml2/2.9.13-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/XZ/5.2.5-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/numactl/2.0.14-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.38-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64 (previous value: '/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libffi/3.4.2-GCCcore-11.3.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/GMP/6.2.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/SQLite/3.38.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Tcl/8.6.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libreadline/8.1.2-GCCcore-11.3.0/lib')
+== 2023-07-04 14:04:13,939 environment.py:93 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/nvvm/lib64:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/extras/CUPTI/lib64:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libffi/3.4.2-GCCcore-11.3.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/GMP/6.2.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/SQLite/3.38.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Tcl/8.6.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libreadline/8.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libiconv/1.17-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libarchive/3.6.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/cURL/7.83.0-GCCcore-11.3.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/bzip2/1.0.8-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ncurses/6.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW.MPI/3.3.10-gompi-2022a/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenBLAS/0.3.20-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCC/1.0.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/PMIx/4.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libfabric/1.15.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCX/1.12.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libevent/2.1.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/cascadelake-ib/software/hwloc/2.7.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libpciaccess/0.16-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libxml2/2.9.13-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/XZ/5.2.5-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/numactl/2.0.14-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.38-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64 (previous value: '/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/nvvm/lib64:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/extras/CUPTI/lib64:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib')
+== 2023-07-04 14:04:16,309 environment.py:93 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/cascadelake-ib/software/DB/18.1.40-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/expat/2.4.8-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/nvvm/lib64:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/extras/CUPTI/lib64:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libffi/3.4.2-GCCcore-11.3.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/GMP/6.2.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/SQLite/3.38.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Tcl/8.6.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libreadline/8.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libiconv/1.17-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libarchive/3.6.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/cURL/7.83.0-GCCcore-11.3.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/bzip2/1.0.8-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ncurses/6.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW.MPI/3.3.10-gompi-2022a/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenBLAS/0.3.20-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCC/1.0.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/PMIx/4.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libfabric/1.15.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCX/1.12.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libevent/2.1.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/cascadelake-ib/software/hwloc/2.7.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libpciaccess/0.16-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libxml2/2.9.13-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/XZ/5.2.5-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/numactl/2.0.14-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.38-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64 (previous value: '/apps/gent/RHEL8/cascadelake-ib/software/DB/18.1.40-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/expat/2.4.8-GCCcore-11.3.0/lib')
+== 2023-07-04 14:04:19,735 environment.py:93 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/cascadelake-ib/software/Qhull/2020.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/LibTIFF/4.3.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libdeflate/1.10-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/zstd/1.5.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/lz4/1.9.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/jbigkit/2.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libjpeg-turbo/2.1.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Tk/8.6.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/X11/20220504-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/fontconfig/2.14.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/util-linux/2.38-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/freetype/2.12.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Brotli/1.0.9-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libpng/1.6.37-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/core/lib:/apps/gent/RHEL8/cascadelake-ib/software/DB/18.1.40-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/expat/2.4.8-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/nvvm/lib64:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/extras/CUPTI/lib64:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libffi/3.4.2-GCCcore-11.3.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/GMP/6.2.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/SQLite/3.38.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Tcl/8.6.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libreadline/8.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libiconv/1.17-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libarchive/3.6.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/cURL/7.83.0-GCCcore-11.3.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/bzip2/1.0.8-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ncurses/6.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW.MPI/3.3.10-gompi-2022a/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenBLAS/0.3.20-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCC/1.0.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/PMIx/4.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libfabric/1.15.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCX/1.12.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libevent/2.1.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/cascadelake-ib/software/hwloc/2.7.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libpciaccess/0.16-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libxml2/2.9.13-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/XZ/5.2.5-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/numactl/2.0.14-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.38-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64 (previous value: '/apps/gent/RHEL8/cascadelake-ib/software/Qhull/2020.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/LibTIFF/4.3.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libdeflate/1.10-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/zstd/1.5.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/lz4/1.9.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/jbigkit/2.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libjpeg-turbo/2.1.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Tk/8.6.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/X11/20220504-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/fontconfig/2.14.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/util-linux/2.38-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/freetype/2.12.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Brotli/1.0.9-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libpng/1.6.37-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/core/lib')
+== 2023-07-04 14:04:22,398 environment.py:93 INFO Environment variable LD_LIBRARY_PATH set to /apps/gent/RHEL8/cascadelake-ib/software/Qhull/2020.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/LibTIFF/4.3.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libdeflate/1.10-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/zstd/1.5.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/lz4/1.9.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/jbigkit/2.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libjpeg-turbo/2.1.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Tk/8.6.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/X11/20220504-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/fontconfig/2.14.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/util-linux/2.38-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/freetype/2.12.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Brotli/1.0.9-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libpng/1.6.37-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/core/lib:/apps/gent/RHEL8/cascadelake-ib/software/DB/18.1.40-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/expat/2.4.8-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/nvvm/lib64:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/extras/CUPTI/lib64:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libffi/3.4.2-GCCcore-11.3.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/GMP/6.2.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/SQLite/3.38.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Tcl/8.6.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libreadline/8.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libiconv/1.17-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libarchive/3.6.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/cURL/7.83.0-GCCcore-11.3.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/bzip2/1.0.8-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ncurses/6.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW.MPI/3.3.10-gompi-2022a/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenBLAS/0.3.20-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCC/1.0.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/PMIx/4.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libfabric/1.15.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCX/1.12.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libevent/2.1.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/cascadelake-ib/software/hwloc/2.7.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libpciaccess/0.16-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libxml2/2.9.13-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/XZ/5.2.5-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/numactl/2.0.14-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.38-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64 (previous value: '/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/core/lib')
+== 2023-07-04 14:04:28,000 modules.py:626 INFO Checking whether foss/2022a exists...
+== 2023-07-04 14:04:28,000 modules.py:634 INFO Module foss/2022a not found in list of available modules, checking via 'module show'...
+== 2023-07-04 14:04:28,001 modules.py:654 INFO Result for existence check of foss/2022a module: True
+== 2023-07-04 14:04:28,002 toolchain.py:762 INFO List of toolchain dependency modules and toolchain definition match!
+== 2023-07-04 14:04:28,003 compiler.py:363 INFO _set_optimal_architecture: using march=native as optarch for x86_64.
+== 2023-07-04 14:04:28,015 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/include was not found
+== 2023-07-04 14:04:28,019 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/include was not found
+== 2023-07-04 14:04:28,019 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/lib64 was not found
+== 2023-07-04 14:04:28,019 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/lib was not found
+== 2023-07-04 14:04:28,019 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/Doxygen/1.9.4-GCCcore-11.3.0/include was not found
+== 2023-07-04 14:04:28,019 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/Doxygen/1.9.4-GCCcore-11.3.0/lib64 was not found
+== 2023-07-04 14:04:28,019 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/Doxygen/1.9.4-GCCcore-11.3.0/lib was not found
+== 2023-07-04 14:04:28,025 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/Autoconf/2.71-GCCcore-11.3.0/include was not found
+== 2023-07-04 14:04:28,025 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/Autoconf/2.71-GCCcore-11.3.0/lib64 was not found
+== 2023-07-04 14:04:28,025 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/Autoconf/2.71-GCCcore-11.3.0/lib was not found
+== 2023-07-04 14:04:28,025 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/matplotlib/3.5.2-foss-2022a/include was not found
+== 2023-07-04 14:04:28,026 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/include was not found
+== 2023-07-04 14:04:28,027 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/networkx/2.8.4-foss-2022a/include was not found
+== 2023-07-04 14:04:28,028 variables.py:203 WARNING flags_for_subdirs: directory /apps/gent/RHEL8/cascadelake-ib/software/tqdm/4.64.0-GCCcore-11.3.0/include was not found
+== 2023-07-04 14:04:28,031 environment.py:93 INFO Environment variable BLAS_INC_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/include/flexiblas (previously undefined)
+== 2023-07-04 14:04:28,031 environment.py:93 INFO Environment variable EBVARBLAS_INC_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/include/flexiblas (previously undefined)
+== 2023-07-04 14:04:28,031 environment.py:93 INFO Environment variable BLAS_LAPACK_INC_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/include/flexiblas (previously undefined)
+== 2023-07-04 14:04:28,031 environment.py:93 INFO Environment variable EBVARBLAS_LAPACK_INC_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/include/flexiblas (previously undefined)
+== 2023-07-04 14:04:28,031 environment.py:93 INFO Environment variable BLAS_LAPACK_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib (previously undefined)
+== 2023-07-04 14:04:28,031 environment.py:93 INFO Environment variable EBVARBLAS_LAPACK_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib (previously undefined)
+== 2023-07-04 14:04:28,031 environment.py:93 INFO Environment variable BLAS_LAPACK_MT_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable EBVARBLAS_LAPACK_MT_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable BLAS_LAPACK_MT_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable EBVARBLAS_LAPACK_MT_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable BLAS_LAPACK_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable EBVARBLAS_LAPACK_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable BLAS_LAPACK_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable EBVARBLAS_LAPACK_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable BLAS_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable EBVARBLAS_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable BLAS_MT_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable EBVARBLAS_MT_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable BLAS_MT_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable EBVARBLAS_MT_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable BLAS_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable EBVARBLAS_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,032 environment.py:93 INFO Environment variable BLAS_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable EBVARBLAS_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable CC set to gcc (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable EBVARCC set to gcc (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable CFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable EBVARCFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable CPPFLAGS set to -I/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/include/flexiblas (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable EBVARCPPFLAGS set to -I/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/include/flexiblas (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable CXX set to g++ (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable EBVARCXX set to g++ (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable CXXFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable EBVARCXXFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable F77 set to gfortran (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable EBVARF77 set to gfortran (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable F90 set to gfortran (previously undefined)
+== 2023-07-04 14:04:28,033 environment.py:93 INFO Environment variable EBVARF90 set to gfortran (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable F90FLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable EBVARF90FLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable FC set to gfortran (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable EBVARFC set to gfortran (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable FCFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable EBVARFCFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable FFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable EBVARFFLAGS set to -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable FFTW_INC_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/include (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable EBVARFFTW_INC_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/include (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable FFTW_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable EBVARFFTW_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable FFTW_SHARED_LIBS set to libfftw3.so (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable EBVARFFTW_SHARED_LIBS set to libfftw3.so (previously undefined)
+== 2023-07-04 14:04:28,034 environment.py:93 INFO Environment variable FFTW_SHARED_LIBS_MT set to libfftw3.so,libpthread.so (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable EBVARFFTW_SHARED_LIBS_MT set to libfftw3.so,libpthread.so (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable FFTW_STATIC_LIBS set to libfftw3.a (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable EBVARFFTW_STATIC_LIBS set to libfftw3.a (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable FFTW_STATIC_LIBS_MT set to libfftw3.a,libpthread.a (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable EBVARFFTW_STATIC_LIBS_MT set to libfftw3.a,libpthread.a (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable FFT_INC_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/include (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable EBVARFFT_INC_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/include (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable FFT_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable EBVARFFT_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable FFT_SHARED_LIBS set to libfftw3.so (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable EBVARFFT_SHARED_LIBS set to libfftw3.so (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable FFT_SHARED_LIBS_MT set to libfftw3.so,libpthread.so (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable EBVARFFT_SHARED_LIBS_MT set to libfftw3.so,libpthread.so (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable FFT_STATIC_LIBS set to libfftw3.a (previously undefined)
+== 2023-07-04 14:04:28,035 environment.py:93 INFO Environment variable EBVARFFT_STATIC_LIBS set to libfftw3.a (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable FFT_STATIC_LIBS_MT set to libfftw3.a,libpthread.a (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable EBVARFFT_STATIC_LIBS_MT set to libfftw3.a,libpthread.a (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable FLIBS set to -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable EBVARFLIBS set to -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable LAPACK_INC_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/include/flexiblas (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable EBVARLAPACK_INC_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/include/flexiblas (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable LAPACK_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable EBVARLAPACK_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable LAPACK_MT_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable EBVARLAPACK_MT_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable LAPACK_MT_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable EBVARLAPACK_MT_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable LAPACK_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable EBVARLAPACK_SHARED_LIBS set to libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable LAPACK_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,036 environment.py:93 INFO Environment variable EBVARLAPACK_STATIC_LIBS set to libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable LDFLAGS set to -L/apps/gent/RHEL8/cascadelake-ib/software/tqdm/4.64.0-GCCcore-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/tqdm/4.64.0-GCCcore-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/networkx/2.8.4-foss-2022a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/networkx/2.8.4-foss-2022a/lib -L/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib -L/apps/gent/RHEL8/cascadelake-ib/software/matplotlib/3.5.2-foss-2022a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/matplotlib/3.5.2-foss-2022a/lib -L/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib -L/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable EBVARLDFLAGS set to -L/apps/gent/RHEL8/cascadelake-ib/software/tqdm/4.64.0-GCCcore-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/tqdm/4.64.0-GCCcore-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/networkx/2.8.4-foss-2022a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/networkx/2.8.4-foss-2022a/lib -L/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib -L/apps/gent/RHEL8/cascadelake-ib/software/matplotlib/3.5.2-foss-2022a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/matplotlib/3.5.2-foss-2022a/lib -L/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib -L/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable LIBBLAS set to -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable EBVARLIBBLAS set to -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable LIBBLAS_MT set to -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable EBVARLIBBLAS_MT set to -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable LIBFFT set to -lfftw3 (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable EBVARLIBFFT set to -lfftw3 (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable LIBFFT_MT set to -lfftw3 -lpthread (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable EBVARLIBFFT_MT set to -lfftw3 -lpthread (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable LIBLAPACK set to -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable EBVARLIBLAPACK set to -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable LIBLAPACK_MT set to -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,037 environment.py:93 INFO Environment variable EBVARLIBLAPACK_MT set to -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable LIBLAPACK_MT_ONLY set to -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable EBVARLIBLAPACK_MT_ONLY set to -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable LIBLAPACK_ONLY set to -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable EBVARLIBLAPACK_ONLY set to -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable LIBS set to -lm -lpthread (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable EBVARLIBS set to -lm -lpthread (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable LIBSCALAPACK set to -lscalapack -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable EBVARLIBSCALAPACK set to -lscalapack -lflexiblas -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable LIBSCALAPACK_MT set to -lscalapack -lflexiblas -lpthread -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable EBVARLIBSCALAPACK_MT set to -lscalapack -lflexiblas -lpthread -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable LIBSCALAPACK_MT_ONLY set to -lscalapack -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable EBVARLIBSCALAPACK_MT_ONLY set to -lscalapack -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable LIBSCALAPACK_ONLY set to -lscalapack -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable EBVARLIBSCALAPACK_ONLY set to -lscalapack -lgfortran (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable MPICC set to mpicc (previously undefined)
+== 2023-07-04 14:04:28,038 environment.py:93 INFO Environment variable EBVARMPICC set to mpicc (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable MPICXX set to mpicxx (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable EBVARMPICXX set to mpicxx (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable MPIF77 set to mpifort (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable EBVARMPIF77 set to mpifort (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable MPIF90 set to mpifort (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable EBVARMPIF90 set to mpifort (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable MPIFC set to mpifort (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable EBVARMPIFC set to mpifort (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable MPI_INC_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/include (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable EBVARMPI_INC_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/include (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable MPI_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/lib64 (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable EBVARMPI_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/lib64 (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable MPI_LIB_SHARED set to /apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/lib64/libmpi.so (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable EBVARMPI_LIB_SHARED set to /apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/lib64/libmpi.so (previously undefined)
+== 2023-07-04 14:04:28,039 environment.py:93 INFO Environment variable MPI_LIB_STATIC set to  (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable EBVARMPI_LIB_STATIC set to  (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable OMPI_CC set to gcc (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable EBVAROMPI_CC set to gcc (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable OMPI_CXX set to g++ (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable EBVAROMPI_CXX set to g++ (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable OMPI_F77 set to gfortran (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable EBVAROMPI_F77 set to gfortran (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable OMPI_F90 set to gfortran (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable EBVAROMPI_F90 set to gfortran (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable OMPI_FC set to gfortran (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable EBVAROMPI_FC set to gfortran (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable OPTFLAGS set to -O2 -ftree-vectorize -march=native (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable EBVAROPTFLAGS set to -O2 -ftree-vectorize -march=native (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable PRECFLAGS set to -fno-math-errno (previously undefined)
+== 2023-07-04 14:04:28,040 environment.py:93 INFO Environment variable EBVARPRECFLAGS set to -fno-math-errno (previously undefined)
+== 2023-07-04 14:04:28,041 environment.py:93 INFO Environment variable SCALAPACK_INC_DIR set to  (previously undefined)
+== 2023-07-04 14:04:28,041 environment.py:93 INFO Environment variable EBVARSCALAPACK_INC_DIR set to  (previously undefined)
+== 2023-07-04 14:04:28,041 environment.py:93 INFO Environment variable SCALAPACK_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib (previously undefined)
+== 2023-07-04 14:04:28,041 environment.py:93 INFO Environment variable EBVARSCALAPACK_LIB_DIR set to /apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib (previously undefined)
+== 2023-07-04 14:04:28,041 environment.py:93 INFO Environment variable SCALAPACK_MT_SHARED_LIBS set to libscalapack.so,libflexiblas.so,libgfortran.so,libpthread.so (previously undefined)
+== 2023-07-04 14:04:28,041 environment.py:93 INFO Environment variable EBVARSCALAPACK_MT_SHARED_LIBS set to libscalapack.so,libflexiblas.so,libgfortran.so,libpthread.so (previously undefined)
+== 2023-07-04 14:04:28,041 environment.py:93 INFO Environment variable SCALAPACK_MT_STATIC_LIBS set to libscalapack.a,libflexiblas.a,libgfortran.a,libpthread.a (previously undefined)
+== 2023-07-04 14:04:28,041 environment.py:93 INFO Environment variable EBVARSCALAPACK_MT_STATIC_LIBS set to libscalapack.a,libflexiblas.a,libgfortran.a,libpthread.a (previously undefined)
+== 2023-07-04 14:04:28,041 environment.py:93 INFO Environment variable SCALAPACK_SHARED_LIBS set to libscalapack.so,libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,041 environment.py:93 INFO Environment variable EBVARSCALAPACK_SHARED_LIBS set to libscalapack.so,libflexiblas.so,libgfortran.so (previously undefined)
+== 2023-07-04 14:04:28,041 environment.py:93 INFO Environment variable SCALAPACK_STATIC_LIBS set to libscalapack.a,libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,041 environment.py:93 INFO Environment variable EBVARSCALAPACK_STATIC_LIBS set to libscalapack.a,libflexiblas.a,libgfortran.a (previously undefined)
+== 2023-07-04 14:04:28,041 easyblock.py:1165 INFO Enabling CUDA PTX cache of size 1024 MiB at /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/eb-cuda-cache
+== 2023-07-04 14:04:28,042 environment.py:93 INFO Environment variable CUDA_CACHE_DISABLE set to 0 (previously undefined)
+== 2023-07-04 14:04:28,042 environment.py:93 INFO Environment variable CUDA_CACHE_PATH set to /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/eb-cuda-cache (previously undefined)
+== 2023-07-04 14:04:28,042 environment.py:93 INFO Environment variable CUDA_CACHE_MAXSIZE set to 1073741824 (previously undefined)
+== 2023-07-04 14:04:28,042 easyblock.py:2112 INFO Using /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/ as start dir
+== 2023-07-04 14:04:28,043 filetools.py:526 INFO Command python found at /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/bin/python
+== 2023-07-04 14:04:28,043 pythonpackage.py:409 INFO Python command being used: /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/bin/python
+== 2023-07-04 14:04:28,043 run.py:236 INFO running cmd: /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/bin/python -c 'import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(plat_specific=False, prefix="/tmp/"))' 
+== 2023-07-04 14:04:31,896 run.py:236 INFO running cmd: /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/bin/python -c 'import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(plat_specific=True, prefix="/tmp/"))' 
+== 2023-07-04 14:04:32,159 build_log.py:267 INFO ... (took 31 secs)
+== 2023-07-04 14:04:32,161 build_log.py:267 INFO configuring...
+== 2023-07-04 14:04:32,163 easyblock.py:3926 INFO Starting configure step
+== 2023-07-04 14:04:32,163 easyconfig.py:1690 INFO Generating template values...
+== 2023-07-04 14:04:32,163 mpi.py:122 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2023-07-04 14:04:32,163 mpi.py:307 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2023-07-04 14:04:32,164 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='genomeworks', builddir='/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0', cudamajver='11', cudaminver='7', cudashortver='11.7', cudaver='11.7.0', github_account='genomeworks', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', module_name='GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', mpi_cmd_prefix='mpirun -n 1', name='GenomeWorks', nameletter='G', nameletterlower='g', namelower='genomeworks', parallel='8', pymajver='3', pyminver='10', pyshortver='3.10', pyver='3.10.4', start_dir='/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/', toolchain_name='foss', toolchain_version='2022a', version='2021.02.2', version_major='2021', version_major_minor='2021.02', version_minor='02', versionprefix='', versionsuffix='-CUDA-11.7.0'
+== 2023-07-04 14:04:32,164 easyblock.py:3934 INFO Running method configure_step part of step configure
+== 2023-07-04 14:04:32,164 environment.py:93 INFO Environment variable PYTHONNOUSERSITE set to 1 (previously undefined)
+== 2023-07-04 14:04:32,164 run.py:236 INFO running cmd: /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/bin/python -c 'import sys; print("%s.%s.%s" % sys.version_info[:3])' 
+== 2023-07-04 14:04:32,210 pythonpackage.py:596 INFO Checking of $LDSHARED auto-enabled for sufficiently recent Python version 3.10.4
+== 2023-07-04 14:04:32,210 pythonpackage.py:608 INFO Python's value for $LDSHARED ('gcc -pthread -shared -Wl,-z,relro  -Wl,-z,now  -g  -Wl,-z,relro  -Wl,-z,now  -g') uses current $CC value ('gcc'), not touching it
+== 2023-07-04 14:04:32,210 run.py:236 INFO running cmd: /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/bin/python -V; /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/bin/python -c 'import sys; print(sys.executable, sys.path)' 
+== 2023-07-04 14:04:32,267 environment.py:93 INFO Environment variable CMAKE_INCLUDE_PATH set to /apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/include/flexiblas:/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/include:/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/core/include:/apps/gent/RHEL8/cascadelake-ib/software/Qhull/2020.2-GCCcore-11.3.0/qhull/include:/apps/gent/RHEL8/cascadelake-ib/software/Qhull/2020.2-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/LibTIFF/4.3.0-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/libdeflate/1.10-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/zstd/1.5.2-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/lz4/1.9.3-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/jbigkit/2.1-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/libjpeg-turbo/2.1.3-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/Tk/8.6.12-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/X11/20220504-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/fontconfig/2.14.0-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/util-linux/2.38-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/freetype/2.12.1-GCCcore-11.3.0/include/freetype2:/apps/gent/RHEL8/cascadelake-ib/software/Brotli/1.0.9-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/libpng/1.6.37-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/pybind11/2.9.2-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/DB/18.1.40-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/expat/2.4.8-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/nvvm/include:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/extras/CUPTI/include:/apps/gent/RHEL8/cascadelake-ib/software/libffi/3.4.2-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/GMP/6.2.1-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/SQLite/3.38.3-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/Tcl/8.6.12-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/libreadline/8.1.2-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/libiconv/1.17-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/libarchive/3.6.1-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/cURL/7.83.0-GCCcore-11.3.0/include:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/bzip2/1.0.8-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/ncurses/6.3-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/FFTW.MPI/3.3.10-gompi-2022a/include:/apps/gent/RHEL8/cascadelake-ib/software/OpenBLAS/0.3.20-GCC-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/UCC/1.0.0-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/PMIx/4.1.2-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/libfabric/1.15.1-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/UCX/1.12.1-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/libevent/2.1.12-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/OpenSSL/1.1/include:/apps/gent/RHEL8/cascadelake-ib/software/hwloc/2.7.1-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/libpciaccess/0.16-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/libxml2/2.9.13-GCCcore-11.3.0/include/libxml2:/apps/gent/RHEL8/cascadelake-ib/software/libxml2/2.9.13-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/XZ/5.2.5-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/numactl/2.0.14-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.38-GCCcore-11.3.0/include:/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.12-GCCcore-11.3.0/include (previously undefined)
+== 2023-07-04 14:04:32,268 environment.py:93 INFO Environment variable CMAKE_LIBRARY_PATH set to /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib64:/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/matplotlib/3.5.2-foss-2022a/lib64:/apps/gent/RHEL8/cascadelake-ib/software/matplotlib/3.5.2-foss-2022a/lib:/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib64:/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib:/apps/gent/RHEL8/cascadelake-ib/software/networkx/2.8.4-foss-2022a/lib64:/apps/gent/RHEL8/cascadelake-ib/software/networkx/2.8.4-foss-2022a/lib:/apps/gent/RHEL8/cascadelake-ib/software/tqdm/4.64.0-GCCcore-11.3.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/tqdm/4.64.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Qhull/2020.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/LibTIFF/4.3.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libdeflate/1.10-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/zstd/1.5.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/lz4/1.9.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/jbigkit/2.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libjpeg-turbo/2.1.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Tk/8.6.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/X11/20220504-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/fontconfig/2.14.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/util-linux/2.38-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/freetype/2.12.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Brotli/1.0.9-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libpng/1.6.37-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/core/lib:/apps/gent/RHEL8/cascadelake-ib/software/DB/18.1.40-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/expat/2.4.8-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/nvvm/lib64:/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/extras/CUPTI/lib64:/apps/gent/RHEL8/cascadelake-ib/software/libffi/3.4.2-GCCcore-11.3.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/GMP/6.2.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/SQLite/3.38.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/Tcl/8.6.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libreadline/8.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libiconv/1.17-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libarchive/3.6.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/cURL/7.83.0-GCCcore-11.3.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/bzip2/1.0.8-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/ncurses/6.3-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/FFTW.MPI/3.3.10-gompi-2022a/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenBLAS/0.3.20-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.4-GCC-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCC/1.0.0-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/PMIx/4.1.2-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libfabric/1.15.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/UCX/1.12.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libevent/2.1.12-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/OpenSSL/1.1/lib:/apps/gent/RHEL8/cascadelake-ib/software/hwloc/2.7.1-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libpciaccess/0.16-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/libxml2/2.9.13-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/XZ/5.2.5-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/numactl/2.0.14-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.38-GCCcore-11.3.0/lib:/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.12-GCCcore-11.3.0/lib (previous value: '/apps/gent/RHEL8/cascadelake-ib/software/libffi/3.4.2-GCCcore-11.3.0/lib64:/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64')
+== 2023-07-04 14:04:32,268 environment.py:93 INFO Environment variable FC set to gfortran (previous value: 'gfortran')
+== 2023-07-04 14:04:32,271 run.py:236 INFO running cmd: sed -i'' 's/#include <exception>/#include <exception>\n#include <stdexcept>/g' /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/spoa/src/alignment_engine.cpp && sed -i 's/==/>=/g' /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/pygenomeworks/requirements.txt && sed -i 's/~=/>=/g' /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/pygenomeworks/requirements.txt &&  cmake  -DCMAKE_INSTALL_PREFIX=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0 -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF -Dgw_cuda_gen_all_arch=OFF  -Dgw_build_shared=ON  /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/ 
+== 2023-07-04 14:04:52,665 run.py:648 INFO cmd "sed -i'' 's/#include <exception>/#include <exception>\n#include <stdexcept>/g' /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/spoa/src/alignment_engine.cpp && sed -i 's/==/>=/g' /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/pygenomeworks/requirements.txt && sed -i 's/~=/>=/g' /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/pygenomeworks/requirements.txt &&  cmake  -DCMAKE_INSTALL_PREFIX=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0 -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF -Dgw_cuda_gen_all_arch=OFF  -Dgw_build_shared=ON  /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/" exited with exit code 0 and output:
+-- The C compiler identification is GNU 11.3.0
+-- The CXX compiler identification is GNU 11.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Enabling GenomeWorks unit tests
+-- Enabling GenomeWorks benchmarks
+-- Building GenomeWorks libraries as shared objects
+CMake Warning (dev) at cmake/CUDA.cmake:20 (find_package):
+  Policy CMP0074 is not set: find_package uses <PackageName>_ROOT variables.
+  Run "cmake --help-policy CMP0074" for policy details.  Use the cmake_policy
+  command to set the policy and suppress this warning.
+
+  Environment variable CUDA_ROOT is set to:
+
+    /apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0
+
+  For compatibility, CMake is ignoring the variable.
+Call Stack (most recent call first):
+  CMakeLists.txt:71 (include)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Found CUDA: /apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0 (found suitable version "11.7", minimum required is "10.0") 
+-- Using CUDA 11.7 from /apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0
+CMake Deprecation Warning at 3rdparty/googletest/CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+CMake Deprecation Warning at 3rdparty/googletest/googlemock/CMakeLists.txt:42 (cmake_minimum_required):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+CMake Deprecation Warning at 3rdparty/googletest/googletest/CMakeLists.txt:53 (cmake_minimum_required):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+-- Found PythonInterp: /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/bin/python (found version "3.10.4") 
+CMake Warning (dev) at 3rdparty/benchmark/CMakeLists.txt:17 (option):
+  Policy CMP0077 is not set: option() honors normal variables.  Run "cmake
+  --help-policy CMP0077" for policy details.  Use the cmake_policy command to
+  set the policy and suppress this warning.
+
+  For compatibility with older versions of CMake, option is clearing the
+  normal variable 'BENCHMARK_ENABLE_TESTING'.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at 3rdparty/benchmark/CMakeLists.txt:34 (option):
+  Policy CMP0077 is not set: option() honors normal variables.  Run "cmake
+  --help-policy CMP0077" for policy details.  Use the cmake_policy command to
+  set the policy and suppress this warning.
+
+  For compatibility with older versions of CMake, option is clearing the
+  normal variable 'BENCHMARK_ENABLE_GTEST_TESTS'.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Failed to find LLVM FileCheck
+-- Found Git: /usr/bin/git (found version "2.31.1") 
+-- git Version: v0.0.0
+-- Version: 0.0.0
+-- Performing Test HAVE_CXX_FLAG_STD_CXX11
+-- Performing Test HAVE_CXX_FLAG_STD_CXX11 - Success
+-- Performing Test HAVE_CXX_FLAG_WALL
+-- Performing Test HAVE_CXX_FLAG_WALL - Success
+-- Performing Test HAVE_CXX_FLAG_WEXTRA
+-- Performing Test HAVE_CXX_FLAG_WEXTRA - Success
+-- Performing Test HAVE_CXX_FLAG_WSHADOW
+-- Performing Test HAVE_CXX_FLAG_WSHADOW - Success
+-- Performing Test HAVE_CXX_FLAG_WERROR
+-- Performing Test HAVE_CXX_FLAG_WERROR - Success
+-- Performing Test HAVE_CXX_FLAG_PEDANTIC
+-- Performing Test HAVE_CXX_FLAG_PEDANTIC - Success
+-- Performing Test HAVE_CXX_FLAG_PEDANTIC_ERRORS
+-- Performing Test HAVE_CXX_FLAG_PEDANTIC_ERRORS - Success
+-- Performing Test HAVE_CXX_FLAG_WSHORTEN_64_TO_32
+-- Performing Test HAVE_CXX_FLAG_WSHORTEN_64_TO_32 - Failed
+-- Performing Test HAVE_CXX_FLAG_FSTRICT_ALIASING
+-- Performing Test HAVE_CXX_FLAG_FSTRICT_ALIASING - Success
+-- Performing Test HAVE_CXX_FLAG_WNO_DEPRECATED_DECLARATIONS
+-- Performing Test HAVE_CXX_FLAG_WNO_DEPRECATED_DECLARATIONS - Success
+-- Performing Test HAVE_CXX_FLAG_WNO_DEPRECATED
+-- Performing Test HAVE_CXX_FLAG_WNO_DEPRECATED - Success
+-- Performing Test HAVE_CXX_FLAG_WSTRICT_ALIASING
+-- Performing Test HAVE_CXX_FLAG_WSTRICT_ALIASING - Success
+-- Performing Test HAVE_CXX_FLAG_WD654
+-- Performing Test HAVE_CXX_FLAG_WD654 - Failed
+-- Performing Test HAVE_CXX_FLAG_WTHREAD_SAFETY
+-- Performing Test HAVE_CXX_FLAG_WTHREAD_SAFETY - Failed
+-- Performing Test HAVE_CXX_FLAG_COVERAGE
+-- Performing Test HAVE_CXX_FLAG_COVERAGE - Success
+-- Performing Test HAVE_STD_REGEX
+-- Performing Test HAVE_STD_REGEX
+-- Performing Test HAVE_STD_REGEX -- success
+-- Performing Test HAVE_GNU_POSIX_REGEX
+-- Performing Test HAVE_GNU_POSIX_REGEX
+-- Performing Test HAVE_GNU_POSIX_REGEX -- failed to compile
+-- Performing Test HAVE_POSIX_REGEX
+-- Performing Test HAVE_POSIX_REGEX
+-- Performing Test HAVE_POSIX_REGEX -- success
+-- Performing Test HAVE_STEADY_CLOCK
+-- Performing Test HAVE_STEADY_CLOCK
+-- Performing Test HAVE_STEADY_CLOCK -- success
+-- Check if compiler accepts -pthread
+-- Check if compiler accepts -pthread - yes
+-- Performing Test BENCHMARK_HAS_O3_FLAG
+-- Performing Test BENCHMARK_HAS_O3_FLAG - Success
+-- Performing Test BENCHMARK_HAS_CXX03_FLAG
+-- Performing Test BENCHMARK_HAS_CXX03_FLAG - Success
+-- Performing Test BENCHMARK_HAS_WNO_ODR
+-- Performing Test BENCHMARK_HAS_WNO_ODR - Success
+-- Building htslib
+-- Unrecognized Linux distribution - "Red Hat Enterprise Linux"
+. Disabling packaging.
+-- nvcc flags for gwbase:  -lineinfo -use_fast_math -Xcompiler -Wall,-Wno-pedantic -std=c++14
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+-- nvcc flags for cudapoa:  -lineinfo -use_fast_math -Xcompiler -Wall,-Wno-pedantic -std=c++14 -arch=compute_60 --expt-relaxed-constexpr
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+-- Using CUDA 11.7 from /apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0
+-- Autodetected CUDA architecture(s):  8.6
+-- nvcc flags for cudamapper:  -lineinfo -use_fast_math -Xcompiler -Wall,-Wno-pedantic -lineinfo --expt-extended-lambda -use_fast_math -Xcompiler -Wall,-Wno-pedantic -std=c++14 -gencode;arch=compute_86,code=sm_86
+-- nvcc flags for cudaaligner:  -lineinfo -use_fast_math -Xcompiler -Wall,-Wno-pedantic -std=c++14 -arch=compute_60 --expt-relaxed-constexpr
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+-- Autodetected CUDA architecture(s):  8.6
+-- nvcc flags for GenomeWorks:  -lineinfo -use_fast_math -Xcompiler -Wall,-Wno-pedantic -std=c++14 --expt-relaxed-constexpr -gencode;arch=compute_86,code=sm_86
+-- Enabling Doxygen documentation generation
+-- Found Doxygen: /apps/gent/RHEL8/cascadelake-ib/software/Doxygen/1.9.4-GCCcore-11.3.0/bin/doxygen (found version "1.9.4") found components: doxygen dot 
+-- clang-format not found. Auto-formatting disabled.
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj
+
+== 2023-07-04 14:04:52,666 run.py:662 WARNING Found 6 potential errors (some may be harmless) in output of sed -i'' 's/#include <exception>/#include <exception>\n#include <stdexcept>/g' /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/spoa/src/alignment_engine.cpp && sed -i 's/==/>=/g' /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/pygenomeworks/requirements.txt && sed -i 's/~=/>=/g' /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/pygenomeworks/requirements.txt &&  cmake  -DCMAKE_INSTALL_PREFIX=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0 -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF -Dgw_cuda_gen_all_arch=OFF  -Dgw_build_shared=ON  /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/:
+	-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+	-- Failed to find LLVM FileCheck
+	-- Performing Test HAVE_CXX_FLAG_WSHORTEN_64_TO_32 - Failed
+	-- Performing Test HAVE_CXX_FLAG_WD654 - Failed
+	-- Performing Test HAVE_CXX_FLAG_WTHREAD_SAFETY - Failed
+	-- Performing Test HAVE_GNU_POSIX_REGEX -- failed to compile
+== 2023-07-04 14:04:52,666 build_log.py:267 INFO ... (took 20 secs)
+== 2023-07-04 14:04:52,668 build_log.py:267 INFO building...
+== 2023-07-04 14:04:52,670 easyblock.py:3926 INFO Starting build step
+== 2023-07-04 14:04:52,671 easyconfig.py:1690 INFO Generating template values...
+== 2023-07-04 14:04:52,671 mpi.py:122 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2023-07-04 14:04:52,671 mpi.py:307 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2023-07-04 14:04:52,671 easyconfig.py:1709 INFO Template values: arch='x86_64', bitbucket_account='genomeworks', builddir='/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0', cudamajver='11', cudaminver='7', cudashortver='11.7', cudaver='11.7.0', github_account='genomeworks', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', module_name='GenomeWorks/2021.02.2-foss-2022a-CUDA-11.7.0', mpi_cmd_prefix='mpirun -n 1', name='GenomeWorks', nameletter='G', nameletterlower='g', namelower='genomeworks', parallel='8', pymajver='3', pyminver='10', pyshortver='3.10', pyver='3.10.4', start_dir='/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/', toolchain_name='foss', toolchain_version='2022a', version='2021.02.2', version_major='2021', version_major_minor='2021.02', version_minor='02', versionprefix='', versionsuffix='-CUDA-11.7.0'
+== 2023-07-04 14:04:52,671 easyblock.py:3934 INFO Running method build_step part of step build
+== 2023-07-04 14:04:52,671 configuremake.py:350 INFO Building target ''
+== 2023-07-04 14:04:52,674 run.py:236 INFO running cmd:  make  -j 8  
+== 2023-07-04 14:05:01,761 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " make  -j 8 " exited with exit code 2 and output:
+/kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -S/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks -B/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj --check-build-system CMakeFiles/Makefile.cmake 0
+/kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E cmake_progress_start /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/CMakeFiles /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj//CMakeFiles/progress.marks
+make  -f CMakeFiles/Makefile2 all
+make[1]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make  -f CMakeFiles/htslib_project.dir/build.make CMakeFiles/htslib_project.dir/depend
+make  -f CMakeFiles/docs.dir/build.make CMakeFiles/docs.dir/depend
+make  -f common/base/CMakeFiles/gwbase.dir/build.make common/base/CMakeFiles/gwbase.dir/depend
+make  -f 3rdparty/googletest/googletest/CMakeFiles/gtest.dir/build.make 3rdparty/googletest/googletest/CMakeFiles/gtest.dir/depend
+make  -f 3rdparty/spoa/CMakeFiles/spoa.dir/build.make 3rdparty/spoa/CMakeFiles/spoa.dir/depend
+make  -f 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/build.make 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/depend
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E cmake_depends "Unix Makefiles" /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/CMakeFiles/htslib_project.dir/DependInfo.cmake --color=
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E cmake_depends "Unix Makefiles" /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/spoa /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/spoa /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/spoa/CMakeFiles/spoa.dir/DependInfo.cmake --color=
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E cmake_depends "Unix Makefiles" /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/CMakeFiles/docs.dir/DependInfo.cmake --color=
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E cmake_depends "Unix Makefiles" /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/googletest/googletest /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/googletest/googletest /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/googletest/googletest/CMakeFiles/gtest.dir/DependInfo.cmake --color=
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E cmake_depends "Unix Makefiles" /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/common/base /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/common/base/CMakeFiles/gwbase.dir/DependInfo.cmake --color=
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E cmake_depends "Unix Makefiles" /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/benchmark/src /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/benchmark/src/CMakeFiles/benchmark.dir/DependInfo.cmake --color=
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make  -f CMakeFiles/htslib_project.dir/build.make CMakeFiles/htslib_project.dir/build
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make  -f 3rdparty/spoa/CMakeFiles/spoa.dir/build.make 3rdparty/spoa/CMakeFiles/spoa.dir/build
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make  -f CMakeFiles/docs.dir/build.make CMakeFiles/docs.dir/build
+make  -f common/base/CMakeFiles/gwbase.dir/build.make common/base/CMakeFiles/gwbase.dir/build
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make  -f 3rdparty/googletest/googletest/CMakeFiles/gtest.dir/build.make 3rdparty/googletest/googletest/CMakeFiles/gtest.dir/build
+make  -f 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/build.make 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/build
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+[  0%] Creating directories for 'htslib_project'
+/kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -Dcfgdir= -P /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/htslib/tmp/htslib_project-mkdirs.cmake
+[  1%] Building CXX object 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/benchmark.cc.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/benchmark/src && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/include -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/../include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC  -std=c++11  -Wall  -Wextra  -Wshadow  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -O3 -DNDEBUG  -Werror  -Wno-deprecated -fPIC -MD -MT 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/benchmark.cc.o -MF CMakeFiles/benchmark.dir/benchmark.cc.o.d -o CMakeFiles/benchmark.dir/benchmark.cc.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/benchmark.cc
+/kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E touch /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/htslib/src/htslib_project-stamp/htslib_project-mkdir
+[  2%] Building CXX object 3rdparty/spoa/CMakeFiles/spoa.dir/src/simd_alignment_engine.cpp.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/spoa && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++  -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/spoa/include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -Wall -Wextra -pedantic -march=native -O3 -DNDEBUG -fPIC -w -std=c++11 -MD -MT 3rdparty/spoa/CMakeFiles/spoa.dir/src/simd_alignment_engine.cpp.o -MF CMakeFiles/spoa.dir/src/simd_alignment_engine.cpp.o.d -o CMakeFiles/spoa.dir/src/simd_alignment_engine.cpp.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/spoa/src/simd_alignment_engine.cpp
+[  4%] Generate API documentation for docs
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E make_directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj
+[  5%] Building CXX object common/base/CMakeFiles/gwbase.dir/src/cudautils.cpp.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/common/base && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DGW_ENABLE_CACHING_ALLOCATOR -Dgwbase_EXPORTS -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/htslib/include/htslib -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include -I/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -fopenmp -Werror -Wall -Wextra -O3 -DNDEBUG -fPIC -std=gnu++17 -MD -MT common/base/CMakeFiles/gwbase.dir/src/cudautils.cpp.o -MF CMakeFiles/gwbase.dir/src/cudautils.cpp.o.d -o CMakeFiles/gwbase.dir/src/cudautils.cpp.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/src/cudautils.cpp
+[  5%] Building CXX object 3rdparty/spoa/CMakeFiles/spoa.dir/src/graph.cpp.o
+[  7%] Building CXX object 3rdparty/spoa/CMakeFiles/spoa.dir/src/alignment_engine.cpp.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/spoa && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++  -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/spoa/include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -Wall -Wextra -pedantic -march=native -O3 -DNDEBUG -fPIC -w -std=c++11 -MD -MT 3rdparty/spoa/CMakeFiles/spoa.dir/src/graph.cpp.o -MF CMakeFiles/spoa.dir/src/graph.cpp.o.d -o CMakeFiles/spoa.dir/src/graph.cpp.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/spoa/src/graph.cpp
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/spoa && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++  -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/spoa/include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -Wall -Wextra -pedantic -march=native -O3 -DNDEBUG -fPIC -w -std=c++11 -MD -MT 3rdparty/spoa/CMakeFiles/spoa.dir/src/alignment_engine.cpp.o -MF CMakeFiles/spoa.dir/src/alignment_engine.cpp.o.d -o CMakeFiles/spoa.dir/src/alignment_engine.cpp.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/spoa/src/alignment_engine.cpp
+[  7%] Building CXX object 3rdparty/googletest/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/googletest/googletest && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++  -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/googletest/googletest/include -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/googletest/googletest -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -O3 -DNDEBUG -fPIC -Wall -Wshadow -Werror -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=c++11 -MD -MT 3rdparty/googletest/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o -MF CMakeFiles/gtest.dir/src/gtest-all.cc.o.d -o CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/googletest/googletest/src/gtest-all.cc
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks && /apps/gent/RHEL8/cascadelake-ib/software/Doxygen/1.9.4-GCCcore-11.3.0/bin/doxygen /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/Doxyfile.docs
+[  7%] No download step for 'htslib_project'
+/kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E echo_append
+warning: argument 'TRUE' for option WARN_AS_ERROR is not a valid enum value
+Using the default: NO!
+Doxygen version used: 1.9.4
+Searching for include files...
+Searching for example files...
+Searching for images...
+Searching for dot files...
+Searching for msc files...
+Searching for dia files...
+Searching for files to exclude
+Searching INPUT for files to process...
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/logging
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/io/include/claraparabricks/genomeworks/io
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudapoa/include
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudapoa/include/claraparabricks
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudapoa/include/claraparabricks/genomeworks
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudapoa/include/claraparabricks/genomeworks/cudapoa
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaaligner/include
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaaligner/include/claraparabricks
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaaligner/include/claraparabricks/genomeworks
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaaligner/include/claraparabricks/genomeworks/cudaaligner
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaextender/include
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaextender/include/claraparabricks
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaextender/include/claraparabricks/genomeworks
+Searching for files in directory /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaextender/include/claraparabricks/genomeworks/cudaextender
+Reading and parsing tag files
+Parsing files
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/gw_config.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-/kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E touch /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/htslib/src/htslib_project-stamp/htslib_project-download
+11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/gw_config.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/logging/logging.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/logging/logging.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/types.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/types.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/allocator.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/allocator.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/cudautils.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/cudautils.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/device_buffer.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/device_buffer.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/exceptions.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/exceptions.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/genomeutils.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/genomeutils.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/graph.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/graph.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/mathutils.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/mathutils.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/pinned_host_vector.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/pinned_host_vector.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/signed_integer_utils.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/signed_integer_utils.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/stringutils.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/stringutils.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/threadsafe_containers.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/utils/threadsafe_containers.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/version.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include/claraparabricks/genomeworks/version.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/io/include/claraparabricks/genomeworks/io/fasta_parser.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/io/include/claraparabricks/genomeworks/io/fasta_parser.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudapoa/include/claraparabricks/genomeworks/cudapoa/batch.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudapoa/include/claraparabricks/genomeworks/cudapoa/batch.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudapoa/include/claraparabricks/genomeworks/cudapoa/cudapoa.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudapoa/include/claraparabricks/genomeworks/cudapoa/cudapoa.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudapoa/include/claraparabricks/genomeworks/cudapoa/utils.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudapoa/include/claraparabricks/genomeworks/cudapoa/utils.hpp...
+Reading /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudapoa/README.md...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/cudamapper.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/cudamapper.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/index.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/index.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/matcher.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/matcher.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/overlapper.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/overlapper.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/sketch_element.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/sketch_element.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/types.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/types.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/utils.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/include/claraparabricks/genomeworks/cudamapper/utils.hpp...
+Reading /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudamapper/README.md...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaaligner/include/claraparabricks/genomeworks/cudaaligner/aligner.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaaligner/include/claraparabricks/genomeworks/cudaaligner/aligner.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaaligner/include/claraparabricks/genomeworks/cudaaligner/alignment.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaaligner/include/claraparabricks/genomeworks/cudaaligner/alignment.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaaligner/include/claraparabricks/genomeworks/cudaaligner/cudaaligner.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaaligner/include/claraparabricks/genomeworks/cudaaligner/cudaaligner.hpp...
+Reading /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaaligner/README.md...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaextender/include/claraparabricks/genomeworks/cudaextender/cudaextender.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaextender/include/claraparabricks/genomeworks/cudaextender/cudaextender.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaextender/include/claraparabricks/genomeworks/cudaextender/extender.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaextender/include/claraparabricks/genomeworks/cudaextender/extender.hpp...
+Preprocessing /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaextender/include/claraparabricks/genomeworks/cudaextender/utils.hpp...
+Parsing file /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaextender/include/claraparabricks/genomeworks/cudaextender/utils.hpp...
+Reading /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/cudaextender/README.md...
+Reading /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/README.md...
+Building macro definition list...
+Building group list...
+Building directory list...
+Building namespace list...
+Building file list...
+Building class list...
+Building concept list...
+Computing nesting relations for classes...
+Associating documentation with classes...
+Associating documentation with concepts...
+Building example list...
+Searching for enumerations...
+Searching for documented typedefs...
+Searching for members imported via using declarations...
+Searching for included using directives...
+Searching for documented variables...
+Building interface member list...
+Building member list...
+Searching for friends...
+Searching for documented defines...
+Computing class inheritance relations...
+Computing class usage relations...
+Flushing cached template relations that have become invalid...
+Computing class relations...
+Add enum values to enums...
+Searching[  7%] No update step for 'htslib_project'
+/kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E echo_append
+ for member function documentation...
+Creating members for template instances...
+Building page list...
+Search for main page...
+Computing page relations...
+Determining the scope of groups...
+Sorting lists...
+Determining which enums are documented
+Computing member relations...
+Building full member lists recursively...
+Adding members to member groups.
+Computing member references...
+Inheriting documentation...
+Generating disk names...
+Adding source references...
+Adding xrefitems...
+Sorting member lists...
+Setting anonymous enum type...
+Computing dependencies between directories...
+Generating citations page...
+Counting members...
+Counting data structures...
+Resolving user defined references...
+Finding anchors and sections in the documentation...
+Transferring function references...
+Combining using relations...
+Adding members to index pages...
+Correcting members for VHDL...
+Computing tooltip texts...
+Generating style sheet...
+Generating search indices...
+Generating example documentation...
+Generating file sources...
+Generating code for file common/base/include/claraparabricks/genomeworks/gw_config.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/logging/logging.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/types.hpp...
+Generating code for file cudamapper/include/claraparabricks/genomeworks/cudamapper/types.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/utils/allocator.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/utils/cudautils.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/utils/device_buffer.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/utils/exceptions.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/utils/genomeutils.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/utils/graph.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/utils/mathutils.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/utils/pinned_host_vector.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/utils/signed_integer_utils.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/utils/stringutils.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/utils/threadsafe_containers.hpp...
+Generating code for file common/base/include/claraparabricks/genomeworks/version.hpp...
+Generating code for file common/io/include/claraparabricks/genomeworks/io/fasta_parser.hpp...
+Generating code for file cudaaligner/include/claraparabricks/genomeworks/cudaaligner/aligner.hpp...
+Generating code for file cudaaligner/include/claraparabricks/genomeworks/cudaaligner/alignment.hpp...
+Generating code for file cudaaligner/include/claraparabricks/genomeworks/cudaaligner/cudaaligner.hpp...
+Generating code for file cudaextender/include/claraparabricks/genomeworks/cudaextender/cudaextender.hpp...
+Generating code for file cudaextender/include/claraparabricks/genomeworks/cudaextender/extender.hpp...
+Generating code for file cudamapper/include/claraparabricks/genomeworks/cudamapper/cudamapper.hpp...
+Generating code for file cudamapper/include/claraparabricks/genomeworks/cudamapper/index.hpp...
+Generating code for file cudamapper/include/claraparabricks/genomeworks/cudamapper/matcher.hpp...
+Generating code for file cudamapper/include/claraparabricks/genomeworks/cudamapper/overlapper.hpp...
+Generating code for file cudamapper/include/claraparabricks/genomeworks/cudamapper/sketch_element.hpp...
+Generating code for file cudapoa/include/claraparabricks/genomeworks/cudapoa/batch.hpp...
+Generating code for file cudapoa/include/claraparabricks/genomeworks/cudapoa/cudapoa.hpp...
+Generating code for file cudaextender/include/claraparabricks/genomeworks/cudaextender/utils.hpp...
+Generating code for file cudamapper/include/claraparabricks/genomeworks/cudamapper/utils.hpp...
+Generating code for file cudapoa//kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E touch /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/htslib/src/htslib_project-stamp/htslib_project-update
+include/claraparabricks/genomeworks/cudapoa/utils.hpp...
+Generating file documentation...
+Generating docs for file common/base/include/claraparabricks/genomeworks/logging/logging.hpp...
+Generating docs for file common/base/include/claraparabricks/genomeworks/utils/cudautils.hpp...
+Generating page documentation...
+Generating docs for page md_cudapoa_README...
+Generating docs for page md_cudamapper_README...
+Generating docs for page md_cudaaligner_README...
+Generating docs for page md_cudaextender_README...
+Generating group documentation...
+Generating dependency graph for group logging
+Generating dependency graph for group cudamapper
+Generating class documentation...
+Generating concept documentation...
+Generating namespace index...
+Generating docs for compound claraparabricks::genomeworks::CachingDeviceAllocator...
+Generating docs for compound claraparabricks::genomeworks::CudaMallocAllocator...
+Generating docs for compound claraparabricks::genomeworks::device_memory_allocation_exception...
+Generating docs for compound claraparabricks::genomeworks::DirectedGraph...
+Generating docs for compound claraparabricks::genomeworks::Graph...
+Generating docs for compound claraparabricks::genomeworks::PairHash...
+Generating docs for compound claraparabricks::genomeworks::scoped_device_switch...
+Generating docs for compound claraparabricks::genomeworks::ThreadsafeDataProvider...
+Generating docs for compound claraparabricks::genomeworks::ThreadsafeProducerConsumer...
+Generating docs for compound claraparabricks::genomeworks::UndirectedGraph...
+Generating docs for compound claraparabricks::genomeworks::cudaaligner::Aligner...
+Generating docs for compound claraparabricks::genomeworks::cudaaligner::Alignment...
+Generating docs for compound claraparabricks::genomeworks::cudaaligner::FormattedAlignment...
+Generating docs for compound claraparabricks::genomeworks::cudaextender::Extender...
+Generating docs for compound claraparabricks::genomeworks::cudaextender::ScoredSegmentPair...
+Generating docs for compound claraparabricks::genomeworks::cudaextender::SeedPair...
+Generating docs for compound claraparabricks::genomeworks::cudamapper::Anchor...
+Generating docs for compound claraparabricks::genomeworks::cudamapper::ArrayBlock...
+Generating docs for compound claraparabricks::genomeworks::cudamapper::Index...
+Generating docs for compound claraparabricks::genomeworks::cudamapper::IndexDescriptor...
+Generating docs for compound claraparabricks::genomeworks::cudamapper::IndexDescriptorHash...
+Generating docs for compound claraparabricks::genomeworks::cudamapper::IndexHostCopyBase...
+Generating docs for nested compound claraparabricks::genomeworks::cudamapper::IndexHostCopyBase::Span...
+Generating docs for compound claraparabricks::genomeworks::cudamapper::IndexNotReadyException...
+Generating docs for compound claraparabricks::genomeworks::cudamapper::Matcher...
+Generating docs for compound claraparabricks::genomeworks::cudamapper::Overlap...
+Generating docs for compound claraparabricks::genomeworks::cudamapper::Overlapper...
+Generating docs for compound claraparabricks::genomeworks::cudamapper::SketchElement...
+Generating docs for compound claraparabricks::genomeworks::cudapoa::Batch...
+Generating docs for compound claraparabricks::genomeworks::cudapoa::BatchConfig...
+Generating docs for compound claraparabricks::genomeworks::cudapoa::Entry...
+Generating docs for compound claraparabricks::genomeworks::detail::CudaStreamDeleter...
+Generating docs for compound claraparabricks::genomeworks::details::buffer...
+Generating docs for compound claraparabricks::genomeworks::io::FastaParser...
+Generating docs for compound claraparabricks::genomeworks::io::FastaSequence...
+Generating graph info page...
+Generating directory documentation...
+Generating dependency graph for directory common/base
+Generating dependency graph for directory common/base/include/claraparabricks
+Generating dependency graph for directory common/io/include/claraparabricks
+Generating dependency graph for directory cudaaligner/include/claraparabricks
+Generating dependency graph for director/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/README.md:6: warning: unable to resolve reference to 'enable-doc-generation' for \ref command
+/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/README.md:14: warning: unable to resolve reference to 'clone-genomeworks' for \ref command
+/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/README.md:15: warning: unable to resolve reference to 'system-requirements' for \ref command
+/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/README.md:16: warning: unable to resolve reference to 'genomeworks-setup' for \ref command
+/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/README.md:17: warning: unable to resolve reference to 'genomeworks-python-api' for \ref command
+/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/README.md:18: warning: unable to resolve reference to 'development-support' for \ref command
+/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/README.md:124: warning: unable to resolve reference to 'build' for \ref command
+[  8%] No patch step for 'htslib_project'
+/kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E echo_append
+/kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E touch /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/htslib/src/htslib_project-stamp/htslib_project-patch
+[ 10%] Performing configure step for 'htslib_project'
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/htslib && autoheader && autoconf && /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/htslib/configure --disable-bz2 --disable-lzma --disable-libcurl --disable-s3 --disable-gcs
+[ 10%] Building CXX object common/base/CMakeFiles/gwbase.dir/src/logging.cpp.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/common/base && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DGW_ENABLE_CACHING_ALLOCATOR -Dgwbase_EXPORTS -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/htslib/include/htslib -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include -I/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -fopenmp -Werror -Wall -Wextra -O3 -DNDEBUG -fPIC -std=gnu++17 -MD -MT common/base/CMakeFiles/gwbase.dir/src/logging.cpp.o -MF CMakeFiles/gwbase.dir/src/logging.cpp.o.d -o CMakeFiles/gwbase.dir/src/logging.cpp.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/src/logging.cpp
+[ 11%] Building CXX object common/base/CMakeFiles/gwbase.dir/src/graph.cpp.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/common/base && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DGW_ENABLE_CACHING_ALLOCATOR -Dgwbase_EXPORTS -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/htslib/include/htslib -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include -I/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -fopenmp -Werror -Wall -Wextra -O3 -DNDEBUG -fPIC -std=gnu++17 -MD -MT common/base/CMakeFiles/gwbase.dir/src/graph.cpp.o -MF CMakeFiles/gwbase.dir/src/graph.cpp.o.d -o CMakeFiles/gwbase.dir/src/graph.cpp.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/src/graph.cpp
+y cudaextender/include/claraparabricks
+Generating dependency graph for directory cudamapper/include/claraparabricks
+Generating dependency graph for directory cudapoa/include/claraparabricks
+Generating dependency graph for directory common
+Generating dependency graph for directory cudaaligner/include/claraparabricks/genomeworks/cudaaligner
+Generating dependency graph for directory cudaextender/include/claraparabricks/genomeworks/cudaextender
+Generating dependency graph for directory cudamapper/include/claraparabricks/genomeworks/cudamapper
+Generating dependency graph for directory cudapoa
+Generating dependency graph for directory cudapoa/include/claraparabricks/genomeworks/cudapoa
+Generating dependency graph for directory common/base/include/claraparabricks/genomeworks
+Generating dependency graph for directory common/io/include/claraparabricks/genomeworks
+Generating dependency graph for directory cudaaligner/include/claraparabricks/genomeworks
+Generating dependency graph for directory cudaextender/include/claraparabricks/genomeworks
+Generating dependency graph for directory cudamapper/include/claraparabricks/genomeworks
+Generating dependency graph for directory cudapoa/include/claraparabricks/genomeworks
+Generating dependency graph for directory common/base/include
+Generating dependency graph for directory common/io/include
+Generating dependency graph for directory cudaaligner/include
+Generating dependency graph for directory cudaextender/include
+Generating dependency graph for directory cudamapper/include
+Generating dependency graph for directory cudapoa/include
+Generating dependency graph for directory common/io
+Generating dependency graph for directory common/io/include/claraparabricks/genomeworks/io
+Generating dependency graph for directory common/base/include/claraparabricks/genomeworks/logging
+Generating dependency graph for directory common/base/include/claraparabricks/genomeworks/utils
+Generating index page...
+Generating page index...
+Generating module index...
+Generating namespace index...
+Generating namespace member index...
+Generating concept index...
+Generating annotated compound index...
+Generating alphabetical compound index...
+Generating hierarchical class index...
+Generating graphical class hierarchy...
+Generating member index...
+Generating file index...
+Generating file member index...
+Generating example index...
+finalizing index lists...
+writing tag file...
+Running plantuml with JAVA...
+Running dot...
+Generating dot graphs using 37 parallel threads...
+Running dot for graph 1/77
+Running dot for graph 2/77
+Running dot for graph 3/77
+Running dot for graph 4/77
+Running dot for graph 5/77
+Running dot for graph 6/77
+Running dot for graph 7/77
+Running dot for graph 8/77
+Running dot for graph 9/77
+Running dot for graph 10/77
+Running dot for graph 11/77
+Running dot for graph 12/77
+Running dot for graph 13/77
+Running dot for graph 14/77
+Running dot for graph 15/77
+Running dot for graph 16/77
+Running dot for graph 17/77
+Running dot for graph 18/77
+Running dot for graph 19/77
+Running dot for graph 20/77
+Running dot for graph 21/77
+Running dot for graph 22/77
+Running dot for graph 23/77
+Running dot for graph 24/77
+Running dot for graph 25/77
+Running dot for graph 26/77
+Running dot for graph 27/77
+Running dot for graph 28/77
+Running dot for graph 29/77
+Running dot for graph 30/77
+Running dot for graph 31/77
+Running dot for graph 32/77
+Running dot for graph 33/77
+Running dot for graph 34/77
+Running dot for graph 35/77
+Running dot for graph 36/77
+Running dot for graph 37/77
+Running dot for graph 38/77
+Running dot for graph 39/77
+Running dot for graph 40/77
+Running dot for graph 41/77
+Running dot for graph 42/77
+Running dot for graph 43/77
+Running dot for graph 44/77
+Running dot for graph 45/77
+Running dot for graph 46/77
+Running dot for graph 47/77
+Running dot for graph 48/77
+Running dot for graph 49/77
+Running dot for graph 50/77
+Running dot for graph 51/77
+Running dot for graph 52/77
+Running dot for graph 53/77
+Running dot for graph 54/77
+Running dot for graph 55/77
+Running dot for graph 56/77
+Running dot for graph 57/[ 11%] Building CXX object 3rdparty/spoa/CMakeFiles/spoa.dir/src/sisd_alignment_engine.cpp.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/spoa && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++  -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/spoa/include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -Wall -Wextra -pedantic -march=native -O3 -DNDEBUG -fPIC -w -std=c++11 -MD -MT 3rdparty/spoa/CMakeFiles/spoa.dir/src/sisd_alignment_engine.cpp.o -MF CMakeFiles/spoa.dir/src/sisd_alignment_engine.cpp.o.d -o CMakeFiles/spoa.dir/src/sisd_alignment_engine.cpp.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/spoa/src/sisd_alignment_engine.cpp
+[ 11%] Linking CXX shared library libgwbase.so
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/common/base && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E cmake_link_script CMakeFiles/gwbase.dir/link.txt --verbose=1
+77
+Running dot for graph 58/77
+Running dot for graph 59/77
+Running dot for graph 60/77
+Running dot for graph 61/77
+Running dot for graph 62/77
+Running dot for graph 63/77
+Running dot for graph 64/77
+Running dot for graph 65/77
+Running dot for graph 66/77
+Running dot for graph 67/77
+Running dot for graph 68/77
+Running dot for graph 69/77
+Running dot for graph 70/77
+Running dot for graph 71/77
+Running dot for graph 72/77
+Running dot for graph 73/77
+Running dot for graph 74/77
+Running dot for graph 75/77
+Running dot for graph 76/77
+Running dot for graph 77/77
+Patching output file 1/40
+Patching output file 2/40
+Patching output file 3/40
+Patching output file 4/40
+Patching output file 5/40
+Patching output file 6/40
+Patching output file 7/40
+Patching output file 8/40
+Patching output file 9/40
+Patching output file 10/40
+Patching output file 11/40
+Patching output file 12/40
+Patching output file 13/40
+Patching output file 14/40
+Patching output file 15/40
+Patching output file 16/40
+Patching output file 17/40
+Patching output file 18/40
+Patching output file 19/40
+Patching output file 20/40
+Patching output file 21/40
+Patching output file 22/40
+Patching output file 23/40
+Patching output file 24/40
+Patching output file 25/40
+Patching output file 26/40
+Patching output file 27/40
+Patching output file 28/40
+Patching output file 29/40
+Patching output file 30/40
+Patching output file 31/40
+Patching output file 32/40
+Patching output file 33/40
+Patching output file 34/40
+Patching output file 35/40
+Patching output file 36/40
+Patching output file 37/40
+Patching output file 38/40
+Patching output file 39/40
+Patching output file 40/40
+lookup cache used 601/65536 hits=2092 misses=623
+finished...
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -fPIC -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -fopenmp -Werror -Wall -Wextra -O3 -DNDEBUG -L/apps/gent/RHEL8/cascadelake-ib/software/tqdm/4.64.0-GCCcore-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/tqdm/4.64.0-GCCcore-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/networkx/2.8.4-foss-2022a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/networkx/2.8.4-foss-2022a/lib -L/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib -L/apps/gent/RHEL8/cascadelake-ib/software/matplotlib/3.5.2-foss-2022a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/matplotlib/3.5.2-foss-2022a/lib -L/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib -L/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib -shared -Wl,-soname,libgwbase.so -o libgwbase.so CMakeFiles/gwbase.dir/src/cudautils.cpp.o CMakeFiles/gwbase.dir/src/logging.cpp.o CMakeFiles/gwbase.dir/src/graph.cpp.o  /apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib64/libcudart_static.a -ldl /usr/lib64/librt.so -lpthread 
+[ 11%] Built target docs
+[ 11%] Building CXX object 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/benchmark_api_internal.cc.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/benchmark/src && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/include -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/../include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC  -std=c++11  -Wall  -Wextra  -Wshadow  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -O3 -DNDEBUG  -Werror  -Wno-deprecated -fPIC -MD -MT 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/benchmark_api_internal.cc.o -MF CMakeFiles/benchmark.dir/benchmark_api_internal.cc.o.d -o CMakeFiles/benchmark.dir/benchmark_api_internal.cc.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/benchmark_api_internal.cc
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+[ 11%] Built target gwbase
+make  -f common/io/CMakeFiles/gwio.dir/build.make common/io/CMakeFiles/gwio.dir/depend
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E cmake_depends "Unix Makefiles" /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/io /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/common/io /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/common/io/CMakeFiles/gwio.dir/DependInfo.cmake --color=
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make  -f common/io/CMakeFiles/gwio.dir/build.make common/io/CMakeFiles/gwio.dir/build
+make[2]: Entering directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+[ 11%] Building CXX object common/io/CMakeFiles/gwio.dir/src/fasta_parser.cpp.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/common/io && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DGW_ENABLE_CACHING_ALLOCATOR -Dgwio_EXPORTS -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/htslib/include/htslib -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/kseqpp/src -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/io/include -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include -I/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -fopenmp -Werror -Wall -Wextra -O3 -DNDEBUG -fPIC -std=gnu++17 -MD -MT common/io/CMakeFiles/gwio.dir/src/fasta_parser.cpp.o -MF CMakeFiles/gwio.dir/src/fasta_parser.cpp.o.d -o CMakeFiles/gwio.dir/src/fasta_parser.cpp.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/io/src/fasta_parser.cpp
+[ 12%] Building CXX object common/io/CMakeFiles/gwio.dir/src/kseqpp_fasta_parser.cpp.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/common/io && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DGW_ENABLE_CACHING_ALLOCATOR -Dgwio_EXPORTS -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/htslib/include/htslib -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/kseqpp/src -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/io/include -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/base/include -I/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -fopenmp -Werror -Wall -Wextra -O3 -DNDEBUG -fPIC -std=gnu++17 -MD -MT common/io/CMakeFiles/gwio.dir/src/kseqpp_fasta_parser.cpp.o -MF CMakeFiles/gwio.dir/src/kseqpp_fasta_parser.cpp.o.d -o CMakeFiles/gwio.dir/src/kseqpp_fasta_parser.cpp.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/common/io/src/kseqpp_fasta_parser.cpp
+[ 14%] Building CXX object 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/benchmark_name.cc.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/benchmark/src && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/include -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/../include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC  -std=c++11  -Wall  -Wextra  -Wshadow  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -O3 -DNDEBUG  -Werror  -Wno-deprecated -fPIC -MD -MT 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/benchmark_name.cc.o -MF CMakeFiles/benchmark.dir/benchmark_name.cc.o.d -o CMakeFiles/benchmark.dir/benchmark_name.cc.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/benchmark_name.cc
+[ 14%] Building CXX object 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/benchmark_register.cc.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/benchmark/src && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/include -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/../include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC  -std=c++11  -Wall  -Wextra  -Wshadow  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -O3 -DNDEBUG  -Werror  -Wno-deprecated -fPIC -MD -MT 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/benchmark_register.cc.o -MF CMakeFiles/benchmark.dir/benchmark_register.cc.o.d -o CMakeFiles/benchmark.dir/benchmark_register.cc.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/benchmark_register.cc
+[ 15%] Building CXX object 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/benchmark_runner.cc.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/benchmark/src && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/include -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/../include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC  -std=c++11  -Wall  -Wextra  -Wshadow  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -O3 -DNDEBUG  -Werror  -Wno-deprecated -fPIC -MD -MT 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/benchmark_runner.cc.o -MF CMakeFiles/benchmark.dir/benchmark_runner.cc.o.d -o CMakeFiles/benchmark.dir/benchmark_runner.cc.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/benchmark_runner.cc
+[ 15%] Building CXX object 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/colorprint.cc.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/benchmark/src && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/include -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/../include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC  -std=c++11  -Wall  -Wextra  -Wshadow  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -O3 -DNDEBUG  -Werror  -Wno-deprecated -fPIC -MD -MT 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/colorprint.cc.o -MF CMakeFiles/benchmark.dir/colorprint.cc.o.d -o CMakeFiles/benchmark.dir/colorprint.cc.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/colorprint.cc
+In file included from /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/benchmark_register.cc:15:
+/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/benchmark_register.h: In function typename std::vector<T>::iterator benchmark::internal::AddPowers(std::vector<T>*, T, T, int):
+/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/benchmark_register.h:22:30: error: numeric_limits is not a member of std
+   22 |   static const T kmax = std::numeric_limits<T>::max();
+      |                              ^~~~~~~~~~~~~~
+/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/benchmark_register.h:22:46: error: expected primary-expression before > token
+   22 |   static const T kmax = std::numeric_limits<T>::max();
+      |                                              ^
+/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/benchmark_register.h:22:49: error: ::max has not been declared; did you mean std::max?
+   22 |   static const T kmax = std::numeric_limits<T>::max();
+      |                                                 ^~~
+      |                                                 std::max
+In file included from /kyukon/home/apps/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/include/c++/11.3.0/algorithm:62,
+                 from /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/include/benchmark/benchmark.h:172,
+                 from /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/internal_macros.h:4,
+                 from /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/check.h:8,
+                 from /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/benchmark_register.h:6,
+                 from /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/benchmark_register.cc:15:
+/kyukon/home/apps/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/include/c++/11.3.0/bits/stl_algo.h:3467:5: note: std::max declared here
+ 3467 |     max(initializer_list<_Tp> __l, _Compare __comp)
+      |     ^~~
+[ 17%] Building CXX object 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/commandlineflags.cc.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/benchmark/src && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/include -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/../include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC  -std=c++11  -Wall  -Wextra  -Wshadow  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -O3 -DNDEBUG  -Werror  -Wno-deprecated -fPIC -MD -MT 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/commandlineflags.cc.o -MF CMakeFiles/benchmark.dir/commandlineflags.cc.o.d -o CMakeFiles/benchmark.dir/commandlineflags.cc.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/commandlineflags.cc
+configure: error: cannot find required auxiliary files: config.guess config.sub
+make[2]: *** [CMakeFiles/htslib_project.dir/build.make:95: 3rdparty/htslib/src/htslib_project-stamp/htslib_project-configure] Error 1
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make[1]: *** [CMakeFiles/Makefile2:622: CMakeFiles/htslib_project.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+[ 17%] Building CXX object 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/complexity.cc.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/benchmark/src && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/include -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/../include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC  -std=c++11  -Wall  -Wextra  -Wshadow  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -O3 -DNDEBUG  -Werror  -Wno-deprecated -fPIC -MD -MT 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/complexity.cc.o -MF CMakeFiles/benchmark.dir/complexity.cc.o.d -o CMakeFiles/benchmark.dir/complexity.cc.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/complexity.cc
+[ 18%] Building CXX object 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/console_reporter.cc.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/benchmark/src && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/include -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/../include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC  -std=c++11  -Wall  -Wextra  -Wshadow  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -O3 -DNDEBUG  -Werror  -Wno-deprecated -fPIC -MD -MT 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/console_reporter.cc.o -MF CMakeFiles/benchmark.dir/console_reporter.cc.o.d -o CMakeFiles/benchmark.dir/console_reporter.cc.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/console_reporter.cc
+[ 18%] Building CXX object 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/counter.cc.o
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/benchmark/src && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/include -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src -I/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/../include -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC  -std=c++11  -Wall  -Wextra  -Wshadow  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -O3 -DNDEBUG  -Werror  -Wno-deprecated -fPIC -MD -MT 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/counter.cc.o -MF CMakeFiles/benchmark.dir/counter.cc.o.d -o CMakeFiles/benchmark.dir/counter.cc.o -c /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks/3rdparty/benchmark/src/counter.cc
+make[2]: *** [3rdparty/benchmark/src/CMakeFiles/benchmark.dir/build.make:121: 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/benchmark_register.cc.o] Error 1
+make[2]: *** Waiting for unfinished jobs....
+[ 18%] Linking CXX shared library libgwio.so
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/common/io && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E cmake_link_script CMakeFiles/gwio.dir/link.txt --verbose=1
+/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/bin/g++ -fPIC -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -fopenmp -Werror -Wall -Wextra -O3 -DNDEBUG -L/apps/gent/RHEL8/cascadelake-ib/software/tqdm/4.64.0-GCCcore-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/tqdm/4.64.0-GCCcore-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/networkx/2.8.4-foss-2022a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/networkx/2.8.4-foss-2022a/lib -L/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2022.05-foss-2022a/lib -L/apps/gent/RHEL8/cascadelake-ib/software/matplotlib/3.5.2-foss-2022a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/matplotlib/3.5.2-foss-2022a/lib -L/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/ScaLAPACK/2.2.0-gompi-2022a-fb/lib -L/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/11.3.0/lib -shared -Wl,-soname,libgwio.so -o libgwio.so CMakeFiles/gwio.dir/src/fasta_parser.cpp.o CMakeFiles/gwio.dir/src/kseqpp_fasta_parser.cpp.o  -Wl,-rpath,/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/common/base: ../base/libgwbase.so -lz /apps/gent/RHEL8/cascadelake-ib/software/CUDA/11.7.0/lib64/libcudart_static.a -lpthread -ldl /usr/lib64/librt.so 
+[ 20%] Linking CXX static library lib/libspoa.a
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/spoa && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -P CMakeFiles/spoa.dir/cmake_clean_target.cmake
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/spoa && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E cmake_link_script CMakeFiles/spoa.dir/link.txt --verbose=1
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.38-GCCcore-11.3.0/bin/ar qc lib/libspoa.a CMakeFiles/spoa.dir/src/alignment_engine.cpp.o CMakeFiles/spoa.dir/src/graph.cpp.o CMakeFiles/spoa.dir/src/simd_alignment_engine.cpp.o CMakeFiles/spoa.dir/src/sisd_alignment_engine.cpp.o
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+[ 20%] Built target gwio
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.38-GCCcore-11.3.0/bin/ranlib lib/libspoa.a
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+[ 20%] Built target spoa
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make[1]: *** [CMakeFiles/Makefile2:779: 3rdparty/benchmark/src/CMakeFiles/benchmark.dir/all] Error 2
+[ 21%] Linking CXX static library ../../../lib/libgtest.a
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/googletest/googletest && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -P CMakeFiles/gtest.dir/cmake_clean_target.cmake
+cd /tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj/3rdparty/googletest/googletest && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -E cmake_link_script CMakeFiles/gtest.dir/link.txt --verbose=1
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.38-GCCcore-11.3.0/bin/ar qc ../../../lib/libgtest.a "CMakeFiles/gtest.dir/src/gtest-all.cc.o"
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.38-GCCcore-11.3.0/bin/ranlib ../../../lib/libgtest.a
+make[2]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+[ 21%] Built target gtest
+make[1]: Leaving directory '/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/easybuild_obj'
+make: *** [Makefile:149: all] Error 2
+ (at easybuild/easybuild-framework/easybuild/tools/run.py:643 in parse_cmd_output)
+== 2023-07-04 14:05:01,761 build_log.py:267 INFO ... (took 9 secs)
+== 2023-07-04 14:05:01,763 filetools.py:2014 INFO Removing lock /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_cascadelake-ampere-ib_software_GenomeWorks_2021.02.2-foss-2022a-CUDA-11.7.0.lock...
+== 2023-07-04 14:05:01,765 filetools.py:383 INFO Path /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_cascadelake-ampere-ib_software_GenomeWorks_2021.02.2-foss-2022a-CUDA-11.7.0.lock successfully removed.
+== 2023-07-04 14:05:01,765 filetools.py:2018 INFO Lock removed: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL8_cascadelake-ampere-ib_software_GenomeWorks_2021.02.2-foss-2022a-CUDA-11.7.0.lock
+== 2023-07-04 14:05:01,765 easyblock.py:4257 WARNING build failed (first 300 chars): cmd " make  -j 8 " exited with exit code 2 and output:
+/kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.24.3-GCCcore-11.3.0/bin/cmake -S/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-11.7.0/GenomeWorks -B/tmp/vsc44588/easybuild/build/GenomeWorks/2021.02.2/foss-2022a-CUDA-
+== 2023-07-04 14:05:01,766 easyblock.py:328 INFO Closing log for application name GenomeWorks version 2021.02.2
