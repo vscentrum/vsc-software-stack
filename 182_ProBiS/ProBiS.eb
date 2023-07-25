@@ -1,0 +1,27 @@
+easyblock = 'MakeCp'
+
+name = 'ProBiS'
+version = '20230403'
+local_commit = 'f10a9f4c'
+
+homepage = 'http://insilab.org/probis-algorithm'
+description = """ProBiS algorithm aligns and superimposes complete protein surfaces,
+surface motifs, or protein binding sites."""
+
+toolchain = {'name': 'gompi', 'version': '2022b'}
+
+source_urls = ['https://gitlab.com/janezkonc/probis/-/archive/master/']
+sources = ['%s.tar.gz' % local_commit]
+
+dependencies = [
+    ('GSL', '2.7'),
+]
+
+buildopts = 'probis CC="mpic++" CFLAGS="-std=c++0x -O3 -Wall -Wno-char-subscripts -DMPI_ENABLED -DNDEBUG"'
+
+files_to_copy = [(['probis'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/probis'],
+    'dirs': [],
+}
