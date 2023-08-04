@@ -1,0 +1,31 @@
+# Author: Jasper Grimm (UoY)
+
+easyblock = 'PythonPackage'
+
+name = 'intervaltree-python'
+version = '3.1.0'
+
+homepage = 'https://github.com/chaimleib/intervaltree'
+description = """A mutable, self-balancing interval tree. Queries may be by
+ point, by range overlap, or by range containment.
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+
+source_urls = ['https://pypi.python.org/packages/source/i/intervaltree']
+sources = ['intervaltree-%(version)s.tar.gz']
+checksums = ['902b1b88936918f9b2a19e0e5eb7ccb430ae45cde4f39ea4b36932920d33952d']
+
+builddependencies = [
+    ('binutils', '2.38'),
+]
+dependencies = [
+    ('Python', '3.10.4'),
+]
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+options = {'modulename': 'intervaltree'}
+
+moduleclass = 'bio'
