@@ -1,0 +1,41 @@
+easyblock = 'PythonBundle'
+
+name = 'catboost'
+version = '1.2'
+
+homepage = 'https://catboost.ai'
+description = """CatBoost is a high-performance open source library for gradient boosting on decision trees"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+builddependencies = [
+    ('CMake', '3.23.1'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('Clang', '15.0.5'),
+    ('SciPy-bundle', '2022.05'),
+    ('matplotlib', '3.5.2'),
+    ('plotly.py', '5.12.0'),
+    ('graphviz-python', '0.20.1'),
+    ('Ninja', '1.10.2'),
+    # ('LLVM', '14.0.3'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('setuptools', '67.7.2', {
+        'checksums': ['f104fa03692a2602fa0fec6c6a9e63b6c8a968de13e17c026957dd1f53d80990'],
+    }),
+    (name, version, {
+        'source_urls': ['https://pypi.python.org/packages/source/c/catboost'],
+        # 'source_urls': ['https://github.com/%(namelower)s/%(namelower)s/archive'],
+        # 'sources': ['v%(version)s.tar.gz'],
+        # 'preinstallopts': 'export CC=$CPATH && '
+    }),
+]
+
+moduleclass = 'ai'
