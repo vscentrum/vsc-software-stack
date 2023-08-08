@@ -10,8 +10,12 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 source_urls = ['https://github.com/cctbx/cctbx_project/releases/download/v2023.5/']
 sources = ['cctbx-%(version)s.tar.gz']
-patches = ['cctbx-base.patch']
-checksums = ['9983a4296e27f5c344555f079170a9abfc1513a3788a8e6087ae156003c8b2af']
+patches = ['cctbx-base-%(version)s_do-not-use-non-public-boost-python-function.patch']
+checksums = [
+    {'cctbx-2023.5.tar.gz': '9983a4296e27f5c344555f079170a9abfc1513a3788a8e6087ae156003c8b2af'},
+    {'cctbx-base-2023.5_do-not-use-non-public-boost-python-function.patch':
+     '6e1a6669e5ddf94ed8d68c863c03013bc8c9239f8946381722e4de2a9a0442ec'},
+]
 
 builddependencies = [
     ('SCons', '4.4.0'),
@@ -23,7 +27,7 @@ dependencies = [
     ('Python', '3.10.4'),
     ('Boost', '1.79.0'),
     ('Boost.Python-NumPy', '1.79.0'),
-    ('HDF5', '1.13.1'),
+    ('HDF5', '1.12.2'),
     ('LibTIFF', '4.3.0'),
 ]
 
