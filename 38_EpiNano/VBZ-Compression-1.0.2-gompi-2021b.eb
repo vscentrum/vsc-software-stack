@@ -1,0 +1,43 @@
+easyblock = 'CMakeMake'
+
+name = 'VBZ-Compression'
+version = '1.0.2'
+
+homepage = 'https://github.com/nanoporetech/vbz_compression'
+description = "VBZ compression HDF5 plugin for nanopolish"
+
+toolchain = {'name': 'gompi', 'version': '2021b'}
+
+source_urls = [
+    'https://github.com/nanoporetech/vbz_compression/archive',
+    'https://github.com/lemire/streamvbyte/archive',
+]
+sources = [
+    {'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ},
+    {'download_filename': 'v0.5.1.tar.gz', 'filename': 'streamvbyte-v0.5.1.tar.gz'},
+]
+checksums = [
+    {'VBZ-Compression-1.0.2.tar.gz': 'f803929c79dbf04c041768bf9d3c351e79eb13b8b8f01c63258f8a514d6aad5d'},
+    {'streamvbyte-v0.5.1.tar.gz': 'b0f2403582f90b79f4bb37a4835ca3d62e43358d71b09a8f7e7920862faf0709'},
+]
+
+builddependencies = [('CMake', '3.22.1')]
+
+dependencies = [
+    ('HDF5', '1.12.1'),
+    ('zstd', '1.5.0'),
+]
+
+preconfigopts = "rmdir %(builddir)s/vbz_compression*/third_party/streamvbyte && "
+preconfigopts += "mv %(builddir)s/streamvbyte-* %(builddir)s/streamvbyte && "
+preconfigopts += "mv %(builddir)s/streamvbyte %(builddir)s/vbz_compression*/third_party/. && "
+configopts = "-DENABLE_CONAN=OFF -DENABLE_PERF_TESTING=OFF -DENABLE_PYTHON=OFF "
+
+sanity_check_paths = {
+    'files': ['hdf5/lib/plugin/libvbz_hdf_plugin.%s' % SHLIB_EXT],
+    'dirs': [],
+}
+
+modextrapaths = {'HDF5_PLUGIN_PATH': 'hdf5/lib/plugin/'}
+
+moduleclass = 'lib'
