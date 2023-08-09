@@ -1,0 +1,130 @@
+--- vcflib-1.0.9/CMakeLists.txt.orig	2023-02-11 17:41:26.000000000 +0100
++++ vcflib-1.0.9/CMakeLists.txt	2023-08-09 17:00:38.841558242 +0200
+@@ -58,8 +58,8 @@
+ find_package(Threads)
+ set_package_properties(Threads PROPERTIES TYPE REQUIRED)
+ 
+-pkg_check_modules(HTSLIB htslib)   # Optionally builds from contrib/
+-pkg_check_modules(TABIXPP tabixpp) # Optionally builds from contrib/
++# pkg_check_modules(HTSLIB htslib)   # Optionally builds from contrib/
++# pkg_check_modules(TABIXPP tabixpp) # Optionally builds from contrib/
+ 
+ # ---- Build switches
+ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+@@ -109,37 +109,37 @@
+ # ---- Include files
+ 
+ include_directories(include)
+-include_directories(contrib/fastahack)
+-include_directories(contrib/intervaltree)
+-include_directories(contrib/smithwaterman)
+-include_directories(contrib/multichoose)
+-include_directories(contrib/filevercmp)
++# include_directories(contrib/fastahack)
++# include_directories(contrib/intervaltree)
++# include_directories(contrib/smithwaterman)
++# include_directories(contrib/multichoose)
++# include_directories(contrib/filevercmp)
+ include_directories(contrib/c-progress-bar)
+ 
+-if(NOT HTSLIB_FOUND)
+-  set(HTSLIB_LOCAL contrib/tabixpp/htslib)
+-  set(TABIX_FOUND OFF) # also build tabixpp if htslib is missing
+-endif()
+-
+-if (NOT TABIX_FOUND)
+-  set(TABIXPP_LOCAL contrib/tabixpp)
+-  include_directories(contrib/tabixpp)
+-  set(tabixpp_SOURCE
+-    contrib/tabixpp/tabix.cpp
+-  )
+-endif()
+-
+-if(WFA_GITMODULE)
+-  set(WFA_LOCAL contrib/WFA2-lib)
+-endif()
++# if(NOT HTSLIB_FOUND)
++#   set(HTSLIB_LOCAL contrib/tabixpp/htslib)
++#   set(TABIX_FOUND OFF) # also build tabixpp if htslib is missing
++# endif()
++#
++# if (NOT TABIX_FOUND)
++#   set(TABIXPP_LOCAL contrib/tabixpp)
++#   include_directories(contrib/tabixpp)
++#   set(tabixpp_SOURCE
++#     contrib/tabixpp/tabix.cpp
++#   )
++# endif()
++#
++# if(WFA_GITMODULE)
++#   set(WFA_LOCAL contrib/WFA2-lib)
++# endif()
+ 
+ file(GLOB INCLUDES
+   src/*.h*
+-  contrib/multichoose/*.h*
+-  contrib/intervaltree/*.h*
+-  contrib/smithwaterman/*.h*
+-  contrib/fastahack/*.h*
+-  contrib/filevercmp/*.h*
++  # contrib/multichoose/*.h*
++  # contrib/intervaltree/*.h*
++  # contrib/smithwaterman/*.h*
++  # contrib/fastahack/*.h*
++  # contrib/filevercmp/*.h*
+   )
+ 
+ set(vcflib_SOURCE
+@@ -158,14 +158,14 @@
+     src/LeftAlign.cpp
+     src/cigar.cpp
+     src/allele.cpp
+-    contrib/fastahack/Fasta.cpp
+-    contrib/smithwaterman/SmithWatermanGotoh.cpp
+-    contrib/smithwaterman/Repeats.cpp
+-    contrib/smithwaterman/IndelAllele.cpp
+-    contrib/smithwaterman/disorder.cpp
+-    contrib/smithwaterman/LeftAlign.cpp
+-    contrib/fsom/fsom.c
+-    contrib/filevercmp/filevercmp.c
++    # contrib/fastahack/Fasta.cpp
++    # contrib/smithwaterman/SmithWatermanGotoh.cpp
++    # contrib/smithwaterman/Repeats.cpp
++    # contrib/smithwaterman/IndelAllele.cpp
++    # contrib/smithwaterman/disorder.cpp
++    # contrib/smithwaterman/LeftAlign.cpp
++    # contrib/fsom/fsom.c
++    # contrib/filevercmp/filevercmp.c
+     contrib/c-progress-bar/progress.c
+ )
+ 
+@@ -403,7 +403,7 @@
+ 
+ set(vcflib_DEPS
+   CURL::libcurl
+-  )
++)
+ 
+ if (ZIG)
+   list(APPEND vcflib_DEPS ZIG-EXT)
+@@ -414,15 +414,17 @@
+ endif()
+ 
+ set(vcflib_LIBS
+-  ${HTSLIB_LIBRARIES}
+   ${CURL_LIBRARIES}
+   ${ZLIB_LIBRARIES}
+   ${LIBLZMA_LIBRARIES}
+   ${BZIP2_LIBRARIES}
+-  ${TABIXPP_LIBRARIES}
+   ${CMAKE_THREAD_LIBS_INIT}
+   ${WFA_LINK_LIBRARIES}
+-  ${HTSLIB_LINK_LIBRARIES}
++  tabixpp
++  fastahack
++  sw
++  fsom
++  filevercmp
+ )
+ 
+ if (ZIG)
