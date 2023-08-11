@@ -13,6 +13,12 @@ description = """Mikado is a lightweight Python3 pipeline to identify
 
 toolchain = {'name': 'foss', 'version': '2022b'}
 
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('Ninja', '1.11.1'),
+    ('Meson', '0.64.0'),
+]
+
 dependencies = [
     ('Python', '3.10.8'),
     ('Biopython', '1.81'),
@@ -44,14 +50,17 @@ exts_list = [
     ('marshmallow', '3.20.1', {
         'checksums': ['5d2371bbe42000f2b3fb5eaa065224df7d8f8597bc19a1bbfa5bfe7fba8da889'],
     }),
-    # ('dataclasses', '0.8', {
-    #     'checksums': ['8479067f342acf957dc82ec415d355ab5edb7e7646b90dc6e2fd1d96ad084c97'],
-    # }),
     ('marshmallow_dataclass', '8.5.14', {
         'checksums': ['233c414dd24a6d512bcdb6fb840076bf7a29b7daaaea40634f155a5933377d2e'],
     }),
     ('typeguard', '4.1.0', {
         'checksums': ['b05a54bb0276eefd28880df42e004a71e699c8081fcb9d0536b2ceb01019f60c'],
+    }),
+    # Mikado uses `scipy._build_utils` in it's build process.
+    # Latest usable version of scipy for that is 1.9.1.
+    # This overwrites scipy 1.10.1 provided by SciPy-bundle.
+    ('scipy', '1.9.1', {
+        'checksums': ['26d28c468900e6d5fdb37d2812ab46db0ccd22c63baa095057871faa3a498bc9'],
     }),
     (name, version, {
         'checksums': ['6d8844bacacc776214cf35cb148fa638c029b2972751d04fc1f7d0d8f3e961c2'],
