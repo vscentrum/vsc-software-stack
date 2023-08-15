@@ -29,12 +29,14 @@ dependencies = [
     ('PyYAML', '6.0'),
     ('snakemake', '7.32.3'),
     ('pyfaidx', '0.7.2.1'),
+    ('Greenlet', '2.0.2'),
 ]
 
 use_pip = True
 sanity_pip_check = True
 
 exts_list = [
+    # TODO RuntimeError: Could not find drmaa library.
     ('drmaa', '0.7.9', {
         'checksums': ['12540cd98afc40d5c0b2f38d7b0e46468d1c45192a2f401f41fc2eda9c9f5542'],
     }),
@@ -45,24 +47,35 @@ exts_list = [
         'checksums': ['a2181bff01eeb84479e38571d2c0718eb52042f9afd8c194d0d02877e84b7d74'],
     }),
     ('python-rapidjson', '1.10', {
+        'modulename': 'rapidjson',
         'checksums': ['acfecbf5edb91ec72a20a125de7f56b8c2f6161eff4c65382c8ee6a2484d3540'],
     }),
-    ('marshmallow', '3.20.1', {
-        'checksums': ['5d2371bbe42000f2b3fb5eaa065224df7d8f8597bc19a1bbfa5bfe7fba8da889'],
+    ('marshmallow', '3.14.1', {
+        'checksums': ['4c05c1684e0e97fe779c62b91878f173b937fe097b356cd82f793464f5bc6138'],
     }),
-    ('marshmallow_dataclass', '8.5.14', {
-        'checksums': ['233c414dd24a6d512bcdb6fb840076bf7a29b7daaaea40634f155a5933377d2e'],
+    ('marshmallow_dataclass', '8.5.3', {
+        'checksums': ['c0c5e1ea8d0e557b6fa00343799a9a9e60757b948fb096076beb6aa76bd68d30'],
     }),
     ('typeguard', '4.1.0', {
         'checksums': ['b05a54bb0276eefd28880df42e004a71e699c8081fcb9d0536b2ceb01019f60c'],
     }),
-    # Mikado uses `scipy._build_utils` in it's build process.
-    # Latest usable version of scipy for that is 1.9.1.
+    ('typing_extensions', '4.7.1', {
+        'checksums': ['b75ddc264f0ba5615db7ba217daeb99701ad295353c45f9e95963337ceeeffb2'],
+    }),
+    ('typing_inspect', '0.9.0', {
+        'checksums': ['b23fc42ff6f6ef6954e4852c1fb512cdd18dbea03134f91f856a95ccc9461f78'],
+    }),
+    ('mypy_extensions', '1.0.0', {
+        'checksums': ['75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782'],
+    }),
     # This overwrites scipy 1.10.1 provided by SciPy-bundle.
-    ('scipy', '1.9.1', {
-        'checksums': ['26d28c468900e6d5fdb37d2812ab46db0ccd22c63baa095057871faa3a498bc9'],
+    # Mikado uses `scipy._build_utils` in it's build process.
+    # The version 1.8.1 is known to work.
+    ('scipy', '1.8.1', {
+        'checksums': ['9e3fb1b0e896f14a85aa9a28d5f755daaeeb54c897b746df7a55ccb02b340f33'],
     }),
     (name, version, {
+        'modulename': name,
         'checksums': ['6d8844bacacc776214cf35cb148fa638c029b2972751d04fc1f7d0d8f3e961c2'],
     }),
 ]
