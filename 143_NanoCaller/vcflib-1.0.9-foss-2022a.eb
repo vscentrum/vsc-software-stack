@@ -13,6 +13,7 @@ description = """vcflib provides methods to manipulate and interpret sequence va
  to concisely describe reference-indexed genetic variations between individuals."""
 
 toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'openmp': True}
 
 source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
@@ -21,7 +22,7 @@ patches = [
 ]
 checksums = [
     {'v1.0.9.tar.gz': 'd17fcf8a34d65f1dfecf4b4290d058be744422b6baf34ecdef8ea912d59a4569'},
-    {'vcflib-1.0.9_dep-fix.patch': '8a073f908030980be5642da57854519bf1e89a7b80859ef7095c9dc85b94c8b8'},
+    {'vcflib-1.0.9_dep-fix.patch': '5b81231f03c04742b2a4bb42a652288d8789703e15d5f7211bb7521afa3b2c41'},
 ]
 
 builddependencies = [
@@ -56,17 +57,22 @@ preconfigopts += " -e 's|multichoose.h|multichoose/multichoose.h|g' -e 's|fileve
 preconfigopts += " -e 's|tabix.hpp|tabixpp/tabix.hpp|g' -e 's|Fasta.h|fastahack/Fasta.h|g'"
 preconfigopts += r" -e 's|disorder.h|smithwaterman/disorder.h|g' {} \; && "
 
-configopts = "-DZIG=OFF -DOPENMP=OFF -DWFA_GITMODULE=OFF"
+configopts = "-DZIG=OFF -DWFA_GITMODULE=OFF -DWFA_INCLUDE_DIRS=$EBROOTWFA2/include/wfa2lib"
 
 postinstallcmds = ["cp -r %(builddir)s/%(name)s-%(version)s/scripts %(installdir)s"]
 
 modextrapaths = {'PATH': ['scripts']}
 
 sanity_check_paths = {
-    'files': ['bin/vcfannotate', 'bin/vcfcombine', 'lib/libvcflib.%s' % SHLIB_EXT],
-    'dirs': ['scripts'],
+    'files': [
+        'bin/vcffilter',
+        'bin/vcfcombine',
+        'bin/libvcflib.a',   # TODO `libvcflib.a` not in `lib` ?
+        'lib/pyvcflib.cpython-310-x86_64-linux-gnu.so',
+    ],
+    'dirs': ['scripts', 'include'],
 }
 
-sanity_check_commands = ["vcfremap"]
+sanity_check_commands = ["vcfwave --help"]
 
 moduleclass = 'bio'

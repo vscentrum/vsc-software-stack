@@ -1,5 +1,8 @@
+Use our libraries instead of the ones in git submodules
+Author: Petr Král (INUITS)
+diff -u vcflib-1.0.9/CMakeLists.txt.orig vcflib-1.0.9/CMakeLists.txt
 --- vcflib-1.0.9/CMakeLists.txt.orig	2023-02-11 17:41:26.000000000 +0100
-+++ vcflib-1.0.9/CMakeLists.txt	2023-08-09 17:00:38.841558242 +0200
++++ vcflib-1.0.9/CMakeLists.txt	2023-08-16 16:39:45.979222150 +0200
 @@ -58,8 +58,8 @@
  find_package(Threads)
  set_package_properties(Threads PROPERTIES TYPE REQUIRED)
@@ -11,7 +14,7 @@
  
  # ---- Build switches
  set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-@@ -109,37 +109,37 @@
+@@ -109,25 +109,25 @@
  # ---- Include files
  
  include_directories(include)
@@ -39,10 +42,6 @@
 -    contrib/tabixpp/tabix.cpp
 -  )
 -endif()
--
--if(WFA_GITMODULE)
--  set(WFA_LOCAL contrib/WFA2-lib)
--endif()
 +# if(NOT HTSLIB_FOUND)
 +#   set(HTSLIB_LOCAL contrib/tabixpp/htslib)
 +#   set(TABIX_FOUND OFF) # also build tabixpp if htslib is missing
@@ -55,10 +54,10 @@
 +#     contrib/tabixpp/tabix.cpp
 +#   )
 +# endif()
-+#
-+# if(WFA_GITMODULE)
-+#   set(WFA_LOCAL contrib/WFA2-lib)
-+# endif()
+ 
+ if(WFA_GITMODULE)
+   set(WFA_LOCAL contrib/WFA2-lib)
+@@ -135,11 +135,11 @@
  
  file(GLOB INCLUDES
    src/*.h*
@@ -98,6 +97,15 @@
      contrib/c-progress-bar/progress.c
  )
  
+@@ -363,7 +363,7 @@
+   add_subdirectory(${WFA_LOCAL} EXCLUDE_FROM_ALL)
+   set(WFALIB wfa2) # pick up the wfa2 lib target from the included CMakeLists.txt
+ else(WFA_GITMODULE)
+-  set(WFA_INCLUDE_DIRS ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}/wfa2lib)
++  # set(WFA_INCLUDE_DIRS ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}/wfa2lib)
+   find_library(WFALIB wfa2 wfa) # distro search for shared lib
+   if(NOT WFALIB)
+     message(STATUS "ERROR: Can not find libfwa! Make sure it is installed or use the git submodule instead")
 @@ -403,7 +403,7 @@
  
  set(vcflib_DEPS
@@ -107,7 +115,7 @@
  
  if (ZIG)
    list(APPEND vcflib_DEPS ZIG-EXT)
-@@ -414,15 +414,17 @@
+@@ -414,15 +414,18 @@
  endif()
  
  set(vcflib_LIBS
@@ -120,6 +128,7 @@
    ${CMAKE_THREAD_LIBS_INIT}
    ${WFA_LINK_LIBRARIES}
 -  ${HTSLIB_LINK_LIBRARIES}
++  hts
 +  tabixpp
 +  fastahack
 +  sw
