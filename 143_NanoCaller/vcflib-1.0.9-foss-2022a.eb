@@ -22,13 +22,13 @@ patches = [
 ]
 checksums = [
     {'v1.0.9.tar.gz': 'd17fcf8a34d65f1dfecf4b4290d058be744422b6baf34ecdef8ea912d59a4569'},
-    {'vcflib-1.0.9_dep-fix.patch': '5b81231f03c04742b2a4bb42a652288d8789703e15d5f7211bb7521afa3b2c41'},
+    {'vcflib-1.0.9_dep-fix.patch': '76bce1c9e40dab2ad94b455bb4487dfa24eeafcf50639db0852f5ca7a31331b6'},
 ]
 
 builddependencies = [
     ('binutils', '2.38'),
     ('CMake', '3.23.1'),
-    ('pkg-config', '0.29.2'),
+    ('pkgconf', '1.8.0'),
 ]
 
 dependencies = [
@@ -67,7 +67,7 @@ sanity_check_paths = {
     'files': [
         'bin/vcffilter',
         'bin/vcfcombine',
-        'bin/libvcflib.a',   # TODO `libvcflib.a` not in `lib` ?
+        'lib/libvcflib.a',
         'lib/pyvcflib.cpython-310-x86_64-linux-gnu.so',
     ],
     'dirs': ['scripts', 'include'],

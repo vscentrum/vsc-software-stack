@@ -1,8 +1,9 @@
 Use our libraries instead of the ones in git submodules
+Install libvcflib.a to lib directory instead of bin
 Author: Petr Král (INUITS)
 diff -u vcflib-1.0.9/CMakeLists.txt.orig vcflib-1.0.9/CMakeLists.txt
 --- vcflib-1.0.9/CMakeLists.txt.orig	2023-02-11 17:41:26.000000000 +0100
-+++ vcflib-1.0.9/CMakeLists.txt	2023-08-16 16:39:45.979222150 +0200
++++ vcflib-1.0.9/CMakeLists.txt	2023-08-17 13:59:24.793435374 +0200
 @@ -58,8 +58,8 @@
  find_package(Threads)
  set_package_properties(Threads PROPERTIES TYPE REQUIRED)
@@ -57,7 +58,7 @@ diff -u vcflib-1.0.9/CMakeLists.txt.orig vcflib-1.0.9/CMakeLists.txt
  
  if(WFA_GITMODULE)
    set(WFA_LOCAL contrib/WFA2-lib)
-@@ -135,11 +135,11 @@
+@@ -135,12 +135,12 @@
  
  file(GLOB INCLUDES
    src/*.h*
@@ -66,14 +67,16 @@ diff -u vcflib-1.0.9/CMakeLists.txt.orig vcflib-1.0.9/CMakeLists.txt
 -  contrib/smithwaterman/*.h*
 -  contrib/fastahack/*.h*
 -  contrib/filevercmp/*.h*
+-  )
 +  # contrib/multichoose/*.h*
 +  # contrib/intervaltree/*.h*
 +  # contrib/smithwaterman/*.h*
 +  # contrib/fastahack/*.h*
 +  # contrib/filevercmp/*.h*
-   )
++)
  
  set(vcflib_SOURCE
+     src/vcf-c-api.cpp
 @@ -158,14 +158,14 @@
      src/LeftAlign.cpp
      src/cigar.cpp
@@ -96,6 +99,24 @@ diff -u vcflib-1.0.9/CMakeLists.txt.orig vcflib-1.0.9/CMakeLists.txt
 +    # contrib/filevercmp/filevercmp.c
      contrib/c-progress-bar/progress.c
  )
+ 
+@@ -175,7 +175,7 @@
+ 
+ add_library(vcflib STATIC
+     ${vcflib_SOURCE}
+-    )
++)
+ 
+ set(BINS
+     vcfecho
+@@ -302,7 +302,7 @@
+     vcfsort
+     vcf_strip_extra_headers
+     vcfvarstats
+-    )
++)
+ 
+ # ---- Get version
  
 @@ -363,7 +363,7 @@
    add_subdirectory(${WFA_LOCAL} EXCLUDE_FROM_ALL)
@@ -137,3 +158,21 @@ diff -u vcflib-1.0.9/CMakeLists.txt.orig vcflib-1.0.9/CMakeLists.txt
  )
  
  if (ZIG)
+@@ -510,7 +513,7 @@
+     NAME zigvcf
+     COMMAND zig build test
+     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src/zig
+-    )
++  )
+ endfunction()
+ 
+   add_zigtest()
+@@ -576,7 +579,7 @@
+ 
+ # ---- Install
+ 
+-install(TARGETS vcflib ARCHIVE DESTINATION ${CMAKE_INSTALL_BINDIR})
++install(TARGETS vcflib ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 
+ install(FILES ${INCLUDES} DESTINATION include)
+ 

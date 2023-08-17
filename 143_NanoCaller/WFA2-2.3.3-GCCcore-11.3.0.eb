@@ -14,9 +14,12 @@ source_urls = ['https://github.com/smarco/WFA2-lib/archive/refs/tags/']
 sources = ['v%(version)s.tar.gz']
 checksums = ['2569650cdba395f42513a4d2c9175724a736047bb7da99a162c0abdbd651698f']
 
-builddependencies = [('CMake', '3.24.3')]
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('pkgconf', '1.8.0'),
+]
 
-configopts = "-DCMAKE_BUILD_TYPE=Release"
+configopts = "-DOPENMP=ON"
 
 sanity_check_paths = {
     'files': ['lib/libwfa2.a'],
