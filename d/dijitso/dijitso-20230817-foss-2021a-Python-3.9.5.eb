@@ -1,0 +1,40 @@
+easyblock = 'PythonPackage'
+
+name = 'dijitso'
+version = '20230817'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://bitbucket.org/fenics-project/dijitso'
+description = "dijitso is a Python module for distributed just-in-time shared library building."
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://bitbucket.org/fenics-project',
+        'repo_name': 'dijitso',
+        'commit': 'c92dcb0',
+        'recursive': True,
+        'keep_git_dir': True,
+    },
+}]
+checksums = ['7123c511e20dcec698b2c94a8057d714c0892e677c28ef72f2294cf7ff15cf4b']
+
+dependencies = [
+    ('Python', '3.9.5'),
+    ('SciPy-bundle', '2021.05'),
+]
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+
+sanity_check_paths = {
+    'files': ['bin/dijitso'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["dijitso --help"]
+
+moduleclass = 'math'

@@ -1,0 +1,67 @@
+name = 'DOLFIN'
+version = '20230817'
+local_pysuffix = '-Python-%(pyver)s'
+local_petscsuffix =  '-SuperLU_DIST'
+versionsuffix = local_pysuffix + local_petscsuffix
+
+homepage = 'https://bitbucket.org/fenics-project/dolfin'
+description = """DOLFIN is the C++/Python interface of FEniCS, providing a consistent PSE
+  (Problem Solving Environment) for ordinary and partial differential equations."""
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+toolchainopts = {'usempi': True, 'pic': True, 'packed-linker-options': True, 'openmp': True}
+
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://bitbucket.org/fenics-project',
+        'repo_name': 'dolfin',
+        'commit': 'fd662e',
+        'recursive': True,
+        'keep_git_dir': True,
+    },
+}]
+patches = [
+#    'DOLFIN_boost-endian.patch',
+    'DOLFIN_boost-algorithm.patch',
+]
+checksums = [
+    {'DOLFIN-20230817.tar.gz': 'a1d2c69e1909d38b9c31e9cd0a92c8b20297fb7fe858cf89130aff06ecf3775b'},
+#    {'DOLFIN_boost-endian.patch': '1555a4ff3cd40a3ccf3dcbd055dded17f0eedcde43190eed79216beb8303099f'},
+    {'DOLFIN_boost-algorithm.patch': '5fe22210f973d845fe6607d8b13a6278d50206d817d0088274cdd98aa1df9e3b'},
+]
+
+builddependencies = [
+    ('CMake', '3.20.1'),
+    ('pkg-config', '0.29.2'),
+    ('patchelf', '0.12'),
+]
+
+dependencies = [
+    ('Python', '3.9.5'),
+    ('Boost.Python', '1.76.0'),
+    ('FFC', version, local_pysuffix),
+    ('SCOTCH', '6.1.0'),
+    ('SuiteSparse', '5.10.1', '-METIS-5.1.0'),
+    ('CGAL', '4.14.3'),
+    ('PETSc', '3.15.1', local_petscsuffix),
+    ('SLEPc', '3.15.1', local_petscsuffix),
+    ('HDF5', '1.10.7'),
+    ('zlib', '1.2.11'),
+    ('libxml2', '2.9.10'),
+    ('Eigen', '3.3.9'),
+    ('PLY', '3.11', local_pysuffix),
+    ('petsc4py', '3.15.0', local_petscsuffix),
+    ('pybind11', '2.6.2'),
+    ('slepc4py', '3.15.1', local_petscsuffix),
+    ('ParMETIS', '4.0.3'),
+    ('pkgconfig', '1.5.4', '', ('GCCcore', '10.3.0-python')),
+]
+
+# demos run as tests fail with 'bad X server connection', skipping for now
+runtest = False
+
+# strip out too strict version requirement for pybind11
+#preinstallopts = "sed -i 's/pybind11==[0-9.]*/pybind11/g' %(builddir)s/dolfin-%(version)s/python/setup.py && "
+
+moduleclass = 'math'
