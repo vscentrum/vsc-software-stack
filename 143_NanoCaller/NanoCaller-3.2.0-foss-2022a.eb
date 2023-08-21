@@ -1,4 +1,4 @@
-easyblock = 'PythonBundle'
+easyblock = 'Tarball'
 
 name = 'NanoCaller'
 version = '3.2.0'
@@ -8,6 +8,11 @@ description = """NanoCaller is a computational method that integrates long reads
  convolutional neural network for the detection of SNPs/indels from long-read sequencing data."""
 
 toolchain = {'name': 'foss', 'version': '2022a'}
+
+source_urls = ['https://github.com/WGLab/%(name)s/archive/']
+sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}]
+
+checksums = ['90ad22fe668805e47a4a7678564dff465831668f7dae673353b6ffe474d22b93']
 
 dependencies = [
     ('Python', '3.10.4'),
@@ -19,22 +24,16 @@ dependencies = [
     ('SAMtools', '1.16.1'),  # not a python package
     ('TensorFlow', '2.11.0'),
     ('WhatsHap', '1.7'),
-    # ('vcflib', '1.0.9'),  # TODO not a python package
+    ('vcflib', '1.0.9'),  # not a python package
     ('intervaltree-python', '3.1.0'),
     ('tqdm', '4.64.0'),
     # ('RTG-Tools', '3.12.1'),  # TODO not a python package
 ]
 
-sanity_pip_check = True
-use_pip = True
-
-exts_list = [
-    (name, version, {
-        'source_urls': ['https://github.com/WGLab/%(name)s/archive/'],
-        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'checksums': ['90ad22fe668805e47a4a7678564dff465831668f7dae673353b6ffe474d22b93'],
-    }),
-]
+modextrapaths = {
+    'PATH': '',
+    'PYTHONPATH': '',
+}
 
 sanity_check_paths = {
     'files': ['bin/NanoStat'],
@@ -43,4 +42,4 @@ sanity_check_paths = {
 
 sanity_check_commands = ["NanoCaller --help"]
 
-moduleclass = 'tools'
+moduleclass = 'bio'

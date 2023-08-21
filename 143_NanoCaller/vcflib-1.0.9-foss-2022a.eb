@@ -13,26 +13,22 @@ description = """vcflib provides methods to manipulate and interpret sequence va
  to concisely describe reference-indexed genetic variations between individuals."""
 
 toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'openmp': True}
 
 source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
-
 patches = [
-    # '%(name)s-%(version)s_use-external-deps.patch',
-    # '%(name)s-%(version)s_fix-shared-linking.patch',
+    '%(name)s-%(version)s_dep-fix.patch',
 ]
-
 checksums = [
-    None,
-    # '5fd05f46dc251a56a322809da92c93c85318036aa9ac39a2eefc4fbd39b5df6c',  # v1.0.9.tar.gz
-    # '89f99efb35eb3a5fdc5a7fdeb96c204b1af481194bcd788c939c600a985fa8a4',  # vcflib-1.0.9_use-external-deps.patch
-    # '2584e33e447c07a66eefc46263161873498910e19035f9beed1600cbd05fd4b0',  # vcflib-1.0.9_fix-shared-linking.patch
+    {'v1.0.9.tar.gz': 'd17fcf8a34d65f1dfecf4b4290d058be744422b6baf34ecdef8ea912d59a4569'},
+    {'vcflib-1.0.9_dep-fix.patch': '76bce1c9e40dab2ad94b455bb4487dfa24eeafcf50639db0852f5ca7a31331b6'},
 ]
 
 builddependencies = [
     ('binutils', '2.38'),
     ('CMake', '3.23.1'),
-    ('pkg-config', '0.29.2'),
+    ('pkgconf', '1.8.0'),
 ]
 
 dependencies = [
@@ -50,6 +46,7 @@ dependencies = [
     ('fsom', '20151117'),
     ('multichoose', '1.0.3'),
     ('smithwaterman', '20160702'),
+    ('WFA2', '2.3.3'),
 ]
 
 preconfigopts = "find %(builddir)s/%(name)s-%(version)s/src -type f "
@@ -60,15 +57,22 @@ preconfigopts += " -e 's|multichoose.h|multichoose/multichoose.h|g' -e 's|fileve
 preconfigopts += " -e 's|tabix.hpp|tabixpp/tabix.hpp|g' -e 's|Fasta.h|fastahack/Fasta.h|g'"
 preconfigopts += r" -e 's|disorder.h|smithwaterman/disorder.h|g' {} \; && "
 
+configopts = "-DZIG=OFF -DWFA_GITMODULE=OFF -DWFA_INCLUDE_DIRS=$EBROOTWFA2/include/wfa2lib"
+
 postinstallcmds = ["cp -r %(builddir)s/%(name)s-%(version)s/scripts %(installdir)s"]
 
 modextrapaths = {'PATH': ['scripts']}
 
 sanity_check_paths = {
-    'files': ['bin/vcfannotate', 'bin/vcfcombine', 'lib/libvcflib.%s' % SHLIB_EXT],
-    'dirs': ['scripts'],
+    'files': [
+        'bin/vcffilter',
+        'bin/vcfcombine',
+        'lib/libvcflib.a',
+        'lib/pyvcflib.cpython-310-x86_64-linux-gnu.so',
+    ],
+    'dirs': ['scripts', 'include'],
 }
 
-sanity_check_commands = ["vcfremap"]
+sanity_check_commands = ["vcfwave --help"]
 
 moduleclass = 'bio'
