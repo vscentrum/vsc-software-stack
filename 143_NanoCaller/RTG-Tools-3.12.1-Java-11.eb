@@ -17,8 +17,10 @@ checksums = ['6ee0ffe1bba7b5497aa09b147a7525b77b1808e6a71368aad440cbd64658085c']
 builddependencies = [('ant', '1.10.12', versionsuffix)]
 dependencies = [('Java', '11')]
 
-local_comp_cmd = 'ant runalltests && ant zip-nojre'
-local_comp_cmd += ' && unzip %(builddir)s/rtg-tools-%(version)s/dist/rtg-tools-%(version)s-unknown-nojre.zip'
+local_comp_cmd = "export RTG_MEM=4g && "
+local_comp_cmd += 'ant runalltests && ant zip-nojre && '
+local_comp_cmd += 'unzip %(builddir)s/rtg-tools-%(version)s/dist/rtg-tools-%(version)s-unknown-nojre.zip'
+
 cmds_map = [('.*', local_comp_cmd)]
 
 files_to_copy = ['rtg-tools-%(version)s-unknown/*']
