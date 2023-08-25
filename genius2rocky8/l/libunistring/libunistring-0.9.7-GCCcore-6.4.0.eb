@@ -1,0 +1,37 @@
+easyblock = 'ConfigureMake'
+
+name = 'libunistring'
+version = '0.9.7'
+
+homepage = 'http://www.gnu.org/software/libunistring/'
+
+description = """
+ This library provides functions for manipulating Unicode strings and for
+ manipulating C strings according to the Unicode standard.
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+toolchainopts = {'pic': True}
+
+source_urls = [GNU_SOURCE]
+sources = [SOURCELOWER_TAR_XZ]
+patches = ["libunistring-0.9.7_glibc_2.28.patch"]
+checksums = [
+    {'libunistring-0.9.7.tar.xz': '2e3764512aaf2ce598af5a38818c0ea23dedf1ff5460070d1b6cee5c3336e797'},
+    {'libunistring-0.9.7_glibc_2.28.patch': '9c102f9013e3eaa288c103b6f0373864f8f472670e2fa414808077756f8adf74'},
+]
+
+builddependencies = [
+    ('binutils', '2.28'),
+]
+
+parallel = 1
+
+sanity_check_paths = {
+    'files': ['lib/libunistring.a', 'lib/libunistring.%s' % SHLIB_EXT] +
+             ['include/uni%s.h' % x for x in ['case', 'conv', 'ctype', 'lbrk', 'name', 'norm',
+                                              'stdio', 'str', 'types', 'wbrk', 'width']],
+    'dirs': ['include/unistring'],
+}
+
+moduleclass = 'lib'

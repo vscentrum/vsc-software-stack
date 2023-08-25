@@ -1,0 +1,18 @@
+# Built with EasyBuild version 4.7.1 on 2023-05-05_16-25-25
+# Built with EasyBuild version 3.6.0 on 2018-07-10_10-51-24
+name = 'Java'
+version = '1.8.0_171'
+
+homepage = 'http://java.com/'
+description = """Java Platform, Standard Edition (Java SE) lets you develop and deploy
+ Java applications on desktops and servers."""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+# download the tar.gz directly from http://www.oracle.com/technetwork/java/javase/downloads/index.html
+(vp, vs) = version.split('_')
+altver = '%su%s' % (vp.split('.')[1], vs)
+sources = ['jdk-%s-linux-x64.tar.gz' % altver]
+#checksums = ['79a3f25e9b466cb9e969d1772ea38550de320c88e9119bf8aa11ce8547c39987']
+
+moduleclass = 'lang'

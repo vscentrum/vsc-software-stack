@@ -1,0 +1,26 @@
+diff -ruN orig/src/main/arithmetic.c new/src/main/arithmetic.c
+--- orig/src/main/arithmetic.c	2023-06-16 15:30:55.852674000 +0200
++++ new/src/main/arithmetic.c	2023-06-16 15:39:33.889980000 +0200
+@@ -56,17 +56,17 @@
+    the main difference here is not to print warnings.
+  */
+ #ifndef __cplusplus
+-int matherr(struct exception *exc)
++int matherr(struct ____exception *exc)
+ {
+     switch (exc->type) {
+-    case DOMAIN:
+-    case SING:
++    case _DOMAIN:
++    case _SING:
+ 	errno = EDOM;
+ 	break;
+-    case OVERFLOW:
++    case _OVERFLOW:
+ 	errno = ERANGE;
+ 	break;
+-    case UNDERFLOW:
++    case _UNDERFLOW:
+ 	exc->retval = 0.0;
+ 	break;
+ 	/*

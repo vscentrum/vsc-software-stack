@@ -1,0 +1,65 @@
+# Built with EasyBuild version 3.9.2 on 2019-07-23_14-44-30
+name = 'CGAL'
+version = '4.14'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'http://www.cgal.org/'
+description = """The goal of the CGAL Open Source Project is to provide easy access to efficient
+ and reliable geometric algorithms in the form of a C++ library."""
+
+toolchain = {'name': 'intel', 'version': '2018a'}
+toolchainopts = {'strict': True}
+
+source_urls = ['https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-%(version)s']
+sources = [SOURCE_TAR_XZ]
+checksums = ['59464b1eaee892f2223ba570a7642892c999e29524ab102a6efd7c29c94a29f7'] 
+
+dependencies = [
+    ('zlib', '1.2.11'),
+    ('Python', '3.6.4'),
+    ('Boost', '1.70.0', '-Python-3.6.4'),
+#    ('MPFR', '3.1.5'),
+    ('MPFR', '4.0.1'),
+    ('GMP', '6.1.2'),
+    ('libGLU', '9.0.0'),
+    ('Qt5', '5.10.1'),
+]
+
+builddependencies = [
+    ('CMake', '3.10.2'),
+    ('Eigen', '3.3.4', '', True),
+]
+
+configopts = "-DOPENGL_INCLUDE_DIR=$EBROOTMESA/include\;$EBROOTLIBGLU/include "
+configopts += "-DOPENGL_gl_LIBRARY=$EBROOTMESA/lib/libGL.%s " % SHLIB_EXT
+configopts += "-DOPENGL_glu_LIBRARY=$EBROOTLIBGLU/lib/libGLU.%s " % SHLIB_EXT
+configopts += "-DWITH_ZLIB=ON -DWITH_MPFR=ON -DWITH_OpenGL=ON -DWITH_Eigen3=ON "
+configopts += "-DWITH_GMPXX=ON -DWITH_LAPACK=ON -DWITH_BLAS=ON "
+
+moduleclass = 'numlib'
+
+# Build statistics
+buildstats = [{
+    "build_time": 285.45,
+    "command_line": ["--buildpath='/dev/shm/x0090231'", "--configfiles='/apps/leuven/skylake/2018a/easybuild-2018a.cfg'", "--containerpath='/data/leuven/sys/x0090231/easybuild-boostrap/containers'", "--installpath='/apps/leuven/skylake/2018a'", "--module-syntax='Tcl'", "--packagepath='/data/leuven/sys/x0090231/easybuild-boostrap/packages'", "--prefix='/data/leuven/sys/x0090231/easybuild-boostrap'", "--repositorypath='/apps/leuven/skylake/2018a/ebfiles_repo'", "--robot='/apps/leuven/sources/easybuild-easyconfigs/easybuild/easyconfigs:/vsc-hard-mounts/leuven-data/sys/x0090231/easybuild-boostrap/software/EasyBuild/3.9.2/lib/python2.7/site-packages/easybuild_easyconfigs-3.9.2-py2.7.egg/easybuild/easyconfigs'", "--robot-paths='/apps/leuven/sources/easybuild-easyconfigs/easybuild/easyconfigs:'", "--sourcepath='/apps/leuven/sources'", "--umask='002'", 'CGAL-4.14-intel-2018a-Python-3.6.4.eb'],
+    "core_count": 36,
+    "cpu_model": "Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz",
+    "cpu_speed": 2301.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.9.2",
+    "easybuild-framework_version": "3.9.2",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/vsc-hard-mounts/leuven-apps/skylake/2018a/software/GCCcore/6.4.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/6.4.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/apps/leuven/skylake/2018a/software/GCCcore/6.4.0 --with-local-prefix=/apps/leuven/skylake/2018a/software/GCCcore/6.4.0 --enable-bootstrap --with-isl=/vsc-hard-mounts/leuven-apps/skylake/2018a/build/GCCcore/6.4.0/dummy-/gcc-6.4.0/stage2_stuff; Thread model: posix; gcc version 6.4.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "r23g35",
+    "install_size": 44976833,
+    "modules_tool": ('Lmod', '/usr/share/lmod/lmod/libexec/lmod', '7.8.16'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.6.1810",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Oct 30 2018, 23:45:53) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]",
+    "system_gcc_path": "/apps/leuven/skylake/2018a/software/GCCcore/6.4.0/bin/gcc",
+    "system_python_path": "/apps/leuven/skylake/2018a/software/Python/3.6.4-intel-2018a/bin/python",
+    "timestamp": 1563885869,
+    "total_memory": 192078,
+}]

@@ -1,0 +1,55 @@
+# Built with EasyBuild version 3.5.3 on 2019-11-15_11-29-29
+easyblock = 'Tarball'
+
+name = 'ispc'
+version = '1.9.2'
+
+homepage = 'http://ispc.github.io/ , https://github.com/ispc/ispc/'
+description = """Intel SPMD Program Compilers; An open-source compiler for high-performance
+ SIMD programming on the CPU. ispc is a compiler for a variant of the C programming language,
+ with extensions for 'single program, multiple data' (SPMD) programming.
+ Under the SPMD model, the programmer writes a program that generally appears
+ to be a regular serial program, though the execution model is actually that
+ a number of program instances execute in parallel on the hardware."""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+sources = ['ispc-v%(version)s-linux.tar.gz']
+source_urls = [('http://sourceforge.net/projects/ispcmirror/files/v%(version)s', 'download')]
+
+sanity_check_paths = {
+    'files': ["ispc"],
+    'dirs': []
+}
+
+modextrapaths = {'PATH': ''}
+
+moduleclass = 'compiler'
+
+
+
+# Build statistics
+buildstats = [{
+    "build_time": 17.7,
+    "command_line": ["--buildpath='/apps/leuven/skylake/2018a/build'", "--configfiles='/apps/leuven/skylake/2018a/easybuild-2018a.cfg'", "--installpath='/apps/leuven/skylake/2018a'", "--module-syntax='Tcl'", "--packagepath='/apps/leuven/skylake/2018a/packages'", "--prefix='/apps/leuven/skylake/2018a'", "--repositorypath='/apps/leuven/skylake/2018a/ebfiles_repo'", "--robot='/apps/leuven/sources/easybuild-easyconfigs/easybuild/easyconfigs:/data/leuven/sys/x0076109/easybuild-bootstrap/software/EasyBuild/3.5.3/lib/python2.7/site-packages/easybuild_easyconfigs-3.5.3-py2.7.egg/easybuild/easyconfigs'", "--robot-paths='/apps/leuven/sources/easybuild-easyconfigs/easybuild/easyconfigs:'", "--sourcepath='/apps/leuven/sources'", "--umask='002'", 'ispc-1.9.2.eb'],
+    "core_count": 36,
+    "cpu_model": "Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz",
+    "cpu_speed": 2300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.5.3",
+    "easybuild-framework_version": "3.5.3",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/4.8.5/lto-wrapper; Target: x86_64-redhat-linux; Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++,objc,obj-c++,java,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/isl-install --with-cloog=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/cloog-install --enable-gnu-indirect-function --with-tune=generic --with-arch_32=x86-64 --build=x86_64-redhat-linux; Thread model: posix; gcc version 4.8.5 20150623 (Red Hat 4.8.5-36) (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "tier2-p-login-3",
+    "install_size": 228365673,
+    "modules_tool": ('Lmod', '/usr/share/lmod/lmod/libexec/lmod', '7.8.16'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.6.1810",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Jun 20 2019, 20:27:34) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]",
+    "system_gcc_path": "/usr/bin/gcc",
+    "system_python_path": "/usr/bin/python",
+    "timestamp": 1573813769,
+    "total_memory": 386646,
+}]

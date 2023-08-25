@@ -1,0 +1,43 @@
+# Built with EasyBuild version 4.7.1 on 2023-05-26_20-16-52
+# Built with EasyBuild version 3.5.3 on 2018-04-16_13-56-26
+easyblock = 'ConfigureMake'
+
+name = 'libXdamage'
+version = '1.1.4'
+
+homepage = "http://www.freedesktop.org/wiki/Software/xlibs"
+description = """X Damage extension library"""
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+sources = [SOURCE_TAR_GZ]
+source_urls = [XORG_LIB_SOURCE]
+
+builddependencies = [
+    ('binutils','2.28'),
+    ('xorg-macros', '1.19.1'),
+    ('fixesproto', '5.0'),
+    ('xextproto', '7.3.0'),
+    ('xcb-proto', '1.13'),
+    ('inputproto', '2.3.2'),
+    ('xproto', '7.0.31'),
+    ('libpthread-stubs', '0.4'),
+    ('kbproto', '1.0.7'),
+    ('xtrans', '1.3.5'),
+    ('damageproto', '1.2.1'),
+]
+
+dependencies = [
+    ('libX11', '1.6.5'),
+    ('libxcb', '1.13'),
+    ('libXau', '1.0.8'),
+    ('libXfixes', '5.0.3'),
+]
+
+sanity_check_paths = {
+    'files': ['include/X11/extensions/Xdamage.h', 'lib/libXdamage.%s' % SHLIB_EXT, 'lib/libXdamage.a'],
+    'dirs': [],
+}
+
+moduleclass = 'vis'
+

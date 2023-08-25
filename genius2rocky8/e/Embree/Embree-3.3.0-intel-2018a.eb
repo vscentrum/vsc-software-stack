@@ -1,0 +1,63 @@
+# Built with EasyBuild version 3.5.3 on 2019-11-15_11-45-17
+# Built with EasyBuild version 3.6.1 on 2018-11-30_11-02-37
+easyblock = 'CMakeMake'
+
+name = 'Embree'
+version = '3.3.0'
+
+homepage = "https://embree.github.io/"
+description = "Intel Embree is a collection of high-performance ray tracing kernels, developed at Intel."
+
+toolchain = {'name': 'intel', 'version': '2018a'}
+toolchainopts = {'pic': True, 'usempi': True}
+
+source_urls = ['https://github.com/embree/embree/archive/']
+sources = ["v%(version)s.tar.gz"]
+
+dependencies = [
+     ('GLFW', '3.2.1'),
+      ('tbb', '2018_U5','',('GCCcore', '6.4.0'))
+]
+
+builddependencies = [
+     ('ispc', '1.9.2', '', ('dummy', 'dummy')),
+     ('CMake', '3.11.4', '', ('GCCcore', '6.4.0')),
+]
+
+separate_build_dir = True
+
+configopts = ' -DEMBREE_TUTORIALS=OFF '
+configopts += " -DTBB_INCLUDE_DIR=/apps/leuven/broadwell/2018a/software/tbb/2018_U5-GCCcore-6.4.0/include "
+configopts += " -DTBB_LIBRARY:FILEPATH=$EBROOTTBB/build/linux_intel64_gcc_cc6.4.0_libc2.17_kernel3.10.0_release/libtbb.so "
+configopts += " -DTBB_LIBRARY_MALLOC:FILEPATH=/apps/leuven/broadwell/2018a/software/tbb/2018_U5-GCCcore-6.4.0/build/linux_intel64_gcc_cc6.4.0_libc2.17_kernel3.10.0_release/libtbbmalloc.so "
+configopts += " -DTBB_ROOT=/apps/leuven/broadwell/2018a/software/tbb/2018_U5-GCCcore-6.4.0/ "
+
+
+moduleclass = 'vis'
+
+
+# Build statistics
+buildstats = [{
+    "build_time": 850.54,
+    "command_line": ["--buildpath='/apps/leuven/skylake/2018a/build'", "--configfiles='/apps/leuven/skylake/2018a/easybuild-2018a.cfg'", "--installpath='/apps/leuven/skylake/2018a'", "--module-syntax='Tcl'", "--packagepath='/apps/leuven/skylake/2018a/packages'", "--prefix='/apps/leuven/skylake/2018a'", "--repositorypath='/apps/leuven/skylake/2018a/ebfiles_repo'", "--robot='/apps/leuven/sources/easybuild-easyconfigs/easybuild/easyconfigs:/data/leuven/sys/x0076109/easybuild-bootstrap/software/EasyBuild/3.5.3/lib/python2.7/site-packages/easybuild_easyconfigs-3.5.3-py2.7.egg/easybuild/easyconfigs'", "--robot-paths='/apps/leuven/sources/easybuild-easyconfigs/easybuild/easyconfigs:'", "--sourcepath='/apps/leuven/sources'", "--umask='002'", 'Embree-3.3.0-intel-2018a-NX.eb'],
+    "core_count": 36,
+    "cpu_model": "Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz",
+    "cpu_speed": 2300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.5.3",
+    "easybuild-framework_version": "3.5.3",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/vsc-hard-mounts/leuven-apps/skylake/2018a/software/GCCcore/6.4.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/6.4.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/apps/leuven/skylake/2018a/software/GCCcore/6.4.0 --with-local-prefix=/apps/leuven/skylake/2018a/software/GCCcore/6.4.0 --enable-bootstrap --with-isl=/vsc-hard-mounts/leuven-apps/skylake/2018a/build/GCCcore/6.4.0/dummy-/gcc-6.4.0/stage2_stuff; Thread model: posix; gcc version 6.4.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "tier2-p-login-3",
+    "install_size": 112764114,
+    "modules_tool": ('Lmod', '/usr/share/lmod/lmod/libexec/lmod', '7.8.16'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.6.1810",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Jun 20 2019, 20:27:34) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]",
+    "system_gcc_path": "/apps/leuven/skylake/2018a/software/GCCcore/6.4.0/bin/gcc",
+    "system_python_path": "/apps/leuven/skylake/2018a/software/Python/2.7.14-intel-2018a/bin/python",
+    "timestamp": 1573814717,
+    "total_memory": 386646,
+}]

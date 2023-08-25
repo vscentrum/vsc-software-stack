@@ -1,0 +1,39 @@
+name = 'R'
+version = '3.6.0'
+versionsuffix = '-bare'
+
+homepage = 'http://www.r-project.org/'
+description = """R is a free software environment for statistical computing and graphics."""
+
+toolchain = {'name': 'intel', 'version': '2018a'}
+
+source_urls = ['http://cran.us.r-project.org/src/base/R-%(version_major)s']
+sources = [SOURCE_TAR_GZ]
+patches = ['%(name)s-%(version)s_fix-intel-math-exceptions.patch']
+checksums = [
+    {'R-3.6.0.tar.gz': '36fcac3e452666158e62459c6fc810adc247c7109ed71c5b6c3ad5fc2bf57509'},
+    {'R-3.6.0_fix-intel-math-exceptions.patch': '728a083ec04902c689efdb23d539cbaa14f1095eac725727662ce560bd4319e0'},
+]
+
+dependencies = [
+    ('libreadline', '7.0', '', ('GCCcore', '6.4.0')),
+    ('ncurses', '6.0', '', ('GCCcore', '6.4.0')),
+    ('libpng', '1.6.34'),  # for plotting in R
+    ('libjpeg-turbo', '1.5.3', '', ('GCCcore', '6.4.0')),  # for plottting in R
+    ('Java', '1.8.0_162', '', True),  # Java bindings are built if Java is found, might as well provide it
+    ('bzip2', '1.0.6', '', ('GCCcore', '6.4.0')),
+    ('cURL', '7.58.0', '', ('GCCcore', '6.4.0')),
+    ('PCRE', '8.41', '', ('GCCcore', '6.4.0')),
+]
+
+configopts = "--with-pic --enable-threads --enable-R-shlib"
+# some recommended packages may fail in a parallel build (e.g. Matrix), and we're installing them anyway below
+configopts += " --with-recommended-packages=no"
+
+# specify that at least EasyBuild v3.5.0 is required,
+# since we rely on the updated easyblock for R to configure correctly w.r.t. BLAS/LAPACK
+easybuild_version = '3.5.0'
+
+exts_list = []
+
+moduleclass = 'lang'

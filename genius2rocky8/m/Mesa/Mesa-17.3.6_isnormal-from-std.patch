@@ -1,0 +1,21 @@
+diff -ruN orig/src/compiler/glsl/ir_constant_expression.cpp new/src/compiler/glsl/ir_constant_expression.cpp
+--- orig/src/compiler/glsl/ir_constant_expression.cpp	2023-06-07 13:45:49.119069000 +0200
++++ new/src/compiler/glsl/ir_constant_expression.cpp	2023-06-07 13:53:39.875798000 +0200
+@@ -563,7 +563,7 @@
+    const float result = ldexpf(x, exp);
+ 
+    /* Flush subnormal values to zero. */
+-   return !isnormal(result) ? copysignf(0.0f, x) : result;
++   return !::isnormal(result) ? copysignf(0.0f, x) : result;
+ }
+ 
+ static double
+@@ -572,7 +572,7 @@
+    const double result = ldexp(x, exp);
+ 
+    /* Flush subnormal values to zero. */
+-   return !isnormal(result) ? copysign(0.0, x) : result;
++   return !::isnormal(result) ? copysign(0.0, x) : result;
+ }
+ 
+ static uint32_t

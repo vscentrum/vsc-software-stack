@@ -1,0 +1,30 @@
+easyblock = 'MakeCp'
+
+name = 'ADMIXTOOLS'
+version = '5.1'
+
+homepage = 'https://github.com/DReichLab/AdmixTools'
+description = """The ADMIXTOOLS package implements 5 methods described in Patterson et al. (2012) Ancient Admixture in Human History"""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['https://github.com/DReichLab/AdmixTools/archive/']
+sources = ['v%(version)s.tar.gz']
+
+dependencies = [('GSL', '2.4', '', ('GCCcore', '6.4.0'))]
+
+prebuildopts = 'make clobber && '
+
+start_dir = 'src'
+
+files_to_copy = [
+    (['add_extern_C.sh', 'dowtjack', 'expfit.sh', 'qp3Pop', 'qp4diff', 'qpAdm', 'qpBound', 'qpDpart', 'qpDstat', 'qpF4ratio', 'qpff3base', 'qpGraph', 'qpreroot', 'qpWave', 'wtjack.pl', 'rexpfit.r'], 'bin'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/add_extern_C.sh'],
+    'dirs': ['bin'],
+}
+
+moduleclass = 'bio'
+

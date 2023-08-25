@@ -1,0 +1,30 @@
+easyblock = 'MakeCp'
+
+name = 'SP-Wind'
+version = '1.0bench'
+
+homepage = ""
+description = """PSP-Wind"""
+
+toolchain = {'name': 'intel', 'version': '2021a'}
+toolchainopts = {'pic': True}
+
+sources = ['%(name)s-%(version)s.tar.gz']
+checksums = ['0d58d6136ef2262460af81a97735577fe0119a2d2f5b5dad020add8869d8f310']
+
+dependencies = [
+    ('FFTW', '3.3.9'),
+]
+
+start_dir = 'src'
+
+maxparallel = 1
+
+files_to_copy = [(["SP-Wind"], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/SP-Wind'],
+    'dirs': [],
+}
+
+moduleclass = 'phys'

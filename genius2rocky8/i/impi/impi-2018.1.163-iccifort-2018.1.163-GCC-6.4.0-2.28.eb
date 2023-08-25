@@ -1,0 +1,38 @@
+# This is an easyconfig file for EasyBuild, see http://easybuilders.github.io/easybuild
+
+name = 'impi'
+version = '2018.1.163'
+
+homepage = 'https://software.intel.com/en-us/intel-mpi-library/'
+description = "Intel MPI Library, compatible with MPICH ABI"
+
+toolchain = {'name': 'iccifort', 'version': '2018.1.163-GCC-6.4.0-2.28'}
+
+source_urls = ['https://registrationcenter-download.intel.com/akdlm/irc_nas/tec/12405/']
+sources = ['l_mpi_%(version)s.tgz']
+patches = [('%(name)s_strtok-proxy.patch', 1)]
+checksums = [
+    {'l_mpi_2018.1.163.tgz': '130b11571c3f71af00a722fa8641db5a1552ac343d770a8304216d8f5d00e75c'},
+    {'impi_strtok-proxy.patch': '6b5bce97a0b22992c7670dbfc8debf75a1839c16cda8eb2c0ecf805d16c70cb2'},
+]
+
+modextravars = {'LD_PRELOAD': '%(installdir)s/lib64/strtok_proxy.so'}
+
+dontcreateinstalldir = True
+
+components = ['intel-mpi', 'intel-psxe', 'intel-imb']
+
+# set up all the mpi commands to default to intel compilers
+# set_mpi_wrappers_all = True
+
+postinstallcmds = [
+    'ln -s %(installdir)s/lib64/libmpi.so  %(installdir)s/lib64/libmpich.so',
+    'ln -s %(installdir)s/lib64/libmpigc4.so  %(installdir)s/lib64/libmpichcxx.so',
+    'ln -s %(installdir)s/lib64/libmpigf.so %(installdir)s/lib64/libfmpich.so',
+    'ln -s %(installdir)s/lib64/libmpigf.so %(installdir)s/lib64/libmpichf90.so',
+    'ln -s %(installdir)s/lib64/libmpi.so %(installdir)s/lib64/libmpl.so',
+    'ln -s %(installdir)s/lib64/libmpi.so %(installdir)s/lib64/libopa.so',
+    'gcc -c -Wall -Werror -fpic ./strtok_proxy.c && gcc -ldl -shared -o %(installdir)s/lib64/strtok_proxy.so ./strtok_proxy.o',
+]
+
+moduleclass = 'mpi'

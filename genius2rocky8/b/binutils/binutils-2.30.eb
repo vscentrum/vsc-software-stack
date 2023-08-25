@@ -1,0 +1,61 @@
+# Built with EasyBuild version 4.7.1 on 2023-05-11_17-12-57
+name = 'binutils'
+version = '2.30'
+
+homepage = 'https://directory.fsf.org/project/binutils/'
+
+description = "binutils: GNU binary utilities"
+
+toolchain = SYSTEM
+
+source_urls = [GNU_SOURCE]
+sources = [SOURCE_TAR_GZ]
+patches = [
+    'binutils-%(version)s_fix-assertion-fail-elf.patch',
+    'binutils-2.32_gold-include-cpp-headers.patch',
+    'binutils-2.31.1-gold-ignore-discarded-note-relocts.patch',
+]
+checksums = [
+    '8c3850195d1c093d290a716e20ebcaa72eda32abf5e3d8611154b39cff79e9ea',  # binutils-2.30.tar.gz
+    '7a661190c973287642296dd9fb30ff45dc26ae2138f7761cd8362f7e412ff5ab',  # binutils-2.30_fix-assertion-fail-elf.patch
+    'cbb53f29693b06a501e8395eedc7bfdd8fec7d8a74af7482921fa51784dd1c2f',  # binutils-2.32_gold-include-cpp-headers.patch
+    # binutils-2.31.1-gold-ignore-discarded-note-relocts.patch
+    '17f22cc9136d0e81cfe8cbe310328c794a78a864e7fe7ca5827ee6678f65af32',
+]
+
+builddependencies = [
+    ('flex', '2.6.4'),
+    ('Bison', '3.0.4'),
+    # zlib required, but being linked in statically, so not a runtime dep
+    ('zlib', '1.2.11'),
+]
+
+moduleclass = 'tools'
+
+# Build statistics
+buildstats = [{
+    "build_time": 257.26,
+    "command_line": ["--buildpath='/apps/leuven/rocky8/skylake-6132/2018a/build'", "--containerpath='/apps/leuven/rocky8/skylake-6132/2018a/containers'", "--installpath='/apps/leuven/rocky8/skylake-6132/2018a'", "--packagepath='/apps/leuven/rocky8/skylake-6132/2018a/packages'", "--prefix='/apps/leuven/rocky8/skylake-6132/2018a'", "--repositorypath='/apps/leuven/rocky8/skylake-6132/2018a/ebfiles_repo'", "--robot='/apps/leuven/rocky8/skylake-6132/2018a/software/EasyBuild/4.7.1/easybuild/easyconfigs'", "--sourcepath='/apps/leuven/sources'", "--umask='002'", '../hpcleuven-easybuild-easyconfigs/easybuild/easyconfigs/o/OpenFOAM/OpenFOAM-6-intel-2018a.eb'],
+    "core_count": 28,
+    "cpu_arch": "x86_64",
+    "cpu_arch_name": "UNKNOWN",
+    "cpu_model": "Intel(R) Xeon(R) Gold 6132 CPU @ 2.60GHz",
+    "cpu_speed": 3700.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.7.1",
+    "easybuild-framework_version": "4.7.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper; OFFLOAD_TARGET_NAMES=nvptx-none; OFFLOAD_TARGET_DEFAULT=1; Target: x86_64-redhat-linux; Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,fortran,lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.rockylinux.org/ --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --disable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --enable-cet --with-tune=generic --with-arch_32=x86-64 --build=x86_64-redhat-linux; Thread model: posix; gcc version 8.5.0 20210514 (Red Hat 8.5.0-16) (GCC) ; ",
+    "glibc_version": "2.28",
+    "hostname": "e25c03n1",
+    "install_size": 418807819,
+    "modules_tool": ('Lmod', '/usr/share/lmod/lmod/libexec/lmod', '8.7.19'),
+    "os_name": "Rocky Linux",
+    "os_type": "Linux",
+    "os_version": "8.7",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "3.6.8 (default, Feb 21 2023, 16:57:46) ; [GCC 8.5.0 20210514 (Red Hat 8.5.0-16)]",
+    "system_gcc_path": "/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1683817977,
+    "total_memory": 192108,
+}]

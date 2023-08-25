@@ -1,0 +1,52 @@
+# Built with EasyBuild version 3.5.3 on 2018-06-20_10-41-35
+name = 'METIS'
+version = '5.1.0'
+
+homepage = 'http://glaros.dtc.umn.edu/gkhome/metis/metis/overview'
+description = """METIS is a set of serial programs for partitioning graphs, partitioning finite element meshes,
+and producing fill reducing orderings for sparse matrices. The algorithms implemented in METIS are based on the
+multilevel recursive-bisection, multilevel k-way, and multi-constraint partitioning schemes."""
+
+toolchain = {'name': 'intel', 'version': '2018a'}
+toolchainopts = {'pic': True}
+
+sources = [SOURCELOWER_TAR_GZ]
+source_urls = [
+    'http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis',
+    'http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/OLD',
+]
+
+# We use 32bit for indices and 64bit for content
+patches = ['METIS-5.1.0-use-doubles.patch']
+
+builddependencies = [('CMake', '3.10.2')]
+
+configopts = ['', 'shared=1']
+
+moduleclass = 'math'
+
+# Build statistics
+buildstats = [{
+    "build_time": 74.41,
+    "command_line": ["--buildpath='/apps/leuven/skylake/2018a/build'", "--configfiles='/apps/leuven/skylake/2018a/easybuild-2018a.cfg'", "--installpath='/apps/leuven/skylake/2018a'", "--module-syntax='Tcl'", "--packagepath='/apps/leuven/skylake/2018a/packages'", "--prefix='/apps/leuven/skylake/2018a'", "--repositorypath='/apps/leuven/skylake/2018a/ebfiles_repo'", "--robot='/apps/leuven/sources/easybuild-easyconfigs/easybuild/easyconfigs:/data/leuven/sys/x0062362/easybuild-boostrap/software/EasyBuild/3.5.3/lib/python2.7/site-packages/easybuild_easyconfigs-3.5.3-py2.7.egg/easybuild/easyconfigs'", "--robot-paths='/apps/leuven/sources/easybuild-easyconfigs/easybuild/easyconfigs:'", "--sourcepath='/apps/leuven/sources'", 'METIS-5.1.0-intel-2018a.eb'],
+    "core_count": 36,
+    "cpu_model": "Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz",
+    "cpu_speed": 2300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.5.3",
+    "easybuild-framework_version": "3.5.3",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/vsc-hard-mounts/leuven-apps/skylake/2018a/software/GCCcore/6.4.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/6.4.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/apps/leuven/skylake/2018a/software/GCCcore/6.4.0 --with-local-prefix=/apps/leuven/skylake/2018a/software/GCCcore/6.4.0 --enable-bootstrap --with-isl=/vsc-hard-mounts/leuven-apps/skylake/2018a/build/GCCcore/6.4.0/dummy-/gcc-6.4.0/stage2_stuff; Thread model: posix; gcc version 6.4.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "r22i13n02",
+    "install_size": 2323086,
+    "modules_tool": ('Lmod', '/usr/share/lmod/lmod/libexec/lmod', '6.5.1'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.4.1708",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.14 |Anaconda, Inc.| (default, Dec  7 2017, 17:05:42) ; [GCC 7.2.0]",
+    "system_gcc_path": "/apps/leuven/skylake/2018a/software/GCCcore/6.4.0/bin/gcc",
+    "system_python_path": "/data/leuven/sys/x0062362/miniconda2/bin/python",
+    "timestamp": 1529484095,
+    "total_memory": 193114,
+}]

@@ -1,0 +1,31 @@
+easyblock = 'CMakeMake'
+name = 'Eigen'
+version = '3.3.7'
+
+homepage = 'http://eigen.tuxfamily.org/index.php?title=Main_Page'
+description = """Eigen is a C++ template library for linear algebra:
+ matrices, vectors, numerical solvers, and related algorithms."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+#https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.gz
+source_urls = ['https://gitlab.com/lib%(namelower)s/%(namelower)s/-/archive/%(version)s/']
+sources = ['%(namelower)s-%(version)s.tar.gz']
+
+# -- Enabled backends:  Boost.Multiprecision,  fftw, 
+# -- Disabled backends: Cholmod,  UmfPack,  SuperLU,  PaStiX,  METIS,  SPQR,  Qt4 support,  GoogleHash,  Adolc,  MPFR C++,  OpenGL, 
+
+dependencies = [('Boost', '1.70.0')]
+
+builddependencies = [('CMake', '3.16.1', '', ('system', 'system'))]
+
+separate_build_dir = True
+
+modextrapaths = {'CPATH': 'include/eigen3'}
+
+sanity_check_paths = {
+    'files': ['include/eigen3/Eigen/Cholesky'],
+    'dirs': ['include', 'share'],
+}
+
+moduleclass = 'math'

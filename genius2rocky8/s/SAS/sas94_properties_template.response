@@ -1,0 +1,72 @@
+# Response file for the SAS Deployment Wizard
+# Created: Jul 18, 2023 4:35:28 PM
+#
+# Responses with multiple options are separated with / characters.
+
+# Select Deployment Task
+# Select the deployment task you would like to perform.
+#START_TASK=install/depot/manage
+ START_TASK=install
+
+# Specify SAS Home
+# Specify the location where SAS software will be installed on this machine.
+#SAS_HOME=<full path>
+ SAS_HOME=_SAS_INSTALLATION_FOLDER_
+
+# Select Deployment Type
+# Select the type of deployment you want to perform.
+#DEPLOYMENT_TYPE=planned/nonplanned/additional
+ DEPLOYMENT_TYPE=nonplanned
+#PLANNED_INSTALL=yes/no
+ PLANNED_INSTALL=yes
+#PLANNED_CONFIGURE=yes/no
+ PLANNED_CONFIGURE=yes
+
+# Select Products to Install
+# Select the products you want to install on this machine.
+ PRODUCT_SELECTION1=sasinstall
+
+# Select SAS Foundation Products
+# Further customize the software by selecting the SAS Foundation products to install.
+#SASFOUNDATION_SELECTION=<comma delimited SAS Foundation (MVA) product codes>
+ SASFOUNDATION_SELECTION=hadoopbasics,base,mapsgeo,mapsgfk,accelmvaastr,accelmvadb2,accelmvagplm,accelmvahadp,accelmvanetz,accelmvaorcl,accelmvahana,accelmvatera,dmine,hpdmine,hpets,hps,hpstat,inttech,lasreng,graphcomp,spdsclient,accesssample,redshift,aster,db2,greenplum,hawq,hadoop,impala,informix,mssqlserver,mysql,netezza,odbc,oracle,pcfile,postgres,sybase,saphana,sybaseiq,teradata,vertica,osisoft,af,assist,connect,eis,ets,fsp,graph,mapssas,genetics,iml,or,qc,share,stat
+
+# Specify SAS Installation Data File
+# Specify the full path to your SAS installation data file.
+#SAS_INSTALLATION_DATA=<full path to file>
+ SAS_INSTALLATION_DATA=_SAS_LICENSE_FILE_
+# Select Language Support
+# Select the languages for your software to support.
+#LANGUAGE_SELECTION=<comma delimited language codes>
+ LANGUAGE_SELECTION=en,u8
+
+# Select Regional Settings
+# Select the appropriate regional settings for your SAS software.
+#REGION_SETTING=<region setting code>
+ REGION_SETTING=en_US
+#UNICODE_SERVER=yes/no
+ UNICODE_SERVER=no
+
+# Select SAS/ACCESS Products to Configure
+# Select the SAS/ACCESS products to configure during installation.
+#ittarget.config.mysql=yes/no
+ ittarget.config.mysql=no
+#ittarget.config.oracle=yes/no
+ ittarget.config.oracle=no
+#ittarget.config.sybase=yes/no
+ ittarget.config.sybase=no
+
+# Select Authentication Type
+# Select the type of authentication for this system.
+#sasinstall.use.pam=yes/no
+ sasinstall.use.pam=no
+
+# Configure SAS Studio Basic
+# Select this option in order to configure SAS Studio Basic. If you select this option, this page will be followed by more pages used to select specific configuration options.
+#studio.configure=yes/no
+ studio.configure=no
+
+# Select Support Option
+# Select the support option you want to use.
+#SEND_SUPPORT_LOG_TO_SAS=yes/no
+ SEND_SUPPORT_LOG_TO_SAS=no

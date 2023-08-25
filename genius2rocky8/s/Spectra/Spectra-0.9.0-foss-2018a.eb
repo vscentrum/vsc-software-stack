@@ -1,0 +1,39 @@
+easyblock = 'CMakeMake'
+name = 'Spectra'
+version = '0.9.0'
+
+homepage = 'https://github.com/yixuan/spectra/'
+description = """Spectra stands for Sparse Eigenvalue Computation Toolkit as a Redesigned ARPACK. It is a C++ library for large scale eigenvalue problems, built on top of Eigen, an open source linear algebra library."""
+
+toolchain = {'name': 'foss', 'version': '2018a'}
+
+source_urls = ['https://github.com/yixuan/%(namelower)s/archive/']
+sources = ['v%(version)s.tar.gz']
+
+dependencies = [('Eigen', '3.3.7')]
+
+builddependencies = [('CMake', '3.16.1', '', ('system', 'system'))]
+
+configopts = " -DEigen3_DIR=/data/leuven/sys/x0076666/temp/eigen-3.3.7/build -DBUILD_TESTS=TRUE "
+
+# Both build combos work
+
+# build_cmd = ' make all && make test '
+
+build_cmd = ' make all '
+# stands for ' make test '
+runtest = " test "
+
+separate_build_dir = True
+
+modextrapaths = {'CPATH': 'include/Spectra'}
+
+sanity_check_paths = {
+    'files': ['cmake/spectra-config.cmake'],
+    'dirs': ['include'],
+}
+
+parallel = 1
+
+moduleclass = 'math'
+

@@ -1,0 +1,12 @@
+diff -ruN gdal-2.4.1.orig/ogr/ogrlinestring.cpp gdal-2.4.1/ogr/ogrlinestring.cpp
+--- gdal-2.4.1.orig/ogr/ogrlinestring.cpp	2023-06-08 17:44:35.349756000 +0200
++++ gdal-2.4.1/ogr/ogrlinestring.cpp	2023-06-08 17:48:03.795009000 +0200
+@@ -2551,7 +2551,7 @@
+         const double dfX = paoPoints[i+1].x - paoPoints[i].x;
+         const double dfY = paoPoints[i+1].y - paoPoints[i].y;
+         const double dfSquareDist = dfX * dfX + dfY * dfY;
+-        if( std::fabs(dfSquareDist - dfSquareMaxLength) > 1e-5 * dfSquareMaxLength )
++        if( ::fabs(dfSquareDist - dfSquareMaxLength) > 1e-5 * dfSquareMaxLength )
+         {
+             const double dfIntermediatePoints =
+                 floor(sqrt(dfSquareDist / dfSquareMaxLength) - 1e-2);

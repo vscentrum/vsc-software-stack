@@ -1,0 +1,109 @@
+# Built with EasyBuild version 4.7.1 on 2023-05-24_16-44-10
+# Built with EasyBuild version 4.1.0 on 2020-03-31_15-37-22
+easyblock = 'ConfigureMake'
+
+name = 'protobuf'
+version = '3.6.0'
+
+homepage = 'https://github.com/google/protobuf/'
+description = """Google Protocol Buffers"""
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+source_urls = ['https://github.com/google/protobuf/archive/v%(version)s/']
+sources = [SOURCE_TAR_GZ]
+checksums = ['50a5753995b3142627ac55cfd496cebc418a2e575ca0236e29033c67bd5665f4']
+
+builddependencies = [
+    ('binutils', '2.28'),
+    ('Autotools', '20170619'),
+]
+
+preconfigopts = "./autogen.sh && "
+
+sanity_check_paths = {
+    'files': ['bin/protoc', 'lib/libprotobuf.%s' % SHLIB_EXT],
+    'dirs': [],
+}
+
+moduleclass = 'devel'
+
+# Build statistics
+buildstats = [{
+    "build_time": 178.56,
+    "command_line": ["--buildpath='/apps/leuven/skylake/2018a/build'", "--configfiles='/apps/leuven/skylake/2018a/easybuild-2018a.cfg'", "--containerpath='/apps/leuven/skylake/2018a/containers'", "--installpath='/apps/leuven/skylake/2018a'", "--module-syntax='Tcl'", "--packagepath='/apps/leuven/skylake/2018a/packages'", "--prefix='/apps/leuven/skylake/2018a'", "--repositorypath='/apps/leuven/skylake/2018a/ebfiles_repo'", "--robot='/apps/leuven/sources/easybuild-easyconfigs/easybuild/easyconfigs:/data/leuven/sys/x0076666/.local/software/EasyBuild/4.1.0/easybuild/easyconfigs'", "--robot-paths='/apps/leuven/sources/easybuild-easyconfigs/easybuild/easyconfigs:'", "--sourcepath='/apps/leuven/sources'", "--umask='002'", 'protobuf-3.6.0-GCCcore-6.4.0.eb'],
+    "core_count": 36,
+    "cpu_model": "Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz",
+    "cpu_speed": 2300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.1.0",
+    "easybuild-framework_version": "4.1.0",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/vsc-hard-mounts/leuven-apps/skylake/2018a/software/GCCcore/6.4.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/6.4.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/apps/leuven/skylake/2018a/software/GCCcore/6.4.0 --with-local-prefix=/apps/leuven/skylake/2018a/software/GCCcore/6.4.0 --enable-bootstrap --with-isl=/vsc-hard-mounts/leuven-apps/skylake/2018a/build/GCCcore/6.4.0/dummy-/gcc-6.4.0/stage2_stuff; Thread model: posix; gcc version 6.4.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "tier2-p-login-2",
+    "install_size": 35822281,
+    "modules_tool": ('Lmod', '/usr/share/lmod/lmod/libexec/lmod', '7.8.16'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.7.1908",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Aug  7 2019, 00:51:29) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-39)]",
+    "system_gcc_path": "/apps/leuven/skylake/2018a/software/GCCcore/6.4.0/bin/gcc",
+    "system_python_path": "/usr/bin/python",
+    "timestamp": 1585661842,
+    "total_memory": 386635,
+}]
+
+# Build statistics
+buildstats = [
+{
+    "build_time": 178.56,
+    "command_line": ["--buildpath='/apps/leuven/skylake/2018a/build'", "--configfiles='/apps/leuven/skylake/2018a/easybuild-2018a.cfg'", "--containerpath='/apps/leuven/skylake/2018a/containers'", "--installpath='/apps/leuven/skylake/2018a'", "--module-syntax='Tcl'", "--packagepath='/apps/leuven/skylake/2018a/packages'", "--prefix='/apps/leuven/skylake/2018a'", "--repositorypath='/apps/leuven/skylake/2018a/ebfiles_repo'", "--robot='/apps/leuven/sources/easybuild-easyconfigs/easybuild/easyconfigs:/data/leuven/sys/x0076666/.local/software/EasyBuild/4.1.0/easybuild/easyconfigs'", "--robot-paths='/apps/leuven/sources/easybuild-easyconfigs/easybuild/easyconfigs:'", "--sourcepath='/apps/leuven/sources'", "--umask='002'", 'protobuf-3.6.0-GCCcore-6.4.0.eb'],
+    "core_count": 36,
+    "cpu_model": "Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz",
+    "cpu_speed": 2300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.1.0",
+    "easybuild-framework_version": "4.1.0",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/vsc-hard-mounts/leuven-apps/skylake/2018a/software/GCCcore/6.4.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/6.4.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/apps/leuven/skylake/2018a/software/GCCcore/6.4.0 --with-local-prefix=/apps/leuven/skylake/2018a/software/GCCcore/6.4.0 --enable-bootstrap --with-isl=/vsc-hard-mounts/leuven-apps/skylake/2018a/build/GCCcore/6.4.0/dummy-/gcc-6.4.0/stage2_stuff; Thread model: posix; gcc version 6.4.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "tier2-p-login-2",
+    "install_size": 35822281,
+    "modules_tool": ('Lmod', '/usr/share/lmod/lmod/libexec/lmod', '7.8.16'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.7.1908",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Aug  7 2019, 00:51:29) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-39)]",
+    "system_gcc_path": "/apps/leuven/skylake/2018a/software/GCCcore/6.4.0/bin/gcc",
+    "system_python_path": "/usr/bin/python",
+    "timestamp": 1585661842,
+    "total_memory": 386635,
+},
+{
+    "build_time": 101.66,
+    "command_line": ["--buildpath='/apps/leuven/rocky8/skylake-6132/2018a/build'", "--containerpath='/apps/leuven/rocky8/skylake-6132/2018a/containers'", "--installpath='/apps/leuven/rocky8/skylake-6132/2018a'", "--packagepath='/apps/leuven/rocky8/skylake-6132/2018a/packages'", "--prefix='/apps/leuven/rocky8/skylake-6132/2018a'", "--repositorypath='/apps/leuven/rocky8/skylake-6132/2018a/ebfiles_repo'", "--robot='/data/leuven/sys/x0139045/Software/hpcleuven-easybuild-easyconfigs/easybuild/easyconfigs:/apps/leuven/rocky8/skylake-6132/2018a/software/EasyBuild/4.7.1/easybuild/easyconfigs'", "--robot-paths='/data/leuven/sys/x0139045/Software/hpcleuven-easybuild-easyconfigs/easybuild/easyconfigs:'", "--sourcepath='/apps/leuven/sources'", "--umask='002'", 'protobuf-3.6.0-GCCcore-6.4.0.eb'],
+    "core_count": 28,
+    "cpu_arch": "x86_64",
+    "cpu_arch_name": "UNKNOWN",
+    "cpu_model": "Intel(R) Xeon(R) Gold 6132 CPU @ 2.60GHz",
+    "cpu_speed": 3700.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.7.1",
+    "easybuild-framework_version": "4.7.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/vsc-hard-mounts/leuven-apps/rocky8/skylake-6132/2018a/software/GCCcore/6.4.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/6.4.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/apps/leuven/rocky8/skylake-6132/2018a/software/GCCcore/6.4.0 --with-local-prefix=/apps/leuven/rocky8/skylake-6132/2018a/software/GCCcore/6.4.0 --enable-bootstrap --with-isl=/vsc-hard-mounts/leuven-apps/rocky8/skylake-6132/2018a/build/GCCcore/6.4.0/dummy-/gcc-6.4.0/stage2_stuff; Thread model: posix; gcc version 6.4.0 (GCC) ; ",
+    "glibc_version": "2.28",
+    "hostname": "e25c03n2",
+    "install_size": 35840156,
+    "modules_tool": ('Lmod', '/usr/share/lmod/lmod/libexec/lmod', '8.7.19'),
+    "os_name": "Rocky Linux",
+    "os_type": "Linux",
+    "os_version": "8.7",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "3.6.8 (default, Feb 21 2023, 16:57:46) ; [GCC 8.5.0 20210514 (Red Hat 8.5.0-16)]",
+    "system_gcc_path": "/apps/leuven/rocky8/skylake-6132/2018a/software/GCCcore/6.4.0/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1684939450,
+    "total_memory": 192108,
+},
+]

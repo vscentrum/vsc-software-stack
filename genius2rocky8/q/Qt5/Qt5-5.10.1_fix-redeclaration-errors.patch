@@ -1,0 +1,24 @@
+diff -ruN orig/qtbase/src/corelib/global/qnumeric_p.h new/qtbase/src/corelib/global/qnumeric_p.h
+--- orig/qtbase/src/corelib/global/qnumeric_p.h	2023-06-15 22:48:52.633857000 +0200
++++ new/qtbase/src/corelib/global/qnumeric_p.h	2023-06-15 22:48:38.180135000 +0200
+@@ -67,7 +67,7 @@
+ #endif
+ 
+ #if !defined(Q_CC_MSVC) && (defined(Q_OS_QNX) || defined(Q_CC_INTEL))
+-#  include <math.h>
++//#  include <math.h>
+ #  ifdef isnan
+ #    define QT_MATH_H_DEFINES_MACROS
+ QT_BEGIN_NAMESPACE
+diff -ruN orig/qtbase/src/corelib/tools/qlocale_tools.cpp new/qtbase/src/corelib/tools/qlocale_tools.cpp
+--- orig/qtbase/src/corelib/tools/qlocale_tools.cpp	2023-06-15 22:49:04.620726000 +0200
++++ new/qtbase/src/corelib/tools/qlocale_tools.cpp	2023-06-15 22:48:38.183098000 +0200
+@@ -49,7 +49,7 @@
+ #include <errno.h>
+ #include <float.h>
+ #include <limits.h>
+-#include <math.h>
++//#include <math.h>
+ #include <stdlib.h>
+ #include <time.h>
+ 

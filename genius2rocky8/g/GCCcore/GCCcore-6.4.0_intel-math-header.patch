@@ -1,0 +1,27 @@
+diff -ruN gcc-6.4.0.orig/libstdc++-v3/include/c_global/cmath gcc-6.4.0.new/libstdc++-v3/include/c_global/cmath
+--- gcc-6.4.0.orig/libstdc++-v3/include/c_global/cmath	2023-06-09 11:45:44.618615000 +0200
++++ gcc-6.4.0.new/libstdc++-v3/include/c_global/cmath	2023-06-09 16:48:43.131932000 +0200
+@@ -42,7 +42,11 @@
+ #include <bits/cpp_type_traits.h>
+ #include <ext/type_traits.h>
+ #define _GLIBCXX_INCLUDE_NEXT_C_HEADERS
++#ifndef __PURE_INTEL_C99_HEADERS__
+ #include_next <math.h>
++#else
++#include <math.h>
++#endif
+ #undef _GLIBCXX_INCLUDE_NEXT_C_HEADERS
+ 
+ #ifndef _GLIBCXX_CMATH
+@@ -1194,9 +1198,11 @@
+   using ::lroundf;
+   using ::lroundl;
+ 
++#ifndef __PURE_INTEL_C99_HEADERS__
+   using ::nan;
+   using ::nanf;
+   using ::nanl;
++#endif
+ 
+   using ::nearbyint;
+   using ::nearbyintf;

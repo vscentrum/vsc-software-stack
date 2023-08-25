@@ -1,0 +1,26 @@
+easyblock = 'Tarball'
+
+name = 'HiCUP'
+version = '0.8.0'
+
+homepage = 'https://www.bioinformatics.babraham.ac.uk/projects/hicup/'
+description = """A tool for mapping and performing quality control on Hi-C data"""
+
+toolchain = {'name': 'intel', 'version': '2018a'}
+
+github_account = 'StevenWingett'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['0397910a2672d3826b1b0aa96a48b35c1d3ed06a39da4dd42ef2390639d0d09c']
+
+dependencies = [
+    ('Bowtie2', '2.3.4.1'),
+    ('Perl', '5.28.1'),
+]
+
+sanity_check_paths = {
+    'files': ['hicup', 'hicup_digester'],
+    'dirs': ['r_scripts'],
+}
+
+moduleclass = 'bio'
