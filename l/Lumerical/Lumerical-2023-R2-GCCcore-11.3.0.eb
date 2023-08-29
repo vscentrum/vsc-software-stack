@@ -1,0 +1,39 @@
+name = 'Lumerical'
+version = '2023-R2'
+
+homepage = 'http://www.lumerical.com/'
+description = """
+The Lumerical Software Suite consists of a numner of tools to simulate photonic
+components, circuits and systems, such as, FDTD 3D Electromagnetic Simulator,
+MODE Waveguide Simulator, DGTD 3D Electromagnetic Simulator, FEEM Waveguide
+Simulator, and CML Photonic Compact Model Library.
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+
+sources = [SOURCE_TAR_GZ]
+checksums = ['6f6f5340b389f8fe56c499a78636dee3c06a8feba86ea110ac58d81b24a1e575']
+
+dependencies = [
+    ('Mesa', '22.0.3'),
+    ('freeglut', '3.2.2'),
+    ('libtool', '2.4.7'),
+    ('libxml2', '2.9.13'),
+    ('libxslt', '1.1.34'),
+    ('X11', '20220504'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/launcher'],
+    'dirs': ['api', 'lib', 'mpich2', 'templates'],
+}
+
+modextravars = {
+    'ANSYSLMD_LICENSE_FILE': 'port@aa.bb.cc.dd',
+}
+
+modluafooter = """
+setenv("LUMERICAL_LD_LIBRARY_PATH", os.getenv("LD_LIBRARY_PATH"))
+"""
+
+moduleclass = 'cae'
