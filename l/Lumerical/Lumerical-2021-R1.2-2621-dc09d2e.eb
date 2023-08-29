@@ -1,0 +1,41 @@
+name = 'Lumerical'
+version = '2021-R1.2-2621-dc09d2e'
+
+homepage = 'http://www.lumerical.com/'
+description = """
+The Lumerical Software Suite consists of a numner of tools to simulate photonic
+components, circuits and systems, such as, FDTD 3D Electromagnetic Simulator,
+MODE Waveguide Simulator, DGTD 3D Electromagnetic Simulator, FEEM Waveguide
+Simulator, and CML Photonic Compact Model Library.
+"""
+
+toolchain = SYSTEM
+
+sources = [SOURCE_TAR_GZ]
+patches = [
+    'Lumerical-2021-fix-pbs-templates.patch',
+    'Lumerical-2021-which-no-skip-alias.patch',
+    ('License.ini', '.'),
+]
+checksums = [
+    '5f9d26c7700b7eaf169af2e3523597c5e27b71a3867dd090d7e85822b9551e1a',  # Lumerical-2021-R1.2-2621-dc09d2e.tar.gz
+    '28a40460641faadd8e8922962cacdbda181f9f633759df94dfee98d9caed3704',  # Lumerical-2021-fix-pbs-templates.patch
+    '3c79cec66af21ff8b0dd0740b2e76f631da3af32e347311f6c0d805b1a5c16b7',  # Lumerical-2021-which-no-skip-alias.patch
+    'b113f05a758848ffc145eccda571484788e09feec5dc28e575fc6477cc69a5a9',  # License.ini
+]
+
+dependencies = [
+    ('libpng', '1.2.59'),
+]
+
+postinstallcmds = [
+    "mkdir %(installdir)s/Lumerical",
+    "cp License.ini %(installdir)s/Lumerical/",
+]
+
+sanity_check_paths = {
+    'files': ['bin/launcher', 'bin/license-config', 'Lumerical/License.ini'],
+    'dirs': ['api', 'lib', 'mpich2', 'templates'],
+}
+
+moduleclass = 'cae'

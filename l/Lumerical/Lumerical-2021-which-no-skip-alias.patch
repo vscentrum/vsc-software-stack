@@ -1,0 +1,122 @@
+Remove --skip-alias from which commands
+author: Åke Sandgren, 2017-02-07
+diff -W 102 -Nru bin.orig/config.sh bin/config.sh
+--- opt.orig/lumerical/v211/bin/config.sh	2021-05-12 01:01:18.824268000 +0200
++++ opt/lumerical/v211/bin/config.sh	2021-05-12 01:02:54.454081477 +0200
+@@ -13,7 +13,7 @@
+ echo "Add Ansys Lumerical 2021 R1.2 directory to path"
+ echo
+ 
+-BINDIR=`dirname $(readlink -f $(which --skip-alias $0))`
++BINDIR=`dirname $(readlink -f $(which $0))`
+ 
+ if which device &> /dev/null; then
+    CURDEVICE=`which device |sed 's#/device##g'`
+diff -W 102 -Nru bin.orig/device-run-local.sh bin/device-run-local.sh
+--- opt.orig/lumerical/v211/bin/device-run-local.sh	2021-05-12 01:01:16.559334000 +0200
++++ opt/lumerical/v211/bin/device-run-local.sh	2021-05-12 01:02:54.411852495 +0200
+@@ -19,7 +19,7 @@
+ 
+ #Locate the directory of this script so we can find
+ #utility scripts and templates relative to this path
+-SCRIPTDIR=`dirname $(readlink -f $(which --skip-alias $0))`
++SCRIPTDIR=`dirname $(readlink -f $(which $0))`
+ 
+ #Set path to mpiexec
+ MPIEXEC=$SCRIPTDIR/../mpich2/nemesis/bin/mpiexec
+diff -W 102 -Nru bin.orig/fdtd-mpi-status.sh bin/fdtd-mpi-status.sh
+--- opt.orig/lumerical/v211/bin/fdtd-mpi-status.sh	2021-05-12 01:01:18.456173000 +0200
++++ opt/lumerical/v211/bin/fdtd-mpi-status.sh	2021-05-12 01:02:54.428712230 +0200
+@@ -20,7 +20,7 @@
+ echo "  2) fdtd-engine-mpichp4      MPICH for TCP/IP networked clusters (ch_p4) - included with FDTD Solutions"
+ echo "  3) fdtd-engine-mpichshmem   MPICH for shared memory systems (ch_shmem) - included with FDTD Solutions"
+ 
+-MPITESTDIR=`dirname $(readlink -f $(which --skip-alias $0))`
++MPITESTDIR=`dirname $(readlink -f $(which $0))`
+ 
+ FDTD_PARS=(hpmpi    impi        infinipath       mpich2 mpichp4 ompi     scali     )
+ MPI_NAMES=("HP MPI" "Intel MPI" "Infinipath MPI" MPICH2 MPICH   OpenMPI "Scali MPI")
+diff -W 102 -Nru bin.orig/fdtd-process-template.sh bin/fdtd-process-template.sh
+--- opt.orig/lumerical/v211/bin/fdtd-process-template.sh	2021-05-12 01:01:14.584530000 +0200
++++ opt/lumerical/v211/bin/fdtd-process-template.sh	2021-05-12 01:02:54.404182903 +0200
+@@ -77,7 +77,7 @@
+ FILENAME=`basename $1`
+ 
+ #Run FDTD to get stats from project file
+-SCRIPTDIR=`dirname $(readlink -f $(which --skip-alias $0))`
++SCRIPTDIR=`dirname $(readlink -f $(which $0))`
+ $SCRIPTDIR/fdtd-engine-mpich2nem -mr $1 > $1.tmp
+ 
+ #Estimated memory
+diff -W 102 -Nru bin.orig/fdtd-run-local.sh bin/fdtd-run-local.sh
+--- opt.orig/lumerical/v211/bin/fdtd-run-local.sh	2021-05-12 01:01:13.603889000 +0200
++++ opt/lumerical/v211/bin/fdtd-run-local.sh	2021-05-12 01:02:54.436457722 +0200
+@@ -20,7 +20,7 @@
+ 
+ #Locate the directory of this script so we can find
+ #utility scripts and templates relative to this path
+-SCRIPTDIR=`dirname $(readlink -f $(which --skip-alias $0))`
++SCRIPTDIR=`dirname $(readlink -f $(which $0))`
+ 
+ #Set path to mpiexec
+ MPIEXEC=$SCRIPTDIR/../mpich2/nemesis/bin/mpiexec
+diff -W 102 -Nru bin.orig/fdtd-run-pbs.sh bin/fdtd-run-pbs.sh
+--- opt.orig/lumerical/v211/bin/fdtd-run-pbs.sh	2021-05-12 01:01:18.177014000 +0200
++++ opt/lumerical/v211/bin/fdtd-run-pbs.sh	2021-05-12 01:02:54.420185176 +0200
+@@ -26,7 +26,7 @@
+ 
+ #Locate the directory of this script so we can find
+ #utility scripts and templates relative to this path
+-SCRIPTDIR=`dirname $(readlink -f $(which --skip-alias $0))`
++SCRIPTDIR=`dirname $(readlink -f $(which $0))`
+ 
+ #The location of the template file to use when submitting jobs
+ #The line below can be changed to use your own template file
+diff -W 102 -Nru bin.orig/varfdtd-mpi-status.sh bin/varfdtd-mpi-status.sh
+--- opt.orig/lumerical/v211/bin/varfdtd-mpi-status.sh	2021-05-12 01:01:13.604693000 +0200
++++ opt/lumerical/v211/bin/varfdtd-mpi-status.sh	2021-05-12 01:02:54.388761389 +0200
+@@ -20,7 +20,7 @@
+ echo "  2) varfdtd-engine-mpichp4      MPICH for TCP/IP networked clusters (ch_p4) - included with MODE Solutions"
+ echo "  3) varfdtd-engine-mpichshmem   MPICH for shared memory systems (ch_shmem) - included with MODE Solutions"
+ 
+-MPITESTDIR=`dirname $(readlink -f $(which --skip-alias $0))`
++MPITESTDIR=`dirname $(readlink -f $(which $0))`
+ 
+ MODE_PARS=(hpmpi    impi        infinipath       mpich2 mpichp4 ompi     scali     )
+ MPI_NAMES=("HP MPI" "Intel MPI" "Infinipath MPI" MPICH2 MPICH   OpenMPI "Scali MPI")
+diff -W 102 -Nru bin.orig/varfdtd-process-template.sh bin/varfdtd-process-template.sh
+--- opt.orig/lumerical/v211/bin/varfdtd-process-template.sh	2021-05-12 01:01:18.824744000 +0200
++++ opt/lumerical/v211/bin/varfdtd-process-template.sh	2021-05-12 01:02:54.444527093 +0200
+@@ -77,7 +77,7 @@
+ FILENAME=`basename $1`
+ 
+ #Run varfdtd to get stats from project file
+-SCRIPTDIR=`dirname $(readlink -f $(which --skip-alias $0))`
++SCRIPTDIR=`dirname $(readlink -f $(which $0))`
+ $SCRIPTDIR/varfdtd-engine -mr $1 > $1.tmp
+ 
+ #Estimated memory
+diff -W 102 -Nru bin.orig/varfdtd-run-local.sh bin/varfdtd-run-local.sh
+--- opt.orig/lumerical/v211/bin/varfdtd-run-local.sh	2021-05-12 01:01:13.605159000 +0200
++++ opt/lumerical/v211/bin/varfdtd-run-local.sh	2021-05-12 01:02:54.380738802 +0200
+@@ -19,7 +19,7 @@
+ 
+ #Locate the directory of this script so we can find
+ #utility scripts and templates relative to this path
+-SCRIPTDIR=`dirname $(readlink -f $(which --skip-alias $0))`
++SCRIPTDIR=`dirname $(readlink -f $(which $0))`
+ 
+ #Set path to mpiexec
+ MPIEXEC=$SCRIPTDIR/../mpich2/nemesis/bin/mpiexec
+diff -W 102 -Nru bin.orig/varfdtd-run-pbs.sh bin/varfdtd-run-pbs.sh
+--- opt.orig/lumerical/v211/bin/varfdtd-run-pbs.sh	2021-05-12 01:01:14.968056000 +0200
++++ opt/lumerical/v211/bin/varfdtd-run-pbs.sh	2021-05-12 01:02:54.397344065 +0200
+@@ -26,7 +26,7 @@
+ 
+ #Locate the directory of this script so we can find
+ #utility scripts and templates relative to this path
+-SCRIPTDIR=`dirname $(readlink -f $(which --skip-alias $0))`
++SCRIPTDIR=`dirname $(readlink -f $(which $0))`
+ 
+ #The location of the template file to use when submitting jobs
+ #The line below can be changed to use your own template file

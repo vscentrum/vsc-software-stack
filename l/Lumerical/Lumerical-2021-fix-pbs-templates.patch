@@ -1,0 +1,52 @@
+Make PBS templates compatible with Hydra
+author: Alex Domingo (Vrije Universitet Brussel)
+diff -W 102 -Nru templates.orig/fdtd-pbs-template.sh templates/fdtd-pbs-template.sh
+--- opt.orig/lumerical/v211/templates/fdtd-pbs-template.sh	2021-05-12 00:39:02.462430000 +0200
++++ opt/lumerical/v211/templates/fdtd-pbs-template.sh	2021-05-12 00:42:18.597802000 +0200
+@@ -1,17 +1,15 @@
+ #PBS -S /bin/bash
+ #PBS -l mem=<total_memory>mb
+ #PBS -l walltime=<hours>:<minutes>:<seconds>
+-#PBS -l procs=<n>
+-#PBS -l software=FDTD
+-#PBS -l qos=parallel
++#PBS -l nodes=<n>
+ 
+ cd $PBS_O_WORKDIR
+-module load lumerical
++module load Lumerical
+ NUM_PROCS=`/bin/awk 'END {print NR}' $PBS_NODEFILE`
+ echo "Starting run at: `date`"
+ echo "Running on $NUM_PROCS processors."
+-MY_PROG="/opt/lumerical/v211/bin/fdtd-engine-mpich2nem"
++MY_PROG="$EBROOTLUMERICAL/bin/fdtd-engine-mpich2nem"
+ INPUT="<filename>"
+-/opt/lumerical/v211/mpich2/nemesis/bin/mpiexec.hydra -n $NUM_PROCS $MY_PROG -t 1 ./${INPUT}
++$EBROOTLUMERICAL/mpich2/nemesis/bin/mpiexec.hydra -n $NUM_PROCS $MY_PROG -t 1 ./${INPUT}
+ echo "Job finished at: `date`"
+ exit
+diff -W 102 -Nru templates.orig/varfdtd-pbs-template.sh templates/varfdtd-pbs-template.sh
+--- opt.orig/lumerical/v211/templates/varfdtd-pbs-template.sh	2021-05-12 00:42:35.105147000 +0200
++++ opt/lumerical/v211/templates/varfdtd-pbs-template.sh	2021-05-12 00:57:48.790362000 +0200
+@@ -1,17 +1,15 @@
+ #PBS -S /bin/bash
+ #PBS -l mem=<total_memory>mb
+ #PBS -l walltime=<hours>:<minutes>:<seconds>
+-#PBS -l procs=<n>
+-#PBS -l software=MODE
+-#PBS -l qos=parallel
++#PBS -l nodes=<n>
+ 
+ cd $PBS_O_WORKDIR
+-module load lumerical
++module load Lumerical
+ NUM_PROCS=`/bin/awk 'END {print NR}' $PBS_NODEFILE`
+ echo "Starting run at: `date`"
+ echo "Running on $NUM_PROCS processors."
+-MY_PROG="/opt/lumerical/v211/bin/varfdtd-engine-mpichp4"
++MY_PROG="$EBROOTLUMERICAL/bin/varfdtd-engine-mpichp4"
+ INPUT="<filename>"
+-/opt/lumerical/v211/mpich/ch_p4/bin/mpirun -n $NUM_PROCS $MY_PROG -t 1 ./${INPUT}
++$EBROOTLUMERICAL/mpich2/nemesis/bin/mpiexec -n $NUM_PROCS $MY_PROG -t 1 ./${INPUT}
+ echo "Job finished at: `date`"
+ exit
