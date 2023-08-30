@@ -1,0 +1,94 @@
+easyblock = 'CmdCp'
+
+name = 'Delft3D'
+version = '4.revision69179'
+
+homepage = 'https://oss.deltares.nl/web/delft3d'
+description = """Delft3D is a world leading 3D modeling suite to investigate hydrodynamics,
+sediment transport and morphology and water quality for fluvial, estuarine and coastal environments."""
+
+toolchain = {'name': 'intel', 'version': '2018a'}
+toolchainopts = {'usempi': True}
+
+# Source to be obtained like this:
+# svn export https://svn.oss.deltares.nl/repos/delft3d/tags/delft3d4/<revision>
+# tar cfvz Delft3D-4.<revision>.tar.gz <revision>
+sources = [SOURCE_TAR_GZ]
+
+patches = [
+    'Delft3D-4-clean-setenv.patch',
+    'Delft3D-4-cutil-macro.patch',
+    'Delft3D-4-make-revision-quotewrap.patch',
+]
+
+checksums = [
+    None,
+    'a427417f650237d7ed7e1aac2badc0c72963a07f336f7b4161a75606ddc13e28',  # Delft3D-4-clean-setenv.patch
+    'cd4addf5cc66392f08a1be7ad9e62b308915281b43ea4c3edafe38df27ec527b',  # Delft3D-4-cutil-macro.patch
+    'c8798fd1670a1b0d0d9ffda298c081d50603f4a484b5d6bf59b718fc1060cae6',  # Delft3D-4-revision-quotewrap.patch
+]
+
+builddependencies = [
+    ('byacc', '20170709'),
+    ('CMake', '3.20.1'),
+    ('flex', '2.6.4'),
+    ('libtool', '2.4.6'),
+    ('patchelf', '0.9'),
+]
+
+dependencies = [
+    ('cURL', '7.72.0'),
+    ('METIS', '5.1.0'),
+    ('PROJ', '5.0.0'),
+    ('GDAL', '2.2.3', '-Python-3.6.4'),
+    ('PETSc', '3.11.1'),
+    ('netCDF-Fortran', '4.4.4'),
+    ('FFTW', '3.3.8'),
+]
+
+# configuring
+local_build_cmd = 'cd src && ./autogen.sh && cd third_party_open/kdtree2 && ./autogen.sh && cd ../.. && '
+local_build_cmd += './configure --prefix=$(pwd) --with-netcdf --with-mpi --with-metis --with-petsc && '
+
+# copy missing source files
+local_swandir = 'third_party_open/swan/'
+local_build_cmd += 'cp {0}/src/*.F {0}/src/*.for {0}/src/*.f90 {0}/swan_mpi && '.format(local_swandir)
+local_build_cmd += 'cp {0}/src/*.F {0}/src/*.for {0}/src/*.f90 {0}/swan_omp && '.format(local_swandir)
+
+# building
+local_build_cmd += 'make ds-install && cd .. && '
+local_build_cmd += 'bash build.sh all -p && '
+
+# fix link options
+local_build_cmd += 'echo "$(which mpiifort) -Wl,-rpath=\'\$ORIGIN:\$ORIGIN/../lib\' -Wl,--enable-new-dtags -O2 -fPIC CMakeFiles/dflowfm_kernel_test.dir/src/test_1d_grid.f90.o CMakeFiles/dflowfm_kernel_test.dir/src/test_MDU_File_Version.f90.o CMakeFiles/dflowfm_kernel_test.dir/src/test_cross_section.f90.o CMakeFiles/dflowfm_kernel_test.dir/src/test_dflowfm_kernel_f.f90.o CMakeFiles/dflowfm_kernel_test.dir/src/test_iniField_1dField.f90.o CMakeFiles/dflowfm_kernel_test.dir/src/test_observ_Cross_Sections.f90.o CMakeFiles/dflowfm_kernel_test.dir/src/test_observations.f90.o CMakeFiles/dflowfm_kernel_test.dir/src/test_roughness.f90.o CMakeFiles/dflowfm_kernel_test.dir/src/test_storage_nodes.f90.o -o dflowfm_kernel_test  -Wl,-rpath,"\$ORIGIN:\$ORIGIN/../lib" ../deltares_common/libdeltares_common.a ../deltares_common_c/libdeltares_common_c.a ../deltares_common_mpi/libdeltares_common_mpi.a ../dhydrology_kernel/libdhydrology_kernel.a ../ec_module/libec_module.a ../flow1d/libflow1d.a ../flow1d_core/libflow1d_core.a ../flow1d_io/libflow1d_io.a ../ftnunit/libftnunit.a ../gridgeom/libgridgeom.a ../io_netcdf/libio_netcdf.a ../interacter_stub/libinteracter_stub.a ../kdtree_wrapper/libkdtree_wrapper.a ../kdtree2/libkdtree2.a ../fortrangis/libfortranc.a ../fortrangis/libfortrangis.a ../libsigwatch/liblibsigwatch.a ../md5/libmd5digest.a ../md5/libmd5.a ../metisoptions/libmetisoptions.a ../morphology_data/libmorphology_data.a ../morphology_io/libmorphology_io.a ../morphology_kernel/libmorphology_kernel.a ../morphology_plugins_c/libmorphology_plugins_c.a ../nefis/libnefis.a ../polypack/libpolypack.a ../shp/libshp.a ../trachytopes_io/libtrachytopes_io.a ../trachytopes_kernel/libtrachytopes_kernel.a ../triangle_c/libtriangle_c.a ../waq_process/libwaq_process.a ../waq_utils_c/libwaq_utils_c.a ../waq_utils_f/libwaq_utils_f.a ../wq_processes/libwq_processes.a ../dflowfm_kernel/libdflowfm_kernel.a -lmetis ../dhydrology_kernel/libdhydrology_kernel.a ../flow1d/libflow1d.a ../flow1d_io/libflow1d_io.a ../flow1d_core/libflow1d_core.a ../interacter_stub/libinteracter_stub.a ../fortrangis/libfortranc.a ../fortrangis/libfortrangis.a ../libsigwatch/liblibsigwatch.a ../md5/libmd5.a ../md5/libmd5digest.a ../metisoptions/libmetisoptions.a ../morphology_io/libmorphology_io.a ../ec_module/libec_module.a ../gridgeom/libgridgeom.a ../io_netcdf/libio_netcdf.a ../kdtree_wrapper/libkdtree_wrapper.a ../kdtree2/libkdtree2.a ../morphology_kernel/libmorphology_kernel.a ../morphology_data/libmorphology_data.a ../morphology_plugins_c/libmorphology_plugins_c.a ../polypack/libpolypack.a ../shp/libshp.a ../trachytopes_io/libtrachytopes_io.a ../deltares_common_mpi/libdeltares_common_mpi.a ../trachytopes_kernel/libtrachytopes_kernel.a ../triangle_c/libtriangle_c.a ../wq_processes/libwq_processes.a ../waq_process/libwaq_process.a ../waq_utils_f/libwaq_utils_f.a ../waq_process/libwaq_process.a ../waq_utils_f/libwaq_utils_f.a ../nefis/libnefis.a ../waq_utils_c/libwaq_utils_c.a ../deltares_common/libdeltares_common.a ../deltares_common_c/libdeltares_common_c.a ${EBROOTNETCDF}/lib64/libnetcdf.so -lhdf5_hl -lhdf5 /usr/lib64/libdl.so /usr/lib64/libm.so -liomp5 -lpthread ${EBROOTCURL}/lib/libcurl.so ${EBROOTNETCDFMINFORTRAN}/lib/libnetcdff.so ${EBROOTGDAL}/lib/libgdal.so ${EBROOTPETSC}/lib/libpetsc.a ${EBROOTPROJ}/lib/libproj.so -lmpicxx -lirng -lstdc++ -ldecimal -lcilkrts -lstdc++ -lirng -ldecimal -lcilkrts -lstdc++ -mkl ${EBROOTPARMETIS}/lib/libparmetis.a ${EBROOTHYPRE}/lib/libHYPRE.a ${EBROOTSCOTCH}/lib/libscotch.a ${EBROOTSCOTCH}/lib/libscotcherr.a ${EBROOTSCOTCH}/lib/libptscotch.a ${EBROOTMETIS}/lib/libmetis.a -L${EBROOTSUITESPARSE}/lib -lcholmod -lamd -lumfpack -lklu -L${EBROOTFFTW}/lib -lfftw3_mpi -L${EBROOTZLIB}/lib -lz" > build_all/test_dflowfm_kernel/CMakeFiles/dflowfm_kernel_test.dir/link.txt && '
+
+local_build_cmd += 'echo "$(which mpiifort) -Wl,-rpath=\'\$ORIGIN:\$ORIGIN/../lib\' -Wl,--enable-new-dtags -O2 -fPIC CMakeFiles/dflowfm-cli.dir/src/net_main.F90.o -o dflowfm-cli  -Wl,-rpath,"\$ORIGIN:\$ORIGIN/../lib" ../deltares_common/libdeltares_common.a ../deltares_common_c/libdeltares_common_c.a ../deltares_common_mpi/libdeltares_common_mpi.a ../dhydrology_kernel/libdhydrology_kernel.a ../ec_module/libec_module.a ../flow1d/libflow1d.a ../flow1d_core/libflow1d_core.a ../flow1d_io/libflow1d_io.a ../gridgeom/libgridgeom.a ../io_netcdf/libio_netcdf.a ../interacter_stub/libinteracter_stub.a ../kdtree_wrapper/libkdtree_wrapper.a ../kdtree2/libkdtree2.a ../fortrangis/libfortranc.a ../fortrangis/libfortrangis.a ../libsigwatch/liblibsigwatch.a ../md5/libmd5digest.a ../md5/libmd5.a ../metisoptions/libmetisoptions.a ../morphology_data/libmorphology_data.a ../morphology_io/libmorphology_io.a ../morphology_kernel/libmorphology_kernel.a ../morphology_plugins_c/libmorphology_plugins_c.a ../nefis/libnefis.a ../polypack/libpolypack.a ../shp/libshp.a ../trachytopes_io/libtrachytopes_io.a ../trachytopes_kernel/libtrachytopes_kernel.a ../triangle_c/libtriangle_c.a ../waq_process/libwaq_process.a ../waq_utils_c/libwaq_utils_c.a ../waq_utils_f/libwaq_utils_f.a ../wq_processes/libwq_processes.a ../dflowfm_kernel/libdflowfm_kernel.a -lmetis -lnetcdf ../dhydrology_kernel/libdhydrology_kernel.a ../flow1d/libflow1d.a ../flow1d_io/libflow1d_io.a ../flow1d_core/libflow1d_core.a ../interacter_stub/libinteracter_stub.a ../fortrangis/libfortranc.a ../fortrangis/libfortrangis.a ../libsigwatch/liblibsigwatch.a ../md5/libmd5.a ../md5/libmd5digest.a ../metisoptions/libmetisoptions.a ../morphology_io/libmorphology_io.a ../ec_module/libec_module.a ../gridgeom/libgridgeom.a ../io_netcdf/libio_netcdf.a ../kdtree_wrapper/libkdtree_wrapper.a ../kdtree2/libkdtree2.a ../morphology_kernel/libmorphology_kernel.a ../morphology_data/libmorphology_data.a ../morphology_plugins_c/libmorphology_plugins_c.a ../polypack/libpolypack.a ../shp/libshp.a ../trachytopes_io/libtrachytopes_io.a ../deltares_common_mpi/libdeltares_common_mpi.a ../trachytopes_kernel/libtrachytopes_kernel.a ../triangle_c/libtriangle_c.a ../wq_processes/libwq_processes.a ../waq_process/libwaq_process.a ../waq_utils_f/libwaq_utils_f.a ../waq_process/libwaq_process.a ../waq_utils_f/libwaq_utils_f.a ../nefis/libnefis.a ../waq_utils_c/libwaq_utils_c.a ../deltares_common/libdeltares_common.a ../deltares_common_c/libdeltares_common_c.a ${EBROOTNETCDF}/lib64/libnetcdf.so -lhdf5_hl -lhdf5 /usr/lib64/libdl.so /usr/lib64/libm.so -liomp5 -lpthread ${EBROOTCURL}/lib/libcurl.so ${EBROOTNETCDFMINFORTRAN}/lib/libnetcdff.so ${EBROOTGDAL}/lib/libgdal.so ${EBROOTPETSC}/lib/libpetsc.a ${EBROOTPROJ}/lib/libproj.so -lmpicxx -lirng -lstdc++ -ldecimal -lcilkrts -lstdc++ -lirng -ldecimal -lcilkrts -lstdc++ -mkl ${EBROOTPARMETIS}/lib/libparmetis.a ${EBROOTHYPRE}/lib/libHYPRE.a ${EBROOTSCOTCH}/lib/libscotch.a ${EBROOTSCOTCH}/lib/libscotcherr.a ${EBROOTSCOTCH}/lib/libptscotch.a ${EBROOTMETIS}/lib/libmetis.a -L${EBROOTSUITESPARSE}/lib -lcholmod -lamd -lumfpack -lklu -L${EBROOTFFTW}/lib -lfftw3_mpi -L${EBROOTZLIB}/lib -lz" > build_all/dflowfm_cli_exe/CMakeFiles/dflowfm-cli.dir/link.txt && '
+
+# continue building
+local_build_cmd += 'cd build_all && make install && cd .. '
+
+cmds_map = [('.*', local_build_cmd)]
+
+files_to_copy = [
+    (['src/bin/*'], 'bin'),
+    (['src/lib/*'], 'lib'),
+    (['src/share/*'], 'share'),
+    (['build_all/install/bin/*'], 'bin'),
+    (['build_all/install/lib/*'], 'lib'),
+    (['build_all/install/share/*'], 'share'),
+    (['build_all/dimr_lib/libdimr_lib.so'], 'lib'),
+    (['build_all/dflowfm_lib/libdflowfm.so'], 'lib'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/d_hydro', 'bin/dimr', 'bin/dflowfm', 'bin/wave'],
+    'dirs': ['lib', 'share'],
+}
+
+sanity_check_commands = [
+    'd_hydro -v ; test $? -eq 1',
+    'dimr -? ; test $? -eq 1',
+    'I_MPI_HYDRA_BOOTSTRAP=ssh mpirun -np 1 dflowfm --help',
+]
+
+moduleclass = 'geo'

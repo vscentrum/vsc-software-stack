@@ -1,0 +1,17 @@
+--- 4/69179/src/utils_lgpl/deltares_common/packages/deltares_common_c/src/cutil.c_original	2023-07-31 09:05:43.085853000 +0200
++++ 4/69179/src/utils_lgpl/deltares_common/packages/deltares_common_c/src/cutil.c	2023-07-31 09:18:13.813836000 +0200
+@@ -64,6 +64,14 @@
+ #  define FILE_TELL  FILE_TELL_not_defined
+ #endif
+ 
++// For some reason, defined(linux) seems to be False
++// and so we need to set these manually
++#define FILE_READ  read
++#define FILE_WRITE write
++#define FILE_SEEK  fseeko64
++#define FILE_TELL  ftello64
++
++
+ /*----- Function to determine with a path name is a directory or not.*/
+ 
+ int
