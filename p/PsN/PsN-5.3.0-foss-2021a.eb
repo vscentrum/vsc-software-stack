@@ -1,0 +1,140 @@
+easyblock = 'Bundle'
+
+name = 'PsN'
+version = '5.3.0'
+
+homepage = 'https://uupharmacometrics.github.io/PsN/'
+description = """Perl-speaks-NONMEM (PsN) is a collection of Perl modules and programs
+aiding in the development of non-linear mixed effect models using NONMEM."""
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+toolchainopts = {'usempi': False, 'openmp': False, 'pic': True}
+
+local_perlver = '5.32.1'
+local_perlmajver = local_perlver.split('.')[0]
+local_libdir = 'lib/perl%s/site_perl/%s' % (local_perlmajver, local_perlver)
+
+dependencies = [
+    ('Perl', local_perlver),
+    ('Python', '3.9.5'),
+    ('R', '4.1.0'),
+    ('GMP', '6.2.1'),
+    ('MPFR', '4.1.0'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+exts_classmap = {
+    'Math::Random': 'PerlModule',
+    'MouseX::Params::Validate': 'PerlModule',
+    'Archive::Zip': 'PerlModule',
+    'Devel::Caller': 'PerlModule',
+    'PadWalker': 'PerlModule',
+    name: 'PsN',
+}
+
+exts_list = [
+    ('systemfonts', '1.0.4', {
+        'checksums': ['ef766c75b942f147d382664a00d6a4930f1bfe0cce9d88943f571682a85a84c0'],
+    }),
+    ('svglite', '2.1.0', {
+        'checksums': ['ad40f590c7e80ae83001a3826b6e8394ba733446ed51fd55faeda974ab839c9b'],
+    }),
+    ('kableExtra', '1.3.4', {
+        'checksums': ['091ffac282cf9257edcec1a06da38b5e6516f111296bedb934e32f5692ffbbb0'],
+    }),
+    ('vpc', '1.2.2', {
+        'checksums': ['33c2e034e9ac944a6682482a8caa0b958b872d4465e34e52119b2b5ca1714997'],
+    }),
+    ('xpose', '0.4.17', {
+        'checksums': ['741f0b7048542b3363f50e0cebb08b9144618bf273fa124de588d1fd12a28225'],
+    }),
+    ('xpose4', '4.7.2', {
+        'checksums': ['51df73c1e26591b83fc709d99c996f8c9c22e00b836fe82ded7eaeb57b8b3991'],
+    }),
+    ('ggthemes', '4.2.4', {
+        'checksums': ['7b35168cf5b68f6f52dd533a1b345ec87e09d1a85ca68e8dc5377cdf95718567'],
+    }),
+    ('vegawidget', '0.4.2', {
+        'checksums': ['9a39664b81f078d640fb67dde5cab4e3a36da252bb5d4fa9e8a2bd102029d966'],
+    }),
+    ('PerformanceAnalytics', '2.0.4', {
+        'checksums': ['78a17070977665b30ddf3999d02fbbcca0f418b0791358c14bdc722235342232'],
+    }),
+    ('vaplot', '0.0.0.9000', {
+        'source_urls': ['https://github.com/rikardn/vaplot/archive/'],
+        'sources': [
+            {
+                'download_filename': 'da3420de63784f6766b455cb684a0d848fedec25.tar.gz',
+                'filename': SOURCE_TAR_GZ,
+            },
+        ],
+        'checksums': ['9a030b44ff6841e219431ddcb0d6483bb659d6ec32cbb8f9fe756e13cddfd312'],
+        # Installing from the extension's directory leads to R CMD INSTALL to use renv
+        # which then fails because it is not finding packages included in the R installation
+        'preinstallopts': 'mkdir build && cd build &&',
+    }),
+    ('Math::Random', '0.72', {
+        'source_tmpl': 'Math-Random-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/G/GR/GROMMEL'],
+        'checksums': ['be0522328811d96de505d9ebac3d096359026fa8d5c38f7bb999a78ec5bc254c'],
+    }),
+    ('MouseX::Params::Validate', '0.10', {
+        'source_tmpl': 'MouseX-Params-Validate-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/M/MA/MANWAR'],
+        'checksums': ['1a58de738b7050ab94549d9009e4e0f9e8129fb4f4c8e0954ae5b30540f665a2'],
+    }),
+    ('Archive::Zip', '1.68', {
+        'source_tmpl': 'Archive-Zip-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/P/PH/PHRED'],
+        'checksums': ['984e185d785baf6129c6e75f8eb44411745ac00bf6122fb1c8e822a3861ec650'],
+    }),
+    ('Devel::Caller', '2.06', {
+        'source_tmpl': 'Devel-Caller-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/R/RC/RCLAMP'],
+        'checksums': ['6a73ae6a292834255b90da9409205425305fcfe994b148dcb6d2d6ef628db7df'],
+    }),
+    ('PadWalker', '2.5', {
+        'source_tmpl': 'PadWalker-%(version)s.tar.gz',
+        'source_urls': ['https://cpan.metacpan.org/authors/id/R/RO/ROBIN'],
+        'checksums': ['07b26abb841146af32072a8d68cb90176ffb176fd9268e6f2f7d106f817a0cd0'],
+    }),
+    (name, version, {
+        'modulename': False,
+        'source_urls': ['https://github.com/UUPharmacometrics/PsN/releases/download/v%(version)s/'],
+        'sources': ['%(name)s-%(version)s.tar.gz'],
+        'patches': ['PsN-5.3.0-keep-Rlibs-site-env.patch'],
+        'checksums': [
+            '98883231329219525436e382e325a1865df9bc7d62fa83081ffb7ee4301b0591',  # PsN-5.3.0.tar.gz
+            '2b22dc0a0cfb4eb419c226e7b857e806886372e2320af801dffbd6ec5f115ba3',  # PsN-5.3.0-keep-Rlibs-site-env.patch
+        ],
+        'perllib': local_libdir,
+        'nm_versions': ['default=nmfe75,7.5', 'nm750=nmfe75,7.5'],
+    }),
+]
+
+modextrapaths = {
+    'PERL5LIB': local_libdir,
+    'R_LIBS_SITE': ['', '%s/%s_%s/Rlib' % (local_libdir, name, version.replace('.', '_'))],
+}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['bin', local_libdir],
+}
+
+sanity_check_commands = [
+    'execute -h',
+    'psn -h',
+    'qa -h',
+    'Rscript -e "library(PsNR)"',
+]
+
+moduleclass = 'bio'

@@ -1,0 +1,12 @@
+# Don't overwrite the R_LIBS_SITE environment variable,
+# which we need to supply the PsNR dependencies.
+--- PsN-Source/setup.pl_orig    2023-07-25 16:01:59.000000000 +0200
++++ PsN-Source/setup.pl 2023-07-25 16:02:05.000000000 +0200
+@@ -915,7 +915,6 @@
+         my $repos = 'https://cloud.r-project.org';
+         my $rsafe_path = $rlib_path;
+         $rsafe_path =~ s/\\/\\\\/g;
+-        $ENV{'R_LIBS_SITE'} = $rlib_path;
+         $ENV{'R_LIBS_USER'} = $rlib_path;
+         run_r("install.packages(c('renv', 'remotes'), lib='$rsafe_path', repos='$repos')");
+         run_r("options(renv.consent=TRUE); renv::settings" . '\$' . "use.cache(FALSE); renv::restore(library='$rsafe_path', lockfile='PsNR/renv.lock')");
