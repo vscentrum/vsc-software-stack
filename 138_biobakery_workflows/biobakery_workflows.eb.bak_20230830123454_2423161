@@ -15,6 +15,7 @@ and in a grid compute environment."""
 
 toolchain = {'name': 'foss', 'version': '2022a'}
 
+
 dependencies = {
     ('Python', '3.10.4'),
     ('SciPy-bundle', '2022.05'),
@@ -25,7 +26,6 @@ dependencies = {
 }
 
 sources = ["biobakery_workflows-%(version)s.tar.gz"]
-checksums = ['c11a00192aa0bd6a6978eabef768c483dd240281991ce2a31bfaf291fe3d0e2b']
 
 use_pip = True
 sanity_pip_check = True
@@ -33,5 +33,3 @@ sanity_pip_check = True
 sanity_check_commands = [
     """biobakery_workflows --help""",
 ]
-
-moduleclass = 'bio'
