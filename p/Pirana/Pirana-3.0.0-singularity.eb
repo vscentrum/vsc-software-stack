@@ -1,0 +1,47 @@
+easyblock = 'CmdCp'
+
+name = 'Pirana'
+version = '3.0.0'
+versionsuffix = '-singularity'
+
+homepage = 'https://www.certara.com/software/pirana-modeling-workbench'
+description = """Pirana is a workbench for optimizing pharmacometric workflows. This module provides a Singularity image that can be used to launch the Pirana Linux desktop client (e.g. v21.11.1) by executing 'pirana /user/or/data/path/to/your/Pirana/pirana.pl'"""
+
+toolchain = SYSTEM
+
+local_img_name = '%(namelower)s.sif'
+
+sources = [
+    {
+        # This Singularity image needs to be in your sources folder
+        'filename': local_img_name,
+        'extract_cmd': 'cp %s %(builddir)s',
+    },
+]
+
+checksums = ['23f4999f9a6314eaa1744823ab4d6f79e090922b6309ef2740fcedb9d5f9de89']
+
+skipsteps = ['build']
+
+files_to_copy = [
+    ([local_img_name], 'img'),
+]
+
+postinstallcmds = [
+     # Add a 'pirana' script to make it easier to launch the container
+     'mkdir %(installdir)s/bin',
+     'echo "#!/usr/bin/env bash" > %(installdir)s/bin/pirana',
+     'echo "singularity exec -B ${VSC_DATA}:${VSC_DATA} \"${@:2}\" %(installdir)s/img/pirana.sif perl $1" >> %(installdir)s/bin/pirana',
+     'chmod +x %(installdir)s/bin/pirana',
+]
+
+sanity_check_paths = {
+    'files': ['bin/pirana', 'img/%s' % local_img_name],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    'pirana --version',
+]
+
+moduleclass = 'bio'
