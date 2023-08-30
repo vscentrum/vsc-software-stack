@@ -1,0 +1,71 @@
+FROM ubuntu:22.04
+
+# Base packages
+RUN apt -y update
+RUN apt -y install make wget vim
+RUN apt -y install gcc build-essential
+RUN apt -y install libx11-dev xterm perl cpanminus libxml2-dev
+RUN apt -y install libpng-dev
+RUN apt -y install mousepad
+
+# R4.x installation instructions based on
+# https://cran.r-project.org/bin/linux/ubuntu/
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt -y update -qq
+RUN apt -y install --no-install-recommends software-properties-common dirmngr
+RUN wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+RUN add-apt-repository -y "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+RUN apt -y install --no-install-recommends r-base
+
+RUN mkdir /perl_modules
+RUN cpanm -v -L /perl_modules local::lib
+RUN cpanm -v -L /perl_modules threads
+RUN cpanm -v -L /perl_modules threads::shared
+RUN cpanm -v -L /perl_modules Data::Dumper@2.183
+RUN cpanm -v -L /perl_modules Log::Log4perl@1.54
+RUN cpanm -v -L /perl_modules Log::Dispatch::FileRotate@1.38
+RUN cpanm -v -L /perl_modules Config::Simple@4.58
+RUN cpanm -v -L /perl_modules Text::Diff@1.45
+RUN cpanm -v -L /perl_modules Text::Diff::HTML@0.08
+RUN cpanm -v -L /perl_modules Text::Table@1.134
+RUN cpanm -v -L /perl_modules Tk@804.035
+RUN cpanm -v -L /perl_modules Tk::ItemStyle@4.004
+RUN cpanm -v -L /perl_modules Tk::Pane@4.007
+RUN cpanm -v -L /perl_modules Tk::Splashscreen@1.0
+RUN cpanm -v -L /perl_modules --force Tk::JComboBox@1.14
+RUN cpanm -v -L /perl_modules Tk::PlotDataset@2.05
+RUN cpanm -v -L /perl_modules Tk::HdrResizeButton@1.5
+RUN cpanm -v -L /perl_modules Net::EmptyPort
+RUN cpanm -v -L /perl_modules File::Copy@2.35
+RUN cpanm -v -L /perl_modules File::Copy::Recursive@0.45
+RUN cpanm -v -L /perl_modules Crypt::CBC@2.33
+RUN cpanm -v -L /perl_modules Crypt::Cipher::DES@0.072
+RUN cpanm -v -L /perl_modules DBI@1.643
+RUN cpanm -v -L /perl_modules DBD::SQLite@1.66
+RUN cpanm -v -L /perl_modules Archive::Zip@1.68
+RUN cpanm -v -L /perl_modules Image::Size@3.300
+RUN cpanm -v -L /perl_modules XML::TreePP@0.43
+RUN cpanm -v -L /perl_modules HTTP::Date@6.05
+RUN cpanm -v -L /perl_modules Statistics::R@0.34
+RUN cpanm -v -L /perl_modules Date::Parse@2.33
+RUN cpanm -v -L /perl_modules Storable@3.15
+RUN cpanm -v -L /perl_modules List::MoreUtils@0.430
+RUN cpanm -v -L /perl_modules Test::Most
+RUN cpanm -v -L /perl_modules Test::Files
+# This one is not mentioned in the docs, but does seem necessary:
+RUN cpanm -v -L /perl_modules Nice::Try
+
+ENV PERL5LIB /perl_modules/lib/perl5
+ENV PIRANA_LOCALLIB /perl_modules
+
+# RsNLME installation
+RUN apt -y install grep pkg-config libfontconfig1-dev gzip
+RUN apt -y install libcurl4-openssl-dev libssl-dev libssh-dev
+RUN apt -y install liblapack-dev libblas-dev gfortran
+
+RUN R -e 'Certara_Packages <- c("Certara.RsNLME", "Certara.NLME8", "Certara.Xpose.NLME", "Certara.RsNLME.ModelExecutor", "Certara.RsNLME.ModelBuilder"); install.packages(Certara_Packages, repos=c("https://certara.jfrog.io/artifactory/certara-cran-release-public/", "https://cloud.r-project.org"))'
+
+RUN apt -y install mupdf
+RUN xdg-mime default mupdf.desktop application/pdf
+
+WORKDIR /
