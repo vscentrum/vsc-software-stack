@@ -18,7 +18,11 @@ builddependencies = [('ant', '1.10.12', versionsuffix)]
 dependencies = [('Java', '11')]
 
 local_comp_cmd = "export RTG_MEM=1G && "
-local_comp_cmd += 'ant runalltests && ant zip-nojre && '
+# NOTE Tests of RTG-Tools reserve 60% machine's memory.
+# That causes them to fail on debug clusters and work on full nodes only.
+# therefore this easyconfig has been tested on a full node and `ant runalltests` was removed from the easyconfig.
+# local_comp_cmd += 'ant runalltests && '
+local_comp_cmd += 'ant zip-nojre && '
 local_comp_cmd += 'unzip %(builddir)s/rtg-tools-%(version)s/dist/rtg-tools-%(version)s-unknown-nojre.zip'
 
 cmds_map = [('.*', local_comp_cmd)]
