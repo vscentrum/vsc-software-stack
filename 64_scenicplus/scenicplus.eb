@@ -1,0 +1,115 @@
+easyblock = 'PythonBundle'
+
+name = 'scenicplus'
+version = '1.0.0'
+
+homepage = 'https://github.com/aertslab/scenicplus'
+description = """SCENIC+ is a python package to build gene regulatory networks (GRNs)
+using combined or separate single-cell gene expression (scRNA-seq) and single-cell
+chromatin accessibility (scATAC-seq) data."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+builddependencies = [
+    ('binutils', '2.38'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('tqdm', '4.64.0'),
+    ('Ray-project', '2.2.0'),
+    ('attr', '2.5.1'),
+    ('typing-extensions', '4.3.0'),
+    ('matplotlib', '3.5.2'),
+    ('scikit-learn', '1.1.2'),
+    ('networkx', '2.8.4'),
+    ('Seaborn', '0.12.1'),
+    ('pyBigWig', '0.3.18'),
+    ('plotly.py', '5.12.0'),
+    ('MACS2', '2.2.9.1'),
+    ('lxml', '4.9.1'),
+    ('Kaleido', '0.2.1'),
+    ('IPython', '8.5.0'),
+    ('scanpy', '1.9.1'),
+    ('Cython', '0.29.33'),
+    ('statsmodels', '0.13.1'),
+    ('h5py', '3.7.0'),
+    ('adjustText', '0.7.3'),
+    ('umap-learn', '0.5.3'),
+    ('ipympl', '0.9.3'),
+    ('leidenalg', '0.9.1'),
+    ('loompy', '3.0.7'),
+    ('numba', '0.56.4'),
+    ('polars', '0.15.6'),
+    ('pybedtools', '0.9.0'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('pyranges', '0.0.129'),
+    ('interval-tree', '0.3.4'),
+    ('ncls', '0.0.68'),
+    ('sorted_nearest', '0.0.39'),
+    ('natsort', '8.4.0'),
+    ('pyranges', '0.0.129'),
+    ('cattrs', '23.1.2'),
+    ('url-normalize', '1.4.3'),
+    ('requests-cache', '1.1.0'),
+    ('pybiomart', '0.2.0'),
+    ('frozendict', '2.3.8', {
+        'checksums': ['5526559eca8f1780a4ee5146896f59afc31435313560208dd394a3a5e537d3ff'],
+    }),
+    ('arboreto', '0.1.6', {
+        # the source on PyPI is missing 'requirements.txt', fetching from github instead
+        'source_urls': ['https://github.com/aertslab/arboreto/archive/refs/tags/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['f94c0bc084ca61422e8b74ecdb80585a45b168ac682f18dd3c52c9097ee29caa'],
+    }),
+    ('gseapy', '1.0.6'),
+    ('ctxcore', '0.2.0', {
+        'sources': ['ctxcore-0.2.0-py3-none-any.whl'],
+        'checksums': ['b90570377e26280c4861ebad1f4cee2fe598167c5d4bd12c1b713f03c9682627'],
+    }),
+    ('tspex', '0.6.3'),
+    ('jsonpickle', '2.2.0', {
+        'checksums': ['7b272918b0554182e53dc340ddd62d9b7f902fec7e7b05620c04f3ccef479a0e'],
+    }),
+    ('pyvis', '0.3.2'),
+        ('progressbar2', '4.2.0', {
+        'modulename': 'progressbar',
+        'checksums': ['1393922fcb64598944ad457569fbeb4b3ac189ef50b5adb9cef3284e87e394ce'],
+    }),
+    ('pygam', '0.9.0'),
+    ('mizani', '0.10.0'),
+    ('patsy', '0.5.2', {
+        'checksums': ['5053de7804676aba62783dbb0f23a2b3d74e35e5bfa238b88b7cbf148a38b69d'],
+    }),
+    ('plotnine', '0.12.3'),
+    ('anndata', '0.8.0', {
+    }),
+    ('bbknn', '1.5.1'),
+    ('mudata', '0.2.0', {
+    }),
+    ('annoy', '1.17.1'),
+    ('pynndescent', '0.5.8', {
+        'checksums': ['a7c552569bf604a101fd54bba1d27c12389e065945dee3a6777a518c63a46f2b'],
+    }),
+    ('harmonypy', '0.0.9'),
+    ('lda', '2.0.0'),
+    ('pyOpenSSL', '21.0.0', {
+        'modulename': 'OpenSSL',
+        'checksums': ['5e2d8c5e46d0d865ae933bef5230090bdaf5506281e9eec60fa250ee80600cb3'],
+    }),
+    ('pycisTopic', '1.0.2', {
+        'source_urls': ['https://github.com/aertslab/pycisTopic/archive/refs/tags/'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+    })
+    (name, version, {
+        'checksums': ['f8ecaf91bded57e12676d0373bf27acc154dea56c386f6ad05b476bc2c6ddc4f'],
+    }),
+]
+
+moduleclass = 'bio'

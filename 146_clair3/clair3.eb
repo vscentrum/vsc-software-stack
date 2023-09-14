@@ -33,14 +33,12 @@ dependencies = [
     ('cURL', '7.83.0'),
     ('zstd', '1.5.2'),
     ('HTSlib', '1.15.1'),
+    ('libdeflate', '1.10'),
 ]
 
 files_to_copy = [
-    (['angsd', 'misc/supersim', 'misc/thetaStat', 'misc/realSFS', 'misc/msToGlf',
-      'misc/smartCount', 'misc/printIcounts', 'misc/contamination', 'misc/splitgl',
-      'misc/NGSadmix', 'misc/contamination2', 'misc/haploToPlink', 'misc/ngsPSMC',
-      'misc/ibs'], 'bin'),
-    'doc',
+    (['run_clair3.sh', 'longphase', 'clair3.py', 'clair3'], 'bin'),
+    (['libclair3.so', 'libclair3.o', 'libclair3.cpython-310-x86_64-linux-gnu.so', 'libclair3.c', 'longphase', ], 'lib'),
 ]
 
 moduleclass = 'bio'

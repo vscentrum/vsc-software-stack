@@ -1,0 +1,28 @@
+easyblock = 'PythonBundle'
+
+name = 'gensim'
+version = '4.3.2'
+
+homepage = 'https://radimrehurek.com/gensim'
+description = """Gensim is a Python library for topic modelling, document indexing and similarity retrieval with
+ large corpora."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),  # for numpy, pandas
+]
+
+use_pip = True
+
+exts_list = [
+    ('smart_open', '6.4.0', {
+    }),
+    (name, version, {
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'lib'

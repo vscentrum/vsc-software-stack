@@ -1,3 +1,16 @@
+diff -ruN Clair3-1.0.4_orig/build.py Clair3-1.0.4/build.py
+--- Clair3-1.0.4_orig/build.py	2023-09-07 14:28:29.842168186 +0100
++++ Clair3-1.0.4/build.py	2023-09-08 12:31:06.300472155 +0100
+@@ -52,8 +52,7 @@
+             'clair3_pileup.c',
+             'clair3_full_alignment.c')],
+     extra_compile_args=extra_compile_args,
+-    extra_link_args=extra_link_args,
+-    extra_objects=[os.path.join(htslib_dir, 'libhts.a')]
++    extra_link_args=extra_link_args
+ )
+ 
+ cdef = [
 diff -ruN Clair3-1.0.4_orig/Makefile Clair3-1.0.4/Makefile
 --- Clair3-1.0.4_orig/Makefile	2023-09-07 14:28:29.842168186 +0100
 +++ Clair3-1.0.4/Makefile	2023-09-07 14:35:52.320773700 +0100
