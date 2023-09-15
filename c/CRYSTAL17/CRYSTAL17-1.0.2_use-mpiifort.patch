@@ -1,0 +1,15 @@
+# Replace mpif90 with mpiifort
+diff -ruN source.orig/build/Xmakes/Linux-ifort_oneapi21.4_openmpi4.1.1_i64.inc source.new/build/Xmakes/Linux-ifort_oneapi21.4_openmpi4.1.1_i64.inc
+--- source.orig/build/Xmakes/Linux-ifort_oneapi21.4_openmpi4.1.1_i64.inc	2023-09-15 12:54:28.703024000 +0200
++++ source.new/build/Xmakes/Linux-ifort_oneapi21.4_openmpi4.1.1_i64.inc	2023-09-15 12:55:34.838916000 +0200
+@@ -1,8 +1,8 @@
+ # For Linux on intel64 machine, using Intel Fortran Compiler OneAPI
+ 
+-F90     = mpif90 
++F90     = mpiifort 
+ LD      = $(F90)
+-PLD     = mpif90
++PLD     = mpiifort
+ 
+ F90FLAGS = -O3 -align -static-intel -cxxlib  
+ F90FIXED = -FI
