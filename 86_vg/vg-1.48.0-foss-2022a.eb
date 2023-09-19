@@ -16,20 +16,25 @@ sources = [{
         'repo_name': '%(namelower)s',
         'tag': 'v%(version)s',
         'recursive': True,
+        'recurse_submodules': [
+            '!vcflib',
+        ],
         'keep_git_dir': True,
+        'extra_config_params': [
+            'submodule."deps/elfutils".url=https://sourceware.org/git/elfutils.git',
+            # 'submodule."vcflib".active=false',
+        ]
     }
 }]
-
 patches = ['%(name)s-%(version)s_dep_fix.patch']
-
-checksums = [None]
+checksums = [
+    None,
+    '1ca9dd7c0f493ea41a7e5948f176a38176910b58419b06c96b868e975bd22f7d',  # vg-1.48.0_dep_fix.patch
+]
 
 builddependencies = [
     ('binutils', '2.38'),
     ('CMake', '3.23.1'),
-    ('protobuf', '3.19.4'),
-    # ('SDSL', '2.1.1'),  # TODO is a submodule
-    # ('git', '2.36.0', '-nodocs'),  # has to be on the system already
 ]
 
 dependencies = [
@@ -51,38 +56,13 @@ dependencies = [
     ('Automake', '1.16.5'),
     ('Jansson', '2.14'),
     ('protobuf', '3.19.4'),
-    ('protobuf-python', '3.19.4'),  # probably needed
+    ('protobuf-python', '3.19.4'),
     ('bzip2', '1.0.8'),
     ('ncurses', '6.3'),
     ('pkg-config', '0.29.2'),
     ('XZ', '5.2.5'),
     ('nodejs', '16.15.1'),
-
-    # ('libprotoc-dev', ''),
-    # ('autopoint', ''),
-    # ('bsdmainutils', ''),
-    # ('rs', ''),  # TODO https://github.com/leahneukirchen/rs
-    # # ('npm', ''),  # is nodejs
-    # ('redland-utils', ''),
-    # # ('gawk', ''),  # is there
-    # # ('lzma-dev', ''),  # in XZ
-    # # ('liblzma-dev', ''),
-    # # ('libffi-dev', ''),  # is there
-
-    # submodule deps
     # ('elfutils', '0.187'),
-    # ('jemalloc', '5.2.1'),
-    # ('libdeflate', '1.10'),
-    # ('snappy', '1.1.9'),
-    # ('htslib', '1.15.1'),
-    # ('sparsehash', '2.0.4'),
-    # ('fastahack', '1.0.0'),
-    # ('SDSL', '2.1.1'),
-    #
-    # # ('fermi-lite', ''),  # only 11.2.0
-    # # ('SSW', ''),  # only 11.2.0
-    # # ('tabixpp', ''),  # only 11.2.0
-    # # ('vcflib', ''),  # only 10.3.0
 ]
 
 files_to_copy = ['bin']
@@ -93,3 +73,5 @@ sanity_check_paths = {
 }
 
 sanity_check_commands = ["vg help"]
+
+moduleclass = 'bio'
