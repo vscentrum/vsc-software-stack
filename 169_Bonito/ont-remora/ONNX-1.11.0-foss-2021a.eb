@@ -29,8 +29,8 @@ dependencies = [
 
 use_pip = True
 download_dep_fail = True
-
-preinstallopts = 'env MAX_JOBS="%(parallel)s"'
+prebuildopts = 'sed -i "s|protobuf >=|protobuf <=|g" requirements.txt && '
+preinstallopts = 'env MAX_JOBS="%(parallel)s "'
 
 sanity_check_paths = {
     'files': ['bin/check-model', 'bin/check-node', 'bin/backend-test-tools'],

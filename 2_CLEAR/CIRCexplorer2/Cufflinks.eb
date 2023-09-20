@@ -19,7 +19,12 @@ builddependencies = [
     ('Eigen', '3.3.9'),
     ('Autotools', '20210726'),
     ('SAMtools', '1.14'),
-    ('Boost', '1.77.0'),
+    ('Boost', '1.75.0'),
+    ('XZ', '5.2.5'),
+    ('bzip2', '1.0.8'),
+    ('cURL', '7.78.0'),
+    ('OpenSSL', '1.1', '', SYSTEM),
+    ('zstd', '1.5.0'),
 ]
 
 dependencies = [
@@ -27,7 +32,7 @@ dependencies = [
     ('HTSlib', '1.14'),
 ]
 
-preconfigopts = 'autoreconf -i && export LIBS="${LIBS} -lhts" && export CFLAGS="$CFLAGS -fcommon" && '
+preconfigopts = 'autoreconf -i && export LIBS="${LIBS} -lhts -llzma -lbz2 -lcurl -lzstd -lssl" && export CFLAGS="$CFLAGS -fcommon" && '
 configopts = '--with-boost=${EBROOTBOOST} --with-bam=${EBROOTSAMTOOLS}'
 
 sanity_check_paths = {
