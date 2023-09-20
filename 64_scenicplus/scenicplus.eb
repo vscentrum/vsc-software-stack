@@ -50,8 +50,9 @@ dependencies = [
 use_pip = True
 sanity_pip_check = True
 
-local_cattrs_preinstallopts = 'sed -i "s|hatchling.build|setuptools.build_meta|g" pyproject.toml && '
-local_cattrs_preinstallopts += "sed -i 's|\"hatchling\"|\"setuptools>=42\", \"wheel\"|g' pyproject.toml && "
+local_cattrs_preinstallopts = 'sed -i "s|[build-system]||g" pyproject.toml && '
+local_cattrs_preinstallopts = 'sed -i "s|requires = [\"hatchling\"]||g" pyproject.toml && '
+local_cattrs_preinstallopts += 'sed -i "s|build-backend = \"hatchling.build\"||g" pyproject.toml && '
 
 exts_list = [
     ('pyranges', '0.0.129'),
@@ -62,6 +63,7 @@ exts_list = [
     ('pyranges', '0.0.129'),
     ('cattrs', '23.1.2', {
         # 'preinstallopts': local_cattrs_preinstallopts,
+        'patches': ['cattrs-23.1.2.patch'],
     }),
     ('url-normalize', '1.4.3'),
     ('requests-cache', '1.1.0', {
