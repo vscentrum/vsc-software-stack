@@ -1,0 +1,18 @@
+Load the snakemake module before running in job script, with added environment variable SNAKEMAKE_LOAD_MODULE.
+This patch is for clusters that don't support exporting the full environment into the batch job.
+Author: Samuel Moors (Vrije Universiteit Brussel)
+diff -ur snakemake-7.22.0.orig/snakemake/executors/__init__.py snakemake-7.22.0/snakemake/executors/__init__.py
+--- snakemake-7.22.0.orig/snakemake/executors/__init__.py	2023-02-12 20:52:51.000000000 +0100
++++ snakemake-7.22.0/snakemake/executors/__init__.py	2023-09-23 12:22:54.780543301 +0200
+@@ -425,7 +425,10 @@
+         return ""
+ 
+     def format_job_exec(self, job):
+-        prefix = self.get_job_exec_prefix(job)
++        prefix = os.getenv('SNAKEMAKE_LOAD_MODULE', '')
++        if prefix:
++            prefix += ' && '
++        prefix += self.get_job_exec_prefix(job)
+         if prefix:
+             prefix += " &&"
+         suffix = self.get_job_exec_suffix(job)
