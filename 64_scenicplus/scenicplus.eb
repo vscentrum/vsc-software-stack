@@ -19,7 +19,7 @@ dependencies = [
     ('SciPy-bundle', '2022.05'),
     ('tqdm', '4.64.0'),
     ('Ray-project', '2.2.0'),
-    ('attr', '2.5.1'),
+    # ('attr', '2.5.1'),
     ('typing-extensions', '4.3.0'),
     ('matplotlib', '3.5.2'),
     ('scikit-learn', '1.1.2'),
@@ -45,6 +45,11 @@ dependencies = [
     ('pybedtools', '0.9.0'),
     ('BeautifulSoup', '4.10.0'),
     ('Sphinx-RTD-Theme', '1.3.0'),
+    ('Rust', '1.65.0'),  # required (newer version) for setuptools-rust, which is needed for gseapy
+    ('pySCENIC', '0.12.1'),
+    ('gensim', '4.3.2'),
+    ('python-igraph', '0.10.3'),
+    ('pyfasta', '0.5.2'),
 ]
 
 use_pip = True
@@ -55,12 +60,18 @@ local_cattrs_preinstallopts = 'sed -i "s|requires = [\"hatchling\"]||g" pyprojec
 local_cattrs_preinstallopts += 'sed -i "s|build-backend = \"hatchling.build\"||g" pyproject.toml && '
 
 exts_list = [
+    ('fbpca', '1.0'),
+    ('geosketch', '1.2'),
+    ('scanorama', '1.7.3'),
+    ('commonmark', '0.9.1', {
+        'checksums': ['452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60'],
+    }),
+    ('attr', '0.3.2'),
     ('pyranges', '0.0.129'),
     ('interval_tree', '0.3.4'),
     ('ncls', '0.0.68'),
     ('sorted_nearest', '0.0.39'),
     ('natsort', '8.4.0'),
-    ('pyranges', '0.0.129'),
     ('cattrs', '23.1.2', {
         # 'preinstallopts': local_cattrs_preinstallopts,
         'patches': ['cattrs-23.1.2.patch'],
@@ -82,11 +93,12 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'checksums': ['f94c0bc084ca61422e8b74ecdb80585a45b168ac682f18dd3c52c9097ee29caa'],
     }),
-    ('gseapy', '1.0.6'),
+    ('gseapy', '0.10.8'),
     ('ctxcore', '0.2.0', {
         'sources': ['ctxcore-0.2.0-py3-none-any.whl'],
         'checksums': ['b90570377e26280c4861ebad1f4cee2fe598167c5d4bd12c1b713f03c9682627'],
     }),
+    ('loomxpy', '0.4.2'),
     ('tspex', '0.6.3'),
     ('jsonpickle', '2.2.0', {
         'checksums': ['7b272918b0554182e53dc340ddd62d9b7f902fec7e7b05620c04f3ccef479a0e'],
@@ -98,7 +110,9 @@ exts_list = [
         'modulename': 'progressbar',
         'checksums': ['1393922fcb64598944ad457569fbeb4b3ac189ef50b5adb9cef3284e87e394ce'],
     }),
-    ('pygam', '0.9.0'),
+    ('pygam', '0.9.0', {
+        'patches': ['pygam-0.9.0-simplify_pyproject.patch'],
+    }),
     ('mizani', '0.10.0'),
     ('patsy', '0.5.2', {
         'checksums': ['5053de7804676aba62783dbb0f23a2b3d74e35e5bfa238b88b7cbf148a38b69d'],
@@ -119,22 +133,29 @@ exts_list = [
         'modulename': 'OpenSSL',
         'checksums': ['5e2d8c5e46d0d865ae933bef5230090bdaf5506281e9eec60fa250ee80600cb3'],
     }),
+    ('papermill', '2.4.0'),
     ('pycisTopic', '1.0.2', {
         'source_urls': ['https://github.com/aertslab/pycisTopic/archive/refs/tags/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'patches': ['pycisTopic-1.0.2-manual_versioning.patch'],
     }),
-    ('hatch-vcs', '0.3.0', {
-        'sources': [{
-            'download_filename': 'hatch_vcs-%(version)s.tar.gz',
-            'filename': '%(name)s-%(version)s.tar.gz'
-        }],
-        'checksums': ['cec5107cfce482c67f8bc96f18bbc320c9aa0d068180e14ad317bbee5a153fee'],
+    # ('hatch-vcs', '0.3.0', {
+    #     'sources': [{
+    #         'download_filename': 'hatch_vcs-%(version)s.tar.gz',
+    #         'filename': '%(name)s-%(version)s.tar.gz'
+    #     }],
+    #     'checksums': ['cec5107cfce482c67f8bc96f18bbc320c9aa0d068180e14ad317bbee5a153fee'],
+    # }),
+    ('plumbum', '1.8.2', {
+        # need to patch this so that we don't need hatchling (currently not available in this foss version)
+        'patches': ['plumbum-1.8.2-dont_use_hatchling.patch'],
+        'preinstallopts': 'mkdir src && mv plumbum src && ',
     }),
-    ('plumbum', '1.8.2'),
     ('pandoc', '2.3'),
     ('pycistarget', '1.0.2', {
         'source_urls': ['https://github.com/aertslab/pycistarget/archive/refs/tags/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'patches': ['pycistarget-1.0.2-manual_versioning.patch'],
     }),
     ('numpydoc', '1.5.0'),
     ('pyproject-metadata', '0.6.1', {
@@ -160,9 +181,11 @@ exts_list = [
             'filename': '%(name)s-%(version)s.tar.gz'
         }],
     }),
+    ('nbsphinx-link', '1.3.0'),
     (name, version, {
         'source_urls': ['https://github.com/aertslab/scenicplus/archive/refs/tags/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'patches': ['scenicplus-1.0.0-manual_versioning.patch'],
     }),
 ]
 

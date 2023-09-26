@@ -1,0 +1,30 @@
+easyblock = 'PythonPackage'
+
+name = 'Levenshtein'
+version = '0.21.1'
+
+homepage = 'https://pypi.org/project/python-Levenshtein/'
+description = 'Python extension for computing string edit distances and similarities.'
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+sources = [SOURCE_TAR_GZ]
+
+builddependencies = [
+    ('CMake', '3.23.1'),
+    ('Ninja', '1.10.2'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('scikit-build', '0.15.0'),
+]
+
+download_dep_fail = True
+use_pip = True
+
+options = {'modulename': 'Levenshtein'}
+
+sanity_pip_check = True
+
+moduleclass = 'data'
