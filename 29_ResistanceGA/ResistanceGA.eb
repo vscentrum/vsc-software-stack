@@ -3,8 +3,8 @@ easyblock = 'Bundle'
 name = 'ResistanceGA'
 version = '4.2-5'
 local_commit = '04326a8'
-_julia_ver = '1.7.2'
-versionsuffix = '-R-%%(rver)s-Julia-%s' % _julia_ver
+local_juliaver = '1.9.2'
+versionsuffix = '-R-%%(rver)s-Julia-%s' % local_juliaver
 
 homepage = 'https://github.com/wpeterman/ResistanceGA'
 description = "An R package to optimize resistance surfaces using Genetic Algorithms."
@@ -13,8 +13,9 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 dependencies = [
     ('R', '4.2.1'),
-    ('Julia', _julia_ver, '-linux-%s' % ARCH, SYSTEM),
-    ('Circuitscape', '5.12.3', '-Julia-%s' % _julia_ver, SYSTEM),
+    ('Julia', local_juliaver, '-linux-%s' % ARCH, SYSTEM),
+    ('Circuitscape', '5.12.3', '-Julia-%s' % local_juliaver, SYSTEM),
+    ('RCall', '0.13.17', versionsuffix),
 ]
 
 exts_defaultclass = 'RPackage'
@@ -33,22 +34,9 @@ exts_list = [
     ('Suppressor', '0.2.4', {
         'easyblock': 'JuliaPackage',
         'source_urls': ['https://github.com/JuliaIO/Suppressor.jl/archive/'],
-        'sources': ['v%(version)s.tar.gz'],
+        'source_tmpl': 'v%(version)s.tar.gz',
         'preinstallopts': "export LD_LIBRARY_PATH=$EBROOTJULIA/lib/julia:$LD_LIBRARY_PATH && ",
-        #'exts_filters': "julia -e 'using %(ext_name)s'",
-    }),
-    ('WinReg', '1.0.0', {
-        'easyblock': 'JuliaPackage',
-        'source_urls': ['https://github.com/simonbyrne/WinReg.jl/archive/'],
-        'sources': ['v%(version)s.tar.gz'],
-        'preinstallopts': "export LD_LIBRARY_PATH=$EBROOTJULIA/lib/julia:$LD_LIBRARY_PATH && ",
-    }),
-    ('RCall', '0.13.15', {
-        'easyblock': 'JuliaPackage',
-        'source_urls': ['https://github.com/JuliaInterop/RCall.jl/archive/'],
-        'sources': ['v%(version)s.tar.gz'],
-        'preinstallopts': "export LD_LIBRARY_PATH=$EBROOTJULIA/lib/julia:$LD_LIBRARY_PATH && ",
-        #'exts_filters': "julia -e 'using %(ext_name)s'",
+        'exts_filter': ("julia -e 'using %(ext_name)s'", ""),
     }),
     ('GA', '3.2.2', {
         'checksums': ['6245c634a11b8414bde7ed326b8c615512645489b19969619484c865e900bf8c'],
@@ -70,7 +58,7 @@ exts_list = [
     }),
     (name, version, {
         'source_urls': ['https://github.com/wpeterman/ResistanceGA/archive/'],
-        'sources': [{'download_filename': '04326a8.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['6791c8b42559c0abe94b7a326961f45af2939905021cb9da7220383bf2ea3d75'],
     }),
 ]
