@@ -8,7 +8,7 @@ homepage = 'http://cole-trapnell-lab.github.io/%(namelower)s/'
 description = "Transcript assembly, differential expression, and differential regulation for RNA-Seq"
 
 toolchain = {'name': 'GCC', 'version': '11.2.0'}
-toolchainopts = {'pic': True, 'static': True}
+toolchainopts = {'pic': True}
 
 github_account = 'cole-trapnell-lab'
 source_urls = [GITHUB_LOWER_SOURCE]
@@ -32,8 +32,13 @@ dependencies = [
     ('HTSlib', '1.14'),
 ]
 
-preconfigopts = 'autoreconf -i && export LIBS="${LIBS} -lhts -llzma -lbz2 -lcurl -lzstd -lssl" && export CFLAGS="$CFLAGS -fcommon" && '
+preconfigopts = 'autoreconf -i && export LIBS="${LIBS} -lhts" && export CFLAGS="$CFLAGS -fcommon" && '
 configopts = '--with-boost=${EBROOTBOOST} --with-bam=${EBROOTSAMTOOLS}'
+
+buildopts = "BOOST_FILESYSTEM_LIB=$EBROOTBOOST/lib/libboost_filesystem.a "
+buildopts += "BOOST_SERIALIZATION_LIB=$EBROOTBOOST/lib/libboost_serialization.a "
+buildopts += "BOOST_SYSTEM_LIB=$EBROOTBOOST/lib/libboost_system.a "
+buildopts += "BOOST_THREAD_LIB=$EBROOTBOOST/lib/libboost_thread.a "
 
 sanity_check_paths = {
     'files': ['bin/%(namelower)s'],
