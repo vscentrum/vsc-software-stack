@@ -32,7 +32,7 @@ postinstallcmds = [
      # Add a 'pirana' script to make it easier to launch the container
      'mkdir %(installdir)s/bin',
      'echo "#!/usr/bin/env bash" > %(installdir)s/bin/pirana',
-     'echo "singularity exec -B ${VSC_DATA}:${VSC_DATA} \"${@:2}\" %(installdir)s/img/pirana.sif perl $1" >> %(installdir)s/bin/pirana',
+     'echo "singularity exec -B \${VSC_DATA}:\${VSC_DATA} \"\${@:2}\" %(installdir)s/img/pirana.sif perl \$1" >> %(installdir)s/bin/pirana',
      'chmod +x %(installdir)s/bin/pirana',
 ]
 
