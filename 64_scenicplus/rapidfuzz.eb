@@ -1,0 +1,22 @@
+easyblock = 'PythonPackage'
+
+name = 'rapidfuzz'
+version = '2.13.7'
+
+homepage = 'https://pypi.org/project/python-Levenshtein/'
+description = 'Python extension for computing string edit distances and similarities.'
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+sources = [SOURCE_TAR_GZ]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('scikit-build', '0.15.0'),
+]
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+
+moduleclass = 'data'

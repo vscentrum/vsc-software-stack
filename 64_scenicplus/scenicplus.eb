@@ -50,14 +50,12 @@ dependencies = [
     ('gensim', '4.3.2'),
     ('python-igraph', '0.10.3'),
     ('pyfasta', '0.5.2'),
+    ('BioServices', '1.11.2'),
+    ('openpyxl', '3.0.10'),
 ]
 
 use_pip = True
 sanity_pip_check = True
-
-local_cattrs_preinstallopts = 'sed -i "s|[build-system]||g" pyproject.toml && '
-local_cattrs_preinstallopts = 'sed -i "s|requires = [\"hatchling\"]||g" pyproject.toml && '
-local_cattrs_preinstallopts += 'sed -i "s|build-backend = \"hatchling.build\"||g" pyproject.toml && '
 
 exts_list = [
     ('fbpca', '1.0'),
@@ -72,8 +70,8 @@ exts_list = [
     ('ncls', '0.0.68'),
     ('sorted_nearest', '0.0.39'),
     ('natsort', '8.4.0'),
+    ('exceptiongroup', '1.1.3'),
     ('cattrs', '23.1.2', {
-        # 'preinstallopts': local_cattrs_preinstallopts,
         'patches': ['cattrs-23.1.2.patch'],
     }),
     ('url-normalize', '1.4.3'),
@@ -98,6 +96,20 @@ exts_list = [
         'sources': ['ctxcore-0.2.0-py3-none-any.whl'],
         'checksums': ['b90570377e26280c4861ebad1f4cee2fe598167c5d4bd12c1b713f03c9682627'],
     }),
+    ('mypy-extensions', '1.0.0', {
+        'sources': ['mypy_extensions-%(version)s.tar.gz'],
+    }),
+    ('typing-inspect', '0.9.0', {
+        'sources': ['typing_inspect-%(version)s.tar.gz'],
+    }),
+    ('packaging', '20.4'),
+    ('marshmallow', '3.20.1'),
+    ('poetry-dynamic-versioning', '1.1.0', {
+        'sources': ['poetry_dynamic_versioning-%(version)s.tar.gz'],
+    }),
+    ('dataclasses-json', '0.6.1', {
+        'sources': ['dataclasses_json-%(version)s.tar.gz'],
+    }),
     ('loomxpy', '0.4.2'),
     ('tspex', '0.6.3'),
     ('jsonpickle', '2.2.0', {
@@ -105,6 +117,9 @@ exts_list = [
     }),
     ('pyvis', '0.3.2', {
         'sources': ['pyvis-0.3.2-py3-none-any.whl'],
+    }),
+    ('python-utils', '3.5.2', {
+        'checksums': ['68198854fc276bc4b2403b261703c218e01ef564dcb072a7096ed9ea7aa5130c'],
     }),
     ('progressbar2', '4.2.0', {
         'modulename': 'progressbar',
@@ -124,6 +139,7 @@ exts_list = [
     ('mudata', '0.2.0', {
     }),
     ('annoy', '1.17.1'),
+    ('scrublet', '0.2.3'),
     ('pynndescent', '0.5.8', {
         'checksums': ['a7c552569bf604a101fd54bba1d27c12389e065945dee3a6777a518c63a46f2b'],
     }),
@@ -133,25 +149,27 @@ exts_list = [
         'modulename': 'OpenSSL',
         'checksums': ['5e2d8c5e46d0d865ae933bef5230090bdaf5506281e9eec60fa250ee80600cb3'],
     }),
+    ('textwrap3', '0.9.2', {
+        'sources': ['textwrap3-%(version)s.zip'],
+    }),
+    ('ansiwrap', '0.8.4', {
+        'sources': ['ansiwrap-%(version)s.zip'],
+    }),
     ('papermill', '2.4.0'),
     ('pycisTopic', '1.0.2', {
         'source_urls': ['https://github.com/aertslab/pycisTopic/archive/refs/tags/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'patches': ['pycisTopic-1.0.2-manual_versioning.patch'],
     }),
-    # ('hatch-vcs', '0.3.0', {
-    #     'sources': [{
-    #         'download_filename': 'hatch_vcs-%(version)s.tar.gz',
-    #         'filename': '%(name)s-%(version)s.tar.gz'
-    #     }],
-    #     'checksums': ['cec5107cfce482c67f8bc96f18bbc320c9aa0d068180e14ad317bbee5a153fee'],
-    # }),
     ('plumbum', '1.8.2', {
         # need to patch this so that we don't need hatchling (currently not available in this foss version)
         'patches': ['plumbum-1.8.2-dont_use_hatchling.patch'],
         'preinstallopts': 'mkdir src && mv plumbum src && ',
     }),
     ('pandoc', '2.3'),
+    ('bidict', '0.22.1'),
+    ('globre', '0.1.5'),
+    ('tmtoolkit', '0.12.0'),
     ('pycistarget', '1.0.2', {
         'source_urls': ['https://github.com/aertslab/pycistarget/archive/refs/tags/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
