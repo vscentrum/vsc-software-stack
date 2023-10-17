@@ -67,6 +67,8 @@ configopts = "--with-pic --enable-threads --enable-R-shlib"
 # we're installing them anyway below
 configopts += " --with-recommended-packages=no"
 
+preinstallopts = "export CXX11=$CXX && export CXX11FLAGS=$CXXFLAGS && "
+
 # specify that at least EasyBuild v3.5.0 is required,
 # since we rely on the updated easyblock for R to configure correctly w.r.t. BLAS/LAPACK
 easybuild_version = '3.5.0'
@@ -3704,6 +3706,7 @@ exts_list = [
     }),
     ('s2', '1.1.4', {
          'checksums': ['be0b4925eaade52cf85b1cb6e851430bd4fe6ca30722dffcc3f9107e7a4e404c'],
+         'preinstallopts': r"sed -i 's/\(CC=.*\)/\1\nCXX11=`${CXX}`/g' configure && "
     }),
     ('units', '0.8-4', {
          'checksums': ['499da1891e6167af42f501894444dcc9f5d8195017456bb6aca8aeec3515c7fc'],
