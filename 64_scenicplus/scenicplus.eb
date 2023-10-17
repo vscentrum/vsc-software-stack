@@ -72,7 +72,7 @@ exts_list = [
     ('natsort', '8.4.0'),
     ('exceptiongroup', '1.1.3'),
     ('cattrs', '23.1.2', {
-        'patches': ['cattrs-23.1.2.patch'],
+        'patches': ['cattrs-23.1.2-simplify_pyproject.patch'],
     }),
     ('url-normalize', '1.4.3'),
     ('requests-cache', '1.1.0', {
@@ -80,6 +80,7 @@ exts_list = [
             'download_filename': 'requests_cache-%(version)s.tar.gz',
             'filename': '%(name)s-%(version)s.tar.gz'
         }],
+        'preinstallopts': 'sed -i \'s|platformdirs  = ">=2.5"|platformdirs  = ">=2.4.1"|\' pyproject.toml && '
     }),
     ('pybiomart', '0.2.0'),
     ('frozendict', '2.3.8', {
@@ -107,8 +108,13 @@ exts_list = [
     ('poetry-dynamic-versioning', '1.1.0', {
         'sources': ['poetry_dynamic_versioning-%(version)s.tar.gz'],
     }),
+    ('dunamai', '1.19.0', {
+        'preinstallopts': 'sed -i \'s|packaging = ">=20.9"|packaging = ">=20.4"|\' pyproject.toml && '
+    }),
     ('dataclasses-json', '0.6.1', {
         'sources': ['dataclasses_json-%(version)s.tar.gz'],
+        'patches': ['dataclasses_json-%(version)s-remove_dev_deps.patch'],
+        # 'preinstallopts': "sed -i 's/poetry.group.dev/poetry/g' pyproject.toml &&",
     }),
     ('loomxpy', '0.4.2'),
     ('tspex', '0.6.3'),
@@ -127,24 +133,36 @@ exts_list = [
     }),
     ('pygam', '0.9.0', {
         'patches': ['pygam-0.9.0-simplify_pyproject.patch'],
+        'preinstallopts': 'sed -i \'s|numpy = "^1.24.2"|numpy = "^1.22.3"|\' pyproject.toml && \
+            sed -i \'s|scipy = "^1.10.1"|scipy = "^1.8.1"|\' pyproject.toml && '
     }),
-    ('mizani', '0.10.0'),
+    ('mizani', '0.9.3'),
     ('patsy', '0.5.2', {
         'checksums': ['5053de7804676aba62783dbb0f23a2b3d74e35e5bfa238b88b7cbf148a38b69d'],
     }),
-    ('plotnine', '0.12.3'),
+    ('plotnine', '0.12.3', {
+        'preinstallopts': 'sed -i "s|matplotlib>=3.6.0|matplotlib>=3.5.2|" pyproject.toml && \
+        sed -i "s|numpy>=1.23.0|numpy>=1.22.3|" pyproject.toml && \
+        sed -i "s|pandas>=1.5.0|pandas>=1.4.2|" pyproject.toml && \
+        sed -i "s|statsmodels>=0.14.0|statsmodels>=0.13.1|" pyproject.toml && '
+    }),
     ('anndata', '0.8.0', {
     }),
     ('bbknn', '1.5.1'),
     ('mudata', '0.2.0', {
     }),
     ('annoy', '1.17.1'),
-    ('scrublet', '0.2.3'),
+    ('scrublet', '0.2.3', {
+        'preinstallopts': "sed -i \"/'scikit-image',/d\" setup.py && \
+            sed -i '/scikit-image/d' src/scrublet.egg-info/requires.txt && "
+    }),
     ('pynndescent', '0.5.8', {
         'checksums': ['a7c552569bf604a101fd54bba1d27c12389e065945dee3a6777a518c63a46f2b'],
     }),
     ('harmonypy', '0.0.9'),
-    ('lda', '2.0.0'),
+    ('lda', '2.0.0', {
+        'preinstallopts': 'sed -i "s|pbr>=0.6,<4|pbr>=5.8.0|" requirements.txt && '
+    }),
     ('pyOpenSSL', '21.0.0', {
         'modulename': 'OpenSSL',
         'checksums': ['5e2d8c5e46d0d865ae933bef5230090bdaf5506281e9eec60fa250ee80600cb3'],
@@ -160,6 +178,10 @@ exts_list = [
         'source_urls': ['https://github.com/aertslab/pycisTopic/archive/refs/tags/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'patches': ['pycisTopic-1.0.2-manual_versioning.patch'],
+        'preinstallopts': 'sed -i \'/typing/d\' requirements.txt && \
+            sed -i \'/python-igraph/d\' requirements.txt && \
+            sed -i \'/bs4/d\' requirements.txt && \
+            sed -i \'/python-Levenshtein/d\' requirements.txt && '
     }),
     ('plumbum', '1.8.2', {
         # need to patch this so that we don't need hatchling (currently not available in this foss version)
@@ -169,11 +191,15 @@ exts_list = [
     ('pandoc', '2.3'),
     ('bidict', '0.22.1'),
     ('globre', '0.1.5'),
-    ('tmtoolkit', '0.12.0'),
+    ('tmtoolkit', '0.12.0', {
+        'preinstallopts': 'sed -i "s|numpy>=1.23.0|numpy>=1.22.3|" setup.py && \
+            sed -i "s|wheel>=0.40,<1.0|wheel>=0.37.1,<1.0|" setup.py && '
+    }),
     ('pycistarget', '1.0.2', {
         'source_urls': ['https://github.com/aertslab/pycistarget/archive/refs/tags/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'patches': ['pycistarget-1.0.2-manual_versioning.patch'],
+        'preinstallopts': 'sed -i \'/typing/d\' requirements.txt && '
     }),
     ('numpydoc', '1.5.0'),
     ('pyproject-metadata', '0.6.1', {
@@ -192,6 +218,7 @@ exts_list = [
             'download_filename': 'pydata_sphinx_theme-%(version)s.tar.gz',
             'filename': '%(name)s-%(version)s.tar.gz'
         }],
+        'preinstallopts': 'sed -i "s|sphinx>=5.0|sphinx>=4.5.0|" pyproject.toml && '
     }),
     ('sphinx-book-theme', '1.0.1', {
         'sources': [{

@@ -1,0 +1,36 @@
+# output for command: sed -i 's/poetry.group.dev/poetry.dev/g' pyproject.toml && /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-foss-2022a  --no-deps  --ignore-installed  --no-index  --no-build-isolation  .
+
+Processing /tmp/vsc43810/easybuild/build/scenicplus/1.0.0/foss-2022a/dataclassesjson/dataclasses_json-0.6.1
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+   Preparing metadata (pyproject.toml) did not run successfully.
+   exit code: 1
+  > [16 lines of output]
+      Traceback (most recent call last):
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pip/_vendor/pep517/in_process/_in_process.py", line 363, in <module>
+          main()
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pip/_vendor/pep517/in_process/_in_process.py", line 345, in main
+          json_out['return_val'] = hook(**hook_input['kwargs'])
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pip/_vendor/pep517/in_process/_in_process.py", line 164, in prepare_metadata_for_build_wheel
+          return hook(metadata_directory, config_settings)
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/poetry/core/masonry/api.py", line 43, in prepare_metadata_for_build_wheel
+          poetry = Factory().create_poetry(Path(".").resolve(), with_dev=False)
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-foss-2022a/lib/python3.10/site-packages/poetry_dynamic_versioning/patch.py", line 23, in alt_poetry_create
+          instance = original_poetry_create(cls, *args, **kwargs)
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/poetry/core/factory.py", line 43, in create_poetry
+          raise RuntimeError("The Poetry configuration is invalid:\n" + message)
+      RuntimeError: The Poetry configuration is invalid:
+        - Additional properties are not allowed ('dev' was unexpected)
+      
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+ Encountered error while generating package metadata.
+> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
