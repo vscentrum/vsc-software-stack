@@ -1,0 +1,49 @@
+easyblock = 'PythonBundle'
+
+name = 'CellRank'
+version = '2.0.0'
+
+homepage = 'https://cellrank.readthedocs.io/en/stable/'
+description = """CellRank is a toolkit to uncover cellular dynamics based on
+ Markov state modeling of single-cell data.  It contains two main modules:
+kernels compute cell-cell transition probabilities and estimators generate
+hypothesis based on these. """
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('petsc4py', '3.17.4'),
+    ('slepc4py', '3.17.2'),
+    ('scikit-learn', '1.1.2'),
+    ('scVelo', '0.2.5'),
+    ('scanpy', '1.9.1'),  # also provides anndata
+    ('numba', '0.56.4'),
+    ('networkx', '2.8.4'),
+    ('matplotlib', '3.5.2'),
+    ('Seaborn', '0.12.1'),
+    ('wrapt', '1.15.0'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('docrep', '0.3.2', {
+        'checksums': ['ed8a17e201abd829ef8da78a0b6f4d51fb99a4cbd0554adbed3309297f964314'],
+    }),
+    ('pygam', '0.9.0', {
+        'checksums': ['dba62285a275cdd15a6adf764f6717b3cd077502f01cf1bcee5ce7cbda221956'],
+    }),
+    ('pygpcca', '1.0.4', {
+        'checksums': ['5e3b49279abc62d25133811daeee050715f995ff02042c46e2a2034331d090d1'],
+    }),
+    ('cellrank', version, {
+        'checksums': ['fd6b1cc6a015df119dd8bfcd1129e86ee6aa871121aeeb3d1c1f42c71bd2215b'],
+    }),
+]
+
+sanity_pip_check = True
+
+sanity_check_commands = ["python -c 'import cellrank as cr'"]
+
+moduleclass = 'bio'
