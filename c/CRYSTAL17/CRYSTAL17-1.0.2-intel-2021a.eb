@@ -1,0 +1,37 @@
+easyblock = 'MakeCp'
+
+name = 'CRYSTAL17'
+version = '1.0.2'
+
+homepage = 'http://www.crystal.unito.it'
+description = """The CRYSTAL package performs ab initio calculations of the ground state energy, energy
+gradient, electronic wave function and properties of periodic systems. Hartree-Fock or Kohn-
+Sham Hamiltonians (that adopt an Exchange-Correlation potential following the postulates of
+Density-Functional Theory) can be used."""
+
+toolchain = {'name': 'intel', 'version': '2021a'}
+toolchainopts = {'usempi': True}
+
+# Source file can be obtained from http://www.crystal.unito.it, but has to 
+# be manually downloaded by someone with a license
+sources = ['Pdistrib-Linux-ifort_oneapi21.4_openmpi4.1.1_i64-v1.0.2.tar.gz']
+patches = ['CRYSTAL17-1.0.2_use-mpiifort.patch']
+checksums = [
+    {'Pdistrib-Linux-ifort_oneapi21.4_openmpi4.1.1_i64-v1.0.2.tar.gz':
+     'eaef16d42a9387a5e1b4f61e738d1d5b67674085b54352f1755dbdd9a5b7d13c'},
+    {'CRYSTAL17-1.0.2_use-mpiifort.patch': 'db2dd410f54bcaed6632d000d4e1a1661fa1cadd43d71d0217abf2182f799ba1'},
+]
+
+prebuildopts = "cd build && "
+buildopts = 'all'
+
+parallel = 1
+
+files_to_copy = [(['bin/Linux-ifort_oneapi21.4_openmpi4.1.1_i64/v1.0.2/*'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/crystal', 'bin/properties', 'bin/Pcrystal', 'bin/Pproperties'],
+    'dirs': [],
+}
+
+moduleclass = 'chem'
