@@ -1,0 +1,22 @@
+name = 'FPC'
+version = '3.2.2'
+
+homepage = 'https://www.freepascal.org/'
+description = """Free Pascal is a mature, versatile, open source Pascal compiler. It can target many processor architectures"""
+
+toolchain = SYSTEM
+
+source_urls = ['http://downloads.freepascal.org/fpc/dist/3.2.2/x86_64-linux']
+sources = ['fpc-3.2.2.x86_64-linux.tar']
+checksums = ['5adac308a5534b6a76446d8311fc340747cbb7edeaacfe6b651493ff3fe31e83']
+
+sanity_check_paths = {
+    'files': ['bin/fpc', 'lib/libpas2jslib.so'],
+    'dirs': ['bin', 'lib'],
+}
+
+sanity_check_commands = [
+    'fpc -iV',
+]
+
+moduleclass = 'compiler'
