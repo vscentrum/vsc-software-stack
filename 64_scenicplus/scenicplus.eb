@@ -64,7 +64,7 @@ exts_list = [
     ('commonmark', '0.9.1', {
         'checksums': ['452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60'],
     }),
-    ('attr', '0.3.2'),
+    # ('attr', '0.3.2'),
     ('pyranges', '0.0.129'),
     ('interval_tree', '0.3.4'),
     ('ncls', '0.0.68'),
@@ -181,7 +181,8 @@ exts_list = [
         'preinstallopts': 'sed -i \'/typing/d\' requirements.txt && \
             sed -i \'/python-igraph/d\' requirements.txt && \
             sed -i \'/bs4/d\' requirements.txt && \
-            sed -i \'/python-Levenshtein/d\' requirements.txt && '
+            sed -i \'/python-Levenshtein/d\' requirements.txt && ',
+        'modulename': 'pycisTopic',
     }),
     ('plumbum', '1.8.2', {
         # need to patch this so that we don't need hatchling (currently not available in this foss version)
@@ -212,7 +213,9 @@ exts_list = [
         'checksums': ['3ef13ff90291ba2a4a7a4ff9a979b63ffdd00a464dbe04acf0ea6471517a4c2b'],
     }),
     ('sphinx-theme-builder', '0.2.0b2'),
-    ('accessible-pygments', '0.0.4'),
+    ('accessible-pygments', '0.0.4', {
+        'modulename': 'pygments',
+    }),
     ('pydata-sphinx-theme', '0.14.0', {
         'sources': [{
             'download_filename': 'pydata_sphinx_theme-%(version)s.tar.gz',
@@ -231,6 +234,7 @@ exts_list = [
         'source_urls': ['https://github.com/aertslab/scenicplus/archive/refs/tags/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'patches': ['scenicplus-1.0.0-manual_versioning.patch'],
+        'preinstallopts': 'sed -i "s|attr|attrs|" requirements.txt && '
     }),
 ]
 
