@@ -1,0 +1,28 @@
+easyblock = 'RPackage'
+
+name = 'protolite'
+version = '2.3.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://cran.r-project.org/web/packages/protolite/'
+description = """Pure C++ implementations for reading and writing several common data
+ formats based on Google protocol-buffers. Currently supports 'rexp.proto' for serialized
+ R objects, 'geobuf.proto' for binary geojson, and 'mvt.proto' for vector tiles."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+toolchainopts = {'cstd': 'c++17'}
+
+source_urls = [
+    'https://cran.r-project.org/src/contrib/Archive/protolite',  # package archive
+    'https://cran.r-project.org/src/contrib/',  # current version of packages
+    'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+]
+sources = ['%(name)s_%(version)s.tar.gz']
+checksums = ['53ef24d51a8348f97bec39d254df3b97bd8b3d9bbffb81d6b06aad849cf78ce9']
+
+dependencies = [
+    ('R', '4.2.2'),
+    ('protobuf', '23.0'),
+]
+
+moduleclass = 'tools'
