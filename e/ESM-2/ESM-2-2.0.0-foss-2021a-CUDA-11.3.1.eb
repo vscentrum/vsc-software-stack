@@ -1,0 +1,61 @@
+easyblock = 'PythonBundle'
+
+name = 'ESM-2'
+version = '2.0.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/facebookresearch/esm'
+description = """ESM-2 outperforms all tested single-sequence protein language models
+ across a range of structure prediction tasks. ESMFold harnesses the ESM-2 language model to generate
+ accurate structure predictions end to end directly from the sequence of a protein."""
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+
+builddependencies = [
+    ('Java', '11', '', SYSTEM),  # needed by ANTLR4 runtime
+]
+
+dependencies = [
+    ('CUDA', '11.3.1', '', SYSTEM),
+    ('Python', '3.9.5'),
+    ('PyTorch', '1.10.2', versionsuffix),
+    ('networkx', '2.5.1'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+# omegaconf is required for esmfold (in addition to OpenFold-1.0.1)
+exts_list = [
+    ('antlr4-python3-runtime', '4.9.3', {
+        'modulename': 'antlr4',
+        'checksums': ['f224469b4168294902bb1efa80a8bf7855f24c99aef99cbefc1bcd3cce77881b'],
+    }),
+    ('omegaconf', '2.2.3', {
+        'checksums': ['59ff9fba864ffbb5fb710b64e8a9ba37c68fa339a2e2bb4f1b648d6901552523'],
+    }),
+    ('biotite', '0.38.0', {
+        'checksums': ['6194f2281f9e6e3fb3c3064f851b46add19704fc6c11de5d289cda2f4dcf8213'],
+    }),
+    ('esm', version, {
+        'modulename': "esm, esm.pretrained",
+        'postinstallcmds': [
+            'cp -a scripts/* %(installdir)s/bin',
+            'chmod +x %(installdir)s/bin/*.py',
+        ],
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/facebookresearch/esm/archive/refs/tags/'],
+        'checksums': ['6a4f2440636019698bebf9af462a0fce052d07d0698c302d945ab9fee395d7b0'],
+    }),
+]
+
+fix_python_shebang_for = ['bin/*.py']
+
+sanity_check_commands = [
+    'esmfold_inference.py --help',
+    'extract.py --help',
+]
+
+modextravars = {'TORCH_HOME': '/databases/bio/%(name)s-%(version)s/torch'}
+
+moduleclass = 'bio'
