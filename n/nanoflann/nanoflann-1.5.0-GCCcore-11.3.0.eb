@@ -7,7 +7,11 @@ homepage = 'https://github.com/jlblancoc/nanoflann'
 description = "nanoflann is a C++11 header-only library for building KD-Trees of datasets with different topologies."
 
 toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
-toolchainopts = {'optarch': False}  # optarch causes test error on zen2
+# toolchainopts = {'optarch': False}  # optarch causes test error on zen2
+import archspec.cpu
+if archspec.cpu.host().name == 'zen2':
+    toolchainopts = {'optarch': False}
+
 
 github_account = 'jlblancoc'
 source_urls = [GITHUB_SOURCE]
