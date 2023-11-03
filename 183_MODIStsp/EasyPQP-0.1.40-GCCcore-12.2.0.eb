@@ -1,0 +1,33 @@
+easyblock = 'PythonBundle'
+
+name = 'EasyPQP'
+version = '0.1.40'
+
+homepage = 'https://github.com/grosenberger/easypqp'
+description = """EasyPQP is a Python package that provides simplified and fast peptide query
+ parameter generation for OpenSWATH. It can process input from MSFragger or other database
+ search engines in pepXML format. """
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('%(namelower)s', version, {
+        'checksums': ['9ea5db3d58b7ed49972477240ab079e60cc42488bfccf508d2a74e2d7f357bc5'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["%(namelower)s --help"]
+
+moduleclass = 'tools'
