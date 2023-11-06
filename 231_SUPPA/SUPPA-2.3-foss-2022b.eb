@@ -1,0 +1,30 @@
+easyblock = 'PythonPackage'
+
+name = 'SUPPA'
+version = '2.3'
+
+homepage = 'https://github.com/comprna/SUPPA'
+description = """Fast, accurate, and uncertainty-aware differential
+ splicing analysis across multiple conditions."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+sources = [SOURCE_TAR_GZ]
+checksums = ['c7246b0913f627067b714a38f4ec6ea7607404c7baf992c6b9e932c1c91ef738']
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('statsmodels', '0.14.0'),
+    ('scikit-learn', '1.2.1'),
+]
+
+use_pip = True
+sanity_pip_check = True
+download_dep_fail = True
+
+options = {'modulename': 'psiPerGene'}
+
+sanity_check_commands = ['suppa.py --help']
+
+moduleclass = 'bio'
