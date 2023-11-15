@@ -12,19 +12,19 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 source_urls = [
     'https://github.com/OpenMS/OpenMS/releases/download/Release%(version)s/',
-    'https://github.com/seqan/seqan/releases/download/seqan-v2.4.0/',
+    # 'https://github.com/seqan/seqan/releases/download/seqan-v2.4.0/',
 ]
 sources = [
     '%(name)s-%(version)s-src.tar.gz',
-    'seqan-library-2.4.0.tar.xz',
+    # 'seqan-library-2.4.0.tar.xz',
 ]
 checksums = [
     '0fd13edeaf5eaca014c13560bbcce0ec2abe9de6bb323289b38a3b3943b3d98b',  # OpenMS-3.1.0-src.tar.gz
-    'dd97b1514ab83acb7d7be911b157979e188e8ca72cc61c430c1e0fd03bcd41a5',  # seqan-library-2.4.0.tar.xz
+    # 'dd97b1514ab83acb7d7be911b157979e188e8ca72cc61c430c1e0fd03bcd41a5',  # seqan-library-2.4.0.tar.xz
 ]
 
 builddependencies = [
-    ('CMake', '3.23.1'),
+    ('CMake', '3.24.3'),  # NOTE CMake (>= 3.24) is required
     ('pkgconf', '1.8.0'),
 ]
 
@@ -34,27 +34,28 @@ dependencies = [
     ('LIBSVM', '3.30'),
     ('GLPK', '5.0'),
     ('Eigen', '3.4.0'),
-    ('SQLite', '3.38.3'),
+    # ('SQLite', '3.38.3'),
     ('bzip2', '1.0.8'),
     ('zlib', '1.2.12'),
-    ('libtool', '2.4.7'),
+    # ('libtool', '2.4.7'),
     ('Qt5', '5.15.5'),
-    ('CoinUtils', '2.11.3'),  # TODO update
-    ('Osi', '0.108.5'),  # TODO update
-    ('Clp', '1.17.3'),  # TODO update
-    ('Cgl', '0.60.2'),  # TODO update
-    ('Cbc', '2.10.3'),  # TODO update
-    ('WildMagic', '5.17'),  # TODO update
     ('X11', '20220504'),
 ]
 
-configopts = "-DCMAKE_PREFIX_PATH=%(builddir)s/seqan-library-1.4.2 -DCMAKE_CXX_STANDARD_LIBRARIES='-ldl' "
+# configopts = "-DCMAKE_PREFIX_PATH=%(builddir)s/seqan-library-1.4.2 -DCMAKE_CXX_STANDARD_LIBRARIES='-ldl' "
+configopts = "-DCMAKE_CXX_STANDARD_LIBRARIES='-ldl' "
 # Disable reporting to remote servers
 configopts += "-DENABLE_UPDATE_CHECK=OFF "
 # Documentation requires an active X server display and tutorials require LaTex
 configopts += "-DENABLE_DOCS=OFF -DENABLE_TUTORIALS=OFF "
+# # Builds Python  package pyopenms
+configopts += "-DPYOPENMS=ON "
+# configopts += "-DCOINOR_SOLVER=OFF "
 
-# TODO enable Python
+modextrapaths = {
+    'PATH': '',
+    'PYTHONPATH': '',
+}
 
 sanity_check_paths = {
     'files': ['lib/libOpenMS.%s' % SHLIB_EXT, 'lib/libOpenMS_GUI.%s' % SHLIB_EXT],

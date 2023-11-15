@@ -1,0 +1,28 @@
+easyblock = 'Tarball'
+
+name = 'IonQuant'
+version = '1.9.8'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://ionquant.nesvilab.org/'
+description = """IonQuant is a fast and comprehensive tool for MS1 precursor intensity-based
+ quantification for timsTOF PASEF DDA and non-timsTOF (e.g., Orbitrap) data. It enables label-free
+ quantification with false discovery (FDR) controlled match-between-runs (MBR). It can also be used
+ for quantification in labelling-based experiments such as those involving SILAC, dimethyl, or similar
+ labelling strategies. IonQuant is available as part of FragPipe."""
+
+toolchain = SYSTEM
+
+sources = ['%(name)s-%(version)s.zip']
+checksums = ['98010f55d53c3fce786538da2976e1caaf688b29649d32e66ead8ba24a0db754']
+
+dependencies = [('Java', '11')]
+
+modextrapaths = {'PATH': ['']}
+
+sanity_check_paths = {
+    'files': ['%(name)s-%(version)s.jar'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
