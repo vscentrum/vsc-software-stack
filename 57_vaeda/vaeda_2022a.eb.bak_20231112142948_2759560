@@ -25,12 +25,13 @@ use_pip = True
 
 exts_list = [
     ('kneed', '0.8.1', {
-        'preinstallopts': "sed -i 's/install_requires = .*/install_requires = numpy;scipy/g' setup.cfg && ",
-        'checksums': ['6addebca6a3742e51a173f4f40f789c704677c49bc0b02666e7d71152ca0e473'],
+        # workaround for 'pkg_resources._vendor.pyparsing.ParseException: Expected stringEnd'
+        # caused by using 'file: requirements.txt' in install_requires in setup.cfg
+        'preinstallopts': """sed -i 's/install_requires = .*/install_requires = numpy;scipy/g' setup.cfg && """,
     }),
     (name, version, {
         'source_urls': ['https://github.com/kostkalab/vaeda/archive/'],
-        'sources': [{'download_filename': '36cdc53.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['bef23d0496944a5b9c41645de0442db99ddb26e3fb69bda3437c00339832295e'],
     }),
 ]
