@@ -1,0 +1,88 @@
+easyblock = 'ConfigureMake'
+
+name = 'octopus'
+version = '12.1'
+
+homepage = 'https://octopus-code.org/wiki/Main_Page'
+description = """Octopus is a scientific program aimed at the ab initio
+virtual experimentation on a hopefully ever-increasing range of system
+types. Electrons are described quantum-mechanically within
+density-functional theory (DFT), in its time-dependent form (TDDFT) when
+doing simulations in time. Nuclei are described classically as point
+particles. Electron-nucleus interaction is described within the
+pseudopotential approximation."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'usempi': True, 'openmp': True}
+
+source_urls = ['http://octopus-code.org/down.php?file=%(version)s']
+sources = [SOURCE_TAR_GZ]
+checksums = ['e2214e958f1e9631dbe6bf020c39f1fe4d71ab0b6118ea9bd8dc38f6d7a7959a']
+
+dependencies = [
+    ('Perl', '5.34.1'),
+    ('libxc', '5.2.3'),
+    ('GSL', '2.7'),
+    ('NFFT', '3.5.3'),
+    ('PFFT', '20181230'),
+    ('CGAL', '4.14.3'), 
+    ('DFTB+', '22.1'),
+    ('ELPA', '2021.11.001'),
+    ('futile', '1.8.3'),
+    ('likwid', '5.2.2'),
+    ('libvdwxc', '0.4.0'),
+    ('libyaml', '0.2.5'),
+    ('netCDF', '4.9.0'),
+    ('netCDF-Fortran', '4.6.0'),
+    ('NLopt', '2.7.1'),
+    # ('PSolver', '1.8.3'),  # seems dead
+    # ('ETSF_IO', '1.0.4'),  # seems dead
+    # ('libgd', '2.3.3'),  # configure checks for gdlib-config
+    # ('METIS', '5.1.0', '-single_prec'),  # octopus requires METIS built in single precision, we don't have that yet
+    # ('ParMETIS', '4.0.3', '-single_prec'),  # See METIS comment
+    # ('BerkeleyGW', '3.0.1'),  # Problems with output/output.F90, keep disabled
+    # ('libpspio', '0.2.4'),  # Requires older version where libnames are libfpspio and not libpspiof
+]
+
+#preconfigopts = 'export FCCPP=cpp FCFLAGS="$FCFLAGS -fallow-argument-mismatch" && '
+preconfigopts = 'export FCFLAGS_ELPA="-I$EBROOTELPA/include/elpa_openmp-$EBVERSIONELPA/modules" && '
+preconfigopts += 'export LIBS_ELPA=-lelpa_openmp && '
+
+configopts = '--enable-openmp --enable-mpi '
+configopts += '--with-blas=flexiblas --with-blacs=scalapack --with-scalapack=scalapack '
+configopts += '--with-fftw-prefix=$EBROOTFFTWMPI '
+configopts += '--with-pfft-prefix=$EBROOTPFFT '
+configopts += '--with-nfft=$EBROOTNFFT '
+configopts += '--with-cgal=$EBROOTCGAL '
+configopts += '--with-libxc-prefix=$EBROOTLIBXC '
+configopts += '--with-dftbplus-prefix=$EBROOTDFTBPLUS '
+configopts += '--with-elpa-prefix=$EBROOTELPA '
+configopts += '--with-futile-prefix=$EBROOTFUTILE '
+configopts += '--with-likwid-prefix=$EBROOTLIKWID '
+configopts += '--with-libvdwxc-prefix=$EBROOTLIBVDWXC '
+configopts += '--with-yaml-prefix=$EBROOTLIBYAML '
+configopts += '--with-netcdf-prefix=$EBROOTNETCDFMINFORTRAN '
+configopts += '--with-nlopt-prefix=$EBROOTNLOPT '
+
+# Run only the short tests, as the full testsuite can take a lot of time.
+# Use only two threads as the tests are not large enough to exploit OpenMP parallelism efficiently.
+# runtest = 'OMP_NUM_THREADS=1 MPIEXEC="%(mpi_cmd_prefix)s " check-short'
+# Checks takes a VERY long time and it will run tests for parts that
+# it doesn't find during configure, like BerkeleyGW
+# runtest = 'check'
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['create_combinations.py', 'oct-analyze_projections', 'oct-atomic_occupations',
+                                     'oct-casida_spectrum', 'octopus']] +
+             ['include/liboct_parser.h', 'include/string_f.h'] +
+             ['lib/liboct.a', 'lib/liboct_parser.a'] +
+             ['share/octopus/pseudopotentials/PSF/T.psf'],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    'octopus --version',
+    'env OMP_NUM_THREADS=1 oct-run_testsuite.sh -g tutorials',
+]
+
+moduleclass = 'phys'
