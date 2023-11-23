@@ -1,0 +1,42 @@
+easyblock = 'PythonBundle'
+
+name = 'OpenGATE'
+version = '10.0b6'
+
+homepage = 'http://www.opengatecollaboration.org'
+description = """GATE is an advanced opensource software developed by the international OpenGATE collaboration and
+ dedicated to the numerical simulations in medical imaging. It currently supports simulations of Emission Tomography
+ (Positron Emission Tomography - PET and Single Photon Emission Computed Tomography - SPECT), and Computed Tomography"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+    ('Geant4', '11.1.3'),
+    ('ITK', '5.3.0'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('opengate-core', '10.0beta06', {
+        'source_urls': ['https://github.com/OpenGATE/opengate/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': 'opengate-core-%(version)s.tar.gz'}],
+        'start_dir': 'core',
+        'checksums': ['78c93596f95fe27441bfc39053d08092322f6d2d062b5a355a7f3ad7ebed5e1b'],
+    }),
+    ('opengate', version, {
+        'checksums': ['c5a62da4042df8dc0e376cbe273fcacdcc2cdfaf345d96e32fb3497e3e9ea054'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'cae'
