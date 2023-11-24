@@ -1,0 +1,20 @@
+# Clang cannot choose between two candidate functions for log_server::debug
+# that are defined in lib/core/src/irods_server_properties.cpp. By casting the
+# first argument to std::string_view, the ambiguity is resolved.
+# Patched by steven.vandenbrande@kuleuven.be
+diff --git a/lib/core/src/irods_server_properties.cpp b/lib/core/src/irods_server_properties.cpp
+index 9dedfe446..b47951f32 100644
+--- a/lib/core/src/irods_server_properties.cpp
++++ b/lib/core/src/irods_server_properties.cpp
+@@ -291,9 +291,9 @@ namespace irods
+             }
+         }
+ 
+-        log_server::debug("Before patch ==> {}", [this] { return std::make_tuple(config_props_.dump()); });
++        log_server::debug(std::string_view("Before patch ==> {}"), [this] { return std::make_tuple(config_props_.dump()); });
+         config_props_ = config_props_.patch(patch);
+-        log_server::debug("After patch ==> {}", [this] { return std::make_tuple(config_props_.dump()); });
++        log_server::debug(std::string_view("After patch ==> {}"), [this] { return std::make_tuple(config_props_.dump()); });
+ 
+         return patch;
+     } // reload

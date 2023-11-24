@@ -1,0 +1,32 @@
+easyblock = 'CMakeMake'
+
+name = 'fmt'
+version = '8.1.1'
+versionsuffix = '-Clang-15.0.5'
+
+homepage = 'http://fmtlib.net/'
+description = "fmt (formerly cppformat) is an open-source formatting library."
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+toolchainopts = {'pic': True, 'extra_cxxflags': "-stdlib=libc++"}
+
+source_urls = ['https://github.com/fmtlib/fmt/releases/download/%(version)s/']
+sources = ['fmt-%(version)s.zip']
+checksums = ['23778bad8edba12d76e4075da06db591f3b0e3c6c04928ced4a7282ca3400e5d']
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('binutils', '2.39'),
+    ('Clang', '15.0.5'),
+]
+
+configopts  = " -DCMAKE_CXX_COMPILER=clang++"
+configopts += " -DBUILD_SHARED_LIBS=TRUE"
+configopts += " -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE"
+
+sanity_check_paths = {
+    'files': ['lib/libfmt.so'],
+    'dirs': ['include/fmt', 'lib/cmake'],
+}
+
+moduleclass = 'lib'

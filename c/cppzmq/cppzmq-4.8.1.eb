@@ -1,0 +1,30 @@
+# ll4strw Lorentz Institute
+easyblock = 'CMakeMake'
+
+name = 'cppzmq'
+version = '4.8.1'
+
+homepage = 'https://github.com/zeromq/cppzmq'
+description = "cppzmq is a C++ binding for libzmq."
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/zeromq/%(name)s/archive/refs/tags/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['7a23639a45f3a0049e11a188e29aaedd10b2f4845f0000cf3e22d6774ebde0af']
+
+builddependencies = [
+    ('GCCcore', '12.2.0'),  # required for hierarchical module naming scheme
+    ('binutils', '2.39', '', ('GCCcore', '12.2.0')),
+    ('CMake', '3.24.3', '', ('GCCcore', '12.2.0')),
+    ('ZeroMQ', '4.1.8', '', ('GCCcore', '12.2.0')),
+]
+
+separate_build_dir = True
+
+sanity_check_paths = {
+    'files': ['include/zmq.hpp'],
+    'dirs': ['include'],
+}
+
+moduleclass = 'lib'

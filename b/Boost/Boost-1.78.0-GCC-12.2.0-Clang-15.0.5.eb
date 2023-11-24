@@ -1,0 +1,43 @@
+##
+# Authors::   Denis Kristak <thenis@inuits.eu>
+##
+name = 'Boost'
+version = '1.78.0'
+versionsuffix = '-Clang-15.0.5'
+
+homepage = 'https://www.boost.org/'
+description = """Boost provides free peer-reviewed portable C++ source libraries."""
+
+toolchain = {'name': 'GCC', 'version': '12.2.0'}
+toolchainopts = {'pic': True, 'extra_cxxflags': "-stdlib=libc++"}
+
+source_urls = ['https://boostorg.jfrog.io/artifactory/main/release/%(version)s/source/']
+sources = ['%%(namelower)s_%s.tar.gz' % '_'.join(version.split('.'))]
+patches = ['Boost-1.78.0_define-unaryfunction-unconditionally.patch']
+checksums = [
+    {'boost_1_78_0.tar.gz': '94ced8b72956591c4775ae2207a9763d3600b30d9d7446562c552f0a14a63be7'},
+    {'Boost-1.78.0_define-unaryfunction-unconditionally.patch':
+     '367c60af1f1953b825a596f4536e8955ebb5ad19f29991b6f80fed1ad7b6d930'},
+]
+
+dependencies = [
+    ('bzip2', '1.0.8'),
+    ('zlib', '1.2.12'),
+    ('XZ', '5.2.7'),
+    ('zstd', '1.5.2'),
+    ('ICU', '72.1'),
+    ('Clang', '15.0.5'),
+]
+
+configopts = '--without-libraries=python,mpi'
+
+# disable MPI, build Boost libraries with tagged layout
+boost_mpi = False
+tagged_layout = True
+explicit_compiler_path = False
+
+toolset = 'clang'
+build_toolset = 'clang'
+#use_glibcxx11_abi
+
+moduleclass = 'devel'
