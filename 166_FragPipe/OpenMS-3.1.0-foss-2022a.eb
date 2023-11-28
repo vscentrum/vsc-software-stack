@@ -50,8 +50,10 @@ configopts = "-DCMAKE_CXX_STANDARD_LIBRARIES='-ldl' "
 configopts += "-DENABLE_UPDATE_CHECK=OFF "
 # Documentation requires an active X server display and tutorials require LaTex
 configopts += "-DENABLE_DOCS=OFF -DENABLE_TUTORIALS=OFF "
-# # Builds Python  package pyopenms
+# # Builds Python package pyopenms
 # configopts += "-DPYOPENMS=ON "
+
+configopts += "-DCOIN_ROOT_DIR=$EBROOTCOINUTILS "
 
 modextrapaths = {
     'PATH': '',
