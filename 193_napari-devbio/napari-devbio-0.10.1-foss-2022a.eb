@@ -22,6 +22,9 @@ dependencies = [
     ('imagecodecs', '2022.9.26'),
     ('HDBSCAN', '0.8.29'),
     ('umap-learn', '0.5.3'),
+    ('PyOpenCL', '2023.1.4'),
+    ('Mako', '1.2.0'),
+    ('autopep8', '2.0.4'),
 ]
 
 use_pip = True
@@ -67,9 +70,47 @@ exts_list = [
     ('apoc', '0.12.0', {
         'checksums': ['c6e5264f2ac0420e5f8e2b23ad16927126d75280bb12f0341480ef9853973263'],
     }),
-    # (' ', {
-    #     'checksums': [''],
-    # }),
+    ('ipycanvas', '0.13.1', {
+        'checksums': ['f9c3940681bc38383390f8c46ea5d8445d6e11c6da6484c37d89df5ae1dac131'],
+    }),
+    ('ipyevents', '2.0.2', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['60c2a9e992bdc41e8577aa27e57b124efafa48a59a3bff886029fe5700d546b3'],
+    }),
+    ('funcsigs', '1.0.2', {
+        'checksums': ['a7bb0f2cf3a3fd1ab2732cb49eba4252c2af4240442415b4abce3b87022a8f50'],
+    }),
+    ('transforms3d', '0.4.1', {
+        'checksums': ['31c755266a0b0a222488b8d039f6f325cf486c52728c03e307ce047b2fad1179'],
+    }),
+    # overwrites installed version
+    ('ipykernel', '6.27.1', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['dab88b47f112f9f7df62236511023c9bdeef67abc73af7c652e4ce4441601686'],
+    }),
+    # overwrites installed version
+    ('jupyter_core', '5.5.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['e11e02cd8ae0a9de5c6c44abf5727df9f2581055afe00b22183f621ba3585805'],
+    }),
+    # overwrites installed version
+    ('traitlets', '5.14.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['f14949d23829023013c47df20b4a76ccd1a85effb786dc060f34de7948361b33'],
+    }),
+    ('jupyter_console', '6.6.3', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['309d33409fcc92ffdad25f0bcdf9a4a9daa61b6f341177570fdac03de5352485'],
+    }),
+    ('jupyter', '1.0.0', {
+        'checksums': ['d9dc4b3318f310e34c82951ea5d6683f67bed7def4b259fafbfe4f1beb1d8e5f'],
+    }),
+    ('mdit_py_plugins', '0.4.0', {
+        'checksums': ['d8ab27e9aed6c38aa716819fedfde15ca275715955f8a185a8e1cf90fb1d2c1b'],
+    }),
+    ('jupytext', '1.15.2', {
+        'checksums': ['c9976e24d834e991906c1de55af4b6d512d764f6372aabae45fc1ea72b589173'],
+    }),
     ('napari-accelerated-pixel-and-object-classification', '0.14.1', {
         'checksums': ['2f626a9c2d671bf32cade62df74666eef328e6dc3f6d7f3ab6091a992131fb5c'],
     }),
@@ -153,19 +194,10 @@ exts_list = [
     }),
 ]
 
-# stackview 0.7.2 requires ipycanvas, which is not installed.
-# stackview 0.7.2 requires ipyevents, which is not installed.
-# reikna 0.8.0 requires funcsigs, which is not installed.
-# reikna 0.8.0 requires mako, which is not installed.
-# redlionfish 0.9 requires pyopencl, which is not installed.
-# pyclesperanto-prototype 0.24.1 requires pyopencl, which is not installed.
-# pyclesperanto-prototype 0.24.1 requires transforms3d, which is not installed.
-# napari-workflows 0.2.10 requires autopep8, which is not installed.
-# napari-pyclesperanto-assistant 0.22.1 requires jupyter, which is not installed.
-# napari-pyclesperanto-assistant 0.22.1 requires jupytext, which is not installed.
-# napari-pyclesperanto-assistant 0.22.1 requires pyopencl, which is not installed.
-# napari-assistant 0.4.7 requires jupyter, which is not installed.
-# napari-assistant 0.4.7 requires jupytext, which is not installed.
+# TODO
+# ipykernel 6.27.1 requires comm, which is not installed.
+# jupyter-core 5.5.0 has requirement platformdirs>=2.5, but you have platformdirs 2.4.1.
+# ipykernel 6.27.1 has requirement debugpy>=1.6.5, but you have debugpy 1.4.1.
 
 sanity_check_paths = {
     'files': ['bin/devbio-napari'],
