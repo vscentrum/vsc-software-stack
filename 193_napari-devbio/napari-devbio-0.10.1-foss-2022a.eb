@@ -74,7 +74,7 @@ exts_list = [
         'checksums': ['f9c3940681bc38383390f8c46ea5d8445d6e11c6da6484c37d89df5ae1dac131'],
     }),
     ('ipyevents', '2.0.2', {
-        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['60c2a9e992bdc41e8577aa27e57b124efafa48a59a3bff886029fe5700d546b3'],
     }),
     ('funcsigs', '1.0.2', {
@@ -83,23 +83,37 @@ exts_list = [
     ('transforms3d', '0.4.1', {
         'checksums': ['31c755266a0b0a222488b8d039f6f325cf486c52728c03e307ce047b2fad1179'],
     }),
+    ('comm', '0.2.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['2da8d9ebb8dd7bfc247adaff99f24dce705638a8042b85cb995066793e391001'],
+    }),
+    # overwrites installed version
+    ('debugpy', '1.8.0', {
+        'source_tmpl': SOURCE_ZIP,
+        'checksums': ['12af2c55b419521e33d5fb21bd022df0b5eb267c3e178f1d374a63a2a6bdccd0'],
+    }),
     # overwrites installed version
     ('ipykernel', '6.27.1', {
-        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['dab88b47f112f9f7df62236511023c9bdeef67abc73af7c652e4ce4441601686'],
     }),
     # overwrites installed version
+    ('platformdirs', '2.6.2', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['83c8f6d04389165de7c9b6f0c682439697887bca0aa2f1c87ef1826be3584490'],
+    }),
+    # overwrites installed version
     ('jupyter_core', '5.5.0', {
-        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['e11e02cd8ae0a9de5c6c44abf5727df9f2581055afe00b22183f621ba3585805'],
     }),
     # overwrites installed version
     ('traitlets', '5.14.0', {
-        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['f14949d23829023013c47df20b4a76ccd1a85effb786dc060f34de7948361b33'],
     }),
     ('jupyter_console', '6.6.3', {
-        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['309d33409fcc92ffdad25f0bcdf9a4a9daa61b6f341177570fdac03de5352485'],
     }),
     ('jupyter', '1.0.0', {
@@ -186,18 +200,26 @@ exts_list = [
     ('the-segmentation-game', '0.2.0', {
         'checksums': ['4bbf4deadecb84efc893c6cea2d51e90374181589f2034050aa3cf8fa65872f3'],
     }),
+    ('RedLionfish', '0.9', {
+        'checksums': ['82b76bf093851fc062448e8b764e846701bf890e64d7e82bf7cf11a7cf2c235b'],
+    }),
     ('devbio-napari', version, {
         # reqired npe2 version limit is not necessary since 0.10.1
         # see https://github.com/haesleinhuepf/devbio-napari/issues/41#issuecomment-1594583026
         'preinstallopts': "sed -i 's/npe2.*/npe2/g' requirements.txt setup.cfg &&",
+        # 'source_urls': ['https://github.com/haesleinhuepf/devbio-napari/archive/refs/tags/'],
+        # 'source_tmpl': '%(version)s.tar.gz',
         'checksums': ['c0bd80fbd3087128690259e25ecc5b13f42c09a99617229f97d6b696279d32a0'],
     }),
 ]
 
 # TODO
-# ipykernel 6.27.1 requires comm, which is not installed.
-# jupyter-core 5.5.0 has requirement platformdirs>=2.5, but you have platformdirs 2.4.1.
-# ipykernel 6.27.1 has requirement debugpy>=1.6.5, but you have debugpy 1.4.1.
+# >> running command:
+#       [started at: 2023-12-05 11:10:31]
+#       [working dir: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-devbio/0.10.1-foss-2022a]
+#       [output logged in /tmp/vsc45304/eb-25nn5iut/easybuild-run_cmd-726z81nw.log]
+#       python -c "import redlionfish"
+# >> command completed: exit 1, ran in < 1s
 
 sanity_check_paths = {
     'files': ['bin/devbio-napari'],
