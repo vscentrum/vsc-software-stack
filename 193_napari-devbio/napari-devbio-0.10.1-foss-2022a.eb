@@ -25,6 +25,8 @@ dependencies = [
     ('PyOpenCL', '2023.1.4'),
     ('Mako', '1.2.0'),
     ('autopep8', '2.0.4'),
+    ('Qt5', '5.15.5'),
+    # TODO xcb?
 ]
 
 use_pip = True
@@ -129,6 +131,7 @@ exts_list = [
         'checksums': ['2f626a9c2d671bf32cade62df74666eef328e6dc3f6d7f3ab6091a992131fb5c'],
     }),
     ('napari_animation', '0.0.7', {
+        'preinstallopts': 'sed -i "s/__version__/version/g" napari_animation/animation.py && ',
         'checksums': ['301cce1d4629b18e618b7e1f1ea8885058171388ee0248f58ee78bdb25e8d72c'],
     }),
     ('napari-blob-detection', '0.0.2', {
@@ -164,6 +167,12 @@ exts_list = [
     ('napari-plugin-search', '0.1.4', {
         'checksums': ['6dcc0793d072777c8d0cfebff89281252e57e13f8e13a8e0458a9ba7d86a06a0'],
     }),
+    # failing sanity check for 'napari_pyclesperanto_assistant' extension: command "python -c "import napari_pyclesperanto_assistant"" failed; output:
+    # WARNING: could not connect to display
+    # WARNING: Could not load the Qt platform plugin "xcb" in "" even though it was found.
+    # WARNING: This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+    #
+    # Available platform plugins are: eglfs, linuxfb, minimal, minimalegl, offscreen, vnc, webgl, xcb.
     ('napari_pyclesperanto_assistant', '0.22.1', {
         'checksums': ['6df5e59e105d91f49826d57b2c61091271f62bba9d061dcb9c0c12d3ca000843'],
     }),
@@ -195,31 +204,19 @@ exts_list = [
         'checksums': ['8fc7c437c1565c51744320ef09a91de72366beebdaa44780eaac2598eb3d810b'],
     }),
     ('RedLionfish', '0.9', {
+        'modulename': 'RedLionfishDeconv',
         'checksums': ['82b76bf093851fc062448e8b764e846701bf890e64d7e82bf7cf11a7cf2c235b'],
     }),
     ('the-segmentation-game', '0.2.0', {
         'checksums': ['4bbf4deadecb84efc893c6cea2d51e90374181589f2034050aa3cf8fa65872f3'],
     }),
-    ('RedLionfish', '0.9', {
-        'checksums': ['82b76bf093851fc062448e8b764e846701bf890e64d7e82bf7cf11a7cf2c235b'],
-    }),
     ('devbio-napari', version, {
         # reqired npe2 version limit is not necessary since 0.10.1
         # see https://github.com/haesleinhuepf/devbio-napari/issues/41#issuecomment-1594583026
         'preinstallopts': "sed -i 's/npe2.*/npe2/g' requirements.txt setup.cfg &&",
-        # 'source_urls': ['https://github.com/haesleinhuepf/devbio-napari/archive/refs/tags/'],
-        # 'source_tmpl': '%(version)s.tar.gz',
         'checksums': ['c0bd80fbd3087128690259e25ecc5b13f42c09a99617229f97d6b696279d32a0'],
     }),
 ]
-
-# TODO
-# >> running command:
-#       [started at: 2023-12-05 11:10:31]
-#       [working dir: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-devbio/0.10.1-foss-2022a]
-#       [output logged in /tmp/vsc45304/eb-25nn5iut/easybuild-run_cmd-726z81nw.log]
-#       python -c "import redlionfish"
-# >> command completed: exit 1, ran in < 1s
 
 sanity_check_paths = {
     'files': ['bin/devbio-napari'],
