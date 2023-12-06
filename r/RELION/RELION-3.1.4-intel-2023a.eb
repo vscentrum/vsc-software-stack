@@ -1,0 +1,100 @@
+easyblock = 'CMakeMake'
+
+name = 'RELION'
+version = '3.1.4'
+
+homepage = 'http://www2.mrc-lmb.cam.ac.uk/relion/index.php/Main_Page'
+description = """RELION (for REgularised LIkelihood OptimisatioN, pronounce rely-on) is a stand-alone computer
+ program that employs an empirical Bayesian approach to refinement of (multiple) 3D reconstructions or 2D class
+ averages in electron cryo-microscopy (cryo-EM)."""
+
+toolchain = {'name': 'intel', 'version': '2023a'}
+toolchainopts = {'openmp': True, 'usempi': True}
+
+github_account = '3dem'
+source_urls = [GITHUB_SOURCE]
+sources = ['%(version)s.tar.gz']
+
+# Add additional job script templates
+# Provided templates are generic examples that should be adapted to each site
+local_jobtmpl = ['qsub_hydra.bash', 'sbatch_hydra.bash']
+patches = [(s, '.') for s in local_jobtmpl]
+
+builddependencies = [('CMake', '3.26.3')]
+
+dependencies = [
+    ('X11', '20230603'),
+    ('FLTK', '1.3.8'),
+    ('libpng', '1.6.39'),
+    ('LibTIFF', '4.5.0'),
+    ('tbb', '2021.11.0'),
+    ('zlib', '1.2.13'),
+    # ('ctffind', '4.1.14'),  # optional, RELION provides wrapper
+    ('gnuplot', '5.4.8'),  # optional, RELION provides wrapper
+    ('Ghostscript', '10.01.2'),  # optional, RELION provides wrapper
+    ('tcsh', '6.24.10'),  # optional, needed by RELION shell
+]
+
+# Execute commands in the pipeline directly, not through `which`
+local_pipejob_src = '%(builddir)s/%(namelower)s-%(version)s/src/pipeline_jobs.cpp'
+preconfigopts = "sed -i 's/`which \([a-z_]*\)`/\\1/g;s/`//g' %s &&" % local_pipejob_src
+
+configopts = "-DCMAKE_SHARED_LINKER_FLAGS='-lpthread' -DALTCPU=ON "
+configopts += "-DCUDA=OFF -DCudaTexture=OFF "
+configopts += "-DMKLFFT=ON -DFORCE_OWN_TBB=OFF "
+
+local_jobtmpl_path = ['%%(builddir)s/%%(namelower)s-%%(version)s/%s' % s for s in local_jobtmpl]
+postinstallcmds = ['cp %s %%(installdir)s/bin/' % s for s in local_jobtmpl_path]
+
+sanity_check_paths = {
+    'files': ['bin/relion'] + ['bin/%s' % s for s in local_jobtmpl],
+    'dirs': []
+}
+
+sanity_check_commands = ["relion --version"]
+
+modextravars = {
+    # Common settings
+    'RELION_CTFFIND_EXECUTABLE': 'ctffind',
+    'RELION_SHELL': 'csh',              # Shell used to launch CTFFIND/GCTF in CtfFind jobs
+
+    # Site specific settings
+    'RELION_QSUB_NRMPI': '4',           # Default for 'Number of MPI procs'
+    'RELION_MPI_MAX': '40',             # Maximum number of MPI processes available from the GUI
+    'RELION_ERROR_LOCAL_MPI': '1',      # Maximum number of MPI tasks allowed in an interactive session
+    'RELION_QSUB_NRTHREADS': '4',       # Default for 'Number of threads'
+    'RELION_THREAD_MAX': '10',          # Maximum number of threads per MPI process available from the GUI
+    'RELION_MINIMUM_DEDICATED': '1',    # Default for 'Minimum dedicated cores per node'
+    'RELION_ALLOW_CHANGE_MINIMUM_DEDICATED': '0',  # Allow user to change the 'Minimum dedicated cores per node'
+    'RELION_SCRATCH_DIR': '$VSC_SCRATCH',          # Default scratch directory in the GUI
+
+    # CHOOSE ONE OF THE FOLLOWING SECTIONS AND ADAPT IT TO YOUR SITE
+    # Default scheduler integration
+    # 'RELION_QUEUE_NAME': 'batch',       # Default for 'Queue Name"
+    # 'RELION_QSUB_COMMAND': 'qsub',      # Default for 'Queue submit command'
+    # 'RELION_QSUB_TEMPLATE': '%(installdir)s/bin/qsub.csh',  # Job script template
+
+    # Integration with TORQUE
+    'RELION_QUEUE_NAME': 'submission',  # Default for 'Queue Name"
+    'RELION_QSUB_COMMAND': 'qsub',      # Default for 'Queue submit command'
+    'RELION_QSUB_TEMPLATE': '%(installdir)s/bin/qsub_hydra.bash',  # Job script template
+    'RELION_QSUB_EXTRA_COUNT': '1',     # Number of extra variables for the job script template
+    'RELION_QSUB_EXTRA1': "Hours of walltime",
+    'RELION_QSUB_EXTRA1_DEFAULT': '72',
+
+    # Integration with SLURM
+    # 'RELION_QUEUE_NAME': 'batch',       # Default for 'Queue Name"
+    # 'RELION_QSUB_COMMAND': 'sbatch',    # Default for 'Queue submit command'
+    # 'RELION_QSUB_TEMPLATE': '%(installdir)s/bin/sbatch_slurm.bash',  # Job script template
+    # 'RELION_QSUB_EXTRA_COUNT': '3',     # Number of extra variables for the job script template
+    # 'RELION_QSUB_EXTRA1': "Hours of walltime",
+    # 'RELION_QSUB_EXTRA1_DEFAULT': '72',
+    # 'RELION_QSUB_EXTRA2': "Account",
+    # 'RELION_QSUB_EXTRA2_DEFAULT': '',
+    # 'RELION_QSUB_EXTRA3': "Extra batch parameters",
+    # 'RELION_QSUB_EXTRA3_DEFAULT': '',
+}
+
+modloadmsg = "Job template for Hydra can be found at $EBROOTRELION/bin/qsub_hydra.bash\n"
+
+moduleclass = 'bio'
