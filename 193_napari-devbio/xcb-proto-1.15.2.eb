@@ -1,0 +1,31 @@
+easyblock = 'ConfigureMake'
+
+name = 'xcb-proto'
+version = '1.15.2'
+
+homepage = 'https://xcb.freedesktop.org/'
+description = """The X protocol C-language Binding (XCB) is a replacement for Xlib featuring a small footprint,
+latency hiding, direct access to the protocol, improved threading support, and extensibility."""
+
+# even though xcb-proto is installed with configure-make-make install, nothing is actually built;
+# only .py files are installed using Python, and some .xlm flies copied, so OK to use dummy toolchain
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+
+source_urls = ['https://xcb.freedesktop.org/dist/']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['6b1ed9cd7cf35e37913eeecca37e5b85b14903002942b3e332f321335c27a8eb']
+
+builddependencies = [
+    ('binutils', '2.38'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+]
+
+sanity_check_paths = {
+    'files': ['share/pkgconfig/xcb-proto.pc'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+moduleclass = 'devel'
