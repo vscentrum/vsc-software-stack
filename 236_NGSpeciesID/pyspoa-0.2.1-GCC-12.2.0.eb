@@ -10,11 +10,30 @@ description = "Python bindings to spoa."
 
 toolchain = {'name': 'GCC', 'version': '12.2.0'}
 
-sources = [SOURCE_TAR_GZ]
+sources = [
+    {
+        'filename': '%(name)s-%(version)s.tar.gz',
+        'git_config': {
+            'url': 'https://github.com/nanoporetech',
+            'repo_name': 'pyspoa',
+            'tag': 'v%(version)s',
+            'recursive': True,
+            'keep_git_dir': True,
+        }
+    },
+    {
+        'source_urls': ['https://github.com/USCiLab/cereal/archive/'],
+        'download_filename': 'v%s.tar.gz' % local_cereal_version,
+        'filename': 'cereal-%s.tar.gz' % local_cereal_version,
+    },
+]
+
 patches = ['pyspoa-%(version)s_use-spoa-dep.patch']
+
 checksums = [
-    {'pyspoa-0.2.1.tar.gz': 'dad5f244dc524a2fd49d4b4918ce58d31db351fca34696b1d5f391aa66de7645'},
-    {'pyspoa-0.2.1_use-spoa-dep.patch': 'dffd946e3b36e4872846fe983d287f992b5bf177798e11141bf0d645cfc0664d'},
+    None,
+    '16a7ad9b31ba5880dac55d62b5d6f243c3ebc8d46a3514149e56b5e7ea81f85f',
+    'dffd946e3b36e4872846fe983d287f992b5bf177798e11141bf0d645cfc0664d',
 ]
 
 builddependencies = [('CMake', '3.24.3')]
@@ -38,3 +57,10 @@ options = {'modulename': 'spoa'}
 sanity_check_commands = ["cd %(builddir)s/*/tests && python test_pyspoa.py"]
 
 moduleclass = 'lib'
+
+# TODO
+# pyspoa.cpp:28:46: error: invalid conversion from int to std::vector<unsigned int>* [-fpermissive]
+#    28 |     auto consensus = graph.GenerateConsensus(min_cov);
+#       |                                              ^~~~~~~
+#       |                                              |
+#       |
