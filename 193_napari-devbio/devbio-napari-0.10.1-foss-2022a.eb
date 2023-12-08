@@ -1,6 +1,6 @@
 easyblock = 'PythonBundle'
 
-name = 'napari-devbio'
+name = 'devbio-napari'
 version = '0.10.1'
 
 homepage = 'https://github.com/haesleinhuepf/devbio-napari'
@@ -26,7 +26,7 @@ dependencies = [
     ('Mako', '1.2.0'),
     ('autopep8', '2.0.4'),
     ('Qt5', '5.15.5'),
-    ('libxcb', '1.15'),
+    # ('libxcb', '1.15'),
 ]
 
 use_pip = True
@@ -167,13 +167,10 @@ exts_list = [
     ('napari-plugin-search', '0.1.4', {
         'checksums': ['6dcc0793d072777c8d0cfebff89281252e57e13f8e13a8e0458a9ba7d86a06a0'],
     }),
-    # failing sanity check for 'napari_pyclesperanto_assistant' extension: command "python -c "import napari_pyclesperanto_assistant"" failed; output:
-    # WARNING: could not connect to display
-    # WARNING: Could not load the Qt platform plugin "xcb" in "" even though it was found.
-    # WARNING: This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
-    #
-    # Available platform plugins are: eglfs, linuxfb, minimal, minimalegl, offscreen, vnc, webgl, xcb.
     ('napari_pyclesperanto_assistant', '0.22.1', {
+        # import napari_pyclesperanto_assistant fails without GUI
+        # but it has been tested with GUI by `unset SESSION_MANAGER && python -c "import napari_pyclesperanto_assistant"`
+        'modulename': False,
         'checksums': ['6df5e59e105d91f49826d57b2c61091271f62bba9d061dcb9c0c12d3ca000843'],
     }),
     ('napari_pystackreg', '0.1.4', {
@@ -210,7 +207,7 @@ exts_list = [
     ('the-segmentation-game', '0.2.0', {
         'checksums': ['4bbf4deadecb84efc893c6cea2d51e90374181589f2034050aa3cf8fa65872f3'],
     }),
-    ('devbio-napari', version, {
+    (name, version, {
         # reqired npe2 version limit is not necessary since 0.10.1
         # see https://github.com/haesleinhuepf/devbio-napari/issues/41#issuecomment-1594583026
         'preinstallopts': "sed -i 's/npe2.*/npe2/g' requirements.txt setup.cfg &&",
@@ -219,8 +216,10 @@ exts_list = [
 ]
 
 sanity_check_paths = {
-    'files': ['bin/devbio-napari'],
+    'files': ['bin/%(name)s'],
     'dirs': ['lib/python%(pyshortver)s/site-packages'],
 }
+
+sanity_check_commands = ["python -c 'from devbio_napari._viewer import devbio_napari_viewer'"]
 
 moduleclass = 'vis'
