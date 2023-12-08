@@ -16,10 +16,11 @@ sources = [{'download_filename': 'v%s.tar.gz' % version, 'filename': SOURCE_TAR_
 checksums = ['0c6895c60c1c2543f7b0ad7f8baae4be39c9c519d6035c8fdd2ad8a2f83a99cc']
 
 builddependencies = [
-    ('Go', '1.20.4', '', SYSTEM),
+    ('Go', '1.21.2', '', SYSTEM),
 ]
 
-buildopts = 'CC="$CC" CFLAGS="$CFLAGS"'
+# see https://github.com/Nesvilab/philosopher/wiki/How-to-Build
+buildopts = 'CC="$CC" CFLAGS="$CFLAGS" deploy && go build -o philosopher'
 
 files_to_copy = [
     (['%(namelower)s'], 'bin'),
