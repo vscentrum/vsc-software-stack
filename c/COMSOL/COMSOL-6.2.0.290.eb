@@ -1,0 +1,33 @@
+name = 'COMSOL'
+version = '6.2.0.290'
+
+homepage = 'https://www.comsol.com'
+description = """
+COMSOL Multiphysics is a general-purpose software platform, based on
+advanced numerical methods, for modeling and simulating physics-based
+problems.
+"""
+
+toolchain = SYSTEM
+
+# source tarball has to be created manually from dvd
+# mkdir /mnt/iso_comsol
+# mount -o ro path-to-iso /mnt/iso_comsol
+# cd /mnt/iso_comsol
+# tar zcf <path-to-sources>/COMSOL-<version>.tar.gz .
+# umount /mnt/iso_comsol
+sources = [SOURCE_TAR_GZ]
+checksums = [None]
+
+# license is required, can be specified via $LMCOMSOL_LICENSE_FILE or license_file
+license_file = '/apps/brussel/licenses/comsol/License.dat'
+
+modluafooter = """
+if userInGroup("bcomsol") then
+    setenv("LMCOMSOL_LICENSE_FILE", "/apps/brussel/licenses/comsol/License.dat")
+elseif userInGroup("bcomsol_efremov") then
+    setenv("LMCOMSOL_LICENSE_FILE", "/apps/brussel/licenses/comsol/License_efremov.dat")
+end
+"""
+
+moduleclass = 'phys'
