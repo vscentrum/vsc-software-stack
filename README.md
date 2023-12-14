@@ -1,6 +1,6 @@
 # VSC Software Stack
 
-Central repository of easyconfigs used in the software installations on VSC clusters.
+Central repository of easyconfigs and easyblocks used in the software installations on VSC clusters.
 
 ## Vrije Universiteit Brussel (site-vub) branch
 
