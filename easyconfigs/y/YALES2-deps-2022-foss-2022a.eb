@@ -1,0 +1,86 @@
+easyblock = 'Bundle'
+
+name = 'YALES2-deps'
+version = '2022'
+
+homepage = 'https://www.coria-cfd.fr/index.php/YALES2'
+description = """YALES2 aims at the solving of two-phase combustion from primary atomization to
+pollutant prediction on massive complex meshes. It is able to handle
+efficiently unstructured meshes with several billions of elements, thus
+enabling the Direct Numerical Simulation of laboratory and semi-industrial
+configurations."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('CMake', '3.24.3'),
+    ('CWIPI', '0.12.0'),
+    ('git', '2.36.0', '-nodocs'),
+    ('HDF5', '1.12.2'),
+    ('Hypre', '2.25.0'),
+    ('METIS', '5.1.0'),
+    ('Mmg', '5.7.2'),
+    ('PETSc', '3.17.4'),
+    ('SLEPc', '3.17.2'),
+    ('SCOTCH', '7.0.1'),
+    # needed for python bindings
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('f90wrap', '0.2.11'),
+    ('h5py', '3.7.0'),
+    ('matplotlib', '3.5.2'),
+]
+
+components = [
+    # add configuration files for the easybuild platform
+    ('yales2-easybuild-platform', version, {
+        'easyblock': 'Tarball',
+        'sources': [SOURCE_TAR_GZ],
+        'checksums': ['9f5e219f47cfd93c18aaa2047974f9fe220d0cec25a2db87bce4b501226ff162'],
+    }),
+]
+
+_platform_files = ['easybuild.bash.env', 'easybuild.include.f90', 'easybuild.Makefile.in',
+                   'easybuild.slurm.run', 'easybuild.tools_params.sh']
+
+sanity_check_paths = {
+    'files': ['platforms/%s' % x for x in _platform_files],
+    'dirs': [],
+}
+
+# User's working directory with YALES2 source code
+# _yales2_home = '$HOME'
+_yales2_root = 'VSC_SCRATCH'
+
+modextravars = {
+    'YALES2_HOSTTYPE': 'easybuild',
+    'YALES2_ARCH': '-march=native',
+    'Y2_COMPILE_MODE': '2_STAGES',
+    'Y2_TARGET': 'DYNAMIC',
+    'COMPILER': 'gcc',
+}
+
+modluafooter = """
+-- YALES2 directory with source code
+local yales2_home = pathJoin(os.getenv("%s"), "yales2")
+setenv("YALES2_HOME", yales2_home)
+prepend_path("PATH", pathJoin(yales2_home, "tools"))
+execute {cmd="ml use $VSC_SCRATCH/yales2/modules",modeA={"load"}}
+execute {cmd="ml unuse $VSC_SCRATCH/yales2/modules",modeA={"unload"}}
+-- YALES2 Python environment
+setenv("Y2_PYTHON_EXEC", pathJoin(os.getenv("EBROOTPYTHON"), "bin", "python3"))
+setenv("Y2_PYTHON_VERSION", os.getenv("EBVERSIONPYTHON"))
+setenv("Y2_F90WRAP", pathJoin(os.getenv("EBROOTF90WRAP"), "bin"))
+-- YALES2 common aliases
+set_alias("y2o","module unload y2d && module load y2o")
+set_alias("y2d","module unload y2o && module load y2d")
+""" % _yales2_root
+
+usage = """Environment to build and run YALES2 simulations
+ 1. Place your source code of YALES2 in $YALES_HOME
+ 2. Add the easybuild platform to YALES2: `cp -r $EBROOTYALES2MINDEPS/platforms/easybuild* $YALES_HOME/platforms/`
+ 3. Compile YALES2: `cd $YALES_HOME/src && make`
+ 4. You can find example job scripts for you cases in $YALES_HOME/platforms/easybuild*.run
+"""
+
+moduleclass = 'cae'
