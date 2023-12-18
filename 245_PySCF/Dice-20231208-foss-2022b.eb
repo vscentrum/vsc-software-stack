@@ -1,0 +1,46 @@
+easyblock = 'MakeCp'
+
+name = 'Dice'
+version = '20231208'
+_commit = '4fcc2875be210af66d167eb4f8af17faf2190dcc'
+
+homepage = 'https://github.com/sanshar/Dice'
+description = """Dice contains code for performing SHCI, VMC, GFMC, DMC, FCIQMC, stochastic MRCI
+and SC-NEVPT2, and AFQMC calculations with a focus on ab initio systems."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+toolchainopts = {'cstd': 'c++14'}
+
+github_account = 'sanshar'
+source_urls = [GITHUB_SOURCE]
+sources = [{'download_filename': '%s.tar.gz' % _commit, 'filename': SOURCE_TAR_GZ}]
+checksums = ['65c1b9a8a2f9b91bc3570e755e7c8ae6492a4b34ae5018c550388f9c71026a5b']
+
+builddependencies = [
+    ('Eigen', '3.4.0'),
+    ('git', '2.38.1', '-nodocs'),
+]
+
+dependencies = [
+    ('Boost.MPI', '1.83.0'),
+    ('HDF5', '1.14.0'),
+]
+
+# Use build environment defined by EB
+prebuildopts = "sed -i 's/^FLAGS_BASE =.*/FLAGS_BASE=$(CXXFLAGS) -g -w -I. $(CPPFLAGS)/' Makefile && "
+buildopts = 'CXX="$MPICXX" USE_INTEL="no" HAS_AVX2="no" '  # avoid changes to -march
+buildopts += 'INCLUDE_MKL="-I${EBROOTOPENBLAS}/include" LIB_MKL="${LIBBLAS}" '  # use OpenBLAS
+buildopts += 'GIT_BRANCH="master" GIT_HASH="%s"' % _commit
+buildopts += 'BOOST="${EBROOTBOOSTMPI}" '
+buildopts += 'EIGEN="${EBROOTEIGEN}/include" '
+buildopts += 'HDF5="${EBROOTHDF5}" '
+
+files_to_copy = ['bin']
+
+_binaries = ['Dice', 'DQMC', 'FCIQMC', 'GFMC', 'ICPT', 'VMC', 'ZDice2', 'ZSHCI']
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in _binaries],
+    'dirs': [],
+}
+
+moduleclass = 'chem'
