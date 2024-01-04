@@ -1,0 +1,39 @@
+easyblock = 'MakeCp'
+
+name = 'PASA'
+version = '2.5.3'
+
+homepage = 'https://github.com/PASApipeline/PASApipeline'
+description = """PASA, acronym for Program to Assemble Spliced Alignments (and pronounced 'pass-uh'),
+ is a eukaryotic genome annotation tool that exploits spliced alignments of expressed transcript
+ sequences to automatically model gene structures, and to maintain gene structure annotation consistent
+ with the most recently available experimental sequence data. PASA also identifies and classifies all
+ splicing variations supported by the transcript alignments."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+github_account = 'PASApipeline'
+source_urls = [GITHUB_SOURCE]
+# TODO source?
+checksums = ['9b2f6a301b73fd8c713af0977cf6e97f3d928988d6b79715ebe81e19b51152eb']
+
+dependencies = [
+    ('SQLite', '3.39.4'),  # TODO also MySQL?
+    ('GMAP-GSNAP', '2023-04-20'),
+    ('pblat', '2.5.1'),  # TODO create easyconfig
+    ('minimap2', '2.26'),
+    ('FASTA', '36.3.8i'),
+]
+
+files_to_copy = [
+    (['bin/%(namelower)s'], 'bin'),  # TODO more bins
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': []
+}
+
+sanity_check_commands = ['%(namelower)s --version']
+
+moduleclass = 'bio'
