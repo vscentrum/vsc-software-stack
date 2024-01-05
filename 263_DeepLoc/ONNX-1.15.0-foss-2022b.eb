@@ -1,0 +1,53 @@
+easyblock = 'PythonPackage'
+
+name = 'ONNX'
+version = '1.15.0'
+
+homepage = 'https://onnx.ai'
+description = """
+Open Neural Network Exchange (ONNX) is an open ecosystem that empowers AI
+developers to choose the right tools as their project evolves. ONNX provides an
+open source format for AI models, both deep learning and traditional ML. It
+defines an extensible computation graph model, as well as definitions of
+built-in operators and standard data types. Currently we focus on the
+capabilities needed for inferencing (scoring)."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['b18461a7d38f286618ca2a6e78062a2a9c634ce498e631e708a8041b00094825']
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+    # more recent setuptools required to fix: AttributeError: editable_mode
+    ('setuptools', '64.0.3'),
+]
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('protobuf-python', '4.23.0'),
+    ('typing-extensions', '4.9.0'),
+]
+
+use_pip = True
+download_dep_fail = True
+
+preinstallopts = """sed -i 's/"version",//g' pyproject.toml && """
+preinstallopts += """sed -i 's/readme = .*/version = "%(version)s"/g' pyproject.toml && """
+preinstallopts += 'env MAX_JOBS="%(parallel)s"'
+
+sanity_check_paths = {
+    'files': ['bin/check-model', 'bin/check-node', 'bin/backend-test-tools'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    ('check-model', '-h'),
+    ('check-node', '-h'),
+    ('backend-test-tools', '-h'),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'devel'
