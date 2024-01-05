@@ -8,13 +8,14 @@ description = """PyInstaller bundles a Python application and all its dependenci
  The user can run the packaged app without installing a Python interpreter or any modules."""
 
 
-toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+toolchain = {'name': 'foss', 'version': '2023a'}
 
 sources = [SOURCELOWER_TAR_GZ]
 checksums = ['914d4c96cc99472e37ac552fdd82fbbe09e67bb592d0717fcffaa99ea74273df']
 
 dependencies = [
     ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
     ('glibc', '2.38'),
     ('texinfo', '7.1'),
 ]
