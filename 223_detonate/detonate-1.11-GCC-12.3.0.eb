@@ -9,29 +9,33 @@ description = """DETONATE (DE novo TranscriptOme rNa-seq Assembly with or withou
  to evaluate de novo transcriptome assemblies, although REF-EVAL can be used to compare sets of any kinds
  of genomic sequences."""
 
-toolchain = {'name': 'GCC', 'version': '10.2.0'}
-# toolchain = {'name': 'GCC', 'version': '12.3.0'}
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+# toolchain = {'name': 'GCC', 'version': '10.2.0'}
 # toolchain = {'name': 'intel', 'version': '2023a'}
 # toolchain = {'name': 'intel', 'version': '2020b'}
+
 toolchainopts = {'cstd': 'c++11'}
 
 source_urls = ['http://deweylab.biostat.wisc.edu/detonate/']
 sources = ['detonate-1.11.tar.gz']
-checksums = ['e1d04af1b1d2504942a6941b346d430157da6117fac043b7ee83274717d99714']
-
 patches = [
     'detonate-%(version)s_fix-deps.patch',
     'detonate-%(version)s_Intel-fixes.patch',
 ]
+checksums = [
+    {'detonate-1.11.tar.gz': 'e1d04af1b1d2504942a6941b346d430157da6117fac043b7ee83274717d99714'},
+    {'detonate-1.11_fix-deps.patch': '0ab353f66d5459e1fa18fa214026589fe214365f3532a3b9ea182757c7547691'},
+    {'detonate-1.11_Intel-fixes.patch': 'c72a18250857883e7075ac512bbbd532e61a1aab38868d0dc932ca4bdc412817'},
+]
 
-builddependencies = [('CMake', '3.20.1')]
+builddependencies = [('CMake', '3.26.3')]
 
 dependencies = [
-    ('Boost', '1.74.0'),
+    ('Boost', '1.82.0'),
     ('sparsehash', '2.0.4'),
-    ('SAMtools', '1.12'),
-    ('BamTools','2.5.1'),
-    ('zlib', '1.2.11'),
+    ('SAMtools', '1.18'),
+    ('BamTools','2.5.2'),
+    ('zlib', '1.2.13'),
 ]
 
 start_dir = 'ref-eval'
