@@ -17,13 +17,15 @@ checksums = ['e85a4d752b8e159502d529f0f9e47579851a6b466b6c2f1f4d49f598642bc615']
 
 dependencies = [
     ('HTSlib', '1.17'),
+    ('zlib', '1.2.12'),
+    ('OpenSSL', '1.1', '', SYSTEM),
 ]
 
 # use HTSlib dependency provided through EasyBuild
 prebuildopts = "sed -i '5s/.\/htslib/$\{EBROOTHTSLIB\}\/include\/htslib/' Makefile && "
 prebuildopts += "sed -i '40s/ htslib\/libhts.a//' Makefile && "
-prebuildopts += "sed -i '41s/htslib/$\{EBROOTHTSLIB\}\/lib/' Makefile && "
-# prebuildopts += "sed -i -e '/htslib\/libhts.a:/,+2d' Makefile && "
+prebuildopts += "sed -i '41s/htslib\/libhts.a/-lhts -lcurl/' Makefile && "
+prebuildopts += "sed -i -e '/htslib\/libhts.a:/,+2d' Makefile && "
 
 files_to_copy = [
     (['%(name)s'], 'bin'),
@@ -33,5 +35,7 @@ sanity_check_paths = {
     'files': ['bin/%(name)s'],
     'dirs': []
 }
+
+sanity_check_commands = ["command -v %(name)s"]
 
 moduleclass = 'bio'

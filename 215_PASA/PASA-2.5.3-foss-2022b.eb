@@ -12,28 +12,30 @@ description = """PASA, acronym for Program to Assemble Spliced Alignments (and p
 
 toolchain = {'name': 'foss', 'version': '2022b'}
 
-github_account = 'PASApipeline'
-source_urls = [GITHUB_SOURCE]
-# TODO source?
+source_urls = ['https://github.com/PASApipeline/PASApipeline/archive/']
+sources = ['%(namelower)s-v%(version)s.tar.gz']
 checksums = ['9b2f6a301b73fd8c713af0977cf6e97f3d928988d6b79715ebe81e19b51152eb']
 
 dependencies = [
-    ('SQLite', '3.39.4'),  # TODO also MySQL?
+    ('SQLite', '3.39.4'),
     ('GMAP-GSNAP', '2023-04-20'),
-    ('pblat', '2.5.1'),  # TODO create easyconfig
+    ('pblat', '2.5.1'),
     ('minimap2', '2.26'),
     ('FASTA', '36.3.8i'),
 ]
 
+local_bins = ['%(namelower)s', 'cdbfasta', 'cdbyank', 'cln2qual', 'mdust',
+    'psx', 'seqclean', 'seqclean.psx', 'slclust', 'trimpoly']
+
 files_to_copy = [
-    (['bin/%(namelower)s'], 'bin'),  # TODO more bins
+    (['bin/%s' % x for x in local_bins], 'bin'),
 ]
 
 sanity_check_paths = {
-    'files': ['bin/%(namelower)s'],
+    'files': ['bin/%s' % x for x in local_bins],
     'dirs': []
 }
 
-sanity_check_commands = ['%(namelower)s --version']
+sanity_check_commands = ['command -v %(namelower)s']
 
 moduleclass = 'bio'
