@@ -1,0 +1,19 @@
+Pro toolchain intel 2023a je potřeba BOOST 1.82.0 ale ten je moc nový (změnil se po 1.75)
+Already tried:
+    toolchain = {'name': 'GCC', 'version': '12.3.0'}
+    toolchain = {'name': 'intel', 'version': '2023a'}
+    toolchain = {'name': 'GCC', 'version': '10.2.0'} -> to use BOOST 1.74
+        + add BamTools 2.5.1
+Create new dependency:
+    sparsehash-2.0.4-GCCcore-12.3.0.eb
+Error:
+== 2023-12-19 11:25:46,565 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
+build failed (first 300 chars): cmd " make  -j 8 CXX="$CXX" CXXFLAGS="$CXXFLAGS -fopenmp" && cd ../rsem-eval && make CC="$CXX" CFLAGS="$CXXFLAGS"" exited with exit code 2 and output:
+
+
+----------------------
+----------------------------------
+- Looking for CMake. -
+- Building the CityHash library. -
+----------------------
+-------- (at easybuild/easybuild-framework/easybuild/main.py:138 in build_and_install_software)
