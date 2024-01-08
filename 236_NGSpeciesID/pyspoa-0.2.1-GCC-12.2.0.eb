@@ -10,7 +10,7 @@ description = "Python bindings to spoa."
 
 toolchain = {'name': 'GCC', 'version': '12.2.0'}
 
-toolchainopts = {'extra_cxxflags': "-fpermissive"}
+toolchainopts = {'extra_cflags': "-fpermissive"}
 
 sources = [
     {
@@ -53,6 +53,7 @@ sanity_pip_check = True
 preinstallopts = "mkdir -p src/vendor/cereal && ln -s %(builddir)s/cereal-*/include src/vendor/cereal/include && "
 # strip out cmake requirements, since we provide that as proper dependency
 preinstallopts += "sed -i 's/.cmake==[0-9.]*.//g' setup.py && "
+preinstallopts += "export libspoa=$EBROOTSPOA/lib/libspoa.a && "
 
 options = {'modulename': 'spoa'}
 
@@ -60,9 +61,4 @@ sanity_check_commands = ["cd %(builddir)s/*/tests && python test_pyspoa.py"]
 
 moduleclass = 'lib'
 
-# TODO
-# pyspoa.cpp:28:46: error: invalid conversion from int to std::vector<unsigned int>* [-fpermissive]
-#    28 |     auto consensus = graph.GenerateConsensus(min_cov);
-#       |                                              ^~~~~~~
-#       |                                              |
-#       |
+# TODO ERROR: `python test_pyspoa.py exited with code -11`
