@@ -1,5 +1,160 @@
+After add new .eb for SAMtools/1.13:
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: /tmp/vsc47063/eb-a_z9c238/ccMaNhdh.o: in function `output(std::
+__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<ContigStruct, std::allocator<ContigStruct> > c
+onst&, fasta const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool)':
+ref-eval-estimate-true-assembly.cpp:(.text+0x37a4): undefined reference to `bgzf_open'
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: ref-eval-estimate-true-assembly.cpp:(.text+0x37b5): undefined r
+eference to `bam_header_read'
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: ref-eval-estimate-true-assembly.cpp:(.text+0x3f4e): undefined r
+eference to `bam_header_destroy'
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: /tmp/vsc47063/eb-a_z9c238/ccMaNhdh.o: in function `extract_read
+s(std::vector<ReadStruct, std::allocator<ReadStruct> >&, std::vector<bool, std::allocator<bool> > const&, std::__cxx11::basic_string<char, st
+d::char_traits<char>, std::allocator<char> > const&, bool)':
+ref-eval-estimate-true-assembly.cpp:(.text+0x4176): undefined reference to `bgzf_open'
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: ref-eval-estimate-true-assembly.cpp:(.text+0x4191): undefined r
+eference to `bam_header_read'
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: ref-eval-estimate-true-assembly.cpp:(.text+0x41bc): undefined r
+eference to `bam_read1'
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: /tmp/vsc47063/eb-a_z9c238/ccMaNhdh.o: in function `extract_alig
+nment_probs(std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, probs_and_lidxs, std::less<std::__cxx11
+::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_tr
+aits<char>, std::allocator<char> > const, probs_and_lidxs> > >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char
+> > const&, double, bool)':
+ref-eval-estimate-true-assembly.cpp:(.text+0x513f): undefined reference to `bgzf_open'
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: ref-eval-estimate-true-assembly.cpp:(.text+0x515a): undefined r
+eference to `bam_header_read'
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: ref-eval-estimate-true-assembly.cpp:(.text+0x5186): undefined r
+eference to `bam_read1'
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: ref-eval-estimate-true-assembly.cpp:(.text+0x53ec): undefined r
+eference to `bam_header_destroy'
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: /tmp/vsc47063/eb-a_z9c238/ccMaNhdh.o: in function `extract_read
+s(std::vector<ReadStruct, std::allocator<ReadStruct> >&, std::vector<bool, std::allocator<bool> > const&, std::__cxx11::basic_string<char, st
+d::char_traits<char>, std::allocator<char> > const&, bool)':
+ref-eval-estimate-true-assembly.cpp:(.text+0x43dd): undefined reference to `bam_header_destroy'
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:157: ref-eval-estimate-true-assembly] Error 1
+make: *** Waiting for unfinished jobs....
+ (at easybuild/easybuild-framework/easybuild/tools/run.py:681 in parse_cmd_output)
+== 2024-01-09 12:06:48,838 build_log.py:267 INFO ... (took 40 secs)
+== 2024-01-09 12:06:48,838 filetools.py:2012 INFO Removing lock /user/gent/470/vsc47063/.local/easybuild/software/.locks/_user_gent_470_vsc47
+063_.local_easybuild_software_DETONATE_1.11-GCC-12.3.0.lock...
+== 2024-01-09 12:06:48,839 filetools.py:383 INFO Path /user/gent/470/vsc47063/.local/easybuild/software/.locks/_user_gent_470_vsc47063_.local
+_easybuild_software_DETONATE_1.11-GCC-12.3.0.lock successfully removed.
+== 2024-01-09 12:06:48,839 filetools.py:2016 INFO Lock removed: /user/gent/470/vsc47063/.local/easybuild/software/.locks/_user_gent_470_vsc47
+063_.local_easybuild_software_DETONATE_1.11-GCC-12.3.0.lock
+== 2024-01-09 12:06:48,839 easyblock.py:4277 WARNING build failed (first 300 chars): cmd " make  -j 8 CXX="$CXX" CXXFLAGS="$CXXFLAGS -fopenmp
+" && cd ../rsem-eval && make CC="$CXX" CFLAGS="$CXXFLAGS"" exited with exit code 2 and output:
+
+
+----------------------
+----------------------------------
+- Looking for CMake. -
+- Building the CityHash library. -
+----------------------
+--------
+== 2024-01-09 12:06:48,840 easyblock.py:328 INFO Closing log for application name DETONATE version 1.11
+== 2024-01-09 12:06:48,840 build_log.py:267 INFO FAILED: Installation ended unsuccessfully (build directory: /tmp/vsc47063/easybuild/build/DE
+TONATE/1.11/GCC-12.3.0): build failed (first 300 chars): cmd " make  -j 8 CXX="$CXX" CXXFLAGS="$CXXFLAGS -fopenmp" && cd ../rsem-eval && make
+ CC="$CXX" CFLAGS="$CXXFLAGS"" exited with exit code 2 and output:
+
+
+----------------------
+----------------------------------
+- Looking for CMake. -
+- Building the CityHash library. -
+----------------------
+-------- (took 1 min 21 secs)
+== 2024-01-09 12:06:48,840 build_log.py:267 INFO Results of the build can be found in the log file(s) /tmp/vsc47063/eb-a_z9c238/easybuild-DET
+ONATE-1.11-20240109.120527.nTMyY.log
+== 2024-01-09 12:06:48,841 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions
+.py:126 in __init__): build failed (first 300 chars): cmd " make  -j 8 CXX="$CXX" CXXFLAGS="$CXXFLAGS -fopenmp" && cd ../rsem-eval && make CC
+="$CXX" CFLAGS="$CXXFLAGS"" exited with exit code 2 and output:
+
+
+----------------------
+----------------------------------
+- Looking for CMake. -
+- Building the CityHash library. -
+----------------------
+-------- (at easybuild/easybuild-framework/easybuild/main.py:138 in build_and_install_software)
+== 2024-01-09 12:06:48,842 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions
+.py:126 in __init__): Build of /kyukon/home/gent/470/vsc47063/vsc-software-stack/223_detonate/detonate-1.11-GCC-12.3.0.eb failed (err: 'build
+ failed (first 300 chars): cmd " make  -j 8 CXX="$CXX" CXXFLAGS="$CXXFLAGS -fopenmp" && cd ../rsem-eval && make CC="$CXX" CFLAGS="$CXXFLAGS""
+ exited with exit code 2 and output:\n\n\n----------------------\n----------------------------------\n- Looking for CMake. -\n- Building the 
+CityHash library. -\n----------------------\n--------') (at easybuild/easybuild-framework/easybuild/main.py:176 in build_and_install_software
+)
+
+
+After patch file error:
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: cannot find /apps/gent/RHEL8/cascadelake-ib/software/SAMtools/1
+.18-GCC-12.3.0/lib/libbam.a: No such file or directory
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:157: ref-eval-estimate-true-assembly] Error 1
+make: *** Waiting for unfinished jobs....
+/apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: cannot find /apps/gent/RHEL8/cascadelake-ib/software/SAMtools/1
+.18-GCC-12.3.0/lib/libbam.a: No such file or directory
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:149: ref-eval] Error 1
+ (at easybuild/easybuild-framework/easybuild/tools/run.py:681 in parse_cmd_output)
+== 2024-01-09 11:01:44,442 build_log.py:267 INFO ... (took 39 secs)
+== 2024-01-09 11:01:44,442 filetools.py:2012 INFO Removing lock /user/gent/470/vsc47063/.local/easybuild/software/.locks/_user_gent_470_vsc47
+063_.local_easybuild_software_DETONATE_1.11-GCC-12.3.0.lock...
+----------------------
+--------
+== 2024-01-09 11:01:44,444 easyblock.py:328 INFO Closing log for application name DETONATE version 1.11
+== 2024-01-09 11:01:44,444 build_log.py:267 INFO FAILED: Installation ended unsuccessfully (build directory: /tmp/vsc47063/easybuild/build/DE
+TONATE/1.11/GCC-12.3.0): build failed (first 300 chars): cmd " make  -j 8 CXX="$CXX" CXXFLAGS="$CXXFLAGS -fopenmp" && cd ../rsem-eval && make
+ CC="$CXX" CFLAGS="$CXXFLAGS"" exited with exit code 2 and output:
+
+
+----------------------
+----------------------------------
+- Looking for CMake. -
+- Building the CityHash library. -
+----------------------
+-------- (took 1 min 17 secs)
+== 2024-01-09 11:01:44,444 build_log.py:267 INFO Results of the build can be found in the log file(s) /tmp/vsc47063/eb-8kzixp70/easybuild-DET
+ONATE-1.11-20240109.110026.YOJJW.log
+== 2024-01-09 11:01:44,445 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions
+.py:126 in __init__): build failed (first 300 chars): cmd " make  -j 8 CXX="$CXX" CXXFLAGS="$CXXFLAGS -fopenmp" && cd ../rsem-eval && make CC
+="$CXX" CFLAGS="$CXXFLAGS"" exited with exit code 2 and output:
+
+
+----------------------
+----------------------------------
+- Looking for CMake. -
+- Building the CityHash library. -
+----------------------
+-------- (at easybuild/easybuild-framework/easybuild/main.py:138 in build_and_install_software)
+== 2024-01-09 11:01:44,446 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
+Build of /kyukon/home/gent/470/vsc47063/vsc-software-stack/223_detonate/detonate-1.11-GCC-12.3.0.eb failed 
+(err: 'build failed (first 300 chars): cmd " make  -j 8 CXX="$CXX" CXXFLAGS="$CXXFLAGS -fopenmp" && cd ../rsem-eval && make CC="$CXX" CFLAGS="$CXXFLAGS"" exited with exit code 2 and output:
+\n\n\n----------------------\n----------------------------------\n- Looking for CMake. -\n- Building the CityHash library. -\n----------------------\n--------') 
+(at easybuild/easybuild-framework/easybuild/main.py:176 in build_and_install_software)
+
+
+With sed error:
+== 2024-01-09 09:43:20,301 easyblock.py:328 INFO Closing log for application name DETONATE version 1.11
+== 2024-01-09 09:43:20,301 build_log.py:267 INFO FAILED: Installation ended unsuccessfully (build directory: /tmp/vsc47063/easybuild/build/DETONATE/1.11/GCC-12.3.0): build failed (first 300 chars): 
+cmd "sed -i 's/#include <queue>/#include <queue>\n#include <list>/' detonate-1.11/ref-eval/test_pairset.cpp &&  make  -j 8 CXX="$CXX" CXXFLAGS="$CXXFLAGS -fopenmp" && cd ../rsem-eval && make CC="$CXX" CFLAGS="$CXXFLAGS"" exited with exit code 2 and output:
+sed: can't read detonate-1.11/ref-eval/test (took 37 secs)
+== 2024-01-09 09:43:20,302 build_log.py:267 INFO Results of the build can be found in the log file(s) /tmp/vsc47063/eb-c41149z0/easybuild-DETONATE-1.11-20240109.094242.tcjdd.log
+== 2024-01-09 09:43:20,302 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): build failed (first 300 chars): 
+cmd "sed -i 's/#include <queue>/#include <queue>\n#include <list>/' detonate-1.11/ref-eval/test_pairset.cpp &&  make  -j 8 CXX="$CXX" CXXFLAGS="$CXXFLAGS -fopenmp" && cd ../rsem-eval && make CC="$CXX" CFLAGS="$CXXFLAGS"" exited with exit code 2 and output:
+sed: can't read detonate-1.11/ref-eval/test (at easybuild/easybuild-framework/easybuild/main.py:138 in build_and_install_software)
+== 2024-01-09 09:43:20,303 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Build of /kyukon/home/gent/470/vsc47063/vsc-software-stack/223_detonate/detonate-1.11-GCC-12.3.0.eb failed (err: 'build failed (first 300 chars): 
+cmd "sed -i \'s/#include <queue>/#include <queue>\\n#include <list>/\' detonate-1.11/ref-eval/test_pairset.cpp &&  make  -j 8 CXX="$CXX" CXXFLAGS="$CXXFLAGS -fopenmp" && cd ../rsem-eval && make CC="$CXX" CFLAGS="$CXXFLAGS"" exited with exit code 2 and output:\nsed: can\'t read detonate-1.11/ref-eval/test') 
+(at easybuild/easybuild-framework/easybuild/main.py:176 in build_and_install_software)
+
+TRY:
+# prebuildopts = "sed -i 's/#include <queue>/#include <queue>\n#include <list>/' detonate-1.11/ref-eval/test_pairset.cpp && "
+# prebuildopts = "sed -i 's/#include <queue>/#include <queue>\\n#include <list>/' detonate-1.11/ref-eval/test_pairset.cpp && "
+# prebuildopts = "sed -i 's/#include <queue>/#include <queue>\\n#include <list>/' detonate-1.11/ref-eval/pairset.hh && "
+# prebuildopts = "sed -i 's/#include <queue>/#include <queue>\\n#include <list>/' ref-eval/pairset.hh && "
+
+
 It seems there is a problem: "pairset.hh:24:1: note: std::list is defined in header <list>; did you forget to #include <list>?"
-    
+Error:
     pairset.hh:178:10: error: list is not a member of std
     178 |     std::list<detail::rect> rects(squares.begin(), squares.end());
       |          ^~~~
