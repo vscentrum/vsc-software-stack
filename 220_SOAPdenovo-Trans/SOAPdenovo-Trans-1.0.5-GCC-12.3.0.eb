@@ -8,14 +8,14 @@ description = """SOAPdenovo-Trans is a de novo transcriptome assembler basing on
 adapt to alternative splicing and different expression level among transcripts.
 """
 
-toolchain = {'name': 'intel', 'version': '2023a'}
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
 source_urls = ['https://github.com/aquaskyline/SOAPdenovo-Trans/archive/']
 sources = ['%(version)s.tar.gz']
-patches = ['%(name)s-1.0.4-fix-makefiles.patch']
+patches = ['%(name)s-1.0.5-fix-makefiles.patch']
 checksums = [
     {'1.0.5.tar.gz': 'c1903c0d81142270db95916e2833400f72c4841b5c9194f182c19ebda418936f'},
-    {'SOAPdenovo-Trans-1.0.4-fix-makefiles.patch': '15c420a5e2c2a5a5837dbb1223a6b02b78f059b162e82952c7ceee83fdfdcffb'},
+    {'SOAPdenovo-Trans-1.0.5-fix-makefiles.patch': '15c420a5e2c2a5a5837dbb1223a6b02b78f059b162e82952c7ceee83fdfdcffb'},
 ]
 
 dependencies = [('zlib', '1.2.13')]

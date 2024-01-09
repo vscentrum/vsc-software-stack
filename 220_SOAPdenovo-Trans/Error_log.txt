@@ -1,12 +1,69 @@
+Change to GCC toolchain from intel works
+
 tried 1.0.4 insted of 1.0.5. -> same error
 
+ERROR:
+== 2024-01-09 14:29:43,720 run.py:246 INFO running cmd:  make  -j 8  && make 127mer=1 
+== 2024-01-09 14:29:50,352 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " make  
+-j 8  && make 127mer=1" exited with exit code 2 and output:
+Compiling arc.c...                             ^MCompiling attachPEinfo.c...                             ^MCompiling bubble.c...                             ^MCompiling check.
+c...                             ^MCompiling concatenateEdge.c...                             ^MCompiling compactEdge.c...                             ^MCompiling connect.c...
+                             ^M../SOAPdenovo-Trans-31mer cleaning done.
+Compiling contig.c...                             ^Mcontig.c:220:2: error: call to undeclared function 'output_pool'; ISO C99 and later do not support implicit function declar
+ations [-Wimplicit-function-declaration]
+        output_pool(fileName);
+        ^
+contig.c:248:2: error: call to undeclared function 'deleteWeakEdge'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+        deleteWeakEdge(de);
+        ^
+contig.c:253:2: error: call to undeclared function 'deleteUnlikeArc'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+        deleteUnlikeArc();
+        ^
+contig.c:270:2: error: call to undeclared function 'deleteShortContig'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+        deleteShortContig(cut_length);
+        ^
+4 errors generated.
+Error in command: icx -c -fomit-frame-pointer -O2 -xHost -ftz -fp-speculation=safe -fp-model precise -DMER31 -m64  -Iinc contig.c
+Compiling cutTipPreGraph.c...                             ^MCompiling darray.c...                             ^MCompiling cutTip_graph.c...                             ^MCompi
+ling dfib.c...                             ^MCompiling dfibHeap.c...                             ^MCompiling fib.c...                             ^MCompiling fibHeap.c...     
+                        ^Mfib.c:142:13: warning: implicit truncation from 'int' to a one-bit wide bit-field changes value from 1 to -1 [-Wsingle-bit-bitfield-constant-conversi
+on]
+        n->fh_keys = 1;
+                   ^ ~
+cutTipPreGraph.c:137:53: warning: format specifies type 'unsigned long long' but the argument has type 'kmer_t *' (aka 'struct kmer_st *') [-Wformat]
+                printf ("kmer %llx not found, node1 %llx\n", word,node1);
+                                                    ~~~~          ^~~~~
+cutTipPreGraph.c:202:55: warning: format specifies type 'unsigned long long' but the argument has type 'kmer_t *' (aka 'struct kmer_st *') [-Wformat]
+                                printf ("kmer %llx not found, node1 %llx\n", word,node1);
+                                                                    ~~~~          ^~~~~
+cutTipPreGraph.c:254:55: warning: format specifies type 'unsigned long long' but the argument has type 'kmer_t *' (aka 'struct kmer_st *') [-Wformat]
+                                printf ("kmer %llx not found, node1 %llx\n", word,node1);
+                                                                    ~~~~          ^~~~~
+cutTipPreGraph.c:1010:1: warning: non-void function does not return a value in all control paths [-Wreturn-type]
+}
+^
+Compiling hashFunction.c...                             ^MCompiling kmer.c...                             ^MCompiling lib.c...                             ^MCompiling loadGrap
+h.c...                             ^M1 warning generated.
+Compiling loadPath.c...                             ^MCompiling loadPreGraph.c...                             ^M4 warnings generated.
+2 warnings and 4 errors generated.
+Error in command: icx -c -fomit-frame-pointer -O2 -xHost -ftz -fp-speculation=safe -fp-model precise -DMER31 -m64  -Iinc scaffold.c
+icx -fomit-frame-pointer -O2 -xHost -ftz -fp-speculation=safe -fp-model precise -DMER31 -m64 -L/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/lib64 -L/app
+s/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/imkl/2023.1.0/mkl/2023.1.0/lib/intel64 -L/apps/gent/RHEL8/cascad
+elake-ib/software/intel-compilers/2023.1.0/compiler/2023.1.0/linux/compiler/lib/intel64 -o ../SOAPdenovo-Trans-31mer arc.o attachPEinfo.o bubble.o check.o compactEdge.o concat
+enateEdge.o connect.o contig.o cutTipPreGraph.o cutTip_graph.o darray.o dfib.o dfibHeap.o fib.o fibHeap.o hashFunction.o kmer.o lib.o loadGraph.o loadPath.o loadPreGraph.o loc
+alAsm.o main.o map.o mem_manager.o newhash.o node2edge.o orderContig.o output_contig.o output_pregraph.o output_scaffold.o pregraph.o prlHashCtg.o prlHashReads.o prlRead2Ctg.o
+ prlRead2path.o prlReadFillGap.o read2scaf.o readInterval.o stack.o readseq1by1.o ReadTrace.o scaffold.o searchPath.o seq.o splitReps.o   -liomp5 -lpthread -lrt -lbam -lz -L./
+inc 
+...
+icx: error: no such file or directory: 'contig.o'
 icx: error: no such file or directory: 'output_pregraph.o'
 icx: error: no such file or directory: 'scaffold.o'
 make: *** [Makefile:76: SOAPdenovo] Error 1
  (at easybuild/easybuild-framework/easybuild/tools/run.py:681 in parse_cmd_output)
-== 2023-12-19 12:10:06,308 build_log.py:267 INFO ... (took 5 secs)
-== 2023-12-19 12:10:06,308 filetools.py:2012 INFO Removing lock /user/gent/470/vsc47063/.local/easybuild/software/.locks/_user_gent_470_vsc47063_.local_easybuild_software_SOAPdenovo-Trans_1.0.5-intel-2023a.lock...
-== 2023-12-19 12:10:06,311 filetools.py:383 INFO Path /user/gent/470/vsc47063/.local/easybuild/software/.locks/_user_gent_470_vsc47063_.local_easybuild_software_SOAPdenovo-Trans_1.0.5-intel-2023a.lock successfully removed.
-== 2023-12-19 12:10:06,311 filetools.py:2016 INFO Lock removed: /user/gent/470/vsc47063/.local/easybuild/software/.locks/_user_gent_470_vsc47063_.local_easybuild_software_SOAPdenovo-Trans_1.0.5-intel-2023a.lock
-== 2023-12-19 12:10:06,311 easyblock.py:4277 WARNING build failed (first 300 chars): cmd " make  -j 8  && make 127mer=1" exited with exit code 2 and output:
-Compiling arc.c...                             ^MCompiling attachPEinfo.c...                             ^MCompiling check.c...                             ^MCompiling compactEdge.c...                             ^MCompiling bubble.
+== 2024-01-09 14:29:50,352 build_log.py:267 INFO ... (took 6 secs)
+== 2024-01-09 14:29:50,352 filetools.py:2012 INFO Removing lock /user/gent/470/vsc47063/.local/easybuild/software/.locks/_user_gent_470_vsc47063_.local_easybuild_software_SOAP
+denovo-Trans_1.0.5-intel-2023a.lock...
+== 2024-01-09 14:29:50,354 filetools.py:383 INFO Path /user/gent/470/vsc47063/.local/easybuild/software/.locks/_user_gent_470_vsc47063_.local_easybuild_software_SOAPdenovo-Tra
+ns_1.0.5-intel-2023a.lock successfully removed.
+== 2024-01-09 14:29:50,354 filetools.py:2016 INFO Lock removed: /user/gent/470/vsc47063/.local/easybuild/software/.locks/_user_gent_470_vsc47063_.local_easybuild_software_SOAP
+denovo-Trans_1.0.5-intel-2023a.lock
