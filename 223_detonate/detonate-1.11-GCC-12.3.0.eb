@@ -10,9 +10,6 @@ description = """DETONATE (DE novo TranscriptOme rNa-seq Assembly with or withou
  of genomic sequences."""
 
 toolchain = {'name': 'GCC', 'version': '12.3.0'}
-# toolchain = {'name': 'GCC', 'version': '10.2.0'}
-# toolchain = {'name': 'intel', 'version': '2023a'}
-# toolchain = {'name': 'intel', 'version': '2020b'}
 
 toolchainopts = {'cstd': 'c++11'}
 
@@ -30,20 +27,17 @@ checksums = [
     {'detonate-1.11_include-fix.patch': '9071fc8dbc6bfc26a9c4bb60befca890a26acf9668df2815a7f0038d8bcdd9f6'},
 ]
 
-builddependencies = [('CMake', '3.26.3')]
+builddependencies = [
+    ('CMake', '3.26.3'), 
+    ('SAMtools', '0.1.20'),
+    ]
 
 dependencies = [
     ('Boost', '1.82.0'),
     ('sparsehash', '2.0.4'),
-    ('SAMtools', '1.13'),
     ('BamTools','2.5.2'),
     ('zlib', '1.2.13'),
 ]
-
-# prebuildopts = "sed -i 's/#include <queue>/#include <queue>\n#include <list>/' detonate-1.11/ref-eval/test_pairset.cpp && "
-# prebuildopts = "sed -i 's/#include <queue>/#include <queue>\\n#include <list>/' detonate-1.11/ref-eval/test_pairset.cpp && "
-# prebuildopts = "sed -i 's/#include <queue>/#include <queue>\\n#include <list>/' detonate-1.11/ref-eval/pairset.hh && "
-# prebuildopts = "sed -i 's/#include <queue>/#include <queue>\\n#include <list>/' ref-eval/pairset.hh && "
 
 start_dir = 'ref-eval'
 
