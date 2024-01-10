@@ -14,10 +14,11 @@ toolchain = {'name': 'intel', 'version': '2021a'}
 
 source_urls = ['https://github.com/mharanczyk/zeoplusplus/archive/']
 sources = ['v%(version)s.tar.gz']
+checksums = ['0361659094ec97add5d5846f14326863293e3d9a78997ba4890719f9ffae224a']
 
 # builddependencies = [('binutils', '2.36.1')]
 
-buildopts = "VOROINCLDIR=-I$EBROOTVOROPLUSPLUS/include/voro++/ VOROLINKDIR=-L$EBROOTVOROPLUSPLUS/lib/"
+# buildopts = "VOROINCLDIR=-I$EBROOTVOROPLUSPLUS/include/voro++/ VOROLINKDIR=-L$EBROOTVOROPLUSPLUS/lib/"
 dependencies = [('Voro++', '0.4.6')]
 
 files_to_copy = [(['network'], 'bin')]

@@ -1,7 +1,7 @@
 easyblock = 'MakeCp'
 
 name = 'Zeo++'
-version = '0.3.0'
+version = '0.3'
 
 homepage = 'https://www.zeoplusplus.org/'
 description = """Zeo++ is a software package for analysis of crystalline porous materials. 
@@ -12,13 +12,9 @@ description = """Zeo++ is a software package for analysis of crystalline porous 
 toolchain = {'name': 'intel', 'version': '2021a'}
 # toolchainopts = {'cstd': 'c++11'}
 
-local_commit = '99d004b863f5fa6b069ad348fb86e932c6624c1f'
-source_urls = ['https://github.com/richardjgowers/zeoplusplus/archive/']
-# sources = ['zeo++-0.3.tar.gz']
-sources = [{
-    "download_filename": "%s.tar.gz" % local_commit,
-    "filename": "%(name)s-%(version)s.tar.gz"
-}]
+source_urls = ['https://github.com/mharanczyk/zeoplusplus/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['0361659094ec97add5d5846f14326863293e3d9a78997ba4890719f9ffae224a']
 
 builddependencies = [('binutils', '2.36.1')]
 
