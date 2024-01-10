@@ -24,13 +24,16 @@ builddependencies = [('binutils', '2.36.1')]
 # try building libvoro in voro++ subdir, which is required by Zeo++
 prebuildopts = "cd voro++ && make && ls src/libvoro* && cd - && "
 
-files_to_copy = [(['network'], 'bin')]
+files_to_copy = [
+    (['network', 'framework_builder', 'molecule_to_abstract'], 'bin'),
+    (['libzeo++.so', 'libzeo++.a' ], 'lib')             
+]
 
-sanity_check_paths = { # TODO 
-    'files': [],
-    'dirs': [],
+sanity_check_paths = {
+    'files': ['bin/network', 'bin/framework_builder', 'bin/molecule_to_abstract', 'lib/libzeo++.%s' % SHLIB_EXT],
+    'dirs': []
 }
 
-sanity_check_commands = ["network --help"]
+sanity_check_commands = ["network --help", "framework_builder --help", "molecule_to_abstract --help"]
 
 moduleclass = 'phys'
