@@ -1,0 +1,56 @@
+Zeo++ needs special version of voro++?
+Not on bioconda
+
+g++ -I/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/ -g  -c voronoicell.cc
+network.cc: In instantiation of bool storeVoronoiNetwork(c_option&, ATOM_NETWORK*, VORONOI_NETWORK*, double, double, double, std::vector<BASIC_VCELL>&, std::vector<int>&, bool, std::vector<VOR_CELL>&) [with c_option = voro::container_periodic_poly]:
+network.cc:126:125:   required from here
+network.cc:223:15: error: no matching function for call to voro::voronoicell::voronoicell(voro::container_periodic_poly&)
+  223 |   voronoicell c(con);
+      |               ^
+In file included from /apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/voro++.hh:322,
+                 from network.h:34,
+                 from network.cc:14:
+/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/cell.hh:300:7: note: candidate: voro::voronoicell::voronoicell()
+  300 | class voronoicell : public voronoicell_base {
+      |       ^~~~~~~~~~~
+/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/cell.hh:300:7: note:   candidate expects 0 arguments, 1 provided
+/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/cell.hh:300:7: note: candidate: constexpr voro::voronoicell::voronoicell(const voro::voronoicell&)
+/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/cell.hh:300:7: note:   no known conversion for argument 1 from voro::container_periodic_poly to const voro::voronoicell&
+network.cc: In instantiation of bool storeVoronoiNetwork(c_option&, ATOM_NETWORK*, VORONOI_NETWORK*, double, double, double, std::vector<BASIC_VCELL>&, std::vector<int>&, bool, std::vector<VOR_CELL>&) [with c_option = voro::container_periodic]:
+network.cc:157:128:   required from here
+network.cc:223:15: error: no matching function for call to voro::voronoicell::voronoicell(voro::container_periodic&)
+  223 |   voronoicell c(con);
+      |               ^
+In file included from /apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/voro++.hh:322,
+                 from network.h:34,
+                 from network.cc:14:
+/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/cell.hh:300:7: note: candidate: voro::voronoicell::voronoicell()
+  300 | class voronoicell : public voronoicell_base {
+      |       ^~~~~~~~~~~
+/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/cell.hh:300:7: note:   candidate expects 0 arguments, 1 provided
+/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/cell.hh:300:7: note: candidate: constexpr voro::voronoicell::voronoicell(const voro::voronoicell&)
+/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/cell.hh:300:7: note:   no known conversion for argument 1 from voro::container_periodic to const voro::voronoicell&
+g++ -I/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/ -g  -c channel.cc
+network.cc: In function void* performVoronoiDecomp(bool, ATOM_NETWORK*, VORONOI_NETWORK*, std::vector<VOR_CELL>&, bool, std::vector<BASIC_VCELL>&):
+network.cc:171:1: warning: control reaches end of non-void function [-Wreturn-type]
+  171 | }
+      | ^
+make: *** [Makefile:149: network.o] Error 1
+make: *** Waiting for unfinished jobs....
+ (at easybuild/easybuild-framework/easybuild/tools/run.py:681 in parse_cmd_output)
+== 2023-12-19 17:34:36,219 build_log.py:267 INFO ... (took 6 secs)
+== 2023-12-19 17:34:36,219 filetools.py:2012 INFO Removing lock /user/gent/470/vsc47063/.local/easybuild/software/.locks/_user_gent_470_vsc47063_.local_easybuild_software_Zeo++_0.3.0-intel-2021a.lock...
+== 2023-12-19 17:34:36,221 filetools.py:383 INFO Path /user/gent/470/vsc47063/.local/easybuild/software/.locks/_user_gent_470_vsc47063_.local_easybuild_software_Zeo++_0.3.0-intel-2021a.lock successfully removed.
+== 2023-12-19 17:34:36,221 filetools.py:2016 INFO Lock removed: /user/gent/470/vsc47063/.local/easybuild/software/.locks/_user_gent_470_vsc47063_.local_easybuild_software_Zeo++_0.3.0-intel-2021a.lock
+== 2023-12-19 17:34:36,221 easyblock.py:4277 WARNING build failed (first 300 chars): cmd " make  -j 8 VOROINCLDIR=-I$EBROOTVOROPLUSPLUS/include/voro++/ VOROLINKDIR=-L$EBROOTVOROPLUSPLUS/lib/" exited with exit code 2 and output:
+g++ -I/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/ -g  -c network.cc
+g++ -I/apps/gent/RHEL8/cascadelake-ib/software/V
+== 2023-12-19 17:34:36,221 easyblock.py:328 INFO Closing log for application name Zeo++ version 0.3.0
+== 2023-12-19 17:34:36,221 build_log.py:267 INFO FAILED: Installation ended unsuccessfully (build directory: /tmp/vsc47063/easybuild/build/Zeo/0.3.0/intel-2021a): build failed (first 300 chars): cmd " make  -j 8 VOROINCLDIR=-I$EBROOTVOROPLUSPLUS/include/voro++/ VOROLINKDIR=-L$EBROOTVOROPLUSPLUS/lib/" exited with exit code 2 and output:
+g++ -I/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/ -g  -c network.cc
+g++ -I/apps/gent/RHEL8/cascadelake-ib/software/V (took 21 secs)
+== 2023-12-19 17:34:36,222 build_log.py:267 INFO Results of the build can be found in the log file(s) /tmp/vsc47063/eb-slcgmt2k/easybuild-Zeo++-0.3.0-20231219.173415.jrGXx.log
+== 2023-12-19 17:34:36,222 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): build failed (first 300 chars): cmd " make  -j 8 VOROINCLDIR=-I$EBROOTVOROPLUSPLUS/include/voro++/ VOROLINKDIR=-L$EBROOTVOROPLUSPLUS/lib/" exited with exit code 2 and output:
+g++ -I/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/ -g  -c network.cc
+g++ -I/apps/gent/RHEL8/cascadelake-ib/software/V (at easybuild/easybuild-framework/easybuild/main.py:138 in build_and_install_software)
+== 2023-12-19 17:34:36,223 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Build of /kyukon/home/gent/470/vsc47063/WIP/140_Zeo++/Zeo.eb failed (err: 'build failed (first 300 chars): cmd " make  -j 8 VOROINCLDIR=-I$EBROOTVOROPLUSPLUS/include/voro++/ VOROLINKDIR=-L$EBROOTVOROPLUSPLUS/lib/" exited with exit code 2 and output:\ng++ -I/apps/gent/RHEL8/cascadelake-ib/software/Voro++/0.4.6-GCCcore-10.3.0/include/voro++/ -g  -c network.cc\ng++ -I/apps/gent/RHEL8/cascadelake-ib/software/V') (at easybuild/easybuild-framework/easybuild/main.py:176 in build_and_install_software)

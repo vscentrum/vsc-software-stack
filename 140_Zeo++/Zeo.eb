@@ -1,0 +1,37 @@
+easyblock = 'MakeCp'
+
+name = 'Zeo++'
+version = '0.3.0'
+
+homepage = 'https://www.zeoplusplus.org/'
+description = """Zeo++ is a software package for analysis of crystalline porous materials. 
+    Zeo++ can be used to perform geometry-based analysis of structure and topology of the void space inside a material, 
+    to assemble or alternate structures as well as to generate structure representations to be used in structure similarity calculations. 
+    Zeo++ can be used to either analyze a single structure or perform high-throughput analysis of a large database."""
+
+toolchain = {'name': 'intel', 'version': '2021a'}
+# toolchainopts = {'cstd': 'c++11'}
+
+local_commit = '99d004b863f5fa6b069ad348fb86e932c6624c1f'
+source_urls = ['https://github.com/richardjgowers/zeoplusplus/archive/']
+# sources = ['zeo++-0.3.tar.gz']
+sources = [{
+    "download_filename": "%s.tar.gz" % local_commit,
+    "filename": "%(name)s-%(version)s.tar.gz"
+}]
+
+builddependencies = [('binutils', '2.36.1')]
+
+buildopts = "VOROINCLDIR=-I$EBROOTVOROPLUSPLUS/include/voro++/ VOROLINKDIR=-L$EBROOTVOROPLUSPLUS/lib/"
+dependencies = [('Voro++', '0.4.6')]
+
+files_to_copy = [(['network'], 'bin')]
+
+sanity_check_paths = { # TODO 
+    'files': [],
+    'dirs': [],
+}
+
+sanity_check_commands = ["network --help"]
+
+moduleclass = 'phys'

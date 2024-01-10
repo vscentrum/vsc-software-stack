@@ -1,0 +1,48 @@
+easyblock = 'Bundle'
+
+name = 'Zeo++'
+version = '0.3.0'
+
+homepage = 'https://www.zeoplusplus.org/'
+description = """Zeo++ is a software package for analysis of crystalline porous materials. 
+    Zeo++ can be used to perform geometry-based analysis of structure and topology of the void space inside a material, 
+    to assemble or alternate structures as well as to generate structure representations to be used in structure similarity calculations. 
+    Zeo++ can be used to either analyze a single structure or perform high-throughput analysis of a large database."""
+
+toolchain = {'name': 'intel', 'version': '2021a'}
+# sources = [{
+#     "download_filename": "%s.tar.gz" % local_commit,
+#     "filename": "%(name)s-%(version)s.tar.gz"
+# }]
+
+builddependencies = [('binutils', '2.36.1')]
+
+# dependencies = [('Voro++', '0.4.6')]
+
+files_to_copy = [(['network'], 'bin')]
+
+sanity_check_all_components = True
+
+default_component_specs = {
+    source_urls = ['https://github.com/yifeimichelle/zeoplusplus/archive/']
+    sources = ['v0.3-extended-output.tar.gz']
+    'sources': [SOURCE_TAR_GZ],
+    'start_dir': '%(name)s-%(version)s',
+}
+components = [ #
+    ('voro++', version, { # update
+        'easyblock': 'CMakeMake',
+    }),
+    ('zeo', 'xxversion', { # update
+        'easyblock': 'MakeCp',
+        # buildopts = "VOROINCLDIR=-I$EBROOTVOROPLUSPLUS/include/voro++/ VOROLINKDIR=-L$EBROOTVOROPLUSPLUS/lib/"
+        'sanity_check_paths': {
+            'files': ['lib/liblapacke.%s' % SHLIB_EXT, 'include/flexiblas/lapacke.h'],
+            'dirs': [],
+        },
+        sanity_check_commands = ["network --help"]
+    }),
+]
+
+
+moduleclass = 'phys'
