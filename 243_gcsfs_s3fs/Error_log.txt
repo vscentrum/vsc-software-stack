@@ -1,0 +1,17 @@
+Solved by a change in modulenames
+
+Error:
+== 2024-01-12 12:31:41,912 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __
+ Sanity check failed: extensions sanity check failed for 3 extensions: protobuf, googleapis-common-protos, google-auth-oauthlib
+failing sanity check for 'protobuf' extension: command "python -c "import protobuf"" failed; output:
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'protobuf', 
+failing sanity check for 'googleapis-common-protos' extension: command "python -c "import googleapis_common_protos"" failed; output:
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'googleapis_common_protos', 
+failing sanity check for 'google-auth-oauthlib' extension: command "python -c "import google.auth.oauthlib"" failed; output:
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'google.auth.oauthlib',  (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3655 in _sanity_check_step)
