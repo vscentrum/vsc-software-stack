@@ -1,5 +1,4 @@
-# easyblock = 'ConfigureMake'
-easyblock = 'MakeCp'
+easyblock = 'ConfigureMake'
 
 name = 'PASA'
 version = '2.5.3'
@@ -25,19 +24,14 @@ dependencies = [
     ('FASTA', '36.3.8i'),
 ]
 
-# buildininstalldir = True
-# skipsteps = ['configure', 'install']
+buildininstalldir = True
+
+skipsteps = ['configure', 'install']
+
+unpack_options = '--strip-components=1'
 
 local_bins = ['%(namelower)s', 'cdbfasta', 'cdbyank', 'cln2qual', 'mdust',
     'psx', 'seqclean', 'seqclean.psx', 'slclust', 'trimpoly']
-
-# files_to_copy = [
-#     (['bin/%s' % x for x in local_bins], 'bin'),
-# ]
-
-files_to_copy = [
-    (['*'], '.'),
-]
 
 sanity_check_paths = {
     'files': ['bin/%s' % x for x in local_bins],
