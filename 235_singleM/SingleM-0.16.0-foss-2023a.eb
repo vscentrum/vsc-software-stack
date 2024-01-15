@@ -15,7 +15,7 @@ dependencies = [
     ('Python', '3.11.3'), 
     ('SciPy-bundle', '2023.07'),  # for pandas
     ('matplotlib', '3.7.2'),
-    ('Biopython', '1.81'), # do for 2023a
+    ('Biopython', '1.83'), 
     # polars >= 0.19.3 # in EC only polars 0.15.6
     ('tqdm', '4.66.1'),
     ('Arrow', '14.0.1'),
@@ -38,12 +38,16 @@ sanity_pip_check = True
 # required because we're building Python packages using Intel compilers on top of Python built with GCC
 # check_ldshared = True
 
+ # ('zenodo_backpack', '0.2.0', {
+#     'checksums': ['5843a04b353ae613b474932c2a12d1fbfd529674074e73927ddc131eba7f1da8'],
+# }),
+
+# ('bird_tool_utils', '0.4.1', {
+#     'checksums': ['6fe80f9608626427e8d382c5341c24088d61f17336fb6ce834d40aa4577499b5'],
+# }),
 exts_list = [
     ('pyranges', '0.0.129', {
         'checksums': ['bee83b4fad0062be9586668c6b0fc4270d5e761951975e018202993680071fb3'],
-    }),
-    ('zenodo_backpack', '0.2.0', {
-        'checksums': ['5843a04b353ae613b474932c2a12d1fbfd529674074e73927ddc131eba7f1da8'],
     }),
     ('SQLAlchemy', '2.0.25', {
         'checksums': ['a2c69a7664fb2d54b8682dd774c3b54f67f84fa123cf84dda2a5f40dcaa04e08'],
@@ -51,13 +55,10 @@ exts_list = [
     ('extern', '0.4.1', {
         'checksums': ['0ff01adc2ad423f3d1e31641024b3974569fb0127b4d925bc6bed1cb86b6b1e4'],
     }),
-    ('bird_tool_utils', '0.4.1', {
-        'checksums': ['6fe80f9608626427e8d382c5341c24088d61f17336fb6ce834d40aa4577499b5'],
-    }),
     ('graftm', '0.15.0', {
         'checksums': ['794b2c6a8fff36c81db8b9a544ac021ab1397c569638bf7651ce5329db36de21'],
     }),
-    ('%(namelower)s', version, {
+    ('singlem', version, {
         'checksums': ['64e43a6a40795d68ff5aed7dfff9a94532b862f25a28c27de7d588d64a8c7f79'],
     }),
 ]
