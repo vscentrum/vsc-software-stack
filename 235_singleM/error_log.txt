@@ -1,0 +1,100 @@
+Error after change to CargoPythonBundle:
+ERROR:
+== 2024-01-15 22:27:32,074 run.py:246 INFO running cmd:  /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install -
+-prefix=/user/gent/470/vsc47063/.local/easybuild/software/polars/0.20.4-foss-2023a  --no-deps  --ignore-installed  --no-index  --no-build-isolation  . 
+== 2024-01-15 22:27:39,191 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __
+init__): cmd " /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install --prefix=/user/gent/470/vsc47063/.local/eas
+ybuild/software/polars/0.20.4-foss-2023a  --no-deps  --ignore-installed  --no-index  --no-build-isolation  ." exited with exit code 1 and output:
+Processing /tmp/vsc47063/easybuild/build/polars/0.20.4/foss-2023a/polars-0.20.4
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+   Preparing metadata (pyproject.toml) did not run successfully.
+   exit code: 1
+  > [19 lines of output]
+      error: failed to get `ahash` as a dependency of package `polars v0.36.2 (/tmp/vsc47063/easybuild/build/polars/0.20.4/foss-2023a/polars-0.20.4/crates
+/polars)`
+      
+      Caused by:
+        failed to load source for dependency `ahash`
+      
+      Caused by:
+        Unable to update registry `crates-io`
+      
+      Caused by:
+        failed to update replaced source registry `crates-io`
+      
+      Caused by:
+        found a virtual manifest at `/tmp/vsc47063/easybuild/build/polars/0.20.4/foss-2023a/polars-0.20.4/Cargo.toml` instead of a package manifest
+       maturin failed
+        Caused by: Cargo metadata failed. Does your crate compile with `cargo build`?
+        Caused by: `cargo metadata` exited with an error:
+        Error running maturin: Command '['maturin', 'pep517', 'write-dist-info', '--metadata-directory', '/tmp/vsc47063/eb-maktmf5d/pip-modern-metadata-rkp_
+3jd0', '--interpreter', '/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python']' returned non-zero exit status 1.
+      Checking for Rust toolchain....
+      Running `maturin pep517 write-dist-info --metadata-directory /tmp/vsc47063/eb-maktmf5d/pip-modern-metadata-rkp_3jd0 --interpreter /apps/gent/RHEL8/c
+ascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python`
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+ Encountered error while generating package metadata.
+> See above for output.
+
+####################################
+Error with ahash problem:
+ERROR:
+== 2024-01-15 22:43:45,138 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __
+init__): cmd " /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install --prefix=/user/gent/470/vsc47063/.local/eas
+ybuild/software/polars/0.20.4-foss-2023a  --no-deps  --ignore-installed  --no-index  --no-build-isolation  ." exited with exit code 1 and output:
+Processing /tmp/vsc47063/easybuild/build/polars/0.20.4/foss-2023a/polars/polars-0.20.4
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: polars
+  Building wheel for polars (pyproject.toml): started
+  Building wheel for polars (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+   Building wheel for polars (pyproject.toml) did not run successfully.
+   exit code: 1
+  > [54 lines of output]
+      Running `maturin pep517 build-wheel -i /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python --compatibility off`
+       Building a mixed python/rust project
+       Found pyo3 bindings with abi3 support for Python  3.8
+       Not using a specific python interpreter
+         Compiling libc v0.2.151
+         Compiling proc-macro2 v1.0.74
+         Compiling unicode-ident v1.0.12
+         ...
+         Compiling bytes v1.5.0
+      error[E0658]: use of unstable library feature 'build_hasher_simple_hash_one'
+         --> /user/gent/470/vsc47063/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ahash-0.8.7/src/random_state.rs:463:5
+          |
+      463 | /     fn hash_one<T: Hash>(&self, x: T) -> u64 {
+      464 | |         RandomState::hash_one(self, x)
+      465 | |     }
+          | |_____^
+          |
+          = note: see issue #86161 <https://github.com/rust-lang/rust/issues/86161> for more information
+          = help: add `#![feature(build_hasher_simple_hash_one)]` to the crate attributes to enable
+      
+      For more information about this error, try `rustc --explain E0658`.
+      error: could not compile `ahash` (lib) due to previous error
+      warning: build failed, waiting for other jobs to finish...
+       maturin failed
+        Caused by: Failed to build a native library through cargo
+        Caused by: Cargo build finished with "exit status: 101": `PYO3_ENVIRONMENT_SIGNATURE="cpython-3.11-64bit" PYO3_PYTHON="/apps/gent/RHEL8/cascadelak
+e-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python" PYTHON_SYS_EXECUTABLE="/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/py
+thon" "cargo" "rustc" "--message-format" "json-render-diagnostics" "--manifest-path" "/tmp/vsc47063/easybuild/build/polars/0.20.4/foss-2023a/polars/polars
+-0.20.4/py-polars/Cargo.toml" "--release" "--lib"`
+      Error: command ['maturin', 'pep517', 'build-wheel', '-i', '/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python', '--com
+patibility', 'off'] returned non-zero exit status 1
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for polars
+Failed to build polars
+ERROR: Could not build wheels for polars, which is required to install pyproject.toml-based projects
+ (at easybuild/easybuild-framework/easybuild/tools/run.py:681 in parse_cmd_output)
