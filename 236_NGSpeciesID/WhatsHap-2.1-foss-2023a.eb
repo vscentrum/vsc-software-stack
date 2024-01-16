@@ -1,0 +1,55 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+
+easyblock = 'PythonBundle'
+
+name = 'WhatsHap'
+version = '2.1'
+
+homepage = 'https://whatshap.readthedocs.io'
+description = """WhatsHap is a software for phasing genomic variants using DNA
+sequencing reads, also called read-based phasing or haplotype assembly. It is
+especially suitable for long reads, but works also well with short reads."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# builddependencies = [('Python-bundle-PyPI', '2023.06')]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Pysam', '0.22.0'),
+    ('networkx', '3.1'),
+    ('SciPy-bundle', '2023.07'),
+    ('Biopython', '1.83'),
+    ('Yasm', '1.3.0'),
+    ('pyfaidx', '0.8.0'),
+    ('python-isal', '1.1.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('isal', '1.5.3', {
+        'checksums': ['01d9b76db3535374d720a06f5d66031f74e609698f0382fdd6ab3a0351210b72'],
+    }),
+    ('xopen', '1.8.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['e151a23bcaa0913e9683654c197d1da2444d4e59f27aa17e93bbf42eb4a72d7d'],
+    }),
+    ('PuLP', '2.8.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['4a19814a5b0a4392d788ac2315263435293579b0583c3469943fe0c6a586f263'],
+    }),
+    ('whatshap', version, {
+        'checksums': ['9b61812eda1dd5251ba8d02db16d7ddda152ccc813cb3db6a1ec796f1865fe8d'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['%(namelower)s --help']
+
+moduleclass = 'bio'
