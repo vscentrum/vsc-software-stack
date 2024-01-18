@@ -23,13 +23,13 @@ dependencies = [
 ]
 
 exts_list = [
-    # ('plot', '0.6.5'),
+    ('plot', '0.6.5'),
     ('deltalake', '0.15.1'),
     ('xlsx2csv', '0.8.2'),
     ('connectorx', '0.3.2', {
         'source_tmpl': 'connectorx-%(version)s-cp311-cp311-manylinux_2_28_x86_64.whl',
     }),
-    # (name, version),
+    ('polars', '0.20.4'),
 ]
 
 #   ('setuptools', '65.6.3', {
@@ -42,6 +42,8 @@ exts_list = [
 # }
 
 # sanity_check_commands = ["python -c 'import polars'"]
+
+sources = [SOURCELOWER_TAR_GZ]
 
 crates = [
     ('addr2line', '0.21.0'),
