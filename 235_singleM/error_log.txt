@@ -1,3 +1,51 @@
+Polar build -> bad maturin or cargo?
+ERROR:
+== 2024-01-18 19:00:19,731 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " /apps/gent/RHftware/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/polars/0.20.4s  --ignore-installed  --no-index  --no-build-isolation  ." exited with exit code 1 and output:
+Processing /tmp/vsc47063/easybuild/build/polars/0.20.4/foss-2023a/deltalake/deltalake-0.15.1
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+   Preparing metadata (pyproject.toml) did not run successfully.
+   exit code: 1
+  > [9 lines of output]
+      error: no matching package named `backoff` found
+      location searched: registry `crates-io`
+      required by package `deltalake-aws v0.1.0 (/tmp/vsc47063/easybuild/build/polars/0.20.4/foss-2023a/deltalake/deltalake-0.15.1/crates/deltalake-aws)`
+       maturin failed
+        Caused by: Cargo metadata failed. Does your crate compile with `cargo build`?
+        Caused by: `cargo metadata` exited with an error:
+      Error running maturin: Command '['maturin', 'pep517', 'write-dist-info', '--metadata-directory', '/tmp/vsc47063/eb-e0phfcd2/pip-modern-metadata-tfg4pu9y', '--interpreter', '/aplake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python']' returned non-zero exit status 1.
+      Checking for Rust toolchain....
+      Running `maturin pep517 write-dist-info --metadata-directory /tmp/vsc47063/eb-e0phfcd2/pip-modern-metadata-tfg4pu9y --interpreter /apps/gent/RHEL8/cascadelake-ib/software/Pytho.0/bin/python`
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+ Encountered error while generating package metadata.
+> See above for output.
+
+##########################################
+Error for polars:
+ERROR:
+== 2024-01-18 15:17:40,879 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__)
+r/share/lmod/lmod/libexec/lmod python load maturin/1.1.0-GCCcore-12.3.0' failed with exit code 1; stderr: Lmod has detected the following error: A different vers
+ule is already loaded (see output of 'ml').
+You should load another 'maturin' module for that is compatible with the currently loaded version of 'Rust'.
+Use 'ml spider maturin' to get an overview of the available versions.
+
+
+If you don't understand the warning or error, contact the helpdesk at hpc@ugent.be 
+While processing the following module(s):
+    Module fullname               Module Filename
+    ---------------               ---------------
+    maturin/1.1.0-GCCcore-12.3.0  /apps/gent/RHEL8/cascadelake-ib/modules/all/maturin/1.1.0-GCCcore-12.3.0.lua
+
+; stdout: _mlstatus = False
+ (at easybuild/easybuild-framework/easybuild/tools/modules.py:839 in run_module)
+
+ ###############################################
 Error after change to CargoPythonBundle:
 ERROR:
 == 2024-01-15 22:27:32,074 run.py:246 INFO running cmd:  /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install -
