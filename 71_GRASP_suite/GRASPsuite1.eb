@@ -37,24 +37,18 @@ checksums = ['7ee4cbc9f23857c8c7cf3e6bd0dde962d9a244974d955aac92212b5b5e29a385']
 dependencies = [('Java', '17')]
 
 postinstallcmds = [
-    # 'echo "$PWD"' >>> /tmp/vsc47063/easybuild/build/GRASPsuite/2024.01.16/system-system-Java-11
-    # 'echo "$ls"', >>> nothing
-    #'cd %(installdir)s' #>>> cd /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GRASP-suite/2024.01.16-Java-11
-    "mkdir %(installdir)s/bin",
-    "mkdir %(installdir)s/lib",
-    "touch %(installdir)s/bin/grasp",
+    "mkdir -p %(installdir)s/bin",
     "echo '#!/bin/sh' > %(installdir)s/bin/grasp",
-    # "echo 'java -jar -Xmx16g $EBROOTGRASPSUITE/%(name)s-%(version)s.jar $@' >> %(installdir)s/bin/grasp",
-    "echo 'java -jar -Xmx16g $EBROOTGRASPSUITE/bnkit.jar $@' >> %(installdir)s/bin/grasp",
+    "echo 'java -jar -Xmx16g %(installdir)s/bnkit.jar $@' >> %(installdir)s/bin/grasp",
     "chmod a+rx %(installdir)s/bin/grasp"
 ]
 
 sanity_check_commands = ["grasp -h"]
 
-# sanity_check_paths = {
-#     'files': ['mixcr', 'mixcr.jar'],
-#     'dirs': [],
-# }
+sanity_check_paths = {
+    'files': ['bin/grasp', 'bnkit.jar'],
+    'dirs': [],
+}
 
 # sanity_check_commands = ["command -v mixcr"]
 
