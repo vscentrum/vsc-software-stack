@@ -1,0 +1,63 @@
+easyblock = 'JAR'
+
+name = 'GRASP-suite'
+version = '2024.01.16'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://bodenlab.github.io/GRASP-suite/'
+description = """GRASP-suite is a collection of tools and tutorials to perform and 
+analyse ancestral sequence reconstruction."""
+
+toolchain = SYSTEM
+# content/project/graspcmd/archive/bnkit_java_11.jar
+# 'https://github.com/bodenlab/GRASP-suite/blob/%s/content/project/graspcmd/archive/' % local_commit
+# https://bodenlab.github.io/GRASP-suite/project/graspcmd/archive/bnkit.jar
+# local_commit = '97cceec83c4455408bddb12b2660032c14899c95'
+# source_urls = ['https://github.com/bodenlab/GRASP-suite/blob/%s/content/project/graspcmd/archive/' % local_commit]
+source_urls = ['https://bodenlab.github.io/GRASP-suite/project/graspcmd/archive/']
+sources = ['bnkit.jar']
+checksums = ['7ee4cbc9f23857c8c7cf3e6bd0dde962d9a244974d955aac92212b5b5e29a385']
+
+# sources = [{
+# 	"download_filename": "bnkit_java_11.jar",
+# 	"filename": "%(name)s-%(version)s.jar"
+# }]
+# local_commit = '04744b0ea3d802645b73ab7e799145d306ee437c'
+# source_urls = ['https://github.com/bodenlab/GRASP/archive/']
+# sources = [{
+# 	"download_filename": "%s.tar.gz" % local_commit,
+# 	"filename": "%(name)s-%(version)s.tar.gz"
+# }]
+# checksums = ['526b84118748e2232db666b52a3e3fd0a1cb31fc3c5d527d4498785628a4e9da']
+
+# builddependencies = [
+#     ('Maven', '3.6.3'), 
+# ]
+
+dependencies = [('Java', '17')]
+
+postinstallcmds = [
+    # 'echo "$PWD"' >>> /tmp/vsc47063/easybuild/build/GRASPsuite/2024.01.16/system-system-Java-11
+    # 'echo "$ls"', >>> nothing
+    #'cd %(installdir)s' #>>> cd /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GRASP-suite/2024.01.16-Java-11
+    "mkdir %(installdir)s/bin",
+    "mkdir %(installdir)s/lib",
+    "touch %(installdir)s/bin/grasp",
+    "echo '#!/bin/sh' > %(installdir)s/bin/grasp",
+    # "echo 'java -jar -Xmx16g $EBROOTGRASPSUITE/%(name)s-%(version)s.jar $@' >> %(installdir)s/bin/grasp",
+    "echo 'java -jar -Xmx16g $EBROOTGRASPSUITE/bnkit.jar $@' >> %(installdir)s/bin/grasp",
+    "chmod a+rx %(installdir)s/bin/grasp"
+]
+
+sanity_check_commands = ["grasp -h"]
+
+# sanity_check_paths = {
+#     'files': ['mixcr', 'mixcr.jar'],
+#     'dirs': [],
+# }
+
+# sanity_check_commands = ["command -v mixcr"]
+
+# modextrapaths = {'PATH': ''}
+
+moduleclass = 'bio'
