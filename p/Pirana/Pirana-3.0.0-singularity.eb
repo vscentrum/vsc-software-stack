@@ -28,12 +28,22 @@ files_to_copy = [
     ([local_img_name], 'img'),
 ]
 
+local_singularity_custom_args = ''
+# Uncomment to always bind-mount the ${VSC_DATA} directory in the container
+#local_singularity_custom_args += '-B \${VSC_DATA}:\${VSC_DATA} '
+
+local_launch_cmd = 'singularity exec \"\${@:2}\" '
+local_launch_cmd += local_singularity_custom_args
+local_launch_cmd += '%(installdir)s/img/pirana.sif perl \$1'
+
+local_pirana_bin = '%(installdir)s/bin/pirana'
+
 postinstallcmds = [
      # Add a 'pirana' script to make it easier to launch the container
      'mkdir %(installdir)s/bin',
-     'echo "#!/usr/bin/env bash" > %(installdir)s/bin/pirana',
-     'echo "singularity exec -B \${VSC_DATA}:\${VSC_DATA} \"\${@:2}\" %(installdir)s/img/pirana.sif perl \$1" >> %(installdir)s/bin/pirana',
-     'chmod +x %(installdir)s/bin/pirana',
+     'echo "#!/usr/bin/env bash" > %s' % local_pirana_bin,
+     'echo "%s" >> %s' % (local_launch_cmd, local_pirana_bin),
+     'chmod +x %s' % local_pirana_bin,
 ]
 
 sanity_check_paths = {
