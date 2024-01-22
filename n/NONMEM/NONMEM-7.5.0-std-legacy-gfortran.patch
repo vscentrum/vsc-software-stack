@@ -1,0 +1,13 @@
+# The source contains non-conforming Fortran code,
+# so gfortran needs the -std=legacy option
+--- nm750CD/SETUP75_orig	2023-07-27 10:11:44.172408000 +0200
++++ nm750CD/SETUP75	2023-07-27 10:12:01.958492000 +0200
+@@ -404,7 +404,7 @@
+ echo "end" >>dummyfile.f90
+ gfortran -c dummyfile.f90 -ffpe-summary=none  >trash.txt 2>&1
+ if [ $? == 0 ]; then fpesummary="-ffpe-summary=none"; fi
+-op="-w -O3 -ffast-math ""$fpesummary"
++op="-w -O3 -ffast-math -std=legacy ""$fpesummary"
+ fi
+ 
+ if [[ $os == Darwin && $ftail == gfortran ]]; then op="$op ""$m" ; fi
