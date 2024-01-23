@@ -8,20 +8,20 @@ description = "The Snakemake workflow management system is a tool to create repr
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-dependencies = [
+dependencies = [ #ALL deps are ok
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
     ('GitPython', '3.1.40'),
     ('IPython', '8.14.0'),
     ('PyYAML', '6.0'),
     ('wrapt', '1.15.0'),
-    # ('PuLP', '2.7.0'),#NO!
+    ('PuLP', '2.8.0'),
 ]
 
 use_pip = True
 sanity_pip_check = True
 
-exts_list = [
+exts_list = [ #TODO: update exts
     ('ConfigArgParse', '1.7', {
         'checksums': ['e7067471884de5478c58a511e529f0f9bd1c66bfef1dea90935438d6c23306d1'],
     }),

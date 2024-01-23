@@ -11,8 +11,9 @@ stand-alone executable."""
 toolchain = {'name': 'foss', 'version': '2023a'}
 toolchainopts = {'pic': True, 'usempi': True}
 
-source_urls = ['https://www.coin-or.org/download/source/%(name)s/']
-sources = [SOURCE_TGZ]
+source_urls = ['https://github.com/coin-or/Cbc/archive/refs/tags/releases/']
+sources = ['%(version)s.tar.gz']
+checksums = ['1fb591dd88336fdaf096b8e42e46111e41671a5eb85d4ee36e45baff1678bd33']
 
 builddependencies = [
     ('Autotools', '20220317'),
