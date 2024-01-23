@@ -1,0 +1,294 @@
+`configure' configures Wine 9.0 to adapt to many kinds of systems.
+
+Usage: ./configure [OPTION]... [VAR=VALUE]...
+
+To assign environment variables (e.g., CC, CFLAGS...), specify them as
+VAR=VALUE.  See below for descriptions of some of the useful variables.
+
+Defaults for the options are specified in brackets.
+
+Configuration:
+  -h, --help              display this help and exit
+      --help=short        display options specific to this package
+      --help=recursive    display the short help of all the included packages
+  -V, --version           display version information and exit
+  -q, --quiet, --silent   do not print `checking ...' messages
+      --cache-file=FILE   cache test results in FILE [disabled]
+  -C, --config-cache      alias for `--cache-file=config.cache'
+  -n, --no-create         do not create output files
+      --srcdir=DIR        find the sources in DIR [configure dir or `..']
+
+Installation directories:
+  --prefix=PREFIX         install architecture-independent files in PREFIX
+                          [/usr/local]
+  --exec-prefix=EPREFIX   install architecture-dependent files in EPREFIX
+                          [PREFIX]
+
+By default, `make install' will install all the files in
+`/usr/local/bin', `/usr/local/lib' etc.  You can specify
+an installation prefix other than `/usr/local' using `--prefix',
+for instance `--prefix=$HOME'.
+
+For better control, use the options below.
+
+Fine tuning of the installation directories:
+  --bindir=DIR            user executables [EPREFIX/bin]
+  --sbindir=DIR           system admin executables [EPREFIX/sbin]
+  --libexecdir=DIR        program executables [EPREFIX/libexec]
+  --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
+  --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
+  --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
+  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
+  --libdir=DIR            object code libraries [EPREFIX/lib]
+  --includedir=DIR        C header files [PREFIX/include]
+  --oldincludedir=DIR     C header files for non-gcc [/usr/include]
+  --datarootdir=DIR       read-only arch.-independent data root [PREFIX/share]
+  --datadir=DIR           read-only architecture-independent data [DATAROOTDIR]
+  --infodir=DIR           info documentation [DATAROOTDIR/info]
+  --localedir=DIR         locale-dependent data [DATAROOTDIR/locale]
+  --mandir=DIR            man documentation [DATAROOTDIR/man]
+  --docdir=DIR            documentation root [DATAROOTDIR/doc/wine]
+  --htmldir=DIR           html documentation [DOCDIR]
+  --dvidir=DIR            dvi documentation [DOCDIR]
+  --pdfdir=DIR            pdf documentation [DOCDIR]
+  --psdir=DIR             ps documentation [DOCDIR]
+
+X features:
+  --x-includes=DIR    X include files are in DIR
+  --x-libraries=DIR   X library files are in DIR
+
+System types:
+  --build=BUILD     configure for building on BUILD [guessed]
+  --host=HOST       cross-compile to build programs to run on HOST [BUILD]
+
+Optional Features:
+  --disable-option-checking  ignore unrecognized --enable/--with options
+  --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
+  --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+  --enable-archs={i386,x86_64,arm,aarch64}
+                          enable multiple architectures for PE compilation
+  --disable-win16         do not include Win16 support
+  --enable-win64          build a Win64 emulator on AMD64 (won't run Win32
+                          binaries)
+  --disable-tests         do not build the regression tests
+  --enable-build-id       include .buildid section in output objects
+  --enable-maintainer-mode
+                          enable maintainer-specific build rules
+  --enable-silent-rules   use silent build rules (override: "make V=1")
+  --enable-werror         treat compilation warnings as errors
+  --disable-largefile     omit support for large files
+
+Optional Packages:
+  --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
+  --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+  --without-alsa          do not use the Alsa sound support
+  --without-capi          do not use CAPI (ISDN support)
+  --without-coreaudio     do not use the CoreAudio sound support
+  --without-cups          do not use CUPS
+  --without-dbus          do not use DBus (dynamic device support)
+  --with-float-abi=abi    specify the ABI (soft|softfp|hard) for ARM platforms
+  --without-fontconfig    do not use fontconfig
+  --without-freetype      do not use the FreeType library
+  --without-gettext       do not use gettext
+  --with-gettextpo        use the GetTextPO library to rebuild po files
+  --without-gphoto        do not use gphoto (Digital Camera support)
+  --without-gnutls        do not use GnuTLS (schannel support)
+  --without-gssapi        do not use GSSAPI (Kerberos SSP support)
+  --without-gstreamer     do not use GStreamer (codecs support)
+  --without-inotify       do not use inotify (filesystem change notifications)
+  --without-krb5          do not use krb5 (Kerberos)
+  --without-mingw         do not use the MinGW cross-compiler
+  --without-netapi        do not use the Samba NetAPI library
+  --without-opencl        do not use OpenCL
+  --without-opengl        do not use OpenGL
+  --without-osmesa        do not use the OSMesa library
+  --without-oss           do not use the OSS sound support
+  --without-pcap          do not use the Packet Capture library
+  --without-pcsclite      do not use PCSC lite
+  --without-pthread       do not use the pthread library
+  --without-pulse         do not use PulseAudio sound support
+  --without-sane          do not use SANE (scanner support)
+  --without-sdl           do not use SDL
+  --without-udev          do not use udev (plug and play support)
+  --without-unwind        do not use the libunwind library (exception
+                          handling)
+  --without-usb           do not use the libusb library
+  --without-v4l2          do not use v4l2 (video capture)
+  --without-vulkan        do not use Vulkan
+  --without-wayland       do not build the Wayland driver
+  --without-xcomposite    do not use the Xcomposite extension
+  --without-xcursor       do not use the Xcursor extension
+  --without-xfixes        do not use Xfixes for clipboard change notifications
+  --without-xinerama      do not use Xinerama (legacy multi-monitor support)
+  --without-xinput        do not use the Xinput extension
+  --without-xinput2       do not use the Xinput 2 extension
+  --without-xrandr        do not use Xrandr (multi-monitor support)
+  --without-xrender       do not use the Xrender extension
+  --without-xshape        do not use the Xshape extension
+  --without-xshm          do not use XShm (shared memory extension)
+  --without-xxf86vm       do not use XFree video mode extension
+  --with-system-dllpath=PATH
+                          load external PE dependencies from colon-separated
+                          path PATH
+  --with-wine-tools=DIR   use Wine tools from directory DIR
+  --with-wine64=DIR       use the 64-bit Wine in DIR for a Wow64 build
+  --with-x                use the X Window System
+
+Some influential environment variables:
+  CC          C compiler command
+  CFLAGS      C compiler flags
+  LDFLAGS     linker flags, e.g. -L<lib dir> if you have libraries in a
+              nonstandard directory <lib dir>
+  LIBS        libraries to pass to the linker, e.g. -l<library>
+  CPPFLAGS    (Objective) C/C++ preprocessor flags, e.g. -I<include dir> if
+              you have headers in a nonstandard directory <include dir>
+  CXX         C++ compiler command
+  CXXFLAGS    C++ compiler flags
+  OBJC        Objective C compiler command
+  OBJCFLAGS   Objective C compiler flags
+  FAUDIO_PE_CFLAGS
+              C compiler flags for the PE faudio, overriding the bundled
+              version
+  FAUDIO_PE_LIBS
+              Linker flags for the PE faudio, overriding the bundled version
+  FLUIDSYNTH_PE_CFLAGS
+              C compiler flags for the PE fluidsynth, overriding the bundled
+              version
+  FLUIDSYNTH_PE_LIBS
+              Linker flags for the PE fluidsynth, overriding the bundled
+              version
+  GSM_PE_CFLAGS
+              C compiler flags for the PE gsm, overriding the bundled version
+  GSM_PE_LIBS Linker flags for the PE gsm, overriding the bundled version
+  JPEG_PE_CFLAGS
+              C compiler flags for the PE jpeg, overriding the bundled version
+  JPEG_PE_LIBS
+              Linker flags for the PE jpeg, overriding the bundled version
+  JXR_PE_CFLAGS
+              C compiler flags for the PE jxr, overriding the bundled version
+  JXR_PE_LIBS Linker flags for the PE jxr, overriding the bundled version
+  LCMS2_PE_CFLAGS
+              C compiler flags for the PE lcms2, overriding the bundled
+              version
+  LCMS2_PE_LIBS
+              Linker flags for the PE lcms2, overriding the bundled version
+  LDAP_PE_CFLAGS
+              C compiler flags for the PE ldap, overriding the bundled version
+  LDAP_PE_LIBS
+              Linker flags for the PE ldap, overriding the bundled version
+  MPG123_PE_CFLAGS
+              C compiler flags for the PE mpg123, overriding the bundled
+              version
+  MPG123_PE_LIBS
+              Linker flags for the PE mpg123, overriding the bundled version
+  MUSL_PE_CFLAGS
+              C compiler flags for the PE musl, overriding the bundled version
+  MUSL_PE_LIBS
+              Linker flags for the PE musl, overriding the bundled version
+  PNG_PE_CFLAGS
+              C compiler flags for the PE png, overriding the bundled version
+  PNG_PE_LIBS Linker flags for the PE png, overriding the bundled version
+  TIFF_PE_CFLAGS
+              C compiler flags for the PE tiff, overriding the bundled version
+  TIFF_PE_LIBS
+              Linker flags for the PE tiff, overriding the bundled version
+  VKD3D_PE_CFLAGS
+              C compiler flags for the PE vkd3d, overriding the bundled
+              version
+  VKD3D_PE_LIBS
+              Linker flags for the PE vkd3d, overriding the bundled version
+  XML2_PE_CFLAGS
+              C compiler flags for the PE xml2, overriding the bundled version
+  XML2_PE_LIBS
+              Linker flags for the PE xml2, overriding the bundled version
+  XSLT_PE_CFLAGS
+              C compiler flags for the PE xslt, overriding the bundled version
+  XSLT_PE_LIBS
+              Linker flags for the PE xslt, overriding the bundled version
+  ZLIB_PE_CFLAGS
+              C compiler flags for the PE zlib, overriding the bundled version
+  ZLIB_PE_LIBS
+              Linker flags for the PE zlib, overriding the bundled version
+  ZYDIS_PE_CFLAGS
+              C compiler flags for the PE zydis, overriding the bundled
+              version
+  ZYDIS_PE_LIBS
+              Linker flags for the PE zydis, overriding the bundled version
+  XMKMF       Path to xmkmf, Makefile generator for X Window System
+  CPP         C preprocessor
+  WAYLAND_CLIENT_CFLAGS
+              C compiler flags for wayland-client, overriding pkg-config
+  WAYLAND_CLIENT_LIBS
+              Linker flags for wayland-client, overriding pkg-config
+  XKBCOMMON_CFLAGS
+              C compiler flags for xkbcommon, overriding pkg-config
+  XKBCOMMON_LIBS
+              Linker flags for xkbcommon, overriding pkg-config
+  XKBREGISTRY_CFLAGS
+              C compiler flags for xkbregistry, overriding pkg-config
+  XKBREGISTRY_LIBS
+              Linker flags for xkbregistry, overriding pkg-config
+  INOTIFY_CFLAGS
+              C compiler flags for libinotify, overriding pkg-config
+  INOTIFY_LIBS
+              Linker flags for libinotify, overriding pkg-config
+  DBUS_CFLAGS C compiler flags for dbus-1, overriding pkg-config
+  DBUS_LIBS   Linker flags for dbus-1, overriding pkg-config
+  GNUTLS_CFLAGS
+              C compiler flags for gnutls, overriding pkg-config
+  GNUTLS_LIBS Linker flags for gnutls, overriding pkg-config
+  SANE_CFLAGS C compiler flags for sane-backends, overriding pkg-config
+  SANE_LIBS   Linker flags for sane-backends, overriding pkg-config
+  USB_CFLAGS  C compiler flags for libusb-1.0, overriding pkg-config
+  USB_LIBS    Linker flags for libusb-1.0, overriding pkg-config
+  GPHOTO2_CFLAGS
+              C compiler flags for libgphoto2, overriding pkg-config
+  GPHOTO2_LIBS
+              Linker flags for libgphoto2, overriding pkg-config
+  GPHOTO2_PORT_CFLAGS
+              C compiler flags for libgphoto2_port, overriding pkg-config
+  GPHOTO2_PORT_LIBS
+              Linker flags for libgphoto2_port, overriding pkg-config
+  FREETYPE_CFLAGS
+              C compiler flags for freetype2, overriding pkg-config
+  FREETYPE_LIBS
+              Linker flags for freetype2, overriding pkg-config
+  PULSE_CFLAGS
+              C compiler flags for libpulse, overriding pkg-config
+  PULSE_LIBS  Linker flags for libpulse, overriding pkg-config
+  GSTREAMER_CFLAGS
+              C compiler flags for gstreamer-1.0 gstreamer-video-1.0
+              gstreamer-audio-1.0 gstreamer-tag-1.0, overriding pkg-config
+  GSTREAMER_LIBS
+              Linker flags for gstreamer-1.0 gstreamer-video-1.0
+              gstreamer-audio-1.0 gstreamer-tag-1.0, overriding pkg-config
+  UDEV_CFLAGS C compiler flags for libudev, overriding pkg-config
+  UDEV_LIBS   Linker flags for libudev, overriding pkg-config
+  UNWIND_CFLAGS
+              C compiler flags for libunwind, overriding pkg-config
+  UNWIND_LIBS Linker flags for libunwind, overriding pkg-config
+  SDL2_CFLAGS C compiler flags for sdl2, overriding pkg-config
+  SDL2_LIBS   Linker flags for sdl2, overriding pkg-config
+  CAPI20_CFLAGS
+              C compiler flags for capi20, overriding pkg-config
+  CAPI20_LIBS Linker flags for capi20, overriding pkg-config
+  CUPS_CFLAGS C compiler flags for cups, overriding pkg-config
+  CUPS_LIBS   Linker flags for cups, overriding pkg-config
+  FONTCONFIG_CFLAGS
+              C compiler flags for fontconfig, overriding pkg-config
+  FONTCONFIG_LIBS
+              Linker flags for fontconfig, overriding pkg-config
+  KRB5_CFLAGS C compiler flags for krb5, overriding pkg-config
+  KRB5_LIBS   Linker flags for krb5, overriding pkg-config
+  GSSAPI_CFLAGS
+              C compiler flags for krb5-gssapi, overriding pkg-config
+  GSSAPI_LIBS Linker flags for krb5-gssapi, overriding pkg-config
+  NETAPI_CFLAGS
+              C compiler flags for netapi, overriding pkg-config
+  NETAPI_LIBS Linker flags for netapi, overriding pkg-config
+
+Use these variables to override the choices made by `configure' or to help
+it to find libraries and programs with nonstandard names/locations.
+
+Report bugs to <wine-devel@winehq.org>.
+Wine home page: <https://www.winehq.org>.

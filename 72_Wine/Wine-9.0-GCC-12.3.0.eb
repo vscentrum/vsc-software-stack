@@ -11,8 +11,9 @@ toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
 source_urls = ['https://dl.winehq.org/wine/source/%(version_major_minor)s']
 sources = [SOURCELOWER_TAR_XZ]
-checksums = ['6ec8fb6f2c72d576cb11f52b2f8d59af64404802154651d122b98466d91dc847']
+checksums = ['7cfd090a5395f5b76d95bb5defac8a312c8de4c070c1163b8b58da38330ca6ee']
 
+# preconfigopts = 'cd %(builddir)s && ls -lhF && '
 configopts = '--enable-win64'
 
 # patches = [
@@ -42,5 +43,12 @@ configopts = '--enable-win64'
 # }
 
 # modextrapaths = {'CPATH': 'include/blis'}
+
+sanity_check_paths = {
+    'files': ['bin/wine64'],
+    'dirs': [],
+}
+
+sanity_check_commands = 'wine64 notepad'
 
 moduleclass = 'tools'
