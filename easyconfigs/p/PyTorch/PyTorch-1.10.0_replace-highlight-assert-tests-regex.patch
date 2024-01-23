@@ -1,4 +1,4 @@
-replace assertions by highlight on JIT tests to regular expression match
+Replace assertions by highlight on JIT tests to regular expression match
 workaround for issue: https://github.com/pytorch/pytorch/issues/72516
 author: Alex Domingo (Vrije Universiteit Brussel)
 --- a/test/jit/test_builtins.py
@@ -40,3 +40,14 @@ author: Alex Domingo (Vrije Universiteit Brussel)
              s = torch.jit.script(fn)
  
      def test_augmented_assign(self):
+--- a/test/jit/test_hash.py	2024-01-22 09:36:51.778491673 +0100
++++ b/test/jit/test_hash.py	2024-01-22 09:38:36.097110879 +0100
+@@ -33,7 +33,7 @@
+         def fn_unhashable(t1: Tuple[int, List[int]]):
+             return hash(t1)
+ 
+-        with self.assertRaisesRegexWithHighlight(RuntimeError, "unhashable", "hash"):
++        with self.assertRaisesRegex(RuntimeError, "return hash"):
+             fn_unhashable((1, [1]))
+ 
+     def test_hash_tensor(self):
