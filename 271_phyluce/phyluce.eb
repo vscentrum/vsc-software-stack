@@ -1,0 +1,50 @@
+easyblock = 'PythonBundle'
+
+name = 'phyluce'
+version = '1.7.3'
+# versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://github.com/faircloth-lab/phyluce'
+description = """
+phyluce is a software package for working with data generated from sequence capture of UCE 
+(ultra-conserved element) loci, as first published in [BCF2012]. Specifically, phyluce is a suite of programs to:
+1) assemble raw sequence reads from Illumina platforms into contigs
+2) determine which contigs represent UCE loci
+3) filter potentially paralagous UCE loci
+4) generate different sets of UCE loci across taxa of interest
+"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+#     ('SciPy-bundle', '2023.02', versionsuffix),
+#     ('PyYAML', '6.0', versionsuffix),
+#     ('Pysam', '0.21.0', versionsuffix),
+#     ('scikit-learn', '1.2.1', versionsuffix),
+    ('Biopython', '1.83'),
+    ('Python-bundle-PyPI', '2023.06'),
+]
+
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'source_urls': ['https://github.com/faircloth-lab/phyluce/archive/refs/tags/'],
+        'sources': 'v%(version)s.tar.gz',
+        'checksums': ['931fd512730bb101266b27728576df00277858d256e1ab30d64b474588362e11'],
+    }),
+]
+
+sanity_pip_check = True
+
+# sanity_check_paths = {
+#     'files': ['bin/CIRIquant'],
+#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
+# }
+
+sanity_check_commands = ["phyluce_workflow --help"]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages/phyluce'}
+
+moduleclass = 'bio'
