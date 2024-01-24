@@ -24,6 +24,7 @@ dependencies = [
 #     ('scikit-learn', '1.2.1', versionsuffix),
     ('Biopython', '1.83'),
     ('Python-bundle-PyPI', '2023.06'),
+    ('snakemake', '8.2.1'),
 ]
 
 use_pip = True
@@ -43,7 +44,7 @@ sanity_pip_check = True
 #     'dirs': ['lib/python%(pyshortver)s/site-packages'],
 # }
 
-sanity_check_commands = ["phyluce_workflow --help"]
+sanity_check_commands = ["phyluce_utilities_sample_reads_from_files --help"]
 
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages/phyluce'}
 
