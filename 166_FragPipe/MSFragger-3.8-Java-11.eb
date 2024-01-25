@@ -20,9 +20,21 @@ checksums = ['526684890d1f8d7e37b49d9957a58c9880e66172dabbc517b87a5cd957d47b0a']
 
 dependencies = [('Java', '11')]
 
+postinstallcmds = [
+    "mkdir -p %(installdir)s/bin",
+    "echo '#!/bin/sh' > %(installdir)s/bin/%(namelower)s",
+    "echo 'java -jar %(installdir)s/%(name)s-%(version)s.jar $@' >> %(installdir)s/bin/%(namelower)s",
+    "chmod a+rx %(installdir)s/bin/%(namelower)s",
+]
+
+# modextrapaths = {'CLASSPATH': ''}
+
 sanity_check_paths = {
     'files': ['%(name)s-%(version)s.jar'],
     'dirs': [],
 }
+
+# sanity_check_commands = ['java -jar %(name)s-%(version)s.jar --help']
+sanity_check_commands = ['%(namelower)s --help']
 
 moduleclass = 'bio'
