@@ -27,14 +27,11 @@ postinstallcmds = [
     "chmod a+rx %(installdir)s/bin/%(namelower)s",
 ]
 
-# modextrapaths = {'CLASSPATH': ''}
-
 sanity_check_paths = {
     'files': ['%(name)s-%(version)s.jar'],
     'dirs': [],
 }
 
-# sanity_check_commands = ['java -jar %(name)s-%(version)s.jar --help']
 sanity_check_commands = ['%(namelower)s --help']
 
 moduleclass = 'bio'
