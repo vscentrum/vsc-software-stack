@@ -63,16 +63,32 @@ dependencies = [
     ('pkg-config', '0.29.2'),
     ('XZ', '5.2.5'),
     ('nodejs', '16.15.1'),
-
-    ('vcflib', '1.0.9', '-R-4.2.1'),
+    ('libdeflate', '1.10'),
+    ('intervaltree', '0.1'),
+    ('fastahack', '1.0.0'),
     ('HTSlib', '1.15.1'),
     ('tabixpp', '1.1.2'),
 ]
 
-prebuildopts = 'mkdir lib && '
-prebuildopts += 'cp $EBROOTVCFLIB/lib/libvcflib.a lib/ && '
-prebuildopts += 'cp $EBROOTHTSLIB/lib/libhts.a lib/ && '
-prebuildopts += 'cp $EBROOTTABIXPP/lib/libtabixpp.a lib/ && '
+prebuildopts = "mkdir -p lib/pkgconfig && "
+# copy static libraries provided by dependencies to lib/, to avoid that they get built;
+# note that symlinking does not work, because 'make' then may ignore the static libraries
+# being found based on timestamps of sources vs those static libraries,
+# and try to overwrite a static library of a dependency!
+# for HTSlib, we also need to copy the pkgconfig file, since it's expected by vg's Makefile
+prebuildopts += "cp $EBROOTLIBDEFLATE/lib/libdeflate.{a,so} lib/ && "
+prebuildopts += "cp $EBROOTHTSLIB/lib/libhts.a lib/ && "
+prebuildopts += "cp $EBROOTHTSLIB/lib/pkgconfig/htslib.pc lib/pkgconfig/ && "
+prebuildopts += "cp $EBROOTTABIXPP/lib/libtabixpp.a lib/ && "
+
+# copy header files provided by dependencies in include/
+prebuildopts += "mkdir -p include && "
+prebuildopts += "cp $EBROOTINTERVALTREE/include/intervaltree/* include/ && "
+prebuildopts += "cp $EBROOTFASTAHACK/include/fastahack/* include/ && "
+prebuildopts += "cp $EBROOTTABIXPP/include/tabixpp/* include/ && "
+
+# specify static libraries to link with, include -lcurl -lcrypto to fix missing symbols in libhts.a
+buildopts = 'LD_STATIC_LIB_DEPS="-lpthread -lm -lcurl -lssl -lcrypto" '
 
 files_to_copy = ['bin']
 
