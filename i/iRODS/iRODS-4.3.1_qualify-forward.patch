@@ -1,0 +1,109 @@
+# Use std::forward instead of forward
+# Patched by steven.vandenbrande@kuleuven.be
+diff --git a/lib/core/include/irods/apiHandler.hpp b/lib/core/include/irods/apiHandler.hpp
+index b179f6d26..b29761f75 100644
+--- a/lib/core/include/irods/apiHandler.hpp
++++ b/lib/core/include/irods/apiHandler.hpp
+@@ -189,7 +189,7 @@ namespace irods
+                                                                         ctx,
+                                                                         operation_name,
+                                                                         "finally",
+-                                                                        forward<types_t>(_t)...);
++                                                                        std::forward<types_t>(_t)...);
+ 
+                     if (!finally_err.ok()) {
+                         irods::log(PASS(finally_err));
+@@ -225,7 +225,7 @@ namespace irods
+ 
+                     using adapted_func_type = std::function<error(irods::plugin_context&, rsComm_t*, types_t...)>;
+                     adapted_func_type adapted_fcn{api_call_adaptor<types_t...>(fcn)};
+-                    op_err = adapted_fcn(ctx, _comm, forward<types_t>(_t)...);
++                    op_err = adapted_fcn(ctx, _comm, std::forward<types_t>(_t)...);
+ 
+                     if (!op_err.ok() && !is_acceptable_error(op_err.code())) {
+                         // if the operation fails, invoke the exception pep
+@@ -234,7 +234,7 @@ namespace irods
+                                                ctx,
+                                                operation_name,
+                                                "except",
+-                                               forward<types_t>(_t)...);
++                                               std::forward<types_t>(_t)...);
+ 
+                         if (!except_err.ok()) {
+                             irods::log(PASS(except_err));
+@@ -250,7 +250,7 @@ namespace irods
+                                      ctx,
+                                      operation_name,
+                                      "post",
+-                                     forward<types_t>(_t)...);
++                                     std::forward<types_t>(_t)...);
+ 
+                 if (!post_err.ok()) {
+                     // if the post-pep fails, invoke the exception pep
+@@ -259,7 +259,7 @@ namespace irods
+                                            ctx,
+                                            operation_name,
+                                            "except",
+-                                           forward<types_t>(_t)...);
++                                           std::forward<types_t>(_t)...);
+ 
+                     if (!except_err.ok()) {
+                         irods::log(PASS(except_err));
+diff --git a/lib/core/include/irods/irods_plugin_base.hpp b/lib/core/include/irods/irods_plugin_base.hpp
+index 98a033b2b..50713a0eb 100644
+--- a/lib/core/include/irods/irods_plugin_base.hpp
++++ b/lib/core/include/irods/irods_plugin_base.hpp
+@@ -195,7 +195,7 @@ namespace irods
+                                                                         &out_param,
+                                                                         _operation_name,
+                                                                         "finally",
+-                                                                        forward<types_t>(_t)...);
++                                                                        std::forward<types_t>(_t)...);
+ 
+                     if (!finally_err.ok()) {
+                         irods::log(PASS(finally_err));
+@@ -231,7 +231,7 @@ namespace irods
+                         return pre_err;
+                     }
+ 
+-                    to_return_op_err = adapted_fcn(ctx, &out_param, forward<types_t>(_t)...);
++                    to_return_op_err = adapted_fcn(ctx, &out_param, std::forward<types_t>(_t)...);
+ 
+                     if(!to_return_op_err.ok()) {
+                         // if the operation fails, invoke the exception pep
+@@ -243,7 +243,7 @@ namespace irods
+                                                &out_param,
+                                                _operation_name,
+                                                "except",
+-                                               forward<types_t>(_t)...);
++                                               std::forward<types_t>(_t)...);
+ 
+                         if(!except_err.ok()) {
+                             irods::log(PASS(except_err));
+@@ -260,7 +260,7 @@ namespace irods
+                                      &out_param,
+                                      _operation_name,
+                                      "post",
+-                                     forward<types_t>(_t)...);
++                                     std::forward<types_t>(_t)...);
+ 
+                 if(!post_err.ok()) {
+                     out_param = "error="+std::to_string(post_err.code()) + ";message="+post_err.result();
+@@ -272,7 +272,7 @@ namespace irods
+                                            &out_param,
+                                            _operation_name,
+                                            "except",
+-                                           forward<types_t>(_t)...);
++                                           std::forward<types_t>(_t)...);
+ 
+                     if(!except_err.ok()) {
+                         irods::log(PASS(except_err));
+@@ -283,7 +283,7 @@ namespace irods
+ 
+                 return to_return_op_err;
+ #else // ENABLE_RE
+-                return adapted_fcn( ctx, &out_param, forward<types_t>(_t)... );
++                return adapted_fcn( ctx, &out_param, std::forward<types_t>(_t)... );
+ #endif // ENABLE_RE
+             }
+             catch (const boost::bad_any_cast&) {

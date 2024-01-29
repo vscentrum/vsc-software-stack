@@ -1,0 +1,45 @@
+easyblock = 'CMakeMake'
+
+name = 'avro-cpp'
+version = '1.11.1'
+versionsuffix = '-Clang-15.0.5'
+
+homepage = 'https://avro.apache.org'
+description = """C++ implementation of Avro data serialization system."""
+
+toolchain = {'name': 'GCC', 'version': '12.2.0'}
+toolchainopts = {'extra_cxxflags': "-stdlib=libc++"}
+
+source_urls = ['https://github.com/apache/avro/archive/refs/tags/']
+sources = ['release-%(version)s.tar.gz']
+checksums = ['599f96bb405f72a35154b2477caa6254d723bb4e3f6a0e54e9ae540664321752']
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+]
+dependencies = [
+    ('Boost', '1.78.0', versionsuffix),
+    ('Clang', '15.0.5'),
+]
+
+srcdir = "lang/c++"
+
+configopts = " -DCMAKE_CXX_COMPILER=clang++"
+generator = "Unix Makefiles"
+separate_build_dir = True
+
+postinstallcmds = [
+    "mkdir -p %(installdir)s/include/impl/json ",
+    "cp %(builddir)s/avro-release-%(version)s/lang/c++/impl/json/JsonDom.hh %(installdir)s/include/impl/json ",
+]
+
+sanity_check_paths = {
+    'files': ["bin/avrogencpp"],
+    'dirs': ["lib"],
+}
+
+sanity_check_commands = ["avrogencpp -h"]
+
+modextrapaths = {'CPATH': ['include/avro', 'include/impl/json']}
+
+moduleclass = 'lib'

@@ -1,0 +1,27 @@
+# Fix problem with clang because std::unary_function and std::binary_function were
+# removed from C++17. See https://cgit.freebsd.org/ports/commit/?id=c035007f958a9fa3c45bb1441a63540be39018ed
+# Patched by steven.vandenbrande@kuleuven.be 
+diff -ruN boost_1_78_0.orig/boost/functional.hpp boost_1_78_0/boost/functional.hpp
+--- boost_1_78_0.orig/boost/functional.hpp	2021-12-02 07:47:32.000000000 +0100
++++ boost_1_78_0/boost/functional.hpp	2023-10-28 14:49:37.403436000 +0200
+@@ -21,7 +21,6 @@
+     namespace functional
+     {
+         namespace detail {
+-#if defined(_HAS_AUTO_PTR_ETC) && !_HAS_AUTO_PTR_ETC
+             // std::unary_function and std::binary_function were both removed
+             // in C++17.
+ 
+@@ -39,12 +38,6 @@
+                 typedef Arg2 second_argument_type;
+                 typedef Result result_type;
+             };
+-#else
+-            // Use the standard objects when we have them.
+-
+-            using std::unary_function;
+-            using std::binary_function;
+-#endif
+         }
+     }
+ 

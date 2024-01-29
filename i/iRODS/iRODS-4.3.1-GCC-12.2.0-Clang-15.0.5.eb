@@ -1,0 +1,76 @@
+easyblock = 'CMakeMake'
+
+name = 'iRODS'
+version = '4.3.1'
+versionsuffix = '-Clang-15.0.5'
+
+homepage = 'https://github.com/irods/irods'
+description = "The Integrated Rule-Oriented Data System (iRODS) is open source data management software used by research, commercial, and governmental organizations worldwide."
+
+toolchain = {'name': 'GCC', 'version': '12.2.0'}
+
+source_urls = ['https://github.com/%(namelower)s/%(namelower)s/archive/refs/tags/']
+sources = ['%(version)s.tar.gz']
+patches = [
+    'iRODS-4.3.1_qualify-forward.patch',
+    'iRODS-4.3.1_fix-ambiguous-log-server-calls.patch',
+]
+checksums = [
+    {'4.3.1.tar.gz': '757b2c90792a63551280fddc86cf14a9ca4a3b5b21b7291eef355dbac37a5736'},
+    {'iRODS-4.3.1_qualify-forward.patch': '0396c04d6a1e07279d98d14a7077ce742982c7ad6782296e2b1c461c330a8a76'},
+    {'iRODS-4.3.1_fix-ambiguous-log-server-calls.patch':
+     '30f9bd3d93ee723ba644fca975170db856f57b1a437d159af4a2aa61bc3b4151'},
+]
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('distro', '1.8.0'),
+]
+
+dependencies = [
+    ('Catch2', '2.13.8', '', SYSTEM),
+    ('cppzmq', '4.8.1', '', SYSTEM),
+    ('Clang', '15.0.5'),
+    ('Z3', '4.12.2'),
+    ('ZeroMQ', '4.1.8'),
+    ('nlohmann_json', '3.10.4'),
+    ('spdlog', '1.9.2'),
+    ('Python', '3.10.8'),
+    ('unixODBC', '2.3.12'),
+    ('avro-cpp', '1.11.1', versionsuffix),
+    ('Boost', '1.78.0', versionsuffix),
+    ('nanodbc', '2.14.0', versionsuffix),
+    ('fmt', '8.1.1', versionsuffix),
+]
+
+osdependencies = [('pam-devel', 'libpam0g-dev')]
+
+# iRODS will by default search for dependencies in /opt/irods-externals
+# It is necessary to explicitly specify the path to each dependency
+configopts  = " -DIRODS_EXTERNALS_FULLPATH_CLANG=${EBROOTCLANG}"
+configopts += " -DIRODS_EXTERNALS_FULLPATH_CLANG_RUNTIME=${EBROOTCLANG}"
+configopts += " -DIRODS_EXTERNALS_FULLPATH_AVRO=${EBROOTAVROMINCPP}"
+configopts += " -DIRODS_EXTERNALS_FULLPATH_BOOST=${EBROOTBOOST}"
+configopts += " -DIRODS_EXTERNALS_FULLPATH_CATCH2=${EBROOTCATCH2}"
+configopts += " -DIRODS_EXTERNALS_FULLPATH_CPPZMQ=${EBROOTCPPZMQ}"
+configopts += " -DIRODS_EXTERNALS_FULLPATH_JSON=${EBROOTNLOHMANN_JSON}"
+configopts += " -DIRODS_EXTERNALS_FULLPATH_SPDLOG=${EBROOTSPDLOG}"
+configopts += " -DIRODS_EXTERNALS_FULLPATH_ARCHIVE=${EBROOTLIBARCHIVE}"
+configopts += " -DIRODS_EXTERNALS_FULLPATH_FMT=${EBROOTFMT}"
+configopts += " -DIRODS_EXTERNALS_FULLPATH_NANODBC=${EBROOTNANODBC}"
+configopts += " -DIRODS_EXTERNALS_FULLPATH_ZMQ=${EBROOTZEROMQ}"
+# It is not clear why iRODS can't pickup the pam library, even whenit is in a
+# standard location.
+configopts += " -DPAM_LIBRARY=/usr/lib64/libpam.so.0"
+# A few flags to keep clang happy
+configopts += ' -DCMAKE_CXX_FLAGS="-Wno-deprecated-builtins -Wno-deprecated-declarations"'
+# iRODS does not define a package type for rhel, so in that case it is
+# necessary to specify CPACK_GENERATOR explicitly
+configopts += " -DCPACK_GENERATOR=RPM"
+
+sanity_check_paths = {
+    'files': ['lib/libirods_client.so'],
+    'dirs': ['lib'],
+}
+
+moduleclass = 'lib'

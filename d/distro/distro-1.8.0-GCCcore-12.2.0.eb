@@ -1,0 +1,30 @@
+easyblock = 'PythonPackage'
+
+name = 'distro'
+version = '1.8.0'
+
+homepage = 'https://github.com/python-distro/distro/'
+description = """distro provides information about the OS distribution it runs on, such as a reliable machine-readable ID, or version information."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+sources = [SOURCE_TAR_GZ]
+checksums = ['02e111d1dc6a50abb8eed6bf31c3e48ed8b0830d1ea2a1b78c61765c2513fdd8']
+
+builddependencies = [('binutils', '2.39')]
+
+dependencies = [('Python', '3.10.8')]
+
+download_dep_fail = True
+use_pip = True
+
+sanity_check_paths = {
+    'files': ['bin/distro'],
+    'dirs': ['bin', 'lib'],
+}
+
+sanity_check_commands = ["distro"]
+
+sanity_pip_check = True
+
+moduleclass = 'tools'

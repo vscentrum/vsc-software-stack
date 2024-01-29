@@ -1,0 +1,32 @@
+easyblock = 'CMakeMake'
+
+name = 'iCommands'
+version = '4.3.1'
+versionsuffix = '-Clang-15.0.5'
+
+homepage = 'https://github.com/irods/irods_client_icommands'
+description = """iCommands, the default command line interface to iRODS."""
+
+toolchain = {'name': 'GCC', 'version': '12.2.0'}
+
+source_urls = ['https://github.com/irods/irods_client_icommands/archive/refs/tags/']
+sources = ['%(version)s.tar.gz']
+checksums = ['4cd07232dd0a633c26cfc4536b4ea48d29c445aeb80ef0420bc6786870f63e6c']
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+]
+dependencies = [
+    ('iRODS', version, versionsuffix),
+]
+
+configopts  = " -DIRODS_DIR=${EBROOTIRODS}"
+configopts += " -DIRODS_BUILD_WITH_WERROR=no"
+configopts += " -DCPACK_GENERATOR=RPM"
+
+sanity_check_paths = {
+    'files': ["bin/icp"],
+    'dirs': ["bin", "var"],
+}
+
+moduleclass = 'tools'
