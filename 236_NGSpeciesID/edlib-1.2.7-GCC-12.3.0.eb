@@ -23,11 +23,10 @@ exts_list = [
     (name, version, {
         'source_urls': ['https://github.com/Martinsos/edlib/archive/'],
         'source_tmpl': 'v%(version)s.tar.gz',
+        # TODO comment
         'preinstallopts': 'cd bindings/python && make && python -m cogapp -d -o README.rst README-tmpl.rst && ',
         'checksums': ['8767bc1b04a1a67282d57662e5702c4908996e96b1753b5520921ff189974621'],
     }),
 ]
 
 moduleclass = 'bio'
-
-# TODO edlib.bycython.cpp:198:12: fatal error: longintrepr.h: No such file or directory
