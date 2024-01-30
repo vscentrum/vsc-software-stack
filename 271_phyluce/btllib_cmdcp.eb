@@ -1,0 +1,42 @@
+# easyblock = 'PythonPackage'
+easyblock = 'CmdCp'
+
+name = 'btllib'
+version = '1.7.0'
+
+homepage = 'https://github.com/bcgsc/btllib'
+description = """Bioinformatics Technology Lab common code library"""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+toolchainopts = {'openmp': True, 'cstd': 'c++17'}
+
+source_urls = ['https://github.com/bcgsc/btllib/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['ad8f26cf6187a000fe6cc7a61fa625567f029bca9bb0271d695347627a014059']
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Meson', '1.1.1'),
+    ('Ninja', '1.11.1'),
+    ('CMake', '3.26.3'),
+]
+
+cmds_map = [('.*', "./compile")]
+
+files_to_copy = [(['btllib'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/btllib'],
+    'dirs': [],
+}
+
+# sanity_check_commands = ['FastTree 2>&1 | grep "FastTree Version %(version)s"']
+
+# configopts = 'CXXFLAGS="$CXXFLAGS"'
+
+# sanity_check_paths = {
+#     'files': ["bin/ABYSS", "bin/ABYSS-P"],
+#     'dirs': []
+# }
+
+moduleclass = 'bio'
