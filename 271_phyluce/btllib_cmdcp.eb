@@ -10,9 +10,21 @@ description = """Bioinformatics Technology Lab common code library"""
 toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 toolchainopts = {'openmp': True, 'cstd': 'c++17'}
 
-source_urls = ['https://github.com/bcgsc/btllib/archive/']
-sources = ['v%(version)s.tar.gz']
-checksums = ['ad8f26cf6187a000fe6cc7a61fa625567f029bca9bb0271d695347627a014059']
+# source_urls = ['https://github.com/bcgsc/btllib/archive/']
+# sources = ['v%(version)s.tar.gz']
+# checksums = ['ad8f26cf6187a000fe6cc7a61fa625567f029bca9bb0271d695347627a014059']
+
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/bcgsc',
+        'repo_name': 'btllib',
+        'tag': 'v%(version)s',
+        'recursive': True,
+        'keep_git_dir': True,
+    }
+}]
+checksums = ['62936bf7b136c1628736d5b69ba9b7f738417fa19802e4e5e36c2bf35e7aa9fa']
 
 dependencies = [
     ('Python', '3.11.3'),
