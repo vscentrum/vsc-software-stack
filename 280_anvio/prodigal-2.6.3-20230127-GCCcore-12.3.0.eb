@@ -1,0 +1,47 @@
+##
+# This is a contribution from Phoenix HPC Service, The University of Adelaide, Australia
+# Homepage: https://www.adelaide.edu.au/phoenix/
+#
+# Copyright::   adelaide.edu.au/phoenix
+# Authors::	Robert Qiao <robert.qiao@adelaide.edu.au>, Exe Escobedo <exequiel.sepulvedaescobedo@adelaide.edu.au>
+# License::	GPL-v3.0
+#
+# Updated: Pavel Grochal (INUITS)
+#
+# Notes::
+##
+
+easyblock = 'MakeCp'
+
+name = 'prodigal'
+local_commit = 'c1e2d36'
+version = '2.6.3-20230127'
+
+homepage = 'https://github.com/hyattpd/Prodigal/'
+
+description = """Prodigal (Prokaryotic Dynamic Programming Genefinding Algorithm)
+   is a microbial (bacterial and archaeal) gene finding program developed
+   at Oak Ridge National Laboratory and the University of Tennessee."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://github.com/hyattpd/Prodigal/archive/']
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
+checksums = ['5b4ac9f99038b143c62f4d86d3f77bc801f64daca04c26ba9789bf0a64904ac9']
+
+builddependencies = [('binutils', '2.40')]
+
+files_to_copy = [
+    (['prodigal'], 'bin'),
+    (['*.h'], 'include'),
+    (['LICENSE'], 'license'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/prodigal'],
+    'dirs': ['include', 'license'],
+}
+
+sanity_check_commands = ["prodigal -h"]
+
+moduleclass = 'bio'
