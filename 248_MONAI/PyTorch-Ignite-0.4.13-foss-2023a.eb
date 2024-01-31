@@ -1,0 +1,29 @@
+easyblock = 'PythonBundle'
+
+name = 'PyTorch-Ignite'
+version = '0.4.13'
+
+homepage = 'https://pytorch-ignite.ai/'
+description = """
+Ignite is a high-level library to help with training and evaluating neural
+networks in PyTorch flexibly and transparently."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('PyTorch', '2.1.2'),
+]
+
+exts_list = [
+    ('%(namelower)s', version, {
+        'source_tmpl': 'pytorch_ignite-%(version)s-py3-none-any.whl',
+        'checksums': ['b17959072af98b1494de603305588a81e22911a122a3ee444d88fc71153778f5'],
+        'modulename': 'ignite',
+    }),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+moduleclass = 'lib'

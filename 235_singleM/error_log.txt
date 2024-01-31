@@ -1,3 +1,177 @@
+Polars build - problem with Mask bitmask
+ERROR:
+error[E0599]: no function or associated item named `from_bitmask` found for struct `Mask` in the current scope
+         --> crates/polars-arrow/src/bitmap/bitmask.rs:152:19
+          |
+      152 |             Mask::from_bitmask(mask >> byte_shift)
+          |                   ^^^^^^^^^^^^ function or associated item not found in `Mask<_, _>`
+          |
+         --> crates/polars-arrow/src/bitmap/bitmask.rs:152:19
+          |
+      152 |             Mask::from_bitmask(mask >> byte_shift)
+          |                   ^^^^^^^^^^^^ function or associated item not found in `Mask<_, _>`
+          |
+      note: if you're trying to build a new `Mask<_, _>` consider using one of the following associated functions:
+            Mask::<T, LANES>::splat
+            Mask::<T, LANES>::from_array
+            Mask::<T, LANES>::from_int_unchecked
+            Mask::<T, LANES>::from_int
+         --> /tmp/vsc47063/easybuild/build/Rust/1.75.0/GCCcore-12.3.0/rustc-1.75.0-src/library/core/src/../../portable-simd/crates/core_simd/src/masks.rs:122:5
+          = help: items from traits can only be used if the trait is in scope
+      help: the following trait is implemented but not in scope; perhaps add a `use` for it:
+          |
+      1   + use std::simd::ToBitMask;
+          |
+      help: there is an associated function with a similar name
+          |
+      152 |             Mask::from_int(mask >> byte_shift)
+          |                   ~~~~~~~~
+      
+      error[E0599]: no function or associated item named `from_bitmask` found for struct `Mask` in the current scope
+         --> crates/polars-arrow/src/bitmap/bitmask.rs:159:19
+          |
+      159 |             Mask::from_bitmask(shifted)
+      Mask::<T, LANES>::from_int_unchecked
+            Mask::<T, LANES>::from_int
+         --> /tmp/vsc47063/easybuild/build/Rust/1.75.0/GCCcore-12.3.0/rustc-1.75.0-src/library/core/src/../../portable-simd/crates/core_simd/src/masks.rs:122:5
+          = help: items from traits can only be used if the trait is in scope
+      help: the following trait is implemented but not in scope; perhaps add a `use` for it:
+          |
+      1   + use std::simd::ToBitMask;
+          |
+      help: there is an associated function with a similar name
+          |
+      159 |             Mask::from_int(shifted)
+          |                   ~~~~~~~~
+      
+      error[E0599]: no function or associated item named `from_bitmask` found for struct `Mask` in the current scope
+         --> crates/polars-arrow/src/bitmap/bitmask.rs:161:19
+          |
+      161 |             Mask::from_bitmask(0u64)
+          |                   ^^^^^^^^^^^^ function or associated item not found in `Mask<_, _>`
+          |
+      note: if you're trying to build a new `Mask<_, _>` consider using one of the following associated functions:
+            Mask::<T, LANES>::splat
+            Mask::<T, LANES>::from_array
+            Mask::<T, LANES>::from_int_unchecked
+            Mask::<T, LANES>::from_int
+         --> /tmp/vsc47063/easybuild/build/Rust/1.75.0/GCCcore-12.3.0/rustc-1.75.0-src/library/core/src/../../portable-simd/crates/core_simd/src/masks.rs:122:5
+          = help: items from traits can only be used if the trait is in scope
+      help: the following trait is implemented but not in scope; perhaps add a `use` for it:
+          |
+      1   + use std::simd::ToBitMask;
+          |
+      help: there is an associated function with a similar name
+          |
+      161 |             Mask::from_int(0u64)
+            |                   ~~~~~~~~
+      
+      error[E0599]: no function or associated item named `from_bitmask` found for struct `Mask` in the current scope
+        --> crates/polars-arrow/src/legacy/kernels/agg_mean.rs:95:43
+         |
+      95 |             let mask = Mask::<i8, LANES>::from_bitmask(validity_chunk as u64);
+         |                                           ^^^^^^^^^^^^ function or associated item not found in `Mask<i8, 8>`
+         |
+         = help: items from traits can only be used if the trait is in scope
+      help: the following trait is implemented but not in scope; perhaps add a `use` for it:
+         |
+      1  + use std::simd::ToBitMask;
+         |
+      help: there is an associated function with a similar name
+         |
+      95 |             let mask = Mask::<i8, LANES>::from_int(validity_chunk as u64);
+         |                                           ~~~~~~~~
+      
+      For more information about this error, try `rustc --explain E0599`.
+      error: could not compile `polars-arrow` (lib) due to 4 previous errors
+      warning: build failed, waiting for other jobs to finish...
+       maturin failed
+        Caused by: Failed to build a native library through cargo
+        Caused by: Cargo build finished with "exit status: 101": `env -u CARGO PYO3_ENVIRONMENT_SIGNATURE="cpython-3.11-64bit" PYO3_PYTHON="/apps/gent/RHEL8/cascadelake-ib/software/
+e-12.3.0/bin/python" PYTHON_SYS_EXECUTABLE="/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python" "cargo" "rustc" "--message-format" "json-render-diagnos
+th" "/tmp/vsc47063/easybuild/build/polars/0.20.4/foss-2023a/polars/polars-0.20.4/py-polars/Cargo.toml" "--release" "--lib"`
+      Error: command ['maturin', 'pep517', 'build-wheel', '-i', '/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python', '--compatibility', 'off'] returne
+us 1
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for polars
+Failed to build polars
+ERROR: Could not build wheels for polars, which is required to install pyproject.toml-based projects
+
+####################################################################
+Polar build -> problem with cmake:
+ERROR:
+== 2024-01-22 17:36:52,265 run.py:247 INFO running cmd:  /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install --prefix=/scratch/geasybuild/RHEL8/cascadelake-ampere-ib/software/polars/0.20.4-foss-2023a  --no-deps  --ignore-installed  --no-index  --no-build-isolation  
+                . 01-22 17:37:37,595 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in
+                __init__): cmd " /apelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/so-foss-2023a  --no-deps  --ignore-installed  --no-index  --no-build-isolation  ." exited with exit code 1 and output:
+                Processing /tmp/vsc47063/easybuild/build/polars/0.20.4/foss-2023a/polars/polars-0.20.4
+                  Preparing metadata (pyproject.toml): started
+                  Preparing metadata (pyproject.toml): finished with status 'done'
+                Building wheels for collected packages: polars
+                  Building wheel for polars (pyproject.toml): started
+                  Building wheel for polars (pyproject.toml): finished with status 'error'
+                  error: subprocess-exited-with-error
+
+                   Building wheel for polars (pyproject.toml) did not run successfully.
+                   exit code: 1
+                  > [230 lines of output]
+                      Running `maturin pep517 build-wheel -i /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python --compatibility off`
+                       Building a mixed python/rust project
+                       Found pyo3 bindings with abi3 support for Python  3.8
+                       Not using a specific python interpreter
+                         Compiling libc v0.2.151
+                         Compiling proc-macro2 v1.0.74
+                         ...
+                         Compiling libz-ng-sys v1.1.12
+                         Compiling xxhash-rust v0.8.8
+                         Compiling itoap v1.0.1
+                         Compiling alloc-no-stdlib v2.0.4
+                      error: failed to run custom build command for `libz-ng-sys v1.1.12`
+
+                      Caused by:
+                        process didn't exit successfully: `/tmp/vsc47063/easybuild/build/polars/0.20.4/foss-2023a/polars/polars-0.20.4/target/release/build/libz-ng-sys-
+                ld-script-build_zng` (exit status: 101)
+                        --- stdout
+                        CMAKE_TOOLCHAIN_FILE_x86_64-unknown-linux-gnu = None
+                        CMAKE_TOOLCHAIN_FILE_x86_64_unknown_linux_gnu = None
+                        HOST_CMAKE_TOOLCHAIN_FILE = None
+                        CMAKE_TOOLCHAIN_FILE = None
+                        CMAKE_GENERATOR_x86_64-unknown-linux-gnu = None
+                        CMAKE_GENERATOR_x86_64_unknown_linux_gnu = None
+                        HOST_CMAKE_GENERATOR = None
+                        CMAKE_GENERATOR = None
+                        CMAKE_PREFIX_PATH_x86_64-unknown-linux-gnu = None
+                        CMAKE_PREFIX_PATH_x86_64_unknown_linux_gnu = None
+                        HOST_CMAKE_PREFIX_PATH = None
+                        CMAKE_PREFIX_PATH = Some("/apps...)
+                        CMAKE_x86_64-unknown-linux-gnu = None
+                        CMAKE_x86_64_unknown_linux_gnu = None
+                        HOST_CMAKE = None
+                        CMAKE = None
+                        running: cd "/tmp/vsc47063/easybuild/build/polars/0.20.4/foss-2023a/polars/polars-0.20.4/target/release/build/libz-ng-sys-659b643918b75119/out/build" && CMAKE_PREFIHEL8/...
+                        --- stderr
+                        thread 'main' panicked at /tmp/vsc47063/easybuild/build/polars/0.20.4/foss-2023a/cmake-0.1.50/src/lib.rs:1098:5:
+
+                        failed to execute command: No such file or directory (os error 2)
+                        is `cmake` not installed?
+
+                        build script failed, must exit now
+                        note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+                      warning: build failed, waiting for other jobs to finish...
+                       maturin failed
+                        Caused by: Failed to build a native library through cargo
+                        Caused by: Cargo build finished with "exit status: 101": `env -u CARGO PYO3_ENVIRONMENT_SIGNATURE="cpython-3.11-64bit" PYO3_PYTHON="/apps/gent/R
+                software/Python/3.11.3-GCCcore-12.3.0/bin/python" PYTHON_SYS_EXECUTABLE="/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/pytho
+                --message-format" "json-render-diagnostics" "--manifest-path" "/tmp/vsc47063/easybuild/build/polars/0.20.4/foss-2023a/polars/polars-0.20.4/py-polars/Car
+                 "--lib"`
+                      Error: command ['maturin', 'pep517', 'build-wheel', '-i', '/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python', '--c
+                ] returned non-zero exit status 1
+                      [end of output]
+
+                  note: This error originates from a subprocess, and is likely not a problem with pip.
+                  ERROR: Failed building wheel for polars
+#############################################################################
 Polar build -> bad maturin or cargo?
 ERROR:
 == 2024-01-18 19:00:19,731 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " /apps/gent/RHftware/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/polars/0.20.4s  --ignore-installed  --no-index  --no-build-isolation  ." exited with exit code 1 and output:
