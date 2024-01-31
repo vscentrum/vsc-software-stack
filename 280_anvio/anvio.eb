@@ -28,6 +28,9 @@ dependencies = [
     ('statsmodels', '0.14.1'),
     ('snakemake', '8.4.2'),
     ('ETE', '3.1.3'),
+    ('dill', '0.3.7'),
+    ('Seaborn', '0.13.2'),
+    ('Levenshtein', '0.22.0'),
 ]
 
 use_pip = True
@@ -40,17 +43,25 @@ exts_list = [
     ('colored', '2.2.4', {
         'checksums': ['595e1dd7f3b472ea5f12af21d2fec8a2ea2cf8f9d93e67180197330b26df9b61'],
     }),
+    ('asgiref', '3.7.2', {
+        'checksums': ['9e0ce3aa93a819ba5b45120216b23878cf6e8525eb3848653452b4192b92afed'],
+    }),
+    ('sqlparse', '0.4.4', {
+        'checksums': ['d446183e84b8349fa3061f0fe7f06ca94ba65b426946ffebe6e3e8295332420c'],
+    }),
     ('Django', '5.0.1', {
         'checksums': ['8c8659665bc6e3a44fefe1ab0a291e5a3fb3979f9a8230be29de975e57e8f854'],
     }),
     ('illumina-utils', '2.13', {
         'checksums': ['e688ca221ea6178614073b72205fce7b4a54695237c7aa96713492ecd99bd56e'],
+        # python-Levenshtein was renamed to Levenshtein
+        'preinstallopts': "sed -i 's/python-Levenshtein/Levenshtein/g' requirements.txt && ",
     }),
     ('mistune', '3.0.2', {
         'checksums': ['fc7f93ded930c92394ef2cb6f04a8aabab4117a91449e72dcc8dfa646a508be8'],
     }),
-    ('multiprocess', '0.70.16', {
-        'checksums': ['161af703d4652a0e1410be6abccecde4a7ddffd19341be0a7011b94aeb171ac1'],
+    ('multiprocess', '0.70.15', {
+        'checksums': ['f20eed3036c0ef477b07a4177cf7c1ba520d9a2677870a4f47fe026f0cd6787e'],
     }),
     ('Paste', '3.7.1', {
         'checksums': ['6d07a8e1c7fa72b8cf403762a002f80d12c0384056956dd0a87cb9a3be64749a'],
@@ -65,10 +76,14 @@ exts_list = [
         'checksums': ['c275f34ea3afe36aec6342c2a2298893104b5650528941fb53c21067276dba19'],
     }),
     (name, version, {
+        'source_urls': ['https://github.com/merenlab/anvio/releases/download/v%(version)s/'],
+        'patches': ['anvio-8_fix-rU.patch'],
+        'checksums': [
+            {'anvio-8.tar.gz': '13da84d48d7266a8986815efb024772fa26ad1c8a951d42897c3a51e3d924feb'},
+            {'anvio-8_fix-rU.patch': 'f8354a60151893e3ba0107d6cf7654907cf0ff755063ea19427b97ff6301eff3'},
+        ],
         # remove too strict requirements for Python packages anvio depends on
         'preinstallopts': "sed -i -e 's/==/>=/g' -e 's/<=.*//g' requirements.txt && ",
-        'source_urls': ['https://github.com/merenlab/anvio/releases/download/v%(version)s/'],
-        'checksums': ['13da84d48d7266a8986815efb024772fa26ad1c8a951d42897c3a51e3d924feb'],
     }),
 ]
 
