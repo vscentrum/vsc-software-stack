@@ -17,7 +17,6 @@ dependencies = [
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
     ('Pysam', '0.22.0'),
-    ('scikit-learn', '1.3.1'),
     ('matplotlib', '3.7.2'),
     ('prodigal', '2.6.3-20230127'),
     ('Biopython', '1.83'),
@@ -56,6 +55,7 @@ exts_list = [
         'checksums': ['e688ca221ea6178614073b72205fce7b4a54695237c7aa96713492ecd99bd56e'],
         # python-Levenshtein was renamed to Levenshtein
         'preinstallopts': "sed -i 's/python-Levenshtein/Levenshtein/g' requirements.txt && ",
+        'modulename': 'IlluminaUtils',
     }),
     ('mistune', '3.0.2', {
         'checksums': ['fc7f93ded930c92394ef2cb6f04a8aabab4117a91449e72dcc8dfa646a508be8'],
@@ -75,15 +75,21 @@ exts_list = [
     ('rich_argparse', '1.4.0', {
         'checksums': ['c275f34ea3afe36aec6342c2a2298893104b5650528941fb53c21067276dba19'],
     }),
+    # need to stick to scikit-learn==1.2.2 with anvio 8,
+    # otherwise check for anvi-interactive that is run by anvi-self-test fails with:
+    # ValueError: node array from the pickle has an incompatible dtype
+    ('scikit-learn', '1.2.2', {
+        'checksums': ['8429aea30ec24e7a8c7ed8a3fa6213adf3814a6efbea09e16e0a0c71e1a1a3d7'],
+    }),
     (name, version, {
         'source_urls': ['https://github.com/merenlab/anvio/releases/download/v%(version)s/'],
         'patches': ['anvio-8_fix-rU.patch'],
         'checksums': [
             {'anvio-8.tar.gz': '13da84d48d7266a8986815efb024772fa26ad1c8a951d42897c3a51e3d924feb'},
-            {'anvio-8_fix-rU.patch': 'f8354a60151893e3ba0107d6cf7654907cf0ff755063ea19427b97ff6301eff3'},
+            {'anvio-8_fix-rU.patch': '5eafa5962f59b563cfc3913fb688963b5fe052714c7d7c66b013af065e7a2fea'},
         ],
         # remove too strict requirements for Python packages anvio depends on
-        'preinstallopts': "sed -i -e 's/==/>=/g' -e 's/<=.*//g' requirements.txt && ",
+        'preinstallopts': "sed -i -e 's/pandas==/pandas>=/g' -e 's/<=.*//g' requirements.txt && ",
     }),
 ]
 
@@ -100,11 +106,11 @@ sanity_check_paths = {
 }
 
 sanity_check_commands = [
-    'anvi-self-test --suite mini',
-    'anvi-pan-genome --help',
-    'anvi-script-reformat-fasta --help',
-    'anvi-profile --version',
-    'anvi-help --help',
+    "anvi-self-test --suite mini --no-interactive",
+    "anvi-pan-genome --help",
+    "anvi-script-reformat-fasta --help",
+    "anvi-profile --version",
+    "anvi-help --help",
 ]
 
 moduleclass = 'bio'
