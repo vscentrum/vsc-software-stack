@@ -1,4 +1,4 @@
-easyblock = 'PythonBundle'
+easyblock = 'PythonPackage'
 
 name = 'phyluce'
 version = '1.7.3'
@@ -15,18 +15,30 @@ phyluce is a software package for working with data generated from sequence capt
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
+source_urls = ['https://github.com/faircloth-lab/phyluce/archive/refs/tags/']
+sources = ['v%(version)s.tar.gz']
+patches = [
+    '%(name)s-%(version)s_fix-config-paths.patch',
+    '%(name)s-%(version)s_removal-Bio-Alphabet.patch',
+]
+checksums = [
+    {'v1.7.3.tar.gz': '931fd512730bb101266b27728576df00277858d256e1ab30d64b474588362e11'},
+    {'phyluce-1.7.3_fix-config-paths.patch': '543daee90e1422a7a43c304d6f33e5f16411cc7b85c522b847388feff8cc402a'},
+    {'phyluce-1.7.3_removal-Bio-Alphabet.patch': 'f6c5237552fde5a3bf24105781a9001ee5e87bbd825015fc1aa6b5c6a147e171'},
+]
+
 dependencies = [
     ('Python', '3.11.3'),
     ('Biopython', '1.83'),
     ('Python-bundle-PyPI', '2023.06'),
-    ('snakemake', '8.2.1'),
+    ('snakemake', '8.4.2'),
     ('DendroPy', '4.6.1'),
     ('bx-python', '0.10.0'),
     ('ABySS', '2.3.7'),
     ('BCFtools', '1.18'),
     ('BEDTools', '2.31.0'),
     ('BWA', '0.7.17'),
-    ('Gblocks', '0.91b','',SYSTEM),
+    ('Gblocks', '0.91b', '', SYSTEM),
     ('LASTZ', '1.04.22'),
     ('MAFFT', '7.520', '-with-extensions'),
     ('MUSCLE', '5.1.0'),
@@ -40,25 +52,6 @@ dependencies = [
 ]
 
 use_pip = True
-
-exts_list = [
-    (name, version, {
-        'patches': [
-            '%(name)s-%(version)s_fix-config-paths.patch',
-            '%(name)s-%(version)s_removal-Bio-Alphabet.patch',
-        ],
-        'source_urls': ['https://github.com/faircloth-lab/phyluce/archive/refs/tags/'],
-        'sources': 'v%(version)s.tar.gz',
-        'checksums': [
-            {'v1.7.3.tar.gz': '931fd512730bb101266b27728576df00277858d256e1ab30d64b474588362e11'},
-            {'phyluce-1.7.3_fix-config-paths.patch':
-             '2abfec1856ba2900bb6788838cebc296d66cc7fe11c7c97076133bbca176ae1e'},
-            {'phyluce-1.7.3_removal-Bio-Alphabet.patch':
-             'd92fa984f25f3e1bd7ea735b6e50beefc6b5c5e645dddd93fde551306767926e'},
-        ],
-    }),
-]
-
 sanity_pip_check = True
 
 sanity_check_paths = {
