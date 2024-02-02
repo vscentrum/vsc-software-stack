@@ -12,24 +12,28 @@ finding bias in genome recovery, computing ecological diversity metrics, and lin
 toolchain = {'name': 'foss', 'version': '2023a'}
 
 dependencies = [
-    ('Python', '3.11.3'), 
+    ('Python', '3.11.3'), # with SQLite
     ('SciPy-bundle', '2023.07'),  # for pandas
     ('matplotlib', '3.7.2'),
     ('Biopython', '1.83'), 
-    # polars >= 0.19.3 # in EC only polars 0.15.6
+    ('polars', '0.19.19'), # polars >= 0.19.3 
     ('tqdm', '4.66.1'),
-    ('Arrow', '14.0.1'),
+    ('Arrow', '14.0.1'), # for pyarrow
+    ('DIAMOND', '2.1.8'),
+    ('HMMER', '3.4'),
+    ('MAFFT', '7.520', '-with-extensions'),
+    ('tqdm', '4.66.1'),
+    ('OrfM', '0.7.1'),
+    ('mfqe', '0.5.0'),
+    ('KronaTools', '2.8.1'),
+    ('pplacer', '1.1.alpha19', '', True),
+    ('SRA-Toolkit', '3.0.10'),
     # ('DendroPy', '4.4.0'),
     # ('PyYAML', '5.1'),
     # ('PostgreSQL', '11.3', versionsuffix),  # required for psycopg2
     # ('smafa', '0.4.0'),
     # ('VSEARCH', '2.13.4'),
-    # ('OrfM', '0.7.1'),
-    # ('HMMER', '3.2.1'),
     # ('fxtract', '2.3'),
-    # ('pplacer', '1.1.alpha19', '', True),
-    # ('KronaTools', '2.7.1'),
-    # ('DIAMOND', '0.9.24'),
 ]
 
 use_pip = True
@@ -46,6 +50,8 @@ sanity_pip_check = True
 #     'checksums': ['6fe80f9608626427e8d382c5341c24088d61f17336fb6ce834d40aa4577499b5'],
 # }),
 exts_list = [
+    ('Jinja2', '3.1.3'),
+    ('fastalite', '0.4.1'),
     ('pyranges', '0.0.129', {
         'checksums': ['bee83b4fad0062be9586668c6b0fc4270d5e761951975e018202993680071fb3'],
     }),
