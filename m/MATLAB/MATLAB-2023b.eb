@@ -1,0 +1,34 @@
+name = 'MATLAB'
+version = '2023b'
+
+homepage = 'https://www.mathworks.com/products/matlab'
+description = """MATLAB is a high-level language and interactive environment
+ that enables you to perform computationally intensive tasks faster than with
+ traditional programming languages such as C, C++, and Fortran."""
+
+toolchain = SYSTEM
+
+sources = ['/apps/leuven/sources/m/MATLAB/R%(version)s/R%(version)s_Linux.iso']
+checksums = []
+
+java_options = '-Xmx2048m'
+
+osdependencies = [('p7zip-plugins', 'p7zip')]  # for extracting iso-files
+
+# Use EB_MATLAB_KEY environment variable or uncomment and modify license key
+key = <copy from appropriate fik file>
+
+# Use EB_MATLAB_LICENSE_SERVER and EB_MATLAB_LICENSE_SERVER_PORT environment variables or
+# uncomment and modify the following variables for installation with floating license server
+license_file = '/apps/leuven/sources/m/MATLAB/matlab_license_concurrent_kuleuven.dat'
+# license_server_port = 'XXXXX'
+
+allow_prepend_abs_path = True
+
+modextrapaths = {
+	'PATH':'/apps/leuven/common/software/MATLAB/support_packages/matlab_parallel_server/bin',
+	'MATLABPATH': '/apps/leuven/common/software/MATLAB/support_packages/matlab_parallel_server/scripts',
+}
+
+moduleclass = 'math'
+
