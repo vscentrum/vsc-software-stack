@@ -24,10 +24,11 @@ builddependencies = [
     ('flex', '2.6.4'),
     ('Bison', '3.8.2'),
     ('Perl', '5.36.1'),
-    ('Python', '3.11.3'),
+    # ('Python', '3.11.3'),
 ]
 
 dependencies = [
+    ('Python', '3.11.3'),
     ('Java', '11', '', SYSTEM),
     ('OpenSSL', '1.1', '', SYSTEM),
     ('ncbi-vdb', version), 
@@ -40,6 +41,9 @@ dependencies = [
 
 configopts = '-DVDB_INCDIR="$EBROOTNCBIMINVDB/include" -DVDB_LIBDIR="$EBROOTNCBIMINVDB/lib" '
 configopts += '-DBUILD_TOOLS_LOADERS=ON -DBUILD_TOOLS_INTERNAL=ON'
+
+
+buildopts = ' && cd ngs && make'
 
 _sra_bin = [
     'abi-dump', 'abi-load', 'align-info', 'bam-load', 'cache-mgr', 'cg-load', 'copycat', 'fasterq-dump', 'fastq-dump',
