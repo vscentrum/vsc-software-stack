@@ -1,8 +1,8 @@
 easyblock = 'JAR'
 
 name = 'GRASP-suite'
-version = '2022-10-14'
-local_commit = '04744b0'
+version = '2023-05-09'
+local_commit = '97cceec'
 versionsuffix = '-Java-%(javaver)s'
 
 homepage = 'https://github.com/bodenlab/GRASP-suite/'
@@ -11,15 +11,14 @@ description = """GRASP-suite is a collection of tools and tutorials to perform a
 analyse ancestral sequence reconstruction."""
 
 toolchain = SYSTEM
-# https://github.com/bodenlab/GRASP/blob/04744b0ea3d802645b73ab7e799145d306ee437c/src/main/resources/grasp-repo/com/asr/bnkit/1.0/bnkit-1.0.jar
-source_urls = ['https://github.com/bodenlab/GRASP/blob/%s/src/main/resources/grasp-repo/com/asr/bnkit/1.0/' % local_commit]
+
+source_urls = ['https://github.com/bodenlab/GRASP-suite/blob/%s/content/project/graspcmd/archive/' % local_commit]
 sources = [{
-    "download_filename": "bnkit-1.0.jar",
+    "download_filename": "bnkit.jar",
     "filename": "%(name)s-%(version)s.jar",
 }]
-checksums = ['3f6009d23c28c5ebfddbc4de5deac8afab42acb512676ae821e57f97850db243']
+checksums = ['abb38d9dc799d9ee7342eaf829a1b68a02ca18896378eae81faa6a75f4b1fb24']
 
-# source_urls = ['https://github.com/bodenlab/GRASP/raw/%s/src/main/resources/lib/' % local_commit]
 dependencies = [('Java', '17')]
 
 postinstallcmds = [
