@@ -1,0 +1,39 @@
+easyblock = 'CmdCp'
+
+name = 'AMICA'
+version = '2024.1.19'
+local_commit = 'e0db55f07c8c410641cd5b0df5498a5a53129ce6'
+
+homepage = 'https://github.com/sccn/amica'
+description = """Code for AMICA: Adaptive Mixture ICA with shared components"""
+
+toolchain = {'name': 'intel', 'version': '2023a'}
+toolchainopts = {'openmp': True}
+# https://github.com/sccn/amica/archive/e0db55f07c8c410641cd5b0df5498a5a53129ce6.zip
+source_urls = ['https://github.com/sccn/amica/archive/']
+# source_urls = ['https://github.com/sccn/amica/wiki/Amica-Download/27dc1d87dbb608ddccb3cf46202a179b3a943f0c/']
+sources = ['%s.zip' % local_commit]
+# sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}] example
+checksums = ['5c581f0edaa7d7ae7a8a2a993db22c4d211b38860a20099b0b4e9a0dc5fa6162']
+
+# dependencies = [
+#     ('Python', '3.11.3'),
+#     ('Meson', '1.1.1'),
+#     ('Ninja', '1.11.1'),
+#     ('CMake', '3.26.3'),
+#     ('SAMtools', '1.18'),
+# ]
+
+# cmds_map = [('.*', "./compile")]
+install_cmd = "mpif90 -static-intel -fpp -O3 -march=core-avx2 -heap-arrays -qopenmp -mkl -DMKL -o amica15ex funmod2.f90 amica17.f90"
+test_cmd = "./amica17nsg ./amicadefs.param"
+files_to_copy = [(['install/bin/*'], 'bin'), (['install/lib/*'], 'lib'), (['install/include/*'], 'include')]
+
+# sanity_check_paths = {
+#     'files': ['bin/randseq', 'bin/indexlr', 'bin/mi_bf_generate'],
+#     'dirs': [],
+# }
+
+# sanity_check_commands = ['randseq --help', 'indexlr --help']
+
+moduleclass = 'math'

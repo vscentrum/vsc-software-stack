@@ -1,0 +1,59 @@
+# author: Denis Kristak (INUITS)
+easyblock = 'PythonBundle'
+
+name = 'Bonito'
+version = '0.7.1'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/nanoporetech/bonito'
+description = "Convolution Basecaller for Oxford Nanopore Reads"
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('CUDA', '11.7.0', '', SYSTEM),
+    ('SciPy-bundle', '2022.05'),
+    ('PyTorch', '1.12.1', '-CUDA-%(cudaver)s'),
+    ('edlib', '1.3.9'),
+    ('ont-fast5-api', '4.1.1'),
+]
+
+use_pip = True
+
+# strip out too strict version requirements for dependencies
+local_bonito_preinstallopts = "sed -i 's/[><=]=.*//g' requirements.txt && "
+# fix requirements for stuff we include as a proper dependency
+local_bonito_preinstallopts += "sed -i 's/genomeworks-cuda-10-2/genomeworks/g' requirements.txt && "
+local_bonito_preinstallopts += "sed -i 's/cupy-cuda102/cupy/g' requirements.txt && "
+local_bonito_preinstallopts += "sed -i 's/numpy~=[0-9.]*/numpy/g' requirements.txt && "
+local_bonito_preinstallopts += "sed -i 's/torch~=[0-9.]*/torch/g' requirements.txt && "
+local_bonito_preinstallopts += "export PATH=%(installdir)s/bin/:$PATH && "
+
+exts_list = [
+    ('fast-ctc-decode', '0.3.2', {
+        'source_tmpl': 'fast_ctc_decode-0.3.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'unpack_sources': False,
+    }),
+    ('mappy', '2.24', {
+    }),
+    ('ont-bonito', version, {
+        'modulename': 'bonito',
+        'preinstallopts': local_bonito_preinstallopts,
+    }),
+]
+
+sanity_pip_check = True
+
+sanity_check_paths = {
+    'files': ['bin/bonito'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    "bonito --help",
+    "bonito convert --help",
+    "bonito download --help",
+]
+
+moduleclass = 'bio'
