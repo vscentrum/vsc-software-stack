@@ -1,0 +1,53 @@
+easyblock = 'ConfigureMake'
+
+name = 'iSALE'
+version = 'dev-20240206'
+
+homepage = 'https://isale-code.github.io/'
+description = """iSALE (impact-SALE) is a multi-material, multi-rheology shock physics code
+based on the SALE hydrocode (Simplified Arbitrary Lagrangian Eulerian)"""
+
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+toolchainopts = {'opt': True, 'optarch': True, 'extra_fcflags': '-ffree-line-length-none'}
+
+download_instructions = """iSALE is not fully open source. It is distributed on a case-by-case basis to
+academic users in the impact community, strictly for non-commercial use.
+Scientists interested in using or developing iSALE may apply to use iSALE by
+completing the application form at https://isale-code.github.io/access.html"""
+
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['b94f3a831404553fc275807c9388b7362d7efdb938989bbf4fc1d217ba219c2a']
+
+builddependencies = [('Autotools', '20220317')]
+
+dependencies = [
+    ('libtirpc', '1.3.3'),
+]
+
+maxparallel = 1
+
+preconfigopts = "aclocal -I config && "
+preconfigopts += "autoconf && "
+preconfigopts += "automake --add-missing && "
+preconfigopts += "make clean && "
+
+postinstallcmds = [
+    # delete rogue zlib files from install dir
+    "rm -f %(installdir)s/lib/libz.a",
+    "rm -f %(installdir)s/include/{zconf.h,zlib.h}",
+]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['iANEOS', 'iSALE2D', 'iSALE3D', 'iSALEMat', 'iSALEPar', 'jcerror']] +
+             ['lib/lib%s.a' % x for x in ['aneos', 'jc', 'jc_jpeg', 'jc_z', 'ptool']],
+    'dirs': ['share'],
+}
+
+sanity_check_commands = [
+    ("iSALE2D", "--help"),
+    ("iSALE3D", "--help"),
+]
+
+group = "bisale"
+
+moduleclass = 'phys'
