@@ -8,13 +8,15 @@ homepage = 'https://github.com/sccn/amica'
 description = """Code for AMICA: Adaptive Mixture ICA with shared components"""
 
 toolchain = {'name': 'intel', 'version': '2023a'}
-toolchainopts = {'openmp': True}
+# toolchainopts = {'openmp': True}
+# toolchainopts = {'usempi': True}
 # https://github.com/sccn/amica/archive/e0db55f07c8c410641cd5b0df5498a5a53129ce6.zip
 source_urls = ['https://github.com/sccn/amica/archive/']
-# source_urls = ['https://github.com/sccn/amica/wiki/Amica-Download/27dc1d87dbb608ddccb3cf46202a179b3a943f0c/']
 sources = ['%s.zip' % local_commit]
+checksums = ['d856ef1bf4bd09b2aacf5da6832b9af5d7fb70976786f43585c72acd1a52443b']
+
+# source_urls = ['https://github.com/sccn/amica/wiki/Amica-Download/27dc1d87dbb608ddccb3cf46202a179b3a943f0c/']
 # sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}] example
-checksums = ['5c581f0edaa7d7ae7a8a2a993db22c4d211b38860a20099b0b4e9a0dc5fa6162']
 
 # dependencies = [
 #     ('Python', '3.11.3'),
@@ -24,15 +26,24 @@ checksums = ['5c581f0edaa7d7ae7a8a2a993db22c4d211b38860a20099b0b4e9a0dc5fa6162']
 #     ('SAMtools', '1.18'),
 # ]
 
-# cmds_map = [('.*', "./compile")]
-install_cmd = "mpif90 -static-intel -fpp -O3 -march=core-avx2 -heap-arrays -qopenmp -mkl -DMKL -o amica15ex funmod2.f90 amica17.f90"
-test_cmd = "./amica17nsg ./amicadefs.param"
-files_to_copy = [(['install/bin/*'], 'bin'), (['install/lib/*'], 'lib'), (['install/include/*'], 'include')]
+# cmds_map = [('.*', "mpif90 -o amica15ex funmod2.f90 amica17.f90")]
+# cmds_map = [('.*', "$MPICH_F90 $F90FLAGS -static-intel -fpp -DMKL -o amica15ex funmod2.f90 amica17.f90")]
+# cmds_map = [('.*', "mpif90 -static-intel -fpp -O3 -march=core-avx2 -heap-arrays -qopenmp -mkl -DMKL -o amica15ex funmod2.f90 amica17.f90")] #WORKS
+cmds_map = [('.*', "$MPIF90 -static-intel -fpp $F90FLAGS  -heap-arrays -mkl -DMKL -o amica15ex funmod2.f90 amica17.f90")]
 
-# sanity_check_paths = {
-#     'files': ['bin/randseq', 'bin/indexlr', 'bin/mi_bf_generate'],
-#     'dirs': [],
-# }
+# install_cmd = "mpif90 -static-intel -fpp -O3 -march=core-avx2 -heap-arrays -qopenmp -mkl -DMKL -o amica15ex funmod2.f90 amica17.f90"
+# install_cmd = "$MPIF90 $F90FLAGS -static-intel -DMKL -o amica15ex funmod2.f90 amica17.f90"
+# install_cmd = "mpif90 -static-intel -DMKL -o amica15ex funmod2.f90 amica17.f90"
+# install_cmd = "env"
+
+test_cmd = "./amica17nsg ./amicadefs.param"
+# files_to_copy = [(['install/bin/*'], 'bin'), (['install/lib/*'], 'lib'), (['install/include/*'], 'include')]
+files_to_copy = ['*']
+
+sanity_check_paths = {
+    'files': ["amica17nsg"],
+    'dirs': [],
+}
 
 # sanity_check_commands = ['randseq --help', 'indexlr --help']
 
