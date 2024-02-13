@@ -1,0 +1,62 @@
+# easyblock = 'Bundle'
+easyblock = 'RubyGem'
+
+name = 'Transrate'
+version = '1.0.3'
+
+homepage = 'https://hibberdlab.com/transrate'
+description = """Transrate is software for de-novo transcriptome assembly quality analysis.
+ It examines your assembly in detail and compares it to experimental evidence such as the sequencing reads,
+ reporting quality scores for contigs and assemblies. This allows you to choose between assemblers and parameters,
+ filter out the bad contigs from an assembly, and help decide when to stop trying to improve the assembly."""
+
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+
+source_urls = ['https://github.com/blahah/transrate/archive/']
+sources = ['v%(version)s.tar.gz']
+
+builddependencies = [
+    ('binutils', '2.40'),
+]
+
+dependencies = [
+    ('Ruby', '3.3.0'),
+]
+
+preinstallopts = "echo here && gem build transrate.gemspec && find -type f -name '*.gem' && "
+
+gem_file = '%(namelower)s-%(version)s.gem'
+
+# exts_default_options = {
+#     'source_urls': ['https://rubygems.org/downloads/'],
+#     'source_tmpl': '%(name)s-%(version)s.gem',
+# }
+#
+# exts_defaultclass = 'RubyGem'
+#
+# exts_list = [
+#     # ('', '', {
+#     #     'checksums': [''],
+#     # }),
+#     ('%(namelower)s', version, {
+#         'source_urls': ['https://github.com/blahah/transrate/archive/'],
+#         'sources': ['v%(version)s.tar.gz'],
+#         'preinstallopts': "echo here && gem build transrate.gemspec && find -type f -name '*.gem' && ",
+#         'gem_file': '%(namelower)s-%(version)s.gem',
+#         'checksums': ['2ccb101cfab5a33586ea9e62af2b2f14caf6bc016724d1fef796b427e39fe100'],
+#     }),
+# ]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': ['gems/%(namelower)s-%(version)s'],
+}
+
+sanity_check_commands = ["%(namelower)s --help"]
+
+# modextrapaths = {'GEM_PATH': ['']}
+
+moduleclass = 'bio'
+
+# TODO `preinstallopts` doesn't work for `RubyGem`?
+# TODO Could not find a valid gem - `em_file` is checked before built by `preinstallopts`
