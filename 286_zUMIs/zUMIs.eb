@@ -1,0 +1,53 @@
+easyblock = 'Tarball'
+
+name = 'zUMIs'
+version = '2.9.7'
+
+homepage = 'https://github.com/sdparekh/zUMIs'
+description = """A fast and flexible pipeline to process RNA sequencing data with UMIs."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+github_account = 'sdparekh'
+source_urls = [GITHUB_SOURCE]
+sources = ['%(version)s.tar.gz']
+checksums = ['11eb3d99804a67e47b36b69accd0298c93c76b642d801292a618bc7888d34962']
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SAMtools', '1.18'),
+    ('STAR', '2.7.11a'),
+    ('R', '4.3.2'),
+    ('pigz', '2.8'),
+    ('Pysam', '0.22.0'),
+]
+
+# local_cmds = [
+#     'cd %(installdir)s',
+#     'mkdir bin',
+#     'ln -r -s protein_mpnn_run.py bin/protein_mpnn_run.py',
+#     'chmod a+x protein_mpnn_run.py',
+#     'ln -r -s protein_mpnn_utils.py bin/protein_mpnn_utils.py',
+#     'chmod a+x protein_mpnn_utils.py',
+# ]
+
+# postinstallcmds = [' && '.join(local_cmds)]
+
+# fix_python_shebang_for = [
+#     'protein_mpnn_run.py',
+#     'protein_mpnn_utils.py',
+# ]
+
+# modextrapaths = {
+#     'PATH': '',
+#     'PYTHONPATH': '',
+# }
+
+sanity_check_paths = {
+    'files': ["zUMIs.yaml"],
+    'dirs': [],
+}
+
+# sanity_check_commands = ['protein_mpnn_run.py --help']
+
+moduleclass = 'tools'
