@@ -2,6 +2,7 @@ easyblock = 'Tarball'
 
 name = 'zUMIs'
 version = '2.9.7'
+versionsuffix = '-R-%(rver)s'
 
 homepage = 'https://github.com/sdparekh/zUMIs'
 description = """A fast and flexible pipeline to process RNA sequencing data with UMIs."""
@@ -20,15 +21,15 @@ dependencies = [
     ('R', '4.3.2'),
     ('pigz', '2.8'),
     ('Pysam', '0.22.0'),
+    ('R-bundle-Bioconductor', '3.18', '-R-%(rver)s')
 ]
 
 # local_cmds = [
-#     'cd %(installdir)s',
-#     'mkdir bin',
-#     'ln -r -s protein_mpnn_run.py bin/protein_mpnn_run.py',
-#     'chmod a+x protein_mpnn_run.py',
-#     'ln -r -s protein_mpnn_utils.py bin/protein_mpnn_utils.py',
-#     'chmod a+x protein_mpnn_utils.py',
+#     'cran_pcks <- c("inflection","yaml","shiny","shinythemes","shinyBS","ggplot2","mclust","dplyr","cowplot","Matrix","BiocManager","devtools","stringdist","data.table","stringr","extraDistr")',
+#     'install.packages(cran_pcks)',
+#     'bioc_pcks <- c("GenomicRanges","GenomicFeatures","GenomicAlignments","AnnotationDbi","GenomeInfoDb","plyranges")',
+#     'BiocManager::install(bioc_pcks)',
+#     'devtools::install_github("VPetukhov/ggrastr")',
 # ]
 
 # postinstallcmds = [' && '.join(local_cmds)]
@@ -43,11 +44,13 @@ dependencies = [
 #     'PYTHONPATH': '',
 # }
 
+
+# Rscript ./checkyaml.R zUMIs.yaml
 sanity_check_paths = {
     'files': ["zUMIs.yaml"],
     'dirs': [],
 }
 
-# sanity_check_commands = ['protein_mpnn_run.py --help']
+# sanity_check_commands = ['xxx']
 
 moduleclass = 'tools'
