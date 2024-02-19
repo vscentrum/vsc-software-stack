@@ -17,6 +17,8 @@ dependencies = [
     ('jq', '1.6'),
 ]
 
+modextrapaths = {'R_LIBS_SITE': ''}
+
 preinstallopts = 'export CXX11="$CXX" && export CXX11FLAGS="$CXXFLAGS" && '
 
 exts_defaultclass = 'RPackage'
@@ -145,7 +147,13 @@ exts_list = [
     }),
     (name, version, {
         'checksums': ['9416bf2a32faf4ae7159f50ba56ac7924852af59f932223b2268aedfa1769fda'],
+        # 'postinstallcmds': ['echo here && ls -lh %(installdir)s'],
     }),
 ]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
 
 moduleclass = 'math'
