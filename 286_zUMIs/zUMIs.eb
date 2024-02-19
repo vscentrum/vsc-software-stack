@@ -21,36 +21,265 @@ dependencies = [
     ('R', '4.3.2'),
     ('pigz', '2.8'),
     ('Pysam', '0.22.0'),
-    ('R-bundle-Bioconductor', '3.18', '-R-%(rver)s')
+    ('R-bundle-Bioconductor', '3.18', '-R-%(rver)s'),
+    ('R-bundle-CRAN', '2023.12'),
 ]
 
-# local_cmds = [
-#     'cran_pcks <- c("inflection","yaml","shiny","shinythemes","shinyBS","ggplot2","mclust","dplyr","cowplot","Matrix","BiocManager","devtools","stringdist","data.table","stringr","extraDistr")',
-#     'install.packages(cran_pcks)',
-#     'bioc_pcks <- c("GenomicRanges","GenomicFeatures","GenomicAlignments","AnnotationDbi","GenomeInfoDb","plyranges")',
-#     'BiocManager::install(bioc_pcks)',
-#     'devtools::install_github("VPetukhov/ggrastr")',
+exts_defaultclass = 'RPackage'
+exts_default_options = {
+    'sources': ['%(name)s_%(version)s.tar.gz'],
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',
+        'https://cran.r-project.org/src/contrib/',
+        'https://cran.freestatistics.org/src/contrib',
+        'https://bioconductor.org/packages/3.18/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.18/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.18/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/',
+    ],
+}
+exts_list = [
+    ('plyranges', '1.22.0', {
+        'checksums': ['fcdcad1082fadd1a365dd2d2cc7d955601b737ecd4a567d888d2b445756297fc'],
+    }),
+]
+
+# exts_list = [
+#     ('tidyselect', '1.2.0', {
+#         'checksums': ['538d26b727e37d618e2efd3b00836048f103112a03e6994bf07a02392e269e3b'],
+#     }),
+#     ('generics', '0.1.3', {
+#         'checksums': ['75046163bfa8b8a4f4214c1b689e796207f6447182f2e5062cf570302387d053'],
+#     }),
+#     ('colorspace', '2.1-0', {
+#         'checksums': ['04078abb6b54119c90dc7085d62916bf292ccb163e213f9ea70567d1be82614c'],
+#     }),
+#     ('viridisLite', '0.4.2', {
+#         'checksums': ['893f111d31deccd2cc959bc9db7ba2ce9020a2dd1b9c1c009587e449c4cce1a1'],
+#     }),
+#     ('RColorBrewer', '1.1-3', {
+#         'checksums': ['4f42f5423c45688b39f492c7892d93f37b4541831c8ffb140364d2bd89031ac0'],
+#     }),
+#     ('farver', '2.1.1', {
+#         'checksums': ['0dcfda6ca743f465372790bcff1bcbc6a7145fdac1c682b021f654e8c6c996ce'],
+#     }),
+#     ('labeling', '0.4.3', {
+#         'checksums': ['c62f4fc2cc74377d7055903c5f1913b7295f7587456fe468592738a483e264f2'],
+#     }),
+#     ('munsell', '0.5.0', {
+#         'checksums': ['d0f3a9fb30e2b5d411fa61db56d4be5733a2621c0edf017d090bdfa5e377e199'],
+#     }),
+#     ('lattice', '0.22-5', {
+#         'checksums': ['ba1fbe5e18a133507dca9851b7f933002bdb6d1f3ea5f410a0a441103b6da5f1'],
+#     }),
+#     ('nlme', '3.1-164', {
+#         'checksums': ['79a5a020ce7037b83ee6c28336e35a1310058c13fc59f7fcb11eca0bc9bdd4e8'],
+#     }),
+#     ('Matrix', '1.6-5', {
+#         'checksums': ['726c8d46626e73d1d6e76a74679813c6df96ffdee1aee45d94e7014cb4ceb97d'],
+#     }),
+#     ('gtable', '0.3.4', {
+#         'checksums': ['7032039371a4ec1bde9d3e4b7dae450dcc9aab50bb0e6287ab26a1b0199c7977'],
+#     }),
+#     ('isoband', '0.2.7', {
+#         'checksums': ['7693223343b45b86de2b5b638ff148f0dafa6d7b1237e822c5272902f79cdf61'],
+#     }),
+#     ('MASS', '7.3-60.0.1', {
+#         'checksums': ['74df93593029b803d78902c95eddcaa2e7e9ed186ab0be40b56f3f8bfd13adbd'],
+#     }),
+#     ('mgcv', '1.9-1', {
+#         'checksums': ['700fbc37bedd3a49505b9bc4949faee156d9cfb4f669d797d06a10a15a5bdb32'],
+#     }),
+#     ('scales', '1.3.0', {
+#         'checksums': ['b33e0f6b44259551ce02befd52eac53602509fbfdd903920620c658c50f35888'],
+#     }),
+#     ('inflection', '1.3.6', {
+#         'checksums': ['c8ba385362f880ced8f6fa24843cb9984d1b79ba22d4494b8d0834391c657186'],
+#     }),
+#     ('yaml', '2.3.8', {
+#         'checksums': ['9ed079e2159cae214f3fefcbc4c8eb3b888ceabe902350adbdb1d181eda23fd8'],
+#     }),
+#     ('shiny', '1.8.0', {
+#         'checksums': ['f28740ba28707e8b3dabb2ad27b002dae555317010660702163bb0daefe04641'],
+#     }),
+#     ('shinyBS', '0.61.1', {
+#         'checksums': ['0aed72473060531d0e782ba62092493002137df6b251af9e2294e2a40a32a140'],
+#     }),
+#     ('shinythemes', '1.2.0', {
+#         'checksums': ['37d68569ce838c7da9f0ea7e2b162ecf38fba2ae448a4888b6dd29c4bb5b2963'],
+#     }),
+#     ('ggplot2', '3.4.4', {
+#         'checksums': ['2d76ec065d3e604d019506f45b3b713ae20f38e47dbebfb5ba1648b47fe63e46'],
+#     }),
+#     ('mclust', '6.0.1', {
+#         'checksums': ['0e92de6fd1bd2a13de2c94eae84fba0d3762099a2505e05b887f1c2a7242537f'],
+#     }),
+#     ('dplyr', '1.1.4', {
+#         'checksums': ['cf730414d5d4ab387b4e9890a4b1df9d17a3903488e8da8df1cf2e11e44558cb'],
+#     }),
+#     ('cowplot', '1.1.3', {
+#         'checksums': ['8756971af5c50381cf00ec7ed622fd5cf3d70f534bdfa3ebadd157b5aef5b273'],
+#     }),
+#     ('BiocManager', '1.30.22', {
+#         'checksums': ['5389c9c0d6562b0757659fb8262ab51b48225c4ba7e9acd4f5e7c0049735e835'],
+#     }),
+#     ('devtools', '2.4.5', {
+#         'checksums': ['38160ebd839acdec7ebf0699a085b4ab1ebd5500d3c57a9fa7ae484f1909904b'],
+#     }),
+#     ('stringdist', '0.9.12', {
+#         'checksums': ['e1843452ff4184b8d3bc5168732c0c65d3fce11f0df9fcf92173a22ef92e66c4'],
+#     }),
+#     ('data.table', '1.15.0', {
+#         'checksums': ['39b7db5dbc76fed91ac60bc351f37a0275a51f306120086b5cd92c1062241062'],
+#     }),
+#     ('stringr', '1.5.1', {
+#         'checksums': ['a4adec51bb3f04214b1d8ef40d3a58949f21b1497cbeaf2ba552e0891eef45de'],
+#     }),
+#     ('extraDistr', '1.10.0', {
+#         'checksums': ['f4264a6c2c95bb7a865655b0e84f48e30dcd584498b49d626a71adaec8eda3a9'],
+#     }),
+#     ('BiocGenerics', '0.48.1', {
+#         'checksums': ['13e126709da888420f320353d6ea52da12a8cbd086f2e29b9cc3039a6411652b'],
+#     }),
+#     ('S4Vectors', '0.40.2', {
+#         'checksums': ['4cd9a63b3b41b08fca8121dc5b8f43d6f7d580842b1b000055dee90b68f49982'],
+#     }),
+#     ('IRanges', '2.36.0', {
+#         'checksums': ['58c05c3c4eb7fdee64cb027ba849de0ec57f2e4150b9aa645b62549da1401066'],
+#     }),
+#     ('bitops', '1.0-7', {
+#         'checksums': ['e9b5fc92c39f94a10cd0e13f3d6e2a9c17b75ea01467077a51d47a5f708517c4'],
+#     }),
+#     ('RCurl', '1.98-1.14', {
+#         'checksums': ['eead278694471dfa9bd2f256d229eebed782e71dc1c734fb457ec35377f303cf'],
+#     }),
+#     ('GenomeInfoDbData', '1.2.11', {
+#         'checksums': ['311fe287842e6161f24fc1faaa824a6d5ce88afcbf4c0203f5e309456e667bc2'],
+#     }),
+#     ('GenomeInfoDb', '1.38.6', {
+#         'checksums': ['b81e67ed62524df8978367ad1d8dd49a4c08a911752adba2c91c7528cb9e1c7d'],
+#     }),
+#     ('zlibbioc', '1.48.0', {
+#         'checksums': ['fb0d05dfe549f6676dc764ec86f797ca1d878fe3cd1dea68b79d323ff8e37d10'],
+#     }),
+#     ('XVector', '0.42.0', {
+#         'checksums': ['a163561e54c8a3f013e629c275f2446d25b3b56dbab53a4938de5f405b8d0340'],
+#     }),
+#     ('GenomicRanges', '1.54.1', {
+#         'checksums': ['1cecb68c906b0a565c0fef5a0a8284a513a4910979f33d34901c42df501e3aef'],
+#     }),
+#     ('DBI', '1.2.2', {
+#         'checksums': ['8d55a0b3654511b776ae8ad201f4ebefa707c5f5f4ee6ae39af3856913d5a781'],
+#     }),
+#     ('bit', '4.0.5', {
+#         'checksums': ['f0f2536a8874b6a30b80baefbc68cb21f0ffbf51f3877bda8038c3f9f354bfbc'],
+#     }),
+#     ('bit64', '4.0.5', {
+#         'checksums': ['25df6826ea5e93241c4874cad4fa8dadc87a40f4ff74c9107aa12a9e033e1578'],
+#     }),
+#     ('blob', '1.2.4', {
+#         'checksums': ['d08922ebc4147d930fe4762b1b289935217308c6d3fcaa5ae028ce3f5cf2728f'],
+#     }),
+#     ('plogr', '0.2.0', {
+#         'checksums': ['0e63ba2e1f624005fe25c67cdd403636a912e063d682eca07f2f1d65e9870d29'],
+#     }),
+#     ('RSQLite', '2.3.5', {
+#         'checksums': ['81537effcb5a00a0544bd7848d0c4597e0060cddd7b576cd073ba2cc78536ef3'],
+#     }),
+#     ('Biobase', '2.62.0', {
+#         'checksums': ['ef753acc499c2504e226bf76e0acc08b7aa370fc60cc369bb8ebc1913f57d37e'],
+#     }),
+#     ('Biostrings', '2.70.2', {
+#         'checksums': ['ca98ea24130bc9dc4e5e5d62c4c095fff6f259ca5b3523a02169d6c1a99daa52'],
+#     }),
+#     ('png', '0.1-8', {
+#         'checksums': ['5a36fabb6d62ba2533d3fc4cececd07891942cfb76fe689ec0d550d08762f61c'],
+#     }),
+#     ('KEGGREST', '1.42.0', {
+#         'checksums': ['072c3f236d65479afd20ecf83e7b0e32cbd13a6e4c54922bf17b37b6420ccc15'],
+#     }),
+#     ('AnnotationDbi', '1.64.1', {
+#         'checksums': ['03bff46268ad797466f445c51ab72929224514512561c43662037ca10618b9ad'],
+#     }),
+#     ('BiocIO', '1.12.0', {
+#         'checksums': ['77c1dff3b789313ea5b4c9d7b171cde11cacdfc958ce63b60f4f09b9ed94c22e'],
+#     }),
+#     ('XML', '3.99-0.16.1', {
+#         'checksums': ['a30ae3a3e0d559a2b84b118aa185ef9c42adcf644bf042569f6d192762d2eec4'],
+#     }),
+#     ('rjson', '0.2.21', {
+#         'checksums': ['982b56d35ccc0c7db0b20c1d3eab5f5f47c620309646fdc278ff1cc3433ea2e2'],
+#     }),
+#     ('restfulr', '0.0.15', {
+#         'checksums': ['40ff8f1fb2987af2223e1a855bb1680c5ce2143fbce7ebc42f1edb291f80e692'],
+#     }),
+#     ('filelock', '1.0.3', {
+#         'checksums': ['2dcd0ec453f5ec4d96f69b0c472569d57d3c5f9956a82a48492ee02f12071137'],
+#     }),
+#     ('BiocFileCache', '2.10.1', {
+#         'checksums': ['b5d58418fef661743247229a39646685c31c5bfbeb73b28547c0ace772809310'],
+#     }),
+#     ('biomaRt', '2.58.0', {
+#         'checksums': ['8e8a18e0cb5dcedd816df95268f17fe26006153a6d468085363334f05335ccd4'],
+#     }),
+#     ('GenomicFeatures', '1.54.3', {
+#         'checksums': ['85b63ee3ee567cc511de9d4ed26b7e5864b3a3d17aec7b9681d73b1bb476e8ac'],
+#     }),
+#     ('GenomeInfoDb', '1.38.6', {
+#         'checksums': ['b81e67ed62524df8978367ad1d8dd49a4c08a911752adba2c91c7528cb9e1c7d'],
+#     }),
+#     ('SummarizedExperiment', '1.32.0', {
+#         'checksums': ['9f801c16adb503d7252890019b46f5583c401622c7ec9373663537548c9889a4'],
+#     }),
+#     ('Rsamtools', '2.18.0', {
+#         'checksums': ['2f283b105ede839655bf8a3cb877f97764900486875748f4c3f9ecdf78bc8a2d'],
+#     }),
+#     ('GenomicAlignments', '1.38.2', {
+#         'checksums': ['816f078886e0b2054392f1432702372be9621e0da379c1cfa3b02dd5cb389644'],
+#     }),
+#     ('rtracklayer', '1.62.0', {
+#         'checksums': ['c28217936c81248f2576af8327356324ccf7101b04f3358d049f0a839dd8b0cb'],
+#     }),
+#     ('plyranges', '1.22.0', {
+#         'checksums': ['fcdcad1082fadd1a365dd2d2cc7d955601b737ecd4a567d888d2b445756297fc'],
+#     }),
+#     ('ggbeeswarm', '0.7.2', {
+#         'checksums': ['fd7ca265bb892dde514d5f8d6a853fb8b32d7a673b05e9c8b50544a523299ce5'],
+#     }),
+#     ('ggrastr', '1.0.2', {
+#         'checksums': ['cb27406dca99cea6440adf6edb7eb53141b60322452f5a5d4409e36516ad20d1'],
+#     }),
 # ]
 
-# postinstallcmds = [' && '.join(local_cmds)]
+    # ('Cairo', '1.6-2', {
+    #     'checksums': ['6b6f4c6f93178a1295860a9dc6dc45e60fec70f684d5c8d0b59baf5b8dd44d62'],
+    # }),
 
-# fix_python_shebang_for = [
-#     'protein_mpnn_run.py',
-#     'protein_mpnn_utils.py',
-# ]
+postinstallcmds = [
+    "mkdir -p %(installdir)s/bin",
+    "echo '#!/bin/sh' > %(installdir)s/bin/zumis",
+    "echo '%(installdir)s/zUMIs.sh $@' >> %(installdir)s/bin/zumis",
+    "chmod a+rx %(installdir)s/bin/zumis"
+]
+
+modloadmsg = """
+To run zUMIs do not use '$ zUMIs.sh ...' command but only '$ zumis ...' instead.
+Do NOT run with conda (do not use flag '-c').
+"""
 
 # modextrapaths = {
 #     'PATH': '',
 #     'PYTHONPATH': '',
 # }
 
+modextrapaths = {'R_LIBS_SITE': ''}
 
 # Rscript ./checkyaml.R zUMIs.yaml
 sanity_check_paths = {
-    'files': ["zUMIs.yaml"],
+    'files': ["bin/zumis"],
     'dirs': [],
 }
 
-# sanity_check_commands = ['xxx']
+sanity_check_commands = ['zumis -h']
 
 moduleclass = 'tools'
