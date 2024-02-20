@@ -259,9 +259,8 @@ postinstallcmds = [
     "sed -i '33 s/${zumis}/zumis/' %(installdir)s/zUMIs.sh",
     "sed -i '43,46d' %(installdir)s/zUMIs.sh",
     "sed -i '7,10d' %(installdir)s/zUMIs.sh",
-    "mv %(installdir)s/zUMIs.sh %(installdir)s/zumis",
     "mkdir -p %(installdir)s/bin",
-    "ln -s %(installdir)s/zumis %(installdir)s/bin/zumis",
+    "ln -s %(installdir)s/zUMIs.sh %(installdir)s/bin/zumis",
 ]
 
 modloadmsg = """
@@ -272,10 +271,10 @@ Do NOT run with conda (do not use flag '-c').
 modextrapaths = {'R_LIBS_SITE': ''}
 
 sanity_check_paths = {
-    'files': ["bin/zumis", "zumis"],
+    'files': ["bin/zumis"],
     'dirs': [],
 }
 
-# sanity_check_commands = ['zumis -h']
+sanity_check_commands = ['zumis -h 2>&1 | grep "USAGE"']
 
 moduleclass = 'tools'
