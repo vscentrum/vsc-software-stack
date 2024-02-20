@@ -1,0 +1,27 @@
+easyblock = 'Tarball'
+
+name = 'QuPath'
+version = '0.5.0'
+
+homepage = 'https://qupath.github.io'
+description = """QuPath is open source software for bioimage analysis.
+QuPath is often used for digital pathology applications because it offers
+ a powerful set of tools for working with whole slide images - but it can
+ be applied to lots of other kinds of image as well."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/qupath/qupath/releases/download/v%(version)s']
+sources = ['QuPath-v%(version)s-Linux.tar.xz']
+checksums = ['f426234ece3916d0a6c0669cf3c4e9caac7f0ab88431a04e2bb6bd221bce02f4']
+
+postinstallcmds = ['cd %(installdir)s/bin && chmod a+x %(name)s']
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['%(name)s --help']
+
+moduleclass = 'bio'
