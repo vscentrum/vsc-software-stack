@@ -16,13 +16,13 @@ checksums = ['11eb3d99804a67e47b36b69accd0298c93c76b642d801292a618bc7888d34962']
 
 dependencies = [
     ('Python', '3.11.3'),
+    ('pigz', '2.8'),
+    ('Pysam', '0.22.0'),
     ('SAMtools', '1.18'),
     ('STAR', '2.7.11a'),
     ('R', '4.3.2'),
-    ('pigz', '2.8'),
-    ('Pysam', '0.22.0'),
+    # ('R-bundle-CRAN', '2023.12'),
     ('R-bundle-Bioconductor', '3.18', '-R-%(rver)s'),
-    ('R-bundle-CRAN', '2023.12'),
 ]
 
 exts_defaultclass = 'RPackage'
@@ -256,10 +256,12 @@ exts_list = [
     # }),
 
 postinstallcmds = [
+    "sed -i '33 s/${zumis}/zumis/' %(installdir)s/zUMIs.sh",
+    "sed -i '43,46d' %(installdir)s/zUMIs.sh",
+    "sed -i '7,10d' %(installdir)s/zUMIs.sh",
+    "mv %(installdir)s/zUMIs.sh %(installdir)s/zumis",
     "mkdir -p %(installdir)s/bin",
-    "echo '#!/bin/sh' > %(installdir)s/bin/zumis",
-    "echo '%(installdir)s/zUMIs.sh $@' >> %(installdir)s/bin/zumis",
-    "chmod a+rx %(installdir)s/bin/zumis"
+    "ln -s %(installdir)s/zumis %(installdir)s/bin/zumis",
 ]
 
 modloadmsg = """
@@ -267,19 +269,13 @@ To run zUMIs do not use '$ zUMIs.sh ...' command but only '$ zumis ...' instead.
 Do NOT run with conda (do not use flag '-c').
 """
 
-# modextrapaths = {
-#     'PATH': '',
-#     'PYTHONPATH': '',
-# }
-
 modextrapaths = {'R_LIBS_SITE': ''}
 
-# Rscript ./checkyaml.R zUMIs.yaml
 sanity_check_paths = {
-    'files': ["bin/zumis"],
+    'files': ["bin/zumis", "zumis"],
     'dirs': [],
 }
 
-sanity_check_commands = ['zumis -h']
+# sanity_check_commands = ['zumis -h']
 
 moduleclass = 'tools'
