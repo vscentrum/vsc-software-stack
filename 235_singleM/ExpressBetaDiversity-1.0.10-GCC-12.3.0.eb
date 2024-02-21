@@ -17,7 +17,8 @@ dependencies = [
     ('Python', '3.11.3'),
 ]
 
-prebuildopts = 'cd source && '
+prebuildopts = "cd source && "
+prebuildopts += "sed -i 's|#!/usr/bin/python|#!/usr/bin/env python|g' dep.py && "
 
 files_to_copy = [
     'bin',
@@ -38,6 +39,6 @@ sanity_check_commands = [
     'cd bin && ExpressBetaDiversity -u',
 ]
 
-# modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+# fix_python_shebang_for = ['source/dep.py', 'scripts/*']
 
 moduleclass = 'bio'
