@@ -2,7 +2,7 @@ easyblock = 'MakeCp'
 
 name = 'FDMNES'
 
-version = '2024-02-14'
+version = '2024-02-15'
 
 homepage = 'https://fdmnes.neel.cnrs.fr'
 description = """X-ray spectroscopies are techniques which probe the electronic and structural
@@ -21,17 +21,28 @@ For the other edges, it includes advances by the use of the time dependent DFT (
 toolchain = {'name': 'gomkl', 'version': '2023a'}
 
 sources = [{
-    'source_urls': ['https://cloud.neel.cnrs.fr/index.php/s/DTc9BQ2GC8843b5'],
+    'source_urls': ['https://cloud.neel.cnrs.fr/index.php/s/NqfkSySpqSB4CyK'],
     'download_filename': 'download',
     'filename': '%(namelower)s_fortran_prog_%(version)s.zip',
 }]
 
-checksums = ['d54285c883455574be6f5652408292bd468285c8facdad14b66b97668995ea03']
+checksums = ['5ffce6825d21faf849f22f66aeae22cce4a922057192f7c98e9eaedaf2dbf2c7']
 
 dependencies = [
     ('MUMPS', '5.6.1', '-metis'),
     ('OpenMPI', '4.1.5'),
 ]
+
+parallel = 1  # TODO helped with the Cannot open module file declarations.mod
+# TODO but:
+# main.f90:1248:19:
+#
+#  1246 |     call MPI_Bcast(Check_mpi,1,MPI_LOGICAL,0,MPI_COMM_WORLD,mpierr)
+#       |                   2
+#  1247 |     if( Check_mpi ) then
+#  1248 |     call MPI_Bcast(icheck,30,MPI_INTEGER,0,MPI_COMM_WORLD,mpierr)
+#       |                   1
+# Error: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/LOGICAL(4)).
 
 buildopts = 'FC="$FC" FFLAGS="$FFLAGS -I$EBROOTOPENMPI/include -I$EBROOTMUMPS/include"'
 
