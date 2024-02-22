@@ -18,7 +18,10 @@ dependencies = [
 ]
 
 prebuildopts = "cd source && "
-prebuildopts += "sed -i 's|#!/usr/bin/python|#!/usr/bin/env python|g' dep.py && "
+# fix wrong regex pattern which makes: FutureWarning: split() requires a non-empty pattern match.
+prebuildopts += "sed -i '36 s/*/+/' dep.py && "
+# force use python from dependencies not the one on a node
+buildopts = "DEP='python dep.py'"
 
 files_to_copy = [
     'bin',
@@ -38,7 +41,5 @@ sanity_check_commands = [
     # See source/UnitTests.cpp:112: std::string seqCountFile = "../unit-tests/SimpleDataMatrix.env";
     'cd bin && ExpressBetaDiversity -u',
 ]
-
-# fix_python_shebang_for = ['source/dep.py', 'scripts/*']
 
 moduleclass = 'bio'
