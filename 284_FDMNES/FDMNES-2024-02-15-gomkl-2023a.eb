@@ -44,7 +44,7 @@ parallel = 1  # TODO helped with the Cannot open module file declarations.mod
 #       |                   1
 # Error: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/LOGICAL(4)).
 
-buildopts = 'FC="$FC" FFLAGS="$FFLAGS -I$EBROOTOPENMPI/include -I$EBROOTMUMPS/include"'
+buildopts = 'FC="$FC" FFLAGS="$FFLAGS -fallow-argument-mismatch -I$EBROOTOPENMPI/include -I$EBROOTMUMPS/include"'
 
 files_to_copy = [
     (['fdmness'], 'bin'),
