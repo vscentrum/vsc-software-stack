@@ -2,6 +2,7 @@ easyblock = 'PackedBinary'
 
 name = 'Gradle'
 version = '8.6'
+versionsuffix = '-Java-%(javaver)s'
 
 homepage = 'https://gradle.org'
 description = """Complete Gradle install.
@@ -15,9 +16,15 @@ source_urls = ['https://services.gradle.org/distributions']
 sources = ['gradle-%(version)s-all.zip']
 checksums = ['85719317abd2112f021d4f41f09ec370534ba288432065f4b477b6a3b652910d']
 
+dependencies = [
+    ('Java', '17'),
+]
+
 sanity_check_paths = {
     'files': ['bin/gradle'],
     'dirs': [],
 }
 
 moduleclass = 'devel'
+
+sanity_check_commands = ['%(namelower)s --help']
