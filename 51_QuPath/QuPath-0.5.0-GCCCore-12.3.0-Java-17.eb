@@ -21,11 +21,11 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('OpenSlide', '3.4.1', '-largefiles'),
+    ('OpenSlide-Java', '0.12.4', versionsuffix),
     ('Java', '17', '', SYSTEM),
 ]
 
-cmds_map = [('.*', 'gradle clean jpackage')]
+cmds_map = [('.*', "gradle clean jpackage -P openslide=$EBROOTOPENSLIDEMINJAVA/lib/openslide-java/openslide.jar")]
 
 files_to_copy = [
     'build/dist/%(name)s/bin',
