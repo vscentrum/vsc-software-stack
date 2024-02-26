@@ -1,0 +1,176 @@
+easyblock = 'PythonBundle'
+
+name = 'scvi-tools'
+version = '1.1.1'
+
+homepage = 'https://github.com/scverse/scvi-tools'
+description = """scvi-tools (single-cell variational inference tools) is a package for probabilistic modeling and
+analysis of single-cell omics data, built on top of PyTorch and AnnData."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('anndata', '0.10.5.post1'),
+    ('matplotlib', '3.7.2'),
+    ('PyYAML', '6.0'),
+    ('scikit-learn', '1.3.1'),
+    ('PyTorch', '2.1.2'),
+    ('tqdm', '4.66.1'),
+    # ('h5py', '3.2.1'),
+    # ('IPython', '7.25.0'),
+    # ('jax', '0.3.9'),
+    # ('openpyxl', '3.0.7'),
+    # ('PyTorch-Lightning', '1.5.9'),
+    # ('scikit-learn', '0.24.2'),
+    # ('dm-tree', '0.1.6'),
+    # ('scanpy', '1.8.1'),
+    # ('scikit-misc', '0.1.4'),
+]
+
+    # "anndata>=0.7.5", OK
+    # "docrep>=0.3.2",  OK - exts
+    # "flax",
+    # "jax>=0.4.4",
+    # "jaxlib>=0.4.3",
+    # "optax",
+    # "numpy>=1.21.0",
+    # "pandas>=1.0",
+    # "scipy",
+    # "scikit-learn>=0.21.2",
+    # "rich>=12.0.0",
+    # "h5py>=2.9.0",
+    # "torch>=1.8.0",
+    # "lightning>=2.0,<2.2",
+    # "torchmetrics>=0.11.0",
+    # "pyro-ppl>=1.6.0",
+    # "tqdm>=4.56.0",
+    # "scikit-learn>=0.21.2",
+    # "numpyro>=0.12.1",
+    # "ml-collections>=0.1.1",
+    # "mudata>=0.1.2",
+
+use_pip = True
+
+# jax 0.4.24 requires ml-dtypes, which is not installed.
+# jax 0.4.24 requires opt-einsum, which is not installed.
+# scvi-tools 1.1.1 requires jaxlib, which is not installed.
+# scvi-tools 1.1.1 requires lightning, which is not installed.
+# scvi-tools 1.1.1 requires ml-collections, which is not installed.
+# scvi-tools 1.1.1 requires mudata, which is not installed.
+# scvi-tools 1.1.1 requires numpyro, which is not installed.
+# scvi-tools 1.1.1 requires pyro-ppl, which is not installed.
+# scvi-tools 1.1.1 requires scikit-learn, which is not installed.
+# scvi-tools 1.1.1 requires torch, which is not installed.
+# scvi-tools 1.1.1 requires torchmetrics, which is not installed.
+# scvi-tools 1.1.1 requires tqdm, which is not installed.
+# optax 0.1.9 requires absl-py, which is not installed.
+# optax 0.1.9 requires chex, which is not installed.
+# optax 0.1.9 requires jaxlib, which is not installed.
+# flax 0.5.2 has requirement rich~=11.1, but you have rich 13.4.2.
+
+exts_list = [
+    ('chex', '0.1.85', {
+        'checksums': ['a27cfe87119d6e1fe24ccc1438a59195e6dc1d6e0e10099fcf618c3f64771faf'],
+    }),
+    ('absl-py', '2.1.0', {
+        'checksums': ['7820790efbb316739cde8b4e19357243fc3608a152024288513dd968d7d959ff'],
+    }),
+    ('pyro-ppl', '1.9.0', {
+        'checksums': ['41f4c005159568280fbc511648960a98a2b1a410027d8bd0a43220ac9b102cdf'],
+    }),
+    ('numpyro', '0.13.2', {
+        'checksums': ['526f0b15518094c78e68df6e330c9c1c9cea1274dac69f05617224fa6d954ee8'],
+    }),
+    ('mudata', '0.2.3', {
+        'checksums': ['45288ac150bfc598d68acb7c2c1c43c38c5c39522107e04f7efbf3360c7f2035'],
+    }),
+    ('ml_collections', '0.1.1', {
+        'checksums': ['3fefcc72ec433aa1e5d32307a3e474bbb67f405be814ea52a2166bfc9dbe68cc'],
+    }),
+    ('lightning', '2.2.0.post0', {
+        'checksums': ['60d91d39f42dde49e411bbf3a243b3d89c58aa028e2476d5fd2b3894a97ea775'],
+    }),
+    ('ml_dtypes', '0.3.2', {
+        'checksums': ['533059bc5f1764fac071ef54598db358c167c51a718f68f5bb55e3dee79d2967'],
+    }),
+    ('opt_einsum', '3.3.0', {
+        'checksums': ['59f6475f77bbc37dcf7cd748519c0ec60722e91e63ca114e68821c0c54a46549'],
+    }),
+    ('docrep', '0.3.2', {
+        'checksums': ['ed8a17e201abd829ef8da78a0b6f4d51fb99a4cbd0554adbed3309297f964314'],
+    }),
+    ('jaxlib', '0.4.24', {
+        'source_tmpl': 'jaxlib-%(version)s-cp312-cp312-manylinux2014_x86_64.whl',
+        'checksums': ['4e5ac656d6f73532e686720b58f2c947e8c8482679494578c31345a527e4081a'],
+    }),
+    ('jax', '0.4.24', {
+        'checksums': ['4a6b6fd026ddd22653c7fa2fac1904c3de2dbe845b61ede08af9a5cc709662ae'],
+    }),
+    ('flax', '0.8.1', {
+        'checksums': ['ce3d99e9b4c0d2e4d9fc28bc56cced8ba953adfd695aabd24f096b4c8a7e2f92'],
+    }),
+    ('optax', '0.1.9', {
+        'checksums': ['731f43e8b404f50a5ef025b1261894d7d0300f7ad9cb688ea08f67b40822e94f'],
+    }),
+    (name, version, {
+        'modulename': 'scvi',
+        'sources': ['scvi_tools-%(version)s.tar.gz'],
+        'checksums': ['f0c3b09de501664dd4f8d24906d34f80fa6ad0ea4b7850ae594e4ec5d6759172'],
+    }),
+]
+
+#     ('typing_extensions', '4.4.0', {
+#         'checksums': ['1511434bb92bf8dd198c12b1cc812e800d4181cfcb867674e0f8279cc93087aa'],
+#     }),
+#     # stick to flax v0.5.2, which does not require tensorstore (which is built with Bazel) or a very recent jax yet...
+#     ('flax', '0.5.2', {
+#         'checksums': ['5f07775fd4ba1926192ab6eb48c9adbd5658ddaf8585fb0c561741400d5599ff'],
+#     }),
+#     ('multipledispatch', '0.6.0', {
+#         'checksums': ['a7ab1451fd0bf9b92cab3edbd7b205622fb767aeefb4fb536c2e3de9e0a38bea'],
+#     }),
+#     ('numpyro', '0.10.1', {
+#         'checksums': ['dfa896f01c8df43ddd41663af2b3e2fc4aea73489e669474e83329b183b29150'],
+#     }),
+#     ('toolz', '0.12.0', {
+#         'checksums': ['88c570861c440ee3f2f6037c4654613228ff40c93a6c25e0eba70d17282c6194'],
+#     }),
+#     ('chex', '0.1.5', {
+#         'checksums': ['686858320f8f220c82a6c7eeb54dcdcaa4f3d7f66690dacd13a24baa1ee8299e'],
+#     }),
+#     ('optax', '0.1.3', {
+#         'checksums': ['159e954405c3ba2072c2add7cec5532be7399bcafab3039acbf608b11844a879'],
+#     }),
+#     ('pyro-api', '0.1.2', {
+#         'modulename': 'pyroapi',
+#         'checksums': ['a1b900d9580aa1c2fab3b123ab7ff33413744da7c5f440bd4aadc4d40d14d920'],
+#     }),
+#     ('pyro-ppl', '1.8.0', {
+#         'modulename': 'pyro',
+#         'checksums': ['68e4ea30f219227dd88e55de2550d3f8c20a20adbdb67ad1e13b50868bb2ac0c'],
+#     }),
+#     ('commonmark', '0.9.1', {
+#         'checksums': ['452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60'],
+#     }),
+#     ('rich', '11.1.0', {
+#         'checksums': ['43e03d8eec12e21beaecc22c828a41c4247356414a12d5879834863d4ad53816'],
+#     }),
+#     ('contextlib2', '21.6.0', {
+#         'checksums': ['ab1e2bfe1d01d968e1b7e8d9023bc51ef3509bba217bb730cee3827e1ee82869'],
+#     }),
+#     ('ml_collections', '0.1.1', {
+#         'checksums': ['3fefcc72ec433aa1e5d32307a3e474bbb67f405be814ea52a2166bfc9dbe68cc'],
+#     }),
+#     ('mudata', '0.2.0', {
+#         'checksums': ['6eef13ec2165340cd6d79fe4aabe687e9c53867c818c8dbe1cf0b6be0e5d1e75'],
+#     }),
+#     (name, version, {
+#         'modulename': 'scvi',
+#         'checksums': ['95c67870ecfa1d0e0b80027d3239bb47ca6cd3db2f2524985f5d31903b766eeb'],
+#     }),
+
+sanity_pip_check = True
+
+moduleclass = 'bio'
