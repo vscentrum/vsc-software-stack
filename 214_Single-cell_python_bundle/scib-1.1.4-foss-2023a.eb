@@ -11,24 +11,6 @@ description = "Benchmarking atlas-level data integration in single-cell genomics
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# numpy  OK - scipy
-# pandas>=2 OK scipy
-# seaborn  OK
-# matplotlib OK
-# numba OK
-# scanpy>=1.5 OK
-# anndata>=0.7.2
-# h5py OK
-# scipy ok 
-# scikit-learn ok
-# scikit-misc OK - done
-# leidenalg ok
-# umap-learn ok
-# pydot OK - done
-# igraph>=0.10 ok
-# llvmlite ok - in numbas
-# deprecated ok - done
- 
 dependencies = [
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
@@ -57,6 +39,5 @@ exts_list = [
 ]
 
 preinstallopts = "sed -i 's|pandas<2|pandas>=2|g' setup.cfg && "
-# preinstallopts += "sed -i 's|louvain>=0.8||g' setup.cfg && "
 
 moduleclass = 'data'
