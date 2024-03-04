@@ -33,18 +33,27 @@ dependencies = [
     ('OpenMPI', '4.1.5'),
 ]
 
-parallel = 1  # TODO helped with the Cannot open module file declarations.mod
-# TODO but:
-# main.f90:1248:19:
-#
-#  1246 |     call MPI_Bcast(Check_mpi,1,MPI_LOGICAL,0,MPI_COMM_WORLD,mpierr)
-#       |                   2
-#  1247 |     if( Check_mpi ) then
-#  1248 |     call MPI_Bcast(icheck,30,MPI_INTEGER,0,MPI_COMM_WORLD,mpierr)
-#       |                   1
-# Error: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/LOGICAL(4)).
+parallel = 1
 
-buildopts = 'FC="$FC" FFLAGS="$FFLAGS -fallow-argument-mismatch -I$EBROOTOPENMPI/include -I$EBROOTMUMPS/include"'
+# TODO
+# main.f90:(.text+0x2867): undefined reference to `nnombre_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: main.f90:(.text+0x2968): undefined reference to `nnombre_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: main.f90:(.text+0x2a77): undefined reference to `nnombre_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: main.f90:(.text+0x2d4b): undefined reference to `mpi_bcast_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: main.f90:(.text+0x2d7b): undefined reference to `mpi_bcast_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: main.f90:(.text+0x2d9d): undefined reference to `mpi_bcast_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: main.f90:(.text+0x2dbf): undefined reference to `mpi_bcast_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: main.f90:(.text+0x3458): undefined reference to `mult_cell_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: main.f90:(.text+0x34bd): undefined reference to `main_gaussian_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: main.f90:(.text+0x3838): undefined reference to `mpi_bcast_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: main.f90:(.text+0x385c): undefined reference to `mpi_bcast_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: main.f90:(.text+0x3884): undefined reference to `mpi_bcast_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: main.f90:(.text+0x38d0): undefined reference to `mpi_bcast_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: main.f90:(.text+0x3907): undefined reference to `mpi_bcast_'
+# ...
+
+buildopts = 'FC="$FC" FFLAGS="$FFLAGS -fallow-argument-mismatch -I$EBROOTOPENMPI/include -I$EBROOTMUMPS/include '
+buildopts += '-L$EBROOTOPENMPI/lib -L$EBROOTMUMPS/lib"'
 
 files_to_copy = [
     (['fdmness'], 'bin'),
