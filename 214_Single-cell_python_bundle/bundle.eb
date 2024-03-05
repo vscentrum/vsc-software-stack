@@ -3,12 +3,14 @@ easyblock = 'PythonBundle'
 name = 'Single-cell-python-bundle'
 version = '2024.02'
 
-# homepage = 'xxx'
-# description = """xxx."""
+homepage = 'xxx'
+description = """Software bundle for single-cell ???"""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
 dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
     ('SciPy-bundle', '2023.07'),
     ('matplotlib', '3.7.2'),
     ('Seaborn', '0.13.2'),
@@ -19,11 +21,14 @@ dependencies = [
     ('scVelo', '0.3.1'),
     ('epiScanpy', '0.4.0'),
     ('CellRank', '2.0.2'),
+    ('umap-learn', '0.5.5'),
+    ('scikit-learn', '1.3.1'),
 ]
 
-# sanity_check_paths = {
-#     'files': [],
-#     'dirs': ['AnnotationDbi', 'BiocManager', 'GenomicFeatures'],
-# }
+exts_list = [
+    ('pynndescent', '0.5.11'),
+    ('annoy', '1.17.3'),
+    ('bbknn', '1.6.0'), # requested
+]
 
 moduleclass = 'bio'
