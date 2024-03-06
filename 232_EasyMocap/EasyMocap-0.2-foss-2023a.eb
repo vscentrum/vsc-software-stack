@@ -8,27 +8,27 @@ description = """EasyMoCap is an open-source toolbox designed for markerless
  human motion capture from RGB videos. This project offers a wide range of motion
  capture methods across various settings."""
 
-toolchain = {'name': 'foss', 'version': '2022a'}
+toolchain = {'name': 'foss', 'version': '2023a'}
 
 builddependencies = [
     # for mediapipe
-    ('Bazel', '5.1.1'),
+    ('Bazel', '6.3.1'),
 ]
 
 dependencies = [
-    ('Python', '3.10.4'),
-    ('PyTorch', '1.12.0'),
-    ('torchvision', '0.13.1'),
-    ('tqdm', '4.64.0'),
-    ('OpenCV', '4.6.0', '-contrib'),
+    ('Python', '3.11.3'),
+    ('PyTorch', '2.1.2'),
+    ('torchvision', '0.16.0'),
+    ('tqdm', '4.66.1'),
+    ('OpenCV', '4.8.1', '-contrib'),
     # for pyrender
     ('freetype-py', '2.4.0'),
-    ('imageio', '2.22.2'),
-    ('networkx', '2.8.4'),
-    ('PyOpenGL', '3.1.6'),
-    ('trimesh', '3.17.1'),
+    ('imageio', '2.33.1'),
+    ('networkx', '3.1'),
+    ('PyOpenGL', '3.1.7'),
+    ('trimesh', '4.1.7'),
     # for ipdb
-    ('IPython', '8.5.0'),
+    ('IPython', '8.14.0'),
 ]
 
 use_pip = True
@@ -54,20 +54,20 @@ exts_list = [
         'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['99f893e30497a4b66842821bac316386f7bd5c4f47ad35c9073ef089aa33af32'],
     }),
-    ('pyglet', '2.0.10', {
+    ('pyglet', '2.0.12', {
         'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['e10a1f1a6a2dcfbf23155913746ff6fbf8ea18c5ee813b6d0e79d273bb2b3c18'],
+        'checksums': ['b713db0f1d939040b58dbe4583f5999540623ffae9de8c7171be26ece94eaecf'],
     }),
     ('pyrender', '0.1.45', {
         # PyOpenGL requirement is too strict
         'preinstallopts': "sed -i 's/PyOpenGL==3.1.0/PyOpenGL>=3.1.0/g' setup.py && ",
         'checksums': ['284b2432bf6832f05c5216c4b979ceb514ea78163bf53b8ce2bdf0069cb3b92e'],
     }),
-    ('mediapipe', '0.10.9', {
+    ('mediapipe', '0.10.10', {
         'source_urls': ['https://github.com/google/mediapipe/archive'],
         'preinstallopts': 'echo here && whereis bazel && ',
         'sources': ['v%(version)s.tar.gz'],
-        'checksums': ['c4719fce7a00e097daf3ad972963422ebe190297f5f2288d3ab05e4f856c74c4'],
+        'checksums': ['030d069da7108f67496c9e2d151c4ccab47552fabe8f0d6ef3b03de77a5a13b7'],
     }),
     # TODO adding Bazel to builddependencies didn't help
     #       ERROR: /tmp/vsc45304/easybuild/build/EasyMocap/0.2/foss-2022a/mediapipe/mediapipe-0.10.9/mediapipe/tasks/metadata/BUILD:35:22: Generating flatbuffer files for <source file mediapipe/tasks/metadata/image_segmenter_metadata_schema.f

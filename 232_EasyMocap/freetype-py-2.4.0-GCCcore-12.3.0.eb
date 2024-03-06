@@ -6,18 +6,19 @@ version = '2.4.0'
 homepage = 'https://github.com/rougier/freetype-py'
 description = "Python binding for the freetype library"
 
-toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
 sources = [SOURCE_ZIP]
 checksums = ['8ad81195d2f8f339aba61700cebfbd77defad149c51f59b75a2a5e37833ae12e']
 
 builddependencies = [
-    ('binutils', '2.38'),
+    ('binutils', '2.40'),
+    # ('Python-bundle-PyPI', '2023.06'),  # TODO didn't help
 ]
 
 dependencies = [
-    ('freetype', '2.12.1'),
-    ('Python', '3.10.4'),
+    ('freetype', '2.13.0'),
+    ('Python', '3.11.3'),
 ]
 
 use_pip = True
@@ -27,3 +28,6 @@ sanity_pip_check = True
 options = {'modulename': 'freetype'}
 
 moduleclass = 'lib'
+
+# TODO
+# The following Python packages were likely not installed correctly because they show a version of '0.0.0'
