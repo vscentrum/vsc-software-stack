@@ -65,30 +65,37 @@ class RubyGem(ExtensionEasyBlock):
 
         self.ext_src = self.src
         self.log.debug("Installing Ruby gem %s version %s." % (self.name, self.version))
+        self.extract_step()
+        self.configure_step()
         self.install_step()
 
     def extract_step(self):
         """Skip extraction of .gem files, which are installed as downloaded"""
-
-        if len(self.src) > 1:
-            raise EasyBuildError("Don't know how to handle Ruby gems with multiple sources.")
-        else:
-            src = self.src[0]
-            if src['path'].endswith('.gem'):
-                copy_file(src['path'], self.builddir)
-                self.ext_src = src['name']
-                # set final path since it can't be determined from unpacked sources (used for guessing start_dir)
-                src['finalpath'] = self.builddir
+        if not self.is_extension:
+            if len(self.src) > 1:
+                raise EasyBuildError(f"Don't know how to handle Ruby gems with multiple sources. {str(self.src)} len {type(self.src)}")
             else:
-                # unpack zipped gems, use specified path to gem file
-                super(RubyGem, self).extract_step()
+                src = self.src[0]
+                if src['path'].endswith('.gem'):
+                    copy_file(src['path'], self.builddir)
+                    self.ext_src = src['name']
+                    # set final path since it can't be determined from unpacked sources (used for guessing start_dir)
+                    src['finalpath'] = self.builddir
+                else:
+                    # unpack zipped gems, use specified path to gem file
+                    super(RubyGem, self).extract_step()
 
-                # if self.cfg['gem_file']:
-                #     self.ext_src = os.path.join(src['finalpath'], self.cfg['gem_file'])
-                #     if not os.path.exists(self.ext_src):
-                #         raise EasyBuildError("Gem file not found at %s", self.ext_src)
-                # else:
-                #     # raise EasyBuildError("Location to gem file in unpacked sources must be specified via gem_file")
+                    # if self.cfg['gem_file']:
+                    #     self.ext_src = os.path.join(src['finalpath'], self.cfg['gem_file'])
+                    #     if not os.path.exists(self.ext_src):
+                    #         raise EasyBuildError("Gem file not found at %s", self.ext_src)
+                    # else:
+                    #     # raise EasyBuildError("Location to gem file in unpacked sources must be specified via gem_file")
+        else:
+            if not self.src.endswith('.gem'):
+                # TODO extract
+                pass
+
 
 
     def configure_step(self):
@@ -97,33 +104,37 @@ class RubyGem(ExtensionEasyBlock):
 
     def build_step(self):  #TODO prebuildopts...
         # """No separate build procedure for Ruby Gems."""
-        # pass
-        src = self.src[0]
-        if src['path'].endswith('.gem'):
-            pass
-        if self.cfg['gem_file']:
-            self.ext_src = os.path.join(src['finalpath'], self.cfg['gem_file'])
-            if not os.path.exists(self.ext_src):
-                raise EasyBuildError("Gem file not found at %s", self.ext_src)
-        else:
-            gemfile = "%s.gem" % self.name
-            gemfile_lower = "%s.gem" % self.name.lower()
-            if os.path.exists(gemfile):
-                self.ext_src = os.path.join(src['finalpath'], gemfile)
-            elif os.path.exists(gemfile_lower):
-                self.ext_src = os.path.join(src['finalpath'], gemfile_lower)
+        if not self.is_extension:
+            src = self.src[0]
+            if src['path'].endswith('.gem'):
+                pass
+            if self.cfg['gem_file']:
+                self.ext_src = os.path.join(src['finalpath'], self.cfg['gem_file'])
+                if not os.path.exists(self.ext_src):
+                    raise EasyBuildError("Gem file not found at %s", self.ext_src)
             else:
-                gemspec = "%s.gemspec" % self.name
-                gemspec_lower = "%s.gemspec" % self.name.lower()
-                if os.path.exists(gemspec):
-                    run_cmd("gem build %s -o %s.gem" % (gemspec, self.name))
-                    self.ext_src = "%s.gem" % self.name
-                elif os.path.exists(gemspec_lower):
-                    run_cmd("gem build %s -o %s.gem" % (gemspec_lower, self.name.lower()))
-                    self.ext_src = "%s.gem" % self.name.lower()
+                gemfile = "%s.gem" % self.name
+                gemfile_lower = "%s.gem" % self.name.lower()
+                if os.path.exists(gemfile):
+                    self.ext_src = os.path.join(src['finalpath'], gemfile)
+                elif os.path.exists(gemfile_lower):
+                    self.ext_src = os.path.join(src['finalpath'], gemfile_lower)
                 else:
-                    raise EasyBuildError("No gem_file specified and no"
-                        " %s.gemspec or %s.gemspec found." % (self.name, self.name.lower()))
+                    gemspec = "%s.gemspec" % self.name
+                    gemspec_lower = "%s.gemspec" % self.name.lower()
+                    if os.path.exists(gemspec):
+                        run_cmd("gem build %s -o %s.gem" % (gemspec, self.name))
+                        self.ext_src = "%s.gem" % self.name
+                    elif os.path.exists(gemspec_lower):
+                        run_cmd("gem build %s -o %s.gem" % (gemspec_lower, self.name.lower()))
+                        self.ext_src = "%s.gem" % self.name.lower()
+                    else:
+                        raise EasyBuildError("No gem_file specified and no"
+                            " %s.gemspec or %s.gemspec found." % (self.name, self.name.lower()))
+        else:
+            if not self.is_extension:
+                # TODO build
+                pass
 
     def test_step(self):
         """No separate (standard) test procedure for Ruby Gems."""

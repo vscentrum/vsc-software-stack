@@ -1,4 +1,4 @@
-easyblock = 'Bundle'
+easyblock = 'RubyGem'
 
 name = 'Transrate'
 version = '1.0.3'
@@ -11,6 +11,9 @@ description = """Transrate is software for de-novo transcriptome assembly qualit
 
 toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
+source_urls = ['https://github.com/blahah/transrate/archive/']
+sources = ['v%(version)s.tar.gz']
+
 builddependencies = [
     ('binutils', '2.40'),
 ]
@@ -20,64 +23,12 @@ dependencies = [
     ('crb-blast', '0.6.9'),
 ]
 
-exts_default_options = {
-    'source_urls': ['https://rubygems.org/downloads/'],
-    'source_tmpl': '%(name)s-%(version)s.gem',
-}
-
-exts_defaultclass = 'RubyGem'
-
-exts_list = [
-    ('colorize', '0.7.7', {  # extra
-        'checksums': ['d6ab95a5fcdea3c36c3327d38c1e79e2950ee1788506d8489ae35db330937a99'],
-    }),
-    ('facade', '1.2.1', {
-        'checksums': ['0764de5519088227675a2a67da23322500c3c507b89486d91296e031d87d036e'],
-    }),
-    ('pathname2', '1.8.4', {
-        'checksums': ['1711264f3f7c1b380f96e1f0383b135d9703488f7b1acf66346a176efc257b7a'],
-    }),
-    ('fixwhich', '1.0.2', {
-        'checksums': ['c6a8f796a7eb60ffbc29f0d2af85461761a36c2864d25e445ff18bfbd1657078'],
-    }),
-    ('bindeps', '1.2.1', {  # extra
-        'checksums': ['3c11d75aa722bed67246852bb430a182361a128910d384b664b91f3e65bc34b5'],
-    }),
-    ('yell', '2.0.7', {  # extra
-        'checksums': ['2b6ed2f855cdab139d70b6b6dc58e34155c80e150d4a5f0da2d97e3d060d78d4'],
-    }),
-    # ('yell', '2.0.4', {  # extra  # TODO this older version didn't help
-    #     'checksums': ['e6c377d47a4478a1e95b465c19c95d1dbd2c663d87b62731b70ce52cf5984774'],
-    # }),
-    ('bio', '1.6.0.pre.20181210', {
-        'checksums': ['c4114aeb99b012f90660b92ead4ca88c1578fd58252ed3ec46eb45dc4a2c6cc9'],
-    }),
-    ('threach', '0.2.0', {
-        'checksums': ['432cbf3569bf9b09e26f93d0959fd6fb911c71e790e8a4cc4d1110e139a2ffca'],
-    }),
-    ('trollop', '2.9.10', {
-        'checksums': ['ceca2d91f349163d6ee3e792d356d4ded7472e6da31ac6dcc5956d1b03607bf7'],
-    }),
-    ('crb-blast', '0.6.9', {
-        'checksums': ['69c346e7d83efe9b9a383a39b57e7cce186a82b7074f275b14906f8f05678e3e'],
-    }),
-    ('%(namelower)s', version, {
-        'source_urls': ['https://github.com/blahah/transrate/archive/'],
-        'sources': ['v%(version)s.tar.gz'],
-        # 'preinstallopts': "echo here && pwd && ls -lh && gem build transrate.gemspec && find -type f -name '*.gem' && ",
-        # 'gem_file': '%(namelower)s-%(version)s.gem',
-        'checksums': ['2ccb101cfab5a33586ea9e62af2b2f14caf6bc016724d1fef796b427e39fe100'],
-    }),
-]
-
 sanity_check_paths = {
     'files': ['bin/%(namelower)s'],
     'dirs': ['gems/%(namelower)s-%(version)s'],
 }
 
 sanity_check_commands = ["%(namelower)s --help"]
-
-modextrapaths = {'GEM_PATH': ['']}
 
 moduleclass = 'bio'
 
