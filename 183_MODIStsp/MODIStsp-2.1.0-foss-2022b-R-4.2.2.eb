@@ -9,7 +9,6 @@ description = """MODIStsp is a R package devoted to automatizing the creation of
  series of raster images derived from MODIS Land Products data."""
 
 toolchain = {'name': 'foss', 'version': '2022b'}
-toolchainopts = {'cstd': 'c++17'}
 
 dependencies = [
     ('R', '4.2.2'),
@@ -18,8 +17,6 @@ dependencies = [
 ]
 
 modextrapaths = {'R_LIBS_SITE': ''}
-
-preinstallopts = 'export CXX11="$CXX" && export CXX11FLAGS="$CXXFLAGS" && '
 
 exts_defaultclass = 'RPackage'
 exts_default_options = {
@@ -32,122 +29,24 @@ exts_default_options = {
 }
 
 exts_list = [
-#     ('proxy', '0.4-27', {
-#          'checksums': ['249991a4c4d70ad139e93f3a24e17f161ad1ec854951813ea192daf79478563f'],
-#     }),
-#     ('MASS', '7.3-60', {
-#          'checksums': ['b802410feab01464d112b27b3501176eb8e68511d4ba9d052ac4db1f2a72f0c2'],
-#     }),
-#     ('class', '7.3-22', {
-#          'checksums': ['b6994164e93843fcc7e08dfdc8c8b4af6a5a10ef7153d2e72a6855342508d15c'],
-#     }),
-#     ('e1071', '1.7-13', {
-#          'checksums': ['da94e191af6e69aa0f9e3250d4b823674cc869339d914f761ebf2824177b6b2f'],
-#     }),
-#     ('KernSmooth', '2.23-22', {
-#          'checksums': ['76e044904606cab79c9edf4eae3ad63ac9d91a2962b44e063075b4b40e8574e9'],
-#     }),
-#     ('classInt', '0.4-10', {
-#          'checksums': ['c3561eafbc493ac02840191d4f1e4d2ef437ca8eb20f41fc5eca28f00ee42b8b'],
-#     }),
-#     ('DBI', '1.1.3', {
-#          'checksums': ['38bb33753da5bddb78893a5228a5d269dae3bf16f21dc5d9853ac9c24d31428d'],
-#     }),
-#     ('magrittr', '2.0.3', {
-#          'checksums': ['a2bff83f792a1acb801bfe6330bb62724c74d5308832f2cb6a6178336ace55d2'],
-#     }),
-#     ('Rcpp', '1.0.11', {
-#          'checksums': ['df757c3068599c6c05367900bcad93547ba3422d59802dbaca20fd74d4d2fa5f'],
-#     }),
-#     ('wk', '0.8.0', {
-#          'checksums': ['aa078ac6af2bb60c7b6f5bc77fdad6cb12a98cdf40ff9e6b08d391e5f2e8008c'],
-#     }),
-#     ('s2', '1.1.4', {
-#          'checksums': ['be0b4925eaade52cf85b1cb6e851430bd4fe6ca30722dffcc3f9107e7a4e404c'],
-#          'preinstallopts': "sed -i '/CXX11/d' src/Makevars.* && ",
-#     }),
-#     ('units', '0.8-4', {
-#          'checksums': ['499da1891e6167af42f501894444dcc9f5d8195017456bb6aca8aeec3515c7fc'],
-#     }),
-#     ('sf', '1.0-14', {
-#          'checksums': ['8b535648d537a1a95920c938e43692c1dfaac8d293ff3f506334001352c339f7'],
-#     }),
     ('gdalUtilities', '1.2.5', {
         'checksums': ['2a72e990080ad626205c78edc6614959b564413b7fc23132008b7259723571a7'],
     }),
-#     ('jsonlite', '1.8.7', {
-#         'checksums': ['7d42b7784b72d728698ea02b97818df51e2015ffa39fec2eaa2400771b0f601c'],
-#     }),
     ('protolite', '2.3.0', {
         'checksums': ['53ef24d51a8348f97bec39d254df3b97bd8b3d9bbffb81d6b06aad849cf78ce9'],
         'patches': ['protolite-2.3.0_use-c++17.patch'],
     }),
-#     ('lazyeval', '0.2.2', {
-#         'checksums': ['d6904112a21056222cfcd5eb8175a78aa063afe648a562d9c42c6b960a8820d4'],
-#     }),
     ('jqr', '1.3.1', {
         'checksums': ['e22461e75ff7e57fe502dc7d16c5e5fe9f8e4cbe042b5eadad06fc37394f9f36'],
     }),
-#     ('lattice', '0.21-9', {
-#         'checksums': ['a92846ceb4dc45a6ae8004e83bae5022e96a04599fd7538b50a1e566b499692a'],
-#     }),
-#     ('sp', '2.1-1', {
-#         'checksums': ['2d34cde2a8d5c7876425f99d9d3b24ae192430d316bd2a397a62b52412b1405b'],
-#     }),
     ('geojson', '0.3.5', {
         'checksums': ['e425c8579dc9cf5e3c1f71db3b0eed8225e5ed7ea88b6c861f800f60fc07402a'],
     }),
-#     ('curl', '5.1.0', {
-#         'checksums': ['57218da84b85bd01ce7daa4bca3e271eda1bf688e0cdb211c397ccb272ecba97'],
-#     }),
-#     ('R6', '2.5.1', {
-#         'checksums': ['8d92bd29c2ed7bf15f2778618ffe4a95556193d21d8431a7f75e7e5fc102bf48'],
-#     }),
-#     ('triebeard', '0.4.1', {
-#         'checksums': ['192f2fef6341e43bd56ef4f9841e813e07be990f4ffcf38c5606259630efe0f7'],
-#     }),
-#     ('urltools', '1.7.3', {
-#         'checksums': ['6020355c1b16a9e3956674e5dea9ac5c035c8eb3eb6bbdd841a2b5528cafa313'],
-#     }),
-#     ('httpcode', '0.3.0', {
-#         'checksums': ['593a030a4f94c3df8c15576837c17344701bac023ae108783d0f06c476062f76'],
-#     }),
-#     ('mime', '0.12', {
-#         'checksums': ['a9001051d6c1e556e881910b1816b42872a1ee41ab76d0040ce66a27135e3849'],
-#     }),
-#     ('crul', '1.4.0', {
-#         'checksums': ['8e50415e415702402473caf622d86b89ddc881f6e5d888079a4818a8807ac9a2'],
-#     }),
-#     ('geometries', '0.2.3', {
-#         'checksums': ['642fd7b5b98be3197616b38c5eb7e59f93859ad327800ab8af65b8d5b18a9e77'],
-#     }),
-#     ('rapidjsonr', '1.2.0', {
-#         'checksums': ['62c94fcdcf5d0fbdfa2f6168affe526bf547c37c16d94e2e1b78d7bf608eed1f'],
-#     }),
-#     ('jsonify', '1.2.2', {
-#         'checksums': ['3745e962592f021a3deaed8b2f6b99c4f7181f28e095300a96d1c2b08af4af2f'],
-#         # 'preinstallopts': "sed -i 's/CXX11/CXX17/g' src/Makevars.* && sed -i '/Makevars/d' MD5 && ",  # TODO does not work
-#         # 'preinstallopts': "sed -i '/CXX11/d' src/Makevars.* && sed -i '/C++11/d' DESCRIPTION && sed -i '/DESCRIPTION\|Makevars/d' MD5 && ",  # TODO does not work
-#         'preinstallopts': "sed -i 's/\(CXX_STD.*\)/CXX11=g++\n\1/g' src/Makevars* && sed -i '/Makevars/d' MD5 && ",
-#     }),
-#     ('sfheaders', '0.4.3', {
-#         'checksums': ['a3a11b7297de2c85405fbdfcb6b47462cb053b727ef7a8d9ec9bd5977a8e4348'],
-#     }),
-#     ('geojsonsf', '2.0.3', {
-#         'checksums': ['275ca14672d982e6a95884515f49d8a0aad14f3be62ea01b675a91b0bffb46d1'],
-#     }),
-#     ('readr', '2.1.4', {
-#         'checksums': ['98144fa48c4fa61ef8c73ede8f87a2d2c5c44e9502b7875b266eb79984fbeb0d'],
-#     }),
-#     ('V8', '4.4.0', {
-#         'checksums': ['635bc20fb90206c357b0eba53d8af0789783241d300f0190fce9d6d0614c8f46'],
-#     }),
     ('geojsonio', '0.11.3', {
         'checksums': ['7168eb3571440479f0cbdd005ff9db3233d3c91fc10d37fb0eb200793da3402b'],
     }),
     (name, version, {
         'checksums': ['9416bf2a32faf4ae7159f50ba56ac7924852af59f932223b2268aedfa1769fda'],
-        # 'postinstallcmds': ['echo here && ls -lh %(installdir)s'],
     }),
 ]
 
