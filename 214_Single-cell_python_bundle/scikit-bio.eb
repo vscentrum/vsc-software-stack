@@ -1,0 +1,37 @@
+easyblock = 'PythonBundle'
+
+name = 'scikit-bio'
+version = '0.5.9'
+
+homepage = 'http://scikit-bio.org'
+description = """scikit-bio is an open-source, BSD-licensed Python 3 package providing data structures, algorithms
+and educational resources for bioinformatics."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+    ('scikit-learn', '1.3.1'),
+    ('IPython', '8.14.0'),
+    ('h5py', '3.9.0'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('hdmedians', '0.14.2', {
+        'checksums': ['b47aecb16771e1ba0736557255d80ae0240b09156bff434321de559b359ac2d6'],
+    }),
+    ('natsort', '8.4.0'),
+    (name, version, {
+        'modulename': 'skbio',
+    }),
+]
+
+sanity_check_commands = ['python -m skbio.test']
+
+moduleclass = 'bio'
