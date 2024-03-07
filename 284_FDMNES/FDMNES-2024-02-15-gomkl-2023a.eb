@@ -37,20 +37,23 @@ dependencies = [
 parallel = 1
 
 # TODO
-# mat_solve_mumps.f90:472:34:
-#
-#   472 |   if(INT8(nlmso)*INT8(nligne) .gt. Z'7FFFFFFF') nligne2 = nligne/2 + 1
-#       |                                  1
-# Error: BOZ literal constant near (1) cannot appear as an operand of a relational operator [see -fno-allow-invalid-boz]
-# mat_solve_mumps.f90:476:18:
-#
-#   476 |   if( nligne2 .gt. Z'7FFFFFFF' ) then
-#       |                  1
-# Error: BOZ literal constant near (1) cannot appear as an operand of a relational operator [see -fno-allow-invalid-boz]
+# mpifort -o ../fdmnes main.o clemf0.o coabs.o convolution.o diffraction.o dirac.o fdm.o fdmx.o fprime.o fprime_data.o general.o lecture.o mat.o metric.o minim.o optic.o potential.o selec.o scf.o spgroup.o sphere.o tab_data.o tddft.o tensor.o tools.o mat_solve_mumps.o  -L/opt/local/lib -ldmumps -lzmumps -lmumps_common -lmpiseq  -lesmumps -lmetis -lpord \
+#                                    -lscotch -lscotcherr -lpthread -Wl,--start-group -lmkl_gf_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -lgfortran
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: cannot find -lmpiseq: No such file or directory
+# collect2: error: ld returned 1 exit status
+# make: *** [makefile:26: ../fdmnes] Error 1
+
+# TODO
+# when using `('MUMPS', '5.6.1', '-metis-seq')`:
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: fdm.o: in function `site_calculation_':
+# fdm.f90:(.text+0x34486): undefined reference to `main_rixs_'
+# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: fdm.f90:(.text+0x36207): undefined reference to `main_rixs_'
+# collect2: error: ld returned 1 exit status
+# make: *** [makefile:26: ../fdmnes] Error 1
 
 prebuildopts = 'sed -i "s/-llapack -lblas/$LIBLAPACK/g" makefile && '
 
-buildopts = 'FC="$FC" FFLAGS="-c $FFLAGS -fallow-argument-mismatch -I$EBROOTMUMPS/include"'
+buildopts = 'FC="$FC" FFLAGS="-c $FFLAGS -fallow-argument-mismatch -fallow-invalid-boz -I$EBROOTMUMPS/include"'
 
 files_to_copy = [
     (['fdmness'], 'bin'),
