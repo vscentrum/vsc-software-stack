@@ -1,23 +1,26 @@
 easyblock = 'PythonBundle'
 
 name = 'infercnvpy'
-version = '0.4.5'
+version = '0.4.5' # do it for 4.3.0?
 
 homepage = 'https://github.com/icbi-lab/infercnvpy'
 description = "Infer copy number variation (CNV) from scRNA-seq data. Plays nicely with Scanpy."
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
+builddependencies = [('hatchling', '1.18.0'),]
+
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
-    ('SciPy-bundle', '2023.07'),
+    ('SciPy-bundle', '2023.07'),  # pandas needs recent version
     ('tqdm', '4.66.1'),
     ('IPython', '8.14.0'),
     ('leidenalg', '0.10.2'),
     ('scanpy', '1.9.8'),
     ('anndata', '0.10.5.post1'),
-    # ('polars', '0.15.6'),  # required by gtfparse
+    ('Arrow', '14.0.1'), #!!! pyarrow>=14.0.2,<14.1.0
+    # ('polars', '0.15.6'),  # required by gtfparse polars>=0.20.2,<0.21.0
     # rpy2 (optional)
 ]
 
@@ -30,11 +33,22 @@ use_pip = True
 # local_preinstallopts += r"""-e 's/dynamic = \["version"\]/version = "%(version)s"/g' pyproject.toml && """
 
 exts_list = [
-    ('gtfparse', '2.5.0'),
-    ('pyreadr', '0.5.0'),
-    ('session_info', '1.0.0'),
-    (name, version),
+    ('gtfparse', '2.5.0', {
+        'checksums': ['9fea54811cd87f597a110a49dc1b1b6a3325ffb7d1f36ecc62c32d14d3eb9493'],
+    }),
+    # since 0.4.8 requiered Cython 3.0.0 - in PYPI-bundle version < 3.0.0
+    # https://github.com/ofajardo/pyreadr/blob/83e1a82e5e8ae33d40dfe19729023ae0d8239f81/change_log.md?plain=1#L8
+    ('pyreadr', '0.4.7', {
+        'checksums': ['901110d62b4bedaef288f4db81425fb696edc721fe2c34c1083f5fb11050a73c'],
+    }),
+    ('session_info', '1.0.0', {
+        'checksums': ['3cda5e03cca703f32ae2eadbd6bd80b6c21442cfb60e412c21cb8ad6d5cbb6b7'],
+    }),
+    (name, version, {
+        'checksums': ['f8dec06faa46842b386ba3c8bb8ccf18398a7545429751a7fdab0bc5fd60c0eb'],
+    }),
 ]
+
 # exts_list = [
 #     ('setuptools', '67.6.1', {
 #         'checksums': ['257de92a9d50a60b8e22abfcbb771571fde0dbf3ec234463212027a4eeecbe9a'],

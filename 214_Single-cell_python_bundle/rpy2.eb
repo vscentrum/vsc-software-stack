@@ -17,6 +17,7 @@ dependencies = [
     ('Python-bundle-PyPI', '2023.06'),
     ('SciPy-bundle', '2023.07'),
     ('R', '4.3.2'),
+    ('R-bundle-CRAN', '2023.12'),
     ('IPython', '8.14.0'),
     ('cffi', '1.15.1'),
 ]
@@ -25,30 +26,18 @@ use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    ('tzlocal', '5.2'),
-    (name, version),
-]
-# exts_list = [
-#     ('tzdata', '2023.3', {
-#         'checksums': ['11ef1e08e54acb0d4f95bdb1be05da659673de4acbd21bf9c69e94cc5e907a3a'],
-#     }),
-#     ('pytz-deprecation-shim', '0.1.0.post0', {
-#         'source_tmpl': 'pytz_deprecation_shim-%(version)s.tar.gz',
-#         'checksums': ['af097bae1b616dde5c5744441e2ddc69e74dfdcb0c263129610d85b87445a59d'],
-#     }),
-#     # stick to tzlocal==2.1, see https://github.com/rpy2/rpy2/issues/823
-#     ('tzlocal', '2.1', {
-#         'checksums': ['643c97c5294aedc737780a49d9df30889321cbe1204eac2c2ec6134035a92e44'],
-#     }),
-#     (name, version, {
-#         'checksums': ['f81f0afb01e3c6f515c09573bc585c0e1c7e385ec81415ce0a62268c605ec7fc'],
-#         # disable failing 'test_svg_plotting_args' test, see https://github.com/rpy2/rpy2/issues/974
-#         'preinstallopts': r"sed -i 's/\(test_svg_plotting_args\)/disabled_\1/g' rpy2/tests/ipython/test_rmagic.py && ",
-#     }),
-# ]
-
-sanity_check_commands = [
-    "pytest --pyargs 'rpy2.tests'"
+    ('coverage', '7.4.3', {
+        'checksums': ['276f6077a5c61447a48d133ed13e759c09e62aff0dc84274a68dc18660104d52'],
+    }),
+    ('pytest-cov', '4.1.0', {
+        'checksums': ['3904b13dfbfec47f003b8e77fd5b589cd11904a21ddf1ab38a64f204d6a10ef6'],
+    }),
+    ('tzlocal', '5.2', {
+        'checksums': ['8d399205578f1a9342816409cc1e46a93ebd5755e39ea2d85334bea911bf0e6e'],
+    }),
+    (name, version, {
+        'checksums': ['444fae4a84dc7f233b70eaab0aa81398ee0147c4e1ae38dd4524d779d6f25b2b'],
+    }),
 ]
 
 moduleclass = 'tools'
