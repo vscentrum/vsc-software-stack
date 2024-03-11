@@ -1,0 +1,45 @@
+easyblock = 'CMakeMake'
+
+name = 'FLINT'
+version = '3.1.0'
+
+homepage = 'https://www.flintlib.org/'
+
+description = """FLINT (Fast Library for Number Theory) is a C library in support of computations
+ in number theory. Operations that can be performed include conversions, arithmetic, computing GCDs,
+ factoring, solving linear systems, and evaluating special functions. In addition, FLINT provides
+ various low-level routines for fast arithmetic. FLINT is extensively documented and tested."""
+
+toolchain = {'name': 'gfbf', 'version': '2023b'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://www.flintlib.org']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['4b107e51b87738c334125b9dbbc11a0e3b146199b2decfc6a62d52c2453a3341']
+
+builddependencies = [
+    ('CMake', '3.27.6'),
+    ('Python', '3.11.5'),
+    ('patchelf', '0.18.0'),
+]
+
+dependencies = [
+    ('GMP', '6.3.0'),
+    ('MPFR', '4.2.1'),
+    ('NTL', '11.5.1'),
+]
+
+configopts = '-DWITH_NTL=on -DBUILD_TESTING=yes'
+
+runtest = 'test'
+
+# TODO better solution?
+preinstallopts = 'patchelf --remove-needed libopenblas.so.0 lib/libflint.so.19.0.0 && '
+
+sanity_check_paths = {
+    'files': ['lib/lib%%(namelower)s.%s' % SHLIB_EXT],
+    'files': [],
+    'dirs': ['include'],
+}
+
+moduleclass = 'math'
