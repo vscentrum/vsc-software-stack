@@ -1,0 +1,19 @@
+Update calls to old Tao methods to new API in PETSc v3.17
+author: Alex Domingo (Vrije Universiteit Brussel)
+--- yales2/src/main/dynamic_mode_decomposition_m.f90.orig      2024-03-11 14:31:44.262125000 +0100
++++ yales2/src/main/dynamic_mode_decomposition_m.f90   2024-03-11 14:33:27.593705417 +0100
+@@ -1704,11 +1704,11 @@
+          ! Tao
+          call TaoCreate(PETSC_COMM_WORLD,tao_solver,ierr)
+          call TaoSetType(tao_solver,TAOLMVM,ierr)
+-         call TaoSetObjectiveAndGradientRoutine(tao_solver,FormFunctionGradient,PETSC_NULL_INTEGER,ierr)
+-         call TaoSetInitialVector(tao_solver,alpha,ierr)
++         call TaoSetObjectiveAndGradient(tao_solver,FormFunctionGradient,PETSC_NULL_INTEGER,ierr)
++         call TaoSetSolution(tao_solver,alpha,ierr)
+          call TaoSetFromOptions(tao_solver,ierr)
+          call TaoSolve(tao_solver,ierr)
+-         call TaoGetSolutionVector(tao_solver,alpha,ierr)
++         call TaoGetSolution(tao_solver,alpha,ierr)
+
+          ! ----------------------
+          ! scatter and stock alpha solution
