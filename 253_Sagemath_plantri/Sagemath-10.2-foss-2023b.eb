@@ -22,16 +22,26 @@ dependencies = [
     ('SciPy-bundle', '2023.11'),
     ('ECL', '23.9.9'),
     ('FFLAS-FFPACK', '2.5.0'),
-    # ('eclib', '20231212'),
+    ('eclib', '20231212'),
     ('GSL', '2.7'),
     ('LinBox', '1.7.0'),
-    ('Singular', '4.3.2p16'),  # TODO
+    ('Singular', '4.3.2p16'),
+    ('libpng', '1.6.40'),
+    ('libgd', '2.3.3'),
+    ('m4ri', '20200125'),
+    ('cysignals', '1.11.4'),
 ]
 
 use_pip = True
 sanity_pip_check = True
 
 exts_list = [
+    ('cypari2', '2.1.4', {
+        'checksums': ['efa4a44d96f693cb1156da1fd6fccc130dafcf9c19af4185cf770bf44d00dbfc'],
+    }),
+    ('memory_allocator', '0.1.3', {
+        'checksums': ['13805c2ae1c01b7489fab5e8eac9361662b4f2c02412e3652eece48ff6953162'],
+    }),
     ('sage-setup', version, {
         'checksums': ['21b04a9f060c49bb39a8e2203ef26d7caca7e8c29a7f282d98389f6952215374'],
     }),
