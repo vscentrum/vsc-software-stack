@@ -44,16 +44,25 @@ builddependencies = [('hatchling', '1.18.0'),]
 # spatialdata 0.0.15 requires ome-zarr, which is not installed. OK exts
 # spatialdata 0.0.15 requires pyarrow, which is not installed. OK Arrow
 # spatialdata 0.0.15 requires pygeos, which is not installed. -> pygeos in EB but not 2023a
-# spatialdata 0.0.15 requires shapely, which is not installed.
-# spatialdata 0.0.15 requires spatial-image, which is not installed.
-# spatialdata 0.0.15 requires xarray-schema, which is not installed.
-# spatialdata 0.0.15 requires xarray-spatial, which is not installed.
-# dask-image 2023.8.1 requires pims, which is not installed.
-# omnipath 1.0.8 requires inflect, which is not installed.
-# omnipath 1.0.8 requires wrapt, which is not installed.
-# squidpy 1.4.1 has requirement pandas>=2.1.0, but you have pandas 2.0.3.
-# spatialdata 0.0.15 has requirement fsspec<=2023.6, but you have fsspec 2024.2.0.
-# spatialdata 0.0.15 has requirement typing-extensions>=4.8.0, but you have typing-extensions 4.6.3.
+# spatialdata 0.0.15 requires shapely, which is not installed. OK
+# spatialdata 0.0.15 requires spatial-image, which is not installed. Ok exts
+# spatialdata 0.0.15 requires xarray-schema, which is not installed. OK exts
+# spatialdata 0.0.15 requires xarray-spatial, which is not installed. OK exts
+# dask-image 2023.8.1 requires pims, which is not installed. OK exts
+# omnipath 1.0.8 requires inflect, which is not installed. OK exts
+# omnipath 1.0.8 requires wrapt, which is not installed. OK
+# squidpy 1.4.1 has requirement pandas>=2.1.0, but you have pandas 2.0.3. OK with new scipy-bundle
+# spatialdata 0.0.15 has requirement fsspec<=2023.6, but you have fsspec 2024.2.0. OK fixed
+# spatialdata 0.0.15 has requirement typing-extensions>=4.8.0, but you have typing-extensions 4.6.3. -> try to add to exts?
+
+# spatial-image 1.0.0 requires xarray-dataclasses, which is not installed.
+# inflect 7.0.0 requires pydantic, which is not installed.
+# multiscale-spatial-image 1.0.0 requires xarray-datatree, which is not installed.
+# xarray-spatial 0.3.7 requires datashader, which is not installed.
+# pims 0.6.1 requires slicerator, which is not installed.
+# spatialdata 0.0.15 has requirement multiscale-spatial-image==0.11.2, but you have multiscale-spatial-image 1.0.0.
+# spatialdata 0.0.15 has requirement spatial-image==0.3.0, but you have spatial-image 1.0.0.
+# xarray-spatial 0.3.7 has requirement numpy<=1.23.4, but you have numpy 1.25.1. -> last commit in github removes numpy version
 
 dependencies = [
     ('Python', '3.11.3'),
@@ -75,6 +84,9 @@ dependencies = [
     ('zarr', '2.17.1'),
     ('geopandas', '0.14.2'),
     ('Arrow', '14.0.1'),
+    ('GEOS', '3.12.0'), # for pyGEOS (now in exts -> do ec for it)
+    ('Shapely', '2.0.1'),
+    ('wrapt', '1.15.0'), # for omnipath
 #     ('networkx', '2.6.3'),
 #     ('Pillow', '8.3.2'),
 #     ('tqdm', '4.62.3'),
@@ -92,11 +104,42 @@ dependencies = [
 use_pip = True
 
 exts_list = [
-    # ('ome-zarr', '0.8.3'),
-    # ('multiscale-spatial-image', '1.0.0'),
-    # ('spatialdata', '0.0.15', {
-    #     'checksums': ['7372b13b9fa84c0eadcbfca2f2cd354a9ae8dd370401745d55d572864eb4dc75'],
-    # }),
+    ('param', '2.0.2', {
+        'checksums': ['785845a727a588eb94c7666d80551c7e2bb97d4309d3507beab66f95e57f7527'],
+    }),
+    ('pyct', '0.5.0', {
+        'checksums': ['dd9f4ac5cbd8e37c352c04036062d3c5f67efec76d404761ef16b0cbf26aa6a0'],
+    }),
+    ('typing_extensions', '4.8.0', {
+        'checksums': ['df8e4339e9cb77357558cbdbceca33c303714cf861d1eef15e1070055ae8b7ef'],
+    }),
+    ('inflect', '7.0.0', {
+        'checksums': ['63da9325ad29da81ec23e055b41225795ab793b4ecb483be5dc1fa363fd4717e'],
+    }),
+    ('PIMS', '0.6.1', {
+        'checksums': ['e2b704461d4ea9bce8b6a22ca35836fe67d6d34537736b405341ae5547194f3b'],
+    }),
+    ('xarray-spatial', '0.3.7', {
+        'checksums': ['21bef5f0f5a3cfe18d7a33f40d7c9eee459ed33f7e5674cfe1d156de56d47b2f'],
+    }),
+    ('xarray-schema', '0.0.3', {
+        'checksums': ['9c6c760489c0690a70394b2ad1368b32f8fa1333911c361b4adf249384212920'],
+    }),
+    ('spatial_image', '1.0.0', {
+        'checksums': ['55373e54a5e4c8de8e2cf3039f2caa4efb23fad1ac1137f279172fb31f979e2e'],
+    }),
+    ('pygeos', '0.14', {
+        'checksums': ['30fbc17f64844200b85133b885fcfb65541b8779531f6ef4f8fe467d3fba7623'],
+    }),
+    ('ome-zarr', '0.8.3', {
+        'checksums': ['e98762e6a3cc82e8f6ef50c938e23fc579498d94d1991f3476ccf9726209997b'],
+    }),
+    ('multiscale_spatial_image', '1.0.0', {
+        'checksums': ['0b3a5aae1cabc5bb6b742b9ee583b82fcf4219479725abca5ff0a4e3e5536c06'],
+    }),
+    ('spatialdata', '0.0.15', {
+        'checksums': ['7372b13b9fa84c0eadcbfca2f2cd354a9ae8dd370401745d55d572864eb4dc75'],
+    }),
     ('validators', '0.22.0', {
         'checksums': ['77b2689b172eeeb600d9605ab86194641670cdb73b60afd577142a9397873370'],
     }),
@@ -109,8 +152,8 @@ exts_list = [
     ('matplotlib-scalebar', '0.8.1', {
         'checksums': ['14887af1093579c5e6afae51a0a1ecc3f715cdbc5c4d7ef59cdeec76ee6bb15d'],
     }),
-    ('fsspec', '2024.2.0', {
-        'checksums': ['b6ad1a679f760dda52b1168c859d01b7b80648ea6f7f7c7f5a8a91dc3f3ecb84'],
+    ('fsspec', '2023.6.0', {
+        'checksums': ['d0b2f935446169753e7a5c5c55681c54ea91996cc67be93c39a154fb3a2742af'],
     }),
     ('docrep', '0.3.2', {
         'checksums': ['ed8a17e201abd829ef8da78a0b6f4d51fb99a4cbd0554adbed3309297f964314'],
