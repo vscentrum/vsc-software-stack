@@ -8,9 +8,73 @@ description = "Squidpy is a tool for the analysis and visualization of spatial m
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
+builddependencies = [('hatchling', '1.18.0'),]
+
+#  "aiohttp>=3.8.1", OK
+#    "anndata>=0.9", OK
+#    "cycler>=0.11.0", OK exts
+#    "dask-image>=0.5.0", OK exts
+#    "dask[array]>=2021.02.0", add Dask to deps
+#    "docrep>=0.3.1", OK exts
+#    "fsspec>=2021.11.0", OK exts
+#    "leidenalg>=0.8.2", OK
+#    "matplotlib>=3.3", OK
+#    "matplotlib-scalebar>=0.8.0", OK exts
+#    "networkx>=2.6.0", OK
+#    "numba>=0.56.4", OK
+#    "numpy>=1.23.0", OK scupy-bundle
+#    "omnipath>=1.0.7", OK exts
+#    "pandas>=2.1.0", OK scupy-bundle
+#    "Pillow>=8.0.0", OK
+#    "scanpy>=1.9.3", OK
+#    "scikit-image>=0.20", OK
+#    # due to https://github.com/scikit-image/scikit-image/issues/6850 breaks rescale ufunc
+#    "scikit-learn>=0.24.0", OK
+#    "statsmodels>=0.12.0", OK
+#    # https://github.com/scverse/squidpy/issues/526
+#    "tifffile!=2022.4.22", OK exts
+#    "tqdm>=4.50.2", OK
+#    "validators>=0.18.2", OK exts
+#    "xarray>=0.16.1", OK
+#    "zarr>=2.6.1", OK made
+#    "spatialdata", OK exts
+
+# spatialdata 0.0.15 requires geopandas, which is not installed. OK
+# spatialdata 0.0.15 requires multiscale-spatial-image, which is not installed. OK exts
+# spatialdata 0.0.15 requires ome-zarr, which is not installed. OK exts
+# spatialdata 0.0.15 requires pyarrow, which is not installed. OK Arrow
+# spatialdata 0.0.15 requires pygeos, which is not installed. -> pygeos in EB but not 2023a
+# spatialdata 0.0.15 requires shapely, which is not installed.
+# spatialdata 0.0.15 requires spatial-image, which is not installed.
+# spatialdata 0.0.15 requires xarray-schema, which is not installed.
+# spatialdata 0.0.15 requires xarray-spatial, which is not installed.
+# dask-image 2023.8.1 requires pims, which is not installed.
+# omnipath 1.0.8 requires inflect, which is not installed.
+# omnipath 1.0.8 requires wrapt, which is not installed.
+# squidpy 1.4.1 has requirement pandas>=2.1.0, but you have pandas 2.0.3.
+# spatialdata 0.0.15 has requirement fsspec<=2023.6, but you have fsspec 2024.2.0.
+# spatialdata 0.0.15 has requirement typing-extensions>=4.8.0, but you have typing-extensions 4.6.3.
+
 dependencies = [
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
+    ('aiohttp', '3.8.5'),
+    ('anndata', '0.10.5.post1'),
+    ('dask', '2023.9.2'),
+    ('leidenalg', '0.10.2'),
+    ('matplotlib', '3.7.2'),
+    ('networkx', '3.1'),
+    ('numba', '0.58.1'),
+    ('Pillow', '10.0.0'),
+    ('scanpy', '1.9.8'),
+    ('scikit-image', '0.22.0'),
+    ('scikit-learn', '1.3.1'),
+    ('statsmodels', '0.14.1'),
+    ('tqdm', '4.66.1'),
+    ('xarray', '2023.9.0'),
+    ('zarr', '2.17.1'),
+    ('geopandas', '0.14.2'),
+    ('Arrow', '14.0.1'),
 #     ('networkx', '2.6.3'),
 #     ('Pillow', '8.3.2'),
 #     ('tqdm', '4.62.3'),
@@ -22,11 +86,45 @@ dependencies = [
 #     ('dask', '2022.1.0'),
 #     ('scanpy', '1.8.2'),
 #     ('numba', '0.54.1'),
-#     ('aiohttp', '3.8.1'),
 #     ('zarr', '2.13.3'),
-# ]
+]
 
-# use_pip = True
+use_pip = True
+
+exts_list = [
+    # ('ome-zarr', '0.8.3'),
+    # ('multiscale-spatial-image', '1.0.0'),
+    # ('spatialdata', '0.0.15', {
+    #     'checksums': ['7372b13b9fa84c0eadcbfca2f2cd354a9ae8dd370401745d55d572864eb4dc75'],
+    # }),
+    ('validators', '0.22.0', {
+        'checksums': ['77b2689b172eeeb600d9605ab86194641670cdb73b60afd577142a9397873370'],
+    }),
+    ('tifffile', '2024.2.12', {
+        'checksums': ['4920a3ec8e8e003e673d3c6531863c99eedd570d1b8b7e141c072ed78ff8030d'],
+    }),
+    ('omnipath', '1.0.8', {
+        'checksums': ['3821b9ba11957412ff9e4932eb6d0c17242939661468064ad1ce28ee3e27394f'],
+    }),
+    ('matplotlib-scalebar', '0.8.1', {
+        'checksums': ['14887af1093579c5e6afae51a0a1ecc3f715cdbc5c4d7ef59cdeec76ee6bb15d'],
+    }),
+    ('fsspec', '2024.2.0', {
+        'checksums': ['b6ad1a679f760dda52b1168c859d01b7b80648ea6f7f7c7f5a8a91dc3f3ecb84'],
+    }),
+    ('docrep', '0.3.2', {
+        'checksums': ['ed8a17e201abd829ef8da78a0b6f4d51fb99a4cbd0554adbed3309297f964314'],
+    }),
+    ('dask-image', '2023.8.1', {
+        'checksums': ['5e9a8985b0527a1b5942c6a7e744e0e57d264e222c7058f05baeb81c374d04b6'],
+    }),
+    ('cycler', '0.12.1', {
+        'checksums': ['88bb128f02ba341da8ef447245a9e138fae777f6a23943da4540077d3601eb1c'],
+    }),
+    ('squidpy', version, {
+        'checksums': ['485e48163b235af5b3d1cc06e3971ae848d0787c2958b5795200755a86dadf4f'],
+    }),
+]
 
 # exts_list = [
 #     ('slicerator', '1.1.0', {
@@ -67,6 +165,6 @@ dependencies = [
 #     }),
 # ]
 
-# sanity_pip_check = True
+sanity_pip_check = True
 
-# moduleclass = 'bio'
+moduleclass = 'bio'

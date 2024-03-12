@@ -1,7 +1,8 @@
 easyblock = 'PythonBundle'
 
 name = 'pySCENIC'
-version = '0.12.1'
+version = '0.12.1-20240311'
+local_commit = '31d51a1'
 
 homepage = 'https://github.com/aertslab/pySCENIC'
 description = """pySCENIC is a lightning-fast python implementation of the SCENIC
@@ -11,15 +12,10 @@ cell types from single-cell RNA-seq data."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-builddependencies = [
-    ('Python-bundle-PyPI', '2023.06'),
-    ('poetry', '1.7.1'),
-]
-
 dependencies = [
     ('Python', '3.11.3'),
     ('PyYAML', '6.0'),
-    ('Arrow', '14.0.1', 'test'),
+    ('Arrow', '14.0.1'),
     ('scikit-learn', '1.3.1'),
     ('tqdm', '4.66.1'),
     ('networkx', '3.1'),
@@ -55,18 +51,24 @@ exts_list = [
     }),
     ('ctxcore', '0.2.0', {
         'sources': ['ctxcore-0.2.0-py3-none-any.whl'],
-    	# 'preinstallopts': "sed -i '6d' requirements.txt && ",
         'checksums': ['b90570377e26280c4861ebad1f4cee2fe598167c5d4bd12c1b713f03c9682627'],
     }),
-    ('pyscenic', version, {
-        'checksums': ['ae8fafa707d2578ffe08f9eed85f14a4cd9e1b53d57217420e2e956f0a8ddba2'],
+    ('pyscenic', '0.12.1', {
+        # download from commit to get fix for numpy error
+        # https://github.com/aertslab/pySCENIC/issues/518
+        'source_urls': ['https://github.com/aertslab/pySCENIC/archive/'],
+        'sources': [{
+            'download_filename': '31d51a1625f12fb3c6e92bc48ecc9d401524c22a.tar.gz',
+            'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit
+        }],
+        'checksums': ['9dac1aa1672e310838ab47838206c075f2a2af2eefe6d3b7d56b4492d42fcf47'],
     }),
 ]
 
-# sanity_check_paths = {
-#     'files': ['bin/pyscenic'],
-#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
-# }
+sanity_check_paths = {
+    'files': ['bin/pyscenic'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
 
 sanity_check_commands = ["pyscenic --help"]
 
