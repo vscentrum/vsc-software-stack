@@ -13,61 +13,6 @@ builddependencies = [
     ('poetry', '1.7.1'),
 ]
 
-#  "aiohttp>=3.8.1", OK
-#    "anndata>=0.9", OK
-#    "cycler>=0.11.0", OK exts
-#    "dask-image>=0.5.0", OK exts
-#    "dask[array]>=2021.02.0", add Dask to deps
-#    "docrep>=0.3.1", OK exts
-#    "fsspec>=2021.11.0", OK exts
-#    "leidenalg>=0.8.2", OK
-#    "matplotlib>=3.3", OK
-#    "matplotlib-scalebar>=0.8.0", OK exts
-#    "networkx>=2.6.0", OK
-#    "numba>=0.56.4", OK
-#    "numpy>=1.23.0", OK scupy-bundle
-#    "omnipath>=1.0.7", OK exts
-#    "pandas>=2.1.0", OK scipy-bundle
-#    "Pillow>=8.0.0", OK
-#    "scanpy>=1.9.3", OK
-#    "scikit-image>=0.20", OK
-#    # due to https://github.com/scikit-image/scikit-image/issues/6850 breaks rescale ufunc
-#    "scikit-learn>=0.24.0", OK
-#    "statsmodels>=0.12.0", OK
-#    # https://github.com/scverse/squidpy/issues/526
-#    "tifffile!=2022.4.22", OK exts
-#    "tqdm>=4.50.2", OK
-#    "validators>=0.18.2", OK exts
-#    "xarray>=0.16.1", OK
-#    "zarr>=2.6.1", OK made
-#    "spatialdata", OK exts
-
-# spatialdata 0.0.15 requires geopandas, which is not installed. OK
-# spatialdata 0.0.15 requires multiscale-spatial-image, which is not installed. OK exts
-# spatialdata 0.0.15 requires ome-zarr, which is not installed. OK exts
-# spatialdata 0.0.15 requires pyarrow, which is not installed. OK Arrow
-# spatialdata 0.0.15 requires pygeos, which is not installed. -> pygeos in EB but not 2023a
-# spatialdata 0.0.15 requires shapely, which is not installed. OK
-# spatialdata 0.0.15 requires spatial-image, which is not installed. Ok exts
-# spatialdata 0.0.15 requires xarray-schema, which is not installed. OK exts
-# spatialdata 0.0.15 requires xarray-spatial, which is not installed. OK exts
-# dask-image 2023.8.1 requires pims, which is not installed. OK exts
-# omnipath 1.0.8 requires inflect, which is not installed. OK exts
-# omnipath 1.0.8 requires wrapt, which is not installed. OK
-# squidpy 1.4.1 has requirement pandas>=2.1.0, but you have pandas 2.0.3. OK with new scipy-bundle
-# spatialdata 0.0.15 has requirement fsspec<=2023.6, but you have fsspec 2024.2.0. OK fixed
-# spatialdata 0.0.15 has requirement typing-extensions>=4.8.0, but you have typing-extensions 4.6.3. -> try to add to exts?
-# inflect 7.0.0 requires pydantic, which is not installed. OK
-# xarray-spatial 0.3.7 requires datashader, which is not installed. OK exts
-# pims 0.6.1 requires slicerator, which is not installed. OK exts
-# spatialdata 0.0.15 has requirement multiscale-spatial-image==0.11.2, but you have multiscale-spatial-image 1.0.0. OK
-# spatialdata 0.0.15 has requirement spatial-image==0.3.0, but you have spatial-image 1.0.0. OK
-# xarray-spatial 0.3.7 has requirement numpy<=1.23.4, but you have numpy 1.25.1. -> last commit in github removes numpy version OK
-# datashader 0.16.0 requires colorcet, which is not installed. OK exts
-# datashader 0.16.0 requires multipledispatch, which is not installed. OK exts
-# multiscale-spatial-image 0.11.2 requires xarray-datatree, which is not installed. OK exts
-# spatial-image 0.3.0 requires xarray-dataclasses, which is not installed. OK exts
-
 dependencies = [
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
@@ -90,8 +35,8 @@ dependencies = [
     ('Arrow', '14.0.1'),
     ('PyGEOS', '0.14'),
     ('Shapely', '2.0.1'),
-    ('wrapt', '1.15.0'),  # for omnipath
-    ('pydantic', '2.5.3'),  # for inflect
+    ('wrapt', '1.15.0'),  # omnipath dep
+    ('pydantic', '2.5.3'),  # inflect dep
 ]
 
 use_pip = True
