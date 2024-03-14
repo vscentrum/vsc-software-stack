@@ -28,7 +28,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # "seaborn>=0.10.0", ok
 # "wrapt>=1.12.1", ok
 
-builddependencies = [('poetry', '1.7.1'), ]
+builddependencies = [('poetry', '1.5.1')]
 
 dependencies = [
     ('Python', '3.11.3'),
@@ -43,8 +43,8 @@ dependencies = [
     ('Seaborn', '0.13.2'),
     ('wrapt', '1.15.0'),
     ('PyTorch', '2.1.2'),  # for nam
-    ('wandb', '0.16.1'), # for nam
-    # pytorch-lightning for nam - there is PR for 2023a
+    ('wandb', '0.16.1'),  # for nam
+    ('PyTorch-Lightning', '2.2.1'),  # for nam
 ]
 
 use_pip = True
@@ -61,6 +61,7 @@ exts_list = [
         'checksums': ['c5d161e4ca58ce3f8c540f035e018850b261a41e7cb98f6ccf8e1deb7174a1f1'],
     }),
     ('progressbar2', '4.4.1', {
+        'modulename': 'progressbar',
         'checksums': ['97d323ba03ad3d017a4d047fd0b2d3e733c5a360c07f87d269f96641c3de729f'],
     }),
     ('dunamai', '1.19.2', {
