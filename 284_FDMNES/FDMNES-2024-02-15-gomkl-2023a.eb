@@ -30,8 +30,9 @@ sources = [{
 checksums = ['5ffce6825d21faf849f22f66aeae22cce4a922057192f7c98e9eaedaf2dbf2c7']
 
 dependencies = [
-    ('MUMPS', '5.6.1', '-metis'),
+    ('MUMPS', '5.6.1', '-metis-seq'),
     ('OpenMPI', '4.1.5'),
+    ('SCOTCH', '7.0.3'),
 ]
 
 parallel = 1
@@ -51,7 +52,7 @@ parallel = 1
 # collect2: error: ld returned 1 exit status
 # make: *** [makefile:26: ../fdmnes] Error 1
 
-prebuildopts = 'sed -i "s/-llapack -lblas/$LIBLAPACK/g" makefile && '
+prebuildopts = 'sed -i "s/-llapack -lblas/$LIBLAPACK/g;s/mat_solve_mumps.o/mat_solve_mumps.o RIXS.o/g" makefile && echo Here && cat makefile && '
 
 buildopts = 'FC="$FC" FFLAGS="-c $FFLAGS -fallow-argument-mismatch -fallow-invalid-boz -I$EBROOTMUMPS/include"'
 
