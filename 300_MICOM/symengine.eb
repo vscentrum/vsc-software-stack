@@ -6,7 +6,7 @@ version = '0.11.2'
 homepage = 'https://github.com/symengine/symengine'
 description = "SymEngine is a standalone fast C++ symbolic manipulation library"
 
-toolchain = {'name': 'GCC', 'version': '13.2.0'}
+toolchain = {'name': 'gfbf', 'version': '2023b'}
 # toolchainopts = {'cstd': 'c++17', 'vectorize': True}
 
 source_urls = ['https://github.com/symengine/symengine/archive/refs/tags/']
@@ -19,22 +19,21 @@ builddependencies = [
 
 dependencies = [
     ('GMP', '6.3.0'),
-    # missing FLINT
-#     ('MPFR', '4.1.0'),
-#     ('MPC', '1.2.1'),
-#     ('LLVM', '11.1.0'),
-#     ('FLINT', '2.7.1'),
+    ('FLINT', '3.1.1'),
+    ('MPC', '1.3.1'),
+    ('LLVM', '16.0.6'),
 ]
 
 local_opts = '-DWITH_OPENMP=ON -DWITH_SYMENGINE_RCP=ON -DWITH_COTIRE=OFF '
 local_opts += '-DWITH_MPFR=ON -DWITH_MPC=ON -DWITH_LLVM=ON -DWITH_BFD=ON -DWITH_FLINT=ON '
 configopts = [local_opts + '-DBUILD_SHARED_LIBS=OFF', local_opts + '-DBUILD_SHARED_LIBS=ON']
 
-runtest = 'ctest'
+# runtest = 'ctest'
+runtest = 'test'
 
-# sanity_check_paths = {
-#     'files': ['lib64/libsymengine.a', 'lib64/libsymengine.%s' % SHLIB_EXT],
-#     'dirs': ['include/symengine/']
-# }
+sanity_check_paths = {
+    'files': ['lib64/libsymengine.a', 'lib64/libsymengine.%s' % SHLIB_EXT],
+    'dirs': ['include/symengine/']
+}
 
 moduleclass = 'lib'
