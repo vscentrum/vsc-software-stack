@@ -1,0 +1,48 @@
+easyblock = 'CMakeMake'
+
+name = 'FLINT'
+version = '3.1.1'
+
+homepage = 'https://www.flintlib.org/'
+
+description = """FLINT (Fast Library for Number Theory) is a C library in support of computations
+ in number theory. Operations that can be performed include conversions, arithmetic, computing GCDs,
+ factoring, solving linear systems, and evaluating special functions. In addition, FLINT provides
+ various low-level routines for fast arithmetic. FLINT is extensively documented and tested."""
+
+toolchain = {'name': 'GCC', 'version': '13.2.0'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://github.com/flintlib/flint/releases/download/v3.1.1/'] # https://github.com/flintlib/flint/releases/download/v3.1.1/flint-3.1.1.tar.gz
+sources = ['flint-3.1.1.tar.gz']
+patches = [
+    '%(name)s-2.8.4_find_flexiblas.patch', # ok
+    # '%(name)s-%(version)s-gcc-12.patch', # not need anymore - fixed in code
+]
+checksums = [
+    {'flint-3.1.1.tar.gz': '161f81d0a809408daab36ec79ba89380346dc3195d3671f97106f1b8774f653a'},
+    {'FLINT-2.8.4_find_flexiblas.patch': '35a3db14646daf584449f2b9c6880b66e7b082a665eba56234230610bab77c6e'}, #failing
+]
+
+builddependencies = [
+    ('CMake', '3.27.6'),
+    ('Python', '3.11.5'),
+]
+
+dependencies = [
+    ('GMP', '6.3.0'),
+    # ('MPFR', '4.2.1'),
+    # ('NTL', '11.5.1'),
+]
+
+# configopts = '-DWITH_NTL=on -DBUILD_TESTING=yes'
+configopts = '-DBUILD_TESTING=yes'
+
+runtest = 'test'
+
+sanity_check_paths = {
+    'files': ['lib/lib%%(namelower)s.%s' % SHLIB_EXT],
+    'dirs': ['include'],
+}
+
+moduleclass = 'math'
