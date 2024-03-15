@@ -4,7 +4,7 @@ name = 'giac'
 version = '1.9.0-93'
 
 homepage = 'https://www-fourier.ujf-grenoble.fr/~parisse/giac.html'
-description = """Giac is a C++ library, it is the CAS computing kernel. 
+description = """Giac is a C++ library, it is the CAS computing kernel.
  It may be used inside other C++ programs, and also Python, Java and Javascript programs."""
 
 toolchain = {'name': 'gfbf', 'version': '2023b'}
@@ -12,17 +12,17 @@ toolchainopts = {'cstd': 'gnu++14'}
 
 source_urls = ['https://www-fourier.ujf-grenoble.fr/~parisse/debian/dists/stable/main/source/']
 sources = ['giac_%(version)s.tar.gz']
-checksums = ['3cc1de5d19896d8da9a71da632264937901d5d4047f159bf9450b5ea5fe6d9c8']  # TODO
+checksums = ['153fddf4a27de32300cc3e9e9497875bc52b3ad212f5ff464e711323da5b4c85']
 
 dependencies = [
-    ('FLTK', '1.3.8'),  # TODO
+    ('FLTK', '1.3.9'),
     ('GLPK', '5.0'),
     ('GMP-ECM', '7.0.5'),
     ('GSL', '2.7'),
     ('MPFI', '1.5.4'),
     ('NTL', '11.5.1'),
     ('PARI-GP', '2.15.5'),
-    ('CoCoALib', '0.99818'),  # TODO
+    ('CoCoALib', '0.99818'),
     ('cURL', '8.3.0'),
     ('cliquer', '1.21'),
     ('libpng', '1.6.40'),
@@ -40,3 +40,9 @@ sanity_check_paths = {
 sanity_check_commands = ["giac <(echo '?findhelp') | grep \"Returns the help about the command\""]
 
 moduleclass = 'math'
+
+# TODO
+# == 2024-03-15 15:09:48,607 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " make install " exited with exit code 2 and output:
+# ...
+# /bin/sh: hevea: command not found
+# make[3]: *** [Makefile:954: tutoriel.stamp] Error 127
