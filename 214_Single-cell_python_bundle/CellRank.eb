@@ -11,23 +11,6 @@ hypothesis based on these. """
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# "anndata>=0.9", ok
-# "docrep>=0.3.0", ok exts
-# "joblib>=0.13.1", ok exts
-# "matplotlib>=3.5.0", ok
-# "networkx>=2.2", ok
-# "numba>=0.51.0,!=0.57.0", ok
-# "numpy>=1.22.0", ok
-# "pandas>=1.5.0", ok
-# "pygam>=0.8.0", ok exts
-# "pygpcca>=1.0.4", ok exts
-# "scanpy>=1.7.2", ok
-# "scikit-learn>=0.24.0", ok
-# "scipy>=1.2.0", ok
-# "scvelo>=0.2.5", ok
-# "seaborn>=0.10.0", ok
-# "wrapt>=1.12.1", ok
-
 builddependencies = [('poetry', '1.5.1')]
 
 dependencies = [
@@ -42,9 +25,9 @@ dependencies = [
     ('scVelo', '0.3.1'),
     ('Seaborn', '0.13.2'),
     ('wrapt', '1.15.0'),
-    ('PyTorch', '2.1.2'),  # for nam
-    ('wandb', '0.16.1'),  # for nam
-    ('PyTorch-Lightning', '2.2.1'),  # for nam
+    ('PyTorch', '2.1.2'),
+    ('wandb', '0.16.1'),
+    ('PyTorch-Lightning', '2.2.1'),
 ]
 
 use_pip = True
@@ -90,7 +73,5 @@ exts_list = [
         'checksums': ['47c1d2e953ac91f572937d816142b4ac5f0c876174c60f857562de76a9f8aa61'],
     }),
 ]
-
-# sanity_check_commands = ["python -c 'import cellrank as cr'"]
 
 moduleclass = 'bio'
