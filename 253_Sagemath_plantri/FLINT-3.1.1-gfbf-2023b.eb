@@ -1,7 +1,7 @@
 easyblock = 'CMakeMake'
 
 name = 'FLINT'
-version = '3.1.0'
+version = '3.1.1'
 
 homepage = 'https://www.flintlib.org/'
 
@@ -13,14 +13,13 @@ description = """FLINT (Fast Library for Number Theory) is a C library in suppor
 toolchain = {'name': 'gfbf', 'version': '2023b'}
 toolchainopts = {'pic': True}
 
-source_urls = ['https://www.flintlib.org']
+source_urls = ['https://github.com/flintlib/%(namelower)s/releases/download/v%(version)s/']
 sources = [SOURCELOWER_TAR_GZ]
-checksums = ['4b107e51b87738c334125b9dbbc11a0e3b146199b2decfc6a62d52c2453a3341']
+checksums = ['161f81d0a809408daab36ec79ba89380346dc3195d3671f97106f1b8774f653a']
 
 builddependencies = [
     ('CMake', '3.27.6'),
     ('Python', '3.11.5'),
-    ('patchelf', '0.18.0'),
 ]
 
 dependencies = [
@@ -29,16 +28,17 @@ dependencies = [
     ('NTL', '11.5.1'),
 ]
 
+# Make flexiblas the first to be found and used to avoid linking openblas.
+preconfigopts = 'sed -i "s/PATH_SUFFIXES openblas/PATH_SUFFIXES flexiblas openblas/g;'
+preconfigopts += 's/accelerate openblas/accelerate flexiblas openblas/g" '
+preconfigopts += '%(builddir)s/%(namelower)s-%(version)s/CMake/FindCBLAS.cmake && '
+
 configopts = '-DWITH_NTL=on -DBUILD_TESTING=yes'
 
 runtest = 'test'
 
-# TODO better solution?
-preinstallopts = 'patchelf --remove-needed libopenblas.so.0 lib/libflint.so.19.0.0 && '
-
 sanity_check_paths = {
     'files': ['lib/lib%%(namelower)s.%s' % SHLIB_EXT],
-    'files': [],
     'dirs': ['include'],
 }
 
