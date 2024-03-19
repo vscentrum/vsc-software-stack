@@ -35,17 +35,18 @@ dependencies = [
     # deps for exts:
     ('Pillow', '10.0.0'),  # cassiopeia
     ('pycodestyle', '2.11.1'),  # cassiopeia, created
-    # ('umap-learn', '0.5.5'),  # bbknn
-    # ('scikit-learn', '1.3.1'),  # bbknn, sc_toolbox
+    ('umap-learn', '0.5.5'),  # bbknn
+    ('scikit-learn', '1.3.1'),  # bbknn, sc_toolbox
     # ('PyYAML', '6.0'),  # sc_toolbox
     # ('typing-extensions', '4.9.0'),  # sc_toolbox
 ]
 
 # DEPS to add:
-# Cassiopeia
+# Cassiopeia OK
     # arrow, datapipelines,merakicommons, flake8, Pillow
-    # flake8: mccabe, pycodestyle (in EB, not 2023a), pyflakes
-# Bbknn
+    # flake8: mccabe, pycodestyle (created for 2023a), pyflakes
+# Bbknn OK
+    # umap-learn, scikit-learn, pynndescent, annoy, flit_core 
 # Anndata2ri
 # Sc_toolbox - rich, PyYAML, questionary, cookiecutter, matplotlib, scanpy, seaborn, scikit-learn, typing-extensions, pypi-latest
     # adjustText - in EB, not 2023a. For now to exts
@@ -90,6 +91,18 @@ exts_list = [
     }),
     ('cassiopeia', '5.0.3', {
         'checksums': ['18adfc81f795f807ce6e6674da5c81c801d28ecf42f9ce94e23fc018b6840d63'],
+    }),
+    ('flit_core', '3.9.0', {
+        'checksums': ['72ad266176c4a3fcfab5f2930d76896059851240570ce9a98733b658cb786eba'],
+    }),
+    ('annoy', '1.17.3', {
+        'checksums': ['9cbfebefe0a5f843eba29c6be4c84d601f4f41ad4ded0486f1b88c3b07739c15'],
+    }),
+    ('pynndescent', '0.5.11', {
+        'checksums': ['6f44ced9d5a9da2c87d9b2fff30bb5308540c0657605e4d5cde7ed3275bbad50'],
+    }),
+    ('bbknn', '1.6.0', {
+        'checksums': ['1c01a9d6df2fc52a527de8a403617897a4b672724863299a7026f2132f1b041b'],
     }),
 ]
 
