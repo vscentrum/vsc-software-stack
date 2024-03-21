@@ -1,0 +1,32 @@
+easyblock = 'CMakeMake'
+
+name = 'HiGHS'
+version = '1.7.0'
+
+homepage = 'https://ergo-code.github.io/HiGHS'
+description = """Open source serial and parallel solvers for large-scale sparse linear programming (LP),
+mixed-integer programming (MIP), and quadratic programming (QP) models."""
+
+toolchain = {'name': 'GCC', 'version': '13.2.0'}
+# toolchainopts = {'cstd': 'c++17', 'vectorize': True}
+
+source_urls = ['https://github.com/ERGO-Code/HiGHS/archive/']
+sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}]
+checksums = ['d10175ad66e7f113ac5dc00c9d6650a620663a6884fbf2942d6eb7a3d854604f']
+
+builddependencies = [
+    ('CMake', '3.27.6'),
+]
+
+# local_opts = '-DWITH_OPENMP=ON -DWITH_SYMENGINE_RCP=ON -DWITH_COTIRE=OFF '
+# local_opts += '-DWITH_MPFR=ON -DWITH_MPC=ON -DWITH_LLVM=ON -DWITH_BFD=ON -DWITH_FLINT=ON '
+# configopts = [local_opts + '-DBUILD_SHARED_LIBS=OFF', local_opts + '-DBUILD_SHARED_LIBS=ON']
+
+# runtest = 'ctest'
+
+# sanity_check_paths = {
+#     'files': ['lib64/libsymengine.a', 'lib64/libsymengine.%s' % SHLIB_EXT],
+#     'dirs': ['include/symengine/']
+# }
+
+moduleclass = 'lib'

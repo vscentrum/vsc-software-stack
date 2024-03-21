@@ -24,6 +24,7 @@ dependencies = [
     ('SymEngine-python', '0.11.0'),
     ('PyYAML', '6.0.1'),
     ('coverage', '7.4.4'),
+    ('HiGHS', '1.7.0'),
 ]
 
 # cobra>=0.17.1 OK created
@@ -45,35 +46,37 @@ dependencies = [
 # micom 0.33.2 requires highspy OK exts
 # micom 0.33.2 requires osqp OK exts
 # micom 0.33.2 requires symengine, which is not installed. OK created
-# highspy needs pyomo OK exts
+# highspy needs pyomo OK exts ? either for 1.7.0?
+# osqp 0.6.5 requires qdldl OK exts
 
 use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    ('Pyomo', '6.7.1', {
-        'checksums': ['735b66c45937f1caa43f073d8218a4918b6de658914a699397d38d5b8c219a40'],
+    ('qdldl', '0.1.7.post0', {
+        'checksums': ['f346a114c8342ee6d4dbd6471eef314199fb268d3bf7b95885ca351fde2b023f'],
     }),
     ('osqp', '0.6.5', {
         'checksums': ['b2810aee7be2373add8b6c0be5ad99b810288774abca421751cb032d6a5aedef'],
     }),
-    ('highspy', '1.5.3', {
+    ('highspy', '1.7.0', {
         'source_urls': ['https://github.com/ERGO-Code/HiGHS/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'checksums': ['ce1a7d2f008e60cc69ab06f8b16831bd0fcd5f6002d3bbebae9d7a3513a1d01d'],
+        'checksums': ['d10175ad66e7f113ac5dc00c9d6650a620663a6884fbf2942d6eb7a3d854604f'],
     }),
     ('micom', version, {
         'checksums': ['0fd335b178badcd9a1d96d1b6f2568b15da922be2fa57e8a6004971510f3708b'],
     }),
 ]
 
+    # ('Pyomo', '6.7.1', {
+    #     'checksums': ['735b66c45937f1caa43f073d8218a4918b6de658914a699397d38d5b8c219a40'],
+    # }),
+    
 # exts_list = [
 #     ('sphinx-theme-builder', '0.2.0b2', {
 #         'modulename': 'sphinx_theme_builder',
 #         'checksums': ['e9cd98c2bb35bf414fe721469a043cdcc10f0808d1ffcf606acb4a6282a6f288'],
-#     }),
-#     ('qdldl', '0.1.7.post0', {
-#         'checksums': ['f346a114c8342ee6d4dbd6471eef314199fb268d3bf7b95885ca351fde2b023f'],
 #     }),
 #     ('traitlets', '5.14.2', {
 #         'checksums': ['8cdd83c040dab7d1dee822678e5f5d100b514f7b72b01615b26fc5718916fdf9'],
