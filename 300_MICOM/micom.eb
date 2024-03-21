@@ -11,27 +11,28 @@ toolchain = {'name': 'foss', 'version': '2023b'}
 builddependencies = [
     ('CMake', '3.27.6'),
     ('hatchling', '1.18.0'),
-#     ('poetry', '1.7.1'),
+    ('SWIG', '4.1.1'),
+#     ('poetry', '1.6.1'),
 ]
 
 dependencies = [
     ('Python', '3.11.5'),
     ('Python-bundle-PyPI', '2023.10'),
     ('SciPy-bundle', '2023.11'),
+    ('COBRApy', '0.29.0'),
     ('scikit-learn', '1.4.0'),
-    ('SymEngine', '0.11.2'),
+    ('SymEngine-python', '0.11.0'),
     ('PyYAML', '6.0.1'),
-    ('GLPK', '5.0'),
-    ('SWIG', '4.1.1'),
+    ('coverage', '7.4.4'),
 ]
 
-# cobra>=0.17.1 OK exts (but it is in EB -> creat ec?)
+# cobra>=0.17.1 OK created
 # jinja2>=2.10.0 OK python-b-pypi
 # scikit-learn>=0.22.0 OK
 # scipy>=1.0.0 OK
-# symengine>=0.6.1 OK
+# symengine>=0.6.1 OK created - depends on Petr's PR
 # osqp>=0.6.2 OK exts
-# coverage (not for 2023b)
+# coverage OK created
 # pytest OK (py-bundle-pypi)
 # pytest-cov OK exts
 # sphinx OK (py-bundle-pypi)
@@ -41,102 +42,20 @@ dependencies = [
 # recommonmark OK exts
 # Gurobi (opt)
 
-# pydantic - not for 2023b, cobra dep
-# python-libsbml - not for 2023b, cobra dep
-# GLPK - DONE for 13.2.0, swiglpk dep
-# sympy - not for 2023b, maybe not used (problem with symengine missing dep even it is there)
-# sympy needs mpmath - is in EB, not for 2023b
+# micom 0.33.2 requires highspy OK exts
+# micom 0.33.2 requires osqp OK exts
+# micom 0.33.2 requires symengine, which is not installed. OK created
+# highspy needs pyomo OK exts
 
 use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    ('mpmath', '1.3.0', {
-        'checksums': ['7a28eb2a9774d00c7bc92411c19a89209d5da7c4c9a9e227be8330a23a25b91f'],
-    }),
-    ('sphinx-theme-builder', '0.2.0b2', {
-        'modulename': 'sphinx_theme_builder',
-        'checksums': ['e9cd98c2bb35bf414fe721469a043cdcc10f0808d1ffcf606acb4a6282a6f288'],
-    }),
-    ('qdldl', '0.1.7.post0', {
-        'checksums': ['f346a114c8342ee6d4dbd6471eef314199fb268d3bf7b95885ca351fde2b023f'],
-    }),
-    ('traitlets', '5.14.2', {
-        'checksums': ['8cdd83c040dab7d1dee822678e5f5d100b514f7b72b01615b26fc5718916fdf9'],
-    }),
-    ('anyascii', '0.3.2', {
-        'checksums': ['9d5d32ef844fe225b8bc7cba7f950534fae4da27a9bf3a6bea2cb0ea46ce4730'],
-    }),
-    ('swiglpk', '5.0.10', {
-        'checksums': ['57ac34ad334da95dd168114bfdb50ae10a2a6a3ddef21e4941f46fe430c5a7e1'],
-    }),
-    ('ruamel.yaml', '0.18.6', {
-        'checksums': ['8b27e6a217e786c6fbe5634d8f3f11bc63e0f80f6a5890f28863d9c45aac311b'],
-    }),
-    ('python-libsbml', '5.20.2', {
-        'checksums': ['0af5cbff68c9b52bac4bd7bb261f93a60832dc8cb31dafc90d3aff51467935b7'],
-    }),
-    ('pydantic', '2.6.4', {
-        'checksums': ['b1704e0847db01817624a6b86766967f552dd9dbf3afba4004409f908dcc84e6'],
-    }),
-    ('optlang', '1.8.1', {
-        'checksums': ['9eb586b69fd88d558a8a0a0eac33c3067c59b5de510fddc36c0aa874eb74bfec'],
-    }),
-    ('httpx', '0.27.0', {
-        'checksums': ['a0cb88a46f32dc874e04ee956e4c2764aba2aa228f650b06788ba6bda2962ab5'],
-    }),
-    ('diskcache', '5.6.3', {
-        'checksums': ['2c3a3fa2743d8535d832ec61c2054a1641f41775aa7c556758a109941e33e4fc'],
-    }),
-    ('depinfo', '2.2.0', {
-        'checksums': ['e0971be11519a823b126c875e17ad3ad8adaa6a86737395b9dbcef3ca0e77b0c'],
-    }),
-    ('sympy', '1.12', {
-        'runtest': False,
-        'checksums': ['ebf595c8dac3e0fdc4152c51878b498396ec7f30e7a914d6071e674d49420fb8'],
-    }),
-    ('astroid', '3.1.0', {
-        'checksums': ['ac248253bfa4bd924a0de213707e7ebeeb3138abeb48d798784ead1e56d419d4'],
-    }),
-    ('nbconvert', '7.16.2', {
-        'checksums': ['8310edd41e1c43947e4ecf16614c61469ebc024898eb808cce0999860fc9fb16'],
-    }),
-    ('nbformat', '5.10.3', {
-        'checksums': ['60ed5e910ef7c6264b87d644f276b1b49e24011930deef54605188ddeb211685'],
-    }),
-    ('nodeenv', '1.8.0', {
-        'checksums': ['d51e0c37e64fbf47d017feac3145cdbb58836d7eee8c6f6d3b6880c5456227d2'],
-    }),
-    ('pyproject-metadata', '0.7.1', {
-        'modulename': 'pyproject_metadata',
-        'checksums': ['0a94f18b108b9b21f3a26a3d541f056c34edcb17dc872a144a15618fed7aef67'],
-    }),
-    ('pydata_sphinx_theme', '0.15.2', {
-        'checksums': ['4243fee85b3afcfae9df64f83210a04e7182e53bc3db8841ffff6d21d95ae320'],
-    }),
-    ('recommonmark', '0.7.1', {
-        'checksums': ['bdb4db649f2222dcd8d2d844f0006b958d627f732415d399791ee436a3686d67'],
-    }),
-    ('sphinx-autoapi', '3.0.0', {
-        'checksums': ['09ebd674a32b44467222b0fb8a917b97c89523f20dbf05b52cb8a3f0e15714de'],
-    }),
-    ('sphinx_book_theme', '1.1.2', {
-        'checksums': ['7f3abcd146ca82e6f39d6db53711102b1c1d328d12f65e3e47ad9bf842614a49'],
-    }),
-    ('nbsphinx', '0.9.3', {
-        'checksums': ['ec339c8691b688f8676104a367a4b8cf3ea01fd089dc28d24dec22d563b11562'],
-    }),
-    ('pytest-cov', '4.1.0', {
-        'checksums': ['3904b13dfbfec47f003b8e77fd5b589cd11904a21ddf1ab38a64f204d6a10ef6'],
-    }),
-    ('coverage', '7.4.4', {
-        'checksums': ['c901df83d097649e257e803be22592aedfd5182f07b3cc87d640bbb9afd50f49'],
+    ('Pyomo', '6.7.1', {
+        'checksums': ['735b66c45937f1caa43f073d8218a4918b6de658914a699397d38d5b8c219a40'],
     }),
     ('osqp', '0.6.5', {
         'checksums': ['b2810aee7be2373add8b6c0be5ad99b810288774abca421751cb032d6a5aedef'],
-    }),
-    ('cobra', '0.29.0', {
-        'checksums': ['56d2b832aa86b1f3853647e0eb24aaeac25908fd147737edb23313934485e863'],
     }),
     ('highspy', '1.5.3', {
         'source_urls': ['https://github.com/ERGO-Code/HiGHS/archive/'],
@@ -147,5 +66,66 @@ exts_list = [
         'checksums': ['0fd335b178badcd9a1d96d1b6f2568b15da922be2fa57e8a6004971510f3708b'],
     }),
 ]
+
+# exts_list = [
+#     ('sphinx-theme-builder', '0.2.0b2', {
+#         'modulename': 'sphinx_theme_builder',
+#         'checksums': ['e9cd98c2bb35bf414fe721469a043cdcc10f0808d1ffcf606acb4a6282a6f288'],
+#     }),
+#     ('qdldl', '0.1.7.post0', {
+#         'checksums': ['f346a114c8342ee6d4dbd6471eef314199fb268d3bf7b95885ca351fde2b023f'],
+#     }),
+#     ('traitlets', '5.14.2', {
+#         'checksums': ['8cdd83c040dab7d1dee822678e5f5d100b514f7b72b01615b26fc5718916fdf9'],
+#     }),
+#     ('anyascii', '0.3.2', {
+#         'checksums': ['9d5d32ef844fe225b8bc7cba7f950534fae4da27a9bf3a6bea2cb0ea46ce4730'],
+#     }),
+#     ('astroid', '3.1.0', {
+#         'checksums': ['ac248253bfa4bd924a0de213707e7ebeeb3138abeb48d798784ead1e56d419d4'],
+#     }),
+#     ('nbconvert', '7.16.2', {
+#         'checksums': ['8310edd41e1c43947e4ecf16614c61469ebc024898eb808cce0999860fc9fb16'],
+#     }),
+#     ('nbformat', '5.10.3', {
+#         'checksums': ['60ed5e910ef7c6264b87d644f276b1b49e24011930deef54605188ddeb211685'],
+#     }),
+#     ('nodeenv', '1.8.0', {
+#         'checksums': ['d51e0c37e64fbf47d017feac3145cdbb58836d7eee8c6f6d3b6880c5456227d2'],
+#     }),
+#     ('pyproject-metadata', '0.7.1', {
+#         'modulename': 'pyproject_metadata',
+#         'checksums': ['0a94f18b108b9b21f3a26a3d541f056c34edcb17dc872a144a15618fed7aef67'],
+#     }),
+#     ('pydata_sphinx_theme', '0.15.2', {
+#         'checksums': ['4243fee85b3afcfae9df64f83210a04e7182e53bc3db8841ffff6d21d95ae320'],
+#     }),
+#     ('recommonmark', '0.7.1', {
+#         'checksums': ['bdb4db649f2222dcd8d2d844f0006b958d627f732415d399791ee436a3686d67'],
+#     }),
+#     ('sphinx-autoapi', '3.0.0', {
+#         'checksums': ['09ebd674a32b44467222b0fb8a917b97c89523f20dbf05b52cb8a3f0e15714de'],
+#     }),
+#     ('sphinx_book_theme', '1.1.2', {
+#         'checksums': ['7f3abcd146ca82e6f39d6db53711102b1c1d328d12f65e3e47ad9bf842614a49'],
+#     }),
+#     ('nbsphinx', '0.9.3', {
+#         'checksums': ['ec339c8691b688f8676104a367a4b8cf3ea01fd089dc28d24dec22d563b11562'],
+#     }),
+#     ('pytest-cov', '4.1.0', {
+#         'checksums': ['3904b13dfbfec47f003b8e77fd5b589cd11904a21ddf1ab38a64f204d6a10ef6'],
+#     }),
+    # ('osqp', '0.6.5', {
+    #     'checksums': ['b2810aee7be2373add8b6c0be5ad99b810288774abca421751cb032d6a5aedef'],
+    # }),
+    # ('highspy', '1.5.3', {
+    #     'source_urls': ['https://github.com/ERGO-Code/HiGHS/archive/'],
+    #     'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+    #     'checksums': ['ce1a7d2f008e60cc69ab06f8b16831bd0fcd5f6002d3bbebae9d7a3513a1d01d'],
+    # }),
+#     ('micom', version, {
+#         'checksums': ['0fd335b178badcd9a1d96d1b6f2568b15da922be2fa57e8a6004971510f3708b'],
+#     }),
+# ]
 
 moduleclass = 'bio'
