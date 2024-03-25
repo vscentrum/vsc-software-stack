@@ -1,0 +1,42 @@
+easyblock = 'PythonPackage'
+
+name = 'FFC'
+version = '20230817'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://bitbucket.org/fenics-project/ffc'
+description = "The FEniCS Form Compiler (FFC) is a compiler for finite element variational forms."
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://bitbucket.org/fenics-project',
+        'repo_name': 'FFC',
+        'commit': '72129fd',
+        'recursive': True,
+        'keep_git_dir': True,
+    },
+}]
+checksums = ['6403962a5bcf5c56315576166005ba1d9c8c455ca93300c271e93a53cc982aea']
+
+dependencies = [
+    ('Python', '3.9.5'),
+    ('UFL', version, versionsuffix),
+    ('FIAT', version, versionsuffix),
+    ('dijitso', version, versionsuffix),
+]
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+
+sanity_check_paths = {
+    'files': ['bin/ffc'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["ffc --help"]
+
+moduleclass = 'math'

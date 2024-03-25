@@ -1,0 +1,38 @@
+easyblock = 'PythonPackage'
+
+name = 'UFL'
+version = '20230817'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://bitbucket.org/fenics-project/ufl'
+description = """The Unified Form Language (UFL) is a domain specific language 
+ for declaration of finite element discretizations of variational forms. 
+ More precisely, it defines a flexible interface for choosing finite element 
+ spaces and defining expressions for weak forms in a notation close to 
+ mathematical notation."""
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/FEniCS',
+        'repo_name': 'ufl',
+        'commit': '20a231f',
+        'recursive': True,
+        'keep_git_dir': True,
+    },
+}]
+checksums = ['532d8eab22d992b76856c401dc55ff6dfa44267bddd492ca7b37035d86be973a']
+
+dependencies = [
+    ('Python', '3.9.5'),
+    ('SciPy-bundle', '2021.05'),
+]
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+options = {'modulename': 'ufl_legacy'}
+
+moduleclass = 'cae'

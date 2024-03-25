@@ -1,0 +1,40 @@
+easyblock = 'PythonPackage'
+
+name = 'FIAT'
+version = '20230817'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://bitbucket.org/fenics-project/fiat'
+description = """The FInite element Automatic Tabulator (FIAT) supports
+generation of arbitrary order instances of the Lagrange elements on
+lines, triangles, and tetrahedra. It is also capable of generating
+arbitrary order instances of Jacobi-type quadrature rules on the same
+element shapes."""
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/FEniCS',
+        'repo_name': 'fiat',
+        'commit': '7d418fa',
+        'recursive': True,
+        'keep_git_dir': True,
+    },
+}]
+checksums = ['3324e8c9290d019c362466845f1233b7dc7f8a978d86c84fb2c6021333e20b37']
+
+dependencies = [
+    ('Python', '3.9.5'),
+    ('SciPy-bundle', '2021.05'),
+    ('sympy', '1.8'),
+]
+
+use_pip = True
+sanity_pip_check = True
+download_dep_fail = True
+
+options = {'modulename': 'FIAT'}
+
+moduleclass = 'math'

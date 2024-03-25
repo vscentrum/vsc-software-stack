@@ -1,0 +1,50 @@
+easyblock = 'CMakeMake'
+
+name = 'mshr'
+version = '20230817'
+local_pysuffix = '-Python-%(pyver)s'
+local_petscsuffix =  '-SuperLU_DIST'
+versionsuffix = local_pysuffix + local_petscsuffix
+
+homepage = 'https://bitbucket.org/fenics-project/mshr'
+description = "mshr is the mesh generation component of FEniCS. It generates simplicial DOLFIN meshes in 2D and 3D from geometries described by Constructive Solid Geometry (CSG) or from surface files, utilizing CGAL and Tetgen as mesh generation backends."
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://bitbucket.org/fenics-project',
+        'repo_name': 'mshr',
+        'commit': 'c27eb18',
+        'recursive': True,
+        'keep_git_dir': True,
+    },
+}]
+patches = ['mshr_fix-cgal-mesh3.patch']
+checksums = [
+    {'mshr-20230817.tar.gz': 'b610740e279e66ed1fd9d7ac845e745eaeb5a758b720379b4edc9d0e497713cf'},
+    {'mshr_fix-cgal-mesh3.patch': '5e777d20f8cd5cb889cdb553f70fd1e74d852ad887ac7779590da63b8820eda1'},
+]
+
+builddependencies = [('CMake', '3.20.1')]
+
+dependencies = [
+    ('Python', '3.9.5'),
+    ('DOLFIN', version, versionsuffix),
+    ('CGAL', '4.14.3'),
+    ('GMP', '6.2.1'),
+    ('TetGen', '1.6.0'),
+]
+
+configopts = '-DUSE_SYSTEM_CGAL=TRUE '
+configopts += '-DCMAKE_BUILD_TYPE="Release" '
+
+sanity_check_paths = {
+    'files': ['lib/libmshr.so'],
+    'dirs': ['lib'],
+}
+
+modextravars = {'CGAL_MODULES_DIR': '${EBROOTCGAL}'}
+
+moduleclass = 'numlib'
