@@ -28,7 +28,9 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # "scipy>=1.2.0", OK
 # "typing-extensions>=3.7.4", OK
 # "tqdm>=4", OK
-builddependencies = [('CMake', '3.26.3')]
+builddependencies = [
+    ('CMake', '3.26.3'),
+]
 
 dependencies = [
     ('Python', '3.11.3'),
@@ -36,7 +38,7 @@ dependencies = [
     ('Biopython', '1.83'),
     ('scikit-build', '0.17.6'),
     ('bokeh', '3.2.2'),
-    ('ETE', '3.1.3'),
+    # ('ETE', '3.1.3'),
     ('matplotlib', '3.7.2'),
     ('networkx', '3.1'),
     ('numba', '0.58.1'),
@@ -44,6 +46,7 @@ dependencies = [
     ('PyYAML', '6.0'),
     ('typing-extensions', '4.9.0'),
     ('tqdm', '4.66.1'),
+    ('hatchling', '1.18.0'),
 ]
 
 use_pip = True
@@ -51,6 +54,9 @@ sanity_pip_check = True
 # cleo 2.0.1 has requirement rapidfuzz<3.0.0,>=2.2.0, but you have rapidfuzz 3.7.0.
 # levenshtein 0.25.0 has requirement rapidfuzz<4.0.0,>=3.1.0, but you have rapidfuzz 2.15.1.
 exts_list = [
+    ('hatch_nodejs_version', '0.3.2', {
+        'checksums': ['8a7828d817b71e50bbbbb01c9bfc0b329657b7900c56846489b9c958de15b54c'],
+    }),
     ('ngs-tools', '1.8.5', {
         'checksums': ['380e236a101c5b1ac3c0fcdbcc908a210179b6ef2a93fbea9f4eb0ec2edc1de0'],
     }),
@@ -66,58 +72,24 @@ exts_list = [
     ('hits', '0.4.0', {
         'checksums': ['743bfc1b56ab8fcf9fefacfcad4c1f23e9bafec1b42225709dbe097c8e669383'],
     }),
-    ('python-Levenshtein', '0.22.0', {
-        'checksums': ['6f8e2216fbd4610ccfa1bab2e0052fb23de34c2333c192de08150eeb99717702'],
-    }),
     ('Levenshtein', '0.22.0', {
+        'modulename': False,
         'checksums': ['86d285d770551cb648d4fcfe5243449a479e694e56b65272dc6cbda879012051'],
     }),
+    ('python-Levenshtein', '0.22.0', {
+        'modulename': 'Levenshtein',
+        'checksums': ['6f8e2216fbd4610ccfa1bab2e0052fb23de34c2333c192de08150eeb99717702'],
+    }),
     (name, version, {
+        # 'test_script': 'make test',
         'source_urls': ['https://github.com/YosefLab/Cassiopeia/archive/'],
-        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s-%s.tar.gz'}],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['28ae7495152683f5733222255056a1e7b2f7a51e1cee2f23f0d9f8ae5f4c3742'],
     }),
 ]
 
-# exts_list = [
-#     ('loguru', '0.7.2', {
-#         'checksums': ['e671a53522515f34fd406340ee968cb9ecafbc4b36c679da03c18fd8d0bd51ac'],
-#     }),
-#     ('nam', '0.0.3', {
-#         'checksums': ['48400d12b5f29fdd1671aebdf78d7f41bcac4f5c8ab7ed48770ee0c4fbc0673b'],
-#     }),
-#     ('python-utils', '3.8.2', {
-#         'checksums': ['c5d161e4ca58ce3f8c540f035e018850b261a41e7cb98f6ccf8e1deb7174a1f1'],
-#     }),
-#     ('progressbar2', '4.4.1', {
-#         'modulename': 'progressbar',
-#         'checksums': ['97d323ba03ad3d017a4d047fd0b2d3e733c5a360c07f87d269f96641c3de729f'],
-#     }),
-#     ('dunamai', '1.19.2', {
-#         'checksums': ['3be4049890763e19b8df1d52960dbea60b3e263eb0c96144a677ae0633734d2e'],
-#     }),
-#     ('poetry_dynamic_versioning', '1.2.0', {
-#         'checksums': ['1a7bbdba2530499e73dfc6ac0af19de29020ab4aaa3e507573877114e6b71ed6'],
-#     }),
-#     ('pygpcca', '1.0.4', {
-#         'preinstallopts': "sed -i 's/jinja2==3.0.3/jinja2>=3.0.3/' requirements.txt && ",
-#         'checksums': ['5e3b49279abc62d25133811daeee050715f995ff02042c46e2a2034331d090d1'],
-#     }),
-#     ('pygam', '0.9.1', {
-#         'checksums': ['a321a017bf485ed93fc6233e02621f8e7eab3d4f8971371c9ae9e079c55be01d'],
-#     }),
-#     ('joblib', '1.3.2', {
-#         'checksums': ['92f865e621e17784e7955080b6d042489e3b8e294949cc44c6eac304f59772b1'],
-#     }),
-#     ('docrep', '0.3.2', {
-#         'checksums': ['ed8a17e201abd829ef8da78a0b6f4d51fb99a4cbd0554adbed3309297f964314'],
-#     }),
-#     (name, version, {
-#         'modulename': 'cellrank',
-#         'preinstallopts': "sed -i 's/matplotlib>=3.5.0,<3.7.2/matplotlib>=3.5.0/' pyproject.toml && ",
-#         'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
-#         'checksums': ['47c1d2e953ac91f572937d816142b4ac5f0c876174c60f857562de76a9f8aa61'],
-#     }),
-# ]
+sanity_check_commands = [
+    "cd %(builddir)s/Cassiopeia/Cassiopeia-* && make test", # failing with: ModuleNotFoundError: No module named 'cassiopeia.preprocess.collapse_cython'
+]
 
 moduleclass = 'bio'
