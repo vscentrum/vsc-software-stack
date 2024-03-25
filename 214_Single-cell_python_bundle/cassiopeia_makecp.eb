@@ -1,0 +1,53 @@
+easyblock = 'MakeCp'
+
+name = 'Cassiopeia'
+version = '2.0.0'
+
+homepage = 'https://github.com/YosefLab/Cassiopeia'
+description = """A Package for Cas9-Enabled Single Cell Lineage Tracing Tree Reconstruction."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+# toolchainopts = {'pic': True}
+
+github_account = 'YosefLab'
+source_urls = [GITHUB_LOWER_SOURCE]
+sources = ['%(version)s.tar.gz']
+checksums = ['28ae7495152683f5733222255056a1e7b2f7a51e1cee2f23f0d9f8ae5f4c3742']
+
+# Building wheels for collected packages: cassiopeia-lineage
+#   Building editable for cassiopeia-lineage (pyproject.toml): started
+#   Building editable for cassiopeia-lineage (pyproject.toml): finished with status 'done'
+#   Created wheel for cassiopeia-lineage: filename=cassiopeia_lineage-2.0.0-0.editable-cp311-cp311-linux_x86_64.whl size=5702 sha256=bbb62347c6b8715a72ab83849ab006cd4a0004decff040355402d52b0a2d30b4
+#   Stored in directory: /tmp/vsc47063/eb-_ddw2cny/pip-ephem-wheel-cache-2kc168qx/wheels/77/b8/a8/53c03763b299b9146b1a300b7647a33e99a709d47874c2222d
+# Successfully built cassiopeia-lineage
+# Installing collected packages: rapidfuzz, cassiopeia-lineage
+#   Attempting uninstall: rapidfuzz
+#     Found existing installation: rapidfuzz 2.15.1
+#     Uninstalling rapidfuzz-2.15.1:
+# ERROR: Could not install packages due to an OSError: [Errno 13] Permission denied: 'METADATA'
+# Consider using the `--user` option or check the permissions.
+
+# builddependencies = [
+#     ('Python', '3.11.3'),
+#     # ('binutils', '2.40'),
+# ]
+
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+]
+# start_dir = 'source'
+
+# files_to_copy = [(['trimal', 'readal', 'statal'], 'bin')]
+files_to_copy = ['README.md']
+
+sanity_check_paths = {
+    'files': ['README.md'],
+    'dirs': []
+}
+
+test_cmd = 'make test'
+# sanity_check_commands = ["make test"]
+
+moduleclass = 'bio'
