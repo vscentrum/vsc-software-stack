@@ -6,7 +6,7 @@ version = '4.0.1'
 homepage = 'https://simnibs.github.io/simnibs'
 description = "SimNIBS is a free and open source software package for the Simulation of Non-invasive Brain Stimulation"
 
-toolchain = {'name': 'foss', 'version': '2023a'}
+toolchain = {'name': 'intel', 'version': '2023a'}
 
 builddependencies = [('CMake', '3.26.3')]
 dependencies = [
@@ -23,9 +23,10 @@ dependencies = [
     ('libwebp', '1.3.1'),
     ('NiBabel', '5.2.0'),
     ('PyQt5', '5.15.10'),
-#     ('FMM3D', '20211018'),
+    ('FMM3D', '1.0.4'),
 ]
 
+check_ldshared = True
 use_pip = True
 
 exts_list = [
@@ -34,11 +35,11 @@ exts_list = [
         'sources': ['v%(version)s.tar.gz'],
         'checksums': ['b894dc2f050dad338c99eab4b8db34964115c3dbb2397b515d264a0b8508928f'],
     }),
-    ('fmm3dpy', '1.0.4', {
-        'source_urls': ['https://github.com/flatironinstitute/FMM3D/archive/'],
-        'sources': ['v%(version)s.tar.gz'],
-        'checksums': ['26b16ce6f963bf33011cbd690a27d4cba2c3a3eb9ab8505febe1ca39abcfc40a'],
-    }),
+    # ('fmm3dpy', '1.0.4', {
+    #     'source_urls': ['https://github.com/flatironinstitute/FMM3D/archive/'],
+    #     'sources': ['v%(version)s.tar.gz'],
+    #     'checksums': ['26b16ce6f963bf33011cbd690a27d4cba2c3a3eb9ab8505febe1ca39abcfc40a'],
+    # }),
     (name, version, {
         'source_urls': ['https://github.com/simnibs/simnibs/archive/'],
         'sources': ['v%(version)s.tar.gz'],
