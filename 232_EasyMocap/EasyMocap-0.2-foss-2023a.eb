@@ -64,40 +64,34 @@ exts_list = [
         'preinstallopts': "sed -i 's/PyOpenGL==3.1.0/PyOpenGL>=3.1.0/g' setup.py && ",
         'checksums': ['284b2432bf6832f05c5216c4b979ceb514ea78163bf53b8ce2bdf0069cb3b92e'],
     }),
-    ('mediapipe', '0.10.10', {
-        'source_urls': ['https://github.com/google/mediapipe/archive'],
-        'preinstallopts': 'echo here && whereis bazel && ',
-        'sources': ['v%(version)s.tar.gz'],
-        'checksums': ['030d069da7108f67496c9e2d151c4ccab47552fabe8f0d6ef3b03de77a5a13b7'],
+    # ('mediapipe', '0.10.10', {
+    #     'source_urls': ['https://github.com/google/mediapipe/archive'],
+    #     'preinstallopts': """sed -i "s/__version__ = 'dev'/__version__ = '%(version)s'/g" setup.py && """,
+    #     'sources': ['v%(version)s.tar.gz'],
+    #     'checksums': ['030d069da7108f67496c9e2d151c4ccab47552fabe8f0d6ef3b03de77a5a13b7'],
+    # }),
+    ('mediapipe', '0.10.11', {
+        'sources': ['mediapipe-0.10.11-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl'],
     }),
     # TODO
-    # Traceback (most recent call last):
-    #     File "<string>", line 2, in <module>
-    #     File "<pip-setuptools-caller>", line 34, in <module>
-    #     File "/tmp/vsc45304/easybuild/build/EasyMocap/0.2/foss-2023a/mediapipe/mediapipe-0.10.10/setup.py", line 520, in <module>
-    #       setuptools.setup(
-    #     File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/__init__.py", line 107, in setup
-    #       return distutils.core.setup(**attrs)
-    #              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    #     File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/core.py", line 185, in setup
-    #       return run_commands(dist)
-    #              ^^^^^^^^^^^^^^^^^^
-    #     File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/core.py", line 201, in run_commands
-    #       dist.run_commands()
-    #     File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/dist.py", line 969, in run_commands
-    #       self.run_command(cmd)
-    #     File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/dist.py", line 1244, in run_command
-    #       super().run_command(command)
-    #     File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/dist.py", line 987, in run_command
-    #       cmd_obj.ensure_finalized()
-    #     File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 111, in ensure_finalized
-    #       self.finalize_options()
-    #     File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/command/egg_info.py", line 219, in finalize_options
-    #       parsed_version = packaging.version.Version(self.egg_version)
-    #                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    #     File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_vendor/packaging/version.py", line 197, in __init__
-    #       raise InvalidVersion(f"Invalid version: '{version}'")
-    #   setuptools.extern.packaging.version.InvalidVersion: Invalid version: 'dev'
+    #       ERROR: /tmp/vsc45304/easybuild/build/EasyMocap/0.2/foss-2023a/mediapipe/mediapipe-0.10.10/mediapipe/tasks/metadata/BUILD:35:22: Generating flatbuffer files for <source file mediapipe/tasks/metadata/image_segmenter_metadata_schema.fbs>: failed: (Exit 1): flatc failed: error executing command (from target //mediapipe/tasks/metadata:image_segmenter_metadata_schema_py_srcs_no_include) bazel-out/k8-opt-exec-50AE0418/bin/external/flatbuffers/flatc --python -o bazel-out/k8-opt/bin/mediapipe/tasks/metadata/image_segmenter_metadata_schema_py_srcs_no_include_all -I ./ -I ... (remaining 8 arguments skipped)
+    #
+    #       Use --sandbox_debug to see verbose messages from the sandbox and retain the sandbox build root for debugging
+    #       bazel-out/k8-opt-exec-50AE0418/bin/external/flatbuffers/flatc: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by bazel-out/k8-opt-exec-50AE0418/bin/external/flatbuffers/flatc)
+    #       bazel-out/k8-opt-exec-50AE0418/bin/external/flatbuffers/flatc: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.29' not found (required by bazel-out/k8-opt-exec-50AE0418/bin/external/flatbuffers/flatc)
+    #       Target //mediapipe/tasks/metadata:image_segmenter_metadata_schema_py failed to build
+    #       Use --verbose_failures to see the command lines of failed build steps.
+    #       INFO: Elapsed time: 200.793s, Critical Path: 27.57s
+    #       INFO: 149 processes: 108 internal, 41 linux-sandbox.
+    #       FAILED: Build did NOT complete successfully
+    #       Command '['bazel', 'build', '--compilation_mode=opt', '--action_env=PYTHON_BIN_PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python', '//mediapipe/tasks/metadata:image_segmenter_metadata_schema_py', '--define=MEDIAPIPE_DISABLE_GPU=1']' returned non-zero exit status 1.
+    #       [end of output]
+    #
+    #   note: This error originates from a subprocess, and is likely not a problem with pip.
+    #   ERROR: Failed building wheel for mediapipe
+    #   Running setup.py clean for mediapipe
+    # Failed to build mediapipe
+    # ERROR: Could not build wheels for mediapipe, which is required to install pyproject.toml-based projects
     (name, version, {
         'patches': ['deps.patch'],  # TODO just for pip check
         'source_urls': ['https://github.com/zju3dv/EasyMocap/archive'],
@@ -109,3 +103,12 @@ exts_list = [
 # sanity_check_commands = [f"python -c 'import {dep}'" for dep in local_deps]
 
 moduleclass = 'vis'
+
+# TODO
+# mediapipe 0.10.11 requires absl-py, which is not installed.
+# mediapipe 0.10.11 requires flatbuffers, which is not installed.
+# mediapipe 0.10.11 requires jax, which is not installed.
+# mediapipe 0.10.11 requires jaxlib, which is not installed.
+# mediapipe 0.10.11 requires sounddevice, which is not installed.
+# mediapipe 0.10.11 has requirement protobuf<4,>=3.11, but you have protobuf 4.24.0.
+# levenshtein 0.25.0 has requirement rapidfuzz<4.0.0,>=3.1.0, but you have rapidfuzz 2.15.1.
