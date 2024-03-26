@@ -26,8 +26,11 @@ dependencies = [
 use_pip = True
 sanity_pip_check = True
 
-local_preinstallopts = 'export ITK_DIR=$EBROOTITK &&'
-local_preinstallopts += 'sed -i "42d" CMakeLists.txt &&'
+local_preinstallopts = 'export ITK_DIR=$EBROOTITK && '
+# local_preinstallopts += 'sed -i "42d" CMakeLists.txt &&'
+# local_preinstallopts += 'sed -i "s/add_subdirectory(pybind11)/find_package(pybind11 HINTS $EBROOTPYBIND11 REQUIRED)/g" CMakeLists.txt && '
+local_preinstallopts += """sed -i 's/add_subdirectory(pybind11)/
+find_package(pybind11 HINTS $EBROOTPYBIND11 REQUIRED)/g' CMakeLists.txt && """
 # local_exports = 'export QTDIR=$EBROOTQT5 &&'
 # local_exports += 'export HDF5_DIR=$EBROOTHDF5 &&'
 # local_exports += 'export QMAKESPEC=$EBROOTQT5/mkspecs/`qmake -query QMAKE_SPEC` &&'
