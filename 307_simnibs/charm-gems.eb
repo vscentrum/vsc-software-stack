@@ -10,38 +10,93 @@ SimNIBS 4.0 Complete Head Anatomy Reconstruction Method (CHARM) to
 create individualized head models for electric field simulations."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-toolchainopts = {'pic': True, 'cstd': 'c++11'}
+# toolchainopts = {'pic': True, 'cstd': 'c++11'}
+toolchainopts = {'pic': True}
 
 builddependencies = [
     ('CMake', '3.26.3'),
+    ('make', '4.4.1'),
 ]
 
 dependencies = [
     ('Python', '3.11.3'),
-    ('pybind11', '2.11.1'),
-    ('ITK', '5.3.0'),
+    # ('pybind11', '2.11.1'),
     ('SciPy-bundle', '2023.07'),
 ]
 
 use_pip = True
 sanity_pip_check = True
 
-local_preinstallopts = 'export ITK_DIR=$EBROOTITK && '
+# local_preinstallopts = 'export ITK_DIR=$EBROOTITK && '
 # local_preinstallopts += 'sed -i "42d" CMakeLists.txt &&'
 # local_preinstallopts += 'sed -i "s/add_subdirectory(pybind11)/find_package(pybind11 HINTS $EBROOTPYBIND11 REQUIRED)/g" CMakeLists.txt && '
-local_preinstallopts += """sed -i 's/add_subdirectory(pybind11)/
-find_package(pybind11 HINTS $EBROOTPYBIND11 REQUIRED)/g' CMakeLists.txt && """
-# local_exports = 'export QTDIR=$EBROOTQT5 &&'
-# local_exports += 'export HDF5_DIR=$EBROOTHDF5 &&'
-# local_exports += 'export QMAKESPEC=$EBROOTQT5/mkspecs/`qmake -query QMAKE_SPEC` &&'
-# local_exports += 'export CFLAGS="$CFLAGS -fallow-argument-mismatch" &&' 
+# local_preinstallopts += """sed -i 's/add_subdirectory(pybind11)/find_package(pybind11 HINTS $EBROOTPYBIND11 REQUIRED)/g' CMakeLists.txt && """
+# local_preinstallopts += """cd gems && sed -i 's/\#include \"itkExceptionObject.h\"/\#include \"itkMacro.h\"/g' itkMGHImageIO.h && cd - && """
+# local_preinstallopts += """cd gems && sed -i 's/\#include \"itkExceptionObject.h\"/\#include \"itkMacro.h\"/g' itkMGHImageIO.h && """
+# local_preinstallopts += """ cd gems && sed -i 's/UCHAR/itk::CommonEnums::IOComponent::UCHAR/g' itkMGHImageIO.h && cd - && """
+# local_preinstallopts += """sed -i '109 a\\  using namespace itk::CommonEnums;' itkMGHImageIO.h && """
+# local_preinstallopts += "sed -i 's/ UCHAR/ itk::CommonEnums::IOComponent::UCHAR/g' itkMGHImageIO.h && "
+# local_preinstallopts += "sed -i 's/ USHORT/ itk::CommonEnums::IOComponent::USHORT/g' itkMGHImageIO.h && "
+# local_preinstallopts += "sed -i 's/ INT/ itk::CommonEnums::IOComponent::INT/g' itkMGHImageIO.h && "
+# local_preinstallopts += "sed -i 's/ DOUBLE/ itk::CommonEnums::IOComponent::DOUBLE/g' itkMGHImageIO.h && "
+# local_preinstallopts += "sed -i 's/ FLOAT/ itk::CommonEnums::IOComponent::FLOAT/g' itkMGHImageIO.h && "
+# local_preinstallopts += "sed -i 's/ SHORT/ itk::CommonEnums::IOComponent::SHORT/g' itkMGHImageIO.h && "
+# local_preinstallopts += "sed -i 's/ UNKNOWNCOMPONENTTYPE/ itk::CommonEnums::IOComponent::UNKNOWNCOMPONENTTYPE/g' itkMGHImageIO.h && "
+# local_preinstallopts += "sed -i 's/ CHAR/ itk::CommonEnums::IOComponent::CHAR/g' itkMGHImageIO.h && "
+# local_preinstallopts += "sed -i 's/ UINT/ itk::CommonEnums::IOComponent::UINT/g' itkMGHImageIO.h && "
+# local_preinstallopts += "sed -i 's/ ULONG/ itk::CommonEnums::IOComponent::ULONG/g' itkMGHImageIO.h && "
+# local_preinstallopts += "sed -i 's/ LONG/ itk::CommonEnums::IOComponent::LONG/g' itkMGHImageIO.h && "
+
+# local_preinstallopts += "sed -i 's/ BigEndian/ itk::CommonEnums::IOByteOrder::BigEndian/g' itkMGHImageIO.cxx && "
+# local_preinstallopts += "sed -i 's/ LittleEndian/ itk::CommonEnums::IOByteOrder::LittleEndian/g' itkMGHImageIO.cxx && "
+# local_preinstallopts += "sed -i 's/ UCHAR/ itk::CommonEnums::IOComponent::UCHAR/g' itkMGHImageIO.cxx && "
+# local_preinstallopts += "sed -i 's/ USHORT/ itk::CommonEnums::IOComponent::USHORT/g' itkMGHImageIO.cxx && "
+# local_preinstallopts += "sed -i 's/ INT/ itk::CommonEnums::IOComponent::INT/g' itkMGHImageIO.cxx && "
+# local_preinstallopts += "sed -i 's/ DOUBLE/ itk::CommonEnums::IOComponent::DOUBLE/g' itkMGHImageIO.cxx && "
+# local_preinstallopts += "sed -i 's/ FLOAT/ itk::CommonEnums::IOComponent::FLOAT/g' itkMGHImageIO.cxx && "
+# local_preinstallopts += "sed -i 's/ SHORT/ itk::CommonEnums::IOComponent::SHORT/g' itkMGHImageIO.cxx && "
+# local_preinstallopts += "sed -i 's/ UNKNOWNCOMPONENTTYPE/ itk::CommonEnums::IOComponent::UNKNOWNCOMPONENTTYPE/g' itkMGHImageIO.cxx && "
+# local_preinstallopts += "sed -i 's/ CHAR/ itk::CommonEnums::IOComponent::CHAR/g' itkMGHImageIO.cxx && "
+# local_preinstallopts += "sed -i 's/ UINT/ itk::CommonEnums::IOComponent::UINT/g' itkMGHImageIO.cxx && "
+# local_preinstallopts += "sed -i 's/ ULONG/ itk::CommonEnums::IOComponent::ULONG/g' itkMGHImageIO.cxx && "
+# local_preinstallopts += "sed -i 's/ LONG/ itk::CommonEnums::IOComponent::LONG/g' itkMGHImageIO.cxx && "
+
+# static itk::ITK_THREAD_RETURN_TYPE NetworkingThreaderCallback( void * );
+# local_preinstallopts += "sed -i 's/static ITK_THREAD_RETURN_TYPE ThreaderCallback( void *arg );/static itk::ITK_THREAD_RETURN_TYPE NetworkingThreaderCallback( void * );/g' kvlAtlasMeshRasterizor.h && cat kvlAtlasMeshRasterizor.h &&  "
+# local_preinstallopts += "sed -i '55 a static itk::ITK_THREAD_RETURN_TYPE NetworkingThreaderCallback( void * );' kvlAtlasMeshRasterizor.h && sed -i '55d' kvlAtlasMeshRasterizor.h && cat kvlAtlasMeshRasterizor.h && "
+
+# local_preinstallopts += "sed -i '8 a\\#include \"itkCommonEnums.h\"' itkMGHImageIO.h && cat itkMGHImageIO.h && cd - && " 
+
+#v2 with recursive True:
+local_preinstallopts = "mkdir ITK-build && cd ITK-build && cmake -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../ITK-install ../ITK && make install && cd .. && "
+local_preinstallopts += "export ITK_DIR=ITK-install && "
+# mkdir ITK-build
+# cd ITK-build
+# cmake \
+#     -DBUILD_SHARED_LIBS=OFF \
+#     -DBUILD_TESTING=OFF \
+#     -DBUILD_EXAMPLES=OFF \
+#     -DCMAKE_BUILD_TYPE=Release \
+#     -DCMAKE_INSTALL_PREFIX=../ITK-install \
+#     ../ITK
+# make install
+# cd ..
+
 
 exts_list = [
     (name, version, {
         'preinstallopts': local_preinstallopts,
-        'source_urls': ['https://github.com/simnibs/charm-gems/archive/'],
-        'sources': ['v%(version)s.tar.gz'],
-        'checksums': ['b894dc2f050dad338c99eab4b8db34964115c3dbb2397b515d264a0b8508928f'],
+        'sources': [{
+            'filename': '%(name)s-%(version)s.tar.gz',
+            'git_config': {
+                'url': 'https://github.com/simnibs',
+                'repo_name': 'charm-gems',
+                'tag': 'v%(version)s',
+                'recursive': True,
+                'keep_git_dir': True,
+            }
+        }],
+        'checksums': [None],
     }),
 ]
 
