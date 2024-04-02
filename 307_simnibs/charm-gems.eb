@@ -10,8 +10,8 @@ SimNIBS 4.0 Complete Head Anatomy Reconstruction Method (CHARM) to
 create individualized head models for electric field simulations."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-toolchainopts = {'pic': True, 'cstd': 'c++11'}
-# toolchainopts = {'pic': True}
+# toolchainopts = {'pic': True, 'cstd': 'c++11'}
+toolchainopts = {'pic': True}
 
 builddependencies = [
     ('CMake', '3.26.3'),
@@ -20,7 +20,6 @@ builddependencies = [
 
 dependencies = [
     ('Python', '3.11.3'),
-    # ('pybind11', '2.11.1'),
     ('Python-bundle-PyPI', '2023.06'),
     ('SciPy-bundle', '2023.07'),
 ]
@@ -28,64 +27,14 @@ dependencies = [
 use_pip = True
 sanity_pip_check = True
 
-# local_preinstallopts = 'export ITK_DIR=$EBROOTITK && '
-# local_preinstallopts += 'sed -i "42d" CMakeLists.txt &&'
-# local_preinstallopts += 'sed -i "s/add_subdirectory(pybind11)/find_package(pybind11 HINTS $EBROOTPYBIND11 REQUIRED)/g" CMakeLists.txt && '
-# local_preinstallopts += """sed -i 's/add_subdirectory(pybind11)/find_package(pybind11 HINTS $EBROOTPYBIND11 REQUIRED)/g' CMakeLists.txt && """
-# local_preinstallopts += """cd gems && sed -i 's/\#include \"itkExceptionObject.h\"/\#include \"itkMacro.h\"/g' itkMGHImageIO.h && cd - && """
-# local_preinstallopts += """cd gems && sed -i 's/\#include \"itkExceptionObject.h\"/\#include \"itkMacro.h\"/g' itkMGHImageIO.h && """
-# local_preinstallopts += """ cd gems && sed -i 's/UCHAR/itk::CommonEnums::IOComponent::UCHAR/g' itkMGHImageIO.h && cd - && """
-# local_preinstallopts += """sed -i '109 a\\  using namespace itk::CommonEnums;' itkMGHImageIO.h && """
-# local_preinstallopts += "sed -i 's/ UCHAR/ itk::CommonEnums::IOComponent::UCHAR/g' itkMGHImageIO.h && "
-# local_preinstallopts += "sed -i 's/ USHORT/ itk::CommonEnums::IOComponent::USHORT/g' itkMGHImageIO.h && "
-# local_preinstallopts += "sed -i 's/ INT/ itk::CommonEnums::IOComponent::INT/g' itkMGHImageIO.h && "
-# local_preinstallopts += "sed -i 's/ DOUBLE/ itk::CommonEnums::IOComponent::DOUBLE/g' itkMGHImageIO.h && "
-# local_preinstallopts += "sed -i 's/ FLOAT/ itk::CommonEnums::IOComponent::FLOAT/g' itkMGHImageIO.h && "
-# local_preinstallopts += "sed -i 's/ SHORT/ itk::CommonEnums::IOComponent::SHORT/g' itkMGHImageIO.h && "
-# local_preinstallopts += "sed -i 's/ UNKNOWNCOMPONENTTYPE/ itk::CommonEnums::IOComponent::UNKNOWNCOMPONENTTYPE/g' itkMGHImageIO.h && "
-# local_preinstallopts += "sed -i 's/ CHAR/ itk::CommonEnums::IOComponent::CHAR/g' itkMGHImageIO.h && "
-# local_preinstallopts += "sed -i 's/ UINT/ itk::CommonEnums::IOComponent::UINT/g' itkMGHImageIO.h && "
-# local_preinstallopts += "sed -i 's/ ULONG/ itk::CommonEnums::IOComponent::ULONG/g' itkMGHImageIO.h && "
-# local_preinstallopts += "sed -i 's/ LONG/ itk::CommonEnums::IOComponent::LONG/g' itkMGHImageIO.h && "
-
-# local_preinstallopts += "sed -i 's/ BigEndian/ itk::CommonEnums::IOByteOrder::BigEndian/g' itkMGHImageIO.cxx && "
-# local_preinstallopts += "sed -i 's/ LittleEndian/ itk::CommonEnums::IOByteOrder::LittleEndian/g' itkMGHImageIO.cxx && "
-# local_preinstallopts += "sed -i 's/ UCHAR/ itk::CommonEnums::IOComponent::UCHAR/g' itkMGHImageIO.cxx && "
-# local_preinstallopts += "sed -i 's/ USHORT/ itk::CommonEnums::IOComponent::USHORT/g' itkMGHImageIO.cxx && "
-# local_preinstallopts += "sed -i 's/ INT/ itk::CommonEnums::IOComponent::INT/g' itkMGHImageIO.cxx && "
-# local_preinstallopts += "sed -i 's/ DOUBLE/ itk::CommonEnums::IOComponent::DOUBLE/g' itkMGHImageIO.cxx && "
-# local_preinstallopts += "sed -i 's/ FLOAT/ itk::CommonEnums::IOComponent::FLOAT/g' itkMGHImageIO.cxx && "
-# local_preinstallopts += "sed -i 's/ SHORT/ itk::CommonEnums::IOComponent::SHORT/g' itkMGHImageIO.cxx && "
-# local_preinstallopts += "sed -i 's/ UNKNOWNCOMPONENTTYPE/ itk::CommonEnums::IOComponent::UNKNOWNCOMPONENTTYPE/g' itkMGHImageIO.cxx && "
-# local_preinstallopts += "sed -i 's/ CHAR/ itk::CommonEnums::IOComponent::CHAR/g' itkMGHImageIO.cxx && "
-# local_preinstallopts += "sed -i 's/ UINT/ itk::CommonEnums::IOComponent::UINT/g' itkMGHImageIO.cxx && "
-# local_preinstallopts += "sed -i 's/ ULONG/ itk::CommonEnums::IOComponent::ULONG/g' itkMGHImageIO.cxx && "
-# local_preinstallopts += "sed -i 's/ LONG/ itk::CommonEnums::IOComponent::LONG/g' itkMGHImageIO.cxx && "
-
-# static itk::ITK_THREAD_RETURN_TYPE NetworkingThreaderCallback( void * );
-# local_preinstallopts += "sed -i 's/static ITK_THREAD_RETURN_TYPE ThreaderCallback( void *arg );/static itk::ITK_THREAD_RETURN_TYPE NetworkingThreaderCallback( void * );/g' kvlAtlasMeshRasterizor.h && cat kvlAtlasMeshRasterizor.h &&  "
-# local_preinstallopts += "sed -i '55 a static itk::ITK_THREAD_RETURN_TYPE NetworkingThreaderCallback( void * );' kvlAtlasMeshRasterizor.h && sed -i '55d' kvlAtlasMeshRasterizor.h && cat kvlAtlasMeshRasterizor.h && "
-
-# local_preinstallopts += "sed -i '8 a\\#include \"itkCommonEnums.h\"' itkMGHImageIO.h && cat itkMGHImageIO.h && cd - && " 
-
-#v2 with recursive True: %(installdir)s
-local_preinstallopts = "sed -i 's/error \"Dunno about this gcc\"/define VCL_GCC_123/' ITK/Modules/ThirdParty/VNL/src/vxl/vcl/vcl_compiler.h && "
+# update GCC version in vcl_compiler.h and  install ITK from submodule
+local_preinstallopts = "sed -i 's/error \"Dunno about this gcc\"/define VCL_GCC_123/' \\"
+local_preinstallopts += "ITK/Modules/ThirdParty/VNL/src/vxl/vcl/vcl_compiler.h && "
 local_preinstallopts += "mkdir ITK-build && cd ITK-build && "
-local_preinstallopts += "cmake -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%(installdir)s/ITK-install ../ITK && "
+local_preinstallopts += "cmake -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF \\"
+local_preinstallopts += "-DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%(installdir)s/ITK-install ../ITK && "
 local_preinstallopts += "make install && cd .. && "
 local_preinstallopts += "export ITK_DIR=%(installdir)s/ITK-install && "
-# mkdir ITK-build
-# cd ITK-build
-# cmake \
-#     -DBUILD_SHARED_LIBS=OFF \
-#     -DBUILD_TESTING=OFF \
-#     -DBUILD_EXAMPLES=OFF \
-#     -DCMAKE_BUILD_TYPE=Release \
-#     -DCMAKE_INSTALL_PREFIX=../ITK-install \
-#     ../ITK
-# make install
-# cd ..
-
 
 exts_list = [
     (name, version, {
