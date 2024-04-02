@@ -10,8 +10,8 @@ SimNIBS 4.0 Complete Head Anatomy Reconstruction Method (CHARM) to
 create individualized head models for electric field simulations."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-# toolchainopts = {'pic': True, 'cstd': 'c++11'}
-toolchainopts = {'pic': True}
+toolchainopts = {'pic': True, 'cstd': 'c++11'}
+# toolchainopts = {'pic': True}
 
 builddependencies = [
     ('CMake', '3.26.3'),
@@ -21,6 +21,7 @@ builddependencies = [
 dependencies = [
     ('Python', '3.11.3'),
     # ('pybind11', '2.11.1'),
+    ('Python-bundle-PyPI', '2023.06'),
     ('SciPy-bundle', '2023.07'),
 ]
 
@@ -67,9 +68,12 @@ sanity_pip_check = True
 
 # local_preinstallopts += "sed -i '8 a\\#include \"itkCommonEnums.h\"' itkMGHImageIO.h && cat itkMGHImageIO.h && cd - && " 
 
-#v2 with recursive True:
-local_preinstallopts = "mkdir ITK-build && cd ITK-build && cmake -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../ITK-install ../ITK && make install && cd .. && "
-local_preinstallopts += "export ITK_DIR=ITK-install && "
+#v2 with recursive True: %(installdir)s
+local_preinstallopts = "sed -i 's/error \"Dunno about this gcc\"/define VCL_GCC_123/' ITK/Modules/ThirdParty/VNL/src/vxl/vcl/vcl_compiler.h && "
+local_preinstallopts += "mkdir ITK-build && cd ITK-build && "
+local_preinstallopts += "cmake -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%(installdir)s/ITK-install ../ITK && "
+local_preinstallopts += "make install && cd .. && "
+local_preinstallopts += "export ITK_DIR=%(installdir)s/ITK-install && "
 # mkdir ITK-build
 # cd ITK-build
 # cmake \
@@ -99,9 +103,5 @@ exts_list = [
         'checksums': [None],
     }),
 ]
-
-# sanity_check_commands = [
-#     "cd %(builddir)s/Cassiopeia/Cassiopeia-* && make test",
-# ]
 
 moduleclass = 'lib'
