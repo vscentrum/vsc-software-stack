@@ -1,0 +1,68 @@
+--- setup.py.orig	2024-04-02 18:56:13.015206000 +0200
++++ setup.py	2024-04-03 15:19:37.201408000 +0200
+@@ -212,6 +212,8 @@
+         '-Os', '-flto',
+         '-frounding-math',
+         '-std=gnu++14',
++        '-Wno-cpp',
++        '-w',
+     ]
+     cgal_mesh_macros += [('NOMINMAX', None)]
+     cgal_link_args = None
+@@ -262,23 +264,26 @@
+ cython_msh = Extension(
+     'simnibs.mesh_tools.cython_msh',
+     ["simnibs/mesh_tools/cython_msh.pyx"],
+-    include_dirs=[np.get_include()]
++    include_dirs=[np.get_include()],
++    extra_compile_args=['-w'],
+ )
+ marching_cubes_lewiner_cy = Extension(
+     'simnibs.segmentation._marching_cubes_lewiner_cy',
+     ["simnibs/segmentation/_marching_cubes_lewiner_cy.pyx"],
+-    include_dirs=[np.get_include()]
++    include_dirs=[np.get_include()],
++    extra_compile_args=['-w'],
+ )
+ cat_c_utils = Extension(
+     'simnibs.segmentation._cat_c_utils',
+     ["simnibs/segmentation/_cat_c_utils.pyx", "simnibs/segmentation/cat_c_utils/genus0.c"],
+     include_dirs=[np.get_include(), 'simnibs/segmentation/cat_c_utils'],
+-    extra_compile_args=cat_compile_args
++    extra_compile_args=['-w'],
+ )
+ thickness = Extension(
+     'simnibs.segmentation._thickness',
+     ["simnibs/segmentation/_thickness.pyx"],
+-    include_dirs=[np.get_include()]
++    include_dirs=[np.get_include()],
++    extra_compile_args=['-w'],
+ )
+ petsc_solver = Extension(
+     'simnibs.simulation.petsc_solver',
+@@ -288,7 +293,8 @@
+     library_dirs=petsc_dirs,
+     libraries=petsc_libs,
+     runtime_library_dirs=petsc_runtime,
+-    extra_link_args=petsc_extra_link_args
++    extra_link_args=petsc_extra_link_args,
++    extra_compile_args=['-w'],
+ )
+ # I separated the CGAL functions into several files for two reasons
+ # 1. Reduce memory consumption during compilation in Linux
+@@ -510,13 +516,5 @@
+           'cython'
+       ],
+       tests_require=['pytest', 'mock'],
+-      zip_safe=False)
+-
+-
+-script_dir = shutil.which('simnibs')
+-if script_dir is None:
+-    raise IOError('could not locate folder with console-scripts')
+-else:
+-    script_dir = os.path.dirname(script_dir)
+-    add_symlinks_or_cmd(external_progs,script_dir)
+-    
++      zip_safe=False
++)

@@ -6,7 +6,6 @@ version = '4.0.1'
 homepage = 'https://simnibs.github.io/simnibs'
 description = "SimNIBS is a free and open source software package for the Simulation of Non-invasive Brain Stimulation"
 
-# toolchain = {'name': 'intel', 'version': '2023a'}
 toolchain = {'name': 'foss', 'version': '2023a'}
 
 builddependencies = [('CMake', '3.26.3')]
@@ -28,15 +27,46 @@ dependencies = [
     ('charm-gems', '1.3.3'),
 ]
 
+# local_preinstallopts = "sed -i '515,$d' setup.py && "
+# local_preinstallopts += "export CXXFLAGS=\"$CXXFLAGS -Wno-error\" && "
+
 exts_list = [
     (name, version, {
+        'patches': ['SimNIBS-4.0.1_setup.py-fix-3.patch'],
         'source_urls': ['https://github.com/simnibs/simnibs/archive/'],
         'sources': ['v%(version)s.tar.gz'],
-        'checksums': ['c5455cd0e0240b3638fbc64125bdfaeae289a63ee94a3ecc3b4d10981890c8ff'],
+        'checksums': [
+            {'v4.0.1.tar.gz': 'c5455cd0e0240b3638fbc64125bdfaeae289a63ee94a3ecc3b4d10981890c8ff'},
+            {'SimNIBS-4.0.1_setup.py-fix-3.patch': '9d7a3d8d58cd706f7eb1b10073826badf536656e67a42b4f402dcbd0b5e8e441'},
+        ],
     }),
 ]
 
-# check_ldshared = True
+# exts_list = [
+#     (name, version, {
+#         'patches': ['%(name)s-%(version)s_setup.py-fix-2.patch'],
+#         'source_urls': ['https://github.com/simnibs/simnibs/archive/'],
+#         'sources': ['v%(version)s.tar.gz'],
+#         'checksums': [
+#             {'v4.0.1.tar.gz': 'c5455cd0e0240b3638fbc64125bdfaeae289a63ee94a3ecc3b4d10981890c8ff'},
+#             {'SimNIBS-4.0.1_setup.py-fix-2.patch': '18becb5a174acc445117f073c9febc7ee45cfb150ea17def9f2ea2da7529bfbc'},
+#         ],
+#     }),
+# ]
+
+# exts_list = [
+#     (name, version, {
+#         'patches': [
+#             # SimNIBS-4.0.1_setup.py-fix.patch
+#             '%(name)s-%(version)s_setup.py-fix.patch',
+#         ],
+#         'preinstallopts': local_preinstallopts,
+#         'source_urls': ['https://github.com/simnibs/simnibs/archive/'],
+#         'sources': ['v%(version)s.tar.gz'],
+#         'checksums': ['c5455cd0e0240b3638fbc64125bdfaeae289a63ee94a3ecc3b4d10981890c8ff'],
+#     }),
+# ]
+
 use_pip = True
 sanity_pip_check = True
 
