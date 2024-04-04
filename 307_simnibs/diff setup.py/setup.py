@@ -208,13 +208,14 @@ elif sys.platform == 'linux':
     cgal_dirs = ['simnibs/external/lib/linux']
     cgal_runtime = ['$ORIGIN/../../external/lib/linux']
     # Add -Os -flto for much smaller binaries
-    cgal_compile_args = [
-        '-Os', '-flto',
-        '-frounding-math',
-        '-std=gnu++14',
-        '-Wno-cpp',
-        '-w',
-    ]
+    cgal_compile_args = None
+    # cgal_compile_args = [
+    #     '-Os', '-flto',
+    #     '-frounding-math',
+    #     '-std=gnu++14',
+    #     '-Wno-cpp',
+    #     '-w',
+    # ]
     cgal_mesh_macros += [('NOMINMAX', None)]
     cgal_link_args = None
     
