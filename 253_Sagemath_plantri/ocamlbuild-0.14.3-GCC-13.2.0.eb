@@ -24,7 +24,7 @@ dependencies = [
 
 skipsteps = ['configure']
 
-prebuildopts = 'make configure PREFIX="" && '
+prebuildopts = 'make BINDIR=bin LIBDIR=lib MANDIR=man configure && '
 
 buildopts = 'CXX="$CXX" CFLAGS="$CXXFLAGS"'
 
