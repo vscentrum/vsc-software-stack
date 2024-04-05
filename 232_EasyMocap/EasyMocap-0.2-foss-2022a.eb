@@ -10,11 +10,6 @@ description = """EasyMoCap is an open-source toolbox designed for markerless
 
 toolchain = {'name': 'foss', 'version': '2022a'}
 
-builddependencies = [
-    # for mediapipe
-    ('Bazel', '5.1.1'),
-]
-
 dependencies = [
     ('Python', '3.10.4'),
     ('PyTorch', '1.12.0'),
@@ -38,7 +33,6 @@ use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    # TODO maybe also include these deps?: https://github.com/zju3dv/EasyMocap/blob/v0.2/requirements_neuralbody.txt
     ('chumpy', '0.70', {
         'checksums': ['a0275c2018784ca1302875567dc81761f5fd469fab9f3ac0f3e7c39e9180350a'],
     }),
@@ -66,13 +60,7 @@ exts_list = [
         'preinstallopts': "sed -i 's/PyOpenGL==3.1.0/PyOpenGL>=3.1.0/g' setup.py && ",
         'checksums': ['284b2432bf6832f05c5216c4b979ceb514ea78163bf53b8ce2bdf0069cb3b92e'],
     }),
-    # TODO https://github.com/google/mediapipe/issues/5247
-    # ('mediapipe', '0.10.11', {
-    #     'source_urls': ['https://github.com/google/mediapipe/archive'],
-    #     'preinstallopts': """sed -i "s/__version__ = 'dev'/__version__ = '%(version)s'/g" setup.py && """,
-    #     'sources': ['v%(version)s.tar.gz'],
-    #     'checksums': ['a4cfe9705c93dde6b0c9abd4c10621bb6c82754ce0d21ebc8d1648953f612ffd'],
-    # }),
+    # Building from source fails. See https://github.com/google/mediapipe/issues/5247
     ('mediapipe', '0.10.11', {
         'sources': ['mediapipe-0.10.11-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl'],
         'checksums': ['fc5283a50227a93d7755fd0f83d0d6daeb0f1c841df1ac9101e96e32e7e03ba1'],
@@ -82,7 +70,6 @@ exts_list = [
         'checksums': ['5de768ba6fe56ad2b5aaa2eea794b76b73e427961c95acad2ee2ed7f866a4b20'],
     }),
     (name, version, {
-        'patches': ['deps.patch'],  # TODO just for pip check
         'source_urls': ['https://github.com/zju3dv/EasyMocap/archive'],
         'sources': ['v%(version)s.tar.gz'],
         'checksums': ['d4c42b82ea8a53662354ff70b775e505c654ca4fd51524029214acbc16aa9773'],
