@@ -17,7 +17,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # 'numpy>=1.12', OK scipy bundle
 # 'pandas>=0.20', OK scipy bundle
 # 'tqdm>=4.11', OK deps
-# 'python-libsbml>=5.13', NOT for 2023a
+# 'python-libsbml>=5.13', OK created
 # 'six>=1.10', OK pybundle (1.16)
 # 'scikit-learn>=0.19', OK deps
 # 'scipy>=1.0', OK scipy bundle
@@ -29,7 +29,7 @@ dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),  # six
     ('SciPy-bundle', '2023.07'),
-    ('CPLEX', '22.1.1', '', SYSTEM),
+    # ('CPLEX', '22.1.1', '', SYSTEM),
     ('tqdm', '4.66.1'),
     ('python-libsbml', '5.20.2'),
     ('scikit-learn', '1.3.1'),
@@ -43,6 +43,7 @@ sanity_pip_check = True
 
 exts_list = [
     ('compass', version, {
+        'preinstallopts': "sed -i '27d' setup.py && ",
         'source_urls': ['https://github.com/YosefLab/Compass/archive/'],
         'sources': [{'download_filename': '7664cb0.tar.gz', 'filename': '%(name)s-%(version)s-7664cb0.tar.gz'}],
         'checksums': ['87529c5fae108fa2a8e3e35438d3b25874faa78af670a2349228c76fa0843376'],
