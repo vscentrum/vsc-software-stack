@@ -8,26 +8,6 @@ description = """A Package for Cas9-Enabled Single Cell Lineage Tracing Tree Rec
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# "Biopython>=1.71", OK
-# "bokeh>=0.12.15", OK 
-# "cython>=0.29.2", OK pybundle
-# "ete3>=3.1.1", OK
-# "hits", OK exts
-# "itolapi", OK exts
-# "matplotlib>=2.2.2", OK
-# "nbconvert>=5.4.0", OK exts
-# "nbformat>=4.4.0", Ok exts
-# "networkx>=2.5", OK
-# "ngs-tools>=1.5.3", OK exts
-# "numba>=0.51.0", OK
-# "numpy>=1.19.5", OK
-# "pandas>=1.1.4", OK 
-# "pysam>=0.14.1", OK
-# "python-Levenshtein", OK exts
-# "PyYAML>=3.12", OK 
-# "scipy>=1.2.0", OK
-# "typing-extensions>=3.7.4", OK
-# "tqdm>=4", OK
 builddependencies = [
     ('CMake', '3.26.3'),
     ('poetry', '1.5.1'),
@@ -57,33 +37,6 @@ dependencies = [
 
 use_pip = True
 sanity_pip_check = True
-# Levenshtein problem: -> try to add v 0.22.0 to exts -> seems work
-# cleo 2.0.1 has requirement rapidfuzz<3.0.0,>=2.2.0, but you have rapidfuzz 3.7.0.
-# levenshtein 0.25.0 has requirement rapidfuzz<4.0.0,>=3.1.0, but you have rapidfuzz 2.15.1.
-
-# nbformat 5.10.3 requires fastjsonschema OK exts
-# nbformat 5.10.3 requires jupyter-core OK exts
-# nbformat 5.10.3 requires traitlets OK exts
-# hits 0.4.0 requires ipython OK deps
-# hits 0.4.0 requires ipywidgets OK exts
-# hits 0.4.0 requires seaborn OK deps
-# hits 0.4.0 requires statsmodels OKdeps
-# nbconvert 7.16.3 requires beautifulsoup4 OK deps
-# nbconvert 7.16.3 requires bleach OK exts
-# nbconvert 7.16.3 requires defusedxml OK exts
-# nbconvert 7.16.3 requires jupyter-core OK exts
-# nbconvert 7.16.3 requires jupyterlab-pygments OK exts
-# nbconvert 7.16.3 requires mistune OK exts
-# nbconvert 7.16.3 requires nbclient OK exts
-# nbconvert 7.16.3 requires pandocfilters OK exts
-# nbconvert 7.16.3 requires tinycss2 OK exts
-# nbconvert 7.16.3 requires traitlets OK exts
-# ngs-tools 1.8.5 requires shortuuid OK exts
-# ipywidgets 8.1.2 requires comm OK exts
-# ipywidgets 8.1.2 requires jupyterlab-widgets OK exts
-# ipywidgets 8.1.2 requires widgetsnbextension OK exts
-# nbclient 0.10.0 requires jupyter-client OK exts
-# jupyter-client 8.6.1 requires pyzmq OK deps
 
 exts_list = [
     ('hatch_jupyter_builder', '0.9.1', {
@@ -175,9 +128,5 @@ exts_list = [
         'checksums': ['28ae7495152683f5733222255056a1e7b2f7a51e1cee2f23f0d9f8ae5f4c3742'],
     }),
 ]
-
-# sanity_check_commands = [
-#     "cd %(builddir)s/Cassiopeia/Cassiopeia-* && make test", # failing with: ModuleNotFoundError: No module named 'cassiopeia.preprocess.collapse_cython'
-# ]
 
 moduleclass = 'bio'
