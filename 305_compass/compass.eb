@@ -1,0 +1,63 @@
+easyblock = 'PythonBundle'
+
+name = 'Compass'
+version = '2024.04'
+
+homepage = 'https://github.com/YosefLab/Compass'
+description = """In-Silico Modeling of Metabolic Heterogeneity using Single-Cell Transcriptomes."""
+local_commit = "7664cb0"
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# builddependencies = [
+#     ('CMake', '3.26.3'),
+#     ('poetry', '1.5.1'),
+# ]
+
+# 'numpy>=1.12', OK scipy bundle
+# 'pandas>=0.20', OK scipy bundle
+# 'tqdm>=4.11', OK deps
+# 'python-libsbml>=5.13', NOT for 2023a
+# 'six>=1.10', OK pybundle (1.16)
+# 'scikit-learn>=0.19', OK deps
+# 'scipy>=1.0', OK scipy bundle
+# 'python-igraph>=0.9', OK deps
+# 'leidenalg>=0.8.2', OK deps
+# 'anndata' OK deps
+        
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),  # six
+    ('SciPy-bundle', '2023.07'),
+    ('CPLEX', '22.1.1', '', SYSTEM),
+    ('tqdm', '4.66.1'),
+    ('python-libsbml', '5.20.2'),
+    ('scikit-learn', '1.3.1'),
+    ('python-igraph', '0.11.4'),
+    ('leidenalg', '0.10.2'),
+    ('anndata', '0.10.5.post1'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('compass', version, {
+        'source_urls': ['https://github.com/YosefLab/Compass/archive/'],
+        'sources': [{'download_filename': '7664cb0.tar.gz', 'filename': '%(name)s-%(version)s-7664cb0.tar.gz'}],
+        'checksums': ['87529c5fae108fa2a8e3e35438d3b25874faa78af670a2349228c76fa0843376'],
+    }),
+]
+
+# exts_list = [
+#     ('compass', version, {
+#         'source_urls': ['https://github.com/YosefLab/Compass/archive/'],
+#         'sources': [{
+#             'download_filename': '%s.tar.gz' % local_commit,
+#             'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
+#         }],
+#         'checksums': ['87529c5fae108fa2a8e3e35438d3b25874faa78af670a2349228c76fa0843376'],
+#     }),
+# ]
+
+moduleclass = 'bio'
