@@ -1,5 +1,5 @@
 --- setup.py.orig	2024-04-02 18:56:13.015206000 +0200
-+++ setup.py	2024-04-09 14:26:05.468233000 +0200
++++ setup.py	2024-04-09 12:46:32.986580000 +0200
 @@ -12,7 +12,13 @@
  from distutils.dep_util import newer_group
  import numpy as np
@@ -305,7 +305,13 @@
  )
  # I separated the CGAL functions into several files for two reasons
  # 1. Reduce memory consumption during compilation in Linux
-@@ -343,8 +230,7 @@
+@@ -338,13 +225,12 @@
+     cat_c_utils,
+     thickness,
+     petsc_solver,
+-    create_mesh_surf,
++    # create_mesh_surf,
+     create_mesh_vol,
      cgal_misc
  ]
  
@@ -409,8 +415,8 @@
 -        if sys.platform == 'win32':
 -            [shutil.rmtree(f, True) for f in linux_folders]
 -            [shutil.rmtree(f, True) for f in osx_folders]
-+        # [shutil.rmtree(f, True) for f in osx_folders]
-+        # [shutil.rmtree(f, True) for f in win_folders]
++        [shutil.rmtree(f, True) for f in osx_folders]
++        [shutil.rmtree(f, True) for f in win_folders]
  
 -
 -setup(name='simnibs',

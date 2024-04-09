@@ -1,0 +1,325 @@
+#######################################################
+ERROR after V15.patch and Boost 1.74.0:
+
+running build_ext
+      INFO: Disabling color, you really want to install colorlog.
+      Disabling color, you really want to install colorlog.
+      Compiling simnibs/mesh_tools/cython_msh.pyx because it changed.
+      Compiling simnibs/segmentation/_marching_cubes_lewiner_cy.pyx because it changed.
+      Compiling simnibs/segmentation/_cat_c_utils.pyx because it changed.
+      Compiling simnibs/segmentation/_thickness.pyx because it changed.
+      Compiling simnibs/simulation/petsc_solver.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/create_mesh_surf.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/create_mesh_vol.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/cgal_misc.pyx because it changed.
+      [1/8] Cythonizing simnibs/mesh_tools/cgal/cgal_misc.pyx
+      [2/8] Cythonizing simnibs/mesh_tools/cgal/create_mesh_surf.pyx
+      [3/8] Cythonizing simnibs/mesh_tools/cgal/create_mesh_vol.pyx
+      [4/8] Cythonizing simnibs/mesh_tools/cython_msh.pyx
+      [5/8] Cythonizing simnibs/segmentation/_cat_c_utils.pyx
+      [6/8] Cythonizing simnibs/segmentation/_marching_cubes_lewiner_cy.pyx
+      [7/8] Cythonizing simnibs/segmentation/_thickness.pyx
+      [8/8] Cythonizing simnibs/simulation/petsc_solver.pyx
+      In file included from /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Boos
+t/1.74.0-GCC-12.3.0/include/boost/math/tools/cxx03_warn.hpp:9,
+                       from /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Boos
+t/1.74.0-GCC-12.3.0/include/boost/math/constants/constants.hpp:11,
+                       from /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Boos
+t/1.74.0-GCC-12.3.0/include/boost/math/special_functions/asinh.hpp:25,
+                       from /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Boos
+t/1.74.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:21,
+                       from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/boo
+st_mp.h:45,
+                       from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Num
+ber_types/internal/Exact_type_selector.h:27,
+                       from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Exa
+ct_kernel_selector.h:26,
+                       from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Fil
+tered_kernel.h:22,
+                       from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Exa
+ct_predicates_inexact_constructions_kernel.h:21,
+                       from simnibs/mesh_tools/cgal/_mesh_surfaces.cpp:1,
+                       from simnibs/mesh_tools/cgal/create_mesh_surf.cpp:869:
+      /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Boost/1.74.0-GCC-12.3.0/in
+clude/boost/config/pragma_message.hpp:24:34: note: #pragma message: This header is deprecated. Use <iterator>
+ instead.
+         24 | # define BOOST_PRAGMA_MESSAGE(x) _Pragma(BOOST_STRINGIZE(message(x)))
+            |                                  ^~~~~~~
+      /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Boost/1.74.0-GCC-12.3.0/in
+clude/boost/config/pragma_message.hpp:24:34: note: in definition of macro BOOST_PRAGMA_MESSAGE
+         24 | # define BOOST_PRAGMA_MESSAGE(x) _Pragma(BOOST_STRINGIZE(message(x)))
+            |                                  ^~~~~~~
+      /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Boost/1.74.0-GCC-12.3.0/in
+clude/boost/detail/iterator.hpp:13:1: note: in expansion of macro BOOST_HEADER_DEPRECATED
+        13 | BOOST_HEADER_DEPRECATED("<iterator>")
+            | ^~~~~~~~~~~~~~~~~~~~~~~
+      In file included from /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Boos
+ instead.
+         24 | # define BOOST_PRAGMA_MESSAGE(x) _Pragma(BOOST_STRINGIZE(message(x)))
+            |                                  ^~~~~~~
+clude/boost/config/pragma_message.hpp:24:34: note: in definition of macro BOOST_PRAGMA_MESSAGE
+         24 | # define BOOST_PRAGMA_MESSAGE(x) _Pragma(BOOST_STRINGIZE(message(x)))
+            |                                  ^~~~~~~
+clude/boost/detail/iterator.hpp:13:1: note: in expansion of macro BOOST_HEADER_DEPRECATED
+         13 | BOOST_HEADER_DEPRECATED("<iterator>")
+            | ^~~~~~~~~~~~~~~~~~~~~~~
+      In file included from simnibs/mesh_tools/cgal/_mesh_volumes.cpp:5:
+erty> > > > > >; BGT = CGAL::Epick; Subdomain_index_ = int; Surface_patch_index_ = std::pair<int, int>]:
+std::pair<int, int>]
+      simnibs/mesh_tools/cgal/_mesh_volumes.cpp:53:77:   required from here
+nt_3<CGAL::Epick> > > > >&, CGAL::Null_functor&)
+        768 |     Mesh_3::internal::Add_features_in_domain<!no_features>()
+            |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        769 |       (image_, weights_, domain, input_features_, features_detector_);
+            |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+eatureRange; bool WithFeatures = false]
+, DetectFunctor)
+            |          ^~~~~~~~
+65:10: note:   template argument deduction/substitution failed:
+69:7: note:   cannot convert weights_ (type const CGAL::Image_3) to type CGAL::Image_3&
+        768 |     Mesh_3::internal::Add_features_in_domain<!no_features>()
+            |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        769 |       (image_, weights_, domain, input_features_, features_detector_);
+            |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-311/simnibs/mesh_tools/cgal/create_mesh_vol.o -frounding-math -std=gnu++14 -w" failed with exit status 1
+      [end of output]
+      
+########################################################
+ERROR after V14.patch 
+
+== 2024-04-09 13:23:10,643 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: extensions sanity check failed for 1 extensions: SimNIBS
+failing sanity check for 'SimNIBS' extension: command "python -c "import simnibs"" failed; output:
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/SimNIBS/4.0.1-foss-2023a/lib/python3.11/site-packages/simnibs/__init__.py", line 21, in <module>
+    from .mesh_tools import *
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/SimNIBS/4.0.1-foss-2023a/lib/python3.11/site-packages/simnibs/mesh_tools/__init__.py", line 6, in <module>
+    from .mesh_io import *
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/SimNIBS/4.0.1-foss-2023a/lib/python3.11/site-packages/simnibs/mesh_tools/mesh_io.py", line 50, in <module>
+    from . import cgal
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/SimNIBS/4.0.1-foss-2023a/lib/python3.11/site-packages/simnibs/mesh_tools/cgal/__init__.py", line 1, in <module>
+    from .create_mesh_surf import *
+ModuleNotFoundError: No module named 'simnibs.mesh_tools.cgal.create_mesh_surf',  (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3669 in _sanity_check_step)
+
+###########################################################
+ERROR after V13.patch
+
+[shutil.rmtree(f, True) for f in osx_folders]
+                                           ^^^^^^^^^^^
+      NameError: name 'osx_folders' is not defined
+=> delete L302 and 303
+
+###############################################################################
+ERROR after v12.patch
+same but from 
+from simnibs/mesh_tools/cgal/_cgal_intersect.cpp:1,
+from simnibs/mesh_tools/cgal/cgal_misc.cpp:840:
+###############################################################################
+ERROR after V11.patch:
+
+running build_ext
+      INFO: Disabling color, you really want to install colorlog.
+      Disabling color, you really want to install colorlog.
+      Compiling simnibs/mesh_tools/cython_msh.pyx because it changed.
+      Compiling simnibs/segmentation/_marching_cubes_lewiner_cy.pyx because it changed.
+      Compiling simnibs/segmentation/_cat_c_utils.pyx because it changed.
+      Compiling simnibs/segmentation/_thickness.pyx because it changed.
+      Compiling simnibs/simulation/petsc_solver.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/create_mesh_vol.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/cgal_misc.pyx because it changed.
+      [1/7] Cythonizing simnibs/mesh_tools/cgal/cgal_misc.pyx
+      [2/7] Cythonizing simnibs/mesh_tools/cgal/create_mesh_vol.pyx
+      [3/7] Cythonizing simnibs/mesh_tools/cython_msh.pyx
+      [4/7] Cythonizing simnibs/segmentation/_cat_c_utils.pyx
+      [5/7] Cythonizing simnibs/segmentation/_marching_cubes_lewiner_cy.pyx
+      [6/7] Cythonizing simnibs/segmentation/_thickness.pyx
+      [7/7] Cythonizing simnibs/simulation/petsc_solver.pyx
+      In file included from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/boo
+st_mp.h:45,
+                       from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Num
+ber_types/internal/Exact_type_selector.h:27,
+                       from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Exa
+ct_kernel_selector.h:26,
+                       from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Fil
+tered_kernel.h:22,
+                       from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Exa
+ct_predicates_inexact_constructions_kernel.h:21,
+                       from simnibs/mesh_tools/cgal/_mesh_volumes.cpp:1,
+                       from simnibs/mesh_tools/cgal/create_mesh_vol.cpp:870:
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp: 
+In function void boost::multiprecision::backends::eval_ldexp(gmp_float<digits10>&, const gmp_float<digits10>&
+, long int):
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:1
+353:59: error: mp_bitcnt_t does not name a type
+       1353 |       mpf_mul_2exp(result.data(), val.data(), static_cast<mp_bitcnt_t>(e));
+            |                                                           ^~~~~~~~~~~
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:1
+355:59: error: mp_bitcnt_t does not name a type
+       1355 |       mpf_div_2exp(result.data(), val.data(), static_cast<mp_bitcnt_t>(-e));
+            |                                                           ^~~~~~~~~~~
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp: 
+In member function boost::multiprecision::backends::gmp_int& boost::multiprecision::backends::gmp_int::assign
+_float(F):
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:1
+606:51: error: mp_bitcnt_t does not name a type
+       1606 |          mpz_mul_2exp(m_data, m_data, static_cast<mp_bitcnt_t>(e));
+            |                                                   ^~~~~~~~~~~
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:1
+608:51: error: mp_bitcnt_t does not name a type
+       1608 |          mpz_div_2exp(m_data, m_data, static_cast<mp_bitcnt_t>(-e));
+            |                                                   ^~~~~~~~~~~
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp: 
+In member function boost::multiprecision::backends::gmp_rational& boost::multiprecision::backends::gmp_ration
+al::assign_float(F):
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:2
+643:51: error: mp_bitcnt_t does not name a type
+       2643 |          mpq_mul_2exp(m_data, m_data, static_cast<mp_bitcnt_t>(e));
+            |                                                   ^~~~~~~~~~~
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:2
+645:51: error: mp_bitcnt_t does not name a type
+       2645 |          mpq_div_2exp(m_data, m_data, static_cast<mp_bitcnt_t>(-e));
+            |                                                   ^~~~~~~~~~~
+      In file included from simnibs/mesh_tools/cgal/_mesh_volumes.cpp:5:
+      /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Labeled_mesh_domain_3.h: 
+In instantiation of static auto CGAL::Labeled_mesh_domain_3<BGT, Subdomain_index_, Surface_patch_index_>::cre
+ate_labeled_image_mesh_domain(const CGAL::Image_3&, const CGAL::Named_function_parameters<NP_T, NP_Tag, NP_Ba
+se>&) [with NP_T = CGAL::Null_functor; NP_Tag = CGAL::internal_np::surface_patch_index_t; NP_Base = CGAL::Nam
+ed_function_parameters<CGAL::Null_functor, CGAL::internal_np::null_subdomain_index_param_t, CGAL::Named_funct
+ion_parameters<CGAL::Random*, CGAL::internal_np::rng_t, CGAL::Named_function_parameters<double, CGAL::interna
+l_np::error_bound_t, CGAL::Named_function_parameters<int, CGAL::internal_np::voxel_value_t, CGAL::Named_funct
+ion_parameters<CGAL::Null_functor, CGAL::internal_np::image_subdomain_index_t, CGAL::Named_function_parameter
+s<std::reference_wrapper<const CGAL::Image_3>, CGAL::internal_np::weights_param_t, CGAL::internal_np::No_prop
+erty> > > > > >; BGT = CGAL::Epick; Subdomain_index_ = int; Surface_patch_index_ = std::pair<int, int>]:
+
+################################################################################
+ERROR after V10.patch:
+
+running build_ext
+      INFO: Disabling color, you really want to install colorlog.
+      Disabling color, you really want to install colorlog.
+      Compiling simnibs/mesh_tools/cython_msh.pyx because it changed.
+      Compiling simnibs/segmentation/_marching_cubes_lewiner_cy.pyx because it changed.
+      Compiling simnibs/segmentation/_cat_c_utils.pyx because it changed.
+      Compiling simnibs/segmentation/_thickness.pyx because it changed.
+      Compiling simnibs/simulation/petsc_solver.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/create_mesh_surf.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/create_mesh_vol.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/cgal_misc.pyx because it changed.
+      [1/8] Cythonizing simnibs/mesh_tools/cgal/cgal_misc.pyx
+      [2/8] Cythonizing simnibs/mesh_tools/cgal/create_mesh_surf.pyx
+      [3/8] Cythonizing simnibs/mesh_tools/cgal/create_mesh_vol.pyx
+      [4/8] Cythonizing simnibs/mesh_tools/cython_msh.pyx
+      [5/8] Cythonizing simnibs/segmentation/_cat_c_utils.pyx
+      [6/8] Cythonizing simnibs/segmentation/_marching_cubes_lewiner_cy.pyx
+      [7/8] Cythonizing simnibs/segmentation/_thickness.pyx
+      [8/8] Cythonizing simnibs/simulation/petsc_solver.pyx
+      In file included from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/boost_mp.h:45,
+                       from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Number_types/internal/Exact_type_selector.h:27,
+                       from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Exact_kernel_selector.h:26,
+                       from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Filtered_kernel.h:22,
+                       from /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Exact_predicates_inexact_constructions_kernel.h:21,
+                       from simnibs/mesh_tools/cgal/_mesh_surfaces.cpp:1,
+                       from simnibs/mesh_tools/cgal/create_mesh_surf.cpp:869:
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp: 
+In function void boost::multiprecision::backends::eval_ldexp(gmp_float<digits10>&, const gmp_float<digits10>&, long int):
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:1
+353:59: error: mp_bitcnt_t does not name a type
+       1353 |       mpf_mul_2exp(result.data(), val.data(), static_cast<mp_bitcnt_t>(e));
+            |                                                           ^~~~~~~~~~~
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:1
+355:59: error: mp_bitcnt_t does not name a type
+       1355 |       mpf_div_2exp(result.data(), val.data(), static_cast<mp_bitcnt_t>(-e));
+            |                                                           ^~~~~~~~~~~
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp: In member function boost::multiprecision::backends::gmp_int& boost::multiprecision::backends::gmp_int::assign_float(F):
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:1606:51: error: mp_bitcnt_t does not name a type
+       1606 |          mpz_mul_2exp(m_data, m_data, static_cast<mp_bitcnt_t>(e));
+            |                                                   ^~~~~~~~~~~
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:1608:51: error: mp_bitcnt_t does not name a type
+       1608 |          mpz_div_2exp(m_data, m_data, static_cast<mp_bitcnt_t>(-e));
+            |                                                   ^~~~~~~~~~~
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp: In member function boost::multiprecision::backends::gmp_rational& boost::multiprecision::backends::gmp_rational::assign_float(F):
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:2643:51: error: mp_bitcnt_t does not name a type
+       2643 |          mpq_mul_2exp(m_data, m_data, static_cast<mp_bitcnt_t>(e));
+            |                                                   ^~~~~~~~~~~
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:2645:51: error: mp_bitcnt_t does not name a type
+       2645 |          mpq_div_2exp(m_data, m_data, static_cast<mp_bitcnt_t>(-e));
+            |                                                   ^~~~~~~~~~~
+      error: Command "gcc -DNDEBUG -g -fwrapv -O3 -Wall -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -O2 -ftree-vectorize -march=native -fno-math-errno -I/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include/flexiblas -fPIC -DCGAL_MESH_3_NO_DEPRECATED_SURFACE_INDEX -DCGAL_MESH_3_NO_DEPRECATED_C3T3_ITERATORS -DCGAL_CONCURRENT_MESH_3 -DCGAL_EIGEN3_ENABLED -DCGAL_USE_ZLIB=1 -DCGAL_LINKED_WITH_TBB -DNOMINMAX -I/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2023.07-gfbf-2023a/lib/python3.11/site-packages/numpy/co
+re/include -I/apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include -I/apps/gent/RHEL8/casc
+adelake-ib/software/Eigen/3.3.7/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib
+/software/tbb/2020.1-GCCcore-12.3.0/include -Isimnibs/external/include/linux/mpfr -Isimnibs/external/include/
+linux/gmp -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Python/3.11.3-GCCcor
+e-12.3.0/include/python3.11 -c simnibs/mesh_tools/cgal/create_mesh_surf.cpp -o build/temp.linux-x86_64-cpytho
+n-311/simnibs/mesh_tools/cgal/create_mesh_surf.o -frounding-math -std=gnu++14 -w" failed with exit status 1
+
+##################################################################################
+ERROR before patch, after add -w:
+
+running build_ext
+      INFO: Disabling color, you really want to install colorlog.
+      Disabling color, you really want to install colorlog.
+      Compiling simnibs/mesh_tools/cython_msh.pyx because it changed.
+      Compiling simnibs/segmentation/_marching_cubes_lewiner_cy.pyx because it changed.
+      Compiling simnibs/segmentation/_cat_c_utils.pyx because it changed.
+      Compiling simnibs/segmentation/_thickness.pyx because it changed.
+      Compiling simnibs/simulation/petsc_solver.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/create_mesh_surf.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/create_mesh_vol.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/cgal_misc.pyx because it changed.
+      [1/8] Cythonizing simnibs/mesh_tools/cgal/cgal_misc.pyx
+      [2/8] Cythonizing simnibs/mesh_tools/cgal/create_mesh_surf.pyx
+      [3/8] Cythonizing simnibs/mesh_tools/cgal/create_mesh_vol.pyx
+      [4/8] Cythonizing simnibs/mesh_tools/cython_msh.pyx
+      [5/8] Cythonizing simnibs/segmentation/_cat_c_utils.pyx
+      [6/8] Cythonizing simnibs/segmentation/_marching_cubes_lewiner_cy.pyx
+      [7/8] Cythonizing simnibs/segmentation/_thickness.pyx
+      [8/8] Cythonizing simnibs/simulation/petsc_solver.pyx
+      Downloading: https://github.com/CGAL/cgal/releases/download/v5.4/CGAL-5.4-library.zip
+      Downloading: https://github.com/intel/tbb/releases/download/v2020.1/tbb-2020.1-lin.tgz
+      In file included from /tmp/vsc47063/easybuild/build/SimNIBS/4.0.1/foss-2023a/SimNIBS/simnibs-4.0.1/CGAL-5.4/include/CGAL/boost_mp.h:43,
+                       from /tmp/vsc47063/easybuild/build/SimNIBS/4.0.1/foss-2023a/SimNIBS/simnibs-4.0.1/CGAL-5.4/include/CGAL/Number_types/internal/Exact_type_selector.h:27,
+                       from /tmp/vsc47063/easybuild/build/SimNIBS/4.0.1/foss-2023a/SimNIBS/simnibs-4.0.1/CGAL-5.4/include/CGAL/Exact_kernel_selector.h:26,
+                       from /tmp/vsc47063/easybuild/build/SimNIBS/4.0.1/foss-2023a/SimNIBS/simnibs-4.0.1/CGAL-5.4/include/CGAL/Filtered_kernel.h:22,
+                       from /tmp/vsc47063/easybuild/build/SimNIBS/4.0.1/foss-2023a/SimNIBS/simnibs-4.0.1/CGAL-5.4/include/CGAL/Exact_predicates_inexact_constructions_kernel.h:21,
+                       from simnibs/mesh_tools/cgal/_mesh_surfaces.cpp:1,
+                       from simnibs/mesh_tools/cgal/create_mesh_surf.cpp:872:
+      /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp: In function void boost::multiprecision::
+        backends::eval_ldexp(gmp_float<digits10>&, const gmp_float<digits10>&, long int):
+              /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:1353:59: error: mp_bitcnt_t does not name
+         a type
+               1353 |       mpf_mul_2exp(result.data(), val.data(), static_cast<mp_bitcnt_t>(e));
+                    |                                                           ^~~~~~~~~~~
+              /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:1355:59: error: mp_bitcnt_t does not name
+         a type
+               1355 |       mpf_div_2exp(result.data(), val.data(), static_cast<mp_bitcnt_t>(-e));
+                    |                                                           ^~~~~~~~~~~
+              /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp: In member function boost::multiprecision
+        ::backends::gmp_int& boost::multiprecision::backends::gmp_int::assign_float(F):
+              /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:1606:51: error: mp_bitcnt_t does not name
+         a type
+               1606 |          mpz_mul_2exp(m_data, m_data, static_cast<mp_bitcnt_t>(e));
+                    |                                                   ^~~~~~~~~~~
+              /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:1608:51: error: mp_bitcnt_t does not name
+         a type
+               1608 |          mpz_div_2exp(m_data, m_data, static_cast<mp_bitcnt_t>(-e));
+                    |                                                   ^~~~~~~~~~~
+              /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp: In member function boost::multiprecision
+        ::backends::gmp_rational& boost::multiprecision::backends::gmp_rational::assign_float(F):
+              /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:2643:51: error: mp_bitcnt_t does not name
+         a type
+               2643 |          mpq_mul_2exp(m_data, m_data, static_cast<mp_bitcnt_t>(e));
+                    |                                                   ^~~~~~~~~~~
+              /apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0/include/boost/multiprecision/gmp.hpp:2645:51: error: mp_bitcnt_t does not name
+         a type
+               2645 |          mpq_div_2exp(m_data, m_data, static_cast<mp_bitcnt_t>(-e));
+                    |                                                   ^~~~~~~~~~~
+              error: Command "gcc -DNDEBUG -g -fwrapv -O3 -Wall -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -O2 -ftree-vectorize -march=native -
+        fno-math-errno -fPIC -O2 -ftree-vectorize -march=native -fno-math-errno -I/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-12.3.0/include -I/
+        apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/incl
+        ude/flexiblas -fPIC -DCGAL_MESH_3_NO_DEPRECATED_SURFACE_INDEX -DCGAL_MESH_3_NO_DEPRECATED_C3T3_ITERATORS -DCGAL_CONCURRENT_MESH_3 -DCGAL_EIGEN3_ENABL
+        ED -DCGAL_USE_ZLIB=1 -DCGAL_LINKED_WITH_TBB -DNOMINMAX -I/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2023.07-gfbf-2023a/lib/python3.11/site
+        -packages/numpy/core/include -I/tmp/vsc47063/easybuild/build/SimNIBS/4.0.1/foss-2023a/SimNIBS/simnibs-4.0.1/CGAL-5.4/include -I/tmp/vsc47063/easybuil
+        d/build/SimNIBS/4.0.1/foss-2023a/SimNIBS/simnibs-4.0.1/simnibs/external/include/eigen-3.3.7 -I/tmp/vsc47063/easybuild/build/SimNIBS/4.0.1/foss-2023a/
+        SimNIBS/simnibs-4.0.1/tbb/tbb/include -Isimnibs/external/include/linux/mpfr -Isimnibs/external/include/linux/gmp -I/scratch/gent/vo/001/gvo00117/easy
+        build/RHEL8/cascadelake-ampere-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11 -c simnibs/mesh_tools/cgal/create_mesh_surf.cpp -o build/t
+        emp.linux-x86_64-cpython-311/simnibs/mesh_tools/cgal/create_mesh_surf.o -Os -flto -frounding-math -std=gnu++14 -Wno-cpp -w" failed with exit status 1

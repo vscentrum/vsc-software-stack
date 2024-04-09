@@ -1,17 +1,64 @@
 --- setup.py.orig	2024-04-02 18:56:13.015206000 +0200
-+++ setup.py	2024-04-05 12:37:57.765496000 +0200
-@@ -211,7 +211,9 @@
-     cgal_compile_args = [
++++ setup.py	2024-04-08 16:47:45.734281000 +0200
+@@ -12,7 +12,8 @@
+ from distutils.dep_util import newer_group
+ import numpy as np
+ 
+-
++if os.getenv('EBROOTPYTHON'):
++    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+ ####################################################
+ # add all scripts in the cli folder as 
+ # console_scripts or gui_scripts
+@@ -81,15 +82,9 @@
+ 
+ '''
+ 
+-# Information for CGAL download
+-CGAL_version = '5.4'
+-CGAL_headers = os.path.abspath(f'CGAL-{CGAL_version}/include')
+-CGAL_url = (
+-    f'https://github.com/CGAL/cgal/releases/download/'
+-    #f'releases/CGAL-{CGAL_version}/'
+-    f'v{CGAL_version}/'
+-    f'CGAL-{CGAL_version}-library.zip'
+-)
++# Information for CGAL
++CGAL_version = '5.6'
++CGAL_headers = os.path.abspath('$EBROOTCGAL/include')
+ cgal_mesh_macros = [
+     ('CGAL_MESH_3_NO_DEPRECATED_SURFACE_INDEX', None),
+     ('CGAL_MESH_3_NO_DEPRECATED_C3T3_ITERATORS', None),
+@@ -142,10 +137,6 @@
+ else:
+     raise OSError('OS not supported!')
+ 
+-
+-#### Setup compilation arguments
+-is_conda = 'CONDA_PREFIX' in os.environ
+-
+ if sys.platform == 'win32':
+     petsc_libs = ['libpetsc', 'msmpi']
+     petsc_include = [
+@@ -212,6 +203,8 @@
          '-Os', '-flto',
          '-frounding-math',
--        '-std=gnu++14',
-+        # '-std=gnu++14',
+         '-std=gnu++14',
 +        # '-Wno-cpp',
 +        # '-w',
      ]
      cgal_mesh_macros += [('NOMINMAX', None)]
      cgal_link_args = None
-@@ -262,23 +264,26 @@
+@@ -245,7 +238,7 @@
+     cgal_dirs = ['simnibs/external/lib/osx']
+     cgal_runtime = None
+     cgal_compile_args = [
+-        '-std=gnu++14',
++        '-std=gnu++20',
+         '-stdlib=libc++',
+     ]
+     cgal_mesh_macros += [('NOMINMAX', None)]
+@@ -262,23 +255,26 @@
  cython_msh = Extension(
      'simnibs.mesh_tools.cython_msh',
      ["simnibs/mesh_tools/cython_msh.pyx"],
@@ -42,7 +89,7 @@
  )
  petsc_solver = Extension(
      'simnibs.simulation.petsc_solver',
-@@ -288,7 +293,8 @@
+@@ -288,7 +284,8 @@
      library_dirs=petsc_dirs,
      libraries=petsc_libs,
      runtime_library_dirs=petsc_runtime,
@@ -52,7 +99,7 @@
  )
  # I separated the CGAL functions into several files for two reasons
  # 1. Reduce memory consumption during compilation in Linux
-@@ -510,13 +516,5 @@
+@@ -510,13 +507,5 @@
            'cython'
        ],
        tests_require=['pytest', 'mock'],

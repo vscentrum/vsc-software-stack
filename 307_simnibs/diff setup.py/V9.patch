@@ -1,5 +1,5 @@
 --- setup.py.orig	2024-04-02 18:56:13.015206000 +0200
-+++ setup.py	2024-04-09 14:26:05.468233000 +0200
++++ setup.py	2024-04-09 12:26:47.327977000 +0200
 @@ -12,7 +12,13 @@
  from distutils.dep_util import newer_group
  import numpy as np
@@ -253,8 +253,8 @@
 +    # '-Os', '-flto',
 +    '-frounding-math',
 +    '-std=gnu++14',
-+    #  '-Wno-cpp',
-+    '-w',
++     '-Wno-cpp',
++    # '-w',
 +]
 +cgal_mesh_macros += [('NOMINMAX', None)]
 +cgal_link_args = None
@@ -409,8 +409,8 @@
 -        if sys.platform == 'win32':
 -            [shutil.rmtree(f, True) for f in linux_folders]
 -            [shutil.rmtree(f, True) for f in osx_folders]
-+        # [shutil.rmtree(f, True) for f in osx_folders]
-+        # [shutil.rmtree(f, True) for f in win_folders]
++        [shutil.rmtree(f, True) for f in osx_folders]
++        [shutil.rmtree(f, True) for f in win_folders]
  
 -
 -setup(name='simnibs',
