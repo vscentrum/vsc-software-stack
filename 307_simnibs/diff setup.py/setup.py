@@ -51,8 +51,8 @@ bin_dir = os.path.join(bin_dir, 'linux')
 for i in range(len(external_progs)):
     external_progs[i] = os.path.join(bin_dir, external_progs[i])  
 external_progs.append(os.path.join('simnibs','external','dwi2cond'))
-print("EXTERNAL_PROGS: ")
-print(external_progs) #>>> ['simnibs/external/bin/linux/gmsh', 'simnibs/external/bin/linux/meshfix', 'simnibs/external/dwi2cond']
+# print("EXTERNAL_PROGS: ")
+# print(external_progs) #>>> ['simnibs/external/bin/linux/gmsh', 'simnibs/external/bin/linux/meshfix', 'simnibs/external/dwi2cond']
            
 
 ''' C extensions
@@ -78,7 +78,6 @@ For more info, refer to https://doc.cgal.org/latest/Manual/thirdparty.html
 '''
 
 # Information for CGAL
-CGAL_version = '5.6'
 CGAL_headers = os.path.join(os.getenv('EBROOTCGAL'), 'include') # FIXED
 cgal_mesh_macros = [
     ('CGAL_MESH_3_NO_DEPRECATED_SURFACE_INDEX', None),
@@ -129,18 +128,15 @@ cgal_dirs = ['simnibs/external/lib/linux']
 cgal_runtime = ['$ORIGIN/../../external/lib/linux']
 # Add -Os -flto for much smaller binaries
 cgal_compile_args = [
-    # '-Os', '-flto',
+    '-Os', '-flto',
     '-frounding-math',
     '-std=gnu++14',
     #  '-Wno-cpp',
     '-w',
+    '-fcompare-debug-second',
 ]
 cgal_mesh_macros += [('NOMINMAX', None)]
 cgal_link_args = None
-
-cat_compile_args = [
-    '-std=gnu99',
-]
 
 cython_msh = Extension(
     'simnibs.mesh_tools.cython_msh',
@@ -158,7 +154,8 @@ cat_c_utils = Extension(
     'simnibs.segmentation._cat_c_utils',
     ["simnibs/segmentation/_cat_c_utils.pyx", "simnibs/segmentation/cat_c_utils/genus0.c"],
     include_dirs=[np.get_include(), 'simnibs/segmentation/cat_c_utils'],
-    extra_compile_args=['-w'],
+    # extra_compile_args=['-w'],
+    extra_compile_args=['-w', '-std=gnu99'],
 )
 thickness = Extension(
     'simnibs.segmentation._thickness',
@@ -339,3 +336,10 @@ setup(
     tests_require=['pytest', 'mock'],
     zip_safe=False
 )
+
+# script_dir = shutil.which('simnibs')
+# if script_dir is None:
+#     raise IOError('could not locate folder with console-scripts')
+# else:
+#     script_dir = os.path.dirname(script_dir)
+#     add_symlinks_or_cmd(external_progs,script_dir)

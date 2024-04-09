@@ -1,5 +1,5 @@
 --- setup.py.orig	2024-04-02 18:56:13.015206000 +0200
-+++ setup.py	2024-04-09 16:02:25.254943000 +0200
++++ setup.py	2024-04-09 15:42:46.998259000 +0200
 @@ -12,7 +12,13 @@
  from distutils.dep_util import newer_group
  import numpy as np
@@ -361,7 +361,7 @@
          changed_meshing = (
              newer_group(
                  create_mesh_surf.sources + create_mesh_surf.depends,
-@@ -433,90 +286,60 @@
+@@ -433,85 +286,56 @@
              )
          )
          if self.force or changed_meshing:
@@ -407,6 +407,43 @@
 -        if sys.platform == 'win32':
 -            [shutil.rmtree(f, True) for f in linux_folders]
 -            [shutil.rmtree(f, True) for f in osx_folders]
+-
+-
+-setup(name='simnibs',
+-      version=open("simnibs/_version.py").readlines()[-1].split()[-1].strip("\"'"),
+-      description='www.simnibs.org',
+-      author='SimNIBS developers',
+-      author_email='support@simnibs.org',
+-      packages=find_namespace_packages(),
+-      license='GPL3',
+-      ext_modules=extensions,
+-      include_package_data=True,
+-      cmdclass={
+-          'build_ext': build_ext_
+-          },
+-      entry_points={
+-          'console_scripts': console_scripts,
+-          'gui_scripts': gui_scripts
+-      },
+-      install_requires=[
+-          'numpy>=1.16',
+-          'scipy>=1.2',
+-          'h5py>=2.9',
+-          'nibabel>=2.3',
+-          'packaging',
+-          'requests',
+-          'charm-gems',
+-          'fmm3dpy'
+-      ],
+-      extras_require={
+-          'GUI': ['pyqt5', 'pyopengl']
+-      },
+-      setup_requires=[
+-          'numpy>=1.16',
+-          'cython'
+-      ],
+-      tests_require=['pytest', 'mock'],
+-      zip_safe=False)
 +        # [shutil.rmtree(f, True) for f in osx_folders]
 +        # [shutil.rmtree(f, True) for f in win_folders]
  
@@ -448,53 +485,10 @@
 +    zip_safe=False
 +)
  
--setup(name='simnibs',
--      version=open("simnibs/_version.py").readlines()[-1].split()[-1].strip("\"'"),
--      description='www.simnibs.org',
--      author='SimNIBS developers',
--      author_email='support@simnibs.org',
--      packages=find_namespace_packages(),
--      license='GPL3',
--      ext_modules=extensions,
--      include_package_data=True,
--      cmdclass={
--          'build_ext': build_ext_
--          },
--      entry_points={
--          'console_scripts': console_scripts,
--          'gui_scripts': gui_scripts
--      },
--      install_requires=[
--          'numpy>=1.16',
--          'scipy>=1.2',
--          'h5py>=2.9',
--          'nibabel>=2.3',
--          'packaging',
--          'requests',
--          'charm-gems',
--          'fmm3dpy'
--      ],
--      extras_require={
--          'GUI': ['pyqt5', 'pyopengl']
--      },
--      setup_requires=[
--          'numpy>=1.16',
--          'cython'
--      ],
--      tests_require=['pytest', 'mock'],
--      zip_safe=False)
--
--
--script_dir = shutil.which('simnibs')
--if script_dir is None:
--    raise IOError('could not locate folder with console-scripts')
--else:
--    script_dir = os.path.dirname(script_dir)
--    add_symlinks_or_cmd(external_progs,script_dir)
+ script_dir = shutil.which('simnibs')
+ if script_dir is None:
+@@ -519,4 +343,3 @@
+ else:
+     script_dir = os.path.dirname(script_dir)
+     add_symlinks_or_cmd(external_progs,script_dir)
 -    
-+# script_dir = shutil.which('simnibs')
-+# if script_dir is None:
-+#     raise IOError('could not locate folder with console-scripts')
-+# else:
-+#     script_dir = os.path.dirname(script_dir)
-+#     add_symlinks_or_cmd(external_progs,script_dir)

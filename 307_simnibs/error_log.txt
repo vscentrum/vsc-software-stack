@@ -1,4 +1,60 @@
 #######################################################
+ERROR after V18.patch:
+same as after V17.patch
+#######################################################
+ERROR after V17.patch:
+
+running build_ext
+      INFO: Disabling color, you really want to install colorlog.
+      Disabling color, you really want to install colorlog.
+      Compiling simnibs/mesh_tools/cython_msh.pyx because it changed.
+      Compiling simnibs/segmentation/_marching_cubes_lewiner_cy.pyx because it changed.
+      Compiling simnibs/segmentation/_cat_c_utils.pyx because it changed.
+      Compiling simnibs/segmentation/_thickness.pyx because it changed.
+      Compiling simnibs/simulation/petsc_solver.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/create_mesh_surf.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/create_mesh_vol.pyx because it changed.
+      Compiling simnibs/mesh_tools/cgal/cgal_misc.pyx because it changed.
+      [1/8] Cythonizing simnibs/mesh_tools/cgal/cgal_misc.pyx
+      [2/8] Cythonizing simnibs/mesh_tools/cgal/create_mesh_surf.pyx
+      [3/8] Cythonizing simnibs/mesh_tools/cgal/create_mesh_vol.pyx
+      [4/8] Cythonizing simnibs/mesh_tools/cython_msh.pyx
+      [5/8] Cythonizing simnibs/segmentation/_cat_c_utils.pyx
+      [6/8] Cythonizing simnibs/segmentation/_marching_cubes_lewiner_cy.pyx
+      [7/8] Cythonizing simnibs/segmentation/_thickness.pyx
+      [8/8] Cythonizing simnibs/simulation/petsc_solver.pyx
+      In file included from simnibs/mesh_tools/cgal/_mesh_volumes.cpp:5,
+                       from simnibs/mesh_tools/cgal/create_mesh_vol.cpp:870:
+      /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Labeled_mesh_domain_3.h: 
+In instantiation of static auto CGAL::Labeled_mesh_domain_3<BGT, Subdomain_index_, Surface_patch_index_>::cre
+ate_labeled_image_mesh_domain(const CGAL::Image_3&, const CGAL::Named_function_parameters<NP_T, NP_Tag, NP_Ba
+se>&) [with NP_T = CGAL::Null_functor; NP_Tag = CGAL::internal_np::surface_patch_index_t; NP_Base = CGAL::Nam
+ed_function_parameters<CGAL::Null_functor, CGAL::internal_np::null_subdomain_index_param_t, CGAL::Named_funct
+== 2024-04-09 14:58:12,600 easyconfig.py:1955 INFO Successfully obtained class 'PythonBundle' for easyblock 'PythonBundle' (software name 'SimNIBS')
+== 2024-04-09 14:58:12,601 easyconfig.py:705 INFO Parsing easyconfig file /kyukon/data/gent/470/vsc47063/vsc-software-stack/307_simnibs/simnibs.eb with rawcontent: easyblock = 'PythonBundle'
+
+name = 'SimNIBS'
+version = '4.0.1'
+
+homepage = 'https://simnibs.github.io/simnibs'
+description = "SimNIBS is a free and open source software package for the Simulation of Non-invasive Brain Stimulation"
+
+...skipping...
+ion_parameters<CGAL::Random*, CGAL::internal_np::rng_t, CGAL::Named_function_parameters<double, CGAL::internal_np::error_bound_t, CGAL::Named_function_parameters<int, CGAL::internal_np::voxel_value_t, CGAL::Named_function_parameters<CGAL::Null_functor, CGAL::internal_np::image_subdomain_index_t, CGAL::Named_function_parameters<std::reference_wrapper<const CGAL::Image_3>, CGAL::internal_np::weights_param_t, CGAL::internal_np::No_property> > > > > >; BGT = CGAL::Epick; Subdomain_index_ = int; Surface_patch_index_ = std::pair<int, int>]:
+      /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Labeled_mesh_domain_3.h:994:44:   required from static CGAL::Labeled_mesh_domain_3<BGT, Subdomain_index_, Surface_patch_index_> CGAL::Labeled_mesh_domain_3<BGT, Subdomain_index_, Surface_patch_index_>::create_labeled_image_mesh_domain(const CGAL::Image_3&, double, const CGAL::Image_3&, int, CGAL::Random*, SubdomainIndex, NullSubdomainIndex, ConstructSurfacePatchIndex) [with SubdomainIndex = CGAL::Null_functor; NullSubdomainIndex = CGAL::Null_functor; ConstructSurfacePatchIndex = CGAL::Null_functor; BGT = CGAL::Epick; Subdomain_index_ = int; Surface_patch_index_ = std::pair<int, int>]
+      simnibs/mesh_tools/cgal/_mesh_volumes.cpp:53:77:   required from here
+      /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include/CGAL/Labeled_mesh_domain_3.h:769:7: error: no match for call to (CGAL::Mesh_3::internal::Add_features_in_domain<false>) (const CGAL::Image_3&, const CGAL::Image_3&, Return_type&, std::vector<std::vector<CGAL::Point_3<CGAL::Epick>, std::allocator<CGAL::Point_3<CGAL::Epick> > >, std::allocator<std::vector<CGAL::Point_3<CGAL::Epick>, std::allocator<CGAL::Point_3<CGAL::Epick> > > > >&, CGAL::Null_functor&)
+        768 |     Mesh_3::internal::Add_features_in_domain<!no_features>()
+            |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        769 |       (image_, weights_, domain, input_features_, features_detector_);
+            |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      error: Command "gcc -DNDEBUG -g -fwrapv -O3 -Wall -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -O2 -ftree-vectorize -march=native -fno-math-errno -I/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include/flexiblas -fPIC -DCGAL_MESH_3_NO_DEPRECATED_SURFACE_INDEX -DCGAL_MESH_3_NO_DEPRECATED_C3T3_ITERATORS -DCGAL_CONCURRENT_MESH_3 -DCGAL_EIGEN3_ENABLED -DCGAL_USE_ZLIB=1 -DCGAL_LINKED_WITH_TBB -DNOMINMAX -I/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2023.07-gfbf-2023a/lib/python3.11/site-packages/numpy/core/include -I/apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/Eigen/3.3.7/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/tbb/2020.1-GCCcore-12.3.0/include -Isimnibs/external/include/linux/mpfr -Isimnibs/external/include/linux/gmp -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11 -c simnibs/mesh_tools/cgal/create_mesh_vol.cpp -o build/temp
+ (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
+
+#######################################################
+ERROR after V16.patch:
+same as after V15.patch
+#######################################################
 ERROR after V15.patch and Boost 1.74.0:
 
 running build_ext
@@ -83,7 +139,7 @@ eatureRange; bool WithFeatures = false]
             |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -311/simnibs/mesh_tools/cgal/create_mesh_vol.o -frounding-math -std=gnu++14 -w" failed with exit status 1
       [end of output]
-      
+
 ########################################################
 ERROR after V14.patch 
 

@@ -1,5 +1,5 @@
 --- setup.py.orig	2024-04-02 18:56:13.015206000 +0200
-+++ setup.py	2024-04-09 16:02:25.254943000 +0200
++++ setup.py	2024-04-09 15:08:48.444640000 +0200
 @@ -12,7 +12,13 @@
  from distutils.dep_util import newer_group
  import numpy as np
@@ -39,12 +39,12 @@
 -    external_progs.append(os.path.join('simnibs','external','dwi2cond'))
 +    external_progs[i] = os.path.join(bin_dir, external_progs[i])  
 +external_progs.append(os.path.join('simnibs','external','dwi2cond'))
-+# print("EXTERNAL_PROGS: ")
-+# print(external_progs) #>>> ['simnibs/external/bin/linux/gmsh', 'simnibs/external/bin/linux/meshfix', 'simnibs/external/dwi2cond']
++print("EXTERNAL_PROGS: ")
++print(external_progs) #>>> ['simnibs/external/bin/linux/gmsh', 'simnibs/external/bin/linux/meshfix', 'simnibs/external/dwi2cond']
             
  
  ''' C extensions
-@@ -81,15 +77,8 @@
+@@ -81,15 +77,9 @@
  
  '''
  
@@ -58,11 +58,12 @@
 -    f'CGAL-{CGAL_version}-library.zip'
 -)
 +# Information for CGAL
++CGAL_version = '5.6'
 +CGAL_headers = os.path.join(os.getenv('EBROOTCGAL'), 'include') # FIXED
  cgal_mesh_macros = [
      ('CGAL_MESH_3_NO_DEPRECATED_SURFACE_INDEX', None),
      ('CGAL_MESH_3_NO_DEPRECATED_C3T3_ITERATORS', None),
-@@ -102,183 +91,77 @@
+@@ -102,183 +92,77 @@
  # Information for eigen library
  # I don't download it because gitlab does not allow it
  eigen_version = '3.3.7'
@@ -281,8 +282,8 @@
      ["simnibs/segmentation/_cat_c_utils.pyx", "simnibs/segmentation/cat_c_utils/genus0.c"],
      include_dirs=[np.get_include(), 'simnibs/segmentation/cat_c_utils'],
 -    extra_compile_args=cat_compile_args
-+    # extra_compile_args=['-w'],
-+    extra_compile_args=['-w', '-std=gnu99'],
++    extra_compile_args=['-w'],
++    # extra_compile_args=['-w', '-std=gnu99'],
  )
  thickness = Extension(
      'simnibs.segmentation._thickness',
@@ -293,7 +294,7 @@
  )
  petsc_solver = Extension(
      'simnibs.simulation.petsc_solver',
-@@ -288,7 +171,8 @@
+@@ -288,7 +172,8 @@
      library_dirs=petsc_dirs,
      libraries=petsc_libs,
      runtime_library_dirs=petsc_runtime,
@@ -303,7 +304,7 @@
  )
  # I separated the CGAL functions into several files for two reasons
  # 1. Reduce memory consumption during compilation in Linux
-@@ -343,8 +227,7 @@
+@@ -343,8 +228,7 @@
      cgal_misc
  ]
  
@@ -313,7 +314,7 @@
       ''' add symbolic links or .cmd '''
       for s in external_progs:
          if not os.path.exists(s):
-@@ -363,37 +246,8 @@
+@@ -363,37 +247,8 @@
              print('making sym link '+bash_name+' --> '+s)
              os.symlink(s, bash_name)
  
@@ -353,7 +354,7 @@
      for l in libs:
          shutil.copy(
              l, f'simnibs/external/lib/{folder_name}',
-@@ -414,7 +268,6 @@
+@@ -414,7 +269,6 @@
          from Cython.Build import cythonize
          ## Cythonize
          self.extension = cythonize(self.extensions)
@@ -361,7 +362,7 @@
          changed_meshing = (
              newer_group(
                  create_mesh_surf.sources + create_mesh_surf.depends,
-@@ -433,90 +286,60 @@
+@@ -433,90 +287,53 @@
              )
          )
          if self.force or changed_meshing:
@@ -410,44 +411,7 @@
 +        # [shutil.rmtree(f, True) for f in osx_folders]
 +        # [shutil.rmtree(f, True) for f in win_folders]
  
-+setup(
-+    name='simnibs',
-+    version="4.0.1",
-+    description='www.simnibs.org',
-+    author='SimNIBS developers',
-+    author_email='support@simnibs.org',
-+    packages=find_namespace_packages(),
-+    license='GPL3',
-+    ext_modules=extensions,
-+    include_package_data=True,
-+    cmdclass={
-+        'build_ext': build_ext_
-+        },
-+    entry_points={
-+        'console_scripts': console_scripts,
-+        'gui_scripts': gui_scripts
-+    },
-+    install_requires=[
-+        'numpy>=1.16',
-+        'scipy>=1.2',
-+        'h5py>=2.9',
-+        'nibabel>=2.3',
-+        'packaging',
-+        'requests',
-+        'charm-gems',
-+        'fmm3dpy'
-+    ],
-+    extras_require={
-+        'GUI': ['pyqt5', 'pyopengl']
-+    },
-+    setup_requires=[
-+        'numpy>=1.16',
-+        'cython'
-+    ],
-+    tests_require=['pytest', 'mock'],
-+    zip_safe=False
-+)
- 
+-
 -setup(name='simnibs',
 -      version=open("simnibs/_version.py").readlines()[-1].split()[-1].strip("\"'"),
 -      description='www.simnibs.org',
@@ -492,9 +456,40 @@
 -    script_dir = os.path.dirname(script_dir)
 -    add_symlinks_or_cmd(external_progs,script_dir)
 -    
-+# script_dir = shutil.which('simnibs')
-+# if script_dir is None:
-+#     raise IOError('could not locate folder with console-scripts')
-+# else:
-+#     script_dir = os.path.dirname(script_dir)
-+#     add_symlinks_or_cmd(external_progs,script_dir)
++setup(
++    name='simnibs',
++    version="4.0.1",
++    description='www.simnibs.org',
++    author='SimNIBS developers',
++    author_email='support@simnibs.org',
++    packages=find_namespace_packages(),
++    license='GPL3',
++    ext_modules=extensions,
++    include_package_data=True,
++    cmdclass={
++        'build_ext': build_ext_
++        },
++    entry_points={
++        'console_scripts': console_scripts,
++        'gui_scripts': gui_scripts
++    },
++    install_requires=[
++        'numpy>=1.16',
++        'scipy>=1.2',
++        'h5py>=2.9',
++        'nibabel>=2.3',
++        'packaging',
++        'requests',
++        'charm-gems',
++        'fmm3dpy'
++    ],
++    extras_require={
++        'GUI': ['pyqt5', 'pyopengl']
++    },
++    setup_requires=[
++        'numpy>=1.16',
++        'cython'
++    ],
++    tests_require=['pytest', 'mock'],
++    zip_safe=False
++)
