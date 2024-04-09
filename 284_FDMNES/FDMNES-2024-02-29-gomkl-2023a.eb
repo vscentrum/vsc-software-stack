@@ -2,7 +2,7 @@ easyblock = 'MakeCp'
 
 name = 'FDMNES'
 
-version = '2024-02-15'  # TODO new version https://cloud.neel.cnrs.fr/index.php/s/tDpQWmec7S4Ei4G
+version = '2024-02-29'
 
 homepage = 'https://fdmnes.neel.cnrs.fr'
 description = """X-ray spectroscopies are techniques which probe the electronic and structural
@@ -22,15 +22,14 @@ toolchain = {'name': 'gomkl', 'version': '2023a'}
 toolchainopts = {'usempi': True}
 
 sources = [{
-    'source_urls': ['https://cloud.neel.cnrs.fr/index.php/s/NqfkSySpqSB4CyK'],
+    'source_urls': ['https://cloud.neel.cnrs.fr/index.php/s/tDpQWmec7S4Ei4G'],
     'download_filename': 'download',
     'filename': '%(namelower)s_fortran_prog_%(version)s.zip',
 }]
-
-checksums = ['5ffce6825d21faf849f22f66aeae22cce4a922057192f7c98e9eaedaf2dbf2c7']
+checksums = ['bcf0928dd8f44bb0098aed4b8d45c8cf4cedf7cee1a598342de6115d7066c2fb']
 
 dependencies = [
-    ('MUMPS', '5.6.1', '-metis-seq'),
+    ('MUMPS', '5.6.2', '-metis-seq'),
     ('OpenMPI', '4.1.5'),
     ('SCOTCH', '7.0.3'),
 ]
@@ -40,7 +39,6 @@ parallel = 1
 prebuildopts = "sed -i 's/-llapack -lblas/$LIBLAPACK/g;"
 # to avoid the `/bin/sh: line 1: -lscotch: command not found` error
 prebuildopts += '/-lscotch/d;'
-# prebuildopts += 's/-lmpiseq //g;'
 prebuildopts += 's/lpord \\\\/lpord -lscotch -lscotcherr -lpthread -Wl,--start-group '
 prebuildopts += '-lmkl_gf_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -lgfortran/g;'
 # to avoid the `undefined reference to 'main_rixs_'` error
