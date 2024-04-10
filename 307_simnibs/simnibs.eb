@@ -7,11 +7,6 @@ homepage = 'https://simnibs.github.io/simnibs'
 description = "SimNIBS is a free and open source software package for the Simulation of Non-invasive Brain Stimulation"
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-# toolchainopts = {'pic': True}
-# toolchainopts = {'usempi': True}
-# toolchainopts = {'cstd': 'c++14'}
-# toolchainopts = {'cstd': 'c++14', 'pic': True, 'usempi': True}
-
 
 builddependencies = [('CMake', '3.26.3')]
 dependencies = [
@@ -31,61 +26,37 @@ dependencies = [
     ('FMM3D', '1.0.4'),
     ('charm-gems', '1.3.3'),
     ('CGAL', '5.4'),
-    # ('GMP', '6.2.1'),
     ('Eigen', '3.3.7', '', SYSTEM),
 ]
 
-# local_preinstallopts = "sed -i '515,$d' setup.py && "
-# local_preinstallopts += "export CXXFLAGS=\"$CXXFLAGS -Wno-error\" && "
-
 exts_list = [
     (name, version, {
-        'patches': ['SimNIBS-4.0.1_setup.py-fix.patch'],
+        'patches': ['%(name)s-%(version)s_setup.py-fix.patch'],
         'source_urls': ['https://github.com/simnibs/simnibs/archive/'],
         'sources': ['v%(version)s.tar.gz'],
         'checksums': [
             {'v4.0.1.tar.gz': 'c5455cd0e0240b3638fbc64125bdfaeae289a63ee94a3ecc3b4d10981890c8ff'},
-            {'SimNIBS-4.0.1_setup.py-fix.patch': '7319bd020361862b089c9e713ec1df637294d129acb15ee987651cfc3d15eea2'},
+            {'SimNIBS-4.0.1_setup.py-fix.patch': '9e0a28233e2830cc90dca67e3e945094591f46ed646eba20a7ecf2396d126fe2'},
         ],
     }),
 ]
 
-# exts_list = [
-#     (name, version, {
-#         'patches': ['%(name)s-%(version)s_setup.py-fix-2.patch'],
-#         'source_urls': ['https://github.com/simnibs/simnibs/archive/'],
-#         'sources': ['v%(version)s.tar.gz'],
-#         'checksums': [
-#             {'v4.0.1.tar.gz': 'c5455cd0e0240b3638fbc64125bdfaeae289a63ee94a3ecc3b4d10981890c8ff'},
-#             {'SimNIBS-4.0.1_setup.py-fix-2.patch': '18becb5a174acc445117f073c9febc7ee45cfb150ea17def9f2ea2da7529bfbc'},
-#         ],
-#     }),
-# ]
-
-# exts_list = [
-#     (name, version, {
-#         'patches': [
-#             # SimNIBS-4.0.1_setup.py-fix.patch
-#             '%(name)s-%(version)s_setup.py-fix.patch',
-#         ],
-#         'preinstallopts': local_preinstallopts,
-#         'source_urls': ['https://github.com/simnibs/simnibs/archive/'],
-#         'sources': ['v%(version)s.tar.gz'],
-#         'checksums': ['c5455cd0e0240b3638fbc64125bdfaeae289a63ee94a3ecc3b4d10981890c8ff'],
-#     }),
-# ]
+postinstallcmds = [
+    'cd %(installdir)s/bin && '
+    'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs/external/bin/linux/gmsh gmsh && '
+    'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs/external/bin/linux/meshfix meshfix && '
+    'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs/external/dwi2cond dwi2cond',
+]
 
 use_pip = True
 sanity_pip_check = True
 
-# sanity_check_paths = {
-#     'files': ['bin/headreco', 'bin/simnibs'],
-#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
-# }
+local_bin_list = ['dwi2cond', 'gmsh', 'meshfix', 'simnibs', 'simnibs_gui', 'charm',]
+sanity_check_paths = {
+    'files': ['bin/%s' % f for f in local_bin_list],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
 
-# sanity_check_commands = [
-#     "headreco --help",
-#     "simnibs --help",
-# ]
+sanity_check_commands = ["simnibs --help"]
 
 moduleclass = 'bio'

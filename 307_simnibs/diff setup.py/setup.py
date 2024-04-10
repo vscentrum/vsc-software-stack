@@ -12,12 +12,6 @@ from setuptools import find_namespace_packages
 from distutils.dep_util import newer_group
 import numpy as np
 
-# if os.getenv('EBROOTPYTHON'):
-#     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-#     print(os.path.abspath('$EBROOTCGAL/include'))
-#     # >>> /tmp/vsc47063/easybuild/build/SimNIBS/4.0.1/foss-2023a/SimNIBS/simnibs-4.0.1/$EBROOTCGAL/include
-#     print(os.path.join(os.getenv('EBROOTCGAL'), 'include'))
-#     # >>> /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.6-GCCcore-12.3.0/include
     
 ####################################################
 # add all scripts in the cli folder as 
@@ -41,21 +35,8 @@ gui_scripts = [
     'simnibs_gui=simnibs.cli.simnibs_gui:main',
 ]
 
-
-########################################################################################################
-# external stuff for which symlinks or .cmd should be added to the scripts folder
-########################################################################################################
-external_progs = ['gmsh','meshfix']
-bin_dir = os.path.join('simnibs', 'external', 'bin')
-bin_dir = os.path.join(bin_dir, 'linux')
-for i in range(len(external_progs)):
-    external_progs[i] = os.path.join(bin_dir, external_progs[i])  
-external_progs.append(os.path.join('simnibs','external','dwi2cond'))
-# print("EXTERNAL_PROGS: ")
-# print(external_progs) #>>> ['simnibs/external/bin/linux/gmsh', 'simnibs/external/bin/linux/meshfix', 'simnibs/external/dwi2cond']
-           
-
-''' C extensions
+''' 
+C extensions
 
 CGAL Compilation
 -----------------
@@ -78,7 +59,8 @@ For more info, refer to https://doc.cgal.org/latest/Manual/thirdparty.html
 '''
 
 # Information for CGAL
-CGAL_headers = os.path.join(os.getenv('EBROOTCGAL'), 'include') # FIXED
+CGAL_version = '5.4'
+CGAL_headers = os.path.join(os.getenv('EBROOTCGAL'), 'include')
 cgal_mesh_macros = [
     ('CGAL_MESH_3_NO_DEPRECATED_SURFACE_INDEX', None),
     ('CGAL_MESH_3_NO_DEPRECATED_C3T3_ITERATORS', None),
@@ -89,15 +71,14 @@ cgal_mesh_macros = [
 ]
 
 # Information for eigen library
-# I don't download it because gitlab does not allow it
 eigen_version = '3.3.7'
-eigen_headers = os.path.join(os.getenv('EBROOTEIGEN'), 'include') # FIXED
+eigen_headers = os.path.join(os.getenv('EBROOTEIGEN'), 'include')
 
 # Information for Intel TBB download
 tbb_version = '2020.1'
-tbb_headers = os.path.join(os.getenv('EBROOTTBB'), 'include') # FIXED
+tbb_headers = os.path.join(os.getenv('EBROOTTBB'), 'include')
 
-tbb_libs = [ # FIXED
+tbb_libs = [
     os.path.join(os.getenv('EBROOTTBB'), 'lib', 'libtbb.so'),
     os.path.join(os.getenv('EBROOTTBB'), 'lib', 'libtbb.so.2'),
     os.path.join(os.getenv('EBROOTTBB'), 'lib', 'libtbbmalloc.so'),
@@ -131,9 +112,8 @@ cgal_compile_args = [
     '-Os', '-flto',
     '-frounding-math',
     '-std=gnu++14',
-    #  '-Wno-cpp',
-    '-w',
-    '-fcompare-debug-second',
+    '-w',  # removes warnings as errors
+    '-fcompare-debug-second',  # removes notes as errors
 ]
 cgal_mesh_macros += [('NOMINMAX', None)]
 cgal_link_args = None
@@ -154,7 +134,6 @@ cat_c_utils = Extension(
     'simnibs.segmentation._cat_c_utils',
     ["simnibs/segmentation/_cat_c_utils.pyx", "simnibs/segmentation/cat_c_utils/genus0.c"],
     include_dirs=[np.get_include(), 'simnibs/segmentation/cat_c_utils'],
-    # extra_compile_args=['-w'],
     extra_compile_args=['-w', '-std=gnu99'],
 )
 thickness = Extension(
@@ -227,25 +206,6 @@ extensions = [
     cgal_misc
 ]
 
-def add_symlinks_or_cmd(external_progs,script_dir): # FIX?
-     ''' add symbolic links or .cmd '''
-     for s in external_progs:
-        if not os.path.exists(s):
-            raise IOError('Could not find '+s)
-        s = os.path.abspath(s)
-        bash_name = os.path.join(script_dir, os.path.basename(s))
-        if sys.platform == 'win32':
-            bash_name=os.path.splitext(bash_name)[0] + '.cmd'
-            print('making cmd link '+bash_name+' --> '+s)
-            with open(bash_name, 'w') as f:
-                f.write("@echo off\n")
-                f.write(f'"{s}" %*')
-        else:
-            if os.path.lexists(bash_name):
-                os.remove(bash_name)
-            print('making sym link '+bash_name+' --> '+s)
-            os.symlink(s, bash_name)
-
 def install_lib(libs, build_path):
     folder_name = 'linux'
     for l in libs:
@@ -262,7 +222,7 @@ def install_lib(libs, build_path):
 
 class build_ext_(build_ext):
     '''
-        Build the extension, download some dependencies and remove stuff from other OS
+    Build the extension, download some dependencies and remove stuff from other OS
     '''
     def run(self):
         from Cython.Build import cythonize
@@ -290,14 +250,10 @@ class build_ext_(build_ext):
                 build_lib = ""
             else:
                 build_lib = self.build_lib + "/"
-
             install_lib(tbb_libs, build_lib)
 
         # Compile
         build_ext.run(self)
-        # Remove unescessary binary files
-        # [shutil.rmtree(f, True) for f in osx_folders]
-        # [shutil.rmtree(f, True) for f in win_folders]
 
 setup(
     name='simnibs',
@@ -336,10 +292,3 @@ setup(
     tests_require=['pytest', 'mock'],
     zip_safe=False
 )
-
-# script_dir = shutil.which('simnibs')
-# if script_dir is None:
-#     raise IOError('could not locate folder with console-scripts')
-# else:
-#     script_dir = os.path.dirname(script_dir)
-#     add_symlinks_or_cmd(external_progs,script_dir)

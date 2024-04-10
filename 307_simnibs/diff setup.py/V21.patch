@@ -1,9 +1,9 @@
 Authot: Pavel Tománek (INUITS)
-Fix for setup.py to use EB dependecies CGAL and tbb and not download them before compilation.
-Get rid of code for another platforms.
+Fix for setup.py to use EB dependecies CGAL and tbb and not download them before compilation. 
+Get rid of code for another platforms. 
 Add compilation flags for gcc.
 --- setup.py.orig	2024-04-02 18:56:13.015206000 +0200
-+++ setup.py	2024-04-10 12:22:35.495147000 +0200
++++ setup.py	2024-04-09 16:26:09.027208000 +0200
 @@ -12,7 +12,7 @@
  from distutils.dep_util import newer_group
  import numpy as np
@@ -13,17 +13,12 @@ Add compilation flags for gcc.
  ####################################################
  # add all scripts in the cli folder as 
  # console_scripts or gui_scripts
-@@ -35,31 +35,8 @@
-     'simnibs_gui=simnibs.cli.simnibs_gui:main',
- ]
- 
+@@ -40,26 +40,14 @@
+ # external stuff for which symlinks or .cmd should be added to the scripts folder
+ ########################################################################################################
+ external_progs = ['gmsh','meshfix']
 -
--########################################################################################################
--# external stuff for which symlinks or .cmd should be added to the scripts folder
--########################################################################################################
--external_progs = ['gmsh','meshfix']
--
--bin_dir = os.path.join('simnibs', 'external', 'bin')
+ bin_dir = os.path.join('simnibs', 'external', 'bin')
 -ending=''
 -if sys.platform == 'darwin':
 -    bin_dir = os.path.join(bin_dir, 'osx')
@@ -34,9 +29,12 @@ Add compilation flags for gcc.
 -    ending='.exe'
 -else:
 -    raise OSError('OS not supported!')
--for i in range(len(external_progs)):
++bin_dir = os.path.join(bin_dir, 'linux')
+ for i in range(len(external_progs)):
 -    external_progs[i] = os.path.join(bin_dir, external_progs[i]+ending)
--
++    external_progs[i] = os.path.join(bin_dir, external_progs[i])  
++external_progs.append(os.path.join('simnibs','external','dwi2cond'))           
+ 
 -if not sys.platform == 'win32':        
 -    external_progs.append(os.path.join('simnibs','external','dwi2cond'))
 -           
@@ -47,7 +45,7 @@ Add compilation flags for gcc.
  
  CGAL Compilation
  -----------------
-@@ -81,15 +58,9 @@
+@@ -81,15 +69,9 @@
  
  '''
  
@@ -65,7 +63,7 @@ Add compilation flags for gcc.
  cgal_mesh_macros = [
      ('CGAL_MESH_3_NO_DEPRECATED_SURFACE_INDEX', None),
      ('CGAL_MESH_3_NO_DEPRECATED_C3T3_ITERATORS', None),
-@@ -100,185 +71,76 @@
+@@ -100,185 +82,76 @@
  ]
  
  # Information for eigen library
@@ -159,7 +157,7 @@ Add compilation flags for gcc.
 -    cgal_link_args = None
 -    
 -    cat_compile_args = None
- 
+-
 -elif sys.platform == 'linux':
 -    petsc_libs = ['petsc']
 -    petsc_include = [
@@ -232,7 +230,7 @@ Add compilation flags for gcc.
 -    ]
 -    
 -    cat_compile_args = None
--
+ 
 -else:
 -    raise OSError('OS not supported!')
 +petsc_libs = ['petsc']
@@ -296,7 +294,7 @@ Add compilation flags for gcc.
  )
  petsc_solver = Extension(
      'simnibs.simulation.petsc_solver',
-@@ -288,7 +150,8 @@
+@@ -288,7 +161,8 @@
      library_dirs=petsc_dirs,
      libraries=petsc_libs,
      runtime_library_dirs=petsc_runtime,
@@ -306,30 +304,18 @@ Add compilation flags for gcc.
  )
  # I separated the CGAL functions into several files for two reasons
  # 1. Reduce memory consumption during compilation in Linux
-@@ -343,57 +206,8 @@
+@@ -343,7 +217,6 @@
      cgal_misc
  ]
  
 -
--def add_symlinks_or_cmd(external_progs,script_dir):
--     ''' add symbolic links or .cmd '''
--     for s in external_progs:
--        if not os.path.exists(s):
--            raise IOError('Could not find '+s)
--        s = os.path.abspath(s)
--        bash_name = os.path.join(script_dir, os.path.basename(s))
--        if sys.platform == 'win32':
--            bash_name=os.path.splitext(bash_name)[0] + '.cmd'
--            print('making cmd link '+bash_name+' --> '+s)
--            with open(bash_name, 'w') as f:
--                f.write("@echo off\n")
--                f.write(f'"{s}" %*')
--        else:
--            if os.path.lexists(bash_name):
--                os.remove(bash_name)
--            print('making sym link '+bash_name+' --> '+s)
--            os.symlink(s, bash_name)
--
+ def add_symlinks_or_cmd(external_progs,script_dir):
+      ''' add symbolic links or .cmd '''
+      for s in external_progs:
+@@ -363,37 +236,8 @@
+             print('making sym link '+bash_name+' --> '+s)
+             os.symlink(s, bash_name)
+ 
 -
 -def download_and_extract(url, path='.'):
 -    ''' Downloads and extracts a zip or tar-gz folder '''
@@ -366,14 +352,7 @@ Add compilation flags for gcc.
      for l in libs:
          shutil.copy(
              l, f'simnibs/external/lib/{folder_name}',
-@@ -408,13 +222,12 @@
- 
- class build_ext_(build_ext):
-     '''
--        Build the extension, download some dependencies and remove stuff from other OS
-+    Build the extension, download some dependencies and remove stuff from other OS
-     '''
-     def run(self):
+@@ -414,7 +258,6 @@
          from Cython.Build import cythonize
          ## Cythonize
          self.extension = cythonize(self.extensions)
@@ -381,7 +360,7 @@ Add compilation flags for gcc.
          changed_meshing = (
              newer_group(
                  create_mesh_surf.sources + create_mesh_surf.depends,
-@@ -433,90 +246,49 @@
+@@ -433,90 +276,57 @@
              )
          )
          if self.force or changed_meshing:
@@ -390,7 +369,7 @@ Add compilation flags for gcc.
                  build_lib = ""
              else:
                  build_lib = self.build_lib + "/"
--
+ 
 -            install_lib(tbb_url, tbb_path, tbb_libs, build_lib)
 +            install_lib(tbb_libs, build_lib)
  
@@ -464,16 +443,7 @@ Add compilation flags for gcc.
 -      ],
 -      tests_require=['pytest', 'mock'],
 -      zip_safe=False)
--
--
--script_dir = shutil.which('simnibs')
--if script_dir is None:
--    raise IOError('could not locate folder with console-scripts')
--else:
--    script_dir = os.path.dirname(script_dir)
--    add_symlinks_or_cmd(external_progs,script_dir)
--    
-+
+ 
 +setup(
 +    name='simnibs',
 +    version="4.0.1",
@@ -511,3 +481,12 @@ Add compilation flags for gcc.
 +    tests_require=['pytest', 'mock'],
 +    zip_safe=False
 +)
+ 
+-script_dir = shutil.which('simnibs')
++script_dir = os.path.join(os.getenv('EBROOTSIMNIBS'), 'bin')
+ if script_dir is None:
+     raise IOError('could not locate folder with console-scripts')
+ else:
+     script_dir = os.path.dirname(script_dir)
+     add_symlinks_or_cmd(external_progs,script_dir)
+-    
