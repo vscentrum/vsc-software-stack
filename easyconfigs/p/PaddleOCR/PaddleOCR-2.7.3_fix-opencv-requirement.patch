@@ -1,0 +1,25 @@
+Use opencv-contrib-python (installed with OpenCV 4.6.0) instead of opencv-python-headless
+Author: Cintia Willemyns (Vrije Universiteit Brussel)
+diff -Naru PaddleOCR-2.7.3.orig/requirements.txt PaddleOCR-2.7.3/requirements.txt
+--- PaddleOCR-2.7.3.orig/requirements.txt	2024-03-28 04:43:15.000000000 +0100
++++ PaddleOCR-2.7.3/requirements.txt	2024-04-04 18:38:46.822608712 +0200
+@@ -1,18 +1,14 @@
+ shapely
+ scikit-image
+-imgaug
+ pyclipper
+ lmdb
+ tqdm
+ numpy
+ visualdl
+ rapidfuzz
+-opencv-python<=4.6.0.66
+-opencv-contrib-python<=4.6.0.66
+ cython
+ lxml
+ premailer
+ openpyxl
+-attrdict
+-Pillow>=10.0.0
++Pillow
+ pyyaml
