@@ -21,11 +21,32 @@ dependencies = [
     ('jax', '0.3.25'),
 ]
 
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+    'download_dep_fail': True,
+    'use_pip': True,
+    'sanity_pip_check': True,
+    'installopts': '',
+}
+
+exts_list = [
+    ('PyAudio', '0.2.14', {
+        'checksums': ['78dfff3879b4994d1f4fc6485646a57755c6ee3c19647a491f790a0895bd2f87'],
+    }),
+]
+
 parallel = 1
 
 sanity_check_paths = {
     'files': ["include/portaudio.h", "lib/libportaudio.a", "lib/libportaudio.so"],
     'dirs': ['include', 'lib'],
 }
+
+sanity_check_commands = [
+    'python -c "import pyaudio; pyaudio.get_portaudio_version_text(); pyaudio.__version__"'
+]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'math'
