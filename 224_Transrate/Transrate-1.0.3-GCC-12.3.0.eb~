@@ -23,6 +23,8 @@ dependencies = [
     ('crb-blast', '0.6.9'),
 ]
 
+preinstallopts = """sed -i "s/'yell', '~> 2.0',/'yell',/g" transrate.gemspec && """
+
 sanity_check_paths = {
     'files': ['bin/%(namelower)s'],
     'dirs': ['gems/%(namelower)s-%(version)s'],
