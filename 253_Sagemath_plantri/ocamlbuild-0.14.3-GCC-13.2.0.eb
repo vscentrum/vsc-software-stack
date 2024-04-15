@@ -24,11 +24,13 @@ dependencies = [
 
 skipsteps = ['configure']
 
-prebuildopts = 'make BINDIR=bin LIBDIR=lib MANDIR=man configure && '
+prebuildopts = 'make configure && '
+# prebuildopts = 'make BINDIR=bin LIBDIR=lib MANDIR=man configure && '  # Didn't help
 
 buildopts = 'CXX="$CXX" CFLAGS="$CXXFLAGS"'
 
-installopts = 'DESTDIR="%(installdir)s"'
+installopts = 'DESTDIR="%(installdir)s" '
+# installopts = 'DESTDIR="%(installdir)s" INSTALL_BINDIR=%(installdir)s/bin '  # Didn't help
 
 sanity_check_paths = {
     'files': ['bin/%(name)s'],
