@@ -1,0 +1,30 @@
+easyblock = 'PythonBundle'
+
+name = 'attrdict3'
+version = '2.0.2'
+
+homepage = 'https://github.com/pirofti/AttrDict3'
+description = """AttrDict is a Python library that provides mapping objects that allow their elements
+ to be accessed both as keys and as attributes."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.2.0'}
+
+builddependencies = [('binutils', '2.40')]
+
+dependencies = [
+    ('Python', '3.11.5'),
+    ('Python-bundle-PyPI', '2023.10'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'modulename': 'attrdict',
+        'source_tmpl': SOURCE_WHL,
+        'checksums': ['a98b72de6a3f20b0997cc7efbba3555af6558ed9a97de4468a3f81cac11595dc'],
+    }),
+]
+
+moduleclass = 'lib'

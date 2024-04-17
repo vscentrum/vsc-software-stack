@@ -1,0 +1,45 @@
+easyblock = 'MesonNinja'
+
+name = 'LibSoup'
+version = '3.4.4'
+
+homepage = 'https://wiki.gnome.org/Projects/libsoup'
+description = """libsoup is an HTTP client/server library for GNOME. It
+uses GObjects and the glib main loop, to integrate well with GNOME
+applications, and also has a synchronous API, for use in threaded
+applications."""
+
+toolchain = {'name': 'GCC', 'version': '13.2.0'}
+# toolchainopts = {'cstd': 'gnu11'}  # TODO not needed?
+
+source_urls = [FTPGNOME_SOURCE]
+sources = [SOURCELOWER_TAR_XZ]
+checksums = ['291c67725f36ed90ea43efff25064b69c5a2d1981488477c05c481a3b4b0c5aa']
+
+builddependencies = [
+    ('binutils', '2.40'),
+    ('Meson', '1.2.3'),
+    ('Ninja', '1.11.1'),
+    ('pkgconf', '2.0.3'),
+    ('GObject-Introspection', '1.78.1'),
+    ('CMake', '3.27.6'),
+]
+
+dependencies = [
+    ('libxml2', '2.11.5'),
+    ('SQLite', '3.43.1'),
+    ('GLib', '2.78.1'),
+    ('libpsl', '0.21.1'),  # TODO
+    ('cURL', '8.3.0'),
+    ('GnuTLS', '3.7.8'),  # TODO
+    ('nghttp2', '1.48.0'),  # TODO
+    ('glib-networking', '2.72.1'),  # TODO
+    ('Brotli', '1.1.0'),
+]
+
+sanity_check_paths = {
+    'files': ['lib/libsoup-3.0.%s' % SHLIB_EXT],
+    'dirs': ['include/libsoup-3.0/libsoup/', 'lib/pkgconfig']
+}
+
+moduleclass = 'lib'
