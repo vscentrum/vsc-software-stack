@@ -36,9 +36,11 @@ exts_list = [
 
 postinstallcmds = [
     'sed -i "s/np.float/float/g" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/predictQuality.py',
-    'checkm2 database --download --path $EBROOTCHECKM2',
-    'export CHECKM2DB="$EBROOTCHECKM2/CheckM2_database/uniref100.KO.1.dmnd"',
+    '%(installdir)s/bin/checkm2 database --download --path %(installdir)s',
+    # 'export CHECKM2DB="$EBROOTCHECKM2/CheckM2_database/uniref100.KO.1.dmnd"',
 ]
+
+modextrapaths = {'CHECKM2DB': 'CheckM2_database/uniref100.KO.1.dmnd', 'PYTHONPATH': ''}
 
 use_pip = True
 sanity_pip_check = True
