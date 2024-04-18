@@ -1,0 +1,55 @@
+easyblock = 'PythonBundle'
+
+name = 'empanada-napari'
+version = '1.1.0'
+
+homepage = 'https://empanada.readthedocs.io/'
+description = "Panoptic segmentation algorithms for 2D and 3D electron microscopy in napari."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# empanada-napari 1.1.0 requires empanada-dl OK exts
+# empanada-napari 1.1.0 requires imagecodecs - NO - in EB only 2022a, now in exts -> do ec
+# empanada-napari 1.1.0 requires imagehash OK exts 
+# empanada-napari 1.1.0 requires mlflow OK
+# empanada-napari 1.1.0 requires openpyxl OK
+# empanada-napari 1.1.0 requires simpleitk OK
+# empanada-napari 1.1.0 has requirement numpy==1.22, but you have numpy 1.25.1. -> sed change
+    # numpy 1.22.3 is for foss/2022a
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('napari', '0.4.18'),
+    ('MLflow', '2.10.2'),
+    ('openpyxl', '3.1.2'),
+    ('SimpleITK', '2.3.1'),
+]
+
+exts_list = [
+    ('ImageHash', '4.3.1', {
+        'checksums': ['7038d1b7f9e0585beb3dd8c0a956f02b95a346c0b5f24a9e8cc03ebadaf0aa70'],
+    }),
+    # ('imagecodecs', '2024.1.1', {
+    #     'checksums': ['fde46bd698d008255deef5411c59b35c0e875295e835bf6079f7e2ab22f216eb'],
+    # }),
+    ('empanada-dl', '0.1.7', {
+        'checksums': ['4289e69842242203be77cdb656a12fb2be4ed83816969b24a0b4eab1d67c3b91'],
+    }),
+    (name, version, {
+        'preinstallopts': "sed -i 's/numpy==1.22/numpy>=1.22/g' setup.cfg && ",
+        'checksums': ['f4890cb6f20689933e28903dd7d43238aeae32afb53fa225bdf41d4bdcfc2c71'],
+    }),
+]
+
+# postinstallcmds = [
+#     'sed -i "s/np.float/float/g" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/predictQuality.py',
+#     '%(installdir)s/bin/checkm2 database --download --path %(installdir)s',
+#     # 'export CHECKM2DB="$EBROOTCHECKM2/CheckM2_database/uniref100.KO.1.dmnd"',
+# ]
+
+# modextrapaths = {'CHECKM2DB': 'CheckM2_database/uniref100.KO.1.dmnd', 'PYTHONPATH': ''}
+
+use_pip = True
+sanity_pip_check = True
+
+moduleclass = 'vis'
