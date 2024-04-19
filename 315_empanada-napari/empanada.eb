@@ -9,7 +9,7 @@ description = "Panoptic segmentation algorithms for 2D and 3D electron microscop
 toolchain = {'name': 'foss', 'version': '2023a'}
 
 # empanada-napari 1.1.0 requires empanada-dl OK exts
-# empanada-napari 1.1.0 requires imagecodecs - NO - in EB only 2022a, now in exts -> do ec
+# empanada-napari 1.1.0 requires imagecodecs - NO - in EB only 2022a -> do ec -> OK
 # empanada-napari 1.1.0 requires imagehash OK exts 
 # empanada-napari 1.1.0 requires mlflow OK
 # empanada-napari 1.1.0 requires openpyxl OK
@@ -19,19 +19,18 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 dependencies = [
     ('Python', '3.11.3'),
+    # ('Python-bundle-PyPI', '2023.06'),
     ('napari', '0.4.18'),
     ('MLflow', '2.10.2'),
     ('openpyxl', '3.1.2'),
     ('SimpleITK', '2.3.1'),
+    ('imagecodecs', '2023.3.16'),
 ]
 
 exts_list = [
     ('ImageHash', '4.3.1', {
         'checksums': ['7038d1b7f9e0585beb3dd8c0a956f02b95a346c0b5f24a9e8cc03ebadaf0aa70'],
     }),
-    # ('imagecodecs', '2024.1.1', {
-    #     'checksums': ['fde46bd698d008255deef5411c59b35c0e875295e835bf6079f7e2ab22f216eb'],
-    # }),
     ('empanada-dl', '0.1.7', {
         'checksums': ['4289e69842242203be77cdb656a12fb2be4ed83816969b24a0b4eab1d67c3b91'],
     }),

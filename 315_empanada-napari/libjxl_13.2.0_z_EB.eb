@@ -6,7 +6,7 @@ version = '0.8.2'
 homepage = 'https://github.com/libjxl/libjxl'
 description = "JPEG XL image format reference implementation"
 
-toolchain = {'name': 'foss', 'version': '2023a'}
+toolchain = {'name': 'GCCcore', 'version': '13.2.0'}
 
 github_account = 'libjxl'
 source_urls = [GITHUB_SOURCE]
@@ -15,22 +15,22 @@ checksums = ['c70916fb3ed43784eb840f82f05d390053a558e2da106e40863919238fa7b420']
 
 builddependencies = [
     ('binutils', '2.40'),
-    ('CMake', '3.26.3'),
-    ('googletest', '1.13.0'),
-    ('pkgconf', '1.9.5'),
-    ('Highway', '1.0.4'),  # Highway only has a static library
+    ('CMake', '3.27.6'),
+    ('googletest', '1.14.0'),
+    ('pkgconf', '2.0.3'),
+    ('Highway', '1.0.7'),  # Highway only has a static library
 ]
 
 dependencies = [
     ('LittleCMS', '2.15'),
-    ('Brotli', '1.0.9'),
-    ('libjpeg-turbo', '2.1.5.1'),
-    ('libpng', '1.6.39'),
+    ('Brotli', '1.1.0'),
+    ('libjpeg-turbo', '3.0.1'),
+    ('libpng', '1.6.40'),
     ('zlib', '1.2.13'),
     ('giflib', '5.2.1'),
-    ('libwebp', '1.3.1'),
-    ('OpenEXR', '3.1.7'),
-    ('gperftools', '2.12'),
+    ('libwebp', '1.3.2'),
+    ('OpenEXR', '3.2.0'),
+    ('gperftools', '2.13'),
 ]
 
 configopts = '-DJPEGXL_WARNINGS_AS_ERRORS=OFF -DJPEGXL_ENABLE_SJPEG=OFF -DJPEGXL_ENABLE_SKCMS=OFF '
