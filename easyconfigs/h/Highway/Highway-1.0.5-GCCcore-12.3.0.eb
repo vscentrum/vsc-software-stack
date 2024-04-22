@@ -1,0 +1,32 @@
+easyblock = 'CMakeMake'
+
+name = 'Highway'
+version = '1.0.5'
+
+homepage = 'https://github.com/google/highway'
+
+description = """Highway is a C++ library for SIMD (Single Instruction, Multiple Data), i.e. applying the same
+operation to 'lanes'."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://github.com/google/highway/archive/refs/tags/']
+sources = ['%(version)s.tar.gz']
+checksums = ['99b7dad98b8fa088673b720151458fae698ae5df9154016e39de4afdc23bb927']
+
+builddependencies = [
+    ('binutils', '2.40'),
+    ('CMake', '3.26.3'),
+    ('googletest', '1.13.0'),
+]
+
+configopts = "-DHWY_SYSTEM_GTEST=ON"
+
+runtest = "test"
+
+sanity_check_paths = {
+    'files': ['lib/libhwy.a'],
+    'dirs': ['include/hwy'],
+}
+
+moduleclass = 'lib'
