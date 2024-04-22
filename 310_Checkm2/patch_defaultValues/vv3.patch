@@ -1,0 +1,22 @@
+--- checkm2/defaultValues.py.orig	2024-04-22 16:32:59.951323371 +0200
++++ checkm2/defaultValues.py	2024-04-22 17:49:54.478508378 +0200
+@@ -17,18 +17,12 @@
+     DIAMOND_SUBJECT_COVER = 80
+     DIAMOND_PERCENT_ID = 30
+     DIAMOND_EVALUE = 1e-05
+-
+     DIAMOND_DEFAULT_CHUNK_SIZE = 500
+-
+     KO_FEATURE_VECTOR_CHUNK = 250
+-
+     DIAMOND_HEADER_SEPARATOR = 'Ω'
+-    
+     AA_RATIO_COMPLETENESS_CUTOFF = 1500
+-
+     MODEL_DIVERGENCE_WARNING_THRESHOLD = 25
+-
+-    DB_LOCATION_DEFINITION = os.path.join(VERSION_PATH, 'diamond_path.json')
++    DB_LOCATION_DEFINITION = os.eviron.get("CHECKM2DB", "Not Set")
+     DB_VAR = "CHECKM2DB"
+     try:
+         DEFAULT_DB_INSTALL_LOCATION = os.path.join(str(Path.home()), 'databases')

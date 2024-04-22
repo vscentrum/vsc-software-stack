@@ -29,29 +29,41 @@ exts_list = [
         'checksums': ['bd98e3b501b4c24dc127f4ad93e467f42923fe3eefa99e143b5b93158f024395'],
     }),
     (name, version, {
+        'patches': [
+            'v7.patch',
+            # 'test1.patch',
+        ],
         'source_urls': ['https://github.com/chklovski/CheckM2/archive/'],
         'sources': ['%(version)s.tar.gz'],
-        'checksums': ['9d3129e4d0b53acc38519a259cc1e20a215dff0cbce51cef874545ca2fff005a'],
+        'checksums': [
+            {'1.0.2.tar.gz': '9d3129e4d0b53acc38519a259cc1e20a215dff0cbce51cef874545ca2fff005a'},
+            {'v7.patch': '45fd0517ba88273acab9373dd49ab1af31fedda47d3d31b8d841ffa463cf1722'},
+        ],
     }),
 ]
 
+# 'patches': ['%(name)s-%(version)s_fileManager.py-fix.patch'],
 postinstallcmds = [
-    # these export needs to be done before dowloading the db - can user do it?
+    # these export needs to be done before dowloading the db - can user do it? -> YES user should
     # 'export CHECKM2DB="/user/gent/470/vsc47063/WIP/310_Checkm2/CheckM2_database/uniref100.KO.1.dmnd"',
     # 'export CHECKM2DB="$EBROOTCHECKM2/CheckM2_database/uniref100.KO.1.dmnd"',
+    # a=os.environ.get("CHECKM2DB", "Not Set")
     # np.float is depreciated in newer numpy
     'sed -i "s/np.float/float/g" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/predictQuality.py',
-    # delete automatic update of checkm2/version/diamond_path.json when the database is dowloading
-    'sed -i "131,133d" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/fileManager.py',
-    # cancel downloading and extracting db - I have it downloaded -> TODO: delete
-    'sed -i "127d" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/fileManager.py'
-    # set DBPATH in checkm2/version/diamond_path.json - do I need it?
+    # delete automatic update of checkm2/version/diamond_path.json when the database is dowloading - done by patch
+    # 'sed -i "131,133d" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/fileManager.py',
+    # cancel downloading and extracting db - I have it downloaded -> TODO: delete -> it is in patch now
+    # 'sed -i "127d" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/fileManager.py',
+    # set DBPATH in checkm2/version/diamond_path.json - do I need it? -> NO
     # 'sed -i "s/Not Set/???/" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/version/diamond_path.json'
-    # Download database
+    # Download database -> do not do it here - user should do it
     # '%(installdir)s/bin/checkm2 database --download --path %(installdir)s',
+    # update DB_LOCATION_DEFINITION in defaultValues.py to env CHECKM2DB
+    # 'sed -i "31d" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/defaultValues.py',
+    # "sed -i '30 a DB_LOCATION_DEFINITION = os.environ.get(\"CHECKM2DB\", \"Not Set\")' %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/defaultValues.py",
+    "sed -i 's/os.path.join(VERSION_PATH, 'diamond_path.json')/    os.environ.get(\"CHECKM2DB\", \"Not Set\")/g' %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/defaultValues.py",
+    
 ]
-
-# modextrapaths = {'CHECKM2DB': 'CheckM2_database/uniref100.KO.1.dmnd', 'PYTHONPATH': ''}
 
 use_pip = True
 sanity_pip_check = True

@@ -1,0 +1,136 @@
+--- checkm2/fileManager.py.orig	2024-04-22 11:08:32.807211000 +0200
++++ checkm2/fileManager.py	2024-04-22 11:18:52.794001000 +0200
+@@ -34,50 +34,21 @@
+             else:
+                 self.DATABASE_DIR = diamond_definition['DBPATH']
+ 
+-
+     def __get_db_file(self):
+-        diamond_location = DefaultValues.DB_LOCATION_DEFINITION
+-        try:
+-            with open(diamond_location) as f:
+-                diamond_definition = json.load(f)
+-                return diamond_definition
+-        except:
+-            logging.warning('Could not open DIAMOND location definition file. Creating new file.')
+-            db_ref_file = {"Type": "DIAMONDDB", "DBPATH": "Not Set"}
+-            with open(diamond_location, 'w') as dl:
+-                json.dump(db_ref_file, dl)
+-            try:
+-                with open(diamond_location) as f:
+-                    diamond_definition = json.load(f)
+-                    return diamond_definition
+-            except Exception as e:
+-                logging.error('Could not create new file: {}'.format(e))
+-                sys.exit(1)
+-
++        return DefaultValues.DB_LOCATION_DEFINITION
+ 
+     def get_DB_location(self):
+         if self.DATABASE_DIR == 'Not Set':
+-            logging.error('DIAMOND database not found. Please download database using <checkm2 database --download>')
++            logging.error(
++                'DIAMOND database not found. Please download database using <checkm2 database --download> '
++                + 'but FIRST set CHECKM2DB by $ export CHECKM2DB=path/to/database.dmnd'
++            )
+             sys.exit(1)
+         else:
+             return self.DATABASE_DIR
+ 
+     def set_DB_location(self, provided_location):
+-        logging.info('Checking provided DIAMOND database location')
+-        if versionControl.VersionControl().checksum_version_validate_DIAMOND(provided_location):
+-            #great - let's set it
+-            diamond_definition = self.__get_db_file()
+-
+-            diamond_definition['DBPATH'] = os.path.abspath(provided_location)
+-            with open(DefaultValues.DB_LOCATION_DEFINITION, 'w') as dd:
+-                json.dump(diamond_definition, dd)
+-
+-            logging.info("Database check successful! Database path successfully added.")
+-
+-        else:
+-            logging.error("Checksum in CheckM2 reference doesn't match provided database. Please check your files.")
+-            sys.exit(1)
+-
++            logging.info("Set path to database location by: $ export CHECKM2DB=path/to/database.dmnd")
+ 
+     def download_database(self, download_location):
+ 
+@@ -87,32 +58,11 @@
+ 
+         diamond_location = DefaultValues.DB_LOCATION_DEFINITION
+         
+-        try:
+-            with open(diamond_location) as f:
+-                diamond_definition = json.load(f)
+-        except:
+-            logging.warning('Could not open DIAMOND location definition file. Creating new file.')
+-            x = {"Type": "DIAMONDDB", "DBPATH": "Not Set"}
+-            with open(diamond_location, 'w') as dl:
+-                json.dump(x, dl)
+-            try:
+-                with open(diamond_location) as f:
+-                    diamond_definition = json.load(f)
+-            except Exception as e:
+-                logging.error('Could not create new file: {}'.format(e))
+-                sys.exit(1)
+-        if diamond_definition['DBPATH'] != 'Not Set':
+-            logging.warning('DIAMOND database found at {}. Overwriting previous database.'.format(diamond_definition['DBPATH']))
+-            
+-        
+         make_sure_path_exists(os.path.join(download_location, 'CheckM2_database'))
+         
+         backpack_downloader = zenodo_backpack.zenodo_backpack_downloader('INFO')
+         highest_compatible_version, DOI = versionControl.VersionControl().return_highest_compatible_DB_version()
+ 
+-        
+-        diamond_loc_final = os.path.join(download_location, 'CheckM2_database', 'uniref100.KO.1.dmnd')
+-
+         if download_location is not None:
+             #check we have writing permission
+             try:
+@@ -125,13 +75,6 @@
+                 sys.exit(1)
+             
+             backpack_downloader.download_and_extract(download_location, DOI, progress_bar=True, no_check_version=False)
+-            
+-            diamond_definition['DBPATH'] = os.path.abspath(diamond_loc_final)
+-
+-            with open(diamond_location, 'w') as dd:
+-                json.dump(diamond_definition, dd)
+-            
+-
+         else:
+             logging.info('Failed to determine download location')
+             sys.exit(1)
+@@ -142,14 +85,12 @@
+         else:
+             logging.error('Could not verify successfull installation of reference database.')
+ 
+-
+     def update_database(self):
+         pass
+ 
+ def update_checkm2():
+     pass
+ 
+-
+ def check_empty_dir(input_dir, overwrite=False):
+     """Check the the specified directory is empty and create it if necessary."""
+     if not os.path.exists(input_dir):
+@@ -207,14 +148,12 @@
+         logging.error('File does not exist: ' + inputFile + '\n')
+         sys.exit(1)
+ 
+-
+ def check_if_dir_exists(inputDir):
+     """Check if directory exists."""
+     if not os.path.exists(inputDir):
+         logging.error('Input directory does not exists: ' + inputDir + '\n')
+         sys.exit(1)
+ 
+-
+ def make_sure_path_exists(path):
+     """Create directory if it does not exist."""
+     if not path:
