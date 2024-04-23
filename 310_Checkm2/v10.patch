@@ -1,6 +1,6 @@
---- checkm2/fileManager.py.orig	2024-04-22 15:02:39.480569000 +0200
-+++ checkm2/fileManager.py	2024-04-22 15:04:00.239544863 +0200
-@@ -1,228 +1,178 @@
+--- checkm2/fileManager.py.orig	2024-04-23 14:17:24.825732872 +0200
++++ checkm2/fileManager.py	2024-04-23 16:15:51.055996000 +0200
+@@ -1,228 +1,173 @@
 -import os
 -import errno
 -import sys
@@ -273,19 +273,14 @@
 +        if self.DATABASE_DIR == 'Not Set':
 +            logging.error(
 +                'DIAMOND database not found. Please download database using <checkm2 database --download> '
-+                + 'but FIRST set CHECKM2DB by $ export CHECKM2DB=path/to/database.dmnd'
++                + 'but FIRST set CHECKM2DB by $ export CHECKM2DB=path/to/database/CheckM2_database/uniref100.KO.1.dmnd'
 +            )
 +            sys.exit(1)
 +        else:
 +            return self.DATABASE_DIR
 +
 +    def set_DB_location(self, provided_location):
-+        logging.info("Set path to database location by: $ export CHECKM2DB=path/to/database.dmnd")
-+
-+        else:
-+            logging.error("Checksum in CheckM2 reference doesn't match provided database. Please check your files.")
-+            sys.exit(1)
-+
++        logging.info("Set path to database location by: $ export CHECKM2DB=path/to/database/CheckM2_database/uniref100.KO.1.dmnd")
 +
 +    def download_database(self, download_location):
 +

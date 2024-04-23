@@ -29,15 +29,12 @@ exts_list = [
         'checksums': ['bd98e3b501b4c24dc127f4ad93e467f42923fe3eefa99e143b5b93158f024395'],
     }),
     (name, version, {
-        'patches': [
-            'v7.patch',
-            # 'test1.patch',
-        ],
+        'patches': ['v10.patch'],
         'source_urls': ['https://github.com/chklovski/CheckM2/archive/'],
         'sources': ['%(version)s.tar.gz'],
         'checksums': [
             {'1.0.2.tar.gz': '9d3129e4d0b53acc38519a259cc1e20a215dff0cbce51cef874545ca2fff005a'},
-            {'v7.patch': '45fd0517ba88273acab9373dd49ab1af31fedda47d3d31b8d841ffa463cf1722'},
+            {'v10.patch': '717054aacb31ba0fe434966c3280de5e8d241e5b125b5e4452dde86860a85d82'},
         ],
     }),
 ]
@@ -59,12 +56,22 @@ postinstallcmds = [
     # Download database -> do not do it here - user should do it
     # '%(installdir)s/bin/checkm2 database --download --path %(installdir)s',
     # update DB_LOCATION_DEFINITION in defaultValues.py to env CHECKM2DB
-    # 'sed -i "31d" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/defaultValues.py',
-    # "sed -i '30 a DB_LOCATION_DEFINITION = os.environ.get(\"CHECKM2DB\", \"Not Set\")' %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/defaultValues.py",
-    "sed -i 's/os.path.join(VERSION_PATH, 'diamond_path.json')/    os.environ.get(\"CHECKM2DB\", \"Not Set\")/g' %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/defaultValues.py",
-    
+    'sed -i "31d" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/defaultValues.py',
+    "sed -i '30 a\    DB_LOCATION_DEFINITION = os.environ.get(\"CHECKM2DB\", \"Not Set\")' %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/defaultValues.py",
+    # "sed -i 's/os.path.join(VERSION_PATH, 'diamond_path.json')/    os.environ.get(\"CHECKM2DB\", \"Not Set\")/g' %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/defaultValues.py",
+    # convert defaultsValues.py to dos style
+    "unix2dos %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/defaultValues.py",
 ]
 
+#v1.patch error:
+# Hunk #1 FAILED at 36 (different line endings).
+# Hunk #2 FAILED at 87 (different line endings).
+# Hunk #3 FAILED at 125 (different line endin (took 7 mins 35 secs)
+
+# v7.patch error:
+# Hunk #1 FAILED at 1 (different line endings)
+
+# module load message about set CHECKM2DB and download db
 use_pip = True
 sanity_pip_check = True
 
