@@ -1,5 +1,5 @@
---- checkm2/fileManager.py.orig	2024-04-22 13:09:42.020638000 +0200
-+++ checkm2/fileManager.py	2024-04-22 13:37:15.856049000 +0200
+--- checkm2/fileManager.py.orig	2024-04-23 13:59:19.521123853 +0200
++++ checkm2/fileManager.py	2024-04-23 14:01:11.485054000 +0200
 @@ -36,43 +36,20 @@
  
  
@@ -29,7 +29,7 @@
 -            logging.error('DIAMOND database not found. Please download database using <checkm2 database --download>')
 +            logging.error(
 +                'DIAMOND database not found. Please download database using <checkm2 database --download> '
-+                + 'but FIRST set CHECKM2DB by $ export CHECKM2DB=path/to/database.dmnd'
++                + 'but FIRST set CHECKM2DB by $ export CHECKM2DB=path/to/database/CheckM2_database/uniref100.KO.1.dmnd'
 +            )
              sys.exit(1)
          else:
@@ -99,3 +99,10 @@
          else:
              logging.info('Failed to determine download location')
              sys.exit(1)
+@@ -225,4 +175,4 @@
+     except OSError as exception:
+         if exception.errno != errno.EEXIST:
+             logging.error('Specified path does not exist: ' + path + '\n')
+-            sys.exit(1)
++            sys.exit(1)
+\ No newline at end of file
