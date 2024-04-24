@@ -72,6 +72,18 @@ postinstallcmds = [
 # Hunk #1 FAILED at 1 (different line endings)
 
 # module load message about set CHECKM2DB and download db
+modloadmsg = """You need download a diamond database now and setup a path to this db:
+First you need to setup $CHECKM2DB as:
+$ export CHECKM2DB="path/to/database/CheckM2_database/uniref100.KO.1.dmnd"
+Next, download the database (/CheckM2_database/uniref100.KO.1.dmnd will be created):
+$ checkm2 database --download --path path/to/database
+You can check path to the database by:
+$ checkm2 database --current
+You can either test if everything is setup properly by:
+$ checkm2 testrun
+"""
+# checkm2 database --current
+
 use_pip = True
 sanity_pip_check = True
 
