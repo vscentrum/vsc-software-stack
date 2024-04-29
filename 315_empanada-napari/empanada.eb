@@ -56,6 +56,7 @@ dependencies = [
     ('Albumentations', '1.4.0'),
     ('connected-components-3d', '3.14.1'),
     ('empanada-dl', '0.1.7'),
+    ('build', '1.0.3'),
 ]
 
 exts_list = [
@@ -63,11 +64,16 @@ exts_list = [
         'checksums': ['7038d1b7f9e0585beb3dd8c0a956f02b95a346c0b5f24a9e8cc03ebadaf0aa70'],
     }),
     (name, version, {
-        'preinstallopts': "sed -i 's/numpy==1.22/numpy>=1.22/g' setup.cfg && ",
+        'preinstallopts': "sed -i 's/numpy==1.22/numpy>=1.22/g' setup.cfg && echo HERE1 && ml list && ",
+        # 'preinstallopts': "sed -i 's/numpy==1.22/numpy>=1.22/g' setup.cfg && ",
         'checksums': ['f4890cb6f20689933e28903dd7d43238aeae32afb53fa225bdf41d4bdcfc2c71'],
     }),
 ]
 
+postinstallcmds = [
+    'echo HERE2',
+    "ml list",
+]
 # postinstallcmds = [
 #     'sed -i "s/np.float/float/g" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/predictQuality.py',
 #     '%(installdir)s/bin/checkm2 database --download --path %(installdir)s',
