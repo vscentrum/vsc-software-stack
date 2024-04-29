@@ -37,6 +37,12 @@ exts_list = [
     }),
 ]
 
+postinstallcmds = [
+    "cd $EBROOTCPLEX/cplex/python/3.10/x86-64_linux && "
+    "python setup.py install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Compass/2024.04-foss-2022a"
+]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages/cplex-22.1.1.0-py3.10.egg/cplex'}
 # sanity_check_commands = ["python -c 'import igraph'", "compass -h", "python -c 'import cplex'"]
 
 moduleclass = 'bio'
