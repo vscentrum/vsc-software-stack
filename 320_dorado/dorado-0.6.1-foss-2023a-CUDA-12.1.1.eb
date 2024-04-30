@@ -63,7 +63,6 @@ configopts += "-DDORADO_LIBTORCH_DIR=$EBROOTPYTORCH/lib "
 # add -pthread flag (in addition to -lpthread) to avoid linking error:
 # in function `_GLOBAL__sub_I_mutex.cc': mutex.cc:(.text.startup+0x17): undefined reference to `pthread_atfork'
 configopts += '-DCMAKE_C_FLAGS="$CFLAGS -pthread" '
-configopts += '-DCMAKE_CXX_FLAGS="$CXXFLAGS -Wstringop-overflow= " '
 
 sanity_check_paths = {
     'files': ['bin/dorado'],
