@@ -8,31 +8,6 @@ description = "Albumentations is a Python library for fast and flexible image au
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# v1.3.1: YES
-# "numpy>=1.11.1" OK 1.25.1
-# "scipy>=1.1.0" OK 1.11.1
-# "scikit-image>=0.16.1" OK 0.22.0
-# "PyYAML" OK 6.0
-# "qudida>=0.0.4" not in EB - seems ok to put it in exts
-# "opencv-python>=4.1.1" OK 4.8.1
-
-# v1.4.0: TRY -> change opencv-python dep version -> WORKS
-# "numpy>=1.24.4" OK 1.25.1
-# "scipy>=1.10.0" OK 1.11.1
-# "scikit-image>=0.21.0" OK 0.22.0
-# "PyYAML" OK 6.0
-# "qudida>=0.0.4" not in EB - seems ok to put it in exts
-# "opencv-python>=4.9.0" NOT 4.8.1
-# qudida 0.0.4 requires scikit-learn OK
-
-# v1.4.1 and more recent -> 1.4.4: NO 
-# "numpy>=1.24.4"
-# "scipy>=1.10.0"
-# "scikit-image>=0.21.0"
-# "PyYAML"
-# "typing-extensions>=4.9.0" (have 4.6.3)
-# "scikit-learn>=1.3.2" (have 1.3.1.)
-
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
@@ -41,7 +16,6 @@ dependencies = [
     ('scikit-image', '0.22.0'),
     ('scikit-learn', '1.3.1'),
     ('OpenCV', '4.8.1', '-contrib'),
-    # ('imgaug', '0.4.0'), not for 2023a
 ]
 
 preinstallopts = "sed -i 's|CHOOSE_INSTALL_REQUIRES),|[]),|g' setup.py && "

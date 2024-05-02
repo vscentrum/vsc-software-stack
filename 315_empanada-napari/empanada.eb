@@ -8,42 +8,6 @@ description = "Panoptic segmentation algorithms for 2D and 3D electron microscop
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-#After ec for empanada-dl created:
-# npe2 0.7.3 has requirement build>=1, but you have build 0.10.0.
-# jupyter-events 0.7.0 has requirement jsonschema[format-nongpl]>=4.18.0, but you have jsonschema 4.17.3.
-
-# older:
-# empanada-napari 1.1.0 requires empanada-dl OK exts
-# empanada-napari 1.1.0 requires imagecodecs - NO - in EB only 2022a -> do ec -> CREATED v2023.1.23
-# empanada-napari 1.1.0 requires imagehash OK exts 
-# empanada-napari 1.1.0 requires mlflow OK
-# empanada-napari 1.1.0 requires openpyxl OK
-# empanada-napari 1.1.0 requires simpleitk OK
-# empanada-napari 1.1.0 has requirement numpy==1.22, but you have numpy 1.25.1. -> sed change
-    # numpy 1.22.3 is for foss/2022a
-
-# empanada-dl 0.1.7 requires albumentations, not for 2023a (for 2022a)-> CREATED v1.4.0
-# empanada-dl 0.1.7 requires connected-components-3d -> not for 2023a (for 2022b) -> now in exts
-# empanada-dl 0.1.7 requires cztile OK exts
-# empanada-dl 0.1.7 requires numba OK
-# empanada-dl 0.1.7 requires opencv-python OK OpenCV - do not know if python version is there
-# empanada-dl 0.1.7 requires torch OK torchvision
-# empanada-dl 0.1.7 requires torchvision OK
-# empanada-dl 0.1.7 requires zarr OK
-# empanada-dl 0.1.7 has requirement numpy==1.22, but you have numpy 1.25.1. -> do ec for this
-
-# empanada-dl 0.1.7 requires opencv-python - in req.txt either setup.cfg
-# empanada-dl 0.1.7 has requirement numpy==1.22, but you have numpy 1.25.1.
-# albumentations 1.4.4 has requirement opencv-contrib-python>=4.9.0, but you have opencv-contrib-python 4.8.1. 
-# -> not so new version of albumentations
-# albumentations 1.4.4 has requirement pydantic>=2.6.4, but you have pydantic 2.5.3.
-# albumentations 1.4.4 has requirement scikit-learn>=1.3.2, but you have scikit-learn 1.3.1.
-# albumentations 1.4.4 has requirement typing-extensions>=4.9.0, but you have typing-extensions 4.6.3.
-# npe2 0.7.3 has requirement build>=1, but you have build 0.10.0. -> it comes from napari
-# jupyter-events 0.7.0 has requirement jsonschema[format-nongpl]>=4.18.0, but you have jsonschema 4.17.3. ??? 
-    # this comes from cztile or connected-components-3d or albumentations -> NO
-    # jupyter is in IPython - > napari
-
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
