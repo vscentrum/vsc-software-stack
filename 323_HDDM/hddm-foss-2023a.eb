@@ -1,0 +1,141 @@
+easyblock = 'PythonBundle'
+
+name = 'HDDM'
+version = '0.9.9'
+
+homepage = 'https://hddm.readthedocs.io/'
+description = """HDDM is a Python toolbox for hierarchical Bayesian parameter estimation
+ of the Drift Diffusion Model (via PyMC)."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+# toolchainopts = {'pic': True}
+
+#v0.9.6: NO
+# Cython>=0.16 OK
+# numpy>=1.20.1 OK
+# scipy>=1.6.1 OK
+# pandas>=1.0.0 OK
+# seaborn>=0.11.0 OK
+# statsmodels>=0.12.0 OK
+# scikit-learn>=0.24 OK
+# tqdm>=4.1.0 OK
+# patsy>=0.5.1 exts
+# #python-dateutil==1.5
+# #pytz==2012d
+# #wsgiref==0.1.2
+# matplotlib>=1.1.0
+# pymc>=2.3.8
+# git+https://github.com/hddm-devs/kabuki
+
+# v1.0.1: NO
+# 'numpy >=1.20.0, < 1.23.0'
+# 'scipy >= 1.6.3, < 1.7.0'
+# 'cython >= 0.29.0, < 1.0.0'
+# 'pandas >= 1.0.0, < 1.5.0' 'patsy'
+# 'seaborn == 0.11.0'
+# 'statsmodels >= 0.12.0, < 0.13.0'
+# 'tqdm >= 4.1.0'
+# 'scikit-learn == 0.24'
+# 'cloudpickle >= 2.0.0'
+# 'kabuki >= 0.6.0'
+# 'PyMC >= 2.3.3, < 3.0.0'
+# 'arviz == 0.12'
+# 'ssm-simulators == 0.3.2'
+
+#v0.9.9: (in 2023a EB) OK
+# 'numpy >=1.20.0' (1.25.1) OK
+# 'scipy >= 1.6.1' (1.11.1) OK
+# 'cython >= 0.29.0' (0.29.35) OK
+# 'pandas >= 1.0.0' (2.0.3) OK
+# 'patsy' exts OK
+# 'seaborn >= 0.11.0' (0.13.2) OK
+# 'statsmodels >= 0.12.0' (0.14.1) OK
+# 'tqdm >= 4.1.0' (4.66.1) OK
+# 'scikit-learn >= 0.24' (1.3.1) OK
+# 'cloudpickle >= 2.0.0' exts OK
+# 'kabuki >= 0.6.0' exts OK
+# 'PyMC >= 2.3.3, < 3.0.0' (5.9.0) !!! ok? no...
+# 'arviz >= 0.11' (0.16.1) OK
+# 'ssm-simulators >= 0.3.0' exts OK
+
+#v0.9.9 for intel 2023a:
+# scipy-budle OK (iimkl)
+# cython OK (GCCcore)
+# seaborn - not (in EB intel 2020b)
+# statsmodels - not (in EB intel 2021b)
+# tqdm OK (GCCcore)
+# scikit-learn OK (iimkl)
+# arviz - not (in EB intel 2022a)
+
+#v0.9.9 for intel 2021b:
+# scipy-bundle OK
+# cython OK- in python 
+# seaborn -> create (in EB foss/2021b) OK
+# statsmodels OK
+# scikit-learn OK
+# PyMC 2.3.8 OK created
+# arviz OK
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('Seaborn', '0.13.2'),
+    ('statsmodels', '0.14.1'),
+    ('scikit-learn', '1.3.1'),
+    ('tqdm', '4.66.1'),
+    ('PyMC', '5.9.0'),
+    ('ArviZ', '0.16.1'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('kabuki', '0.6.5', {
+        'checksums': ['ffd8aabba4355a6ee55287120c02e8fb6300482970e3dbe615e07ed8102dba69'],
+    }),
+    ('cloudpickle', '3.0.0', {
+        'checksums': ['996d9a482c6fb4f33c1a35335cf8afd065d2a56e973270364840712d9131a882'],
+    }),
+    ('ssm-simulators', '0.3.0', {
+        'modulename': 'ssms',
+        'checksums': ['5477025d0c2a6a7f8aa3aa336a1368ff3256d86956f1bb93d7cc507a5651a860'],
+    }),
+    ('patsy', '0.5.6', {
+        'checksums': ['95c6d47a7222535f84bff7f63d7303f2e297747a598db89cf5c67f0c0c7d2cdb'],
+    }),
+    (name, version, {
+        'preinstallopts': "sed -i 's/PyMC >= 2.3.3, < 3.0.0/PyMC >= 2.3.3/g' setup.py && ",
+        'checksums': ['2ed64db2be7acb5ef4c8b07dcf8ea4680fdfd168876be19db9cf885dd490fe5f'],
+    }),
+]
+
+# exts_list = [
+#     ('pymc', '2.3.7', {
+#         'patches': ['pymc-2.3.7_rename-await.patch'],
+#         'source_tmpl': 'v%(version)s.tar.gz',
+#         'source_urls': ['https://github.com/pymc-devs/pymc/archive/'],
+#         'checksums': [
+#             '12765987a5d64eaf210b1a32053990a0a4cacf2458e93d9b35ebab239032a4b5',  # v2.3.7.tar.gz
+#             'cf46c4b7d68ef26f0b9b6c329f3939ed6c0911e1f304f08cbcf6b9d4c4c4df5f',  # pymc-2.3.7_rename-await.patch
+#         ],
+#     }),
+#     ('kabuki', '0.6.2', {
+#         'checksums': ['3d5e727529b323b3f12ec583c05702e863e7d4b1f31a7ba6077058115eb066b1'],
+#     }),
+#     ('patsy', '0.5.1', {
+#         'checksums': ['f115cec4201e1465cd58b9866b0b0e7b941caafec129869057405bfe5b5e3991'],
+#     }),
+#     (name, version, {
+#         'checksums': ['da13c51db24816d77ee04ebe9f7adbe5e4304da8e11a58371c660477f80b7f99'],
+#     }),
+# ]
+
+# sanity_check_paths = {
+#     'files': ['bin/hddm_demo.py'],
+#     'dirs': [],
+# }
+
+sanity_pip_check = True
+
+moduleclass = 'bio'
