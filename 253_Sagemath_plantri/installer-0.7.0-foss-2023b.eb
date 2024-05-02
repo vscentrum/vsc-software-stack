@@ -1,0 +1,30 @@
+easyblock = 'PythonBundle'
+
+name = 'installer'
+version = '0.7.0'
+
+homepage = 'https://github.com/pypa/installer'
+description = """This is a low-level library for installing a Python package from a wheel distribution.
+ It provides basic functionality and abstractions for handling wheels and installing packages from wheels."""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+dependencies = [
+    ('Python', '3.11.5'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    (name, version, {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['05d1933f0a5ba7d8d6296bb6d5018e7c94fa473ceb10cf198a92ccea19c27b53'],
+    }),
+]
+
+sanity_check_commands = [
+    "python3 -m installer 2>&1 | grep 'usage:'",
+]
+
+moduleclass = 'devel'
