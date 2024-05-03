@@ -1,0 +1,97 @@
+easyblock = 'MakeCp'
+
+name = 'VASP'
+version = '6.4.2'
+local_solver = '20210413'
+local_solcommit = '0dc6b89b17e22b717cb270ecc4e1bbcfbb843603'
+local_vtstver = '197'
+local_wanver = '3.1.0'
+versionsuffix = '-VASPsol-%s-vtst-%s-Wannier90-%s' % (local_solver, local_vtstver, local_wanver)
+
+homepage = 'http://www.vasp.at'
+description = """The Vienna Ab initio Simulation Package (VASP) is a computer program for atomic scale
+materials modelling, e.g. electronic structure calculations and quantum-mechanical molecular dynamics,
+from first principles."""
+
+toolchain = {'name': 'gomkl', 'version': '2022a'}
+toolchainopts = {'usempi': True}
+
+# Vasp is proprietary software, see http://www.vasp.at/index.php/faqs on how to get access to the code
+source_urls = 'https://github.com/henniggroup/VASPsol/archive/'
+sources = [
+    '%(namelower)s.%(version)s.tgz',
+    {
+        'source_urls': ['https://github.com/henniggroup/VASPsol/archive/'],
+        'download_filename': '%s.tar.gz' % local_solcommit,
+        'filename': 'VASPsol-%s.tar.gz' % local_solver,
+    },
+    {
+        'source_urls': ['https://theory.cm.utexas.edu/code/'],
+        'filename': 'vtstcode-%s.tgz' % local_vtstver,
+    },
+]
+patches = [('VASP-6.3.1_gomkl-sol-vtst-w90.patch', 1)]
+checksums = [
+    'b704637f7384673f91adfbc803edc5cc7fe736d9623453461f7cdc29b123410e',  # vasp.6.4.2.tgz
+    '3eb4b33253a15ca7e32a8939dbf1216b975eedb1f70f7dc371ab6db2308371cb',  # VASPsol-20210413.tar.gz
+    '2017f5129a10e48ef2d928932eb48156dde7b8a9a26e6d0f5c086eae3ee0cb5a',  # vtstcode-197.tgz
+    'ce7425d62b26390e6ebcb44eaa70f718501e1ead4e762b278a696b7411be3588',  # VASP-6.3.1_gomkl-sol-vtst-w90.patch
+]
+
+dependencies = [('Wannier90', local_wanver)]
+
+group = 'bvasp'
+
+prebuildopts = 'cp -v arch/makefile.include.gomkl ./makefile.include &&'
+# Install VASPSol
+# solvation.o is already in src/.objects, line just commented if it disappears from future versions
+#prebuildopts += "sed -e 's/	pot.o/	solvation.o pot.o/' -i src/.objects &&"
+prebuildopts += 'cp -v  ../VASPsol-*/src/solvation.F src/. &&'
+prebuildopts += 'cd src && patch -bp0 < ../../VASPsol-*/src/patches/pbz_patch_610 && cd .. &&'
+# Install VTST
+prebuildopts += "cp -v src/main.F src/main.F_vtst_backup &&"
+prebuildopts += "sed -z 's/       LATT_CUR%A,LATT_CUR%B,IO%IU6)/       TSIF,LATT_CUR%A,LATT_CUR%B,IO%IU6)/'"
+prebuildopts += ' -i src/main.F &&'
+prebuildopts += "sed -e 's/IF (LCHAIN) CALL chain_init( T_INFO, IO)/CALL chain_init( T_INFO, IO)/'"
+prebuildopts += ' -i src/main.F &&'
+prebuildopts += 'mv -v src/chain.F src/chain.F_vtst_backup &&'
+prebuildopts += 'cp -v ../vtstcode-*/vtstcode6.4/*.F src/. &&'
+prebuildopts += 'cp -vr ../vtstcode-*/vtstcode6.4/pyamff_fortran/ src/. &&'
+prebuildopts += "sed -e 's#	chain.o#	bfgs.o dynmat.o instanton.o lbfgs.o sd.o cg.o dimer.o bbm.o"
+prebuildopts += " fire.o lanczos.o neb.o qm.o ml_pyamff.o"
+for _local in ['fptype.o', 'atoms.o', 'neighborlist.o', 'behlerParrinello.o', 'nntype.o', 'trainType.o',
+               'normalization.o', 'mtfort90.o', 'fingerprints.o', 'neuralnetwork.o', 'nnmodule.o', 'pyamffType.o',
+               'lossgrad.o', 'adam.o', 'lbfgs_ml.o', 'rprop.o', 'opts.o', 'training.o', 'model.o']:
+  prebuildopts += " pyamff_fortran/" + _local
+prebuildopts += " opt.o chain.o#' -i src/.objects &&"
+prebuildopts += "sed -e 's/LIB=lib parser/LIB=lib parser pyamff_fortran/' -i src/makefile &&"
+
+# Makefile uses LIBS as a list of folders
+prebuildopts += 'unset LIBS && '
+
+_targets = ['std', 'gam', 'ncl']
+
+buildopts = '%s ' % ' '.join(_targets)
+buildopts += 'FCL="$MPIF90" DEBUG="$FFLAGS" OFLAG="$FFLAGS" '
+buildopts += 'OFLAG_1="${FFLAGS/O2/O1}" '
+buildopts += 'OFLAG_2="$FFLAGS" '
+buildopts += 'OFLAG_3="${FFLAGS/O2/O3}" '
+buildopts += 'CFLAGS_LIB="$CFLAGS" FFLAGS_LIB="${FFLAGS/O2/O1}" BLAS="$LIBBLAS" '
+buildopts += 'LAPACK="$LIBLAPACK" BLACS="$LIBBLACS" SCALAPACK="$LIBSCALAPACK"'
+
+# https://www.vasp.at/wiki/index.php/Validation_tests
+runtest = 'test'
+
+parallel = 1
+
+files_to_copy = [
+    (['bin/vasp_' + x for x in _targets], 'bin'),
+    (['testsuite'], ''),
+]
+
+sanity_check_paths = {
+    'files': ['bin/vasp_' + x for x in _targets],
+    'dirs': []
+}
+
+moduleclass = 'phys'
