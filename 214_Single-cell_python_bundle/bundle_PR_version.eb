@@ -1,0 +1,132 @@
+easyblock = 'PythonBundle'
+
+name = 'Single-cell-python-bundle'
+version = '2024.02'
+
+homepage = (None)
+description = """Bundle of tools for single-cell sequence analysis."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [('poetry', '1.5.1')]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+    ('Seaborn', '0.13.2'),
+    ('PyTorch', '2.1.2'),
+    ('scanpy', '1.9.8'),
+    # scvi-tools TODO
+    # scArches TODO
+    # scib-metrics TODO
+    ('scib', '1.1.4'),
+    ('scVelo', '0.3.1'),  # imports loompy
+    ('CellTypist', '1.6.2'),
+    # loompy in scVelo
+    ('epiScanpy', '0.4.0'),
+    ('scCODA', '0.1.9'),  # imports rpy2
+    # rpy2 in scCODA
+    ('infercnvpy', '0.4.3'),
+    ('pySCENIC', '0.12.1-20240311'),
+    ('CellRank', '2.0.2'),
+    ('Squidpy', '1.4.1'),
+    ('Cassiopeia', '2.0.0'),
+    # deps for exts:
+    ('umap-learn', '0.5.5'),  # bbknn
+    ('scikit-learn', '1.3.1'),  # bbknn, sc_toolbox
+    ('PyYAML', '6.0'),  # sc_toolbox
+    ('typing-extensions', '4.9.0'),  # sc_toolbox
+    ('adjustText', '1.1.1'),  # sc_toolbox, created
+]
+
+exts_list = [
+    ('flit_core', '3.9.0', {
+        'checksums': ['72ad266176c4a3fcfab5f2930d76896059851240570ce9a98733b658cb786eba'],
+    }),
+    ('annoy', '1.17.3', {
+        'checksums': ['9cbfebefe0a5f843eba29c6be4c84d601f4f41ad4ded0486f1b88c3b07739c15'],
+    }),
+    ('pynndescent', '0.5.11', {
+        'checksums': ['6f44ced9d5a9da2c87d9b2fff30bb5308540c0657605e4d5cde7ed3275bbad50'],
+    }),
+    ('bbknn', '1.6.0', {
+        'checksums': ['1c01a9d6df2fc52a527de8a403617897a4b672724863299a7026f2132f1b041b'],
+    }),
+    ('tzlocal', '5.2', {
+        'checksums': ['8d399205578f1a9342816409cc1e46a93ebd5755e39ea2d85334bea911bf0e6e'],
+    }),
+    ('anndata2ri', '1.3.1', {
+        'checksums': ['0e3fa2f81789f682d19ef452fabdb401ec27899db9abe5a78e45e21dcc7caa42'],
+    }),
+    ('pypi-latest', '0.1.2', {
+        'checksums': ['b195654567e6abaac6acfec37638d8e000838f419bc6b129962a896eedc4ed4e'],
+    }),
+    ('text-unidecode', '1.3', {
+        'checksums': ['bad6603bb14d279193107714b288be206cac565dfa49aa5b105294dd5c4aab93'],
+    }),
+    ('python-slugify', '8.0.4', {
+        'modulename': 'slugify',
+        'checksums': ['59202371d1d05b54a9e7720c5e038f928f45daaffe41dd10822f3907b937c856'],
+    }),
+    ('prompt_toolkit', '3.0.36', {
+        'checksums': ['3e163f254bef5a03b146397d7c1963bd3e2812f0964bb9a24e6ec761fd28db63'],
+    }),
+    ('binaryornot', '0.4.4', {
+        'checksums': ['359501dfc9d40632edc9fac890e19542db1a287bbcfa58175b66658392018061'],
+    }),
+    ('types-python-dateutil', '2.9.0.20240316', {
+        'modulename': False,
+        'checksums': ['5d2f2e240b86905e40944dd787db6da9263f0deabef1076ddaed797351ec0202'],
+    }),
+    ('arrow', '1.3.0', {
+        'checksums': ['d4540617648cb5f895730f1ad8c82a65f2dad0166f57b75f3ca54759c4d67a85'],
+    }),
+    ('cookiecutter', '2.6.0', {
+        'checksums': ['db21f8169ea4f4fdc2408d48ca44859349de2647fbe494a9d6c3edfc0542c21c'],
+    }),
+    ('questionary', '2.0.1', {
+        'checksums': ['bcce898bf3dbb446ff62830c86c5c6fb9a22a54146f0f5597d3da43b10d8fc8b'],
+    }),
+    ('rich', '13.7.1', {
+        'checksums': ['9be308cb1fe2f1f57d67ce99e95af38a1e2bc71ad9813b0e247cf7ffbcc3a432'],
+    }),
+    ('sc_toolbox', '0.12.3', {
+        'checksums': ['6ca22a364c269a095114e620eb3c6da8aac1950d8f43f58ceea08005a09cc2cb'],
+    }),
+    ('toolz', '0.12.1', {
+        'checksums': ['ecca342664893f177a13dac0e6b41cbd8ac25a358e5f215316d43e2100224f4d'],
+    }),
+    ('altair', '5.2.0', {
+        'checksums': ['2ad7f0c8010ebbc46319cc30febfb8e59ccf84969a201541c207bc3a4fa6cf81'],
+    }),
+    ('custom_inherit', '2.4.1', {
+        'checksums': ['7052eb337bcce83551815264391cc4efc2bf70b295a3c52aba64f1ab57c3a8a2'],
+    }),
+    ('multipledispatch', '1.0.0', {
+        'checksums': ['5c839915465c68206c3e9c473357908216c28383b425361e5d144594bf85a7e0'],
+    }),
+    ('pypng', '0.20220715.0', {
+        'modulename': 'png',
+        'checksums': ['739c433ba96f078315de54c0db975aee537cbc3e1d0ae4ed9aab0ca1e427e2c1'],
+    }),
+    ('reportlab', '4.1.0', {
+        'checksums': ['3a99faf412691159c068b3ff01c15307ce2fd2cf6b860199434874e002040a84'],
+    }),
+    ('toyplot', '1.0.3', {
+        'checksums': ['7b7b2bc5784fd75e5c695300bffc80d568c83bebef543bb54e6e6c2229912edd'],
+    }),
+    ('toytree', '2.0.5', {
+        'checksums': ['7be04ca310067e0e9737449700d6ab1b68b4379b64e2d22f2f7697a70030ceb0'],
+    }),
+    ('tascCODA', '0.1.3', {
+        'preinstallopts': "sed -i '28d' setup.py && ",
+        'checksums': ['8c12ddccb72c41c96c6a5abceb52e7a76f439a9ab94fb092aa86ee3c1292383a'],
+    }),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+moduleclass = 'bio'
