@@ -22,17 +22,17 @@ class DiamondDB:
 
               diamond_definition = self.__get_db_file()
 
-              if diamond_definition['DBPATH'] == 'Not Set':
+              if diamond_definition == 'Not Set':
                 self.DATABASE_DIR = 'Not Set'
               else:
-                self.DATABASE_DIR = diamond_definition['DBPATH']
+                self.DATABASE_DIR = diamond_definition
         else:
             diamond_definition = self.__get_db_file()
 
-            if diamond_definition['DBPATH'] == 'Not Set':
+            if diamond_definition == 'Not Set':
                 self.DATABASE_DIR = 'Not Set'
             else:
-                self.DATABASE_DIR = diamond_definition['DBPATH']
+                self.DATABASE_DIR = diamond_definition
 
 
     def __get_db_file(self):
@@ -41,20 +41,15 @@ class DiamondDB:
     def get_DB_location(self):
         if self.DATABASE_DIR == 'Not Set':
             logging.error(
-                'DIAMOND database not found. Please download database using <checkm2 database --download> '
-                + 'but FIRST set CHECKM2DB by $ export CHECKM2DB=path/to/database.dmnd'
+                'DIAMOND database not found. Please download database using $ checkm2 database --download --path /path/to/database '
+                + ',but FIRST set CHECKM2DB to PATH by $ export CHECKM2DB=\"/path/to/database/CheckM2_database/uniref100.KO.1.dmnd\"'
             )
             sys.exit(1)
         else:
             return self.DATABASE_DIR
 
     def set_DB_location(self, provided_location):
-        logging.info("Set path to database location by: $ export CHECKM2DB=path/to/database.dmnd")
-
-        else:
-            logging.error("Checksum in CheckM2 reference doesn't match provided database. Please check your files.")
-            sys.exit(1)
-
+        logging.info("Set path to database location by: $ export CHECKM2DB=path/to/database/CheckM2_database/uniref100.KO.1.dmnd")
 
     def download_database(self, download_location):
 
