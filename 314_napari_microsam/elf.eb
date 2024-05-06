@@ -1,0 +1,92 @@
+easyblock = 'PythonBundle'
+
+name = 'python-elf'
+version = '0.5.0'
+
+homepage = 'https://github.com/constantinpape/elf'
+description = "Utils and convenience functions for large-scale bio-image analysis."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+#DEPS:
+# "numpy", OK
+# "imageio", OK
+# "scikit-image", OK
+# "scikit-learn", OK
+# "skan" OK exts
+# "hdf5": "h5py", OK
+# "zarr": "zarr", OK
+# "n5": "pyn5", OK exts
+# "cloud": "intern" OK exts
+# nifty 1.6.3 requires testify OK exts
+# intern 1.4.1 requires blosc OK -> only C package in EB -> python-blosc created
+# intern 1.4.1 requires nose2 OK exts
+# skan 0.11.1 requires openpyxl OK
+
+# builddependencies = [
+#     ('maturin', '1.4.0', '-Rust-1.75.0')
+# ]
+builddependencies = [
+    ('scikit-build', '0.17.6'),
+    ('CMake', '3.26.3'),
+]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('imageio', '2.33.1'),
+    ('scikit-image', '0.22.0'),
+    ('scikit-learn', '1.3.1'),
+    ('h5py', '3.9.0'),
+    ('zarr', '2.17.1'),
+    ('mrcfile', '1.5.0'),
+    ('numba', '0.58.1'),
+    ('tqdm', '4.66.1'),
+    ('vigra', '1.11.2'),
+    ('python-blosc', '1.11.0'),
+    ('openpyxl', '3.1.2'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('nose2', '0.14.1', {
+        'checksums': ['7f8f03a21c9de2c33015933afcef72bf8e4a2d5dfec3b40092287de6e41b093a'],
+    }),
+    # ('testify', '0.11.3', {
+    #     'checksums': ['45246144e67748bcf9fdae5743c6fa7fb91dd3e6d69d19a5810d33fa0f511430'],
+    # }),
+    ('threadpoolctl', '3.5.0', {
+        'checksums': ['082433502dd922bf738de0d8bcc4fdcbf0979ff44c42bd40f5af8a282f6fa107'],
+    }),
+    ('affogato', '1.0.0', {
+        'checksums': ['f075ec09585600e1da8511e43e79bab377125ea2190909df9fbfdc5c1ae1eb51'],
+    }),
+    # ('nifty', '1.6.3', {
+    #     'checksums': ['9ee4ecf3c747572a39ecc47cf8982cdaba8c0ef2fcefa5d2bcc180f61ffb2113'],
+    # }),
+    ('intern', '1.4.1', {
+        'checksums': ['7cdc6caa66716760f93dbbadaa67cc8a03866d6c5f33a6a3285cb9e5f4994315'],
+    }),
+    ('skan', '0.11.1', {
+        'checksums': ['d5439c17fbf5f86386a7548acb6ab11482961164a6284047b9bdc6652a0d1faf'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/constantinpape/elf/archive/'],
+        'sources': ['%(version)s.tar.gz'],
+        'modulename': 'elf',
+        'checksums': ['745228fcefdad0b03d37d7ac99abecec95f2b39a27cc11d5a71c80d5f320016f'],
+    }),
+]
+
+# postinstallcmds = [
+#     'sed -i "s/np.float/float/g" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/predictQuality.py',
+#     '%(installdir)s/bin/checkm2 database --download --path %(installdir)s',
+#     # 'export CHECKM2DB="$EBROOTCHECKM2/CheckM2_database/uniref100.KO.1.dmnd"',
+# ]
+
+# modextrapaths = {'CHECKM2DB': 'CheckM2_database/uniref100.KO.1.dmnd', 'PYTHONPATH': ''}
+
+# sanity_check_commands = ["pyscenic --help"]
+
+moduleclass = 'vis'

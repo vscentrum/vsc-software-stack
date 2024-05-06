@@ -11,19 +11,24 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # DEPS:
 # napari OK
 # pyqt OK (in napari)
-# zarr OK (for $ micro_sam.annotator)
-# torch OK
-
-# npe2 0.7.3 has requirement build>=1, but you have build 0.10.0.
-# jupyter-events 0.7.0 has requirement jsonschema[format-nongpl]>=4.18.0, but you have jsonschema
+# $ micro_sam.annotator -> GUI needs more deps:
+# zarr OK 
+# torch OK - torchvision
+# vigra NO (not in EB) -> created OK
+# elf NO -> created OK
 
 dependencies = [
     ('Python', '3.11.3'),
-    # ('Python-bundle-PyPI', '2023.06'),
-    # ('torchvision', '0.16.0'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('torchvision', '0.16.0'),
     ('napari', '0.4.18'),
     ('zarr', '2.17.1'),
+    ('vigra', '1.11.2'),
+    ('python-elf', '0.5.0'),
 ]
+
+use_pip = True
+sanity_pip_check = True
 
 exts_list = [
     (name, version, {
@@ -41,7 +46,6 @@ exts_list = [
 
 # modextrapaths = {'CHECKM2DB': 'CheckM2_database/uniref100.KO.1.dmnd', 'PYTHONPATH': ''}
 
-use_pip = True
-sanity_pip_check = True
+# sanity_check_commands = ["pyscenic --help"]
 
 moduleclass = 'vis'

@@ -1,0 +1,51 @@
+easyblock = 'PythonBundle'
+
+name = 'micro-sam'
+version = '1.0.0'
+
+homepage = 'https://github.com/computational-cell-analytics/micro-sam/'
+description = "Tools for segmentation and tracking in microscopy build on top of SegmentAnything."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# DEPS:
+# napari OK
+# pyqt OK (in napari)
+# $ micro_sam.annotator -> GUI needs more deps:
+# zarr OK 
+# torch OK - torchvision
+# vigra NO (not in EB) -> created OK
+# elf NO -> created OK
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('torchvision', '0.16.0'),
+    ('napari', '0.4.18'),
+    ('zarr', '2.17.1'),
+    ('vigra', '1.11.2'),
+    ('python-elf', '0.5.0'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    (name, version, {
+        'source_urls': ['https://github.com/computational-cell-analytics/micro-sam/archive/'],
+        'sources': ['v%(version)s.tar.gz'],
+        'checksums': ['c9bdf7d141911a56062e4df4e0d23a094848a70381b8e09ba9013eea53bbdadd'],
+    }),
+]
+
+# postinstallcmds = [
+#     'sed -i "s/np.float/float/g" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/predictQuality.py',
+#     '%(installdir)s/bin/checkm2 database --download --path %(installdir)s',
+#     # 'export CHECKM2DB="$EBROOTCHECKM2/CheckM2_database/uniref100.KO.1.dmnd"',
+# ]
+
+# modextrapaths = {'CHECKM2DB': 'CheckM2_database/uniref100.KO.1.dmnd', 'PYTHONPATH': ''}
+
+# sanity_check_commands = ["pyscenic --help"]
+
+moduleclass = 'vis'
