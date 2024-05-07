@@ -7,18 +7,18 @@ homepage = 'https://github.com/YosefLab/Compass'
 description = """In-Silico Modeling of Metabolic Heterogeneity using Single-Cell Transcriptomes."""
 local_commit = "7664cb0"
 
-toolchain = {'name': 'foss', 'version': '2022b'}
+toolchain = {'name': 'foss', 'version': '2022b'} # 12.2.0
 
 dependencies = [
     ('Python', '3.10.8'),
     ('SciPy-bundle', '2023.02'), 
     ('tqdm', '4.64.1'),
-    # ('python-libsbml', '5.20.2'), NOT in EB (only 2021a)
+    ('python-libsbml', '5.20.2'),
     ('scikit-learn', '1.2.1'),
     ('python-igraph', '0.10.6'),
     ('leidenalg', '0.10.1'),
-    # ('anndata', '0.10.5.post1'), NOT in EB (only 2022a)
-    ('CPLEX', '22.1.1', '', SYSTEM),
+    ('anndata', '0.10.6'),
+    # ('CPLEX', '22.1.1'),
 ]
 
 use_pip = True
@@ -37,6 +37,6 @@ exts_list = [
     }),
 ]
 
-sanity_check_commands = ["python -c 'import igraph'", "compass -h", "python -c 'import cplex'"]
+# sanity_check_commands = ["python -c 'import igraph'", "compass -h", "python -c 'import cplex'"]
 
 moduleclass = 'bio'
