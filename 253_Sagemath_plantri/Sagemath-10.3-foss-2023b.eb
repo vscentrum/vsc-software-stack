@@ -1,0 +1,147 @@
+easyblock = 'PythonBundle'
+
+name = 'Sagemath'
+version = '10.3'
+
+homepage = 'https://doc.sagemath.org/html/en/index.html'
+description = """Sage is open source mathematical software released under the GNU General Public Licence GPLv2+,
+ and includes packages that have compatible software licenses.
+ People all around the globe have contributed to the development of Sage. Full documentation is available online."""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+builddependencies = [
+    ('Cython', '3.0.9'),
+    ('Python-bundle-PyPI', '2023.10'),
+    ('pkgconfig', '1.5.5', '-python'),
+    ('Boost', '1.83.0'),
+]
+
+dependencies = [
+    ('Python', '3.11.5'),
+    ('SciPy-bundle', '2023.11'),
+    ('ECL', '23.9.9'),
+    ('FFLAS-FFPACK', '2.5.0'),
+    ('eclib', '20231212'),
+    ('GSL', '2.7'),
+    ('LinBox', '1.7.0'),
+    ('Singular', '4.3.2p16'),
+    ('libpng', '1.6.40'),
+    ('libgd', '2.3.3'),
+    ('m4ri', '20200125'),
+    ('cysignals', '1.11.4'),
+    ('gmpy2', '2.1.5'),
+    ('GMP-ECM', '7.0.5'),
+    ('MPFI', '1.5.4'),
+    ('cliquer', '1.21'),
+    ('nauty', '2.8.8'),
+    ('SYMMETRICA', '2.0'),
+    ('lcalc', '2.0.5'),
+    ('gap', '4.13.0'),
+    # ('giac', '1.9.0-93'),  # TODO
+    ('m4rie', '20200125'),
+    ('libhomfly', '1.02r6'),
+    ('libbraiding', '1.2'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('cypari2', '2.1.4', {
+        'checksums': ['efa4a44d96f693cb1156da1fd6fccc130dafcf9c19af4185cf770bf44d00dbfc'],
+    }),
+    ('memory_allocator', '0.1.3', {
+        'checksums': ['13805c2ae1c01b7489fab5e8eac9361662b4f2c02412e3652eece48ff6953162'],
+    }),
+    ('sage-setup', version, {
+        'checksums': ['cd5c4e4c9d05abbe8d7cf8dd9b7d78276e06224cd25057745b3c6fc062b1b855'],
+    }),
+    ('%(namelower)s-standard', version, {
+        'checksums': ['43203cd1d1a3c5688c00771b2172af848aca77e3a25055f02928460dec76ef31'],
+        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
+        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+    }),
+    ('%(namelower)s-bliss', version, {
+        'checksums': ['41939ecbe2110cd00230152b4761b0ca3a907b48500a52e7e745fe856ee275b3'],
+        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
+        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+    }),
+    ('%(namelower)s-coxeter3', version, {
+        'checksums': ['14b51e35a6f8ed0d8f716f81864507fb93b93f2e1fa39e5f86017487d76708ec'],
+        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
+        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+    }),
+    ('%(namelower)s-mcqd', version, {
+        'checksums': ['e4b7b91f8e76d58044dedd734abb1cc6333e103d54603e126308f677e354cbb4'],
+        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
+        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+    }),
+    ('%(namelower)s-meataxe', version, {
+        'checksums': ['25a4a2da9dafbc6c37975898e5e54e1d477b54bb8bd0554e6a4f88059b382f46'],
+        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
+        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+    }),
+    ('%(namelower)s-sirocco', version, {
+        'checksums': ['ff1326fbf30931629d7545c59c4b0c6332802dce6897aced3822658c4a2f9973'],
+        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
+        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+    }),
+    ('%(namelower)s-tdlib', version, {
+        'checksums': ['dc7fdec4c29300cf80f5a0ea238434fc1ff89ca2274cc9f96a8c5fd5f0b95eff'],
+        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
+        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+    }),
+]
+
+moduleclass = 'devel'
+
+#  It encodes the given ``str`` to a Python 3 ``bytes``\n    using the specified encoding.  It is a no-op on ``bytes`` input.\n\n    EXAMPLES::\n\n        sage: from sage.cpython.string import str_to_bytes\n        sage: bs = [str_to_bytes(u'\317\200')]\n        sage: all(b == b'\\xcf\\x80' for b in bs)\n        True\n        sage: str_to_bytes([])\n        Traceback (most recent call last):\n        ...\n        TypeError: expected str... list found\n    ");
+#             |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ...
+# build/cythonized/sage/schemes/elliptic_curves/descent_two_isogeny.c:10290:11: error: 'fmpz_poly_set_coeff_mpz' is deprecated. Use 'fmpz_poly_set_coeff_fmpz' instead.
+#       10290 |         fmpz_poly_set_coeff_mpz(__pyx_v_f1, 0, __pyx_v_e);
+#             |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ...
+# n file included from build/cythonized/sage/libs/flint/flint.c:1213:
+#       /apps/gent/RHEL8/cascadelake-ib/software/FLINT/3.1.1-gfbf-2023b/include/flint/thread_pool.h:53:5: error: unknown type name slong
+#          53 |     slong length;
+#             |     ^~~~~
+#       /apps/gent/RHEL8/cascadelake-ib/software/FLINT/3.1.1-gfbf-2023b/include/flint/thread_pool.h:63:40: error: unknown type name slong; did you mean ulong?
+#          63 | void thread_pool_init(thread_pool_t T, slong l);
+#             |                                        ^~~~~
+#             |                                        ulong
+# ...
+# build/cythonized/sage/rings/polynomial/pbori/pbori.cpp:1253:10: fatal error: polybori/pbori_defs.h: No such file or directory
+#        1253 | #include "polybori/pbori_defs.h"
+#             |          ^~~~~~~~~~~~~~~~~~~~~~~
+#       compilation terminated.
+# ...
+# In file included from build/cythonized/sage/rings/number_field/number_field_element_quadratic.cpp:1250:
+#       sage/libs/arb/arb_wrap.h:14:10: fatal error: acb.h: No such file or directory
+#          14 | #include <acb.h>
+#             |          ^~~~~~~
+#       compilation terminated.
+# ...
+# error: command '/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/gcc' failed with exit code 1
+#       Exception ignored in: <function Pool.__del__ at 0x153c66631e40>
+#       Traceback (most recent call last):
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/pool.py", line 271, in __del__
+#           self._change_notifier.put(None)
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/queues.py", line 377, in put
+#           self._writer.send_bytes(obj)
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 199, in send_bytes
+#           self._send_bytes(m[offset:offset + size])
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 410, in _send_bytes
+#           self._send(header + buf)
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 367, in _send
+#           n = write(self._handle, buf)
+#               ^^^^^^^^^^^^^^^^^^^^^^^^
+#       OSError: [Errno 9] Bad file descriptor
+#       [end of output]
+
+
+# build/cythonized/sage/libs/giac/giac.cpp:1239:10: fatal error: giac/giac.h: No such file or directory
+#        1239 | #include "giac/giac.h"
+#             |          ^~~~~~~~~~~~~
+#       compilation terminated.
