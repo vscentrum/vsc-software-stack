@@ -2,27 +2,28 @@ easyblock = "PythonBundle"
 
 name = 'pdf2docx'
 version = '0.5.8'
+versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/ArtifexSoftware/pdf2docx'
 description = """Open source Python library converting pdf to docx."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-builddependencies = [
-    ('hatchling', '1.18.0'),
-    ('SWIG', '4.1.1'),
-]
-
 dependencies = [
+    ('CUDA', '12.1.1', '', SYSTEM),
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
     ('Python-bundle-PyPI', '2023.06'),
-    ('OpenCV', '4.8.1', '-contrib'),
+    ('SWIG', '4.1.1'),
+    ('OpenCV', '4.8.1', versionsuffix + '-contrib'),
     ('lxml', '4.9.2'),  # for python-docx
+    ('hatchling', '1.18.0'),  # for termcolor
 ]
 
 use_pip = True
 sanity_pip_check = True
+
+maxparallel = 1
 
 exts_list = [
     ('PyMuPDF', '1.20.2', {
