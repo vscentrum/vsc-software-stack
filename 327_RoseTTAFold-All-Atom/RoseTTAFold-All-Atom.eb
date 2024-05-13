@@ -25,7 +25,7 @@ dependencies = [
 #   * [x] absl-py=2.1.0 -> exts_list
 ('aiohttp', '3.8.5'), #   * [ ] aiohttp=3.9.3 for 2023a v3.8.5, not for 2023b
 #   * [x] aiosignal=1.3.1, on pypi -> exts_list
-('alsa-lib', '1.2.8'), #   * [ ] alsa-lib=1.2.8, v1.2.8 for GCCcore 11.3.0, not for 2023a/b -> created
+('alsa-lib', '1.2.8'), #   * [x] alsa-lib=1.2.8, v1.2.8 for GCCcore 11.3.0, not for 2023a/b -> created
 #   * [x] asttokens=2.4.1, pypi -> exts_list
 #   * [x] astunparse=1.6.3, pypi -> exts_list
 #   * [x] async-timeout=4.0.3, pypi -> exts_list
@@ -52,7 +52,7 @@ dependencies = [
 #   * [x] colorama=0.4.6, pypi -> exts_list
 #   * [x] contourpy=1.2.0, pypi -> exts_list
 ('cryptography', '41.0.1'), #   * [ ] cryptography=42.0.2, v41.0.1 for 2023a, v41.0.5 for 2023b
-('CUDA', '12.3.0'),
+('CUDA', '12.1.1'),
 #   * [ ] cuda-cudart=11.8.89=0
 #   * [ ] cuda-cupti=11.8.87=0
 #   * [ ] cuda-libraries=11.8.0=0
@@ -61,9 +61,9 @@ dependencies = [
 #   * [ ] cuda-runtime=11.8.0=0
 #   * [ ] cuda-version=11.8=h70ddcb2_3
 #   * [ ] cudatoolkit=11.8.0, EXTERNAL_MODULE?
-('cuDNN', '8.9.7.29', '-CUDA-%(cudaver)s', SYSTEM) #   * [ ] cudnn=8.8.0.121, cuDNN-8.9.7.29-CUDA-12.3.0.eb in EB
+('cuDNN', '8.9.2.26', '-CUDA-%(cudaver)s', SYSTEM) #   * [ ] cudnn=8.8.0.121, cuDNN-8.9.7.29-CUDA-12.3.0.eb in EB
 #   * [x] cycler=0.12.1, pypi -> exts_list
-('DBus', '1.15.4'), #   * [ ] dbus=1.13.6, 2023a: v1.15.4, 2023b: v1.15.8
+('DBus', '1.15.4'), #   * [x] dbus=1.13.6, 2023a: v1.15.4, 2023b: v1.15.8
 ('deepdiff', '6.7.1'), #   * [x] deepdiff=6.7.1, 2023a: yes, 2023b: no
 #   * [ ] dgl=1.1.2, no, in EB for 2021a: v0.9.1, yes on pypi !!! -> create for CUDA?
 #   * [x] executing=2.0.1, pypi -> exts_list
@@ -80,148 +80,147 @@ dependencies = [
 #   * [ ] fonts-conda-ecosystem=1=0
 #   * [ ] fonts-conda-forge=1=0
 #   * [x] fonttools=4.49.0, pypi -> exts_list
-('freetype', '2.13.0'), #   * [ ] freetype=2.12.1, 2023a: v2.13.0, 2023b: v2.13.2
+('freetype', '2.13.0'), #   * [x] freetype=2.12.1, 2023a: v2.13.0, 2023b: v2.13.2
 #   * [x] frozenlist=1.4.1, pypi -> exts_list
 #   * [x] fsspec=2024.2.0, pypi -> exts_list
-# CONTINUE from there
 #   * [x] gast=0.4.0, pypi -> exts_list
-#   * [x] gettext=0.21.1, 2023a: v0.21.1, 2023b: v0.22
-#   * [x] giflib=5.2.1, yes for both
-#   * [ ] glib=2.78.4, 2023a: v2.77.1, 2023b: v2.78.1
+('gettext', '0.21.1'), #   * [x] gettext=0.21.1, 2023a: v0.21.1, 2023b: v0.22
+('giflib', '5.2.1'), #   * [x] giflib=5.2.1, yes for both
+('GLib', '2.77.1'), #   * [ ] glib=2.78.4, 2023a: v2.77.1, 2023b: v2.78.1
 #   * [ ] glib-tools=2.78.4=hfc55251_4
-#   * [x] gmp=6.3.0, 2023a: v6.2.1, 2023b: 6.3.0
-#   * [ ] gmpy2=2.1.2, v2.1.5 for both
+('GMP', '6.2.1'), #   * [x] gmp=6.3.0, 2023a: v6.2.1, 2023b: 6.3.0
+('gmpy2', '2.1.5'), #   * [ ] gmpy2=2.1.2, v2.1.5 for both
 #   * [ ] gnutls=3.6.13, no - v3.7.8 for 11.3.0
 #   * [x] google-auth=2.28.2, pypi -> exts_list
 #   * [x] google-auth-oauthlib=0.4.6, pypi -> exts_list
 #   * [x] google-pasta=0.2.0, pypi -> exts_list
-#   * [ ] graphite2=1.3.13, v1.3.14 for both
+('graphite2', '1.3.14'), #   * [x] graphite2=1.3.13, v1.3.14 for both
 #   * [x] grpcio=1.51.1, pypi -> exts_list
-#   * [ ] gst-plugins-base=1.22.0, 2023a: v1.22.5, 2023b: no
-#   * [ ] gstreamer=1.22.0, 2023a: v1.22.5, 2023b: no
+('GST-plugins-base', '1.22.5'), #   * [x] gst-plugins-base=1.22.0, 2023a: v1.22.5, 2023b: no
+('GStreamer', '1.22.5'), #   * [x] gstreamer=1.22.0, 2023a: v1.22.5, 2023b: no
 #   * [ ] gstreamer-orc=0.4.38=hd590300_0
-#   * [x] gzip=1.13, 2023a: v1.12, 2023b: v1.13
-#   * [x] h5py=3.9.0, 2023a: v3.9.0, 2023b: no
-#   * [ ] harfbuzz=6.0.0, 2023a: v5.3.1, 2023b: v8.2.2
-#   * [ ] hdf5=1.14.1, 2023a: v1.14.0, 2023b: v1.14.3
-#   * [ ] hhsuite=3.3.0, no - v3.3.0 for 2022a
-#   * [ ] icecream=2.1.3, on pypi, never used in ec yet
-#   * [ ] icu=70.1, 2023a: v73.2, 2023b: v74.1
+('gzip', '1.12'), #   * [x] gzip=1.13, 2023a: v1.12, 2023b: v1.13
+('h5py', '3.9.0'), #   * [x] h5py=3.9.0, 2023a: v3.9.0, 2023b: no
+('HarfBuzz', '5.3.1'), #   * [ ] harfbuzz=6.0.0, 2023a: v5.3.1, 2023b: v8.2.2
+('HDF5', '1.14.0'), #   * [ ] hdf5=1.14.1, 2023a: v1.14.0, 2023b: v1.14.3
+('HH-suite', '3.3.0'), #   * [x] hhsuite=3.3.0, 2023a: v3.3.0, not for 2023b
+#   * [x] icecream=2.1.3, on pypi, never used in ec yet ->exts_list
+('ICU', '73.2'), #   * [x] icu=70.1, 2023a: v73.2, 2023b: v74.1
 #   * [x] idna=3.6, pypi -> exts_list
 #   * [x] importlib-metadata=7.0.2, pypi -> exts_list
-#   * [ ] jack=1.9.22, NO, not on pypi
-#   * [ ] jinja2=3.1.3, in bundle-pypi, 2023a: v3.1.2, 2023b: v3.1.2
-#   * [x] joblib=1.3.2, in bundle-pypi, 2023a: v1.2.0, 2023b: v1.3.2
-#   * [ ] jpeg=9e=h0b41bf4_3
+#   * [ ] jack=1.9.22, NO, not on pypi, maybe https://jackaudio.org/downloads/ ?
+('Python-bundle-PyPI', '2023.06'), #   * [ ] jinja2=3.1.3, in bundle-pypi, 2023a: v3.1.2, 2023b: v3.1.2
+#   * [?] joblib=1.3.2, in bundle-pypi, 2023a: v1.2.0, 2023b: v1.3.2
+#   * [ ] jpeg=9e=h0b41bf4_3, ? https://github.com/intelxai/EXT_libjpeg-9e
 #   * [ ] keras=2.11.0, NO, in EB only for 2020b, TensorFlow-2.13.0-foss-2023a has it in exts_list with patches
 #   * [x] keras-preprocessing=1.1.2, pypi -> exts_list
 #   * [ ] keyutils=1.6.1, NO, linux-keyutils in maturin
-#   * [x] kiwisolver=1.4.5, in matplotlib with patch, 2023a: v1.4.4, 2023b: v1.4.5
-#   * [ ] krb5=1.20.1, NO
-#   * [x] lame=3.100, YES
-#   * [x] lcms2=2.15, YES
+('matplotlib', '3.7.2'), #   * [x] kiwisolver=1.4.5, in matplotlib with patch, 2023a: v1.4.4, 2023b: v1.4.5
+#   * [ ] krb5=1.20.1, NO, ? Kerberos-v5 ?
+('LAME', '3.100'), #   * [x] lame=3.100, YES
+('LittleCMS', '2.15'), #   * [x] lcms2=2.15, YES
 #   * [ ] ld_impl_linux-64=2.40 ???
-#   * [x] lerc=4.0.0, YES
-#   * [ ] libabseil=20220623.0, 2023a: v20230125.3, 2023b: v20240116.1
-#   * [ ] libaec=1.1.2, v1.0.6 for both
+('LERC', '4.0.0'), #   * [x] lerc=4.0.0, YES
+('Abseil', '20230125.3'), #   * [ ] libabseil=20220623.0, 2023a: v20230125.3, 2023b: v20240116.1
+('libaec', '1.0.6'), #   * [ ] libaec=1.1.2, v1.0.6 for both
 #   * [ ] libblas=3.9.0, ???
 #   * [ ] libbrotlicommon=1.1.0, ??? in Brotli
 #   * [ ] libbrotlidec=1.1.0, ??? in Brotli
 #   * [ ] libbrotlienc=1.1.0, ??? in Brotli
 #   * [ ] libcap=2.67, NO
 #   * [ ] libcblas=3.9.0, NO
-#   * [ ] libclang=15.0.7, in Clang?, 2023a: v16.0.6, 2023b: no
+('Clang', '16.0.6', '-CUDA-%(cudaver)s', SYSTEM) #   * [x] libclang=15.0.7, in Clang?, 2023a: v16.0.6, 2023b: no
 #   * [ ] libclang13=15.0.7=default_ha2b6cf4_4
-#   * [ ] libcublas=11.11.3.6, ???
-#   * [ ] libcufft=10.9.0.58, NO
-#   * [ ] libcufile=1.9.0.20, NO
+#   * [ ] libcublas=11.11.3.6, in CUDA?
+#   * [ ] libcufft=10.9.0.58, in CUDA?
+#   * [ ] libcufile=1.9.0.20, in CUDA?
 #   * [ ] libcups=2.3.3, NO
-#   * [ ] libcurand=10.3.5.119, ??? in CUDA?
-#   * [ ] libcurl=8.1.2, cURL, 2023a: v8.0.1, 2023b: v8.3.0
-#   * [ ] libcusolver=11.4.1.48, ??? in CUDA?
-#   * [ ] libcusparse=11.7.5.86, ??? in CUDA?
-#   * [ ] libdb=6.2.32, ??? DB?
-#   * [ ] libdeflate=1.17, 2023a: v1.18, 2023b: v1.19
-#   * [ ] libedit=3.1.20191231, NO
-#   * [ ] libev=4.33, NO, in EB v4.33 for  11.3.0
-#   * [ ] libevent=2.1.10, v2.1.12 for both
-#   * [ ] libexpat=2.6.1, expat, v2.5.0 for both
-#   * [ ] libffi=3.4.2, v3.4.4 for both
-#   * [ ] libflac=1.4.3, FLAC, 2023a: v1.4.2, 2023b: no
+#   * [ ] libcurand=10.3.5.119, in CUDA?
+('cURL', '8.0.1'), #   * [ ] libcurl=8.1.2, cURL, 2023a: v8.0.1, 2023b: v8.3.0
+#   * [ ] libcusolver=11.4.1.48, in CUDA?
+#   * [ ] libcusparse=11.7.5.86, in CUDA?
+('DB', '18.1.40'), #   * [x] libdb=6.2.32, ??? DB?
+('libdeflate', '1.18'), #   * [x] libdeflate=1.17, 2023a: v1.18, 2023b: v1.19
+#   * [ ] libedit=3.1.20191231, NO only for 11.2.0 -> create?
+#   * [ ] libev=4.33, NO, in EB v4.33 for  11.3.0 -> create?
+('libevent', '2.1.12'), #   * [x] libevent=2.1.10, v2.1.12 for both
+('expat', '2.5.0'), #   * [ ] libexpat=2.6.1, expat, v2.5.0 for both
+('libffi', '3.4.4'), #   * [x] libffi=3.4.2, v3.4.4 for both
+('FLAC', '1.4.2'), #   * [ ] libflac=1.4.3, FLAC, 2023a: v1.4.2, 2023b: no
 #   * [ ] libgcc-ng=13.2.0, ???
-#   * [ ] libgcrypt=1.10.3, NO, v1.10.1 for 11.3.0
+#   * [ ] libgcrypt=1.10.3, NO, v1.10.1 for 11.3.0 -> create?
 #   * [ ] libgfortran-ng=13.2.0, ???
 #   * [ ] libgfortran5=13.2.0, ???
-#   * [ ] libglib=2.78.4, GLib, 2023a: v2.77.1, 2023b: v2.78.1
+#   * [x] libglib=2.78.4, GLib, 2023a: v2.77.1, 2023b: v2.78.1 -> already as GLib
 #   * [ ] libgomp=13.2.0, ???
-#   * [ ] libgpg-error=1.48, NO, in EB v1.46 for 11.3.0
-#   * [ ] libgrpc=1.51.1, gRPC, 2023a: v1.57.0, 2023b: v1.62.1
-#   * [x] libhwloc=2.9.1, hwloc, 2023a: v2.9.1, 2023b: v2.9.2
-#   * [x] libiconv=1.17, YES
-#   * [ ] liblapack=3.9.0, NO, for 2023b: v3.12.0
+#   * [ ] libgpg-error=1.48, NO, in EB v1.46 for 11.3.0 -> create?
+('gRPC', '1.57.0'), #   * [x] libgrpc=1.51.1, gRPC, 2023a: v1.57.0, 2023b: v1.62.1
+('hwloc', '2.9.1'), #   * [x] libhwloc=2.9.1, hwloc, 2023a: v2.9.1, 2023b: v2.9.2
+('libiconv', '1.17'), #   * [x] libiconv=1.17, YES
+#   * [ ] liblapack=3.9.0, not for 2023a, for 2023b: v3.12.0 -> create?
 #   * [ ] liblapacke=3.9.0=21_linux64_mkl
-#   * [ ] libllvm15=15.0.7, LLVM v16.0.6 for both
-#   * [ ] libnghttp2=1.58.0, NO, v1.48.0 for 11.3.0
-#   * [ ] libnpp=11.8.0.86, NO
-#   * [ ] libnsl=2.0.1, NO, v2.0.0 for 2023a
-#   * [ ] libnvjpeg=11.9.0.86, NO
-#   * [ ] libogg=1.3.4, V1.3.5 for both
-#   * [ ] libopus=1.3.1, NO, v1.4 for 2023a, v1.3.1 for 12.2.0
-#   * [ ] libpng=1.6.43, NO, 2023a: v1.6.39, 2023b: v1.6.40
+('LLVM', '16.0.6'), #   * [x] libllvm15=15.0.7, LLVM v16.0.6 for both
+#   * [ ] libnghttp2=1.58.0, NO, v1.48.0 for 11.3.0 -> create?
+#   * [ ] libnpp=11.8.0.86, NO - in CUDA?
+#   * [ ] libnsl=2.0.1, NO, v2.0.0 for 12.2.0 -> create?
+#   * [ ] libnvjpeg=11.9.0.86, in CUDA?
+('libogg', '1.3.5'), #   * [x] libogg=1.3.4, V1.3.5 for both
+('libopus', '1.4'), #   * [x] libopus=1.3.1, v1.4 for 2023a, v1.3.1 for 12.2.0
+('libpng', '1.6.39'), #   * [ ] libpng=1.6.43, 2023a: v1.6.39, 2023b: v1.6.40
 #   * [ ] libpq=15.3, NO
-#   * [ ] libprotobuf=3.21.12, NO, protobuf-python? -> 2023a: v4.23.0, 2023b: v4.24.0
-#   * [x] libsndfile=1.2.2, 2023a: v1.2.2, 2023b: no
-#   * [ ] libsqlite=3.45.1, 2023a: v3.42.0, 2023b: v3.43.1
-#   * [ ] libssh2=1.11.0, ??? not in EB no pypi
+('protobuf-python', '4.23.0'), #   * [ ] libprotobuf=3.21.12, protobuf-python? -> 2023a: v4.23.0, 2023b: v4.24.0
+('libsndfile', '1.2.2'), #   * [x] libsndfile=1.2.2, 2023a: v1.2.2, 2023b: no
+('SQLite', '3.42.0'), #   * [ ] libsqlite=3.45.1, SQLite?, 2023a: v3.42.0, 2023b: v3.43.1
+#   * [ ] libssh2=1.11.0 ???
 #   * [ ] libstdcxx-ng=13.2.0, ???
 #   * [ ] libsystemd0=253, ???
-#   * [x] libtiff=4.5.0, 2023a: v4.5.0, 2023b: v4.6.0
-#   * [x] libtool=2.4.7, yes both
+('LibTIFF', '4.5.0'), #   * [x] libtiff=4.5.0, 2023a: v4.5.0, 2023b: v4.6.0
+('libtool', '2.4.7'), #   * [x] libtool=2.4.7, yes both
 #   * [ ] libudev1=253, ???
-#   * [ ] libuuid=2.38.1, no - v1.0.3 for GCC 8.3.0
-#   * [ ] libuv=1.48.0, no - v 1.37.0 for GCC 8.3.0
-#   * [x] libvorbis=1.3.7, 2023a: v1.3.7, 2023b: no
-#   * [x] libwebp-base=1.3.2, 2023a: v1.3.1, 2023b: v1.3.2
-#   * [ ] libxcb=1.13, no - v1.13 for GCC 6.4.0
+#   * [ ] libuuid=2.38.1, no - v1.0.3 for GCC 8.3.0 -> create?
+#   * [ ] libuv=1.48.0, no - v 1.37.0 for GCC 8.3.0 -> create?
+('libvorbis', '1.3.7'), #   * [x] libvorbis=1.3.7, 2023a: v1.3.7, 2023b: no
+('libwebp', '1.3.1'), #   * [x] libwebp-base=1.3.2, 2023a: v1.3.1, 2023b: v1.3.2
+#   * [ ] libxcb=1.13, no - v1.13 for GCC 6.4.0 -> create?
 #   * [ ] libxcrypt=4.4.36, no - not in EB not on pypi
-#   * [ ] libxkbcommon=1.5.0, no - v0.6.1 for foss/2026a
-#   * [ ] libxml2=2.10.3, 2023a: v2.11.4, 2023b: v2.11.5
-#   * [x] libzlib=1.2.13, yes
-#   * [ ] llvm-openmp=17.0.6, LLVM v16.0.6 for both
-#   * [x] lz4-c=1.9.4, yes both
-#   * [ ] markdown=3.5.2, 2023a: no, 2023b: v3.6
+#   * [ ] libxkbcommon=1.5.0, no - v0.6.1 for foss/2016a -> create?
+('libxml2', '2.11.4'), #   * [x] libxml2=2.10.3, 2023a: v2.11.4, 2023b: v2.11.5
+('zlib', '1.2.13'), #   * [x] libzlib=1.2.13, yes
+#   * [ ] llvm-openmp=17.0.6, LLVM v16.0.6 for both -> already there as LLVM
+('lz4', '1.9.4'), #   * [x] lz4-c=1.9.4, yes both
+#   * [ ] markdown=3.5.2, 2023a: no, 2023b: v3.6 -> create?
 #   * [x] markupsafe=2.1.5, pypi -> exts_list
-#   * [ ] matplotlib=3.8.3, 2023a: v3.7.2, 2023b: v3.8.2
+#   * [ ] matplotlib=3.8.3, 2023a: v3.7.2, 2023b: v3.8.2 -> already there
 #   * [ ] matplotlib-base=3.8.3, same as matplotlib?
-#   * [ ] metis=5.1.1, 2023a: v5.1.0, 2023b: v5.1.0
+('METIS', '5.1.0), #   * [ ] metis=5.1.1, METIS, 2023a: v5.1.0, 2023b: v5.1.0
 #   * [ ] mkl=2024.0.0, no ???
 #   * [ ] mkl-devel=2024.0.0, no ???
 #   * [ ] mkl-include=2024.0.0, no ???
-#   * [x] mpc=1.3.1, yes
-#   * [x] mpfr=4.2.1, 2023a: v4.2.0, 2023b: v4.2.1
-#   * [ ] mpg123=1.32.4, not in EB not on pypi
-#   * [ ] mpmath=1.3.0, no - v1.2.1 for GCC 11.3.0
+('MPC', '1.3.1'), #   * [x] mpc=1.3.1, yes
+('MPFR', '4.2.0'), #   * [x] mpfr=4.2.1, 2023a: v4.2.0, 2023b: v4.2.1
+#   * [ ] mpg123=1.32.4, not in EB not on pypi, https://www.mpg123.de/
+#   * [ ] mpmath=1.3.0, no - v1.2.1 for GCC 11.3.0 -> create?
 #   * [x] multidict=6.0.5, pypi -> exts_list
-#   * [ ] munkres=1.1.4, maybe in exts_list? only 1 ec with it (for foss/2018b)
-#   * [ ] mysql-common=8.0.33=hf1915f5_6
-#   * [ ] mysql-libs=8.0.33=hca2cd23_6
-#   * [ ] nccl=2.20.5.1, only for CUDA, not same version
-#   * [x] ncurses=6.4, yes both
-#   * [ ] nettle=3.6, v3.9.1 for both
-#   * [x] networkx=3.2.1, 2023a: v3.1, 2023b: v3.2.1
-#   * [x] nspr=4.35, yes both
-#   * [ ] nss=3.98, 2023a: v3.89.1, 2023b: v3.94
-#   * [ ] **numpy=1.26.4, 2023a: v1.25.1, 2023b: v1.26.2**
+#   * [x] munkres=1.1.4, maybe in exts_list? only 1 ec with it (for foss/2018b) -> exts_list
+#   * [ ] mysql-common=8.0.33=hf1915f5_6 ???
+#   * [ ] mysql-libs=8.0.33=hca2cd23_6 ???
+('NCCL', '2.18.3', '-CUDA-%(cudaver)s') #   * [ ] nccl=2.20.5.1, only for CUDA, not same version
+('ncurses', '6.4'), #   * [x] ncurses=6.4, yes both
+('nettle', '3.9.1'), #   * [x] nettle=3.6, v3.9.1 for both
+('networkx', '3.1'), #   * [x] networkx=3.2.1, 2023a: v3.1, 2023b: v3.2.1
+('NSPR','4.35'), #   * [x] nspr=4.35, yes both
+('NSS', '3.89.1'), #   * [ ] nss=3.98, 2023a: v3.89.1, 2023b: v3.94
+('SciPy-bundle', '2023.07'), #   * [?] **numpy=1.26.4, 2023a: v1.25.1, 2023b: v1.26.2**
 #   * [x] oauthlib=3.2.2, pypi -> exts_list
-#   * [x] openbabel=3.1.1, yes both
-#   * [ ] openh264=2.1.1, no ??? not on piyp
-#   * [x] openjpeg=2.5.0, yes both
+('OpenBabel', '3.1.1'), #   * [x] openbabel=3.1.1, 2023a: v3.1.1, 2023b: no
+#   * [ ] openh264=2.1.1, no, not on pypi, https://github.com/cisco/openh264
+('OpenJPEG', '2.5.0'), #   * [x] openjpeg=2.5.0, yes both
 #   * [ ] openssl=3.1.5, SYSTEM v3.0
 #   * [x] opt_einsum=3.3.0, pypi -> exts_list
 #   * [x] ordered-set=4.1.0, pypi -> exts_list
 #   * [x] orjson=3.9.15, probably pypi -> exts_list (only one ec with it)
-#   * [x] packaging=23.2, yes and version can be changed by exts_list
-#   * [ ] **pandas=2.2.1, 2023a: v2.0.3, 2023b: v2.1.3**
+#   * [x] packaging=23.2, yes and version can be changed by exts_list, v23.1 for 2023a in py-bundle
+#   * [ ] **pandas=2.2.1, 2023a: v2.0.3, 2023b: v2.1.3** - scipy-bundle
 #   * [ ] pcre2=10.43=hcad00b1_0
 #   * [ ] perl=5.32.1=7_hd590300_perl5
 #   * [ ] pillow=9.4.0=py310h023d228_1
@@ -379,6 +378,43 @@ exts_list = [
     }),
     ('frozenlist', '1.4.1'),
     ('fsspec', '2024.2.0'),
+    ('gast', '0.4.0'),
+    ('google-auth', '2.28.2', {
+        'modulename': 'google.auth',
+    }),
+    ('google-auth-oauthlib', '0.4.6'),
+    ('google-pasta', '0.2.0', {
+        'modulename': 'pasta',
+        'checksums': ['c9f2c8dfc8f96d0d5808299920721be30c9eec37f2389f28904f454565c8a16e'],
+    }),
+    ('grpcio', '1.51.1', {
+        'modulename': 'grpc',
+    }),
+    ('icecream', '2.1.3'),
+    ('idna', '3.6'),
+    ('importlib-metadata', '7.0.2', {
+        'source_tmpl': 'importlib_metadata-%(version)s.tar.gz',
+    }),
+    ('Keras-Preprocessing', '1.1.2', {
+        'source_tmpl': 'Keras_Preprocessing-%(version)s.tar.gz',
+        'checksums': ['add82567c50c8bc648c14195bf544a5ce7c1f76761536956c3d2978970179ef3'],
+    }),
+    ('MarkupSafe', '2.1.5'),
+    ('multidict', '6.0.5'),
+    ('munkres', '1.1.4', {
+        'source_tmpl': 'release-%(version)s.tar.gz',
+        'source_urls': ['https://github.com/bmc/munkres/archive/'],
+    }),
+    ('oauthlib', '3.2.2', {
+        'checksums': ['9859c40929662bec5d64f34d01c99e093149682a3f38915dc0655d5a633dd918'],
+    }),
+    ('opt-einsum', '3.3.0', {
+        'source_tmpl': 'opt_einsum-%(version)s.tar.gz',
+    }),
+    ('ordered-set', '4.1.0', {
+        'checksums': ['694a8e44c87657c59292ede72891eb91d34131f6531463aab3009191c77364a8'],
+    }),
+    ('orjson', '3.9.15'),
 ]
 
 # sanity_check_paths = {
