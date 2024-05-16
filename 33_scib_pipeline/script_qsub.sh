@@ -1,1 +1,0 @@
-for x in $(env | grep ^SLURM | cut -f1 -d= | sort | egrep -v '^SLURM_CLUSTERS$|^^CURM_CONF$'); do unset $x; done
