@@ -18,12 +18,11 @@ dependencies = [
     ('PyTorch', '2.1.2'),
     ('IPython', '8.14.0'),
     ('anndata', '0.10.5.post1'),
-    #('jupyter-contrib-nbextensions', '0.7.0'), #not for 2023a
-    #('pyro-ppl', '1.8.4'), #not for 2023a
+    ('jupyter-contrib-nbextensions', '0.7.0'),
+    ('pyro-ppl', '1.9.0'),
     ('loompy', '3.0.7'),
     ('PyTables', '3.8.0'),
     ('Qtconsole', '5.5.1'),
-    ('Jupyter-bundle', '20230823'),
 ]
 
 use_pip = True
@@ -32,25 +31,57 @@ local_comm_preinstallopts = """sed -i -e 's/^requires.*hatchling.*/requires = ["
 local_comm_preinstallopts += """-e 's/^build-backend.*/build-backend = "setuptools.build_meta"/g' """
 local_comm_preinstallopts += """-e 's/^dynamic = .*version.*/version = "%(version)s"/g' pyproject.toml && """
 
-exts_list = [ #update this
-    ('setuptools', '69.0.3', {
-        'checksums': ['be1af57fc409f93647f2e8e4573a142ed38724b8cdd389706a867bb4efcf1e78'],
-    }),
-    ('comm', '0.2.1', {
-        'checksums': ['0bc91edae1344d39d3661dcbc36937181fdaddb304790458f8b044dbc064b89a'],
-        'preinstallopts': local_comm_preinstallopts,
-    }),
-    # jupyter-console 6.6.3 requires ipykernel>=6.14
-    ('ipykernel', '6.20.2', {
-        'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['5d0675d5f48bf6a95fd517d7b70bcb3b2c5631b2069949b5c2d6e1d7477fb5a0'],
-    }),
-    # jupyter-console 6.6.3 requires jupyter-core!=5.0.*,>=4.12
-    ('jupyter_core', '4.12.0', {
-        'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['a54672c539333258495579f6964144924e0aa7b07f7069947bef76d7ea5cb4c1'],
-    }),
-    # jupyter-console 6.6.3 requires traitlets>=5.4
+#  cellbender 0.3.0 requires jupyter, which is not installed.
+#  cellbender 0.3.0 has requirement nbconvert<7.0.0, but you have nbconvert 7.7.4.
+#  cellbender 0.3.0 has requirement notebook<7.0.0, but you have notebook 7.0.2.
+
+# jupyter 1.0.0 requires jupyter-console, which is not installed.
+# cellbender 0.3.0 has requirement nbconvert<7.0.0, but you have nbconvert 7.7.4.
+# cellbender 0.3.0 has requirement notebook<7.0.0, but you have notebook 7.0.2.
+
+# cellbender 0.3.0 has requirement nbconvert<7.0.0, but you have nbconvert 7.7.4.
+# cellbender 0.3.0 has requirement notebook<7.0.0, but you have notebook 7.0.2.
+
+# nbconvert 6.5.4 has requirement mistune<2,>=0.8.1, but you have mistune 3.0.1.
+
+# exts_list = [ #update this
+#     ('setuptools', '69.0.3', {
+#         'checksums': ['be1af57fc409f93647f2e8e4573a142ed38724b8cdd389706a867bb4efcf1e78'],
+#     }),
+#     ('comm', '0.2.1', {
+#         'checksums': ['0bc91edae1344d39d3661dcbc36937181fdaddb304790458f8b044dbc064b89a'],
+#         'preinstallopts': local_comm_preinstallopts,
+#     }),
+#     # jupyter-console 6.6.3 requires ipykernel>=6.14
+#     ('ipykernel', '6.20.2', {
+#         'source_tmpl': SOURCE_PY3_WHL,
+#         'checksums': ['5d0675d5f48bf6a95fd517d7b70bcb3b2c5631b2069949b5c2d6e1d7477fb5a0'],
+#     }),
+#     # jupyter-console 6.6.3 requires jupyter-core!=5.0.*,>=4.12
+#     ('jupyter_core', '4.12.0', {
+#         'source_tmpl': SOURCE_PY3_WHL,
+#         'checksums': ['a54672c539333258495579f6964144924e0aa7b07f7069947bef76d7ea5cb4c1'],
+#     }),
+    # # jupyter-console 6.6.3 requires traitlets>=5.4
+    # ('traitlets', '5.14.1', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['2e5a030e6eff91737c643231bfcf04a65b0132078dad75e4936700b213652e74'],
+    # }),
+    # ('jupyter_console', '6.6.3', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['309d33409fcc92ffdad25f0bcdf9a4a9daa61b6f341177570fdac03de5352485'],
+    # }),
+    # ('jupyter', '1.0.0', {
+    #     'checksums': ['d9dc4b3318f310e34c82951ea5d6683f67bed7def4b259fafbfe4f1beb1d8e5f'],
+    # }),
+#     ('cellbender', version, {
+#         #'source_urls': ['https://github.com/broadinstitute/CellBender/archive'],
+#         #'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         #'checksums': ['7eb67837d28495adb82147e80a2ab58eeb406c5d91aa69dd0cc120d9cb3d6396'],
+#     }),
+# ]
+
+exts_list = [
     ('traitlets', '5.14.1', {
         'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['2e5a030e6eff91737c643231bfcf04a65b0132078dad75e4936700b213652e74'],
@@ -62,10 +93,17 @@ exts_list = [ #update this
     ('jupyter', '1.0.0', {
         'checksums': ['d9dc4b3318f310e34c82951ea5d6683f67bed7def4b259fafbfe4f1beb1d8e5f'],
     }),
+    ('notebook', '6.5.7', {
+        'checksums': ['04eb9011dfac634fbd4442adaf0a8c27cd26beef831fe1d19faf930c327768e4'],
+    }),
+    ('mistune', '0.8.4', {
+        'checksums': ['59a3429db53c50b5c6bcc8a07f8848cb00d7dc8bdb431a4ab41920d201d4756e'],
+    }),
+    ('nbconvert', '6.5.4', {
+        'checksums': ['9e3c7c6d491374cbdd5f35d268c05809357716d346f4573186bbeab32ee50bc1'],    
+    }),
     ('cellbender', version, {
-        #'source_urls': ['https://github.com/broadinstitute/CellBender/archive'],
-        #'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': '%(name)s-%(version)s.tar.gz'}],
-        #'checksums': ['7eb67837d28495adb82147e80a2ab58eeb406c5d91aa69dd0cc120d9cb3d6396'],
+        'checksums': ['94a46fb2b5921414ea86213cfdebca267b9ba6ba02df854cbd353980ab3aff42'],
     }),
 ]
 
