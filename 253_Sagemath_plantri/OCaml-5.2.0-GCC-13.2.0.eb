@@ -1,0 +1,56 @@
+name = 'OCaml'
+version = '5.2.0'
+
+homepage = 'http://ocaml.org/'
+description = """OCaml is a general purpose industrial-strength programming language
+ with an emphasis on expressiveness and safety. Developed for more than 20 years at Inria
+ it benefits from one of the most advanced type systems and supports functional,
+ imperative and object-oriented styles of programming."""
+
+toolchain = {'name': 'GCC', 'version': '13.2.0'}
+
+local_opam_ver = '2.1.6'
+source_urls = [
+    'https://github.com/ocaml/ocaml/archive',
+    'https://github.com/ocaml/opam/releases/download/%s' % local_opam_ver,
+]
+sources = [
+    '%s.tar.gz' % version,
+    'opam-full-%s.tar.gz' % local_opam_ver,
+]
+checksums = [
+    {'5.2.0.tar.gz': '48554abfd530fcdaa08f23f801b699e4f74c320ddf7d0bd56b0e8c24e55fc911'},
+    {'opam-full-2.1.6.tar.gz': 'd2af5edc85f552e0cf5ec0ddcc949d94f2dc550dc5df595174a06a4eaf8af628'},
+]
+
+builddependencies = [
+    ('Autotools', '20220317'),
+    ('pkgconf', '2.0.3'),
+]
+
+dependencies = [
+    ('ncurses', '6.4'),
+    ('libreadline', '8.2'),
+]
+
+preconfigopts = 'export CFLAGS="$CFLAGS -lm -lpthread" && '
+preconfigopts += 'export AS=as && '
+
+# parallel build tends to break
+parallel = 1
+
+# handled by OPAM, order matters!
+# see https://opam.ocaml.org/packages
+exts_list = [
+    ('ocamlfind', '1.9.6'),
+    ('batteries', '3.8.0'),
+    ('conf-pkg-config', '3'),
+    ('dune-configurator', '3.15.2'),
+    ('dune', '3.15.2'),
+    ('base', 'v0.17.0'),
+    ('stdio', 'v0.16.0'),
+]
+
+moduleclass = 'lang'
+
+# TODO doesn't work
