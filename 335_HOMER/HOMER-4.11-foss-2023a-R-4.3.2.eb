@@ -19,26 +19,23 @@ checksums = ['ccdaa3004a0e0df0882634671d4a1acc88364761e0e6c7ea329ebbf1eb729537']
 
 dependencies = [
     ('Perl', '5.36.1'),
-    ('R', '4.3.0'),
+    ('R', '4.3.2'),
     ('SAMtools', '1.18'),
     ('R-bundle-Bioconductor', '3.18', versionsuffix)
 ]
 
-# Create _data_folder and, from a test install, copy in the data dir and config.txt and update.txt
-# Post install follow instructions in ${BB_APPS_DATA}/HOMER/README.md to install genomes
-_data_folder = '${BB_APPS_DATA}/HOMER/%(version)s-%(toolchain_name)s-%(toolchain_version)s'
-
-postinstallcmds = [
-    "cd %(installdir)s && mv configureHomer.pl-%(version)s configureHomer.pl",
-    "cd %(installdir)s && perl ./configureHomer.pl -keepScript -install homer -version v%(version)s",
-    "rm -rf %%(installdir)s/data && ln -fs %s/data %%(installdir)s/" % _data_folder,
-    "ln -fs %s/config.txt %%(installdir)s/config.txt" % _data_folder,
-    "ln -fs %s/update.txt %%(installdir)s/update.txt" % _data_folder,
-]
+postinstallcmds = ["cd %(installdir)s && perl ./configureHomer.pl -install -all"]
 
 sanity_check_paths = {
-    'files': ['bin/homer', 'bin/getGenomeTilingPeaks'],
-    'dirs': [],
+    'files': [
+        'bin/homer',
+        'bin/getGenomeTilingPeaks',
+        'config.txt',
+        'DoughnutDocumentation.pdf',
+        'data/accession/homologene.data',
+        'motifs/hnf1b.motif',
+    ],
+    'dirs': ['bin', 'data', 'motifs', 'update'],
 }
 
 moduleclass = 'bio'
