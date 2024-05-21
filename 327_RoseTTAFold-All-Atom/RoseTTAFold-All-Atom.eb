@@ -55,7 +55,6 @@ dependencies = [
 #   * [x] colorama=0.4.6, pypi -> exts_list
 #   * [x] contourpy=1.2.0, pypi -> exts_list
 ('cryptography', '41.0.1'), #   * [ ] cryptography=42.0.2, v41.0.1 for 2023a, v41.0.5 for 2023b
-('CUDA', '12.1.1'),
 #   * [ ] cuda-cudart=11.8.89=0
 #   * [ ] cuda-cupti=11.8.87=0
 #   * [ ] cuda-libraries=11.8.0=0
@@ -93,7 +92,7 @@ dependencies = [
 #   * [ ] glib-tools=2.78.4=hfc55251_4
 ('GMP', '6.2.1'), #   * [x] gmp=6.3.0, 2023a: v6.2.1, 2023b: 6.3.0
 ('gmpy2', '2.1.5'), #   * [ ] gmpy2=2.1.2, v2.1.5 for both
-#   * [ ] gnutls=3.6.13, no - v3.7.8 for 11.3.0
+('GnuTLS', '3.7.8'), #   * [x] gnutls=3.6.13, no - v3.7.8 for 11.3.0 -> created
 #   * [x] google-auth=2.28.2, pypi -> exts_list
 #   * [x] google-auth-oauthlib=0.4.6, pypi -> exts_list
 #   * [x] google-pasta=0.2.0, pypi -> exts_list
@@ -115,7 +114,7 @@ dependencies = [
 ('Python-bundle-PyPI', '2023.06'), #   * [ ] jinja2=3.1.3, in bundle-pypi, 2023a: v3.1.2, 2023b: v3.1.2
 #   * [?] joblib=1.3.2, in bundle-pypi, 2023a: v1.2.0, 2023b: v1.3.2
 #   * [ ] jpeg=9e=h0b41bf4_3, ? https://github.com/intelxai/EXT_libjpeg-9e
-#   * [ ] keras=2.11.0, NO, in EB only for 2020b, TensorFlow-2.13.0-foss-2023a has it in exts_list with patches
+#   * [?] keras=2.11.0, NO, in EB only for 2020b, TensorFlow-2.13.0-foss-2023a has it in exts_list with patches
 #   * [x] keras-preprocessing=1.1.2, pypi -> exts_list
 #   * [ ] keyutils=1.6.1, NO, linux-keyutils in maturin
 ('matplotlib', '3.7.2'), #   * [x] kiwisolver=1.4.5, in matplotlib with patch, 2023a: v1.4.4, 2023b: v1.4.5
@@ -327,22 +326,22 @@ dependencies = [
 #     [?] configparser==6.0.1 -> exts_list
 #     git+https://github.com/NVIDIA/dllogger.git@0540a43971f4a8a16693a9de9de73c1072020769
 #     [x] docker-pycreds==0.4.0 -> in wandb
-('e3nn', '0.3.3', versionsuffix), #     [x] e3nn==0.3.3 no, v0.3.3 for 2022a -> created
-('GitPython', '3.1.40'), #     [x] gitdb==4.0.11 -> in GitPython
+('e3nn', '0.3.3', versionsuffix), # [x] e3nn==0.3.3 no, v0.3.3 for 2022a -> created
+('GitPython', '3.1.40'), # [x] gitdb==4.0.11 -> in GitPython
 #     [?] gitpython==3.1.42
-('Hydra', '1.3.2'), #     [x] hydra-core==1.3.2
+('Hydra', '1.3.2'), # [x] hydra-core==1.3.2
 #     [x] omegaconf==2.3.0 -> exts_list
 #     [x] opt-einsum-fx==0.1.4 -> exts_list
 #     [x] pathtools==0.1.2 -> exts_list
 #     [x] promise==2.3 -> exts_list
 #     [x] pynvml==11.0.0 -> exts_list
 #     [x] pyrsistent==0.20.0 -> exts_list
-('PyYAML', '6.0'), #     [?] pyyaml==6.0.1
+('PyYAML', '6.0'), # [?] pyyaml==6.0.1
 #     [?] sentry-sdk==1.41.0, V1.38.1 in wandb
 #     [x[ shortuuid==1.0.12 -> exts_list
 #     [x] smmap==5.0.1 -> in GitPython
 #     [x] subprocess32==3.5.4 -> exts_list
-('wandb', '0.16.1'),#     wandb==0.12.0
+('wandb', '0.16.1'), # wandb==0.12.0
 ]
 
 exts_defaultclass = 'PythonPackage'

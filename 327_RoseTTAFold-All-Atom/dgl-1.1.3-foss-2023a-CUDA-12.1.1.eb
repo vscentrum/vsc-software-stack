@@ -12,7 +12,7 @@ of the logics can be implemented in any major frameworks, such as PyTorch, Apach
 toolchain = {'name': 'foss', 'version': '2023a'}
 # GCC 10.3.0 vectorizer causes errors in nanoflann on skylake and later
 # and since nanoflann is just a header file we need to turn it off for anything that uses it
-toolchainopts = {'vectorize': False}
+# toolchainopts = {'vectorize': False}
 
 github_account = 'dmlc'
 source_urls = [GITHUB_LOWER_SOURCE]
@@ -65,10 +65,12 @@ sources = [
 
 builddependencies = [
     ('CMake', '3.26.3'),
+    ('make', '4.4.1'),
     ('googletest', '1.13.0'),
 ]
 
 dependencies = [
+    ('CUDA', '12.1.1', '', SYSTEM),
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
     ('networkx', '3.1'),
@@ -78,7 +80,6 @@ dependencies = [
     ('Parallel-Hashmap', '1.3.12'), # maybe old version?
     #('nanoflann', '1.4.0'), not for 2023a
     ('libxsmm', '1.17'),
-    ('CUDA', '12.1.1', '', SYSTEM),
     ('NCCL', '2.18.3', versionsuffix),
     ('PyTorch', '2.1.2', versionsuffix),
 ]
