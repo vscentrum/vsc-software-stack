@@ -23,8 +23,8 @@ checksums = ['e22ae7d45b75815d99c8743269fc487c29e2d2d9e9a7ea66872ac463629d106d']
 dependencies = [
     ('CUDA', '12.1.1', '', SYSTEM),
     ('Python', '3.11.3'),
-    #   * [ ] libgcc_mutex=0.1=conda_forge
-    #   * [ ] openmp_mutex=4.5=2_kmp_llvm
+    #   * [ ] libgcc_mutex=0.1=conda_forge => part of GCC(core)
+    #   * [ ] openmp_mutex=4.5=2_kmp_llvm => part of GCC(core)
     #   * [x] absl-py=2.1.0 -> exts_list
     ('aiohttp', '3.8.5'), #   * [?] aiohttp=3.9.3 for 2023a v3.8.5, not for 2023b
     #   * [x] aiosignal=1.3.1, on pypi -> exts_list
@@ -34,16 +34,16 @@ dependencies = [
     #   * [x] async-timeout=4.0.3, pypi -> exts_list
     ('attr', '2.5.1'), #   * [x] attr=2.5.1, yes for 2023a, not for 2023b
     #   * [x] attrs=23.2.0, pypi -> exts_list
-    #   * [ ] blas=2.121=mkl
-    #   * [ ] blas-devel=3.9.0=21_linux64_mkl
-    #   * [ ] blast-legacy=2.2.26=2
+    #   * [ ] blas=2.121=mkl => part of OpenBLAS (foss toolchain)
+    #   * [ ] blas-devel=3.9.0=21_linux64_mkl => part of OpenBLAS (foss toolchain)
+    #   * [ ] blast-legacy=2.2.26=2 => see BLAST+ or BLAST-2.2.26-Linux_x86_64.eb
     #   * [x] blinker=1.7.0, pypi -> exts_list
     ('Brotli', '1.0.9'), #   * [?] brotli=1.1.0, v1.0.9 for 2023a, v1.1.0 for 2023b
-    #   * [?] brotli-bin=1.1.0, part of brotli?
+    #   * [?] brotli-bin=1.1.0, part of brotli? => OK: Brotli-1.0.9-GCCcore-12.3.0.eb
     ('Brotli-python', '1.0.9'), #   * [?] brotli-python=1.1.0, not for 2023a, v1.1.0 for 2023b -> created
     ('bzip2', '1.0.8'), #   * [x] bzip2=1.0.8, yes for 2023a/b
     ('c-ares', '1.19.1'), #   * [?] c-ares=1.27.0, v1.19.1 for 2023a, v1.27.0 for 2023b
-    #   * [ ] ca-certificates, not in EB neither pypi
+    #   * [ ] ca-certificates, not in EB neither pypi => try to ignore, see what happens
     #   * [x] cached-property=1.5.2, pypi -> exts_list
     #   * [x] cached_property=1.5.2=pyha770c72_1
     #   * [x] cachetools=5.3.3, pypi -> exts_list
@@ -62,19 +62,19 @@ dependencies = [
     #   * [ ] cuda-nvtx=11.8.86=0
     #   * [ ] cuda-runtime=11.8.0=0
     #   * [ ] cuda-version=11.8=h70ddcb2_3
-    #   * [ ] cudatoolkit=11.8.0, EXTERNAL_MODULE?
+    #   * [ ] cudatoolkit=11.8.0, EXTERNAL_MODULE?  => just use CUDA for all of these
     ('cuDNN', '8.9.2.26', '-CUDA-%(cudaver)s', SYSTEM) #   * [x] cudnn=8.8.0.121, cuDNN-8.9.7.29-CUDA-12.3.0.eb in EB
     #   * [x] cycler=0.12.1, pypi -> exts_list
     ('DBus', '1.15.4'), #   * [x] dbus=1.13.6, 2023a: v1.15.4, 2023b: v1.15.8
     ('deepdiff', '6.7.1'), #   * [x] deepdiff=6.7.1, 2023a: yes, 2023b: no
-    #   * [!] dgl=1.1.2, no, in EB for 2021a: v0.9.1, PR v1.1.3 for 2022a -> create for 2023a and CUDA
+    #   * [!] dgl=1.1.2, no, in EB for 2021a: v0.9.1, PR v1.1.3 for 2022a -> create for 2023a and CUDA => wait for merge of https://github.com/easybuilders/easybuild-easyconfigs/pull/20092
     #   * [x] executing=2.0.1, pypi -> exts_list
     ('expat', '2.5.0'), #   * [?] expat=2.6.1, 2023a: v2.5.0, 2023b: v2.5.0
     ('FFmpeg', '6.0'), #   * [x] ffmpeg=4.3, 2023a: v6.0, 2023b: v6.0
     ('FFTW', '3.3.10'), #   * [x] fftw=3.3.10, yes for both
     #   * [x] filelock=3.13.1, pypi -> exts_list
     ('flatbuffers', '23.5.26'), #   * [x] flatbuffers=22.12.06, v23.5.26 for 2023a/b
-    #   * [ ] font-ttf-dejavu-sans-mono=2.37=hab24e00_0
+    #   * [ ] font-ttf-dejavu-sans-mono=2.37=hab24e00_0  => ignore these font-* ones, see what happens
     #   * [ ] font-ttf-inconsolata=3.000=h77eed37_0
     #   * [ ] font-ttf-source-code-pro=2.038=h77eed37_0
     #   * [ ] font-ttf-ubuntu=0.83=h77eed37_1
@@ -89,7 +89,7 @@ dependencies = [
     ('gettext', '0.21.1'), #   * [x] gettext=0.21.1, 2023a: v0.21.1, 2023b: v0.22
     ('giflib', '5.2.1'), #   * [x] giflib=5.2.1, yes for both
     ('GLib', '2.77.1'), #   * [?] glib=2.78.4, 2023a: v2.77.1, 2023b: v2.78.1
-    #   * [ ] glib-tools=2.78.4=hfc55251_4
+    #   * [ ] glib-tools=2.78.4=hfc55251_4 => use GLib-2.77.1-GCCcore-12.3.0.eb ?
     ('GMP', '6.2.1'), #   * [?] gmp=6.3.0, 2023a: v6.2.1, 2023b: 6.3.0
     ('gmpy2', '2.1.5'), #   * [x] gmpy2=2.1.2, v2.1.5 for both
     ('GnuTLS', '3.7.8'), #   * [x] gnutls=3.6.13, no - v3.7.8 for 11.3.0 -> created
@@ -100,7 +100,7 @@ dependencies = [
     #   * [x] grpcio=1.51.1, pypi -> exts_list
     ('GST-plugins-base', '1.22.5'), #   * [x] gst-plugins-base=1.22.0, 2023a: v1.22.5, 2023b: no
     ('GStreamer', '1.22.5'), #   * [x] gstreamer=1.22.0, 2023a: v1.22.5, 2023b: no
-    #   * [ ] gstreamer-orc=0.4.38=hd590300_0
+    #   * [ ] gstreamer-orc=0.4.38=hd590300_0  => maybe via GStreamer-1.22.5-GCC-12.3.0.eb ?
     ('gzip', '1.12'), #   * [?] gzip=1.13, 2023a: v1.12, 2023b: v1.13
     ('h5py', '3.9.0'), #   * [x] h5py=3.9.0, 2023a: v3.9.0, 2023b: no
     ('HarfBuzz', '5.3.1'), #   * [?] harfbuzz=6.0.0, 2023a: v5.3.1, 2023b: v8.2.2
@@ -110,32 +110,32 @@ dependencies = [
     ('ICU', '73.2'), #   * [x] icu=70.1, 2023a: v73.2, 2023b: v74.1
     #   * [x] idna=3.6, pypi -> exts_list
     #   * [x] importlib-metadata=7.0.2, pypi -> exts_list
-    #   * [ ] jack=1.9.22, NO, not on pypi, https://jackaudio.org/downloads/ ?
+    #   * [ ] jack=1.9.22, NO, not on pypi, https://jackaudio.org/downloads/ ? => yes, based on version match
     ('Python-bundle-PyPI', '2023.06'), #   * [?] jinja2=3.1.3, in bundle-pypi, 2023a: v3.1.2, 2023b: v3.1.2
-    #   * [?] joblib=1.3.2, in bundle-pypi, 2023a: v1.2.0, 2023b: v1.3.2
-    #   * [ ] jpeg=9e=h0b41bf4_3, ? https://github.com/intelxai/EXT_libjpeg-9e
-    #   * [?] keras=2.11.0, NO, in EB only for 2020b, TensorFlow-2.13.0-foss-2023a has it in exts_list with patches
+    #   * [?] joblib=1.3.2, in bundle-pypi, 2023a: v1.2.0, 2023b: v1.3.2  => probably fine via Python-bundle-PyPI
+    #   * [ ] jpeg=9e=h0b41bf4_3, ? https://github.com/intelxai/EXT_libjpeg-9e => maybe via libjpeg-turbo?
+    #   * [?] keras=2.11.0, NO, in EB only for 2020b, TensorFlow-2.13.0-foss-2023a has it in exts_list with patches => OK via TensorFlow dep
     #   * [x] keras-preprocessing=1.1.2, pypi -> exts_list
-    #   * [ ] keyutils=1.6.1, NO, linux-keyutils in maturin?
+    #   * [ ] keyutils=1.6.1, NO, linux-keyutils in maturin?  => unclear, ignore
     ('matplotlib', '3.7.2'), #   * [?] kiwisolver=1.4.5, in matplotlib with patch, 2023a: v1.4.4, 2023b: v1.4.5
-    #   * [ ] krb5=1.20.1, NO, ? Kerberos-v5 ?
+    #   * [ ] krb5=1.20.1, NO, ? Kerberos-v5 ?  => ignore, should be fine
     ('LAME', '3.100'), #   * [x] lame=3.100, YES
     ('LittleCMS', '2.15'), #   * [x] lcms2=2.15, YES
-    #   * [ ] ld_impl_linux-64=2.40 ???
+    #   * [ ] ld_impl_linux-64=2.40 ???    => ignore, comes with OS
     ('LERC', '4.0.0'), #   * [x] lerc=4.0.0, YES
     ('Abseil', '20230125.3'), #   * [x] libabseil=20220623.0, 2023a: v20230125.3, 2023b: v20240116.1
     ('libaec', '1.0.6'), #   * [?] libaec=1.1.2, v1.0.6 for both
-    #   * [ ] libblas=3.9.0, ???
-    #   * [ ] libbrotlicommon=1.1.0, ??? in Brotli
-    #   * [ ] libbrotlidec=1.1.0, ??? in Brotli
-    #   * [ ] libbrotlienc=1.1.0, ??? in Brotli
-    #   * [ ] libcap=2.67, NO
-    #   * [ ] libcblas=3.9.0, NO
+    #   * [ ] libblas=3.9.0, ???   => OpenBLAS/foss OK
+    #   * [ ] libbrotlicommon=1.1.0, ??? in Brotli  => yes, Brotli
+    #   * [ ] libbrotlidec=1.1.0, ??? in Brotli  => yes, Brotli
+    #   * [ ] libbrotlienc=1.1.0, ??? in Brotli  => yes, Brotli
+    #   * [ ] libcap=2.67, NO  => OK via OS
+    #   * [ ] libcblas=3.9.0, NO  => OK via OpenBLAS/foss?
     ('Clang', '16.0.6', '-CUDA-%(cudaver)s', SYSTEM) #   * [x] libclang=15.0.7, 2023a: v16.0.6, 2023b: no
-    #   * [ ] libclang13=15.0.7=default_ha2b6cf4_4
-    #   * [ ] libcublas=11.11.3.6, in CUDA?
-    #   * [ ] libcufft=10.9.0.58, in CUDA?
-    #   * [ ] libcufile=1.9.0.20, in CUDA?
+    #   * [ ] libclang13=15.0.7=default_ha2b6cf4_4  => ignore, see what happens
+    #   * [ ] libcublas=11.11.3.6, in CUDA? => probably OK 
+    #   * [ ] libcufft=10.9.0.58, in CUDA? => probably OK
+    #   * [ ] libcufile=1.9.0.20, in CUDA? ==> probably OK
     #   * [ ] libcups=2.3.3, NO
     #   * [ ] libcurand=10.3.5.119, in CUDA?
     ('cURL', '8.0.1'), #   * [?] libcurl=8.1.2, cURL, 2023a: v8.0.1, 2023b: v8.3.0
