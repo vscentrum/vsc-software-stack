@@ -16,6 +16,11 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # torch OK - torchvision
 # vigra NO (not in EB) -> created OK
 # elf NO -> created OK
+# nifty -> created OK
+# z5py -> created OK
+# python-xxhash OK
+# segment_anything -> created OK
+# torch_em >=0.7.0
 
 dependencies = [
     ('Python', '3.11.3'),
@@ -24,7 +29,10 @@ dependencies = [
     ('napari', '0.4.18'),
     ('zarr', '2.17.1'),
     ('vigra', '1.11.2'),
-    ('python-elf', '0.5.0'),
+    ('python-elf', '0.5.1'),
+    ('z5py', '2.0.17'),
+    ('python-xxhash', '3.4.1'),
+    ('segment-anything', '1.0'),
 ]
 
 use_pip = True

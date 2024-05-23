@@ -8,24 +8,11 @@ description = "Utils and convenience functions for large-scale bio-image analysi
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-#DEPS:
-# "numpy", OK
-# "imageio", OK
-# "scikit-image", OK
-# "scikit-learn", OK
-# "skan" OK exts
-# "hdf5": "h5py", OK
-# "zarr": "zarr", OK
-# "n5": "pyn5", OK exts
-# "cloud": "intern" OK exts
-# nifty 1.6.3 requires testify OK exts
-# intern 1.4.1 requires blosc OK -> only C package in EB -> python-blosc created
-# intern 1.4.1 requires nose2 OK exts
-# skan 0.11.1 requires openpyxl OK
+# intern 1.4.1 requires nose2, which is not installed. OK exts
+# motile 0.2.1 requires ilpy, which is not installed. ok exts
+# motile 0.2.1 requires structsvm, which is not installed.
+# ilpy missing scip https://scipopt.org/index.php#about
 
-# builddependencies = [
-#     ('maturin', '1.4.0', '-Rust-1.75.0')
-# ]
 builddependencies = [
     ('scikit-build', '0.17.6'),
     ('CMake', '3.26.3'),
@@ -44,38 +31,39 @@ dependencies = [
     ('vigra', '1.11.2'),
     ('python-blosc', '1.11.0'),
     ('openpyxl', '3.1.2'),
+    ('nifty', '1.2.1'),
+    ('z5py', '2.0.17'),
+    ('affogato', '0.3.3'),
+    ('napari', '0.4.18'),
 ]
 
 use_pip = True
 sanity_pip_check = True
 
 exts_list = [
+    ('structsvm', '0.1.1', {
+        'checksums': ['3f0c83f33656ebe13516b6dde2911469b6d8f805e024fa7069972a8bcf081f79'],
+    }),
+    ('ilpy', '0.4.0', {
+        'checksums': ['5cee3c0e5fe6e48cbb4686a8d8362b5e5fa407ab242c480b3981beb7b3429f0c'],
+    }),
     ('nose2', '0.14.1', {
         'checksums': ['7f8f03a21c9de2c33015933afcef72bf8e4a2d5dfec3b40092287de6e41b093a'],
     }),
-    # ('testify', '0.11.3', {
-    #     'checksums': ['45246144e67748bcf9fdae5743c6fa7fb91dd3e6d69d19a5810d33fa0f511430'],
-    # }),
-    ('threadpoolctl', '3.5.0', {
-        'checksums': ['082433502dd922bf738de0d8bcc4fdcbf0979ff44c42bd40f5af8a282f6fa107'],
-    }),
-    ('affogato', '1.0.0', {
-        'checksums': ['f075ec09585600e1da8511e43e79bab377125ea2190909df9fbfdc5c1ae1eb51'],
-    }),
-    # ('nifty', '1.6.3', {
-    #     'checksums': ['9ee4ecf3c747572a39ecc47cf8982cdaba8c0ef2fcefa5d2bcc180f61ffb2113'],
-    # }),
     ('intern', '1.4.1', {
         'checksums': ['7cdc6caa66716760f93dbbadaa67cc8a03866d6c5f33a6a3285cb9e5f4994315'],
+    }),
+    ('motile', '0.2.1', {
+        'checksums': ['c2cd61e8566198b5a3fdbcb11355837fdcfe82f415bd6d3358ff7acec877ff12'],
     }),
     ('skan', '0.11.1', {
         'checksums': ['d5439c17fbf5f86386a7548acb6ab11482961164a6284047b9bdc6652a0d1faf'],
     }),
     (name, version, {
+        'modulename': 'elf',
         'source_urls': ['https://github.com/constantinpape/elf/archive/'],
         'sources': ['%(version)s.tar.gz'],
-        'modulename': 'elf',
-        'checksums': ['745228fcefdad0b03d37d7ac99abecec95f2b39a27cc11d5a71c80d5f320016f'],
+        'checksums': ['29c542dfb953a1975e2d45f72c84b8f8a2f79fcb0cb2d855dae5493cadbbaa9d'],
     }),
 ]
 
@@ -87,6 +75,20 @@ exts_list = [
 
 # modextrapaths = {'CHECKM2DB': 'CheckM2_database/uniref100.KO.1.dmnd', 'PYTHONPATH': ''}
 
-# sanity_check_commands = ["pyscenic --help"]
+sanity_check_commands = [
+    "python -c 'import elf.segmentation.multicut'",
+    "python -c 'import elf.segmentation.features'",
+    "python -c 'import elf.segmentation.embeddings'",
+    "python -c 'from elf.segmentation.mutex_watershed import mutex_watershed_clustering'",
+    "python -c 'from elf.segmentation.utils import load_mutex_watershed_problem'",
+    "python -c 'import elf.htm'",
+    "python -c 'from elf.parallel.label import label'",
+    "python -c 'from elf.evaluation import rand_index'",
+    "python -c 'from elf.io import open_file'",
+    "python -c 'from elf.visualisation import visualise_edges'",
+    "python -c 'import elf.tracking.motile_tracking'",
+    "python -c 'import elf.transformation'",
+    "python -c 'import elf.util'",
+]
 
 moduleclass = 'vis'

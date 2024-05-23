@@ -1,11 +1,11 @@
-easyblock = 'CMakePythonPackage'
+easyblock = 'CMakeMakeCp'
 
 name = 'nifty'
 version = '1.2.1'
 
 homepage = 'https://github.com/DerThorsten/nifty/'
 description = """A nifty library for 2D and 3D image segmentation, graph based segmentation an opt. 
-This library provided building blocks for segmentation algorithms and complex segmentation pipelines.."""
+This library provided building blocks for segmentation algorithms and complex segmentation pipelines."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
@@ -13,9 +13,7 @@ source_urls = ['https://github.com/DerThorsten/nifty/archive/']
 sources = ['v%(version)s.tar.gz']
 checksums = ['a5fd611463336ba18be828da3154da8828b6486603e2a04f14a4520cb357661a']
 
-builddependencies = [
-    ('CMake', '3.26.3'),
-]
+builddependencies = [('CMake', '3.26.3')]
 
 # - boost-cpp>=1.63 OK Boost
 # - h5py OK
@@ -24,7 +22,7 @@ builddependencies = [
 # - xtensor>=0.21,<0.22 OK?
 # - xtensor-python>=0.24,<0.25 OK?
 # - vigra OK
-# - z5py -> NO -> zarr?
+# - z5py -> NO -> zarr insted of this?
 # numpy
 
 dependencies = [
@@ -35,35 +33,48 @@ dependencies = [
     ('nlohmann_json', '3.11.2'),
     ('scikit-image', '0.22.0'),
     ('vigra', '1.11.2'),
-    ('zarr', '2.17.1'),
-    ('xtensor', '0.21.10'),
-#     ('SciPy-bundle', '2023.07'),
-#     ('Boost.Python', '1.83.0'),
-#     ('libjpeg-turbo', '2.1.5.1'),
-#     ('OpenJPEG', '2.5.0'),
-#     ('LibTIFF', '4.5.0'),
-#     ('libpng', '1.6.39'),
-#     ('OpenEXR', '3.1.7'),
-#     ('HDF5', '1.14.0'),
-#     ('FFTW', '3.3.10'),
-#     ('nose3', '1.3.8'),
+    # ('zarr', '2.17.1'),
+    ('xtensor', '0.24.7'),
+    ('zlib', '1.2.13'),
+    ('HDF5', '1.14.0'),
 ]
 
-preconfigopts = "pwd && cd %(builddir)s && pwd && "
-preconfigopts += "sed -i '62 a\message(\"${_NUMPY_VALUES}\")' nifty-1.2.1/cmake/modules/FindNUMPY.cmake && "
-preconfigopts += "cd /tmp/vsc47063/easybuild/build/nifty/1.2.1/foss-2023a/easybuild_obj &&"
-# # Fix python files path in make install step
-# path = "%(builddir)s/%(name)s-Version-1-11-2/config/FindVIGRANUMPY_DEPENDENCIES.cmake"
-# add = "SET(VIGRANUMPY_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/python%(pyshortver)s/site-packages)"
-# preinstallopts = "sed -i '90,91d' %s && " % path
-# preinstallopts += "sed -i '94d' %s && " % path
-# preinstallopts += "sed -i '89 a\%s' %s && " % (add, path)
+# # Print out _NUMPY_VALUES - not working
+# preconfigopts = "pwd && cd %(builddir)s && pwd && "
+# preconfigopts += "sed -i '62 a\message(\"${_NUMPY_VALUES}\")' nifty-1.2.1/cmake/modules/FindNUMPY.cmake && "
+# preconfigopts += "cd /tmp/vsc47063/easybuild/build/nifty/1.2.1/foss-2023a/easybuild_obj &&"
 
-# sanity_check_paths = {
-#     'files': ['bin/vigra-config'],
-#     'dirs': ['lib/python%(pyshortver)s/site-packages/vigra'],
-# }
+# Try find_package (Python3 COMPONENTS Interpreter) - ok, do not help - still python 3.6.8
+# preconfigopts = "pwd && cd %(builddir)s && pwd && "
+# preconfigopts += "sed -i 's/PythonInterp/Python3 COMPONENTS Interpreter/g' nifty-1.2.1/cmake/modules/FindNUMPY.cmake && "
+# preconfigopts += "cd /tmp/vsc47063/easybuild/build/nifty/1.2.1/foss-2023a/easybuild_obj &&"
 
-# sanity_check_commands = ["vigra-config --version", "python -c 'import vigra'"]
+# Add flags (nifty/.github/workflows/build_unix.sh)
+configopts = '-DWITH_QPBO=OFF -DWITH_HDF5=ON -DWITH_Z5=OFF -DWITH_ZLIB=ON -DWITH_CPLEX=OFF -DWITH_GUROBI=OFF '
+# Fix path to python executable - it finds v3.6.8 from /usr/bin/ without this fix
+configopts += '-DPYTHON_EXECUTABLE="$EBROOTPYTHON/bin/python" -DBUILD_NIFTY_PYTHON=ON '
+
+# # Fix python files path in make install step -> maybe better to export PYTHON_MODULE_INSTALL_DIR
+# path = "%(builddir)s/nifty-1.2.1/src/python/CMakeList.txt"
+# preinstallopts = "sed -i '44 s/${PYTHON_MODULE_INSTALL_DIR}/\"%(installdir)s/lib/python%(pyshortver)s/site-packages\/"' %s && " % path
+
+# # export PYTHON_MODULE_INSTALL_DIR to fix make install
+# preinstallopts = 'export PYTHON_MODULE_INSTALL_DIR="%(installdir)s/lib/python%(pyshortver)s/site-packages" '
+# easybuild_obj/python/
+preinstallopts = 'export PYTHON_MODULE_INSTALL_DIR="%(builddir)s/easybuild_obj/python/" '
+
+# separate_build_dir = False
+
+files_to_copy = [(['python/nifty'], 'lib/python%(pyshortver)s/site-packages'),]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/nifty'],
+}
+
+sanity_check_commands = ["python -c 'import nifty'"]
+# from nifty.graph import UndirectedGraph
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'vis'
