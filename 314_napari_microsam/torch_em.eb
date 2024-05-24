@@ -9,50 +9,6 @@ other bioimage analysis problems based on pytorch."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# DEPS:
-# "torch", OK
-# "h5py" OK
-# - affogato ok created
-# - bioimageio.spec >=0.5.0 OK exts
-# - bioimageio.core >=0.6.0 OK exts
-# - cpuonly ??? no
-# - imagecodecs OK but PR for it will be with empanada-napari
-# - python-elf OK
-# - pytorch >=2.0 OK in torchvision
-# - tensorboard OK
-# - tifffile OK exts
-# - torchvision OK
-# - tqdm OK
-# - kornia OK exts
-# bioimageio-core 0.6.5 requires fire, ok exts
-# bioimageio-core 0.6.5 requires loguru ok exts
-# bioimageio-core 0.6.5 requires pydantic, OK
-# bioimageio-core 0.6.5 requires pydantic-settings, ok exts
-# bioimageio-core 0.6.5 requires python-dotenv, ok exts
-# bioimageio-core 0.6.5 requires ruyaml, ok exts
-# bioimageio-core 0.6.5 requires xarray, OK
-# bioimageio-spec 0.5.2.post5 requires annotated-types, ok exts
-# bioimageio-spec 0.5.2.post5 requires email-validator, ok exts
-# bioimageio-spec 0.5.2.post5 requires loguru, ok exts
-# bioimageio-spec 0.5.2.post5 requires pydantic, OK
-# bioimageio-spec 0.5.2.post5 requires pydantic-settings, ok exts
-# bioimageio-spec 0.5.2.post5 requires python-dotenv, ok exts
-# bioimageio-spec 0.5.2.post5 requires ruyaml, ok exts
-# kornia 0.7.2 requires kornia-rs, ok exts
-# kornia-rs seems ok
-    # maybe needs nasm - ('NASM', '2.16.01')
-    # maybe either gstreamer - ('GStreamer', '1.22.5)
-# hatchling OK
-# email-validator 2.1.1 requires dnspython, ok exts
-# fire 0.6.0 requires termcolor, ok exts
-# bioimageio-spec 0.5.2.post5 has requirement pydantic<3,>=2.6.3, but you have pydantic 2.5.3. -> unpin by preinstallopts
-    # imports to torch_em from bioimageio.spec:
-    # bioimageio.spec.model.v0_5
-    # from bioimageio.spec import save_bioimageio_package
-# skimage -> scikit-image (in elf, nifty)
-    # import skimage.measure
-    # import skimage.segmentation
-
 builddependencies = [
     ('maturin', '1.1.0'),
     ('CMake', '3.26.3'),
