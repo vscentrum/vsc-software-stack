@@ -12,7 +12,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # DEPS:
 # "torch", OK
 # "h5py" OK
-# - affogato NO - should be version from constantinpape
+# - affogato ok created
 # - bioimageio.spec >=0.5.0 OK exts
 # - bioimageio.core >=0.6.0 OK exts
 # - cpuonly ??? no
@@ -46,6 +46,12 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # email-validator 2.1.1 requires dnspython, ok exts
 # fire 0.6.0 requires termcolor, ok exts
 # bioimageio-spec 0.5.2.post5 has requirement pydantic<3,>=2.6.3, but you have pydantic 2.5.3. -> unpin by preinstallopts
+    # imports to torch_em from bioimageio.spec:
+    # bioimageio.spec.model.v0_5
+    # from bioimageio.spec import save_bioimageio_package
+# skimage -> scikit-image (in elf, nifty)
+    # import skimage.measure
+    # import skimage.segmentation
 
 builddependencies = [
     ('maturin', '1.1.0'),
@@ -54,27 +60,25 @@ builddependencies = [
 ]
 dependencies = [
     ('Python', '3.11.3'),
-#     ('Python-bundle-PyPI', '2023.06'),
     ('torchvision', '0.16.0'),
     ('h5py', '3.9.0'),
-    ('imagecodecs', '2023.1.23'), # from empanada-dl
+    ('imagecodecs', '2023.1.23'),
     ('tensorboard', '2.15.1'),
     ('tqdm', '4.66.1'),
-#     ('napari', '0.4.18'),
-#     ('zarr', '2.17.1'),
-#     ('vigra', '1.11.2'),
+    ('napari', '0.4.18'),
+    ('vigra', '1.11.2'),
     ('python-elf', '0.5.1'),
-#     ('z5py', '2.0.17'),
-#     ('python-xxhash', '3.4.1'),
-#     ('segment-anything', '1.0'),
+    ('z5py', '2.0.17'),
     ('pydantic', '2.5.3'),
     ('xarray', '2023.9.0'),
+    ('affogato', '0.3.3'),
 ]
 
 use_pip = True
 sanity_pip_check = True
 
 # avoid using hatchling as build backend (since installing it for this old Python version is a nightmare)
+# copied from MONAI-1.0.1-foss-2022a.eb
 local_preinstallopts_termcolor = ' '.join([
     r"""sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' """,
     r"""-e 's/^requires = \[/requires = \["setuptools"/g' """,
@@ -129,6 +133,7 @@ exts_list = [
         'checksums': ['3b2851e44a2b074536c36fe3bb05b28dc1413ed358d3edd0eb272b75e6c9ca2b'],
     }),
     ('bioimageio.spec', '0.5.2.post5', {
+        # delete pin of pydantic version
         'preinstallopts': "sed -i 's/pydantic>=2.6.3,<3/pydantic/' setup.py && ",
         'checksums': ['3007aedc4da9f77f4fb46f72c134c8367bd469f05f6dd275db1a93f0fff48e97'],
     }),
@@ -139,14 +144,18 @@ exts_list = [
     }),
 ]
 
-# # postinstallcmds = [
-# #     'sed -i "s/np.float/float/g" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/predictQuality.py',
-# #     '%(installdir)s/bin/checkm2 database --download --path %(installdir)s',
-# #     # 'export CHECKM2DB="$EBROOTCHECKM2/CheckM2_database/uniref100.KO.1.dmnd"',
-# # ]
-
-# # modextrapaths = {'CHECKM2DB': 'CheckM2_database/uniref100.KO.1.dmnd', 'PYTHONPATH': ''}
-
-# # sanity_check_commands = ["pyscenic --help"]
+sanity_check_commands = [
+    "python -c 'import torch_em.data.datasets.util'",
+    "python -c 'import torch_em.transform.label'",
+    "python -c 'import torch_em.data.sampler'",
+    "python -c 'import torch_em.segmentation'",
+    "python -c 'import torch_em.data.datasets.neurips_cell_seg'",
+    "python -c 'import torch_em.model'",
+    "python -c 'import torch_em.loss'",
+    "python -c 'import torch_em.trainer'",
+    # check if unpined pydantic version is woking 
+    "python -c 'import bioimageio.spec.model.v0_5'",
+    "python -c 'from bioimageio.spec import save_bioimageio_package'",
+]
 
 moduleclass = 'vis'

@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'micro-sam'
-version = '1.0.0'
+version = '1.0.1'
 
 homepage = 'https://github.com/computational-cell-analytics/micro-sam/'
 description = "Tools for segmentation and tracking in microscopy build on top of SegmentAnything."
@@ -11,7 +11,6 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # DEPS:
 # napari OK
 # pyqt OK (in napari)
-# $ micro_sam.annotator -> GUI needs more deps:
 # zarr OK 
 # torch OK - torchvision
 # vigra NO (not in EB) -> created OK
@@ -20,7 +19,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # z5py -> created OK
 # python-xxhash OK
 # segment_anything -> created OK
-# torch_em >=0.7.0
+# torch_em >=0.7.0 -> created OK
 
 dependencies = [
     ('Python', '3.11.3'),
@@ -33,6 +32,7 @@ dependencies = [
     ('z5py', '2.0.17'),
     ('python-xxhash', '3.4.1'),
     ('segment-anything', '1.0'),
+    ('torch_em', '0.7.1'),
 ]
 
 use_pip = True
@@ -42,18 +42,15 @@ exts_list = [
     (name, version, {
         'source_urls': ['https://github.com/computational-cell-analytics/micro-sam/archive/'],
         'sources': ['v%(version)s.tar.gz'],
-        'checksums': ['c9bdf7d141911a56062e4df4e0d23a094848a70381b8e09ba9013eea53bbdadd'],
+        'checksums': ['5b7cc562a639d68de4f9462f3696f17b479ea0d669eaedb34687b65ceac715e9'],
     }),
 ]
 
-# postinstallcmds = [
-#     'sed -i "s/np.float/float/g" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/predictQuality.py',
-#     '%(installdir)s/bin/checkm2 database --download --path %(installdir)s',
-#     # 'export CHECKM2DB="$EBROOTCHECKM2/CheckM2_database/uniref100.KO.1.dmnd"',
-# ]
-
-# modextrapaths = {'CHECKM2DB': 'CheckM2_database/uniref100.KO.1.dmnd', 'PYTHONPATH': ''}
-
-# sanity_check_commands = ["pyscenic --help"]
+sanity_check_commands = [
+    "python -c 'import affogato'",
+    "python -c 'import napari.viewer'",
+    "micro_sam.annotator_2d -h",
+    "micro_sam.annotator_3d -h",
+]
 
 moduleclass = 'vis'

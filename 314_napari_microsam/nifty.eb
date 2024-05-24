@@ -33,37 +33,18 @@ dependencies = [
     ('nlohmann_json', '3.11.2'),
     ('scikit-image', '0.22.0'),
     ('vigra', '1.11.2'),
-    # ('zarr', '2.17.1'),
     ('xtensor', '0.24.7'),
     ('zlib', '1.2.13'),
     ('HDF5', '1.14.0'),
 ]
-
-# # Print out _NUMPY_VALUES - not working
-# preconfigopts = "pwd && cd %(builddir)s && pwd && "
-# preconfigopts += "sed -i '62 a\message(\"${_NUMPY_VALUES}\")' nifty-1.2.1/cmake/modules/FindNUMPY.cmake && "
-# preconfigopts += "cd /tmp/vsc47063/easybuild/build/nifty/1.2.1/foss-2023a/easybuild_obj &&"
-
-# Try find_package (Python3 COMPONENTS Interpreter) - ok, do not help - still python 3.6.8
-# preconfigopts = "pwd && cd %(builddir)s && pwd && "
-# preconfigopts += "sed -i 's/PythonInterp/Python3 COMPONENTS Interpreter/g' nifty-1.2.1/cmake/modules/FindNUMPY.cmake && "
-# preconfigopts += "cd /tmp/vsc47063/easybuild/build/nifty/1.2.1/foss-2023a/easybuild_obj &&"
 
 # Add flags (nifty/.github/workflows/build_unix.sh)
 configopts = '-DWITH_QPBO=OFF -DWITH_HDF5=ON -DWITH_Z5=OFF -DWITH_ZLIB=ON -DWITH_CPLEX=OFF -DWITH_GUROBI=OFF '
 # Fix path to python executable - it finds v3.6.8 from /usr/bin/ without this fix
 configopts += '-DPYTHON_EXECUTABLE="$EBROOTPYTHON/bin/python" -DBUILD_NIFTY_PYTHON=ON '
 
-# # Fix python files path in make install step -> maybe better to export PYTHON_MODULE_INSTALL_DIR
-# path = "%(builddir)s/nifty-1.2.1/src/python/CMakeList.txt"
-# preinstallopts = "sed -i '44 s/${PYTHON_MODULE_INSTALL_DIR}/\"%(installdir)s/lib/python%(pyshortver)s/site-packages\/"' %s && " % path
-
-# # export PYTHON_MODULE_INSTALL_DIR to fix make install
-# preinstallopts = 'export PYTHON_MODULE_INSTALL_DIR="%(installdir)s/lib/python%(pyshortver)s/site-packages" '
-# easybuild_obj/python/
+# export PYTHON_MODULE_INSTALL_DIR to fix make install
 preinstallopts = 'export PYTHON_MODULE_INSTALL_DIR="%(builddir)s/easybuild_obj/python/" '
-
-# separate_build_dir = False
 
 files_to_copy = [(['python/nifty'], 'lib/python%(pyshortver)s/site-packages'),]
 
@@ -72,8 +53,11 @@ sanity_check_paths = {
     'dirs': ['lib/python%(pyshortver)s/site-packages/nifty'],
 }
 
-sanity_check_commands = ["python -c 'import nifty'"]
-# from nifty.graph import UndirectedGraph
+sanity_check_commands = [
+    "python -c 'import nifty'",
+    "python -c 'from nifty.graph import UndirectedGraph'",
+    "python -c 'import nifty.tools'",
+]
 
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 

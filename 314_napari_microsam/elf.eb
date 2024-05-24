@@ -41,20 +41,11 @@ use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    ('structsvm', '0.1.1', {
-        'checksums': ['3f0c83f33656ebe13516b6dde2911469b6d8f805e024fa7069972a8bcf081f79'],
-    }),
-    ('ilpy', '0.4.0', {
-        'checksums': ['5cee3c0e5fe6e48cbb4686a8d8362b5e5fa407ab242c480b3981beb7b3429f0c'],
-    }),
     ('nose2', '0.14.1', {
         'checksums': ['7f8f03a21c9de2c33015933afcef72bf8e4a2d5dfec3b40092287de6e41b093a'],
     }),
     ('intern', '1.4.1', {
         'checksums': ['7cdc6caa66716760f93dbbadaa67cc8a03866d6c5f33a6a3285cb9e5f4994315'],
-    }),
-    ('motile', '0.2.1', {
-        'checksums': ['c2cd61e8566198b5a3fdbcb11355837fdcfe82f415bd6d3358ff7acec877ff12'],
     }),
     ('skan', '0.11.1', {
         'checksums': ['d5439c17fbf5f86386a7548acb6ab11482961164a6284047b9bdc6652a0d1faf'],
@@ -67,14 +58,6 @@ exts_list = [
     }),
 ]
 
-# postinstallcmds = [
-#     'sed -i "s/np.float/float/g" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/predictQuality.py',
-#     '%(installdir)s/bin/checkm2 database --download --path %(installdir)s',
-#     # 'export CHECKM2DB="$EBROOTCHECKM2/CheckM2_database/uniref100.KO.1.dmnd"',
-# ]
-
-# modextrapaths = {'CHECKM2DB': 'CheckM2_database/uniref100.KO.1.dmnd', 'PYTHONPATH': ''}
-
 sanity_check_commands = [
     "python -c 'import elf.segmentation.multicut'",
     "python -c 'import elf.segmentation.features'",
@@ -86,7 +69,7 @@ sanity_check_commands = [
     "python -c 'from elf.evaluation import rand_index'",
     "python -c 'from elf.io import open_file'",
     "python -c 'from elf.visualisation import visualise_edges'",
-    "python -c 'import elf.tracking.motile_tracking'",
+    "python -c 'import elf.tracking.tracking_utils'",
     "python -c 'import elf.transformation'",
     "python -c 'import elf.util'",
 ]

@@ -32,11 +32,11 @@ dependencies = [
 ]
 
 # Fix python files path in make install step
-path = "%(builddir)s/%(name)s-Version-1-11-2/config/FindVIGRANUMPY_DEPENDENCIES.cmake"
-add = "SET(VIGRANUMPY_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/python%(pyshortver)s/site-packages)"
-preinstallopts = "sed -i '90,91d' %s && " % path
-preinstallopts += "sed -i '94d' %s && " % path
-preinstallopts += "sed -i '89 a\%s' %s && " % (add, path)
+_py_path = "%(builddir)s/%(name)s-Version-1-11-2/config/FindVIGRANUMPY_DEPENDENCIES.cmake"
+_py_add = "SET(VIGRANUMPY_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/python%(pyshortver)s/site-packages)"
+preinstallopts = "sed -i '90,91d' %s && " % _py_path
+preinstallopts += "sed -i '94d' %s && " % _py_path
+preinstallopts += "sed -i '89 a\%s' %s && " % (_py_add, _py_path)
 
 sanity_check_paths = {
     'files': ['bin/vigra-config'],
