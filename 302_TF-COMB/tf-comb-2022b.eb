@@ -48,10 +48,10 @@ dependencies = [
 use_pip = True
 sanity_pip_check = True
 
-local_tfcomb_preinstallopts = "sed -i '59d' setup.py && "
+local_tfcomb_preinstallopts = "sed -i '70d' setup.py && sed -i 's/import graphviz/import gv as graphviz/' tfcomb/plotting.py && "
 # local_tfcomb_preinstallopts += "sed -i 's|longintrepr.h|python3.11/cpython/longintrepr.h|' tfcomb/counting.c && "
 # Python.h
-local_tfcomb_preinstallopts += "sed -i 's|longintrepr.h|Python.h|' tfcomb/counting.c && "
+# local_tfcomb_preinstallopts += "sed -i 's|longintrepr.h|Python.h|' tfcomb/counting.c && "
 
 exts_list = [
     ('uropa', '4.0.3', {
@@ -62,6 +62,7 @@ exts_list = [
         # 'preinstallopts': "sed -i '59d' setup.py && ",
         # #include <python3.11/cpython/longintrepr.h>
         'preinstallopts': local_tfcomb_preinstallopts,
+        'modulename': 'tfcomb',
         'checksums': ['5b718061660e0f9f94d86459eb742ca81de5851b0defd8b08c8a7a7e3370c253'],
     }),
 ]
@@ -79,10 +80,10 @@ exts_list = [
 #     }),
 # ]
 
-# sanity_check_commands = [
-#     "python -c 'import pyBigWig'",
-#     "compass -h",
-#     "python -c 'import cplex'",
-# ]
+sanity_check_commands = [
+    "python -c 'import gv'",
+    # "compass -h",
+    # "python -c 'import cplex'",
+]
 
 moduleclass = 'bio'

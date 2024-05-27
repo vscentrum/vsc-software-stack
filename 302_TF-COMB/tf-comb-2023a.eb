@@ -49,10 +49,12 @@ dependencies = [
 use_pip = True
 sanity_pip_check = True
 
-local_tfcomb_preinstallopts = "sed -i '59d' setup.py && "
-# local_tfcomb_preinstallopts += "sed -i 's|longintrepr.h|python3.11/cpython/longintrepr.h|' tfcomb/counting.c && "
-# Python.h
-local_tfcomb_preinstallopts += "sed -i 's|longintrepr.h|Python.h|' tfcomb/counting.c && "
+# local_tfcomb_preinstallopts = "sed -i '59d' setup.py && "
+# # local_tfcomb_preinstallopts += "sed -i 's|longintrepr.h|python3.11/cpython/longintrepr.h|' tfcomb/counting.c && "
+# # Python.h
+# local_tfcomb_preinstallopts += "sed -i 's|longintrepr.h|Python.h|' tfcomb/counting.c && "
+
+local_tfcomb_preinstallopts = "cd  tfcomb && rm counting.c && cythonize -i counting.pyx && "
 
 exts_list = [
     ('uropa', '4.0.3', {
