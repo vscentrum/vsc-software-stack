@@ -14,14 +14,14 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # 'pysam', OK
 # 'matplotlib>=2', OK
 # 'pandas', OK
-# 'tobias>=0.11', NO (old in EB)
+# 'tobias>=0.11', -> created OK
 # 'networkx>=2.4',  # G.node -> G.nodes OK
-# 'python-louvain', NO (old in EB)
+# 'python-louvain', -> created OK
 # 'graphviz', OK
 # 'statsmodels', OK
-# 'goatools', NO (old in EB)
+# 'goatools', -> created OK
 # 'uropa', OK exts
-# 'qnorm', NO (old in EB)
+# 'qnorm', -> created OK
 # 'dill', OK
 # 'seaborn', OK
 # 'tqdm', OK
@@ -40,16 +40,29 @@ dependencies = [
     ('dill', '0.3.7'),
     ('Seaborn', '0.13.2'),
     ('IPython', '8.14.0'),
+    ('TOBIAS', '0.16.1'),
+    ('python-louvain', '0.16'),
+    ('GOATOOLS', '1.4.5'),
+    ('qnorm', '0.8.1'),
 ]
 
 use_pip = True
 sanity_pip_check = True
+
+local_tfcomb_preinstallopts = "sed -i '59d' setup.py && "
+# local_tfcomb_preinstallopts += "sed -i 's|longintrepr.h|python3.11/cpython/longintrepr.h|' tfcomb/counting.c && "
+# Python.h
+local_tfcomb_preinstallopts += "sed -i 's|longintrepr.h|Python.h|' tfcomb/counting.c && "
 
 exts_list = [
     ('uropa', '4.0.3', {
         'checksums': ['e0b648881b95f301e3f3ecc924314995312f10b0cbabf96d5a5ce2fb18c53a59'],
     }),
     (name, version, {
+        # unpin python version to works with python 3.11.3
+        # 'preinstallopts': "sed -i '59d' setup.py && ",
+        # #include <python3.11/cpython/longintrepr.h>
+        'preinstallopts': local_tfcomb_preinstallopts,
         'checksums': ['5b718061660e0f9f94d86459eb742ca81de5851b0defd8b08c8a7a7e3370c253'],
     }),
 ]
@@ -67,6 +80,10 @@ exts_list = [
 #     }),
 # ]
 
-# sanity_check_commands = ["python -c 'import igraph'", "compass -h", "python -c 'import cplex'"]
+# sanity_check_commands = [
+#     "python -c 'import pyBigWig'",
+#     "compass -h",
+#     "python -c 'import cplex'",
+# ]
 
 moduleclass = 'bio'

@@ -1,0 +1,88 @@
+easyblock = 'PythonBundle'
+
+name = 'TF-COMB'
+version = '1.1'
+
+homepage = 'https://github.com/loosolab/TF-COMB'
+description = """Transcription Factor Co-Occurrence using Market Basket analysis."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+# DEPS:
+# 'numpy', 
+# 'scipy', 
+# 'pysam', 
+# 'matplotlib>=2', 
+# 'pandas', 
+# 'tobias>=0.11', -> created 
+# 'networkx>=2.4',  # G.node -> G.nodes 
+# 'python-louvain', -> created  OK
+# 'graphviz', 
+# 'statsmodels', 
+# 'goatools', -> created 
+# 'uropa', OK ex
+# 'qnorm', -> created 
+# 'dill', 
+# 'seaborn', 
+# 'tqdm', 
+# 'IPython' 
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('tqdm', '4.64.1'),
+    ('Pysam', '0.21.0'),
+    ('matplotlib', '3.7.0'),
+    ('networkx', '2.8.8'),
+    ('Graphviz', '8.1.0'),
+    ('statsmodels', '0.14.0'),
+    ('dill', '0.3.7'),
+    ('Seaborn', '0.12.2'),
+    ('IPython', '8.14.0'),
+    ('TOBIAS', '0.16.1'),
+    ('python-louvain', '0.16'),
+    ('GOATOOLS', '1.4.5'),
+    ('qnorm', '0.8.1'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+local_tfcomb_preinstallopts = "sed -i '59d' setup.py && "
+# local_tfcomb_preinstallopts += "sed -i 's|longintrepr.h|python3.11/cpython/longintrepr.h|' tfcomb/counting.c && "
+# Python.h
+local_tfcomb_preinstallopts += "sed -i 's|longintrepr.h|Python.h|' tfcomb/counting.c && "
+
+exts_list = [
+    ('uropa', '4.0.3', {
+        'checksums': ['e0b648881b95f301e3f3ecc924314995312f10b0cbabf96d5a5ce2fb18c53a59'],
+    }),
+    (name, version, {
+        # unpin python version to works with python 3.11.3
+        # 'preinstallopts': "sed -i '59d' setup.py && ",
+        # #include <python3.11/cpython/longintrepr.h>
+        'preinstallopts': local_tfcomb_preinstallopts,
+        'checksums': ['5b718061660e0f9f94d86459eb742ca81de5851b0defd8b08c8a7a7e3370c253'],
+    }),
+]
+
+# exts_list = [
+#     ('compass', version, {
+#         # delete dependecy python-igraph - pip check failing
+#         'preinstallopts': "sed -i '27d' setup.py && ",
+#         'source_urls': ['https://github.com/YosefLab/Compass/archive/'],
+#         'sources': [{
+#             'download_filename': '%s.tar.gz' % local_commit,
+#             'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
+#         }],
+#         'checksums': ['87529c5fae108fa2a8e3e35438d3b25874faa78af670a2349228c76fa0843376'],
+#     }),
+# ]
+
+# sanity_check_commands = [
+#     "python -c 'import pyBigWig'",
+#     "compass -h",
+#     "python -c 'import cplex'",
+# ]
+
+moduleclass = 'bio'
