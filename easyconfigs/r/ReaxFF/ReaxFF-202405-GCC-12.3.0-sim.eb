@@ -1,0 +1,36 @@
+easyblock = 'MakeCp'
+
+name = 'ReaxFF'
+version = '202405'
+versionsuffix = '-sim'
+
+homepage = 'https://www.engr.psu.edu/adri/ReaxffManual.aspx'
+
+description = """
+simulation code of the REAXFF Reactive force field program
+"""
+
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+
+sources = ['%(name)s-sim-%(version)s.tar']
+checksums = ['e6ae26a3a9620d64d7a2786b7a432aa7c9659c66a6ae17db7463f4b82e84545c']
+
+download_instructions = """
+Register at https://www.engr.psu.edu/adri/Home.aspx and follow instructions
+"""
+
+prebuildopts = "sed -ie 's/\tf77 /\tgfortran /g' makefile && "
+prebuildopts += 'rm -f *.o && '
+
+buildopts = 'SUFFIX="-c -O3 -std=legacy"'
+
+files_to_copy = [
+    (['reac'], 'bin'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/reac'],
+    'dirs': [],
+}
+
+moduleclass = 'chem'
