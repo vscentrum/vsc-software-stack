@@ -49,22 +49,23 @@ dependencies = [
 use_pip = True
 sanity_pip_check = True
 
-# local_tfcomb_preinstallopts = "sed -i '59d' setup.py && "
-# # local_tfcomb_preinstallopts += "sed -i 's|longintrepr.h|python3.11/cpython/longintrepr.h|' tfcomb/counting.c && "
-# # Python.h
-# local_tfcomb_preinstallopts += "sed -i 's|longintrepr.h|Python.h|' tfcomb/counting.c && "
+# remove graphviz from deps - the pip check failing, should be "import gv"
+local_tfcomb_preinstallopts = "sed -i '70d' setup.py && "
+# fix "import graphviz" to "import gv"
+local_tfcomb_preinstallopts += "sed -i 's/import graphviz/import gv as graphviz/' tfcomb/plotting.py && "
+# unpin python version to works with python 3.11.3
+local_tfcomb_preinstallopts += "sed -i '59d' setup.py && "
+# regenerate counting.c to works with python 3.11
+local_tfcomb_preinstallopts += "cd  tfcomb && rm counting.c && cythonize -i counting.pyx && cd .. && "
 
-local_tfcomb_preinstallopts = "cd  tfcomb && rm counting.c && cythonize -i counting.pyx && "
 
 exts_list = [
     ('uropa', '4.0.3', {
         'checksums': ['e0b648881b95f301e3f3ecc924314995312f10b0cbabf96d5a5ce2fb18c53a59'],
     }),
     (name, version, {
-        # unpin python version to works with python 3.11.3
-        # 'preinstallopts': "sed -i '59d' setup.py && ",
-        # #include <python3.11/cpython/longintrepr.h>
         'preinstallopts': local_tfcomb_preinstallopts,
+        'modulename': 'tfcomb',
         'checksums': ['5b718061660e0f9f94d86459eb742ca81de5851b0defd8b08c8a7a7e3370c253'],
     }),
 ]
