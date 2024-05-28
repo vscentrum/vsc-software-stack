@@ -8,25 +8,6 @@ description = """Transcription Factor Co-Occurrence using Market Basket analysis
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# DEPS:
-# 'numpy', OK
-# 'scipy', OK
-# 'pysam', OK
-# 'matplotlib>=2', OK
-# 'pandas', OK
-# 'tobias>=0.11', -> created OK
-# 'networkx>=2.4',  # G.node -> G.nodes OK
-# 'python-louvain', -> created OK
-# 'graphviz', OK
-# 'statsmodels', OK
-# 'goatools', -> created OK
-# 'uropa', OK exts
-# 'qnorm', -> created OK
-# 'dill', OK
-# 'seaborn', OK
-# 'tqdm', OK
-# 'IPython' OK
-
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
@@ -69,24 +50,5 @@ exts_list = [
         'checksums': ['5b718061660e0f9f94d86459eb742ca81de5851b0defd8b08c8a7a7e3370c253'],
     }),
 ]
-
-# exts_list = [
-#     ('compass', version, {
-#         # delete dependecy python-igraph - pip check failing
-#         'preinstallopts': "sed -i '27d' setup.py && ",
-#         'source_urls': ['https://github.com/YosefLab/Compass/archive/'],
-#         'sources': [{
-#             'download_filename': '%s.tar.gz' % local_commit,
-#             'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
-#         }],
-#         'checksums': ['87529c5fae108fa2a8e3e35438d3b25874faa78af670a2349228c76fa0843376'],
-#     }),
-# ]
-
-# sanity_check_commands = [
-#     "python -c 'import pyBigWig'",
-#     "compass -h",
-#     "python -c 'import cplex'",
-# ]
 
 moduleclass = 'bio'

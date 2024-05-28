@@ -1,6 +1,7 @@
 # This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
 # Author: Denis Kristak
 # Update: Pavel Tománek (Inuits)
+
 easyblock = 'PythonPackage'
 
 name = 'GOATOOLS'
@@ -11,10 +12,6 @@ description = "A Python library for Gene Ontology analyses"
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# goatools 1.4.5 requires ftpretty, which is not installed
-
-# must download sources via git to preserve .git directory,
-# since setuptools-scm is used to determine version
 sources = [{
     'git_config': {
         'url': 'https://github.com/tanghaibao',

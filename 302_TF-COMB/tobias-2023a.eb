@@ -9,28 +9,6 @@ for performing footprinting analysis on ATAC-seq data."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# DEPS:
-# 'numpy', OK
-# 'scipy', OK
-# 'pysam', OK
-# 'pybedtools', OK
-# 'matplotlib>=2', OK
-# 'scikit-learn', OK
-# 'pandas', OK
-# 'pypdf2>=1.28.0', OK exts
-# 'xlsxwriter', OK
-# 'adjustText<0.8', #text_from_points AttributeError in 0.8 OK? exts
-# 'pyBigWig>=0.3', -> created OK
-# 'MOODS-python', OK exts
-# 'svist4get>=1.2.24', -> created OK
-# 'logomaker', OK
-# 'seaborn>=0.9.1', OK
-# 'boto3', OK
-# 'pyyaml>5.1', OK
-# 'kneed' OK exts
-# tobias 0.16.1 requires pybigwig, which is not installed. -> remove pyBigWig from setup.py
-# tobias 0.16.1 has requirement adjustText<0.8, but you have adjusttext 0.8. -> created
-
 builddependencies = [('hatchling', '1.18.0')]
 dependencies = [
     ('Python', '3.11.3'),
