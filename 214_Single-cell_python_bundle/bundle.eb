@@ -82,11 +82,47 @@ dependencies = [
     # toyplot 1.0.3 requires multipledispatch OK exts
     # toyplot 1.0.3 requires pypng OK exts
     # toyplot 1.0.3 requires reportlab OK exts
-# Liana-py 
-# Harmonypy
+# mudata
+    # dep of scvi-tools
+# muon
+    # dep of scArches
+# Liana-py
+    # lots of deps
+    # try put in exts: ('liana', '1.2.0'),    
+# Harmonypy OK
+    # try put it in exts
+    # DEPS: should be ok
+        # numpy>=1.13
+        # scipy>=1.2
+        # scikit-learn>=0.21
+        # pandas>=0.25
 # Scirpy
+    # has mudata in deps
 # CellPhoneDB
-# Decoupler
+    #DEPS:
+        # pandas>=1.5.0 OK
+        # scanpy>=1.9.1 OK
+        # numpy>=1.21.6 OK
+        # numpy-groupies>=0.9.15 in loompy - scVelo OK
+        # requests>=2.25 in pypi-bundle OK
+        # scikit-learn>=1.2.2 OK
+        # geosketch>=1.2 NO put in exts_list
+            # ('geosketch', '1.2'),
+        # anndata>=0.8 OK
+        # ktplotspy>=0.1.4 NO put in exts_list
+            # ('ktplotspy', '0.2.3'),
+        # tqdm>=4.3,<5.0 ok?
+        # pytest>=7.2.0 ok?
+        # geosketch 1.2 requires fbpca, ok exts
+        # ktplotspy 0.2.3 requires plotnine, ok exts
+        # ktplotspy 0.2.3 requires python-circos, ok exts
+        # ktplotspy 0.2.3 has requirement plotnine<0.13.0,>=0.12.0, ok use v0.12.4
+        # plotnine 0.12.4 requires mizani, ok exts
+        # plotnine 0.12.4 has requirement mizani<0.10.0,>0.9.0, but you have mizani 0.11.4. ok use v0.9.3
+        # mizani 0.11.4 has requirement pandas>=2.1.0, but you have pandas 2.0.3. ??
+# Decoupler OK
+    # should be ok in exts
+    # ('decoupler', '1.6.0'),
 # contrastiveVI
 # Schist
 
@@ -173,7 +209,47 @@ exts_list = [
         'preinstallopts': "sed -i '28d' setup.py && ",
         'checksums': ['8c12ddccb72c41c96c6a5abceb52e7a76f439a9ab94fb092aa86ee3c1292383a'],
     }),
+    ('harmonypy', '0.0.9', {
+        'checksums': ['85bfdd4e6ec6e0fa8816a276639358d3598a40d60ba9f7a5d9dada8706be8c4d'],
+    }),
+    ('fbpca', '1.0', {
+        'checksums': ['150677642479663f317fdbb5e06dab3f98721cf7031bb4a84113d7a631c472d1'],
+    }),
+    ('geosketch', '1.2', {
+        'checksums': ['bbfe97366b91c5927b6076d5a6738d9cfbe094efb5ac1117aab7a30b6081cc4e'],
+    }),
+    ('python_circos', '0.3.0', {
+        'modulename': 'pycircos',
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['410eaffc4eb2933cd688897356813da23310f5e2f14a8bceb003e9b96faa715b'],
+    }),
+    ('mizani', '0.9.3', {
+        'checksums': ['fb61339e9e4711850e902ca286b1ae75255f483823d891aa0515b426d56c606d'],
+    }),
+    ('plotnine', '0.12.4', {
+        'checksums': ['adc41a672503594445a8fa19872799253bd0784cdbd5a1cc16657a1dd20ba905'],
+    }),
+    ('ktplotspy', '0.2.3', {
+        'checksums': ['9a1e3646217e6e99f59ab2258dfd76120cf1f50880c9cb2f9005de397c00f0a9'],
+    }),
+    ('cellphonedb', '5.0.0', {
+        'checksums': ['1c96173d8527f1655216d265fc50a28ea3360d70486afa5050e3f5565fa3a8cd'],
+    }),
+    ('decoupler', '1.6.0', {
+        'checksums': ['dde501f4d3e55a260f716e51b871bee403bc8aaa6b66799df0e42dee0787b98d'],
+    }),
+    ('mudata', '0.2.3', {
+        'checksums': ['45288ac150bfc598d68acb7c2c1c43c38c5c39522107e04f7efbf3360c7f2035'],
+    }),
+    ('liana', '1.2.0', {
+        'checksums': ['be899c69bfcbf3d0f8b61c04c35f225ac6b11fe1ea80e6ed4bdc0e6212cb2379'],
+    }),
 ]
+
+# Liana optional:
+    # ('muon', '0.1.6'),
+    # ('mofax', '0.3.6'),
+    # ('mofapy2', '0.7.1'),
 
 use_pip = True
 sanity_pip_check = True
