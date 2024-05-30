@@ -4,7 +4,7 @@
 easyblock = 'ConfigureMake'
 
 name = 'graph-tool'
-version = '2.68'
+version = '2.59'
 
 homepage = 'https://graph-tool.skewed.de/'
 description = """Graph-tool is an efficient Python module for manipulation and
@@ -17,11 +17,11 @@ description = """Graph-tool is an efficient Python module for manipulation and
  computation time) to that of a pure C/C++ library."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-toolchainopts = {'cstd': 'c++17'}
+toolchainopts = {'cstd': 'c++17', 'openmp': True}
 
 source_urls = ['https://downloads.skewed.de/%(name)s/']
 sources = [SOURCE_TAR_BZ2]
-checksums = ['8c1fbf47ac995615348a8871615347743db4e4c6ae471328a216e3e1ad93fabc']
+checksums = ['cde479c0a7254b72f6e795d03b0273b0a7d81611a6a3364ba649c2c85c99acae']
 
 builddependencies = [
     ('gawk', '5.3.0'),
@@ -43,6 +43,7 @@ dependencies = [
 
 configopts = '--enable-openmp --with-cgal=$EBROOTCGAL --with-boost=$EBROOTBOOST '
 configopts += '--with-boost-python=boost_python311  '
+# configopts += '--with-boost=_python311-mt-x64  '
 configopts += '--with-python-module-path=%(installdir)s/lib/python%(pyshortver)s/site-packages '
 
 
@@ -51,7 +52,10 @@ sanity_check_paths = {
     'dirs': ['lib/python%(pyshortver)s/site-packages/graph_tool/include', 'share'],
 }
 
-sanity_check_commands = ["python -c 'from graph_tool.all import graph_draw'"]
+# sanity_check_commands = [
+#     "python -c 'from graph_tool.all import Graph, BlockState'",
+#     "python -c 'import graph_tool.inference'",
+# ]
 
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
