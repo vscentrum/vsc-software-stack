@@ -38,7 +38,7 @@ dependencies = [
     ('SYMMETRICA', '2.0'),
     ('lcalc', '2.0.5'),
     ('gap', '4.13.0'),
-    ('giac', '1.9.0-99'),  # TODO try
+    ('giac', '1.9.0-99'),
     ('m4rie', '20200125'),
     ('libhomfly', '1.02r6'),
     ('libbraiding', '1.2'),
@@ -46,6 +46,9 @@ dependencies = [
 
 use_pip = True
 sanity_pip_check = True
+
+local_preinstallopts = 'export CPATH=EBROOTFLINT/include/flint:$CPATH && '
+local_preinstallopts += 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && '
 
 exts_list = [
     ('cypari2', '2.1.4', {
@@ -59,72 +62,38 @@ exts_list = [
     }),
     ('%(namelower)s-standard', version, {
         'checksums': ['43203cd1d1a3c5688c00771b2172af848aca77e3a25055f02928460dec76ef31'],
-        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
-        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+        'preinstallopts': local_preinstallopts,
     }),
     ('%(namelower)s-bliss', version, {
         'checksums': ['41939ecbe2110cd00230152b4761b0ca3a907b48500a52e7e745fe856ee275b3'],
-        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
-        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+        'preinstallopts': local_preinstallopts,
     }),
     ('%(namelower)s-coxeter3', version, {
         'checksums': ['14b51e35a6f8ed0d8f716f81864507fb93b93f2e1fa39e5f86017487d76708ec'],
-        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
-        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+        'preinstallopts': local_preinstallopts,
     }),
     ('%(namelower)s-mcqd', version, {
         'checksums': ['e4b7b91f8e76d58044dedd734abb1cc6333e103d54603e126308f677e354cbb4'],
-        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
-        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+        'preinstallopts': local_preinstallopts,
     }),
     ('%(namelower)s-meataxe', version, {
         'checksums': ['25a4a2da9dafbc6c37975898e5e54e1d477b54bb8bd0554e6a4f88059b382f46'],
-        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
-        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+        'preinstallopts': local_preinstallopts,
     }),
     ('%(namelower)s-sirocco', version, {
         'checksums': ['ff1326fbf30931629d7545c59c4b0c6332802dce6897aced3822658c4a2f9973'],
-        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
-        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+        'preinstallopts': local_preinstallopts,
     }),
     ('%(namelower)s-tdlib', version, {
         'checksums': ['dc7fdec4c29300cf80f5a0ea238434fc1ff89ca2274cc9f96a8c5fd5f0b95eff'],
-        'preinstallopts': "export CPATH=EBROOTFLINT/include/flint:$CPATH && ",
-        'preinstallopts': 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && ',
+        'preinstallopts': local_preinstallopts,
     }),
 ]
 
 moduleclass = 'devel'
 
-#  It encodes the given ``str`` to a Python 3 ``bytes``\n    using the specified encoding.  It is a no-op on ``bytes`` input.\n\n    EXAMPLES::\n\n        sage: from sage.cpython.string import str_to_bytes\n        sage: bs = [str_to_bytes(u'\317\200')]\n        sage: all(b == b'\\xcf\\x80' for b in bs)\n        True\n        sage: str_to_bytes([])\n        Traceback (most recent call last):\n        ...\n        TypeError: expected str... list found\n    ");
-#             |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# ...
-# build/cythonized/sage/schemes/elliptic_curves/descent_two_isogeny.c:10290:11: error: 'fmpz_poly_set_coeff_mpz' is deprecated. Use 'fmpz_poly_set_coeff_fmpz' instead.
-#       10290 |         fmpz_poly_set_coeff_mpz(__pyx_v_f1, 0, __pyx_v_e);
-#             |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# ...
-# n file included from build/cythonized/sage/libs/flint/flint.c:1213:
-#       /apps/gent/RHEL8/cascadelake-ib/software/FLINT/3.1.1-gfbf-2023b/include/flint/thread_pool.h:53:5: error: unknown type name slong
-#          53 |     slong length;
-#             |     ^~~~~
-#       /apps/gent/RHEL8/cascadelake-ib/software/FLINT/3.1.1-gfbf-2023b/include/flint/thread_pool.h:63:40: error: unknown type name slong; did you mean ulong?
-#          63 | void thread_pool_init(thread_pool_t T, slong l);
-#             |                                        ^~~~~
-#             |                                        ulong
-# ...
-# build/cythonized/sage/rings/polynomial/pbori/pbori.cpp:1253:10: fatal error: polybori/pbori_defs.h: No such file or directory
-#        1253 | #include "polybori/pbori_defs.h"
-#             |          ^~~~~~~~~~~~~~~~~~~~~~~
-#       compilation terminated.
-# ...
-# In file included from build/cythonized/sage/rings/number_field/number_field_element_quadratic.cpp:1250:
-#       sage/libs/arb/arb_wrap.h:14:10: fatal error: acb.h: No such file or directory
-#          14 | #include <acb.h>
-#             |          ^~~~~~~
-#       compilation terminated.
-# ...
-# error: command '/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/gcc' failed with exit code 1
-#       Exception ignored in: <function Pool.__del__ at 0x153c66631e40>
+#       error: command '/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/g++' failed with exit code 1
+#       Exception ignored in: <function Pool.__del__ at 0x14749e1758a0>
 #       Traceback (most recent call last):
 #         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/pool.py", line 271, in __del__
 #           self._change_notifier.put(None)
@@ -139,9 +108,8 @@ moduleclass = 'devel'
 #               ^^^^^^^^^^^^^^^^^^^^^^^^
 #       OSError: [Errno 9] Bad file descriptor
 #       [end of output]
-
-
-# build/cythonized/sage/libs/giac/giac.cpp:1239:10: fatal error: giac/giac.h: No such file or directory
-#        1239 | #include "giac/giac.h"
-#             |          ^~~~~~~~~~~~~
-#       compilation terminated.
+#
+#   note: This error originates from a subprocess, and is likely not a problem with pip.
+#   ERROR: Failed building wheel for sagemath-standard
+# Failed to build sagemath-standard
+# ERROR: Could not build wheels for sagemath-standard, which is required to install pyproject.toml-based projects
