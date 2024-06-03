@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'scvi-tools'
-version = '1.1.1'
+version = '1.1.2'
 
 homepage = 'https://github.com/scverse/scvi-tools'
 description = """scvi-tools (single-cell variational inference tools) is a package for probabilistic modeling and
@@ -9,108 +9,88 @@ analysis of single-cell omics data, built on top of PyTorch and AnnData."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
+#  "anndata>=0.7.5", OK
+# "docrep>=0.3.2", ok exts
+# "flax", ok exts
+# "jax>=0.4.4", OK
+# "jaxlib>=0.4.3", OK in jax
+# "optax", OK created
+# "numpy>=1.21.0", ok
+# "pandas>=1.0", ok
+# "scipy", ok
+# "scikit-learn>=0.21.2", OK
+# "rich>=12.0.0", ok pypi-bundle
+# "h5py>=2.9.0", OK
+# "torch>=1.8.0", OK - pytorch lightning
+# "lightning>=2.0,<2.2", not in pytorch-lightning -> exts
+# "torchmetrics>=0.11.0", OK - pytorch lightning
+# "pyro-ppl>=1.6.0", OK
+# "tqdm>=4.56.0", OK
+# "numpyro>=0.12.1", ok exts
+# "ml-collections>=0.1.1", OK created
+# "mudata>=0.1.2", ok exts
+# flax 0.8.4 requires orbax-checkpoint, ok exts
+# flax 0.8.4 requires tensorstore, ok exts
+# numpyro 0.15.0 requires multipledispatch, ok exts
+# orbax-checkpoint 0.5.15 requires nest-asyncio, which is not installed
+
+builddependencies = [('hatchling', '1.18.0')]
 dependencies = [
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
     ('anndata', '0.10.5.post1'),
     ('matplotlib', '3.7.2'),
-    ('PyYAML', '6.0'),
+    # ('PyYAML', '6.0'),
     ('scikit-learn', '1.3.1'),
-    ('PyTorch', '2.1.2'),
     ('tqdm', '4.66.1'),
-    # ('h5py', '3.2.1'),
+    ('jax', '0.4.25'),
+    ('h5py', '3.9.0'),
     # ('IPython', '7.25.0'),
-    # ('jax', '0.3.9'),
     # ('openpyxl', '3.0.7'),
-    # ('PyTorch-Lightning', '1.5.9'),
-    # ('scikit-learn', '0.24.2'),
+    ('PyTorch-Lightning', '2.2.1'),
     # ('dm-tree', '0.1.6'),
     # ('scanpy', '1.8.1'),
     # ('scikit-misc', '0.1.4'),
+    ('pyro-ppl', '1.9.0'),  # in #331 CellBender pr
+    ('ml-collections', '0.1.1'),
+    ('Optax', '0.2.2'),
 ]
-
-    # "anndata>=0.7.5", OK
-    # "docrep>=0.3.2",  OK - exts
-    # "flax",
-    # "jax>=0.4.4",
-    # "jaxlib>=0.4.3",
-    # "optax",
-    # "numpy>=1.21.0", OK - scipy
-    # "pandas>=1.0", OK - scipy
-    # "scipy", OK
-    # "scikit-learn>=0.21.2",
-    # "rich>=12.0.0",
-    # "h5py>=2.9.0",
-    # "torch>=1.8.0",
-    # "lightning>=2.0,<2.2",
-    # "torchmetrics>=0.11.0",
-    # "pyro-ppl>=1.6.0",
-    # "tqdm>=4.56.0", OK
-    # "scikit-learn>=0.21.2", OK
-    # "numpyro>=0.12.1",
-    # "ml-collections>=0.1.1",
-    # "mudata>=0.1.2",
 
 use_pip = True
 
-# jax 0.4.24 requires ml-dtypes, which is not installed.
-# jax 0.4.24 requires opt-einsum, which is not installed.
-# scvi-tools 1.1.1 requires jaxlib, which is not installed.
-# scvi-tools 1.1.1 requires lightning, which is not installed.
-# scvi-tools 1.1.1 requires ml-collections, which is not installed.
-# scvi-tools 1.1.1 requires mudata, which is not installed.
-# scvi-tools 1.1.1 requires numpyro, which is not installed.
-# scvi-tools 1.1.1 requires pyro-ppl, which is not installed.
-# scvi-tools 1.1.1 requires scikit-learn, which is not installed.
-# scvi-tools 1.1.1 requires torch, which is not installed.
-# scvi-tools 1.1.1 requires torchmetrics, which is not installed.
-# scvi-tools 1.1.1 requires tqdm, which is not installed.
-# optax 0.1.9 requires absl-py, which is not installed.
-# optax 0.1.9 requires chex, which is not installed.
-# optax 0.1.9 requires jaxlib, which is not installed.
-# flax 0.5.2 has requirement rich~=11.1, but you have rich 13.4.2.
-
 exts_list = [
-    ('chex', '0.1.85', {
-        'checksums': ['a27cfe87119d6e1fe24ccc1438a59195e6dc1d6e0e10099fcf618c3f64771faf'],
-    }),
-    ('absl-py', '2.1.0', {
-        'checksums': ['7820790efbb316739cde8b4e19357243fc3608a152024288513dd968d7d959ff'],
-    }),
-    ('pyro-ppl', '1.9.0', {
-        'checksums': ['41f4c005159568280fbc511648960a98a2b1a410027d8bd0a43220ac9b102cdf'],
-    }),
-    ('numpyro', '0.13.2', {
-        'checksums': ['526f0b15518094c78e68df6e330c9c1c9cea1274dac69f05617224fa6d954ee8'],
-    }),
     ('mudata', '0.2.3', {
         'checksums': ['45288ac150bfc598d68acb7c2c1c43c38c5c39522107e04f7efbf3360c7f2035'],
     }),
-    ('ml_collections', '0.1.1', {
-        'checksums': ['3fefcc72ec433aa1e5d32307a3e474bbb67f405be814ea52a2166bfc9dbe68cc'],
+    ('multipledispatch', '1.0.0', {
+        'checksums': ['5c839915465c68206c3e9c473357908216c28383b425361e5d144594bf85a7e0'],
     }),
-    ('lightning', '2.2.0.post0', {
-        'checksums': ['60d91d39f42dde49e411bbf3a243b3d89c58aa028e2476d5fd2b3894a97ea775'],
+    ('numpyro', '0.15.0', {
+        'checksums': ['e16c9f47cc31e2aa259584a0b6c944312081d33ca92406022632ad584b0e600d'],
     }),
-    ('ml_dtypes', '0.3.2', {
-        'checksums': ['533059bc5f1764fac071ef54598db358c167c51a718f68f5bb55e3dee79d2967'],
+    ('nest_asyncio', '1.6.0', {
+        'checksums': ['6f172d5449aca15afd6c646851f4e31e02c598d553a667e38cafa997cfec55fe'],
     }),
-    ('opt_einsum', '3.3.0', {
-        'checksums': ['59f6475f77bbc37dcf7cd748519c0ec60722e91e63ca114e68821c0c54a46549'],
+    ('orbax_checkpoint', '0.5.15', {
+        'modulename': 'orbax.checkpoint',
+        'checksums': ['15195e8d1b381b56f23a62a25599a3644f5d08655fa64f60bb1b938b8ffe7ef3'],
+    }),
+    ('tensorstore', '0.1.60', {
+        'checksums': ['88da8f1978982101b8dbb144fd29ee362e4e8c97fc595c4992d555f80ce62a79'],
+    }),
+    ('flax', '0.8.4', {
+        'checksums': ['968683f850198e1aa5eb2d9d1e20bead880ef7423c14f042db9d60848cb1c90b'],
     }),
     ('docrep', '0.3.2', {
         'checksums': ['ed8a17e201abd829ef8da78a0b6f4d51fb99a4cbd0554adbed3309297f964314'],
     }),
-    ('flax', '0.8.1', {
-        'checksums': ['ce3d99e9b4c0d2e4d9fc28bc56cced8ba953adfd695aabd24f096b4c8a7e2f92'],
-    }),
-    ('optax', '0.1.9', {
-        'checksums': ['731f43e8b404f50a5ef025b1261894d7d0300f7ad9cb688ea08f67b40822e94f'],
+    ('lightning', '2.1.4', {
+        'checksums': ['0e45098c700fa28c604a11ae233ce181b44aeffce2404debebc2616118431d9f'],
     }),
     (name, version, {
         'modulename': 'scvi',
         'sources': ['scvi_tools-%(version)s.tar.gz'],
-        'checksums': ['f0c3b09de501664dd4f8d24906d34f80fa6ad0ea4b7850ae594e4ec5d6759172'],
+        'checksums': ['104a11a30e8996f5ceaa907b8c81b48b1f4b380d492ef2dd9b9a5577ed81b0f9'],
     }),
 ]
 
