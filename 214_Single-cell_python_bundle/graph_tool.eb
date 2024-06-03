@@ -43,7 +43,6 @@ dependencies = [
 
 configopts = '--enable-openmp --with-cgal=$EBROOTCGAL --with-boost=$EBROOTBOOST '
 configopts += '--with-boost-python=boost_python311  '
-# configopts += '--with-boost=_python311-mt-x64  '
 configopts += '--with-python-module-path=%(installdir)s/lib/python%(pyshortver)s/site-packages '
 
 
@@ -52,10 +51,10 @@ sanity_check_paths = {
     'dirs': ['lib/python%(pyshortver)s/site-packages/graph_tool/include', 'share'],
 }
 
-# sanity_check_commands = [
-#     "python -c 'from graph_tool.all import Graph, BlockState'",
-#     "python -c 'import graph_tool.inference'",
-# ]
+sanity_check_commands = [
+    "python -c 'from graph_tool.all import Graph, BlockState'",
+    "python -c 'import graph_tool.inference'",
+]
 
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
