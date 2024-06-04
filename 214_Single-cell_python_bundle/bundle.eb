@@ -22,7 +22,6 @@ dependencies = [
     ('Seaborn', '0.13.2'),
     ('PyTorch', '2.1.2'),
     ('scanpy', '1.9.8'),
-    # scib-metrics TODO
     ('scib', '1.1.4'),
     ('scVelo', '0.3.1'),  # imports loompy
     ('CellTypist', '1.6.2'),
@@ -37,6 +36,7 @@ dependencies = [
     ('Cassiopeia', '2.0.0'),
     ('scvi-tools', '1.1.2'),
     ('scArches', '0.6.1'),
+    ('scib-metrics', '0.5.1'),
     # deps for exts:
     ('umap-learn', '0.5.5'),  # bbknn
     ('scikit-learn', '1.3.1'),  # bbknn, sc_toolbox
@@ -45,6 +45,7 @@ dependencies = [
     ('adjustText', '1.1.1'),  # sc_toolbox, created
     ('python-parasail', '1.3.4'),  # scirpy
     ('graph-tool', '2.59'),  # schist
+    ('Pyomo', '6.7.3'),  # pertpy
 ]
 
 # DEPS to add:
@@ -65,19 +66,12 @@ dependencies = [
     # arrow 1.3.0 requires types-python-dateutil OK exts
 # Altair OK
     # altair 5.2.0 requires toolz OK exts
-# Pertpy NO - needs scvi-tools
-    # pertpy 0.6.0 requires decoupler, which is not installed. -> Do decoupler first
-    # pertpy 0.6.0 requires ipywidgets, which is not installed.
-    # pertpy 0.6.0 requires muon, which is not installed.
-    # pertpy 0.6.0 requires numpyro, which is not installed.
-    # pertpy 0.6.0 requires ott-jax, which is not installed.
-    # pertpy 0.6.0 requires plotnine, which is not installed.
-    # pertpy 0.6.0 requires scvi-tools, which is not installed.
-    # pertpy 0.6.0 requires sparsecca, which is not installed.
-    # pertpy 0.6.0 requires toytree OK exts
-    # ('pertpy', '0.6.0', {
-    #     'checksums': ['0f9ed443a74a07ab8cd0fb6d2d06275df30ec836c161124b83c9505b7cab182b'],
-    # }),
+# Pertpy
+    # pertpy 0.6.0 requires ott-jax, ok exts
+    # pertpy 0.6.0 requires sparsecca, ok exts
+    # ott-jax 0.4.6 requires jaxopt ok exts
+    # ott-jax 0.4.6 requires lineax ok exts
+    # sparsecca 0.3.1 requires pyomo -> created OK
 # tascCODA OK
     # tasccoda 0.1.3 requires tensorflow-probability OK in scCoda -> delete TF-prob. from setup.py as in scCoda
         # strip out tensorflow-probability as required dependency, to ensure that 'pip check' passes
@@ -144,7 +138,7 @@ dependencies = [
     # should be ok in exts
     # ('decoupler', '1.6.0'),
 # contrastiveVI
-# Schist
+# Schist OK
     # not has pipy source -> github
     # missing graph_tool -> create
         # graph_tool.all.Graph
@@ -313,6 +307,21 @@ exts_list = [
         'source_tmpl': 'v%(version)s.tar.gz',
         'source_urls': ['https://github.com/dawe/schist/archive/'],
         'checksums': ['9b98ec9d85554573288c24f18c4791ba7c4d315397cbc422ea25d4a7cdd42e6d'],
+    }),
+    ('lineax', '0.0.5', {
+        'checksums': ['ed41098dbd94b639287f15682e19cd9ec1dc9ecad6844ee861536044a0e3285c'],
+    }),
+    ('jaxopt', '0.8.3', {
+        'checksums': ['4b06dfa6f915a4f3291699606245af6069371a48dc5c92d4c507840d62990646'],
+    }),
+    ('ott_jax', '0.4.6', {
+        'checksums': ['bc91f8d512cdb344439f5584712d76cd0650b6716b6686d53b828cc67abdbcba'],
+    }),
+    ('sparsecca', '0.3.1', {
+        'checksums': ['be1526baebac5ce6efbc7190fd62a1cec13288c493f5d427024f66ca6afaec13'],
+    }),
+    ('pertpy', '0.6.0', {
+        'checksums': ['0f9ed443a74a07ab8cd0fb6d2d06275df30ec836c161124b83c9505b7cab182b'],
     }),
 ]
 
