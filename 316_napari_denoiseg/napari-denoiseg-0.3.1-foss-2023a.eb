@@ -1,0 +1,51 @@
+easyblock = 'PythonBundle'
+
+name = 'napari-denoiseg'
+version = '0.3.1'
+
+homepage = 'https://github.com/haesleinhuepf/devbio-napari'
+description = """A napari plugin performing joint denoising and segmentation of microscopy images using DenoiSeg."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('napari', '0.4.18'),  # TODO `napari<=0.4.15`
+    ('PyQtGraph', '0.13.'),  # TODO
+    ('QtPy', '2.4.1'),
+    ('imageio', '2.33.1'),
+    ('TensorFlow', '2.13.0'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('magicgui', '0.8.2', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['23ad789a058e6f5b4c9f9c7b804cbb73633c2d44c5141a10b71fabcd4847ae2e'],
+    }),
+    ('napari_time_slicer', '0.5.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['6c7f53f762cb3410da097be43ba47b4f4213e89930a3ade3ec1c7c1beb9d605f'],
+    }),
+    ('bioimageio.core', '0.6.5', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['ecf03a3abc6e7e25c1fa74be376934bd1a17106a377e47ac8c089d83c88f08c0'],
+    }),
+    ('denoiseg', '0.3.1', {
+        'source_tmpl': SOURCE_WHL,
+        'checksums': ['2f2b0d2dc694236da3725527a8e33e4c5101d33837fc271a83e184aac0adbdc5'],
+    }),
+    (name, '%(version)src2', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['a0f1aea3686d58b105c899debe06435fa154c6982705080a66475328b20d6a75'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+moduleclass = 'vis'
