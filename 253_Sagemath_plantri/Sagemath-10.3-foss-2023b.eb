@@ -47,9 +47,6 @@ dependencies = [
 use_pip = True
 sanity_pip_check = True
 
-local_preinstallopts = 'export CPATH=EBROOTFLINT/include/flint:$CPATH && '
-local_preinstallopts += 'export CXXFLAGS="$CXXFLAGS -I$EBROOTFLINT/include/flint" && '
-
 exts_list = [
     ('cypari2', '2.1.4', {
         'checksums': ['efa4a44d96f693cb1156da1fd6fccc130dafcf9c19af4185cf770bf44d00dbfc'],
@@ -62,54 +59,76 @@ exts_list = [
     }),
     ('%(namelower)s-standard', version, {
         'checksums': ['43203cd1d1a3c5688c00771b2172af848aca77e3a25055f02928460dec76ef31'],
-        'preinstallopts': local_preinstallopts,
     }),
     ('%(namelower)s-bliss', version, {
         'checksums': ['41939ecbe2110cd00230152b4761b0ca3a907b48500a52e7e745fe856ee275b3'],
-        'preinstallopts': local_preinstallopts,
     }),
     ('%(namelower)s-coxeter3', version, {
         'checksums': ['14b51e35a6f8ed0d8f716f81864507fb93b93f2e1fa39e5f86017487d76708ec'],
-        'preinstallopts': local_preinstallopts,
     }),
     ('%(namelower)s-mcqd', version, {
         'checksums': ['e4b7b91f8e76d58044dedd734abb1cc6333e103d54603e126308f677e354cbb4'],
-        'preinstallopts': local_preinstallopts,
     }),
     ('%(namelower)s-meataxe', version, {
         'checksums': ['25a4a2da9dafbc6c37975898e5e54e1d477b54bb8bd0554e6a4f88059b382f46'],
-        'preinstallopts': local_preinstallopts,
     }),
     ('%(namelower)s-sirocco', version, {
         'checksums': ['ff1326fbf30931629d7545c59c4b0c6332802dce6897aced3822658c4a2f9973'],
-        'preinstallopts': local_preinstallopts,
     }),
     ('%(namelower)s-tdlib', version, {
         'checksums': ['dc7fdec4c29300cf80f5a0ea238434fc1ff89ca2274cc9f96a8c5fd5f0b95eff'],
-        'preinstallopts': local_preinstallopts,
     }),
 ]
 
 moduleclass = 'devel'
 
-#       error: command '/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/g++' failed with exit code 1
-#       Exception ignored in: <function Pool.__del__ at 0x14749e1758a0>
-#       Traceback (most recent call last):
-#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/pool.py", line 271, in __del__
-#           self._change_notifier.put(None)
-#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/queues.py", line 377, in put
-#           self._writer.send_bytes(obj)
-#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 199, in send_bytes
-#           self._send_bytes(m[offset:offset + size])
-#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 410, in _send_bytes
-#           self._send(header + buf)
-#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 367, in _send
-#           n = write(self._handle, buf)
-#               ^^^^^^^^^^^^^^^^^^^^^^^^
-#       OSError: [Errno 9] Bad file descriptor
-#       [end of output]
+# build/cythonized/sage/rings/polynomial/pbori/pbori.cpp:1253:10: fatal error: polybori/pbori_defs.h: No such file or directory
+# 1253 | #include "polybori/pbori_defs.h"
+#         |          ^~~~~~~~~~~~~~~~~~~~~~~
+# compilation terminated.
 #
-#   note: This error originates from a subprocess, and is likely not a problem with pip.
-#   ERROR: Failed building wheel for sagemath-standard
+# ...
+#
+# build/cythonized/sage/rings/polynomial/pbori/pbori.cpp:1253:10: fatal error: polybori/pbori_defs.h: No such file or directory
+# 1253 | #include "polybori/pbori_defs.h"
+#         |          ^~~~~~~~~~~~~~~~~~~~~~~
+# compilation terminated.
+#
+# ...
+#
+# build/cythonized/sage/graphs/planarity.c:1204:10: fatal error: planarity/graph.h: No such file or directory
+# 1204 | #include "planarity/graph.h"
+#         |          ^~~~~~~~~~~~~~~~~~~
+# compilation terminated.
+#
+# ...
+#
+# build/cythonized/sage/graphs/graph_decompositions/rankwidth.c:1212:10: fatal error: rw.h: No such file or directory
+# 1212 | #include "rw.h"
+#         |          ^~~~~~
+# compilation terminated.
+#
+# ...
+#
+#         error: command '/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/gcc' failed with exit code 1
+#     Exception ignored in: <function Pool.__del__ at 0x14da5fb28b80>
+#     Traceback (most recent call last):
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/pool.py", line 271, in __del__
+#         self._change_notifier.put(None)
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/queues.py", line 377, in put
+#         self._writer.send_bytes(obj)
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 199, in send_bytes
+#         self._send_bytes(m[offset:offset + size])
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 410, in _send_bytes
+#         self._send(header + buf)
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 367, in _send
+#         n = write(self._handle, buf)
+#             ^^^^^^^^^^^^^^^^^^^^^^^^
+#     OSError: [Errno 9] Bad file descriptor
+#     [end of output]
+#
+# note: This error originates from a subprocess, and is likely not a problem with pip.
+# ERROR: Failed building wheel for sagemath-standard
 # Failed to build sagemath-standard
 # ERROR: Could not build wheels for sagemath-standard, which is required to install pyproject.toml-based projects
+# (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
