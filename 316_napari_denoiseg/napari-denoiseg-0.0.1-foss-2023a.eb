@@ -1,9 +1,9 @@
 easyblock = 'PythonBundle'
 
 name = 'napari-denoiseg'
-version = '0.3.1'
+version = '0.0.1'
 
-homepage = 'https://github.com/haesleinhuepf/devbio-napari'
+homepage = 'https://juglab.github.io/napari-denoiseg/index.html'
 description = """A napari plugin performing joint denoising and segmentation of microscopy images using DenoiSeg."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
@@ -11,7 +11,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 dependencies = [
     ('Python', '3.11.3'),
     ('napari', '0.4.18'),  # TODO `napari<=0.4.15`
-    ('PyQtGraph', '0.13.'),  # TODO
+    ('PyQtGraph', '0.13.7'),  # TODO
     ('QtPy', '2.4.1'),
     ('imageio', '2.33.1'),
     ('TensorFlow', '2.13.0'),
@@ -37,7 +37,7 @@ exts_list = [
         'source_tmpl': SOURCE_WHL,
         'checksums': ['2f2b0d2dc694236da3725527a8e33e4c5101d33837fc271a83e184aac0adbdc5'],
     }),
-    (name, '%(version)src2', {
+    ('napari_denoiseg', '%(version)src2', {
         'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['a0f1aea3686d58b105c899debe06435fa154c6982705080a66475328b20d6a75'],
     }),
@@ -49,3 +49,21 @@ sanity_check_paths = {
 }
 
 moduleclass = 'vis'
+
+# TODO
+# bioimageio-core 0.6.5 requires bioimageio-spec, which is not installed.
+# bioimageio-core 0.6.5 requires fire, which is not installed.
+# bioimageio-core 0.6.5 requires loguru, which is not installed.
+# bioimageio-core 0.6.5 requires pydantic-settings, which is not installed.
+# bioimageio-core 0.6.5 requires python-dotenv, which is not installed.
+# bioimageio-core 0.6.5 requires ruyaml, which is not installed.
+# bioimageio-core 0.6.5 requires xarray, which is not installed.
+# napari-time-slicer 0.5.0 requires napari-tools-menu, which is not installed.
+# napari-time-slicer 0.5.0 requires napari-workflows, which is not installed.
+# denoiseg 0.3.1 requires csbdeep, which is not installed.
+# denoiseg 0.3.1 requires n2v, which is not installed.
+# denoiseg 0.3.1 requires numba, which is not installed.
+# denoiseg 0.3.1 requires scikit-learn, which is not installed.
+# denoiseg 0.3.1 has requirement wrapt<=1.12.1, but you have wrapt 1.15.0.
+# napari-denoiseg 0.0.1rc2 has requirement napari<=0.4.15, but you have napari 0.4.18.
+# napari-denoiseg 0.0.1rc2 has requirement vispy<=0.9.6, but you have vispy 0.12.2.
