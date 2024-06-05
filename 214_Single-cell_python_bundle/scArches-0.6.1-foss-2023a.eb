@@ -28,40 +28,6 @@ dependencies = [
     ('tornado', '6.3.2'),
 ]
 
-# ipykernel OK
-# ipython<8.13.0 ??? EB only 8.14 for 12.3.0
-# sphinx>=3.0.3 OK - pypi bundle
-# nbconvert>=5.6.1 - ? maybe to exts
-# nbsphinx>=0.7 - ? maybe to exts
-# sphinx_rtd_theme - ? maybe to exts
-# numpydoc OK
-# cython OK - pypi bundle
-# pkgconfig OK
-# furo OK
-
-# "scanpy>=1.6.0", OK
-# "anndata>=0.7.4", OK
-# "scHPL>=1.0.0", OK
-# "h5py>=2.10.0", OK
-# "torch>=1.8.0", OK
-# "numpy>=1.19.2", OK
-# "scipy>=1.5.2", OK
-# "scikit-learn>=0.23.2", OK
-# "matplotlib>=3.3.1", OK
-# "pandas>=1.1.2", OK
-# "scvi-tools>=0.12.1", OK
-# "tqdm>=4.56.0", OK
-# "requests", OK
-# "gdown", OK
-# "leidenalg", OK
-# "muon", OK
-
-# furo 2024.1.29 requires sphinx-basic-ng, ok exts
-# ipykernel 6.29.3 requires comm, ok exts
-# ipykernel 6.29.3 requires debugpy, ok exts
-# schpl 1.0.5 has requirement newick~=1.0.0, but you have newick 1.9.0. -> sed out
-# schpl 1.0.5 has requirement pandas<2,>=1.1.2, but you have pandas 2.0.3. -> sed out
-
 use_pip = True
 
 exts_list = [
@@ -117,7 +83,5 @@ exts_list = [
 ]
 
 sanity_pip_check = True
-
-# sanity_check_commands = ["python -c 'from pandas import DataFrame, concat, crosstab, read_csv'"]
 
 moduleclass = 'bio'
