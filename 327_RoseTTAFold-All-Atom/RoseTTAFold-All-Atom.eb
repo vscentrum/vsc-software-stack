@@ -36,7 +36,7 @@ dependencies = [
     #   * [x] attrs=23.2.0, pypi -> exts_list
     #   * [ ] blas=2.121=mkl => part of OpenBLAS (foss toolchain)
     #   * [ ] blas-devel=3.9.0=21_linux64_mkl => part of OpenBLAS (foss toolchain)
-    ('BLAST', '2.2.26'), #   * [ ] blast-legacy=2.2.26=2 => see BLAST+ or BLAST-2.2.26-Linux_x86_64.eb
+    ('BLAST', '2.2.26', '-Linux_x86_64', SYSTEM), #   * [ ] blast-legacy=2.2.26=2 => see BLAST+ or BLAST-2.2.26-Linux_x86_64.eb
     #   * [x] blinker=1.7.0, pypi -> exts_list
     ('Brotli', '1.0.9'), #   * [?] brotli=1.1.0, v1.0.9 for 2023a, v1.1.0 for 2023b
     #   * [?] brotli-bin=1.1.0, part of brotli? => OK: Brotli-1.0.9-GCCcore-12.3.0.eb
@@ -63,7 +63,7 @@ dependencies = [
     #   * [ ] cuda-runtime=11.8.0=0
     #   * [ ] cuda-version=11.8=h70ddcb2_3
     #   * [ ] cudatoolkit=11.8.0, EXTERNAL_MODULE?  => just use CUDA for all of these
-    ('cuDNN', '8.9.2.26', '-CUDA-%(cudaver)s', SYSTEM) #   * [x] cudnn=8.8.0.121, cuDNN-8.9.7.29-CUDA-12.3.0.eb in EB
+    ('cuDNN', '8.9.2.26', '-CUDA-%(cudaver)s', SYSTEM),  #   * [x] cudnn=8.8.0.121, cuDNN-8.9.7.29-CUDA-12.3.0.eb in EB
     #   * [x] cycler=0.12.1, pypi -> exts_list
     ('DBus', '1.15.4'), #   * [x] dbus=1.13.6, 2023a: v1.15.4, 2023b: v1.15.8
     ('deepdiff', '6.7.1'), #   * [x] deepdiff=6.7.1, 2023a: yes, 2023b: no
@@ -131,7 +131,7 @@ dependencies = [
     #   * [ ] libbrotlienc=1.1.0, ??? in Brotli  => yes, Brotli
     #   * [ ] libcap=2.67, NO  => OK via OS
     #   * [ ] libcblas=3.9.0, NO  => OK via OpenBLAS/foss?
-    ('Clang', '16.0.6', '-CUDA-%(cudaver)s', SYSTEM) #   * [x] libclang=15.0.7, 2023a: v16.0.6, 2023b: no
+    ('Clang', '16.0.6', '-CUDA-%(cudaver)s'), #   * [x] libclang=15.0.7, 2023a: v16.0.6, 2023b: no
     #   * [ ] libclang13=15.0.7=default_ha2b6cf4_4  => ignore, see what happens
     #   * [ ] libcublas=11.11.3.6, in CUDA? => probably OK 
     #   * [ ] libcufft=10.9.0.58, in CUDA? => probably OK
@@ -170,7 +170,7 @@ dependencies = [
     ('libopus', '1.4'), #   * [x] libopus=1.3.1, v1.4 for 2023a, v1.3.1 for 12.2.0
     ('libpng', '1.6.39'), #   * [?] libpng=1.6.43, 2023a: v1.6.39, 2023b: v1.6.40
     #   * [ ] libpq=15.3, NO
-    ('protobuf-python', '4.23.0'), #   * [?] libprotobuf=3.21.12, protobuf-python? -> 2023a: v4.23.0, 2023b: v4.24.0
+    ('protobuf-python', '4.24.0'), #   * [?] libprotobuf=3.21.12, protobuf-python? -> 2023a: v4.24.0, 2023b: v4.25.3
     ('libsndfile', '1.2.2'), #   * [x] libsndfile=1.2.2, 2023a: v1.2.2, 2023b: no
     ('SQLite', '3.42.0'), #   * [?] libsqlite=3.45.1, SQLite?, 2023a: v3.42.0, 2023b: v3.43.1
     #   * [ ] libssh2=1.11.0 ???
@@ -206,7 +206,7 @@ dependencies = [
     #   * [x] munkres=1.1.4, maybe in exts_list? only 1 ec with it (for foss/2018b) -> exts_list
     #   * [ ] mysql-common=8.0.33=hf1915f5_6 ???
     #   * [ ] mysql-libs=8.0.33=hca2cd23_6 ???
-    ('NCCL', '2.18.3', '-CUDA-%(cudaver)s') #   * [?] nccl=2.20.5.1, only for CUDA, not same version
+    ('NCCL', '2.18.3', '-CUDA-%(cudaver)s'), #   * [?] nccl=2.20.5.1, only for CUDA, not same version
     ('ncurses', '6.4'), #   * [x] ncurses=6.4, yes both
     ('nettle', '3.9.1'), #   * [x] nettle=3.6, v3.9.1 for both
     ('networkx', '3.1'), #   * [?] networkx=3.2.1, 2023a: v3.1, 2023b: v3.2.1
@@ -239,7 +239,7 @@ dependencies = [
     #   * [x] pyasn1=0.5.1=pyhd8ed1ab_0 -> exts_list
     #   * [x] pyasn1-modules=0.3.0=pyhd8ed1ab_0 -> exts_list
     #   * [x] pycparser=2.21=pyhd8ed1ab_0 -> exts_list
-    ('PyTorch-Geometric', '2.5.0', '-CUDA-%(cudaver)s'), #   * [x] pyg=2.5.0=py310_torch_2.0.0_cu118
+    ('PyTorch-Geometric', '2.5.0', '-PyTorch-2.1.2-CUDA-%(cudaver)s'), #   * [x] pyg=2.5.0=py310_torch_2.0.0_cu118
     #   * [x] pygments=2.17.2=pyhd8ed1ab_0, v2.1.3 for 2016a, -> exts_list
     #   * [x] pyjwt=2.8.0=pyhd8ed1ab_1 -> exts_list
     #   * [x] pyopenssl=24.0.0=pyhd8ed1ab_0 -> exts_list
@@ -355,69 +355,127 @@ exts_default_options = {
 exts_list = [
     ('absl-py', '2.1.0', {
         'modulename': 'absl',
+        'checksums': ['7820790efbb316739cde8b4e19357243fc3608a152024288513dd968d7d959ff'],
     }),
-    ('aiosignal', '1.3.1'),
-    ('asttokens', '2.4.1'),
-    ('astunparse', '1.6.3'),
-    ('async-timeout', '4.0.3'),
-    ('attrs', '23.2.0'),
-    ('blinker', '1.7.0'),
-    ('cached-property', '1.5.2'),
-    ('cachetools', '5.3.3'),
-    ('certifi', '2024.2.2'),
-    ('charset-normalizer', '3.3.2'),
-    ('click', '8.1.7'),
-    ('colorama', '0.4.6'),
-    ('contourpy', '1.2.0'),
+    ('aiosignal', '1.3.1', {
+        'checksums': ['54cd96e15e1649b75d6c87526a6ff0b6c1b0dd3459f43d9ca11d48c339b68cfc'],
+    }),
+    ('asttokens', '2.4.1', {
+        'checksums': ['b03869718ba9a6eb027e134bfdf69f38a236d681c83c160d510768af11254ba0'],
+    }),
+    ('astunparse', '1.6.3', {
+        'checksums': ['5ad93a8456f0d084c3456d059fd9a92cce667963232cbf763eac3bc5b7940872'],
+    }),
+    ('async-timeout', '4.0.3', {
+        'checksums': ['4640d96be84d82d02ed59ea2b7105a0f7b33abe8703703cd0ab0bf87c427522f'],
+    }),
+    ('attrs', '23.2.0', {
+        'checksums': ['935dc3b529c262f6cf76e50877d35a4bd3c1de194fd41f47a2b7ae8f19971f30'],
+    }),
+    ('blinker', '1.7.0', {
+        'checksums': ['e6820ff6fa4e4d1d8e2747c2283749c3f547e4fee112b98555cdcdae32996182'],
+    }),
+    ('cached-property', '1.5.2', {
+        'checksums': ['9fa5755838eecbb2d234c3aa390bd80fbd3ac6b6869109bfc1b499f7bd89a130'],
+    }),
+    ('cachetools', '5.3.3', {
+        'checksums': ['ba29e2dfa0b8b556606f097407ed1aa62080ee108ab0dc5ec9d6a723a007d105'],
+    }),
+    ('certifi', '2024.2.2', {
+        'checksums': ['0569859f95fc761b18b45ef421b1290a0f65f147e92a1e5eb3e635f9a5e4e66f'],
+    }),
+    ('charset-normalizer', '3.3.2', {
+        'checksums': ['f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5'],
+    }),
+    ('click', '8.1.7', {
+        'checksums': ['ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de'],
+    }),
+    ('colorama', '0.4.6', {
+        'checksums': ['08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44'],
+    }),
+    ('contourpy', '1.2.0', {
+        'checksums': ['171f311cb758de7da13fc53af221ae47a5877be5a0843a9fe150818c51ed276a'],
+    }),
     ('Cycler', '0.12.1', {
         'modulename': 'cycler',
         'source_tmpl': 'cycler-%(version)s.tar.gz',
+        'checksums': ['88bb128f02ba341da8ef447245a9e138fae777f6a23943da4540077d3601eb1c'],
     }),
-    ('executing', '2.0.1'),
-    ('filelock', '3.13.1'),
+    ('executing', '2.0.1', {
+        'checksums': ['35afe2ce3affba8ee97f2d69927fa823b08b472b7b994e36a52a964b93d16147'],
+    }),
+    ('filelock', '3.13.1', {
+        'checksums': ['521f5f56c50f8426f5e03ad3b281b490a87ef15bc6c526f168290f0c7148d44e'],
+    }),
     ('fonttools', '4.49.0', {
         'modulename': 'fontTools',
+        'checksums': ['ebf46e7f01b7af7861310417d7c49591a85d99146fc23a5ba82fdb28af156321'],
     }),
-    ('frozenlist', '1.4.1'),
-    ('fsspec', '2024.2.0'),
-    ('gast', '0.4.0'),
+    ('frozenlist', '1.4.1', {
+        'checksums': ['c037a86e8513059a2613aaba4d817bb90b9d9b6b69aace3ce9c877e8c8ed402b'],
+    }),
+    ('fsspec', '2024.2.0', {
+        'checksums': ['b6ad1a679f760dda52b1168c859d01b7b80648ea6f7f7c7f5a8a91dc3f3ecb84'],
+    }),
+    ('gast', '0.4.0', {
+        'checksums': ['40feb7b8b8434785585ab224d1568b857edb18297e5a3047f1ba012bc83b42c1'],
+    }),
     ('google-auth', '2.28.2', {
         'modulename': 'google.auth',
+        'checksums': ['80b8b4969aa9ed5938c7828308f20f035bc79f9d8fb8120bf9dc8db20b41ba30'],
     }),
-    ('google-auth-oauthlib', '0.4.6'),
+    ('google-auth-oauthlib', '0.4.6', {
+        'checksums': ['a90a072f6993f2c327067bf65270046384cda5a8ecb20b94ea9a687f1f233a7a'],
+    }),
     ('google-pasta', '0.2.0', {
         'modulename': 'pasta',
         'checksums': ['c9f2c8dfc8f96d0d5808299920721be30c9eec37f2389f28904f454565c8a16e'],
     }),
     ('grpcio', '1.51.1', {
         'modulename': 'grpc',
+        'checksums': ['e6dfc2b6567b1c261739b43d9c59d201c1b89e017afd9e684d85aa7a186c9f7a'],
     }),
-    ('icecream', '2.1.3'),
-    ('idna', '3.6'),
+    ('icecream', '2.1.3', {
+        'checksums': ['0aa4a7c3374ec36153a1d08f81e3080e83d8ac1eefd97d2f4fe9544e8f9b49de'],
+    }),
+    ('idna', '3.6', {
+        'checksums': ['9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca'],
+    }),
     ('importlib-metadata', '7.0.2', {
         'source_tmpl': 'importlib_metadata-%(version)s.tar.gz',
+        'checksums': ['198f568f3230878cb1b44fbd7975f87906c22336dba2e4a7f05278c281fbd792'],
     }),
     ('Keras-Preprocessing', '1.1.2', {
         'source_tmpl': 'Keras_Preprocessing-%(version)s.tar.gz',
         'checksums': ['add82567c50c8bc648c14195bf544a5ce7c1f76761536956c3d2978970179ef3'],
     }),
-    ('MarkupSafe', '2.1.5'),
-    ('multidict', '6.0.5'),
+    ('MarkupSafe', '2.1.5', {
+        'checksums': ['d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b'],
+    }),
+    ('multidict', '6.0.5', {
+        'checksums': ['f7e301075edaf50500f0b341543c41194d8df3ae5caf4702f2095f3ca73dd8da'],
+    }),
     ('munkres', '1.1.4', {
         'source_tmpl': 'release-%(version)s.tar.gz',
         'source_urls': ['https://github.com/bmc/munkres/archive/'],
+        'checksums': ['6a297282895e4f7c27902bb5ad045d06458905daafb80a9ce14b9d87ca391205'],
     }),
     ('oauthlib', '3.2.2', {
         'checksums': ['9859c40929662bec5d64f34d01c99e093149682a3f38915dc0655d5a633dd918'],
     }),
     ('opt-einsum', '3.3.0', {
         'source_tmpl': 'opt_einsum-%(version)s.tar.gz',
+        'checksums': ['59f6475f77bbc37dcf7cd748519c0ec60722e91e63ca114e68821c0c54a46549'],
     }),
     ('ordered-set', '4.1.0', {
         'checksums': ['694a8e44c87657c59292ede72891eb91d34131f6531463aab3009191c77364a8'],
     }),
-    ('orjson', '3.9.15'),
-    ('pyasn1', '0.5.1'),
+    ('orjson', '3.9.15', {
+        'checksums': ['95cae920959d772f30ab36d3b25f83bb0f3be671e986c72ce22f8fa700dae061'],
+    }),
+    ('pyasn1', '0.5.1', {
+        'checksums': ['6d391a96e59b23130a5cfa74d6fd7f388dbbe26cc8f1edf39fdddf08d9d6676c'],
+    }),
     ('pyasn1-modules', '0.3.0', {
         'source_tmpl': 'pyasn1_modules-%(version)s.tar.gz',
         'checksums': ['5bd01446b736eb9d31512a30d46c1ac3395d676c6f3cafa4c03eb54b9925631c'],
@@ -425,43 +483,62 @@ exts_list = [
     ('pycparser', '2.21', {
         'checksums': ['e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206'],
     }),
-    ('Pygments', '2.17.2'),
+    ('pygments', '2.17.2', {
+        'checksums': ['da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367'],
+    }),
     ('PyJWT', '2.8.0', {
         'modulename': 'jwt',
         'checksums': ['57e28d156e3d5c10088e0c68abb90bfac3df82b40a71bd0daa20c65ccd5c23de'],
     }),
     ('pyOpenSSL', '24.0.0', {
         'modulename': 'OpenSSL',
+        'checksums': ['6aa33039a93fffa4563e655b61d11364d01264be8ccb49906101e02a334530bf'],
     }),
-    ('PySocks', '1.7.1'),
-    ('tzdata', '2024.1'),
+    ('PySocks', '1.7.1', {
+        'checksums': ['3f8804571ebe159c380ac6de37643bb4685970655d3bba243530d6558b799aa0'],
+    }),
+    ('tzdata', '2024.1', {
+        'checksums': ['2674120f8d891909751c38abcdfd386ac0a5a1127954fbc332af6b5ceae07efd'],
+    }),
     ('pyu2f', '0.1.5', {
         'checksums': ['a3caa3a11842fc7d5746376f37195e6af5f17c0a15737538bb1cebf656fb306b'],
     }),
     ('requests-oauthlib', '1.3.1', {
         'checksums': ['75beac4a47881eeb94d5ea5d6ad31ef88856affe2332b9aafb52c6452ccf0d7a'],
     }),
-    ('rsa', '4.9'),
+    ('rsa', '4.9', {
+        'checksums': ['e38464a49c6c85d7f1351b0126661487a7e0a14a50f1675ec50eb34d4f20ef21'],
+    }),
     ('termcolor', '2.4.0', {
-        'source_tmpl': SOURCE_PY3_WHL,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
         'checksums': ['9297c0df9c99445c2412e832e882a7884038a25617c60cea2ad69488d4040d63'],
     }),
-    ('tzdata', '2024.1'),
-    ('unicodedata2', '15.1.0'),
+    ('tzdata', '2024.1', {
+        'checksums': ['2674120f8d891909751c38abcdfd386ac0a5a1127954fbc332af6b5ceae07efd'],
+    }),
+    ('unicodedata2', '15.1.0', {
+        'checksums': ['cb30f189ad66482f8529a45da71b2a8841e9bd2bb376cc2933003a4a55a07648'],
+    }),
     ('werkzeug', '3.0.1', {
         'checksums': ['507e811ecea72b18a404947aded4b3390e1db8f826b494d76550ef45bb3b1dcc'],
     }),
-    ('yarl', '1.9.4'),
+    ('yarl', '1.9.4', {
+        'checksums': ['566db86717cf8080b99b58b083b773a908ae40f06681e87e589a976faf8246bf'],
+    }),
     ('zipp', '3.17.0', {
-        'source_tmpl': SOURCE_PY3_WHL,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
         'checksums': ['0e923e726174922dce09c53c59ad483ff7bbb8e572e00c7f7c46b88556409f31'],
     }),
     ('antlr4-python3-runtime', '4.9.3', {
         'modulename': 'antlr4',
         'checksums': ['f224469b4168294902bb1efa80a8bf7855f24c99aef99cbefc1bcd3cce77881b'],
     }),
-    ('assertpy', '1.1'),
-    ('configparser', '6.0.1'),
+    ('assertpy', '1.1', {
+        'checksums': ['acc64329934ad71a3221de185517a43af33e373bb44dc05b5a9b174394ef4833'],
+    }),
+    ('configparser', '6.0.1', {
+        'checksums': ['db45513e971e509496b150be31bd67b0e14ab20b78a383b677e4b158e2c682d8'],
+    }),
     ('docker-pycreds', '0.4.0', {
         'modulename': 'dockerpycreds',
         'checksums': ['6ce3270bcaf404cc4c3e27e4b6c70d3521deae82fb508767870fdbf772d584d4'],
@@ -469,16 +546,24 @@ exts_list = [
     ('omegaconf', '2.3.0', {
         'checksums': ['d5d4b6d29955cc50ad50c46dc269bcd92c6e00f5f90d23ab5fee7bfca4ba4cc7'],
     }),
-    ('opt_einsum_fx', '0.1.4'),
-    ('pathtools', '0.1.2'),
+    ('opt_einsum_fx', '0.1.4', {
+        'checksums': ['7eeb7f91ecb70be65e6179c106ea7f64fc1db6319e3d1289a4518b384f81e74f'],
+    }),
+    ('pathtools', '0.1.2', {
+        'checksums': ['7c35c5421a39bb82e58018febd90e3b6e5db34c5443aaaf742b3f33d4655f1c0'],
+    }),
     ('promise', '2.3', {
         'checksums': ['dfd18337c523ba4b6a58801c164c1904a9d4d1b1747c7d5dbf45b693a49d93d0'],
     }),
     ('pynvml', '11.0.0', {
         'checksums': ['d5fc4a22d355b40c341d6ba0aa888a2d4d2253177d243900f8401b7e6cacb1bb'],
     }),
-    ('pyrsistent', '0.20.0'),
-    ('shortuuid', '1.0.12'),
+    ('pyrsistent', '0.20.0', {
+        'checksums': ['4c48f78f62ab596c679086084d0dd13254ae4f3d6c72a83ffdf5ebdef8f265a4'],
+    }),
+    ('shortuuid', '1.0.12', {
+        'checksums': ['c39f1b348b3c1e9b115a954b33b76c8c522d2d177a9d20acdbb20d24fac3ccfd'],
+    }),
     ('subprocess32', '3.5.4', {
         'checksums': ['eb2937c80497978d181efa1b839ec2d9622cf9600a039a79d0e108d1f9aec79d'],
     }),
