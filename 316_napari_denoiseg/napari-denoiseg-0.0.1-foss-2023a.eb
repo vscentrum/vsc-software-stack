@@ -11,16 +11,27 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 dependencies = [
     ('Python', '3.11.3'),
     ('napari', '0.4.18'),  # TODO `napari<=0.4.15`
-    ('PyQtGraph', '0.13.7'),  # TODO
+    ('PyQtGraph', '0.13.7'),
     ('QtPy', '2.4.1'),
-    ('imageio', '2.33.1'),
     ('TensorFlow', '2.13.0'),
+    ('CSBDeep', '0.7.4'),
+    ('n2v', '0.3.3'),
+    ('numba', '0.58.1'),
+    ('scikit-learn', '1.4.2'),
+    ('n2v', '0.3.3'),
+    ('autopep8', '2.2.0'),
 ]
 
 use_pip = True
 sanity_pip_check = True
 
 exts_list = [
+    ('napari-workflows', '0.2.10', {
+        'checksums': ['d48f2020693b4b8c1dd639668a3b1588115beac8f19f42394fc241fc1672be12'],
+    }),
+    ('napari-tools-menu', '0.1.19', {
+        'checksums': ['6b58ac45d7fe84bc5975e7a53142340d5d62beff9ade0f2f58d7a3a4a0a8e8f8'],
+    }),
     ('magicgui', '0.8.2', {
         'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['23ad789a058e6f5b4c9f9c7b804cbb73633c2d44c5141a10b71fabcd4847ae2e'],
@@ -29,9 +40,13 @@ exts_list = [
         'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['6c7f53f762cb3410da097be43ba47b4f4213e89930a3ade3ec1c7c1beb9d605f'],
     }),
-    ('bioimageio.core', '0.6.5', {
-        'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['ecf03a3abc6e7e25c1fa74be376934bd1a17106a377e47ac8c089d83c88f08c0'],
+    # lower version to overwrite the installed version
+    ('vispy', '0.9.6', {
+        'checksums': ['212cd5b50824499bbce3e2d741aadacb79c0b771ac566f931c61355976028bcb'],
+    }),
+    # lower version to overwrite the installed version
+    ('wrapt', '1.12.1', {
+        'checksums': ['b62ffa81fb85f4332a4f609cab4ac40709470da05643a082ec1eb88e6d9b97d7'],
     }),
     ('denoiseg', '0.3.1', {
         'source_tmpl': SOURCE_WHL,
@@ -51,19 +66,6 @@ sanity_check_paths = {
 moduleclass = 'vis'
 
 # TODO
-# bioimageio-core 0.6.5 requires bioimageio-spec, which is not installed.
-# bioimageio-core 0.6.5 requires fire, which is not installed.
-# bioimageio-core 0.6.5 requires loguru, which is not installed.
-# bioimageio-core 0.6.5 requires pydantic-settings, which is not installed.
-# bioimageio-core 0.6.5 requires python-dotenv, which is not installed.
-# bioimageio-core 0.6.5 requires ruyaml, which is not installed.
-# bioimageio-core 0.6.5 requires xarray, which is not installed.
-# napari-time-slicer 0.5.0 requires napari-tools-menu, which is not installed.
-# napari-time-slicer 0.5.0 requires napari-workflows, which is not installed.
-# denoiseg 0.3.1 requires csbdeep, which is not installed.
-# denoiseg 0.3.1 requires n2v, which is not installed.
-# denoiseg 0.3.1 requires numba, which is not installed.
-# denoiseg 0.3.1 requires scikit-learn, which is not installed.
-# denoiseg 0.3.1 has requirement wrapt<=1.12.1, but you have wrapt 1.15.0.
 # napari-denoiseg 0.0.1rc2 has requirement napari<=0.4.15, but you have napari 0.4.18.
-# napari-denoiseg 0.0.1rc2 has requirement vispy<=0.9.6, but you have vispy 0.12.2.
+# napari 0.4.18 has requirement vispy<0.13,>=0.12.1, but you have vispy 0.9.6.
+# # napari-denoiseg 0.0.1rc2 has requirement vispy<=0.9.6, but you have vispy 0.12.2.
