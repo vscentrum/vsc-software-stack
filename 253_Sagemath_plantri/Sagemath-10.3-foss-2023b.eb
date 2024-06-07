@@ -42,6 +42,7 @@ dependencies = [
     ('m4rie', '20200125'),
     ('libhomfly', '1.02r6'),
     ('libbraiding', '1.2'),
+    ('planarity', '3.0.2.0'),
 ]
 
 use_pip = True
@@ -82,53 +83,40 @@ exts_list = [
 
 moduleclass = 'devel'
 
-# build/cythonized/sage/rings/polynomial/pbori/pbori.cpp:1253:10: fatal error: polybori/pbori_defs.h: No such file or directory
-# 1253 | #include "polybori/pbori_defs.h"
-#         |          ^~~~~~~~~~~~~~~~~~~~~~~
-# compilation terminated.
-#
+#       /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-13.2.0/bin/ld: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/IML/1.0.5-gfbf-2023b/lib/../lib64/libiml.a(libiml_la-basisop.o): relocation
+# R_X86_64_32 against `.rodata.str1.1' can not be used when making a shared object; recompile with -fPIC
+#      /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-13.2.0/bin/ld: failed to set dynamic section sizes: bad value
+#      collect2: error: ld returned 1 exit status
 # ...
-#
-# build/cythonized/sage/rings/polynomial/pbori/pbori.cpp:1253:10: fatal error: polybori/pbori_defs.h: No such file or directory
-# 1253 | #include "polybori/pbori_defs.h"
-#         |          ^~~~~~~~~~~~~~~~~~~~~~~
-# compilation terminated.
-#
+#        build/cythonized/sage/graphs/graph_decompositions/rankwidth.c:1212:10: fatal error: rw.h: No such file or directory
+#        1212 | #include "rw.h"
+#             |          ^~~~~~
+#       compilation terminated.
 # ...
-#
-# build/cythonized/sage/graphs/planarity.c:1204:10: fatal error: planarity/graph.h: No such file or directory
-# 1204 | #include "planarity/graph.h"
-#         |          ^~~~~~~~~~~~~~~~~~~
-# compilation terminated.
-#
+#       build/cythonized/sage/rings/polynomial/pbori/pbori.cpp:1253:10: fatal error: polybori/pbori_defs.h: No such file or directory
+#        1253 | #include "polybori/pbori_defs.h"
+#             |          ^~~~~~~~~~~~~~~~~~~~~~~
+#       compilation terminated.
 # ...
-#
-# build/cythonized/sage/graphs/graph_decompositions/rankwidth.c:1212:10: fatal error: rw.h: No such file or directory
-# 1212 | #include "rw.h"
-#         |          ^~~~~~
-# compilation terminated.
-#
-# ...
-#
-#         error: command '/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/gcc' failed with exit code 1
-#     Exception ignored in: <function Pool.__del__ at 0x14da5fb28b80>
-#     Traceback (most recent call last):
+#       error: command '/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/g++' failed with exit code 1
+#       Exception ignored in: <function Pool.__del__ at 0x14a4bae10cc0>
+#       Traceback (most recent call last):
 #         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/pool.py", line 271, in __del__
-#         self._change_notifier.put(None)
+#           self._change_notifier.put(None)
 #         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/queues.py", line 377, in put
-#         self._writer.send_bytes(obj)
+#           self._writer.send_bytes(obj)
 #         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 199, in send_bytes
-#         self._send_bytes(m[offset:offset + size])
+#           self._send_bytes(m[offset:offset + size])
 #         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 410, in _send_bytes
-#         self._send(header + buf)
+#           self._send(header + buf)
 #         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 367, in _send
-#         n = write(self._handle, buf)
-#             ^^^^^^^^^^^^^^^^^^^^^^^^
-#     OSError: [Errno 9] Bad file descriptor
-#     [end of output]
+#           n = write(self._handle, buf)
+#               ^^^^^^^^^^^^^^^^^^^^^^^^
+#       OSError: [Errno 9] Bad file descriptor
+#       [end of output]
 #
-# note: This error originates from a subprocess, and is likely not a problem with pip.
-# ERROR: Failed building wheel for sagemath-standard
+#   note: This error originates from a subprocess, and is likely not a problem with pip.
+#   ERROR: Failed building wheel for sagemath-standard
 # Failed to build sagemath-standard
 # ERROR: Could not build wheels for sagemath-standard, which is required to install pyproject.toml-based projects
-# (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
+#  (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
