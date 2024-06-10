@@ -1,0 +1,45 @@
+easyblock = 'Tarball'
+
+name = 'AMS'
+version = '2024.102'
+versionsuffix = '-intelmpi'
+
+homepage = 'https://www.scm.com/amsterdam-modeling-suite/'
+description = """
+The Amsterdam Modeling Suite (AMS) provides a comprehensive set of modules for
+computational chemistry and materials science, from quantum mechanics to fluid
+thermodynamics.
+"""
+
+toolchain = {'name': 'iimpi', 'version': '2023a'}
+
+sources = ['ams%(version)s.pc64_linux.intelmpi.bin.tgz']
+checksums = ['993e7a7f5e4235873acc192c3786f271cfa450bbf30323bc4821b0cde5a63687']
+
+dependencies = [('libGLU', '9.0.3')]
+
+keepsymlinks = True
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['atomicdata', 'bin', 'examples'],
+}
+
+# check if license file is installed
+sanity_check_commands = ['dirac check']
+
+modextrapaths = {
+    'AMSHOME': '',
+    'AMSBIN': 'bin',
+    'AMSRESOURCES': 'atomicdata',
+}
+
+modextravars = {
+    # use Intel MPI from EasyBuild
+    'SCM_USE_LOCAL_IMPI': '1',
+    'SCMLICENSE': '/apps/brussel/licenses/adf/license.txt',
+}
+
+modluafooter = 'setenv("SCM_TMPDIR", os.getenv("TMPDIR") or pathJoin("/tmp", os.getenv("USER")))'
+
+moduleclass = 'chem'
