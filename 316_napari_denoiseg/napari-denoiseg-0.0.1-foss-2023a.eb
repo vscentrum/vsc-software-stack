@@ -10,7 +10,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 dependencies = [
     ('Python', '3.11.3'),
-    ('napari', '0.4.18'),  # TODO `napari<=0.4.15`
+    ('napari', '0.4.18'),
     ('PyQtGraph', '0.13.7'),
     ('QtPy', '2.4.1'),
     ('TensorFlow', '2.13.0'),
@@ -40,21 +40,19 @@ exts_list = [
         'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['6c7f53f762cb3410da097be43ba47b4f4213e89930a3ade3ec1c7c1beb9d605f'],
     }),
-    # lower version to overwrite the installed version
-    ('vispy', '0.9.6', {
-        'checksums': ['212cd5b50824499bbce3e2d741aadacb79c0b771ac566f931c61355976028bcb'],
-    }),
-    # lower version to overwrite the installed version
-    ('wrapt', '1.12.1', {
-        'checksums': ['b62ffa81fb85f4332a4f609cab4ac40709470da05643a082ec1eb88e6d9b97d7'],
-    }),
     ('denoiseg', '0.3.1', {
-        'source_tmpl': SOURCE_WHL,
-        'checksums': ['2f2b0d2dc694236da3725527a8e33e4c5101d33837fc271a83e184aac0adbdc5'],
+        'preinstallopts': 'sed -i "s/wrapt<=1.12.1/wrapt/g" setup.py && ',
+        'checksums': ['fd720b78910b84ea5d65deda8c193d64e583c78090d9867990b7a39f72ed7ea3'],
     }),
-    ('napari_denoiseg', '%(version)src2', {
+    # Napari-denoiseg requires napari<=0.4.15
+    # see: https://github.com/napari/napari/issues/4708
+    ('napari', '0.4.15', {
         'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['a0f1aea3686d58b105c899debe06435fa154c6982705080a66475328b20d6a75'],
+        'checksums': ['c9e069e82906469bc7554bccb33d9706b1c0fb73408765a4c0f82b9625f1d656'],
+    }),
+    ('napari-denoiseg', '%(version)src2', {
+        'preinstallopts': 'sed -i "s/vispy<=0.9.6/vispy/g" setup.cfg && ',
+        'checksums': ['e244dbb820ee7d35212ee198d28eabf987439a70ce6695cbf63cfa52baab1ea8'],
     }),
 ]
 
@@ -66,6 +64,62 @@ sanity_check_paths = {
 moduleclass = 'vis'
 
 # TODO
-# napari-denoiseg 0.0.1rc2 has requirement napari<=0.4.15, but you have napari 0.4.18.
-# napari 0.4.18 has requirement vispy<0.13,>=0.12.1, but you have vispy 0.9.6.
-# # napari-denoiseg 0.0.1rc2 has requirement vispy<=0.9.6, but you have vispy 0.12.2.
+# == 2024-06-11 13:06:21,459 extension.py:286 WARNING Sanity check for 'napari-denoiseg' extension failed: command "python -c "import napari_denoiseg"" failed; output:
+# Traceback (most recent call last):
+#   File "<string>", line 1, in <module>
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari_denoiseg/__init__.py", line 3, in <module>
+#     from ._sample_data import (
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari_denoiseg/_sample_data.py", line 10, in <module>
+#     from napari.types import LayerDataTuple
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/types.py", line 186, in <module>
+#     _register_types_with_magicgui()
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/types.py", line 157, in _register_types_with_magicgui
+#     from . import layers
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/layers/__init__.py", line 11, in <module>
+#     from .base import Layer
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/layers/base/__init__.py", line 1, in <module>
+#     from .base import Layer, no_op
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/layers/base/base.py", line 15, in <module>
+#     from ...utils._magicgui import add_layer_to_viewer, get_layers
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/utils/__init__.py", line 2, in <module>
+#     from .colormaps import Colormap
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/utils/colormaps/__init__.py", line 2, in <module>
+#     from .colormap import Colormap
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/utils/colormaps/colormap.py", line 7, in <module>
+#     from ..events import EventedModel
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/utils/events/__init__.py", line 15, in <module>
+#     from .evented_model import EventedModel
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/utils/events/evented_model.py", line 66, in <module>
+#     class EventedMetaclass(main.ModelMetaclass):
+#                            ^^^^^^^^^^^^^^^^^^^
+#   File "/apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/_migration.py", line 306, in wrapper
+# Traceback (most recent call last):
+#   File "<string>", line 1, in <module>
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari_denoiseg/__init__.py", line 3, in <module>
+#     from ._sample_data import (
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari_denoiseg/_sample_data.py", line 10, in <module>
+#     from napari.types import LayerDataTuple
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/types.py", line 186, in <module>
+#     _register_types_with_magicgui()
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/types.py", line 157, in _register_types_with_magicgui
+#     from . import layers
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/layers/__init__.py", line 11, in <module>
+#     from .base import Layer
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/layers/base/__init__.py", line 1, in <module>
+#     from .base import Layer, no_op
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/layers/base/base.py", line 15, in <module>
+#     from ...utils._magicgui import add_layer_to_viewer, get_layers
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/utils/__init__.py", line 2, in <module>
+#     from .colormaps import Colormap
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/utils/colormaps/__init__.py", line 2, in <module>
+#     from .colormap import Colormap
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/utils/colormaps/colormap.py", line 7, in <module>
+#     from ..events import EventedModel
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/utils/events/__init__.py", line 15, in <module>
+#     from .evented_model import EventedModel
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/napari-denoiseg/0.0.1-foss-2023a/lib/python3.11/site-packages/napari/utils/events/evented_model.py", line 66, in <module>
+#     class EventedMetaclass(main.ModelMetaclass):
+#                            ^^^^^^^^^^^^^^^^^^^
+#   File "/apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/_migration.py", line 306, in wrapper
+#     raise AttributeError(f'module {module!r} has no attribute {name!r}')
+# AttributeError: module 'pydantic.main' has no attribute 'ModelMetaclass',
