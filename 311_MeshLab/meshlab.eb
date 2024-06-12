@@ -8,11 +8,6 @@ description = 'The open source mesh processing system.'
 
 toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
-# https://github.com/cnr-isti-vclab/meshlab/archive/refs/tags/MeshLab-2023.12.tar.gz
-# source_urls = ['https://github.com/cnr-isti-vclab/meshlab/archive/']
-# sources = ['%(name)s-%(version)s.tar.gz']
-# checksums = ['466cfca8cd6792911c043513f65d9c443dfa680be848e6e764cffe473e1d479c']
-
 sources = [{
     'filename': '%(name)s-%(version)s.tar.gz',
     'git_config': {
@@ -24,21 +19,6 @@ sources = [{
     },
 }]
 checksums = [None]
-
-# patches = []
-
-# DEPS:
-    # Qt 5.15 OK
-    # mesa-common-dev -> Mesa OK
-    # libglu1-mesa-dev -> OK
-    # cmake OK
-    # ninja-build OK
-    # patchelf (for deploy stage) OK
-    #OPTIONAL
-        # Embree? - only for system in EB 
-        # libgmp-dev and libmpfr-dev (required by cgal)
-        # libxerces-c-dev (required by libe57)
-        # libcgal-dev and libboost-all-dev (required by several MeshLab plugins)
 
 builddependencies = [
     ('CMake', '3.26.3'),
@@ -56,65 +36,6 @@ dependencies = [
     ('Boost', '1.82.0'),
     ('MPFR', '4.2.0'),
 ]
-
-# BUILD OK
-    # in bash script
-        # export Qt5_DIR=$QT_DIR
-        # cd $BUILD_PATH
-        # export NINJA_STATUS="[%p (%f/%t) ] "
-        # cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH $CCACHE $DOUBLE_PRECISION_OPTION $NIGHTLY_OPTION $SOURCE_PATH
-        # ninja
-        # ninja install
-    # CMD NOW
-        # cmake -G "Ninja" 
-        # -DCMAKE_INSTALL_PREFIX=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MeshLab/2023.12-GCC-12.3.0 
-        # -DCMAKE_BUILD_TYPE=Release 
-        # -DCMAKE_POLICY_DEFAULT_CMP0094=NEW 
-        # -DCMAKE_VERBOSE_MAKEFILE=ON 
-        # -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF 
-        # -DBOOST_ROOT=/apps/gent/RHEL8/cascadelake-ib/software/Boost/1.82.0-GCC-12.3.0 
-        # -DBoost_NO_SYSTEM_PATHS=ON  
-        # /tmp/vsc47063/easybuild/build/MeshLab/2023.12/GCC-12.3.0/meshlab-MeshLab-2023.12/
-    # ERROR 1: OK
-        # Could NOT find GLEW (missing: GLEW_INCLUDE_DIRS GLEW_LIBRARIES)
-        # -> added glew -> no - the glew from EB does not works -> ERROR 5
-    # ERROR 2: OK
-        # -> Eigen added to builddeps
-        # CMake Warning at src/CMakeLists.txt:25 (find_package):
-        # By not providing "FindEigen3.cmake" in CMAKE_MODULE_PATH this project has
-        # asked CMake to find a package configuration file provided by "Eigen3", but
-        # CMake did not find one.
-        # Could not find a package configuration file provided by "Eigen3" with any
-        # of the following names:
-        #     Eigen3Config.cmake
-        #     eigen3-config.cmake
-        # Add the installation prefix of "Eigen3" to CMAKE_PREFIX_PATH or set
-        # "Eigen3_DIR" to a directory containing one of the above files.  If "Eigen3"
-        # provides a separate development package or SDK, be sure it has been
-        # installed.
-    # ERROR 3: OK
-        # /tmp/vsc47063/easybuild/build/MeshLab/2023.12/GCC-12.3.0/meshlab-MeshLab-2023.12/src/vcglib does not contain a CMakeLists.txt file.
-        # -> download recursively
-    # ERROR 4: OK
-        # -> MPFR added to deps
-        # Could NOT find MPFR (missing: MPFR_LIBRARIES MPFR_INCLUDE_DIR)
-# RUN
-    # ERROR 5:
-        # -> seems problem is from glew -> can not run window in desktop 
-        # -> delete glew from deps -> meshlab has its own source of glew
-        # after run in desktop cluster:
-            # QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-vsc47063'
-            # Qt: Session management error: Authentication Rejected, reason : None of the authentication protocols specified are supported and host-based authentication failed
-
-
-# separate_build_dir = True
-
-# # disable attempt to find an ICD loader, always build libOpenCL.so
-# configopts = "-DENABLE_ICD=0 -DINSTALL_OPENCL_HEADERS=1 "
-# # make sure we use the easybuild Clang
-# configopts += "-DWITH_LLVM_CONFIG=$EBROOTCLANG/bin/llvm-config -DSTATIC_LLVM=ON "
-# # avoid host CPU auto-detection (which may fail on recent CPUs)
-# configopts += "-DLLC_HOST_CPU=native "
 
 sanity_check_paths = {
     'files': ['bin/meshlab'],
