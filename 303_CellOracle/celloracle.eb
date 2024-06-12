@@ -9,33 +9,6 @@ and Gene Regulatory Network models."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# numpy OK
-# scipy OK
-# cython OKin pypi bundle
-# numba>=0.50.1 OK
-# matplotlib<3.7 ??? sed out?
-# seaborn OK
-# scikit-learn OK
-# h5py>=3.1.0 OK
-# pandas>=1.0.3, <=1.5.3 OK
-# velocyto>=0.17 -> CREATED OK
-# umap-learn OK
-# pyarrow>=0.17 OK Arrow
-# tqdm>=4.45 OK
-# igraph>=0.10.1 OK python-igraph
-# louvain ?? ok python-louvain
-# jupyter OK
-# anndata>=0.7.5 OK
-# scanpy>=1.6 OK
-# joblib OK
-# goatools OK
-# genomepy>=0.8.4 -> CRETED OK
-# gimmemotifs>=0.14.4, <=0.17.2 -> CREATED -> OK sed out version pin -> no -> in v0.18.0 is not default_motifs -> change to v0.17.2
-# celloracle 0.18.0 requires louvain, which is not installed. sed out ok
-# jupyter 1.0.0 requires qtconsole, which is not installed. OK
-# celloracle 0.18.0 has requirement matplotlib<3.7, but you have matplotlib 3.7 unpid by sed ok
-# from gimmemotifs.motif import default_motifs -> ImportError: cannot import name 'default_motifs' from 'gimmemotifs.motif' OK
-
 dependencies = [
     ('Python', '3.11.3'),
     ('R', '4.3.2'),
