@@ -1,0 +1,35 @@
+easyblock = 'PythonBundle'
+
+name = 'OpenForceField-Interchange'
+version = '0.2.2'
+
+homepage = 'https://github.com/openforcefield/openff-interchange'
+description = """A project (and object) for storing, manipulating, and converting molecular mechanics data."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# from openff.toolkit import ForceField, Molecule, Topology -> wtf? it is dep of toolkit
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    # ('OpenForceField-Utilities', '0.1.12'),
+    # ('Pint', '0.23'),
+    ('SciPy-bundle', '2023.07'),
+    ('OpenForceField-Toolkit', '0.16.0'),
+    ('OpenMM', '8.0.0'),
+]
+
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'modulename': 'openff.interchange',
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/openforcefield/openff-interchange/archive/'],
+        'checksums': ['f4ee384d53df7b85b227952ddb5ed480ca8e7a09ce795bc5bf36cdcc26f01dfa'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'bio'

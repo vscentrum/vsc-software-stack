@@ -1,0 +1,29 @@
+easyblock = 'PythonBundle'
+
+name = 'OpenForceField-Utilities'
+version = '0.1.12'
+
+homepage = 'https://github.com/openforcefield/openff-utilities'
+description = """A collection of miscellaneous utility functions used throughout the OpenFF stack."""
+
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+    
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+]
+
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'modulename': 'openff.utilities',
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/openforcefield/openff-utilities/archive/'],
+        'checksums': ['92882c5b87b40bdb4ee1e8c84c0ecc0fc83f26eaf3e3befde41bfdcf93d75dea'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'bio'

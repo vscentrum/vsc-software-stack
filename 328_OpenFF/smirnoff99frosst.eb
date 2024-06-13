@@ -1,0 +1,29 @@
+easyblock = 'PythonBundle'
+
+name = 'SMIRNOFF99Frosst'
+version = '1.1.0'
+
+homepage = 'https://github.com/openforcefield/smirnoff99Frosst'
+description = """A general small molecule force field descended from AMBER99 and parm@Frosst, 
+available in the SMIRNOFF format."""
+
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+    
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+]
+
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'source_tmpl': '%(version)s.tar.gz',
+        'source_urls': ['https://github.com/openforcefield/smirnoff99Frosst/archive/'],
+        'checksums': ['940c4ed3cd720e746549a3335f10b7b0d9047a67bc216ad45dd875be5c8ec467'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'bio'
