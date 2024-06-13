@@ -1,0 +1,38 @@
+##
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author::   Denis Kristak (INUITS)
+##
+
+easyblock = 'MakeCp'
+
+name = 'LPeg'
+version = '1.1.0'
+
+homepage = 'http://www.inf.puc-rio.br/~roberto/lpeg/'
+description = """LPeg is a new pattern-matching library for Lua, based on Parsing Expression Grammars (PEGs)."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['http://www.inf.puc-rio.br/~roberto/lpeg/']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['4b155d67d2246c1ffa7ad7bc466c1ea899bbc40fef0257cc9c03cecbaed4352a']
+
+builddependencies = [
+    ('binutils', '2.40'),
+]
+
+dependencies = [
+    ('Lua', '5.4.6'),
+]
+
+files_to_copy = [
+    (['lpeg.%s' % SHLIB_EXT], 'lib'),
+    (['*.h'], 'include'),
+]
+
+sanity_check_paths = {
+    'files': ['lib/lpeg.%s' % SHLIB_EXT],
+    'dirs': ['include'],
+}
+
+moduleclass = 'lib'

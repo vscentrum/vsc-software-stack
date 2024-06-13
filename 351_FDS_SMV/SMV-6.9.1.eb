@@ -1,0 +1,66 @@
+##
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author::   Denis Kristak (INUITS)
+##
+
+easyblock = 'MakeCp'
+
+name = 'SMV'  # SmokeView
+version = '6.9.1'
+
+homepage = 'https://github.com/firemodels/smv'
+description = """Smokeview is a visualization program that displays output of FDS and CFAST simulations."""
+
+toolchain = {'name': 'intel-compilers', 'version': '2023.1.0'}
+
+source_urls = ['https://github.com/firemodels/smv/archive/']
+sources = [SOURCE_TAR_GZ]
+checksums = ['63226cd9f77886649b3583c90f6860a6bd0939cbffb0f060b9b3a207b066ea91']
+
+dependencies = [
+    ('libgd', '2.3.3'),
+    ('freeglut', '3.4.0'),
+    ('libjpeg-turbo', '2.1.5.1'),
+    ('libpng', '1.6.39'),
+    ('zlib', '1.2.13'),
+    ('Lua', '5.4.6'),
+    ('LPeg', '1.1.0'),
+    ('libGLU', '9.0.3'),
+    ('glew', '2.2.0', '-osmesa'),
+    ('Xvfb', '21.1.8'),
+]
+
+local_buildopts = ' LDFLAGS="-L%(installdir)s -L$EBROOTFREEGLUT/lib -L$EBROOTLIBGD/lib -L%(start_dir)s/Source/glui_v2_1_beta" '
+local_buildopts += ' IFLAGS="-I$EBROOTFREEGLUT/include/GL -I%(builddir)s/smv-SMV-%(version)s/Source/glui_v2_1_beta/ '
+local_buildopts += ' -I%(builddir)s/smv-SMV-%(version)s/Source/glui_gl/GL/glut.h "'
+local_buildopts += ' EB_L_PATH=%(installdir)s '
+local_buildopts += ' CFLAGS="-Dpp_LINUX" '
+
+prebuildopts = "cd %(builddir)s/smv-SMV-%(version)s/Build/LIBS/intel_linux_64/ && "
+prebuildopts += " make all -f make_LIBS.make "
+prebuildopts += "SRCDIR=%(builddir)s/smv-SMV-%(version)s/Source/ LIBDIR=%(installdir)s && "
+prebuildopts += "cd %(builddir)s/smv-SMV-%(version)s/ && "
+prebuildopts += "cd Build/smokeview/ && "
+prebuildopts += r"sed -i 's@\.\./\.\./@../@g' Makefile && "
+prebuildopts += "export IFORT_COMPILER_LIB=$EBROOTICCIFORT/lib64/intel64/ && "
+
+buildopts = ' intel_linux_64 ' + local_buildopts
+
+files_to_copy = [
+    (["./Build/smokeview/*.o", "./Build/smokeview/smokeview_linux_64*"], 'bin'),
+]
+
+postinstallcmds = [
+    'ln -s %(installdir)s/bin/smokeview_linux_64 %(installdir)s/bin/smokeview'
+]
+
+sanity_check_commands = [
+    "cd %(builddir)s/smv-SMV-%(version)s && timeout 10 xvfb-run smokeview example 2>&1 | grep 'Terminated' ",
+]
+
+sanity_check_paths = {
+    'files': ['bin/smokeview'],
+    'dirs': [],
+}
+
+moduleclass = 'vis'
