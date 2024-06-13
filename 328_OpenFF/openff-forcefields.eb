@@ -1,0 +1,30 @@
+easyblock = 'PythonBundle'
+
+name = 'OpenForceField-ForceFields'
+version = '2024.04.0'
+
+homepage = 'https://github.com/openforcefield/openff-forcefields'
+description = """This repository contains force fields released by the Open Force Field Initiative. 
+These force fields use the SMIRKS Native Open Force Field (SMIRNOFF) format."""
+
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+    
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+]
+
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'source_tmpl': '%(version)s.tar.gz',
+        'source_urls': ['https://github.com/openforcefield/openff-forcefields/archive/'],
+        'modulename': 'openforcefields',
+        'checksums': ['fc7094cdb74bf9f0ed665dfc716cc62c5a37def3fc7e852adeae0ae4b60169c7'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'bio'
