@@ -1,0 +1,78 @@
+# This is a contribution from HPCNow! (http://hpcnow.com)
+# Copyright::   HPCNow!
+# Authors::     Danilo Gonzalez <danilo.gonzalez@hpcnow.com>
+# License::     GPL-v3.0
+# Updated to foss-2020b to use with artic tool
+# J. Sassmannshausen (GSTT/NHS UK)
+# Updated to 1.5.0
+# Jasper Grimm (UoY)
+# Updated: Petr Král (INUITS)
+
+easyblock = 'PythonBundle'
+
+name = 'medaka'
+version = '1.12.0'
+
+homepage = 'https://github.com/nanoporetech/medaka'
+description = "medaka is a tool to create a consensus sequence from nanopore sequencing data."
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+toolchainopts = {'pic': True}
+
+builddependencies = [('Autotools', '20220317')]
+
+_minimap_ver = '2.28'
+dependencies = [
+    ('Python', '3.11.5'),
+    ('Python-bundle-PyPI', '2023.10'),  # includes cffi
+    # tensorflow~=2.10.0 required by medaka 1.9.1, see requirements.txt
+    ('TensorFlow', '2.13.0'),  # TODO
+    ('Pysam', '0.22.0'),
+    ('SAMtools', '1.19.2'),
+    ('minimap2', _minimap_ver),
+    ('HTSlib', '1.19.1'),  # for tabix, bgzip
+    ('Racon', '1.5.0'),
+    ('edlib', '1.3.9'),
+    ('pyspoa', '0.2.1'),
+    ('python-parasail', '1.3.4'),
+    ('ont-fast5-api', '4.1.3'),
+    ('WhatsHap', '2.2'),  # TODO
+    ('intervaltree-python', '3.1.0'),
+    ('BCFtools', '1.19'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+local_sed_commands = [  # TODO maybe not up to date?
+    "sed -i 's/tensorflow.*/tensorflow/g;s/cffi==1.15.0/cffi/g' requirements.txt pyproject.toml",
+    # Python 3.11 support
+    "sed -i 's/8, 9, 10/8, 9, 10, 11/g;s/,<3.11//g' setup.py",
+]
+
+exts_list = [
+    ('mappy', _minimap_ver, {
+        'checksums': ['e53fbe9a3ea8762a64b8103f4f779c9fb16d418eaa0a731f45cebc83867a9b71'],
+    }),
+    ('wurlitzer', '3.1.1', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['0b2749c2cde3ef640bf314a9f94b24d929fe1ca476974719a6909dfc568c3aac'],
+    }),
+    (name, version, {
+        'checksums': ['039219204111a8114b1f72d87d0d3463e43473790cff4520c8afbd79cc8784d6'],
+        # Some requirements are too strict.
+        'preinstallopts': " && ".join(local_sed_commands) + " && ",
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/medaka', 'bin/medaka_consensus', 'bin/medaka_version_report'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    "medaka --help",
+    "medaka_version_report",
+]
+
+moduleclass = 'bio'
