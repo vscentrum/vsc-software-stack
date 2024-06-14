@@ -7,32 +7,10 @@ homepage = 'https://www.rdkit.org'
 description = "RDKit is a collection of cheminformatics and machine-learning software written in C++ and Python."
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-# avoid failing tests on skylake CPUs. comment out this line when building on CPUs that don't support AVX2
-# see also: https://github.com/rdkit/rdkit/issues/1674
-# toolchainopts = {'optarch': 'mavx2', 'cstd': 'c++11'}
 
 source_urls = ['https://github.com/rdkit/rdkit/archive/']
 sources = ['Release_%s.tar.gz' % version.replace('.', '_')]
 checksums = ['52f79c6bf1d446cdb5c86a35de655d96bad0c52a5f4ecbe15f08eaf334e6f76a']
-
-# patches = [
-#     'RDKit-2021.03.4_skip-broken-test.patch',
-# ]
-
-# DEPS:
-    # numpy OK
-    # matplotlib OK
-    # cmake OK
-    # cairo OK
-    # pillow OK
-    # eigen OK
-    # pkg-config OK
-    # python boost + boost cpp OK
-    # optional
-        # yapf == 0.11.1
-        # coverage == 3.7.1 - 7.2.3 fro 2023a
-# Dependencies varies from version to version
-# https://rdkit.readthedocs.io/en/latest/Install.html#installing-prerequisites-from-source
 
 builddependencies = [
     ('CMake', '3.26.3'),
@@ -53,28 +31,10 @@ separate_build_dir = True
 
 configopts = "-DPy_ENABLE_SHARED=1 -DRDK_INSTALL_STATIC_LIBS=OFF -DRDK_INSTALL_INTREE=OFF "
 configopts += "-DRDK_BUILD_INCHI_SUPPORT=ON "
-# configopts += "-DBoost_INCLUDE_DIR=$EBROOTBOOST/include -DBoost_LIBRARY_DIR_RELEASE=$EBROOTBOOST/lib "
 configopts += "-DBOOST_ROOT=$EBROOTBOOST"
 
-# fix problem with checksum - https://github.com/rdkit/rdkit/pull/4885 -> NOT WORK 2023
-configopts += "-DRDK_INSTALL_COMIC_FONTS=OFF"
-# fix problem with checksum - https://github.com/rdkit/rdkit/pull/4885 -> NOT WORK 2023
-# preconfigopts = "sed -i '20 s/850b0df852f1cda4970887b540f8f333/db4f88fd90259b678c0f062181bebfaf/' "
-# preconfigopts += "%(builddir)s/rdkit-Release_2023_03_3/Code/GraphMol/MolDraw2D/CMakeLists.txt &&"
-
-# fix problem with checksum - https://github.com/rdkit/rdkit/pull/4885 -> delete it 2023
-# zip from https://fonts.google.com/download?family=Comic%20Neue has different checksum every time
-# and -DRDK_INSTALL_COMIC_FONTS=OFF does not wok
-# preconfigopts = "sed -i '19,27d' "
-# preconfigopts += "%(builddir)s/rdkit-Release_2023_03_3/Code/GraphMol/MolDraw2D/CMakeLists.txt &&"
-# preconfigopts += "%(builddir)s/rdkit-Release_2024_03_3/Code/GraphMol/MolDraw2D/CMakeLists.txt &&"
-# ignore failing test 2023
-# prebuildopts = "sed -i '132 s/test4_more_trees/ignored_test4_more_trees/' "
-# prebuildopts += "%(builddir)s/rdkit-Release_2023_03_3/rdkit/ML/UnitTestBuildComposite.py &&"
-# prebuildopts += "%(builddir)s/rdkit-Release_2024_03_3/rdkit/ML/UnitTestBuildComposite.py &&"
-# ingnore failing test 2024
+# ingnore failing test pythonSourceTests - from . import rdBase failing
 prebuildopts = "sed -i '22d' %(builddir)s/rdkit-Release_2024_03_3/rdkit/CMakeLists.txt &&"
-
 
 # merge source directory into build directory in order to run the tests
 buildopts = '&& cp -RT %(builddir)s/%(namelower)s-*/ ./ && '
@@ -107,36 +67,3 @@ sanity_check_commands = [
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'chem'
-
-# ERROR1: for 2023 OK
-    # downloaded font package from google has different checksum everytime...
-    # -> sed out whole download block
-    # -> sed does not work neither - seems the font zip has different checksums everytime...
-    # -> see https://github.com/rdkit/rdkit/pull/4885 -> add configopts += "-DRDK_INSTALL_COMIC_FONTS=OFF" -> NOT WORK
-    # Downloading https://fonts.google.com/download?family=Comic%20Neue...
-    # CMake Error at Code/cmake/Modules/RDKitUtils.cmake:257 (MESSAGE):
-    # The md5 checksum for
-    # /tmp/vsc47063/easybuild/build/RDKit/2023.03.3/foss-2023a/rdkit-Release_2023_03_3/Code/GraphMol/MolDraw2D/Comic_Neue.zip
-    # is incorrect; expected: 850b0df852f1cda4970887b540f8f333, found:
-    # db4f88fd90259b678c0f062181bebfaf
-    # Call Stack (most recent call first):
-    # Code/GraphMol/MolDraw2D/CMakeLists.txt:21 (downloadAndCheckMD5)
-# ERROR2: for 2023 OK
-    # -> sed out this one test in prebuildopts
-    # FAIL: test4_more_trees (__main__.TestCase.test4_more_trees)
-    # Traceback (most recent call last):
-    # File "/tmp/vsc47063/easybuild/build/RDKit/2023.03.3/foss-2023a/rdkit-Release_2023_03_3/rdkit/ML/UnitTestBuildComposite.py", line 149, in test4_more_trees
-    #     self.compare(compos, refCompos)
-    # File "/tmp/vsc47063/easybuild/build/RDKit/2023.03.3/foss-2023a/rdkit-Release_2023_03_3/rdkit/ML/UnitTestBuildComposite.py", line 71, in compare
-    #     self.assertEqual(count, refCount)
-    #     AssertionError: 2 != 7
-    #     !!! TEST FAILURE:  python UnitTestBuildComposite.py {}
-    # The following tests FAILED:
-    #     208 - pythonTestDirML (Failed)
-# ERROR3: for 2024 OK
-    # sed out test ->  OK
-    # 222/222 Test #222: pythonSourceTests ......................***Failed    0.25 sec
-    # ImportError while loading conftest '/tmp/vsc47063/easybuild/build/RDKit/2024.03.3/foss-2023a/rdkit-Release_2024_03_3/rdkit/conftest.py'.
-    # __init__.py:6: in <module>
-    #     from . import rdBase
-    # ImportError: cannot import name 'rdBase' from partially initialized module 'rdkit' (most likely due to a circular import) (/tmp/vsc47063/easybuild/build/RDKit/2024.03.3/foss-2023a/rdkit-Release_2024_03_3/rdkit/__init__.py
