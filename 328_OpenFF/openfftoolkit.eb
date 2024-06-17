@@ -37,18 +37,17 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # qcportal 0.0.0 requires pyyaml, OK
     # qcportal 0.0.0 requires qcelemental, ok exts
     # qcportal 0.0.0 requires tqdm, OK
-    # ERROR1 -> qcportal from whl
+    # ERROR1 -> qcportal from whl OK
         # The following Python packages were likely not installed correctly because they show a version of '0.0.0': qcportal
         # This may be solved by using a *-none-any.whl file as the source instead. See e.g. the SOURCE*_WHL templates.
         # Otherwise you could check if the package provides a version at all or if e.g. poetry is required (check the source for a pyproject.toml
     # - openmm >=7.6 OK
     # - openff-interchange >=0.3.18 -> CREATED OK
-    # - rdkit
-    # - ambertools >=22
-    # - mdtraj
-    # - {{ pin_subpackage('openff-toolkit-base', exact=True) }}
-    # - notebook
-    # - ipywidgets
+    # - rdkit -> CREATED OK
+    # - ambertools >=22 -> created OK
+    # - mdtraj OK
+    # - notebook OK
+    # - ipywidgets OK in jupyterNotebook (jupyter-server)
     
 builddependencies = [('poetry', '1.5.1')]
 dependencies = [
@@ -63,16 +62,18 @@ dependencies = [
     ('OpenForceField-Amber-FF-Ports', '0.0.4'),
     ('OpenForceField-Units', '0.2.2'),
     ('OpenForceField-Utilities', '0.1.12'),
-    ('OpenForceField-Interchange', '0.2.2'),
+    # ('OpenForceField-Interchange', '0.2.2'),
     ('tqdm', '4.66.1'),
     ('OpenMM', '8.0.0'),
     ('PyYAML', '6.0'),
-    ('RDKit', ''),
+    ('RDKit', '2024.03.3'),
+    ('MDTraj', '1.9.9'),
+    ('JupyterNotebook', '7.0.2'),
+    ('AmberTools', '23.6'),
 ]
 
 use_pip = True
 
-# pin to v0.26.0 because of numpy version requirements
 exts_list = [
     ('qcelemental', '0.26.0', {
         # pin to v0.26.0 because of numpy version requirements
@@ -89,6 +90,7 @@ exts_list = [
         'checksums': ['0ac0357a0d985b4ff31a854744040d7b5754385d1f98f7145c30e02c6865cb6f'],
     }),
     ('qcportal', '0.55', {
+        # download whl file - fix version problem
         'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
         'checksums': ['f6eb86d6ace4ae6a71bbd8e2ee054305aff2c1da0198a3741b0d589c572a31b3'],
     }),
@@ -122,8 +124,19 @@ exts_list = [
 #     'dirs': ['lib/python%(pyshortver)s/site-packages'],
 # }
 
-# sanity_check_commands = ["genomepy --help"]
+postinstallcmds = [
+    'pytest %(installdir)s/lib/python3.11/site-packages/openff/toolkit/_tests/'
+]
+sanity_check_commands = [
+    "python -c 'from openff.toolkit import Molecule, Topology, ForceField'",
+    "python -c 'from openff.interchange import Interchange'",
+]
+
 
 sanity_pip_check = True
 
 moduleclass = 'bio'
+
+# ERROR1:
+    # from openff.nagl_models import list_available_nagl_models
+    #    ModuleNotFoundError: No module named 'openff.nagl_models'

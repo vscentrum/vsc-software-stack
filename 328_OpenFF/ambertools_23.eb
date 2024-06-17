@@ -1,0 +1,144 @@
+easyblock = 'EB_Amber'
+
+name = 'AmberTools'
+local_ambertools_ver = 23
+# Patch levels from http://ambermd.org/AmberPatches.php and http://ambermd.org/ATPatches.php
+patchlevels = (6, 0)  # (AmberTools, Amber)
+version = '%s.%s' % (local_ambertools_ver, patchlevels[0])
+
+homepage = 'https://ambermd.org/'
+description = """AmberTools consists of several independently developed packages that work well by themselves,
+ and with Amber itself. The suite can also be used to carry out complete molecular dynamics simulations,
+ with either explicit water or generalized Born solvent models."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'usempi': True}
+
+# download requires registration
+local_download_credentials = '?Name=Easybuild&Institution=Easybuild&City=Internet&State=Other&Country=Belgium'
+source_urls = ['https://ambermd.org/cgi-bin/AmberTools%s-get.pl' % local_ambertools_ver]
+sources = [{
+    'download_filename': local_download_credentials,
+    'filename': 'AmberTools%s.tar.bz2' % local_ambertools_ver,
+}]
+patches = [
+    'AmberTools-20_cmake-locate-netcdf.patch',
+    'AmberTools-20_fix_missing_MPI_LIBRARY_error.patch',
+    'AmberTools-20_fix_xblas_missing_make_dependency.patch',
+    'AmberTools-21_CMake-FlexiBLAS.patch',
+    # 'AmberTools-21_fix_DGESVD_workspace_query.patch',
+    'AmberTools-21_fix_incorrect_dvout_call.patch',
+    # 'AmberTools-21_fix_incorrect_mexit_calls.patch',
+    'AmberTools-21_fix_more_blas_argument_problems.patch',
+    # 'AmberTools-21_fix_multiple_definition.patch',
+    'AmberTools-21_fix_potential_use_before_init.patch',
+    'AmberTools-21_fix_rism_argument_mismatch.patch',
+    'AmberTools-21_fix_xray_fftpack_arg_mismatch.patch',
+    'AmberTools-22_fix_test_missing_cuda_dir.patch',
+    # 'AmberTools-22_fix_missing_error_check_on_test_run.patch',
+]
+checksums = [
+    {'AmberTools23.tar.bz2': 'debb52e6ef2e1b4eaa917a8b4d4934bd2388659c660501a81ea044903bf9ee9d'},
+    {'AmberTools-20_cmake-locate-netcdf.patch': '473e07c53b6f641d96d333974a6af2e03413fecef79f879d3fdecf7fecaab4d0'},
+    {'AmberTools-20_fix_missing_MPI_LIBRARY_error.patch':
+     '0b89a0624167bc23876bcdefcb1055f591e38e3bd559a71d5749e342bd311acc'},
+    {'AmberTools-20_fix_xblas_missing_make_dependency.patch':
+     'ff25e91fdc72347a778c3837b581e174d6a8c71efa5b46e11391b18bca84fd65'},
+    {'AmberTools-21_CMake-FlexiBLAS.patch': '9543812c24c4b7842f64f1f8abaf2c92b5c4c0fadcdbd9811e76b81a778f0d36'},
+    # {'AmberTools-21_fix_DGESVD_workspace_query.patch':
+    #  '560c73e9d8bd159c609098c63a0256cdee78f49e524d06ea94d16d3146f69bcd'},
+    {'AmberTools-21_fix_incorrect_dvout_call.patch':
+     '1054d4007f5c79126a41582e1e80514267cf406416ed6c471574cd708b16319b'},
+    # {'AmberTools-21_fix_incorrect_mexit_calls.patch':
+    #  'd1de8c596119dcedbb809515816f0c98762306c469e9caf2c0b878d9b0a1095f'},
+    {'AmberTools-21_fix_more_blas_argument_problems.patch':
+     'c6279b57752239184b942d37f760749494ae0eff95236f3368c76ac0d2726a7c'},
+    # {'AmberTools-21_fix_multiple_definition.patch': 'ce30eeaba9feea53aa115e4b0dcc5be943b8a55abe322480c807ca7ea963d83b'},
+    {'AmberTools-21_fix_potential_use_before_init.patch':
+     '377e645b5bd2c91ebb4d0b6fbca0407a94289e5ddc5b1e7ed0cb0b0724ad2139'},
+    {'AmberTools-21_fix_rism_argument_mismatch.patch':
+     '14255e5739cec39303df570f06820c7532f7395e1b73b1e4104377984e2c9fc1'},
+    {'AmberTools-21_fix_xray_fftpack_arg_mismatch.patch':
+     '99c954e693659efc2a1d121f91510f56408006f0751d91595f45a34b03364e2f'},
+    {'AmberTools-22_fix_test_missing_cuda_dir.patch':
+     'fb1ab74314d7816169bb9f3f527b78085654aae2825c52cebf50a5760401b737'},
+    # {'AmberTools-22_fix_missing_error_check_on_test_run.patch':
+    #  'a86eee60bd65c16a849469e303cb99dfc207cbadd2ae9e70b9ff580ced785475'},
+]
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+    ('pkgconf', '1.9.5'),
+    ('Bison', '3.8.2'),
+    ('flex', '2.6.4'),
+    ('make', '4.4.1'),
+]
+
+dependencies = [
+    ('zlib', '1.2.13'),
+    ('bzip2', '1.0.8'),
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '5.36.1'),
+    ('Boost', '1.82.0'),
+    ('libreadline', '8.2'),
+    ('matplotlib', '3.7.2'),
+    ('netCDF', '4.9.2'),
+    ('netCDF-Fortran', '4.6.1'),
+    ('PnetCDF', '1.12.3'),
+    ('Tkinter', '%(pyver)s'),
+    ('X11', '20230603'),
+    ('mpi4py', '3.1.4'),
+]
+
+# prebuildopts = 'echo AAABBB && pwd && cd %(builddir)s && pwd &&'
+# builddir = /tmp/vsc47063/easybuild/build/AmberTools/22.3/foss-2023a
+# prebuildopts = 'rm %(builddir)s/AmberTools/src/pytraj/pytraj/math/cpp_math.cpp && cythonize -i %(builddir)s/AmberTools/src/pytraj/pytraj/math/cpp_math.pyx && '
+# prebuildopts = 'rm %(builddir)s/AmberTools/src/pytraj/pytraj/math/cpp_math.cpp && cython -3 -f --cplus --verbose %(builddir)s/AmberTools/src/pytraj/pytraj/math/cpp_math.pyx && '
+# from TF_COMB: local_tfcomb_preinstallopts += "cd  tfcomb && rm counting.c && cythonize -i counting.pyx && cd .. && "
+
+runtest = True
+
+moduleclass = 'chem'
+
+# ERROR4:
+    # -> delete AmberTools-22_fix_missing_error_check_on_test_run.patch
+    # == 2024-06-17 15:28:22,498 run.py:701 WARNING Found 4 potential errors (some may be harmless) in output of patch -p1 -i /user/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/a/AmberTools/AmberTools-22_fix_missing_error_check_on_test_run.patch:
+    #         Hunk #1 FAILED at 33.
+    #         1 out of 1 hunk FAILED -- saving rejects to file test/pmemdTI/softcore/tishake2vsite/Run.tishake2vsite.rej
+    #         Hunk #1 FAILED at 34.
+    #         1 out of 1 hunk FAILED -- saving rejects to file test/pmemdTI/softcore/tishake2vsite/Run.tishake2vsite_vacuum.rej
+    # == 2024-06-17 15:28:22,776 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
+    #     Couldn't apply patch file /user/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/a/AmberTools/AmberTools-22_fix_missing_error_check_on_test_run.patch. 
+    #     Process exited with code 1: patching file test/pmemdTI/softcore/tishake2vsite/Run.tishake2vsite
+    # Hunk #1 FAILED at 33.
+    # 1 out of 1 hunk FAILED -- saving rejects to file test/pmemdTI/softcore/tishake2vsite/Run.tishake2vsite.rej
+    # patching file test/pmemdTI/softcore/tishake2vsite/Run.tishake2vsite_vacuum
+    # Hunk #1 FAILED at 34.
+    # 1 out of 1 hunk FAILED -- saving rejects to file test/pmemdTI/softcore/tishake2vsite/Run.tishake2vsite_vacuum.rej
+# ERROR3:
+    # -> delete AmberTools-21_fix_multiple_definition.patch
+    # == 2024-06-17 15:24:18,798 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
+    #     Couldn't apply patch file /user/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/a/AmberTools/AmberTools-21_fix_multiple_definition.patch. 
+    #     Process exited with code 1: patching file AmberTools/src/cifparse/cifparse.h
+    # Reversed (or previously applied) patch detected!  Assume -R? [n] 
+    # Apply anyway? [n] 
+    # Skipping patch.
+    # 1 out of 1 hunk ignored -- saving rejects to file AmberTools/src/cifparse/cifparse.h.rej
+# ERROR2:
+    # -> delete AmberTools-21_fix_incorrect_mexit_calls.patch + AmberTools-21_fix_incorrect_mexit_calls.patch
+    # == 2024-06-17 15:20:04,031 run.py:701 WARNING Found 2 potential errors (some may be harmless) in output of patch -p1 -i /user/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/a/AmberTools/AmberTools-21_fix_incorrect_mexit_calls.patch:
+    # Hunk #1 FAILED at 1058.
+    # 1 out of 1 hunk FAILED -- saving rejects to file AmberTools/src/sander/fastwt.F90.rej
+    # == 2024-06-17 15:20:04,362 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Couldn't apply patch file /user/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/a/AmberTools/AmberTools-21_fix_incorrect_mexit_calls.patch. 
+    # Process exited with code 1: patching file AmberTools/src/sander/fastwt.F90
+    # Hunk #1 FAILED at 1058.
+    # 1 out of 1 hunk FAILED -- saving rejects to file AmberTools/src/sander/fastwt.F90.rej
+# ERROR1:
+    # -> delete AmberTools-21_fix_DGESVD_workspace_query.patch
+    # == 2024-06-17 15:14:57,566 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Couldn't apply patch file /user/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/a/AmberTools/AmberTools-21_fix_DGESVD_workspace_query.patch. Process exited with code 1: patching file AmberTools/src/sqm/qm2_scf.F90
+    # Reversed (or previously applied) patch detected!  Assume -R? [n] 
+    # Apply anyway? [n] 
+    # Skipping patch.
+    # 2 out of 2 hunks ignored -- saving rejects to file AmberTools/src/sqm/qm2_scf.F90.rej
