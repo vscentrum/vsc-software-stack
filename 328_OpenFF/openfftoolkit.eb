@@ -42,7 +42,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
         # This may be solved by using a *-none-any.whl file as the source instead. See e.g. the SOURCE*_WHL templates.
         # Otherwise you could check if the package provides a version at all or if e.g. poetry is required (check the source for a pyproject.toml
     # - openmm >=7.6 OK
-    # - openff-interchange >=0.3.18 -> CREATED OK
+    # - openff-interchange >=0.3.18 -> CREATED OK -> not dep it needs toolkit
     # - rdkit -> CREATED OK
     # - ambertools >=22 -> created OK
     # - mdtraj OK
@@ -62,7 +62,7 @@ dependencies = [
     ('OpenForceField-Amber-FF-Ports', '0.0.4'),
     ('OpenForceField-Units', '0.2.2'),
     ('OpenForceField-Utilities', '0.1.12'),
-    # ('OpenForceField-Interchange', '0.2.2'),
+    ('OpenForceField-NAGL-Models', '0.2.0'),
     ('tqdm', '4.66.1'),
     ('OpenMM', '8.0.0'),
     ('PyYAML', '6.0'),
@@ -119,17 +119,10 @@ exts_list = [
     }),
 ]
 
-# sanity_check_paths = {
-#     'files': ['bin/genomepy'],
-#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
-# }
-
-postinstallcmds = [
-    'pytest %(installdir)s/lib/python3.11/site-packages/openff/toolkit/_tests/'
-]
+# postinstallcmds = ['pytest %(installdir)s/lib/python3.11/site-packages/openff/toolkit/_tests/']
 sanity_check_commands = [
+    'pytest %(installdir)s/lib/python3.11/site-packages/openff/toolkit/_tests/',
     "python -c 'from openff.toolkit import Molecule, Topology, ForceField'",
-    "python -c 'from openff.interchange import Interchange'",
 ]
 
 

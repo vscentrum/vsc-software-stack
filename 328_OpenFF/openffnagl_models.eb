@@ -1,0 +1,31 @@
+easyblock = 'PythonBundle'
+
+name = 'OpenForceField-NAGL-Models'
+version = '0.2.0'
+
+homepage = 'https://github.com/openforcefield/openff-nagl-models'
+description = """NAGL models released by the Open Force Field Initiative. 
+They are intended to be used by OpenFF NAGL."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+]
+
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'modulename': 'openff.nagl_models',
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/openforcefield/openff-nagl-models/archive/'],
+        'checksums': ['df8e7ee980aa7ea99559759258a16e3aaa362245f5b7c32f9c25fb226eaee222'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'bio'
