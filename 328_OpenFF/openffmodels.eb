@@ -1,0 +1,34 @@
+easyblock = 'PythonBundle'
+
+name = 'OpenForceField-Models'
+version = '0.1.2'
+
+homepage = 'https://github.com/openforcefield/openff-models'
+description = """Helper classes for Pydantic compatibility in the OpenFF stack."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    # ('OpenForceField-Utilities', '0.1.12'),
+    # ('Pint', '0.23'),
+    # ('SciPy-bundle', '2023.07'),
+    # ('OpenForceField-Toolkit', '0.16.0'),
+    # ('OpenMM', '8.0.0'),
+]
+
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'modulename': 'openff.models',
+        'source_tmpl': '%(version)s.tar.gz',
+        'source_urls': ['https://github.com/openforcefield/openff-models/archive/'],
+        'checksums': ['cf2aa7ef467721f141149e4ce96134db390b27012f09996c4442a3fad2371653'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'bio'

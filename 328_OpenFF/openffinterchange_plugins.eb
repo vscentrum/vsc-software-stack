@@ -1,6 +1,6 @@
 easyblock = 'PythonBundle'
 
-name = 'OpenForceField-Interchange'
+name = 'OpenForceField-Interchange-Nonbonded-Plugins'
 version = '0.3.27'
 
 homepage = 'https://github.com/openforcefield/openff-interchange'
@@ -24,9 +24,10 @@ use_pip = True
 
 exts_list = [
     (name, version, {
-        'modulename': 'openff.interchange',
+        'modulename': 'plugins.nonbonded_plugins',
         'source_tmpl': 'v%(version)s.tar.gz',
         'source_urls': ['https://github.com/openforcefield/openff-interchange/archive/'],
+        'startdir': 'plugins',
         'checksums': ['6b44ba8a89921b3843a5f9fc41dc4f8a0c784ba12221e3ea0fb8c1b01a10cf2e'],
     }),
 ]
