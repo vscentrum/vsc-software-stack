@@ -8,47 +8,6 @@ description = """The Open Force Field Toolkit provides implementations of the SM
 parameterization engine, and other tools."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-
-# DEPS:
-    # - python >=3.9 OK
-    # - packaging OK pypi bundle
-    # - numpy =1 OK
-    # - smirnoff99frosst -> CREATED OK
-    # - openff-forcefields -> CREATED OK
-    # - openff-amber-ff-ports >=0.0.4 -> CREATED OK
-    # - openff-units >=0.2.0 -> CREATED OK
-    # - openff-utilities -> CREATED OK
-    # - networkx >=2.5 OK
-    # - xmltodict ok exts
-    # - bson ok exts
-    # - importlib-metadata >=4.10 ok pypi bundle
-    # - python-constraint ok exts
-    # - cachetools ok exts
-    # - cached-property ok exts
-    # - typing_extensions OK
-    # run_constrained:
-        # - openforcefield ==9999999999 ???
-        # - pydantic <3.0.0a0 OK
-        # - qcportal >=0.50.0 ok exts
-        # Remove when OpenEye has builds that use zstandard >=0.19
-            # - zstandard ==0.18 ok exts
-    # qcportal 0.0.0 requires apsw, ok exts
-    # qcportal 0.0.0 requires pyjwt, ok exts
-    # qcportal 0.0.0 requires pyyaml, OK
-    # qcportal 0.0.0 requires qcelemental, ok exts
-    # qcportal 0.0.0 requires tqdm, OK
-    # ERROR1 -> qcportal from whl OK
-        # The following Python packages were likely not installed correctly because they show a version of '0.0.0': qcportal
-        # This may be solved by using a *-none-any.whl file as the source instead. See e.g. the SOURCE*_WHL templates.
-        # Otherwise you could check if the package provides a version at all or if e.g. poetry is required (check the source for a pyproject.toml
-    # - openmm >=7.6 OK
-    # - openff-interchange >=0.3.18 -> CREATED OK -> not dep it needs toolkit
-    # - rdkit -> CREATED OK
-    # - ambertools >=22 -> created OK
-    # - mdtraj OK
-    # - notebook OK
-    # - ipywidgets OK in jupyterNotebook (jupyter-server)
-    # openff.nagl_models -> CREATED OK
     
 builddependencies = [('poetry', '1.5.1')]
 dependencies = [
@@ -58,14 +17,6 @@ dependencies = [
     ('networkx', '3.1'),
     ('typing-extensions', '4.9.0'),
     ('pydantic', '2.5.3'),
-    # ('SMIRNOFF99Frosst', '1.1.0'),
-    # ('OpenForceField-ForceFields', '2024.04.0'),
-    # ('OpenForceField-Amber-FF-Ports', '0.0.4'),
-    # ('OpenForceField-Units', '0.2.2'),
-    # ('OpenForceField-Utilities', '0.1.12'),
-    # ('OpenForceField-NAGL-Models', '0.2.0'),
-    # ('OpenForceField-Models', '0.1.2'),
-    # ('OpenForceField-Interchange', '0.3.27'),
     ('tqdm', '4.66.1'),
     ('OpenMM', '8.0.0'),
     ('PyYAML', '6.0'),
@@ -191,10 +142,3 @@ sanity_check_commands = [
 sanity_pip_check = True
 
 moduleclass = 'bio'
-
-# ERROR1:
-    # during pytest - toolkit
-    #1OK ModuleNotFoundError: No module named 'nglview' -> added nglview to deps
-    # during pytest - intechanges
-    #1NO from nonbonded_plugins.nonbonded import ... ModuleNotFoundError: No module named 'nonbonded_plugins' -> try to fix but there is nothing in plugins dir
-    #2 ModuleNotFoundError: No module named 'intermol'? -> added intermol to exts
