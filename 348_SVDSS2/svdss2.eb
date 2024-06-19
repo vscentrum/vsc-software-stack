@@ -27,7 +27,7 @@ builddependencies = [
     ('Autoconf', '2.71'),
     ('zlib', '1.2.13'),
     ('bzip2', '1.0.8'),
-    ('XZ', '5.4.2'),  # lzma
+    ('XZ', '5.4.2'),
     ('SAMtools', '1.18'),
     ('BCFtools', '1.18'),
 ]
@@ -42,7 +42,7 @@ files_to_copy = [
     (['SVDSS'], 'bin'),
     (['*'], 'lib'),
 ]
-# skipsteps = ['install']
+
 separate_build_dir = False
 
 postinstallcmds = ["cd %(installdir)s/lib && rm SVDSS"]
