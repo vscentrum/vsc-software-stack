@@ -8,7 +8,7 @@ description = """CESM is a fully-coupled, community, global climate model that
 provides state-of-the-art computer simulations of the Earth's past, present,
 and future climate states."""
 
-# The following environment is suitable for CESM >= 2.2.0
+# The following environment is suitable for CESM >= 2.2.2 and CTSM >= 5.2.0
 toolchain = {'name': 'foss', 'version': '2023a'}
 
 dependencies = [
@@ -32,7 +32,7 @@ components = [
         'easyblock': 'Tarball',
         'source_urls': ['https://github.com/vub-hpc/%(name)s/archive'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        'checksums': ['8de27ec1b7e900afcb0748accfb62a96838f48592e8475a62ab83dc7f6838808'],
+        'checksums': ['c5aeb50595ca4d342a5024d593c2549acf16e72dadc5f39d9a7915d3dc8f3c13'],
         'start_dir': '%(name)s-%(version)s',
     }),
 ]
@@ -43,8 +43,8 @@ sanity_check_paths = {
 }
 
 usage = """Environment to build and run CESM v2 simulations
- 1. Download a release of CESM v2: `git clone -b release-cesm2.2.0 https://github.com/ESCOMP/cesm.git cesm-2.2.0`
- 2. Add external programs for CESM: `cd cesm-2.2.0; ./manage_externals/checkout_externals`
+ 1. Download a release of CESM v2: `git clone -b release-cesm2.2.2 https://github.com/ESCOMP/cesm.git cesm-2.2.2`
+ 2. Add external programs for CESM: `cd cesm-2.2.2; ./manage_externals/checkout_externals`
  3. Update config files: `update-cesm-machines cime/config/cesm/machines/ $EBROOTCESMMINDEPS/machines/`
  4. Create case: `cd cime/scripts && ./create_newcase --machine ...`"""
 
