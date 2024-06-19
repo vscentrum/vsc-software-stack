@@ -1,0 +1,97 @@
+easyblock = 'CMakeMakeCp'
+
+name = 'SVDSS2'
+version = '2.0.0-alpha.3'
+
+homepage = 'https://github.com/Parsoa/SVDSS'
+description = "Improved structural variant discovery in accurate long reads using sample-specific strings (SFS)."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+sources = [{
+    'filename': 'v%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/Parsoa',
+        'repo_name': 'SVDSS',
+        'tag': 'v%(version)s',
+        'recursive': True,
+        'keep_git_dir': True,
+    }
+}]
+checksums = [None]
+# source_urls = ['https://github.com/rdkit/rdkit/archive/']
+# sources = ['Release_%s.tar.gz' % version.replace('.', '_')]
+# checksums = ['52f79c6bf1d446cdb5c86a35de655d96bad0c52a5f4ecbe15f08eaf334e6f76a']
+
+# DEPS: should be downloaded and build during cmake step
+    # ropebwt2 - not in EB
+    # ksw2 - not in EB
+    # abPOA - not in EB
+    # rapidfuzz - not in EB, cpp version, not python
+    # interval-tree - not in EB, cpp version
+    
+    
+builddependencies = [
+    ('CMake', '3.26.3'),
+    ('make', '4.4.1'),
+    ('Automake', '1.16.5'),
+    ('Autoconf', '2.71'),
+    ('zlib', '1.2.13'),
+    ('bzip2', '1.0.8'),
+    ('XZ', '5.4.2'),  # lzma
+    ('SAMtools', '1.18'),
+    ('BCFtools', '1.18'),
+]
+dependencies = [
+    ('HTSlib', '1.18'),
+    ('libdeflate', '1.18'),
+    ('parasail', '2.6.2'),
+    ('spdlog', '1.11.0'),
+]
+
+# files_to_copy = ["*"]
+files_to_copy = [
+    (['SVDSS'], 'bin'),
+    (['*'], 'lib'),
+]
+# skipsteps = ['install']
+separate_build_dir = False
+
+postinstallcmds = ["cd %(installdir)s/lib && rm SVDSS"]
+
+# configopts = "-DPy_ENABLE_SHARED=1 -DRDK_INSTALL_STATIC_LIBS=OFF -DRDK_INSTALL_INTREE=OFF "
+# configopts += "-DRDK_BUILD_INCHI_SUPPORT=ON "
+# configopts += "-DBOOST_ROOT=$EBROOTBOOST"
+
+# # ingnore failing test pythonSourceTests - from . import rdBase failing
+# prebuildopts = "sed -i '22d' %(builddir)s/rdkit-Release_2024_03_3/rdkit/CMakeLists.txt &&"
+
+# # merge source directory into build directory in order to run the tests
+# buildopts = '&& cp -RT %(builddir)s/%(namelower)s-*/ ./ && '
+# buildopts += 'export RDBASE=$PWD && export PYTHONPATH=$PWD:$PYTHONPATH && '
+
+# # Specify path for libraries so that they are found during the tests when the module is built with --rpath flag.
+# buildopts += 'export LD_LIBRARY_PATH=%(builddir)s/easybuild_obj/lib:${LD_LIBRARY_PATH} && '
+
+# # 'ctest' allows to pass additional arguments opposed to 'make test'
+# buildopts += 'ctest --output-on-failure'
+
+# local_libs = ['Alignment', 'Catalogs', 'ChemicalFeatures', 'ChemReactions', 'ChemTransforms', 'coordgen', 'DataStructs',
+#               'Depictor', 'Descriptors', 'DistGeometry', 'DistGeomHelpers', 'EigenSolvers', 'FileParsers',
+#               'FilterCatalog', 'Fingerprints', 'FMCS', 'ForceFieldHelpers', 'ForceField', 'FragCatalog', 'GraphMol',
+#               'hc', 'InfoTheory', 'maeparser', 'MMPA', 'MolAlign', 'MolCatalog', 'MolChemicalFeatures', 'MolDraw2D',
+#               'MolHash', 'MolInterchange', 'MolStandardize', 'MolTransforms', 'Optimizer', 'PartialCharges', 'RDBoost',
+#               'RDGeneral', 'RDGeometryLib', 'RDStreams', 'ReducedGraphs', 'RGroupDecomposition', 'RingDecomposerLib',
+#               'ScaffoldNetwork', 'ShapeHelpers', 'SimDivPickers', 'SLNParse', 'SmilesParse', 'Subgraphs',
+#               'SubstructLibrary', 'SubstructMatch', 'Trajectory']
+
+sanity_check_paths = {
+    'files': ['bin/SVDSS'],
+    'dirs': ['lib'],
+}
+
+sanity_check_commands = ['SVDSS --version']
+
+# modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+moduleclass = 'chem'
