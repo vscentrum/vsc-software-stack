@@ -18,18 +18,7 @@ sources = [{
         'keep_git_dir': True,
     }
 }]
-checksums = [None]
-# source_urls = ['https://github.com/rdkit/rdkit/archive/']
-# sources = ['Release_%s.tar.gz' % version.replace('.', '_')]
-# checksums = ['52f79c6bf1d446cdb5c86a35de655d96bad0c52a5f4ecbe15f08eaf334e6f76a']
-
-# DEPS: should be downloaded and build during cmake step
-    # ropebwt2 - not in EB
-    # ksw2 - not in EB
-    # abPOA - not in EB
-    # rapidfuzz - not in EB, cpp version, not python
-    # interval-tree - not in EB, cpp version
-    
+checksums = [None]    
     
 builddependencies = [
     ('CMake', '3.26.3'),
@@ -49,7 +38,6 @@ dependencies = [
     ('spdlog', '1.11.0'),
 ]
 
-# files_to_copy = ["*"]
 files_to_copy = [
     (['SVDSS'], 'bin'),
     (['*'], 'lib'),
@@ -59,32 +47,6 @@ separate_build_dir = False
 
 postinstallcmds = ["cd %(installdir)s/lib && rm SVDSS"]
 
-# configopts = "-DPy_ENABLE_SHARED=1 -DRDK_INSTALL_STATIC_LIBS=OFF -DRDK_INSTALL_INTREE=OFF "
-# configopts += "-DRDK_BUILD_INCHI_SUPPORT=ON "
-# configopts += "-DBOOST_ROOT=$EBROOTBOOST"
-
-# # ingnore failing test pythonSourceTests - from . import rdBase failing
-# prebuildopts = "sed -i '22d' %(builddir)s/rdkit-Release_2024_03_3/rdkit/CMakeLists.txt &&"
-
-# # merge source directory into build directory in order to run the tests
-# buildopts = '&& cp -RT %(builddir)s/%(namelower)s-*/ ./ && '
-# buildopts += 'export RDBASE=$PWD && export PYTHONPATH=$PWD:$PYTHONPATH && '
-
-# # Specify path for libraries so that they are found during the tests when the module is built with --rpath flag.
-# buildopts += 'export LD_LIBRARY_PATH=%(builddir)s/easybuild_obj/lib:${LD_LIBRARY_PATH} && '
-
-# # 'ctest' allows to pass additional arguments opposed to 'make test'
-# buildopts += 'ctest --output-on-failure'
-
-# local_libs = ['Alignment', 'Catalogs', 'ChemicalFeatures', 'ChemReactions', 'ChemTransforms', 'coordgen', 'DataStructs',
-#               'Depictor', 'Descriptors', 'DistGeometry', 'DistGeomHelpers', 'EigenSolvers', 'FileParsers',
-#               'FilterCatalog', 'Fingerprints', 'FMCS', 'ForceFieldHelpers', 'ForceField', 'FragCatalog', 'GraphMol',
-#               'hc', 'InfoTheory', 'maeparser', 'MMPA', 'MolAlign', 'MolCatalog', 'MolChemicalFeatures', 'MolDraw2D',
-#               'MolHash', 'MolInterchange', 'MolStandardize', 'MolTransforms', 'Optimizer', 'PartialCharges', 'RDBoost',
-#               'RDGeneral', 'RDGeometryLib', 'RDStreams', 'ReducedGraphs', 'RGroupDecomposition', 'RingDecomposerLib',
-#               'ScaffoldNetwork', 'ShapeHelpers', 'SimDivPickers', 'SLNParse', 'SmilesParse', 'Subgraphs',
-#               'SubstructLibrary', 'SubstructMatch', 'Trajectory']
-
 sanity_check_paths = {
     'files': ['bin/SVDSS'],
     'dirs': ['lib'],
@@ -92,6 +54,4 @@ sanity_check_paths = {
 
 sanity_check_commands = ['SVDSS --version']
 
-# modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
-
-moduleclass = 'chem'
+moduleclass = 'bio'
