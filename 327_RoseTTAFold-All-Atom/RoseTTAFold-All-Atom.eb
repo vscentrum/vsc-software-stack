@@ -20,6 +20,9 @@ sources = [{
 }]
 checksums = ['e22ae7d45b75815d99c8743269fc487c29e2d2d9e9a7ea66872ac463629d106d']
 
+# DEPS:
+    # contourpy - create ec because of meson version -> CREATED OK
+    
 dependencies = [
     ('CUDA', '12.1.1', '', SYSTEM),
     ('Python', '3.11.3'),
@@ -53,7 +56,7 @@ dependencies = [
     #   * [x] charset-normalizer=3.3.2, pypi -> exts_list
     #   * [x] click=8.1.7, pypi -> exts_list
     #   * [x] colorama=0.4.6, pypi -> exts_list
-    #   * [x] contourpy=1.2.0, pypi -> exts_list
+    ('contourpy', '1.2.0'),  #   * [x] contourpy=1.2.0, pypi -> exts_list -> not woking -> CREATED
     ('cryptography', '41.0.1'), #   * [?] cryptography=42.0.2, v41.0.1 for 2023a, v41.0.5 for 2023b
     #   * [ ] cuda-cudart=11.8.89=0
     #   * [ ] cuda-cupti=11.8.87=0
@@ -392,9 +395,6 @@ exts_list = [
     }),
     ('colorama', '0.4.6', {
         'checksums': ['08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44'],
-    }),
-    ('contourpy', '1.2.0', {
-        'checksums': ['171f311cb758de7da13fc53af221ae47a5877be5a0843a9fe150818c51ed276a'],
     }),
     ('Cycler', '0.12.1', {
         'modulename': 'cycler',
