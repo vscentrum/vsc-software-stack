@@ -18,91 +18,95 @@ sources = [{
     'download_filename': '%s.tar.gz' % local_commit,
     'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
 }]
-checksums = ['e22ae7d45b75815d99c8743269fc487c29e2d2d9e9a7ea66872ac463629d106d']
+checksums = ['cb3f49727de951183a350644b796458857811cf46c339998501ffc8d7b936c68']
 
-# ERROR4:
-    # == 2024-06-21 16:04:25,416 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py__init__): 
+# ERROR5: OK
+    # try to unpin version by preinstallopts sed
+    # pyopenssl 24.0.0 has requirement cryptography<43,>=41.0.5, but you have cryptography 41.0.1.
+# ERROR4: OK
+    # -> add modextrapaths = ...
+    # == 2024-06-24 12:35:33,879 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
     # Sanity check failed: extensions sanity check failed for 17 extensions: 
-    # asttokens, cached-property, executing, icecream, Kerasessing, munkres, PyJWT, pyOpenSSL, PySocks, pyu2f, termcolor, unicodedata2, assertpy, pathtools, promise, shortuuid, subprocess32
-    # Failing sanity check for 'asttokens' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "imtokens"" failed; output:
+    # asttokens, cached-property, executing, icecream, Keras-Preprocessing, munkres, PyJWT, pyOpenSSL, PySocks, pyu2f, termcolor, unicodedata2, assertpy, pathtools, promise, shortuuid, subprocess32
+    # failing sanity check for 'asttokens' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.
+    # 11.3-GCCcore-12.3.0/bin/python -c "import asttokens"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
     # ModuleNotFoundError: No module named 'asttokens', 
-    # failing sanity check for 'cached-property' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python rt cached_property"" failed; output:
+    # failing sanity check for 'cached-property' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Pyt
+    # hon/3.11.3-GCCcore-12.3.0/bin/python -c "import cached_property"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
     # ModuleNotFoundError: No module named 'cached_property', 
-    # failing sanity check for 'executing' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "imcuting"" failed; output:
+    # failing sanity check for 'executing' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.
+    # 11.3-GCCcore-12.3.0/bin/python -c "import executing"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
     # ModuleNotFoundError: No module named 'executing', 
-    # failing sanity check for 'icecream' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "impream"" failed; output:
+    # failing sanity check for 'icecream' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.1
+    # 1.3-GCCcore-12.3.0/bin/python -c "import icecream"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
     # ModuleNotFoundError: No module named 'icecream', 
-    # failing sanity check for 'Keras-Preprocessing' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/pytimport keras_preprocessing"" failed; output:
+    # failing sanity check for 'Keras-Preprocessing' extension: command "/apps/gent/RHEL8/cascadelake-ib/software
+    # /Python/3.11.3-GCCcore-12.3.0/bin/python -c "import keras_preprocessing"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
     # ModuleNotFoundError: No module named 'keras_preprocessing', 
-    # failing sanity check for 'munkres' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "impoes"" failed; output:
+    # failing sanity check for 'munkres' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11
+    # .3-GCCcore-12.3.0/bin/python -c "import munkres"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
-    # ModuleNotFoundError: No module named 'munkres',
-    # failing sanity check for 'PyJWT' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "importailed; output:
+    # ModuleNotFoundError: No module named 'munkres', 
+    # failing sanity check for 'PyJWT' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3
+    # -GCCcore-12.3.0/bin/python -c "import jwt"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
     # ModuleNotFoundError: No module named 'jwt', 
-    # failing sanity check for 'pyOpenSSL' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/pytho
-    # port OpenSSL"" failed; output:
+    # failing sanity check for 'pyOpenSSL' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.
+    # 11.3-GCCcore-12.3.0/bin/python -c "import OpenSSL"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
     # ModuleNotFoundError: No module named 'OpenSSL', 
-    # failing sanity check for 'PySocks' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python 
-    # rt pysocks"" failed; output:
+    # failing sanity check for 'PySocks' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import pysocks"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
     # ModuleNotFoundError: No module named 'pysocks', 
-    # failing sanity check for 'pyu2f' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c
-    # pyu2f"" failed; output:
+    # failing sanity check for 'pyu2f' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import pyu2f"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
     # ModuleNotFoundError: No module named 'pyu2f', 
-    # failing sanity check for 'termcolor' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/pytho
-    # port termcolor"" failed; output:
+    # failing sanity check for 'termcolor' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import termcolor"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
     # ModuleNotFoundError: No module named 'termcolor', 
-    # failing sanity check for 'unicodedata2' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/py
-    # "import unicodedata2"" failed; output:
+    # failing sanity check for 'unicodedata2' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import unicodedata2"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
     # ModuleNotFoundError: No module named 'unicodedata2', 
-    # failing sanity check for 'assertpy' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python
-    # ort assertpy"" failed; output:
+    # failing sanity check for 'assertpy' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import assertpy"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
-    # ModuleNotFoundError: No module named 'assertpy',
-    # failing sanity check for 'pathtools' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/pytho
-    # port pathtools"" failed; output:
+    # ModuleNotFoundError: No module named 'assertpy', 
+    # failing sanity check for 'pathtools' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import pathtools"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
     # ModuleNotFoundError: No module named 'pathtools', 
-    # failing sanity check for 'promise' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python 
-    # rt promise"" failed; output:
+    # failing sanity check for 'promise' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import promise"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
     # ModuleNotFoundError: No module named 'promise', 
-    # failing sanity check for 'shortuuid' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/pytho
-    # port shortuuid"" failed; output:
+    # failing sanity check for 'shortuuid' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.
+    # 11.3-GCCcore-12.3.0/bin/python -c "import shortuuid"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
-    # ModuleNotFoundError: No module named 'shortuuid', 
-    # failing sanity check for 'subprocess32' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/py
-    # "import subprocess32"" failed; output:
+    # ModuleNotFoundError: No module named 'shortuuid',
+    # failing sanity check for 'subprocess32' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python
+    # /3.11.3-GCCcore-12.3.0/bin/python -c "import subprocess32"" failed; output:
     # Traceback (most recent call last):
     # File "<string>", line 1, in <module>
-    # ModuleNotFoundError: No module named 'subprocess32',  (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3663 in _sanity
-    # tep)
+    # ModuleNotFoundError: No module named 'subprocess32',  (at easybuild/easybuild-framework/easybuild/framework
+    # /easyblock.py:3663 in _sanity_check_step)
 # ERROR3: OK
     # remove pyparsing -> it is in pypi-bundle
     # matplotlib 3.7.2 has requirement pyparsing<=3.1,>=2.3.1, but you have pyparsing 3.1.1.
@@ -565,10 +569,12 @@ exts_list = [
         'checksums': ['57e28d156e3d5c10088e0c68abb90bfac3df82b40a71bd0daa20c65ccd5c23de'],
     }),
     ('pyOpenSSL', '24.0.0', {
+        'preinstallopts': "sed -i 's/cryptography>=41.0.5,<43/cryptography/' setup.py && ",
         'modulename': 'OpenSSL',
         'checksums': ['6aa33039a93fffa4563e655b61d11364d01264be8ccb49906101e02a334530bf'],
     }),
     ('PySocks', '1.7.1', {
+        'modulename': 'socks',
         'checksums': ['3f8804571ebe159c380ac6de37643bb4685970655d3bba243530d6558b799aa0'],
     }),
     ('pyu2f', '0.1.5', {
@@ -639,5 +645,7 @@ exts_list = [
         'checksums': ['eb2937c80497978d181efa1b839ec2d9622cf9600a039a79d0e108d1f9aec79d'],
     }),
 ]
+
+modextrapaths = {'PYTHONPATH': ['lib/python%(pyshortver)s/site-packages']}
 
 moduleclass = 'lib'
