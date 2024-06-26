@@ -10,6 +10,19 @@ description = """rMATS-long is a collection of tools for analyzing long-read dat
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
+# DEPS:
+    # Python (v3.10.9) OK
+    # NetworkX (v2.8.8) OK
+    # NumPy (v1.24.2) OK
+    # pandas (v1.5.3) OK
+    # matplotlib (v3.7.1) OK
+    # R (v4.2.0) OK
+    # BiocParallel (v1.32.5) ok - biocond
+    # DRIMSeq (v1.26.0) ok - biocond
+    # ggplot2 (v3.4.1) ok - cran
+    # cowplot (v1.1.1) ok - cran
+    # ggrepel - ok cran (https://github.com/Xinglab/rMATS-long/issues/19)
+
 source_urls = ['https://github.com/Xinglab/%(name)s/archive/']
 sources = [{
     'download_filename': '%s.tar.gz' % local_commit,
