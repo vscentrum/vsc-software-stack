@@ -26,13 +26,13 @@ use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    ('pydantic', '1.10.17', {
-        'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['e41b5b973e5c64f674b3b4720286ded184dcc26a691dd55f34391c62c6934688'],
-    }),
-    # ('pydantic_settings', '0.2.5', {
+    # ('pydantic', '1.10.17', {
     #     'source_tmpl': SOURCE_PY3_WHL,
-    #     'checksums': ['347991a2d96674dc9a412b6306d2fa1d84605e16d5180b04763ec4280116dbee'],
+    #     'checksums': ['e41b5b973e5c64f674b3b4720286ded184dcc26a691dd55f34391c62c6934688'],
+    # }),
+    # ('pydantic_settings', '1.99', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['2bd45d80b0b5597e1252288e073742f48ba13b57ad604cc6e2fce40bf131a4c4'],
     # }),
     ('napari-workflows', '0.2.10', {
         'checksums': ['d48f2020693b4b8c1dd639668a3b1588115beac8f19f42394fc241fc1672be12'],
@@ -52,14 +52,14 @@ exts_list = [
         'preinstallopts': 'sed -i "s/wrapt<=1.12.1/wrapt/g" setup.py && ',
         'checksums': ['fd720b78910b84ea5d65deda8c193d64e583c78090d9867990b7a39f72ed7ea3'],
     }),
-    # Napari-denoiseg requires napari<=0.4.15
-    # see: https://github.com/napari/napari/issues/4708
-    ('napari', '0.4.15', {
-        'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['c9e069e82906469bc7554bccb33d9706b1c0fb73408765a4c0f82b9625f1d656'],
-    }),
+    # # Napari-denoiseg requires napari<=0.4.15
+    # # see: https://github.com/napari/napari/issues/4708
+    # ('napari', '0.4.15', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['c9e069e82906469bc7554bccb33d9706b1c0fb73408765a4c0f82b9625f1d656'],
+    # }),
     ('napari-denoiseg', '%(version)src2', {
-        'preinstallopts': 'sed -i "s/vispy<=0.9.6/vispy/g" setup.cfg && ',
+        'preinstallopts': 'sed -i "s/vispy<=0.9.6/vispy/g;s/napari<=0.4.15/napari<=0.4.18/g" setup.cfg && ',
         'checksums': ['e244dbb820ee7d35212ee198d28eabf987439a70ce6695cbf63cfa52baab1ea8'],
     }),
 ]
