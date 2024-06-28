@@ -1,0 +1,48 @@
+easyblock = 'CmdCp'
+
+name = 'Artaios'
+version = '210520'
+
+homepage = 'https://www.chemie.uni-hamburg.de/institute/ac/arbeitsgruppen/herrmann/software/artaios.html'
+
+description = """Artaios is a code for calculating spin-dependent electron transport properties
+for molecular junctions in the coherent tunneling regime. It can be employed as
+a postprocessing tool for output from electronic structure calculations.
+Additionally, the program offers the possibility of calculating local spins by
+the Mayer local spin analysis scheme and Heisenberg exchange-spin coupling
+constants with a Green’s function approach."""
+
+toolchain = {'name': 'gfbf', 'version': '2023a'}
+
+# To obtain the source code, please send an email to carmen.herrmann@chemie.uni-hamburg.de
+sources = [SOURCELOWER_TAR_GZ]
+patches = ['%(name)s-%(version)s_fix_hardcoded_path.patch']
+checksums = [
+    'd23aca4de61306a0d7987572360f5310a9ab0749a02454e9670e512d1c6ec468',  # artaios-210520.tar.gz
+    '8028e8514c45500ba9eabacac64fbbaf32e5c5d9b8135d49b68cc0855d5d876c',  # Artaios-210520_fix_hardcoded_path.patch
+]
+
+#_comp_cmd = 'sed -i "s|-J../|-module ../|g" src/tools/makefile && '
+#_comp_cmd += 'sed -i "s/XAXI/X,A,X,I/g" src/util.f && '
+_make_opts = 'FC="$FC" FFLAGS="$FFLAGS" CC="$CXX" CFLAGS="$CXXFLAGS" LD="$FC" LDFLAGS="$LDFLAGS" '
+_make_opts += 'LIBS="-Wl,-Bdynamic $LIBS $LIBBLAS"'
+_comp_cmd = f"cd src && make clean && make {_make_opts} && cd tools && make clean && make {_make_opts}"
+
+cmds_map = [('.*', _comp_cmd)]
+
+files_to_copy = ['bin', 'COPYING', 'doc', 'examples', 'scripts', (['src/tools/au_files'], 'tools')]
+
+modextrapaths = {
+    'ARTAIOSHOME': '',
+    'ARTAIOSBIN': 'bin',
+    'ARTAIOSSCRIPTS': 'scripts',
+}
+
+sanity_check_paths = {
+    'files': ['bin/artaios'],
+    'dirs': ['tools/au_files'],
+}
+
+sanity_check_commands = ['artaios']
+
+moduleclass = 'chem'

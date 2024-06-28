@@ -1,0 +1,67 @@
+diff -ur artaios.orig/src/tools/variable_cluster_br_fcc.f artaios/src/tools/variable_cluster_br_fcc.f
+--- artaios.orig/src/tools/variable_cluster_br_fcc.f	2021-05-20 16:56:52.000000000 +0200
++++ artaios/src/tools/variable_cluster_br_fcc.f	2022-05-02 18:06:28.036275723 +0200
+@@ -36,6 +36,9 @@
+       integer       i,j,k,l,si,ci,n,nel,si2,ci2,xi,length
+       character*80     molin,molout,line,output
+       character*2      as(m),asn(m)  
++      character(len=255) :: artaioshome
++
++      CALL getenv("ARTAIOSHOME", artaioshome)
+ 
+ c     a1, a2 & z are the lattice vectors
+ c     latcon is the lattice constant
+@@ -405,7 +408,7 @@
+ 700   format (1x,a2,1x,f15.8,1x,f15.8,1x,f15.8)
+ 
+ C     write out for 3
+-      open (7,file="/home/software/qc-prog/artaios/artaios/trunk/src/"//
++      open (7,file=trim(artaioshome)//"/"//
+      *      "tools/au_files/"//
+      *      "au3_fcc.xyz"
+      $    ,status='old',form='formatted')
+@@ -435,7 +438,7 @@
+ 
+ 
+ C     write out for 9
+-      open (7,file="/home/software/qc-prog/artaios/artaios/trunk/src/"//
++      open (7,file=trim(artaioshome)//"/"//
+      *      "tools/au_files/"//
+      * "au9_fcc.xyz",
+      $    status='old',form='formatted')
+@@ -465,7 +468,7 @@
+ 
+ 
+ C     write out for 19
+-      open (7,file="/home/software/qc-prog/artaios/artaios/trunk/src/"//
++      open (7,file=trim(artaioshome)//"/"//
+      *      "tools/au_files/"//
+      *      "au19_fcc.xyz",
+      $        status='old',form='formatted')
+@@ -495,7 +498,7 @@
+ 
+ 
+ C     write out for 3
+-      open (7,file="/home/software/qc-prog/artaios/artaios/trunk/src/"//
++      open (7,file=trim(artaioshome)//"/"//
+      *    "tools/au_files/"//
+      * "au3_br.xyz"
+      $    ,status='old',form='formatted')
+@@ -525,7 +528,7 @@
+ 
+ 
+ C     write out for 9
+-      open (7,file="/home/software/qc-prog/artaios/artaios/trunk/src/"//
++      open (7,file=trim(artaioshome)//"/"//
+      *     "tools/au_files/"//
+      *  "au9_br.xyz",
+      $    status='old',form='formatted')
+@@ -555,7 +558,7 @@
+ 
+ 
+ C     write out for 19
+-      open (7,file="/home/software/qc-prog/artaios/artaios/trunk/src/"//
++      open (7,file=trim(artaioshome)//"/"//
+      *   "tools/au_files/"//
+      * "au19_br.xyz",
+      $        status='old',form='formatted')
