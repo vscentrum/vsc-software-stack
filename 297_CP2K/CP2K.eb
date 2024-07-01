@@ -31,6 +31,8 @@ dependencies = [
     ('PLUMED', '2.9.0'),
 ]
 
+# preconfigopts =  "sed -i '93 s/OFF/ON/' CMakeList.txt && "
+# configopts = "-DCP2K_ENABLE_REGTESTS=ON "
 type = 'psmp'
 
 # regression test reports handful of failures,
@@ -40,6 +42,6 @@ ignore_regtest_fails = True
 
 moduleclass = 'chem'
 
-# Failed with:
+# Failed with: Kenneths easyblock should solve this
 # == 2024-06-10 17:59:01,014 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "/tmp/vsc47063/easybuild/build/CP2K/2024.1/foss-2023a/cp2k-2024.1/tools/do_regtest -nocvs -quick -nocompile -config cp2k_regtest.cfg" exited with exit code 127 and output:
 # /bin/bash: /tmp/vsc47063/easybuild/build/CP2K/2024.1/foss-2023a/cp2k-2024.1/tools/do_regtest: No such file or directory
