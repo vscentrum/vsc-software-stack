@@ -68,6 +68,7 @@ dependencies = [
     ('Qt5', '5.15.10'),
     ('Qwt', '6.3.0'),
     ('VTK', '9.2.6', '-Pavels-with-Gui-Qt'),
+    ('FFmpeg', '6.0'),
 ]
 
 srcdir = "src"
@@ -88,10 +89,10 @@ configopts += " -DOpenGL_GL_PREFERENCE=GLVND "
 
 prebuildopts = "sed -i '23 a #include <cmath>' %(builddir)s/visit/src/gui/QvisStripChart.C && "
 
-preinstallopts = "mkdir -p %(installdir)s/lib/python%(pyshortver)s/site-packages/ && "
-preinstallopts += "export PYTHONPATH=%(installdir)s/lib/python%(pyshortver)s/site-packages:$PYTHONPATH && "
+# preinstallopts = "mkdir -p %(installdir)s/lib/python%(pyshortver)s/site-packages/ && "
+# preinstallopts += "export PYTHONPATH=%(installdir)s/lib/python%(pyshortver)s/site-packages:$PYTHONPATH && "
 
-# modextrapaths = {'PYTHONPATH': ['%(version)/linux-x86_64/lib//site-packages']}
+# modextrapaths = {'PYTHONPATH': ['%(version)s/linux-x86_64/lib/%(pyshortver)s/site-packages']} # there is nothing
 
 sanity_check_paths = {
     'files': ['bin/%s' % x for x in ['frontendlauncher', 'frontendlauncher.py', 'visit']],
@@ -100,7 +101,7 @@ sanity_check_paths = {
 
 moduleclass = 'vis'
 
-# ERROR6
+# ERROR6: OK
     # uncommented all configopts in block1 + DVISIT_QT_DIR=$EBROOTQT5
     # in install step:
     # CMake Error at cmake_install.cmake:425 (file):
