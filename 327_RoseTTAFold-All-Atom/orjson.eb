@@ -9,6 +9,7 @@ description = """Fast, correct Python JSON library supporting dataclasses, datet
 toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
 builddependencies = [
+    ('binutils', '2.40'),
     ('maturin', '1.4.0', '-Rust-1.75.0'),
 ]
 dependencies = [
@@ -34,4 +35,4 @@ exts_list = [
 
 sanity_pip_check = True
 
-moduleclass = 'math'
+moduleclass = 'lib'
