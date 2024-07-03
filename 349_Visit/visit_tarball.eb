@@ -1,0 +1,179 @@
+easyblock = 'Tarball'
+
+name = 'Visit'
+version = '3.4.1'
+# local_pysuffix = '-Python-%(pyver)s'
+# versionsuffix = local_pysuffix
+
+homepage = 'https://github.com/visit-dav/visit'
+description = """
+VisIt is an Open Source, interactive, scalable, visualization, animation
+and analysis tool. From Unix, Windows or Mac workstations, users can
+interactively visualize and analyze data ranging in scale from small
+(<101 core) desktop-sized projects to large (>105 core) leadership-class
+computing facility simulation campaigns. Users can quickly generate
+visualizations, animate them through time, manipulate them with a
+variety of operators and mathematical expressions, and save the
+resulting images and animations for presentations. VisIt contains a rich
+set of visualization features to enable users to view a wide variety of
+data including scalar and vector fields defined on two- and
+three-dimensional (2D and 3D) structured, adaptive and unstructured
+meshes. Owing to its customizeable plugin design, VisIt is capabable of
+visualizing data from over 120 different scientific data formats.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# source_urls = ['https://github.com/visit-dav/visit/archive']
+# sources = ['v%(version)s.tar.gz']
+# patches = [
+#     '%(name)s-%(version)s_use_glvnd_libs.patch',
+#     '%(name)s-%(version)s_use_EB_osmesa_mesagl.patch',
+#     '%(name)s-%(version)s_use_EB_tiff_png_jpeg.patch',
+# ]
+
+sources = [{
+    'filename': 'v%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/visit-dav',
+        'repo_name': 'visit',
+        'tag': 'v%(version)s',
+        'recursive': True,
+        'keep_git_dir': True,
+    }
+}]
+checksums = [None]
+
+# DEPS:
+    #cmake
+    #python
+    #qt
+    #qwt
+    #vtk
+    #zlib
+    #glu
+    #llvm
+    #mesagl -> MESA? has LLVM+libglvnd+x11
+    
+builddependencies = [('CMake', '3.26.3')]
+dependencies = [
+#     ('zlib', '1.2.11'),
+#     ('Python', '3.8.2'),
+#     ('SciPy-bundle', '2020.03', local_pysuffix),
+#     ('X11', '20200222'),
+#     ('Mesa', '20.0.2'),
+    ('libglvnd', '1.6.0'),
+#     ('Qt5', '5.14.1'),
+#     ('Qwt', '6.1.5'),
+#     ('VTK', '8.1.0', versionsuffix),
+    ('LLVM', '16.0.6'),
+]
+
+preinstall_cmd = "cd %(builddir)s/visit && mkdir third_party && "
+# preinstall_cmd += ""
+preinstall_cmd += "cd %(builddir)s/visit/src/tools/dev/scripts && ./build_visit "
+preinstall_cmd += "--makeflags -j8 "
+preinstall_cmd += "--mesagl --llvm "
+preinstall_cmd += "--thirdparty-path %(builddir)s/visit/third_party "
+
+# configopts = "-DVISIT_ZLIB_DIR=$EBROOTZLIB "
+# configopts += "-DVISIT_VTK_DIR=$EBROOTVTK "
+# configopts += "-DVISIT_VTK_VERSION=$EBVERSIONVTK "
+# configopts += "-DVISIT_QT_DIR=$EBROOTQT5 "
+# configopts += "-DVISIT_QWT_DIR=$EBROOTQWT "
+# configopts += "-DVISIT_OSMESA_DIR=$EBROOTMESA "
+# configopts += "-DVISIT_MESAGL_DIR=$EBROOTLIBGLVND "
+
+# configopts += "-DPYTHON_DIR=$EBROOTPYTHON "
+# configopts += "-DVISIT_PYTHON_SKIP_INSTALL=ON "
+# configopts += "-DVISIT_PARALLEL=ON -DVISIT_MPI_COMPILER=$MPICC -DVISIT_MPI_COMPILER_CXX=$MPICXX "
+
+# configopts += " -DOpenGL_GL_PREFERENCE=GLVND "
+
+# preinstallopts = "mkdir -p %(installdir)s/lib/python%(pyshortver)s/site-packages/ && "
+# preinstallopts += "export PYTHONPATH=%(installdir)s/lib/python%(pyshortver)s/site-packages:$PYTHONPATH && "
+
+# modextrapaths = {'PYTHONPATH': ['%(version)/linux-x86_64/lib//site-packages']}
+
+# sanity_check_paths = {
+#     'files': ['bin/%s' % x for x in ['frontendlauncher', 'frontendlauncher.py', 'visit']],
+#     'dirs': ['%(version)s/bin'],
+# }
+
+moduleclass = 'vis'
+
+# ERROR4:
+    # -> from src/tools/dev/scripts/bv_support/bv_qt.sh
+    # == 2024-07-01 16:14:19,968 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-f
+    # ramework/easybuild/base/exceptions.py:126 in __init__): cmd "cd /tmp/vsc47063/easybuild/build/Visit/3.4.1/f
+    # oss-2023a/visit && mkdir third_party && cd /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/src/tools/dev/scripts && ./build_visit --makeflags -j8 --mesagl --llvm --thirdparty-path /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/third_party " 
+    # exited with exit code 1 and output:
+    # Processing bsd license.
+    # bv_vtk_initialize
+    # bv_python_info
+    # bv_vtk_info
+    # [build_visit invocation arguments] --makeflags -j8 --mesagl --llvm --thirdparty-path /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/third_party
+    # [build_visit build mode ] Release
+    # g++ version 12.3.0
+    # Fortran support for thirdparty libraries disabled.
+    # enabling any dependent libraries
+    # initializing module variables
+    # initialize module variables for cmake
+    # initialize module variables for python
+    # initialize module variables for qt
+    # initalizing qt vars
+    # initialize module variables for qwt
+    # initialize module variables for vtk
+    # initalizing vtk vars
+    # initialize module variables for zlib
+    # initialize module variables for glu
+    # initalizing glu vars
+    # initialize module variables for llvm
+    # initialize module variables for mesagl
+    # initalizing mesagl vars
+    # During the build process this script will build Qt and confirm that you accept Trolltech's license for the Qt Open Source Edition. Please respond "yes" to accept (in advance) either the Lesser GNU General Public License (LGPL) version 2.1 or the GNU General Public License (GPL) version 3. Visit http://www.qt.io/qt-licensing-terms to view these licenses.
+    # VisIt requires Qt: Do you accept Qt licensing under the terms of the Lesser GNU General Public License (LGPL) version 2.1 or the GNU General Public License (GPL) version 3? [yes/no]
+    # VisIt requires Qt: Do you accept Qt licensing under the terms of the Lesser GNU General Public License (LGPL) version 2.1 or the GNU General Public License (GPL) version 3? [yes/no]
+    # Qt4 Open Source Edition License Declined. Bailing out.
+# ERROR3:
+    # -> added --thirdparty-path %(builddir)s/visit/third_party -> seems works
+    # == 2024-07-01 15:37:56,544 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "cd /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit//src/tools/dev/scripts && ./build_visit --makeflags -j8 --mesagl --llvm" exited with exit code 1 and output:
+    # Processing bsd license.
+    # bv_vtk_initialize
+    # bv_python_info
+    # bv_vtk_info
+    # [build_visit invocation arguments] --makeflags -j8 --mesagl --llvm
+    # [build_visit build mode ] Release
+    # g++ version 12.3.0
+    # Fortran support for thirdparty libraries disabled.
+    # enabling any dependent libraries
+    # The third party library location, "./third_party" does not exist. Create it? [yes/no]
+    # The third party library location does not exist. Bailing out.
+# ERROR2:
+    # add --llvm to build_visit -> seems works
+    # -> added LLVM but still same error
+    # == 2024-07-01 15:24:57,026 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "cd /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit//src/tools/dev/scripts && ./build_visit --makeflags -j8 --mesagl" exited with exit code 1 and output:
+    # Processing bsd license.
+    # bv_vtk_initialize
+    # bv_python_info
+    # bv_vtk_info
+    # [build_visit invocation arguments] --makeflags -j8 --mesagl
+    # [build_visit build mode ] Release
+    # g++ version 12.3.0
+    # Fortran support for thirdparty libraries disabled.
+    # enabling any dependent libraries
+    # ERROR: library llvm was not set mesagl depends on it, please enable
+# ERROR1:
+    # -> add --mesagl to build_visit and add dep libglvnd
+    # -> look: https://github.com/visit-dav/visit/discussions/12595?sort=old
+    # == 2024-07-01 13:36:29,987 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "cd /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit//src/tools/dev/scripts && ./build_visit --makeflags -j8" exited with exit code 1 and output:
+    # Processing bsd license.
+    # bv_vtk_initialize
+    # bv_python_info
+    # bv_vtk_info
+    # [build_visit invocation arguments] --makeflags -j8
+    # [build_visit build mode ] Release
+    # g++ version 12.3.0
+    # Could not obtain a 3.2 context with system GL.
+    # You may want to add --mesagl to the command line.
+    # To disable this check use --skip-opengl-context-check

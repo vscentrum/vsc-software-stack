@@ -1,0 +1,279 @@
+easyblock = 'CMakeMake'
+
+name = 'Visit'
+version = '3.4.1'
+# local_pysuffix = '-Python-%(pyver)s'
+# versionsuffix = local_pysuffix
+
+homepage = 'https://github.com/visit-dav/visit'
+description = """
+VisIt is an Open Source, interactive, scalable, visualization, animation
+and analysis tool. From Unix, Windows or Mac workstations, users can
+interactively visualize and analyze data ranging in scale from small
+(<101 core) desktop-sized projects to large (>105 core) leadership-class
+computing facility simulation campaigns. Users can quickly generate
+visualizations, animate them through time, manipulate them with a
+variety of operators and mathematical expressions, and save the
+resulting images and animations for presentations. VisIt contains a rich
+set of visualization features to enable users to view a wide variety of
+data including scalar and vector fields defined on two- and
+three-dimensional (2D and 3D) structured, adaptive and unstructured
+meshes. Owing to its customizeable plugin design, VisIt is capabable of
+visualizing data from over 120 different scientific data formats.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# source_urls = ['https://github.com/visit-dav/visit/archive']
+# sources = ['v%(version)s.tar.gz']
+# patches = [
+#     '%(name)s-%(version)s_use_glvnd_libs.patch',
+#     '%(name)s-%(version)s_use_EB_osmesa_mesagl.patch',
+#     '%(name)s-%(version)s_use_EB_tiff_png_jpeg.patch',
+# ]
+
+sources = [{
+    'filename': 'v%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/visit-dav',
+        'repo_name': 'visit',
+        'tag': 'v%(version)s',
+        'recursive': True,
+        'keep_git_dir': True,
+    }
+}]
+checksums = [None]
+
+# DEPS:
+    #cmake OK
+    #python OK
+    #qt OK
+    #qwt OK
+    #vtk OK
+    #zlib OK
+    #glu? -> from OpenGL?
+    #llvm OK
+    #mesagl -> MESA? has LLVM+libglvnd+x11 OK
+
+builddependencies = [('CMake', '3.26.3')]
+dependencies = [
+    ('zlib', '1.2.13'),
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('X11', '20230603'),
+    ('Mesa', '23.1.4'),
+    ('libglvnd', '1.6.0'),
+    # ('Qt6', '6.5.2'),
+    ('Qt5', '5.15.10'),
+    ('Qwt', '6.3.0'),
+    ('VTK', '9.2.6', '-Pavels-with-Gui-Qt'),
+]
+
+srcdir = "src"
+configopts = "-DVISIT_ZLIB_DIR=$EBROOTZLIB "
+configopts += "-DVISIT_VTK_DIR=$EBROOTVTK "
+configopts += "-DVISIT_VTK_VERSION=$EBVERSIONVTK "
+configopts += "-DVISIT_QT_VERSION=$EBVERSIONQT5 "
+configopts += "-DVISIT_QT_DIR=$EBROOTQT5 "
+configopts += "-DVISIT_QWT_DIR=$EBROOTQWT "
+
+#block1
+configopts += "-DVISIT_OSMESA_DIR=$EBROOTMESA "
+configopts += "-DVISIT_MESAGL_DIR=$EBROOTLIBGLVND "
+configopts += "-DPYTHON_DIR=$EBROOTPYTHON "
+configopts += "-DVISIT_PYTHON_SKIP_INSTALL=ON "
+configopts += "-DVISIT_PARALLEL=ON -DVISIT_MPI_COMPILER=$MPICC -DVISIT_MPI_COMPILER_CXX=$MPICXX "
+configopts += " -DOpenGL_GL_PREFERENCE=GLVND "
+
+prebuildopts = "sed -i '23 a #include <cmath>' %(builddir)s/visit/src/gui/QvisStripChart.C && "
+
+preinstallopts = "mkdir -p %(installdir)s/lib/python%(pyshortver)s/site-packages/ && "
+preinstallopts += "export PYTHONPATH=%(installdir)s/lib/python%(pyshortver)s/site-packages:$PYTHONPATH && "
+
+# modextrapaths = {'PYTHONPATH': ['%(version)/linux-x86_64/lib//site-packages']}
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['frontendlauncher', 'frontendlauncher.py', 'visit']],
+    'dirs': ['%(version)s/bin'],
+}
+
+moduleclass = 'vis'
+
+# ERROR6
+    # uncommented all configopts in block1 + DVISIT_QT_DIR=$EBROOTQT5
+    # in install step:
+    # CMake Error at cmake_install.cmake:425 (file):
+    # file INSTALL cannot find "/plugins/platforms": No such file or directory.
+# ERROR5: OK
+    # -> pow, log10, fabs are in cmath -> #include <cmath> in QvisStripChart.C 
+        # https://stackoverflow.com/questions/49396745/error-pow-was-not-declared-in-this-scope
+    # -> seems it is connected to qwt: https://github.com/visit-dav/visit/discussions/16133
+    # make step:
+    # Building wheels for collected packages: visit-utils
+    # Building wheel for visit-utils (setup.py): started
+    # ...
+    # [ 40%] Building CXX object gui/CMakeFiles/gui.dir/QvisSubsetPanelItem.C.o
+    # ...
+    # /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/src/gui/QvisStripChart.C: In function double fsign(double, double):
+    #   |           ^~~~
+    #   |           labs
+    # /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/src/gui/QvisStripChart.C: In member function void QvisStripChart::AdjustLabelsComputeRange(double*, double&, unsigned int&):
+    # /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/src/gui/QvisStripChart.C:784:18: error: log10 was not declared in this scope
+    # 784 |   double pow10 = log10(diff);
+    #                           |                  ^~~~~
+    # /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/src/gui/QvisStripChart.C:790:22: error: fabs was not declared in this scope; did you mean labs?
+    # 790 |       pow10 = fsign((fabs(pow10) + eps), pow10);
+    #                         |                      ^~~~
+    #                         |                      labs
+    # /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/src/gui/QvisStripChart.C:799:16: error: pow was not declared in this scope; did you mean pos?
+    # 799 |   double fxt = pow(10., ffix(pow10));
+    #                     |                ^~~
+    #                     |                pos
+# ERROR4:
+    # warnings from cmake:
+        # == 2024-07-02 16:35:32,721 run.py:701 WARNING Found 12 potential errors (some may be harmless) in output of  cmake  -DCMAKE_INSTALL_PREFIX=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Visit/3.4.1-foss-2023a -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_DEFAULT_CMP0094=NEW -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF -DVISIT_ZLIB_DIR=$EBROOTZLIB -DVISIT_VTK_DIR=$EBROOTVTK -DVISIT_VTK_VERSION=$EBVERSIONVTK -DVISIT_QT_VERSION=$EBVERSIONQT5 -DVISIT_QT_DIR=$EBROOTQT5 -DVISIT_QWT_DIR=$EBROOTQWT -DVISIT_OSMESA_DIR=$EBROOTMESA -DVISIT_MESAGL_DIR=$EBROOTLIBGLVND -DPYTHON_DIR=$EBROOTPYTHON -DVISIT_PYTHON_SKIP_INSTALL=ON -DVISIT_PARALLEL=ON -DVISIT_MPI_COMPILER=$MPICC -DVISIT_MPI_COMPILER_CXX=$MPICXX  -DOpenGL_GL_PREFERENCE=GLVND  /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/src:
+        # -- Check size of bool - failed
+        # -- Check size of long float - failed
+        # -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+        # -- Failed to locate Valgrind executable (missing: VALGRIND_EXECUTABLE) 
+        # -- Failed to locate AStyle executable (missing: ASTYLE_EXECUTABLE) 
+        # -- Failed to locate ClangFormat executable (missing: CLANGFORMAT_EXECUTABLE) 
+        # -- Failed to locate Uncrustify executable (missing: UNCRUSTIFY_EXECUTABLE) 
+        # -- Failed to locate Yapf executable (missing: YAPF_EXECUTABLE) 
+        # -- Failed to locate CMakeFormat executable (missing: CMAKEFORMAT_EXECUTABLE) 
+        # -- Failed to locate Cppcheck executable (missing: CPPCHECK_EXECUTABLE) 
+        # -- Failed to locate ClangQuery executable (missing: CLANGQUERY_EXECUTABLE) 
+        # -- Failed to locate ClangTidy executable (missing: CLANGTIDY_EXECUTABLE)
+# ERROR3: OK
+    # -> Yes, API for VTK changed between 9.2 and 9.3. VisIt 3.4.1 does not support VTK 9.3.
+    # -> see https://github.com/visit-dav/visit/issues/19547
+    # make step:
+    # == 2024-07-02 16:37:57,923 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
+        #  cmd " make  -j 8 " exited with exit code 2 and output:
+    # ...
+    # Building wheels for collected packages: flow
+    # Building wheel for flow (setup.py): started
+    # Preparing metadata (setup.py): finished with status 'done'
+    # Preparing metadata (setup.py): finished with status 'done'
+    # Building wheels for collected packages: visit
+    # Building wheel for visit (setup.py): started
+    # Building wheels for collected packages: visit-flow
+    # Building wheel for visit-flow (setup.py): started
+    # Preparing metadata (setup.py): finished with status 'done'
+    # Building wheels for collected packages: pyavt
+    # Building wheel for pyavt (setup.py): started
+    # Preparing metadata (setup.py): finished with status 'done'
+    # Building wheels for collected packages: mpicom
+    # Building wheel for mpicom (setup.py): started
+    # Preparing metadata (setup.py): finished with status 'done'
+    # Building wheels for collected packages: visit-utils
+    # Building wheel for visit-utils (setup.py): started
+    # ...
+    #    [ 17%] Linking CXX shared library ../../lib/libviewerproxy.so
+    #     cd /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/easybuild_obj/viewer/proxy && /kyukon/home/apps/RHEL
+    #     8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/bin/cmake -E cmake_link_script CMakeFiles/viewerproxy.
+    #     dir/link.txt --verbose=1
+    #     /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/bin/g++ -fPIC -O2 -ftree-vectorize -march=native -fn
+    #     o-math-errno     -O3 -DNDEBUG -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software
+    #     /VTK/9.3.0-foss-2023a-Pavels-with-Gui-Qt/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-a
+    #     mpere-ib/software/VTK/9.3.0-foss-2023a-Pavels-with-Gui-Qt/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL
+    #     8/cascadelake-ampere-ib/software/Qwt/6.3.0-GCCcore-12.3.0/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RH
+    #     EL8/cascadelake-ampere-ib/software/Qwt/6.3.0-GCCcore-12.3.0/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RH
+    #     EL8/cascadelake-ampere-ib/software/Qt5/5.15.10-GCCcore-12.3.0/lib64 -L/scratch/gent/vo/001/gvo00117/easybuil
+    #     d/RHEL8/cascadelake-ampere-ib/software/Qt5/5.15.10-GCCcore-12.3.0/lib -L/scratch/gent/vo/001/gvo00117/easybu
+    #     ild/RHEL8/cascadelake-ampere-ib/software/libglvnd/1.6.0-GCCcore-12.3.0/lib64 -L/scratch/gent/vo/001/gvo00117
+    #     /easybuild/RHEL8/cascadelake-ampere-ib/software/libglvnd/1.6.0-GCCcore-12.3.0/lib -L/scratch/gent/vo/001/gvo
+    #     00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Mesa/23.1.4-GCCcore-12.3.0/lib64 -L/scratch/gent/vo/001
+    #     /gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Mesa/23.1.4-GCCcore-12.3.0/lib -L/scratch/gent/vo/0
+    #     01/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/X11/20230603-GCCcore-12.3.0/lib64 -L/scratch/gent
+    #     /vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/X11/20230603-GCCcore-12.3.0/lib -L/apps/gent
+    #     /RHEL8/cascadelake-ib/software/SciPy-bundle/2023.07-gfbf-2023a/lib64 -L/apps/gent/RHEL8/cascadelake-ib/softw
+    #     are/SciPy-bundle/2023.07-gfbf-2023a/lib -L/apps/gent/RHEL8/cascadelake-ib/software/Python-bundle-PyPI/2023.0
+    #     6-GCCcore-12.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/
+    #     lib -L/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib64 -L/apps/gent/RHEL8/cascade
+    #     lake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCC
+    #     core-12.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/lib -L/apps/gent/RHE
+    #     L8/cascadelake-ib/software/FFTW/3.3.10-GCC-12.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.
+    #     10-GCC-12.3.0/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/ScaLAPACK/2
+    #     .2.0-gompi-2023a-fb/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Sca
+    #     LAPACK/2.2.0-gompi-2023a-fb/lib -L/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/lib64 
+    #     -L/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/
+    #     software/GCCcore/12.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/lib -shared -Wl,-son
+    #     ame,libviewerproxy.so -o ../../lib/libviewerproxy.so CMakeFiles/viewerproxy.dir/ViewerProxy.C.o  -Wl,-rpath,
+    #     /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/easybuild_obj/lib::::::::::::::::::::::::::::::::: ../.
+    #     ./lib/libviewerrpc.so ../../lib/libavtdbatts.so ../../lib/libvisitcommon.so /apps/gent/RHEL8/cascadelake-ib/
+    #     software/zlib/1.2.13-GCCcore-12.3.0/lib64/libz.so -lpthread -ldl 
+    #     /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/src/visit_vtk/full/vtkCSGGrid.C: In member functi
+    #     on vtkUnstructuredGrid* vtkCSGGrid::DiscretizeSpaceMultiPass(int, bool, const double*, const int*, const int
+    #     *):
+    #     /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/src/visit_vtk/full/vtkCSGGrid.C:3019:16: 
+    #       error: class vtkThreshold has no member named ThresholdByUpper; did you mean ThresholdType?
+    #     3019 |     threshold->ThresholdByUpper(0.5);
+    #         |                ^~~~~~~~~~~~~~~~
+    #         |                ThresholdType
+# ERROR2: OK
+    # -> create vtk_with_gui_qt.eb -> configopts += "-DVTK_MODULE_ENABLE_VTK_GuiSupportQt=YES" -> do not works -> add more flags -> WORKS!
+    # -> problem with GUISupportQt: https://discourse.vtk.org/t/could-not-find-the-vtk-package-with-the-following-required-components-guisupportqt-viewsqt/8252
+        # in src/CMake/FindVTK9.cmake.L49
+    # -> src/CMake/FindVisItQt.cmake -> added configopts += "-DVISIT_QT_VERSION=$EBVERSIONQT5 "
+    # cmake.....
+    # -- The config-site file (/tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/src/config-site/node4005.donphan.os.cmake) does not exist
+    # -- Check size of bool - failed
+    # -- Check size of long float - failed
+    # -- Standard C++14 selected
+    # -- Found Git: /usr/bin/git (found version "2.39.3") 
+    # -- Git Support is ON
+    # -- Git Executable: /usr/bin/git
+    # -- Git Version: 2.39.3
+    # -- MPI Support is OFF
+    # -- OpenMP Support is OFF
+    # -- CUDA Support is OFF
+    # -- HIP Support is OFF
+    # -- Found Doxygen: /usr/bin/doxygen (found version "1.8.14") found components: doxygen dot 
+    # -- Sphinx support is ON
+    # -- Found Sphinx: /apps/gent/RHEL8/cascadelake-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/bin/sphinx-build  
+    # -- Valgrind support is ON
+    # -- Failed to locate Valgrind executable (missing: VALGRIND_EXECUTABLE) 
+    # -- AStyle support is ON
+    # -- Failed to locate AStyle executable (missing: ASTYLE_EXECUTABLE) 
+    # -- ClangFormat support is ON
+    # -- Failed to locate ClangFormat executable (missing: CLANGFORMAT_EXECUTABLE) 
+    # -- Uncrustify support is ON
+    # -- Failed to locate Uncrustify executable (missing: UNCRUSTIFY_EXECUTABLE) 
+    # -- Yapf support is ON
+    # -- Failed to locate Yapf executable (missing: YAPF_EXECUTABLE) 
+    # -- CMakeFormat support is ON
+    # -- Failed to locate CMakeFormat executable (missing: CMAKEFORMAT_EXECUTABLE) 
+    # -- Cppcheck support is ON
+    # -- Failed to locate Cppcheck executable (missing: CPPCHECK_EXECUTABLE) 
+    # -- ClangQuery support is ON
+    # -- Failed to locate ClangQuery executable (missing: CLANGQUERY_EXECUTABLE) 
+    # -- ClangTidy support is ON
+    # -- Failed to locate ClangTidy executable (missing: CLANGTIDY_EXECUTABLE) 
+    # -- C Compiler family is GNU
+    # -- Adding optional BLT definitions and compiler flags
+    # -- Fortran support disabled.
+    # -- CMAKE_C_FLAGS flags are:  -O2 -ftree-vectorize -march=native -fno-math-errno
+    # -- CMAKE_CXX_FLAGS flags are:  -O2 -ftree-vectorize -march=native -fno-math-errno
+    # -- VISIT_OSPRAY_DIR is not specified or does not exits.  please check the value and re-run cmake. 
+    # Otherwise ospray will not be used.
+    # -- VISIT_QT_VERSION NOT FOUND assuming 5.10.1
+    # CMake Error at CMake/FindVTK9.cmake:66 (find_package):
+    # Found package configuration file:
+    # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/VTK/9.3.0-foss-2023a/lib64/cmake/vtk-9.3/vtk-config.cmake
+    # but it set VTK_FOUND to FALSE so package "VTK" is considered to be NOT FOUND.  Reason given by package:
+    # Could not find the VTK package with the following required components: GUISupportQt.
+    # Call Stack (most recent call first):
+    # CMake/FindVisItVTK.cmake:25 (include)
+    # CMake/SetUpThirdParty.cmake:569 (include)
+    # CMakeLists.txt:928 (include)
+        # In vtk-config.cmake:
+            # set("${CMAKE_FIND_PACKAGE_NAME}_AVAILABLE_COMPONENTS" "WrappingTools;PythonInterpreter;Python;vtksys;ViewsContext2D;loguru;TestingRendering;TestingCore;ViewsInfovis;CommonColor;PythonContext2D;RenderingVolumeOpenGL2;glew;opengl;RenderingLabel;octree;RenderingLOD;RenderingLICOpenGL2;RenderingImage;RenderingContextOpenGL2;RenderingCellGrid;IOVeraOut;hdf5;IOTecplotTable;utf8;IOSegY;IOParallelXML;IOPLY;IOOggTheora;theora;ogg;IONetCDF;netcdf;libproj;IOMotionFX;pegtl;IOParallel;jsoncpp;IOMINC;IOLSDyna;IOInfovis;libxml2;zlib;IOImport;IOIOSS;fmt;ioss;cgns;exodusII;IOFLUENTCFF;IOVideo;IOMovie;IOExportPDF;libharu;IOExportGL2PS;RenderingGL2PSOpenGL2;gl2ps;png;IOExport;RenderingVtkJS;nlohmannjson;RenderingSceneGraph;IOExodus;IOEnSight;IOCityGML;pugixml;IOChemistry;IOCesium3DTiles;IOGeometry;IOCellGrid;IOCONVERGECFD;IOHDF;IOCGNSReader;IOAsynchronous;IOAMR;InteractionImage;ImagingStencil;ImagingStatistics;ImagingMorphological;ImagingMath;ImagingFourier;IOSQL;sqlite;GeovisCore;InfovisLayout;ViewsCore;InteractionWidgets;RenderingVolume;RenderingAnnotation;ImagingHybrid;ImagingColor;InteractionStyle;FiltersTopology;FiltersTensor;FiltersSelection;FiltersSMP;FiltersReduction;FiltersPython;FiltersProgrammable;FiltersPoints;FiltersParallelImaging;FiltersImaging;ImagingGeneral;FiltersGeometryPreview;FiltersGeneric;FiltersFlowPaths;eigen;FiltersCellGrid;FiltersAMR;FiltersParallel;FiltersTexture;FiltersModeling;ParallelMPI;mpi;DomainsChemistryOpenGL2;RenderingOpenGL2;RenderingHyperTreeGrid;RenderingUI;FiltersHybrid;DomainsChemistry;CommonPython;WrappingPythonCore;ChartsCore;InfovisCore;FiltersExtraction;ParallelDIY;diy2;IOXML;IOXMLParser;expat;ParallelCore;IOLegacy;IOCore;doubleconversion;lz4;lzma;fast_float;FiltersStatistics;FiltersHyperTree;ImagingSources;IOImage;DICOMParser;jpeg;metaio;tiff;RenderingContext2D;RenderingFreeType;freetype;kwiml;RenderingCore;FiltersSources;ImagingCore;FiltersGeneral;FiltersVerdict;verdict;FiltersGeometry;CommonComputationalGeometry;FiltersCore;CommonExecutionModel;CommonDataModel;CommonSystem;CommonMisc;exprtk;CommonTransforms;CommonMath;kissfft;CommonCore;WrapHierarchy;vtkpython;pvtkpython;WrapPython;WrapPythonInit;ParseJava;WrapJava")
+# ERROR1: OK
+    # -> add srcdir = "src" to find CMakeList.txt
+    # cmake .... exited with exit code 1 and output:
+    # CMake Warning:
+    # Ignoring extra path from command line:
+    # "/tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/"
+    # CMake Error: The source directory "/tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit" does not appear to contain CMakeLists.txt.
