@@ -1,0 +1,59 @@
+##
+# This is a contribution from SIB Swiss Institute of Bioinformatics
+# Homepage:     https://www.sib.swiss/research-infrastructure/competence-centers/vital-it
+#
+# Authors::     Sebastien Moretti <sebastien.moretti@sib.swiss>
+#
+# Based on Raptor2 RPM spec file:
+# https://git.rockylinux.org/staging/rpms/raptor2/-/blob/r8/SPECS/raptor2.spec
+# The RPM patches have been integrated in the version 2.0.16
+#
+# Update: Petr Král (INUITS)
+##
+easyblock = 'ConfigureMake'
+
+name = 'Raptor'
+version = '2.0.16'
+homepage = 'https://librdf.org/raptor/'
+description = """Set of parsers and serializers that generate Resource Description Framework
+(RDF) triples by parsing syntaxes or serialize the triples into a syntax."""
+# software_license = 'LicenseLGPLv2.1 + LicenseGPLv2 + LicenseApachev2'
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://download.librdf.org/source']
+sources = ['raptor2-%(version)s.tar.gz']
+checksums = ['089db78d7ac982354bdbf39d973baf09581e6904ac4c92a98c5caadb3de44680']
+
+builddependencies = [
+    ('Autotools',  '20220317'),
+    ('binutils',   '2.40'),
+]
+dependencies = [
+    ('libxml2',    '2.11.4'),
+    ('libxslt',    '1.1.38'),
+    ('cURL',       '8.0.1'),
+    ('ICU',        '73.2'),
+]
+
+configopts = "--disable-static --enable-release --disable-gtk-doc --with-yajl=no"
+
+sanity_check_paths = {
+    'files': ['bin/rapper', 'lib/libraptor2.%s' % SHLIB_EXT],
+    'dirs': ['include/raptor2/']
+}
+
+sanity_check_commands = ["rapper --help"]
+
+moduleclass = 'data'
+
+# TODO
+# gcc ... -o .libs/sort_r.o
+# raptor_libxml.c: In function 'raptor_libxml_getEntity':
+# raptor_libxml.c:256:12: error: 'xmlEntity' {aka 'struct _xmlEntity'} has no member named 'checked'
+#   256 |     if(!ret->checked)
+#       |            ^~
+# raptor_libxml.c:257:10: error: 'xmlEntity' {aka 'struct _xmlEntity'} has no member named 'checked'
+#   257 |       ret->checked = 1;
+#       |          ^~
+# make[2]: *** [Makefile:977: raptor_libxml.lo] Error 1
