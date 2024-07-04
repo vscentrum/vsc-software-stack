@@ -1,10 +1,13 @@
 easyblock = 'Bundle'
 
-name = 'crb-blast'
-version = '0.6.9'
+name = 'Transrate'
+version = '1.0.3'
 
-homepage = 'https://github.com/cboursnell/crb-blast'
-description = """Conditional Reciprocal Best BLAST - high confidence ortholog assignment."""
+homepage = 'https://hibberdlab.com/transrate'
+description = """Transrate is software for de-novo transcriptome assembly quality analysis.
+ It examines your assembly in detail and compares it to experimental evidence such as the sequencing reads,
+ reporting quality scores for contigs and assemblies. This allows you to choose between assemblers and parameters,
+ filter out the bad contigs from an assembly, and help decide when to stop trying to improve the assembly."""
 
 toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
@@ -16,14 +19,17 @@ dependencies = [
     ('Ruby', '3.3.0'),
 ]
 
-exts_default_options = {
+default_easyblock = 'RubyGem'
+
+default_component_specs = {
     'source_urls': ['https://rubygems.org/downloads/'],
-    'source_tmpl': '%(name)s-%(version)s.gem',
+    'sources': ['%(name)s-%(version)s.gem'],
 }
 
-exts_defaultclass = 'RubyGem'
-
-exts_list = [
+components = [
+    ('colorize', '0.7.7', {
+        'checksums': ['d6ab95a5fcdea3c36c3327d38c1e79e2950ee1788506d8489ae35db330937a99'],
+    }),
     ('facade', '1.2.1', {
         'checksums': ['0764de5519088227675a2a67da23322500c3c507b89486d91296e031d87d036e'],
     }),
@@ -36,6 +42,9 @@ exts_list = [
     ('bindeps', '1.2.1', {
         'checksums': ['3c11d75aa722bed67246852bb430a182361a128910d384b664b91f3e65bc34b5'],
     }),
+    ('yell', '2.2.2', {
+        'checksums': ['1d166f3cc3b6dc49a59778ea7156ed6d8de794c15106d48ffd6cbb061b9b26bc'],
+    }),
     ('bio', '1.6.0.pre.20181210', {
         'checksums': ['c4114aeb99b012f90660b92ead4ca88c1578fd58252ed3ec46eb45dc4a2c6cc9'],
     }),
@@ -45,8 +54,12 @@ exts_list = [
     ('trollop', '2.9.10', {
         'checksums': ['ceca2d91f349163d6ee3e792d356d4ded7472e6da31ac6dcc5956d1b03607bf7'],
     }),
-    (name, version, {
+    ('crb-blast', '0.6.9', {
         'checksums': ['69c346e7d83efe9b9a383a39b57e7cce186a82b7074f275b14906f8f05678e3e'],
+    }),
+    ('%(namelower)', version, {
+        'preinstallopts': """sed -i "s/'yell', '~> 2.0',/'yell',/g" transrate.gemspec && """,
+        'checksums': ['2ccb101cfab5a33586ea9e62af2b2f14caf6bc016724d1fef796b427e39fe100'],
     }),
 ]
 
