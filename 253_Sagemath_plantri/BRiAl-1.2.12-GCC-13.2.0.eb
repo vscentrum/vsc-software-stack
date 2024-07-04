@@ -8,26 +8,19 @@ description = """BRiAl is the legacy version of PolyBoRi maintained by sagemath 
 
 toolchain = {'name': 'GCC', 'version': '13.2.0'}
 
-github_account = 'BRiAl'
-source_urls = [GITHUB_SOURCE]
-sources = ['%(version)s.tar.gz']
-checksums = ['b9d39279c1021ca71fdda0dd925373f7738ebcfc4007aaf34b276b0c53ee1b88']
-
-builddependencies = [
-    ('Autotools', '20220317'),
-]
+source_urls = ['https://github.com/BRiAl/BRiAl/releases/download/%(version)s/']
+sources = ['%(namelower)s-%(version)s.tar.bz2']
+checksums = ['ca009e3722dd3f0a60d15501caed1413146c80abced57423e32ae0116f407494']
 
 dependencies = [
     ('Boost', '1.83.0'),
     ('m4ri', '20200125'),
 ]
 
-preconfigopts = "autoreconf -i && "
-
-configopts = "--enable-shared "
+# configopts = "--enable-shared "
 
 # https://bugzilla.gnome.org/show_bug.cgi?id=655517
-prebuildopts = r"sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool"
+# prebuildopts = r"sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool"
 
 runtest = 'check'
 
@@ -39,18 +32,4 @@ sanity_check_paths = {
 moduleclass = 'math'
 
 # TODO error
-# == 2024-07-03 11:35:43,485 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "autoreconf -i &&  ./configure --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/BRiAl/1.2.12-GCC-13.2.0 --enable-shared " exited with exit code 1 and output:
-# libtoolize: putting auxiliary files in '.'.
-# libtoolize: copying file './ltmain.sh'
-# libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.
-# libtoolize: copying file 'm4/libtool.m4'
-# libtoolize: copying file 'm4/ltoptions.m4'
-# libtoolize: copying file 'm4/ltsugar.m4'
-# libtoolize: copying file 'm4/ltversion.m4'
-# libtoolize: copying file 'm4/lt~obsolete.m4'
-# configure.ac:26: error: possibly undefined macro: AC_DEFINE
-#       If this token and others are legitimate, please use m4_pattern_allow.
-#       See the Autoconf documentation.
-# configure.ac:59: error: possibly undefined macro: AC_CHECK_LIB
-# autoreconf: error: /apps/gent/RHEL8/cascadelake-ib/software/Autoconf/2.71-GCCcore-13.2.0/bin/autoconf failed with exit status: 1
-#  (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
+# configure: error: Could not find a version of the Boost::Unit_Test_Framework library!
