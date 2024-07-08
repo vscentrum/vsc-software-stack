@@ -64,7 +64,6 @@ dependencies = [
     ('X11', '20230603'),
     ('Mesa', '23.1.4'),
     ('libglvnd', '1.6.0'),
-    # ('Qt6', '6.5.2'),
     ('Qt5', '5.15.10'),
     ('Qwt', '6.3.0'),
     ('VTK', '9.2.6', '-Pavels-with-Gui-Qt'),
@@ -72,27 +71,37 @@ dependencies = [
 ]
 
 srcdir = "src"
+
 configopts = "-DVISIT_ZLIB_DIR=$EBROOTZLIB "
 configopts += "-DVISIT_VTK_DIR=$EBROOTVTK "
 configopts += "-DVISIT_VTK_VERSION=$EBVERSIONVTK "
-configopts += "-DVISIT_QT_VERSION=$EBVERSIONQT5 "
-configopts += "-DVISIT_QT_DIR=$EBROOTQT5 "
 configopts += "-DVISIT_QWT_DIR=$EBROOTQWT "
-
+configopts += "-DVISIT_QT_VERSION=$EBVERSIONQT5 "
 #block1
+configopts += "-DVISIT_QT_DIR=$EBROOTQT5 "
 configopts += "-DVISIT_OSMESA_DIR=$EBROOTMESA "
 configopts += "-DVISIT_MESAGL_DIR=$EBROOTLIBGLVND "
 configopts += "-DPYTHON_DIR=$EBROOTPYTHON "
 configopts += "-DVISIT_PYTHON_SKIP_INSTALL=ON "
 configopts += "-DVISIT_PARALLEL=ON -DVISIT_MPI_COMPILER=$MPICC -DVISIT_MPI_COMPILER_CXX=$MPICXX "
-configopts += " -DOpenGL_GL_PREFERENCE=GLVND "
+configopts += "-DOpenGL_GL_PREFERENCE=GLVND "
 
+# fix ERROR5
+# add missing include to fix make step
 prebuildopts = "sed -i '23 a #include <cmath>' %(builddir)s/visit/src/gui/QvisStripChart.C && "
 
+#Python stuff is not installed - dont use it
 # preinstallopts = "mkdir -p %(installdir)s/lib/python%(pyshortver)s/site-packages/ && "
 # preinstallopts += "export PYTHONPATH=%(installdir)s/lib/python%(pyshortver)s/site-packages:$PYTHONPATH && "
-
 # modextrapaths = {'PYTHONPATH': ['%(version)s/linux-x86_64/lib/%(pyshortver)s/site-packages']} # there is nothing
+
+# this is wrong - it does: make cd /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/test && ./run_visit_test_suite.sh -n 8
+# runtest = 'cd %(builddir)s/visit/test && ./run_visit_test_suite.sh -n %(parallel)s'
+
+# this one is wrong - there is only run_visit_test_suite.sh.in in visit/src
+# test_cmd = 'cd %(builddir)s/visit/src/test && ./run_visit_test_suite.sh.in -n %(parallel)s'
+
+test_cmd = 'cd %(builddir)s/easybuild_obj/test && ./run_visit_test_suite.sh -n %(parallel)s'
 
 sanity_check_paths = {
     'files': ['bin/%s' % x for x in ['frontendlauncher', 'frontendlauncher.py', 'visit']],
@@ -102,7 +111,7 @@ sanity_check_paths = {
 moduleclass = 'vis'
 
 # ERROR6: OK
-    # uncommented all configopts in block1 + DVISIT_QT_DIR=$EBROOTQT5
+    # -> uncommented all configopts in #block1 -> fix it
     # in install step:
     # CMake Error at cmake_install.cmake:425 (file):
     # file INSTALL cannot find "/plugins/platforms": No such file or directory.
@@ -131,21 +140,22 @@ moduleclass = 'vis'
     # 799 |   double fxt = pow(10., ffix(pow10));
     #                     |                ^~~
     #                     |                pos
-# ERROR4:
+# ERROR4: OK
+    # -> ignore - seems like an optional stuff
     # warnings from cmake:
-        # == 2024-07-02 16:35:32,721 run.py:701 WARNING Found 12 potential errors (some may be harmless) in output of  cmake  -DCMAKE_INSTALL_PREFIX=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Visit/3.4.1-foss-2023a -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_DEFAULT_CMP0094=NEW -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF -DVISIT_ZLIB_DIR=$EBROOTZLIB -DVISIT_VTK_DIR=$EBROOTVTK -DVISIT_VTK_VERSION=$EBVERSIONVTK -DVISIT_QT_VERSION=$EBVERSIONQT5 -DVISIT_QT_DIR=$EBROOTQT5 -DVISIT_QWT_DIR=$EBROOTQWT -DVISIT_OSMESA_DIR=$EBROOTMESA -DVISIT_MESAGL_DIR=$EBROOTLIBGLVND -DPYTHON_DIR=$EBROOTPYTHON -DVISIT_PYTHON_SKIP_INSTALL=ON -DVISIT_PARALLEL=ON -DVISIT_MPI_COMPILER=$MPICC -DVISIT_MPI_COMPILER_CXX=$MPICXX  -DOpenGL_GL_PREFERENCE=GLVND  /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/src:
-        # -- Check size of bool - failed
-        # -- Check size of long float - failed
-        # -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
-        # -- Failed to locate Valgrind executable (missing: VALGRIND_EXECUTABLE) 
-        # -- Failed to locate AStyle executable (missing: ASTYLE_EXECUTABLE) 
-        # -- Failed to locate ClangFormat executable (missing: CLANGFORMAT_EXECUTABLE) 
-        # -- Failed to locate Uncrustify executable (missing: UNCRUSTIFY_EXECUTABLE) 
-        # -- Failed to locate Yapf executable (missing: YAPF_EXECUTABLE) 
-        # -- Failed to locate CMakeFormat executable (missing: CMAKEFORMAT_EXECUTABLE) 
-        # -- Failed to locate Cppcheck executable (missing: CPPCHECK_EXECUTABLE) 
-        # -- Failed to locate ClangQuery executable (missing: CLANGQUERY_EXECUTABLE) 
-        # -- Failed to locate ClangTidy executable (missing: CLANGTIDY_EXECUTABLE)
+    #     == 2024-07-02 16:35:32,721 run.py:701 WARNING Found 12 potential errors (some may be harmless) in output of  cmake  -DCMAKE_INSTALL_PREFIX=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Visit/3.4.1-foss-2023a -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_DEFAULT_CMP0094=NEW -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF -DVISIT_ZLIB_DIR=$EBROOTZLIB -DVISIT_VTK_DIR=$EBROOTVTK -DVISIT_VTK_VERSION=$EBVERSIONVTK -DVISIT_QT_VERSION=$EBVERSIONQT5 -DVISIT_QT_DIR=$EBROOTQT5 -DVISIT_QWT_DIR=$EBROOTQWT -DVISIT_OSMESA_DIR=$EBROOTMESA -DVISIT_MESAGL_DIR=$EBROOTLIBGLVND -DPYTHON_DIR=$EBROOTPYTHON -DVISIT_PYTHON_SKIP_INSTALL=ON -DVISIT_PARALLEL=ON -DVISIT_MPI_COMPILER=$MPICC -DVISIT_MPI_COMPILER_CXX=$MPICXX  -DOpenGL_GL_PREFERENCE=GLVND  /tmp/vsc47063/easybuild/build/Visit/3.4.1/foss-2023a/visit/src:
+    #     -- Check size of bool - failed
+    #     -- Check size of long float - failed
+    #     -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+    #     -- Failed to locate Valgrind executable (missing: VALGRIND_EXECUTABLE) 
+    #     -- Failed to locate AStyle executable (missing: ASTYLE_EXECUTABLE) 
+    #     -- Failed to locate ClangFormat executable (missing: CLANGFORMAT_EXECUTABLE) 
+    #     -- Failed to locate Uncrustify executable (missing: UNCRUSTIFY_EXECUTABLE) 
+    #     -- Failed to locate Yapf executable (missing: YAPF_EXECUTABLE) 
+    #     -- Failed to locate CMakeFormat executable (missing: CMAKEFORMAT_EXECUTABLE) 
+    #     -- Failed to locate Cppcheck executable (missing: CPPCHECK_EXECUTABLE) 
+    #     -- Failed to locate ClangQuery executable (missing: CLANGQUERY_EXECUTABLE) 
+    #     -- Failed to locate ClangTidy executable (missing: CLANGTIDY_EXECUTABLE)
 # ERROR3: OK
     # -> Yes, API for VTK changed between 9.2 and 9.3. VisIt 3.4.1 does not support VTK 9.3.
     # -> see https://github.com/visit-dav/visit/issues/19547
