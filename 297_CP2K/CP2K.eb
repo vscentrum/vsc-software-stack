@@ -31,8 +31,13 @@ dependencies = [
     ('PLUMED', '2.9.0'),
 ]
 
+# maybe there is a flag to create do_regtest?
 # preconfigopts =  "sed -i '93 s/OFF/ON/' CMakeList.txt && "
 # configopts = "-DCP2K_ENABLE_REGTESTS=ON "
+
+# enable SIRIUS
+configopts = "-D__SIRIUS "
+
 type = 'psmp'
 
 # regression test reports handful of failures,
