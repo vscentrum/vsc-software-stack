@@ -17,7 +17,6 @@ checksums = ['9ae01935578532c84f1d0d673dbbcdd490e26be22efa6c4acf7129f9dc1a0c60']
 builddependencies = [
     ('CMake', '3.26.3'),
     ('pkgconf', '1.9.5'),
-    ('Eigen', '3.4.0'),
 ]
 dependencies = [
     ('GSL', '2.7'),
@@ -39,26 +38,3 @@ sanity_check_paths = {
 }
 
 moduleclass = 'lib'
-
-# ERROR2: OK
-    # -> Umpire created
-    # -> https://github.com/electronic-structure/SIRIUS/issues/944
-    # CMake Error at CMakeLists.txt:209 (find_package):
-    # By not providing "Findumpire.cmake" in CMAKE_MODULE_PATH this project has
-    # asked CMake to find a package configuration file provided by "umpire", but
-    # CMake did not find one.
-
-    # Could not find a package configuration file provided by "umpire" with any
-    # of the following names:
-
-    #     umpireConfig.cmake
-    #     umpire-config.cmake
-# ERROR1: OK
-    # -> COSTA created
-    # -> https://github.com/electronic-structure/SIRIUS/issues/781
-    # CMake Error at CMakeLists.txt:186 (find_package):
-    # Could not find a package configuration file provided by "costa" with any of
-    # the following names:
-
-    #     costaConfig.cmake
-    #     costa-config.cmake
