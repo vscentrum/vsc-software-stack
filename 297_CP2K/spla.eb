@@ -18,6 +18,8 @@ builddependencies = [
     ('CMake', '3.26.3'),
 ]
 
+configopts = '-DBLA_VENDOR=FlexiBLAS'
+
 sanity_check_paths = {
     'files': [
         'include/spla/spla.h',
@@ -28,12 +30,14 @@ sanity_check_paths = {
 
 moduleclass = 'lib'
 
-# == 2024-07-09 15:46:00,381 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
-# Sanity check failed: Check for banned/required shared libraries failed for 
-# /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/spla/1.6.1-foss-2023a/lib64/
-# libspla.so.1.6.1,
-# /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/spla/1.6.1-foss-2023a/lib64/
-# libspla.so,
-# /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/spla/1.6.1-foss-2023a/lib64/
-# libspla.so.1 
-# (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3665 in _sanity_check_step)
+# ERROR1: OK
+    # -> add configopts = '-DBLA_VENDOR=FlexiBLAS'
+    # == 2024-07-09 15:46:00,381 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
+    # Sanity check failed: Check for banned/required shared libraries failed for 
+    # /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/spla/1.6.1-foss-2023a/lib64/
+    # libspla.so.1.6.1,
+    # /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/spla/1.6.1-foss-2023a/lib64/
+    # libspla.so,
+    # /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/spla/1.6.1-foss-2023a/lib64/
+    # libspla.so.1 
+    # (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3665 in _sanity_check_step)
