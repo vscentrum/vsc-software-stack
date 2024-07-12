@@ -1,0 +1,78 @@
+easyblock = 'CMakeMake'
+
+name = 'fastfilters'
+version = '0.3'
+
+homepage = 'https://github.com/ilastik/fastfilters/'
+description = """Fast gaussian and derivative convolutional filters."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'optarch': False}
+
+sources = [{
+    'filename': 'v%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/ilastik',
+        'repo_name': 'fastfilters',
+        'tag': 'v%(version)s',
+        'recursive': True,
+        'keep_git_dir': True,
+    }
+}]
+checksums = [None]
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('pybind11', '2.11.1'),
+]
+
+configopts = '-DFF_INSTALL_DIR="%(installdir)s/lib/python%(pyshortver)s/site-packages/" '
+configopts += '-DPYTHON_EXECUTABLE="$EBROOTPYTHON/bin/python"'
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib', 'include'],
+}
+
+sanity_check_commands = ["python -c 'import fastfilters'"]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+moduleclass = 'lib'
+
+# ERROR2: OK
+    # -> have to setup -DFF_INSTALL_DIR
+    # after setup right python:
+    # Install the project...
+    # /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/bin/cmake -P cm
+    # ake_install.cmake
+    # -- Install configuration: "Release"
+    # -- Installing: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software
+    # /fastfilters/0.3-foss-2023a/lib/libfastfilters.so.0.3
+    # -- Installing: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software
+    # /fastfilters/0.3-foss-2023a/lib/libfastfilters.so
+    # CMake Error at cmake_install.cmake:84 (file):
+    #   file cannot create directory:
+    #   /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/fastfilters/0.3-foss-2023a/../../../../../../../../../../../apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/fastfilters.
+    #   Maybe need administrative privileges.
+# ERROR1: OK
+    # 2 problems:
+    # 1) python problem: -> solved by configopts = '-DPYTHON_EXECUTABLE="$EBROOTPYTHON/bin/python"'
+        # -- Found PythonInterp: /usr/bin/python3.6 (found suitable version "3.6.8", minimum required is "3.6") 
+        # -- Found PythonLibs: /usr/lib64/libpython3.6m.so
+    # 2) install problem: -> problem chenged to ERROR2
+        # Install the project...
+        # /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/bin/cmake -P cmake_install.cmake
+        # -- Install configuration: "Release"
+        # -- Installing: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/fastfilters/0.3-foss-2023a/lib/libfastfilters.so.0.3
+        # -- Installing: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/fastfilters/0.3-foss-2023a/lib/libfastfilters.so
+        # CMake Error at cmake_install.cmake:84 (file):
+        # file cannot create directory:
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/fastfilters/0.3-foss-2023a/../../../../../../../../../../../usr/lib64/python3.6/site-packages/fastfilters.
+        # Maybe need administrative privileges.
+        # make: *** [Makefile:103: install] Error 1

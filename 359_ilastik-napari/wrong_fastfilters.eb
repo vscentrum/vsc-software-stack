@@ -1,0 +1,278 @@
+easyblock = 'CMakeMake'
+
+name = 'fastfilters'
+version = '0.2.6'
+
+homepage = 'https://github.com/svenpeter42/fastfilters/'
+description = """Fast gaussian and derivative convolutional filters."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'pic': True, 'optarch': False}
+
+sources = [{
+    'filename': 'v%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/svenpeter42',
+        'repo_name': 'fastfilters',
+        'tag': 'v%(version)s',
+        'recursive': True,
+        'keep_git_dir': True,
+    }
+}]
+checksums = [None]
+
+builddependencies = [
+    # ('binutils', '2.40'),
+    ('CMake', '3.26.3'),
+]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+]
+
+# sanity_check_paths = {
+#     'files': ['lib/libcamp.a', 'include/umpire/Umpire.hpp'],
+#     'dirs': ['bin', 'include'],
+# }
+
+moduleclass = 'lib'
+
+# ERROR3: 
+    # in make [ 94%] Built target fastfilters
+    # [ 97%] Building CXX object CMakeFiles/core.dir/src/python/core.cxx.o
+    # /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/bin/g++ -DFF_UNROLL=10 -Dcore_EXPORTS -I/tmp/vsc47063/easybuil
+    # d/build/fastfilters/0.2.6/foss-2023a/fastfilters/src/library -I/tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-20
+    # 23a/fastfilters/include -I/tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include -I/t
+    # mp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/boost-preprocessor/include -I/tmp/vsc47063/easybu
+    # ild/build/fastfilters/0.2.6/foss-2023a/easybuild_obj -I/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-
+    # 12.3.0/include/python3.11 -O2 -ftree-vectorize -fno-math-errno -fPIC -Wall -Wextra -std=c++14 -O3 -DNDEBUG -fPIC -std=
+    # c++14 -flto -fvisibility=hidden -Wall -Wextra -Wconversion -DFF_VERSION_STR=\"0.2.6\" -MD -MT CMakeFiles/core.dir/src/
+    # python/core.cxx.o -MF CMakeFiles/core.dir/src/python/core.cxx.o.d -o CMakeFiles/core.dir/src/python/core.cxx.o -c /tmp
+    # /vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/src/python/core.cxx
+    # In file included from /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11
+    # /cast.h:16,
+    #                  from /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11
+    # /attr.h:13,
+    #                  from /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11
+    # /pybind11.h:43,
+    #                  from /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/src/python/core.cxx:18:
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/detail/internals.h:82
+    # :33: warning: int PyThread_create_key() is deprecated [-Wdeprecated-declarations]
+    #    82 |     decltype(PyThread_create_key()) tstate = 0; // Usually an int but a long on Cygwin64 with Python 3.x
+    #       |              ~~~~~~~~~~~~~~~~~~~^~
+    # In file included from /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/Python.
+    # h:89,
+    #                  from /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11
+    # /detail/common.h:111,
+    #                  from /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11
+    # /pytypes.h:12,
+    #                  from /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11
+    # /cast.h:13:
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pythread.h:96:36: note: decla
+    # red here
+    #    96 | Py_DEPRECATED(3.7) PyAPI_FUNC(int) PyThread_create_key(void);
+    #       |                                    ^~~~~~~~~~~~~~~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/detail/internals.h:82
+    # :33: warning: int PyThread_create_key() is deprecated [-Wdeprecated-declarations]
+    #    82 |     decltype(PyThread_create_key()) tstate = 0; // Usually an int but a long on Cygwin64 with Python 3.x
+    #       |              ~~~~~~~~~~~~~~~~~~~^~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pythread.h:96:36: note: decla
+    # red here
+    #    96 | Py_DEPRECATED(3.7) PyAPI_FUNC(int) PyThread_create_key(void);
+    #       |                                    ^~~~~~~~~~~~~~~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/detail/internals.h: I
+    # n function pybind11::detail::internals& pybind11::detail::get_internals():
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/detail/internals.h:16
+    # 5:27: warning: void PyEval_InitThreads() is deprecated [-Wdeprecated-declarations]
+    #   165 |         PyEval_InitThreads();
+    #       |         ~~~~~~~~~~~~~~~~~~^~
+    # In file included from /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/Python.
+    # h:95:
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/ceval.h:132:37: note: declare
+    # d here
+    #       |                                    ^~
+    # In file included from /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/Python.h:42:
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pytypedefs.h:22:16: note: forward declaration of PyFrameObject {aka struct _frame}
+    #    22 | typedef struct _frame PyFrameObject;
+    #       |                ^~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/cast.h:441:75: error: expected primary-expression before > token
+    #   441 |                 "  " + handle(frame->f_code->co_filename).cast<std::string>() +
+    #       |                                                                           ^
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/cast.h:441:77: error: expected primary-expression before ) token
+    #   441 |                 "  " + handle(frame->f_code->co_filename).cast<std::string>() +
+    #       |                                                                             ^
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/cast.h:443:29: error: invalid use of incomplete type PyFrameObject {aka struct _frame}
+    #   443 |                 handle(frame->f_code->co_name).cast<std::string>() + "\n";
+    #       |                             ^~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pytypedefs.h:22:16: note: forward declaration of PyFrameObject {aka struct _frame}
+    #    22 | typedef struct _frame PyFrameObject;
+    #       |                ^~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/cast.h:443:64: error: expected primary-expression before > token
+    #   443 |                 handle(frame->f_code->co_name).cast<std::string>() + "\n";
+    #       |                                                                ^
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/cast.h:443:66: error: expected primary-expression before ) token
+    #   443 |                 handle(frame->f_code->co_name).cast<std::string>() + "\n";
+    #       |                                                                  ^
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/cast.h:444:26: error: invalid use of incomplete type PyFrameObject {aka struct _frame}
+    #   444 |             frame = frame->f_back;
+    #       |                          ^~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pytypedefs.h:22:16: note: forward declaration of PyFrameObject {aka struct _frame}
+    #    22 | typedef struct _frame PyFrameObject;
+    #       |                ^~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h: In member function void pybind11::cpp_function::initialize_generic(pybind11::detail::function_record*, const char*, const std::type_info* const*, pybind11::size_t):
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h:311:33: warning: cast between incompatible function types from PyObject* (*)(PyObject*, PyObject*, PyObject*) {aka _object* (*)(_object*, _object*, _object*)} to PyCFunction {aka _object* (*)(_object*, _object*)} [-Wcast-function-type]
+    #   311 |             rec->def->ml_meth = reinterpret_cast<PyCFunction>(*dispatcher);
+    #       |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h: In constructor pybind11::gil_scoped_acquire::gil_scoped_acquire():
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h:1740:58: warning: void* PyThread_get_key_value(int) is deprecated [-Wdeprecated-declarations]
+    #  1740 |         tstate = (PyThreadState *) PyThread_get_key_value(internals.tstate);
+    #       |                                    ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pythread.h:100:39: note: declared here
+    #   100 | Py_DEPRECATED(3.7) PyAPI_FUNC(void *) PyThread_get_key_value(int key);
+    #       |                                       ^~~~~~~~~~~~~~~~~~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h:1752:35: warning: int PyThread_set_key_value(int, void*) is deprecated [-Wdeprecated-declarations]
+    #  1752 |             PyThread_set_key_value(internals.tstate, tstate);
+    #       |             ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pythread.h:98:36: note: declared here
+    #    98 | Py_DEPRECATED(3.7) PyAPI_FUNC(int) PyThread_set_key_value(int key,
+    #       |                                    ^~~~~~~~~~~~~~~~~~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h: In member function void pybind11::gil_scoped_acquire::dec_ref():
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h:1791:38: warning: void PyThread_delete_key_value(int) is deprecated [-Wdeprecated-declarations]
+    #  1791 |             PyThread_delete_key_value(detail::get_internals().tstate);
+    #       |             ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pythread.h:101:37: note: declared here
+    #   101 | Py_DEPRECATED(3.7) PyAPI_FUNC(void) PyThread_delete_key_value(int key);
+    #       |                                     ^~~~~~~~~~~~~~~~~~~~~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h: In constructor pybind11::gil_scoped_release::gil_scoped_release(bool):
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h:1819:39: warning: int PyThread_set_key_value(int, void*) is deprecated [-Wdeprecated-declarations]
+    #  1819 |                 PyThread_set_key_value(key, nullptr);
+    #       |                 ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pythread.h:98:36: note: declared here
+    #    98 | Py_DEPRECATED(3.7) PyAPI_FUNC(int) PyThread_set_key_value(int key,
+    #       |                                    ^~~~~~~~~~~~~~~~~~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h: In destructor pybind11::gil_scoped_release::~gil_scoped_release():
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h:1832:35: warning: int PyThread_set_key_value(int, void*) is deprecated [-Wdeprecated-declarations]
+    #  1832 |             PyThread_set_key_value(key, tstate);
+    #       |             ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pythread.h:98:36: note: declared here
+    #    98 | Py_DEPRECATED(3.7) PyAPI_FUNC(int) PyThread_set_key_value(int key,
+    #       |                                    ^~~~~~~~~~~~~~~~~~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h: In function pybind11::function pybind11::get_type_overload(const void*, const detail::type_info*, const char*):
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h:1889:49: error: PyThreadState {aka struct _ts} has no member named frame; did you mean cframe?
+    #  1889 |     PyFrameObject *frame = PyThreadState_Get()->frame;
+    #       |                                                 ^~~~~
+    #       |                                                 cframe
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h:1890:41: error: invalid use of incomplete type PyFrameObject {aka struct _frame}
+    #  1890 |     if (frame && (std::string) str(frame->f_code->co_name) == name &&
+    #       |                                         ^~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pytypedefs.h:22:16: note: forward declaration of PyFrameObject {aka struct _frame}
+    #    22 | typedef struct _frame PyFrameObject;
+    #       |                ^~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h:1891:14: error: invalid use of incomplete type PyFrameObject {aka struct _frame}
+    #  1891 |         frame->f_code->co_argcount > 0) {
+    #       |              ^~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pytypedefs.h:22:16: note: forward declaration of PyFrameObject {aka struct _frame}
+    #    22 | typedef struct _frame PyFrameObject;
+    #       |                ^~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h:1894:18: error: invalid use of incomplete type PyFrameObject {aka struct _frame}
+    #  1894 |             frame->f_locals, PyTuple_GET_ITEM(frame->f_code->co_varnames, 0));
+    #       |                  ^~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pytypedefs.h:22:16: note: forward declaration of PyFrameObject {aka struct _frame}
+    #    22 | typedef struct _frame PyFrameObject;
+    #       |                ^~~~~~
+    # In file included from /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/Python.h:38:
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h:1894:52: error: invalid use of incomplete type PyFrameObject {aka struct _frame}
+    #  1894 |             frame->f_locals, PyTuple_GET_ITEM(frame->f_code->co_varnames, 0));
+    #       |                                                    ^~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pyport.h:24:38: note: in definition of macro _Py_CAST
+    #    24 | #define _Py_CAST(type, expr) ((type)(expr))
+    #       |                                      ^~~~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/cpython/tupleobject.h:30:38: note: in expansion of macro _PyTuple_CAST
+    #    30 | #define PyTuple_GET_ITEM(op, index) (_PyTuple_CAST(op)->ob_item[index])
+    #       |                                      ^~~~~~~~~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/pybind11/include/pybind11/pybind11.h:1894:30: note: in expansion of macro PyTuple_GET_ITEM
+    #  1894 |             frame->f_locals, PyTuple_GET_ITEM(frame->f_code->co_varnames, 0));
+    #       |                              ^~~~~~~~~~~~~~~~
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/pytypedefs.h:22:16: note: forward declaration of PyFrameObject {aka struct _frame}
+    #    22 | typedef struct _frame PyFrameObject;
+    #       |                ^~~~~~
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/src/python/core.cxx: In member function void {anonymous}::ConvolveBase::set_window_ratio(double):
+    # /tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/fastfilters/src/python/core.cxx:224:28: warning: conversion from double to float may change value [-Wfloat-conversion]
+    #   224 |         opt.window_ratio = ratio;
+    #       |                            ^~~~~
+    # make[2]: *** [CMakeFiles/core.dir/build.make:79: CMakeFiles/core.dir/src/python/core.cxx.o] Error 1
+    # make[2]: Leaving directory '/tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/easybuild_obj'
+    # make[1]: *** [CMakeFiles/Makefile2:133: CMakeFiles/core.dir/all] Error 2
+    # make[1]: Leaving directory '/tmp/vsc47063/easybuild/build/fastfilters/0.2.6/foss-2023a/easybuild_obj'
+    # make: *** [Makefile:139: all] Error 2
+# ERROR2: OK
+    # -> toolchainopts = {'pic': True, 'optarch': False}
+    # in [ 94%] Linking C shared library libfastfilters.so
+    # in make step
+    # /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: CMakeFiles/fastfilters.dir/src/library/fir_convolve.c.o: in function `fastfilters_fir_init':
+    # fir_convolve.c:(.text+0x44): undefined reference to `fastfilters_fir_convolve_fir_outer_avx'
+    # /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: CMakeFiles/fastfilters.dir/src/library/fir_convolve.c.o: relocation R_X86_64_PC32 against undefined hidden symbol `fastfilters_fir_convolve_fir_outer_avx' can not be used when making a shared object
+    # /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: final link failed: bad value
+    # collect2: error: ld returned 1 exit status
+    # make[2]: *** [CMakeFiles/fastfilters.dir/build.make:644: libfastfilters.so.0.2.6] Error 1
+# ERROR1: seems ok
+    # -> added python dep to have right version 
+    # in config step
+    # -- The C compiler identification is GNU 12.3.0
+    # -- The CXX compiler identification is GNU 12.3.0
+    # -- Detecting C compiler ABI info
+    # -- Detecting C compiler ABI info - done
+    # -- Check for working C compiler: /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/bin/gcc - skipped
+    # -- Detecting C compile features
+    # -- Detecting C compile features - done
+    # -- Detecting CXX compiler ABI info
+    # -- Detecting CXX compiler ABI info - done
+    # -- Check for working CXX compiler: /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/bin/g++ - skipped
+    # -- Detecting CXX compile features
+    # -- Detecting CXX compile features - done
+    # -- Found PythonInterp: /usr/bin/python (found version "3.6.8") 
+    # -- Found PythonLibs: /usr/lib64/libpython3.6m.so
+    # -- Performing Test HAS_C99_FLAG
+    # -- Performing Test HAS_C99_FLAG - Success
+    # -- Performing Test CAN_COMPILE_C99_FEAT
+    # -- Performing Test CAN_COMPILE_C99_FEAT - Success
+    # -- Performing Test HAS_OFAST_FLAG
+    # -- Performing Test HAS_OFAST_FLAG - Success
+    # -- Performing Test HAS_O2_FLAG
+    # -- Performing Test HAS_O2_FLAG - Success
+    # -- Performing Test HAS_O3_FLAG
+    # -- Performing Test HAS_O3_FLAG - Success
+    # -- Performing Test HAS_WALL_FLAG
+    # -- Performing Test HAS_WALL_FLAG - Success
+    # -- Performing Test HAS_WEXTRA_FLAG
+    # -- Performing Test HAS_WEXTRA_FLAG - Success
+    # -- Performing Test HAS_CPP14_FLAG
+    # -- Performing Test HAS_CPP14_FLAG - Success
+    # -- Performing Test HAS_CPP11_FLAG
+    # -- Performing Test HAS_CPP11_FLAG - Success
+    # -- Performing Test HAS_AVX_FLAG
+    # -- Performing Test HAS_AVX_FLAG - Success
+    # -- Performing Test HAS_AVX2_FLAG
+    # -- Performing Test HAS_AVX2_FLAG - Success
+    # -- Performing Test HAS_FMA_FLAG
+    # -- Performing Test HAS_FMA_FLAG - Success
+    # -- Performing Test HAS_ARCH_AVX_FLAG
+    # -- Performing Test HAS_ARCH_AVX_FLAG - Failed
+    # -- Performing Test HAS_ARCH_AVX2_FLAG
+    # -- Performing Test HAS_ARCH_AVX2_FLAG - Failed
+    # -- Performing Test CAN_COMPILE_AVX
+    # -- Performing Test CAN_COMPILE_AVX - Success
+    # -- Performing Test CAN_COMPILE_FMA
+    # -- Performing Test CAN_COMPILE_FMA - Success
+    # -- Performing Test CAN_COMPILE_AVX2
+    # -- Performing Test CAN_COMPILE_AVX2 - Success
+    # -- Performing Test HAVE_GNU_CPU_SUPPORTS_AVX
+    # -- Performing Test HAVE_GNU_CPU_SUPPORTS_AVX - Success
+    # -- Performing Test HAVE_GNU_CPU_SUPPORTS_AVX2
+    # -- Performing Test HAVE_GNU_CPU_SUPPORTS_AVX2 - Success
+    # -- Performing Test HAVE_GNU_CPU_SUPPORTS_FMA
+    #         -- Performing Test HAS_ARCH_AVX_FLAG - Failed
+    #         -- Performing Test HAS_ARCH_AVX2_FLAG - Failed
+    #         -- Performing Test HAVE_CPUIDEX - Failed
+    #         -- Performing Test HAVE_INTRIN_XGETBV - Failed
+
