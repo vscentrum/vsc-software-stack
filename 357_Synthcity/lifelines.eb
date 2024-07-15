@@ -1,21 +1,22 @@
 easyblock = 'PythonBundle'
 
 name = 'lifelines'
-version = '0.29.0'
+version = '0.28.0'
 
 homepage = "https://lifelines.readthedocs.io/en/latest/"
 description = """lifelines is a complete survival analysis library, written in pure Python."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
+builddependencies = [('poetry', '1.5.1')]
 dependencies = [
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
     ('matplotlib', '3.7.2'),
 ]
 
-sanity_pip_check = True
 use_pip = True
+sanity_pip_check = True
 
 exts_list = [
     ('wrapt', '1.16.0', {
@@ -37,7 +38,7 @@ exts_list = [
         'checksums': ['64dd7992a7aa5bbceb1e40679d0f01fc6f0ba12b7d23d78094a88c2edc68fba1'],
     }),
     (name, version, {
-        'checksums': ['a82315a5daf2ad29eabefff38b8422364a8a721721136a501c30ff861cac8759'],
+        'checksums': ['eecf726453fd409c94fef8a521f8e593bcd09337f920fe885131f01cfe58b25e'],
     }),
 ]
 

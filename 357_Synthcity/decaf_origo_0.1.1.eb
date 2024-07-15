@@ -1,0 +1,53 @@
+easyblock = 'PythonBundle'
+
+name = 'DECAF-synthetic-data'
+version = '0.1.1'
+local_commit = "db6333a"
+
+homepage = 'https://github.com/trentkyono/DECAF'
+description = """DEbiasing CAusal Fairness."""
+
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('PyTorch-Lightning', '2.2.1'),
+    ('PyTorch-bundle', '2.1.2'),
+    ('XGBoost', '2.0.2'),
+    ('scikit-learn', '1.3.1'),
+    ('networkx', '3.1'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+# unpin dependencies versions
+local_preinstallopts = (
+    "sed -i"
+    " -e 's/networkx == 2.\*/networkx/'"
+    " -e 's/numpy == 1.19.\*/numpy/'"
+    " -e 's/pytorch-lightning == 1.4.\*/pytorch-lightning/'"
+    " -e 's/torch == 1.9.\*/torch/'"
+    " -e 's/torchtext == 0.10.\*/torchtext/'"
+    " %(builddir)s/decaf_synthetic_data/DECAF-db6333aced375ef14961e06e805bf7412f378f29/requirements.txt && "
+)
+
+exts_list = [
+    ('loguru', '0.7.2', {
+        'checksums': ['e671a53522515f34fd406340ee968cb9ecafbc4b36c679da03c18fd8d0bd51ac'],
+    }),
+    ('decaf_synthetic_data', version, {
+        'modulename': 'decaf',
+        'preinstallopts': local_preinstallopts,
+        'source_urls': ['https://github.com/trentkyono/DECAF/archive/'],
+        'sources': [{'download_filename': 'db6333a.tar.gz', 'filename': '%(name)s-%(version)s-db6333a.tar.gz'}],
+        'checksums': ['9df50a5b4ee96a6dcf53e2d845702ad48ebdbb0a31bb0cb2968b2217a1c8886e'],
+    }),
+]
+
+sanity_check_commands = ["python -c 'from decaf import DECAF, DataModule'"]
+
+moduleclass = 'bio'
