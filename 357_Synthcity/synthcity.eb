@@ -92,8 +92,21 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # fastapi 0.110.0 has requirement typing-extensions>=4.8.0, but you have typing-extensions 4.6.3.
         # -> add v typing-extensions v4.9.0 to exts
     # py7zr 0.20.6 has requirement pyppmd<1.1.0,>=0.18.1, but you have pyppmd 1.1.0. -> add pyppmd v1.0.0 ok
+    # TESTS
+    # black 24.4.2 requires mypy-extensions ok exts
+    # pre-commit 3.7.1 requires identify, ok exts
+    # pre-commit 3.7.1 requires nodeenv, ok exts
+    # bandit 1.7.9 requires stevedore, ok exts
+    # pytest-benchmark 4.0.0 requires py-cpuinfo, OK
+    # doc8 1.1.1 requires restructuredtext-lint, ok exts
+    # doc8 1.1.1 requires stevedore, ok exts
+    # flake8 7.1.0 requires mccabe, ok exts
+    # flake8 7.1.0 requires pycodestyle, OK
+    # flake8 7.1.0 requires pyflakes, ok exts
+    # pre-commit 3.7.1 requires cfgv, ok exts
+    # flake8 7.1.0 has requirement pycodestyle<2.13.0,>=2.12.0, but you have pycodestyle 2.11.1. -> flake8 v7.0.0
     
-# builddependencies = [('poetry', '1.5.1')]
+builddependencies = [('poetry', '1.5.1')]
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
@@ -112,7 +125,7 @@ dependencies = [
     # ('PyYAML', '6.0'),
     ('fastai', '2.7.15'),
     ('h5py', '3.9.0'),
-    # ('networkx', '3.1'), # v2.8.8 in exts
+    ('networkx', '3.1'),
     # ('protobuf', '3.19.4'),
     # ('Arrow', '8.0.0'),
     # ('pybind11', '2.9.2'),
@@ -130,6 +143,14 @@ dependencies = [
     ('MONAI', '1.3.0'),
     ('DECAF-synthetic-data', '0.1.6'),
     ('PyTorch-Lightning', '2.2.1'),
+    # TESTS
+    ('pytest', '7.4.2'),
+    ('Jupyter-bundle', '20230823'),
+    ('pytest-xdist', '3.3.1'),
+    ('python-igraph', '0.11.4'),
+    ('coverage', '7.2.3'),
+    ('py-cpuinfo', '9.0.0'),
+    ('pycodestyle', '2.11.1'),
 ]
 
 sanity_pip_check = True
@@ -156,6 +177,64 @@ local_xgbse_preinstallopts = (
 )
 
 exts_list = [
+    ('cfgv', '3.4.0', {
+        'checksums': ['e52591d4c5f5dead8e0f673fb16db7949d2cfb3f7da4582893288f0ded8fe560'],
+    }),
+    ('pyflakes', '3.2.0', {
+        'checksums': ['1c61603ff154621fb2a9172037d84dca3500def8c8b630657d1701f026f8af3f'],
+    }),
+    ('mccabe', '0.7.0', {
+        'checksums': ['348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325'],
+    }),
+    ('restructuredtext_lint', '1.4.0', {
+        'checksums': ['1b235c0c922341ab6c530390892eb9e92f90b9b75046063e047cacfb0f050c45'],
+    }),
+    ('stevedore', '5.2.0', {
+        'checksums': ['46b93ca40e1114cea93d738a6c1e365396981bb6bb78c27045b7587c9473544d'],
+    }),
+    ('nodeenv', '1.9.1', {
+        'checksums': ['6ec12890a2dab7946721edbfbcd91f3319c6ccc9aec47be7c7e6b7011ee6645f'],
+    }),
+    ('identify', '2.6.0', {
+        'checksums': ['cb171c685bdc31bcc4c1734698736a7d5b6c8bf2e0c15117f4d469c8640ae5cf'],
+    }),
+    ('mypy_extensions', '1.0.0', {
+        'checksums': ['75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782'],
+    }),
+    ('pytest-cov', '5.0.0', {
+        'checksums': ['5837b58e9f6ebd335b0f8060eecce69b662415b16dc503883a02f45dfeb14857'],
+    }),
+    ('bandit', '1.7.9', {
+        'checksums': ['7c395a436743018f7be0a4cbb0a4ea9b902b6d87264ddecf8cfdc73b4f78ff61'],
+    }),
+    ('black', '24.4.2', {
+        'checksums': ['c872b53057f000085da66a19c55d68f6f8ddcac2642392ad3a355878406fbd4d'],
+    }),
+    ('black-nb', '0.7', {
+        'checksums': ['8742a4f7c728302c91954325168d779f9444f8e3c31b19598ee8e98fc4bf4782'],
+    }),
+    ('darglint', '1.8.1', {
+        'checksums': ['080d5106df149b199822e7ee7deb9c012b49891538f14a11be681044f0bb20da'],
+    }),
+    ('doc8', '1.1.1', {
+        'checksums': ['d97a93e8f5a2efc4713a0804657dedad83745cca4cd1d88de9186f77f9776004'],
+    }),
+    ('flake8', '7.0.0', {
+        'checksums': ['33f96621059e65eec474169085dc92bf26e7b2d47366b70be2f67ab80dc25132'],
+    }),
+    ('isort', '5.13.2', {
+        'checksums': ['48fdfcb9face5d58a4f6dde2e72a1fb8dcaf8ab26f95ab49fab84c2ddefb0109'],
+    }),
+    ('pytest-benchmark', '4.0.0', {
+        'checksums': ['fb0785b83efe599a6a956361c0691ae1dbb5318018561af10f3e915caa0048d1'],
+    }),
+    ('pytest-xprocess', '1.0.2', {
+        'modulename': 'xprocess',
+        'checksums': ['15e270637586eabc56755ee5fcc81c48bdb46ba7ef7c0d5b1b64302d080cc60f'],
+    }),
+    ('pre_commit', '3.7.1', {
+        'checksums': ['8ca3ad567bc78a4972a3f1a477e94a79d4597e8140a6e0b651c5e33899c3654a'],
+    }),
     ('typing_extensions', '4.9.0', {
         'checksums': ['23478f88c37f27d76ac8aee6c905017a143b0b1b886c3c9f66bc2fd94f9f5783'],
     }),
@@ -242,7 +321,7 @@ exts_list = [
         'checksums': ['824f10482581f5211d3a435d8b14adcc6c21b38d952f00b6a792fc7c089788b1'],
     }),
     ('xgbse', '0.2.3', {
-        'preinstallopts': local_xgbse_preinstallopts,
+        'preinstallopts': "sed -i  -e '45,49d' -e 's/pandas>=1.0.\*/pandas>=1.0.0/' setup.py && ",
         'source_urls': ['https://github.com/loft-br/xgboost-survival-embeddings/archive/'],
         'sources': ['v%(version)s.tar.gz'],
         'checksums': ['9e6b71539b2b533c00eddfe7681cdd541f393d9573594eca358d263b141c127d'],
@@ -252,12 +331,13 @@ exts_list = [
     }),
     (name, version, {
         'preinstallopts': local_preinstallopts,
+        'runtest': 'pytest -vvvs -m "not slow" --durations=50',
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
         'sources': ['v%(version)s.tar.gz'],
         'checksums': ['122a8546cad35e3ac5c74cf81281252dec4dd3c7b1d7afe0f45ef785f89cc682'],
     }),
 ]
-        
+
 sanity_check_commands = [
     "python -c 'from synthcity.plugins import Plugins'",
     "python -c 'from decaf import DECAF, DataModule'"
@@ -265,6 +345,12 @@ sanity_check_commands = [
 
 moduleclass = 'lib'
 
+# ERROR3:
+    # -> add coverage to deps
+    # -> put runtest to exts - synthcity ext, not as runtest = ...
+    # tests/test_pytest_cov.py:12: in <module>
+    #     import coverage
+    # E   ModuleNotFoundError: No module named 'coverage'
 # ERROR2: OK
     # -> fix pandas version in setup.py by local_xgbse_preinstallopts
     # == 2024-07-15 14:17:49,585 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "sed -i '45,49d' setup.py &&  /apps/gent/RHEL8/zen2-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/zen2-ib/software/synthcity/0.2.10-foss-2023a  --no-deps  --ignore-installed  --no-index  --no-build-isolation  ." exited with exit code 1 and output:
