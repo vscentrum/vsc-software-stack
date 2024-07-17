@@ -144,13 +144,14 @@ dependencies = [
     ('DECAF-synthetic-data', '0.1.6'),
     ('PyTorch-Lightning', '2.2.1'),
     # TESTS
-    ('pytest', '7.4.2'),
+    # ('pytest', '7.4.2'), in pypi bundle
     ('Jupyter-bundle', '20230823'),
-    ('pytest-xdist', '3.3.1'),
+    # ('pytest-xdist', '3.3.1'), in pypi bundle
     ('python-igraph', '0.11.4'),
     ('coverage', '7.2.3'),
     ('py-cpuinfo', '9.0.0'),
     ('pycodestyle', '2.11.1'),
+    ('hypothesis', '6.82.0'),
 ]
 
 sanity_pip_check = True
@@ -177,6 +178,37 @@ local_xgbse_preinstallopts = (
 )
 
 exts_list = [
+    ('zope.interface', '6.3', {
+        # 'modulename': 'zope-interface',
+        'checksums': ['f83d6b4b22262d9a826c3bd4b2fbfafe1d0000f085ef8e44cd1328eea274ae6a'],
+    }),
+    ('hyperlink', '21.0.0', {
+        'checksums': ['427af957daa58bc909471c6c40f74c5450fa123dd093fc53efd2e91d2705a56b'],
+    }),
+    ('constantly', '23.10.4', {
+        'checksums': ['aa92b70a33e2ac0bb33cd745eb61776594dc48764b06c35e0efd050b7f1c7cbd'],
+    }),
+    ('Automat', '22.10.0', {
+        'checksums': ['e56beb84edad19dcc11d30e8d9b895f75deeb5ef5e96b84a467066b3b84bb04e'],
+    }),
+    ('incremental', '22.10.0', {
+        'checksums': ['912feeb5e0f7e0188e6f42241d2f450002e11bbc0937c65865045854c24c0bd0'],
+    }),
+    ('twisted', '24.3.0', {
+        'checksums': ['6b38b6ece7296b5e122c9eb17da2eeab3d98a198f50ca9efd00fb03e5b4fd4ae'],
+    }),
+    ('fixtures', '4.1.0', {
+        'checksums': ['82b1c5e69f615526ef6c067188a1e6c6067df7f88332509c99f8b8fdbb9776f3'],
+    }),
+    ('testscenarios', '0.5.0', {
+        'checksums': ['c257cb6b90ea7e6f8fef3158121d430543412c9a87df30b5dde6ec8b9b57a2b6'],
+    }),
+    ('evaluate', '0.4.2', {
+        'checksums': ['851ab767df8ec4031366c512eb88d8174adfba65d2c8c4c9bfdfe9c702212234'],
+    }),
+    ('testtools', '2.7.2', {
+        'checksums': ['5be5bbc1f0fa0f8b60aca6ceec07845d41d0c475cf445bfadb4d2c45ec397ea3'],
+    }),
     ('cfgv', '3.4.0', {
         'checksums': ['e52591d4c5f5dead8e0f673fb16db7949d2cfb3f7da4582893288f0ded8fe560'],
     }),
@@ -330,22 +362,44 @@ exts_list = [
         'checksums': ['88170d5e72638b0dbfec28cfbdfee02e97bd6a06d5a636e960acd5d90d480707'],
     }),
     (name, version, {
-        'preinstallopts': local_preinstallopts,
-        'runtest': 'pytest -vvvs -m "not slow" --durations=50',
+        'preinstallopts': "sed -i -e 's/pandas>=1.4,<2/pandas>=1.4/' -e 's/torch>=1.10.0,<2.0/torch>=1.10.0/' -e 's/numpy>=1.20, <1.24/numpy>=1.20/' -e 's/pydantic<2.0/pydantic/' -e 's/xgboost<2.0.0/xgboost/' -e 's/lifelines>=0.27,!= 0.27.5, <0.27.8/lifelines>=0.27,!= 0.27.5/' %(builddir)s/%(name)s/%(name)s-%(version)s/setup.cfg && ",
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
         'sources': ['v%(version)s.tar.gz'],
         'checksums': ['122a8546cad35e3ac5c74cf81281252dec4dd3c7b1d7afe0f45ef785f89cc682'],
     }),
 ]
-
+# 'runtest': 'export PYTHONPATH=%(installdir)s/lib/python%(pyshortver)s/site-packages:$PYTHONPATH && pytest -vvvs -m "not slow" --durations=50',
 sanity_check_commands = [
+    'pytest -vvvs -m "not slow" --durations=50',
     "python -c 'from synthcity.plugins import Plugins'",
     "python -c 'from decaf import DECAF, DataModule'"
 ]
 
 moduleclass = 'lib'
 
-# ERROR3:
+# ERROR5:
+    # twisted 24.3.0 requires automat, ok
+    # twisted 24.3.0 requires constantly, ok
+    # twisted 24.3.0 requires hyperlink, ok
+    # twisted 24.3.0 requires zope-interface, ok
+    # No module named 'incremental' ok
+    # ModuleNotFoundError: No module named 'twisted' ok
+    # ModuleNotFoundError: No module named 'fixtures' ok
+    # ModuleNotFoundError: No module named 'hypothesis' OK
+    # ModuleNotFoundError: No module named 'testscenarios' ok
+    # ModuleNotFoundError: No module named 'testtools' ok
+    # ModuleNotFoundError: No module named 'evaluate' ok
+# ERROR4:
+    # maybe to postinstallopts?
+    # ??? add "export PYTHONPATH=%(installdir)s/lib/python%(pyshortver)s/site-packages:$PYTHONPATH &&" before pytest?
+        # -> NO there is no synthcity in site-packages yet
+    # ??? -> add pytest cmd to sanity check cmds
+    # = 2024-07-16 15:03:20,115 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "  pytest -vvvs -m "n slow" --durations=50 " exited with exit code 4 and output:
+    # ImportError while loading conftest '/tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/synthcity/synthcity-0.2.10/tests/conftest.py'.
+    # tests/conftest.py:10: in <module>
+    #     from synthcity.utils.reproducibility import clear_cache, enable_reproducible_results
+    # E   ModuleNotFoundError: No module named 'synthcity'
+# ERROR3: OK
     # -> add coverage to deps
     # -> put runtest to exts - synthcity ext, not as runtest = ...
     # tests/test_pytest_cov.py:12: in <module>
