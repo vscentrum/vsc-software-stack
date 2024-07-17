@@ -11,29 +11,72 @@ finding bias in genome recovery, computing ecological diversity metrics, and lin
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
+# DEPS
+    # OK - python>=3.7 #, <3.10 # https://github.com/google-research/google-research/issues/779 means scann (at least 1.2.8) fails to install via pip for 3.10. Older python versions than 3.7 may also work, not tested.
+    # OK - diamond>=2.1.7 # Getting segmentation fault on test_insert_prefilter otherwise
+    # OK - biopython
+    # OK - hmmer
+    # OK - orfm
+    # OK - mfqe
+    # ok - extern
+    # ok - graftm>=0.15.0 # Version needed for --translation-table
+    # OK - krona
+    # OK - pplacer
+    # OK - sra-tools
+    # OK - ncbi-ngs-sdk - in SRA-Toolkit
+    # OK - sqlite - in python
+    # ok - squarify
+    # OK - mafft
+    # OK - seqmagick
+    # OK - expressbetadiversity
+    # OK - cd-hit -> created
+    # OK - fasttree
+    # ok - fastalite
+    # OK - jinja2 - pypi bundle
+    # OK - pip
+    # OK - sqlalchemy
+    # OK - pandas
+    # ok - bird_tool_utils_python>=0.4.1
+    # ok - zenodo_backpack
+    # OK - smafa>=0.7.0 -> created
+    # ok - pyranges
+    # OK - polars>=0.19.3 # supplement with taxon genome length requires this, for strip_chars
+    # OK - prodigal
+    # OK - tqdm
+    # OK - pyarrow
+    # # - galah >= 0.4.0 # 0.4.0 is the first version with checkm2 quality inputs, but not yet released 
+    # - pytest # For testing only
+    # - ipython # For testing only
+    # - sqlparse # Don't understand why, but this isn't being installed before tests are run on GH actions. Required indirectly (by taxtastic).
+    
 dependencies = [
     ('Python', '3.11.3'), # with SQLite
+    ('Python-bundle-PyPI', '2023.06'),
     ('SciPy-bundle', '2023.07'),  # for pandas
-    ('matplotlib', '3.7.2'),
+    # ('matplotlib', '3.7.2'),
     ('Biopython', '1.83'), 
-    ('polars', '0.19.19'), # polars >= 0.19.3 
+    ('polars', '0.20.2'), # polars >= 0.19.3 
     ('tqdm', '4.66.1'),
     ('Arrow', '14.0.1'), # for pyarrow
     ('DIAMOND', '2.1.8'),
     ('HMMER', '3.4'),
     ('MAFFT', '7.520', '-with-extensions'),
-    ('tqdm', '4.66.1'),
     ('OrfM', '0.7.1'),
     ('mfqe', '0.5.0'),
     ('KronaTools', '2.8.1'),
-    ('pplacer', '1.1.alpha19', '', True),
+    ('pplacer', '1.1.alpha19', '', SYSTEM),
     ('SRA-Toolkit', '3.0.10'),
     ('Seqmagick', '0.8.6'),
     ('ExpressBetaDiversity', '1.0.10'),
+    ('FastTree', '2.1.11'),
+    ('SQLAlchemy', '2.0.25'),
+    ('CD-HIT', '4.8.1'),
+    ('smafa', '0.8.0'),
+    ('prodigal', '2.6.3'),
+    #
     # ('DendroPy', '4.4.0'),
     # ('PyYAML', '5.1'),
     # ('PostgreSQL', '11.3', versionsuffix),  # required for psycopg2
-    # ('smafa', '0.4.0'),
     # ('VSEARCH', '2.13.4'),
     # ('fxtract', '2.3'),
 ]
@@ -41,30 +84,27 @@ dependencies = [
 use_pip = True
 sanity_pip_check = True
 
-# required because we're building Python packages using Intel compilers on top of Python built with GCC
-# check_ldshared = True
-
- # ('zenodo_backpack', '0.2.0', {
-#     'checksums': ['5843a04b353ae613b474932c2a12d1fbfd529674074e73927ddc131eba7f1da8'],
-# }),
-
-# ('bird_tool_utils', '0.4.1', {
-#     'checksums': ['6fe80f9608626427e8d382c5341c24088d61f17336fb6ce834d40aa4577499b5'],
-# }),
 exts_list = [
-    ('Jinja2', '3.1.3'),
-    ('fastalite', '0.4.1'),
+    ('zenodo_backpack', '0.3.1', {
+        'checksums': ['dc91f3c427f976465789746e94736abfa536cf42dc2e49b6d6067382a9a39b26'],
+    }),
+    ('bird_tool_utils', '0.4.1', {
+        'checksums': ['6fe80f9608626427e8d382c5341c24088d61f17336fb6ce834d40aa4577499b5'],
+    }),
+    ('fastalite', '0.4.1', {
+        'checksums': ['e85413ee22bdb3fe0f73f5226771cf71eb33074ccdf8bbefff3a1bc6242de37c'],
+    }),
+    ('squarify', '0.4.3', {
+        'checksums': ['54091f6ad175f7f201f8934574e647ce1b50dedc478c5fd968688eb7d7469f95'],
+    }),
     ('pyranges', '0.0.129', {
         'checksums': ['bee83b4fad0062be9586668c6b0fc4270d5e761951975e018202993680071fb3'],
-    }),
-    ('SQLAlchemy', '2.0.25', {
-        'checksums': ['a2c69a7664fb2d54b8682dd774c3b54f67f84fa123cf84dda2a5f40dcaa04e08'],
     }),
     ('extern', '0.4.1', {
         'checksums': ['0ff01adc2ad423f3d1e31641024b3974569fb0127b4d925bc6bed1cb86b6b1e4'],
     }),
-    ('graftm', '0.15.0', {
-        'checksums': ['794b2c6a8fff36c81db8b9a544ac021ab1397c569638bf7651ce5329db36de21'],
+    ('graftm', '0.15.1', {
+        'checksums': ['80d828c311d2d6067977cfad5b6bac7cbc5d223ef8ab770d676b39bf2bc75163'],
     }),
     ('singlem', version, {
         'checksums': ['64e43a6a40795d68ff5aed7dfff9a94532b862f25a28c27de7d588d64a8c7f79'],
