@@ -11,15 +11,65 @@ finding bias in genome recovery, computing ecological diversity metrics, and lin
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
+# DEPS
+    # OK - python>=3.7 #, <3.10 # https://github.com/google-research/google-research/issues/779 means scann (at least 1.2.8) fails to install via pip for 3.10. Older python versions than 3.7 may also work, not tested.
+    # OK - diamond>=2.1.7 # Getting segmentation fault on test_insert_prefilter otherwise
+    # OK - biopython
+    # OK - hmmer
+    # OK - orfm
+    # OK - mfqe
+    # ok - extern
+    # ok - graftm>=0.15.0 # Version needed for --translation-table
+    # OK - krona
+    # OK - pplacer
+    # OK - sra-tools
+    # OK - ncbi-ngs-sdk - in SRA-Toolkit
+    # OK - sqlite - in python
+    # ok - squarify
+    # OK - mafft
+    # OK - seqmagick
+    # OK - expressbetadiversity
+    # OK - cd-hit -> created
+    # OK - fasttree
+    # ok - fastalite
+    # OK - jinja2 - pypi bundle
+    # OK - pip
+    # OK - sqlalchemy
+    # OK - pandas
+    # ok - bird_tool_utils_python>=0.4.1
+    # ok - zenodo_backpack
+    # OK - smafa>=0.7.0 -> created
+    # ok - pyranges
+    # OK - polars>=0.19.3 # supplement with taxon genome length requires this, for strip_chars
+    # OK - prodigal
+    # OK - tqdm
+    # OK - pyarrow
+    # # - galah >= 0.4.0 # 0.4.0 is the first version with checkm2 quality inputs, but not yet released 
+    # - pytest # For testing only
+    # - ipython # For testing only
+    # - sqlparse # Don't understand why, but this isn't being installed before tests are run on GH actions. Required indirectly (by taxtastic).
+    # graftm 0.15.1 requires biom-format, OK
+    # graftm 0.15.1 requires dendropy, OK
+    # graftm 0.15.1 requires pyyaml, OK
+    # graftm 0.15.1 requires taxtastic, ok
+    # bird-tool-utils 0.4.1 requires argparse-manpage-birdtools, ok
+    # pyranges 0.0.129 requires natsort, ok
+    # pyranges 0.0.129 requires ncls, ok
+    # pyranges 0.0.129 requires sorted-nearest, ok
+    # taxtastic 0.10.0 requires psycopg, created OK
+    # taxtastic 0.10.0 requires psycopg2-binary, ok exts - not same as psycopg2 in EB
+    # taxtastic 0.10.0 requires sqlparse, ok
+
 builddependencies = [('hatchling', '1.18.0')]
 dependencies = [
-    ('Python', '3.11.3'),
+    ('Python', '3.11.3'), # with SQLite
     ('Python-bundle-PyPI', '2023.06'),
-    ('SciPy-bundle', '2023.07'),
-    ('Biopython', '1.83'),
-    ('polars', '0.20.2'),
+    ('SciPy-bundle', '2023.07'),  # for pandas
+    # ('matplotlib', '3.7.2'),
+    ('Biopython', '1.83'), 
+    ('polars', '0.20.2'), # polars >= 0.19.3 
     ('tqdm', '4.66.1'),
-    ('Arrow', '14.0.1'),
+    ('Arrow', '14.0.1'), # for pyarrow
     ('DIAMOND', '2.1.8'),
     ('HMMER', '3.4'),
     ('MAFFT', '7.520', '-with-extensions'),
@@ -39,6 +89,8 @@ dependencies = [
     ('DendroPy', '4.6.1'),
     ('PyYAML', '6.0'),
     ('psycopg', '3.2.1'),
+    # ('VSEARCH', '2.13.4'),
+    # ('fxtract', '2.3'),
 ]
 
 use_pip = True
