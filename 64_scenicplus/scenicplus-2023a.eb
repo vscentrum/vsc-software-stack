@@ -1,0 +1,225 @@
+easyblock = 'PythonBundle'
+
+name = 'scenicplus'
+version = '1.0.0-18072023'
+local_commit = "fa55dae"
+
+homepage = 'https://github.com/aertslab/scenicplus'
+description = """SCENIC+ is a python package to build gene regulatory networks (GRNs)
+using combined or separate single-cell gene expression (scRNA-seq) and single-cell
+chromatin accessibility (scATAC-seq) data."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# DEPS:
+    # ok pycistarget @ git+https://github.com/aertslab/pycistarget
+    # ok pycisTopic @ git+https://github.com/aertslab/pycisTopic
+    # ok loomxpy
+    # OK pyscenic in sc-bundle
+    # ?OK adjustText==1.0.4 in sc-bundle
+    # OK anndata==0.10.5.post1
+    # ok annoy==1.17.3
+    # OK arboreto==0.1.6 in pyScenic
+    # ok attr==0.3.2
+    # ok attrs==23.2.0 in pypi bundle 23.1.0
+    # OK bbknn==1.6.0 in sc-bundle
+    # ?OK beautifulsoup4==4.12.3 have 4.12.2
+    # bs4==0.0.2 -> it is only dummy -> delete from deps
+    # OK ctxcore==0.2.0 in pyScenic
+    # ?OK Cython==0.29.37 in pypi-bundle is v0.29.35
+    # OK cytoolz==0.12.3 in pyScenic
+    # ?OK dask==2024.2.1 in pyScenic v2023.9.2
+    # ?OK dill==0.3.8 in pyScenic v0.3.7
+    # -> gensim==4.3.2 -> UPDATE
+    # ok gseapy==0.10.8
+    # ?OK h5py==3.10.0 have v3.9.0
+    # OK harmonypy==0.0.9 in sc-bundle
+    # OK igraph==0.11.4
+    # ?OK imageio==2.34.0 have v2.33.1
+    # OK importlib-metadata==7.0.1 pypi bundle
+    # OK importlib_resources==6.1.2 pypi bundle
+    # OK intervaltree==3.1.0 pypi bundle
+    # OK joblib==1.3.2 pypi bundle
+    # -> kaleido==0.2.1 -> UPDATE
+    # ok lda==3.0.0
+    # OK leidenalg==0.10.2
+    # ?OK lxml==5.1.0 have v4.9.2
+    # OK MACS2==2.2.9.1
+    # OK matplotlib==3.6.3 in sc-bundle
+    # OK mudata==0.2.3 in sc-bundle
+    # ok ncls==0.0.68
+    # ?OK networkx==3.2.1 have v3.1 in pyScenic
+    # ?OK numba==0.59.0 have v0.58.1
+    # -> numexpr==2.9.0 -> UPDATE
+    # ?OK numpy==1.26.4 have v1.25.1
+    # OK numpy-groupies==0.10.2 in loompy
+    # ?OK pandas==1.5.0 have 2.0.3
+    # ?OK plotly==5.19.0 have v5.16.0
+    # OK plotnine==0.12.4 in sc-bundle
+    # ?OK polars==0.20.13 have v0.20.2
+    # ?OK pyarrow==15.0.0 have v14.0.1
+    # OK pyarrow-hotfix==0.6 -> not needed for Arrow 14.0.1
+    # OK pybedtools==0.9.1
+    # ok pybigtools==0.1.2
+    # OK pyBigWig==0.3.22
+    # ok pybiomart==0.2.0
+    # -> pyfasta==0.5.2 -> UPDATE
+    # OK pygam==0.9.0
+    # ok pyranges==0.0.111
+    # ok pyrle==0.0.39
+    # OK pysam==0.22.0
+    # ok pyvis==0.3.2
+    # ?OK ray==2.9.3 have v2.9.1
+    # OK requests==2.31.0 pypi bundle
+    # ok requests-cache==1.2.0
+    # ok scanorama==1.7.4
+    # OK scanpy==1.8.2 in sc-bundle
+    # ok scatac_fragment_tools==0.1.0
+    # OK scikit-image==0.22.0
+    # ?OK scikit-learn==1.3.2 have v1.3.1 in pyScenic or for 2023a either v1.4.2
+    # ?OK scipy==1.12.0 have v1.11.1
+    # -> scrublet==0.2.3 -> UPDATE
+    # OK seaborn==0.13.2 in sc-bundle
+    # ?OK snakemake==8.5.5 have v8.4.2
+        # ok snakemake-interface-common==1.17.1 in snakemake
+        # ok snakemake-interface-executor-plugins==8.2.0 in snakemake
+        # ok snakemake-interface-report-plugins==1.0.0 to exts
+        # ok snakemake-interface-storage-plugins==3.1.1 in snakemake
+    # ok statistics==1.0.3.5
+    # OK statsmodels==0.14.1
+    # ok tmtoolkit==0.12.0
+    # ?OK tqdm==4.66.2 v4.66.1 in pyScenic
+    # ok tspex==0.6.3
+    # ok typing==3.7.4.3
+    # OK umap-learn==0.5.5 in pyScenic
+    # deps pycistarget:
+        # OK IPython
+        # ok pandoc
+        # -> sphinx_rtd_theme ->UPDATE
+        # ok nbsphinx
+        # ok nbsphinx_link
+        # ok numpydoc
+        # OK typing_extensions
+    # deps pycisTopic:
+        # OK ipympl
+        # ok pyopenssl
+        # -> python-Levenshtein -> UPDATE
+        # OK tables
+        # OK xlrd in pypi bundle
+        # ok papermill
+
+# builddependencies = [('poetry', '1.5.1'), ]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('Single-cell-python-bundle', '2024.02'),
+    ('anndata', '0.10.5.post1'),
+    ('BeautifulSoup', '4.12.2'),
+    ('h5py', '3.9.0'),
+    ('python-igraph', '0.11.4'),
+    ('imageio', '2.33.1')
+    ('leidenalg', '0.10.2'),
+    ('lxml', '4.9.2'),
+    ('MACS2', '2.2.9.1'),
+    ('numba', '0.58.1'),
+    ('polars', '0.20.2'),
+    ('Arrow', '14.0.1'),
+    ('plotly.py', '5.16.0'),
+    ('pybedtools', '0.9.1'),
+    ('pyBigWig', '0.3.22'),
+    ('pyGAM', '0.9.1'),
+    ('Pysam', '0.22.0'),
+    ('Ray-project', '2.9.1'),
+    ('scikit-image', '0.22.0'),
+    ('snakemake', '8.4.2'),
+    ('statsmodels', '0.14.1'),
+    ('IPython', '8.14.0'),
+    ('Pandoc', '3.1.2', '', SYSTEM),
+    ('ipympl', '0.9.3'),
+    ('PyTables', '3.8.0'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('annoy', '1.17.3'),
+    ('attr', '0.3.2'),
+    ('attrs', '23.2.0'),
+    ('lda', '3.0.0'),
+    ('gseapy', '0.10.8', {
+        'checksums': ['15be80bac73768501f5cecf6751aeb2e41416fd144bd6daa2ec453ad08a10ce0'],
+    }),
+    ('ncls', '0.0.68', {
+        'checksums': ['81aaa5abb123bb21797ed2f8ef921e20222db14a3ecbc61ccf447532f2b7ba93'],
+    }),
+    ('pybigtools', '0.1.2'),
+    ('pybiomart', '0.2.0', {
+        'checksums': ['e9eac20db921820670c646d99725b0ee279e407379e5e8c3ec7245a07425d8fe'],
+    }),
+    ('pyranges', '0.0.111'),
+    ('pyrle', '0.0.39'),
+    ('pyvis', '0.3.2'),
+    ('requests_cache', '1.2.0'),
+    ('scanorama', '1.7.4'),
+    ('scatac_fragment_tools', '0.1.0'),
+    ('snakemake_interface_report_plugins', '1.0.0'),
+    ('statistics', '1.0.3.5', {
+        'checksums': ['2dc379b80b07bf2ddd5488cad06b2b9531da4dd31edb04dc9ec0dc226486c138'],
+    }),
+    ('tmtoolkit', '0.12.0', {
+        # 'preinstallopts': local_tmtoolkit_preinstallkit,
+        'checksums': ['6df5429cd675989f21d9f075ddb11fe5ae273d6544fc337a2589bab2bc331909'],
+    }),
+    ('tspex', '0.6.3', {
+        'checksums': ['315bfa1f60ea582777c549313cad9e9da0a4d11c5f69a6fc767bd0823dc46316'],
+    }),
+    ('typing', '3.7.4.3'),
+    ('pandoc', '2.3', {
+        'checksums': ['e772c2c6d871146894579828dbaf1efd538eb64fc7e71d4a6b3a11a18baef90d'],
+    }),
+    ('nbsphinx', '0.9.4'),
+    ('nbsphinx-link', '1.3.0'),
+    ('numpydoc', '1.7.0'),
+    ('pyOpenSSL', '24.1.0', {
+        'modulename': 'OpenSSL',
+        'checksums': ['cabed4bfaa5df9f1a16c0ef64a0cb65318b5cd077a7eda7d6970131ca2f41a6f'],
+    }),
+    ('papermill', '2.6.0'),
+    ('loomxpy', '0.4.2', {
+        'checksums': ['188411b77e04fa8458c0a7f02cfb3f15b58410a020f81f522957e922e79cdd82'],
+    }),
+    ('pycisTopic', '1.0.2', {
+        'modulename': 'pycisTopic',
+        # 'patches': ['pycisTopic-1.0.2-manual_versioning.patch'],
+        # 'preinstallopts': local_pycistopic_preinstallopts,
+        'source_urls': ['https://github.com/aertslab/pycisTopic/archive/'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+    }),
+    ('pycistarget', '1.0.2', {
+        'source_urls': ['https://github.com/aertslab/pycistarget/archive/'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/aertslab/scenicplus/archive/'],
+        'sources': [
+            {
+                'download_filename': '%s.tar.gz' % local_commit,
+                'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
+            }
+        ],
+    }),
+]
+
+    # (name, version, {
+    #     'source_urls': ['https://github.com/aertslab/scenicplus/archive/'],
+    #     'sources': [
+    #         {
+    #             'download_filename': '%s.tar.gz' % local_commit,
+    #             'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
+    #         }
+    #     ],
+    # }),
+    
+moduleclass = 'bio'
