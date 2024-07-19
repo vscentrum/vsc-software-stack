@@ -13,9 +13,12 @@ dependencies = [
     ('Python', '3.11.3'),
     # ('Python-bundle-PyPI', '2023.06'),
     ('SciPy-bundle', '2023.07'),
+    ('wrapt', '1.15.0'),
 ]
 
 use_pip = True
+
+# smart-open 7.0.4 requires wrapt, which is not installed. OK
 
 exts_list = [
     ('smart_open', '7.0.4', {

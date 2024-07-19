@@ -15,8 +15,21 @@ dependencies = [
 
 use_pip = True
 
+local_preinstallopts = (
+    "sed -i"
+    " -e 's/from fasta/from pyfasta.fasta/'"
+    " -e 's/from records/from pyfasta.records/'"
+    " -e 's/from split_fasta/from pyfasta.split_fasta/'"
+    " %(name)s/__init__.py && "
+)
+local_preinstallopts += "sed -i 's/from collections/from collections.abc/' pyfasta/fasta.py && "
+local_preinstallopts += "sed -i 's/from records/from pyfasta.records/' pyfasta/fasta.py && "
+local_preinstallopts += "sed -i 's/import cPickle/import _pickle as cPickle/' pyfasta/records.py && "
+local_preinstallopts += "sed -i 's/from cStringIO import StringIO/from io import StringIO/' pyfasta/split_fasta.py && "
+
 exts_list = [
     (name, version, {
+        'preinstallopts': local_preinstallopts,
         'checksums': ['ab08d75fa90253bc91933d10567d5d9cca2718f4796ef3bdc36b68df0e45b258'],
     }),
 ]
@@ -29,3 +42,20 @@ sanity_check_commands = ['pyfasta extract --help']
 sanity_pip_check = True
 
 moduleclass = 'tools'
+
+# ERROR1: OK
+    # -> https://github.com/xryanglab/RiboCode/issues/53
+    # == 2024-07-19 12:41:23,161 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: sanity check command pyfasta extract --help exited with code 1 (output: Traceback (most recent call last):
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/pyfasta/0.5.2-foss-2023a/bin/pyfasta", line 5, in <module>
+    #     from pyfasta import main
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/pyfasta/0.5.2-foss-2023a/lib/python3.11/site-packages/pyfasta/__init__.py", line 3, in <module>
+    #     from fasta import Fasta, complement, DuplicateHeaderException
+    # ModuleNotFoundError: No module named 'fasta'
+    # )
+    # extensions sanity check failed for 1 extensions: pyfasta
+    # failing sanity check for 'pyfasta' extension: command "python -c "import pyfasta"" failed; output:
+    # Traceback (most recent call last):
+    # File "<string>", line 1, in <module>
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/pyfasta/0.5.2-foss-2023a/lib/python3.11/site-packages/pyfasta/__init__.py", line 3, in <module>
+    #     from fasta import Fasta, complement, DuplicateHeaderException
+    # ModuleNotFoundError: No module named 'fasta',  (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)

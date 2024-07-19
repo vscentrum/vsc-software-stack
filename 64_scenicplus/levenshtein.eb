@@ -1,6 +1,6 @@
 easyblock = 'PythonBundle'
 
-name = 'python-Levenshtein'
+name = 'Levenshtein'
 version = '0.25.1'
 
 homepage = 'https://pypi.org/project/python-Levenshtein/'
@@ -10,10 +10,16 @@ toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
 # osdependencies = [('python-devel', 'python-dev')]
 
+# DEPS: 
+    # v0.25.1 needs "Cython>=3.0.2,<3.1.0" have v0.29.35 in pypi-bundle -> OK
+    # "setuptools", OK
+    # "scikit-build>=0.13.0", OK
+    # "rapidfuzz >= 3.8.0, < 4.0.0" ok
+    
 builddependencies = [
     ('CMake', '3.26.3'),
     ('scikit-build', '0.17.6'),
-    # ('Ninja', '1.10.2'),
+    ('Cython', '3.0.8'),
 ]
 
 dependencies = [
@@ -28,10 +34,15 @@ exts_list = [
     }),
     (name, version, {
         'modulename': 'Levenshtein',
-        'checksums': ['b21e7efe83c8e8dc8260f2143b2393c6c77cb2956f0c53de6c4731c4d8006acc'],
+        'checksums': ['2df14471c778c75ffbd59cb64bbecfd4b0ef320ef9f80e4804764be7d5678980'],
     }),
 ]
 
 sanity_pip_check = True
 
 moduleclass = 'data'
+
+# ERROR1: OK
+    # -> use levenshtein not python-levenshtein
+    # python-levenshtein 0.25.1 requires levenshtein, which is not installed.
+  
