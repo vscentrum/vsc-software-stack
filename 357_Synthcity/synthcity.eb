@@ -178,8 +178,17 @@ local_xgbse_preinstallopts = (
 )
 
 exts_list = [
+    ('cython-test-exception-raiser', '1.0.2', {
+        'checksums': ['c5003a6321057a8222d2f5aed329fcdb5eb3bc615a9239f461bdf06c491fbdaa'],
+    }),
+    ('pyhamcrest', '2.1.0', {
+        'modulename': 'hamcrest',
+        'checksums': ['c6acbec0923d0cb7e72c22af1926f3e7c97b8e8d69fc7498eabacaf7c975bd9c'],
+    }),
+    ('service_identity', '24.1.0', {
+        'checksums': ['6829c9d62fb832c2e1c435629b0a8c476e1929881f28bee4d20bc24161009221'],
+    }),
     ('zope.interface', '6.3', {
-        # 'modulename': 'zope-interface',
         'checksums': ['f83d6b4b22262d9a826c3bd4b2fbfafe1d0000f085ef8e44cd1328eea274ae6a'],
     }),
     ('hyperlink', '21.0.0', {
@@ -365,41 +374,174 @@ exts_list = [
         'preinstallopts': "sed -i -e 's/pandas>=1.4,<2/pandas>=1.4/' -e 's/torch>=1.10.0,<2.0/torch>=1.10.0/' -e 's/numpy>=1.20, <1.24/numpy>=1.20/' -e 's/pydantic<2.0/pydantic/' -e 's/xgboost<2.0.0/xgboost/' -e 's/lifelines>=0.27,!= 0.27.5, <0.27.8/lifelines>=0.27,!= 0.27.5/' %(builddir)s/%(name)s/%(name)s-%(version)s/setup.cfg && ",
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
         'sources': ['v%(version)s.tar.gz'],
+        'testinstall': True,
+        'runtest': 'pytest -vvvs -m "not slow" --durations=50',
         'checksums': ['122a8546cad35e3ac5c74cf81281252dec4dd3c7b1d7afe0f45ef785f89cc682'],
     }),
 ]
+
+# 'testinstall': True,
 # 'runtest': 'export PYTHONPATH=%(installdir)s/lib/python%(pyshortver)s/site-packages:$PYTHONPATH && pytest -vvvs -m "not slow" --durations=50',
 sanity_check_commands = [
-    'pytest -vvvs -m "not slow" --durations=50',
+    # 'pytest -vvvs -m "not slow" --durations=50',
     "python -c 'from synthcity.plugins import Plugins'",
     "python -c 'from decaf import DECAF, DataModule'"
 ]
 
 moduleclass = 'lib'
 
+# ERROR6:
+    # from test_log2.txt
+        # tests/plugins/core/models/survival_analysis/test_surv_xgb.py::test_train_prediction FAILED
+        
+        # tests/plugins/core/models/dag/test_dag_sanity.py::test_sanity 
+            # Training: |          | 0/? [00:00<?, ?it/s]
+            # Training:   0%|          | 0/1 [00:00<?, ?it/s]
+            # Epoch 0:   0%|          | 0/1 [00:00<?, ?it/s] 
+            # Epoch 0: 100%|| 1/1 [00:03<00:00,  0.29it/s]
+            # Epoch 0: 100%|| 1/1 [00:03<00:00,  0.29it/s, v_num=2.01e+7, mse_loss=0.723, dsl_loss=3.660, total_loss=4.380]
+            # Epoch 0: 100%|| 1/1 [00:03<00:00,  0.29it/s, v_num=2.01e+7, mse_loss=0.723, dsl_loss=3.660, total_loss=4.380]
+            # Epoch 0: 100%|| 1/1 [00:03<00:00,  0.29it/s, v_num=2.01e+7, mse_loss=0.723, dsl_loss=3.660, total_loss=4.380]
+            # XFAIL
+        
+        # tests/plugins/core/models/time_series_survival/test_ts_surv_xgb.py::test_train_prediction[Transformer] FAILED
+        
+        # huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+        #     To disable this warning, you can either:
+	    #     - Avoid using `tokenizers` before the fork if possible
+	    #     - Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+        #     /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scikit-learn/1.3.1-gfbf-2023a/lib/python3.11/site-packages
+        #     /sklearn/metrics/cluster/_supervised.py:66: UserWarning: Clustering metrics expects discrete values but received continuous values for label, and binary values for target
+        #     warnings.warn(msg, UserWarning)
+        #     FAILED
+        
+        # tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin1]
+        # 100%|| 1000/1000 [00:49<00:00, 20.18it/s]
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scikit-learn/1.3.1-gfbf-2023a/lib/python3.11/site-packages/sklearn/metrics/cluster/_supervised.py:66: UserWarning: Clustering metrics expects discrete values but received continuous values for label, and binary values for target
+        #     warnings.warn(msg, UserWarning)
+        # FAILED
+        
+        # same for: tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] FAILED
+        
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin1] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin2] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin0] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin1] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin2] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin0] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin1] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin2] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+
+        # tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 10%|         | 1/10 [00:01<00:09,  1.07s/it]
+        # 20%|        | 2/10 [00:02<00:08,  1.05s/it]
+        # 30%|       | 3/10 [00:03<00:07,  1.05s/it]
+        # 40%|      | 4/10 [00:04<00:06,  1.05s/it]
+        # 50%|     | 5/10 [00:05<00:05,  1.05s/it]
+        # 60%|    | 6/10 [00:06<00:04,  1.05s/it]
+        # 70%|   | 7/10 [00:07<00:03,  1.05s/it]
+        # 80%|  | 8/10 [00:08<00:02,  1.05s/it]
+        # 90%| | 9/10 [00:09<00:01,  1.05s/it]
+        # 100%|| 10/10 [00:10<00:00,  1.04s/it]
+        # 100%|| 10/10 [00:10<00:00,  1.05s/it]
+        # FAILED
+        # tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source1] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 10%|         | 1/10 [00:00<00:05,  1.66it/s]
+        # 20%|        | 2/10 [00:01<00:04,  1.74it/s]
+        # 30%|       | 3/10 [00:01<00:03,  1.75it/s]
+        # 40%|      | 4/10 [00:02<00:03,  1.76it/s]
+        # 50%|     | 5/10 [00:02<00:02,  1.77it/s]
+        # 60%|    | 6/10 [00:03<00:02,  1.77it/s]
+        # 70%|   | 7/10 [00:03<00:01,  1.78it/s]
+        # 80%|  | 8/10 [00:04<00:01,  1.78it/s]
+        # 90%| | 9/10 [00:05<00:00,  1.78it/s]
+        # 100%|| 10/10 [00:05<00:00,  1.79it/s]
+        # 100%|| 10/10 [00:05<00:00,  1.77it/s]
+        # FAILED
+        
+        # E  AttributeError: `best_iteration` is only defined when early stopping is used.
+        # E  AttributeError: module 'pydantic' has no attribute 'pydantic_core'
+        # E  AttributeError: 'DPOptimizer' object has no attribute '_optimizer_step_pre_hooks'
+        # E  ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (50,) + inhomogeneous part.
+        
+        # ============================================== short test summary info ===============================================
+        # FAILED tests/metrics/test_performance.py::test_evaluate_performance_time_series_survival[PerformanceEvaluatorXGB-test_plugin0]
+        # FAILED tests/plugins/core/test_schema.py::test_schema_fail - AttributeError: module 'pydantic' has no attribute 'py...
+        # FAILED tests/plugins/core/models/survival_analysis/test_surv_xgb.py::test_train_prediction - AttributeError: `best_...
+        # FAILED tests/plugins/core/models/time_series_survival/test_ts_surv_xgb.py::test_train_prediction[Transformer] - Att...
+        # FAILED tests/plugins/core/models/time_to_event/test_tte_xgb.py::test_train_prediction - AttributeError: `best_itera...
+        # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin0] - RuntimeError: Training with multip...
+        # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin1] - RuntimeError: Training with multip...
+        # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] - RuntimeError: Training with multip...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin1] - AttributeError: 'DPOptimizer'...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin2] - AttributeError: 'DPOptimizer'...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin0] - AttributeError: 'DPOptimizer...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin1] - AttributeError: 'DPOptimizer...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin2] - AttributeError: 'DPOptimizer...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin0] - AttributeError: 'DPOpt...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin1] - AttributeError: 'DPOpt...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin2] - AttributeError: 'DPOpt...
+        # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] - ValueError: setting a...
+        # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source1] - ValueError: setting a...
+        # ======== 18 failed, 2141 passed, 13 skipped, 103 deselected, 2 xfailed, 2316 warnings in 15511.26s (4:18:31) =========
+        
 # ERROR5:
-    # from pytest:
-    # twisted 24.3.0 requires automat, ok
-    # twisted 24.3.0 requires constantly, ok
-    # twisted 24.3.0 requires hyperlink, ok
-    # twisted 24.3.0 requires zope-interface, ok
-    # No module named 'incremental' ok
-    # ModuleNotFoundError: No module named 'twisted' ok
-    # ModuleNotFoundError: No module named 'fixtures' ok
-    # ModuleNotFoundError: No module named 'hypothesis' OK
-    # ModuleNotFoundError: No module named 'testscenarios' ok
-    # ModuleNotFoundError: No module named 'testtools' ok
-    # ModuleNotFoundError: No module named 'evaluate' ok
-# ERROR4:
-    # maybe to postinstallopts?
-    # ??? add "export PYTHONPATH=%(installdir)s/lib/python%(pyshortver)s/site-packages:$PYTHONPATH &&" before pytest?
-        # -> NO there is no synthcity in site-packages yet
-    # ??? -> add pytest cmd to sanity check cmds
-    # = 2024-07-16 15:03:20,115 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "  pytest -vvvs -m "n slow" --durations=50 " exited with exit code 4 and output:
-    # ImportError while loading conftest '/tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/synthcity/synthcity-0.2.10/tests/conftest.py'.
-    # tests/conftest.py:10: in <module>
-    #     from synthcity.utils.reproducibility import clear_cache, enable_reproducible_results
-    # E   ModuleNotFoundError: No module named 'synthcity'
+    # -> Delete this - seems is not from synthcity but fro others packages
+    # Pytest in sanity check cmds:
+        # ModuleNotFoundError: No module named 'cython_test_exception_raiser' ok
+        # ModuleNotFoundError: No module named 'hamcrest' ok
+        # No module named 'service_identity ok
+        # twisted 24.3.0 requires automat, ok
+        # twisted 24.3.0 requires constantly, ok
+        # twisted 24.3.0 requires hyperlink, ok
+        # twisted 24.3.0 requires zope-interface, ok
+        # No module named 'incremental' ok
+        # ModuleNotFoundError: No module named 'twisted' ok
+        # ModuleNotFoundError: No module named 'fixtures' ok
+        # ModuleNotFoundError: No module named 'hypothesis' OK
+        # ModuleNotFoundError: No module named 'testscenarios' ok
+        # ModuleNotFoundError: No module named 'testtools' ok
+        # ModuleNotFoundError: No module named 'evaluate' ok
+# ERROR4: OK
+    # try runtest + 'testinstall': True
+        # -> WORKS
+    # maybe to postinstallcmds?
+    # add to runtest: "export PYTHONPATH=%(installdir)s/lib/python%(pyshortver)s/site-packages:$PYTHONPATH &&" before pytest?
+        # NO there is no synthcity in site-packages yet
+    # add pytest cmd to sanity check cmds
+        # seems it tests all the packages not only synthcity -> errors about modules etc
+    # when runtest = 'pytest -vvvs -m "not slow" --durations=50'
+        # = 2024-07-16 15:03:20,115 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "  pytest -vvvs -m "n slow" --durations=50 " exited with exit code 4 and output:
+        # ImportError while loading conftest '/tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/synthcity/synthcity-0.2.10/tests/conftest.py'.
+        # tests/conftest.py:10: in <module>
+        #     from synthcity.utils.reproducibility import clear_cache, enable_reproducible_results
+        # E   ModuleNotFoundError: No module named 'synthcity'
 # ERROR3: OK
     # -> add coverage to deps
     # -> put runtest to exts - synthcity ext, not as runtest = ...
