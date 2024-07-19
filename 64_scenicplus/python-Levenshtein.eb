@@ -1,0 +1,37 @@
+easyblock = 'PythonBundle'
+
+name = 'python-Levenshtein'
+version = '0.25.1'
+
+homepage = 'https://pypi.org/project/python-Levenshtein/'
+description = 'Python extension for computing string edit distances and similarities.'
+
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+
+# osdependencies = [('python-devel', 'python-dev')]
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+    ('scikit-build', '0.17.6'),
+    # ('Ninja', '1.10.2'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('rapidfuzz', '3.9.4', {
+        'checksums': ['366bf8947b84e37f2f4cf31aaf5f37c39f620d8c0eddb8b633e6ba0129ca4a0a'],
+    }),
+    (name, version, {
+        'modulename': 'Levenshtein',
+        'checksums': ['b21e7efe83c8e8dc8260f2143b2393c6c77cb2956f0c53de6c4731c4d8006acc'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'data'

@@ -95,7 +95,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # deps pycistarget:
         # OK IPython
         # ok pandoc
-        # -> sphinx_rtd_theme ->UPDATE
+        # -> sphinx_rtd_theme -> UPDATE
         # ok nbsphinx
         # ok nbsphinx_link
         # ok numpydoc
@@ -118,7 +118,7 @@ dependencies = [
     ('BeautifulSoup', '4.12.2'),
     ('h5py', '3.9.0'),
     ('python-igraph', '0.11.4'),
-    ('imageio', '2.33.1')
+    ('imageio', '2.33.1'),
     ('leidenalg', '0.10.2'),
     ('lxml', '4.9.2'),
     ('MACS2', '2.2.9.1'),
@@ -144,71 +144,101 @@ use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    ('annoy', '1.17.3'),
-    ('attr', '0.3.2'),
-    ('attrs', '23.2.0'),
-    ('lda', '3.0.0'),
+    ('annoy', '1.17.3', {
+        'checksums': ['9cbfebefe0a5f843eba29c6be4c84d601f4f41ad4ded0486f1b88c3b07739c15'],
+    }),
+    ('attr', '0.3.2', {
+        'checksums': ['1ceebca768181cdcce9827611b1d728e592be5d293911539ea3d0b0bfa1146f4'],
+    }),
+    ('attrs', '23.2.0', {
+        'checksums': ['935dc3b529c262f6cf76e50877d35a4bd3c1de194fd41f47a2b7ae8f19971f30'],
+    }),
+    ('lda', '3.0.0', {
+        'checksums': ['c9acbc1c55d2928f7e3e2336352b3382d78e43dbb0d12bf9ed97f87bce6d6708'],
+    }),
     ('gseapy', '0.10.8', {
         'checksums': ['15be80bac73768501f5cecf6751aeb2e41416fd144bd6daa2ec453ad08a10ce0'],
     }),
     ('ncls', '0.0.68', {
         'checksums': ['81aaa5abb123bb21797ed2f8ef921e20222db14a3ecbc61ccf447532f2b7ba93'],
     }),
-    ('pybigtools', '0.1.2'),
+    ('pybigtools', '0.1.2', {
+        'checksums': ['0f21bc8b4f2dce67c6e5287af895f5f28a8c6eb123d809e3ab5679e2131dbf58'],
+    }),
     ('pybiomart', '0.2.0', {
         'checksums': ['e9eac20db921820670c646d99725b0ee279e407379e5e8c3ec7245a07425d8fe'],
     }),
-    ('pyranges', '0.0.111'),
-    ('pyrle', '0.0.39'),
-    ('pyvis', '0.3.2'),
-    ('requests_cache', '1.2.0'),
-    ('scanorama', '1.7.4'),
-    ('scatac_fragment_tools', '0.1.0'),
-    ('snakemake_interface_report_plugins', '1.0.0'),
+    ('pyranges', '0.0.111', {
+        'checksums': ['d2cf3c31c1b9c6e1bf6e1e89254d8bd993bfb4401f2c4ede0ebc9c8e0678147d'],
+    }),
+    ('pyrle', '0.0.39', {
+        'checksums': ['1be4be7814d3941db907aaf19f311bd46a407244316cadbf4b73109685c055c5'],
+    }),
+    ('pyvis', '0.3.2', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['5720c4ca8161dc5d9ab352015723abb7a8bb8fb443edeb07f7a322db34a97555'],
+    }),
+    ('requests_cache', '1.2.0', {
+        'checksums': ['db1c709ca343cc1cd5b6c8b1a5387298eceed02306a6040760db538c885e3838'],
+    }),
+    ('scanorama', '1.7.4', {
+        'checksums': ['67de100e63abc3028c7780d3a217e43e920a5781230bc6b6a51349d4605e005c'],
+    }),
+    ('scatac_fragment_tools', '0.1.0', {
+        'checksums': ['e77a03ad1b7170c212f1ac672dad2c5d7e7f091b94e47b36a2ec2adc42051857'],
+    }),
+    ('snakemake_interface_report_plugins', '1.0.0', {
+        'checksums': ['02311cdc4bebab2a1c28469b5e6d5c6ac6e9c66998ad4e4b3229f1472127490f'],
+    }),
     ('statistics', '1.0.3.5', {
         'checksums': ['2dc379b80b07bf2ddd5488cad06b2b9531da4dd31edb04dc9ec0dc226486c138'],
     }),
     ('tmtoolkit', '0.12.0', {
-        # 'preinstallopts': local_tmtoolkit_preinstallkit,
         'checksums': ['6df5429cd675989f21d9f075ddb11fe5ae273d6544fc337a2589bab2bc331909'],
     }),
     ('tspex', '0.6.3', {
         'checksums': ['315bfa1f60ea582777c549313cad9e9da0a4d11c5f69a6fc767bd0823dc46316'],
     }),
-    ('typing', '3.7.4.3'),
+    ('typing', '3.7.4.3', {
+        'checksums': ['1187fb9c82fd670d10aa07bbb6cfcfe4bdda42d6fab8d5134f04e8c4d0b71cc9'],
+    }),
     ('pandoc', '2.3', {
         'checksums': ['e772c2c6d871146894579828dbaf1efd538eb64fc7e71d4a6b3a11a18baef90d'],
     }),
-    ('nbsphinx', '0.9.4'),
-    ('nbsphinx-link', '1.3.0'),
-    ('numpydoc', '1.7.0'),
+    ('nbsphinx', '0.9.4', {
+        'checksums': ['042a60806fc23d519bc5bef59d95570713913fe442fda759d53e3aaf62104794'],
+    }),
+    ('nbsphinx-link', '1.3.0', {
+        'checksums': ['fa3079a74c0dff1b2079e79a34babe770706ba8aa9cc0609c6dbfd593461a077'],
+    }),
+    ('numpydoc', '1.7.0', {
+        'checksums': ['866e5ae5b6509dcf873fc6381120f5c31acf13b135636c1a81d68c166a95f921'],
+    }),
     ('pyOpenSSL', '24.1.0', {
         'modulename': 'OpenSSL',
         'checksums': ['cabed4bfaa5df9f1a16c0ef64a0cb65318b5cd077a7eda7d6970131ca2f41a6f'],
     }),
-    ('papermill', '2.6.0'),
+    ('papermill', '2.6.0', {
+        'checksums': ['9fe2a91912fd578f391b4cc8d6d105e73124dcd0cde2a43c3c4a1c77ac88ea24'],
+    }),
     ('loomxpy', '0.4.2', {
         'checksums': ['188411b77e04fa8458c0a7f02cfb3f15b58410a020f81f522957e922e79cdd82'],
     }),
     ('pycisTopic', '1.0.2', {
         'modulename': 'pycisTopic',
-        # 'patches': ['pycisTopic-1.0.2-manual_versioning.patch'],
-        # 'preinstallopts': local_pycistopic_preinstallopts,
         'source_urls': ['https://github.com/aertslab/pycisTopic/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['f0773f4a90e680f6eeff7f16430405126d3af9a8b3ab30808d601fa32f0b0359'],
     }),
     ('pycistarget', '1.0.2', {
         'source_urls': ['https://github.com/aertslab/pycistarget/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['71f7d79b17dc8e292e886dc651194dacf68f29ff9726c11cebeb4ca1b417c845'],
     }),
     (name, version, {
         'source_urls': ['https://github.com/aertslab/scenicplus/archive/'],
-        'sources': [
-            {
-                'download_filename': '%s.tar.gz' % local_commit,
-                'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
-            }
-        ],
+        'sources': [{'download_filename': 'fa55dae.tar.gz', 'filename': '%(name)s-%(version)s-fa55dae.tar.gz'}],
+        'checksums': ['88cddec1ab2618861e5c93e8a0b17b8e9e2aa3a76410d882c35d472f98724e29'],
     }),
 ]
 
