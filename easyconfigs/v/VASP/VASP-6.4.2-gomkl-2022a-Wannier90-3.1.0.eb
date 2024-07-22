@@ -1,0 +1,64 @@
+easyblock = 'MakeCp'
+
+name = 'VASP'
+version = '6.4.2'
+_w90_ver = '3.1.0'
+versionsuffix = '-Wannier90-%s' % _w90_ver
+
+homepage = 'http://www.vasp.at'
+description = """The Vienna Ab initio Simulation Package (VASP) is a computer program for atomic scale
+materials modelling, e.g. electronic structure calculations and quantum-mechanical molecular dynamics,
+from first principles."""
+
+toolchain = {'name': 'gomkl', 'version': '2022a'}
+toolchainopts = {'usempi': True}
+
+# Vasp is proprietary software, see http://www.vasp.at/index.php/faqs on how to get access to the code
+sources = ['%(namelower)s.%(version)s.tgz']
+patches = [('VASP-6.4.2_gomkl-sol-vtst-hdf5-w90.patch', 1)]
+checksums = [
+    'b704637f7384673f91adfbc803edc5cc7fe736d9623453461f7cdc29b123410e',  # vasp.6.4.2.tgz
+    '51573515c3614c376f245fcdfb2c2cae6e88aa81642e9e550c981295fafa2cc0',  # VASP-6.4.2_gomkl-sol-vtst-hdf5-w90.patch 
+]
+
+dependencies = [
+    ('HDF5', '1.12.2'),
+    ('Wannier90', _w90_ver),
+]
+
+_vasp_cmds = [
+    "cd %(builddir)s/vasp.%(version)s",
+    "cp -v arch/makefile.include.gomkl ./makefile.include",
+    # Makefile uses LIBS as a list of folders
+    "unset LIBS",
+    "",
+]
+
+prebuildopts = " && ".join(_vasp_cmds)
+
+_targets = ['std', 'gam', 'ncl']
+
+buildopts = '%s ' % ' '.join(_targets)
+buildopts += 'FCL="$MPIF90" DEBUG="$FFLAGS" OFLAG="$FFLAGS" '
+buildopts += 'OFLAG_1="${FFLAGS/O2/O1}" '
+buildopts += 'OFLAG_2="$FFLAGS" '
+buildopts += 'OFLAG_3="${FFLAGS/O2/O3}" '
+buildopts += 'CFLAGS_LIB="$CFLAGS" FFLAGS_LIB="${FFLAGS/O2/O1}" BLAS="$LIBBLAS" '
+buildopts += 'LAPACK="$LIBLAPACK" BLACS="$LIBBLACS" SCALAPACK="$LIBSCALAPACK"'
+
+# https://www.vasp.at/wiki/index.php/Validation_tests
+runtest = 'test'
+
+parallel = 1
+
+files_to_copy = [
+    (['bin/vasp_' + x for x in _targets], 'bin'),
+    (['testsuite'], ''),
+]
+
+sanity_check_paths = {
+    'files': ['bin/vasp_' + x for x in _targets],
+    'dirs': []
+}
+
+moduleclass = 'phys'
