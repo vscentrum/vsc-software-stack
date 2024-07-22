@@ -117,41 +117,28 @@ dependencies = [
     ('scikit-learn', '1.3.1'),
     ('SHAP', '0.43.0'),
     ('PyTorch-bundle', local_pytorch_version),
-    ('XGBoost', '2.0.2'),
+    ('XGBoost', '1.7.2'),
     ('tqdm', '4.66.1'),
     ('HF-Datasets', '2.18.0'),
     ('Transformers', '4.39.3'),
-    # ('Mako', '1.2.0'),
-    # ('PyYAML', '6.0'),
     ('fastai', '2.7.15'),
     ('h5py', '3.9.0'),
     ('networkx', '3.1'),
-    # ('protobuf', '3.19.4'),
-    # ('Arrow', '8.0.0'),
-    # ('pybind11', '2.9.2'),
-    # ('spaCy', '3.4.4'),
-    # ('tensorboard', '2.10.0'),
-    # ('torchvision', '0.13.1'),
     ('Brotli-python', '1.0.9'),
     ('statsmodels', '0.14.1'),
     ('imbalanced-learn', '0.12.3'),
-    # ('Greenlet', '2.0.2'),
     ('Optuna', '3.5.0'),
-    # ('Cython', '0.29.33'),
-    # ('cython-blis', '0.9.1'),
-    # ('IPython', '8.5.0'),
     ('MONAI', '1.3.0'),
     ('DECAF-synthetic-data', '0.1.6'),
     ('PyTorch-Lightning', '2.2.1'),
     # TESTS
-    # ('pytest', '7.4.2'), in pypi bundle
     ('Jupyter-bundle', '20230823'),
-    # ('pytest-xdist', '3.3.1'), in pypi bundle
     ('python-igraph', '0.11.4'),
     ('coverage', '7.2.3'),
     ('py-cpuinfo', '9.0.0'),
     ('pycodestyle', '2.11.1'),
-    # ('hypothesis', '6.82.0'),
+    # ('pytest', '7.4.2'), in pypi bundle v7.4.0
+    # ('pytest-xdist', '3.3.1'), in pypi bundle v3.3.1
 ]
 
 sanity_pip_check = True
@@ -164,9 +151,19 @@ local_preinstallopts = (
     " -e 's/torch>=1.10.0,<2.0/torch>=1.10.0/'"
     " -e 's/numpy>=1.20, <1.24/numpy>=1.20/'"
     " -e 's/pydantic<2.0/pydantic/'"
-    " -e 's/xgboost<2.0.0/xgboost/'"
+    # " -e 's/xgboost<2.0.0/xgboost/'"
     " -e 's/lifelines>=0.27,!= 0.27.5, <0.27.8/lifelines>=0.27,!= 0.27.5/'"
     " %(builddir)s/%(name)s/%(name)s-%(version)s/setup.cfg && "
+    # fix pydantic.pydantic_core error in test_schema.py::test_schema_fail
+    "sed -i"
+    " -e '17 s/pydantic.pydantic_core._pydantic_core.ValidationError/pydantic_core._pydantic_core.ValidationError/'"
+    " -e '3 a import pydantic_core'"
+    " %(builddir)s/%(name)s/%(name)s-%(version)s/tests/plugins/core/test_schema.py && "
+    # try to fix timegan error
+    "sed -i"
+    " -e '116 s/static_gen/static_gen, dtype=\"object\"/'"
+    " -e '116 s/static_seed/static_seed, dtype=\"object\"/'"
+    " %(builddir)s/%(name)s/%(name)s-%(version)s/tests/plugins/time_series/test_timegan.py && "
 )
 
 # fix invalid syntax of xgbse/setup.py
@@ -178,46 +175,6 @@ local_xgbse_preinstallopts = (
 )
 
 exts_list = [
-    # ('cython-test-exception-raiser', '1.0.2', {
-    #     'checksums': ['c5003a6321057a8222d2f5aed329fcdb5eb3bc615a9239f461bdf06c491fbdaa'],
-    # }),
-    # ('pyhamcrest', '2.1.0', {
-    #     'modulename': 'hamcrest',
-    #     'checksums': ['c6acbec0923d0cb7e72c22af1926f3e7c97b8e8d69fc7498eabacaf7c975bd9c'],
-    # }),
-    # ('service_identity', '24.1.0', {
-    #     'checksums': ['6829c9d62fb832c2e1c435629b0a8c476e1929881f28bee4d20bc24161009221'],
-    # }),
-    # ('zope.interface', '6.3', {
-    #     'checksums': ['f83d6b4b22262d9a826c3bd4b2fbfafe1d0000f085ef8e44cd1328eea274ae6a'],
-    # }),
-    # ('hyperlink', '21.0.0', {
-    #     'checksums': ['427af957daa58bc909471c6c40f74c5450fa123dd093fc53efd2e91d2705a56b'],
-    # }),
-    # ('constantly', '23.10.4', {
-    #     'checksums': ['aa92b70a33e2ac0bb33cd745eb61776594dc48764b06c35e0efd050b7f1c7cbd'],
-    # }),
-    # ('Automat', '22.10.0', {
-    #     'checksums': ['e56beb84edad19dcc11d30e8d9b895f75deeb5ef5e96b84a467066b3b84bb04e'],
-    # }),
-    # ('incremental', '22.10.0', {
-    #     'checksums': ['912feeb5e0f7e0188e6f42241d2f450002e11bbc0937c65865045854c24c0bd0'],
-    # }),
-    # ('twisted', '24.3.0', {
-    #     'checksums': ['6b38b6ece7296b5e122c9eb17da2eeab3d98a198f50ca9efd00fb03e5b4fd4ae'],
-    # }),
-    # ('fixtures', '4.1.0', {
-    #     'checksums': ['82b1c5e69f615526ef6c067188a1e6c6067df7f88332509c99f8b8fdbb9776f3'],
-    # }),
-    # ('testscenarios', '0.5.0', {
-    #     'checksums': ['c257cb6b90ea7e6f8fef3158121d430543412c9a87df30b5dde6ec8b9b57a2b6'],
-    # }),
-    # ('evaluate', '0.4.2', {
-    #     'checksums': ['851ab767df8ec4031366c512eb88d8174adfba65d2c8c4c9bfdfe9c702212234'],
-    # }),
-    # ('testtools', '2.7.2', {
-    #     'checksums': ['5be5bbc1f0fa0f8b60aca6ceec07845d41d0c475cf445bfadb4d2c45ec397ea3'],
-    # }),
     ('cfgv', '3.4.0', {
         'checksums': ['e52591d4c5f5dead8e0f673fb16db7949d2cfb3f7da4582893288f0ded8fe560'],
     }),
@@ -375,7 +332,7 @@ exts_list = [
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
         'sources': ['v%(version)s.tar.gz'],
         'testinstall': True,
-        # 'runtest': 'pytest -vvvs -m "not slow" --durations=50',
+        'runtest': 'export TOKENIZERS_PARALLELISM=true && pytest -vvvs -m "not slow" --durations=50',
         'checksums': ['122a8546cad35e3ac5c74cf81281252dec4dd3c7b1d7afe0f45ef785f89cc682'],
     }),
 ]
@@ -388,8 +345,31 @@ sanity_check_commands = [
 moduleclass = 'lib'
 
 # ERROR6:
-    # from test_log2.txt
+    # -> created and used XGBoost v1.7.2 -> delete unpin from preinstallopts + use it in decaf
+    # -> added 'export TOKENIZERS_PARALLELISM=true' to runtest to fix huggingface/tokenizers problem
+    # -> pydantic_core problem -> added sed -i with import pydentic_core and fix the use of pydantic_core._pydantic_core.ValidationError
+        # >>> from pydantic import pydantic_core
+            # Traceback (most recent call last):
+            # File "<stdin>", line 1, in <module>
+            # ImportError: cannot import name 'pydantic_core' from 'pydantic' (/apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/__init__.py)
+        # >>> import pydantic_core
+        # >>> import pydantic_core._pydantic_core.ValidationError
+            # Traceback (most recent call last):
+            # File "<stdin>", line 1, in <module>
+            # ModuleNotFoundError: No module named 'pydantic_core._pydantic_core.ValidationError'; 'pydantic_core._pydantic_core' is not a package
+        # >>> from pydantic_core import _pydantic_core.ValidationError
+            # File "<stdin>", line 1
+            # from pydantic_core import _pydantic_core.ValidationError
+            # SyntaxError: invalid syntax
+        # >>> from pydantic_core import _pydantic_core
+        # >>> a = _pydantic_core.ValidationError
+        # >>> print(a)
+            # <class 'pydantic_core._pydantic_core.ValidationError'>
+        # >>> from pydantic_core._pydantic_core import ValidationError
+    
+    # FROM test_log2.txt
         # tests/plugins/core/models/survival_analysis/test_surv_xgb.py::test_train_prediction FAILED
+            # -> problem with xgboost version -> ok fixed
         
         # tests/plugins/core/models/dag/test_dag_sanity.py::test_sanity 
             # Training: |          | 0/? [00:00<?, ?it/s]
@@ -399,9 +379,10 @@ moduleclass = 'lib'
             # Epoch 0: 100%|| 1/1 [00:03<00:00,  0.29it/s, v_num=2.01e+7, mse_loss=0.723, dsl_loss=3.660, total_loss=4.380]
             # Epoch 0: 100%|| 1/1 [00:03<00:00,  0.29it/s, v_num=2.01e+7, mse_loss=0.723, dsl_loss=3.660, total_loss=4.380]
             # Epoch 0: 100%|| 1/1 [00:03<00:00,  0.29it/s, v_num=2.01e+7, mse_loss=0.723, dsl_loss=3.660, total_loss=4.380]
-            # XFAIL
+            # XFAIL -> ok expected to fail
         
         # tests/plugins/core/models/time_series_survival/test_ts_surv_xgb.py::test_train_prediction[Transformer] FAILED
+            # -> change xgboost version should fix thix 
         
         # huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
         #     To disable this warning, you can either:
@@ -411,6 +392,7 @@ moduleclass = 'lib'
         #     /sklearn/metrics/cluster/_supervised.py:66: UserWarning: Clustering metrics expects discrete values but received continuous values for label, and binary values for target
         #     warnings.warn(msg, UserWarning)
         #     FAILED
+            # -> should be fixed by set ... in testrun
         
         # tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin1]
         # 100%|| 1000/1000 [00:49<00:00, 20.18it/s]
@@ -487,14 +469,17 @@ moduleclass = 'lib'
         # -> timegan plugin in synthcity: https://github.com/vanderschaarlab/synthcity/blob/v0.2.10/src/synthcity/plugins/time_series/plugin_timegan.py
         
         # E  AttributeError: `best_iteration` is only defined when early stopping is used.
-            # -> seems as problem with xgboost v2: https://github.com/microsoft/FLAML/issues/1217
+            # -> OK seems as problem with xgboost v2: https://github.com/microsoft/FLAML/issues/1217
         # E  AttributeError: module 'pydantic' has no attribute 'pydantic_core'
-            # -> pydantic_core should be in pydantic 
+            # -> OK pydantic_core should be in pydantic, but replace pydantic.pydantic_core only by pydantic_core
         # E  AttributeError: 'DPOptimizer' object has no attribute '_optimizer_step_pre_hooks'
             # -> seems as a problem with PyTorch: https://github.com/pytorch/opacus/issues/377
+            # or with the version: https://github.com/vanderschaarlab/synthcity/pull/168
+            # but there is no pytorch < 2 for lates toolchains -> delete this test?
         # E  ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (50,) + inhomogeneous part.
             # -> problem with too new numpy? https://stackoverflow.com/questions/67183501/setting-an-array-element-with-a-sequence-requested-array-has-an-inhomogeneous-sh
-        
+            # FROM: https://stackoverflow.com/questions/67183501/setting-an-array-element-with-a-sequence-requested-array-has-an-inhomogeneous-sh
+                # With dtype="object" it works for me. -> variable2 = np.asarray(variable1, dtype="object")
         # ============================================== short test summary info ===============================================
         # FAILED tests/metrics/test_performance.py::test_evaluate_performance_time_series_survival[PerformanceEvaluatorXGB-test_plugin0]
         # FAILED tests/plugins/core/test_schema.py::test_schema_fail - AttributeError: module 'pydantic' has no attribute 'py...
