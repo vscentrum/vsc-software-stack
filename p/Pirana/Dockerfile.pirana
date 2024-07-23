@@ -18,9 +18,9 @@ RUN add-apt-repository -y "deb https://cloud.r-project.org/bin/linux/ubuntu $(ls
 RUN apt -y install --no-install-recommends r-base
 
 RUN mkdir /perl_modules
-RUN cpanm -v -L /perl_modules local::lib
-RUN cpanm -v -L /perl_modules threads
-RUN cpanm -v -L /perl_modules threads::shared
+RUN cpanm -v -L /perl_modules local::lib@2.000029
+RUN cpanm -v -L /perl_modules threads@2.21
+RUN cpanm -v -L /perl_modules threads::shared@1.59
 RUN cpanm -v -L /perl_modules Data::Dumper@2.183
 RUN cpanm -v -L /perl_modules Log::Log4perl@1.54
 RUN cpanm -v -L /perl_modules Log::Dispatch::FileRotate@1.38
@@ -50,10 +50,10 @@ RUN cpanm -v -L /perl_modules Statistics::R@0.34
 RUN cpanm -v -L /perl_modules Date::Parse@2.33
 RUN cpanm -v -L /perl_modules Storable@3.15
 RUN cpanm -v -L /perl_modules List::MoreUtils@0.430
-RUN cpanm -v -L /perl_modules Test::Most
-RUN cpanm -v -L /perl_modules Test::Files
+RUN cpanm -v -L /perl_modules Test::Most@0.38
+RUN cpanm -v -L /perl_modules Test::Files@0.15
 # This one is not mentioned in the docs, but does seem necessary:
-RUN cpanm -v -L /perl_modules Nice::Try
+RUN cpanm -v -L /perl_modules Nice::Try@1.3.1
 
 ENV PERL5LIB /perl_modules/lib/perl5
 ENV PIRANA_LOCALLIB /perl_modules
