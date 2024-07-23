@@ -16,7 +16,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # torch>=1.10.0,<2.0 - torch is v2.1.2 -> unpin
     # scikit-learn>=1.2 OK
     # nflows>=0.14 ok exts
-    # numpy>=1.20, <1.24 - v1.25.1 in scipy -> unpin
+    # numpy>=1.20, <1.24 - v1.25.1 in scipy -> unpin but be-great 0.0.5 has requirement numpy>=1.24.2 -> wtf
     # lifelines>=0.27,!= 0.27.5, <0.27.8 -> NO -> created OK
     # opacus>=1.3 ok exts
     # decaf-synthetic-data>=0.1.6 ok exts
@@ -154,7 +154,7 @@ local_preinstallopts = (
     # " -e 's/xgboost<2.0.0/xgboost/'"
     " -e 's/lifelines>=0.27,!= 0.27.5, <0.27.8/lifelines>=0.27,!= 0.27.5/'"
     " %(builddir)s/%(name)s/%(name)s-%(version)s/setup.cfg && "
-    # fix pydantic.pydantic_core error in test_schema.py::test_schema_fail
+    # fix pydantic.pydantic_core error in test_schema.py::test_schema_fail - NOT WORKING!
     "sed -i"
     " -e '17 s/pydantic.pydantic_core._pydantic_core.ValidationError/pydantic_core._pydantic_core.ValidationError/'"
     " -e '3 a import pydantic_core'"
@@ -344,6 +344,185 @@ sanity_check_commands = [
 
 moduleclass = 'lib'
 
+# ERROR7:
+    # seems better - 14 failed vs 18 in test_log2.txt
+    # FROM test_log3.txt:
+        # ============================================== short test summary info ===============================================
+        # FAILED tests/plugins/core/test_schema.py::test_schema_fail - AttributeError: module 'pydantic' has no attribute 'py...
+            # def test_schema_fail() -> None:
+            #     if pydantic.__version__ < "2":
+            #         with pytest.raises(pydantic.error_wrappers.ValidationError):
+            #             Schema(data="sdfsfs")
+            #     else:
+            #         with pytest.raises(pydantic.pydantic_core._pydantic_core.ValidationError):
+            # tests/plugins/core/test_schema.py:17: 
+            # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/__init__.
+            # py:363: in __getattr__
+            #     return _getattr_migration(attr_name)
+            # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+            # > raise AttributeError(f'module {module!r} has no attribute {name!r}')
+            # E AttributeError: module 'pydantic' has no attribute 'pydantic_core'
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/_migration.py:306: AttributeError
+
+        # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin0] - RuntimeError: Training with multip...
+            # tests/plugins/privacy/test_decaf.py:110: 
+            # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:55: in wrapper_function
+            #     return vd.call(*args, **kwargs)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:150: in call
+            #     return self.execute(m)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:222: in execute
+            #     return self.raw_function(**d, **var_kwargs)
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/plugin.py:256: in fit
+            #     output = self._fit(X, *args, **kwargs)
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/privacy/plugin_decaf.py:437: in _
+            # fit
+            #     trainer.fit(self.model, dm)
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/trainer/trainer.py:544: in fit
+            #     call._call_and_handle_interrupt(
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/trainer/call.py:44: in _call_and_handle_interrupt
+            #     return trainer_fn(*args, **kwargs)
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/trainer/trainer.py:580: in _fit_impl
+            #     self._run(model, ckpt_path=ckpt_path)
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/trainer/trainer.py:963: in _run
+            #     self.strategy.setup(self)
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/strategies/strategy.py:159: in setup
+            #     self.setup_optimizers(trainer)
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/strategies/strategy.py:139: in setup_optimizers
+            #     self.optimizers, self.lr_scheduler_configs = _init_optimizers_and_lr_schedulers(self.lightning_module)
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/core/optimizer.py:192: in _init_optimizers_and_lr_schedulers
+            #     _validate_multiple_optimizers_support(optimizers, model)
+            # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+            # def _validate_multiple_optimizers_support(optimizers: List[Optimizer], model: "pl.LightningModule") -> None:
+            #    if is_param_in_hook_signature(model.training_step, "optimizer_idx", explicit=True):
+            #        raise RuntimeError(
+            #             "Training with multiple optimizers is only supported with manual optimization. Remove the `optimizer_idx`"
+            #             " argument from `training_step`, set `self.automatic_optimization = False` and access your optimizers"
+            #             " in `training_step` with `opt1, opt2, ... = self.optimizers()`."
+            #         )
+            # E           RuntimeError: Training with multiple optimizers is only supported with manual optimization. 
+            # Remove the `optimizer_idx` argument from `training_step`, set `self.automatic_optimization = False` and access your optimizers in `training_step` with `opt1, opt2, ... = self.optimizers()`.
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/core/optimizer.py:351: RuntimeError
+        # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin1] - RuntimeError: Training with multip...
+        # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] - RuntimeError: Training with multip...
+        
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin1] - AttributeError: 'DPOptimizer'...
+            # tests/plugins/privacy/test_dpgan.py:81: 
+            # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:55: in wrapper_function
+            #     return vd.call(*args, **kwargs)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:150: in call
+            #     return self.execute(m)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:222: in execute
+            #     return self.raw_function(**d, **var_kwargs)
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/plugin.py:256: in fit
+            #     output = self._fit(X, *args, **kwargs)
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/privacy/plugin_dpgan.py:287: in _
+            # fit
+            #     self.model.fit(X.dataframe(), cond=cond)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:55: in wrapper_function
+            #     return vd.call(*args, **kwargs)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:150: in call
+            #     return self.execute(m)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:222: in execute
+            #     return self.raw_function(**d, **var_kwargs)
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/models/tabular_gan.py:358: i
+            # n fit
+            #     self.model.fit(
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/models/gan.py:278: in fit
+            #     self._train(
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/models/gan.py:616: in _train
+            #     g_loss, d_loss = self._train_epoch(
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/models/gan.py:493: in _train
+            # _epoch
+            #     self._train_epoch_discriminator(
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/models/gan.py:462: in _train
+            # _epoch_discriminator
+            #     self.discriminator.optimizer.step()
+            # ...
+            # @functools.wraps(func)
+            #     def wrapper(*args: _P.args, **kwargs: _P.kwargs) -> R:
+            #     self, *_ = args
+            #     self = cast(Optimizer, self)
+            #     profile_name = f"Optimizer.step#{self.__class__.__name__}.step"
+            #     with torch.autograd.profiler.record_function(profile_name):
+            #         # call optimizer step pre hooks
+            # >           for pre_hook in chain(_global_optimizer_pre_hooks.values(), self._optimizer_step_pre_hooks.values()):
+            # E           AttributeError: 'DPOptimizer' object has no attribute '_optimizer_step_pre_hooks'
+            # /apps/gent/RHEL8/cascadelake-ib/software/PyTorch/2.1.2-foss-2023a/lib/python3.11/site-packages/torch/optim/optimizer.py:363: AttributeError
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin2] - AttributeError: 'DPOptimizer'...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin0] - AttributeError: 'DPOptimizer...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin1] - AttributeError: 'DPOptimizer...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin2] - AttributeError: 'DPOptimizer...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin0] - AttributeError: 'DPOpt...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin1] - AttributeError: 'DPOpt...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin2] - AttributeError: 'DPOpt...
+        
+        # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] - ValueError: setting a...
+            # tests/plugins/time_series/test_timegan.py:112:
+            # def unpack(self, as_numpy: bool = False, pad: bool = False) -> Any:
+            #     if pad:
+            #         (
+            #             static_data,
+            #             temporal_data,
+            #             observation_times,
+            #             outcome,
+            #         ) = TimeSeriesDataLoader.pad_and_mask(
+            #             self.data["static_data"],
+            #             self.data["temporal_data"],
+            #             self.data["observation_times"],
+            #             self.data["outcome"],
+            #         )
+            #     else:
+            #         static_data, temporal_data, observation_times, outcome = (
+            #             self.data["static_data"],
+            #             self.data["temporal_data"],
+            #             self.data["observation_times"],
+            #             self.data["outcome"],
+            #         )
+            
+            #     if as_numpy:
+            #         longest_observation_seq = max([len(seq) for seq in temporal_data])
+            #         return (
+            #             np.asarray(static_data),
+            #             np.asarray(
+            #                 temporal_data
+            #             ),  # TODO: check this works with time series benchmarks
+            #             # masked array to handle variable length sequences
+            #             ma.vstack(
+            #                 [
+            #                     ma.array(
+            #                         np.resize(ot, longest_observation_seq),
+            #                         mask=[True for i in range(len(ot))]
+            #                         + [False for j in range(longest_observation_seq - len(ot))],
+            #                     )
+            #                     for ot in observation_times
+            #                 ]
+            #             ),
+            #             np.asarray(outcome),
+            #         )
+            # E           ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after
+            # 1 dimensions. The detected shape was (50,) + inhomogeneous part.
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/dataloader.py:936: ValueError
+        # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source1] - ValueError: setting a...
+        # ======== 14 failed, 2145 passed, 13 skipped, 103 deselected, 2 xfailed, 2350 warnings in 15515.30s (4:18:35) =========
 # ERROR6:
     # -> created and used XGBoost v1.7.2 -> delete unpin from preinstallopts + use it in decaf
     # -> added 'export TOKENIZERS_PARALLELISM=true' to runtest to fix huggingface/tokenizers problem
@@ -482,10 +661,14 @@ moduleclass = 'lib'
                 # With dtype="object" it works for me. -> variable2 = np.asarray(variable1, dtype="object")
         # ============================================== short test summary info ===============================================
         # FAILED tests/metrics/test_performance.py::test_evaluate_performance_time_series_survival[PerformanceEvaluatorXGB-test_plugin0]
+            # fixed
         # FAILED tests/plugins/core/test_schema.py::test_schema_fail - AttributeError: module 'pydantic' has no attribute 'py...
         # FAILED tests/plugins/core/models/survival_analysis/test_surv_xgb.py::test_train_prediction - AttributeError: `best_...
+            # fixed
         # FAILED tests/plugins/core/models/time_series_survival/test_ts_surv_xgb.py::test_train_prediction[Transformer] - Att...
+            # fixed
         # FAILED tests/plugins/core/models/time_to_event/test_tte_xgb.py::test_train_prediction - AttributeError: `best_itera...
+            # fixed
         # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin0] - RuntimeError: Training with multip...
         # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin1] - RuntimeError: Training with multip...
         # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] - RuntimeError: Training with multip...
