@@ -130,7 +130,7 @@ dependencies = [
     ('Optuna', '3.5.0'),
     ('MONAI', '1.3.0'),
     ('DECAF-synthetic-data', '0.1.6'),
-    ('PyTorch-Lightning', '2.2.1'),
+    ('PyTorch-Lightning', '1.8.4'),
     # TESTS
     ('Jupyter-bundle', '20230823'),
     ('python-igraph', '0.11.4'),
@@ -154,6 +154,10 @@ local_preinstallopts = (
     # " -e 's/xgboost<2.0.0/xgboost/'"
     " -e 's/lifelines>=0.27,!= 0.27.5, <0.27.8/lifelines>=0.27,!= 0.27.5/'"
     " %(builddir)s/%(name)s/%(name)s-%(version)s/setup.cfg && "
+)
+local_pretestopts = (
+    "echo HERRERE && pwd && "
+    "export TOKENIZERS_PARALLELISM=true && "
     # fix pydantic.pydantic_core error in test_schema.py::test_schema_fail - NOT WORKING!
     "sed -i"
     " -e '17 s/pydantic.pydantic_core._pydantic_core.ValidationError/pydantic_core._pydantic_core.ValidationError/'"
@@ -165,7 +169,6 @@ local_preinstallopts = (
     " -e '116 s/static_seed/static_seed, dtype=\"object\"/'"
     " %(builddir)s/%(name)s/%(name)s-%(version)s/tests/plugins/time_series/test_timegan.py && "
 )
-
 # fix invalid syntax of xgbse/setup.py
 local_xgbse_preinstallopts = (
     "sed -i "
@@ -332,7 +335,7 @@ exts_list = [
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
         'sources': ['v%(version)s.tar.gz'],
         'testinstall': True,
-        'runtest': 'export TOKENIZERS_PARALLELISM=true && pytest -vvvs -m "not slow" --durations=50',
+        'runtest': local_pretestopts + 'pytest -vvvs -m "not slow" --durations=50',
         'checksums': ['122a8546cad35e3ac5c74cf81281252dec4dd3c7b1d7afe0f45ef785f89cc682'],
     }),
 ]
@@ -349,6 +352,8 @@ moduleclass = 'lib'
     # FROM test_log3.txt:
         # ============================================== short test summary info ===============================================
         # FAILED tests/plugins/core/test_schema.py::test_schema_fail - AttributeError: module 'pydantic' has no attribute 'py...
+            # -> move fix prom preinstallopts to runtest cmd - should fix this
+            
             # def test_schema_fail() -> None:
             #     if pydantic.__version__ < "2":
             #         with pytest.raises(pydantic.error_wrappers.ValidationError):
@@ -366,6 +371,9 @@ moduleclass = 'lib'
             # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/_migration.py:306: AttributeError
 
         # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin0] - RuntimeError: Training with multip...
+            # -> https://stackoverflow.com/questions/75907443/pytorch-lightning-works-on-cuda-but-throws-training-with-multiple-optimizers-is
+            # -> probably skip this test or create PyTorch-Lightning-1.8.4.foss-2023a -> pytorch-lighning v1.8.4 created
+            
             # tests/plugins/privacy/test_decaf.py:110: 
             # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
             # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
@@ -418,6 +426,12 @@ moduleclass = 'lib'
         # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] - RuntimeError: Training with multip...
         
         # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin1] - AttributeError: 'DPOptimizer'...
+            # -> seems DPOptimizer in Opacus do not have _optimizer_step_pre_hooks but Optimizer in Torch has -> problem -> can create PyTorch v1.13 but it is either in MONAI
+            # -> DPOptimizer is in Opacus - but it gets the Torch Optimizer then and it has _optimizer_step_pre_hooks
+            # ->https://github.com/pytorch/opacus/blob/v1.4.1/opacus/optimizers/optimizer.py
+            # ->https://github.com/pytorch/pytorch/blob/v2.1.2/torch/optim/optimizer.py
+            # maybe connected with this bug: https://github.com/pytorch/opacus/issues/649 or https://github.com/pytorch/opacus/issues/523
+            
             # tests/plugins/privacy/test_dpgan.py:81: 
             # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
             # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
@@ -459,11 +473,11 @@ moduleclass = 'lib'
             # ...
             # @functools.wraps(func)
             #     def wrapper(*args: _P.args, **kwargs: _P.kwargs) -> R:
-            #     self, *_ = args
-            #     self = cast(Optimizer, self)
-            #     profile_name = f"Optimizer.step#{self.__class__.__name__}.step"
-            #     with torch.autograd.profiler.record_function(profile_name):
-            #         # call optimizer step pre hooks
+                #     self, *_ = args
+                #     self = cast(Optimizer, self)
+                #     profile_name = f"Optimizer.step#{self.__class__.__name__}.step"
+                #     with torch.autograd.profiler.record_function(profile_name):
+                #         # call optimizer step pre hooks
             # >           for pre_hook in chain(_global_optimizer_pre_hooks.values(), self._optimizer_step_pre_hooks.values()):
             # E           AttributeError: 'DPOptimizer' object has no attribute '_optimizer_step_pre_hooks'
             # /apps/gent/RHEL8/cascadelake-ib/software/PyTorch/2.1.2-foss-2023a/lib/python3.11/site-packages/torch/optim/optimizer.py:363: AttributeError
@@ -476,6 +490,9 @@ moduleclass = 'lib'
         # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin2] - AttributeError: 'DPOpt...
         
         # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] - ValueError: setting a...
+            # -> should be solved: it was moved to prerunopts so should be ok
+                # FROM: https://stackoverflow.com/questions/67183501/setting-an-array-element-with-a-sequence-requested-array-has-an-inhomogeneous-sh
+                # With dtype="object" it works for me. -> variable2 = np.asarray(variable1, dtype="object")
             # tests/plugins/time_series/test_timegan.py:112:
             # def unpack(self, as_numpy: bool = False, pad: bool = False) -> Any:
             #     if pad:
@@ -524,9 +541,9 @@ moduleclass = 'lib'
         # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source1] - ValueError: setting a...
         # ======== 14 failed, 2145 passed, 13 skipped, 103 deselected, 2 xfailed, 2350 warnings in 15515.30s (4:18:35) =========
 # ERROR6:
-    # -> created and used XGBoost v1.7.2 -> delete unpin from preinstallopts + use it in decaf
-    # -> added 'export TOKENIZERS_PARALLELISM=true' to runtest to fix huggingface/tokenizers problem
-    # -> pydantic_core problem -> added sed -i with import pydentic_core and fix the use of pydantic_core._pydantic_core.ValidationError
+    # OK -> created and used XGBoost v1.7.2 -> delete unpin from preinstallopts + use it in decaf
+    # OK -> added 'export TOKENIZERS_PARALLELISM=true' to runtest to fix huggingface/tokenizers problem
+    # NO -> pydantic_core problem -> added sed -i with import pydentic_core and fix the use of pydantic_core._pydantic_core.ValidationError
         # >>> from pydantic import pydantic_core
             # Traceback (most recent call last):
             # File "<stdin>", line 1, in <module>
@@ -571,17 +588,16 @@ moduleclass = 'lib'
         #     /sklearn/metrics/cluster/_supervised.py:66: UserWarning: Clustering metrics expects discrete values but received continuous values for label, and binary values for target
         #     warnings.warn(msg, UserWarning)
         #     FAILED
-            # -> should be fixed by set ... in testrun
+            # -> OK - should be fixed by set export ... in testrun
         
         # tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin1]
         # 100%|| 1000/1000 [00:49<00:00, 20.18it/s]
         # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scikit-learn/1.3.1-gfbf-2023a/lib/python3.11/site-packages/sklearn/metrics/cluster/_supervised.py:66: UserWarning: Clustering metrics expects discrete values but received continuous values for label, and binary values for target
         #     warnings.warn(msg, UserWarning)
         # FAILED
-        
-        # same for: tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] FAILED
-        
-        # -> for problem with sklearn look: https://stackoverflow.com/questions/76713605/using-mutual-info-classif-for-continuous-features-and-discrete-target
+            # -> seems ok in next test, but another test_decaf.py problem -> RuntimeError: Training with multiple optimizers is only supported with manual optimization.
+            # same for: tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] FAILED
+            # -> for problem with sklearn look: https://stackoverflow.com/questions/76713605/using-mutual-info-classif-for-continuous-features-and-discrete-target
         
         # tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin1] 
         # 0%|          | 0/10 [00:00<?, ?it/s]
