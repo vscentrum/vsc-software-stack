@@ -21,6 +21,7 @@ dependencies = [
     ('NCO', '5.1.9'),
     ('ncview', '2.1.8'),
     ('rjags', '4-15', versionsuffix),
+    ('redland', ''),  # TODO
 ]
 
 exts_defaultclass = 'RPackage'
@@ -145,3 +146,22 @@ sanity_check_paths = {
 modextrapaths = {'R_LIBS_SITE': ''}
 
 moduleclass = 'math'
+
+# == 2024-07-23 10:08:00,995 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " R CMD INSTALL /tmp/vsc45304/easybuild/build/PEcAn/1.7.2.9000/foss-2023a-R-4.3.2/redland/redland   --library=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PEcAn/1.7.2.9000-foss-2023a-R-4.3.2/ --no-clean-on-error " exited with exit code 1 and output:
+# * installing *source* package redland ...
+# ** package redland successfully unpacked and MD5 sums checked
+# ** using staged installation
+# Using PKG_CFLAGS=
+# Using PKG_LIBS=-lrdf
+# ------------------------- ANTICONF ERROR ---------------------------
+# Configuration failed because redland was not found. Try installing:
+#  * deb: librdf0-dev (Debian, Ubuntu, etc)
+#  * rpm: redland-devel (Fedora, EPEL)
+#  * brew: redland (OSX)
+# If redland is already installed, check that 'pkg-config' is in your
+# PATH and PKG_CONFIG_PATH contains a redland.pc file. If pkg-config
+# is unavailable you can set INCLUDE_DIR and LIB_DIR manually via:
+# R CMD INSTALL --configure-vars='INCLUDE_DIR=... LIB_DIR=...'
+# --------------------------------------------------------------------
+# ERROR: configuration failed for package redland
+#  (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
