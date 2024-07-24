@@ -399,9 +399,10 @@ exts_list = [
     }),
     ('pycistarget', '1.0.2', {
         'preinstallopts': local_pycisT_preinstallopts + local_pycistarget_preinstallopts,
+        # download commit 16d14b9 to make '$ scenicplus' work
         'source_urls': ['https://github.com/aertslab/pycistarget/archive/'],
-        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'checksums': ['71f7d79b17dc8e292e886dc651194dacf68f29ff9726c11cebeb4ca1b417c845'],
+        'sources': [{'download_filename': '16d14b9.tar.gz', 'filename': '%(name)s-%(version)s-16d14b9.tar.gz'}],
+        'checksums': ['7285ac03be9d148437442a726366d7c6f9f5f86bc6636369149a2bc2cd8e0e29'],
     }),
     (name, version, {
         'patches': ['scenicplus-1.0.0-18072023_requirements.txt.patch'],
@@ -443,6 +444,23 @@ exts_list = [
     
 moduleclass = 'bio'
 
+# ERROR3:
+    # -> need to download this version: https://github.com/aertslab/pycistarget/commit/16d14b98b116c5dc2a590cdbad627d892a4d4702
+    # -> https://github.com/aertslab/scenicplus/issues/300#issuecomment-1964315664
+    # <- after successful build and $ scenicplus:
+    # [vsc47063@node4002:~/WIP/64_scenicplus]$ scenicplus
+    # Traceback (most recent call last):
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/bin/scenicplus", line 8, in <module>
+    #     sys.exit(main())
+    #             ^^^^^^
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 1123, in main
+    #     parser, subparsers = create_argument_parser()
+    #                         ^^^^^^^^^^^^^^^^^^^^^^^^
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 1110, in create_argument_parser
+    #     add_parser_for_motif_enrichment_cistarget(inference_subparsers)
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 406, in add_parser_for_motif_enrichment_cistarget
+    #     from pycistarget.cli.pycistarget import CISTARGET_DEFAULTS
+    # ModuleNotFoundError: No module named 'pycistarget.cli'
 # ERROR2: OK
     # -> add fix from denis version to preinstallopts
     # NO -> try add git as dep -> no it not works
