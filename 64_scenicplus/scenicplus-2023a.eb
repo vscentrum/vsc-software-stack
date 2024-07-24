@@ -24,7 +24,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # ok attrs==23.2.0 in pypi bundle 23.1.0
     # OK bbknn==1.6.0 in sc-bundle
     # ?OK beautifulsoup4==4.12.3 have 4.12.2
-    # bs4==0.0.2 -> it is only dummy -> delete from deps
+    # bs4==0.0.2 -> it is only dummy
     # OK ctxcore==0.2.0 in pyScenic
     # ?OK Cython==0.29.37 in pypi-bundle is v0.29.35
     # OK cytoolz==0.12.3 in pyScenic
@@ -90,7 +90,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # ok tmtoolkit==0.12.0
     # ?OK tqdm==4.66.2 v4.66.1 in pyScenic
     # ok tspex==0.6.3
-    # ok typing==3.7.4.3
+    # NO typing==3.7.4.3 -> no, only for old python
     # OK umap-learn==0.5.5 in pyScenic
     # deps pycistarget:
         # OK IPython
@@ -103,10 +103,77 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # deps pycisTopic:
         # OK ipympl
         # ok pyopenssl
-        # -> python-Levenshtein -> UPDATED OK
+        # -> python-Levenshtein -> UPDATED OK -> in sc-bundle in Cassiopeia v0.22.0
         # OK tables
         # OK xlrd in pypi bundle
         # ok papermill
+    # gseapy 0.10.8 requires bioservices, ok
+    # scenicplus 1.0a1 requires bidict, ok
+    # scenicplus 1.0a1 requires bioservices, ok
+    # scenicplus 1.0a1 requires bs4, ok
+    # scenicplus 1.0a1 requires cattrs, ok
+    # scenicplus 1.0a1 requires colorlog, ok
+    # scenicplus 1.0a1 requires dataclasses-json, ok
+    # scenicplus 1.0a1 requires easydev, ok
+    # scenicplus 1.0a1 requires gevent, ok
+    # scenicplus 1.0a1 requires globre, ok
+    # scenicplus 1.0a1 requires grequests, ok
+    # scenicplus 1.0a1 requires line-profiler, OK
+    # scenicplus 1.0a1 requires marshmallow, ok
+    # scenicplus 1.0a1 requires mypy-extensions, ok
+    # scenicplus 1.0a1 requires ndindex, ok
+    # scenicplus 1.0a1 requires pyarrow-hotfix, which is not installed. -> unpin/delete
+    # scenicplus 1.0a1 requires rich-argparse, ok
+    # scenicplus 1.0a1 requires sinfo, ok
+    # scenicplus 1.0a1 requires sorted-nearest, ok
+    # scenicplus 1.0a1 requires suds-community, ok
+    # scenicplus 1.0a1 requires typing, which is not installed. -> delete
+    # scenicplus 1.0a1 requires typing-inspect, ok
+    # scenicplus 1.0a1 requires url-normalize, ok
+    # scenicplus 1.0a1 requires xmltodict, ok
+    # scenicplus 1.0a1 requires zope-event, ok
+    # scenicplus 1.0a1 requires zope-interface, ok
+    # loomxpy 0.4.2 requires dataclasses-json, ok
+    # requests-cache 1.2.0 requires cattrs, ok
+    # requests-cache 1.2.0 requires url-normalize, ok
+    # pycistopic 1.0.2 requires bs4, ok
+    # pycistopic 1.0.2 requires python-igraph, which is not installed. -> it is ! -> change to igraph
+    # pycistopic 1.0.2 requires typing, which is not installed. -> delete
+    # pycistarget 1.0.2 requires typing, which is not installed. -> delete
+    # scatac-fragment-tools 0.1.0 requires rich-argparse, ok 
+    # papermill 2.6.0 requires ansicolors, ok
+    # papermill 2.6.0 requires entrypoints, ok
+    # pyranges 0.0.111 requires sorted-nearest, ok
+    # tmtoolkit 0.12.0 requires bidict, ok
+    # tmtoolkit 0.12.0 requires globre, ok
+    # pandoc 2.3 requires plumbum, ok
+    # loomxpy 0.4.2 has requirement pyscenic>=0.12.0, but you have pyscenic 0+unknown. ???
+    # pyopenssl 24.1.0 has requirement cryptography<43,>=41.0.5, but you have cryptography 41.0.1. ok v23.3.0
+    # snakemake-interface-report-plugins 1.0.0 has requirement snakemake-interface-common<2.0.0,>=1.16.0, but you have snakemake-interface-common 1.15.2. ok
+    # python-levenshtein 0.22.0 has requirement Levenshtein==0.22.0, but you have levenshtein 0.25.1. ??? ok
+    # cleo 2.0.1 has requirement rapidfuzz<3.0.0,>=2.2.0, but you have rapidfuzz 3.9.4. ok
+    #
+    # scenicplus 1.0a1 requires pyarrow-hotfix, which is not installed. -> delete from req
+    # scenicplus 1.0a1 requires typing, which is not installed. -> delete from req - all is in basic python
+    # pycistopic 1.0.2 requires python-igraph, which is not installed.-> change to igraph in pycistopic
+    # pycistopic 1.0.2 requires typing, which is not installed. -> delete from req - all is in basic python
+    # pycistarget 1.0.2 requires typing, which is not installed. -> delete from req - all is in basic python
+    # loomxpy 0.4.2 has requirement pyscenic>=0.12.0, but you have pyscenic 0+unknown. -> unpin version
+    # easydev 0.13.1 has requirement pexpect<5.0.0,>=4.9.0, but you have pexpect 4.8.0. -> ok
+    # easydev 0.13.1 has requirement platformdirs<5.0.0,>=4.2.0, but you have platformdirs 3.8.0. -> ok
+    # pyopenssl 23.3.0 has requirement cryptography<42,>=41.0.5, but you have cryptography 41.0.1. -> ok changed to v23.2.0
+        # cryptography>=38.0.0,<42,!=40.0.0,!=40.0.1"
+    # tables 3.8.0 has requirement blosc2~=2.0.0, but you have blosc2 2.5.1. -> delete blosc2 2.5.1 - unpin version in scenic+
+    # macs2 2.2.9.1 has requirement Cython~=0.29, but you have cython 3.0.8. -> cython v3 in line_profiler -> change version of line_profiler to v4.1.1 and unpin
+    # python-levenshtein 0.22.0 has requirement Levenshtein==0.22.0, but you have levenshtein 0.25.1. OK -> 0.22.0 in Cassiopeia - sc-bundle
+    # cleo 2.0.1 has requirement rapidfuzz<3.0.0,>=2.2.0, but you have rapidfuzz 3.9.4. -> should be ok without new levenshtein
+    # ndindex only need in new blocs2 -> delete from req
+    #
+    # loomxpy 0.4.2 has requirement pyscenic>=0.12.0, but you have pyscenic 0+unknown. -> unpin ok
+    # easydev 0.13.1 has requirement line-profiler<5.0.0,>=4.1.2, but you have line-profiler 4.1.1.
+        # bioservices: easydev>=0.12.0 -> use easydev 0.12.2 -> no line-profiler but profiler 0.1.0 -> ok NO
+    # virtualenv 20.23.1 has requirement platformdirs<4,>=3.5.1, but you have platformdirs 4.2.0.
+        # virtualenv in pypi-bundle and poetry -> use easydev 0.12.1 - has no platformdirs req OK
 
 builddependencies = [
     ('poetry', '1.5.1'),
@@ -146,19 +213,32 @@ dependencies = [
     ('scrublet', '0.2.3'),
     ('numexpr', '2.9.0'),
     ('Kaleido', '0.2.1'),
-    ('Levenshtein', '0.25.1'),
+    # ('Levenshtein', '0.25.1'),
     ('pyfasta', '0.5.2'),
     ('gensim', '4.3.2'),
+    # ('line_profiler', '4.1.1'),
 ]
 
-local_pycisTopic_preinstallopts = "sed -i 's/use_scm_version=True/version=\'1.0.2\'/' setup.py && "
+local_pycisT_preinstallopts = "sed -i 's/use_scm_version=True/version=\"1.0.2\"/' setup.py && "
+local_pycistopic_preinstallopts = (
+    "sed -i"
+    " -e 's/python-Levenshtein/Levenshtein/'"
+    " -e 's/python-igraph/igraph/'"
+    " -e '/typing/d'"
+    " -e '49,50d'"
+    " requirements.txt && "
+)
+local_pycistarget_preinstallopts = "sed -i '/typing/d' requirements.txt && "
+local_loomxpy_preinstallopts = "sed -i 's/pyscenic>=0.12.0/pyscenic/' requirements.txt && "
+local_loomxpy_preinstallopts += "sed -i 's/pyscenic = \">=0.12.0\"/pyscenic = \"*\"/' pyproject.toml && "
+local_loomxpy_preinstallopts += "rm poetry.lock && "
 
 use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    ('annoy', '1.17.3', {
-        'checksums': ['9cbfebefe0a5f843eba29c6be4c84d601f4f41ad4ded0486f1b88c3b07739c15'],
+    ('bs4', '0.0.2', {
+        'checksums': ['a48685c58f50fe127722417bae83fe6badf500d54b55f7e39ffe43b798653925'],
     }),
     ('attr', '0.3.2', {
         'checksums': ['1ceebca768181cdcce9827611b1d728e592be5d293911539ea3d0b0bfa1146f4'],
@@ -168,6 +248,37 @@ exts_list = [
     }),
     ('lda', '3.0.0', {
         'checksums': ['c9acbc1c55d2928f7e3e2336352b3382d78e43dbb0d12bf9ed97f87bce6d6708'],
+    }),
+    ('zope.interface', '6.2', {
+        'checksums': ['3b6c62813c63c543a06394a636978b22dffa8c5410affc9331ce6cdb5bfa8565'],
+    }),
+    ('zope.event', '5.0', {
+        'checksums': ['bac440d8d9891b4068e2b5a2c5e2c9765a9df762944bda6955f96bb9b91e67cd'],
+    }),
+    ('gevent', '24.2.1', {
+        'checksums': ['432fc76f680acf7cf188c2ee0f5d3ab73b63c1f03114c7cd8a34cebbe5aa2056'],
+    }),
+    ('xmltodict', '0.13.0', {
+        'checksums': ['341595a488e3e01a85a9d8911d8912fd922ede5fecc4dce437eb4b6c8d037e56'],
+    }),
+    ('suds-community', '1.1.2', {
+        'modulename': 'suds',
+        'checksums': ['883b4173ad23e7b20e9779ac7238b06140c50d7852afd5dc49dad1ea5f5a3d08'],
+    }),
+    ('grequests', '0.7.0', {
+        'checksums': ['5c33f14268df5b8fa1107d8537815be6febbad6ec560524d6a404b7778cf6ba6'],
+    }),
+    ('pexpect', '4.9.0', {
+        'checksums': ['ee7d41123f3c9911050ea2c2dac107568dc43b2d3b0c7557a33212c398ead30f'],
+    }),
+    ('colorlog', '6.8.2', {
+        'checksums': ['3e3e079a41feb5a1b64f978b5ea4f46040a94f11f0e8bbb8261e3dbbeca64d44'],
+    }),
+    ('easydev', '0.12.1', {
+        'checksums': ['b47b7e6f75316ac9045b46487930e16ddb567f3899310deee11d72d8e1f0a231'],
+    }),
+    ('bioservices', '1.11.2', {
+        'checksums': ['31baaab4ab813b93f79995ba8cad431a16cbee99e1b0c6f9e419dd4be0c73a9e'],
     }),
     ('gseapy', '0.10.8', {
         'checksums': ['15be80bac73768501f5cecf6751aeb2e41416fd144bd6daa2ec453ad08a10ce0'],
@@ -181,6 +292,9 @@ exts_list = [
     ('pybiomart', '0.2.0', {
         'checksums': ['e9eac20db921820670c646d99725b0ee279e407379e5e8c3ec7245a07425d8fe'],
     }),
+    ('sorted_nearest', '0.0.39', {
+        'checksums': ['16a51d5db87ae226b47ace43c176bb672477a1b7ba8052ea9291a6356c9c69b1'],
+    }),
     ('pyranges', '0.0.111', {
         'checksums': ['d2cf3c31c1b9c6e1bf6e1e89254d8bd993bfb4401f2c4ede0ebc9c8e0678147d'],
     }),
@@ -191,14 +305,26 @@ exts_list = [
         'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
         'checksums': ['5720c4ca8161dc5d9ab352015723abb7a8bb8fb443edeb07f7a322db34a97555'],
     }),
+    ('url-normalize', '1.4.3', {
+        'checksums': ['d23d3a070ac52a67b83a1c59a0e68f8608d1cd538783b401bc9de2c0fac999b2'],
+    }),
+    ('cattrs', '23.2.3', {
+        'checksums': ['a934090d95abaa9e911dac357e3a8699e0b4b14f8529bcc7d2b1ad9d51672b9f'],
+    }),
     ('requests_cache', '1.2.0', {
         'checksums': ['db1c709ca343cc1cd5b6c8b1a5387298eceed02306a6040760db538c885e3838'],
     }),
     ('scanorama', '1.7.4', {
         'checksums': ['67de100e63abc3028c7780d3a217e43e920a5781230bc6b6a51349d4605e005c'],
     }),
+    ('rich_argparse', '1.4.0', {
+        'checksums': ['c275f34ea3afe36aec6342c2a2298893104b5650528941fb53c21067276dba19'],
+    }),
     ('scatac_fragment_tools', '0.1.0', {
         'checksums': ['e77a03ad1b7170c212f1ac672dad2c5d7e7f091b94e47b36a2ec2adc42051857'],
+    }),
+    ('snakemake_interface_common', '1.17.1', {
+        'checksums': ['555c8218d9b68ddc1046f94a517e7d0f22e15bdc839d6ce149608d8ec137b9ae'],
     }),
     ('snakemake_interface_report_plugins', '1.0.0', {
         'checksums': ['02311cdc4bebab2a1c28469b5e6d5c6ac6e9c66998ad4e4b3229f1472127490f'],
@@ -206,15 +332,21 @@ exts_list = [
     ('statistics', '1.0.3.5', {
         'checksums': ['2dc379b80b07bf2ddd5488cad06b2b9531da4dd31edb04dc9ec0dc226486c138'],
     }),
+    ('globre', '0.1.5', {
+        'checksums': ['ee214204f237e9114b8f61eeb61c2abd1e665ca3b59e5a6a0b070971c0bb12e2'],
+    }),
+    ('bidict', '0.23.1', {
+        'checksums': ['03069d763bc387bbd20e7d49914e75fc4132a41937fa3405417e1a5a2d006d71'],
+    }),
     ('tmtoolkit', '0.12.0', {
         'checksums': ['6df5429cd675989f21d9f075ddb11fe5ae273d6544fc337a2589bab2bc331909'],
     }),
     ('tspex', '0.6.3', {
         'checksums': ['315bfa1f60ea582777c549313cad9e9da0a4d11c5f69a6fc767bd0823dc46316'],
     }),
-    # ('typing', '3.7.4.3', {
-    #     'checksums': ['1187fb9c82fd670d10aa07bbb6cfcfe4bdda42d6fab8d5134f04e8c4d0b71cc9'],
-    # }),
+    ('plumbum', '1.8.3', {
+        'checksums': ['6092c85ab970b7a7a9d5d85c75200bc93be82b33c9bdf640ffa87d2d7c8709f0'],
+    }),
     ('pandoc', '2.3', {
         'checksums': ['e772c2c6d871146894579828dbaf1efd538eb64fc7e71d4a6b3a11a18baef90d'],
     }),
@@ -227,50 +359,93 @@ exts_list = [
     ('numpydoc', '1.7.0', {
         'checksums': ['866e5ae5b6509dcf873fc6381120f5c31acf13b135636c1a81d68c166a95f921'],
     }),
-    ('pyOpenSSL', '24.1.0', {
+    ('pyOpenSSL', '23.2.0', {
         'modulename': 'OpenSSL',
-        'checksums': ['cabed4bfaa5df9f1a16c0ef64a0cb65318b5cd077a7eda7d6970131ca2f41a6f'],
+        'checksums': ['276f931f55a452e7dea69c7173e984eb2a4407ce413c918aa34b55f82f9b8bac'],
+    }),
+    ('entrypoints', '0.4', {
+        'checksums': ['b706eddaa9218a19ebcd67b56818f05bb27589b1ca9e8d797b74affad4ccacd4'],
+    }),
+    ('ansicolors', '1.1.8', {
+        'modulename': 'colors',
+        'source_tmpl': '%(name)s-%(version)s-py2.py3-none-any.whl',
+        'checksums': ['00d2dde5a675579325902536738dd27e4fac1fd68f773fe36c21044eb559e187'],
     }),
     ('papermill', '2.6.0', {
         'checksums': ['9fe2a91912fd578f391b4cc8d6d105e73124dcd0cde2a43c3c4a1c77ac88ea24'],
     }),
+    ('mypy_extensions', '1.0.0', {
+        'checksums': ['75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782'],
+    }),
+    ('typing_inspect', '0.9.0', {
+        'checksums': ['b23fc42ff6f6ef6954e4852c1fb512cdd18dbea03134f91f856a95ccc9461f78'],
+    }),
+    ('marshmallow', '3.21.1', {
+        'checksums': ['4e65e9e0d80fc9e609574b9983cf32579f305c718afb30d7233ab818571768c3'],
+    }),
+    ('dataclasses_json', '0.6.4', {
+        'checksums': ['73696ebf24936560cca79a2430cbc4f3dd23ac7bf46ed17f38e5e5e7657a6377'],
+    }),
     ('loomxpy', '0.4.2', {
+        'preinstallopts': local_loomxpy_preinstallopts,
         'checksums': ['188411b77e04fa8458c0a7f02cfb3f15b58410a020f81f522957e922e79cdd82'],
     }),
     ('pycisTopic', '1.0.2', {
         'modulename': 'pycisTopic',
-        'preinstallopts': local_pycisTopic_preinstallopts,
+        'preinstallopts': local_pycisT_preinstallopts + local_pycistopic_preinstallopts,
         'source_urls': ['https://github.com/aertslab/pycisTopic/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['f0773f4a90e680f6eeff7f16430405126d3af9a8b3ab30808d601fa32f0b0359'],
     }),
     ('pycistarget', '1.0.2', {
+        'preinstallopts': local_pycisT_preinstallopts + local_pycistarget_preinstallopts,
         'source_urls': ['https://github.com/aertslab/pycistarget/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['71f7d79b17dc8e292e886dc651194dacf68f29ff9726c11cebeb4ca1b417c845'],
     }),
     (name, version, {
+        'patches': ['scenicplus-1.0.0-18072023_requirements.txt.patch'],
         'source_urls': ['https://github.com/aertslab/scenicplus/archive/'],
         'sources': [{'download_filename': 'fa55dae.tar.gz', 'filename': '%(name)s-%(version)s-fa55dae.tar.gz'}],
-        'checksums': ['88cddec1ab2618861e5c93e8a0b17b8e9e2aa3a76410d882c35d472f98724e29'],
+        'checksums': [
+            {'scenicplus-1.0.0-18072023-fa55dae.tar.gz':
+             '88cddec1ab2618861e5c93e8a0b17b8e9e2aa3a76410d882c35d472f98724e29'},
+            {'scenicplus-1.0.0-18072023_requirements.txt.patch':
+             'fdfba5d9413f6088d657e315ce7aa28cd645154521e9173a7325bd6c4fdd7e7a'},
+        ],
     }),
 ]
 
+    # ('pycisTopic', '1.0.2', {
+    #     'modulename': 'pycisTopic',
+    #     'preinstallopts': local_pycisT_preinstallopts + local_pycistopic_preinstallopts,
+    #     'source_urls': ['https://github.com/aertslab/pycisTopic/archive/'],
+    #     'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+    #     'checksums': ['f0773f4a90e680f6eeff7f16430405126d3af9a8b3ab30808d601fa32f0b0359'],
+    # }),
+    # ('pycistarget', '1.0.2', {
+    #     'preinstallopts': local_pycisT_preinstallopts + local_pycistarget_preinstallopts,
+    #     'source_urls': ['https://github.com/aertslab/pycistarget/archive/'],
+    #     'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+    #     'checksums': ['71f7d79b17dc8e292e886dc651194dacf68f29ff9726c11cebeb4ca1b417c845'],
+    # }),
     # (name, version, {
+    #     'patches': ['scenicplus-1.0.0-18072023_requirements.txt.patch'],
     #     'source_urls': ['https://github.com/aertslab/scenicplus/archive/'],
-    #     'sources': [
-    #         {
-    #             'download_filename': '%s.tar.gz' % local_commit,
-    #             'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
-    #         }
+    #     'sources': [{'download_filename': 'fa55dae.tar.gz', 'filename': '%(name)s-%(version)s-fa55dae.tar.gz'}],
+    #     'checksums': [
+    #         {'scenicplus-1.0.0-18072023-fa55dae.tar.gz':
+    #          '88cddec1ab2618861e5c93e8a0b17b8e9e2aa3a76410d882c35d472f98724e29'},
+    #         {'scenicplus-1.0.0-18072023_requirements.txt.patch':
+    #          'ce3a1d389bb2b2c110b7c5c7f41248faaf3245d82ead91dab2249a401c17c457'},
     #     ],
     # }),
     
 moduleclass = 'bio'
 
-# ERROR2:
+# ERROR2: OK
     # -> add fix from denis version to preinstallopts
-    # -> try add git as dep -> no it not works
+    # NO -> try add git as dep -> no it not works
         # https://github.com/pypa/setuptools_scm/issues/278
     # == 2024-07-22 16:34:26,005 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/eaybuild/base/exceptions.py:126 in __init__): cmd " /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.30/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/sceicplus/1.0.0-18072023-foss-2023a  --no-deps  --ignore-installed  --no-index  --no-build-isolation  ." exited with exi code 1 and output:
     # Processing /tmp/vsc47063/easybuild/build/scenicplus/1.0.0-18072023/foss-2023a/pycisTopic/pycisTopic-1.0.2
