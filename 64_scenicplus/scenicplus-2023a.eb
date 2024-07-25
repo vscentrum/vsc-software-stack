@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'scenicplus'
-version = '1.0.0-18072023'
+version = '1.0a1-18072024'
 local_commit = "fa55dae"
 
 homepage = 'https://github.com/aertslab/scenicplus'
@@ -219,14 +219,20 @@ dependencies = [
     # ('line_profiler', '4.1.1'),
 ]
 
-local_pycisT_preinstallopts = "sed -i 's/use_scm_version=True/version=\"1.0.2\"/' setup.py && "
+# local_pycisT_preinstallopts = "sed -i 's/use_scm_version=True/version=\"1.0.2\"/' setup.py && "
 local_pycistopic_preinstallopts = (
     "sed -i"
+    " -e 's/pyscenic>=0.12.0/pyscenic/'"
+    " -e 's/pandas==1.5/pandas/'"
     " -e 's/python-Levenshtein/Levenshtein/'"
     " -e 's/python-igraph/igraph/'"
     " -e '/typing/d'"
-    " -e '49,50d'"
+    " -e '60,61d'"
     " requirements.txt && "
+    "sed -i"
+    " -e 's/pandas == 1.5/pandas/'"
+    " -e 's/matplotlib < 3.7/matplotlib/'"
+    " pyproject.toml && "
 )
 local_pycistarget_preinstallopts = "sed -i '/typing/d' requirements.txt && "
 local_loomxpy_preinstallopts = "sed -i 's/pyscenic>=0.12.0/pyscenic/' requirements.txt && "
@@ -390,28 +396,28 @@ exts_list = [
         'preinstallopts': local_loomxpy_preinstallopts,
         'checksums': ['188411b77e04fa8458c0a7f02cfb3f15b58410a020f81f522957e922e79cdd82'],
     }),
-    ('pycisTopic', '1.0.2', {
+    ('pycisTopic', '2.0a-dca4bb6', {
         'modulename': 'pycisTopic',
-        'preinstallopts': local_pycisT_preinstallopts + local_pycistopic_preinstallopts,
+        'preinstallopts': local_pycistopic_preinstallopts,
         'source_urls': ['https://github.com/aertslab/pycisTopic/archive/'],
-        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'checksums': ['f0773f4a90e680f6eeff7f16430405126d3af9a8b3ab30808d601fa32f0b0359'],
+        'sources': [{'download_filename': 'dca4bb6.tar.gz', 'filename': '%(name)s-%(version)s-dca4bb6.tar.gz'}],
+        'checksums': ['82edc9313bbb587aeb1540fd5b095b6eafb422fa12a5fc97ba090b99b684b240'],
     }),
-    ('pycistarget', '1.0.2', {
-        'preinstallopts': local_pycisT_preinstallopts + local_pycistarget_preinstallopts,
+    ('pycistarget', '1.0a1-16d14b9', {
+        'preinstallopts': local_pycistarget_preinstallopts,
         # download commit 16d14b9 to make '$ scenicplus' work
         'source_urls': ['https://github.com/aertslab/pycistarget/archive/'],
         'sources': [{'download_filename': '16d14b9.tar.gz', 'filename': '%(name)s-%(version)s-16d14b9.tar.gz'}],
         'checksums': ['7285ac03be9d148437442a726366d7c6f9f5f86bc6636369149a2bc2cd8e0e29'],
     }),
     (name, version, {
-        'patches': ['scenicplus-1.0.0-18072023_requirements.txt.patch'],
+        'patches': ['scenicplus-1.0a1-18072024_requirements.txt.patch'],
         'source_urls': ['https://github.com/aertslab/scenicplus/archive/'],
         'sources': [{'download_filename': 'fa55dae.tar.gz', 'filename': '%(name)s-%(version)s-fa55dae.tar.gz'}],
         'checksums': [
-            {'scenicplus-1.0.0-18072023-fa55dae.tar.gz':
+            {'scenicplus-1.0a1-18072024-fa55dae.tar.gz':
              '88cddec1ab2618861e5c93e8a0b17b8e9e2aa3a76410d882c35d472f98724e29'},
-            {'scenicplus-1.0.0-18072023_requirements.txt.patch':
+            {'scenicplus-1.0a1-18072024_requirements.txt.patch':
              'fdfba5d9413f6088d657e315ce7aa28cd645154521e9173a7325bd6c4fdd7e7a'},
         ],
     }),
@@ -444,7 +450,49 @@ exts_list = [
     
 moduleclass = 'bio'
 
-# ERROR3:
+# ERROR5:
+    # [vsc47063@node4001:~/WIP/64_scenicplus]$ scenicplus init_snakemake --out_dir test/
+    # 2024-07-25 17:20:03,046 SCENIC+      INFO     Creating snakemake folder in: test
+    # Traceback (most recent call last):
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/bin/scenicplus", line 8, in <module>
+    #     sys.exit(main())
+    #             ^^^^^^
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 1137, in main
+    #     args.func(args)
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 24, in init_snakemake
+    #     init_snakemake_folder(
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/commands.py", line 46, in init_snakemake_folder
+    #     shutil.copy(config_file, os.path.join(out_dir, "Snakemake", "config", "config.yaml"))
+    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/shutil.py", line 419, in copy
+    #     copyfile(src, dst, follow_symlinks=follow_symlinks)
+    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/shutil.py", line 256, in copyfile
+    #     with open(src, 'rb') as fsrc:
+    #         ^^^^^^^^^^^^^^^
+    # FileNotFoundError: [Errno 2] No such file or directory: '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/lib/python3.11/site-packages/scenicplus/snakemake/config.yaml'
+# ERROR4: OK
+    # try add pandas 1.5 in exts: NO
+        # dask-image 2023.8.1 has requirement pandas>=2.0.0, but you have pandas 1.5.0.
+        # mapclassify 2.6.1 has requirement pandas!=1.5.0,>=1.4, but you have pandas 1.5.0.
+        # scib 1.1.4 has requirement pandas>=2 (took 56 mins 13 secs)
+    # OK pycistopic 2.0a0 has requirement matplotlib<3.7, but you have matplotlib 3.7.2.
+    # OK pycistopic 2.0a0 has requirement pandas==1.5, but you have pandas 2.0.3.
+    # -> seems I need commit dca4bb6 to let it work
+    # <- $ scenicplus init_snakemake --out_dir .
+    # [vsc47063@node4001:~/WIP/64_scenicplus]$ scenicplus init_snakemake --out_dir .
+    # Traceback (most recent call last):
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/bin/scenicplus", line 8, in <module>
+    #     sys.exit(main())
+    #             ^^^^^^
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 1137, in main
+    #     args.func(args)
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 23, in init_snakemake
+    #     from scenicplus.cli.commands import init_snakemake_folder
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/commands.py", line 16, in <module>
+    #     from pycistarget.motif_enrichment_dem import DEM
+    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/pycistarget/motif_enrichment_dem.py", line 18, in <module>
+    #     from pycisTopic.diff_features import get_log2_fc, mean_axis1
+    # ImportError: cannot import name 'get_log2_fc' from 'pycisTopic.diff_features' (/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/pycisTopic/diff_features.py)
+# ERROR3: OK
     # -> need to download this version: https://github.com/aertslab/pycistarget/commit/16d14b98b116c5dc2a590cdbad627d892a4d4702
     # -> https://github.com/aertslab/scenicplus/issues/300#issuecomment-1964315664
     # <- after successful build and $ scenicplus:
