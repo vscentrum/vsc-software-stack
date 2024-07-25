@@ -1,0 +1,50 @@
+easyblock = 'ConfigureMake'
+
+name = 'Rasqal'
+version = '0.9.33'
+homepage = 'hhttps://librdf.org/rasqal'
+description = """A library handling RDF query syntaxes, construction and execution"""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://download.librdf.org/source']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['6924c9ac6570bd241a9669f83b467c728a322470bf34f4b2da4f69492ccfd97c']
+
+builddependencies = [
+    ('Autotools',  '20220317'),
+    ('binutils',   '2.40'),
+    ('Raptor',   '2.0.16'),
+]
+
+dependencies = [
+    ('libgcrypt', '1.10.3'),
+    ('MPFR', '4.2.0'),
+    ('PCRE', '8.45'),
+]
+
+preconfigopts = "autoreconf -f -i && "
+# configopts = "--disable-static --enable-release"
+configopts = "--disable-static --enable-release --disable-gtk-doc"
+
+sanity_check_paths = {
+    'files': ['bin/roqet', 'lib/librasqal.%s' % SHLIB_EXT],
+    'dirs': ['include/rasqal/']
+}
+
+sanity_check_commands = ["roqet --help"]
+
+moduleclass = 'lib'
+
+# == 2024-07-25 16:21:25,856 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "autoreconf -f -i &&  ./configure --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Rasqal/0.9.33-GCCcore-12.3.0  --build=x86_64-pc-linux-gnu  --host=x86_64-pc-linux-gnu --disable-static --enable-release --disable-gtk-doc" exited with exit code 2 and output:
+# libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build'.
+# libtoolize: copying file 'build/ltmain.sh'
+# libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'build'.
+# libtoolize: copying file 'build/libtool.m4'
+# libtoolize: copying file 'build/ltoptions.m4'
+# libtoolize: copying file 'build/ltsugar.m4'
+# libtoolize: copying file 'build/ltversion.m4'
+# libtoolize: copying file 'build/lt~obsolete.m4'
+# Can't exec "gtkdocize": No such file or directory at /apps/gent/RHEL8/cascadelake-ib/software/Autoconf/2.71-GCCcore-12.3.0/share/autoconf/Autom4te/FileUtils.pm line 293.
+# autoreconf: error: gtkdocize failed with exit status: 2
+#  (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
