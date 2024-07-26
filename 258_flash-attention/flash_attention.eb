@@ -1,0 +1,84 @@
+easyblock = 'PythonBundle'
+
+name = 'flash-attention'
+version = '2.6.3'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/Dao-AILab/flash-attention'
+description = """Fast and memory-efficient exact attention."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# DEPS:
+    # install:
+        # "torch" OK
+        # "einops"
+        # CUDA OK
+    # build:
+        # "packaging" - in pypi bundle OK
+        # "psutil" - in pypi bundle OK
+        # "ninja" OK
+        
+builddependencies = [('Ninja', '1.11.1')]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('CUDA', '12.1.1', '', SYSTEM),
+    ('PyTorch-bundle', '2.1.2', versionsuffix),
+    ('einops', '0.7.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'modulename': 'flash_attn',
+        'source_urls': ['https://github.com/Dao-AILab/flash-attention/archive/'],
+        'sources': ['v%(version)s.tar.gz'],
+        # 'testinstall': True,
+        # 'runtest': 'pytest -q -s %(builddir)s/flashattention/%(name)s-%(version)s/tests/test_flash_attn.py',
+        'checksums': ['136e149165d4c8c67273d16daa957b5cd5e6fc629061ffd39fa5a25224454d6c'],
+    }),
+]
+
+sanity_check_commands = [
+    "python -c 'from flash_attn import flash_attn_qkvpacked_func, flash_attn_func'",
+    # "python -c 'from decaf import DECAF, DataModule'"
+]
+
+moduleclass = 'lib'
+
+# ERROR1:
+    # maybe this test is not only for flash_attn?
+    # -> Triton is in EB but not for 2023a
+    # <- from pytest
+    # == 2024-07-26 13:26:42,514 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuil
+    # d/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "export PYTHONPATH=/t
+    # mp/vsc47063/eb-6k7a9nv0/tmpmkshhh1x/lib/python3.11/site-packages:$PYTHONPATH &&  pytest -q -s 
+    # /tmp/vsc47063/easybuild/build/flashattention/2.6.3/foss-2023a-CUDA-12.1.1/flashattention/flash
+    # -attention-2.6.3/tests/test_flash_attn.py " exited with exit code 2 and output:
+
+    # =========================================== ERRORS ===========================================
+    # _________________________ ERROR collecting tests/test_flash_attn.py __________________________
+    # ImportError while importing test module '/tmp/vsc47063/easybuild/build/flashattention/2.6.3/fo
+    # ss-2023a-CUDA-12.1.1/flashattention/flash-attention-2.6.3/tests/test_flash_attn.py'.
+    # Hint: make sure your test modules/packages have valid Python names.
+    # Traceback:
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/importlib
+    # /__init__.py:126: in import_module
+    #     return _bootstrap._gcd_import(name[level:], package, level)
+    # tests/test_flash_attn.py:18: in <module>
+    #     from flash_attn.layers.rotary import apply_rotary_emb
+    # /tmp/vsc47063/eb-6k7a9nv0/tmpmkshhh1x/lib/python3.11/site-packages/flash_attn/layers/rotary.py
+    # :8: in <module>
+    #     from flash_attn.ops.triton.rotary import apply_rotary
+    # /tmp/vsc47063/eb-6k7a9nv0/tmpmkshhh1x/lib/python3.11/site-packages/flash_attn/ops/triton/rotar
+    # y.py:7: in <module>
+    #     import triton
+    # E   ModuleNotFoundError: No module named 'triton'
+    # ================================== short test summary info ===================================
+    # ERROR tests/test_flash_attn.py
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # 1 error in 8.38s
+
