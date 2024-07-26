@@ -411,7 +411,10 @@ exts_list = [
         'checksums': ['7285ac03be9d148437442a726366d7c6f9f5f86bc6636369149a2bc2cd8e0e29'],
     }),
     (name, version, {
-        'patches': ['scenicplus-1.0a1-18072024_requirements.txt.patch'],
+        'patches': [
+            'scenicplus-1.0a1-18072024_requirements.txt.patch',
+            'scenicplus-1.0a1_pyproject.toml-fix.patch',
+        ],
         'source_urls': ['https://github.com/aertslab/scenicplus/archive/'],
         'sources': [{'download_filename': 'fa55dae.tar.gz', 'filename': '%(name)s-%(version)s-fa55dae.tar.gz'}],
         'checksums': [
@@ -419,38 +422,56 @@ exts_list = [
              '88cddec1ab2618861e5c93e8a0b17b8e9e2aa3a76410d882c35d472f98724e29'},
             {'scenicplus-1.0a1-18072024_requirements.txt.patch':
              'fdfba5d9413f6088d657e315ce7aa28cd645154521e9173a7325bd6c4fdd7e7a'},
+            {'scenicplus-1.0a1_pyproject.toml-fix.patch':
+             '1b440d8a4f0e1c274002687755fdfd20de30eeafbd197196935b2edbaab5c757'},
         ],
     }),
 ]
 
-    # ('pycisTopic', '1.0.2', {
-    #     'modulename': 'pycisTopic',
-    #     'preinstallopts': local_pycisT_preinstallopts + local_pycistopic_preinstallopts,
-    #     'source_urls': ['https://github.com/aertslab/pycisTopic/archive/'],
-    #     'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-    #     'checksums': ['f0773f4a90e680f6eeff7f16430405126d3af9a8b3ab30808d601fa32f0b0359'],
-    # }),
-    # ('pycistarget', '1.0.2', {
-    #     'preinstallopts': local_pycisT_preinstallopts + local_pycistarget_preinstallopts,
-    #     'source_urls': ['https://github.com/aertslab/pycistarget/archive/'],
-    #     'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-    #     'checksums': ['71f7d79b17dc8e292e886dc651194dacf68f29ff9726c11cebeb4ca1b417c845'],
-    # }),
-    # (name, version, {
-    #     'patches': ['scenicplus-1.0.0-18072023_requirements.txt.patch'],
-    #     'source_urls': ['https://github.com/aertslab/scenicplus/archive/'],
-    #     'sources': [{'download_filename': 'fa55dae.tar.gz', 'filename': '%(name)s-%(version)s-fa55dae.tar.gz'}],
-    #     'checksums': [
-    #         {'scenicplus-1.0.0-18072023-fa55dae.tar.gz':
-    #          '88cddec1ab2618861e5c93e8a0b17b8e9e2aa3a76410d882c35d472f98724e29'},
-    #         {'scenicplus-1.0.0-18072023_requirements.txt.patch':
-    #          'ce3a1d389bb2b2c110b7c5c7f41248faaf3245d82ead91dab2249a401c17c457'},
-    #     ],
-    # }),
+# PIC2 - this should work if pyproject.toml can not be fixed
+# postinstallcmds = [
+#     'cp -r %(builddir)s/scenicplus/scenicplus-fa55dae55203951c0c42e359b65a28010cd544f6/src/scenicplus/snakemake '
+#     '%(installdir)s/lib/python%(pyshortver)s/site-packages/scenicplus/snakemake'
+# ]
+
+# PIC1 - this will not works
+# postinstallcmds = [
+#     'export PYTHONPATH=%(installdir)s/lib/python%(pyshortver)s/site-packages:$PYTHONPATH && '
+#     '%(installdir)s/bin/scenicplus init_snakemake --help'
+# ]
+
+sanity_check_commands = ['scenicplus init_snakemake --help']
     
 moduleclass = 'bio'
 
 # ERROR5:
+    # -> pyproject.toml-fix.patch created
+    # -> or I can patch pyproject.toml to include all in /snakemake
+        # https://stackoverflow.com/questions/69647590/specifying-package-data-in-pyproject-toml
+        # https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+    # -> postinstalcmds created PIC2
+    # -> maybe there is wrong install cmd and config.yaml is not there -> copy from build dir
+        # in %(builddir)s/scenicplus/scenicplus-fa55dae55203951c0c42e359b65a28010cd544f6/src/scenicplus/snakemake is config.yaml
+    # -> add export PYTHONPATH=/lib/python3.11/site-packages:$PYTHONPATH && 
+    # -> PIC1 created - seems will not work
+    # -> put $ scenicplus init_snakemake --help to postistallcmds under exts_list, not in it, and add whole path to scenicplus (not in PATH yet)
+        # -> scenicplus.cli.scenicplus exist - seems scenicplus is not in PYTHONPATH
+        # == 2024-07-26 14:29:25,798 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuil
+        # d/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "/scratch/gent/vo/001
+        # /gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/
+        # bin/scenicplus init_snakemake --help" exited with exit code 1 and output:
+        # Traceback (most recent call last):
+        # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/bin/scenicplus", line 5, in <module>
+        #     from scenicplus.cli.scenicplus import main
+        # ModuleNotFoundError: No module named 'scenicplus'
+        # (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
+    # -> put $ scenicplus init_snakemake --help to postistallcmds:
+        # == 2024-07-26 13:00:28,887 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "scenicplus init_snakemake --help" exited with exit code 127 and output:
+        # /bin/bash: scenicplus: command not found
+    # -> seems this cmd should be in postinstallcmds -> it should init the config.yaml
+    # -> https://github.com/aertslab/scenicplus/issues/300
+    # -> now there is nothing in /lib/python3.11/site-packages/scenicplus/snakemake dir, only empty __ini__.py
+    # <- $ scenicplus init_snakemake --out_dir test/
     # [vsc47063@node4001:~/WIP/64_scenicplus]$ scenicplus init_snakemake --out_dir test/
     # 2024-07-25 17:20:03,046 SCENIC+      INFO     Creating snakemake folder in: test
     # Traceback (most recent call last):
@@ -468,7 +489,9 @@ moduleclass = 'bio'
     # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/shutil.py", line 256, in copyfile
     #     with open(src, 'rb') as fsrc:
     #         ^^^^^^^^^^^^^^^
-    # FileNotFoundError: [Errno 2] No such file or directory: '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/lib/python3.11/site-packages/scenicplus/snakemake/config.yaml'
+    # FileNotFoundError: [Errno 2] No such file or directory: 
+    # '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/lib/python3.11/site-packages/scenicplus/snakemake/
+    #   config.yaml'
 # ERROR4: OK
     # try add pandas 1.5 in exts: NO
         # dask-image 2023.8.1 has requirement pandas>=2.0.0, but you have pandas 1.5.0.
