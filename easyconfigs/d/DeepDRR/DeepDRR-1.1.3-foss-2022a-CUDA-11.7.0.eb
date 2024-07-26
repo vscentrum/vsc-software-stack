@@ -9,21 +9,20 @@ description = """
 DeepDRR provides state-of-the-art tools to generate realistic radiographs and
 fluoroscopy from 3D CTs on a training set scale."""
 
-toolchain = {'name': 'foss', 'version': '2023a'}
+toolchain = {'name': 'foss', 'version': '2022a'}
 
 dependencies = [
-    ('CUDA', '12.1.1', '', SYSTEM),
-    ('Python', '3.11.3'),
-    ('scikit-image', '0.22.0'),
-    ('PyTorch', '2.1.2', versionsuffix),
-    ('PyTorch-bundle', '2.1.2', versionsuffix),
-    ('NiBabel', '5.2.0'),
-    ('pydicom', '2.4.4'),
+    ('CUDA', '11.7.0', '', SYSTEM),
+    ('Python', '3.10.4'),
+    ('scikit-image', '0.19.3'),
+    ('PyTorch', '1.12.0', versionsuffix),
+    ('PyTorch-bundle', '1.12.0', versionsuffix),
+    ('NiBabel', '4.0.2'),
+    ('pydicom', '2.3.0'),
     ('PyVista', '0.43.8'),
     ('PyCUDA', '2024.1', versionsuffix),
-    ('OpenCV', '4.8.1', '-contrib'),
-    ('Seaborn', '0.13.2'),
-    ('typing-extensions', '4.9.0'),
+    ('OpenCV', '4.6.0', versionsuffix + '-contrib'),
+    ('Seaborn', '0.12.1'),
 ]
 
 use_pip = True
