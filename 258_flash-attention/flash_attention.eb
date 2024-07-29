@@ -44,13 +44,13 @@ exts_list = [
 
 sanity_check_commands = [
     "python -c 'from flash_attn import flash_attn_qkvpacked_func, flash_attn_func'",
-    # "python -c 'from decaf import DECAF, DataModule'"
 ]
 
 moduleclass = 'lib'
 
 # ERROR1:
-    # maybe this test is not only for flash_attn?
+    # -> maybe this test is not only for flash_attn basic installation? -> triton is experimental -> do not use these tests
+        # https://github.com/Dao-AILab/flash-attention/blob/v2.6.3/flash_attn/flash_attn_triton.py
     # -> Triton is in EB but not for 2023a
     # <- from pytest
     # == 2024-07-26 13:26:42,514 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuil
