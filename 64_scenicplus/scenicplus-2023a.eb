@@ -413,7 +413,7 @@ exts_list = [
     (name, version, {
         'patches': [
             'scenicplus-1.0a1-18072024_requirements.txt.patch',
-            'scenicplus-1.0a1_pyproject.toml-fix.patch',
+            # 'scenicplus-1.0a1_pyproject.toml-fix.patch',
         ],
         'source_urls': ['https://github.com/aertslab/scenicplus/archive/'],
         'sources': [{'download_filename': 'fa55dae.tar.gz', 'filename': '%(name)s-%(version)s-fa55dae.tar.gz'}],
@@ -422,17 +422,18 @@ exts_list = [
              '88cddec1ab2618861e5c93e8a0b17b8e9e2aa3a76410d882c35d472f98724e29'},
             {'scenicplus-1.0a1-18072024_requirements.txt.patch':
              'fdfba5d9413f6088d657e315ce7aa28cd645154521e9173a7325bd6c4fdd7e7a'},
-            {'scenicplus-1.0a1_pyproject.toml-fix.patch':
-             '1b440d8a4f0e1c274002687755fdfd20de30eeafbd197196935b2edbaab5c757'},
+            # {'scenicplus-1.0a1_pyproject.toml-fix.patch':
+            #  '1b440d8a4f0e1c274002687755fdfd20de30eeafbd197196935b2edbaab5c757'},
         ],
     }),
 ]
 
 # PIC2 - this should work if pyproject.toml can not be fixed
-# postinstallcmds = [
-#     'cp -r %(builddir)s/scenicplus/scenicplus-fa55dae55203951c0c42e359b65a28010cd544f6/src/scenicplus/snakemake '
-#     '%(installdir)s/lib/python%(pyshortver)s/site-packages/scenicplus/snakemake'
-# ]
+# $ scenicplus init_snakemake --out_dir test/
+postinstallcmds = [
+    'cp -r %(builddir)s/scenicplus/scenicplus-fa55dae55203951c0c42e359b65a28010cd544f6/src/scenicplus/snakemake '
+    '%(installdir)s/lib/python%(pyshortver)s/site-packages/scenicplus'
+]
 
 # PIC1 - this will not works
 # postinstallcmds = [
@@ -445,7 +446,7 @@ sanity_check_commands = ['scenicplus init_snakemake --help']
 moduleclass = 'bio'
 
 # ERROR5:
-    # -> pyproject.toml-fix.patch created
+    # NO -> pyproject.toml-fix.patch created -> not working 
     # -> or I can patch pyproject.toml to include all in /snakemake
         # https://stackoverflow.com/questions/69647590/specifying-package-data-in-pyproject-toml
         # https://setuptools.pypa.io/en/latest/userguide/datafiles.html
@@ -453,8 +454,8 @@ moduleclass = 'bio'
     # -> maybe there is wrong install cmd and config.yaml is not there -> copy from build dir
         # in %(builddir)s/scenicplus/scenicplus-fa55dae55203951c0c42e359b65a28010cd544f6/src/scenicplus/snakemake is config.yaml
     # -> add export PYTHONPATH=/lib/python3.11/site-packages:$PYTHONPATH && 
-    # -> PIC1 created - seems will not work
-    # -> put $ scenicplus init_snakemake --help to postistallcmds under exts_list, not in it, and add whole path to scenicplus (not in PATH yet)
+    # NO -> PIC1 created - seems will not work
+    # NO -> put $ scenicplus init_snakemake --help to postistallcmds under exts_list, not in it, and add whole path to scenicplus (not in PATH yet)
         # -> scenicplus.cli.scenicplus exist - seems scenicplus is not in PYTHONPATH
         # == 2024-07-26 14:29:25,798 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuil
         # d/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "/scratch/gent/vo/001
@@ -465,7 +466,7 @@ moduleclass = 'bio'
         #     from scenicplus.cli.scenicplus import main
         # ModuleNotFoundError: No module named 'scenicplus'
         # (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
-    # -> put $ scenicplus init_snakemake --help to postistallcmds:
+    # NO -> put $ scenicplus init_snakemake --help to postistallcmds:
         # == 2024-07-26 13:00:28,887 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "scenicplus init_snakemake --help" exited with exit code 127 and output:
         # /bin/bash: scenicplus: command not found
     # -> seems this cmd should be in postinstallcmds -> it should init the config.yaml
