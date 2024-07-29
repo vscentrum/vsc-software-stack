@@ -11,170 +11,6 @@ chromatin accessibility (scATAC-seq) data."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# DEPS:
-    # ok pycistarget @ git+https://github.com/aertslab/pycistarget
-    # ok pycisTopic @ git+https://github.com/aertslab/pycisTopic
-    # ok loomxpy
-    # OK pyscenic in sc-bundle
-    # ?OK adjustText==1.0.4 in sc-bundle
-    # OK anndata==0.10.5.post1
-    # ok annoy==1.17.3
-    # OK arboreto==0.1.6 in pyScenic
-    # ok attr==0.3.2
-    # ok attrs==23.2.0 in pypi bundle 23.1.0
-    # OK bbknn==1.6.0 in sc-bundle
-    # ?OK beautifulsoup4==4.12.3 have 4.12.2
-    # bs4==0.0.2 -> it is only dummy
-    # OK ctxcore==0.2.0 in pyScenic
-    # ?OK Cython==0.29.37 in pypi-bundle is v0.29.35
-    # OK cytoolz==0.12.3 in pyScenic
-    # ?OK dask==2024.2.1 in pyScenic v2023.9.2
-    # ?OK dill==0.3.8 in pyScenic v0.3.7
-    # -> gensim==4.3.2 -> UPDATED OK
-    # ok gseapy==0.10.8
-    # ?OK h5py==3.10.0 have v3.9.0
-    # OK harmonypy==0.0.9 in sc-bundle
-    # OK igraph==0.11.4
-    # ?OK imageio==2.34.0 have v2.33.1
-    # OK importlib-metadata==7.0.1 pypi bundle
-    # OK importlib_resources==6.1.2 pypi bundle
-    # OK intervaltree==3.1.0 pypi bundle
-    # OK joblib==1.3.2 pypi bundle
-    # -> kaleido==0.2.1 -> UPDATED OK
-    # ok lda==3.0.0
-    # OK leidenalg==0.10.2
-    # ?OK lxml==5.1.0 have v4.9.2
-    # OK MACS2==2.2.9.1
-    # OK matplotlib==3.6.3 in sc-bundle
-    # OK mudata==0.2.3 in sc-bundle
-    # ok ncls==0.0.68
-    # ?OK networkx==3.2.1 have v3.1 in pyScenic
-    # ?OK numba==0.59.0 have v0.58.1
-    # -> numexpr==2.9.0 -> UPDATED OK
-    # ?OK numpy==1.26.4 have v1.25.1
-    # OK numpy-groupies==0.10.2 in loompy
-    # ?OK pandas==1.5.0 have 2.0.3
-    # ?OK plotly==5.19.0 have v5.16.0
-    # OK plotnine==0.12.4 in sc-bundle
-    # ?OK polars==0.20.13 have v0.20.2
-    # ?OK pyarrow==15.0.0 have v14.0.1
-    # OK pyarrow-hotfix==0.6 -> not needed for Arrow 14.0.1
-    # OK pybedtools==0.9.1
-    # ok pybigtools==0.1.2
-    # OK pyBigWig==0.3.22
-    # ok pybiomart==0.2.0
-    # -> pyfasta==0.5.2 -> UPDATED OK
-    # OK pygam==0.9.0
-    # ok pyranges==0.0.111
-    # ok pyrle==0.0.39
-    # OK pysam==0.22.0
-    # ok pyvis==0.3.2
-    # ?OK ray==2.9.3 have v2.9.1
-    # OK requests==2.31.0 pypi bundle
-    # ok requests-cache==1.2.0
-    # ok scanorama==1.7.4
-    # OK scanpy==1.8.2 in sc-bundle
-    # ok scatac_fragment_tools==0.1.0
-    # OK scikit-image==0.22.0
-    # ?OK scikit-learn==1.3.2 have v1.3.1 in pyScenic or for 2023a either v1.4.2
-    # ?OK scipy==1.12.0 have v1.11.1
-    # -> scrublet==0.2.3 -> UPDATED OK
-    # OK seaborn==0.13.2 in sc-bundle
-    # ?OK snakemake==8.5.5 have v8.4.2
-        # ok snakemake-interface-common==1.17.1 in snakemake
-        # ok snakemake-interface-executor-plugins==8.2.0 in snakemake
-        # ok snakemake-interface-report-plugins==1.0.0 to exts
-        # ok snakemake-interface-storage-plugins==3.1.1 in snakemake
-    # ok statistics==1.0.3.5
-    # OK statsmodels==0.14.1
-    # ok tmtoolkit==0.12.0
-    # ?OK tqdm==4.66.2 v4.66.1 in pyScenic
-    # ok tspex==0.6.3
-    # NO typing==3.7.4.3 -> no, only for old python
-    # OK umap-learn==0.5.5 in pyScenic
-    # deps pycistarget:
-        # OK IPython
-        # ok pandoc
-        # -> sphinx_rtd_theme -> UPDATED OK
-        # ok nbsphinx
-        # ok nbsphinx_link
-        # ok numpydoc
-        # OK typing_extensions
-    # deps pycisTopic:
-        # OK ipympl
-        # ok pyopenssl
-        # -> python-Levenshtein -> UPDATED OK -> in sc-bundle in Cassiopeia v0.22.0
-        # OK tables
-        # OK xlrd in pypi bundle
-        # ok papermill
-    # gseapy 0.10.8 requires bioservices, ok
-    # scenicplus 1.0a1 requires bidict, ok
-    # scenicplus 1.0a1 requires bioservices, ok
-    # scenicplus 1.0a1 requires bs4, ok
-    # scenicplus 1.0a1 requires cattrs, ok
-    # scenicplus 1.0a1 requires colorlog, ok
-    # scenicplus 1.0a1 requires dataclasses-json, ok
-    # scenicplus 1.0a1 requires easydev, ok
-    # scenicplus 1.0a1 requires gevent, ok
-    # scenicplus 1.0a1 requires globre, ok
-    # scenicplus 1.0a1 requires grequests, ok
-    # scenicplus 1.0a1 requires line-profiler, OK
-    # scenicplus 1.0a1 requires marshmallow, ok
-    # scenicplus 1.0a1 requires mypy-extensions, ok
-    # scenicplus 1.0a1 requires ndindex, ok
-    # scenicplus 1.0a1 requires pyarrow-hotfix, which is not installed. -> unpin/delete
-    # scenicplus 1.0a1 requires rich-argparse, ok
-    # scenicplus 1.0a1 requires sinfo, ok
-    # scenicplus 1.0a1 requires sorted-nearest, ok
-    # scenicplus 1.0a1 requires suds-community, ok
-    # scenicplus 1.0a1 requires typing, which is not installed. -> delete
-    # scenicplus 1.0a1 requires typing-inspect, ok
-    # scenicplus 1.0a1 requires url-normalize, ok
-    # scenicplus 1.0a1 requires xmltodict, ok
-    # scenicplus 1.0a1 requires zope-event, ok
-    # scenicplus 1.0a1 requires zope-interface, ok
-    # loomxpy 0.4.2 requires dataclasses-json, ok
-    # requests-cache 1.2.0 requires cattrs, ok
-    # requests-cache 1.2.0 requires url-normalize, ok
-    # pycistopic 1.0.2 requires bs4, ok
-    # pycistopic 1.0.2 requires python-igraph, which is not installed. -> it is ! -> change to igraph
-    # pycistopic 1.0.2 requires typing, which is not installed. -> delete
-    # pycistarget 1.0.2 requires typing, which is not installed. -> delete
-    # scatac-fragment-tools 0.1.0 requires rich-argparse, ok 
-    # papermill 2.6.0 requires ansicolors, ok
-    # papermill 2.6.0 requires entrypoints, ok
-    # pyranges 0.0.111 requires sorted-nearest, ok
-    # tmtoolkit 0.12.0 requires bidict, ok
-    # tmtoolkit 0.12.0 requires globre, ok
-    # pandoc 2.3 requires plumbum, ok
-    # loomxpy 0.4.2 has requirement pyscenic>=0.12.0, but you have pyscenic 0+unknown. ???
-    # pyopenssl 24.1.0 has requirement cryptography<43,>=41.0.5, but you have cryptography 41.0.1. ok v23.3.0
-    # snakemake-interface-report-plugins 1.0.0 has requirement snakemake-interface-common<2.0.0,>=1.16.0, but you have snakemake-interface-common 1.15.2. ok
-    # python-levenshtein 0.22.0 has requirement Levenshtein==0.22.0, but you have levenshtein 0.25.1. ??? ok
-    # cleo 2.0.1 has requirement rapidfuzz<3.0.0,>=2.2.0, but you have rapidfuzz 3.9.4. ok
-    #
-    # scenicplus 1.0a1 requires pyarrow-hotfix, which is not installed. -> delete from req
-    # scenicplus 1.0a1 requires typing, which is not installed. -> delete from req - all is in basic python
-    # pycistopic 1.0.2 requires python-igraph, which is not installed.-> change to igraph in pycistopic
-    # pycistopic 1.0.2 requires typing, which is not installed. -> delete from req - all is in basic python
-    # pycistarget 1.0.2 requires typing, which is not installed. -> delete from req - all is in basic python
-    # loomxpy 0.4.2 has requirement pyscenic>=0.12.0, but you have pyscenic 0+unknown. -> unpin version
-    # easydev 0.13.1 has requirement pexpect<5.0.0,>=4.9.0, but you have pexpect 4.8.0. -> ok
-    # easydev 0.13.1 has requirement platformdirs<5.0.0,>=4.2.0, but you have platformdirs 3.8.0. -> ok
-    # pyopenssl 23.3.0 has requirement cryptography<42,>=41.0.5, but you have cryptography 41.0.1. -> ok changed to v23.2.0
-        # cryptography>=38.0.0,<42,!=40.0.0,!=40.0.1"
-    # tables 3.8.0 has requirement blosc2~=2.0.0, but you have blosc2 2.5.1. -> delete blosc2 2.5.1 - unpin version in scenic+
-    # macs2 2.2.9.1 has requirement Cython~=0.29, but you have cython 3.0.8. -> cython v3 in line_profiler -> change version of line_profiler to v4.1.1 and unpin
-    # python-levenshtein 0.22.0 has requirement Levenshtein==0.22.0, but you have levenshtein 0.25.1. OK -> 0.22.0 in Cassiopeia - sc-bundle
-    # cleo 2.0.1 has requirement rapidfuzz<3.0.0,>=2.2.0, but you have rapidfuzz 3.9.4. -> should be ok without new levenshtein
-    # ndindex only need in new blocs2 -> delete from req
-    #
-    # loomxpy 0.4.2 has requirement pyscenic>=0.12.0, but you have pyscenic 0+unknown. -> unpin ok
-    # easydev 0.13.1 has requirement line-profiler<5.0.0,>=4.1.2, but you have line-profiler 4.1.1.
-        # bioservices: easydev>=0.12.0 -> use easydev 0.12.2 -> no line-profiler but profiler 0.1.0 -> ok NO
-    # virtualenv 20.23.1 has requirement platformdirs<4,>=3.5.1, but you have platformdirs 4.2.0.
-        # virtualenv in pypi-bundle and poetry -> use easydev 0.12.1 - has no platformdirs req OK
-
 builddependencies = [
     ('poetry', '1.5.1'),
     ('maturin', '1.4.0', '-Rust-1.75.0'),
@@ -213,13 +49,11 @@ dependencies = [
     ('scrublet', '0.2.3'),
     ('numexpr', '2.9.0'),
     ('Kaleido', '0.2.1'),
-    # ('Levenshtein', '0.25.1'),
     ('pyfasta', '0.5.2'),
     ('gensim', '4.3.2'),
-    # ('line_profiler', '4.1.1'),
 ]
 
-# local_pycisT_preinstallopts = "sed -i 's/use_scm_version=True/version=\"1.0.2\"/' setup.py && "
+# unpin version restriction and delete typing requirement
 local_pycistopic_preinstallopts = (
     "sed -i"
     " -e 's/pyscenic>=0.12.0/pyscenic/'"
@@ -227,6 +61,7 @@ local_pycistopic_preinstallopts = (
     " -e 's/python-Levenshtein/Levenshtein/'"
     " -e 's/python-igraph/igraph/'"
     " -e '/typing/d'"
+    # delete pyscenic and loomxpy req from commit - have versions now
     " -e '60,61d'"
     " requirements.txt && "
     "sed -i"
@@ -234,7 +69,9 @@ local_pycistopic_preinstallopts = (
     " -e 's/matplotlib < 3.7/matplotlib/'"
     " pyproject.toml && "
 )
+# delete typing from requirements
 local_pycistarget_preinstallopts = "sed -i '/typing/d' requirements.txt && "
+# unpin version restriction and delete poetry.lock
 local_loomxpy_preinstallopts = "sed -i 's/pyscenic>=0.12.0/pyscenic/' requirements.txt && "
 local_loomxpy_preinstallopts += "sed -i 's/pyscenic = \">=0.12.0\"/pyscenic = \"*\"/' pyproject.toml && "
 local_loomxpy_preinstallopts += "rm poetry.lock && "
@@ -413,7 +250,6 @@ exts_list = [
     (name, version, {
         'patches': [
             'scenicplus-1.0a1-18072024_requirements.txt.patch',
-            # 'scenicplus-1.0a1_pyproject.toml-fix.patch',
         ],
         'source_urls': ['https://github.com/aertslab/scenicplus/archive/'],
         'sources': [{'download_filename': 'fa55dae.tar.gz', 'filename': '%(name)s-%(version)s-fa55dae.tar.gz'}],
@@ -422,201 +258,16 @@ exts_list = [
              '88cddec1ab2618861e5c93e8a0b17b8e9e2aa3a76410d882c35d472f98724e29'},
             {'scenicplus-1.0a1-18072024_requirements.txt.patch':
              'fdfba5d9413f6088d657e315ce7aa28cd645154521e9173a7325bd6c4fdd7e7a'},
-            # {'scenicplus-1.0a1_pyproject.toml-fix.patch':
-            #  '1b440d8a4f0e1c274002687755fdfd20de30eeafbd197196935b2edbaab5c757'},
         ],
     }),
 ]
 
-# PIC2 - this should work if pyproject.toml can not be fixed
-# $ scenicplus init_snakemake --out_dir test/
+# copy files to let 'scenicplus init_snakemake' works 
 postinstallcmds = [
     'cp -r %(builddir)s/scenicplus/scenicplus-fa55dae55203951c0c42e359b65a28010cd544f6/src/scenicplus/snakemake '
     '%(installdir)s/lib/python%(pyshortver)s/site-packages/scenicplus'
 ]
 
-# PIC1 - this will not works
-# postinstallcmds = [
-#     'export PYTHONPATH=%(installdir)s/lib/python%(pyshortver)s/site-packages:$PYTHONPATH && '
-#     '%(installdir)s/bin/scenicplus init_snakemake --help'
-# ]
-
 sanity_check_commands = ['scenicplus init_snakemake --help']
-    
+
 moduleclass = 'bio'
-
-# ERROR5:
-    # NO -> pyproject.toml-fix.patch created -> not working 
-    # -> or I can patch pyproject.toml to include all in /snakemake
-        # https://stackoverflow.com/questions/69647590/specifying-package-data-in-pyproject-toml
-        # https://setuptools.pypa.io/en/latest/userguide/datafiles.html
-    # -> postinstalcmds created PIC2
-    # -> maybe there is wrong install cmd and config.yaml is not there -> copy from build dir
-        # in %(builddir)s/scenicplus/scenicplus-fa55dae55203951c0c42e359b65a28010cd544f6/src/scenicplus/snakemake is config.yaml
-    # -> add export PYTHONPATH=/lib/python3.11/site-packages:$PYTHONPATH && 
-    # NO -> PIC1 created - seems will not work
-    # NO -> put $ scenicplus init_snakemake --help to postistallcmds under exts_list, not in it, and add whole path to scenicplus (not in PATH yet)
-        # -> scenicplus.cli.scenicplus exist - seems scenicplus is not in PYTHONPATH
-        # == 2024-07-26 14:29:25,798 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuil
-        # d/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "/scratch/gent/vo/001
-        # /gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/
-        # bin/scenicplus init_snakemake --help" exited with exit code 1 and output:
-        # Traceback (most recent call last):
-        # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/bin/scenicplus", line 5, in <module>
-        #     from scenicplus.cli.scenicplus import main
-        # ModuleNotFoundError: No module named 'scenicplus'
-        # (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
-    # NO -> put $ scenicplus init_snakemake --help to postistallcmds:
-        # == 2024-07-26 13:00:28,887 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "scenicplus init_snakemake --help" exited with exit code 127 and output:
-        # /bin/bash: scenicplus: command not found
-    # -> seems this cmd should be in postinstallcmds -> it should init the config.yaml
-    # -> https://github.com/aertslab/scenicplus/issues/300
-    # -> now there is nothing in /lib/python3.11/site-packages/scenicplus/snakemake dir, only empty __ini__.py
-    # <- $ scenicplus init_snakemake --out_dir test/
-    # [vsc47063@node4001:~/WIP/64_scenicplus]$ scenicplus init_snakemake --out_dir test/
-    # 2024-07-25 17:20:03,046 SCENIC+      INFO     Creating snakemake folder in: test
-    # Traceback (most recent call last):
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/bin/scenicplus", line 8, in <module>
-    #     sys.exit(main())
-    #             ^^^^^^
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 1137, in main
-    #     args.func(args)
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 24, in init_snakemake
-    #     init_snakemake_folder(
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/commands.py", line 46, in init_snakemake_folder
-    #     shutil.copy(config_file, os.path.join(out_dir, "Snakemake", "config", "config.yaml"))
-    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/shutil.py", line 419, in copy
-    #     copyfile(src, dst, follow_symlinks=follow_symlinks)
-    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/shutil.py", line 256, in copyfile
-    #     with open(src, 'rb') as fsrc:
-    #         ^^^^^^^^^^^^^^^
-    # FileNotFoundError: [Errno 2] No such file or directory: 
-    # '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0a1-18072024-foss-2023a/lib/python3.11/site-packages/scenicplus/snakemake/
-    #   config.yaml'
-# ERROR4: OK
-    # try add pandas 1.5 in exts: NO
-        # dask-image 2023.8.1 has requirement pandas>=2.0.0, but you have pandas 1.5.0.
-        # mapclassify 2.6.1 has requirement pandas!=1.5.0,>=1.4, but you have pandas 1.5.0.
-        # scib 1.1.4 has requirement pandas>=2 (took 56 mins 13 secs)
-    # OK pycistopic 2.0a0 has requirement matplotlib<3.7, but you have matplotlib 3.7.2.
-    # OK pycistopic 2.0a0 has requirement pandas==1.5, but you have pandas 2.0.3.
-    # -> seems I need commit dca4bb6 to let it work
-    # <- $ scenicplus init_snakemake --out_dir .
-    # [vsc47063@node4001:~/WIP/64_scenicplus]$ scenicplus init_snakemake --out_dir .
-    # Traceback (most recent call last):
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/bin/scenicplus", line 8, in <module>
-    #     sys.exit(main())
-    #             ^^^^^^
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 1137, in main
-    #     args.func(args)
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 23, in init_snakemake
-    #     from scenicplus.cli.commands import init_snakemake_folder
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/commands.py", line 16, in <module>
-    #     from pycistarget.motif_enrichment_dem import DEM
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/pycistarget/motif_enrichment_dem.py", line 18, in <module>
-    #     from pycisTopic.diff_features import get_log2_fc, mean_axis1
-    # ImportError: cannot import name 'get_log2_fc' from 'pycisTopic.diff_features' (/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/pycisTopic/diff_features.py)
-# ERROR3: OK
-    # -> need to download this version: https://github.com/aertslab/pycistarget/commit/16d14b98b116c5dc2a590cdbad627d892a4d4702
-    # -> https://github.com/aertslab/scenicplus/issues/300#issuecomment-1964315664
-    # <- after successful build and $ scenicplus:
-    # [vsc47063@node4002:~/WIP/64_scenicplus]$ scenicplus
-    # Traceback (most recent call last):
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/bin/scenicplus", line 8, in <module>
-    #     sys.exit(main())
-    #             ^^^^^^
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 1123, in main
-    #     parser, subparsers = create_argument_parser()
-    #                         ^^^^^^^^^^^^^^^^^^^^^^^^
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 1110, in create_argument_parser
-    #     add_parser_for_motif_enrichment_cistarget(inference_subparsers)
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/scenicplus/cli/scenicplus.py", line 406, in add_parser_for_motif_enrichment_cistarget
-    #     from pycistarget.cli.pycistarget import CISTARGET_DEFAULTS
-    # ModuleNotFoundError: No module named 'pycistarget.cli'
-# ERROR2: OK
-    # -> add fix from denis version to preinstallopts
-    # NO -> try add git as dep -> no it not works
-        # https://github.com/pypa/setuptools_scm/issues/278
-    # == 2024-07-22 16:34:26,005 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/eaybuild/base/exceptions.py:126 in __init__): cmd " /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.30/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/sceicplus/1.0.0-18072023-foss-2023a  --no-deps  --ignore-installed  --no-index  --no-build-isolation  ." exited with exi code 1 and output:
-    # Processing /tmp/vsc47063/easybuild/build/scenicplus/1.0.0-18072023/foss-2023a/pycisTopic/pycisTopic-1.0.2
-    #   Preparing metadata (setup.py): started
-    #   Preparing metadata (setup.py): finished with status 'error'
-    #   error: subprocess-exited-with-error
-
-    #    python setup.py egg_info did not run successfully.
-    #    exit code: 1
-    #   > [42 lines of output]
-    #       /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/__nit__.py:84: _DeprecatedInstaller: setuptools.installer and fetch_build_eggs are deprecated.
-    #       !!
-
-    #               ********************************************************************************
-    #               Requirements should be satisfied by a PEP 517 installer.
-    #               If you are using pip, you can try `pip install --use-pep517`.
-    #               ********************************************************************************
-
-    #       !!
-    #         dist.fetch_build_eggs(dist.setup_requires)
-    #       [07/22/24 16:34:25] WARNING  toml section missing 'pyproject.toml does not contain a           pyproject_readingpy:42
-    #                                    tool.setuptools_scm section'
-    #       Traceback (most recent call last):
-    #         File "<string>", line 2, in <module>
-    #         File "<pip-setuptools-caller>", line 34, in <module>
-    #         File "/tmp/vsc47063/easybuild/build/scenicplus/1.0.0-18072023/foss-2023a/pycisTopic/pycisTopic-1.0.2/setup.py" line 27, in <module>
-    #           setup(
-    #         ptools/_distutils/core.py", line 147, in setup
-    #           _setup_distribution = dist = klass(attrs)
-    #                                        ^^^^^^^^^^^^
-    #         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/dist.py", line 496, in __init__
-    #           _Distribution.__init__(
-    #         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/dist.py", line 283, in __init__
-    #           self.finalize_options()
-    #         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/dist.py", line 935, in finalize_options
-    #           ep(self)
-    #         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/dist.py", line 955, in _finalize_setup_keywords
-    #           ep.load()(self, ep.name, value)
-    #         File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/pytest/7.4.2-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools_scm/_integration/setuptools.py", line 101, in version_keyword
-    #           _assign_version(dist, config)
-    #         File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/pytest/7.4.2-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools_scm/_integration/setuptools.py", line 56, in _assign_version
-    #           _version_missing(config)
-    #         File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/pytest/7.4.2-GCCcore-12.3./lib/python3.11/site-packages/setuptools_scm/_get_version_impl.py", line 112, in _version_missing
-    #           raise LookupError(
-    #       LookupError: setuptools-scm was unable to detect version for /tmp/vsc47063/easybuild/build/scenicplus/1.0.0-1802023/foss-2023a/pycisTopic/pycisTopic-1.0.2.
-
-    #       Make sure you're either building from a fully intact git repository or PyPI tarballs. Most other sources (such s GitHub's tarballs, a git checkout without the .git folder) don't contain the necessary metadata and will not work.
-
-    #       For example, if you're using pip, instead of https://github.com/user/proj/archive/master.zip use git+https://gihub.com/user/proj.git#egg=proj
-    #       [end of output]
-# ERROR1: OK
-    # -> problem with typing -> try to remove it from exts
-    # -> https://stackoverflow.com/questions/55833509/attributeerror-type-object-callable-has-no-attribute-abc-registry
-    # == installing extension pandoc 2.3 (20/29)...
-    #   >> defining build environment for foss/2023a toolchain
-    # cmd "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c 'import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(plat_specific=False, prefix="/tmp/"))'" 
-    # exited with exit code 1 and output:
-    # == 2024-07-19 15:42:50,974 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/ea
-    # sybuild/base/exceptions.py:126 in __init__): cmd "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.
-    # 0/bin/python -c 'import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(plat_specific=False, prefix="/tm
-    # p/"))'" exited with exit code 1 and output:
-    # Traceback (most recent call last):
-    # File "<string>", line 1, in <module>
-    # File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
-    # File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
-    # File "<frozen importlib._bootstrap>", line 1080, in _find_spec
-    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/_distutils_
-    # hack/__init__.py", line 97, in find_spec
-    #     return method()
-    #         ^^^^^^^^
-    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/_distutils_hack/__init__.py", line 104, in spec_for_distutils
-    #     import importlib.abc
-    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/importlib/abc.py", line 19, in <module>
-    #     from .resources.abc import ResourceReader, Traversable, TraversableResources
-    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/importlib/resources/__init__.py", line 3, in <module>
-    #     from ._common import (
-    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/importlib/resources/_common.py", line 9, in <module>
-    #     from typing import Union, Optional
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/typing.py", line 1359, in <module>
-    #     class Callable(extra=collections_abc.Callable, metaclass=CallableMeta):
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scenicplus/1.0.0-18072023-foss-2023a/lib/python3.11/site-packages/typing.py", line 1007, in __new__
-    #     self._abc_registry = extra._abc_registry
-    #                         ^^^^^^^^^^^^^^^^^^^
-    # AttributeError: type object 'Callable' has no attribute '_abc_registry'
