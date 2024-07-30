@@ -1,0 +1,29 @@
+easyblock = 'PythonPackage'
+
+name = 'lxml'
+version = '5.2.2'
+
+homepage = 'https://lxml.de/'
+description = """lxml is a Pythonic, mature binding for the libxml2 and libxslt libraries.
+ It provides safe and convenient access to these libraries using the ElementTree API."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+sources = [SOURCE_TAR_GZ]
+checksums = ['bb2dc4898180bea79863d5487e5f9c7c34297414bad54bcd0f0852aee9cfdb87']
+
+builddependencies = [
+    ('Cython', '3.0.8'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('libxslt', '1.1.38'),
+    ('libxml2', '2.11.4'),
+]
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+
+moduleclass = 'lib'
