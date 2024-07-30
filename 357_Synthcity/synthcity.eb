@@ -66,7 +66,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
         # synthcity 0.2.10 has requirement pydantic<2.0, but you have pydantic 2.5.3.
         # synthcity 0.2.10 has requirement torch<2.0,>=1.10.0, but you have torch 2.1.2.
         # synthcity 0.2.10 has requirement xgboost<2.0.0, but you have xgboost 2.0.2.
-    # -> networkx v2.8.8 in exts
+    # -> networkx v2.8.8 in exts -> not -> decaf is separate econfig
         # decaf-synthetic-data 0.1.6 has requirement networkx<3.0,>=2.0, but you have networkx 3.1.
     # -> use xgbse v0.2.3
         # xgbse 0.3.1 has requirement joblib<2.0.0,>=1.4.2, but you have joblib 1.2.0.
@@ -117,6 +117,7 @@ dependencies = [
     ('scikit-learn', '1.3.1'),
     ('SHAP', '0.43.0'),
     ('PyTorch-bundle', local_pytorch_version),
+    # ('XGBoost', '2.0.2'),
     ('XGBoost', '1.7.2'),
     ('tqdm', '4.66.1'),
     ('HF-Datasets', '2.18.0'),
@@ -130,6 +131,7 @@ dependencies = [
     ('Optuna', '3.5.0'),
     ('MONAI', '1.3.0'),
     ('DECAF-synthetic-data', '0.1.6'),
+    # ('PyTorch-Lightning', '2.2.1'),
     ('PyTorch-Lightning', '1.8.4'),
     # TESTS
     ('Jupyter-bundle', '20230823'),
@@ -156,14 +158,15 @@ local_preinstallopts = (
     " %(builddir)s/%(name)s/%(name)s-%(version)s/setup.cfg && "
 )
 local_pretestopts = (
-    "echo HERRERE && pwd && "
+    "echo HERRERE && pwd && ls && "
     "export TOKENIZERS_PARALLELISM=true && "
-    # fix pydantic.pydantic_core error in test_schema.py::test_schema_fail - NOT WORKING!
+    # fix pydantic.pydantic_core error in test_schema.py::test_schema_fail - WORKING in E8
     "sed -i"
     " -e '17 s/pydantic.pydantic_core._pydantic_core.ValidationError/pydantic_core._pydantic_core.ValidationError/'"
     " -e '3 a import pydantic_core'"
     " %(builddir)s/%(name)s/%(name)s-%(version)s/tests/plugins/core/test_schema.py && "
-    # try to fix timegan error
+    # try to fix timegan error - it is changed in E8
+    # -> assert np.isclose(np.asarray(static_gen, dtype="object"), np.asarray(static_seed, dtype="object")).all()
     "sed -i"
     " -e '116 s/static_gen/static_gen, dtype=\"object\"/'"
     " -e '116 s/static_seed/static_seed, dtype=\"object\"/'"
@@ -178,6 +181,9 @@ local_xgbse_preinstallopts = (
 )
 
 exts_list = [
+    ('networkx', '2.8.8', {
+        'checksums': ['230d388117af870fce5647a3c52401fcf753e94720e6ea6b4197a5355648885e'],
+    }),
     ('cfgv', '3.4.0', {
         'checksums': ['e52591d4c5f5dead8e0f673fb16db7949d2cfb3f7da4582893288f0ded8fe560'],
     }),
@@ -347,12 +353,153 @@ sanity_check_commands = [
 
 moduleclass = 'lib'
 
+# ERROR8:
+    # -> FROM test_log4.txt
+    # -> pwd = /tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/synthcity/synthcity-0.2.10
+    # -> ls: build CONTRIBUTING.MD docs LICENSE prereq.txt pyproject.toml README.md setup.cfg setup.py src tests tutorials
+    
+    # =========================================== short test summary info ===========================================
+    # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin0] - AttributeError: module 'net...
+    # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin1] - AttributeError: module 'net...
+    # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] - AttributeError: module 'net...
+        # -> decaf has its own ec -> networkx unpined -> seems it needs networkx<3
+        # -> different from E7
+        # test_plugin = <synthcity.plugins.privacy.plugin_decaf.DECAFPlugin object at 0x14e9a30c9890>
+        #     @pytest.mark.parametrize(
+        #         "test_plugin", generate_fixtures(plugin_name, plugin, plugin_args)
+        #     )
+        #     @pytest.mark.skipif(sys.platform != "linux", reason="Linux only for faster results")
+        #     def test_plugin_generate(test_plugin: Plugin) -> None:
+        #         X = pd.DataFrame(load_iris()["data"])
+        # >       test_plugin.fit(GenericDataLoader(X))
+
+        # tests/plugins/privacy/test_decaf.py:110: 
+        # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+        # pydantic/decorator.py:40: in pydantic.decorator.validate_arguments.validate.wrapper_function
+        #     ???
+        # pydantic/decorator.py:134: in pydantic.decorator.ValidatedFunction.call
+        #     ???
+        # pydantic/decorator.py:206: in pydantic.decorator.ValidatedFunction.execute
+        #     ???
+        # /tmp/vsc47063/eb-_tp9y8jo/tmpph_4b7an/lib/python3.11/site-packages/synthcity/plugins/core/plugin.py:256: in fit
+        #     output = self._fit(X, *args, **kwargs)
+        # /tmp/vsc47063/eb-_tp9y8jo/tmpph_4b7an/lib/python3.11/site-packages/synthcity/plugins/privacy/plugin_decaf.py:437: in _fit
+        #     trainer.fit(self.model, dm)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:603: in fit
+        #     call._call_and_handle_interrupt(
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/call.py:38: in _call_and_handle_interrupt
+        #     return trainer_fn(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:645: in _fit_impl
+        #     self._run(model, ckpt_path=self.ckpt_path)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:1098: in _run
+        #     results = self._run_stage()
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:1177: in _run_stage
+        #     self._run_train()
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:1200: in _run_train
+        #     self.fit_loop.run()
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/loop.py:199: in run
+        #     self.advance(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/fit_loop.py:267: in advance
+        #     self._outputs = self.epoch_loop.run(self._data_fetcher)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/loop.py:199: in run
+        #     self.advance(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py:214: in advance
+        #     batch_output = self.batch_loop.run(kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/loop.py:199: in run
+        #     self.advance(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/batch/training_batch_loop.py:88: in advance
+        #     outputs = self.optimizer_loop.run(optimizers, kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/loop.py:199: in run
+        #     self.advance(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py:200: in advance
+        #     result = self._run_optimization(kwargs, self._optimizers[self.optim_progress.optimizer_position])
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py:247: in _run_optimization
+        #     self._optimizer_step(optimizer, opt_idx, kwargs.get("batch_idx", 0), closure)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py:357: in _optimizer_step
+        #     self.trainer._call_lightning_module_hook(
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:1342: in _call_lightning_module_hook
+        #     output = fn(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/core/module.py:1661: in optimizer_step
+        #     optimizer.step(closure=optimizer_closure)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/core/optimizer.py:169: in step
+        #     step_output = self._strategy.optimizer_step(self._optimizer, self._optimizer_idx, closure, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/strategies/strategy.py:234: in optimizer_step
+        #     return self.precision_plugin.optimizer_step(
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/plugins/precision/precision_plugin.py:121: in optimizer_step
+        #     return optimizer.step(closure=closure, **kwargs)
+        # /apps/gent/RHEL8/cascadelake-ib/software/PyTorch/2.1.2-foss-2023a/lib/python3.11/site-packages/torch/optim/optimizer.py:373: in wrapper
+        #     out = func(*args, **kwargs)
+        # /apps/gent/RHEL8/cascadelake-ib/software/PyTorch/2.1.2-foss-2023a/lib/python3.11/site-packages/torch/optim/optimizer.py:76: in _use_grad
+        #     ret = func(self, *args, **kwargs)
+        # /apps/gent/RHEL8/cascadelake-ib/software/PyTorch/2.1.2-foss-2023a/lib/python3.11/site-packages/torch/optim/adamw.py:161: in step
+        #     loss = closure()
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/plugins/precision/precision_plugin.py:107: in _wrap_closure
+        #     closure_result = closure()
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py:147: in __call__
+        #     self._result = self.closure(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py:133: in closure
+        #     step_output = self._step_fn()
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py:406: in _training_step
+        #     training_step_output = self.trainer._call_strategy_hook("training_step", *kwargs.values())
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:1480: in _call_strategy_hook
+        #     output = fn(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/strategies/strategy.py:378: in training_step
+        #     return self.model.training_step(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/DECAF-synthetic-data/0.1.6-foss-2023a/lib/python3.11/site-packages/decaf/DECAF.py:354: in training_step
+        #     generated_batch = self.generator.sequential(batch, z, self.get_gen_order())
+        # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+        # self = DECAF(
+        # (generator): Generator_causal(
+        #     (shared): Sequential(
+        #     (0): Linear(in_features=500, out_features=500,...ut_features=500, bias=True)
+        #     (3): ReLU()
+        #     (4): Linear(in_features=500, out_features=1, bias=True)
+        #     )
+        # )
+        # )
+
+        #     def get_gen_order(self) -> list:
+        #         dense_dag = np.array(self.get_dag())
+        #         dense_dag[dense_dag > 0.5] = 1
+        #         dense_dag[dense_dag <= 0.5] = 0
+        # >       G = nx.from_numpy_matrix(dense_dag, create_using=nx.DiGraph)
+        # E       AttributeError: module 'networkx' has no attribute 'from_numpy_matrix'
+    
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin1] - AttributeError: 'DPOpt...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin2] - AttributeError: 'DPOpt...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin0] - AttributeError: 'DPOp...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin1] - AttributeError: 'DPOp...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin2] - AttributeError: 'DPOp...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin0] - AttributeError:...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin1] - AttributeError:...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin2] - AttributeError:...
+        # same error as E7 - problem with Torch version 
+        # E           AttributeError: 'DPOptimizer' object has no attribute '_optimizer_step_pre_hooks'
+    
+    # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] - ValueError: se...
+    # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source1] - ValueError: se...
+        # -> same as E7 -> fix not working -> numpy problem
+        # E           ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (50,) + inhomogeneous part.
+        # try debug by print:
+            # L107: cnt = 50
+            #     static_seed = static_data.head(1).values.tolist() * cnt
+            #     X_gen = test_plugin.generate(
+            #         cnt, static_data=pd.DataFrame(static_seed, columns=static_data.columns)
+            #     )
+            #     static_gen, _, _, _ = X_gen.unpack(as_numpy=True)
+            #     assert len(X_gen.ids()) == cnt
+            #     assert test_plugin.schema_includes(X_gen)
+            #     assert list(X_gen.columns) == list(data.columns)
+            #     assert np.isclose(np.asarray(static_gen), np.asarray(static_seed)).all()
+            # -> print(static_gen) ?
+    # ===== 13 failed, 2146 passed, 13 skipped, 103 deselected, 2 xfailed, 2063 warnings in 15943.46s (4:25:43) =====
 # ERROR7:
-    # seems better - 14 failed vs 18 in test_log2.txt
+    # -> this seems better - 14 failed vs 18 in test_log2.txt
     # FROM test_log3.txt:
         # ============================================== short test summary info ===============================================
         # FAILED tests/plugins/core/test_schema.py::test_schema_fail - AttributeError: module 'pydantic' has no attribute 'py...
-            # -> move fix prom preinstallopts to runtest cmd - should fix this
+            # -> move fix prom preinstallopts to runtest cmd - should fix this -> seems fixed from ERROR8
             
             # def test_schema_fail() -> None:
             #     if pydantic.__version__ < "2":
@@ -371,6 +518,7 @@ moduleclass = 'lib'
             # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/_migration.py:306: AttributeError
 
         # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin0] - RuntimeError: Training with multip...
+            # -> in E8: still test_decaf.py::test_plugin_generate error but another - Attribute not Runtime
             # -> https://stackoverflow.com/questions/75907443/pytorch-lightning-works-on-cuda-but-throws-training-with-multiple-optimizers-is
             # -> probably skip this test or create PyTorch-Lightning-1.8.4.foss-2023a -> pytorch-lighning v1.8.4 created
             
@@ -490,7 +638,7 @@ moduleclass = 'lib'
         # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin2] - AttributeError: 'DPOpt...
         
         # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] - ValueError: setting a...
-            # -> should be solved: it was moved to prerunopts so should be ok
+            # -> should be solved: it was moved to prerunopts so should be ok -> not working in E8
                 # FROM: https://stackoverflow.com/questions/67183501/setting-an-array-element-with-a-sequence-requested-array-has-an-inhomogeneous-sh
                 # With dtype="object" it works for me. -> variable2 = np.asarray(variable1, dtype="object")
             # tests/plugins/time_series/test_timegan.py:112:
