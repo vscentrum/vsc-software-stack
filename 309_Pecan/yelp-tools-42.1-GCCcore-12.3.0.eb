@@ -24,11 +24,10 @@ builddependencies = [
 
 dependencies = [
     ('yelp-xsl', '42.1'),
-    ('lxml', '5.2.2'),
     ('ITSTool', '2.0.7'),
     ('libxml2', '2.11.4'),
-    # docbook-xsl
-    # mallard-ducktype
+    # docbook-xsl ?
+    ('mallard-ducktype', '1.0.2'),
     ('lxml', '4.9.2'),
 ]
 
@@ -42,23 +41,3 @@ sanity_check_paths = {
 }
 
 moduleclass = 'tools'
-
-# == 2024-07-29 17:07:14,870 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " meson setup --prefix /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/yelp-tools/42.1-GCCcore-12.3.0  -Dlibdir=lib  /tmp/vsc45304/easybuild/build/yelptools/42.1/GCCcore-12.3.0/yelp-tools-42.1/" exited with exit code 1 and output:
-# The Meson build system
-# Version: 1.1.1
-# Source dir: /tmp/vsc45304/easybuild/build/yelptools/42.1/GCCcore-12.3.0/yelp-tools-42.1
-# Build dir: /tmp/vsc45304/easybuild/build/yelptools/42.1/GCCcore-12.3.0/easybuild_obj
-# Build type: native build
-# Project name: yelp-tools
-# Project version: 42.1
-# Host machine cpu family: x86_64
-# Host machine cpu: x86_64
-# Program python3 (lxml) found: YES (/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python3) modules: lxml
-# Found pkg-config: /usr/bin/pkg-config (1.4.2)
-# Found CMake: /apps/gent/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/bin/cmake (3.26.3)
-# Run-time dependency yelp-xsl found: NO (tried pkgconfig and cmake)
-#
-# ../yelp-tools-42.1/meson.build:28:15: ERROR: Dependency "yelp-xsl" not found, tried pkgconfig and cmake
-#
-# A full log can be found at /tmp/vsc45304/easybuild/build/yelptools/42.1/GCCcore-12.3.0/easybuild_obj/meson-logs/meson-log.txt
-#  (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
