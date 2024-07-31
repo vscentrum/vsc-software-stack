@@ -20,6 +20,7 @@ toolchain = {'name': 'foss', 'version': '2022b'}
     # torch>=1.9
     # torchtext>=0.10
     # xgboost
+    # decaf-synthetic-data 0.1.6 requires torchtext, which is not installed.
 
 dependencies = [
     ('Python', '3.10.8'),
@@ -28,6 +29,7 @@ dependencies = [
     ('PyTorch', '1.13.1'),
     ('XGBoost', '1.7.2'),
     ('scikit-learn', '1.2.1'),
+    ('torchtext', '0.14.1', '-PyTorch-1.13.1'),
     # ('networkx', '3.1'),
 ]
 
