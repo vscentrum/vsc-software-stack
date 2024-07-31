@@ -1,0 +1,33 @@
+easyblock = 'PythonPackage'
+
+name = 'Pygments'
+version = '2.18.0'
+
+homepage = 'https://pygments.org/'
+description = """Generic syntax highlighter suitable for use in code hosting, forums, wikis or other applications
+ that need to prettify source code."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+sources = [SOURCELOWER_PY3_WHL]
+# sources = [SOURCELOWER_TAR_GZ]
+checksums = ['b8e6aca0523f3ab76fee51799c488e38782ac06eafcf95e7ba832985c8e7b13a']
+# checksums = ['786ff802f32e91311bff3889f6e9a86e81505fe99f2735bb6d60ae0c5004f199']
+
+dependencies = [
+    ('Python', '3.11.3'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/pygmentize'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['pygmentize -H']
+
+moduleclass = 'devel'
+
+# TODO
+# == 2024-07-31 13:40:43,472 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python setup.py build " exited with exit code 2 and output:
+# /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python: can't open file '/tmp/vsc45304/easybuild/build/Pygments/2.18.0/GCCcore-12.3.0/pygments-2.18.0/setup.py': [Errno 2] No such file or directory
+#  (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
