@@ -1,0 +1,51 @@
+easyblock = "PythonBundle"
+
+name = 'HF-Datasets'
+version = '2.16.1'
+
+homepage = 'https://github.com/huggingface/datasets'
+description = """
+The largest hub of ready-to-use datasets for ML models with fast, easy-to-use and efficient
+data manipulation tools.
+"""
+
+toolchain = {'name': 'gfbf', 'version': '2022b'}
+
+# huggingface-hub 0.21.4 has requirement fsspec>=2023.5.0, but you have fsspec 2022.11.0.
+# datasets 2.18.0 has requirement fsspec[http]<=2024.2.0,>=2023.1.0, but you have fsspec 2022.11.0.
+# datasets 2.18.0 has requirement pyarrow>=14.0.1, but you have pyarrow 11.0.0.
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('aiohttp', '3.8.5'),
+    ('dill', '0.3.7'),
+    ('Arrow', '11.0.0'),
+    ('PyYAML', '6.0'),
+    ('tqdm', '4.64.1'),
+    ('python-xxhash', '3.2.0'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('pyarrow_hotfix', '0.6', {
+        'checksums': ['79d3e030f7ff890d408a100ac16d6f00b14d44a502d7897cd9fc3e3a534e9945'],
+    }),
+    ('fsspec', '2023.5.0', {
+        'checksums': ['b3b56e00fb93ea321bc9e5d9cf6f8522a0198b20eb24e02774d329e9c6fb84ce'],
+    }),
+    ('multiprocess', '0.70.15', {
+        'checksums': ['f20eed3036c0ef477b07a4177cf7c1ba520d9a2677870a4f47fe026f0cd6787e'],
+    }),
+    ('huggingface-hub', '0.21.4', {
+        'sources': ['huggingface_hub-%(version)s.tar.gz'],
+        'checksums': ['e1f4968c93726565a80edf6dc309763c7b546d0cfe79aa221206034d50155531'],
+    }),
+    ('datasets', version, {
+        'checksums': ['ad3215e9b1984d1de4fda2123bc7319ccbdf1e17d0c3d5590d13debff308a080'],
+    }),
+]
+
+moduleclass = 'data'

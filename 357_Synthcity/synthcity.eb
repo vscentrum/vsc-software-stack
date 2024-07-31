@@ -16,7 +16,8 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # torch>=1.10.0,<2.0 - torch is v2.1.2 -> unpin
     # scikit-learn>=1.2 OK
     # nflows>=0.14 ok exts
-    # numpy>=1.20, <1.24 - v1.25.1 in scipy -> unpin but be-great 0.0.5 has requirement numpy>=1.24.2 -> wtf
+    # numpy>=1.20, <1.24 - v1.25.1 in scipy -> unpin but be-great 0.0.5 has requirement numpy>=1.24.2 -> wtf 
+    #   -> be-great 0.0.6 and 0.0.7 has numpy >= 1.23.1, 
     # lifelines>=0.27,!= 0.27.5, <0.27.8 -> NO -> created OK
     # opacus>=1.3 ok exts
     # decaf-synthetic-data>=0.1.6 ok exts
@@ -42,6 +43,8 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # monai OK
     # tsai; python_version>"3.7" ok exts
     # be-great>=0.0.5;python_version>="3.9" ok exts
+        # v0.0.7 has:
+        # dependencies = ["datasets >= 2.5.2", "numpy >= 1.23.1", "pandas >= 1.4.4", "scikit_learn >= 1.1.1", "torch >= 1.10.2", "tqdm >= 4.64.1", "transformers >= 4.22.1", "accelerate >= 0.20.1",]
     # arfpy ok exts
     #
     # opacus 1.4.1 requires opt-einsum, ok
@@ -110,7 +113,7 @@ builddependencies = [('poetry', '1.5.1')]
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
-    ('lifelines', '0.28.0'),
+    ('lifelines', '0.27.7'),
     ('SciPy-bundle', '2023.07'),
     ('pydantic', '2.5.3'),
     ('Redis', '7.2.3'),
@@ -124,7 +127,7 @@ dependencies = [
     ('Transformers', '4.39.3'),
     ('fastai', '2.7.15'),
     ('h5py', '3.9.0'),
-    ('networkx', '3.1'),
+    # ('networkx', '3.1'),
     ('Brotli-python', '1.0.9'),
     ('statsmodels', '0.14.1'),
     ('imbalanced-learn', '0.12.3'),
@@ -154,7 +157,7 @@ local_preinstallopts = (
     " -e 's/numpy>=1.20, <1.24/numpy>=1.20/'"
     " -e 's/pydantic<2.0/pydantic/'"
     # " -e 's/xgboost<2.0.0/xgboost/'"
-    " -e 's/lifelines>=0.27,!= 0.27.5, <0.27.8/lifelines>=0.27,!= 0.27.5/'"
+    # " -e 's/lifelines>=0.27,!= 0.27.5, <0.27.8/lifelines>=0.27,!= 0.27.5/'"
     " %(builddir)s/%(name)s/%(name)s-%(version)s/setup.cfg && "
 )
 local_pretestopts = (
@@ -181,9 +184,9 @@ local_xgbse_preinstallopts = (
 )
 
 exts_list = [
-    ('networkx', '2.8.8', {
-        'checksums': ['230d388117af870fce5647a3c52401fcf753e94720e6ea6b4197a5355648885e'],
-    }),
+    # ('networkx', '2.8.8', { # already in decaf
+    #     'checksums': ['230d388117af870fce5647a3c52401fcf753e94720e6ea6b4197a5355648885e'],
+    # }),
     ('cfgv', '3.4.0', {
         'checksums': ['e52591d4c5f5dead8e0f673fb16db7949d2cfb3f7da4582893288f0ded8fe560'],
     }),
@@ -259,9 +262,9 @@ exts_list = [
         'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
         'checksums': ['2455e59e3947d3c275477df7f5205b30635e266fe6dc300e3d9f9646bfcea147'],
     }),
-    ('opacus', '1.4.1', {
-        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-        'checksums': ['8c46aff596bbbc6025ce9d169b49d5b3112cb958e3d74f8b77274134e7590890'],
+    ('opacus', '1.5.1', {
+        # 'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['c2b1f2770f627dd4b568d25be5777a87a7e6bfd5aee7b223052b4c2c7d934aca'],
     }),
     ('pgmpy', '0.1.25', {
         'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
@@ -362,7 +365,8 @@ moduleclass = 'lib'
     # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin0] - AttributeError: module 'net...
     # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin1] - AttributeError: module 'net...
     # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] - AttributeError: module 'net...
-        # -> decaf has its own ec -> networkx unpined -> seems it needs networkx<3
+        # -> decaf.ec updated to use networkx 2.8.8 + delete here dep networkx(3.1)
+        # -> decaf has its own ec -> networkx unpined -> seems it needs networkx<3 -> fix ok
         # -> different from E7
         # test_plugin = <synthcity.plugins.privacy.plugin_decaf.DECAFPlugin object at 0x14e9a30c9890>
         #     @pytest.mark.parametrize(
@@ -474,7 +478,9 @@ moduleclass = 'lib'
     # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin0] - AttributeError:...
     # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin1] - AttributeError:...
     # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin2] - AttributeError:...
-        # same error as E7 - problem with Torch version 
+        # -> there is new version 1.5.1 of opacus (where DPOptimizer is) -> 
+        # -> same error as E7 - problem with Torch version 
+        # -> but in decaf there is torch>=1.9 - so torch should be >= 1.9 < 2 -> v1.13.1
         # E           AttributeError: 'DPOptimizer' object has no attribute '_optimizer_step_pre_hooks'
     
     # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] - ValueError: se...
