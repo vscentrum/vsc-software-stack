@@ -1,0 +1,51 @@
+easyblock = 'PythonBundle'
+
+name = 'accelerate'
+version = '0.33.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/huggingface/accelerate'
+description = """A simple way to launch, train, and use PyTorch models on almost any device and 
+distributed configuration, automatic mixed precision (including fp8), 
+and easy-to-configure FSDP and DeepSpeed support."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# DEPS:
+    # "numpy>=1.17,<2.0.0", ok in scipy-bundle is v1.25.1
+    # "packaging>=20.0", ok in pypi-bundle is v23.1
+    # "psutil", ok pypi-bundle
+    # "pyyaml", OK
+    # "torch>=1.10.0", OK
+    # "huggingface_hub>=0.21.0", ok exts
+    # "safetensors>=0.3.1", OK? no CUDA
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('CUDA', '12.1.1', '', SYSTEM),
+    ('PyTorch-bundle', '2.1.2', versionsuffix),
+    ('PyYAML', '6.0'),
+    ('Safetensors', '0.4.3'), # but no CUDA?
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('huggingface-hub', '0.24.5', {
+        'sources': ['huggingface_hub-%(version)s.tar.gz'],
+        'checksums': ['7b45d6744dd53ce9cbf9880957de00e9d10a9ae837f1c9b7255fc8fa4e8264f3'],
+    }),
+    (name, version, {
+        'checksums': ['11ba481ed6ea09191775df55ce464aeeba67a024bd0261a44b77b30fb439e26a'],
+    }),
+]
+
+# add $ accelerate test ? https://huggingface.co/docs/accelerate/package_reference/cli#accelerate-test
+# sanity_check_commands = [
+#     "python -c 'from flash_attn import flash_attn_qkvpacked_func, flash_attn_func'",
+# ]
+
+moduleclass = 'ai'
