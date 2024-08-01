@@ -11,15 +11,6 @@ and easy-to-configure FSDP and DeepSpeed support."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# DEPS:
-    # "numpy>=1.17,<2.0.0", ok in scipy-bundle is v1.25.1
-    # "packaging>=20.0", ok in pypi-bundle is v23.1
-    # "psutil", ok pypi-bundle
-    # "pyyaml", OK
-    # "torch>=1.10.0", OK
-    # "huggingface_hub>=0.21.0", ok exts
-    # "safetensors>=0.3.1", OK? no CUDA
-
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
@@ -27,7 +18,7 @@ dependencies = [
     ('CUDA', '12.1.1', '', SYSTEM),
     ('PyTorch-bundle', '2.1.2', versionsuffix),
     ('PyYAML', '6.0'),
-    ('Safetensors', '0.4.3'), # but no CUDA?
+    ('Safetensors', '0.4.3'),
 ]
 
 sanity_pip_check = True
@@ -43,9 +34,6 @@ exts_list = [
     }),
 ]
 
-# add $ accelerate test ? https://huggingface.co/docs/accelerate/package_reference/cli#accelerate-test
-# sanity_check_commands = [
-#     "python -c 'from flash_attn import flash_attn_qkvpacked_func, flash_attn_func'",
-# ]
+sanity_check_commands = ['accelerate test']
 
 moduleclass = 'ai'
