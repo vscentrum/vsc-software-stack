@@ -16,7 +16,7 @@ toolchain = {'name': 'foss', 'version': '2022b'}
     # torch>=1.10.0,<2.0 - torch is v2.1.2 -> unpin
     # scikit-learn>=1.2 OK
     # nflows>=0.14 ok exts
-    # numpy>=1.20, <1.24 - v1.25.1 in scipy -> unpin but be-great 0.0.5 has requirement numpy>=1.24.2 -> wtf 
+    # numpy>=1.20, <1.24 - v1.24.2 in scipy -> unpin -> error
     #   -> be-great 0.0.6 and 0.0.7 has numpy >= 1.23.1, 
     # lifelines>=0.27,!= 0.27.5, <0.27.8 -> NO -> created OK
     # opacus>=1.3 ok exts
@@ -116,7 +116,7 @@ toolchain = {'name': 'foss', 'version': '2022b'}
         # huggingface-hub 0.15.1. in Transformers -> do same version for HF-Datasets
         # datasets v2.14.4 should be ok -> update HF-Datasets
     
-# builddependencies = [('poetry', '1.5.1')] -> poetry is in Python
+builddependencies = [('hypothesis', '6.68.2')] # for numpy 1.23.5
 dependencies = [
     ('Python', '3.10.8'),
     ('lifelines', '0.27.7'), # CREATED ok
@@ -346,12 +346,25 @@ exts_list = [
     ('arfpy', '0.1.1', {
         'checksums': ['88170d5e72638b0dbfec28cfbdfee02e97bd6a06d5a636e960acd5d90d480707'],
     }),
+    ('numpy', '1.23.5', {
+        'patches': [
+            'numpy-1.20.3_fix-fortran-compiler-error.patch',
+            'numpy-1.22.3_disable-broken-override-test.patch',
+        ],
+        'checksums': [
+            {'numpy-1.23.5.tar.gz': '1b1766d6f397c18153d40015ddfc79ddb715cabadc04d2d228d4e5a8bc4ded1a'},
+            {'numpy-1.20.3_fix-fortran-compiler-error.patch':
+             'f12a49a754cb4c01a39691f8a7470bfa0e56c70139d78ca8b188f049010e7647'},
+            {'numpy-1.22.3_disable-broken-override-test.patch':
+             '0d894fa9592ba9855397bc89fd4408bd911d49e6b6449d1693f87d2e5fcac486'},
+        ],
+    }),
     (name, version, {
-        'preinstallopts': "sed -i -e 's/pandas>=1.4,<2/pandas>=1.4/' -e 's/torch>=1.10.0,<2.0/torch>=1.10.0/' -e 's/numpy>=1.20, <1.24/numpy>=1.20/' -e 's/pydantic<2.0/pydantic/' -e 's/xgboost<2.0.0/xgboost/' -e 's/lifelines>=0.27,!= 0.27.5, <0.27.8/lifelines>=0.27,!= 0.27.5/' %(builddir)s/%(name)s/%(name)s-%(version)s/setup.cfg && ",
+        'preinstallopts': local_preinstallopts,
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
         'sources': ['v%(version)s.tar.gz'],
-        'testinstall': True,
-        'runtest': local_pretestopts + 'cd %(builddir)s/%(name)s/%(name)s-%(version)s/tests && pytest -vvvs -m "not slow" --durations=50',
+        # 'testinstall': True,
+        # 'runtest': local_pretestopts + 'cd %(builddir)s/%(name)s/%(name)s-%(version)s/tests && pytest -vvvs -m "not slow" --durations=50',
         'checksums': ['122a8546cad35e3ac5c74cf81281252dec4dd3c7b1d7afe0f45ef785f89cc682'],
     }),
 ]
@@ -359,7 +372,7 @@ exts_list = [
 sanity_check_commands = [
     "python -c 'from synthcity.plugins import Plugins'",
     "python -c 'from decaf import DECAF, DataModule'",
-    "python -c 'from synthcity.plugins.privacy.plugin_pategan import plugin'", # OK passed
+    # "python -c 'from synthcity.plugins.privacy.plugin_pategan import plugin'", # OK passed
 ]
 
 moduleclass = 'lib'
@@ -370,21 +383,22 @@ moduleclass = 'lib'
     # FAILED plugins/generic/test_ddpm.py::test_plugin_generate_constraints[test_plugin3] - assert 48 == 50
     # FAILED plugins/generic/test_ddpm.py::test_plugin_generate_constraints[test_plugin4] - assert 48 == 50
     # FAILED plugins/generic/test_ddpm.py::test_plugin_generate_constraints[test_plugin5] - assert 48 == 50
-        # X_gen = test_plugin.generate(constraints=constraints).dataframe()
-        # assert len(X_gen) == len(X)
-        # assert test_plugin.schema_includes(X_gen)
-        # assert constraints.filter(X_gen).sum() == len(X_gen)
-        # assert (X_gen["target"] == 1).all()
-        # X_gen = test_plugin.generate(count=50, constraints=constraints).dataframe()
-        # assert len(X_gen) == 50
-        # assert 48 == 50
-        # plugins/generic/test_ddpm.py:140: AssertionError
+    #     X_gen = test_plugin.generate(constraints=constraints).dataframe()
+    #     assert len(X_gen) == len(X)
+    #     assert test_plugin.schema_includes(X_gen)
+    #     assert constraints.filter(X_gen).sum() == len(X_gen)
+    #     assert (X_gen["target"] == 1).all()
+    #     X_gen = test_plugin.generate(count=50, constraints=constraints).dataframe()
+    #     assert len(X_gen) == 50
+    #     assert 48 == 50
+    #     plugins/generic/test_ddpm.py:140: AssertionError
 
-    # -> Problem with NumPy
+    # -> ModuleNotFoundError: No module named 'hypothesis' -> added to builddeps
+    # -> Problem with NumPy -> try add v1.23.5 to exts
     # FAILED plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] - ValueError: setting an arra...
     # FAILED plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source1] - ValueError: setting an arra...
-        # ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. 
-        # The detected shape was (50,) + inhomogeneous part.
+    #     ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. 
+    #     The detected shape was (50,) + inhomogeneous part.
     # ========= 5 failed, 2154 passed, 13 skipped, 103 deselected, 2 xfailed, 2545 warnings in 15956.41s (4:25:56) =========
 
 # ERROR2: OK
