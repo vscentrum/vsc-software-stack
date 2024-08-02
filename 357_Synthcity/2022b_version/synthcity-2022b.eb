@@ -351,7 +351,7 @@ exts_list = [
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
         'sources': ['v%(version)s.tar.gz'],
         'testinstall': True,
-        'runtest': local_pretestopts + 'pytest -vvvs -m "not slow" --durations=50',
+        'runtest': local_pretestopts + 'cd %(builddir)s/%(name)s/%(name)s-%(version)s/tests && pytest -vvvs -m "not slow" --durations=50',
         'checksums': ['122a8546cad35e3ac5c74cf81281252dec4dd3c7b1d7afe0f45ef785f89cc682'],
     }),
 ]
@@ -359,10 +359,32 @@ exts_list = [
 sanity_check_commands = [
     "python -c 'from synthcity.plugins import Plugins'",
     "python -c 'from decaf import DECAF, DataModule'",
-    "python -c 'from synthcity.plugins.privacy.plugin_pategan import plugin'",
+    "python -c 'from synthcity.plugins.privacy.plugin_pategan import plugin'", # OK passed
 ]
 
 moduleclass = 'lib'
+
+# ERROR3: 
+    # -> https://github.com/vanderschaarlab/synthcity/blob/v0.2.10/src/synthcity/plugins/core/plugin.py#L276
+    # FAILED plugins/generic/test_ddpm.py::test_plugin_generate_constraints[test_plugin3] - assert 48 == 50
+    # FAILED plugins/generic/test_ddpm.py::test_plugin_generate_constraints[test_plugin4] - assert 48 == 50
+    # FAILED plugins/generic/test_ddpm.py::test_plugin_generate_constraints[test_plugin5] - assert 48 == 50
+        # X_gen = test_plugin.generate(constraints=constraints).dataframe()
+        # assert len(X_gen) == len(X)
+        # assert test_plugin.schema_includes(X_gen)
+        # assert constraints.filter(X_gen).sum() == len(X_gen)
+        # assert (X_gen["target"] == 1).all()
+        # X_gen = test_plugin.generate(count=50, constraints=constraints).dataframe()
+        # assert len(X_gen) == 50
+        # assert 48 == 50
+        # plugins/generic/test_ddpm.py:140: AssertionError
+
+    # -> Problem with NumPy
+    # FAILED plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] - ValueError: setting an arra...
+    # FAILED plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source1] - ValueError: setting an arra...
+        # ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. 
+        # The detected shape was (50,) + inhomogeneous part.
+    # ========= 5 failed, 2154 passed, 13 skipped, 103 deselected, 2 xfailed, 2545 warnings in 15956.41s (4:25:56) =========
 
 # ERROR2: OK
     # -> be-greate needs "accelerate >= 0.20.1", -> have 'accelerate', '0.32.1' -> split_torch_state_dict_into_shards is there since v0.32.0 ->
@@ -418,9 +440,9 @@ moduleclass = 'lib'
     # RuntimeError: Failed to import transformers.training_args because of the following error (look up to see its traceback):
     # cannot import name 'split_torch_state_dict_into_shards' from 'huggingface_hub'
     
-# ERROR1: 
+# ERROR1: OK
     # -> torch.func is only in v2 pytorch -> use older opacus -> v1.4.0 is suitable
-    # -> problem with "plugin" -> maybe tests are running from wrong dir ot __init__.py missing?
+    # -> problem with "plugin" -> maybe tests are running from wrong dir ot __init__.py missing? -> wrong start dir - fixed ok
         # -> sanity cmd: python -c 'from synthcity.plugins.privacy.plugin_pategan import plugin' is ok
     # ================================== short test summary info ===================================
     # ERROR tests/metrics/test_performance.py - ValueError: Plugin ctgan doesn't exist.
@@ -484,59 +506,59 @@ moduleclass = 'lib'
         #     from synthcity.plugins.privacy.plugin_dpgan import plugin
         # E   ImportError: cannot import name 'plugin' from 'synthcity.plugins.privacy.plugin_dpgan'
     # ERROR tests/plugins/privacy/test_pategan.py
-        # ImportError while importing test module '/tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2022b/synthcity/synthcity-0.2.10/tests/plugins/privacy/test_pategan.py'.
-        # Hint: make sure your test modules/packages have valid Python names.
-        # Traceback:
-        # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.8-GCCcore-12.2.0/lib/python3.10/site-packages/_pytest/python.py:6
-        # 18: in _importtestmodule
-        #     mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
-        # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.8-GCCcore-12.2.0/lib/python3.10/site-packages/_pytest/pathlib.py:
-        # 533: in import_path
-        #     importlib.import_module(module_name)
-        # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.8-GCCcore-12.2.0/lib/python3.10/importlib/__init__.py:126: in imp
-        # ort_module
-        #     return _bootstrap._gcd_import(name[level:], package, level)
-        # <frozen importlib._bootstrap>:1050: in _gcd_import
-        #     ???
-        # <frozen importlib._bootstrap>:1027: in _find_and_load
-        #     ???
-        # <frozen importlib._bootstrap>:1006: in _find_and_load_unlocked
-        #     ???
-        # <frozen importlib._bootstrap>:688: in _load_unlocked
-        #     ???
-        # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.8-GCCcore-12.2.0/lib/python3.10/site-packages/_pytest/assertion/r
-        # ewrite.py:168: in exec_module
-        #     exec(co, module.__dict__)
-        # tests/plugins/privacy/test_pategan.py:13: in <module>
-        #     from synthcity.plugins.privacy.plugin_pategan import plugin
-        # E   ImportError: cannot import name 'plugin' from 'synthcity.plugins.privacy.plugin_pategan' (/tmp/vsc47063/eb-6mgg3ak
-        # g/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/privacy/plugin_pategan.py)
+    #     ImportError while importing test module '/tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2022b/synthcity/synthcity-0.2.10/tests/plugins/privacy/test_pategan.py'.
+    #     Hint: make sure your test modules/packages have valid Python names.
+    #     Traceback:
+    #     /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.8-GCCcore-12.2.0/lib/python3.10/site-packages/_pytest/python.py:6
+    #     18: in _importtestmodule
+    #         mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+    #     /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.8-GCCcore-12.2.0/lib/python3.10/site-packages/_pytest/pathlib.py:
+    #     533: in import_path
+    #         importlib.import_module(module_name)
+    #     /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.8-GCCcore-12.2.0/lib/python3.10/importlib/__init__.py:126: in imp
+    #     ort_module
+    #         return _bootstrap._gcd_import(name[level:], package, level)
+    #     <frozen importlib._bootstrap>:1050: in _gcd_import
+    #         ???
+    #     <frozen importlib._bootstrap>:1027: in _find_and_load
+    #         ???
+    #     <frozen importlib._bootstrap>:1006: in _find_and_load_unlocked
+    #         ???
+    #     <frozen importlib._bootstrap>:688: in _load_unlocked
+    #         ???
+    #     /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.8-GCCcore-12.2.0/lib/python3.10/site-packages/_pytest/assertion/r
+    #     ewrite.py:168: in exec_module
+    #         exec(co, module.__dict__)
+    #     tests/plugins/privacy/test_pategan.py:13: in <module>
+    #         from synthcity.plugins.privacy.plugin_pategan import plugin
+    #     E   ImportError: cannot import name 'plugin' from 'synthcity.plugins.privacy.plugin_pategan' (/tmp/vsc47063/eb-6mgg3ak
+    #     g/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/privacy/plugin_pategan.py)
     # ERROR tests/plugins/time_series/test_fflows.py - ValueError: Plugin ctgan doesn't exist.
-        # tests/plugins/time_series/test_fflows.py:24: in <module>
-        #     @pytest.mark.parametrize("test_plugin", generate_fixtures(plugin_name, plugin))
-        # tests/plugins/time_series/ts_helpers.py:20: in generate_fixtures
-        #     return [from_api(), from_module(), from_serde()]
-        # tests/plugins/time_series/ts_helpers.py:11: in from_api
-        #     return Plugins(categories=["generic", "time_series"]).get(name, **plugin_args)
-        # pydantic/decorator.py:40: in pydantic.decorator.validate_arguments.validate.wrapper_function
-        #     ???
-        # pydantic/decorator.py:134: in pydantic.decorator.ValidatedFunction.call
-        #     ???
-        # pydantic/decorator.py:206: in pydantic.decorator.ValidatedFunction.execute
-        #     ???
-        # /tmp/vsc47063/eb-6mgg3akg/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/core/plugin.py:710: in get
-        #     return self._plugins[name](*args, **kwargs)
-        # /tmp/vsc47063/eb-6mgg3akg/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/time_series/plugin_fflows.py:137:
-        # in __init__
-        #     self.static_model = Plugins().get(self.static_model_name, device=self.device)
-        # pydantic/decorator.py:40: in pydantic.decorator.validate_arguments.validate.wrapper_function
-        #     ???
-        # pydantic/decorator.py:134: in pydantic.decorator.ValidatedFunction.call
-        #     ???
-        # pydantic/decorator.py:206: in pydantic.decorator.ValidatedFunction.execute
-        #     ???
-        # /tmp/vsc47063/eb-6mgg3akg/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/core/plugin.py:702: in get
-        #     raise ValueError(f"Plugin {name} doesn't exist.")
-        # E   ValueError: Plugin ctgan doesn't exist.
+    #     tests/plugins/time_series/test_fflows.py:24: in <module>
+    #         @pytest.mark.parametrize("test_plugin", generate_fixtures(plugin_name, plugin))
+    #     tests/plugins/time_series/ts_helpers.py:20: in generate_fixtures
+    #         return [from_api(), from_module(), from_serde()]
+    #     tests/plugins/time_series/ts_helpers.py:11: in from_api
+    #         return Plugins(categories=["generic", "time_series"]).get(name, **plugin_args)
+    #     pydantic/decorator.py:40: in pydantic.decorator.validate_arguments.validate.wrapper_function
+    #         ???
+    #     pydantic/decorator.py:134: in pydantic.decorator.ValidatedFunction.call
+    #         ???
+    #     pydantic/decorator.py:206: in pydantic.decorator.ValidatedFunction.execute
+    #         ???
+    #     /tmp/vsc47063/eb-6mgg3akg/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/core/plugin.py:710: in get
+    #         return self._plugins[name](*args, **kwargs)
+    #     /tmp/vsc47063/eb-6mgg3akg/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/time_series/plugin_fflows.py:137:
+    #     in __init__
+    #         self.static_model = Plugins().get(self.static_model_name, device=self.device)
+    #     pydantic/decorator.py:40: in pydantic.decorator.validate_arguments.validate.wrapper_function
+    #         ???
+    #     pydantic/decorator.py:134: in pydantic.decorator.ValidatedFunction.call
+    #         ???
+    #     pydantic/decorator.py:206: in pydantic.decorator.ValidatedFunction.execute
+    #         ???
+    #     /tmp/vsc47063/eb-6mgg3akg/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/core/plugin.py:702: in get
+    #         raise ValueError(f"Plugin {name} doesn't exist.")
+    #     E   ValueError: Plugin ctgan doesn't exist.
     # !!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 14 errors during collection !!!!!!!!!!!!!!!!!!!!!!!!!!
     # ================ 57 deselected, 144 warnings, 14 errors in 107.09s (0:01:47) =================
