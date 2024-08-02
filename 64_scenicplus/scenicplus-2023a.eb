@@ -11,6 +11,10 @@ chromatin accessibility (scATAC-seq) data."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
+# scenicplus 1.0a1 requires line-profiler, which is not installed. ok - delete - no more needed (from easydev)
+# scenicplus 1.0a1 requires ndindex, which is not installed. ok - delete - need by blocs2
+# scenicplus 1.0a1 requires sinfo, which is not installed. ok - delete - from scanpy
+
 builddependencies = [
     ('poetry', '1.5.1'),
     ('maturin', '1.4.0', '-Rust-1.75.0'),
@@ -59,6 +63,10 @@ local_preinstallopts = (
     " -e '/typing==3.7.4.3/d'"
     " -e 's/==.*//g'"
     " -e '/pyarrow-hotfix/d'"
+    " -e '/line-profiler/d'"
+    " -e '/ndindex/d'"
+    " -e '/sinfo/d'"
+    " requirements.txt && "
 )
 # unpin version restriction and delete typing requirement
 local_pycistopic_preinstallopts = (
