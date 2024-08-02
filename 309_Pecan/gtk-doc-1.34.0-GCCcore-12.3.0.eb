@@ -15,22 +15,36 @@ checksums = ['e1d544fa70ae60014a241b674c9d989f4ad6a96554652ebf73bbe94b4da1aa35']
 builddependencies = [
     ('binutils', '2.40'),
     ('yelp-tools', '42.1'),
-    # ('Ninja', '1.11.1'),  # ?
-    # ('CMake', '3.26.3'),  # ?
+    ('Ninja', '1.11.1'),
+    ('Meson', '1.1.1'),
 ]
 
 dependencies = [
     ('Python', '3.11.3'),
-    # ('Pygments', '2.1.3'),  # TODO
+    ('Pygments', '2.18.0'),
 ]
 
 sanity_check_paths = {
     'files': [
-        'bin/yelp-build',
-        'bin/yelp-check',
-        'bin/yelp-new',
+        'bin/gtkdoc-depscan',
+        'bin/gtkdoc-fixxref',
+        'bin/gtkdoc-check',
+        'bin/gtkdocize',
+        'bin/gtkdoc-mkdb',
+        'bin/gtkdoc-mkhtml',
+        'bin/gtkdoc-mkhtml2',
+        'bin/gtkdoc-mkman',
+        'bin/gtkdoc-mkpdf',
+        'bin/gtkdoc-rebase',
+        'bin/gtkdoc-scan',
+        'bin/gtkdoc-scangobj',
     ],
-    'dirs': ['share/%(name)s'],
+    'dirs': [
+        'lib/cmake/GtkDoc',
+        'share/%(name)s',
+    ],
 }
+
+sanity_check_commands = ['gtkdoc-depscan']
 
 moduleclass = 'tools'
