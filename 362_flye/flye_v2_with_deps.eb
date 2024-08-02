@@ -2,7 +2,6 @@ easyblock = 'PythonPackage'
 
 name = 'Flye'
 version = '2.9.4'
-versionsuffix = '-test-with-deps'
 
 homepage = 'https://github.com/fenderglass/Flye'
 description = """Flye is a de novo assembler for long and noisy reads, such as those produced by PacBio
@@ -21,34 +20,9 @@ checksums = [
 dependencies = [
     ('Python', '3.11.5'),
     ('SAMtools', '1.19.2'),
-    # ('intervaltree', '0.1'),
     ('LEMON', '1.3.1'),
     ('minimap2', '2.28'),
 ]
-
-# preinstallopts = (
-#     "sed -i"
-#     " -e '5 s|-I${ROOT_DIR}/lib/interval_tree|-I($EBROOTINTERVALTREE)|'"
-#     " -e '6 s|-I${ROOT_DIR}/lib/lemon|-I($EBROOTLEMON)|'"
-#     " -e '8 s|${ROOT_DIR}/lib/minimap2|($EBROOTMINIMAP2)|'"
-#     " -e '9 s|${ROOT_DIR}/lib/samtools-1.9|($EBROOTSAMTOOLS)|'"
-#     # " -e 's/xgboost<2.0.0/xgboost/'"
-#     # " -e 's/lifelines>=0.27,!= 0.27.5, <0.27.8/lifelines>=0.27,!= 0.27.5/'"
-#     " %(start_dir)s/Makefile && "
-# )
-# preinstallopts = (
-#     "sed -i"
-#     " -e '5d'"
-#     " -e '6d'"
-#     " -e '8d'"
-#     " -e '9d'"
-#     # " -e 's/xgboost<2.0.0/xgboost/'"
-#     # " -e 's/lifelines>=0.27,!= 0.27.5, <0.27.8/lifelines>=0.27,!= 0.27.5/'"
-#     " %(start_dir)s/Makefile && "
-# )
-# preinstallopts += 'export CXXFLAGS="$CXXFLAGS -I$EBROOTINTERVALTREE -I$EBROOTLEMON -I$EBROOTMINIMAP2" && '
-# preinstallopts += 'export LDFLAGS="$LDFLAGS -lz -L$EBROOTMINIMAP2 -lminimap2 " && '
-# + copy bin samtools and minimap2 to fley as flye-samtools and flye-minimap2
 
 download_dep_fail = True
 use_pip = True
