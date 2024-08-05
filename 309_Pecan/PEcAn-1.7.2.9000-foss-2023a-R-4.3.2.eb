@@ -28,8 +28,8 @@ exts_defaultclass = 'RPackage'
 exts_default_options = {
     'sources': ['%(name)s_%(version)s.tar.gz'],
     'source_urls': [
-        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
         'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
         'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
         'https://pecanproject.r-universe.dev/src/contrib/',  # PEcAn sources
     ],
@@ -102,7 +102,15 @@ exts_list = [
     ('neonUtilities', '2.4.2', {
         'checksums': ['37b4efd0ed3b724de999d08d4d430954a6c717b1d943bc84c513c4fe8dbca057'],
     }),
-    # TODO ERROR: dependencies duckdb, thor, duckdbfs are not available for package neonstore
+    ('duckdb', '1.0.0-2', {
+        'checksums': ['3735d51f22d62a7411aa514142cd569ce28bdaec4eb58d5f0893a476b9ccbf01'],
+    }),
+    ('thor', '1.1.5', {
+        'checksums': ['99802d8c8471ce351403f8428c1efab48ccf20f359fbd368db84f25ef8f7ecae'],
+    }),
+    ('duckdbfs', '0.0.4', {
+        'checksums': ['90b2aff2bdefff1db4f855e2a9c9b19a404f522027105424aebd3c7e45944334'],
+    }),
     ('neonstore', '0.5.1', {
         'checksums': ['f911e957861d558adead8ca77e4d1575a47dceb9553f1aa9d818460126deab9b'],
     }),
