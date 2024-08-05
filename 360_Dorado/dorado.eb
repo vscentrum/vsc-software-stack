@@ -1,13 +1,13 @@
 easyblock = 'CMakeMake'
 
 name = 'dorado'
-version = '0.7.2'
+version = '0.7.3'
 versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/nanoporetech/dorado'
 description = """Dorado is a high-performance, easy-to-use, open source basecaller for Oxford Nanopore reads."""
 
-toolchain = {'name': 'foss', 'version': '2023b'}
+toolchain = {'name': 'foss', 'version': '2023a'}
 toolchainopts = {'usempi': True}
 
 source_urls = ['https://github.com/nanoporetech/dorado/archive/']
@@ -21,21 +21,25 @@ sources = [{
     'filename': SOURCE_TAR_GZ,
 }]
 patches = ['dorado-0.7.2_include-fstream.patch']
+checksums = [
+    None,
+    'a32cbd34185bcc5ae3d552a072e396825aa7184187cd11c70a4380618387a530',
+]
 
 builddependencies = [
     ('binutils', '2.40'),
-    ('CMake', '3.27.6'),
+    ('CMake', '3.26.3'),
 ]
 
 dependencies = [
-    ('CUDA', '12.4.0', '', SYSTEM),
-    # ('OpenSSL', '1.1', '', SYSTEM),
-    # ('PyTorch', '2.1.2', '-CUDA-%(cudaver)s'),
-    # ('HDF5', '1.14.0'),
-    # ('zstd', '1.5.5'),
-    # ('HTSlib', '1.18'),
-    # ('kineto', '0.4.0'),
-    # ('libaec', '1.0.6'),
+    ('CUDA', '12.1.1', '', SYSTEM),
+    ('OpenSSL', '1.1', '', SYSTEM),
+    ('PyTorch', '2.1.2', '-CUDA-%(cudaver)s'),
+    ('HDF5', '1.14.0'),
+    ('zstd', '1.5.5'),
+    ('HTSlib', '1.18'),
+    ('kineto', '0.4.0'),
+    ('libaec', '1.0.6'),
 ]
 
 # don't link to OpenSSL static libraries
@@ -74,3 +78,34 @@ sanity_check_paths = {
 sanity_check_commands = ["dorado basecaller --help"]
 
 moduleclass = 'bio'
+
+# E1:
+    # <- error without fstream.patch
+    # [ 75%] Building CXX object CMakeFiles/dorado.dir/dorado/cli/benchmark.cpp.o
+    # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OpenMPI/4.1.5-GCC-12.3.0/bin/mpi
+    # cxx -DDORADO_CUDA_BUILD=1 -DDORADO_GPU_BUILD=1 -DDORADO_METAL_BUILD=0 -DFMT_BEGIN_NAMESPACE="namespace fmt { 
+    # inline namespace ont {" -DFMT_END_NAMESPACE=}} -DONLY_C_LOCALE=0 -DPROTOBUF_USE_DLLS -DSPDLOG_COMPILED_LIB -D
+    # USE_C10D_GLOO -DUSE_C10D_MPI -DUSE_C10D_NCCL -DUSE_DISTRIBUTED -DUSE_RPC -DUSE_TENSORPIPE -I/tmp/vsc47063/eas
+    # ybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/easybuild_obj/dorado_generated -I/tmp/vsc47063/easybuild/bui
+    # ld/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado -I/tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/easybuild_obj/download/pod5-0.2.4-Linux/include -I/tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/edlib/edlib/include -I/tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/utils/.. -I/tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/date/include -I/tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/spdlog/include -I/tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/compat/.. -I/tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/ont-minimap2/src/3rdparty/minimap2 -isystem /apps/gent/RHEL8/cascadelake-ampere-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/include -isystem /apps/gent/RHEL8/cascadelake-ampere-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/HighFive/include -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/argparse -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/toml11 -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/hdf_plugins/vbz_plugin -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/cxxpool/src -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/NVTX/c/include -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/indicators/include -isystem /apps/gent/RHEL8/cascadelake-ib/software/protobuf/24.0-GCCcore-12.3.0/include -isystem /apps/gent/RHEL8/cascadelake-ib/software/Abseil/20230125.3-GCCcore-12.3.0/include -isystem /apps/gent/RHEL8/cascadelake-ampere-ib/software/CUDA/12.1.1/include -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/easybuild_obj/download/metal-cpp/metal-cpp -O2 -ftree-vectorize -march=native -fno-math-errno -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wundef -Wshadow -D_GLIBCXX_USE_CXX11_ABI=1 -Winvalid-pch -include /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/easybuild_obj/dorado/utils/pch/CMakeFiles/dorado_pch.dir/cmake_pch.hxx -MD -MT CMakeFiles/dorado.dir/dorado/cli/benchmark.cpp.o -MF CMakeFiles/dorado.dir/dorado/cli/benchmark.cpp.o.d -o CMakeFiles/dorado.dir/dorado/cli/benchmark.cpp.o -c /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/cli/benchmark.cpp
+    # /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/cli/demux.cpp: In function int dorado::demuxer(int, char**):
+    # /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/cli/demux.cpp:353:35: error: variable std::ofstream summary_out has initializer but incomplete type
+    # 353 |         std::ofstream summary_out(summary_file.string());
+    #     |                                   ^~~~~~~~~~~~
+    # [ 75%] Building CXX object tests/CMakeFiles/dorado_tests.dir/AdapterDetectorTest.cpp.o
+    # cd /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/easybuild_obj/tests && /scratch/gent/vo/
+    # 001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OpenMPI/4.1.5-GCC-12.3.0/bin/mpicxx -DDORADO_CUDA
+    # _BUILD=1 -DDORADO_GPU_BUILD=1 -DDORADO_IOS_BUILD=0 -DDORADO_METAL_BUILD=0 -DFMT_BEGIN_NAMESPACE="namespace fm
+    # t { inline namespace ont {" -DFMT_END_NAMESPACE=}} -DONLY_C_LOCALE=0 -DPROTOBUF_USE_DLLS -DSPDLOG_COMPILED_LI
+    # B -DUSE_C10D_GLOO -DUSE_C10D_MPI -DUSE_C10D_NCCL -DUSE_DISTRIBUTED -DUSE_RPC -DUSE_TENSORPIPE -I/tmp/vsc47063
+    # /easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/utils/.. -I/tmp/vsc47063/easybuild/build/d
+    # orado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/date/include -I/tmp/vsc47063/easybuild/build/dorado
+    # /0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/edlib/edlib/include -I/tmp/vsc47063/easybuild/build/dora
+    # do/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/spdlog/include -I/tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/compat/.. -I/tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/easybuild_obj/dorado_generated -I/tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado -I/tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/easybuild_obj/download/pod5-0.2.4-Linux/include -I/tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/ont-minimap2/src/3rdparty/minimap2 -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/catch2 -isystem /apps/gent/RHEL8/cascadelake-ampere-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/include -isystem /apps/gent/RHEL8/cascadelake-ampere-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/NVTX/c/include -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/easybuild_obj/download/metal-cpp/metal-cpp -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/toml11 -isystem /apps/gent/RHEL8/cascadelake-ib/software/protobuf/24.0-GCCcore-12.3.0/include -isystem /apps/gent/RHEL8/cascadelake-ib/software/Abseil/20230125.3-GCCcore-12.3.0/include -isystem /apps/gent/RHEL8/cascadelake-ampere-ib/software/CUDA/12.1.1/include -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/HighFive/include -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/argparse -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/hdf_plugins/vbz_plugin -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/cxxpool/src -isystem /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/3rdparty/indicators/include -O2 -ftree-vectorize -march=native -fno-math-errno -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wundef -Wshadow -Wno-trigraphs -D_GLIBCXX_USE_CXX11_ABI=1 -Winvalid-pch -include /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/easybuild_obj/dorado/utils/pch/CMakeFiles/dorado_pch.dir/cmake_pch.hxx -MD -MT tests/CMakeFiles/dorado_tests.dir/AdapterDetectorTest.cpp.o -MF CMakeFiles/dorado_tests.dir/AdapterDetectorTest.cpp.o.d -o CMakeFiles/dorado_tests.dir/AdapterDetectorTest.cpp.o -c /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/tests/AdapterDetectorTest.cpp
+    # /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/cli/duplex.cpp: In function int dorado::duplex(int, char**):
+    # /tmp/vsc47063/easybuild/build/dorado/0.7.3/foss-2023a-CUDA-12.1.1/dorado/dorado/cli/duplex.cpp:686:53: error: variable std::ofstream stats_file has initializer but incomplete type
+    # 686 |             std::ofstream stats_file(dump_stats_file);
+    #     |                                                     ^
+
+
+
