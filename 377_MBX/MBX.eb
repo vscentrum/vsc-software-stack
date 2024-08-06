@@ -1,0 +1,48 @@
+easyblock = 'ConfigureMake'
+
+name = 'MBX'
+version = '1.1.0'
+
+homepage = 'https://github.com/paesanilab/MBX'
+description = "MBX is an energy and force calculator for data-driven many-body simulations"
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/paesanilab/MBX/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['0f55f4950226defb46fd0814ad97f906ce4ffd6403af6817bd98cb3c68996692']
+
+builddependencies = [
+    ('Autotools', '20220317'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+]
+
+buildininstalldir = True
+
+preconfigopts = "export MBX_HOME=$PWD && autoreconf -fi && "
+
+configopts = "--enable-shared --enable-verbose"
+
+maxparallel = 4
+
+runtest = 'check'
+
+modextrapaths = {'PYTHONPATH': 'plugins/python/mbx'}
+
+modextravars = {'MBX_HOME': '%(installdir)s'}
+
+sanity_check_paths = {
+    'files': ['bin/mb_decomp', 'bin/optimize', 'bin/order_frames', 'bin/single_point',
+              'lib/libmbx.a', 'lib/libmbx.%s' % SHLIB_EXT],
+    'dirs': ['include', 'plugins/python/mbx'],
+}
+
+sanity_check_commands = [
+    "optimize --help",
+    "python -c 'import mbx'",
+]
+
+moduleclass = 'chem'
