@@ -16,7 +16,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # torch>=1.10.0,<2.0 - torch is v2.1.2 -> unpin
     # scikit-learn>=1.2 OK
     # nflows>=0.14 ok exts
-    # numpy>=1.20, <1.24 - v1.25.1 in scipy -> unpin but be-great 0.0.5 has requirement numpy>=1.24.2 -> wtf 
+    # numpy>=1.20, <1.24 - v1.25.1 in scipy -> unpin but be-great 0.0.5 has requirement numpy>=1.24.2 -> never be-great has lower version of numpy -> use v0.0.7
     #   -> be-great 0.0.6 and 0.0.7 has numpy >= 1.23.1, 
     # lifelines>=0.27,!= 0.27.5, <0.27.8 -> NO -> created OK
     # opacus>=1.3 ok exts
@@ -170,10 +170,10 @@ local_pretestopts = (
     " %(builddir)s/%(name)s/%(name)s-%(version)s/tests/plugins/core/test_schema.py && "
     # try to fix timegan error - it is changed in E8
     # -> assert np.isclose(np.asarray(static_gen, dtype="object"), np.asarray(static_seed, dtype="object")).all()
-    "sed -i"
-    " -e '116 s/static_gen/static_gen, dtype=\"object\"/'"
-    " -e '116 s/static_seed/static_seed, dtype=\"object\"/'"
-    " %(builddir)s/%(name)s/%(name)s-%(version)s/tests/plugins/time_series/test_timegan.py && "
+    # "sed -i"
+    # " -e '116 s/static_gen/static_gen, dtype=\"object\"/'"
+    # " -e '116 s/static_seed/static_seed, dtype=\"object\"/'"
+    # " %(builddir)s/%(name)s/%(name)s-%(version)s/tests/plugins/time_series/test_timegan.py && "
 )
 # fix invalid syntax of xgbse/setup.py
 local_xgbse_preinstallopts = (
@@ -339,12 +339,25 @@ exts_list = [
     ('arfpy', '0.1.1', {
         'checksums': ['88170d5e72638b0dbfec28cfbdfee02e97bd6a06d5a636e960acd5d90d480707'],
     }),
+    ('numpy', '1.23.5', {
+        'patches': [
+            'numpy-1.20.3_fix-fortran-compiler-error.patch',
+            'numpy-1.22.3_disable-broken-override-test.patch',
+        ],
+        'checksums': [
+            {'numpy-1.23.5.tar.gz': '1b1766d6f397c18153d40015ddfc79ddb715cabadc04d2d228d4e5a8bc4ded1a'},
+            {'numpy-1.20.3_fix-fortran-compiler-error.patch':
+             'f12a49a754cb4c01a39691f8a7470bfa0e56c70139d78ca8b188f049010e7647'},
+            {'numpy-1.22.3_disable-broken-override-test.patch':
+             '0d894fa9592ba9855397bc89fd4408bd911d49e6b6449d1693f87d2e5fcac486'},
+        ],
+    }),
     (name, version, {
-        'preinstallopts': "sed -i -e 's/pandas>=1.4,<2/pandas>=1.4/' -e 's/torch>=1.10.0,<2.0/torch>=1.10.0/' -e 's/numpy>=1.20, <1.24/numpy>=1.20/' -e 's/pydantic<2.0/pydantic/' -e 's/xgboost<2.0.0/xgboost/' -e 's/lifelines>=0.27,!= 0.27.5, <0.27.8/lifelines>=0.27,!= 0.27.5/' %(builddir)s/%(name)s/%(name)s-%(version)s/setup.cfg && ",
+        'preinstallopts': local_preinstallopts,
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
         'sources': ['v%(version)s.tar.gz'],
         'testinstall': True,
-        'runtest': local_pretestopts + 'pytest -vvvs -m "not slow" --durations=50',
+        'runtest': local_pretestopts + 'cd tests && pytest -vvvs -m "not slow" --durations=50',
         'checksums': ['122a8546cad35e3ac5c74cf81281252dec4dd3c7b1d7afe0f45ef785f89cc682'],
     }),
 ]
@@ -356,16 +369,34 @@ sanity_check_commands = [
 
 moduleclass = 'lib'
 
+# ERROR9:
+    # crash on pip install numpy 1.23.5
+    # ...
+    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 305, in get_finalized_command
+    #       cmd_obj.ensure_finalized()
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 111, in ensure_finalized
+    #       self.finalize_options()
+    #     File "/tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/numpy/numpy-1.23.5/numpy/distutils/command/config_compiler.py", line 69, in finalize_options
+    #       v = getattr(c, a)
+    #           ^^^^^^^^^^^^^
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/lib/python3.11/site-packages/Cython/Distutils/old_build_ext.py", line 157, in __getattr__
+    #       return _build_ext.build_ext.__getattr__(self, name)
+    #              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 107, in __getattr__
+    #       raise AttributeError(attr)
+    #   AttributeError: fcompiler. Did you mean: 'compiler'?
+    #   [end of output]
 # ERROR8:
     # -> FROM test_log4.txt
     # -> pwd = /tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/synthcity/synthcity-0.2.10
     # -> ls: build CONTRIBUTING.MD docs LICENSE prereq.txt pyproject.toml README.md setup.cfg setup.py src tests tutorials
     
     # =========================================== short test summary info ===========================================
+    # OK
     # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin0] - AttributeError: module 'net...
     # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin1] - AttributeError: module 'net...
     # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] - AttributeError: module 'net...
-        # -> decaf.ec updated to use networkx 2.8.8 + delete here dep networkx(3.1)
+        # -> decaf.ec updated to use networkx 2.8.8 + delete here dep networkx(3.1) -> OK
         # -> decaf has its own ec -> networkx unpined -> seems it needs networkx<3 -> fix ok
         # -> different from E7
         # test_plugin = <synthcity.plugins.privacy.plugin_decaf.DECAFPlugin object at 0x14e9a30c9890>
@@ -478,14 +509,14 @@ moduleclass = 'lib'
     # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin0] - AttributeError:...
     # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin1] - AttributeError:...
     # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin2] - AttributeError:...
-        # -> there is new version 1.5.1 of opacus (where DPOptimizer is) -> 
+        # -> there is new version 1.5.1 of opacus (where DPOptimizer is) -> try it
         # -> same error as E7 - problem with Torch version 
         # -> but in decaf there is torch>=1.9 - so torch should be >= 1.9 < 2 -> v1.13.1
         # E           AttributeError: 'DPOptimizer' object has no attribute '_optimizer_step_pre_hooks'
     
     # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] - ValueError: se...
     # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source1] - ValueError: se...
-        # -> same as E7 -> fix not working -> numpy problem
+        # -> same as E7 -> fix not working -> numpy problem -> add numpy 1.23.5 to exts - works for 2022b
         # E           ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (50,) + inhomogeneous part.
         # try debug by print:
             # L107: cnt = 50
@@ -505,7 +536,7 @@ moduleclass = 'lib'
     # FROM test_log3.txt:
         # ============================================== short test summary info ===============================================
         # FAILED tests/plugins/core/test_schema.py::test_schema_fail - AttributeError: module 'pydantic' has no attribute 'py...
-            # -> move fix prom preinstallopts to runtest cmd - should fix this -> seems fixed from ERROR8
+            # -> move fix prom preinstallopts to runtest cmd - should fix this -> seems fixed from ERROR8 -> OK
             
             # def test_schema_fail() -> None:
             #     if pydantic.__version__ < "2":
@@ -526,7 +557,7 @@ moduleclass = 'lib'
         # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin0] - RuntimeError: Training with multip...
             # -> in E8: still test_decaf.py::test_plugin_generate error but another - Attribute not Runtime
             # -> https://stackoverflow.com/questions/75907443/pytorch-lightning-works-on-cuda-but-throws-training-with-multiple-optimizers-is
-            # -> probably skip this test or create PyTorch-Lightning-1.8.4.foss-2023a -> pytorch-lighning v1.8.4 created
+            # -> probably skip this test or create PyTorch-Lightning-1.8.4.foss-2023a -> pytorch-lighning v1.8.4 created ->OK
             
             # tests/plugins/privacy/test_decaf.py:110: 
             # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
@@ -581,7 +612,7 @@ moduleclass = 'lib'
         
         # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin1] - AttributeError: 'DPOptimizer'...
             # -> seems DPOptimizer in Opacus do not have _optimizer_step_pre_hooks but Optimizer in Torch has -> problem -> can create PyTorch v1.13 but it is either in MONAI
-            # -> DPOptimizer is in Opacus - but it gets the Torch Optimizer then and it has _optimizer_step_pre_hooks
+            # X -> DPOptimizer is in Opacus - but it gets the Torch Optimizer then and it has _optimizer_step_pre_hooks
             # ->https://github.com/pytorch/opacus/blob/v1.4.1/opacus/optimizers/optimizer.py
             # ->https://github.com/pytorch/pytorch/blob/v2.1.2/torch/optim/optimizer.py
             # maybe connected with this bug: https://github.com/pytorch/opacus/issues/649 or https://github.com/pytorch/opacus/issues/523
@@ -627,11 +658,11 @@ moduleclass = 'lib'
             # ...
             # @functools.wraps(func)
             #     def wrapper(*args: _P.args, **kwargs: _P.kwargs) -> R:
-                #     self, *_ = args
-                #     self = cast(Optimizer, self)
-                #     profile_name = f"Optimizer.step#{self.__class__.__name__}.step"
-                #     with torch.autograd.profiler.record_function(profile_name):
-                #         # call optimizer step pre hooks
+            #         self, *_ = args
+            #         self = cast(Optimizer, self)
+            #         profile_name = f"Optimizer.step#{self.__class__.__name__}.step"
+            #         with torch.autograd.profiler.record_function(profile_name):
+            #             # call optimizer step pre hooks
             # >           for pre_hook in chain(_global_optimizer_pre_hooks.values(), self._optimizer_step_pre_hooks.values()):
             # E           AttributeError: 'DPOptimizer' object has no attribute '_optimizer_step_pre_hooks'
             # /apps/gent/RHEL8/cascadelake-ib/software/PyTorch/2.1.2-foss-2023a/lib/python3.11/site-packages/torch/optim/optimizer.py:363: AttributeError
@@ -697,7 +728,7 @@ moduleclass = 'lib'
 # ERROR6:
     # OK -> created and used XGBoost v1.7.2 -> delete unpin from preinstallopts + use it in decaf
     # OK -> added 'export TOKENIZERS_PARALLELISM=true' to runtest to fix huggingface/tokenizers problem
-    # NO -> pydantic_core problem -> added sed -i with import pydentic_core and fix the use of pydantic_core._pydantic_core.ValidationError
+    # OK -> pydantic_core problem -> added sed -i with import pydentic_core and fix the use of pydantic_core._pydantic_core.ValidationError
         # >>> from pydantic import pydantic_core
             # Traceback (most recent call last):
             # File "<stdin>", line 1, in <module>

@@ -1,0 +1,122 @@
+# output for command: export PYTHONPATH=/tmp/vsc47063/eb-e17ninlq/tmpcl497rt9/lib/python3.11/site-packages:$PYTHONPATH &&  /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install --prefix=/tmp/vsc47063/eb-e17ninlq/tmpcl497rt9  --no-deps  --ignore-installed  --no-index  --no-build-isolation  .
+
+Processing /tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/numpy/numpy-1.23.5
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+   Preparing metadata (pyproject.toml) did not run successfully.
+   exit code: 1
+  > [102 lines of output]
+      Running from numpy source directory.
+      <string>:86: DeprecationWarning:
+      
+        `numpy.distutils` is deprecated since NumPy 1.23.0, as a result
+        of the deprecation of `distutils` itself. It will be removed for
+        Python >= 3.12. For older Python versions it will remain present.
+        It is recommended to use `setuptools < 60.0` for those Python versions.
+        For more details, see:
+          https://numpy.org/devdocs/reference/distutils_status_migration.html
+      
+      
+      running dist_info
+      running build_src
+      INFO: build_src
+      creating /tmp/vsc47063/eb-e17ninlq/pip-modern-metadata-nltl0aaj/numpy.egg-info
+      writing /tmp/vsc47063/eb-e17ninlq/pip-modern-metadata-nltl0aaj/numpy.egg-info/PKG-INFO
+      writing dependency_links to /tmp/vsc47063/eb-e17ninlq/pip-modern-metadata-nltl0aaj/numpy.egg-info/dependency_links.txt
+      writing entry points to /tmp/vsc47063/eb-e17ninlq/pip-modern-metadata-nltl0aaj/numpy.egg-info/entry_points.txt
+      writing top-level names to /tmp/vsc47063/eb-e17ninlq/pip-modern-metadata-nltl0aaj/numpy.egg-info/top_level.txt
+      writing manifest file '/tmp/vsc47063/eb-e17ninlq/pip-modern-metadata-nltl0aaj/numpy.egg-info/SOURCES.txt'
+      /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/command/sdist.py:119: SetuptoolsDeprecationWarning: `build_py` command does not inherit from setuptools' `build_py`.
+      !!
+      
+              ********************************************************************************
+              Custom 'build_py' does not implement 'get_data_files_without_manifest'.
+              Please extend command classes from setuptools instead of distutils.
+      
+              See https://peps.python.org/pep-0632/ for details.
+              ********************************************************************************
+      
+      !!
+        self._add_data_files(self._safe_data_files(build_py))
+      INFO: unifing config_fc, config, build_clib, build_ext, build commands --fcompiler options
+      Traceback (most recent call last):
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 353, in <module>
+          main()
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 335, in main
+          json_out['return_val'] = hook(**hook_input['kwargs'])
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 149, in prepare_metadata_for_build_wheel
+          return hook(metadata_directory, config_settings)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/build_meta.py", line 380, in prepare_metadata_for_build_wheel
+          self.run_setup()
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/build_meta.py", line 488, in run_setup
+          self).run_setup(setup_script=setup_script)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/build_meta.py", line 338, in run_setup
+          exec(code, locals())
+        File "<string>", line 494, in <module>
+        File "<string>", line 486, in setup_package
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/__init__.py", line 107, in setup
+          return distutils.core.setup(**attrs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/core.py", line 185, in setup
+          return run_commands(dist)
+                 ^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/core.py", line 201, in run_commands
+          dist.run_commands()
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/dist.py", line 969, in run_commands
+          self.run_command(cmd)
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/dist.py", line 1244, in run_command
+          super().run_command(command)
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/dist.py", line 988, in run_command
+          cmd_obj.run()
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/command/dist_info.py", line 99, in run
+          self.egg_info.run()
+        File "/tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/numpy/numpy-1.23.5/numpy/distutils/command/egg_info.py", line 25, in run
+          _egg_info.run(self)
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/command/egg_info.py", line 317, in run
+          self.find_sources()
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/command/egg_info.py", line 325, in find_sources
+          mm.run()
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/command/egg_info.py", line 573, in run
+          self.add_defaults()
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/command/egg_info.py", line 611, in add_defaults
+          sdist.add_defaults(self)
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/command/sdist.py", line 107, in add_defaults
+          self._add_defaults_build_sub_commands()
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/command/sdist.py", line 127, in _add_defaults_build_sub_commands
+          self.filelist.extend(chain.from_iterable(files))
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/command/egg_info.py", line 516, in extend
+          self.files.extend(filter(self._safe_path, paths))
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/command/sdist.py", line 126, in <genexpr>
+          files = (c.get_source_files() for c in cmds if hasattr(c, "get_source_files"))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/command/sdist.py", line 125, in <genexpr>
+          cmds = (self.get_finalized_command(c) for c in missing_cmds)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 305, in get_finalized_command
+          cmd_obj.ensure_finalized()
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 111, in ensure_finalized
+          self.finalize_options()
+        File "/tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/numpy/numpy-1.23.5/numpy/distutils/command/config_compiler.py", line 69, in finalize_options
+          v = getattr(c, a)
+              ^^^^^^^^^^^^^
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/lib/python3.11/site-packages/Cython/Distutils/old_build_ext.py", line 157, in __getattr__
+          return _build_ext.build_ext.__getattr__(self, name)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 107, in __getattr__
+          raise AttributeError(attr)
+      AttributeError: fcompiler. Did you mean: 'compiler'?
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+ Encountered error while generating package metadata.
+> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
