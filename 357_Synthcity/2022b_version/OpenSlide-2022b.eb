@@ -11,7 +11,7 @@ read whole-slide images (also known as virtual slides)."""
 toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
 
 source_urls = [GITHUB_SOURCE]
-sources = ['v%(version)s.tar.gz']
+sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
 patches = ['%(name)s-%(version)s_large_file_support.patch']
 checksums = [
     # v3.4.1.tar.gz

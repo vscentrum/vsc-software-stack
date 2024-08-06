@@ -315,9 +315,9 @@ exts_list = [
         'checksums': ['824f10482581f5211d3a435d8b14adcc6c21b38d952f00b6a792fc7c089788b1'],
     }),
     ('xgbse', '0.2.3', {
-        'preinstallopts': "sed -i  -e '45,49d' -e 's/pandas>=1.0.\*/pandas>=1.0.0/' setup.py && ",
+        'preinstallopts': local_xgbse_preinstallopts,
         'source_urls': ['https://github.com/loft-br/xgboost-survival-embeddings/archive/'],
-        'sources': ['v%(version)s.tar.gz'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'checksums': ['9e6b71539b2b533c00eddfe7681cdd541f393d9573594eca358d263b141c127d'],
     }),
     ('arfpy', '0.1.1', {
@@ -339,7 +339,7 @@ exts_list = [
     (name, version, {
         'preinstallopts': local_preinstallopts,
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
-        'sources': ['v%(version)s.tar.gz'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'testinstall': True,
         'runtest': local_pretestopts + 'cd tests && pytest -vvvs -m "not slow" --durations=50',
         'checksums': ['122a8546cad35e3ac5c74cf81281252dec4dd3c7b1d7afe0f45ef785f89cc682'],
