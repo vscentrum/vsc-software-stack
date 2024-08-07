@@ -7,6 +7,7 @@ homepage = 'https://github.com/paesanilab/MBX'
 description = "MBX is an energy and force calculator for data-driven many-body simulations"
 
 toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'pic': True, 'openmp': True}
 
 source_urls = ['https://github.com/paesanilab/MBX/archive/']
 sources = ['v%(version)s.tar.gz']
@@ -18,31 +19,123 @@ builddependencies = [
 
 dependencies = [
     ('Python', '3.11.3'),
+    # ('FFTW', '3.3.10'),
+    ('GSL', '2.7'),
 ]
 
 buildininstalldir = True
 
-preconfigopts = "export MBX_HOME=$PWD && autoreconf -fi && "
+preconfigopts = 'echo HEEERE && echo %(installdir)s && export MBX_HOME=%(installdir)s && autoreconf -fi && '
+# preconfigopts = 'echo HEEERE && echo $PWD && export MBX_HOME=$PWD && autoreconf -fi && '
 
-configopts = "--enable-shared --enable-verbose"
+configopts = '--enable-shared --enable-verbose CXX="$CXX"'
 
-maxparallel = 4
+prebuildopts = 'export MBX_HOME=%(installdir)s && '
+
+preinstallopts = 'export MBX_HOME=%(installdir)s && '
+
+maxparallel = 3
 
 runtest = 'check'
 
-modextrapaths = {'PYTHONPATH': 'plugins/python/mbx'}
+modextrapaths = {'PYTHONPATH': '%(name)s-%(version)s/plugins/python'}
 
 modextravars = {'MBX_HOME': '%(installdir)s'}
+
+# options = {'modulename': 'mbx'} # this is only for PythonPackage seems
 
 sanity_check_paths = {
     'files': ['bin/mb_decomp', 'bin/optimize', 'bin/order_frames', 'bin/single_point',
               'lib/libmbx.a', 'lib/libmbx.%s' % SHLIB_EXT],
-    'dirs': ['include', 'plugins/python/mbx'],
+    'dirs': ['include', '%(name)s-%(version)s/plugins/python/mbx'],
 }
 
 sanity_check_commands = [
-    "optimize --help",
+    "optimize",
     "python -c 'import mbx'",
 ]
 
 moduleclass = 'chem'
+
+# ERROR4: 
+    # maxparallel = 3 is ok
+    # build and installdir: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MBX/1.1.0-foss-2023a
+    # with: -> failed - result for command 'python -c 'import mbx'': FAILED
+        # buildininstalldir = True
+        # modextrapaths = {'PYTHONPATH': '%(name)s-%(version)s/plugins/python/mbx'}
+        # preconfigopts = "echo HEEERE && echo %(installdir)s && export MBX_HOME=%(installdir)s && autoreconf -fi && "
+        # no sanity_check_paths
+    # >> result for command 'python -c 'import mbx'': FAILED
+# ERROR3:
+    # <- $PWD: /tmp/vsc47063/easybuild/build/MBX/1.1.0/foss-2023a/MBX-1.1.0
+    # <- installdir: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MBX/1.1.0-foss-2023a
+    # <- builddir: /tmp/vsc47063/easybuild/build/MBX/1.1.0/foss-2023a
+        # in buildir/MBX-1.1.0/
+            # aclocal.m4      build-aux  config.h.in  config.status  configure.ac  examples  LICENSE  Makefile     Makefile.in  README.md  sourceme.sh  stamp-h1
+            # autom4te.cache  config.h   config.log   configure      doc           libtool   m4       Makefile.am  plugins      scripts    src          timing
+    # <- without buildininstalldir = True, modextrapaths = {'PYTHONPATH': '%(name)s-%(version)s/plugins/python/mbx'}
+    # <- log2.txt
+    # == sanity checking...
+    # >> file 'bin/mb_decomp' found: OK
+    # >> file 'bin/optimize' found: OK
+    # >> file 'bin/order_frames' found: OK
+    # >> file 'bin/single_point' found: OK
+    # >> file 'lib/libmbx.a' found: OK
+    # >> file 'lib/libmbx.so' found: OK
+    # >> (non-empty) directory 'include' found: OK
+    # >> (non-empty) directory 'plugins/python/mbx' found: FAILED
+    # >> loading modules: MBX/1.1.0-foss-2023a...
+    # >> running command 'python -c 'import mbx'' ...
+    # >> result for command 'python -c 'import mbx'': FAILED
+# ERROR2:
+    # -> seems there is a problem with build in install dir - PYPHONPATH missing MBX-1.1.0 dir 
+    #   -> .../software/MBX/1.1.0-foss-2023a/MBX-1.1.0/plugins
+    # == sanity checking...
+    # >> file 'bin/mb_decomp' found: OK
+    # >> file 'bin/optimize' found: OK
+    # >> file 'bin/order_frames' found: OK
+    # >> file 'bin/single_point' found: OK
+    # >> file 'lib/libmbx.a' found: OK
+    # >> file 'lib/libmbx.so' found: OK
+    # >> (non-empty) directory 'include' found: OK
+    # >> (non-empty) directory 'plugins/python/mbx' found: FAILED
+    # >> loading modules: MBX/1.1.0-foss-2023a...
+    # >> running command 'python -c 'import mbx'' ...
+    # >> result for command 'python -c 'import mbx'': FAILED
+        # ModuleNotFoundError: No module named 'mbx'
+
+# ERROR1: OK
+    # -> it seems it is out or resources -> use maxparallel = 1 -> ok, try maxpararells = 2
+        # https://github.com/soedinglab/hh-suite/issues/280, https://github.com/mlpack/mlpack/issues/2775
+    # -> add FFTW and GSL as deps
+    # <- crash on make cmd <- log1.txt
+    # Error1a configure:
+        # == 2024-08-06 11:05:57,292 run.py:687 INFO cmd "export MBX_HOME=$PWD && autoreconf -fi &&  ./configure --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/
+        # software/MBX/1.1.0-foss-2023a --enable-shared --enable-verbose" exited with exit code 0 and output:
+        # aclocal: warning: couldn't open directory 'm4': No such file or directory
+        # ...
+        # configure: WARNING: gsl cannot be found. Will not install the normal modes executable.
+    # Error1b make:
+        # == 2024-08-06 12:01:38,739 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
+        # cmd " make  -j 4 " exited with exit code 2 and output:
+        # libtool: compile:  
+        #   g++ -DHAVE_CONFIG_H -I. -I.. -I/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0include -I/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/soake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include/flexiblas 
+        #   -DHAVE_FFTWD=1 -MT potential/3b/libmbx_la-poly_3b_A1B2_A1B2_A1B2_deg4_nograd_v1.lo -MD -MP -MF potential/3b/.deps/libmbx_la-poly_3b_A1B2_A1B2_A1B2_deg4_nograd_v1.Tpo -c potential/3b/poly_3b_A1B2_A1B2_A1B2_deg4_nograd_v1.cpp -o potential/3b/libmbx_la-poly_3b_A1B2_A1B2_A1B2_deg4_nograd_v1.o >/dev/null 2>&1
+        # g++: fatal error: Killed signal terminated program cc1plus
+        # compilation terminated.
+        # make[3]: *** [Makefile:2403: potential/3b/libmbx_la-poly_3b_A1B2_A1B2_A1B2_deg4_grad_v1.lo] Error 1
+        # make[3]: *** [Makefile:2165: potential/2b/libmbx_la-poly_2b_A1B3_A1B3_deg4_grad_v1.lo] Error 1
+        # make[3]: *** Waiting for unfinished jobs....
+        # mv -f potential/3b/.deps/libmbx_la-poly_3b_A1B2_A1B2_A1B2_deg4_nograd_v1.Tpo potential/3b/.deps/libmbx_la-poly_3b_A1B2_A1B2_A1B2_deg4_nograd_v1.Plo
+        # libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include/flexiblas -DHAVE_FFTWD=1 -fopenmp -std=c++11 -DDEBUG -O2 -I/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include/flexiblas -DHAVE_FFTWD=1 -MT potential/2b/libmbx_la-poly_2b_A1B4_C1D2_deg4_grad_v1.lo -MD -MP -MF potential/2b/.deps/libmbx_la-poly_2b_A1B4_C1D2_deg4_grad_v1.Tpo -c potential/2b/poly_2b_A1B4_C1D2_deg4_grad_v1.cpp -o potential/2b/libmbx_la-poly_2b_A1B4_C1D2_deg4_grad_v1.o >/dev/null 2>&1
+        # libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include/flexiblas -DHAVE_FFTWD=1 -fopenmp -std=c++11 -DDEBUG -O2 -I/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include/flexiblas -DHAVE_FFTWD=1 -MT potential/3b/libmbx_la-poly_3b_A1B2_A1B2_A1B2_deg4_grad_v1.lo -MD -MP -MF potential/3b/.deps/libmbx_la-poly_3b_A1B2_A1B2_A1B2_deg4_grad_v1.Tpo -c potential/3b/poly_3b_A1B2_A1B2_A1B2_deg4_grad_v1.cpp -o potential/3b/libmbx_la-poly_3b_A1B2_A1B2_A1B2_deg4_grad_v1.o >/dev/null 2>&1
+        # mv -f potential/2b/.deps/libmbx_la-poly_2b_A1B4_C1D2_deg4_grad_v1.Tpo potential/2b/.deps/libmbx_la-poly_2b_A1B4_C1D2_deg4_grad_v1.Plo
+        # mv -f potential/3b/.deps/libmbx_la-poly_3b_A1B2_A1B2_A1B2_deg4_grad_v1.Tpo potential/3b/.deps/libmbx_la-poly_3b_A1B2_A1B2_A1B2_deg4_grad_v1.Plo
+        # make[3]: Leaving directory '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MBX/1.1.0-foss-2023a/MBX-1.1.0/src'
+        # make[2]: *** [Makefile:2773: all-recursive] Error 1
+        # make[2]: Leaving directory '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MBX/1.1.0-foss-2023a/MBX-1.1.0/src'
+        # make[1]: *** [Makefile:462: all-recursive] Error 1
+        # make[1]: Leaving directory '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MBX/1.1.0-foss-2023a/MBX-1.1.0'
+        # make: *** [Makefile:373: all] Error 2
+        
+    
