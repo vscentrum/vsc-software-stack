@@ -9,18 +9,40 @@ Generating Fair Synthetic Data Using Causally-Aware Generative Networks"""
 
 toolchain = {'name': 'foss', 'version': '2022b'}
 
+# DEPS:
+    # loguru
+    # networkx>=2.0,<3.0
+    # numpy>=1.19
+    # pandas
+    # pytorch-lightning<2.0
+    # scikit-learn
+    # scipy
+    # torch>=1.9
+    # torchtext>=0.10
+    # xgboost
+    # decaf-synthetic-data 0.1.6 requires torchtext, which is not installed.
+
 dependencies = [
     ('Python', '3.10.8'),
     ('SciPy-bundle', '2023.02'),
-    ('PyTorch-Lightning', '1.8.4'),
+    ('PyTorch-Lightning', '1.8.4'), # CREATED ok
     ('PyTorch', '1.13.1'),
     ('XGBoost', '1.7.2'),
     ('scikit-learn', '1.2.1'),
     ('torchtext', '0.14.1', '-PyTorch-1.13.1'),
+    # ('networkx', '3.1'),
 ]
 
 use_pip = True
 sanity_pip_check = True
+
+# unpin dependencies versions - nor need anymore?
+local_preinstallopts = (
+    "sed -i"
+    " -e 's/networkx>=2.0,<3.0/networkx/'"
+    " -e 's/pytorch-lightning<2.0/pytorch-lightning/'"
+    " %(builddir)s/DECAFsyntheticdata/DECAF-%(version)s/requirements.txt && "
+)
 
 exts_list = [
     ('networkx', '2.8.8', {
@@ -31,6 +53,7 @@ exts_list = [
     }),
     (name, version, {
         'modulename': 'decaf',
+        # 'preinstallopts': local_preinstallopts,
         'source_urls': ['https://github.com/vanderschaarlab/DECAF/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'checksums': ['8f34e99937d2ccc43bff97b310c371c450e27313c0801cdd36aa91664c8e3180'],

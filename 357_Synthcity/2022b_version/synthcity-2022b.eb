@@ -10,166 +10,48 @@ description = """A library for generating and evaluating synthetic tabular data.
 
 toolchain = {'name': 'foss', 'version': '2022b'}
 
-# DEPS:
-    # importlib-metadata - ok in pypi bundle
-    # pandas>=1.4,<2 - in scipy is pandas v2.0.3 -> unpin
-    # torch>=1.10.0,<2.0 - torch is v2.1.2 -> unpin
-    # scikit-learn>=1.2 OK
-    # nflows>=0.14 ok exts
-    # numpy>=1.20, <1.24 - v1.24.2 in scipy -> unpin -> error
-    #   -> be-great 0.0.6 and 0.0.7 has numpy >= 1.23.1, 
-    # lifelines>=0.27,!= 0.27.5, <0.27.8 -> NO -> created OK
-    # opacus>=1.3 ok exts
-    # decaf-synthetic-data>=0.1.6 ok exts
-    # optuna>=3.1 OK
-    # shap OK
-    # tqdm OK
-    # loguru ok exts
-    # pydantic<2.0 - v2.5.3 -> unpin
-    # cloudpickle - ok in SHAP
-    # scipy ok
-    # xgboost<2.0.0 - v2.0.2 -> unpin -> error -> try build v1.7.2 and use it
-    # geomloss ok exts
-    # pgmpy ok exts
-        # networkx OK
-        # pyparsing ok in pypi bundle
-        # statsmodels OK
-        # joblib ok in pypi bundle
-    # redis OK
-    # pycox ok exts
-    # xgbse ok exts
-    # pykeops ok exts
-    # fflows ok exts 
-    # monai OK
-    # tsai; python_version>"3.7" ok exts
-    # be-great>=0.0.5;python_version>="3.9" ok exts
-        # v0.0.7 has:
-        # dependencies = ["datasets >= 2.5.2", "numpy >= 1.23.1", "pandas >= 1.4.4", "scikit_learn >= 1.1.1", "torch >= 1.10.2", "tqdm >= 4.64.1", "transformers >= 4.22.1", "accelerate >= 0.20.1",]
-    # arfpy ok exts
-    #
-    # opacus 1.4.1 requires opt-einsum, ok
-    # be-great 0.0.7 requires accelerate, ok
-    # be-great 0.0.7 requires datasets, OK (HF-Datasets)
-    # be-great 0.0.7 requires transformers, OK (Transformers)
-    # pgmpy 0.1.25 requires opt-einsum, ok
-    # pykeops 2.2.3 requires keopscore, ok
-    # tsai 0.3.9 requires fastai, -> UPDATE
-    # tsai 0.3.9 requires imbalanced-learn, OK
-    # tsai 0.3.9 requires pyts, ok
-    # decaf-synthetic-data 0.1.6 requires pytorch-lightning OK
-    # decaf-synthetic-data 0.1.6 requires torchtext -> add PyTorch-bundle instead of PyTorch -> has torchtext OK
-    # pycox 0.2.3 requires feather-format, ok
-    # pycox 0.2.3 requires h5py, OK
-    # pycox 0.2.3 requires py7zr, ok
-    # pycox 0.2.3 requires torchtuples, ok
-    # -> unpin in local_preinstallopts
-        # synthcity 0.2.10 has requirement lifelines!=0.27.5,<0.27.8,>=0.27, but you have lifelines 0.28
-        # synthcity 0.2.10 has requirement numpy<1.24,>=1.20, but you have numpy 1.25.1.
-        # synthcity 0.2.10 has requirement pandas<2,>=1.4, but you have pandas 2.0.3.
-        # synthcity 0.2.10 has requirement pydantic<2.0, but you have pydantic 2.5.3.
-        # synthcity 0.2.10 has requirement torch<2.0,>=1.10.0, but you have torch 2.1.2.
-        # synthcity 0.2.10 has requirement xgboost<2.0.0, but you have xgboost 2.0.2.
-    # -> networkx v2.8.8 in exts -> not -> decaf is separate econfig
-        # decaf-synthetic-data 0.1.6 has requirement networkx<3.0,>=2.0, but you have networkx 3.1.
-    # -> use xgbse v0.2.3
-        # xgbse 0.3.1 has requirement joblib<2.0.0,>=1.4.2, but you have joblib 1.2.0.
-        # xgbse 0.3.1 has requirement lifelines<0.30.0,>=0.29.0, but you have lifelines 0.28.0.
-        # xgbse 0.3.1 has requirement numpy<2.0.0,>=1.26.4, but you have numpy 1.25.1.
-        # xgbse 0.3.1 has requirement scikit-learn<2.0.0,>=1.5.0, but you have scikit-learn 1.3.1.
-        # xgbse 0.3.1 has requirement xgboost<3.0.0,>=2.1.0, but you have xgboost 2.0.2.
-    # py7zr 0.21.1 requires brotli, OK
-    # py7zr 0.21.1 requires inflate64, ok
-    # py7zr 0.21.1 requires multivolumefile, ok
-    # py7zr 0.21.1 requires pybcj, ok
-    # py7zr 0.21.1 requires pycryptodomex, ok
-    # py7zr 0.21.1 requires pyppmd, ok
-    # py7zr 0.21.1 requires pyzpyzstdstd, ok
-    # py7zr 0.21.1 requires texttable, ok
-    # decaf-synthetic-data 0.1.6 has requirement pytorch-lightning<2.0, but you have pytorch-lightning 2.2.1.
-        # -> create econfig for Decaf
-        # problem: decaf has only whl on pypi + no releases on GitHub
-    # fastapi 0.110.0 has requirement typing-extensions>=4.8.0, but you have typing-extensions 4.6.3.
-        # seems it goes from PyTorch-Lightning -> put it as the last dep
-    # py7zr 0.21.1 has requirement brotli>=1.1.0; platform_python_implementation == "CPython", but you have brotli 1.0.9.
-        # use v0.20.6
-    # fastapi 0.110.0 has requirement typing-extensions>=4.8.0, but you have typing-extensions 4.6.3.
-        # -> add v typing-extensions v4.9.0 to exts
-    # py7zr 0.20.6 has requirement pyppmd<1.1.0,>=0.18.1, but you have pyppmd 1.1.0. -> add pyppmd v1.0.0 ok
-    # TESTS
-    # black 24.4.2 requires mypy-extensions ok exts
-    # pre-commit 3.7.1 requires identify, ok exts
-    # pre-commit 3.7.1 requires nodeenv, ok exts
-    # bandit 1.7.9 requires stevedore, ok exts
-    # pytest-benchmark 4.0.0 requires py-cpuinfo, OK
-    # doc8 1.1.1 requires restructuredtext-lint, ok exts
-    # doc8 1.1.1 requires stevedore, ok exts
-    # flake8 7.1.0 requires mccabe, ok exts
-    # flake8 7.1.0 requires pycodestyle, OK
-    # flake8 7.1.0 requires pyflakes, ok exts
-    # pre-commit 3.7.1 requires cfgv, ok exts
-    # flake8 7.1.0 has requirement pycodestyle<2.13.0,>=2.12.0, but you have pycodestyle 2.11.1. -> flake8 v7.0.0
-    #
-    # opacus 1.4.1 has requirement torch>=2.0, but you have torch 1.13.1. -> change to opacus 1.4.0
-    # black 24.4.2 has requirement packaging>=22.0, but you have packaging 21.3. -> ok v 22.12.0
-    # datasets 2.16.1 has requirement fsspec[http]<=2023.10.0,>=2023.1.0, but you have fsspec 2022.7.1.
-    # datasets 2.16.1 has requirement huggingface-hub>=0.19.4, but you have huggingface-hub 0.15.1.
-        # huggingface-hub 0.15.1. in Transformers -> do same version for HF-Datasets
-        # datasets v2.14.4 should be ok -> update HF-Datasets
-    
 builddependencies = [('hypothesis', '6.68.2')] # for numpy 1.23.5
 dependencies = [
     ('Python', '3.10.8'),
-    ('lifelines', '0.27.7'), # CREATED ok
+    ('lifelines', '0.27.7'),
     ('SciPy-bundle', '2023.02'),
-    ('pydantic', '2.5.3'), # should be <2
-    ('Redis', '7.2.3'), # CREATED ok
+    ('pydantic', '2.5.3'),
+    ('Redis', '7.2.3'),
     ('scikit-learn', '1.2.1'),
-    ('SHAP', '0.43.0'), # CREATED ok
-    # ('PyTorch-bundle', local_pytorch_version),
-    ('PyTorch', local_pytorch_version), # need torchtext and torchtuples - was in bundle but not in PyTorch
-    ('XGBoost', '1.7.2'), # CREATED ok
+    ('SHAP', '0.43.0'),
+    ('PyTorch', local_pytorch_version),
+    ('XGBoost', '1.7.2'),
     ('tqdm', '4.64.1'),
-    ('HF-Datasets', '2.14.4'), # CREATED ok
-    ('Transformers', '4.30.2'), # ok be-greate needs "transformers >= 4.22.1"
-    ('fastai', '2.7.15'), # CREATED ok
+    ('HF-Datasets', '2.14.4'),
+    ('Transformers', '4.30.2'),
+    ('fastai', '2.7.15'),
     ('h5py', '3.8.0'),
-    # ('networkx', '3.1'), # should be in decaf and <3
     ('Brotli-python', '1.0.9'),
     ('statsmodels', '0.14.0'),
-    ('imbalanced-learn', '0.12.3'), # CREATED ok
-    ('Optuna', '3.5.0'), # CREATED ok
-    ('MONAI', '1.3.0'), # CREATED ok
-    ('DECAF-synthetic-data', '0.1.6'), # CREATED ok
-    ('PyTorch-Lightning', '1.8.4'), # CREATED v1.8.4 ok
+    ('imbalanced-learn', '0.12.3'),
+    ('Optuna', '3.5.0'),
+    ('MONAI', '1.3.0'),
+    ('DECAF-synthetic-data', '0.1.6'),
+    ('PyTorch-Lightning', '1.8.4'),
     # TESTS
-    # ('Jupyter-bundle', '20230823'), # not in EB - find what exactly need from this bundle
-        # jupyter, notebook, nbconvert, nbformat
-    ('JupyterNotebook', '7.0.3'), # for notebook, nbconvert, nbformat, maybe jupyter too
+    ('JupyterNotebook', '7.0.3'),
     ('python-igraph', '0.10.6'),
     ('coverage', '7.2.3'),
     ('py-cpuinfo', '9.0.0'),
-    ('pycodestyle', '2.11.1'), # CREATED ok
-    # ('pytest', '7.4.2'), in py v7.2.0
-    # ('pytest-xdist', '3.3.1'), in py v3.1.0
+    ('pycodestyle', '2.11.1'),
 ]
-
-sanity_pip_check = True
-use_pip = True
 
 # unpin pydantic version restriction
 local_preinstallopts = "sed -i 's/pydantic<2.0/pydantic/' %(builddir)s/%(name)s/%(name)s-%(version)s/setup.cfg && "
+
 # ignore the failing part of ddpm test - seems constraints are wrong
 # https://github.com/vanderschaarlab/synthcity/blob/v0.2.10/tests/plugins/generic/test_ddpm.py#L114
 local_pretestopts = (
     "sed -i '138,144d' %(builddir)s/%(name)s/%(name)s-%(version)s/tests/plugins/generic/test_ddpm.py && "
 )
+
 # fix invalid syntax of xgbse/setup.py
-local_xgbse_preinstallopts = (
-    "sed -i "
-    " -e '45,49d'"
-    " -e 's/pandas>=1.0.\*/pandas>=1.0.0/'"
-    " setup.py && "
-)
+local_xgbse_preinstallopts = "sed -i -e '45,49d' -e 's/pandas>=1.0.\*/pandas>=1.0.0/' setup.py && "
 
 exts_list = [
     ('cfgv', '3.4.0', {
@@ -346,217 +228,12 @@ exts_list = [
     }),
 ]
 
+sanity_pip_check = True
+use_pip = True
+
 sanity_check_commands = [
     "python -c 'from synthcity.plugins import Plugins'",
     "python -c 'from decaf import DECAF, DataModule'",
 ]
 
 moduleclass = 'lib'
-
-# ERROR4: OK
-    # -> ignore this part of test - seems constraints are wrong
-    # <- test_logB2.txt
-    # ========================================== short test summary info ==========================================
-    # FAILED plugins/generic/test_ddpm.py::test_plugin_generate_constraints[test_plugin3] - assert 48 == 50
-    # FAILED plugins/generic/test_ddpm.py::test_plugin_generate_constraints[test_plugin4] - assert 48 == 50
-    # FAILED plugins/generic/test_ddpm.py::test_plugin_generate_constraints[test_plugin5] - assert 48 == 50
-    # ==== 3 failed, 2156 passed, 13 skipped, 103 deselected, 2 xfailed, 2546 warnings in 15825.66s (4:23:45) =====
-# ERROR3: Numpy problem OK
-    # <- test_logB1.txt
-    # -> https://github.com/vanderschaarlab/synthcity/blob/v0.2.10/src/synthcity/plugins/core/plugin.py#L276
-    # FAILED plugins/generic/test_ddpm.py::test_plugin_generate_constraints[test_plugin3] - assert 48 == 50
-    # FAILED plugins/generic/test_ddpm.py::test_plugin_generate_constraints[test_plugin4] - assert 48 == 50
-    # FAILED plugins/generic/test_ddpm.py::test_plugin_generate_constraints[test_plugin5] - assert 48 == 50
-    #     X_gen = test_plugin.generate(constraints=constraints).dataframe()
-    #     assert len(X_gen) == len(X)
-    #     assert test_plugin.schema_includes(X_gen)
-    #     assert constraints.filter(X_gen).sum() == len(X_gen)
-    #     assert (X_gen["target"] == 1).all()
-    #     X_gen = test_plugin.generate(count=50, constraints=constraints).dataframe()
-    #     assert len(X_gen) == 50
-    #     assert 48 == 50
-    #     plugins/generic/test_ddpm.py:140: AssertionError
-
-    # -> Fixed
-    # -> ModuleNotFoundError: No module named 'hypothesis' -> added to builddeps -> OK
-    # -> Problem with NumPy -> try add v1.23.5 to exts -> OK
-    # FAILED plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] - ValueError: setting an arra...
-    # FAILED plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source1] - ValueError: setting an arra...
-    #     ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. 
-    #     The detected shape was (50,) + inhomogeneous part.
-    # ========= 5 failed, 2154 passed, 13 skipped, 103 deselected, 2 xfailed, 2545 warnings in 15956.41s (4:25:56) =========
-# ERROR2: OK
-    # -> be-greate needs "accelerate >= 0.20.1", -> have 'accelerate', '0.32.1' -> split_torch_state_dict_into_shards is there since v0.32.0 ->
-        # -> use accelerate v0.31.0
-    # == 2024-08-01 13:53:29,530 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/ea
-    # sybuild/base/exceptions.py:126 in __init__): Sanity check failed: extensions sanity check failed for 2 extensions: acc
-    # elerate, be_great
-    # failing sanity check for 'accelerate' extension: command "python -c "import accelerate"" failed; output:
-    # Traceback (most recent call last):
-    # File "<string>", line 1, in <module>
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/synthcity/0.2.10-foss-2022b/lib/p
-    # ython3.10/site-packages/accelerate/__init__.py", line 16, in <module>
-    #     from .accelerator import Accelerator
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/synthcity/0.2.10-foss-2022b/lib/p
-    # ython3.10/site-packages/accelerate/accelerator.py", line 34, in <module>
-    #     from huggingface_hub import split_torch_state_dict_into_shards
-    # ImportError: cannot import name 'split_torch_state_dict_into_shards' from 'huggingface_hub' (/scratch/gent/vo/001/gvo0
-    # 0117/easybuild/RHEL8/cascadelake-ampere-ib/software/Transformers/4.30.2-foss-2022b/lib/python3.10/site-packages/huggin
-    # gface_hub/__init__.py), 
-    # failing sanity check for 'be_great' extension: command "python -c "import be_great"" failed; output:
-    # Traceback (most recent call last):
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Transformers/4.30.2-foss-2022b/li
-    # b/python3.10/site-packages/transformers/utils/import_utils.py", line 1086, in _get_module
-    #     return importlib.import_module("." + module_name, self.__name__)
-    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.8-GCCcore-12.2.0/lib/python3.10/importlib/__init__.py", l
-    # ine 126, in import_module
-    #     return _bootstrap._gcd_import(name[level:], package, level)
-    # File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
-    # File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
-    # File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
-    # File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
-    # File "<frozen importlib._bootstrap_external>", line 883, in exec_module
-    # File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Transformers/4.30.2-foss-2022b/lib/python3.10/site-packages/transformers/training_args.py", line 67, in <module>
-    #     from accelerate.state import AcceleratorState, PartialState
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/synthcity/0.2.10-foss-2022b/lib/python3.10/site-packages/accelerate/__init__.py", line 16, in <module>
-    #     from .accelerator import Accelerator
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/synthcity/0.2.10-foss-2022b/lib/python3.10/site-packages/accelerate/accelerator.py", line 34, in <module>
-    #     from huggingface_hub import split_torch_state_dict_into_shards
-    # ImportError: cannot import name 'split_torch_state_dict_into_shards' from 'huggingface_hub' (/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Transformers/4.30.2-foss-2022b/lib/python3.10/site-packages/huggingface_hub/__init__.py)
-    # The above exception was the direct cause of the following exception:
-    # Traceback (most recent call last):
-    # File "<string>", line 1, in <module>
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/synthcity/0.2.10-foss-2022b/lib/python3.10/site-packages/be_great/__init__.py", line 1, in <module>
-    #     from .great import GReaT
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/synthcity/0.2.10-foss-2022b/lib/python3.10/site-packages/be_great/great.py", line 13, in <module>
-    #     from transformers import AutoTokenizer, AutoModelForCausalLM, TrainingArguments
-    # File "<frozen importlib._bootstrap>", line 1075, in _handle_fromlist
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Transformers/4.30.2-foss-2022b/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1076, in __getattr__
-    #     module = self._get_module(self._class_to_module[name])
-    # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Transformers/4.30.2-foss-2022b/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1088, in _get_module
-    #     raise RuntimeError(
-    # RuntimeError: Failed to import transformers.training_args because of the following error (look up to see its traceback):
-    # cannot import name 'split_torch_state_dict_into_shards' from 'huggingface_hub'   
-# ERROR1: OK
-    # -> torch.func is only in v2 pytorch -> use older opacus -> v1.4.0 is suitable
-    # -> problem with "plugin" -> maybe tests are running from wrong dir ot __init__.py missing? -> wrong start dir - fixed ok
-        # -> sanity cmd: python -c 'from synthcity.plugins.privacy.plugin_pategan import plugin' is ok
-    # ================================== short test summary info ===================================
-    # ERROR tests/metrics/test_performance.py - ValueError: Plugin ctgan doesn't exist.
-        # -> seems pydantic v2 is ok - has a backport of decorator from v1
-            # https://github.com/pydantic/pydantic/blob/v2.5.3/pydantic/decorator.py
-        # tests/metrics/test_performance.py:91: in <module>
-        #     Plugins().get("ctgan"),
-        # pydantic/decorator.py:40: in pydantic.decorator.validate_arguments.validate.wrapper_function
-        #     ???
-        # pydantic/decorator.py:134: in pydantic.decorator.ValidatedFunction.call
-        #     ???
-        # pydantic/decorator.py:206: in pydantic.decorator.ValidatedFunction.execute
-        #     ???
-        # /tmp/vsc47063/eb-6mgg3akg/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/core/plugin.py:702: in get
-        #     raise ValueError(f"Plugin {name} doesn't exist.")
-        # E   ValueError: Plugin ctgan doesn't exist.
-    # ERROR tests/metrics/test_statistical.py - ValueError: Plugin ctgan doesn't exist.
-        # tests/metrics/test_statistical.py:188: in <module>
-        #     @pytest.mark.parametrize("test_plugin", [Plugins().get("ctgan")])
-        # pydantic/decorator.py:40: in pydantic.decorator.validate_arguments.validate.wrapper_function
-        #     ???
-        # pydantic/decorator.py:134: in pydantic.decorator.ValidatedFunction.call
-        #     ???
-        # pydantic/decorator.py:206: in pydantic.decorator.ValidatedFunction.execute
-        #     ???
-        # /tmp/vsc47063/eb-6mgg3akg/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/core/plugin.py:702: in get
-        #     raise ValueError(f"Plugin {name} doesn't exist.")
-        # E   ValueError: Plugin ctgan doesn't exist.
-    # ERROR tests/plugins/core/models/test_gan.py
-        # ModuleNotFoundError: No module named 'torch.func'
-    # ERROR tests/plugins/core/models/test_image_gan.py
-        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/synthcity/0.2.10-foss-2022b/lib/python3.10/site-packages/opacus/grad_sample/functorch.py:6: in <module>
-        #     from torch.func import grad, vmap
-        # E   ModuleNotFoundError: No module named 'torch.func'
-    # ERROR tests/plugins/core/models/test_tabular_gan.py
-        # -> torch.func is only in v2 pytorch -> older Opacus?
-        # tests/plugins/core/models/test_tabular_gan.py:15: in <module>
-        # from synthcity.plugins.core.models.tabular_gan import TabularGAN
-        # ...
-        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/synthcity/0.2.10-foss-2022b/lib/python3.10/site-packages/opacus/grad_sample/functorch.py:6: in <module>
-        #     from torch.func import grad, vmap
-        # E   ModuleNotFoundError: No module named 'torch.func'
-    # ERROR tests/plugins/generic/test_ctgan.py
-        # ImportError: cannot import name 'plugin' from ...
-    # ERROR tests/plugins/generic/test_great.py
-        # ImportError: cannot import name 'plugin' from ...
-    # ERROR tests/plugins/images/test_image_adsgan.py
-        # ImportError: cannot import name 'plugin' from ...
-    # ERROR tests/plugins/images/test_image_cgan.py
-        # ImportError: cannot import name 'plugin' from ....
-    # ERROR tests/plugins/privacy/test_adsgan.py
-        # tests/plugins/privacy/test_adsgan.py:16: in <module>
-        #     from synthcity.plugins.privacy.plugin_adsgan import plugin
-        # E   ImportError: cannot import name 'plugin' from 'synthcity.plugins.privacy.plugin_adsgan'
-    # ERROR tests/plugins/privacy/test_decaf.py
-        # tests/plugins/privacy/test_decaf.py:16: in <module>
-        #     from synthcity.plugins.privacy.plugin_decaf import plugin
-        # E   ImportError: cannot import name 'plugin' from 'synthcity.plugins.privacy.plugin_decaf'
-    # ERROR tests/plugins/privacy/test_dpgan.py
-        # tests/plugins/privacy/test_dpgan.py:16: in <module>
-        #     from synthcity.plugins.privacy.plugin_dpgan import plugin
-        # E   ImportError: cannot import name 'plugin' from 'synthcity.plugins.privacy.plugin_dpgan'
-    # ERROR tests/plugins/privacy/test_pategan.py
-    #     ImportError while importing test module '/tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2022b/synthcity/synthcity-0.2.10/tests/plugins/privacy/test_pategan.py'.
-    #     Hint: make sure your test modules/packages have valid Python names.
-    #     Traceback:
-    #     /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.8-GCCcore-12.2.0/lib/python3.10/site-packages/_pytest/python.py:6
-    #     18: in _importtestmodule
-    #         mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
-    #     /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.8-GCCcore-12.2.0/lib/python3.10/site-packages/_pytest/pathlib.py:
-    #     533: in import_path
-    #         importlib.import_module(module_name)
-    #     /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.8-GCCcore-12.2.0/lib/python3.10/importlib/__init__.py:126: in imp
-    #     ort_module
-    #         return _bootstrap._gcd_import(name[level:], package, level)
-    #     <frozen importlib._bootstrap>:1050: in _gcd_import
-    #         ???
-    #     <frozen importlib._bootstrap>:1027: in _find_and_load
-    #         ???
-    #     <frozen importlib._bootstrap>:1006: in _find_and_load_unlocked
-    #         ???
-    #     <frozen importlib._bootstrap>:688: in _load_unlocked
-    #         ???
-    #     /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.8-GCCcore-12.2.0/lib/python3.10/site-packages/_pytest/assertion/r
-    #     ewrite.py:168: in exec_module
-    #         exec(co, module.__dict__)
-    #     tests/plugins/privacy/test_pategan.py:13: in <module>
-    #         from synthcity.plugins.privacy.plugin_pategan import plugin
-    #     E   ImportError: cannot import name 'plugin' from 'synthcity.plugins.privacy.plugin_pategan' (/tmp/vsc47063/eb-6mgg3ak
-    #     g/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/privacy/plugin_pategan.py)
-    # ERROR tests/plugins/time_series/test_fflows.py - ValueError: Plugin ctgan doesn't exist.
-    #     tests/plugins/time_series/test_fflows.py:24: in <module>
-    #         @pytest.mark.parametrize("test_plugin", generate_fixtures(plugin_name, plugin))
-    #     tests/plugins/time_series/ts_helpers.py:20: in generate_fixtures
-    #         return [from_api(), from_module(), from_serde()]
-    #     tests/plugins/time_series/ts_helpers.py:11: in from_api
-    #         return Plugins(categories=["generic", "time_series"]).get(name, **plugin_args)
-    #     pydantic/decorator.py:40: in pydantic.decorator.validate_arguments.validate.wrapper_function
-    #         ???
-    #     pydantic/decorator.py:134: in pydantic.decorator.ValidatedFunction.call
-    #         ???
-    #     pydantic/decorator.py:206: in pydantic.decorator.ValidatedFunction.execute
-    #         ???
-    #     /tmp/vsc47063/eb-6mgg3akg/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/core/plugin.py:710: in get
-    #         return self._plugins[name](*args, **kwargs)
-    #     /tmp/vsc47063/eb-6mgg3akg/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/time_series/plugin_fflows.py:137:
-    #     in __init__
-    #         self.static_model = Plugins().get(self.static_model_name, device=self.device)
-    #     pydantic/decorator.py:40: in pydantic.decorator.validate_arguments.validate.wrapper_function
-    #         ???
-    #     pydantic/decorator.py:134: in pydantic.decorator.ValidatedFunction.call
-    #         ???
-    #     pydantic/decorator.py:206: in pydantic.decorator.ValidatedFunction.execute
-    #         ???
-    #     /tmp/vsc47063/eb-6mgg3akg/tmpix4ocl31/lib/python3.10/site-packages/synthcity/plugins/core/plugin.py:702: in get
-    #         raise ValueError(f"Plugin {name} doesn't exist.")
-    #     E   ValueError: Plugin ctgan doesn't exist.
-    # !!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 14 errors during collection !!!!!!!!!!!!!!!!!!!!!!!!!!
-    # ================ 57 deselected, 144 warnings, 14 errors in 107.09s (0:01:47) =================

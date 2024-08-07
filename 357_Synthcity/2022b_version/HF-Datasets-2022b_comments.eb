@@ -11,6 +11,11 @@ data manipulation tools.
 
 toolchain = {'name': 'gfbf', 'version': '2022b'}
 
+# huggingface-hub 0.15.1. in Transformers -> do same version for HF-Datasets ok
+# huggingface-hub 0.21.4 has requirement fsspec>=2023.5.0, but you have fsspec 2022.11.0. ok
+# datasets 2.18.0 has requirement fsspec[http]<=2024.2.0,>=2023.1.0, but you have fsspec 2022.11.0. ok
+# datasets 2.18.0 has requirement pyarrow>=14.0.1, but you have pyarrow 11.0.0. ok
+
 dependencies = [
     ('Python', '3.10.8'),
     ('SciPy-bundle', '2023.02'),

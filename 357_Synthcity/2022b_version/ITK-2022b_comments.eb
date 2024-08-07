@@ -76,3 +76,27 @@ sanity_check_commands = ["python -c 'import itk'"]
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'data'
+
+# ERROR1:
+    # -> update ITK-5.3.0_vtk-include.patch -> change version of VTK
+    # [ 47%] Generating ../../castxml_inputs/itkVideoSource.xml
+    # cd /tmp/vsc47063/easybuild/build/ITK/5.3.0/foss-2022b/easybuild_obj/Wrapping/Modules/ITKVideoCore && ../../Generators/C
+    # astXML/castxml/bin/castxml -o /tmp/vsc47063/easybuild/build/ITK/5.3.0/foss-2022b/easybuild_obj/Wrapping/castxml_inputs/
+    # itkVideoSource.xml --castxml-gccxml --castxml-start _wrapping_ --castxml-cc-gnu "(" /apps/gent/RHEL8/cascadelake-ib/sof
+    # tware/GCCcore/12.2.0/bin/g++ -O2 -ftree-vectorize -fno-math-errno -fPIC -std=c++11 -Wall -Wcast-align -Wdisabled-optimi
+    # zation -Wextra -Wformat=2 -Winvalid-pch -Wno-format-nonliteral -Wpointer-arith -Wshadow -Wunused -Wwrite-strings -funit
+    # -at-a-time -Wno-strict-overflow -Wno-deprecated -Wno-invalid-offsetof -Woverloaded-virtual -Wstrict-null-sentinel -fno-
+    # sized-deallocation -fno-sized-deallocation -std=c++14 ")" -w -c @/tmp/vsc47063/easybuild/build/ITK/5.3.0/foss-2022b/eas
+    # ybuild_obj/Wrapping/castxml_inputs/.castxml.inc /tmp/vsc47063/easybuild/build/ITK/5.3.0/foss-2022b/easybuild_obj/Wrappi
+    # ng/castxml_inputs/itkVideoSource.cxx
+    # In file included from /tmp/vsc47063/easybuild/build/ITK/5.3.0/foss-2022b/easybuild_obj/Wrapping/castxml_inputs/itkImage
+    # ToVTKImageFilter.cxx:16:
+    # /tmp/vsc47063/easybuild/build/ITK/5.3.0/foss-2022b/ITK-5.3.0/Modules/Bridge/VtkGlue/include/itkImageToVTKImageFilter.h:
+    # 22:10: fatal error: 'vtkImageImport.h' file not found
+    # #include "vtkImageImport.h"
+    #         ^~~~~~~~~~~~~~~~~~
+    # 1 error generated.
+    # make[2]: *** [Wrapping/Modules/ITKVtkGlue/CMakeFiles/ITKVtkGlueCastXML.dir/build.make:80: Wrapping/castxml_inputs/itkIm
+    # ageToVTKImageFilter.xml] Error 1
+    # make[2]: Leaving directory '/tmp/vsc47063/easybuild/build/ITK/5.3.0/foss-2022b/easybuild_obj'
+    # make[1]: *** [CMakeFiles/Makefile2:32031: Wrapping/Modules/ITKVtkGlue/CMakeFiles/ITKVtkGlueCastXML.dir/all] Error 2
