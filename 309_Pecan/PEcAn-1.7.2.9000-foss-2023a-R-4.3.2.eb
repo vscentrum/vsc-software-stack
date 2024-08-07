@@ -102,11 +102,17 @@ exts_list = [
     ('neonUtilities', '2.4.2', {
         'checksums': ['37b4efd0ed3b724de999d08d4d430954a6c717b1d943bc84c513c4fe8dbca057'],
     }),
-    ('duckdb', '1.0.0-2', {
-        'checksums': ['3735d51f22d62a7411aa514142cd569ce28bdaec4eb58d5f0893a476b9ccbf01'],
+    ('storr', '1.2.5', {
+        'checksums': ['4224c3991d9c043a45ce530d0698d7f2cdca231b26fe31b45e0db865026e5f63'],
     }),
     ('thor', '1.1.5', {
         'checksums': ['99802d8c8471ce351403f8428c1efab48ccf20f359fbd368db84f25ef8f7ecae'],
+    }),
+    # TODO ERROR: no packages specified
+    ('duckdb', '1.0.0', {
+        'source_urls': 'https://github.com/duckdb/duckdb/archive',
+        'sources': ['v%(version)s.tar.gz'],
+        'checksums': ['04e472e646f5cadd0a3f877a143610674b0d2bcf9f4102203ac3c3d02f1c5f26'],
     }),
     ('duckdbfs', '0.0.4', {
         'checksums': ['90b2aff2bdefff1db4f855e2a9c9b19a404f522027105424aebd3c7e45944334'],
@@ -155,6 +161,15 @@ modextrapaths = {'R_LIBS_SITE': ''}
 
 moduleclass = 'math'
 
-# == 2024-08-05 11:23:06,590 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " R CMD INSTALL /tmp/vsc45304/easybuild/build/PEcAn/1.7.2.9000/foss-2023a-R-4.3.2/neonstore/neonstore   --library=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PEcAn/1.7.2.9000-foss-2023a-R-4.3.2/ --no-clean-on-error " exited with exit code 1 and output:
-# ERROR: dependencies duckdb, thor, duckdbfs are not available for package neonstore
+# g++ ... -o duckdb/third_party/re2/re2/prog.o
+# duckdb/third_party/re2/re2/prog.cc: In member function const void* duckdb_re2::Prog::PrefixAccel_FrontAndBack(const void*, size_t):
+# duckdb/third_party/re2/re2/prog.cc:1146:45: error: prefix_front_ was not declared in this scope
+#  1146 |     const __m256i f_set1 = _mm256_set1_epi8(prefix_front_);
+#       |                                             ^~~~~~~~~~~~~
+# duckdb/third_party/re2/re2/prog.cc:1147:45: error: prefix_back_ was not declared in this scope; did you mean prefix_size_?
+#  1147 |     const __m256i b_set1 = _mm256_set1_epi8(prefix_back_);
+#       |                                             ^~~~~~~~~~~~
+#       |                                             prefix_size_
+# make: *** [/apps/gent/RHEL8/cascadelake-ib/software/R/4.3.2-gfbf-2023a/lib64/R/etc/Makeconf:198: duckdb/third_party/re2/re2/prog.o] Error 1
+# ERROR: compilation failed for package duckdb
 #  (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
