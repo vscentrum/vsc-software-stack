@@ -10,7 +10,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 toolchainopts = {'pic': True, 'openmp': True}
 
 source_urls = ['https://github.com/paesanilab/MBX/archive/']
-sources = ['v%(version)s.tar.gz']
+sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
 checksums = ['0f55f4950226defb46fd0814ad97f906ce4ffd6403af6817bd98cb3c68996692']
 
 builddependencies = [
@@ -18,15 +18,14 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('Python', '3.11.3'),
-    # ('FFTW', '3.3.10'),
+    ('Python', '3.11.3'),  # has ctypes
+    ('SciPy-bundle', '2023.07'),  # for NumPy
     ('GSL', '2.7'),
 ]
 
 buildininstalldir = True
 
 preconfigopts = 'echo HEEERE && echo %(installdir)s && export MBX_HOME=%(installdir)s && autoreconf -fi && '
-# preconfigopts = 'echo HEEERE && echo $PWD && export MBX_HOME=$PWD && autoreconf -fi && '
 
 configopts = '--enable-shared --enable-verbose CXX="$CXX"'
 
@@ -42,8 +41,6 @@ modextrapaths = {'PYTHONPATH': '%(name)s-%(version)s/plugins/python'}
 
 modextravars = {'MBX_HOME': '%(installdir)s'}
 
-# options = {'modulename': 'mbx'} # this is only for PythonPackage seems
-
 sanity_check_paths = {
     'files': ['bin/mb_decomp', 'bin/optimize', 'bin/order_frames', 'bin/single_point',
               'lib/libmbx.a', 'lib/libmbx.%s' % SHLIB_EXT],
@@ -57,7 +54,28 @@ sanity_check_commands = [
 
 moduleclass = 'chem'
 
-# ERROR4: 
+# ERROR5:
+    # -> added Scipy-bundle for numpy
+    # <- log3.txt
+    # <- with: ok
+        # modextrapaths = {'PYTHONPATH': '%(name)s-%(version)s/plugins/python'}
+        # modextravars = {'MBX_HOME': '%(installdir)s'}
+    # == sanity checking...
+    # >> file 'bin/mb_decomp' found: OK
+    # >> file 'bin/optimize' found: OK
+    # >> file 'bin/order_frames' found: OK
+    # >> file 'bin/single_point' found: OK
+    # >> file 'lib/libmbx.a' found: OK
+    # >> file 'lib/libmbx.so' found: OK
+    # >> (non-empty) directory 'include' found: OK
+    # >> (non-empty) directory 'MBX-1.1.0/plugins/python/mbx' found: OK
+    # >> loading modules: MBX/1.1.0-foss-2023a...
+    # >> running command 'optimize' ...
+    # >> result for command 'optimize': OK
+    # >> running command 'python -c 'import mbx'' ...
+    # >> result for command 'python -c 'import mbx'': FAILED
+    # ModuleNotFoundError: No module named 'numpy'
+# ERROR4: OK
     # maxparallel = 3 is ok
     # build and installdir: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MBX/1.1.0-foss-2023a
     # with: -> failed - result for command 'python -c 'import mbx'': FAILED
@@ -66,7 +84,7 @@ moduleclass = 'chem'
         # preconfigopts = "echo HEEERE && echo %(installdir)s && export MBX_HOME=%(installdir)s && autoreconf -fi && "
         # no sanity_check_paths
     # >> result for command 'python -c 'import mbx'': FAILED
-# ERROR3:
+# ERROR3: OK
     # <- $PWD: /tmp/vsc47063/easybuild/build/MBX/1.1.0/foss-2023a/MBX-1.1.0
     # <- installdir: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MBX/1.1.0-foss-2023a
     # <- builddir: /tmp/vsc47063/easybuild/build/MBX/1.1.0/foss-2023a
@@ -87,7 +105,7 @@ moduleclass = 'chem'
     # >> loading modules: MBX/1.1.0-foss-2023a...
     # >> running command 'python -c 'import mbx'' ...
     # >> result for command 'python -c 'import mbx'': FAILED
-# ERROR2:
+# ERROR2: OK
     # -> seems there is a problem with build in install dir - PYPHONPATH missing MBX-1.1.0 dir 
     #   -> .../software/MBX/1.1.0-foss-2023a/MBX-1.1.0/plugins
     # == sanity checking...
@@ -103,7 +121,6 @@ moduleclass = 'chem'
     # >> running command 'python -c 'import mbx'' ...
     # >> result for command 'python -c 'import mbx'': FAILED
         # ModuleNotFoundError: No module named 'mbx'
-
 # ERROR1: OK
     # -> it seems it is out or resources -> use maxparallel = 1 -> ok, try maxpararells = 2
         # https://github.com/soedinglab/hh-suite/issues/280, https://github.com/mlpack/mlpack/issues/2775
