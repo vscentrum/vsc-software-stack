@@ -1,0 +1,49 @@
+easyblock = 'MakeCp'
+
+name = 'EMMAX'
+version = '1.0'
+
+homepage = 'https://csg.sph.umich.edu//kang/emmax/'
+description = "???"
+
+toolchain = {'name': 'intel', 'version': '2023a'}
+# https://csg.sph.umich.edu//kang/emmax/download/emmax-beta-src.tar.gz
+source_urls = ['https://csg.sph.umich.edu//kang/emmax/download/']
+# sources = ['emmax-beta-src.tar.gz'] # foss
+source = ['emmax-beta-intel.tar.gz'] # intel
+checksums = ['79670917a0ac74ff1899fb27361e2e07b0f3a7911a9d9c6e0c18cf066b8987ea']
+
+# builddependencies = [
+#     ('Autotools', '20220317'),
+# ]
+
+# dependencies = [
+#     ('Python', '3.11.3'),
+#     # ('FFTW', '3.3.10'),
+#     # ('GSL', '2.7'),
+#     # ('OpenMPI', '4.1.5'),
+# ]
+
+# buildopts = ' CC="$CXX" CCFLAGS="$CPPFLAGS $CXXFLAGS"'
+
+# files_to_copy = [(local_list_of_executables, 'bin'), (['*.pl'], 'bin'), 'README', 'doc', 'license.txt']
+files_to_copy = ["*"]
+
+# sanity_check_paths = {
+#     'files': ['bin/%s' % x for x in local_list_of_executables],
+#     'dirs': [],
+# }
+
+
+moduleclass = 'chem'
+
+# ERROR1:
+    # change to intel toolchain -> change toolchain + sources
+    # -> seems clapack.h is in ATLAS -> install ATLAS (grr) or use intel toolchain? - not need ATLAS only MKL
+    # -> when foss/2023a is loaded -> ScaLAPACK/2.2.0-gompi-2023a-fb is loaded 
+    #   -> cd $EBROOTSCALAPACK -> no clapack.h
+    # <- fail on make
+    # emmax.c:10:10: fatal error: clapack.h: No such file or directory
+    # 10 | #include <clapack.h>
+    #    |          ^~~~~~~~~~~
+    # compilation terminated.

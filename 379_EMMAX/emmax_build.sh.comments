@@ -1,0 +1,29 @@
+export INTELROOT=/home/hmkang/intel/Compiler/11.1/069
+export MKLROOT=${INTELROOT}/mkl
+export MKLINCLUDE=${MKLROOT}/include
+
+sh $INTELROOT/bin/iccvars.sh intel64 #iccvars.sh nejsou -> vytvoří se pomocí vars.sh : https://hackmd.io/@nadhifmr/H1HcwPeUj#Create-iccvarsh
+sh $MKLROOT/tools/environment/mklvars64.sh #mklvar64.sh není, ale v $EBROOTIMKL/mkl/latest/env je vars.sh
+export MKLLIBPATH=${MKLROOT}/lib/em64t
+export INTELLIBPATH=${INTELROOT}/lib/intel64
+export BINPATH=${INTELROOT}/bin/intel64
+
+# vars.sh in $EBROOTINTELMINCOMPILERS/compiler/latest/env/vars.sh
+	# použít tak že: $ . $EBROOTINTELMINCOMPILERS/compiler/latest/env/vars.sh intel64
+# maybe need --std=c99 flag
+# BINPATH = /apps/gent/RHEL8/zen2-ib/software/intel-compilers/2023.1.0/compiler/latest/linux/bin/intel64 - there is icc
+	# $EBROOTINTELMINCOMPILERS/compiler/latest/linux/bin/intel64
+# $EBROOTINTELMINCOMPILERS = /apps/gent/RHEL8/zen2-ib/software/intel-compilers/2023.1.0
+
+#MKLROOT = $EBROOTIMKL/mkl/latest
+#MKLINCLUDE = $EBROOTIMKL/mkl/latest/include
+#MKLLIBPATH = $EBROOTIMKL/mkl/latest/lib/intel64
+#INTELLIBPATH = $EBROOTINTELMINCOMPILERS/compiler/latest/linux/compiler/lib/intel64
+
+$BINPATH/icc -Wall -wd1419 -O2 -I $MKLINCLUDE emmax-kin.c -Wl,--start-group $MKLLIBPATH/libmkl_intel_lp64.a $MKLLIBPATH/libmkl_intel_thread.a $MKLLIBPATH/libmkl_core.a $INTELLIBPATH/libguide.a -Wl,--end-group -lpthread -lz -o emmax-kin-intel64
+
+$BINPATH/icc -Wall -wd1419 -wd1418 -wd869 -wd920 -wd981 -wd1572 -O2 -I $MKLINCLUDE emmax.c -Wl,--start-group $MKLLIBPATH/libmkl_intel_lp64.a $MKLLIBPATH/libmkl_intel_thread.a $MKLLIBPATH/libmkl_core.a $INTELLIBPATH/libguide.a -Wl,--end-group -lpthread -lz -o emmax-intel64
+
+$BINPATH/icc -Wall -wd1419 -wd1418 -wd869 -wd920 -wd981 -wd1572 -O2 -I $MKLINCLUDE emmax-predict.cc -Wl,--start-group $MKLLIBPATH/libmkl_intel_lp64.a $MKLLIBPATH/libmkl_intel_thread.a $MKLLIBPATH/libmkl_core.a $INTELLIBPATH/libguide.a -Wl,--end-group -lpthread -lz -o emmax-predict-intel64
+
+#libguide has been deprecated and removed from our earlier versions itself. Now, you have to link with libiomp library which conforms to the latest OpenMP standard. Please referthe MKL userguide for more detals.
