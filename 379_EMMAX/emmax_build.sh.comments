@@ -2,14 +2,14 @@ export INTELROOT=/home/hmkang/intel/Compiler/11.1/069
 export MKLROOT=${INTELROOT}/mkl
 export MKLINCLUDE=${MKLROOT}/include
 
-sh $INTELROOT/bin/iccvars.sh intel64 #iccvars.sh nejsou -> vytvoří se pomocí vars.sh : https://hackmd.io/@nadhifmr/H1HcwPeUj#Create-iccvarsh
-sh $MKLROOT/tools/environment/mklvars64.sh #mklvar64.sh není, ale v $EBROOTIMKL/mkl/latest/env je vars.sh
+sh $INTELROOT/bin/iccvars.sh intel64 #iccvars.sh not exist -> create by vars.sh? : https://hackmd.io/@nadhifmr/H1HcwPeUj#Create-iccvarsh
+sh $MKLROOT/tools/environment/mklvars64.sh #mklvar64.sh not exist, nut in $EBROOTIMKL/mkl/latest/env is vars.sh
 export MKLLIBPATH=${MKLROOT}/lib/em64t
 export INTELLIBPATH=${INTELROOT}/lib/intel64
 export BINPATH=${INTELROOT}/bin/intel64
 
 # vars.sh in $EBROOTINTELMINCOMPILERS/compiler/latest/env/vars.sh
-	# použít tak že: $ . $EBROOTINTELMINCOMPILERS/compiler/latest/env/vars.sh intel64
+	# use as: $ . $EBROOTINTELMINCOMPILERS/compiler/latest/env/vars.sh intel64
 # maybe need --std=c99 flag
 # BINPATH = /apps/gent/RHEL8/zen2-ib/software/intel-compilers/2023.1.0/compiler/latest/linux/bin/intel64 - there is icc
 	# $EBROOTINTELMINCOMPILERS/compiler/latest/linux/bin/intel64
