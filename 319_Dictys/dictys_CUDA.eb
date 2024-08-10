@@ -9,26 +9,6 @@ description = "Context specific and dynamic gene regulatory network reconstructi
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# DEPS:
-    # PyTorch OK
-    # torchvision OK
-    # torchaudio OK
-    # homer ok
-    # samtools OK
-    # macs2 OK
-    # ffmpeg OK 
-    # matplotlib OK
-    # pyDNase ? ok
-    # numpy','pandas', 'scipy' OK
-    # 'docutils' ok pypi-b
-    # 'h5py' OK
-    # 'pyro-ppl' OK 
-    # 'networkx' OK
-    # 'pybedtools', OK
-    # 'threadpoolctl', 'joblib' OK pypi-b
-    # 'adjustText' OK
-    # 'jupyter' ok
-
 builddependencies = [('poetry', '1.5.1')]
 dependencies = [
     ('Python', '3.11.3'),
@@ -56,14 +36,6 @@ local_pyDNase_preinstallopts = (
     "cd pyDNase/footprinting && rm WellingtonC.c && cythonize -i WellingtonC.pyx && cd .. && cd .. && "
     "sed -i 's/matplotlib < 2.0.0/matplotlib/' setup.py && "
 )
-
-# # unpin dependencies versions - nor need anymore?
-# local_preinstallopts = (
-#     "sed -i"
-#     " -e 's/networkx>=2.0,<3.0/networkx/'"
-#     " -e 's/pytorch-lightning<2.0/pytorch-lightning/'"
-#     " %(builddir)s/DECAFsyntheticdata/DECAF-%(version)s/requirements.txt && "
-# )
 
 exts_list = [
     ('jupyter_console', '6.6.3', {
@@ -125,6 +97,6 @@ exts_list = [
 use_pip = True
 sanity_pip_check = True
 
-# sanity_check_commands = ["python -c 'from decaf import DECAF, DataModule'"]
+sanity_check_commands = ["dictys --help"]
 
 moduleclass = 'bio'
