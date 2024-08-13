@@ -52,6 +52,7 @@ dependencies = [
     ('fastahack', '1.0.0'),
     ('HTSlib', '1.15.1'),
     ('tabixpp', '1.1.2'),
+    ('SDSL', '2.1.1-20191211'),
 ]
 
 prebuildopts = "mkdir -p lib/pkgconfig && "
@@ -64,6 +65,7 @@ prebuildopts += "cp $EBROOTLIBDEFLATE/lib/libdeflate.{a,so} lib/ && "
 prebuildopts += "cp $EBROOTHTSLIB/lib/libhts.a lib/ && "
 prebuildopts += "cp $EBROOTHTSLIB/lib/pkgconfig/htslib.pc lib/pkgconfig/ && "
 prebuildopts += "cp $EBROOTTABIXPP/lib/libtabixpp.a lib/ && "
+prebuildopts += "cp $EBROOTSDSL/lib/{libsdsl.a,libdivsufsort64.a,libdivsufsort.a} lib/ && "
 
 # copy header files provided by dependencies in include/
 prebuildopts += "mkdir -p include && "
