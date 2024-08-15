@@ -95,3 +95,50 @@ sanity_check_commands = [
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'bio'
+
+#ERROR1:
+    # <- log6.txt
+    # pip install pod5
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py:102: _ExperimentalProjectMetadata: Support for project metadata in `pyproject.toml` is still experimental and may be removed (or change) in future releases.
+    #     warnings.warn(msg, _ExperimentalProjectMetadata)
+    #   Traceback (most recent call last):
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pip/_vendor/pep517/in_process/_in_process.py", line 363, in <module>
+    #       main()
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pip/_vendor/pep517/in_process/_in_process.py", line 345, in main
+    #       json_out['return_val'] = hook(**hook_input['kwargs'])
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pip/_vendor/pep517/in_process/_in_process.py", line 164, in prepare_metadata_for_build_wheel
+    #       return hook(metadata_directory, config_settings)
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/build_meta.py", line 188, in prepare_metadata_for_build_wheel
+    #       self.run_setup()
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/build_meta.py", line 174, in run_setup
+    #       exec(compile(code, __file__, 'exec'), locals())
+    #     File "setup.py", line 15, in <module>
+    #       setuptools.setup()
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/__init__.py", line 87, in setup
+    #       return distutils.core.setup(**attrs)
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/core.py", line 122, in setup
+    #       dist.parse_config_files()
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/dist.py", line 854, in parse_config_files
+    #       pyprojecttoml.apply_configuration(self, filename, ignore_option_errors)
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 134, in read_configuration
+    #       return expand_configuration(asdict, root_dir, ignore_option_errors, dist)
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 189, in expand_configuration
+    #       return _ConfigExpander(config, root_dir, ignore_option_errors, dist).expand()
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 236, in expand
+    #       self._expand_all_dynamic(dist, package_dir)
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 278, in _expand_all_dynamic
+    #       version=self._obtain_version(dist, package_dir),
+    #       File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 278, in _expand_all_dynamic
+    #       version=self._obtain_version(dist, package_dir),
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 315, in _obtain_version
+    #       return _expand.version(self._obtain(dist, "version", package_dir))
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 305, in _obtain
+    #       return _expand.read_attr(directive["attr"], package_dir, root_dir)
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/expand.py", line 188, in read_attr
+    #       spec = _find_spec(module_name, path)
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/expand.py", line 200, in _find_spec
+    #       spec = spec or importlib.util.find_spec(module_name)
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/importlib/util.py", line 94, in find_spec
+    #       parent = __import__(parent_name, fromlist=['__path__'])
+    #   ModuleNotFoundError: No module named 'pod5'
+    #   [end of output]

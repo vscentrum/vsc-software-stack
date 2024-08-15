@@ -129,49 +129,79 @@ modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'bio'
 
-#ERROR1:
-    # <- log6.txt
-    # pip install pod5
-    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py:102: _ExperimentalProjectMetadata: Support for project metadata in `pyproject.toml` is still experimental and may be removed (or change) in future releases.
-    #     warnings.warn(msg, _ExperimentalProjectMetadata)
-    #   Traceback (most recent call last):
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pip/_vendor/pep517/in_process/_in_process.py", line 363, in <module>
-    #       main()
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pip/_vendor/pep517/in_process/_in_process.py", line 345, in main
-    #       json_out['return_val'] = hook(**hook_input['kwargs'])
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/pip/_vendor/pep517/in_process/_in_process.py", line 164, in prepare_metadata_for_build_wheel
-    #       return hook(metadata_directory, config_settings)
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/build_meta.py", line 188, in prepare_metadata_for_build_wheel
-    #       self.run_setup()
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/build_meta.py", line 174, in run_setup
-    #       exec(compile(code, __file__, 'exec'), locals())
-    #     File "setup.py", line 15, in <module>
-    #       setuptools.setup()
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/__init__.py", line 87, in setup
-    #       return distutils.core.setup(**attrs)
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/_distutils/core.py", line 122, in setup
-    #       dist.parse_config_files()
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/dist.py", line 854, in parse_config_files
-    #       pyprojecttoml.apply_configuration(self, filename, ignore_option_errors)
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 134, in read_configuration
-    #       return expand_configuration(asdict, root_dir, ignore_option_errors, dist)
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 189, in expand_configuration
-    #       return _ConfigExpander(config, root_dir, ignore_option_errors, dist).expand()
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 236, in expand
-    #       self._expand_all_dynamic(dist, package_dir)
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 278, in _expand_all_dynamic
-    #       version=self._obtain_version(dist, package_dir),
-    #       File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 278, in _expand_all_dynamic
-    #       version=self._obtain_version(dist, package_dir),
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 315, in _obtain_version
-    #       return _expand.version(self._obtain(dist, "version", package_dir))
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/pyprojecttoml.py", line 305, in _obtain
-    #       return _expand.read_attr(directive["attr"], package_dir, root_dir)
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/expand.py", line 188, in read_attr
-    #       spec = _find_spec(module_name, path)
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/site-packages/setuptools/config/expand.py", line 200, in _find_spec
-    #       spec = spec or importlib.util.find_spec(module_name)
-    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/importlib/util.py", line 94, in find_spec
-    #       parent = __import__(parent_name, fromlist=['__path__'])
-    #   ModuleNotFoundError: No module named 'pod5'
-    #   [end of output]
+# ERROR2:
+    # -> try to make v0.3.10 where this arrow problem should be fixed, if herro is ok -> pod5-0.3.10.eb
+    # -> in /cmake there is FindArrow.cmake custom, which seems does not work
+        # Simon conversation: https://easybuild.slack.com/archives/C34UA1HT7/p1723728371270799
+    # -> try to update configopts (delete -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a) 
+        # NO -> log4.txt
+        # -- Checking for module 'libzstd'
+        # --   Found libzstd, version 1.5.5
+        # CMake Error at /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+        # Could NOT find zstdAlt (missing: ZSTD_LIB) (found version "1.5.5")
+        # Call Stack (most recent call first):
+        # /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/FindzstdAlt.cmake:124 (find_package_handle_standard_args)
+        # /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:99 (find_dependency)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:122 (arrow_find_dependencies)
+        # cmake/FindArrow.cmake:223 (find_package)
+        # cmake/FindArrow.cmake:344 (arrow_find_package_cmake_package_configuration)
+        # cmake/FindArrow.cmake:389 (arrow_find_package)
+        # c++/CMakeLists.txt:13 (find_package)
+    # log3.txt
+    # fail on cmake step:
+        # CMake Error at /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/FindzstdAlt.cmake:132 (add_library):
+        # add_library cannot create imported target "zstd::libzstd_shared" because
+        # another target with the same name already exists.
+        # Call Stack (most recent call first):
+        # /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:99 (find_dependency)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:122 (arrow_find_dependencies)
+        # cmake/FindArrow.cmake:424 (find_package)
+        # c++/CMakeLists.txt:13 (find_package)
+
+        # -- Zstandard library: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/zstd/1.5.5-GCCcore-12.3.0/lib/libzstd.a
+        # -- Zstandard include directory: /usr/local/include
+        # CMake Error at /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/Findutf8proc.cmake:114 (add_library):
+        # add_library cannot create imported target "utf8proc::utf8proc" because
+        # another target with the same name already exists.
+        # Call Stack (most recent call first):
+        # /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:99 (find_dependency)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:122 (arrow_find_dependencies)
+        # cmake/FindArrow.cmake:424 (find_package)
+        # c++/CMakeLists.txt:13 (find_package)
+# ERROR1: OK
+    # -> created by preconfigopts -> OK
+    # log1.txt
+    # cmake step failed -> log1.txt
+    #A) -> this is missing in 0.2.4 but it is there for 0.1.8
+        # CMake Error at CMakeLists.txt:5 (include):
+        # include could not find requested file:
+        # /tmp/vsc47063/easybuild/build/pod5fileformat/0.2.4/foss-2023a/pod5-file-format-0.2.4/cmake/POD5Version.cmake
+    #B) seems ok?
+        # CMake Warning at /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/Findlz4Alt.cmake:29 (find_package):
+        # By not providing "Findlz4.cmake" in CMAKE_MODULE_PATH this project has
+        # asked CMake to find a package configuration file provided by "lz4", but
+        # CMake did not find one.
+        # Could not find a package configuration file provided by "lz4" with any of
+        # the following names:
+        #     lz4Config.cmake
+        #     lz4-config.cmake
+        # Add the installation prefix of "lz4" to CMAKE_PREFIX_PATH or set "lz4_DIR"
+        # -- Checking for module 'liblz4'
+        # --   Found liblz4, version 1.9.4
+        # -- Found lz4Alt: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/lz4/1.9.4-GCCcore-12.3.0/lib/liblz4.so
+    #C) this should be ok
+        # Call Stack (most recent call first):
+        # /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:99 (find_dependency)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:122 (arrow_find_dependencies)
+        # cmake/FindArrow.cmake:223 (find_package)
+        # cmake/FindArrow.cmake:344 (arrow_find_package_cmake_package_configuration)
+        # cmake/FindArrow.cmake:389 (arrow_find_package)
+        # c++/CMakeLists.txt:13 (find_package)
+        # -- Found the Arrow core shared library: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib/libarrow.so
+        # -- Found the Arrow core import library: ARROW_IMPORT_LIB-NOTFOUND
+        # -- Found the Arrow core static library: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib/libarrow.a
