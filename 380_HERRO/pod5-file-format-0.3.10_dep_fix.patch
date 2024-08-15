@@ -4,28 +4,29 @@ Author: Petr Král (INUITS)
 diff -u c++/CMakeLists.txt.orig c++/CMakeLists.txt
 --- c++/CMakeLists.txt.orig      2023-02-23 19:17:13.000000000 +0100
 +++ c++/CMakeLists.txt   2023-04-25 14:07:28.174884834 +0200
-@@ -16,11 +16,12 @@
+@@ -3,7 +3,7 @@
+ if (ENABLE_CONAN)
+     find_package(Arrow REQUIRED CONFIG)
+     find_package(Boost REQUIRED CONFIG)
+-    find_package(Flatbuffers REQUIRED CONFIG)
++    find_package(FlatBuffers REQUIRED CONFIG)
+     find_package(zstd REQUIRED CONFIG)
+     find_package(ZLIB REQUIRED CONFIG)
+ 
+@@ -17,7 +17,7 @@
          COMPONENTS
              headers
      )
 -    find_package(Flatbuffers REQUIRED)
 +    find_package(FlatBuffers REQUIRED)
      find_package(zstd REQUIRED)
+     find_package(ZLIB REQUIRED)
+ 
+@@ -27,6 +27,7 @@
  endif()
-
+ 
  find_package(Threads REQUIRED)
 +find_package(pybind11 REQUIRED)
-
+ 
  find_program(
      FLATBUFFERS_FLATC_EXECUTABLE
-diff -u CMakeLists.txt.orig CMakeLists.txt
---- CMakeLists.txt.orig	2023-01-20 12:22:05.000000000 +0100
-+++ CMakeLists.txt	2023-01-23 10:34:44.860294168 +0100
-@@ -92,7 +91,6 @@
-
- if (BUILD_PYTHON_WHEEL)
-     find_package (Python ${PYTHON_VERSION} EXACT COMPONENTS Interpreter Development)
--    add_subdirectory(third_party/pybind11)
- endif()
-
- add_subdirectory(c++)

@@ -1,0 +1,28 @@
+--- CMakeList.txt.orig	2024-08-15 17:43:54.115578000 +0200
++++ CMakeList.txt	2024-08-15 17:45:31.451576000 +0200
+@@ -3,7 +3,7 @@
+ if (ENABLE_CONAN)
+     find_package(Arrow REQUIRED CONFIG)
+     find_package(Boost REQUIRED CONFIG)
+-    find_package(Flatbuffers REQUIRED CONFIG)
++    find_package(FlatBuffers REQUIRED CONFIG)
+     find_package(zstd REQUIRED CONFIG)
+     find_package(ZLIB REQUIRED CONFIG)
+ 
+@@ -17,7 +17,7 @@
+         COMPONENTS
+             headers
+     )
+-    find_package(Flatbuffers REQUIRED)
++    find_package(FlatBuffers REQUIRED)
+     find_package(zstd REQUIRED)
+     find_package(ZLIB REQUIRED)
+ 
+@@ -27,6 +27,7 @@
+ endif()
+ 
+ find_package(Threads REQUIRED)
++find_package(pybind11 REQUIRED)
+ 
+ find_program(
+     FLATBUFFERS_FLATC_EXECUTABLE

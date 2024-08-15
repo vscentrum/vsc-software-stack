@@ -15,7 +15,7 @@ sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ
 patches = ['pod5-file-format-0.1.8_dep_fix.patch']
 checksums = [
     {'pod5-file-format-0.2.4.tar.gz': 'f49baa13e163d1c111d4240a67b9c2f678e6f57922fddb664537b541fe1461cf'},
-    {'pod5-file-format-0.1.8_dep_fix.patch': '9c7fe8e8aa79c8fff9e43ea3ae1754c5ef0d3023c47f7e4a157d12b34be378a4'},
+    {'pod5-file-format-0.1.8_dep_fix.patch': 'b92505e121fc42f1b7bdd904a5e63752416d3f79c6ad97989e1906eb629c07e4'},
 ]
 
 # PY_DEPS:
@@ -77,16 +77,33 @@ exts_list = [
 
 # separate_build_dir = False
 
+# create POD5Version.cmake with right version
 preconfigopts = (
     'cd %(builddir)s/%(name)s-%(version)s/cmake && ' 
     'touch POD5Version.cmake && '
     'echo "set(POD5_VERSION_MAJOR 0)">POD5Version.cmake && '
     'echo "set(POD5_VERSION_MINOR 2)">>POD5Version.cmake && '
     'echo "set(POD5_VERSION_REV 4)">>POD5Version.cmake && '
-    'echo "set(POD5_NUMERIC_VERSION 2.4.0)">>POD5Version.cmake && '
-    'echo "set(POD5_FULL_VERSION 2.4.0)">>POD5Version.cmake && '
+    'echo "set(POD5_NUMERIC_VERSION 0.2.4)">>POD5Version.cmake && '
+    'echo "set(POD5_FULL_VERSION 0.2.4)">>POD5Version.cmake && '
+    'rm FindArrow.cmake && '
 )
+
+# this works to generate POD5Version.cmake, but it show v0.2.5 instead of 0.2.4...
 # preconfigopts += 'cd %(builddir)s/%(name)s-%(version)s && pwd && python -m setuptools_scm && python -m pod5_make_version && '
+
+# add arrow stuff to c++/CMakeList.txt -> TODO (try pod5 v0.3.10 first)
+# preconfigopts += (
+#     "sed -i"
+#     " -e 's/networkx == 2.\*/networkx/'"
+#     " -e 's/numpy == 1.19.\*/numpy/'"
+#     " -e 's/pytorch-lightning == 1.4.\*/pytorch-lightning/'"
+#     " -e 's/torch == 1.9.\*/torch/'"
+#     " -e 's/torchtext == 0.10.\*/torchtext/'"
+#     " %(builddir)s/%(name)s-%(version)s/c++/CMakeLists.txt && "
+# )
+
+# return to builddir
 preconfigopts += 'cd %(builddir)s/easybuild_obj && '
 
 # configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
@@ -113,6 +130,9 @@ modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 moduleclass = 'bio'
 
 # ERROR2:
+    # -> try to make v0.3.10 where this arrow problem should be fixed, if herro is ok -> pod5-0.3.10.eb
+    # -> in /cmake there is FindArrow.cmake custom, which seems does not work
+        # Simon conversation: https://easybuild.slack.com/archives/C34UA1HT7/p1723728371270799
     # -> try to update configopts (delete -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a) 
         # NO -> log4.txt
         # -- Checking for module 'libzstd'
@@ -152,7 +172,7 @@ moduleclass = 'bio'
         # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:122 (arrow_find_dependencies)
         # cmake/FindArrow.cmake:424 (find_package)
         # c++/CMakeLists.txt:13 (find_package)
-# ERROR1 :
+# ERROR1: OK
     # -> created by preconfigopts -> OK
     # log1.txt
     # cmake step failed -> log1.txt
