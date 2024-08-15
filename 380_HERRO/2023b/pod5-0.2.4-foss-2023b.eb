@@ -1,21 +1,21 @@
 easyblock = 'CMakeMake'
 
 name = 'pod5-file-format'
-version = '0.3.10'
+version = '0.2.4'
 
 homepage = 'https://github.com/nanoporetech/pod5-file-format'
 description = """POD5 is a file format for storing nanopore dna data in an easily accessible way.
  The format is able to be written in a streaming manner which allows a sequencing
  instrument to directly write the format."""
 
-toolchain = {'name': 'foss', 'version': '2023a'}
+toolchain = {'name': 'foss', 'version': '2023b'}
 
 source_urls = ['https://github.com/nanoporetech/%(name)s/archive/']
 sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
-patches = ['pod5-file-format-0.3.10_dep_fix.patch']
+patches = ['pod5-file-format-0.1.8_dep_fix.patch']
 checksums = [
-    {'pod5-file-format-0.3.10.tar.gz': 'eb177018b310e508f7ad6b5d486cc29166404dd5f82879d0c26aceaff51d3768'},
-    {'pod5-file-format-0.3.10_dep_fix.patch': '20dc87ab82d4b52ff7fb769d17c2478daf95f787b2a184c9d985e33e03038e31'},
+    {'pod5-file-format-0.2.4.tar.gz': 'f49baa13e163d1c111d4240a67b9c2f678e6f57922fddb664537b541fe1461cf'},
+    {'pod5-file-format-0.1.8_dep_fix.patch': 'b92505e121fc42f1b7bdd904a5e63752416d3f79c6ad97989e1906eb629c07e4'},
 ]
 
 # PY_DEPS:
@@ -32,23 +32,20 @@ checksums = [
     
 builddependencies = [
     ('binutils', '2.40'),
-    ('CMake', '3.26.3'),
+    ('CMake', '3.27.6'),
     ('pkgconfig', '1.5.5', '-python'),
 ]
 
 dependencies = [
-    ('Python', '3.11.3'),
-    ('Python-bundle-PyPI', '2023.06'),
-    ('Arrow', '14.0.1'),
-    # ('SciPy-bundle', '2023.07'),
-    # ('zstd', '1.5.5'),
+    ('Python', '3.11.5'),
+    ('Python-bundle-PyPI', '2023.10'),
+    ('Arrow', '16.1.0'),
     ('flatbuffers', '23.5.26'),
     ('pybind11', '2.11.1'),
-    # ('Boost', '1.82.0'),
     ('build', '1.0.3'),
-    ('HDF5', '1.14.0'),
-    ('h5py', '3.9.0'),
-    ('tqdm', '4.66.1'),
+    ('HDF5', '1.14.3'),
+    ('h5py', '3.11.0'),
+    ('tqdm', '4.66.2'),
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -71,25 +68,40 @@ exts_list = [
         'source_urls': source_urls,
         'sources': sources,
         'start_dir': 'python/pod5',
-        'checksums': ['eb177018b310e508f7ad6b5d486cc29166404dd5f82879d0c26aceaff51d3768'],
+        'checksums': ['f49baa13e163d1c111d4240a67b9c2f678e6f57922fddb664537b541fe1461cf'],
     }),
 ]
 
 # separate_build_dir = False
 
+# create POD5Version.cmake with right version
 preconfigopts = (
     'cd %(builddir)s/%(name)s-%(version)s/cmake && ' 
     'touch POD5Version.cmake && '
     'echo "set(POD5_VERSION_MAJOR 0)">POD5Version.cmake && '
-    'echo "set(POD5_VERSION_MINOR 3)">>POD5Version.cmake && '
-    'echo "set(POD5_VERSION_REV 10)">>POD5Version.cmake && '
-    'echo "set(POD5_NUMERIC_VERSION 0.3.10)">>POD5Version.cmake && '
-    'echo "set(POD5_FULL_VERSION 0.3.10)">>POD5Version.cmake && '
+    'echo "set(POD5_VERSION_MINOR 2)">>POD5Version.cmake && '
+    'echo "set(POD5_VERSION_REV 4)">>POD5Version.cmake && '
+    'echo "set(POD5_NUMERIC_VERSION 0.2.4)">>POD5Version.cmake && '
+    'echo "set(POD5_FULL_VERSION 0.2.4)">>POD5Version.cmake && '
+    # 'rm FindArrow.cmake && '
 )
 
-preconfigopts += "cd %(builddir)s/%(name)s-%(version)s && sed -i '/add_subdirectory(third_party/d' CMakeLists.txt && "
+# this works to generate POD5Version.cmake, but it show v0.2.5 instead of 0.2.4...
 # preconfigopts += 'cd %(builddir)s/%(name)s-%(version)s && pwd && python -m setuptools_scm && python -m pod5_make_version && '
-preconfigopts += 'cd %(builddir)s/easybuild_obj && echo %(start_dir)s && '
+
+# add arrow stuff to c++/CMakeList.txt -> TODO (try pod5 v0.3.10 first)
+# preconfigopts += (
+#     "sed -i"
+#     " -e 's/networkx == 2.\*/networkx/'"
+#     " -e 's/numpy == 1.19.\*/numpy/'"
+#     " -e 's/pytorch-lightning == 1.4.\*/pytorch-lightning/'"
+#     " -e 's/torch == 1.9.\*/torch/'"
+#     " -e 's/torchtext == 0.10.\*/torchtext/'"
+#     " %(builddir)s/%(name)s-%(version)s/c++/CMakeLists.txt && "
+# )
+
+# return to builddir
+preconfigopts += 'cd %(builddir)s/easybuild_obj && '
 
 # configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
 # configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib" '
@@ -115,14 +127,14 @@ modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 moduleclass = 'bio'
 
 # ERROR1:
-    # <- log5.txt
-    # still the same error:
-    # CMake Error at /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
-    # Could NOT find zstdAlt (missing: ZSTD_LIB) (found version "1.5.5")
-    # Call Stack (most recent call first):
-    # /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
-    # /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/FindzstdAlt.cmake:124 (find_package_handle_standard_args)
-    # /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
-    # /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:99 (find_dependency)
-    # /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:122 (arrow_find_dependencies)
-    # c++/CMakeLists.txt:14 (find_package)
+# CMake Error at /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.27.6-GCCcore-13.2.0/share/cmake-3.27/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+#   Could NOT find zstdAlt (missing: ZSTD_LIB) (found version "1.5.5")
+# Call Stack (most recent call first):
+#   /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.27.6-GCCcore-13.2.0/share/cmake-3.27/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
+#   /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/16.1.0-gfbf-2023b/lib64/cmake/Arrow/FindzstdAlt.cmake:124 (find_package_handle_standard_args)
+#   /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/16.1.0-gfbf-2023b/lib64/cmake/Arrow/ArrowConfig.cmake:99 (find_dependency)
+#   /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/16.1.0-gfbf-2023b/lib64/cmake/Arrow/ArrowConfig.cmake:122 (arrow_find_dependencies)
+#   cmake/FindArrow.cmake:223 (find_package)
+#   cmake/FindArrow.cmake:344 (arrow_find_package_cmake_package_configuration)
+#   cmake/FindArrow.cmake:389 (arrow_find_package)
+#   c++/CMakeLists.txt:13 (find_package)
