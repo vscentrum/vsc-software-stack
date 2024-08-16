@@ -10,7 +10,7 @@ HERRO is a highly-accurate, haplotype-aware, deep-learning tool for error correc
 R9.4.1 reads (read length of >= 10 kbps is recommended).
 """
 
-toolchain = {'name': 'foss', 'version': '2023a'}
+toolchain = {'name': 'foss', 'version': '2022a'}
 toolchainopts = {'openmp': True}
 
 # DEPS:
@@ -52,70 +52,70 @@ toolchainopts = {'openmp': True}
 #       - lib-pod5==0.2.4 -> NO - create in duplex?
 #       - mappy==2.26 - in duplex?
 #       - matplotlib==3.8.1 OK?
-#       - more-itertools==10.1.0
-#       - natsort==8.4.0
+#       - more-itertools==10.1.0 in pod5
+#       - natsort==8.4.0 in duplex
 #       - numpy==1.26.1 OK
-#       - packaging==23.2
+#       - packaging==23.2 OK
 #       - pandas==2.1.2 OK
-#       - parasail==1.3.4
-#       - pillow==10.1.0
-#       - polars==0.17.15
-#       - pyarrow==11.0.0
-#       - pyfastx==2.0.1
-#       - pyparsing==3.1.1
-#       - pysam==0.22.0
-#       - python-dateutil==2.8.2
-#       - pytz==2023.3.post1
-#       - six==1.16.0
-#       - tqdm==4.66.1
-#       - tzdata==2023.3
-#       - vbz-h5py-plugin==1.0.1
-#       - git+https://github.com/dehui333/Porechop.git
+#       - parasail==1.3.4 in duplex
+#       - pillow==10.1.0 OK
+#       - polars==0.17.15 OK
+#       - pyarrow==11.0.0 OK
+#       - pyfastx==2.0.1 in duplex
+#       - pyparsing==3.1.1 in py
+#       - pysam==0.22.0 in duplex
+#       - python-dateutil==2.8.2 ok
+#       - pytz==2023.3.post1 ok
+#       - six==1.16.0 ok
+#       - tqdm==4.66.1 ok duplex
+#       - tzdata==2023.3 ok exts
+#       - vbz-h5py-plugin==1.0.1 ok
+#       - git+https://github.com/dehui333/Porechop.git -> create?
 # $EBROOTPYTORCH/lib
 
 builddependencies = [
-    ('binutils', '2.40'),
-    ('Rust', '1.75.0'),
+    ('Rust', '1.65.0'),
     # ('maturin', '1.5.0', '-Rust-1.76.0'),
     # ('hatchling', '1.18.0'),
 ]
 
 dependencies = [
-    ('Python', '3.11.3'),
-    ('SciPy-bundle', '2023.07'),
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
     ('bzip2', '1.0.8'),
-    ('libffi', '3.4.4'),
-    ('libnsl', '2.0.1'),
-    ('SQLite', '3.42.0'),
-    ('util-linux', '2.39'),
-    ('zlib', '1.2.13'),
-    ('ncurses', '6.4'),
+    ('libffi', '3.4.2'),
+    ('libnsl', '2.0.0'),
+    ('SQLite', '3.38.3'),
+    ('util-linux', '2.38'),
+    ('zlib', '1.2.12'),
+    ('ncurses', '6.3'),
     ('OpenSSL', '3', '', SYSTEM),
-    ('libreadline', '8.2'),
+    ('libreadline', '8.1'),
     ('SeqKit', '2.3.1', '', SYSTEM),
-    ('Tk', '8.6.13'),
-    ('XZ', '5.4.2'),
-    ('minimap2', '2.26'),
-    ('matplotlib', '3.7.2'),
+    ('Tk', '8.6.12'),
+    ('XZ', '5.2.5'),
+    ('matplotlib', '3.5.2'),
     ('edlib', '1.3.9'),
-    ('h5py', '3.9.0'),
+    ('h5py', '3.7.0'),
+    ('duplex-tools', '0.3.3'),
+    ('Pillow', '9.1.1'),
+    ('polars', '0.15.6'),
 ]
 
 use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    ('zstandard', '0.22.0', {
-        'checksums': ['8226a33c542bcb54cd6bd0a366067b610b41713b64c9abec1bc4533d69f51e70'],
+    ('tzdata', '2023.3', {
+        'checksums': ['11ef1e08e54acb0d4f95bdb1be05da659673de4acbd21bf9c69e94cc5e907a3a'],
     }),
-    # ('iso8601', '2.1.0'),
     (name, version, {
         'source_urls': ['https://github.com/lbcb-sci/herro/archive/'],
         'sources': [{
              'download_filename': '%s.tar.gz' % local_commit,
              'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit
         }],
-        'checksums': ['b1704e0847db01817624a6b86766967f552dd9dbf3afba4004409f908dcc84e6'],
+        'checksums': ['885f64ab097c89cf8ec8ec38625c6325271997e89636de756aa12fb68aab7598'],
     }),
 ]
 

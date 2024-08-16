@@ -106,9 +106,9 @@ exts_list = [
 # return to builddir
 # preconfigopts += 'cd %(builddir)s/easybuild_obj && '
 
-# configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
+configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
 # configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib" '
-configopts = '-DBUILD_PYTHON_WHEEL=ON'
+# configopts = '-DBUILD_PYTHON_WHEEL=ON'
 
 installopts = ' && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s'
 installopts += ' && pip install --no-deps --ignore-installed --prefix %(installdir)s lib_pod5-%(version)s-*.whl'
@@ -128,3 +128,60 @@ sanity_check_commands = [
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'bio'
+
+#ERROR2:
+    # <- log7.txt
+    # <- with configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
+    # -- Checking for module 'libzstd'
+    # --   Found libzstd, version 1.5.5
+    # -- Found zstdAlt: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/zstd/1.5.5-GCCcore-12.3.0/lib/libzstd.a (found version "1.5.5") 
+    # -- Zstandard library: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/zstd/1.5.5-GCCcore-12.3.0/lib/libzstd.a
+    # -- Zstandard include directory: /usr/local/include
+    # -- Found BZip2: /apps/gent/RHEL8/cascadelake-ib/software/bzip2/1.0.8-GCCcore-12.3.0/lib/libbz2.so (found version "1.0.8") 
+    # -- Looking for BZ2_bzCompressInit
+    # -- Looking for BZ2_bzCompressInit - found
+    # -- Found utf8proc: /apps/gent/RHEL8/cascadelake-ib/software/utf8proc/2.8.0-GCCcore-12.3.0/lib/libutf8proc.so (found version "2.8.0") 
+    # -- Arrow version: 14.0.1
+    # -- Found the Arrow shared library: /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib/libarrow.so.1400.1.0
+    # -- Found the Arrow import library: ARROW_IMPORT_LIB-NOTFOUND
+    # -- Found the Arrow static library: /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib/libarrow.a
+
+    # CMake Error at /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/FindzstdAlt.cmake:132 (add_library):
+    # add_library cannot create imported target "zstd::libzstd_shared" because
+    # another target with the same name already exists.
+    # Call Stack (most recent call first):
+    # /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+    # /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:99 (find_dependency)
+    # /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:122 (arrow_find_dependencies)
+    # cmake/FindArrow.cmake:424 (find_package)
+    # c++/CMakeLists.txt:13 (find_package)
+
+
+    # -- Zstandard library: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/zstd/1.5.5-GCCcore-12.3.0/lib/libzstd.a
+    # -- Zstandard include directory: /usr/local/include
+    # CMake Error at /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/Findutf8proc.cmake:114 (add_library):
+    # add_library cannot create imported target "utf8proc::utf8proc" because
+    # another target with the same name already exists.
+    # Call Stack (most recent call first):
+    # /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+    # /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:99 (find_dependency)
+    # /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:122 (arrow_find_dependencies)
+    # cmake/FindArrow.cmake:424 (find_package)
+    # c++/CMakeLists.txt:13 (find_package)
+
+#ERROR1:
+# <- with: configopts = '-DBUILD_PYTHON_WHEEL=ON'
+# -- Checking for module 'libzstd'
+# --   Found libzstd, version 1.5.5
+# CMake Error at /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+#   Could NOT find zstdAlt (missing: ZSTD_LIB) (found version "1.5.5")
+# Call Stack (most recent call first):
+#   /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
+#   /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/FindzstdAlt.cmake:124 (find_package_handle_standard_args)
+#   /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+#   /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:99 (find_dependency)
+#   /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:122 (arrow_find_dependencies)
+#   cmake/FindArrow.cmake:223 (find_package)
+#   cmake/FindArrow.cmake:344 (arrow_find_package_cmake_package_configuration)
+#   cmake/FindArrow.cmake:389 (arrow_find_package)
+#   c++/CMakeLists.txt:13 (find_package)
