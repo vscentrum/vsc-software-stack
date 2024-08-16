@@ -1,4 +1,4 @@
-easyblock = 'CargoPythonBundle'
+easyblock = 'Cargo'
 
 name = 'HERRO'
 version = '0.1.0_20240814'
@@ -101,8 +101,17 @@ dependencies = [
     ('h5py', '3.9.0'),
 ]
 
-use_pip = True
-sanity_pip_check = True
+# use_pip = True
+# sanity_pip_check = True
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+    'download_dep_fail': True,
+    'use_pip': True,
+    'sanity_pip_check': True,
+    'installopts': '',
+}
 
 exts_list = [
     ('zstandard', '0.22.0', {
