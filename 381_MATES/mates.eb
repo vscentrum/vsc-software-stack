@@ -1,0 +1,389 @@
+easyblock = 'PythonBundle'
+
+name = 'MATES'
+version = '20240819'
+local_commit = 'd5ee15b'
+
+homepage = 'https://github.com/mcgilldinglab/MATES'
+description = "A Deep Learning-Based Model for Quantifying Transposable Elements in Single-Cell Sequencing Data."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+#DEPS: # unpin all in requirements.txt 
+    # "matplotlib==3.7.2", OK
+    # "numpy==1.25.2", v1.25.1 ?OK 
+    # "pandas==2.0.0", v2.0.3 OK
+    # importlib-resources==6.1.0 - v5.12.0 in pypi-bundle ?OK
+    # inflection==0.5.1 ok
+    # intervaltree-bio==1.0.1 ok
+    # joblib==1.3.2 - have 1.2.0 in pypi-b OK?
+    # panel==0.13.0 - quiet old (2022) - try new version 1.4.5 ok -> not working (bokeh) -> v1.2.3 ok 
+    # parsel==1.7.0 ok
+    # parso==0.8.3 ok
+    # partd==1.2.0 ok
+    # pathspec==0.9.0 ok
+    # patsy==0.5.3 ok
+    # pep8==1.7.1 ok
+    # Pillow==10.0.0 OK
+    # platformdirs==2.5.2 - v3.8.0 in pypi-b OK
+    # plotly==5.8.0 OK
+    # pluggy==1.0.0 pypi-b OK
+    # ply==3.11 OK
+    # poyo==0.5.0 ok
+    # primer3-py==0.6.1 - added v2.0.3 - maybe too new - ok
+    # prometheus-client==0.14.1 ok
+    # prompt-toolkit==3.0.20 -> CREATED OK
+    # Protego==0.1.16 ok
+    # psutil==6.0.0 - in pypi-b v5.9.5 ?OK
+    # ptyprocess==0.7.0 ok (either in poetry)
+    # py==1.11.0 - in pypy-b OK
+    # pyasn1==0.4.8 - in pypy-b OK
+    # pyasn1-modules==0.2.8 ok
+    # pycosat==0.6.3 ok
+    # pycparser==2.21 in pypi-b OK
+    # pyct==0.4.8 ok
+    # pycurl==7.45.3 OK
+    # PyDispatcher==2.0.5 ok
+    # pydocstyle==6.1.1 ok
+    # pyerfa==2.0.0 ok
+    # pyflakes==2.4.0 ok
+    # Pygments==2.11.2 in pypi - OK
+    # PyHamcrest==2.0.2 ok
+    # PyJWT==2.3.0 ok
+    # pylint==2.9.6 -> CREATE? - for now in exts
+    # pymc3==3.11.4 -> CREATE? - for now in exts
+    # pynndescent==0.5.4 ok
+    # pyodbc==4.0.32 -> CREATED OK
+    # pyOpenSSL==21.0.0 ok
+    # pyparsing==3.0.6 - in pypi-b OK
+    # PyQt5-sip==12.9.0 - in PyQt5 OK
+    # pyrsistent==0.18.0 - in pypi-b OK
+    # PySocks==1.7.1 ok
+    # pytest==7.1.1 - in pypi-b OK
+    # python-dateutil==2.8.2 - in pypi-b OK
+    # python-lsp-black==1.0.0 ok
+    # python-lsp-jsonrpc==1.0.0 ok
+    # python-lsp-server==1.2.4 ok
+    # python-slugify==5.0.2 ok
+    # python-snappy==0.6.0 ok
+    # pytz==2021.3 - in pypi-b OK
+    # pyviz-comms==2.1.0 ok
+    # PyWavelets==1.2.0 -> CREATE
+    # pyxdg==0.27 ok
+    # PyYAML==6.0 OK
+    # pyzmq==22.3.0 OK
+    # QDarkStyle==3.0.2 ok
+    # qstylizer==0.2.0 ok
+    # QtAwesome==1.0.3 ok
+    # qtconsole==5.2.2 OK
+    # QtPy==2.0.1 OK
+    # queuelib==1.6regex.2 ok
+    # regex==2021.11.10 - in pypi-b OK
+    # rope==0.22.0 ok
+    # rsa==4.8 ok
+    # Rtree==0.9.7 OK
+    # s3transfer==0.5.0 ok
+    # scanpy==1.8.2 OK
+    # scikit-image==0.18.3 OK
+    # scikit-learn==1.0.2 OK
+    # Scrapy==2.5.1 ok
+    # seaborn==0.11.2 OK
+    # SecretStorage==3.3.1 - in pypi-b OK
+    # semver==2.13.0 ok
+    # Send2Trash==1.8.0 ok
+    # service-identity==21.1.0 ok
+    # session-info==1.0.0 ok
+    # setuptools==58.0.4 OK
+    # setuptools-scm==6.3.2 OK
+    # simplegeneric==0.8.1 - in pypi-b OK
+    # pybedtools==0.10.0 - v0.9.1 in EB - ?OK
+    # pysam==0.22.1 OK
+    # scipy==1.11.2 OK
+    # torch==2.0.1 OK
+    # tqdm==4.66.1 OK
+    # pyranges==0.0.129 ok
+    # Cython==3.0.10 ! have v0.29.35 in pypi-bundle, but for 2023a there is either v3.0.8 in EB
+
+builddependencies = [('poetry', '1.5.1')]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+    ('Pillow', '10.0.0'),
+    ('plotly.py', '5.16.0'),
+    ('PLY', '3.11'),
+    ('prompt-toolkit', '3.0.36'),
+    ('PycURL', '7.45.2'),
+    ('PyQt5', '5.15.10'),
+    ('PyYAML', '6.0'),
+    ('PyZMQ', '25.1.1'),
+    ('Qtconsole', '5.5.1'),
+    ('QtPy', '2.4.1'),
+    ('Rtree', '1.2.0'),
+    ('scanpy', '1.9.8'),
+    ('scikit-image', '0.22.0'),
+    ('scikit-learn', '1.3.1'),
+    ('Seaborn', '0.13.2'),
+    ('pybedtools', '0.9.1'),
+    ('PyTorch-bundle', '2.1.2'),
+    ('Pysam', '0.22.0'),
+    ('tqdm', '4.66.1'),
+    ('bokeh', '3.2.2'), # panel v1.4.5 needs bokeh >=3.4.0,<3.5.0 -> panel v1.2.3
+    ('pyodbc', '5.1.0'),
+    ('PyWavelets', '1.7.0'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('pyviz_comms', '3.0.3', {
+        'checksums': ['fde4a017c2213ecee63a9a6741431c845e42a5c7b1588e4a7ba2e4370c583728'],
+    }),
+    ('param', '2.1.1', {
+        'checksums': ['3b1da14abafa75bfd908572378a58696826b3719a723bc31b40ffff2e9a5c852'],
+    }),
+    ('inflection', '0.5.1', {
+        'checksums': ['1a29730d366e996aaacffb2f1f1cb9593dc38e2ddd30c91250c6dde09ea9b417'],
+    }),
+    ('intervaltree_bio', '1.0.1', {
+        'sources': '%(name)s-%(version)s.zip',
+        'checksums': ['4f8ee8d5951c06072fdf03463bcd315920ef20b97947e85281330def79cdb2cd'],
+    }),
+    ('panel', '1.2.3', {
+        'checksums': ['5a9160fe084f918cb0900b6a4ef62d3ce542fcd2b8907d0b94113f13a8eea2d3'],
+    }),
+    ('parsel', '1.9.1', {
+        'checksums': ['14e00dc07731c9030db620c195fcae884b5b4848e9f9c523c6119f708ccfa9ac'],
+    }),
+    ('parso', '0.8.4', {
+        'checksums': ['eb3a7b58240fb99099a345571deecc0f9540ea5f4dd2fe14c2a99d6b281ab92d'],
+    }),
+    ('partd', '1.4.2', {
+        'checksums': ['d022c33afbdc8405c226621b015e8067888173d85f7f5ecebb3cafed9a20f02c'],
+    }),
+    ('pathspec', '0.12.1', {
+        'checksums': ['a482d51503a1ab33b1c67a6c3813a26953dbdc71c31dacaef9a838c4e29f5712'],
+    }),
+    ('patsy', '0.5.6', {
+        'checksums': ['95c6d47a7222535f84bff7f63d7303f2e297747a598db89cf5c67f0c0c7d2cdb'],
+    }),
+    ('pep8', '1.7.1', {
+        'checksums': ['fe249b52e20498e59e0b5c5256aa52ee99fc295b26ec9eaa85776ffdb9fe6374'],
+    }),
+    ('poyo', '0.5.0', {
+        'checksums': ['e26956aa780c45f011ca9886f044590e2d8fd8b61db7b1c1cf4e0869f48ed4dd'],
+    }),
+    ('primer3-py', '2.0.3', {
+        'checksums': ['1ec6ce99ea149b1c82361c654a0eab824e698ce32d5f9ed2dd8f8f37564b3f5f'],
+    }),
+    ('prometheus_client', '0.20.0', {
+        'checksums': ['287629d00b147a32dcb2be0b9df905da599b2d82f80377083ec8463309a4bb89'],
+    }),
+    ('Protego', '0.3.1', {
+        'checksums': ['e94430d0d25cbbf239bc849d86c5e544fbde531fcccfa059953c7da344a1712c'],
+    }),
+    ('ptyprocess', '0.7.0', {
+        'source_tmpl': '%(name)s-%(version)s-py2.py3-none-any.whl',
+        'checksums': ['4b41f3967fce3af57cc7e94b888626c18bf37a083e3651ca8feeb66d492fef35'],
+    }),
+    ('pyasn1_modules', '0.4.0', {
+        'checksums': ['831dbcea1b177b28c9baddf4c6d1013c24c3accd14a1873fffaa6a2e905f17b6'],
+    }),
+    ('pycosat', '0.6.6', {
+        'checksums': ['a376cfae20b16fcfbef24bf3c047a8a294c35032bb051fa98842c12bbab6f0ff'],
+    }),
+    ('pyct', '0.5.0', {
+        'checksums': ['dd9f4ac5cbd8e37c352c04036062d3c5f67efec76d404761ef16b0cbf26aa6a0'],
+    }),
+    ('PyDispatcher', '2.0.5', {
+        'modulename': 'pydispatch',
+        'checksums': ['5570069e1b1769af1fe481de6dd1d3a388492acddd2cdad7a3bde145615d5caf'],
+    }),
+    ('pydocstyle', '6.3.0', {
+        'checksums': ['7ce43f0c0ac87b07494eb9c0b462c0b73e6ff276807f204d6b53edc72b7e44e1'],
+    }),
+    ('pyerfa', '2.0.1.4', {
+        'modulename': 'erfa',
+        'checksums': ['acb8a6713232ea35c04bc6e40ac4e461dfcc817d395ef2a3c8051c1a33249dd3'],
+    }),
+    ('pyflakes', '3.2.0', {
+        'checksums': ['1c61603ff154621fb2a9172037d84dca3500def8c8b630657d1701f026f8af3f'],
+    }),
+    ('pyhamcrest', '2.1.0', {
+        'modulename': 'hamcrest',
+        'checksums': ['c6acbec0923d0cb7e72c22af1926f3e7c97b8e8d69fc7498eabacaf7c975bd9c'],
+    }),
+    ('pyjwt', '2.9.0', {
+        'modulename': 'jwt',
+        'checksums': ['7e1e5b56cc735432a7369cbfa0efe50fa113ebecdc04ae6922deba8b84582d0c'],
+    }),
+    ('pylint', '3.2.6', {
+        'checksums': ['a5d01678349454806cff6d886fb072294f56a58c4761278c97fb557d708e1eb3'],
+    }),
+    ('pymc3', '3.11.6', {
+        'checksums': ['9e930a1cfd2ee558892b4d92af043696c65a622b64098332687fd75c78f10bce'],
+    }),
+    ('pynndescent', '0.5.13', {
+        'checksums': ['d74254c0ee0a1eeec84597d5fe89fedcf778593eeabe32c2f97412934a9800fb'],
+    }),
+    ('pyopenssl', '24.2.1', {
+        'modulename': 'OpenSSL',
+        'checksums': ['4247f0dbe3748d560dcbb2ff3ea01af0f9a1a001ef5f7c4c647956ed8cbf0e95'],
+    }),
+    ('PySocks', '1.7.1', {
+        'modulename': 'socks',
+        'checksums': ['3f8804571ebe159c380ac6de37643bb4685970655d3bba243530d6558b799aa0'],
+    }),
+    ('python-lsp-black', '2.0.0', {
+        'checksums': ['8286d2d310c566844b3c116b824ada6fccfa6ba228b1a09a0526b74c04e0805f'],
+    }),
+    ('python-lsp-jsonrpc', '1.1.2', {
+        'checksums': ['4688e453eef55cd952bff762c705cedefa12055c0aec17a06f595bcc002cc912'],
+    }),
+    ('python-lsp-server', '1.11.0', {
+        'checksums': ['89edd6fb3f7852e4bf5a3d1d95ea41484d1a28fa94b6e3cbff12b9db123b8e86'],
+    }),
+    ('python-slugify', '8.0.4', {
+        'modulename': 'slugify',
+        'checksums': ['59202371d1d05b54a9e7720c5e038f928f45daaffe41dd10822f3907b937c856'],
+    }),
+    ('python_snappy', '0.7.2', {
+        'checksums': ['04bf182f9d9f67b7a846dae2f1df36180ceeee8d3380e4b6799deff5272c4978'],
+    }),
+    ('pyviz_comms', '3.0.3', {
+        'checksums': ['fde4a017c2213ecee63a9a6741431c845e42a5c7b1588e4a7ba2e4370c583728'],
+    }),
+    # ('pywavelets', '1.7.0', {
+    #     'modulename': 'pywt',
+    #     'checksums': ['b47250e5bb853e37db5db423bafc82847f4cde0ffdf7aebb06336a993bc174f6'],
+    # }),
+    ('pyxdg', '0.28', {
+        'modulename': 'xdg',
+        'checksums': ['3267bb3074e934df202af2ee0868575484108581e6f3cb006af1da35395e88b4'],
+    }),
+    ('QDarkStyle', '3.2.3', {
+        'checksums': ['0c0b7f74a6e92121008992b369bab60468157db1c02cd30d64a5e9a3b402f1ae'],
+    }),
+    ('qstylizer', '0.2.3', {
+        'checksums': ['5f2f5eb2c65c6c45e950462b565fcaa5107a91d1cfc1a85b8e0d831d727ee8f6'],
+    }),
+    ('QtAwesome', '1.3.1', {
+        'checksums': ['075b2c9ee01cbaf5e3a4bebed0e5529ee8605981355f21dea051b15c1b869e1b'],
+    }),
+    ('queuelib', '1.7.0', {
+        'checksums': ['2855162096cf0230510890b354379ea1c0ff19d105d3147d349d2433bb222b08'],
+    }),
+    ('rope', '1.13.0', {
+        'checksums': ['51437d2decc8806cd5e9dd1fd9c1306a6d9075ecaf78d191af85fc1dfface880'],
+    }),
+    ('rsa', '4.9', {
+        'checksums': ['e38464a49c6c85d7f1351b0126661487a7e0a14a50f1675ec50eb34d4f20ef21'],
+    }),
+    ('s3transfer', '0.10.2', {
+        'checksums': ['0711534e9356d3cc692fdde846b4a1e4b0cb6519971860796e6bc4c7aea00ef6'],
+    }),
+    ('scrapy', '2.11.2', {
+        'checksums': ['dfbd565384fc3fffeba121f5a3a2d0899ac1f756d41432ca0879933fbfb3401d'],
+    }),
+    ('semver', '3.0.2', {
+        'checksums': ['6253adb39c70f6e51afed2fa7152bcd414c411286088fb4b9effb133885ab4cc'],
+    }),
+    ('Send2Trash', '1.8.3', {
+        'checksums': ['b18e7a3966d99871aefeb00cfbcfdced55ce4871194810fc71f4aa484b953abf'],
+    }),
+    ('service_identity', '24.1.0', {
+        'checksums': ['6829c9d62fb832c2e1c435629b0a8c476e1929881f28bee4d20bc24161009221'],
+    }),
+    ('session-info', '1.0.0', {
+        'sources': ['session_info-%(version)s.tar.gz'],
+        'checksums': ['3cda5e03cca703f32ae2eadbd6bd80b6c21442cfb60e412c21cb8ad6d5cbb6b7'],
+    }),
+    ('sorted_nearest', '0.0.39', {
+        'checksums': ['16a51d5db87ae226b47ace43c176bb672477a1b7ba8052ea9291a6356c9c69b1'],
+    }),
+    ('ncls', '0.0.68', {
+        'checksums': ['81aaa5abb123bb21797ed2f8ef921e20222db14a3ecbc61ccf447532f2b7ba93'],
+    }),
+    ('natsort', '8.4.0', {
+        'checksums': ['45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581'],
+    }),
+    ('pyranges', '0.0.129', {
+        'checksums': ['bee83b4fad0062be9586668c6b0fc4270d5e761951975e018202993680071fb3'],
+    }),
+    (name, version, {
+        'modulename': 'MATES',
+        'preinstallopts': "sed -i 's/==.*//g' requirements.txt && ",
+        'source_urls': ['https://github.com/mcgilldinglab/MATES/archive'],
+        'sources': [{'download_filename': 'd5ee15b.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['aca36b2b99ebed975fdf61670a9b551c1ab7882ff2b9d4ed3f25f2e13805652c'],
+    }),
+]
+
+# sanity_check_paths = {
+#     'files': ['bin/%s' % x for x in _bins],
+#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
+# }
+
+# from MATES import bam_processor
+# from MATES import data_processor
+# from MATES import MATES_model
+# from MATES import TE_quantifier
+# from MATES import TE_quantifier_LongRead
+# from MATES import TE_quantifier_Intronic
+sanity_check_commands = [
+    "python -c 'from MATES import bam_processor, data_processor, MATES_model, TE_quantifier, TE_quantifier_LongRead'",
+    "python -c 'from MATES import TE_quantifier_Intronic'",
+]
+
+moduleclass = 'bio'
+
+# ERROR3: 
+    # -> ctreate ec for pywavelets
+    # <- log1.txt
+    # <- problem with pywavelets compilation
+    # pywt/_extensions/_dwt.cpython-311-x86_64-linux-gnu.so.p/_dwt.c:9714:214: error: PyArrayObject {aka struct tagPyArrayObject} has no member named data
+    #    9714 |           __pyx_v_retval = float_complex_idwt_axis(((__pyx_t_float_complex *)__pyx_v_data_a), __pyx_v_a_info_p, ((__pyx_t_float_complex *)__pyx_v_data_d), __pyx_v_d_info_p, ((__pyx_t_float_complex *)__pyx_v_output->data), __pyx_v_output_info, __pyx_v_wavelet->w, __pyx_v_axis, __pyx_v_mode);
+    #         |                                                                                                                                                                                                                      ^~
+    #   [28/32] Compiling C object pywt/_extensions/_pywt.cpython-311-x86_64-linux-gnu.so.p/meson-generated__pywt.c.o
+    #   ninja: build stopped: subcommand failed.
+    #   [end of output]
+# ERROR2: OK
+    # -> create econfig for it -> OK
+    # -> try add SQL to deps -> not working
+    # Processing /tmp/vsc47063/easybuild/build/MATES/20240819/foss-2023a/pyodbc/pyodbc-5.1.0
+    # Preparing metadata (pyproject.toml): started
+    # Preparing metadata (pyproject.toml): finished with status 'done'
+    # Building wheels for collected packages: pyodbc
+    # Building wheel for pyodbc (pyproject.toml): started
+    # Building wheel for pyodbc (pyproject.toml): finished with status 'error'
+    # error: subprocess-exited-with-error
+    
+    # Building wheel for pyodbc (pyproject.toml) did not run successfully.
+    # exit code: 1
+    # > [18 lines of output]
+    #     WARNING: '' not a valid package name; please use only .-separated package names in setup.py
+    #     running bdist_wheel
+    #     running build
+    #     running build_py
+    #     creating build
+    #     creating build/lib.linux-x86_64-cpython-311
+    #     copying src/pyodbc.pyi -> build/lib.linux-x86_64-cpython-311
+    #     running build_ext
+    #     building 'pyodbc' extension
+    #     creating build/temp.linux-x86_64-cpython-311
+    #     creating build/temp.linux-x86_64-cpython-311/src
+    #     gcc -DNDEBUG -g -fwrapv -O3 -Wall -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -O2 -ftree-vectorize -march=native -fno-math-errno -I/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-12.3.0/include/flexiblas -fPIC -DPYODBC_VERSION=5.1.0 -I/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11 -c src/cnxninfo.cpp -o build/temp.linux-x86_64-cpython-311/src/cnxninfo.o -Wno-write-strings -DHAVE_UNISTD_H -DHAVE_PWD_H -DHAVE_SYS_TYPES_H -DHAVE_LONG_LONG -DSIZEOF_LONG_INT=8 -I/usr/include
+    #     In file included from src/cnxninfo.cpp:7:
+    #     src/pyodbc.h:52:10: fatal error: sql.h: No such file or directory
+    #         52 | #include <sql.h>
+    #             |          ^~~~~~~
+    #     compilation terminated.
+    #     error: command '/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/bin/gcc' failed with exit code 1
+    #     [end of output]        
+# ERROR1: OK
+    # -> use panel v1.2.3
+    # File "/tmp/vsc47063/easybuild/build/MATES/20240819/foss-2023a/panel/panel-1.4.5/panel/io/resources.py", line 24, in <module>
+    #         from bokeh.embed.bundle import (
+    #     ImportError: cannot import name 'URL' from 'bokeh.embed.bundle' (/apps/gent/RHEL8/cascadelake-ib/software/bokeh/3.2.2-foss-2023a/lib/python3.11/site-packages/bokeh/embed/bundle.py)
+    #     [end of output]
