@@ -21,6 +21,8 @@ builddependencies = [('binutils', '2.40')]
 
 skipsteps = ['configure']
 
+buildopts = 'CC="$CC" CFLAGS="$CFLAGS" SAGE_LOCAL="%(installdir)s"'  # TODO Didn't help
+
 sanity_check_paths = {
     'files': [
         'bin/%(name)s',
