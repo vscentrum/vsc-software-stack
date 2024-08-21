@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
-name = 'scenicplus'
-version = '1.0a1-18072024'
+name = 'SCENICplus'
+version = '1.0a1-20240513'
 local_commit = "fa55dae"
 
 homepage = 'https://github.com/aertslab/scenicplus'
@@ -10,10 +10,6 @@ using combined or separate single-cell gene expression (scRNA-seq) and single-ce
 chromatin accessibility (scATAC-seq) data."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-
-# scenicplus 1.0a1 requires line-profiler, which is not installed. ok - delete - no more needed (from easydev)
-# scenicplus 1.0a1 requires ndindex, which is not installed. ok - delete - need by blocs2
-# scenicplus 1.0a1 requires sinfo, which is not installed. ok - delete - from scanpy
 
 builddependencies = [
     ('poetry', '1.5.1'),
@@ -77,7 +73,8 @@ local_pycistopic_preinstallopts = (
     " -e 's/python-igraph/igraph/'"
     " -e '/typing/d'"
     # delete pyscenic and loomxpy req from commit - have versions now
-    " -e '60,61d'"
+    " -e '/pyscenic@git/d'"
+    " -e '/loomxpy@git/d'"
     " requirements.txt && "
     "sed -i"
     " -e 's/pandas == 1.5/pandas/'"
@@ -263,21 +260,18 @@ exts_list = [
         'sources': [{'download_filename': '16d14b9.tar.gz', 'filename': '%(name)s-%(version)s-16d14b9.tar.gz'}],
         'checksums': ['7285ac03be9d148437442a726366d7c6f9f5f86bc6636369149a2bc2cd8e0e29'],
     }),
-    (name, version, {
+    ('%(namelower)s', version, {
         'preinstallopts': local_preinstallopts,
         'source_urls': ['https://github.com/aertslab/scenicplus/archive/'],
-        'sources': [{'download_filename': 'fa55dae.tar.gz', 'filename': '%(name)s-%(version)s-fa55dae.tar.gz'}],
-        'checksums': [
-            {'scenicplus-1.0a1-18072024-fa55dae.tar.gz':
-             '88cddec1ab2618861e5c93e8a0b17b8e9e2aa3a76410d882c35d472f98724e29'},
-        ],
+        'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['88cddec1ab2618861e5c93e8a0b17b8e9e2aa3a76410d882c35d472f98724e29'],
     }),
 ]
 
 # copy files to let 'scenicplus init_snakemake' works 
 postinstallcmds = [
-    'cp -r %(builddir)s/scenicplus/scenicplus-fa55dae55203951c0c42e359b65a28010cd544f6/src/scenicplus/snakemake '
-    '%(installdir)s/lib/python%(pyshortver)s/site-packages/scenicplus'
+    "cp -r %%(builddir)s/scenicplus/scenicplus-%s*/src/scenicplus/snakemake "
+    "%%(installdir)s/lib/python%%(pyshortver)s/site-packages/scenicplus" % local_commit
 ]
 
 sanity_check_commands = ['scenicplus init_snakemake --help']
