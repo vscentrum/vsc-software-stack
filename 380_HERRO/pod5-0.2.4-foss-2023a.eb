@@ -69,10 +69,6 @@ exts_list = [
         'checksums': ['6b1d3829ee8921c4301998c909f7829fa9ed3cbdac0d3b16af2d743aed1ba8df'],
     }),
     ('pod5', version, {
-        'source_urls': source_urls,
-        'sources': sources,
-        'start_dir': 'python/pod5',
-        'checksums': ['f49baa13e163d1c111d4240a67b9c2f678e6f57922fddb664537b541fe1461cf'],
     }),
 ]
 
@@ -87,30 +83,25 @@ preconfigopts = (
     'echo "set(POD5_VERSION_REV 4)">>POD5Version.cmake && '
     'echo "set(POD5_NUMERIC_VERSION 0.2.4)">>POD5Version.cmake && '
     'echo "set(POD5_FULL_VERSION 0.2.4)">>POD5Version.cmake && '
-    # 'rm FindArrow.cmake && ' this is not working
+    # 'rm FindArrow.cmake && ' NO! 
+            # CMake Error at c++/CMakeLists.txt:170 (target_link_libraries):
+            # Target "pod5_format" links to: arrow::arrow
+            # but the target was not found.  Possible reasons include:
+            #     * There is a typo in the target name.
+            #     * A find_package call is missing for an IMPORTED target.
+            #     * An ALIAS target is missing.
 )
 
 # this works to generate POD5Version.cmake, but it show v0.2.5 instead of 0.2.4...
 # preconfigopts += 'cd %(builddir)s/%(name)s-%(version)s && pwd && python -m setuptools_scm && python -m pod5_make_version && '
 
-# add arrow stuff to c++/CMakeList.txt -> TODO (try pod5 v0.3.10 first) -> no problem is either in 0.1.8 -> will not help
-# preconfigopts += (
-#     "sed -i"
-#     " -e 's/networkx == 2.\*/networkx/'"
-#     " -e 's/numpy == 1.19.\*/numpy/'"
-#     " -e 's/pytorch-lightning == 1.4.\*/pytorch-lightning/'"
-#     " -e 's/torch == 1.9.\*/torch/'"
-#     " -e 's/torchtext == 0.10.\*/torchtext/'"
-#     " %(builddir)s/%(name)s-%(version)s/c++/CMakeLists.txt && "
-# )
-
 # return to builddir
 preconfigopts += 'cd %(builddir)s/easybuild_obj && '
 
-# configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
-# configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib" '
-# configopts = '-DBUILD_PYTHON_WHEEL=ON'
-configopts = ' -DZSTD_LIB="$EBROOTZSTD/lib" -DZSTD_INCLUDE_DIR="$EBROOTZSTD/include"'
+# configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" ' #  original - copied from 0.1.8
+# configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib" ' 
+# configopts = '-DBUILD_PYTHON_WHEEL=ON' #  this is default=ON -> not needed
+configopts = ' -DZSTD_LIB="$EBROOTZSTD/lib" -DZSTD_INCLUDE_DIR="$EBROOTZSTD/include"' #  Kenneth's solution
 
 installopts = ' && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s'
 installopts += ' && pip install --no-deps --ignore-installed --prefix %(installdir)s lib_pod5-%(version)s-*.whl'
@@ -131,8 +122,9 @@ modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'bio'
 
+# ERROR3:
 # ERROR2: 
-    # THE SOLUTION:
+    # Kenneth's SOLUTION: -> not working for 0.2.4 but works for 0.3.10
         # configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib" -DZSTD_INCLUDE_DIR="$EBROOTZSTD/include"' + zstd as explicit dependency in pod5 easyconfig
     # -> try to make v0.3.10 where this arrow problem should be fixed, if herro is ok -> pod5-0.3.10.eb ->NO
     # -> in /cmake there is FindArrow.cmake custom, which seems does not work

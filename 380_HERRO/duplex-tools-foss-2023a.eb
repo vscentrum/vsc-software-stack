@@ -15,18 +15,18 @@ Duplex Tools contains a set of utilities for dealing with Duplex sequencing data
 toolchain = {'name': 'foss', 'version': '2023a'}
 
 # DEPS:
-    # edlib
-    # mappy
-    # matplotlib
+    # OK edlib
+    # OK mappy
+    # OK matplotlib
     # more-itertools
-    # natsort
-    # numpy
-    # pandas
-    # parasail
-    # pod5
-    # pyfastx>=0.9.0
-    # pysam
-    # tqdm
+    # OK natsort
+    # OK numpy
+    # OK pandas
+    # OK parasail
+    # OK pod5
+    # OK pyfastx>=0.9.0
+    # OK pysam
+    # OK tqdm
 
 _minimap2_ver = '2.26'
 dependencies = [
@@ -40,7 +40,8 @@ dependencies = [
     ('tqdm', '4.66.1'),
     ('Arrow', '14.0.1'),
     ('h5py', '3.9.0'),
-    # ('pod5-file-format', '0.1.8'), #CREATE
+    ('pod5-file-format', '0.3.10'),
+    ('parasail', '2.6.2')
 ]
 
 use_pip = True
@@ -48,21 +49,21 @@ sanity_pip_check = True
 
 exts_list = [
     ('mappy', _minimap2_ver, {
-        'checksums': ['35a2fb73ef14173283d5abb31e7a318429e0330c3be95851df38dd83d4ff9af9'],
+        'checksums': ['e53fbe9a3ea8762a64b8103f4f779c9fb16d418eaa0a731f45cebc83867a9b71'],
     }),
     ('natsort', '8.4.0', {
         'checksums': ['45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581'],
     }),
-    ('vbz-h5py-plugin', '1.0.1', {
-        'source_tmpl': 'vbz_h5py_plugin-%(version)s.tar.gz',
-        'checksums': ['c784458bb0aad6303474cb2f10956179116b35555803fd1154eb4ef362519341'],
-    }),
+    # ('vbz-h5py-plugin', '1.0.1', {
+    #     'source_tmpl': 'vbz_h5py_plugin-%(version)s.tar.gz',
+    #     'checksums': ['c784458bb0aad6303474cb2f10956179116b35555803fd1154eb4ef362519341'],
+    # }),
     ('pyfastx', '2.0.1', {
         # PYPI source tarball is incomplete, causes ImportErrors
         # see https://github.com/lmdu/pyfastx/issues/60
-        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'source_urls': ['https://github.com/lmdu/%(name)s/archive'],
-        'checksums': ['b9974b21d21067350694ea37d33f99647255546b90eee8addeb74c8d18d824e8'],
+        'checksums': ['93aff63ce88bc5cfe7152d8dcb3f2164356bcd8f95a68fb20af107e59a7f9b55'],
     }),
     (name, version, {
         'source_tmpl': 'duplex_tools-%(version)s.tar.gz',

@@ -1,7 +1,7 @@
 easyblock = 'Cargo'
 
 name = 'HERRO'
-version = '0.1.0_20240814'
+version = '0.1.0_20240808'
 local_commit = 'deccc46'
 
 homepage = 'https://github.com/lbcb-sci/herro'
@@ -215,6 +215,7 @@ checksums = [
 #       - tzdata==2023.3 ok exts
 #       - vbz-h5py-plugin==1.0.1 ok
 #       - git+https://github.com/dehui333/Porechop.git -> create? ok in exts
+
 # $EBROOTPYTORCH/lib
 
 builddependencies = [
@@ -263,7 +264,7 @@ exts_list = [
     ('tzdata', '2023.3', {
         'checksums': ['11ef1e08e54acb0d4f95bdb1be05da659673de4acbd21bf9c69e94cc5e907a3a'],
     }),
-    ('Porechop', 'version', {
+    ('Porechop', version, {
         'source_urls': ['https://github.com/dehui333/Porechop/archive/'],
         'sources': [{'download_filename': 'd2e77c6.tar.gz', 'filename': '%(name)s-d2e77c6.tar.gz'}],
         'checksums': ['6e5ff3a780fc2855b0101b4a6102437d9a0fc201e40ffabc44c0c67d7c9ad621'],
@@ -292,6 +293,7 @@ sanity_check_paths = {
 # sanity_check_commands = ["%(namelower)s --help"]
 
 crates = [
+    # to UPDATE crates from herro-2023a
     ('adler', '1.0.2'),
     ('aes', '0.8.4'),
     ('anstream', '0.6.15'),
@@ -429,19 +431,11 @@ crates = [
 
 moduleclass = 'bio'
 
-#PyTorch_error:
-    # WARNING: 3 test failures, 39 test errors (out of 180622):
-    # test_quantization (997 total tests, errors=1, skipped=75)
-    # distributed/_tensor/test_api (5 total tests, errors=2)
-    # distributed/_tensor/test_device_mesh (24 total tests, errors=15)
-    # distributed/_tensor/test_dtensor (15 total tests, errors=2)
-    # distributed/_tensor/test_matrix_ops (7 total tests, errors=3, skipped=1)
-    # distributed/_tensor/test_redistribute (7 total tests, errors=3)
-    # distributed/_tensor/test_tensor_ops (16 total tests, errors=5)
-    # distributed/_tensor/test_tp_sharding_ops (5 total tests, errors=2)
-    # distributed/checkpoint/test_file_system_checkpoint_cpu (12 total tests, errors=1)
-    # distributed/tensor/parallel/test_tp_style (8 total tests, errors=1)
-    # distributed/test_c10d_object_collectives (4 total tests, errors=4)
-    # distributed/test_c10d_common (1 unit test(s) failed)
-    # distributed/test_c10d_gloo (1 unit test(s) failed)
-    # distributed/test_c10d_nccl (1 unit test(s) failed)
+# ERROR1:
+    # <- log9.txt
+    # == 2024-08-21 16:18:38,386 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " cargo build --profile=release  --tests -j 8 " exited with exit code 101 and output:
+    # error: package `powerfmt v0.2.0` cannot be built because it requires rustc 1.67.0 or newer, while the currently active rustc version is 1.65.0-dev
+    # Either upgrade to rustc 1.67.0 or newer, or use
+    # cargo update -p powerfmt@0.2.0 --precise ver
+    # where `ver` is the latest version of `powerfmt` supporting rustc 1.65.0-dev
+    # (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)

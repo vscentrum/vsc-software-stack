@@ -29,9 +29,12 @@ checksums = [
     # "h5py~=3.8.0", OK
     # "vbz_h5py_plugin", ok
     # "tqdm"  OK
+    # pod5 0.3.10 requires polars, which is not installed.
+    # pod5 0.3.10 has requirement h5py~=3.10.0, but you have h5py 3.9.0.
     
 builddependencies = [
-    ('binutils', '2.40'),
+    # ('binutils', '2.40'),
+    ('poetry', '1.5.1'),
     ('CMake', '3.26.3'),
     ('pkgconfig', '1.5.5', '-python'),
 ]
@@ -40,15 +43,16 @@ dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
     ('Arrow', '14.0.1'),
-    # ('SciPy-bundle', '2023.07'),
-    # ('zstd', '1.5.5'),
+    ('SciPy-bundle', '2023.07'),
+    ('zstd', '1.5.5'),
     ('flatbuffers', '23.5.26'),
     ('pybind11', '2.11.1'),
-    # ('Boost', '1.82.0'),
+    ('Boost', '1.82.0'),
     ('build', '1.0.3'),
     ('HDF5', '1.14.0'),
     ('h5py', '3.9.0'),
     ('tqdm', '4.66.1'),
+    ('polars', '0.20.2'),
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -60,6 +64,13 @@ exts_default_options = {
     'installopts': '',
 }
 
+local_preinstallopts = (
+    "sed -i"
+    " -e 's/polars~=0.19/polars/'"
+    " -e 's/h5py~=3.10.0/h5py/'"
+    " pyproject.toml && "
+)
+
 exts_list = [
     ('vbz_h5py_plugin', '1.0.1', {
         'checksums': ['c784458bb0aad6303474cb2f10956179116b35555803fd1154eb4ef362519341'],
@@ -68,10 +79,8 @@ exts_list = [
         'checksums': ['6b1d3829ee8921c4301998c909f7829fa9ed3cbdac0d3b16af2d743aed1ba8df'],
     }),
     ('pod5', version, {
-        'source_urls': source_urls,
-        'sources': sources,
-        'start_dir': 'python/pod5',
-        'checksums': ['eb177018b310e508f7ad6b5d486cc29166404dd5f82879d0c26aceaff51d3768'],
+        'preinstallopts': local_preinstallopts,
+        'checksums': ['f2dcb1938fcf51c725393345e480c1d12711089d542a27446fb92fbe2e18ae60'],
     }),
 ]
 
@@ -92,8 +101,9 @@ preconfigopts += "cd %(builddir)s/%(name)s-%(version)s && sed -i '/add_subdirect
 preconfigopts += 'cd %(builddir)s/easybuild_obj && echo %(start_dir)s && '
 
 # configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
-# configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib" '
-configopts = '-DBUILD_PYTHON_WHEEL=ON'
+configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib" '
+# configopts = '-DBUILD_PYTHON_WHEEL=ON'
+# configopts = ' -DZSTD_LIB="$EBROOTZSTD/lib" -DZSTD_INCLUDE_DIR="$EBROOTZSTD/include"' #  Kenneth's solution
 
 installopts = ' && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s'
 installopts += ' && pip install --no-deps --ignore-installed --prefix %(installdir)s lib_pod5-%(version)s-*.whl'
@@ -114,7 +124,8 @@ modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'bio'
 
-# ERROR1:
+# ERROR1: OK
+    # -> Kenneths procofigopts -> working
     # <- log5.txt
     # still the same error:
     # CMake Error at /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
