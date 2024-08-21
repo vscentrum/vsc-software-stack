@@ -31,7 +31,8 @@ checksums = [
     # "tqdm"  OK
     
 builddependencies = [
-    ('binutils', '2.40'),
+    # ('binutils', '2.40'),
+    ('poetry', '1.5.1'),
     ('CMake', '3.26.3'),
     ('pkgconfig', '1.5.5', '-python'),
 ]
@@ -40,11 +41,11 @@ dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
     ('Arrow', '14.0.1'),
-    # ('SciPy-bundle', '2023.07'),
-    # ('zstd', '1.5.5'),
+    ('SciPy-bundle', '2023.07'),
+    ('zstd', '1.5.5'),
     ('flatbuffers', '23.5.26'),
     ('pybind11', '2.11.1'),
-    # ('Boost', '1.82.0'),
+    ('Boost', '1.82.0'),
     ('build', '1.0.3'),
     ('HDF5', '1.14.0'),
     ('h5py', '3.9.0'),
@@ -107,8 +108,9 @@ preconfigopts = (
 preconfigopts += 'cd %(builddir)s/easybuild_obj && '
 
 # configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
-configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib" '
+# configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib" '
 # configopts = '-DBUILD_PYTHON_WHEEL=ON'
+configopts = ' -DZSTD_LIB="$EBROOTZSTD/lib" -DZSTD_INCLUDE_DIR="$EBROOTZSTD/include"'
 
 installopts = ' && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s'
 installopts += ' && pip install --no-deps --ignore-installed --prefix %(installdir)s lib_pod5-%(version)s-*.whl'
@@ -129,8 +131,10 @@ modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'bio'
 
-# ERROR2:
-    # -> try to make v0.3.10 where this arrow problem should be fixed, if herro is ok -> pod5-0.3.10.eb
+# ERROR2: 
+    # THE SOLUTION:
+        # configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib" -DZSTD_INCLUDE_DIR="$EBROOTZSTD/include"' + zstd as explicit dependency in pod5 easyconfig
+    # -> try to make v0.3.10 where this arrow problem should be fixed, if herro is ok -> pod5-0.3.10.eb ->NO
     # -> in /cmake there is FindArrow.cmake custom, which seems does not work
         # Simon conversation: https://easybuild.slack.com/archives/C34UA1HT7/p1723728371270799
     # -> try to update configopts (delete -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a) 
@@ -162,7 +166,7 @@ moduleclass = 'bio'
         # c++/CMakeLists.txt:13 (find_package)
 
         # -- Zstandard library: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/zstd/1.5.5-GCCcore-12.3.0/lib/libzstd.a
-        # -- Zstandard include directory: /usr/local/include
+        # !!! NOT GOOD -- Zstandard include directory: /usr/local/include
         # CMake Error at /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/Findutf8proc.cmake:114 (add_library):
         # add_library cannot create imported target "utf8proc::utf8proc" because
         # another target with the same name already exists.
