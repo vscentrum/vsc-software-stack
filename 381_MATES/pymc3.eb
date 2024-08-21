@@ -1,0 +1,66 @@
+# Author: Pavel Grochal (INUITS)
+# Update: Pavel Tománek (INUITS)
+# License: GPLv2
+
+easyblock = 'PythonBundle'
+
+name = 'PyMC3'
+version = '3.11.4'
+
+homepage = 'https://docs.pymc.io/'
+description = """Probabilistic Programming in Python: 
+Bayesian Modeling and Probabilistic Machine Learning with Theano"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# DEPS:
+    # OK arviz>=0.11.0
+    # ok cachetools>=4.2.1
+    # OK dill
+    # ok fastprogress>=0.2.0
+    # OK numpy>=1.15.0
+    # OK pandas>=0.24.0
+    # ok patsy>=0.5.1
+    # OK scipy>=1.2.0
+    # ok semver>=2.13.0
+    # OK theano-pymc==1.1.2 - CREATE -> can not -> compatible only with old numpy
+    # OK typing-extensions>=3.7.4
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('ArviZ', '0.16.1'),
+    ('dill', '0.3.7'),
+    ('typing-extensions', '4.9.0'),
+    ('Theano', '1.1.2', '-PyMC'),
+    # ('matplotlib', '3.4.3'),
+    # ('h5py', '3.6.0'),
+    # ('tqdm', '4.62.3'),
+    # ('netcdf4-python', '1.5.7'),
+    # ('xarray', '0.20.1'),
+    # ('typing-extensions', '3.10.0.2'),
+    # ('ArviZ', '0.11.4'),
+    # ('dill', '0.3.4'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('cachetools', '5.5.0'),
+    ('patsy', '0.5.6', {
+        'checksums': ['5053de7804676aba62783dbb0f23a2b3d74e35e5bfa238b88b7cbf148a38b69d'],
+    }),
+    ('fastprogress', '1.0.3', {
+        'checksums': ['89e28ac1d2a5412aab18ee3f3dfd1ee8b5c1f2f7a44d0add0d0d4f69f0191bfe'],
+    }),
+    ('semver', '3.0.2', {
+        'checksums': ['6253adb39c70f6e51afed2fa7152bcd414c411286088fb4b9effb133885ab4cc'],
+    }),
+    ('pymc3', version, {
+        'checksums': ['3b88d1e6c85f7fb8a9b99d6f136ac860672170370ec4146338fdd160c3b3fd3f'],
+    }),
+]
+
+moduleclass = 'math'

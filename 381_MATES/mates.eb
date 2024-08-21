@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'MATES'
-version = '20240819'
+version = '0.1.2-20240813'
 local_commit = 'd5ee15b'
 
 homepage = 'https://github.com/mcgilldinglab/MATES'
@@ -68,7 +68,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # python-snappy==0.6.0 ok
     # pytz==2021.3 - in pypi-b OK
     # pyviz-comms==2.1.0 ok
-    # PyWavelets==1.2.0 -> CREATE
+    # PyWavelets==1.2.0 -> CREATED
     # pyxdg==0.27 ok
     # PyYAML==6.0 OK
     # pyzmq==22.3.0 OK
@@ -102,11 +102,75 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # torch==2.0.1 OK
     # tqdm==4.66.1 OK
     # pyranges==0.0.129 ok
-    # Cython==3.0.10 ! have v0.29.35 in pypi-bundle, but for 2023a there is either v3.0.8 in EB
+    # Cython==3.0.10 ! have v0.29.35 in pypi-bundle, but for 2023a there is either v3.0.8 in EB -> add v3.0. as in PyWavelets
+    # ok scrapy 2.11.2 requires cssselect, which is not installed.
+    # ok scrapy 2.11.2 requires itemadapter, which is not installed.
+    # ok scrapy 2.11.2 requires itemloaders, which is not installed.
+    # ok scrapy 2.11.2 requires tldextract, which is not installed.
+    # ok scrapy 2.11.2 requires twisted, which is not installed.
+        # Twisted error: hatchling.plugin.exceptions.UnknownPluginError: Unknown version source: incremental ?
+        # scrapy 2.11.2 has Twisted>=18.9.0
+        # twisted 24.7.0 deps:
+                # ok "zope.interface >= 5",
+                # ok "constantly >= 15.1",
+                # ok "incremental >= 24.7.0",
+                # ok "Automat >= 0.8.0",
+                # ok "hyperlink >= 17.1.1",
+                # ok in pypi-b "attrs >= 21.3.0",
+                # OK "typing_extensions >= 4.2.0",
+    # ok scrapy 2.11.2 requires w3lib, which is not installed.
+    # ok scrapy 2.11.2 requires zope-interface, which is not installed.
+    # ok python-snappy 0.7.2 requires cramjam, which is not installed.
+        # ok cramjam: ModuleNotFoundError: No module named 'maturin'
+    # ok panel 1.2.3 requires linkify-it-py, which is not installed.
+    # ok panel 1.2.3 requires mdit-py-plugins, which is not installed.
+    # x -> change version to 3.11.4 - pymc3 3.11.6 requires arviz, which is not installed.
+    # x -> change version to 3.11.4 - pymc3 3.11.6 requires deprecat, which is not installed.
+    # x -> change version to 3.11.4 - pymc3 3.11.6 requires dill, which is not installed.
+    # x -> change version to 3.11.4 - pymc3 3.11.6 requires fastprogress, which is not installed.
+    # x -> change version to 3.11.4 - pymc3 3.11.6 requires theano-pymc, which is not installed.
+    # ok python-slugify 8.0.4 requires text-unidecode, which is not installed.
+    # ok python-lsp-server 1.11.0 requires docstring-to-markdown, which is not installed.
+    # ok parsel 1.9.1 requires cssselect
+    # ok parsel 1.9.1 requires jmespath, which is not installed.
+    # ok parsel 1.9.1 requires w3lib, which is not installed.
+    # ok s3transfer 0.10.2 requires botocore, which is not installed.
+    # ok rope 1.13.0 requires pytoolconfig, which is not installed.
+        # OK pytoolconfig: ModuleNotFoundError: No module named 'pdm'
+    # ok python-lsp-black 2.0.0 requires black, which is not installed.
+    # ok pylint 3.2.6 requires astroid, which is not installed.
+    # OK pylint 3.2.6 requires dill, which is not installed.
+    # ok pylint 3.2.6 requires isort, which is not installed.
+    # ok pylint 3.2.6 requires mccabe, which is not installed.
+    # x - pyopenssl 24.2.1 has requirement cryptography<44,>=41.0.5, but you have cryptography 41.0.1.
+        # -> pyopenssl 23.2.0: cryptography>=38.0.0,<42,!=40.0.0,!=40.0.1
+    # ok pymc3 3.11.6 has requirement numpy<1.22.2,>=1.15.0, but you have numpy 1.25.1.
+    # ok pymc3 3.11.6 has requirement scipy<1.8.0,>=1.7.3, but you have scipy 1.11.1.
+        # ? mates has pymc3==3.11.4, also scipy==1.11.2 and numpy==1.25.2
+        # -> use pymc3 v3.11.4 - it has not such restrictions
+    # ok unpin - mates 0.1.2 has requirement numpy==1.25.2, but you have numpy 1.25.1.
+    # ok unpin - mates 0.1.2 has requirement pandas==2.0.0, but you have pandas 2.0.3.
+    # ok unpin - mates 0.1.2 has requirement pybedtools==0.10.0, but you have pybedtools 0.9.1.
+    # ok unpin - mates 0.1.2 has requirement pysam==0.22.1, but you have pysam 0.22.0.
+    # ok unpin - mates 0.1.2 has requirement scipy==1.11.2, but you have scipy 1.11.1.
+    # ok unpin - mates 0.1.2 has requirement torch==2.0.0, but you have torch 2.1.2.
+    # x - pymc3 3.11.4 requires arviz, which is not installed.
+    # x - pymc3 3.11.4 requires fastprogress, which is not installed.
+    # x - pymc3 3.11.4 requires theano-pymc, which is not installed.
+        # -> create separate EC
+    # linkify-it-py 2.0.3 requires uc-micro-py, which is not installed.
+    # tldextract 5.1.2 requires requests-file, which is not installed.
+    # pylint 3.2.6 has requirement astroid<=3.3.0-dev0,>=3.2.4, but you have astroid 3.2.2.
 
-builddependencies = [('poetry', '1.5.1')]
+
+builddependencies = [
+    ('poetry', '1.5.1'),
+    ('maturin', '1.4.0', '-Rust-1.75.0'),
+    # ('hatchling', '1.18.0'),
+]
 dependencies = [
     ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
     ('SciPy-bundle', '2023.07'),
     ('matplotlib', '3.7.2'),
     ('Pillow', '10.0.0'),
@@ -131,6 +195,10 @@ dependencies = [
     ('bokeh', '3.2.2'), # panel v1.4.5 needs bokeh >=3.4.0,<3.5.0 -> panel v1.2.3
     ('pyodbc', '5.1.0'),
     ('PyWavelets', '1.7.0'),
+    ('Cython', '3.0.8'),
+    ('dill', '0.3.7'),
+    ('PDM', '2.12.4'),
+    ('typing-extensions', '4.9.0'),
 ]
 
 use_pip = True
@@ -150,8 +218,24 @@ exts_list = [
         'sources': '%(name)s-%(version)s.zip',
         'checksums': ['4f8ee8d5951c06072fdf03463bcd315920ef20b97947e85281330def79cdb2cd'],
     }),
+    ('linkify-it-py', '2.0.3', {
+        'modulename': 'linkify_it',
+        'checksums': ['68cda27e162e9215c17d786649d1da0021a451bdc436ef9e0fa0ba5234b9b048'],
+    }),
+    ('mdit_py_plugins', '0.4.1', {
+        'checksums': ['834b8ac23d1cd60cec703646ffd22ae97b7955a6d596eb1d304be1e251ae499c'],
+    }),
     ('panel', '1.2.3', {
         'checksums': ['5a9160fe084f918cb0900b6a4ef62d3ce542fcd2b8907d0b94113f13a8eea2d3'],
+    }),
+    ('cssselect', '1.2.0', {
+        'checksums': ['666b19839cfaddb9ce9d36bfe4c969132c647b92fc9088c4e23f786b30f1b3dc'],
+    }),
+    ('w3lib', '2.2.1', {
+        'checksums': ['756ff2d94c64e41c8d7c0c59fea12a5d0bc55e33a531c7988b4a163deb9b07dd'],
+    }),
+    ('jmespath', '1.0.1', {
+        'checksums': ['90261b206d6defd58fdd5e85f478bf633a2901798906be2ad389150c5c60edbe'],
     }),
     ('parsel', '1.9.1', {
         'checksums': ['14e00dc07731c9030db620c195fcae884b5b4848e9f9c523c6119f708ccfa9ac'],
@@ -218,22 +302,41 @@ exts_list = [
         'modulename': 'jwt',
         'checksums': ['7e1e5b56cc735432a7369cbfa0efe50fa113ebecdc04ae6922deba8b84582d0c'],
     }),
+    ('isort', '5.13.2', {
+        'checksums': ['48fdfcb9face5d58a4f6dde2e72a1fb8dcaf8ab26f95ab49fab84c2ddefb0109'],
+    }),
+    ('astroid', '3.2.2', {
+        'checksums': ['8ead48e31b92b2e217b6c9733a21afafe479d52d6e164dd25fb1a770c7c3cf94'],
+    }),
+    ('mccabe', '0.7.0', {
+        'checksums': ['348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325'],
+    }),
     ('pylint', '3.2.6', {
         'checksums': ['a5d01678349454806cff6d886fb072294f56a58c4761278c97fb557d708e1eb3'],
     }),
-    ('pymc3', '3.11.6', {
-        'checksums': ['9e930a1cfd2ee558892b4d92af043696c65a622b64098332687fd75c78f10bce'],
-    }),
+    # ('pymc3', '3.11.4', {
+    #     'checksums': ['3b88d1e6c85f7fb8a9b99d6f136ac860672170370ec4146338fdd160c3b3fd3f'],
+    # }),
     ('pynndescent', '0.5.13', {
         'checksums': ['d74254c0ee0a1eeec84597d5fe89fedcf778593eeabe32c2f97412934a9800fb'],
     }),
-    ('pyopenssl', '24.2.1', {
+    ('pyOpenSSL', '23.2.0', {
         'modulename': 'OpenSSL',
-        'checksums': ['4247f0dbe3748d560dcbb2ff3ea01af0f9a1a001ef5f7c4c647956ed8cbf0e95'],
+        'checksums': ['276f931f55a452e7dea69c7173e984eb2a4407ce413c918aa34b55f82f9b8bac'],
     }),
     ('PySocks', '1.7.1', {
         'modulename': 'socks',
         'checksums': ['3f8804571ebe159c380ac6de37643bb4685970655d3bba243530d6558b799aa0'],
+    }),
+    ('docstring-to-markdown', '0.15', {
+        'modulename': 'docstring_to_markdown',
+        'checksums': ['e146114d9c50c181b1d25505054a8d0f7a476837f0da2c19f07e06eaed52b73d'],
+    }),
+    ('mypy_extensions', '1.0.0', {
+        'checksums': ['75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782'],
+    }),
+    ('black', '24.8.0', {
+        'checksums': ['2500945420b6784c38b9ee885af039f5e7471ef284ab03fa35ecdde4688cd83f'],
     }),
     ('python-lsp-black', '2.0.0', {
         'checksums': ['8286d2d310c566844b3c116b824ada6fccfa6ba228b1a09a0526b74c04e0805f'],
@@ -244,9 +347,16 @@ exts_list = [
     ('python-lsp-server', '1.11.0', {
         'checksums': ['89edd6fb3f7852e4bf5a3d1d95ea41484d1a28fa94b6e3cbff12b9db123b8e86'],
     }),
+    ('text-unidecode', '1.3', {
+        'modulename': 'text_unidecode',
+        'checksums': ['bad6603bb14d279193107714b288be206cac565dfa49aa5b105294dd5c4aab93'],
+    }),
     ('python-slugify', '8.0.4', {
         'modulename': 'slugify',
         'checksums': ['59202371d1d05b54a9e7720c5e038f928f45daaffe41dd10822f3907b937c856'],
+    }),
+    ('cramjam', '2.8.3', {
+        'checksums': ['6b1fa0a6ea8183831d04572597c182bd6cece62d583a36cde1e6a86e72ce2389'],
     }),
     ('python_snappy', '0.7.2', {
         'checksums': ['04bf182f9d9f67b7a846dae2f1df36180ceeee8d3380e4b6799deff5272c4978'],
@@ -254,10 +364,6 @@ exts_list = [
     ('pyviz_comms', '3.0.3', {
         'checksums': ['fde4a017c2213ecee63a9a6741431c845e42a5c7b1588e4a7ba2e4370c583728'],
     }),
-    # ('pywavelets', '1.7.0', {
-    #     'modulename': 'pywt',
-    #     'checksums': ['b47250e5bb853e37db5db423bafc82847f4cde0ffdf7aebb06336a993bc174f6'],
-    # }),
     ('pyxdg', '0.28', {
         'modulename': 'xdg',
         'checksums': ['3267bb3074e934df202af2ee0868575484108581e6f3cb006af1da35395e88b4'],
@@ -274,21 +380,54 @@ exts_list = [
     ('queuelib', '1.7.0', {
         'checksums': ['2855162096cf0230510890b354379ea1c0ff19d105d3147d349d2433bb222b08'],
     }),
+    ('pytoolconfig', '1.3.1', {
+        'checksums': ['51e6bd1a6f108238ae6aab6a65e5eed5e75d456be1c2bf29b04e5c1e7d7adbae'],
+    }),
     ('rope', '1.13.0', {
         'checksums': ['51437d2decc8806cd5e9dd1fd9c1306a6d9075ecaf78d191af85fc1dfface880'],
     }),
     ('rsa', '4.9', {
         'checksums': ['e38464a49c6c85d7f1351b0126661487a7e0a14a50f1675ec50eb34d4f20ef21'],
     }),
+    ('botocore', '1.35.1', {
+        'checksums': ['e599cef6305e950a212f85adb86c1f4713d4b2678b3c2ec54df6b8e2dbe9ef2f'],
+    }),
     ('s3transfer', '0.10.2', {
         'checksums': ['0711534e9356d3cc692fdde846b4a1e4b0cb6519971860796e6bc4c7aea00ef6'],
+    }),
+    ('itemadapter', '0.9.0', {
+        'checksums': ['e4f958a6b6b6f5831fa207373010031a0bd7ed0429ddd09b51979c011475cafd'],
+    }),
+    ('itemloaders', '1.3.1', {
+        'checksums': ['81571c941cc189bb55e211f0cd3476fde7511239d3bf7ff91eb6ed68a1b0ec10'],
+    }),
+    ('tldextract', '5.1.2', {
+        'checksums': ['c9e17f756f05afb5abac04fe8f766e7e70f9fe387adb1859f0f52408ee060200'],
+    }),
+    ('constantly', '23.10.4', {
+        'checksums': ['aa92b70a33e2ac0bb33cd745eb61776594dc48764b06c35e0efd050b7f1c7cbd'],
+    }),
+    ('incremental', '24.7.2', {
+        'checksums': ['fb4f1d47ee60efe87d4f6f0ebb5f70b9760db2b2574c59c8e8912be4ebd464c9'],
+    }),
+    ('automat', '24.8.1', {
+        'checksums': ['b34227cf63f6325b8ad2399ede780675083e439b20c323d376373d8ee6306d88'],
+    }),
+    ('hyperlink', '21.0.0', {
+        'checksums': ['427af957daa58bc909471c6c40f74c5450fa123dd093fc53efd2e91d2705a56b'],
+    }),
+    ('twisted', '24.7.0', {
+        'checksums': ['5a60147f044187a127ec7da96d170d49bcce50c6fd36f594e60f4587eff4d394'],
+    }),
+    ('zope.interface', '7.0.1', {
+        'checksums': ['f0f5fda7cbf890371a59ab1d06512da4f2c89a6ea194e595808123c863c38eff'],
     }),
     ('scrapy', '2.11.2', {
         'checksums': ['dfbd565384fc3fffeba121f5a3a2d0899ac1f756d41432ca0879933fbfb3401d'],
     }),
-    ('semver', '3.0.2', {
-        'checksums': ['6253adb39c70f6e51afed2fa7152bcd414c411286088fb4b9effb133885ab4cc'],
-    }),
+    # ('semver', '3.0.2', {
+    #     'checksums': ['6253adb39c70f6e51afed2fa7152bcd414c411286088fb4b9effb133885ab4cc'],
+    # }),
     ('Send2Trash', '1.8.3', {
         'checksums': ['b18e7a3966d99871aefeb00cfbcfdced55ce4871194810fc71f4aa484b953abf'],
     }),
@@ -313,17 +452,12 @@ exts_list = [
     }),
     (name, version, {
         'modulename': 'MATES',
-        'preinstallopts': "sed -i 's/==.*//g' requirements.txt && ",
+        'preinstallopts': r"sed -i 's/==.*//g' requirements.txt && sed -i 's/==.*/\",/g' setup.py && ",
         'source_urls': ['https://github.com/mcgilldinglab/MATES/archive'],
-        'sources': [{'download_filename': 'd5ee15b.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
         'checksums': ['aca36b2b99ebed975fdf61670a9b551c1ab7882ff2b9d4ed3f25f2e13805652c'],
     }),
 ]
-
-# sanity_check_paths = {
-#     'files': ['bin/%s' % x for x in _bins],
-#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
-# }
 
 # from MATES import bam_processor
 # from MATES import data_processor
@@ -332,13 +466,14 @@ exts_list = [
 # from MATES import TE_quantifier_LongRead
 # from MATES import TE_quantifier_Intronic
 sanity_check_commands = [
-    "python -c 'from MATES import bam_processor, data_processor, MATES_model, TE_quantifier, TE_quantifier_LongRead'",
-    "python -c 'from MATES import TE_quantifier_Intronic'",
+    "python -c 'from MATES import bam_processor, data_processor, MATES_model'",
+    "python -c 'from MATES import TE_quantifier, TE_quantifier_LongRead, TE_quantifier_Intronic'",
 ]
 
 moduleclass = 'bio'
 
-# ERROR3: 
+
+# ERROR3: OK
     # -> ctreate ec for pywavelets
     # <- log1.txt
     # <- problem with pywavelets compilation
