@@ -279,31 +279,29 @@ prebuildopts = local_torch_opts
 pretestopts = local_torch_opts
 preinstallopts = local_torch_opts
 
-# _scripts = [
-#     'no_split.sh',
-#     'postprocess_corrected.sh',
-#     'create_batched_alignments.sh',
-#     'porechop_with_split.sh',
-#     'preprocess.sh'
-# ]
+_in_bin = [
+    'herro',
+    'porechop',
+    'no_split.sh',
+    'postprocess_corrected.sh',
+    'create_batched_alignments.sh',
+    'porechop_with_split.sh',
+    'preprocess.sh',
+    'batch.py',
+    'create_clusters.py',
+]
 
 # ['bin/%s' % x for x in ['gsl-config', 'gsl-histogram', 'gsl-randist']] +
 # ['include/gsl/gsl_types.h'] +
 # ['lib/lib%s.%s' % (x, SHLIB_EXT) for x in ['gsl', 'gslcblas']],
 
-_scripts = [
-    'no_split',
-    'postprocess_corrected',
-    'create_batched_alignments',
-    'porechop_with_split',
-    'preprocess'
-]
 postinstallcmds = [
-    'cp -a %(start_dir)sscripts %(installdir)s',
-    'rm %(installdir)s/scripts/herro-env.yml',
-    "echo '#!/bin/sh' > %(installdir)s/bin/%s % x for x in _scripts",
-    "echo '%(installdir)s/scripts/%s.sh $@' >> %(installdir)s/bin/%s % x for x in _scripts",
-    "chmod a+rx %(installdir)s/bin/%s % x for x in _scripts",
+    'cp -a %(start_dir)sscripts/* %(installdir)s/bin',
+    'rm %(installdir)s/bin/herro-env.yml',
+# ] + ["echo '#!/bin/sh' > %%(installdir)s/bin/%s" % x for x in _scripts ] 
+#     "echo '%%(installdir)s/scripts/%s.sh $@' >> %(installdir)s/bin/%s" % x for x in _scripts,
+    "chmod a+rx %(installdir)s/bin/*.sh",
+    "chmod a-x %(installdir)s/bin/*.py",
 ]
 
 # buildopts = '--no-default-features --verbose'
@@ -316,10 +314,17 @@ postinstallcmds = [
 # installdir: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/HERRO/0.1.0_20240808-foss-2023a
 
 sanity_check_paths = {
-    'files': ['bin/herro'],
-    'dirs': ['lib/python%(pyshortver)s/site-packages', 'scripts'],
+    'files': ['bin/%s' % x for x in _in_bin],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
 }
 sanity_check_commands = ["herro --help"]
+
+modloadmsg = """
+To run scripts from /scripts directory just run <script_name>.sh
+Do not run it as scripts/<script_name>.sh
+For example - run preprocess.sh as: 
+    $ preprocess.sh <input_fastq> <output_prefix> <number_of_threads> <parts_to_split_job_into>
+"""
 
 # crates with tch 0.14.0
 crates = [
