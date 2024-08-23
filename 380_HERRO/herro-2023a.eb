@@ -11,10 +11,237 @@ R9.4.1 reads (read length of >= 10 kbps is recommended).
 """
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-toolchainopts = {'openmp': True}
 
 source_urls = ['https://github.com/lbcb-sci/herro/archive/']
-sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': '%(name)s-%(version)s.tar.gz'}]
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
+
+builddependencies = [
+    ('Rust', '1.75.0'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('bzip2', '1.0.8'),
+    ('libffi', '3.4.4'),
+    ('libnsl', '2.0.1'),
+    ('SQLite', '3.42.0'),
+    ('util-linux', '2.39'),
+    ('zlib', '1.2.13'),
+    ('ncurses', '6.4'),
+    ('libreadline', '8.2'),
+    ('SeqKit', '2.3.1', '', SYSTEM),
+    ('Tk', '8.6.13'),
+    ('XZ', '5.4.2'),
+    ('matplotlib', '3.7.2'),
+    ('edlib', '1.3.9'),
+    ('h5py', '3.9.0'),
+    ('duplex-tools', '0.3.3'),
+    ('PyTorch', '2.1.2'),
+    ('Pillow', '10.0.0'),
+    ('zstd', '1.5.5'),
+    ('parasail', '2.6.2'),
+]
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+    'download_dep_fail': True,
+    'use_pip': True,
+    'sanity_pip_check': True,
+    'preinstallopts': '',
+    'installopts': '',
+}
+
+exts_list = [
+    ('zstandard', '0.22.0', {
+        'checksums': ['8226a33c542bcb54cd6bd0a366067b610b41713b64c9abec1bc4533d69f51e70'],
+    }),
+    ('Porechop', '20240119', {
+        'modulename': 'porechop',
+        'source_urls': ['https://github.com/dehui333/Porechop/archive/'],
+        'sources': [{'download_filename': 'd2e77c6.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['6e5ff3a780fc2855b0101b4a6102437d9a0fc201e40ffabc44c0c67d7c9ad621'],
+    }),
+]
+
+# use tch version 0.14.0 - compatible with PyTorch 2.1
+local_torch_opts = "sed -i 's/tch = \"0.13.0\"/tch = \"0.14.0\"/' Cargo.toml && "
+local_torch_opts += 'export LIBTORCH_BYPASS_VERSION_CHECK=1 && export LIBTORCH_USE_PYTORCH=1 && '
+local_torch_opts += 'export LIBTORCH=$EBROOTPYTORCH/lib && RUSTFLAGS="-Ctarget-cpu=native"'
+prebuildopts = pretestopts = preinstallopts = local_torch_opts
+
+# copy scripts to /bin to be easier to run scripts for users
+postinstallcmds = [
+    'cp -a %(start_dir)sscripts/* %(installdir)s/bin',
+    'rm %(installdir)s/bin/herro-env.yml',
+    "chmod a+rx %(installdir)s/bin/*.sh",
+    "chmod a-x %(installdir)s/bin/*.py",
+]
+
+_bins = [
+    'herro',
+    'porechop',
+    'no_split.sh',
+    'postprocess_corrected.sh',
+    'create_batched_alignments.sh',
+    'porechop_with_split.sh',
+    'preprocess.sh',
+    'batch.py',
+    'create_clusters.py',
+]
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in _bins],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+ 
+sanity_check_commands = ["herro --help"]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+modloadmsg = """
+To run scripts from /scripts directory just run <script_name>.sh
+Do not run it as scripts/<script_name>.sh
+For example - run preprocess.sh as: 
+    $ preprocess.sh <input_fastq> <output_prefix> <number_of_threads> <parts_to_split_job_into>
+"""
+
+crates = [
+    ('adler2', '2.0.0'),
+    ('aes', '0.8.4'),
+    ('anstream', '0.6.15'),
+    ('anstyle', '1.0.8'),
+    ('anstyle-parse', '0.2.5'),
+    ('anstyle-query', '1.1.1'),
+    ('anstyle-wincon', '3.0.4'),
+    ('anyhow', '1.0.86'),
+    ('approx', '0.5.1'),
+    ('autocfg', '1.3.0'),
+    ('base64ct', '1.6.0'),
+    ('block-buffer', '0.10.4'),
+    ('buffer-redux', '1.0.2'),
+    ('bytecount', '0.6.8'),
+    ('byteorder', '1.5.0'),
+    ('bzip2', '0.4.4'),
+    ('bzip2-sys', '0.1.11+1.0.8'),
+    ('cc', '1.1.13'),
+    ('cfg-if', '1.0.0'),
+    ('cipher', '0.4.4'),
+    ('clap', '4.4.18'),
+    ('clap_builder', '4.4.18'),
+    ('clap_derive', '4.4.7'),
+    ('clap_lex', '0.6.0'),
+    ('colorchoice', '1.0.2'),
+    ('console', '0.15.8'),
+    ('constant_time_eq', '0.1.5'),
+    ('cpufeatures', '0.2.13'),
+    ('crc32fast', '1.4.2'),
+    ('crossbeam-channel', '0.5.13'),
+    ('crossbeam-utils', '0.8.20'),
+    ('crunchy', '0.2.2'),
+    ('crypto-common', '0.1.6'),
+    ('deranged', '0.3.11'),
+    ('digest', '0.10.7'),
+    ('either', '1.13.0'),
+    ('encode_unicode', '0.3.6'),
+    ('flate2', '1.0.32'),
+    ('generic-array', '0.14.7'),
+    ('getrandom', '0.2.15'),
+    ('glob', '0.3.1'),
+    ('half', '2.4.1'),
+    ('heck', '0.4.1'),
+    ('hmac', '0.12.1'),
+    ('indicatif', '0.17.8'),
+    ('inout', '0.1.3'),
+    ('instant', '0.1.13'),
+    ('is_terminal_polyfill', '1.70.1'),
+    ('itertools', '0.12.1'),
+    ('itoa', '1.0.11'),
+    ('jemalloc-sys', '0.5.4+5.3.0-patched'),
+    ('jemallocator', '0.5.4'),
+    ('jobserver', '0.1.32'),
+    ('lazy_static', '1.5.0'),
+    ('libc', '0.2.158'),
+    ('lzma-sys', '0.1.20'),
+    ('matrixmultiply', '0.3.9'),
+    ('memchr', '2.7.4'),
+    ('miniz_oxide', '0.8.0'),
+    ('ndarray', '0.15.6'),
+    ('needletail', '0.5.1'),
+    ('npyz', '0.8.3'),
+    ('npyz-derive', '0.7.0'),
+    ('num-bigint', '0.4.6'),
+    ('num-complex', '0.4.6'),
+    ('num-conv', '0.1.0'),
+    ('num-integer', '0.1.46'),
+    ('num-traits', '0.2.19'),
+    ('number_prefix', '0.4.0'),
+    ('once_cell', '1.19.0'),
+    ('ordered-float', '4.2.2'),
+    ('password-hash', '0.4.2'),
+    ('pbkdf2', '0.11.0'),
+    ('pest', '2.7.11'),
+    ('pest_derive', '2.7.11'),
+    ('pest_generator', '2.7.11'),
+    ('pest_meta', '2.7.11'),
+    ('pkg-config', '0.3.30'),
+    ('portable-atomic', '1.7.0'),
+    ('powerfmt', '0.2.0'),
+    ('ppv-lite86', '0.2.20'),
+    ('proc-macro2', '1.0.86'),
+    ('py_literal', '0.4.0'),
+    ('quote', '1.0.36'),
+    ('rand', '0.8.5'),
+    ('rand_chacha', '0.3.1'),
+    ('rand_core', '0.6.4'),
+    ('rawpointer', '0.2.1'),
+    ('rustc-hash', '1.1.0'),
+    ('ryu', '1.0.18'),
+    ('safetensors', '0.3.3'),
+    ('serde', '1.0.208'),
+    ('serde_derive', '1.0.208'),
+    ('serde_json', '1.0.125'),
+    ('sha1', '0.10.6'),
+    ('sha2', '0.10.8'),
+    ('shlex', '1.3.0'),
+    ('strsim', '0.10.0'),
+    ('subtle', '2.6.1'),
+    ('syn', '1.0.109'),
+    ('syn', '2.0.75'),
+    ('tch', '0.14.0'),
+    ('thiserror', '1.0.63'),
+    ('thiserror-impl', '1.0.63'),
+    ('time', '0.3.36'),
+    ('time-core', '0.1.2'),
+    ('torch-sys', '0.14.0'),
+    ('typenum', '1.17.0'),
+    ('ucd-trie', '0.1.6'),
+    ('unicode-ident', '1.0.12'),
+    ('unicode-width', '0.1.13'),
+    ('utf8parse', '0.2.2'),
+    ('version_check', '0.9.5'),
+    ('wasi', '0.11.0+wasi-snapshot-preview1'),
+    ('windows-sys', '0.52.0'),
+    ('windows-targets', '0.52.6'),
+    ('windows_aarch64_gnullvm', '0.52.6'),
+    ('windows_aarch64_msvc', '0.52.6'),
+    ('windows_i686_gnu', '0.52.6'),
+    ('windows_i686_gnullvm', '0.52.6'),
+    ('windows_i686_msvc', '0.52.6'),
+    ('windows_x86_64_gnu', '0.52.6'),
+    ('windows_x86_64_gnullvm', '0.52.6'),
+    ('windows_x86_64_msvc', '0.52.6'),
+    ('xz2', '0.1.7'),
+    ('zerocopy', '0.7.35'),
+    ('zerocopy-derive', '0.7.35'),
+    ('zip', '0.6.6'),
+    ('zstd', '0.11.2+zstd.1.5.2'),
+    ('zstd', '0.13.2'),
+    ('zstd-safe', '5.0.2+zstd.1.5.2'),
+    ('zstd-safe', '7.2.1'),
+    ('zstd-sys', '2.0.13+zstd.1.5.6'),
+]
+
 checksums = [
     {'HERRO-0.1.0_20240808.tar.gz': '885f64ab097c89cf8ec8ec38625c6325271997e89636de756aa12fb68aab7598'},
     {'adler2-2.0.0.tar.gz': '512761e0bb2578dd7380c6baaa0f4ce03e84f95e960231d1dec8bf4d7d6e2627'},
@@ -152,579 +379,4 @@ checksums = [
     {'zstd-sys-2.0.13+zstd.1.5.6.tar.gz': '38ff0f21cfee8f97d94cef41359e0c89aa6113028ab0291aa8ca0038995a95aa'},
 ]
 
-# DEPS:
-    # - _libgcc_mutex=0.1 OK
-    # - _openmp_mutex=4.5 OK
-    # - bzip2=1.0.8 OK
-    # - ca-certificates=2023.7.22 no-ignore
-    # - ld_impl_linux-64=2.40 ?
-    # - libffi=3.4.2 OK
-    # - libgcc-ng=13.2.0 ?
-    # - libgomp=13.2.0 ?
-    # - libnsl=2.0.1 OK
-    # - libsqlite=3.44.0 OK?
-    # - libstdcxx-ng=13.2.0 ?
-    # - libuuid=2.38.1 - util-linux OK
-    # - libzlib=1.2.13 OK
-    # - ncurses=6.4 OK
-    # - openssl=3.1.4 OK
-    # - pip=23.3.1 OK
-    # - python=3.10.13 OK
-    # - python_abi=3.10 OK
-    # - readline=8.2 OK
-    # - seqkit=2.5.1 OK?
-    # - setuptools=68.2.2 OK?
-    # - tk=8.6.13 OK
-    # - wheel=0.41.3 OK?
-    # - xz=5.2.6 OK
-    # - minimap2=2.26 OK
-    # - zstandard=0.22.0 ok-exts
-    # - pip:
-    #   - contourpy==1.2.0 v1.1.0 in matplotlib OK?
-    #   - cycler==0.12.1 - v0.11.0 in matplotlib OK?
-    #   - duplex-tools==0.3.3 NO -> CREATED OK
-    #   - edlib==1.3.9 OK
-    #   - fonttools==4.44.0 v4.42.0 in matplotlib OK?
-    #   - h5py==3.8.0 OK
-    #   - iso8601==2.1.0 in pod5
-    #   - kiwisolver==1.4.5 v1.4.4 in matplotlib OK?
-    #   - lib-pod5==0.2.4 -> NO - create in duplex?
-    #   - mappy==2.26 - in duplex?
-    #   - matplotlib==3.8.1 OK?
-    #   - more-itertools==10.1.0
-    #   - natsort==8.4.0
-    #   - numpy==1.26.1 OK
-    #   - packaging==23.2 OK
-    #   - pandas==2.1.2 OK
-    #   - parasail==1.3.4 ?OK
-    #   - pillow==10.1.0 OK
-    #   - polars==0.17.15 OK
-    #   - pyarrow==11.0.0
-    #   - pyfastx==2.0.1
-    #   - pyparsing==3.1.1
-    #   - pysam==0.22.0
-    #   - python-dateutil==2.8.2
-    #   - pytz==2023.3.post1
-    #   - six==1.16.0
-    #   - tqdm==4.66.1
-    #   - tzdata==2023.3 in scipy-bundle
-    #   - vbz-h5py-plugin==1.0.1
-    #   - git+https://github.com/dehui333/Porechop.git
-# $EBROOTPYTORCH/lib
-
-builddependencies = [
-    ('binutils', '2.40'),
-    ('Rust', '1.75.0'),
-    # ('maturin', '1.5.0', '-Rust-1.76.0'),
-    # ('hatchling', '1.18.0'),
-]
-
-dependencies = [
-    ('Python', '3.11.3'),
-    ('SciPy-bundle', '2023.07'),
-    ('bzip2', '1.0.8'),
-    ('libffi', '3.4.4'),
-    ('libnsl', '2.0.1'),
-    ('SQLite', '3.42.0'),
-    ('util-linux', '2.39'),
-    ('zlib', '1.2.13'),
-    ('ncurses', '6.4'),
-    # ('OpenSSL', '3', '', SYSTEM),
-    ('libreadline', '8.2'),
-    ('SeqKit', '2.3.1', '', SYSTEM),
-    ('Tk', '8.6.13'),
-    ('XZ', '5.4.2'),
-    ('matplotlib', '3.7.2'),
-    ('edlib', '1.3.9'),
-    ('h5py', '3.9.0'),
-    ('duplex-tools', '0.3.3'),
-    ('PyTorch', '2.1.2'),
-    ('Pillow', '10.0.0'),
-    ('zstd', '1.5.5'),
-    ('parasail', '2.6.2'),
-]
-
-exts_defaultclass = 'PythonPackage'
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-    'download_dep_fail': True,
-    'use_pip': True,
-    'sanity_pip_check': True,
-    'preinstallopts': '',
-    'installopts': '',
-}
-
-exts_list = [
-    ('zstandard', '0.22.0', {
-        'checksums': ['8226a33c542bcb54cd6bd0a366067b610b41713b64c9abec1bc4533d69f51e70'],
-    }),
-    ('Porechop', version, {
-        'modulename': 'porechop',
-        'source_urls': ['https://github.com/dehui333/Porechop/archive/'],
-        'sources': [{'download_filename': 'd2e77c6.tar.gz', 'filename': '%(name)s-d2e77c6.tar.gz'}],
-        'checksums': ['6e5ff3a780fc2855b0101b4a6102437d9a0fc201e40ffabc44c0c67d7c9ad621'],
-    }),
-]
-
-modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
-
-# prebuildopts = "sed -i 's/{ version = \"~4.4.2\", features = [\"derive\"] }/\"~4.4.2\"/' Cargo.toml && "
-# prebuildopts += "sed -i 's/{ version = \"~0.8.1\", features = [\"derive\"] }/\"~0.8.1\"/' Cargo.toml && "
-
-local_torch_opts = "sed -i 's/tch = \"0.13.0\"/tch = \"0.14.0\"/' Cargo.toml && "
-local_torch_opts += 'export LIBTORCH_BYPASS_VERSION_CHECK=1 && export LIBTORCH_USE_PYTORCH=1 && '
-local_torch_opts += 'export LIBTORCH=$EBROOTPYTORCH/lib && RUSTFLAGS="-Ctarget-cpu=native"'
-
-prebuildopts = local_torch_opts
-pretestopts = local_torch_opts
-preinstallopts = local_torch_opts
-
-_in_bin = [
-    'herro',
-    'porechop',
-    'no_split.sh',
-    'postprocess_corrected.sh',
-    'create_batched_alignments.sh',
-    'porechop_with_split.sh',
-    'preprocess.sh',
-    'batch.py',
-    'create_clusters.py',
-]
-
-# ['bin/%s' % x for x in ['gsl-config', 'gsl-histogram', 'gsl-randist']] +
-# ['include/gsl/gsl_types.h'] +
-# ['lib/lib%s.%s' % (x, SHLIB_EXT) for x in ['gsl', 'gslcblas']],
-
-postinstallcmds = [
-    'cp -a %(start_dir)sscripts/* %(installdir)s/bin',
-    'rm %(installdir)s/bin/herro-env.yml',
-# ] + ["echo '#!/bin/sh' > %%(installdir)s/bin/%s" % x for x in _scripts ] 
-#     "echo '%%(installdir)s/scripts/%s.sh $@' >> %(installdir)s/bin/%s" % x for x in _scripts,
-    "chmod a+rx %(installdir)s/bin/*.sh",
-    "chmod a-x %(installdir)s/bin/*.py",
-]
-
-# buildopts = '--no-default-features --verbose'
-# buildopts = '--release --no-default-features -v'
-
-# enable_tests = False
-# offline = False
-
-# builddir: /tmp/vsc47063/easybuild/build/HERRO/0.1.0_20240808/foss-2023a
-# installdir: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/HERRO/0.1.0_20240808-foss-2023a
-
-sanity_check_paths = {
-    'files': ['bin/%s' % x for x in _in_bin],
-    'dirs': ['lib/python%(pyshortver)s/site-packages'],
-}
-sanity_check_commands = ["herro --help"]
-
-modloadmsg = """
-To run scripts from /scripts directory just run <script_name>.sh
-Do not run it as scripts/<script_name>.sh
-For example - run preprocess.sh as: 
-    $ preprocess.sh <input_fastq> <output_prefix> <number_of_threads> <parts_to_split_job_into>
-"""
-
-# crates with tch 0.14.0
-crates = [
-    ('adler2', '2.0.0'),
-    ('aes', '0.8.4'),
-    ('anstream', '0.6.15'),
-    ('anstyle', '1.0.8'),
-    ('anstyle-parse', '0.2.5'),
-    ('anstyle-query', '1.1.1'),
-    ('anstyle-wincon', '3.0.4'),
-    ('anyhow', '1.0.86'),
-    ('approx', '0.5.1'),
-    ('autocfg', '1.3.0'),
-    ('base64ct', '1.6.0'),
-    ('block-buffer', '0.10.4'),
-    ('buffer-redux', '1.0.2'),
-    ('bytecount', '0.6.8'),
-    ('byteorder', '1.5.0'),
-    ('bzip2', '0.4.4'),
-    ('bzip2-sys', '0.1.11+1.0.8'),
-    ('cc', '1.1.13'),
-    ('cfg-if', '1.0.0'),
-    ('cipher', '0.4.4'),
-    ('clap', '4.4.18'),
-    ('clap_builder', '4.4.18'),
-    ('clap_derive', '4.4.7'),
-    ('clap_lex', '0.6.0'),
-    ('colorchoice', '1.0.2'),
-    ('console', '0.15.8'),
-    ('constant_time_eq', '0.1.5'),
-    ('cpufeatures', '0.2.13'),
-    ('crc32fast', '1.4.2'),
-    ('crossbeam-channel', '0.5.13'),
-    ('crossbeam-utils', '0.8.20'),
-    ('crunchy', '0.2.2'),
-    ('crypto-common', '0.1.6'),
-    ('deranged', '0.3.11'),
-    ('digest', '0.10.7'),
-    ('either', '1.13.0'),
-    ('encode_unicode', '0.3.6'),
-    ('flate2', '1.0.32'),
-    ('generic-array', '0.14.7'),
-    ('getrandom', '0.2.15'),
-    ('glob', '0.3.1'),
-    ('half', '2.4.1'),
-    ('heck', '0.4.1'),
-    ('hmac', '0.12.1'),
-    ('indicatif', '0.17.8'),
-    ('inout', '0.1.3'),
-    ('instant', '0.1.13'),
-    ('is_terminal_polyfill', '1.70.1'),
-    ('itertools', '0.12.1'),
-    ('itoa', '1.0.11'),
-    ('jemalloc-sys', '0.5.4+5.3.0-patched'),
-    ('jemallocator', '0.5.4'),
-    ('jobserver', '0.1.32'),
-    ('lazy_static', '1.5.0'),
-    ('libc', '0.2.158'),
-    ('lzma-sys', '0.1.20'),
-    ('matrixmultiply', '0.3.9'),
-    ('memchr', '2.7.4'),
-    ('miniz_oxide', '0.8.0'),
-    ('ndarray', '0.15.6'),
-    ('needletail', '0.5.1'),
-    ('npyz', '0.8.3'),
-    ('npyz-derive', '0.7.0'),
-    ('num-bigint', '0.4.6'),
-    ('num-complex', '0.4.6'),
-    ('num-conv', '0.1.0'),
-    ('num-integer', '0.1.46'),
-    ('num-traits', '0.2.19'),
-    ('number_prefix', '0.4.0'),
-    ('once_cell', '1.19.0'),
-    ('ordered-float', '4.2.2'),
-    ('password-hash', '0.4.2'),
-    ('pbkdf2', '0.11.0'),
-    ('pest', '2.7.11'),
-    ('pest_derive', '2.7.11'),
-    ('pest_generator', '2.7.11'),
-    ('pest_meta', '2.7.11'),
-    ('pkg-config', '0.3.30'),
-    ('portable-atomic', '1.7.0'),
-    ('powerfmt', '0.2.0'),
-    ('ppv-lite86', '0.2.20'),
-    ('proc-macro2', '1.0.86'),
-    ('py_literal', '0.4.0'),
-    ('quote', '1.0.36'),
-    ('rand', '0.8.5'),
-    ('rand_chacha', '0.3.1'),
-    ('rand_core', '0.6.4'),
-    ('rawpointer', '0.2.1'),
-    ('rustc-hash', '1.1.0'),
-    ('ryu', '1.0.18'),
-    ('safetensors', '0.3.3'),
-    ('serde', '1.0.208'),
-    ('serde_derive', '1.0.208'),
-    ('serde_json', '1.0.125'),
-    ('sha1', '0.10.6'),
-    ('sha2', '0.10.8'),
-    ('shlex', '1.3.0'),
-    ('strsim', '0.10.0'),
-    ('subtle', '2.6.1'),
-    ('syn', '1.0.109'),
-    ('syn', '2.0.75'),
-    ('tch', '0.14.0'),
-    ('thiserror', '1.0.63'),
-    ('thiserror-impl', '1.0.63'),
-    ('time', '0.3.36'),
-    ('time-core', '0.1.2'),
-    ('torch-sys', '0.14.0'),
-    ('typenum', '1.17.0'),
-    ('ucd-trie', '0.1.6'),
-    ('unicode-ident', '1.0.12'),
-    ('unicode-width', '0.1.13'),
-    ('utf8parse', '0.2.2'),
-    ('version_check', '0.9.5'),
-    ('wasi', '0.11.0+wasi-snapshot-preview1'),
-    ('windows-sys', '0.52.0'),
-    ('windows-targets', '0.52.6'),
-    ('windows_aarch64_gnullvm', '0.52.6'),
-    ('windows_aarch64_msvc', '0.52.6'),
-    ('windows_i686_gnu', '0.52.6'),
-    ('windows_i686_gnullvm', '0.52.6'),
-    ('windows_i686_msvc', '0.52.6'),
-    ('windows_x86_64_gnu', '0.52.6'),
-    ('windows_x86_64_gnullvm', '0.52.6'),
-    ('windows_x86_64_msvc', '0.52.6'),
-    ('xz2', '0.1.7'),
-    ('zerocopy', '0.7.35'),
-    ('zerocopy-derive', '0.7.35'),
-    ('zip', '0.6.6'),
-    ('zstd', '0.11.2+zstd.1.5.2'),
-    ('zstd', '0.13.2'),
-    ('zstd-safe', '5.0.2+zstd.1.5.2'),
-    ('zstd-safe', '7.2.1'),
-    ('zstd-sys', '2.0.13+zstd.1.5.6'),
-]
-
-# crates with tch 0.13.0
-# crates = [
-    # ('adler2', '2.0.0'),
-    # ('aes', '0.8.4'),
-    # ('anstream', '0.6.15'),
-    # ('anstyle', '1.0.8'),
-    # ('anstyle-parse', '0.2.5'),
-    # ('anstyle-query', '1.1.1'),
-    # ('anstyle-wincon', '3.0.4'),
-    # ('anyhow', '1.0.86'),
-    # ('approx', '0.5.1'),
-    # ('autocfg', '1.3.0'),
-    # ('base64ct', '1.6.0'),
-    # ('block-buffer', '0.10.4'),
-    # ('buffer-redux', '1.0.2'),
-    # ('bytecount', '0.6.8'),
-    # ('byteorder', '1.5.0'),
-    # ('bzip2', '0.4.4'),
-    # ('bzip2-sys', '0.1.11+1.0.8'),
-    # ('cc', '1.1.13'),
-    # ('cfg-if', '1.0.0'),
-    # ('cipher', '0.4.4'),
-    # ('clap', '4.4.18'),
-    # ('clap_builder', '4.4.18'),
-    # ('clap_derive', '4.4.7'),
-    # ('clap_lex', '0.6.0'),
-    # ('colorchoice', '1.0.2'),
-    # ('console', '0.15.8'),
-    # ('constant_time_eq', '0.1.5'),
-    # ('cpufeatures', '0.2.13'),
-    # ('crc32fast', '1.4.2'),
-    # ('crossbeam-channel', '0.5.13'),
-    # ('crossbeam-utils', '0.8.20'),
-    # ('crunchy', '0.2.2'),
-    # ('crypto-common', '0.1.6'),
-    # ('deranged', '0.3.11'),
-    # ('digest', '0.10.7'),
-    # ('either', '1.13.0'),
-    # ('encode_unicode', '0.3.6'),
-    # ('flate2', '1.0.32'),
-    # ('generic-array', '0.14.7'),
-    # ('getrandom', '0.2.15'),
-    # ('glob', '0.3.1'),
-    # ('half', '2.4.1'),
-    # ('heck', '0.4.1'),
-    # ('hmac', '0.12.1'),
-    # ('indicatif', '0.17.8'),
-    # ('inout', '0.1.3'),
-    # ('instant', '0.1.13'),
-    # ('is_terminal_polyfill', '1.70.1'),
-    # ('itertools', '0.12.1'),
-    # ('itoa', '1.0.11'),
-    # ('jemalloc-sys', '0.5.4+5.3.0-patched'),
-    # ('jemallocator', '0.5.4'),
-    # ('jobserver', '0.1.32'),
-    # ('lazy_static', '1.5.0'),
-    # ('libc', '0.2.158'),
-    # ('lzma-sys', '0.1.20'),
-    # ('matrixmultiply', '0.3.9'),
-    # ('memchr', '2.7.4'),
-    # ('miniz_oxide', '0.8.0'),
-    # ('ndarray', '0.15.6'),
-    # ('needletail', '0.5.1'),
-    # ('npyz', '0.8.3'),
-    # ('npyz-derive', '0.7.0'),
-    # ('num-bigint', '0.4.6'),
-    # ('num-complex', '0.4.6'),
-    # ('num-conv', '0.1.0'),
-    # ('num-integer', '0.1.46'),
-    # ('num-traits', '0.2.19'),
-    # ('number_prefix', '0.4.0'),
-    # ('once_cell', '1.19.0'),
-    # ('ordered-float', '4.2.2'),
-    # ('password-hash', '0.4.2'),
-    # ('pbkdf2', '0.11.0'),
-    # ('pest', '2.7.11'),
-    # ('pest_derive', '2.7.11'),
-    # ('pest_generator', '2.7.11'),
-    # ('pest_meta', '2.7.11'),
-    # ('pkg-config', '0.3.30'),
-    # ('portable-atomic', '1.7.0'),
-    # ('powerfmt', '0.2.0'),
-    # ('ppv-lite86', '0.2.20'),
-    # ('proc-macro2', '1.0.86'),
-    # ('py_literal', '0.4.0'),
-    # ('quote', '1.0.36'),
-    # ('rand', '0.8.5'),
-    # ('rand_chacha', '0.3.1'),
-    # ('rand_core', '0.6.4'),
-    # ('rawpointer', '0.2.1'),
-    # ('rustc-hash', '1.1.0'),
-    # ('ryu', '1.0.18'),
-    # ('safetensors', '0.3.3'),
-    # ('serde', '1.0.208'),
-    # ('serde_derive', '1.0.208'),
-    # ('serde_json', '1.0.125'),
-    # ('sha1', '0.10.6'),
-    # ('sha2', '0.10.8'),
-    # ('shlex', '1.3.0'),
-    # ('strsim', '0.10.0'),
-    # ('subtle', '2.6.1'),
-    # ('syn', '1.0.109'),
-    # ('syn', '2.0.75'),
-    # ('tch', '0.13.0'),
-    # ('thiserror', '1.0.63'),
-    # ('thiserror-impl', '1.0.63'),
-    # ('time', '0.3.36'),
-    # ('time-core', '0.1.2'),
-    # ('torch-sys', '0.13.0'),
-    # ('typenum', '1.17.0'),
-    # ('ucd-trie', '0.1.6'),
-    # ('unicode-ident', '1.0.12'),
-    # ('unicode-width', '0.1.13'),
-    # ('utf8parse', '0.2.2'),
-    # ('version_check', '0.9.5'),
-    # ('wasi', '0.11.0+wasi-snapshot-preview1'),
-    # ('windows-sys', '0.52.0'),
-    # ('windows-targets', '0.52.6'),
-    # ('windows_aarch64_gnullvm', '0.52.6'),
-    # ('windows_aarch64_msvc', '0.52.6'),
-    # ('windows_i686_gnu', '0.52.6'),
-    # ('windows_i686_gnullvm', '0.52.6'),
-    # ('windows_i686_msvc', '0.52.6'),
-    # ('windows_x86_64_gnu', '0.52.6'),
-    # ('windows_x86_64_gnullvm', '0.52.6'),
-    # ('windows_x86_64_msvc', '0.52.6'),
-    # ('xz2', '0.1.7'),
-    # ('zerocopy', '0.7.35'),
-    # ('zerocopy-derive', '0.7.35'),
-    # ('zip', '0.6.6'),
-    # ('zstd', '0.11.2+zstd.1.5.2'),
-    # ('zstd', '0.13.2'),
-    # ('zstd-safe', '5.0.2+zstd.1.5.2'),
-    # ('zstd-safe', '7.2.1'),
-    # ('zstd-sys', '2.0.13+zstd.1.5.6'),
-# ]
-
 moduleclass = 'bio'
-
-# ERROR4: OK
-    # -> add modextrapaths
-    # == 2024-08-22 16:14:44,818 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: extensions sanity check failed for 2 extensions: zstandard, Porechop
-    # failing sanity check for 'zstandard' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import zstandard"" failed; output:
-    # Traceback (most recent call last):
-    # File "<string>", line 1, in <module>
-    # ModuleNotFoundError: No module named 'zstandard', 
-    # failing sanity check for 'Porechop' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import porechop"" failed; output:
-    # Traceback (most recent call last):
-    # File "<string>", line 1, in <module>
-    # ModuleNotFoundError: No module named 'porechop',  (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
-
-# ERROR3: OK
-    # == 2024-08-22 15:52:09,375 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
-    # cmd " cargo install --profile=release --root=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/HERRO/0.1.0_20240808-foss-2023a --path=. " 
-    # exited with exit code 101 and output:
-    #     Installing herro v0.1.0 (/tmp/vsc47063/easybuild/build/HERRO/0.1.0_20240808/foss-2023a/herro-deccc46823615577f6fcda4ec9469f592fc3ffcb)
-    #     error: failed to run custom build command for `torch-sys v0.14.0`
-    #     note: To improve backtraces for build dependencies, set the CARGO_PROFILE_RELEASE_BUILD_OVERRIDE_DEBUG=true environment variable to enable debug information generation.
-    #     Caused by:
-    #     process didn't exit successfully: `/tmp/vsc47063/easybuild/build/HERRO/0.1.0_20240808/foss-2023a/herro-deccc46823615577f6fcda4ec9469f592fc3ffcb/target/release/build/torch-sys-e37f22bbc37ebb12/build-script-build` (exit status: 1)
-    #     --- stdout
-    #     cargo:rerun-if-env-changed=LIBTORCH_USE_PYTORCH
-    #     cargo:rerun-if-env-changed=LIBTORCH
-
-    #     --- stderr
-    #     Error: 
-    #     Cannot find a libtorch install, you can either:
-    #     - Install libtorch manually and set the LIBTORCH environment variable to appropriate path.
-    #     - Use a system wide install in /usr/lib/libtorch.so.
-    #     - Use a Python environment with PyTorch installed by setting LIBTORCH_USE_PYTORCH=1
-    #     See the readme for more details:
-    #     https://github.com/LaurentMazare/tch-rs/blob/main/README.md
-    #     Stack backtrace:
-    #         0: anyhow::kind::Adhoc::new
-    #         1: build_script_build::SystemInfo::prepare_libtorch_dir
-    #         2: build_script_build::SystemInfo::new
-    #         3: build_script_build::main
-    #         4: core::ops::function::FnOnce::call_once
-    #         5: std::sys_common::backtrace::__rust_begin_short_backtrace
-    #         6: std::rt::lang_start::{{closure}}
-    #         7: std::panicking::try
-    #         8: std::rt::lang_start_internal
-    #         9: std::rt::lang_start
-    #         10: main
-    #         11: __libc_start_main
-    #         12: _start
-    #     warning: build failed, waiting for other jobs to finish...
-    #     error: failed to compile `herro v0.1.0 (/tmp/vsc47063/easybuild/build/HERRO/0.1.0_20240808/foss-2023a/herro-deccc46823615577f6fcda4ec9469f592fc3ffcb)`, intermediate artifacts can be found at `/tmp/vsc47063/easybuild/build/HERRO/0.1.0_20240808/foss-2023a/herro-deccc46823615577f6fcda4ec9469f592fc3ffcb/target`.
-    #     To reuse those artifacts with a future compilation, set the environment variable `CARGO_TARGET_DIR` to that path.
-
-# ERROR2: OK
-    # -> pretestopts = prebuildopts
-    # == 2024-08-22 15:40:55,500 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__):
-    #     cmd " cargo test --profile=release " exited with exit code 101 and output:
-    #     Compiling torch-sys v0.14.0
-    #     error: failed to run custom build command for `torch-sys v0.14.0`
-    #     note: To improve backtraces for build dependencies, set the CARGO_PROFILE_RELEASE_BUILD_OVERRIDE_DEBUG=true environment variable to enable debug information generation.
-
-    #     Caused by:
-    #     process didn't exit successfully: `/tmp/vsc47063/easybuild/build/HERRO/0.1.0_20240808/foss-2023a/herro-deccc46823615577f6fcda4ec9469f592fc3ffcb/target/release/build/torch-sys-e37f22bbc37ebb12/build-script-build` (exit status: 1)
-    #     --- stdout
-    #     cargo:rerun-if-env-changed=LIBTORCH_USE_PYTORCH
-    #     cargo:rerun-if-env-changed=LIBTORCH
-
-    #     --- stderr
-    #     Error: 
-    #     Cannot find a libtorch install, you can either:
-    #     - Install libtorch manually and set the LIBTORCH environment variable to appropriate path.
-    #     - Use a system wide install in /usr/lib/libtorch.so.
-    #     - Use a Python environment with PyTorch installed by setting LIBTORCH_USE_PYTORCH=1
-
-    #     See the readme for more details:
-    #     https://github.com/LaurentMazare/tch-rs/blob/main/README.md
-
-
-    #     Stack backtrace:
-    #         0: anyhow::kind::Adhoc::new
-    #         1: build_script_build::SystemInfo::prepare_libtorch_dir
-    #         2: build_script_build::SystemInfo::new
-    #         3: build_script_build::main
-    #         4: core::ops::function::FnOnce::call_once
-    #         5: std::sys_common::backtrace::__rust_begin_short_backtrace
-    #         6: std::rt::lang_start::{{closure}}
-    #         7: std::panicking::try
-    #         8: std::rt::lang_start_internal
-    #         9: std::rt::lang_start
-    #         10: main
-    #         11: __libc_start_main
-    #         12: _start
-    #     warning: build failed, waiting for other jobs to finish...
-    #     (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
-    
-# ERROR1: OK
-    # -> tch v0.14.0 needs PyTorch v2.1.0 -> use export LIBTORCH_BYPASS_VERSION_CHECK=1 -> it is ok with v2.1.2 now
-        # -> have to update crates with tch 0.14.0
-    # -> tch v0.13.0 needs PyTorch v2.0.0
-    # == 2024-08-22 14:27:56,816 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
-    #     cmd "export LIBTORCH_USE_PYTORCH=1 && RUSTFLAGS="-Ctarget-cpu=native" cargo build --profile=release  --tests -j 8 " exited with exit code 101 and output:
-    #         Compiling torch-sys v0.13.0
-    # error: failed to run custom build command for `torch-sys v0.13.0`
-    # note: To improve backtraces for build dependencies, set the CARGO_PROFILE_RELEASE_BUILD_OVERRIDE_DEBUG=true environment variable to enable debug information generation.
-
-    # Caused by:
-    #   process didn't exit successfully: `/tmp/vsc47063/easybuild/build/HERRO/0.1.0_20240808/foss-2023a/herro-deccc46823615577f6fcda4ec9469f592fc3ffcb/target/release/build/torch-sys-8b9481a0ae4cd385/build-script-build` (exit status: 1)
-    #   --- stdout
-    #   cargo:rerun-if-env-changed=LIBTORCH_USE_PYTORCH
-    #   cargo:rerun-if-env-changed=LIBTORCH_BYPASS_VERSION_CHECK
-    #   --- stderr
-    #   Error: this tch version expects PyTorch 2.0.0, got 2.1.2
-    #   Stack backtrace:
-    #      0: anyhow::error::<impl anyhow::Error>::msg
-    #      1: anyhow::__private::format_err
-    #      2: build_script_build::SystemInfo::new
-    #      3: build_script_build::main
-    #      4: core::ops::function::FnOnce::call_once
-    #      5: std::sys_common::backtrace::__rust_begin_short_backtrace
-    #      6: std::rt::lang_start::{{closure}}
-    #      7: std::panicking::try
-    #      8: std::rt::lang_start_internal
-    #      9: std::rt::lang_start
-    #     10: main
-    #     11: __libc_start_main
-    #     12: _start
-    # warning: build failed, waiting for other jobs to finish...
-    #  (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)

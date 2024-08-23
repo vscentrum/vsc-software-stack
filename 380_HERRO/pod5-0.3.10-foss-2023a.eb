@@ -17,23 +17,8 @@ checksums = [
     {'pod5-file-format-0.3.10.tar.gz': 'eb177018b310e508f7ad6b5d486cc29166404dd5f82879d0c26aceaff51d3768'},
     {'pod5-file-format-0.3.10_dep_fix.patch': '20dc87ab82d4b52ff7fb769d17c2478daf95f787b2a184c9d985e33e03038e31'},
 ]
-
-# PY_DEPS:
-    # "iso8601", ok
-    # "more_itertools", ?
-    # "numpy >= 1.21.0", OK
-    # "pyarrow ~= 11.0.0", OK
-    # "pytz",OK pypi-bundle
-    # "packaging", OK
-    # "polars~=0.17.12", ?
-    # "h5py~=3.8.0", OK
-    # "vbz_h5py_plugin", ok
-    # "tqdm"  OK
-    # pod5 0.3.10 requires polars, which is not installed.
-    # pod5 0.3.10 has requirement h5py~=3.10.0, but you have h5py 3.9.0.
     
 builddependencies = [
-    # ('binutils', '2.40'),
     ('poetry', '1.5.1'),
     ('CMake', '3.26.3'),
     ('pkgconfig', '1.5.5', '-python'),
@@ -64,6 +49,7 @@ exts_default_options = {
     'installopts': '',
 }
 
+# unpin polars and h5py versions in pod5
 local_preinstallopts = (
     "sed -i"
     " -e 's/polars~=0.19/polars/'"
@@ -84,8 +70,8 @@ exts_list = [
     }),
 ]
 
-# separate_build_dir = False
-
+# create POD5Version.cmake
+# python -m setuptools_scm && python -m pod5_make_version shows wrong version
 preconfigopts = (
     'cd %(builddir)s/%(name)s-%(version)s/cmake && ' 
     'touch POD5Version.cmake && '
@@ -96,15 +82,13 @@ preconfigopts = (
     'echo "set(POD5_FULL_VERSION 0.3.10)">>POD5Version.cmake && '
 )
 
+# delete add_subdirectory(third_party/pybind11) from CMakeLists.txt
 preconfigopts += "cd %(builddir)s/%(name)s-%(version)s && sed -i '/add_subdirectory(third_party/d' CMakeLists.txt && "
-# preconfigopts += 'cd %(builddir)s/%(name)s-%(version)s && pwd && python -m setuptools_scm && python -m pod5_make_version && '
-preconfigopts += 'cd %(builddir)s/easybuild_obj && echo %(start_dir)s && '
+preconfigopts += 'cd %(builddir)s/easybuild_obj && '
 
-# configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib/libzstd.a" '
-configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib" '
-# configopts = '-DBUILD_PYTHON_WHEEL=ON'
-# configopts = ' -DZSTD_LIB="$EBROOTZSTD/lib" -DZSTD_INCLUDE_DIR="$EBROOTZSTD/include"' #  Kenneth's solution
+configopts = ' -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib" -DZSTD_INCLUDE_DIR="$EBROOTZSTD/include"'
 
+# install lib_pod5 from wheel - dependency of pod5
 installopts = ' && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s'
 installopts += ' && pip install --no-deps --ignore-installed --prefix %(installdir)s lib_pod5-%(version)s-*.whl'
 
@@ -123,17 +107,3 @@ sanity_check_commands = [
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'bio'
-
-# ERROR1: OK
-    # -> Kenneths procofigopts -> working
-    # <- log5.txt
-    # still the same error:
-    # CMake Error at /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
-    # Could NOT find zstdAlt (missing: ZSTD_LIB) (found version "1.5.5")
-    # Call Stack (most recent call first):
-    # /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
-    # /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/FindzstdAlt.cmake:124 (find_package_handle_standard_args)
-    # /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
-    # /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:99 (find_dependency)
-    # /apps/gent/RHEL8/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:122 (arrow_find_dependencies)
-    # c++/CMakeLists.txt:14 (find_package)

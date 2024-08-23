@@ -14,20 +14,6 @@ Duplex Tools contains a set of utilities for dealing with Duplex sequencing data
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# DEPS:
-    # OK edlib
-    # OK mappy
-    # OK matplotlib
-    # more-itertools
-    # OK natsort
-    # OK numpy
-    # OK pandas
-    # OK parasail
-    # OK pod5
-    # OK pyfastx>=0.9.0
-    # OK pysam
-    # OK tqdm
-
 _minimap2_ver = '2.26'
 dependencies = [
     ('Python', '3.11.3'),
@@ -54,10 +40,6 @@ exts_list = [
     ('natsort', '8.4.0', {
         'checksums': ['45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581'],
     }),
-    # ('vbz-h5py-plugin', '1.0.1', {
-    #     'source_tmpl': 'vbz_h5py_plugin-%(version)s.tar.gz',
-    #     'checksums': ['c784458bb0aad6303474cb2f10956179116b35555803fd1154eb4ef362519341'],
-    # }),
     ('pyfastx', '2.0.1', {
         # PYPI source tarball is incomplete, causes ImportErrors
         # see https://github.com/lmdu/pyfastx/issues/60
