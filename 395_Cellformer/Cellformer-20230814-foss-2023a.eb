@@ -1,0 +1,41 @@
+easyblock = 'PythonBundle'
+
+name = 'Cellformer'
+version = '20240814'
+local_commit = '1c685f5'
+
+homepage = 'https://github.com/elo-nsrb/Cellformer'
+description = '''An implementation of Cellformer from our publication: Berson et al.
+ "Whole genome deconvolution unveils Alzheimer’s resilient epigenetic signature"'''
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('ArchR', '1.0.2'),
+    # ('PyTorch', '2.0.0'),  # TODO
+    ('scikit-learn', '1.3.1'),
+    # ('PyTorch-Lightning', '2.0.4'),  # TODO
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('asteroid', '0.7.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['ea97a24901d9d9851b4a594171bd7c6dd900fee2c132b9ce045aa09926d489c7'],
+    }),
+    ('comet-ml', '3.44.4', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['0bdb5fbf55eb157790bf92a94994891429fd1c3ce04063408d1e90768cbd9c8f'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/elo-nsrb/Cellformer/archive/']
+        'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['163e632b11b7da2f14665260a7f470cc36ab765631162f4a49810063f94bf4fa'],
+        # TODO https://github.com/elo-nsrb/Cellformer/blob/1c685f5127f00c8bd4e0d9c0d7a0cab37ef191c0/setup.sh
+    }),
+]
+
+moduleclass = 'bio'
