@@ -14,14 +14,16 @@ sources = [SOURCE_TAR_GZ]
 patches = ['coxeter-20180226_makefile.patch']
 checksums = [
     {'coxeter-20180226.tar.gz': '5e0668c40b29c03c438a6ebc0f49f13aaf155b4bcbff56303a753390e6fce3aa'},
-    {'coxeter-20180226_makefile.patch': '86e442dd0cb33913c449bce36644233effeb1ae3c5e5a0063e2b4df21ea72d05'},
+    {'coxeter-20180226_makefile.patch': '229ed201e41bae0ae7b22aa21d5007127aeb52fd158543dd5fff2e89797e211f'},
 ]
 
 builddependencies = [('binutils', '2.40')]
 
 skipsteps = ['configure']
 
-buildopts = 'CC="$CC" CFLAGS="$CFLAGS" SAGE_LOCAL="%(installdir)s"'  # TODO Didn't help
+buildopts = 'CC="$CC" CFLAGS="$CFLAGS"'
+preinstallopts = 'mkdir -p "%(installdir)s/bin" "%(installdir)s/lib" && '
+installopts = 'SAGE_LOCAL="%(installdir)s"'
 
 sanity_check_paths = {
     'files': [
@@ -34,6 +36,6 @@ sanity_check_paths = {
     ]
 }
 
-sanity_check_commands = ["%(name)s help"]
+sanity_check_commands = ['echo "qq" | coxeter']
 
 moduleclass = 'math'
