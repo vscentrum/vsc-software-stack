@@ -1,0 +1,65 @@
+easyblock = 'Waf'
+
+name = 'Limbo'
+version = '2.1.0'
+
+homepage = 'https://github.com/resibots/limbo/'
+
+description = """
+Limbo (LIbrary for Model-Based Optimization) is an open-source C++11 library
+for Gaussian Processes and data-efficient optimization (e.g., Bayesian optimization)
+that is designed to be both highly flexible and very fast.
+"""
+
+# toolchain = {'name': 'intel', 'version': '2023a'}
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/resibots/limbo/archive/']
+sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+checksums = ['fbbb7abff0c45bbd314e960c3eb4ffc2d5d4ac7c85521484d37b0133e56a0a4c']
+
+builddependencies = [
+    ('Eigen', '3.4.0'),
+]
+dependencies = [
+    ('Boost', '1.82.0'),
+    ('NLopt', '2.7.1'),
+    ('tbb', '2020.1'),
+    ('libcmaes-resibots', '20180806', '-%(name)s-%(version)s'),
+]
+
+# configopts = "--icc "                                   # Do not test for gcc and only use icc
+# configopts += "--ifort "                                # Do not test for gfortran and only use ifort
+# configopts += "--lapack_mkl=${MKLROOT} "                # location of the EB mkl install
+# configopts += "--cfitsio_prefix=${EBROOTCFITSIO} "      # location of the EB cfitsio install
+# configopts += "--extra_lib=curl "                       # not having curl in extra lib will fail to build the examples
+# configopts += "--extra_lib=m "                          # not having -lm will fail the build..
+# configopts += "--extra_libpath=${EBROOTCURL}/lib "      # -''-
+
+# unpack_options = '--strip 3'
+# buildininstalldir = 'true'
+
+# modextravars = {
+#     'CLIK_PATH': '%(installdir)s',
+#     'CLIK_DATA': 'share/clik',
+#     'CLIK_PLUGIN': 'rel2015',
+# }
+
+# modextrapaths = {
+#     'PYTHONPATH': 'lib/python/site-packages'
+# }
+
+# sanity_check_paths = {
+#     'files': [
+#         'lib/libclik_f90.%s' % SHLIB_EXT,
+#         'lib/libclik.%s' % SHLIB_EXT,
+#         'lib/python/site-packages/clik/__init__.py',
+#         'include/clik.h',
+#     ],
+#     'dirs': [
+#         'bin',
+#         'share',
+#     ],
+# }
+
+moduleclass = 'math'

@@ -1,0 +1,71 @@
+easyblock = 'CMakeMake'
+
+name = 'libcmaes-resibots'
+version = '20180806'
+versionsuffix = '-Limbo-2.1.0'
+local_commit = '3336d90'
+
+homepage = 'https://github.com/resibots/libcmaes'
+description = """
+Not original libcmaes - resibots fork - from branch 'fix_flags_native'.
+libcmaes is a multithreaded C++11 library with Python bindings for
+high performance blackbox stochastic optimization using the CMA-ES algorithm
+for Covariance Matrix Adaptation Evolution Strategy.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://github.com/resibots/libcmaes/archive/']
+sources = [{
+    'download_filename': '%s.tar.gz' % local_commit,
+    'filename': SOURCE_TAR_GZ,
+}]
+checksums = ['7a056ef6aec2a2f73c1cfd3bfb41b665e57f3d28b546094bb384cdcd7dc417b4']
+
+builddependencies = [
+    ('Eigen', '3.4.0'),
+    ('CMake', '3.26.3'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('Boost.Python', '1.82.0'),
+    ('gflags', '2.2.2'),
+    ('googletest', '1.13.0'),
+    ('tbb', '2020.1'),
+]
+
+configopts = "-DUSE_TBB=ON -DUSE_OPENMP=OFF -DEIGEN3_INCLUDE_DIR=$EBROOTEIGEN/include "
+configopts += "-DPYTHON_SITE_DIR=%(installdir)s/lib/python%(pyshortver)s/site-packages"
+
+sanity_check_paths = {
+    'files': ['lib/libcmaes.so'],
+    'dirs': ['include/libcmaes', 'lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    "python -c 'import lcmaes'",
+]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+moduleclass = 'math'
+
+# ERROR1: OK
+    # -> add: -DPYTHON_SITE_DIR=%(installdir)s/lib/python%(pyshortver)s/site-packages
+        # problem in https://github.com/resibots/libcmaes/blob/fix_flags_native/CMakeLists.txt#L126
+    # -> there is no .../lib/python3.11/site-packages -> there is python/ but not cmake_instal.cmake ->
+        # -> there it is: /tmp/vsc47063/easybuild/build/libcmaesresibots/20180806-fix_flags_native/foss-2023a-Limbo-2.1.0/easybuild_obj/python
+        # 52   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/../../../../../../../../../../../tmp/vsc47063/easybuild/build/libcmaesresibots/20180806-fix_flags_native/foss-2023a-Limbo-2.1.0/libcmaes-3336d90d4c5c7b6602b9afd324c13be5370acf6c/lib/python3.11/site-packages" TYPE MODULE FILES "/tmp/vsc47063/easybuild/build/libcmaesresibots/20180806-fix_flags_native/foss-2023a-Limbo-2.1.0/easybuild_obj/python/lcmaes.so")
+
+    # <- failed on make install
+    # -- Installing: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/libcmaes-resibots/20180806-fix_flags_native-foss-2023a-Limbo-2.1.0/include/libcmaes/surrogates/rsvm_surr_strategy.hpp
+    # CMake Error at python/cmake_install.cmake:52 (file):
+    #   file cannot create directory:
+    #   /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/libcmaes-resibots/20180806-fix_flags_native-foss-2023a-Limbo-2.1.0/../../../../../../../../../../../tmp/vsc47063/easybuild/build/libcmaesresibots/20180806-fix_flags_native/foss-2023a-Limbo-2.1.0/libcmaes-3336d90d4c5c7b6602b9afd324c13be5370acf6c/lib/python3.11/site-packages.
+    #   Maybe need administrative privileges.
+    # Call Stack (most recent call first):
+    #   cmake_install.cmake:58 (include)
