@@ -15,7 +15,10 @@ sources = [{
 }]
 checksums = ['2a5f66f3db7f76e583a6b6e28f9c1f3c392258b8d755050d7abe129a2fbb48c4']
 
-builddependencies = [('binutils', '2.40')]
+builddependencies = [
+    ('binutils', '2.40'),
+    ('patchelf', '0.18.0'),
+]
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
@@ -48,12 +51,16 @@ prebuildopts += "rm -rf util/bwa && "
 prebuildopts += (
     "sed -i"
     " -e 's/seq_count bwa_ samtools_/seq_count samtools_/'"
-    " -e '29d'"  # @+make clean -C $(BWADIR)
-    " -e '18,20d'"  # bwa_:	@+make -C $(BWADIR)
-    " -e '1d'"  # BWADIR = ./bwa
+    " -e '/BWADIR/d'"
+    " -e '/bwa_:/d'"
     " util/Makefile && "
 )
-postinstallcmds = ['cd %(installdir)s/bin && ln -s $EBROOTBWA/bin/bwa']
+postinstallcmds = [
+    'cd %(installdir)s/bin && ln -s $EBROOTBWA/bin/bwa',
+    # fix missing RPATH in calgs.so
+    # "patchelf --force-rpath --set-rpath '$ORIGIN' %(installdir)s/lib/calgs.so",
+    'patchelf --force-rpath --set-rpath "\$ORIGIN:\$ORIGIN/..lib:$EBROOTZLIB/lib:..." %(installdir)s/lib/calgs.so'
+]
 
 files_to_copy = ['bin', 'lib', 'test_data', 'LICENSE', 'nextPolish']
 
