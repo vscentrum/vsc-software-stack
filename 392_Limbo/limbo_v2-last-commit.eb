@@ -1,0 +1,121 @@
+easyblock = 'Waf'
+
+name = 'Limbo'
+version = '2.1.0-20231019'
+local_commit = '43c67a6'
+
+homepage = 'https://github.com/resibots/limbo/'
+
+description = """
+Limbo (LIbrary for Model-Based Optimization) is an open-source C++11 library
+for Gaussian Processes and data-efficient optimization (e.g., Bayesian optimization)
+that is designed to be both highly flexible and very fast.
+"""
+
+# toolchain = {'name': 'intel', 'version': '2023a'}
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/resibots/limbo/archive/']
+sources = [{
+    'download_filename': '%s.tar.gz' % local_commit,
+    'filename': SOURCE_TAR_GZ,
+}]
+patches = [('waf-2.0.27', '.')]
+checksums = [
+    {'Limbo-2.1.0-20231019.tar.gz': '8480d0190bd616032aec3bee9ed5a444db35f246de0521a6ea1265eaac687422'},
+    {'waf-2.0.27': 'fe10e266c05063752d098787a7b934cd0d61092c8b072884f8a679c1c596dd6a'},
+]
+
+builddependencies = [
+    ('Eigen', '3.4.0'),
+]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+    ('Boost', '1.82.0'),
+    ('NLopt', '2.7.1'),
+    ('tbb', '2020.1'),
+    ('libcmaes-resibots', '20180806', '-%(name)s-2.1.0'),
+]
+
+# preconfigopts = 'rm waf && curl -L -o waf https://waf.io/waf-2.0.27 && chmod +x waf && ls -alF && '
+preconfigopts = "rm waf && ln -s waf-2.0.27 waf && chmod +x waf && "
+
+configopts = "--boost-includes=${EBROOTBOOST}/include --boost-libs=${EBROOTBOOST}/lib "
+configopts += "--eigen=${EBROOTEIGEN}/include "
+configopts += "--libcmaes=${EBROOTLIBCMAESMINRESIBOTS} "
+configopts += "--tbb=${EBROOTTTB} "
+configopts += "--nlopt=${EBROOTNLOPT} "
+configopts += "--lapacke_blas "
+
+# runtest = "./waf run_tests"
+
+# should solve ERROR1 - from https://groups.google.com/g/ns-3-users/c/XrIbgjLm5zI -> NO
+# preconfigopts = './waf distclean && '
+
+# configopts = "--icc "                                   # Do not test for gcc and only use icc
+# configopts += "--ifort "                                # Do not test for gfortran and only use ifort
+# configopts += "--lapack_mkl=${MKLROOT} "                # location of the EB mkl install
+# configopts += "--cfitsio_prefix=${EBROOTCFITSIO} "      # location of the EB cfitsio install
+# configopts += "--extra_lib=curl "                       # not having curl in extra lib will fail to build the examples
+# configopts += "--extra_lib=m "                          # not having -lm will fail the build..
+# configopts += "--extra_libpath=${EBROOTCURL}/lib "      # -''-
+
+# unpack_options = '--strip 3'
+# buildininstalldir = 'true'
+
+# modextravars = {
+#     'CLIK_PATH': '%(installdir)s',
+#     'CLIK_DATA': 'share/clik',
+#     'CLIK_PLUGIN': 'rel2015',
+# }
+
+# modextrapaths = {
+#     'PYTHONPATH': 'lib/python/site-packages'
+# }
+
+# sanity_check_paths = {
+#     'files': [
+#         'lib/libclik_f90.%s' % SHLIB_EXT,
+#         'lib/libclik.%s' % SHLIB_EXT,
+#         'lib/python/site-packages/clik/__init__.py',
+#         'include/clik.h',
+#     ],
+#     'dirs': [
+#         'bin',
+#         'share',
+#     ],
+# }
+
+moduleclass = 'math'
+
+# ERROR1: OK
+    # -> Seems it is not compatible with latest waf (v2.1.2) -> try older v2.0.27
+    # Traceback (most recent call last):
+    # File "/tmp/vsc47063/easybuild/build/Limbo/20231019/foss-2023a/limbo-43c67a6999a40a3349aa6d0f152f853e028ed509/.waf3-2.1.2-5b48554f897113218781486acfe4d78e/waflib/Scripting.py", line 122, in waf_entry_point
+    #     run_commands()
+    # File "/tmp/vsc47063/easybuild/build/Limbo/20231019/foss-2023a/limbo-43c67a6999a40a3349aa6d0f152f853e028ed509/.waf3-2.1.2-5b48554f897113218781486acfe4d78e/waflib/Scripting.py", line 181, in run_commands
+    #     parse_options()
+    # File "/tmp/vsc47063/easybuild/build/Limbo/20231019/foss-2023a/limbo-43c67a6999a40a3349aa6d0f152f853e028ed509/.waf3-2.1.2-5b48554f897113218781486acfe4d78e/waflib/Scripting.py", line 161, in parse_options
+    #     ctx.execute()
+    # File "/tmp/vsc47063/easybuild/build/Limbo/20231019/foss-2023a/limbo-43c67a6999a40a3349aa6d0f152f853e028ed509/.waf3-2.1.2-5b48554f897113218781486acfe4d78e/waflib/Options.py", line 202, in execute
+    #     super(OptionsContext,self).execute()
+    # File "/tmp/vsc47063/easybuild/build/Limbo/20231019/foss-2023a/limbo-43c67a6999a40a3349aa6d0f152f853e028ed509/.waf3-2.1.2-5b48554f897113218781486acfe4d78e/waflib/Context.py", line 92, in execute
+    #     self.recurse([os.path.dirname(g_module.root_path)])
+    # File "/tmp/vsc47063/easybuild/build/Limbo/20231019/foss-2023a/limbo-43c67a6999a40a3349aa6d0f152f853e028ed509/.waf3-2.1.2-5b48554f897113218781486acfe4d78e/waflib/Context.py", line 133, in recurse
+    #     user_function(self)
+    # File "/tmp/vsc47063/easybuild/build/Limbo/20231019/foss-2023a/limbo-43c67a6999a40a3349aa6d0f152f853e028ed509/wscript", line 80, in options
+    #     limbo.add_create_options(opt)
+    # File "/tmp/vsc47063/easybuild/build/Limbo/20231019/foss-2023a/limbo-43c67a6999a40a3349aa6d0f152f853e028ed509/./waf_tools/limbo.py", line 68, in add_create_options
+    #     opt.add_option('--bayes_opt_boptimizer_noise', type='float', dest='bayes_opt_boptimizer_noise', help='Acquisition noise of the function to optimize [default: 1e-6]')
+    # File "/tmp/vsc47063/easybuild/build/Limbo/20231019/foss-2023a/limbo-43c67a6999a40a3349aa6d0f152f853e028ed509/.waf3-2.1.2-5b48554f897113218781486acfe4d78e/waflib/Options.py", line 139, in add_option
+    #     return self.add_argument(*k,**kw)
+    #         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    # File "/tmp/vsc47063/easybuild/build/Limbo/20231019/foss-2023a/limbo-43c67a6999a40a3349aa6d0f152f853e028ed509/.waf3-2.1.2-5b48554f897113218781486acfe4d78e/waflib/Options.py", line 141, in add_argument
+    #     return self.parser.add_argument(*k,**kw)
+    #         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/argparse.py", line 1455, in add_argument
+    #     raise ValueError('%r is not callable' % (type_func,))
+    # ValueError: 'float' is not callable

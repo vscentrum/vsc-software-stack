@@ -12,7 +12,7 @@ that is designed to be both highly flexible and very fast.
 """
 
 # toolchain = {'name': 'intel', 'version': '2023a'}
-toolchain = {'name': 'foss', 'version': '2023a'}
+toolchain = {'name': 'foss', 'version': '2022a'} # 11.3.0
 
 source_urls = ['https://github.com/resibots/limbo/archive/']
 sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
@@ -22,14 +22,17 @@ builddependencies = [
     ('Eigen', '3.4.0'),
 ]
 dependencies = [
-    ('Boost', '1.82.0'),
+    ('Boost', '1.79.0'),
     ('NLopt', '2.7.1'),
-    ('tbb', '2020.1'),
-    ('libcmaes-resibots', '20180806', '-%(name)s-%(version)s'),
+    ('tbb', '2021.5.0'),
+    # ('libcmaes-resibots', '20180806', '-%(name)s-%(version)s'),
 ]
 
 # should solve ERROR1 - from https://groups.google.com/g/ns-3-users/c/XrIbgjLm5zI -> NO
 # preconfigopts = './waf distclean && '
+
+configopts = "--boost-includes=${EBROOTBOOST}/include --boost-libs=${EBROOTBOOST}/lib "
+configopts += "--eigen=${EBROOTEIGEN}/include"
 
 # configopts = "--icc "                                   # Do not test for gcc and only use icc
 # configopts += "--ifort "                                # Do not test for gfortran and only use ifort
@@ -67,7 +70,21 @@ dependencies = [
 
 moduleclass = 'math'
 
-# ERROR1:
+# ERROR2:
+    # <- log1.txt
+    # == 2024-08-27 17:17:47,619 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " ./waf configure --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Limbo/2.1.0-foss-2022a " exited with exit code 1 and output:
+    # WARNING: pylab/matplotlib not found 
+    # WARNING: brewer2mpl (colors) not found 
+    # YELLOW: Could not import plot_bo_benchmarks! Will not plot anything! 
+    # Setting top to                           : /tmp/vsc47063/easybuild/build/Limbo/2.1.0/foss-2022a/limbo-2.1.0 
+    # Setting out to                           : /tmp/vsc47063/easybuild/build/Limbo/2.1.0/foss-2022a/limbo-2.1.0/build 
+    # Checking for 'g++' (C++ compiler)        : g++ 
+    # Checking for 'gcc' (C compiler)          : gcc 
+    # Checking for compiler flags "-march=native" : yes 
+    # Checking boost includes                     : /usr/lib64/python3.6/tarfile.py:2221: RuntimeWarning: The default behavior of tarfile extraction has been changed to disallow common exploits (including CVE-2007-4559). By default, absolute/parent paths are disallowed and some mode bits are cleared. See https://access.redhat.com/articles/7004769 for more details.
+    # RuntimeWarning)
+    # headers not found, use --boost-includes=/path/to/boost
+# ERROR1: OK seems puthon3.10 works with waf
     # -> seems there is an answer: https://github.com/jackaudio/jack2/issues/898 - waf needs to be upgraded to works with python3.11
     # -> tried: ./waf distclean -> not working
     # <- failed on ./waf configure
