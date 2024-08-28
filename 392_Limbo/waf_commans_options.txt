@@ -1,0 +1,141 @@
+WHAT TO DO NOW? 
+--------------- 
+[users] To compile Limbo: ./waf build 
+[users] To compile and run unit tests: ./waf --tests 
+[users] Read the documentation (inc. tutorials) on http://www.resibots.eu/limbo 
+[developers] To compile the HTML documentation (this requires sphinx and the resibots theme): ./waf docs 
+[developers] To compile the BO benchmarks: ./waf build_bo_benchmarks 
+[developers] To run the BO benchmarks: ./waf run_bo_benchmarks 
+[developers] To compile the regression benchmarks (requires a json file with the setup): ./waf --regression_benchmarks 
+file.json 
+[developers] To run the regression benchmarks: ./waf run_regression_benchmarks --regression_benchmarks file.json 
+[developers] To compile the extensive tests: ./waf build_extensive_tests 
+'configure' finished successfully (5.053s)
+
+waf [commands] [options]
+
+Main commands (example: ./waf build -j4)
+  build                : executes the build
+  build_bo_benchmarks  : 
+  build_extensive_tests: 
+  clean                : cleans the project
+  configure            : configures the project
+  default_params       : 
+  dist                 : makes a tarball for redistributing the sources
+  distcheck            : checks if the project compiles (tarball from 'dist')
+  distclean            : removes build folders and data
+  docs                 : 
+  insert_license       : 
+  install              : installs the targets on the system
+  list                 : lists the targets to execute
+  step                 : executes tasks in a step-by-step fashion, for debugging
+  uninstall            : removes the targets installed
+  xcode                : 
+
+Options:
+  --version             show program's version number and exit
+  -c COLORS, --color=COLORS
+                        whether to use colors (yes/no/auto) [default: auto]
+  -j JOBS, --jobs=JOBS  amount of parallel jobs (36)
+  -k, --keep            continue despite errors (-kk to try harder)
+  -v, --verbose         verbosity level -v -vv or -vvv [default: 0]
+  --zones=ZONES         debugging zones (task_gen, deps, tasks, etc)
+  -h, --help            show this help message and exit
+  --boost-includes=BOOST_INCLUDES
+                        path to the boost directory where the includes are
+                        e.g. /boost_1_45_0/include
+  --boost-libs=BOOST_LIBS
+                        path to the directory where the boost libs are
+                        e.g. /boost_1_45_0/stage/lib
+  --boost-static        link static libraries
+  --boost-mt            select multi-threaded libraries
+  --boost-abi=BOOST_ABI
+                        select libraries with tags (dgsyp, d for debug),
+                        see doc Boost, Getting Started, chapter 6.1
+  --boost-toolset=BOOST_TOOLSET
+                        force a toolset e.g. msvc, vc90,
+                        gcc, mingw, mgw45 (default: auto)
+  --boost-python=BOOST_PYTHON
+                        select the lib python with this version
+                        (default: 311)
+  --notests             Exec no unit tests
+  --alltests            Exec all unit tests
+  --clear-failed        Force failed unit tests to run again next time
+  --testcmd=TESTCMD     Run the unit tests using the test-cmd string example "--
+                        testcmd="valgrind --error-exitcode=1 %s" to run under
+                        valgrind
+  --dump-test-scripts   Create python scripts to help debug tests
+  --eigen=EIGEN         path to eigen
+  --lapacke_blas        enable lapacke/blas if found (required Eigen>=3.3)
+  --tbb=TBB             path to Intel TBB
+  --mkl=MKL             path to Intel Math Kernel Library
+  --sferes=SFERES       path to sferes2
+  --nlopt=NLOPT         path to nlopt
+  --libcmaes=LIBCMAES   path to libcmaes
+  --create=CREATE_EXP   create a new exp
+  --dim_in=DIM_IN       Number of dimensions for the function to optimize
+                        [default: 1]
+  --dim_out=DIM_OUT     Number of dimensions for the function to optimize
+                        [default: 1]
+  --bayes_opt_boptimizer_noise=BAYES_OPT_BOPTIMIZER_NOISE
+                        Acquisition noise of the function to optimize [default:
+                        1e-6]
+  --bayes_opt_bobase_stats_disabled
+                        Disable statistics [default: false]
+  --init_randomsampling_samples=INIT_RANDOMSAMPLING_SAMPLES
+                        Number of samples used for the initialization [default:
+                        10]
+  --stop_maxiterations_iterations=STOP_MAXITERATIONS_ITERATIONS
+                        Number of iterations performed before stopping the
+                        optimization [default: 190]
+  --exp=EXP             exp(s) to build, separate by comma
+  --qsub=QSUB           config file (json) to submit to torque
+  --oar=OAR             config file (json) to submit to oar
+  --local=LOCAL         config file (json) to run local
+  --local_serial=LOCAL_SERIAL
+                        config file (json) to run local
+  --experimental        specify to compile the experimental examples
+  --nb_replicates=NB_REP
+                        number of replicates performed during the benchmark
+  --tests               compile tests or not
+  --write_params=WRITE_PARAMS
+                        write all the default values of parameters in a file
+                        (used by the documentation system)
+  --regression_benchmarks=REGRESSION_BENCHMARKS
+                        config file (json) to compile benchmark for regression
+  --cpp14               force c++-14 compilation [--cpp14]
+  --no-native           disable -march=native, which can cause some troubles
+                        [--no-native]
+  --openmp              enable OpenMP (if found)
+  --nowarnings          disable all warnings (used by the CI)
+  --enable_bayesopt     enable the comparison with bayesopt in the benchmarks
+  --bayesopt_path=BAYESOPT_PATH
+                        path to Bayesopt
+  --enable_libgp        enable the comparison with libgp in the benchmarks
+  --libgp_path=LIBGP_PATH
+                        path to libgp
+
+  Configuration options:
+    -o OUT, --out=OUT   build dir for the project
+    -t TOP, --top=TOP   src dir for the project
+    --prefix=PREFIX     installation prefix [default: '/usr/local/']
+    --bindir=BINDIR     bindir
+    --libdir=LIBDIR     libdir
+    --check-cxx-compiler=CHECK_CXX_COMPILER
+                        list of C++ compilers to try [g++ clang++ icpc]
+    --check-c-compiler=CHECK_C_COMPILER
+                        list of C compilers to try [gcc clang icc]
+
+  Build and installation options:
+    -p, --progress      -p: progress bar; -pp: ide output
+    --targets=TARGETS   task generators, e.g. "target1,target2"
+
+  Step options:
+    --files=FILES       files to process, by regexp, e.g.
+                        "*/main.c,*/test/main.o"
+
+  Installation and uninstallation options:
+    --destdir=DESTDIR   installation root [default: '']
+    -f, --force         force file installation
+    --distcheck-args=ARGS
+                        arguments to pass to distcheck

@@ -35,7 +35,23 @@ dependencies = [
     ('Boost.Python', '1.82.0'),
     ('gflags', '2.2.2'),
     ('googletest', '1.13.0'),
-    ('tbb', '2020.1'),
+    ('tbb', '2020.3'),
+]
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+    'download_dep_fail': True,
+    'use_pip': True,
+    'sanity_pip_check': True,
+    'preinstallopts': '',
+    'installopts': '',
+}
+
+exts_list = [
+    ('brewer2mpl', '1.4.1', {
+        'checksums': ['2e094d1bea766885aa77e4ed40cc718af6458a1d5e08cc87a5f453c6095b1b1c'],
+    }),
 ]
 
 configopts = "-DUSE_TBB=ON -DUSE_OPENMP=OFF -DEIGEN3_INCLUDE_DIR=$EBROOTEIGEN/include "

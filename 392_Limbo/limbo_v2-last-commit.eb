@@ -14,6 +14,7 @@ that is designed to be both highly flexible and very fast.
 
 # toolchain = {'name': 'intel', 'version': '2023a'}
 toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'openmp': True}
 
 source_urls = ['https://github.com/resibots/limbo/archive/']
 sources = [{
@@ -34,26 +35,27 @@ dependencies = [
     ('Python-bundle-PyPI', '2023.06'),
     ('SciPy-bundle', '2023.07'),
     ('matplotlib', '3.7.2'),
-    ('Boost', '1.82.0'),
+    ('Boost.Python', '1.82.0'),
     ('NLopt', '2.7.1'),
-    ('tbb', '2020.1'),
+    ('tbb', '2020.3'),
     ('libcmaes-resibots', '20180806', '-%(name)s-2.1.0'),
 ]
 
 # preconfigopts = 'rm waf && curl -L -o waf https://waf.io/waf-2.0.27 && chmod +x waf && ls -alF && '
-preconfigopts = "rm waf && ln -s waf-2.0.27 waf && chmod +x waf && "
+preconfigopts = "rm waf && ln -s waf-2.0.27 waf && chmod +x waf &&"
 
 configopts = "--boost-includes=${EBROOTBOOST}/include --boost-libs=${EBROOTBOOST}/lib "
+configopts += "--boost-python=${EBROOTBOOSTPYTHON} "
 configopts += "--eigen=${EBROOTEIGEN}/include "
 configopts += "--libcmaes=${EBROOTLIBCMAESMINRESIBOTS} "
-configopts += "--tbb=${EBROOTTTB} "
+configopts += "--tbb=${EBROOTTBB} "
 configopts += "--nlopt=${EBROOTNLOPT} "
-configopts += "--lapacke_blas "
+configopts += "--openmp "
 
-# runtest = "./waf run_tests"
+buildopts = "-j8 "
 
-# should solve ERROR1 - from https://groups.google.com/g/ns-3-users/c/XrIbgjLm5zI -> NO
-# preconfigopts = './waf distclean && '
+buildininstalldir = True
+# runtest = "./waf --tests"
 
 # configopts = "--icc "                                   # Do not test for gcc and only use icc
 # configopts += "--ifort "                                # Do not test for gfortran and only use ifort
@@ -72,24 +74,14 @@ configopts += "--lapacke_blas "
 #     'CLIK_PLUGIN': 'rel2015',
 # }
 
-# modextrapaths = {
-#     'PYTHONPATH': 'lib/python/site-packages'
-# }
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['bin'],
+}
 
-# sanity_check_paths = {
-#     'files': [
-#         'lib/libclik_f90.%s' % SHLIB_EXT,
-#         'lib/libclik.%s' % SHLIB_EXT,
-#         'lib/python/site-packages/clik/__init__.py',
-#         'include/clik.h',
-#     ],
-#     'dirs': [
-#         'bin',
-#         'share',
-#     ],
-# }
+modextrapaths = {'PATH': 'waf'}
 
-moduleclass = 'math'
+moduleclass = 'lib'
 
 # ERROR1: OK
     # -> Seems it is not compatible with latest waf (v2.1.2) -> try older v2.0.27
