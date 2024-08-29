@@ -16,7 +16,7 @@ builddependencies = [
     ('binutils', '2.40'),
 ]
 
-cmds_map = [('mcqd.cpp', 'echo here && pwd && ls -lh && $CXX $CXXFLAGS $LDFLAGS mcqd.cpp -o mcqd')]
+cmds_map = [('.*', 'echo here && pwd && ls -lh && $CXX $CXXFLAGS $LDFLAGS mcqd.cpp -o mcqd')]
 
 files_to_copy = [
     (['%(name)s'], 'bin'),
