@@ -16,19 +16,12 @@ builddependencies = [
     ('binutils', '2.40'),
 ]
 
-cmds_map = [('.*', '$CXX $CXXFLAGS $LDFLAGS mcqd.cpp -o mcqd')]
-
-files_to_copy = [
-    'build/dist/%(name)s/bin',
-    'build/dist/%(name)s/lib',
-]
+cmds_map = [('mcqd.cpp', 'echo here && pwd && ls -lh && $CXX $CXXFLAGS $LDFLAGS mcqd.cpp -o mcqd')]
 
 files_to_copy = [
     (['%(name)s'], 'bin'),
     (['%(name)s.h'], 'include'),
 ]
-
-modextrapaths = {'PATH': ['']}
 
 sanity_check_paths = {
     'files': [
