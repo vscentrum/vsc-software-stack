@@ -1,7 +1,8 @@
 easyblock = 'MakeCp'
 
 name = 'NextDenovo'
-version = '2.5.2'
+version = '2.5.2-20240510'
+local_commit = '0e5fa5d'
 
 homepage = 'https://github.com/Nextomics/NextDenovo'
 description = 'NextDenovo is a string graph-based de novo assembler for long reads.'
@@ -9,13 +10,14 @@ description = 'NextDenovo is a string graph-based de novo assembler for long rea
 toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
 source_urls = ['https://github.com/Nextomics/NextDenovo/archive/']
-sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
-checksums = ['f1d07c9c362d850fd737c41e5b5be9d137b1ef3f1aec369dc73c637790611190']
+sources = [{'download_filename': '0e5fa5d.tar.gz', 'filename': SOURCE_TAR_GZ}]
+checksums = ['bbe43124e7d63cbe33179c2abf2de60797bb7361a7f7a2b5fc33bf62a4479726']
 
 builddependencies = [('binutils', '2.40')]
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
+    ('cURL', '8.0.1'),
 ]
 
 exts_defaultclass = 'PythonPackage'
