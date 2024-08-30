@@ -17,7 +17,7 @@ builddependencies = [('binutils', '2.40')]
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
-    ('HTSlib', '1.18', 'fPIC-test'),
+    ('HTSlib', '1.9', 'fPIC-test'),
     # ('cURL', '8.0.1'),
     # ('cURL', '7.86.0'),
     # ('cURL', '7.66.0'),
@@ -41,23 +41,21 @@ exts_list = [
     }),
 ]
 
-buildopts = 'HTSDIR=$EBROOTHTSLIB/lib'
+# buildopts = 'HTSDIR=$EBROOTHTSLIB/lib'
 parallel = 1
 # prebuildopts = "sed -i 's/seq_count bwa samtools minimap2/seq_count samtools minimap2/' Makefile && "
-prebuildopts = "rm -rf lib/htslib && "
+prebuildopts = "rm -rf lib/htslib && mkdir lib/htslib && "
+prebuildopts += "cd %(start_dir)s/lib/htslib && ln -s $EBROOTHTSLIB/lib/libhts.a && ln -s $EBROOTHTSLIB/lib/libhts.so && cd %(start_dir)s && "
 prebuildopts += (
     "sed -i"
-    # " -e 's|./htslib/|$(EBROOTHTSLIB)/lib|'"
     " -e '10,13d'"
     " -e 's|$(HTSDIR)/libhts.a||'"
-    # " -e '/bwa_:/d'"
     " lib/Makefile && "
 )
 prebuildopts += (
     "sed -i"
     " -e 's|$(HTSDIR)/libhts.a||'"
     " -e '10,13d'"
-    # " -e '/bwa_:/d'"
     " util/Makefile && "
 )
 
