@@ -89,3 +89,72 @@ exts_list = [
 ]
 
 moduleclass = 'devel'
+
+# TODO
+# == 2024-09-02 21:52:05,431 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2
+# .0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Sagemath/10.3-foss-2023b  --no-deps  --ignore-installed  --no-index  --no-build-isolation  ." exited with exit code 1 and
+#  output:
+# Processing /tmp/vsc45304/easybuild/build/Sagemath/10.3/foss-2023b/sagemathtdlib/sagemath-tdlib-10.3
+#   Preparing metadata (pyproject.toml): started
+#   Preparing metadata (pyproject.toml): finished with status 'done'
+# Building wheels for collected packages: sagemath-tdlib
+#   Building wheel for sagemath-tdlib (pyproject.toml): started
+#   Building wheel for sagemath-tdlib (pyproject.toml): finished with status 'error'
+#   error: subprocess-exited-with-error
+#
+#    Building wheel for sagemath-tdlib (pyproject.toml) did not run successfully.
+#    exit code: 1
+#   > [45 lines of output]
+#       python_packages = []
+#       python_modules = []
+#       cython_modules = [<setuptools.extension.Extension('sage.graphs.graph_decompositions.tdlib') at 0x14f6e1bee8d0>]
+#       [09/02/24 21:51:56] WARNING  pyproject.toml does not contain a tool.setuptools_scm section                                                                                                                                 setuptools.
+# py:119
+#       running bdist_wheel
+#       running build
+#       running build_ext
+#       running build_cython
+#       Enabling Cython debugging support
+#       INFO: Disabling color, you really want to install colorlog.
+#       Disabling color, you really want to install colorlog.
+#       Updating Cython code....
+#       [1/1] Cythonizing sage/graphs/graph_decompositions/tdlib.pyx
+#       Finished Cythonizing, time: 0.74 seconds.
+#       creating build/lib.linux-x86_64-cpython-311/sage/graphs
+#       creating build/lib.linux-x86_64-cpython-311/sage/graphs/graph_decompositions
+#       copying ./sage/graphs/graph_decompositions/tdlib.pyx -> build/lib.linux-x86_64-cpython-311/sage/graphs/graph_decompositions
+#       building 'sage.graphs.graph_decompositions.tdlib' extension
+#       Executing 1 command (using 1 thread)
+#       [1/1] creating build/temp.linux-x86_64-cpython-311/build
+#       creating build/temp.linux-x86_64-cpython-311/build/cythonized
+#       creating build/temp.linux-x86_64-cpython-311/build/cythonized/sage
+#       creating build/temp.linux-x86_64-cpython-311/build/cythonized/sage/graphs
+#       creating build/temp.linux-x86_64-cpython-311/build/cythonized/sage/graphs/graph_decompositions
+#       gcc -DNDEBUG -g -fwrapv -O3 -Wall -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -O2 -ftree-vectorize -march=native -fno-math-errno -I/apps/gent/RHEL8/cascadelake-ib/software/FFTW/3.3.10-GCC-13.2.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-13.2.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/FlexiBLAS/3.3.1-GCC-13.2.0/include/flexiblas -fPIC -Isage/graphs/graph_decompositions -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/cysignals/1.11.4-GCCcore-13.2.0/lib/python3.11/site-packages/cysignals -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Sagemath/10.3-foss-2023b/lib/python3.11/site-packages -I/apps/gent/RHEL8/cascadelake-ib/software/SciPy-bundle/2023.11-gfbf-2023b/lib/python3.11/site-packages/numpy/core/include -I/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/include/python3.11 -Ibuild/cythonized -I/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/include/python3.11 -c build/cythonized/sage/graphs/graph_decompositions/tdlib.cpp -o build/temp.linux-x86_64-cpython-311/build/cythonized/sage/graphs/graph_decompositions/tdlib.o -fno-strict-aliasing -DCYTHON_CLINE_IN_TRACEBACK=1
+#       In file included from build/cythonized/sage/graphs/graph_decompositions/tdlib.cpp:2348:
+#       build/cythonized/sage/graphs/graph_decompositions/sage_tdlib.cpp:7:10: fatal error: tdlib/TD_combinations.hpp: No such file or directory
+#           7 | #include "tdlib/TD_combinations.hpp"
+#             |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+#       compilation terminated.
+#       error: command '/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/gcc' failed with exit code 1
+#       Exception ignored in: <function Pool.__del__ at 0x14f697c0ede0>
+#       Traceback (most recent call last):
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/pool.py", line 271, in __del__
+#           self._change_notifier.put(None)
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/queues.py", line 377, in put
+#           self._writer.send_bytes(obj)
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 199, in send_bytes
+#           self._send_bytes(m[offset:offset + size])
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 410, in _send_bytes
+#           self._send(header + buf)
+#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/multiprocessing/connection.py", line 367, in _send
+#           n = write(self._handle, buf)
+#               ^^^^^^^^^^^^^^^^^^^^^^^^
+#       OSError: [Errno 9] Bad file descriptor
+#       [end of output]
+#
+#   note: This error originates from a subprocess, and is likely not a problem with pip.
+#   ERROR: Failed building wheel for sagemath-tdlib
+# Failed to build sagemath-tdlib
+# ERROR: Could not build wheels for sagemath-tdlib, which is required to install pyproject.toml-based projects
+#  (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)
