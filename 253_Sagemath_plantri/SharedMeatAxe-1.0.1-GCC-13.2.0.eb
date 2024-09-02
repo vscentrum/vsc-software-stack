@@ -1,0 +1,31 @@
+easyblock = 'ConfigureMake'
+
+name = 'SharedMeatAxe'
+version = '1.0.1'
+
+homepage = 'https://github.com/simon-king-jena/SharedMeatAxe'
+description = """This is an autotoolized shared library version of C MeatAxe 2.4.24,
+ a set of programs for computing with modular representations."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.2.0'}
+
+source_urls = ['https://github.com/simon-king-jena/SharedMeatAxe/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = []
+
+preconfigopts = 'autoreconf --install && '
+
+runtest = 'check'
+
+sanity_check_paths = {
+    'files': [
+        'bin/mktree',  # TODO
+        'include/meataxe.h',
+        'lib/libmtx.%s' % SHLIB_EXT,
+    ],
+    'dirs': []
+}
+
+sanity_check_commands = ['mktree --help']
+
+moduleclass = 'math'
