@@ -1,0 +1,91 @@
+easyblock = 'PythonBundle'
+
+name = 'RFdiffusion'
+version = '1.1.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/RosettaCommons/RFdiffusion'
+description = """
+RFdiffusion is an open source method for structure generation, with or without conditional information 
+(a motif, target etc). It can perform a whole range of protein design challenges as we have outlined 
+in the RFdiffusion paper.
+"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+_pysp = '%(installdir)s/lib/python%(pyshortver)s/site-packages'
+
+dependencies = [
+    ('CUDA', '11.7.0', '', SYSTEM),
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('e3nn', '0.3.3', versionsuffix),
+    ('wandb', '0.13.4'),
+    ('DGL', '1.1.1', versionsuffix),
+    ('Hydra', '1.3.2'),  # provides hydra-core, omegaconf
+]
+
+use_pip = True
+
+exts_list = [
+    ('pynvml', '11.0.0', {
+        'checksums': ['d5fc4a22d355b40c341d6ba0aa888a2d4d2253177d243900f8401b7e6cacb1bb'],
+    }),
+    ('dllogger', '1.0.0', {
+        'source_urls': ['https://github.com/NVIDIA/dllogger/archive/refs/tags'],
+        'sources': ['v%(version)s.zip'],
+        'checksums': ['07d0cd9b9b56f454f0c186a0889137e9f94e1979fca3d35911967c874c93c191'],
+    }),
+    ('decorator', '5.1.1', {
+        'checksums': ['637996211036b6385ef91435e4fae22989472f9d571faba8927ba8253acbc330'],
+    }),
+    ('SE3Transformer', version, {
+        'modulename': 'se3_transformer',
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/RosettaCommons/RFdiffusion/archive/refs/tags/'],
+        'start_dir': 'env/SE3Transformer',
+        'checksums': ['57d82f0d43540c2912eda3f1d34ad90b13db14966ee069c427e217fe78f0297f'],
+    }),
+    ('executing', '2.0.1', {
+        'checksums': ['35afe2ce3affba8ee97f2d69927fa823b08b472b7b994e36a52a964b93d16147'],
+    }),
+    ('asttokens', '2.4.1', {
+        'checksums': ['b03869718ba9a6eb027e134bfdf69f38a236d681c83c160d510768af11254ba0'],
+    }),
+    ('icecream', '2.1.3', {
+        'checksums': ['0aa4a7c3374ec36153a1d08f81e3080e83d8ac1eefd97d2f4fe9544e8f9b49de'],
+    }),
+    (name, version, {
+        'patches': [
+            'RFdiffusion-1.1.0_setup.patch',
+            # change default paths of models and schedules to $RFDIFFUSION_MODELS and RFDIFFUSION_SCHEDULES
+            # to be set by dependencies RFDiffusion-models and RFDiffusion-schedules.
+            # Expect default config in  _pysp/rfdiffusion/config/inference:
+            'RFdiffusion-1.1.0_data_paths.patch',
+        ],
+        'sources': {
+            'filename': '%(name)s-%(version)s.tar.gz',
+            'download_filename': 'v%(version)s.tar.gz',
+            'source_urls': ['https://github.com/RosettaCommons/RFdiffusion/archive/refs/tags'],
+        },
+        'checksums': [
+            {'RFdiffusion-1.1.0.tar.gz': '57d82f0d43540c2912eda3f1d34ad90b13db14966ee069c427e217fe78f0297f'},
+            {'RFdiffusion-1.1.0_setup.patch': '1d17fae9d4d3716814f0d9bb6587658590dc07772c87e92fb9ad81cda6a2539d'},
+            {'RFdiffusion-1.1.0_data_paths.patch': '3d1ddd1684004b4757958ef3d07b96a0f8976091fe670381fc723ad4eb6d65a5'},
+        ],
+    }),
+]
+
+modextravars = {
+    'RFDIFFUSION_MODELS': '/databases/bio/RFdiffusion-models-1.1.0',
+    'RFDIFFUSION_SCHEDULES': '/databases/bio/RFdiffusion-schedules-1.1.0',
+}
+
+
+postinstallcmds = [
+    'cp -rpP config examples %s/%%(namelower)s' % _pysp,
+]
+
+sanity_pip_check = True
+
+moduleclass = 'bio'
