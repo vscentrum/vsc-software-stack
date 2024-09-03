@@ -7,13 +7,16 @@ homepage = 'https://github.com/miguelmarco/SIROCCO2/'
 description = """C++ library that allows to compute piecewise linear
  approximations of the path followed by the root of a complex polynomial"""
 
-toolchain = {'name': 'GCCcore', 'version': '13.2.0'}
+toolchain = {'name': 'GCC', 'version': '13.2.0'}
 
 source_urls = ['https://github.com/miguelmarco/SIROCCO2/archive/']
 sources = ['%(version)s.tar.gz']
 checksums = ['1fd66ae94d73095f1355389c1d3d94222437bed87579d77667f50548bdd9fa9a']
 
-# TODO Autotools
+builddependencies = [
+    ('Autotools', '20220317'),
+]
+
 dependencies = [
     ('MPFR', '4.2.1'),
 ]
