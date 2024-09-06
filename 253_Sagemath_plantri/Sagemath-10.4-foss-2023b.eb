@@ -58,6 +58,9 @@ dependencies = [
     ('Pillow', '10.2.0'),
     ('fpylll', '0.6.1'),
     ('primecountpy', '0.1.0'),
+    ('lrcalc', '2.1'),
+    ('PyZMQ', '25.1.2'),
+    ('tornado', '6.4'),
 ]
 
 use_pip = True
@@ -71,7 +74,51 @@ exts_list = [
         'checksums': ['d609216b03031967e2b45a804b12ff9029578f4ec019fde42cf6aed6ca09efe4'],
     }),
     ('sage_setup', version, {
-        'checksums': ['226853220015c701f4c1b57222de621b82a5b2593ab1c2f0f95d75b4852d8537'],
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['4797ceae2f5f636a756f4121011246445611f7a56bced2df431328fe013c52c7'],
+    }),
+    ('conway_polynomials', '0.10', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['a354b4ac0a9985da75e2ac6ec6d7de2902396eff48913eeed86a962486171c28'],
+    }),
+    ('comm', '0.2.2', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['e6fb86cb70ff661ee8c9c14e7d36d6de3b4066f1441be4063df9c5009f0a64d3'],
+    }),
+    ('debugpy', '1.8.5', {
+        'source_tmpl': SOURCE_WHL,
+        'checksums': ['55919dce65b471eff25901acf82d328bbd5b833526b6c1364bd5133754777a44'],
+    }),
+    ('nest_asyncio', '1.6.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['87af6efd6b5e897c81050477ef65c62e2b2f35d51703cae01aff2905b1852e1c'],
+    }),
+    ('ipykernel', '6.29.5', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['afdb66ba5aa354b09b91379bac28ae4afebbb30e8b39510c9690afb7a10421b5'],
+    }),
+    ('jupyterlab_widgets', '3.0.13', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['e3cda2c233ce144192f1e29914ad522b2f4c40e77214b0cc97377ca3d323db54'],
+    }),
+    ('widgetsnbextension', '4.0.13', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['74b2692e8500525cc38c2b877236ba51d34541e6385eeed5aec15a70f88a6c71'],
+    }),
+    ('ipywidgets', '8.1.5', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['3290f526f87ae6e77655555baba4f36681c555b8bdbbff430b70e52c34c86245'],
+    }),
+    ('jupyter_core', '5.7.2', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['4f7315d2f6b4bcf2e3e7cb6e46772eba760ae459cd1f59d29eb57b0a01bd7409'],
+    }),
+    ('jupyter_client', '8.6.2', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['50cbc5c66fd1b8f65ecb66bc490ab73217993632809b6e505687de18e9dea39f'],
+    }),
+    ('lrcalc', '2.1', {
+        'checksums': ['e3a0509aeda487b412b391a52e817ca36b5c063a8305e09fd54d53259dd6aaa9'],
     }),
     ('%(namelower)s_standard', version, {
         'checksums': ['f6579e85f33bd9bb6e9b991bfc4c49dab1e649858ed9ee41c7cec75cb92d4c62'],
@@ -97,10 +144,3 @@ exts_list = [
 ]
 
 moduleclass = 'math'
-
-# TODO
-# sagemath-standard 10.4 requires conway-polynomials, which is not installed.
-# sagemath-standard 10.4 requires ipykernel, which is not installed.
-# sagemath-standard 10.4 requires ipywidgets, which is not installed.
-# sagemath-standard 10.4 requires jupyter-client, which is not installed.
-# sagemath-standard 10.4 requires lrcalc, which is not installed.
