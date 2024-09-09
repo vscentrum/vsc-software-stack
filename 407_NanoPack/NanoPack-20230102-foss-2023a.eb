@@ -1,0 +1,29 @@
+easyblock = 'PythonBundle'
+
+name = 'NanoPack'
+version = '20230102'
+local_commit = '044d91a'
+
+homepage = 'https://daler.github.io/pybedtools'
+description = "pybedtools wraps and extends BEDTools and offers feature-level manipulations from within Python."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    # TODO
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    (name, version, {
+        'github_account': 'wdecoster',
+        'source_urls': [GITHUB_SOURCE],
+        'sources': ['%s.tar.gz' % local_commit],
+        'checksums': ['b533dd54bf9688a24faf9cb724050ace87bba18b2f469e1116ae47c9ae26cdc1'],
+    }),
+]
+
+moduleclass = 'bio'
