@@ -121,26 +121,45 @@ exts_list = [
         'checksums': ['e3a0509aeda487b412b391a52e817ca36b5c063a8305e09fd54d53259dd6aaa9'],
     }),
     ('%(namelower)s_standard', version, {
+        'modulename': 'sage',
         'checksums': ['f6579e85f33bd9bb6e9b991bfc4c49dab1e649858ed9ee41c7cec75cb92d4c62'],
     }),
     ('%(namelower)s_bliss', version, {
+        'modulename': False,
         'checksums': ['70cccef849908436c2f9f1aabb3992a21c90d3ce99d1a965743f0fdec3735d32'],
     }),
     ('%(namelower)s_coxeter3', version, {
+        'modulename': False,
         'checksums': ['c4f20204b91a696caeb7ad7cf33d2b0398d26d287085b2cb9434e8b067716fca'],
     }),
     ('%(namelower)s_mcqd', version, {
+        'modulename': False,
         'checksums': ['6a140d8b3866ea27aa5966f3aab86a882785862fb00ae37087beb09105b94175'],
     }),
     ('%(namelower)s_meataxe', version, {
+        'modulename': False,
         'checksums': ['5b625333c3168fc2ab55d32ad7e8c41912858bde8010b5aadc70c6450fa967e8'],
     }),
     ('%(namelower)s_sirocco', version, {
+        'modulename': False,
         'checksums': ['499304b3331751d7b0f62de8379afb073d55f144c5f73775da0c5b92160e3a7c'],
     }),
     ('%(namelower)s_tdlib', version, {
+        'modulename': False,
         'checksums': ['018497a1e220d3320a37d1acb3eee59ec820d167c7916e95f0508709a2e31703'],
     }),
 ]
 
+sanity_check_commands = [
+    "sage --help",
+    "python -c 'from sage.all import *'",
+]
+
 moduleclass = 'math'
+
+# TODO
+# == 2024-09-10 13:37:55,805 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: sanity check command sage-list-packages --installed-only all exited with code 1 (output: Traceback (most recent call last):
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Sagemath/10.4-foss-2023b/bin/sage-list-packages", line 13, in <module>
+#     raise RuntimeError("The environment variable SAGE_ROOT must be set.")
+# RuntimeError: The environment variable SAGE_ROOT must be set.
+# ) (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
