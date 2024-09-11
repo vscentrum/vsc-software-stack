@@ -1,4 +1,4 @@
-easyblock = 'PythonBundle'
+easyblock = 'PythonPackage'
 
 name = 'NanoStat'
 version = '1.6.0'
@@ -9,20 +9,18 @@ description = """Calculate various statistics from a long read sequencing datase
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
+sources = [SOURCE_TAR_GZ]
+checksums = ['e45fa8d1ab49bdaed17596c26c0af148b44e4af46238391a8bb7a1b4cc940079']
+
 dependencies = [
     ('Python', '3.11.3'),
     ('nanoget', '1.19.3'),
     ('nanomath', '1.4.0'),
 ]
 
-sanity_pip_check = True
+download_dep_fail = True
 use_pip = True
-
-exts_list = [
-    (name, version, {
-        'checksums': ['e45fa8d1ab49bdaed17596c26c0af148b44e4af46238391a8bb7a1b4cc940079'],
-    }),
-]
+sanity_pip_check = True
 
 sanity_check_paths = {
     'files': ['bin/NanoStat'],
