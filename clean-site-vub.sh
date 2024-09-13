@@ -44,8 +44,11 @@ while read -r site_file; do
         if diff -q "$site_file" "$eb_file" 1>/dev/null; then
             echo "    > Files are equal"
             # remove site copy of the file
-            (git_repo_remove "$site_file" 1>/dev/null && echo "    > Removed from local site repo") \
-                || fail "Failed to remove file from site repo: $site_file"
+            if git_repo_remove "$site_file" 1>/dev/null; then
+                echo "    > Removed from local site repo"
+            else
+                fail "Failed to remove file from site repo: $site_file"
+            fi
         else
             echo "    > Files differ"
         fi
