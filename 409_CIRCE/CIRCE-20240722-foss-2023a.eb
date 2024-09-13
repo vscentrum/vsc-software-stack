@@ -34,12 +34,37 @@ exts_list = [
     }),
     ('circe_py', version, {
         'modulename': 'circe',
-        'checksums': ['0b828b8819bf1f0a6884016deb73e8551ac1d505c9091fbff2643dd48ebcc20e'],
+        'patches': ['CIRCE-20240722_requirements.patch'],
+        'checksums': [
+            {'circe_py-0.2.2.tar.gz': '0b828b8819bf1f0a6884016deb73e8551ac1d505c9091fbff2643dd48ebcc20e'},
+            {'CIRCE-20240722_requirements.patch': '8d957f12732118cc36d2700ba2f18ebb260d288c1db372951d435e5aabe3a606'},
+        ],
     }),
 ]
 
 moduleclass = 'bio'
 
 # TODO
-# circe-py 0.2.2 has requirement pandas<3.0.0,>=2.1.1, but you have pandas 2.0.3.
-# circe-py 0.2.2 has requirement rich<11.0.0,>=10.12.0, but you have rich 13.8.0.
+# Traceback (most recent call last):
+#   File "/kyukon/home/gent/453/vsc45304/vsc-software-stack/409_CIRCE/run.py", line 20, in <module>
+#     ci.compute_atac_network(
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.2.2-foss-2023a/lib/python3.11/site-packages/circe/circe.py", line 264, in compute_atac_network
+#     anndata.varp[key] = sliding_graphical_lasso(
+#                         ^^^^^^^^^^^^^^^^^^^^^^^^
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.2.2-foss-2023a/lib/python3.11/site-packages/circe/circe.py", line 929, in sliding_graphical_lasso
+#     alpha = average_alpha(
+#             ^^^^^^^^^^^^^^
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.2.2-foss-2023a/lib/python3.11/site-packages/circe/circe.py", line 693, in average_alpha
+#     alpha = local_alpha(
+#             ^^^^^^^^^^^^
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.2.2-foss-2023a/lib/python3.11/site-packages/circe/circe.py", line 502, in local_alpha
+#     results = graph_lasso_model.fit(cov).precision_
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.2.2-foss-2023a/lib/python3.11/site-packages/circe/quic_graph_lasso.py", line 352, in fit
+#     ) = quic(
+#         ^^^^^
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.2.2-foss-2023a/lib/python3.11/site-packages/circe/quic_graph_lasso.py", line 129, in quic
+#     pyquic.quic(
+#     ^^^^^^^^^^^
+# AttributeError: module 'circe.pyquic' has no attribute 'quic'
+
