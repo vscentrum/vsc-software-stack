@@ -1,4 +1,11 @@
 #!/bin/bash
+#
+# Script to automatically remove from site-vub repo any easyconfig and
+# patch files already merged upstream in EasyBuild.
+#
+# usage: clean-site-vub.sh [path to local easyconfig repo]
+# (execute from top directory of site-vub git repo)
+#
 
 SITE_REPO="site-vub"
 SITE_EASYCONFIGS="easyconfigs"
@@ -23,7 +30,7 @@ function git_repo_remove () {
 [ -d "$EB_EASYCONFIGS" ] || fail "Upstream easyconfig repo not found: $EB_EASYCONFIGS"
 
 # sync site repo with remote
-#git pull origin "$SITE_REPO" || fail "Failed to sync site repo with remote"
+git pull origin "$SITE_REPO" || fail "Failed to sync site repo with remote"
 
 while read -r site_file; do
     site_filename=$(basename "$site_file")
