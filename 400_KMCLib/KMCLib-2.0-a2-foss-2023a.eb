@@ -1,0 +1,52 @@
+easyblock = 'CMakeMake'
+
+name = 'KMCLib'
+version = '2.0-a2'
+
+homepage = 'https://github.com/leetmaa/KMCLib'
+description = """KMCLib - a general framework for lattice kinetic Monte Carlo (KMC) simulations"""
+
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+
+source_urls = ['https://github.com/leetmaa/KMCLib/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['796620a67ad010df4b11734f703151c17441f82cef026f3d56386a34056d0213']
+
+builddependencies = [
+    ('binutils', '2.40'),
+    ('CMake', '3.26.3'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+]
+
+# TODO
+# exts_defaultclass = 'PythonPackage'
+# exts_default_options = {
+#     'source_urls': [PYPI_SOURCE],
+#     'download_dep_fail': True,
+#     'use_pip': True,
+#     'sanity_pip_check': True,
+#     'installopts': '',
+# }
+#
+# exts_list = [
+#     (name, version, {
+#         'source_urls': source_urls,
+#         'sources': sources,
+#         'start_dir': 'python',
+#         'checksums': checksums,
+#     }),
+# ]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["python -c 'from KMCLib import *'"]
+
+moduleclass = 'math'
