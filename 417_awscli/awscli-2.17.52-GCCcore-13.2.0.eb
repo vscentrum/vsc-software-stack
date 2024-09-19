@@ -53,6 +53,7 @@ exts_list = [
         'checksums': ['0ed14ccfbf1c30a9072c7ca157e4319b70d65f623e91e7b32fadb2853431016e'],
     }),
     (name, version, {
+        'preinstallopts' : "sed -i 's/>[^\"]*//g' pyproject.toml && echo here && cat pyproject.toml && ",
         'source_tmpl': '%(version)s.tar.gz',
         'source_urls': ['https://github.com/aws/aws-cli/archive/'],
         'checksums': ['ad6f0aa49e103bc4d47590957ed7e05840c2c94f80b4a4c6858d44016a76b3c9'],
