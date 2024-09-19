@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'awscli'
-version = '2.17.52'
+version = '2.17.54'
 
 homepage = 'https://pypi.python.org/pypi/awscli'
 description = 'Universal Command Line Environment for AWS'
@@ -26,9 +26,9 @@ exts_list = [
         'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['02e2e4cc71b5bcab88332eebf907519190dd9e6e82107fa7f83b1003a6252980'],
     }),
-    ('botocore', '1.35.20', {
+    ('botocore', '1.35.22', {
         'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['62412038f960691a299e60492f9ee7e8e75af563f2eca7f3640b3b54b8f5d236'],
+        'checksums': ['d9bc656e7dde0b3e3f3080fc54bacff6a97fd7806b98acbcc21c7f9d4d0102b9'],
     }),
     ('s3transfer', '0.10.2', {
         'source_tmpl': SOURCE_PY3_WHL,
@@ -53,10 +53,11 @@ exts_list = [
         'checksums': ['0ed14ccfbf1c30a9072c7ca157e4319b70d65f623e91e7b32fadb2853431016e'],
     }),
     (name, version, {
-        'preinstallopts' : "sed -i 's/>[^\"]*//g' pyproject.toml && echo here && cat pyproject.toml && ",
+        # version requirements are too strict
+        'preinstallopts': """sed -i 's/>[^"]*//g' pyproject.toml && """,
         'source_tmpl': '%(version)s.tar.gz',
         'source_urls': ['https://github.com/aws/aws-cli/archive/'],
-        'checksums': ['ad6f0aa49e103bc4d47590957ed7e05840c2c94f80b4a4c6858d44016a76b3c9'],
+        'checksums': ['c0a37eeb52b7df336e117667b67a275929701e9f6dad0ddb7de59a6f834e5b48'],
     }),
 ]
 
@@ -70,11 +71,3 @@ sanity_check_paths = {
 sanity_check_commands = ["aws help"]
 
 moduleclass = 'tools'
-
-# TODO
-# awscli 2.17.52 has requirement awscrt<=0.21.2,>=0.19.18, but you have awscrt 0.21.5.
-# awscli 2.17.52 has requirement cryptography<40.0.2,>=40.0.0, but you have cryptography 41.0.5.
-# awscli 2.17.52 has requirement distro<1.9.0,>=1.5.0, but you have distro 1.9.0.
-# awscli 2.17.52 has requirement docutils<0.20,>=0.10, but you have docutils 0.20.1.
-# awscli 2.17.52 has requirement prompt-toolkit<3.0.39,>=3.0.24, but you have prompt-toolkit 3.0.47.
-# awscli 2.17.52 has requirement ruamel.yaml<=0.17.21,>=0.15.0, but you have ruamel-yaml 0.18.6.
