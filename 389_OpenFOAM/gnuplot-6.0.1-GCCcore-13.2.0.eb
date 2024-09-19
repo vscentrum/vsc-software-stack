@@ -27,9 +27,8 @@ dependencies = [
     ('Pango', '1.51.0'),
     ('libcerf', '2.4'),
     ('X11', '20231019'),
-    ('Qt5', '5.15.13'),
+    ('Qt6', '6.6.3'),
     ('Lua', '5.4.6'),
-    ('libiconv', '1.17'),
 ]
 
 preconfigopts = 'autoreconf && '
@@ -37,7 +36,10 @@ preconfigopts = 'autoreconf && '
 # make sure that right Lua library is used (bypassing pkg-config)
 preconfigopts += 'export LUA_CFLAGS="-I$EBROOTLUA/include" && export LUA_LIBS="$EBROOTLUA/lib/liblua.a" && '
 
-configopts = '--with-qt=qt5 --without-latex --disable-wxwidgets'
+configopts = '--with-qt=qt6 --without-latex --disable-wxwidgets'
+
+buildopts = 'LDFLAGS="$LDFLAGS -Wl,--copy-dt-needed-entries" '
+buildopts += 'LIBS="-lcerf -lcairo -lpangocairo-1.0"'
 
 sanity_check_paths = {
     'files': ['bin/gnuplot'],
