@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'POT'
-version = '0.9.4'
+version = '0.9.3'
 
 homepage = 'https://github.com/rflamary/POT'
 description = """POT (Python Optimal Transport) is a Python library provide several solvers for optimization problems
@@ -36,14 +36,8 @@ exts_list = [
     }),
     ('%(namelower)s', version, {
         'modulename': 'ot',
-        'checksums': ['4cf8b46bf4992c37529161c32dd5e3334e0c089399142f08ed6d455b57015edd'],
+        'checksums': ['eecf2394390a73472e727ef75f7c801fc47509039f00c40f8fc64fdeea617c86'],
     }),
 ]
 
 moduleclass = 'lib'
-
-# TODO
-# ot/lp/emd_wrap.cpp:3389:13: error: PyDataType_ELSIZE was not declared in this scope; did you mean PyDataType_ISSIGNED?
-#  3389 |   __pyx_r = PyDataType_ELSIZE(__pyx_v_self);
-#       |             ^~~~~~~~~~~~~~~~~
-#       |             PyDataType_ISSIGNED
