@@ -28,18 +28,18 @@ dependencies = [
 
 components = [
     # install extra configuration tools and files for VSC clusters
-    ('cesm-config', '1.7.1', {
+    ('cesm-config', '1.7.2', {
         'easyblock': 'Tarball',
         'source_urls': ['https://github.com/vub-hpc/%(name)s/archive'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        'checksums': ['cfc8c3039dc6cc7486d2af6862bffa3a90a02ba44a618f28e9704fa665c675fb'],
+        'checksums': ['9c6c9b6a810de593218440a9c8817c2a03b476b93df3861ac0d00d91fd0bba10'],
         'start_dir': '%(name)s-%(version)s',
     }),
 ]
 
 sanity_check_paths = {
-    'files': ['bin/update-cesm-machines', 'scripts/case.pbs', 'scripts/case.slurm'],
-    'dirs': ['machines', 'irods'],
+    'files': ['bin/update-cesm-machines', 'scripts/case.slurm'],
+    'dirs': ['machines', 'patches'],
 }
 
 usage = """Environment to build and run CESM v2 simulations
