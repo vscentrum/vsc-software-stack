@@ -1,0 +1,44 @@
+# updated: Denis Kristak (INUITS)
+easyblock = 'Tarball'
+
+name = 'BRAKER'
+version = '3.0.8'
+
+homepage = 'https://github.com/Gaius-Augustus/BRAKER'
+description = """BRAKER is a pipeline for fully automated prediction of protein coding genes with GeneMark-ES/ET
+ and AUGUSTUS in novel eukaryotic genomes."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/Gaius-Augustus/BRAKER/archive/']
+sources = ['v%(version)s.tar.gz']
+patches = ['BRAKER-%(version)s_fix-incorrect-ids.patch']
+checksums = []  # TODO
+
+dependencies = [
+    ('Perl', '5.36.1'),
+    ('AUGUSTUS', '3.5.0'),  # TODO
+    ('GeneMark-ET', '4.71'),  # TODO
+    ('BamTools', '2.5.2'),
+    ('SAMtools', '1.18'),
+    ('GenomeThreader', '1.7.3', '-Linux_x86_64-64bit', SYSTEM),
+    ('spaln', '2.4.13f'),  # TODO
+    ('Exonerate', '2.4.0'),  # TODO
+    ('BLAST+', '2.14.1'),
+    ('Biopython', '1.83'),
+    ('DIAMOND', '2.1.8'),
+    ('CDBtools', '0.99'),  # TODO
+]
+
+fix_perl_shebang_for = ['scripts/*.pl']
+
+sanity_check_paths = {
+    'files': ['scripts/align2hints.pl', 'scripts/braker.pl', 'scripts/findGenesInIntrons.pl', 'scripts/startAlign.pl'],
+    'dirs': ['docs', 'example'],
+}
+
+sanity_check_commands = ["braker.pl --help"]
+
+modextrapaths = {'PATH': 'scripts'}
+
+moduleclass = 'bio'
