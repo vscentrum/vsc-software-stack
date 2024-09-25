@@ -87,7 +87,6 @@ checksums = [
     {'hermit-abi-0.2.6.tar.gz': 'ee512640fe35acbfb4bb779db6f0d80704c2cacfa2e39b601ef3e3f47d1ae4c7'},
     {'hermit-abi-0.3.1.tar.gz': 'fed44880c466736ef9a5c5b5facefb5ed0785676d0c02d612db14e54f0d84286'},
     {'hts-sys-2.0.3.tar.gz': '0dba4fc406d3686926c84f98fd53026b625319d119e6056a40313862a6e3c4eb'},
-    {'humantime-2.1.0.tar.gz': '9a3a5bfb195931eeb336b2a7b4d761daec841b97f947d34394601737a7bba5e4'},
     {'idna-0.3.0.tar.gz': 'e14ddfc70884202db2244c223200c204c2bda1bc6e0998d11b5e024d657209e6'},
     {'ieee754-0.2.6.tar.gz': '9007da9cacbd3e6343da136e98b0d2df013f553d35bdec8b518f07bea768e19c'},
     {'image-0.24.5.tar.gz': '69b7ea949b537b0fd0af141fff8c77690f2ce96f4f41f042ccb6c69c6c965945'},
@@ -204,7 +203,7 @@ checksums = [
     {'windows_x86_64_gnullvm-0.42.2.tar.gz': '26d41b46a36d453748aedef1486d5c7a85db22e56aff34643984ea85514e94a3'},
     {'windows_x86_64_msvc-0.42.2.tar.gz': '9aec5da331524158c6d1a4ac0ab1541149c0b9505fde06423b02f5ef0106b9f0'},
     {'zune-inflate-0.2.51.tar.gz': 'a01728b79fb9b7e28a8c11f715e1cd8dc2cda7416a007d66cac55cebb3a8ac6b'},
-    {'kyber-0.4.0_requirements.patch': 'f358835f2f4826aaa034f47c4f110e29493eedd566966ae6026db577acc6787f'},
+    {'kyber-0.4.0_requirements.patch': 'e85150ad3247ec1049daadede6ad599128a52ec88a6e63f0d1b7820ca349b611'},
 ]
 
 crates = [
@@ -280,7 +279,6 @@ crates = [
     ('hermit-abi', '0.2.6'),
     ('hermit-abi', '0.3.1'),
     ('hts-sys', '2.0.3'),
-    ('humantime', '2.1.0'),
     ('idna', '0.3.0'),
     ('ieee754', '0.2.6'),
     ('image', '0.24.5'),
@@ -445,3 +443,15 @@ moduleclass = 'bio'
 # TODO
 # == 2024-09-23 14:25:06,923 run.py:247 INFO running cmd: tar xzf /apps/gent/sources/c/crates.io/humantime-2.1.0.tar.gz
 # == 2024-09-23 14:25:07,193 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Unpacking sources of 'humantime-2.1.0.tar.gz' failed (at easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/cargo.py:193 in extract_step)
+
+# TODO
+# == 2024-09-24 15:49:22,066 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " cargo build --profile=release  --tests -j 8 " exited with exit code 101 and output:
+# error: failed to select a version for the requirement `clap_lex = "^0.7.0"`
+# candidate versions found which didn't match: 0.3.2
+# location searched: directory source `/tmp/vsc45304/easybuild/build/kyber/0.4.0/GCC-12.3.0/easybuild_vendor` (which is replacing registry `crates-io`)
+# required by package `clap_builder v4.5.0`
+#     ... which satisfies dependency `clap_builder = "=4.5.0"` (locked to 4.5.0) of package `clap v4.5.0`
+#     ... which satisfies dependency `clap = "^4.1.4"` (locked to 4.5.0) of package `kyber v0.4.0 (/tmp/vsc45304/easybuild/build/kyber/0.4.0/GCC-12.3.0/kyber-0.4.0)`
+# perhaps a crate was updated and forgotten to be re-vendored?
+# As a reminder, you're using offline mode (--offline) which can sometimes cause surprising resolution failures, if this error is too confusing you may wish to retry without the offline flag.
+#  (at easybuild/easybuild-framework/easybuild/tools/run.py:682 in parse_cmd_output)

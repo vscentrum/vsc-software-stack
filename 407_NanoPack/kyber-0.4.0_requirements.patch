@@ -1,7 +1,7 @@
 Use newer `proc-macro2` to avoid `proc_macro_span_shrink` error.
 Author: Petr Král (INUITS)
 --- Cargo.lock.orig	2024-09-23 12:04:03.201953274 +0200
-+++ Cargo.lock	2024-09-23 13:42:59.618386324 +0200
++++ Cargo.lock	2024-09-24 15:45:12.471756205 +0200
 @@ -109,30 +109,247 @@
  
  [[package]]
@@ -59,9 +59,9 @@ Author: Petr Král (INUITS)
 + "anstyle-wincon",
 + "colorchoice",
 + "utf8parse",
- ]
- 
- [[package]]
++]
++
++[[package]]
 +name = "anstyle"
 +version = "1.0.2"
 +source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -93,9 +93,9 @@ Author: Petr Král (INUITS)
 +dependencies = [
 + "anstyle",
 + "windows-sys 0.52.0",
-+]
-+
-+[[package]]
+ ]
+ 
+ [[package]]
 +name = "colorchoice"
 +version = "1.0.0"
 +source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -262,7 +262,20 @@ Author: Petr Král (INUITS)
  ]
  
  [[package]]
-@@ -959,9 +1176,9 @@
+@@ -464,12 +681,6 @@
+ ]
+ 
+ [[package]]
+-name = "humantime"
+-version = "2.1.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "9a3a5bfb195931eeb336b2a7b4d761daec841b97f947d34394601737a7bba5e4"
+-
+-[[package]]
+ name = "idna"
+ version = "0.3.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+@@ -959,9 +1170,9 @@
  
  [[package]]
  name = "proc-macro2"
