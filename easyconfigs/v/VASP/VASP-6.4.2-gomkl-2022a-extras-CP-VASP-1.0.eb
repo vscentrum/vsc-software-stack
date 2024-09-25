@@ -1,0 +1,119 @@
+easyblock = 'MakeCp'
+
+name = 'VASP'
+version = '6.4.2'
+_vaspsol_ver = '20210413'
+_vaspsol_commit = '0dc6b89b17e22b717cb270ecc4e1bbcfbb843603'
+_vtst_ver = '197'
+_w90_ver = '3.1.0'
+_cp_vasp_ver = '1.0'
+_cp_vasp_full_ver = '1.0-20240814T141634Z-001'
+versionsuffix = '-extras-CP-VASP-%s' % _cp_vasp_ver
+
+homepage = 'http://www.vasp.at'
+description = """The Vienna Ab initio Simulation Package (VASP) is a computer program for atomic scale
+materials modelling, e.g. electronic structure calculations and quantum-mechanical molecular dynamics,
+from first principles."""
+
+toolchain = {'name': 'gomkl', 'version': '2022a'}
+toolchainopts = {'usempi': True}
+
+# Vasp is proprietary software, see http://www.vasp.at/index.php/faqs on how to get access to the code
+# CP-VASP can be obtained upon request at https://sites.utexas.edu/yuanyue-liu/codes/cp-vasp/
+sources = [
+    '%(namelower)s.%(version)s.tgz',
+    {
+        'source_urls': ['https://github.com/henniggroup/VASPsol/archive/'],
+        'download_filename': '%s.tar.gz' % _vaspsol_commit,
+        'filename': 'VASPsol-%s.tar.gz' % _vaspsol_ver,
+    },
+    {
+        'source_urls': ['https://theory.cm.utexas.edu/code/'],
+        'filename': 'vtstcode-%s.tgz' % _vtst_ver,
+    },
+    'CP-VASP-%s.zip' % _cp_vasp_full_ver,
+]
+patches = [
+    ('VASP-6.4.2_gomkl-sol-vtst-hdf5-w90.patch', 1),
+]
+checksums = [
+    {'vasp.6.4.2.tgz': 'b704637f7384673f91adfbc803edc5cc7fe736d9623453461f7cdc29b123410e'},
+    {'VASPsol-20210413.tar.gz': '3eb4b33253a15ca7e32a8939dbf1216b975eedb1f70f7dc371ab6db2308371cb'},
+    {'vtstcode-197.tgz': '2017f5129a10e48ef2d928932eb48156dde7b8a9a26e6d0f5c086eae3ee0cb5a'},
+    {'CP-VASP-1.0-20240814T141634Z-001.zip': 'ffffdcfa6a3ed85077482ca4bd7eb0090926ec3aa39f0816778a46303ef52a45'},
+    {'VASP-6.4.2_gomkl-sol-vtst-hdf5-w90.patch': '51573515c3614c376f245fcdfb2c2cae6e88aa81642e9e550c981295fafa2cc0'},
+]
+
+
+dependencies = [
+    ('HDF5', '1.12.2'),
+    ('Wannier90', _w90_ver),
+]
+
+# Install VASPSol
+_vaspsol_cmds = [
+    "cd %(builddir)s/vasp.%(version)s/src",
+    "cp -v %%(builddir)s/VASPsol-%s/src/solvation.F ./" % _vaspsol_commit,
+    # solvation.o is already in src/.objects, line just commented if it disappears from future versions
+    # "sed -e 's/	pot.o/	solvation.o pot.o/' -i .objects"
+    "patch -bp0 < %%(builddir)s/VASPsol-%s/src/patches/pbz_patch_610" % _vaspsol_commit,
+]
+
+# Install VTST
+# https://theory.cm.utexas.edu/vtsttools/installation.html
+_vtst_cmds = [
+    "cd %(builddir)s/vasp.%(version)s/src",
+    "sed '/CALL CHAIN_FORCE/{n;s/ LATT_CUR%A/ TSIF,LATT_CUR%A/}' -i main.F",
+    "sed 's/IF.*CALL chain_init/CALL chain_init/' -i main.F",
+    "cp -v %%(builddir)s/vtstcode-%s/vtstcode6.4/*.F ./" % _vtst_ver,
+    "cp -vr %%(builddir)s/vtstcode-%s/vtstcode6.4/pyamff_fortran/ ./" % _vtst_ver,
+    r"sed '/^\tchain\.o/i \\tbfgs.o dynmat.o instanton.o lbfgs.o sd.o cg.o dimer.o bbm.o \\' -i .objects",
+    r"sed '/^\tchain\.o/i \\tfire.o lanczos.o neb.o qm.o \\' -i .objects",
+    r"sed '/^\tchain\.o/i \\tpyamff_fortran/*.o ml_pyamff.o \\' -i .objects",
+    r"sed '/^\tchain\.o/i \\topt.o \\' -i .objects",
+    "sed -e 's/LIB=lib parser/LIB=lib parser pyamff_fortran/' -i makefile",
+]
+
+# Install CP-VASP
+# patch must be applied after VASPsol
+_cp_vasp_cmds = [
+    "cd %(builddir)s/vasp.%(version)s/src",
+    "patch -bp0 < %%(builddir)s/Version %s/vasp6.4_6.3_cpm.patch" % _cp_vasp_ver,
+]
+
+_vasp_cmds = [
+    "cd %(builddir)s/vasp.%(version)s",
+    "cp -v arch/makefile.include.gomkl ./makefile.include",
+    # Makefile uses LIBS as a list of folders
+    "unset LIBS",
+    "",
+]
+
+prebuildopts = " && ".join(_vaspsol_cmds + _vtst_cmds + _vasp_cmds)
+
+_targets = ['std', 'gam', 'ncl']
+
+buildopts = '%s ' % ' '.join(_targets)
+buildopts += 'FCL="$MPIF90" DEBUG="$FFLAGS" OFLAG="$FFLAGS" '
+buildopts += 'OFLAG_1="${FFLAGS/O2/O1}" '
+buildopts += 'OFLAG_2="$FFLAGS" '
+buildopts += 'OFLAG_3="${FFLAGS/O2/O3}" '
+buildopts += 'CFLAGS_LIB="$CFLAGS" FFLAGS_LIB="${FFLAGS/O2/O1}" BLAS="$LIBBLAS" '
+buildopts += 'LAPACK="$LIBLAPACK" BLACS="$LIBBLACS" SCALAPACK="$LIBSCALAPACK"'
+
+# https://www.vasp.at/wiki/index.php/Validation_tests
+runtest = 'test'
+
+parallel = 1
+
+files_to_copy = [
+    (['bin/vasp_' + x for x in _targets], 'bin'),
+    (['testsuite'], ''),
+]
+
+sanity_check_paths = {
+    'files': ['bin/vasp_' + x for x in _targets],
+    'dirs': []
+}
+
+moduleclass = 'phys'
