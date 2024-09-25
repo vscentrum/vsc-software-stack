@@ -1,0 +1,48 @@
+easyblock = 'PythonBundle'
+
+name = 'POT'
+version = '0.9.3'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/rflamary/POT'
+description = """POT (Python Optimal Transport) is a Python library provide several solvers for optimization problems
+ related to Optimal Transport for signal, image processing and machine learning."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('matplotlib', '3.7.2'),
+    ('scikit-learn', '1.3.1'),
+    ('CUDA', '12.1.1', '', SYSTEM),
+    ('PyTorch', '2.1.2', versionsuffix),
+    ('jax', '0.4.25', versionsuffix),
+    ('CVXOPT', '1.3.2'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('autograd', '1.7.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['49680300f842f3a8722b060ac0d3ed7aca071d1ad4d3d38c9fdadafdcc73c30b'],
+    }),
+    ('versioneer', '0.29', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['0f1a137bb5d6811e96a79bb0486798aeae9b9c6efc24b389659cebb0ee396cb9'],
+    }),
+    ('pymanopt', '2.2.1', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['75fb11cc924252c8f045779a8ed4b054ddb805a540c314989598d60447560818'],
+    }),
+    (name, version, {
+        'modulename': 'ot',
+        'checksums': ['eecf2394390a73472e727ef75f7c801fc47509039f00c40f8fc64fdeea617c86'],
+    }),
+]
+
+moduleclass = 'lib'
+
+# TODO
+# pymanopt 2.2.1 has requirement scipy!=1.10.*,!=1.11.*,!=1.12.*,>=1.0, but you have scipy 1.11.1.
