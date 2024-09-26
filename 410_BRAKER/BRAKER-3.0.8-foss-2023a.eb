@@ -1,4 +1,5 @@
 # updated: Denis Kristak (INUITS)
+# Update: Petr Král (INUITS)
 easyblock = 'Tarball'
 
 name = 'BRAKER'
@@ -13,7 +14,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 source_urls = ['https://github.com/Gaius-Augustus/BRAKER/archive/']
 sources = ['v%(version)s.tar.gz']
 patches = ['BRAKER-%(version)s_fix-incorrect-ids.patch']
-checksums = []  # TODO
+checksums = ['f2623290c3007a3e42719a0bb2713bec7226db222bfef742895a9d5d0b4ee526']
 
 dependencies = [
     ('Perl', '5.36.1'),
@@ -23,11 +24,11 @@ dependencies = [
     ('SAMtools', '1.18'),
     ('GenomeThreader', '1.7.3', '-Linux_x86_64-64bit', SYSTEM),
     ('spaln', '2.4.13f'),  # TODO
-    ('Exonerate', '2.4.0'),  # TODO
+    ('Exonerate', '2.4.0'),
     ('BLAST+', '2.14.1'),
     ('Biopython', '1.83'),
     ('DIAMOND', '2.1.8'),
-    ('CDBtools', '0.99'),  # TODO
+    ('CDBtools', '0.99'),
 ]
 
 fix_perl_shebang_for = ['scripts/*.pl']
