@@ -78,7 +78,7 @@ _vtst_cmds = [
 # patch must be applied after VASPsol
 _cp_vasp_cmds = [
     "cd %(builddir)s/vasp.%(version)s/src",
-    "patch -bp0 < %%(builddir)s/Version %s/vasp6.4_6.3_cpm.patch" % _cp_vasp_ver,
+    "patch -bp0 < '%%(builddir)s/Version %s/vasp6.4_6.3_cpm.patch'" % _cp_vasp_ver,
 ]
 
 _vasp_cmds = [
@@ -86,10 +86,9 @@ _vasp_cmds = [
     "cp -v arch/makefile.include.gomkl ./makefile.include",
     # Makefile uses LIBS as a list of folders
     "unset LIBS",
-    "",
 ]
 
-prebuildopts = " && ".join(_vaspsol_cmds + _vtst_cmds + _vasp_cmds)
+prebuildopts = " && ".join(_vaspsol_cmds + _vtst_cmds + _cp_vasp_cmds + _vasp_cmds + [''])
 
 _targets = ['std', 'gam', 'ncl']
 
