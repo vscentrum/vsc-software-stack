@@ -1,0 +1,46 @@
+# updated: Denis Kristak (INUITS)
+# Update: Petr Král (INUITS)
+easyblock = 'Tarball'
+
+name = 'GeneMark-ET'
+version = '4.72'
+
+homepage = 'http://exon.gatech.edu/GeneMark'
+description = "Eukaryotic gene prediction suite with automatic training"
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+sources = ['gmes_linux_64-%(version)s.tar.gz']
+checksums = ['629f430e7262bdb5df8f24413e65d26e35eb10ea34212145b692ee4689591e54']
+
+download_instructions = """
+1. complete the license form: http://exon.gatech.edu/GeneMark/license_download.cgi
+2. rename the tarball: `mv gmes_linux_64.tar.gz gmes_linux_64-%(version)s.tar.gz`
+"""
+
+# To run this code, install the key: copy key "gm_key" into user's home directory as:
+# gunzip gm_key.gz
+# cp gm_key_64 ~/.gm_key
+
+dependencies = [('Perl', '5.36.1')]
+
+fix_perl_shebang_for = ['*.pl']
+
+sanity_check_paths = {
+    'files': ['gmes.cfg', 'gmes_petap.pl'],
+    'dirs': ['lib'],
+}
+
+sanity_check_commands = [
+    "gmes_petap.pl | grep 'Usage:'",
+]
+
+modextrapaths = {'PATH': ''}
+
+moduleclass = 'bio'
+
+# TODO
+# == 2024-09-30 19:47:31,798 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: sanity check command gmes_petap.pl | grep 'Usage:' exited with code 1 (output: Can't locate YAML.pm in @INC (you may need to install the YAML module) (@INC contains: /apps/gent/RHEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib/perl5/site_perl/5.36.1/x86_64-linux-thread-multi /apps/gent/RHEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib/perl5/site_perl/5.36.1 /apps/gent/RHEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib/perl5/5.36.1/x86_64-linux-thread-multi /apps/gent/RHEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib/perl5/5.36.1) at /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GeneMark-ET/4.72-GCCcore-12.3.0/gmes_petap.pl line 87.
+# BEGIN failed--compilation aborted at /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GeneMark-ET/4.72-GCCcore-12.3.0/gmes_petap.pl line 87.
+# ) (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
+# == 2024-09-30 19:47:31,798 build_log.py:267 INFO ... (took 35 secs)
