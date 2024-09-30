@@ -10,7 +10,7 @@ description = """ISCE is a framework designed for the purpose of processing Inte
  types of software packages. In its InSAR aspect ISCE supports data from many space-borne
  satellites and one air-borne platform."""
 
-toolchain = {'name': 'GCC', 'version': '12.3.0'}
+toolchain = {'name': 'foss', 'version': '2023a'}
 toolchainopts = {'openmp': True}
 
 source_urls = ['https://github.com/isce-framework/isce2/archive/']
@@ -19,15 +19,15 @@ checksums = ['13fd55ffcadcdd723b61053241d5e49905157b0b0ac6ed8532e4faccaa6d77f1']
 
 builddependencies = [
     ('CMake', '3.26.3'),
+    ('FFTW', '3.3.10'),
 ]
 
-builddependencies = [
-    ('FFTW', '3.3.10'),
+dependencies = [
     ('Python', '3.11.3'),
-    ('Cython', '3.11.3'),
+    ('Cython', '3.0.8'),
     ('GDAL', '3.7.1'),
     ('motif', '2.3.8'),
-    ('OpenCV', '4.8.1'),
+    ('OpenCV', '4.8.1', '-contrib'),
     ('pybind11', '2.11.1'),
 ]
 
@@ -39,3 +39,5 @@ sanity_check_paths = {
 moduleclass = 'phys'
 
 # TODO Python package
+# TODO
+# == 2024-09-30 19:52:18,994 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: no (non-empty) directory found at 'lib' in /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/ISCE2/2.6.3-foss-2023a (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
