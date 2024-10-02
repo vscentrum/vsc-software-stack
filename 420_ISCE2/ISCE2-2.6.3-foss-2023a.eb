@@ -31,13 +31,18 @@ dependencies = [
     ('pybind11', '2.11.1'),
 ]
 
+fix_python_shebang_for = ['bin/*.py']
+
+modextrapaths = {'PYTHONPATH': 'packages'}
+
 sanity_check_paths = {
-    'files': [],
-    'dirs': ['lib'],
+    'files': ['bin/stripmapApp.py'],
+    'dirs': ['packages'],
 }
 
-moduleclass = 'phys'
+sanity_check_commands = [
+    "python -c 'import isce'",
+    "stripmapApp.py --help 2>&1 | grep 'ISCE VERSION = %(version)s'",
+]
 
-# TODO Python package
-# TODO
-# == 2024-09-30 19:52:18,994 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: no (non-empty) directory found at 'lib' in /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/ISCE2/2.6.3-foss-2023a (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
+moduleclass = 'phys'
