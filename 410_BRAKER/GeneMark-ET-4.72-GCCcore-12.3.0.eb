@@ -22,7 +22,10 @@ download_instructions = """
 # gunzip gm_key.gz
 # cp gm_key_64 ~/.gm_key
 
-dependencies = [('Perl', '5.36.1')]
+dependencies = [
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '5.36.1'),
+]
 
 fix_perl_shebang_for = ['*.pl']
 
@@ -38,9 +41,3 @@ sanity_check_commands = [
 modextrapaths = {'PATH': ''}
 
 moduleclass = 'bio'
-
-# TODO
-# == 2024-09-30 19:47:31,798 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: sanity check command gmes_petap.pl | grep 'Usage:' exited with code 1 (output: Can't locate YAML.pm in @INC (you may need to install the YAML module) (@INC contains: /apps/gent/RHEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib/perl5/site_perl/5.36.1/x86_64-linux-thread-multi /apps/gent/RHEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib/perl5/site_perl/5.36.1 /apps/gent/RHEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib/perl5/5.36.1/x86_64-linux-thread-multi /apps/gent/RHEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib/perl5/5.36.1) at /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GeneMark-ET/4.72-GCCcore-12.3.0/gmes_petap.pl line 87.
-# BEGIN failed--compilation aborted at /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GeneMark-ET/4.72-GCCcore-12.3.0/gmes_petap.pl line 87.
-# ) (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
-# == 2024-09-30 19:47:31,798 build_log.py:267 INFO ... (took 35 secs)
