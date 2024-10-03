@@ -7,7 +7,7 @@ versionsuffix = '-Python-%(pyver)s'
 homepage = 'https://github.com/leetmaa/KMCLib'
 description = """KMCLib - a general framework for lattice kinetic Monte Carlo (KMC) simulations"""
 
-toolchain = {'name': 'GCC', 'version': '12.3.0'}
+toolchain = {'name': 'foss', 'version': '2023a'}
 
 source_urls = ['https://github.com/leetmaa/KMCLib/archive/']
 sources = ['v%(version)s.tar.gz']
@@ -20,19 +20,26 @@ builddependencies = [
 
 dependencies = [
     ('Python', '2.7.18'),
+    # ('SciPy-bundle', '2023.07'),  # TODO for `numpy` but no support for Python 2
     ('SWIG', '4.1.1'),
 ]
 
 start_dir = 'c++'
+
 preconfigopts = 'cd ../%(name)s-%(version)s/c++/externals && '
 preconfigopts += 'make CC="$CC" CXX="$CXX" CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" && cd - && '
+
 prebuildopts = 'export CPATH=$EBROOTPYTHON/include/python%(pyshortver)s:$CPATH && '
 
-modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+preinstallopts = 'cp -r %(builddir)s/%(name)s-%(version)s/python/src/KMCLib %(installdir)s && '
+
+installopts = 'DESTDIR="%(installdir)s" '  # TODO probably use patch instead (files are in /tmp/vsc45304/easybuild/build/KMCLib/2.0-a2/python/src/KMCLib/Backend/)
+
+modextrapaths = {'PYTHONPATH': ''}
 
 sanity_check_paths = {
     'files': [],
-    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+    'dirs': ['KMCLib/Backend'],
 }
 
 sanity_check_commands = [
@@ -42,12 +49,15 @@ sanity_check_commands = [
 
 moduleclass = 'math'
 
-# TODO Where should the files (Backend.py, _Backend.so, Custom.py, _Custom.so) actually go? `installdir` is empty.
-# TODO Also installation instructions suggest setting `export PYTHONPATH=<absolute-path>/KMCLib/python/src:${PYTHONPATH}`
-# install( FILES
-#                ${CMAKE_BINARY_DIR}/wrap/Backend.py
-#                ${CMAKE_BINARY_DIR}/wrap/_Backend.so
-#                ${CMAKE_BINARY_DIR}/wrap/Custom.py
-#                ${CMAKE_BINARY_DIR}/wrap/_Custom.so
-#          DESTINATION
-#                ${CMAKE_BINARY_DIR}/../../python/src/KMCLib/Backend/ )
+# TODO
+# make: *** No rule to make target 'install'.  Stop.
+# == 2024-10-03 21:39:32,547 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: sanity check command python -c 'from KMCLib import *' exited with code 1 (output: Traceback (most recent call last):
+#   File "<string>", line 1, in <module>
+#   File "KMCLib/__init__.py", line 18, in <module>
+#     from CoreComponents.KMCLocalConfiguration import KMCLocalConfiguration
+#   File "KMCLib/CoreComponents/KMCLocalConfiguration.py", line 11, in <module>
+#     import numpy
+# ImportError: No module named numpy
+# )
+# sanity check command python /tmp/vsc45304/easybuild/build/KMCLib/2.0-a2/foss-2023a-Python-2.7.18/python/unittest/utest.py exited with code 2 (output: python: can't open file '/tmp/vsc45304/easybuild/build/KMCLib/2.0-a2/foss-2023a-Python-2.7.18/python/unittest/utest.py': [Errno 2] No such file or directory
+# ) (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
