@@ -1,5 +1,5 @@
 name = 'numpy'
-version = '1.16.6'  # NOTE latest version supporting Python 2
+version = '1.16.6'
 versionsuffix = '-Python-%(pyver)s'
 
 homepage = 'http://www.numpy.org'
@@ -10,9 +10,10 @@ description = """NumPy is the fundamental package for scientific computing with 
  defined. This allows NumPy to seamlessly and speedily integrate with a wide variety of databases."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'pic': True}
 
 sources = [SOURCE_ZIP]
-patches = [  # NOTE patches copied from SciPy-bundle-2021.10-foss-2021b-Python-2.7.18.eb
+patches = [  # patches copied from SciPy-bundle-2021.10-foss-2021b-Python-2.7.18.eb
     'numpy-1.16.2_relax-long-complex-test.patch',
     'numpy-1.16.6_add_flexiblas_detection.patch',
     'numpy-1.16.6_handle_failing_linalg_test.patch',
@@ -30,14 +31,7 @@ checksums = [
 
 dependencies = [
     ('Python', '2.7.18'),
-    ('pytest', '4.4.0', versionsuffix),
+    ('pytest', '4.6.11', versionsuffix),
 ]
 
 moduleclass = 'math'
-
-# TODO
-# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: /tmp/vsc45304/eb-sjhcd741/tmp6o9LIe/tmp/vsc45304/eb-sjhcd741/tmpkryTRf.o: relocation R_X86_64_32 against `.rodata' can not be used when making a shared object
-# ; recompile with -fPIC
-# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: failed to set dynamic section sizes: bad value
-# collect2: error: ld returned 1 exit status
-# error: Command "/kyukon/home/apps/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/bin/gfortran -Wall -g -Wall -g -shared /tmp/vsc45304/eb-sjhcd741/tmp6o9LIe/tmp/vsc45304/eb-sjhcd741/tmp6o9LIe/src.linux-x86_64-2.7/test_compile_from_stringsmodule.o /tmp/vsc45304/eb-sjhcd741/tmp6o9LIe/tmp/vsc45304/eb-sjhcd741/tmp6o9LIe/src.linux-x86_64-2.7/fortranobject.o /tmp/vsc45304/eb-sjhcd741/tmp6o9LIe/tmp/vsc45304/eb-sjhcd741/tmpkryTRf.o -L/kyukon/home/apps/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/12.3.0/../../../../lib64 -L/kyukon/home/apps/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/12.3.0/../../../../lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/Python/2.7.18-GCCcore-12.3.0/lib -lpython2.7 -lgfortran -o ./test_compile_from_strings.so" failed with exit status 1

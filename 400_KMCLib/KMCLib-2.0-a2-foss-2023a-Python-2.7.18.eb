@@ -20,7 +20,7 @@ builddependencies = [
 
 dependencies = [
     ('Python', '2.7.18'),
-    ('numpy', '1.16.6'),  # NOTE numpy for Python 2  # TODO
+    ('numpy', '1.16.6', versionsuffix),
     ('SWIG', '4.1.1'),
 ]
 
@@ -45,19 +45,7 @@ sanity_check_paths = {
 
 sanity_check_commands = [
     "python -c 'from KMCLib import *'",
-    'python %(builddir)s/python/unittest/utest.py'
+    'python %(builddir)s/%(name)s-%(version)s/python/unittest/utest.py'
 ]
 
 moduleclass = 'math'
-
-# TODO
-# == 2024-10-04 13:27:24,219 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: sanity check command python -c 'from KMCLib import *' exited with code 1 (output: Traceback (most recent call last):
-#   File "<string>", line 1, in <module>
-#   File "KMCLib/__init__.py", line 18, in <module>
-#     from CoreComponents.KMCLocalConfiguration import KMCLocalConfiguration
-#   File "KMCLib/CoreComponents/KMCLocalConfiguration.py", line 11, in <module>
-#     import numpy
-# ImportError: No module named numpy
-# )
-# sanity check command python /tmp/vsc45304/easybuild/build/KMCLib/2.0-a2/foss-2023a-Python-2.7.18/python/unittest/utest.py exited with code 2 (output: python: can't open file '/tmp/vsc45304/easybuild/build/KMCLib/2.0-a2/foss-2023a-Python-2.7.18/python/unittest/utest.py': [Errno 2] No such file or directory
-# ) (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
