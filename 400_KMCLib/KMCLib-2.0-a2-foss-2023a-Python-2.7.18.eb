@@ -20,7 +20,7 @@ builddependencies = [
 
 dependencies = [
     ('Python', '2.7.18'),
-    # ('SciPy-bundle', '2023.07'),  # TODO for `numpy` but no support for Python 2
+    ('numpy', '1.16.6'),  # NOTE numpy for Python 2  # TODO
     ('SWIG', '4.1.1'),
 ]
 
@@ -31,9 +31,10 @@ preconfigopts += 'make CC="$CC" CXX="$CXX" CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS"
 
 prebuildopts = 'export CPATH=$EBROOTPYTHON/include/python%(pyshortver)s:$CPATH && '
 
-preinstallopts = 'cp -r %(builddir)s/%(name)s-%(version)s/python/src/KMCLib %(installdir)s && '
-
-installopts = 'DESTDIR="%(installdir)s" '  # TODO probably use patch instead (files are in /tmp/vsc45304/easybuild/build/KMCLib/2.0-a2/python/src/KMCLib/Backend/)
+postinstallcmds = [
+    'cp -r "%(builddir)s/%(name)s-%(version)s/python/src/KMCLib" "%(installdir)s"',
+    'cp -r "%(builddir)s/../python/src/KMCLib/Backend/"* "%(installdir)s/KMCLib/Backend/"',
+]
 
 modextrapaths = {'PYTHONPATH': ''}
 
@@ -50,8 +51,7 @@ sanity_check_commands = [
 moduleclass = 'math'
 
 # TODO
-# make: *** No rule to make target 'install'.  Stop.
-# == 2024-10-03 21:39:32,547 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: sanity check command python -c 'from KMCLib import *' exited with code 1 (output: Traceback (most recent call last):
+# == 2024-10-04 13:27:24,219 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: sanity check command python -c 'from KMCLib import *' exited with code 1 (output: Traceback (most recent call last):
 #   File "<string>", line 1, in <module>
 #   File "KMCLib/__init__.py", line 18, in <module>
 #     from CoreComponents.KMCLocalConfiguration import KMCLocalConfiguration
