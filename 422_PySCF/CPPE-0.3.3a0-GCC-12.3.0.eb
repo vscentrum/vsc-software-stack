@@ -18,11 +18,12 @@ checksums = ['6dc3f863b5b7ffd1c049bf06e5d148bfdd08fc1c1aa2f5a506f211022628e2c3']
 builddependencies = [
     ('CMake', '3.26.3'),
     ('pybind11', '2.11.1'),
-    ('scikit-build-core', '0.5.0'),
+    ('Ninja', '1.11.1'),
 ]
 
 dependencies = [
     ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -31,8 +32,12 @@ exts_default_options = {
     'use_pip': True,
 }
 exts_list = [
-    ('cppe', version, {  # TODO or 0.3.1 from Pypi?
-        # 'source_urls': [PYPI_SOURCE],
+    ('scikit_build_core', '0.10.7', {
+        'source_urls': [PYPI_SOURCE],
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['5e13ab7ca7c3c6dd019607c3a6f53cba67dade8757c4c4f75b459e2f90e4dbc3'],
+    }),
+    ('cppe', version, {
         'source_urls': ['https://github.com/maxscheurer/cppe/archive/'],
         'source_tmpl': 'v%(version)s.tar.gz',
         'checksums': checksums
@@ -42,48 +47,8 @@ exts_list = [
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 sanity_check_paths = {
-    'files': ['lib/libcppe.%s' % SHLIB_EXT],
-    'dirs': ['include/cppe', 'lib/python%(pyshortver)s/site-packages', 'share/cmake'],
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
 }
 
 moduleclass = 'chem'
-
-# TODO
-# == 2024-10-02 17:56:11,567 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CPPE/0.3.3a0-GCC-12.3.0  --no-deps  --ignore-installed  --no-index  --no-build-isolation  ." exited with exit code 1 and output:
-# Processing /tmp/vsc45304/easybuild/build/CPPE/0.3.3a0/GCC-12.3.0/cppe/cppe-0.3.3a0
-#   Preparing metadata (pyproject.toml): started
-#   Preparing metadata (pyproject.toml): finished with status 'error'
-#   error: subprocess-exited-with-error
-#
-#    Preparing metadata (pyproject.toml) did not run successfully.
-#    exit code: 1
-#   > [18 lines of output]
-#       Traceback (most recent call last):
-#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 353, in <module>
-#           main()
-#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 335, in main
-#           json_out['return_val'] = hook(**hook_input['kwargs'])
-#                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#         File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 149, in prepare_metadata_for_build_wheel
-#           return hook(metadata_directory, config_settings)
-#                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#         File "/apps/gent/RHEL8/cascadelake-ib/software/scikit-build-core/0.5.0-GCCcore-12.3.0/lib/python3.11/site-packages/scikit_build_core/build/__init__.py", line 73, in prepare_metadata_for_build_wheel
-#           return _build_wheel_impl(
-#                  ^^^^^^^^^^^^^^^^^^
-#         File "/apps/gent/RHEL8/cascadelake-ib/software/scikit-build-core/0.5.0-GCCcore-12.3.0/lib/python3.11/site-packages/scikit_build_core/build/wheel.py", line 86, in _build_wheel_impl
-#           settings_reader = SettingsReader(pyproject, config_settings or {})
-#                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#         File "/apps/gent/RHEL8/cascadelake-ib/software/scikit-build-core/0.5.0-GCCcore-12.3.0/lib/python3.11/site-packages/scikit_build_core/settings/skbuild_read_settings.py", line 50, in __init__
-#           raise CMakeConfigError(msg)
-#       scikit_build_core.errors.CMakeConfigError: scikit-build-core version 0.5.0 is too old. Minimum required version is 0.8.
-#       [end of output]
-#
-#   note: This error originates from a subprocess, and is likely not a problem with pip.
-# error: metadata-generation-failed
-#
-#  Encountered error while generating package metadata.
-# > See above for output.
-#
-# note: This is an issue with the package mentioned above, not pip.
-# hint: See above for details.
-#  (at easybuild/easybuild-framework/easybuild/tools/run.py:695 in parse_cmd_output)
