@@ -1,0 +1,26 @@
+easyblock = 'PerlModule'
+
+name = 'DBI'
+version = '1.645'
+
+homepage = 'https://metacpan.org/pod/DBI::DBD'
+description = "writing new database drivers for the Perl Database Interface (Perl DBI)"
+
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+
+source_urls = ['https://cpan.metacpan.org/authors/id/H/HM/HMBRAND']
+sources = ['%(name)s-%(version)s.tgz']
+checksums = ['e38b7a5efee129decda12383cf894963da971ffac303f54cc1b93e40e3cf9921']
+
+dependencies = [
+    ('Perl', '5.36.1'),
+]
+
+options = {'modulename': 'DBI::DBD'}
+
+sanity_check_paths = {
+    'files': ['lib/perl5/site_perl/%%(perlver)s/%s-linux-thread-multi/DBI/DBD.pm' % ARCH],
+    'dirs': ['lib/perl5/site_perl/%%(perlver)s/%s-linux-thread-multi/DBI/DBD' % ARCH],
+}
+
+moduleclass = 'data'
