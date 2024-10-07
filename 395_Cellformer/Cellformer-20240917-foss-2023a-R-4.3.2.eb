@@ -1,0 +1,146 @@
+easyblock = 'Tarball'
+
+name = 'Cellformer'
+version = '20240917'
+versionsuffix = '-R-%(rver)s'
+local_commit = '99a1165'
+
+homepage = 'https://github.com/elo-nsrb/Cellformer'
+description = '''An implementation of Cellformer from our publication: Berson et al.
+ "Whole genome deconvolution unveils Alzheimer’s resilient epigenetic signature"'''
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/elo-nsrb/Cellformer/archive/']
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': '%(name)s-%(version)s.tar.gz'}]
+checksums = ['7cbddad75a4d47dfc0a39cd660ef20fe4e3cb755631b1b96136c1c3d5226c914']
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('PyTorch', '2.1.2'),
+    ('scikit-learn', '1.3.1'),
+    ('PyTorch-Lightning', '2.2.1'),
+    ('anndata', '0.10.5.post1'),
+    ('h5py', '3.9.0'),
+    ('SciPy-bundle', '2023.07'),
+    ('Seaborn', '0.13.2'),
+    ('tensorboard', '2.15.1'),
+    ('tensorboardX', '2.6.2.2'),
+    ('torchvision', '0.16.0'),
+    ('tqdm', '4.66.1'),
+    ('scanpy', '1.9.8'),
+    ('pretty-yaml', '24.7.0'),
+    ('Arrow', '14.0.1'),
+    ('R', '4.3.2'),
+    ('R-bundle-CRAN', '2023.12'),
+    ('R-bundle-Bioconductor', '3.18', versionsuffix),
+    ('ArchR', '1.0.2', versionsuffix),
+    # ('typing-extensions', '4.9.0'),
+]
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+    'download_dep_fail': True,
+    'use_pip': True,
+    'sanity_pip_check': True,
+    'installopts': '',
+}
+
+exts_list = [
+    ('typing_extensions', '4.12.2', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d'],
+    }),
+    ('asteroid', '0.7.0', {
+        'preinstallopts': "sed -i '/torchmetrics/d' setup.py && ",
+        'checksums': ['0326f28c5342495cb08ba0520efd0e21e39435dfd78854837fdd5a6c9c9ca410'],
+    }),
+    ('everett', '3.1.0', {
+        'source_tmpl': SOURCE_WHL,
+        'checksums': ['db13891b849e45e54faea93ee79881d12458c5378f5b9b7f806eeff03ce1de3c'],
+    }),
+    ('python-box', '6.1.0', {
+        'checksums': ['6e7c243b356cb36e2c0f0e5ed7850969fede6aa812a7f501de7768996c7744d7'],
+    }),
+    ('sentry_sdk', '2.15.0', {
+        'source_tmpl': SOURCE_WHL,
+        'checksums': ['8fb0d1a4e1a640172f31502e4503543765a1fe8a9209779134a4ac52d4677303'],
+    }),
+    ('wurlitzer', '3.1.1', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['0b2749c2cde3ef640bf314a9f94b24d929fe1ca476974719a6909dfc568c3aac'],
+    }),
+    ('comet_ml', '3.47.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['81062bbef2d0758c8e77d8a469824d2c20ec13b09855c78b51b078203628b8c2'],
+    }),
+    ('fast_histogram', '0.14', {
+        'checksums': ['390973b98af22bda85c29dcf6f008ba0d626321e9bd3f5a9d7a43e5690ea69ea'],
+    }),
+    ('mpl_scatter_density', '0.7', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['721b4efeafcbc0ba4a5c1ecd8f401dc2d1aa6a372445c5b49e1da34e70a95ead'],
+    }),
+    ('tensorboard_data_server', '0.7.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['753d4214799b31da7b6d93837959abebbc6afa86e69eacf1e9a317a48daa31eb'],
+    }),
+    ('tensorboard_plugin_wit', '1.8.1', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['ff26bdd583d155aa951ee3b152b3d0cffae8005dc697f72b44a8e8c2a77a8cbe'],
+    }),
+    ('torchmetrics', '1.4.2', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['87b9eca51ff6f93985a0f9db509f646cb45425b016f4d2f383d8c28d40dde5b6'],
+    }),
+    ('torchmetrics', '0.11.4', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['45f892f3534e91f3ad9e2488d1b05a93b7cb76b7d037969435a41a1f24750d9a'],
+    }),
+]
+
+modextrapaths = {
+    'PATH': '',
+    'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages',
+}
+
+fix_python_shebang_for = [
+    'src/*/*.py',
+    'src/*/*/*.py',
+    'src/*/*/*/*.py',
+]
+
+postinstallcmds = ["sed -i 's|python |python %(installdir)s/|g' %(installdir)s/*.sh"]
+
+sanity_check_paths = {
+    'files': [
+        'createPeakMatrix.sh',
+        'createDataset.sh',
+        'deconvolution.sh',
+        'trainModel.sh',
+        'validation.sh',
+    ],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [  # TODO permissions
+    'createPeakMatrix.sh --help',
+    'createDataset.sh --help',
+    'deconvolution.sh --help',
+    'trainModel.sh --help',
+    'validation.sh --help',
+]
+
+moduleclass = 'bio'
+
+# TODO
+# asteroid 0.7.0 requires asteroid-filterbanks, which is not installed.
+# asteroid 0.7.0 requires huggingface-hub, which is not installed.
+# asteroid 0.7.0 requires julius, which is not installed.
+# asteroid 0.7.0 requires pb-bss-eval, which is not installed.
+# asteroid 0.7.0 requires soundfile, which is not installed.
+# asteroid 0.7.0 requires torch-optimizer, which is not installed.
+# asteroid 0.7.0 requires torch-stoi, which is not installed.
+# asteroid 0.7.0 requires torchaudio, which is not installed.
+# fastapi 0.110.0 has requirement typing-extensions>=4.8.0, but you have typing-extensions 4.6.3.
