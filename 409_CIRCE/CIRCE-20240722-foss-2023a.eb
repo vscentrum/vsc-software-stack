@@ -40,45 +40,23 @@ exts_list = [
             {'CIRCE-20240722_requirements.patch': '8d957f12732118cc36d2700ba2f18ebb260d288c1db372951d435e5aabe3a606'},
         ],
         # build the C components and link `flexiblas` instead of `lapack`
-        'preinstallopts': "sed -i 's/lapack/flexiblas/g' build.py && echo here1 && poetry build && echo here2 && ",
+        'preinstallopts': "sed -i 's/lapack/flexiblas/g' build.py && poetry build && ",
     }),
 ]
 
 moduleclass = 'bio'
 
 # TODO
-# Calculating alpha ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
-# Alpha coefficient calculated : 0.23049167950927185
-# Calculating co-accessibility: 1/2 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
-# Calculating co-accessibility: 2/2 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
-# Averaging co-accessibility scores across windows...
-# Done !
 # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.2.2-foss-2023a/lib/python3.11/site-packages/circe/circe.py:328: ImplicitModificationWarning: Setting element `.varp['atac_network']` of view, initializing view as actual.
 #   anndata.varp[key] = anndata.varp[key].tocoo()
+# Coaccessibility cutoff used: 0.02
+# Number of CCANs generated: 136
+# Coaccessibility cutoff used: 0.02
+# Coaccessibility cutoff used: 1e-07
+# Number of CCANs generated: 48
 # Traceback (most recent call last):
-#   File "/kyukon/home/gent/453/vsc45304/vsc-software-stack/409_CIRCE/run.py", line 74, in <module>
-#     ccans = ci.find_ccans(circe_network, seed=0)
-#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.2.2-foss-2023a/lib/python3.11/site-packages/circe/ccan_module.py", line 246, in find_ccans
-#     coaccess_cutoff = find_ccan_cutoff(
-#                       ^^^^^^^^^^^^^^^^^
-#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.2.2-foss-2023a/lib/python3.11/site-packages/circe/ccan_module.py", line 36, in find_ccan_cutoff
-#     ccan_num_test = number_of_ccans(connection_df, test_val, seed=seed)
-#                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.2.2-foss-2023a/lib/python3.11/site-packages/circe/ccan_module.py", line 88, in number_of_ccans
-#     partition = networkx.community.louvain_communities(
-#                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/networkx/3.1-gfbf-2023a/lib/python3.11/site-packages/networkx/utils/decorators.py", line 766, in func
-#     return argmap._lazy_compile(__wrapper)(*args, **kwargs)
-#            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#   File "<class 'networkx.utils.decorators.argmap'> compilation 8", line 4, in argmap_louvain_communities_5
-#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/networkx/3.1-gfbf-2023a/lib/python3.11/site-packages/networkx/algorithms/community/louvain.py", line 110, in louvain_communities
-#     q = deque(d, maxlen=1)
-#         ^^^^^^^^^^^^^^^^^^
-#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/networkx/3.1-gfbf-2023a/lib/python3.11/site-packages/networkx/algorithms/community/louvain.py", line 166, in louvain_partitions
-#     mod = modularity(G, partition, resolution=resolution, weight=weight)
-#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/networkx/3.1-gfbf-2023a/lib/python3.11/site-packages/networkx/algorithms/community/quality.py", line 240, in modularity
-#     norm = 1 / deg_sum**2
-#            ~~^~~~~~~~~~~~
-# ZeroDivisionError: division by zero
+#   File "/kyukon/home/gent/453/vsc45304/vsc-software-stack/409_CIRCE/run.py", line 86, in <module>
+#     ci.draw.plot_ccan(
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.2.2-foss-2023a/lib/python3.11/site-packages/circe/draw.py", line 270, in plot_ccan
+#     raise ValueError(f"No regions found for ccan module {ccan_module}.")
+# ValueError: No regions found for ccan module 17.
