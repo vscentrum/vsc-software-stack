@@ -2,7 +2,6 @@ easyblock = 'MakeCp'
 
 name = 'NextPolish'
 version = '1.4.1'
-versionsuffix = '_V2'
 
 homepage = 'https://github.com/Nextomics/NextPolish'
 description = 'NextDenovo is a string graph-based de novo assembler for long reads.'
@@ -11,21 +10,19 @@ toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
 source_urls = ['https://github.com/Nextomics/NextPolish/releases/download/']
 sources = [{
-    'download_filename': 'v%(version)s/%(name)s.tgz',  # do not use tar.gz - it is empty - no code
+    'download_filename': 'v%(version)s/%(name)s.tgz',
     'filename': SOURCE_TAR_GZ,
 }]
 checksums = ['2a5f66f3db7f76e583a6b6e28f9c1f3c392258b8d755050d7abe129a2fbb48c4']
 
-builddependencies = [
-    # ('binutils', '2.40'),
-    ('patchelf', '0.18.0', '-patched-version'),
-]
+builddependencies = [('patchelf', '0.18.0')]
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
     ('BWA', '0.7.17'),
     ('SAMtools', '1.18'),
     ('minimap2', '2.26'),
+    ('bzip2', '1.0.8'),
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -64,26 +61,16 @@ prebuildopts += (
     " util/Makefile && "
 )
 postinstallcmds = [
-    'cd %(installdir)s/bin && ln -s $EBROOTBWA/bin/bwa && ln -s $EBROOTSAMTOOLS/bin/samtools && ln -s $EBROOTMINIMAP2/bin/minimap2',
-    # fix missing RPATH in calgs.so
-    # deatils in https://easybuild.slack.com/archives/GP6UN4MKP/p1724764742743239 or in the issue
-        # calgs.so is used in lib/kit.py L179:
-            # def calgs(infile):
-            #     import ctypes
-            #     calgs = ctypes.CDLL(os.path.dirname(os.path.realpath(__file__)) + '/' + "calgs.so")
-            #     calgs.calgs.argtypes = [ctypes.c_char_p]
-            #     calgs.calgs.restype = ctypes.c_uint64
-            #     return calgs.calgs(infile.encode('utf-8'))
-        # and this func calgs() is used in lib/config_parser.py L163:
-            # self.cfg['genome_size'] = calgs(self.cfg['genome']) if self.cfg['genome_size'] == 'auto' else parse_num_unit(self.cfg['genome_size'])
-    # "patchelf --force-rpath --set-rpath '$ORIGIN' %(installdir)s/lib/calgs.so",
-    'patchelf --print-rpath %(installdir)s/lib/calgs.so',
-    'ldd %(installdir)s/lib/calgs.so',
+    # links to binaries
+    "cd %(installdir)s/bin && ln -s $EBROOTBWA/bin/bwa && "
+    "ln -s $EBROOTSAMTOOLS/bin/samtools && ln -s $EBROOTMINIMAP2/bin/minimap2",
+    # set RPATH to calgs.so
     "patchelf --force-rpath --set-rpath '\$ORIGIN:\$ORIGIN/../lib:$EBROOTZLIB/lib' %(installdir)s/lib/calgs.so",
-        # -> $ORIGIN:$ORIGIN/../lib:/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/lib
-    'patchelf --print-rpath %(installdir)s/lib/calgs.so',
-    'ldd %(installdir)s/lib/calgs.so',
-    'readelf --dynamic %(installdir)s/lib/calgs.so',
+    # set RPATH to nextpolish1.so and nextpolish2.so
+    "patchelf --force-rpath --set-rpath "
+    "'\$ORIGIN:\$ORIGIN/../lib:$EBROOTZLIB/lib:$EBROOTBZIP2/lib:$EBROOTXZ/lib' %(installdir)s/lib/nextpolish1.so",
+    "patchelf --force-rpath --set-rpath "
+    "'\$ORIGIN:\$ORIGIN/../lib:$EBROOTZLIB/lib:$EBROOTBZIP2/lib:$EBROOTXZ/lib' %(installdir)s/lib/nextpolish2.so",
 ]
 
 files_to_copy = ['bin', 'lib', 'test_data', 'LICENSE', 'nextPolish']
@@ -93,8 +80,10 @@ sanity_check_paths = {
     'dirs': ['test_data', 'lib/python%(pyshortver)s/site-packages'],
 }
 
-sanity_check_commands = ['nextPolish --help']
-# sanity_check_commands += ['asdasdasd']
+sanity_check_commands = [
+    'nextPolish --help',
+    'nextPolish %(installdir)s/test_data/run.cfg'
+]
 
 modextrapaths = {
     'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages',
@@ -102,51 +91,3 @@ modextrapaths = {
 }
 
 moduleclass = 'bio'
-
-# $ ldd nextpolish1.so 
-        # linux-vdso.so.1 (0x00007ffd0f285000)
-        # libpthread.so.0 => /lib64/libpthread.so.0 (0x00001518c88f8000)
-        # libm.so.6 => /lib64/libm.so.6 (0x00001518c8576000)
-        # libbz2.so.1 => /lib64/libbz2.so.1 (0x00001518c8365000)
-        # liblzma.so.5 => /apps/gent/RHEL8/cascadelake-ib/software/XZ/5.4.2-GCCcore-12.3.0/lib/liblzma.so.5 (0x00001518c8f94000)
-        # libz.so.1 => /apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/lib/libz.so.1 (0x00001518c8f79000)
-        # libc.so.6 => /lib64/libc.so.6 (0x00001518c7fa0000)
-        # /lib64/ld-linux-x86-64.so.2 (0x00001518c8da6000)
-#$ ldd nextpolish2.so 
-        # linux-vdso.so.1 (0x00007fff16a74000)
-        # libpthread.so.0 => /lib64/libpthread.so.0 (0x0000150b90834000)
-        # libm.so.6 => /lib64/libm.so.6 (0x0000150b904b2000)
-        # libbz2.so.1 => /lib64/libbz2.so.1 (0x0000150b902a1000)
-        # liblzma.so.5 => /apps/gent/RHEL8/cascadelake-ib/software/XZ/5.4.2-GCCcore-12.3.0/lib/liblzma.so.5 (0x0000150b90ee8000)
-        # libz.so.1 => /apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/lib/libz.so.1 (0x0000150b90ecd000)
-        # libc.so.6 => /lib64/libc.so.6 (0x0000150b8fedc000)
-        # /lib64/ld-linux-x86-64.so.2 (0x0000150b90cfa000)
-# ERROR1:
-    # -> patchelf --force-rpath --set-rpath "\$ORIGIN:\$ORIGIN/../lib:$EBROOTZLIB/lib" %(installdir)s/lib/calgs.so
-        # returns $ORIGIN:$ORIGIN/../lib:/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/lib
-        # nextPolish test_data/run.cfg -> ELF load command address/offset not properly aligned
-    # <- build ok - after $ nextPolish run.cfg 
-        # Please update to the latest version: v1.4.1, current version: Unknown 
-        # [514800 INFO] 2024-08-30 14:51:48 NextPolish start...
-        # Please update to the latest version: v1.4.1, current version: Unknown 
-        # [514800 INFO] 2024-08-30 14:51:48 version:Unknown logfile:pid514800.log.info
-        # [514800 WARNING] 2024-08-30 14:51:48 Re-write workdir
-        # Traceback (most recent call last):
-        # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/NextPolish/1.4.1-GCC-12.3.0/nextPolish", line 553, in <module>
-        #     main(args)
-        # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/NextPolish/1.4.1-GCC-12.3.0/nextPolish", line 376, in main
-        #     cfg = ConfigParser(args[1][0]).cfg
-        #         ^^^^^^^^^^^^^^^^^^^^^^^^
-        # File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/NextPolish/1.4.1-GCC-12.3.0/lib/config_parser.py", line 17, in __init__
-        #     self._check()
-        # File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/NextPolish/1.4.1-GCC-12.3.0/lib/config_parser.py", line 163, in _check
-        #     self.cfg['genome_size'] = calgs(self.cfg['genome']) if self.cfg['genome_size'] == 'auto' else parse_num_unit(self.cfg['genome_size'])
-        #                             ^^^^^^^^^^^^^^^^^^^^^^^^^
-        # File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/NextPolish/1.4.1-GCC-12.3.0/lib/kit.py", line 181, in calgs
-        #     calgs = ctypes.CDLL(os.path.dirname(os.path.realpath(__file__)) + '/' + "calgs.so")
-        #             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/ctypes/__init__.py", line 376, in __init__
-        #     self._handle = _dlopen(self._name, mode)
-        #                 ^^^^^^^^^^^^^^^^^^^^^^^^^
-        # OSError: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/
-        #   NextPolish/1.4.1-GCC-12.3.0/lib/calgs.so: ELF load command address/offset not properly aligned
