@@ -1,7 +1,8 @@
 easyblock = 'MakeCp'
 
 name = 'NextPolish'
-version = '1.4.1_v2'
+version = '1.4.1'
+versionsuffix = '_V2'
 
 homepage = 'https://github.com/Nextomics/NextPolish'
 description = 'NextDenovo is a string graph-based de novo assembler for long reads.'
@@ -10,14 +11,14 @@ toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
 source_urls = ['https://github.com/Nextomics/NextPolish/releases/download/']
 sources = [{
-    'download_filename': 'v%(version)s/%(name)s.tgz',
+    'download_filename': 'v%(version)s/%(name)s.tgz',  # do not use tar.gz - it is empty - no code
     'filename': SOURCE_TAR_GZ,
 }]
 checksums = ['2a5f66f3db7f76e583a6b6e28f9c1f3c392258b8d755050d7abe129a2fbb48c4']
 
 builddependencies = [
     # ('binutils', '2.40'),
-    ('patchelf', '0.18.0'),
+    ('patchelf', '0.18.0', '-patched-version'),
 ]
 dependencies = [
     ('Python', '3.11.3'),
@@ -78,8 +79,11 @@ postinstallcmds = [
     # "patchelf --force-rpath --set-rpath '$ORIGIN' %(installdir)s/lib/calgs.so",
     'patchelf --print-rpath %(installdir)s/lib/calgs.so',
     'ldd %(installdir)s/lib/calgs.so',
-    'patchelf --force-rpath --set-rpath "\$ORIGIN:\$ORIGIN/..lib:$EBROOTZLIB/lib:\$ORIGIN/..lib:$EBROOTGCCCORE/lib" %(installdir)s/lib/calgs.so',
+    "patchelf --force-rpath --set-rpath '\$ORIGIN:\$ORIGIN/../lib:$EBROOTZLIB/lib' %(installdir)s/lib/calgs.so",
+        # -> $ORIGIN:$ORIGIN/../lib:/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/lib
     'patchelf --print-rpath %(installdir)s/lib/calgs.so',
+    'ldd %(installdir)s/lib/calgs.so',
+    'readelf --dynamic %(installdir)s/lib/calgs.so',
 ]
 
 files_to_copy = ['bin', 'lib', 'test_data', 'LICENSE', 'nextPolish']
@@ -90,6 +94,7 @@ sanity_check_paths = {
 }
 
 sanity_check_commands = ['nextPolish --help']
+# sanity_check_commands += ['asdasdasd']
 
 modextrapaths = {
     'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages',
@@ -98,7 +103,28 @@ modextrapaths = {
 
 moduleclass = 'bio'
 
+# $ ldd nextpolish1.so 
+        # linux-vdso.so.1 (0x00007ffd0f285000)
+        # libpthread.so.0 => /lib64/libpthread.so.0 (0x00001518c88f8000)
+        # libm.so.6 => /lib64/libm.so.6 (0x00001518c8576000)
+        # libbz2.so.1 => /lib64/libbz2.so.1 (0x00001518c8365000)
+        # liblzma.so.5 => /apps/gent/RHEL8/cascadelake-ib/software/XZ/5.4.2-GCCcore-12.3.0/lib/liblzma.so.5 (0x00001518c8f94000)
+        # libz.so.1 => /apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/lib/libz.so.1 (0x00001518c8f79000)
+        # libc.so.6 => /lib64/libc.so.6 (0x00001518c7fa0000)
+        # /lib64/ld-linux-x86-64.so.2 (0x00001518c8da6000)
+#$ ldd nextpolish2.so 
+        # linux-vdso.so.1 (0x00007fff16a74000)
+        # libpthread.so.0 => /lib64/libpthread.so.0 (0x0000150b90834000)
+        # libm.so.6 => /lib64/libm.so.6 (0x0000150b904b2000)
+        # libbz2.so.1 => /lib64/libbz2.so.1 (0x0000150b902a1000)
+        # liblzma.so.5 => /apps/gent/RHEL8/cascadelake-ib/software/XZ/5.4.2-GCCcore-12.3.0/lib/liblzma.so.5 (0x0000150b90ee8000)
+        # libz.so.1 => /apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/lib/libz.so.1 (0x0000150b90ecd000)
+        # libc.so.6 => /lib64/libc.so.6 (0x0000150b8fedc000)
+        # /lib64/ld-linux-x86-64.so.2 (0x0000150b90cfa000)
 # ERROR1:
+    # -> patchelf --force-rpath --set-rpath "\$ORIGIN:\$ORIGIN/../lib:$EBROOTZLIB/lib" %(installdir)s/lib/calgs.so
+        # returns $ORIGIN:$ORIGIN/../lib:/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/lib
+        # nextPolish test_data/run.cfg -> ELF load command address/offset not properly aligned
     # <- build ok - after $ nextPolish run.cfg 
         # Please update to the latest version: v1.4.1, current version: Unknown 
         # [514800 INFO] 2024-08-30 14:51:48 NextPolish start...
