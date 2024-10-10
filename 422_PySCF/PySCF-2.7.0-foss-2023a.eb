@@ -27,8 +27,9 @@ dependencies = [
     ('PyBerny', '0.6.3'),  # extra
     ('PyCheMPS2', '1.8.12'),  # needed by dmrgscf
     ('Block', '1.5.3-20200525'),  # needed by dmrgscf
-    ('NECI', '20230620'),  # needed by fciqmc  # TODO disabled tests?
+    ('NECI', '20230620'),  # needed by fciqmc
     ('Dice', '20240702'),  # needed by icmpspt
+    ('tblis', '20230422'),
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -42,17 +43,17 @@ exts_default_options = {
 
 # The following list of extensions is equivalent to installing PySCF with extras:
 # all + dmrgscf + fciqmcscf + hci + mbd + tblis + zquatev
-exts_list = [  # TODO
+exts_list = [
     ('dftd3', '94091d8', {
         'checksums': ['a69ae44b3d02d2c06fd531373f20ee1251ef27fc932d40a7cafea6c09d8784fc'],
     }),
     ('doci', '08079a9', {
         'checksums': ['f492ba45dfe50c9b459e53a946a677528af0dc2097ff77ea3767aa4f46c5d9ba'],
     }),
-    ('icmpspt', 'f26062b', {  # TODO update
+    ('icmpspt', '50c386e', {
         'patches': [('PySCF-2.1.1_icmpspt-exe-path.patch', 0)],
         'checksums': [
-            {'icmpspt-f26062b.tar.gz': '8f44b317da209882e0353d2731d8bc907de450af02429e962ae9b8d3f8c95a47'},
+            {'icmpspt-50c386e.tar.gz': '08029863ae8740939a730fe5e104661c67d8dd0b8a8555b603fc8a0777096d48'},
             {'PySCF-2.1.1_icmpspt-exe-path.patch': 'e972e377b34b964c48a99909301bf21a9c73d8eb9ecb96a889621d71471c56c9'},
         ],
     }),
@@ -66,14 +67,14 @@ exts_list = [  # TODO
     ('semiempirical', '470d716', {
         'checksums': ['0bbe304867fd053ed647445ac84c4c76787ad23def9f72415aec297740121eef'],
     }),
-    ('shciscf', 'e8985e7', {  # TODO update
-        'checksums': ['a017ffcf54601ccb3e95a273eff47289905c81d7fd590f9b51e22a69e141b592'],
+    ('shciscf', '7edb54d', {
+        'checksums': ['ae54265f6600b73a350b00274c95bb0de940ddcd6e1b47b434594e18136b1bed'],
     }),
-    ('MCfun', '0.2.2', {  # TODO update
+    ('MCfun', '0.2.3', {
         'modulename': 'mcfun',
         'source_urls': ['https://github.com/Multi-collinear/%(name)s/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'checksums': ['1cb6b36be86bcf13c15ecc9934d13dc67eb15834a7a6545e73f82f53835e278d'],
+        'checksums': ['3741b49b839df0fde891d51292520ed9094fa1d3c9b5d9c042d4f26087cf6a13'],
     }),
     ('pyqmc', '0.6.0', {
         'modulename': 'pyqmc',
@@ -81,10 +82,10 @@ exts_list = [  # TODO
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['6e9f612c2d0bf2198154520e01dce57cf3a6e474840c1892466de3171eaeb7db'],
     }),
-    ('dmrgscf', '4ff57bf', {  # TODO update
+    ('dmrgscf', 'a03f7b6', {
         'patches': [('PySCF-2.1.1_dmrgscf-settings.patch', 0)],
         'checksums': [
-            {'dmrgscf-4ff57bf.tar.gz': '0683cfc2e6676aa11da7b2eee66e96442a64a37b72f65057779718c5fdb43c5f'},
+            {'dmrgscf-a03f7b6.tar.gz': 'dee40abe3d2aebab7a2d0eade4e464a6ae851b4c2b49a2cde4c3aa88f0651b04'},
             {'PySCF-2.1.1_dmrgscf-settings.patch': 'a0310a2a90e96bd64d1560b2cc73a805717e129d2921e91cc5e6038b9f153677'},
         ],
     }),
@@ -103,10 +104,12 @@ exts_list = [  # TODO
         'modulename': 'pyscf.hci',
         'checksums': ['de247d17b80133655df5966341e5adb691b0df150cd9b0f1980cf62ec55229d5'],
     }),
-    ('tblis', '0d4dfd2', {  # TODO update
+    ('tblis', 'c67c8af', {
         'modulename': 'pyscf.tblis_einsum',
+        # Use our `tblis`.
+        'preinstallopts': 'CMAKE_CONFIGURE_ARGS="-DVENDOR_TBLIS=off" ',
         'source_urls': ['https://github.com/pyscf/pyscf-tblis/archive/'],
-        'checksums': ['5e0e5840b78451085420b333cd4b5ee06fd659df06f142fa854de65b3f73fc5e'],
+        'checksums': ['9a40a760e3be1d0b7f49faab5897388dcdf75094f75e06b4c344b3642a0401d6'],
     }),
     ('zquatev', '4eb41b1', {
         'modulename': 'zquatev',
