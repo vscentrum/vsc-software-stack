@@ -23,12 +23,12 @@ dependencies = [
     ('libcint', '5.4.0'),
     ('libxc', '6.2.2'),
     ('XCFun', '2.1.1'),
-    ('CPPE', '0.3.1'),  # extra  # TODO
+    ('CPPE', '0.3.3a0'),  # extra
     ('PyBerny', '0.6.3'),  # extra
     ('PyCheMPS2', '1.8.12'),  # needed by dmrgscf
     ('Block', '1.5.3-20200525'),  # needed by dmrgscf
-    ('NECI', '20230620'),  # needed by fciqmc  # TODO
-    ('Dice', '20240101'),  # needed by icmpspt  # TODO
+    ('NECI', '20230620'),  # needed by fciqmc  # TODO disabled tests?
+    ('Dice', '20240702'),  # needed by icmpspt
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -49,7 +49,7 @@ exts_list = [  # TODO
     ('doci', '08079a9', {
         'checksums': ['f492ba45dfe50c9b459e53a946a677528af0dc2097ff77ea3767aa4f46c5d9ba'],
     }),
-    ('icmpspt', 'f26062b', {
+    ('icmpspt', 'f26062b', {  # TODO update
         'patches': [('PySCF-2.1.1_icmpspt-exe-path.patch', 0)],
         'checksums': [
             {'icmpspt-f26062b.tar.gz': '8f44b317da209882e0353d2731d8bc907de450af02429e962ae9b8d3f8c95a47'},
@@ -66,10 +66,10 @@ exts_list = [  # TODO
     ('semiempirical', '470d716', {
         'checksums': ['0bbe304867fd053ed647445ac84c4c76787ad23def9f72415aec297740121eef'],
     }),
-    ('shciscf', 'e8985e7', {
+    ('shciscf', 'e8985e7', {  # TODO update
         'checksums': ['a017ffcf54601ccb3e95a273eff47289905c81d7fd590f9b51e22a69e141b592'],
     }),
-    ('MCfun', '0.2.2', {
+    ('MCfun', '0.2.2', {  # TODO update
         'modulename': 'mcfun',
         'source_urls': ['https://github.com/Multi-collinear/%(name)s/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
@@ -81,7 +81,7 @@ exts_list = [  # TODO
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['6e9f612c2d0bf2198154520e01dce57cf3a6e474840c1892466de3171eaeb7db'],
     }),
-    ('dmrgscf', '4ff57bf', {
+    ('dmrgscf', '4ff57bf', {  # TODO update
         'patches': [('PySCF-2.1.1_dmrgscf-settings.patch', 0)],
         'checksums': [
             {'dmrgscf-4ff57bf.tar.gz': '0683cfc2e6676aa11da7b2eee66e96442a64a37b72f65057779718c5fdb43c5f'},
@@ -103,7 +103,7 @@ exts_list = [  # TODO
         'modulename': 'pyscf.hci',
         'checksums': ['de247d17b80133655df5966341e5adb691b0df150cd9b0f1980cf62ec55229d5'],
     }),
-    ('tblis', '0d4dfd2', {
+    ('tblis', '0d4dfd2', {  # TODO update
         'modulename': 'pyscf.tblis_einsum',
         'source_urls': ['https://github.com/pyscf/pyscf-tblis/archive/'],
         'checksums': ['5e0e5840b78451085420b333cd4b5ee06fd659df06f142fa854de65b3f73fc5e'],
