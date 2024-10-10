@@ -1,0 +1,39 @@
+easyblock = 'PythonBundle'
+
+name = 'ncdata'
+version = '0.1.2'
+
+homepage = 'https://ncdata.readthedocs.io'
+description = """
+Abstract NetCDF data objects, providing fast data transfer between analysis packages.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('SciTools-Iris', '3.9.0'),
+    ('xarray', '2023.9.0'),
+    ('netcdf4-python', '1.6.4'),
+    ('dask', '2023.9.2'),
+]
+
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'patches': ['ncdata-0.1.2_disable-dynamic-versioning.patch'],
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/pp-mo/ncdata/archive/refs/tags/'],
+        'checksums': [
+            {'v0.1.2.tar.gz': '737f646ce7db228f0f3f7d3fe8ad97e9600218457749da7412a93cfc635d0680'},
+            {'ncdata-0.1.2_disable-dynamic-versioning.patch':
+             'c052849fa9fedaa2fc7b6c0d42a6b041d0a1c1b08a57b8b7c28658912e87fcc1'},
+        ],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'data'

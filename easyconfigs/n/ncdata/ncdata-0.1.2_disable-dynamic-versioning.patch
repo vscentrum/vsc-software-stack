@@ -1,0 +1,56 @@
+Disable dynamic versioning since setuptools_scm fails to determine version 
+Author: Cintia Willemyns (Vrije Universiteit Brussel)
+diff -Naur ncdata-0.1.2.orig/lib/ncdata/__init__.py ncdata-0.1.2/lib/ncdata/__init__.py
+--- ncdata-0.1.2.orig/lib/ncdata/__init__.py	2024-10-10 11:29:15.949075093 +0200
++++ ncdata-0.1.2/lib/ncdata/__init__.py	2024-10-10 15:57:29.845313121 +0200
+@@ -11,7 +11,7 @@
+ # N.B. this file excluded from isort, as we want a specific class order for the docs
+ 
+ from ._core import NameMap, NcAttribute, NcData, NcDimension, NcVariable
+-from ._version import __version__
++# from ._version import __version__
+ 
+ __all__ = [
+     "NcData",
+@@ -19,5 +19,5 @@
+     "NcVariable",
+     "NcAttribute",
+     "NameMap",
+-    "__version__",
++    # "__version__",
+ ]
+diff -Naur ncdata-0.1.2.orig/pyproject.toml ncdata-0.1.2/pyproject.toml
+--- ncdata-0.1.2.orig/pyproject.toml	2024-10-10 11:29:15.953417071 +0200
++++ ncdata-0.1.2/pyproject.toml	2024-10-10 15:43:53.042945774 +0200
+@@ -10,6 +10,7 @@
+ 
+ [project]
+ name = "ncdata"
++version = "0.1.2"
+ authors = [
+     {name = "Patrick Peglar", email = "patrick.peglar@metoffice.gov.uk"},
+ ]
+@@ -43,7 +44,7 @@
+ ]
+ dynamic = [
+     "readme",
+-    "version",
++    # "version",
+ ]
+ # Strictly, dask + netcdf are not core dependencies.
+ # But almost *any* conceivable use will need them.
+@@ -68,10 +69,10 @@
+ include = ["ncdata*"]
+ where = ["lib"]
+ 
+-[tool.setuptools_scm]
+-version_file = "lib/ncdata/_version.py"
+-local_scheme = "dirty-tag"
+-version_scheme = "release-branch-semver"
++# [tool.setuptools_scm]
++# version_file = "lib/ncdata/_version.py"
++# local_scheme = "dirty-tag"
++# version_scheme = "release-branch-semver"
+ 
+ 
+ [tool.black]
