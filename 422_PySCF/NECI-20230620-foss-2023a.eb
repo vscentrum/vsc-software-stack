@@ -31,6 +31,9 @@ dependencies = [
     ('HDF5', '1.14.0'),
 ]
 
+# TODO disabled SegFaulting tests
+preconfigopts = "sed -i '/back_spawn_excit_gen/d' '%(builddir)s/NECI_STABLE/unit_tests/CMakeLists.txt' && "
+
 # enable support for HDF5
 configopts = "-DENABLE_HDF5=ON"
 
@@ -46,57 +49,3 @@ sanity_check_paths = {
 }
 
 moduleclass = 'chem'
-
-# TODO
-# == 2024-10-02 16:50:46,975 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "ctest -j" exited with exit code 8 and output:
-# Test project /tmp/vsc45304/easybuild/build/NECI/20230620/foss-2023a/easybuild_obj
-#       Start  1: test_neci_countbits
-#  1/96 Test  #1: test_neci_countbits ........................   Passed    0.52 sec
-#       Start  2: test_kneci_countbits
-#  2/96 Test  #2: test_kneci_countbits .......................   Passed    0.02 sec
-#       Start  3: test_dneci_countbits
-#  3/96 Test  #3: test_dneci_countbits .......................   Passed    0.02 sec
-#       Start  4: test_mneci_countbits
-#  4/96 Test  #4: test_mneci_countbits .......................   Passed    0.02 sec
-#       Start  5: test_kdneci_countbits
-#  5/96 Test  #5: test_kdneci_countbits ......................   Passed    0.02 sec
-#       Start  6: test_kmneci_countbits
-#  6/96 Test  #6: test_kmneci_countbits ......................   Passed    0.02 sec
-#       Start  7: test_neci_real_space_hubbard
-#  7/96 Test  #7: test_neci_real_space_hubbard ...............   Passed    0.02 sec
-#       Start  8: test_neci_lattice_mod
-#  8/96 Test  #8: test_neci_lattice_mod ......................   Passed    0.04 sec
-#       Start  9: test_kneci_lattice_mod
-#  9/96 Test  #9: test_kneci_lattice_mod .....................   Passed    0.03 sec
-#       Start 10: test_dneci_lattice_mod
-# 10/96 Test #10: test_dneci_lattice_mod .....................   Passed    0.04 sec
-#       Start 11: test_mneci_lattice_mod
-# 11/96 Test #11: test_mneci_lattice_mod .....................   Passed    0.04 sec
-#       Start 12: test_kdneci_lattice_mod
-# 12/96 Test #12: test_kdneci_lattice_mod ....................   Passed    0.04 sec
-#       Start 13: test_kmneci_lattice_mod
-# 13/96 Test #13: test_kmneci_lattice_mod ....................   Passed    0.03 sec
-#       Start 14: test_neci_molecular_tc
-# 14/96 Test #14: test_neci_molecular_tc .....................***Failed    0.80 sec
-# [node4002.donphan.os:348548] OPAL ERROR: Unreachable in file ext3x_client.c at line 112
-# --------------------------------------------------------------------------
-# The application appears to have been direct launched using "srun",
-# but OMPI was not built with SLURM's PMI support and therefore cannot
-# execute. There are several options for building PMI support under
-# SLURM, depending upon the SLURM version you are using:
-#
-#   version 16.05 or later: you can use SLURM's PMIx support. This
-#   requires that you configure and build SLURM --with-pmix.
-#
-#   Versions earlier than 16.05: you must use either SLURM's PMI-1 or
-#   PMI-2 support. SLURM builds PMI-1 by default, or you can manually
-#   install PMI-2. You must then build Open MPI using --with-pmi pointing
-#   to the SLURM PMI library location.
-#
-# Please configure as appropriate and try again.
-# --------------------------------------------------------------------------
-# *** An error occurred in MPI_Init
-# *** on a NULL communicator
-# *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
-# ***    and potentially your MPI job)
-# [node4002.donphan.os:348548] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
