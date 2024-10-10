@@ -1,0 +1,45 @@
+easyblock = 'PerlBundle'
+
+name = 'RSAT'
+version = '20240828'
+
+homepage = 'https://github.com/rsa-tools/rsat-code/'
+description = """Regulatory Sequence Analysis Tools (RSAT)."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+# toolchainopts = {'pic': True}
+
+# builddependencies = [
+#     ('binutils', '2.40'),
+#     ('groff', '1.22.4'),
+# ]
+
+dependencies = [
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '%(perlver)s'),
+    # ('zlib', '1.2.13'),  # for Net::SSLeay
+    # ('expat', '2.5.0'),  # for XML::Parser
+    # ('ncurses', '6.4'),  # for Term::ReadLine::Gnu
+    # ('libreadline', '8.2'),  # for Term::ReadLine::Gnu
+    # ('OpenSSL', '1.1', '', SYSTEM),  # required for Net::SSLeay
+]
+
+exts_list = [
+    (name, version, {
+        'source_tmpl': '%(version)s.tar.gz',
+        'source_urls': ['https://github.com/rsa-tools/rsat-code/archive/'],
+        'checksums': ['21ffc8d59209818d38db46aea4f228d317213a1b7bc33ee2a2cac45d6ccc054f'],
+    }),
+]
+
+moduleclass = 'bio'
+
+# E1:
+    # builddir: /tmp/vsc47063/easybuild/build/RSAT/20240828/GCCcore-12.3.0/RSAT/rsat-code-20240828
+    # == 2024-10-10 14:53:02,154 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framew
+    # ork/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: 
+    # no (non-empty) directory found at 'lib/perl5' in /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/RSAT/20240828-GCCcore-12.3.0
+    # extensions sanity check failed for 1 extensions: RSAT
+    # failing sanity check for 'RSAT' extension: command "perl -e 'require RSAT'" failed; output:
+    # Can't locate RSAT.pm in @INC (you may need to install the RSAT module) 
+    # (@INC contains: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/RSAT/20240828-GCCcore-12.3.0/lib/perl5/site_perl/5.36.1 /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Perl-bundle-CPAN/5.36.1-GCCcore-12.3.0/lib/perl5/site_perl/5.36.1/x86_64-linux-thread-multi /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Perl-bundle-CPAN/5.36.1-GCCcore-12.3.0/lib/perl5/site_perl/5.36.1 /apps/gent/RHEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib/perl5/site_perl/5.36.1/x86_64-linux-thread-multi /apps/gent/RHEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib/perl5/site_perl/5.36.1 /apps/gent/RHEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib/perl5/5.36.1/x86_64-linux-thread-multi /apps/gent/RHEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib/perl5/5.36.1) at -e line 1. (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
