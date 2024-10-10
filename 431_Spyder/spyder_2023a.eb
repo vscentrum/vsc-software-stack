@@ -1,0 +1,101 @@
+easyblock = 'PythonBundle'
+
+name = 'Spyder'
+version = '6.0.1'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://github.com/spyder-ide/spyder'
+description = """Spyder is an interactive Python development environment providing MATLAB-like features in a simple
+ and light-weighted software."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+# toolchainopts = {'cstd': 'c++11'}
+
+# DEPS:
+    # 'aiohttp>=3.9.3', NO - too new for 2023a
+    # 'asyncssh>=2.14.0,<3.0.0', ok
+    # 'atomicwrites>=1.2.0', ok
+    # 'chardet>=2.0.0',
+    # 'cloudpickle>=0.5.0',
+    # 'cookiecutter>=1.6.0',
+    # 'diff-match-patch>=20181111',
+    # # While this is only required for python <3.10, it is safe enough to
+    # # install in all cases and helps the tests to pass.
+    # 'importlib-metadata>=4.6.0',
+    # 'intervaltree>=3.0.2',
+    # 'ipython>=8.12.2,<8.13.0; python_version=="3.8"',
+    # 'ipython>=8.13.0,<9.0.0,!=8.17.1; python_version>"3.8"',
+    # 'jedi>=0.17.2,<0.20.0',
+    # 'jellyfish>=0.7',
+    # 'jsonschema>=3.2.0',
+    # 'keyring>=17.0.0',
+    # 'nbconvert>=4.0',
+    # 'numpydoc>=0.6.0',
+    # 'parso>=0.7.0,<0.9.0',
+    # 'pexpect>=4.4.0',
+    # 'pickleshare>=0.4',
+    # 'psutil>=5.3',
+    # 'pygithub>=2.3.0',
+    # 'pygments>=2.0',
+    # 'pylint>=3.1,<4',
+    # 'pylint-venv>=3.0.2',
+    # 'pyls-spyder>=0.4.0',
+    # 'pyqt5>=5.15,<5.16',
+    # 'pyqtwebengine>=5.15,<5.16',
+    # 'python-lsp-black>=2.0.0,<3.0.0',
+    # 'python-lsp-server[all]>=1.12.0,<1.13.0',
+    # 'pyuca>=1.2',
+    # 'pyxdg>=0.26;platform_system=="Linux"',
+    # 'pyzmq>=24.0.0',
+    # 'qdarkstyle>=3.2.0,<3.3.0',
+    # 'qstylizer>=0.2.2',
+    # 'qtawesome>=1.3.1,<1.4.0',
+    # 'qtconsole>=5.6.0,<5.7.0',
+    # 'qtpy>=2.4.0',
+    # 'rtree>=0.9.7',
+    # 'setuptools>=49.6.0',
+    # 'sphinx>=0.6.6',
+    # 'spyder-kernels>=3.0.0,<3.2.0',
+    # 'superqt>=0.6.2,<1.0.0',
+    # 'textdistance>=4.2.0',
+    # 'three-merge>=0.1.1',
+    # 'watchdog>=0.10.3',
+    # 'yarl>=1.9.4',
+    
+builddependencies = [
+    ('CMake', '3.26.3'),
+]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('aiohttp', '3.8.5'),
+    # ('ZeroMQ', '4.3.2'),
+    # ('PyQt5', '5.15.1', versionsuffix),
+    # ('IPython', '7.15.0', versionsuffix),
+    # ('geopandas', '0.8.1', versionsuffix),
+]
+
+use_pip = True
+
+# strip out (too strict version) requirements for pyqt5 and pyqtwebengine,
+# because they are not installed with pip, but are provided via the PyQt5 dependency
+# local_spyder_preinstallopts = (
+#     """sed -i "s/'pyqt5.*,//g" setup.py && """
+#     """sed -i "s/'pyqtwebengine.*,//g" setup.py && """
+# )
+
+exts_list = [
+    ('asyncssh', '2.17.0'),
+    ('atomicwrites', '1.4.1'),
+    (name, version),
+]
+
+sanity_check_paths = {
+    'files': ['bin/spyder3'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["spyder3 --help"]
+
+sanity_pip_check = True
+
+moduleclass = 'tools'
