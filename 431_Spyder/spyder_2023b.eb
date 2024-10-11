@@ -23,7 +23,7 @@ toolchain = {'name': 'foss', 'version': '2023b'}
     # 'intervaltree>=3.0.2', OK pypi bundle
     # 'ipython>=8.13.0,<9.0.0,!=8.17.1; python_version>"3.8"', OK
     # 'jedi>=0.17.2,<0.20.0', OK
-    # 'jellyfish>=0.7', NO -> CREATE (Qt5 ok)
+    # 'jellyfish>=0.7', ok? -> seems as py jellyfish -> get from pypi not update EC from EB
     # 'jsonschema>=3.2.0', OK pypi bundle
     # 'keyring>=17.0.0', OK pypi bundle
     # 'nbconvert>=4.0', OK jupyter-server
@@ -37,8 +37,8 @@ toolchain = {'name': 'foss', 'version': '2023b'}
     # 'pylint>=3.1,<4', OK
     # 'pylint-venv>=3.0.2', ok
     # 'pyls-spyder>=0.4.0', ok
-    # 'pyqt5>=5.15,<5.16', NO -> CREATE
-    # 'pyqtwebengine>=5.15,<5.16', no - will be in pyqt5
+    # 'pyqt5>=5.15,<5.16', OK -> CREATED
+    # 'pyqtwebengine>=5.15,<5.16', ok - will be in pyqt5
     # 'python-lsp-black>=2.0.0,<3.0.0', ok
     # 'python-lsp-server[all]>=1.12.0,<1.13.0', ok
     # 'pyuca>=1.2', ok
@@ -47,9 +47,9 @@ toolchain = {'name': 'foss', 'version': '2023b'}
     # 'qdarkstyle>=3.2.0,<3.3.0', ok
     # 'qstylizer>=0.2.2', ok
     # 'qtawesome>=1.3.1,<1.4.0', ok
-    # 'qtconsole>=5.6.0,<5.7.0', NO -> CREATE
-    # 'qtpy>=2.4.0', NO - should be in qtconsole
-    # 'rtree>=0.9.7', NO -> CREATE
+    # 'qtconsole>=5.6.0,<5.7.0', OK -> CREATED
+    # 'qtpy>=2.4.0', OK - should be in qtconsole
+    # 'rtree>=0.9.7', OK -> CREATED
     # 'setuptools>=49.6.0', OK python
     # 'sphinx>=0.6.6', OK pypi bundle
     # 'spyder-kernels>=3.0.0,<3.2.0', ok
@@ -88,6 +88,9 @@ dependencies = [
     ('jupyter-server', '2.14.0'),
     ('Pylint', '3.2.5'),
     ('PyZMQ', '25.1.2'),
+    ('PyQt5', '5.15.10'),
+    ('Qtconsole', '5.6.0'),
+    ('Rtree', '1.2.0'),
 ]
 
 use_pip = True
@@ -133,6 +136,7 @@ exts_list = [
     ('textdistance', '4.6.3'),
     ('three-merge', '0.1.1'),
     ('watchdog', '5.0.3'),
+    ('jellyfish', '1.1.0'),
     (name, version),
 ]
 
