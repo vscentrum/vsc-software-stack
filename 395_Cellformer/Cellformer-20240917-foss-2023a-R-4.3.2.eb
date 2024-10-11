@@ -18,6 +18,7 @@ checksums = ['7cbddad75a4d47dfc0a39cd660ef20fe4e3cb755631b1b96136c1c3d5226c914']
 dependencies = [
     ('Python', '3.11.3'),
     ('PyTorch', '2.1.2'),
+    ('PyTorch-bundle', '2.1.2'),
     ('scikit-learn', '1.3.1'),
     ('PyTorch-Lightning', '2.2.1'),
     ('anndata', '0.10.5.post1'),
@@ -35,7 +36,8 @@ dependencies = [
     ('R-bundle-CRAN', '2023.12'),
     ('R-bundle-Bioconductor', '3.18', versionsuffix),
     ('ArchR', '1.0.2', versionsuffix),
-    # ('typing-extensions', '4.9.0'),
+    ('typing-extensions', '4.9.0'),
+    ('einops', '0.7.0'),
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -52,16 +54,69 @@ exts_list = [
         'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d'],
     }),
+    ('asteroid_filterbanks', '0.4.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['4932ac8b6acc6e08fb87cbe8ece84215b5a74eee284fe83acf3540a72a02eaf5'],
+    }),
+    ('huggingface_hub', '0.25.2', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['1897caf88ce7f97fe0110603d8f66ac264e3ba6accdf30cd66cc0fed5282ad25'],
+    }),
+    ('julius', '0.2.7', {
+        'checksums': ['3c0f5f5306d7d6016fcc95196b274cae6f07e2c9596eed314e4e7641554fbb08'],
+    }),
+    ('cached_property', '1.5.2', {
+        'source_tmpl': SOURCE_WHL,
+        'checksums': ['df4f613cf7ad9a588cc381aaf4a512d26265ecebd5eb9e1ba12f1319eb85a6a0'],
+    }),
+    ('mir_eval', '0.7', {
+        'checksums': ['e1febaa5766c65a7545c2a170b241490f47a98987370b1e06742424c5debe65e'],
+    }),
+    ('pesq', '0.0.4', {
+        'checksums': ['b724b28f73fb638522982bd68e8c3c0957e2f45210639a460233b17aa7fc890b'],
+    }),
+    ('pb_bss_eval', '0.0.2', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['a72c2fd04c9f4a4e734cf615029c3877e6e4536225eeaaae05bb0cf014b3af1b'],
+    }),
+    ('soundfile', '0.12.1', {
+        'source_tmpl': SOURCE_WHL,
+        'checksums': ['828a79c2e75abab5359f780c81dccd4953c45a2c4cd4f05ba3e233ddf984b882'],
+    }),
+    ('pytorch_ranger', '0.1.1', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['1e69156c9cc8439185cb8ba4725b18c91947fbe72743e25aca937da8aeb0c8ec'],
+    }),
+    ('torch_optimizer', '0.1.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['b7adaed38b66a5c5105a59b30a71c4ab7c9954baf0acabd969fee3dac954657d'],
+    }),
+    ('pystoi', '0.4.1', {
+        'source_tmpl': SOURCE_WHL,
+        'checksums': ['e277b671663d26d35a2416c9c8010a74084e6c3970354506398051a554896939'],
+    }),
+    ('torch_stoi', '0.2.3', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['6eee85e33b42fe843a2150de46000f72e7b87cbeb19ae6ab9bbd94b6ec6b3cd2'],
+    }),
+    ('torchmetrics', '1.4.3', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['76e67490231acef7f70cf36ab129df72fb2b0256dada7051001ab3b9f8699bf4'],
+    }),
     ('asteroid', '0.7.0', {
-        'preinstallopts': "sed -i '/torchmetrics/d' setup.py && ",
         'checksums': ['0326f28c5342495cb08ba0520efd0e21e39435dfd78854837fdd5a6c9c9ca410'],
     }),
     ('everett', '3.1.0', {
         'source_tmpl': SOURCE_WHL,
         'checksums': ['db13891b849e45e54faea93ee79881d12458c5378f5b9b7f806eeff03ce1de3c'],
     }),
-    ('python-box', '6.1.0', {
-        'checksums': ['6e7c243b356cb36e2c0f0e5ed7850969fede6aa812a7f501de7768996c7744d7'],
+    ('configobj', '5.0.9', {
+        'checksums': ['03c881bbf23aa07bccf1b837005975993c4ab4427ba57f959afdd9d1a2386848'],
+    }),
+    ('python_box', '6.1.0', {
+        'modulename': 'box',
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['bdec0a5f5a17b01fc538d292602a077aa8c641fb121e1900dff0591791af80e8'],
     }),
     ('sentry_sdk', '2.15.0', {
         'source_tmpl': SOURCE_WHL,
@@ -111,36 +166,23 @@ fix_python_shebang_for = [
     'src/*/*/*/*.py',
 ]
 
-postinstallcmds = ["sed -i 's|python |python %(installdir)s/|g' %(installdir)s/*.sh"]
+local_scripts = [
+    'createPeakMatrix.sh',
+    'createDataset.sh',
+    'deconvolution.sh',
+    'trainModel.sh',
+    'validation.sh',
+]
+
+postinstallcmds = [
+    "sed -i 's|python |python %(installdir)s/|g' %(installdir)s/*.sh"
+] + ['chmod a+rx %%(installdir)s/%s' % script for script in local_scripts]
 
 sanity_check_paths = {
-    'files': [
-        'createPeakMatrix.sh',
-        'createDataset.sh',
-        'deconvolution.sh',
-        'trainModel.sh',
-        'validation.sh',
-    ],
+    'files': local_scripts,
     'dirs': ['lib/python%(pyshortver)s/site-packages'],
 }
 
-sanity_check_commands = [  # TODO permissions
-    'createPeakMatrix.sh --help',
-    'createDataset.sh --help',
-    'deconvolution.sh --help',
-    'trainModel.sh --help',
-    'validation.sh --help',
-]
+sanity_check_commands = ["%s --help | grep '^Usage:'" % script for script in local_scripts]
 
 moduleclass = 'bio'
-
-# TODO
-# asteroid 0.7.0 requires asteroid-filterbanks, which is not installed.
-# asteroid 0.7.0 requires huggingface-hub, which is not installed.
-# asteroid 0.7.0 requires julius, which is not installed.
-# asteroid 0.7.0 requires pb-bss-eval, which is not installed.
-# asteroid 0.7.0 requires soundfile, which is not installed.
-# asteroid 0.7.0 requires torch-optimizer, which is not installed.
-# asteroid 0.7.0 requires torch-stoi, which is not installed.
-# asteroid 0.7.0 requires torchaudio, which is not installed.
-# fastapi 0.110.0 has requirement typing-extensions>=4.8.0, but you have typing-extensions 4.6.3.
