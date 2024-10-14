@@ -14,8 +14,8 @@ toolchain = {'name': 'foss', 'version': '2023b'}
 # DEPS:
     # 'aiohttp>=3.9.3', OK
     # 'asyncssh>=2.14.0,<3.0.0', ok
-    # 'atomicwrites>=1.2.0', OK pupi bundle
-    # 'chardet>=2.0.0', OK pupi bundle
+    # 'atomicwrites>=1.2.0', OK pypi bundle
+    # 'chardet>=2.0.0', OK pypi bundle
     # 'cloudpickle>=0.5.0', OK pypi bundle
     # 'cookiecutter>=1.6.0', ok
     # 'diff-match-patch>=20181111', ok
@@ -92,8 +92,9 @@ dependencies = [
     ('PyQt5', '5.15.10'),
     ('Qtconsole', '5.6.0'),
     ('Rtree', '1.2.0'),
-    ('Arrow', '16.1.0'),
+    # ('Arrow', '16.1.0'),
     ('Deprecated', '1.2.14'),
+    ('tornado', '6.4'),
 ]
 
 use_pip = True
@@ -118,9 +119,19 @@ exts_list = [
     ('binaryornot', '0.4.4', {
         'checksums': ['359501dfc9d40632edc9fac890e19542db1a287bbcfa58175b66658392018061'],
     }),
+    ('text-unidecode', '1.3', {
+        'checksums': ['bad6603bb14d279193107714b288be206cac565dfa49aa5b105294dd5c4aab93'],
+    }),
     ('python-slugify', '8.0.4', {
         'modulename': 'slugify',
         'checksums': ['59202371d1d05b54a9e7720c5e038f928f45daaffe41dd10822f3907b937c856'],
+    }),
+    ('types-python-dateutil', '2.9.0.20241003', {
+        'modulename': False,
+        'checksums': ['58cb85449b2a56d6684e41aeefb4c4280631246a0da1a719bdbe6f3fb0317446'],
+    }),
+    ('arrow', '1.3.0', {
+        'checksums': ['d4540617648cb5f895730f1ad8c82a65f2dad0166f57b75f3ca54759c4d67a85'],
     }),
     ('cookiecutter', '2.6.0', {
         'checksums': ['db21f8169ea4f4fdc2408d48ca44859349de2647fbe494a9d6c3edfc0542c21c'],
@@ -144,19 +155,25 @@ exts_list = [
     ('pyls-spyder', '0.4.0', {
         'checksums': ['45a321c83f64267d82907492c55199fccabda45bc872dd23bf1efd08edac1b0b'],
     }),
+    ('mypy_extensions', '1.0.0', {
+        'checksums': ['75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782'],
+    }),
     ('black', '24.10.0', {
         'checksums': ['846ea64c97afe3bc677b761787993be4991810ecc7a4a937816dd6bddedc4875'],
     }),
     ('python-lsp-black', '2.0.0', {
+        'modulename': False,
         'checksums': ['8286d2d310c566844b3c116b824ada6fccfa6ba228b1a09a0526b74c04e0805f'],
     }),
     ('docstring-to-markdown', '0.15', {
         'checksums': ['e146114d9c50c181b1d25505054a8d0f7a476837f0da2c19f07e06eaed52b73d'],
     }),
     ('python-lsp-jsonrpc', '1.1.2', {
+        'modulename': False,
         'checksums': ['4688e453eef55cd952bff762c705cedefa12055c0aec17a06f595bcc002cc912'],
     }),
     ('python_lsp_server', '1.12.0', {
+        'modulename': 'pylsp',
         'checksums': ['b6a336f128da03bd9bac1e61c3acca6e84242b8b31055a1ccf49d83df9dc053b'],
     }),
     ('pyuca', '1.2', {
@@ -210,8 +227,16 @@ exts_list = [
     }),
 ]
 
-# ok qstylizer 0.2.3 requires inflection, which is not installed.
+# ok ModuleNotFoundError: No module named 'python_lsp_server'
+# ok ModuleNotFoundError: No module named 'python_lsp_jsonrpc
+# ok ModuleNotFoundError: No module named 'python_lsp_black'
+# ok arrow 1.3.0 requires types-python-dateutil, which is not installed.
+# ? ModuleNotFoundError: No module named 'zmq' -> should be there, load PyZMQ + import zmq works
+# ok black 24.10.0 requires mypy-extensions, which is not installed.q
 # ok cookiecutter 2.6.0 requires arrow, which is not installed.
+# ok python-slugify 8.0.4 requires text-unidecode, which is not installed.
+# ok qstylizer 0.2.3 requires inflection, which is not installed.
+# no cookiecutter 2.6.0 requires arrow, which is not installed. -> seems not pyarrow but only arrow
 # ok cookiecutter 2.6.0 requires binaryornot, which is not installed.
 # ok cookiecutter 2.6.0 requires python-slugify, which is not installed.
 # ok spyder-kernels 3.0.0 requires wurlitzer, which is not installed.
@@ -223,12 +248,25 @@ exts_list = [
 # ok virtualenv 20.24.6 has requirement platformdirs<4,>=3.9.1, but you have platformdirs 4.2.2.
 
 sanity_check_paths = {
-    'files': ['bin/spyder3'],
+    'files': ['bin/spyder'],
     'dirs': ['lib/python%(pyshortver)s/site-packages'],
 }
 
-sanity_check_commands = ["spyder3 --help"]
+# sanity_check_commands = ["spyder --help"]
 
 sanity_pip_check = True
 
 moduleclass = 'tools'
+
+# E1
+    # <- spyder
+    # ModuleNotFoundError: No module named 'zmq'
+    # when I # import zmq in app/start.py ->
+        # Traceback (most recent call last):
+        # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Spyder/6.0.0-foss-2023b-Python-3.11.5/bin/spyder", line 5, in <module>
+        # from spyder.app.start import main
+        # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Spyder/6.0.0-foss-2023b-Python-3.11.5/lib/python3.11/site-packages/spyder/app/start.py", line 53, in <module>
+        # from spyder_kernels.utils.pythonenv import is_conda_env
+        # ModuleNotFoundError: No module named 'spyder_kernels' 
+            # -> spyder_kernels are there - import spyder_kernels from python works either "from spyder_kernels.utils.pythonenv import is_conda_env"
+        
