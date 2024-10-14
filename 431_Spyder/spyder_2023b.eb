@@ -92,25 +92,15 @@ dependencies = [
     ('PyQt5', '5.15.10'),
     ('Qtconsole', '5.6.0'),
     ('Rtree', '1.2.0'),
-    # ('Arrow', '16.1.0'),
     ('Deprecated', '1.2.14'),
     ('tornado', '6.4'),
 ]
 
 use_pip = True
 
-# strip out (too strict version) requirements for pyqt5 and pyqtwebengine,
-# because they are not installed with pip, but are provided via the PyQt5 dependency
-# local_spyder_preinstallopts = (
-#     """sed -i "s/'pyqt5.*,//g" setup.py && """
-#     """sed -i "s/'pyqtwebengine.*,//g" setup.py && """
-# )
+fix_python_shebang_for = ['bin/spyder']
 
-# avoid hatchling requirement to install
-# (since installing it introduces conflicting version requirements with poetry included with Python)
-_preinstallopts_no_hatchling = """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' """
-_preinstallopts_no_hatchling += """-e 's/^requires = .*/requires = ["setuptools"]/g' """
-_preinstallopts_no_hatchling += r"""-e 's/dynamic = \["version"\]/version = "%(version)s"/g' pyproject.toml && """
+local_preinstallopts = "sed -i '13,19d' spyder/app/start.py && "
 
 exts_list = [
     ('asyncssh', '2.17.0', {
@@ -203,7 +193,7 @@ exts_list = [
         'checksums': ['3d316ea04802ed1feb366405cca03df2349dc9e35ad8653538d2fe48c0e9417f'],
     }),
     ('superqt', '0.6.6', {
-        'preinstallopts': _preinstallopts_no_hatchling,
+        # 'preinstallopts': _preinstallopts_no_hatchling,
         'checksums': ['792e09165c8a788ee245bdb784e018f9077fb309253354d86793cdf1d092f99f'],
     }),
     ('textdistance', '4.6.3', {
@@ -223,6 +213,7 @@ exts_list = [
     }),
     (name, version, {
         'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
+        'preinstallopts': local_preinstallopts,
         'checksums': ['709782e88091588bbe614de6ebbde7b47544a4d6c225e199de5ad22b77d8b130'],
     }),
 ]

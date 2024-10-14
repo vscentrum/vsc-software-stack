@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'Spyder'
-version = '6.0.1'
+version = '5.5.6'
 versionsuffix = '-Python-%(pyver)s'
 
 homepage = 'https://github.com/spyder-ide/spyder'
@@ -12,90 +12,191 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # toolchainopts = {'cstd': 'c++11'}
 
 # DEPS:
-    # 'aiohttp>=3.9.3', NO - too new for 2023a
-    # 'asyncssh>=2.14.0,<3.0.0', ok
-    # 'atomicwrites>=1.2.0', ok
-    # 'chardet>=2.0.0',
-    # 'cloudpickle>=0.5.0',
-    # 'cookiecutter>=1.6.0',
-    # 'diff-match-patch>=20181111',
-    # # While this is only required for python <3.10, it is safe enough to
-    # # install in all cases and helps the tests to pass.
-    # 'importlib-metadata>=4.6.0',
-    # 'intervaltree>=3.0.2',
-    # 'ipython>=8.12.2,<8.13.0; python_version=="3.8"',
-    # 'ipython>=8.13.0,<9.0.0,!=8.17.1; python_version>"3.8"',
-    # 'jedi>=0.17.2,<0.20.0',
-    # 'jellyfish>=0.7',
-    # 'jsonschema>=3.2.0',
-    # 'keyring>=17.0.0',
-    # 'nbconvert>=4.0',
-    # 'numpydoc>=0.6.0',
-    # 'parso>=0.7.0,<0.9.0',
-    # 'pexpect>=4.4.0',
-    # 'pickleshare>=0.4',
-    # 'psutil>=5.3',
-    # 'pygithub>=2.3.0',
-    # 'pygments>=2.0',
-    # 'pylint>=3.1,<4',
-    # 'pylint-venv>=3.0.2',
-    # 'pyls-spyder>=0.4.0',
-    # 'pyqt5>=5.15,<5.16',
-    # 'pyqtwebengine>=5.15,<5.16',
-    # 'python-lsp-black>=2.0.0,<3.0.0',
-    # 'python-lsp-server[all]>=1.12.0,<1.13.0',
-    # 'pyuca>=1.2',
-    # 'pyxdg>=0.26;platform_system=="Linux"',
-    # 'pyzmq>=24.0.0',
-    # 'qdarkstyle>=3.2.0,<3.3.0',
-    # 'qstylizer>=0.2.2',
-    # 'qtawesome>=1.3.1,<1.4.0',
-    # 'qtconsole>=5.6.0,<5.7.0',
-    # 'qtpy>=2.4.0',
-    # 'rtree>=0.9.7',
-    # 'setuptools>=49.6.0',
-    # 'sphinx>=0.6.6',
-    # 'spyder-kernels>=3.0.0,<3.2.0',
-    # 'superqt>=0.6.2,<1.0.0',
-    # 'textdistance>=4.2.0',
-    # 'three-merge>=0.1.1',
-    # 'watchdog>=0.10.3',
-    # 'yarl>=1.9.4',
+    # atomicwrites >=1.2.0 OK in pypi bundle
+    # chardet >=2.0.0 OK in pypi bundle
+    # cloudpickle >=0.5.0 OK in pypi bundle
+    # cookiecutter >=1.6.0 ok
+    # diff-match-patch >=20181111 ok
+    # importlib-metadata >=4.6.0 ok
+    # intervaltree >=3.0.2 OK in pypi bundle
+    # ipython >=8.13.0,<9.0.0,!=8.17.1 OK
+    # jedi >=0.17.2,<0.20.0 OK - created
+    # jellyfish >=0.7 ok
+    # jsonschema >=3.2.0 OK in pypi bundle
+    # keyring >=17.0.0 OK in pypi bundle
+    # nbconvert >=4.0 ok? if not use jupyter-server
+    # numpydoc >=0.6.0 ok
+    # parso >=0.7.0,<0.9.0 ok in jedi
+    # pexpect >=4.4.0 OK in pypi bundle
+    # pickleshare >=0.4 OK in IPython
+    # psutil >=5.3 OK pypi bundle
+    # pygments >=2.0 OK pypi bundle
+    # pylint >=3.1,<4 OK - created
+    # pylint-venv >=3.0.2 ok
+    # pyls-spyder >=0.4.0 ok
+    # pyqt >=5.10,<5.16 OK
+    # pyqtwebengine >=5.10,<5.16 OK in PyQt5
+    # python-lsp-black >=2.0.0,<3.0.0 ok
+    # python-lsp-server >=1.12.0,<1.13.0 ok
+    # pyzmq >=24.0.0 OK
+    # qdarkstyle >=3.2.0,<3.3.0 ok
+    # qstylizer >=0.2.2 ok
+    # qtawesome >=1.3.1,<1.4.0 ok
+    # qtconsole >=5.5.1,<5.6.0 OK
+    # qtpy >=2.1.0 OK in Qtconsole
+    # rtree >=0.9.7 OK
+    # setuptools >=49.6.0 OK py
+    # sphinx >=0.6.6 OK pypi-b
+    # spyder-kernels >=2.5.2,<2.6.0 ok
+    # textdistance >=4.2.0 ok
+    # three-merge >=0.1.1 ok
+    # watchdog >=0.10.3 ok
     
 builddependencies = [
-    ('CMake', '3.26.3'),
+    ('maturin', '1.1.0'),
+    ('hatchling', '1.18.0'),
+    ('poetry', '1.5.1')
 ]
 dependencies = [
     ('Python', '3.11.3'),
-    ('aiohttp', '3.8.5'),
-    # ('ZeroMQ', '4.3.2'),
-    # ('PyQt5', '5.15.1', versionsuffix),
-    # ('IPython', '7.15.0', versionsuffix),
-    # ('geopandas', '0.8.1', versionsuffix),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+    ('IPython', '8.14.0'),
+    ('jedi', '0.19.1'),
+    ('Pylint', '3.2.5'),
+    ('PyQt5', '5.15.10'),
+    ('PyZMQ', '25.1.1'),
+    ('Qtconsole', '5.5.1'),
+    ('Rtree', '1.2.0'),
 ]
 
 use_pip = True
 
-# strip out (too strict version) requirements for pyqt5 and pyqtwebengine,
-# because they are not installed with pip, but are provided via the PyQt5 dependency
-# local_spyder_preinstallopts = (
-#     """sed -i "s/'pyqt5.*,//g" setup.py && """
-#     """sed -i "s/'pyqtwebengine.*,//g" setup.py && """
-# )
-
 exts_list = [
-    ('asyncssh', '2.17.0'),
-    ('atomicwrites', '1.4.1'),
-    (name, version),
+    ('binaryornot', '0.4.4', {
+        'checksums': ['359501dfc9d40632edc9fac890e19542db1a287bbcfa58175b66658392018061'],
+    }),
+    ('text-unidecode', '1.3', {
+        'checksums': ['bad6603bb14d279193107714b288be206cac565dfa49aa5b105294dd5c4aab93'],
+    }),
+    ('python-slugify', '8.0.4', {
+        'modulename': 'slugify',
+        'checksums': ['59202371d1d05b54a9e7720c5e038f928f45daaffe41dd10822f3907b937c856'],
+    }),
+    ('types-python-dateutil', '2.9.0.20241003', {
+        'modulename': False,
+        'checksums': ['58cb85449b2a56d6684e41aeefb4c4280631246a0da1a719bdbe6f3fb0317446'],
+    }),
+    ('arrow', '1.3.0', {
+        'checksums': ['d4540617648cb5f895730f1ad8c82a65f2dad0166f57b75f3ca54759c4d67a85'],
+    }),
+    ('cookiecutter', '2.6.0', {
+        'checksums': ['db21f8169ea4f4fdc2408d48ca44859349de2647fbe494a9d6c3edfc0542c21c'],
+    }),
+    ('diff-match-patch', '20230430', {
+        'checksums': ['953019cdb9c9d2c9e47b5b12bcff3cf4746fc4598eb406076fa1fc27e6a1f15c'],
+    }),
+    ('importlib_metadata', '8.4.0', {
+        'checksums': ['9a547d3bc3608b025f93d403fdd1aae741c24fbb8314df4b155675742ce303c5'],
+    }),
+    ('jellyfish', '1.0.3', {
+        'checksums': ['ddb22b7155f208e088352283ee78cb4ef2d2067a76e148a8bb43d177f32b37d2'],
+    }),
+    ('nbconvert', '7.7.4', {
+        'checksums': ['1113d039fa3fc3a846ffa5a3b0a019e85aaa94c566a09fa0c400fb7638e46087'],
+    }),
+    ('numpydoc', '1.8.0', {
+        'checksums': ['022390ab7464a44f8737f79f8b31ce1d3cfa4b4af79ccaa1aac5e8368db587fb'],
+    }),
+    ('pylint_venv', '3.0.3', {
+        'checksums': ['df12a17fca39a94acc1c9a0f1dcf68141e90fe685569d78c046695c67c4e55fa'],
+    }),
+    ('pyls-spyder', '0.4.0', {
+        'checksums': ['45a321c83f64267d82907492c55199fccabda45bc872dd23bf1efd08edac1b0b'],
+    }),
+    ('mypy_extensions', '1.0.0', {
+        'checksums': ['75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782'],
+    }),
+    ('black', '24.10.0', {
+        'checksums': ['846ea64c97afe3bc677b761787993be4991810ecc7a4a937816dd6bddedc4875'],
+    }),
+    ('python-lsp-black', '2.0.0', {
+        'modulename': False,
+        'checksums': ['8286d2d310c566844b3c116b824ada6fccfa6ba228b1a09a0526b74c04e0805f'],
+    }),
+    ('docstring-to-markdown', '0.15', {
+        'checksums': ['e146114d9c50c181b1d25505054a8d0f7a476837f0da2c19f07e06eaed52b73d'],
+    }),
+    ('python-lsp-jsonrpc', '1.1.2', {
+        'modulename': False,
+        'checksums': ['4688e453eef55cd952bff762c705cedefa12055c0aec17a06f595bcc002cc912'],
+    }),
+    ('python_lsp_server', '1.12.0', {
+        'modulename': 'pylsp',
+        'checksums': ['b6a336f128da03bd9bac1e61c3acca6e84242b8b31055a1ccf49d83df9dc053b'],
+    }),
+    ('QDarkStyle', '3.2.3', {
+        'checksums': ['0c0b7f74a6e92121008992b369bab60468157db1c02cd30d64a5e9a3b402f1ae'],
+    }),
+    ('inflection', '0.5.1', {
+        'checksums': ['1a29730d366e996aaacffb2f1f1cb9593dc38e2ddd30c91250c6dde09ea9b417'],
+    }),
+    ('qstylizer', '0.2.3', {
+        'checksums': ['5f2f5eb2c65c6c45e950462b565fcaa5107a91d1cfc1a85b8e0d831d727ee8f6'],
+    }),
+    ('QtAwesome', '1.3.1', {
+        'checksums': ['075b2c9ee01cbaf5e3a4bebed0e5529ee8605981355f21dea051b15c1b869e1b'],
+    }),
+    ('wurlitzer', '3.1.1', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['0b2749c2cde3ef640bf314a9f94b24d929fe1ca476974719a6909dfc568c3aac'],
+    }),
+    ('spyder_kernels', '2.5.2', {
+        'checksums': ['71f252900e02b0394820cc7049f89ed725243f6fccf640b76dd329203c413960'],
+    }),
+    ('textdistance', '4.6.3', {
+        'checksums': ['d6dabc50b4ea832cdcf0e1e6021bd0c7fcd9ade155888d79bb6a3c31fce2dc6f'],
+    }),
+    ('three-merge', '0.1.1', {
+        'checksums': ['60f6afe144595560d63ae32625351bcef3b94733b54eb97800a9feb0f3d9d970'],
+    }),
+    ('watchdog', '5.0.3', {
+        'checksums': ['108f42a7f0345042a854d4d0ad0834b741d421330d5f575b81cb27b883500176'],
+    }),
+    (name, version, {
+        'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
+        'checksums': ['958b669f4a015c5c391050eb6effa8d84656a8bfc47a5f46adba297849d82bdd'],
+    }),
 ]
 
 sanity_check_paths = {
-    'files': ['bin/spyder3'],
+    'files': ['bin/spyder'],
     'dirs': ['lib/python%(pyshortver)s/site-packages'],
 }
 
-sanity_check_commands = ["spyder3 --help"]
+# sanity_check_commands = ["spyder3 --help"]
 
 sanity_pip_check = True
 
 moduleclass = 'tools'
+
+# E1: OK
+    # -> change version of jellyfish -> works
+    # <- during build of jellyfish:
+        # error[E0658]: use of unstable library feature 'build_hasher_simple_hash_one'
+        #      --> /user/gent/470/vsc47063/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ahash-0.8.11/src/random_state.rs:463:5
+        #       |
+        #   463 | /     fn hash_one<T: Hash>(&self, x: T) -> u64 {
+        #   464 | |         RandomState::hash_one(self, x)
+        #   465 | |     }
+        #       | |_____^
+        #       |
+        #       = note: see issue #86161 <https://github.com/rust-lang/rust/issues/86161> for more information
+        #       = help: add `#![feature(build_hasher_simple_hash_one)]` to the crate attributes to enable
+        
+        #   For more information about this error, try `rustc --explain E0658`.
+        #   error: could not compile `ahash` (lib) due to previous error
+        #   warning: build failed, waiting for other jobs to finish...
+        #    maturin failed
+        #     Caused by: Failed to build a native library through cargo
