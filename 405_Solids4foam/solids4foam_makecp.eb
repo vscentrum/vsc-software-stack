@@ -29,7 +29,7 @@ prebuildopts += 'export FOAM_USER_APPBIN=%(installdir)s/bin && '
 prebuildopts += 'export FOAM_USER_LIBBIN=%(installdir)s/lib && '
 prebuildopts += 'export LD_LIBRARY_PATH=%(installdir)s/lib:$LD_LIBRARY_PATH && '
 prebuildopts += 'export EIGEN_DIR=$EBROOTEIGEN && '
-prebuildopts += 'export S4F_NO_FILE_FIXES=1'
+prebuildopts += 'export S4F_NO_FILE_FIXES=1 &&'
 
 build_cmd = './Allwmake'
 
@@ -42,7 +42,8 @@ build_cmd = './Allwmake'
 # copy tests
 # install_cmd += ' && cp -av tutorials %(installdir)s'
 
-files_to_copy = ['tutorials']
+# files_to_copy = ['tutorials']
+files_to_copy = ['*']
 # files_to_copy = ['bin', 'lib', 'test_data', 'LICENSE', 'nextDenovo']
 
 sanity_check_paths = {
@@ -56,3 +57,18 @@ sanity_check_commands = [
 modloadmsg = "Please run 'source $FOAM_BASH' before using Solids4foam."
 
 moduleclass = 'chem'
+
+# builddir: 
+# /tmp/vsc47063/easybuild/build/Solids4foam/2.1/foss-2023a/solids4foam-2.1/
+# installdir:
+# /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Solids4foam/2.1-foss-2023a/
+
+# E1:
+    # == 2024-10-15 11:41:21,647 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
+    # Failed to copy directory 
+    # /tmp/vsc47063/easybuild/build/Solids4foam/2.1/foss-2023a/solids4foam-2.1/tutorials to 
+    # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Solids4foam/2.1-foss-2023a/tutorials: 
+    # [('/tmp/vsc47063/easybuild/build/Solids4foam/2.1/foss-2023a/solids4foam-2.1/tutorials/fluidSolidInteraction-preCICE/flexibleOversetCylinder/fluid/precice-run', 
+    #   '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Solids4foam/2.1-foss-2023a/tutorials/fluidSolidInteraction-preCICE/flexibleOversetCylinder/fluid/precice-run', 
+    #   "[Errno 2] No such file or directory: '/tmp/vsc47063/easybuild/build/Solids4foam/2.1/foss-2023a/solids4foam-2.1/tutorials/fluidSolidInteraction-preCICE/flexibleOversetCylinder/fluid/precice-run'")] 
+    # (at easybuild/easybuild-framework/easybuild/tools/filetools.py:2620 in copy_dir)
