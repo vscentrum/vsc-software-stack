@@ -32,13 +32,13 @@ dependencies = [
 ]
 
 # disable tests ending up with SEGFAULT
-preconfigopts = "sed -i '/back_spawn_excit_gen/d' '%(builddir)s/NECI_STABLE/unit_tests/CMakeLists.txt' && "
+# preconfigopts = "sed -i '/back_spawn_excit_gen/d' '%(builddir)s/NECI_STABLE/unit_tests/CMakeLists.txt' && "
 
 # enable support for HDF5
 configopts = "-DENABLE_HDF5=ON"
 
 test_cmd = 'ctest'
-runtest = '-j'
+runtest = '-j 1'
 
 files_to_copy = ['bin', 'lib', (['modules'], 'include')]
 
@@ -49,3 +49,6 @@ sanity_check_paths = {
 }
 
 moduleclass = 'chem'
+
+# TODO
+# disabling parallel tests doesn't help

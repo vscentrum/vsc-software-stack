@@ -1,0 +1,89 @@
+easyblock = 'CMakeMake'
+
+name = 'CPPE'
+version = '0.3.2'
+
+homepage = 'https://github.com/maxscheurer/cppe'
+description = """CPPE is an open-source, light-weight C++ and Python library for Polarizable
+Embedding (PE)1,2 calculations. It provides an easy-to-use API to implement PE
+for ground-state self-consistent field (SCF) calculations and post-SCF methods.
+A convenient Python interface is also available."""
+
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+
+source_urls = ['https://github.com/maxscheurer/cppe/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['962389811b11e20ffb0570fe458f0a36c4c1ef09a3ce0a0ae50d132812cd85b1']
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+    ('pybind11', '2.11.1'),
+    ('Ninja', '1.11.1'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('Eigen', '3.4.0'),
+]
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+    'download_dep_fail': True,
+    'use_pip': True,
+    'sanity_pip_check': True,
+}
+
+exts_list = [
+    ('scikit_build_core', '0.10.7', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['5e13ab7ca7c3c6dd019607c3a6f53cba67dade8757c4c4f75b459e2f90e4dbc3'],
+    }),
+    ('cppe', version, {
+        'source_urls': ['https://github.com/maxscheurer/cppe/archive/'],
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'checksums': checksums
+    }),
+]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+sanity_check_paths = {
+    'files': ['lib/libcppe.%s' % SHLIB_EXT],
+    'dirs': ['include/cppe', 'lib/python%(pyshortver)s/site-packages', 'share/cmake'],
+}
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+moduleclass = 'chem'
+
+# TODO
+# == 2024-10-16 19:02:25,595 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CPPE/0.3.2-GCC-12.3.0  --no-deps  --ignore-installed  --no-index  --no-build-isolation  ." exited with exit code 1 and output:
+# Processing /tmp/vsc45304/easybuild/build/CPPE/0.3.2/GCC-12.3.0/cppe/cppe-0.3.2
+#   Preparing metadata (pyproject.toml): started
+#   Preparing metadata (pyproject.toml): finished with status 'error'
+#   error: subprocess-exited-with-error
+#
+#    Preparing metadata (pyproject.toml) did not run successfully.
+#    exit code: 1
+#   > [8 lines of output]
+#       running dist_info
+#       creating /tmp/vsc45304/eb-npxl9ndk/pip-modern-metadata-ggcf89yg/cppe.egg-info
+#       writing /tmp/vsc45304/eb-npxl9ndk/pip-modern-metadata-ggcf89yg/cppe.egg-info/PKG-INFO
+#       writing dependency_links to /tmp/vsc45304/eb-npxl9ndk/pip-modern-metadata-ggcf89yg/cppe.egg-info/dependency_links.txt
+#       writing requirements to /tmp/vsc45304/eb-npxl9ndk/pip-modern-metadata-ggcf89yg/cppe.egg-info/requires.txt
+#       writing top-level names to /tmp/vsc45304/eb-npxl9ndk/pip-modern-metadata-ggcf89yg/cppe.egg-info/top_level.txt
+#       writing manifest file '/tmp/vsc45304/eb-npxl9ndk/pip-modern-metadata-ggcf89yg/cppe.egg-info/SOURCES.txt'
+#       error: package directory 'cppe/python_iface' does not exist
+#       [end of output]
+#
+#   note: This error originates from a subprocess, and is likely not a problem with pip.
+# error: metadata-generation-failed
+#
+#  Encountered error while generating package metadata.
+# > See above for output.
+#
+# note: This is an issue with the package mentioned above, not pip.
+# hint: See above for details.
+#  (at easybuild/easybuild-framework/easybuild/tools/run.py:695 in parse_cmd_output)
