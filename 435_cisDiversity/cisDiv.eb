@@ -16,64 +16,11 @@ sources = [{
 }]
 checksums = ['4ba5967fa754ec78b9dd6b6dc9d2ee5de87dbb4d7906d47e57e73aec87897725']
 
-# builddependencies = [('patchelf', '0.18.0')]
 dependencies = [
     ('Python', '2.7.18'),
     ('SciPy-bundle', '2020.03', '-Python-%(pyver)s'),
     ('R', '3.6.3'),
 ]
-
-# exts_defaultclass = 'PythonPackage'
-# exts_default_options = {
-#     'source_urls': [PYPI_SOURCE],
-#     'download_dep_fail': True,
-#     'use_pip': True,
-#     'sanity_pip_check': True,
-#     'preinstallopts': '',
-#     'installopts': '',
-# }
-
-# exts_list = [
-#     ('Paralleltask', '0.2.3', {
-#         'modulename': 'paralleltask',
-#         'checksums': ['8015a8311d5021bc44edbfbf45ff2557a529999e235d25190bac62993fdf7b66'],
-#     }),
-# ]
-
-# # fix make -C util - warning: jobserver unavailable
-# parallel = 1
-
-# # fix bwa bug - https://github.com/Nextomics/NextPolish/issues/83
-# # + use SAMtools and minimap2 from EB
-# prebuildopts = "sed -i 's/seq_count bwa samtools minimap2/seq_count/' Makefile && "
-# prebuildopts += "rm -rf util/bwa && rm -fr util/minimap2 && rm -rf util/samtools && "
-# prebuildopts += (
-#     "sed -i"
-#     " -e 's/seq_split seq_count bwa_ samtools_ minimap2_/seq_split seq_count/'"
-#     " -e '/BWADIR/d'"
-#     " -e '/bwa_:/d'"
-#     " -e '/SAMTOOLSDIR/d'"
-#     " -e '/MINIMAP2DIR/d'"
-#     " -e '/samtools_:/d'"
-#     " -e '/minimap2_:/d'"
-#     " util/Makefile && "
-# )
-# postinstallcmds = [
-#     # links to binaries
-#     "cd %(installdir)s/bin && ln -s $EBROOTBWA/bin/bwa && "
-#     "ln -s $EBROOTSAMTOOLS/bin/samtools && ln -s $EBROOTMINIMAP2/bin/minimap2",
-#     # set RPATH to calgs.so, nextpolish1.so and nextpolish2.so
-#     "if %(rpath_enabled)s; then "
-#     "patchelf --force-rpath --set-rpath '$ORIGIN:$ORIGIN/../lib'"
-#     '":$EBROOTZLIB/lib" %(installdir)s/lib/calgs.so && '
-#     "patchelf --force-rpath --set-rpath '$ORIGIN:$ORIGIN/../lib'"
-#     '"$EBROOTZLIB/lib:$EBROOTBZIP2/lib:$EBROOTXZ/lib" %(installdir)s/lib/nextpolish1.so && '
-#     "patchelf --force-rpath --set-rpath '$ORIGIN:$ORIGIN/../lib'"
-#     '"$EBROOTZLIB/lib:$EBROOTBZIP2/lib:$EBROOTXZ/lib" %(installdir)s/lib/nextpolish2.so; fi',
-# ]
-
-# files_to_copy = ['bin', 'lib', 'test_data', 'LICENSE', 'nextPolish']
-# files_to_copy = ['*']
 files_to_copy = [(['learnDiverseModules'], 'bin')]
 
 sanity_check_paths = {
@@ -83,14 +30,4 @@ sanity_check_paths = {
 
 sanity_check_commands = ['learnDiverseModules -h']
 
-# modextrapaths = {
-#     'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages',
-#     'PATH': '',
-# }
-
 moduleclass = 'bio'
-
-# builddir:
-    # /tmp/vsc47063/easybuild/build/cisDIVERSITY/1.1/foss-2020a
-# installdir:
-    # scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/cisDIVERSITY/1.1-foss-2020a
