@@ -19,54 +19,60 @@ dependencies = [
     ('scikit-learn', '1.3.1'),
     ('Seaborn', '0.13.2'),
     ('tbl2asn', '20230713', '-linux64', SYSTEM),
-    ('DBD-mysql', ''),
-    ('CodingQuarry', ''),
-    ('Trinity', ''),
+    ('DBD-mysql', '4.050'),
+    ('CodingQuarry', '2.0'),
+    ('Trinity', '2.15.1'),
     ('AUGUSTUS', '3.5.0'),
     ('BamTools', '2.5.2'),
     ('BEDTools', '2.31.0'),
     ('BLAST+', '2.14.1'),  # provides makeblastdb, tblastn
-    ('BLAT', ''),
+    ('BLAT', '3.7'),
     ('DIAMOND', '2.1.8'),
-    ('eggnog-mapper', ''),
+    ('eggnog-mapper', '2.1.12'),
     ('ETE', '3.1.3'),
     ('Exonerate', '2.4.0'),
     ('FASTA', '36.3.8i'),
-    ('GlimmerHMM', ''),
-    ('GMAP-GSNAP', '2024-09-18'),  # provides gmap
+    ('GlimmerHMM', '3.0.4c'),
+    ('GMAP-GSNAP', '2023-04-20'),  # provides gmap
     ('GeneMark-ET', '4.72'),  # provides gmes_petap.pl
     ('HISAT2', '2.2.1'),
     ('HMMER', '3.4'),  # provides hmmscan, hmmsearch
-    ('kallisto', ''),
+    ('kallisto', '0.51.1'),
     ('MAFFT', '7.520', '-with-extensions'),
     ('minimap2', '2.26'),
     ('pigz', '2.8'),
-    ('Proteinortho', ''),
+    ('Proteinortho', '6.3.2'),
     ('Kent_tools', '468'),  # provides pslCDnaFilter
     ('Salmon', '1.10.3'),
     ('SAMtools', '1.18'),
     ('SignalP', '6.0h', '-fast'),
-    ('SNAP', ''),
-    ('StringTie', ''),
-    ('tRNAscan-SE', ''),
-    ('tantan', ''),
+    ('SNAP', '2.0.1'),
+    ('StringTie', '2.2.3'),
+    ('tRNAscan-SE', '2.0.12'),
+    ('tantan', '50'),
     ('trimAl', '1.4.1'),
-    ('Trimmomatic', '0.39', '-Java-17', SYSTEM),
+    ('Trimmomatic', '0.39', '-Java-11', SYSTEM),
     ('BioPerl', '1.7.8'),
     ('EVidenceModeler', '2.1.0'),
 ]
 
+#missin installations  tRNAscan-SE/2.0.12-foss-2023a, tantan/40-foss-2023a
+
 use_pip = True
 
 exts_list = [
-    ('distro', '1.8.0', {
-        'checksums': ['02e111d1dc6a50abb8eed6bf31c3e48ed8b0830d1ea2a1b78c61765c2513fdd8'],
+    ('distro', '1.9.0', {
+        'checksums': ['2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed'],
     }),
-    ('natsort', '8.3.1', {
-        'checksums': ['517595492dde570a4fd6b6a76f644440c1ba51e2338c8a671d7f0475fda8f9fd'],
+    ('natsort', '8.4.0', {
+        'checksums': ['45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581'],
     }),
     (name, version, {
-        'checksums': ['40819741bcb38ef3a410a242cc5f172cb0e0083570daddfe5807fb6bc0c3c384'],
+        'checksums': ['bdadfd7a5636383c1c40c26dab37c5908a77e8c4064adced84f1ba9e86187a04'],
+        'preinstallopts': (
+            """sed -i 's|REQUIRES_PYTHON = ">=3.6.0, <3.10"|REQUIRES_PYTHON = ">=3.6.0"|' setup.py && """
+            """sed -i 's|"biopython<1.80",|"biopython",|' setup.py && """
+        )
     }),
 ]
 
