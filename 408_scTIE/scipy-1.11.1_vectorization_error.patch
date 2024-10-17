@@ -1,3 +1,5 @@
+Fixes the vectorization bug. see https://github.com/scipy/scipy/issues/16792
+patch source: https://github.com/scipy/scipy/pull/20195
 --- scipy/linalg/_cythonized_array_utils.pyx.orig
 +++ scipy/linalg/_cythonized_array_utils.pyx
 @@ -158,7 +158,7 @@
