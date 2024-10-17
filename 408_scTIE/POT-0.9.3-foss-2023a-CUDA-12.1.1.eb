@@ -33,8 +33,10 @@ exts_list = [
         'checksums': ['0f1a137bb5d6811e96a79bb0486798aeae9b9c6efc24b389659cebb0ee396cb9'],
     }),
     ('pymanopt', '2.2.1', {
-        'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['75fb11cc924252c8f045779a8ed4b054ddb805a540c314989598d60447560818'],
+        # Requirements forbid some versions of `scipy` which are known to have a bug but we have fixed it.
+        # see `scipy-1.11.1_vectorization_error.patch`
+        'preinstallopts': """sed -i 's/"scipy>=1.0[^"]*"/"scipy>=1.0"/g' pyproject.toml && """,
+        'checksums': ['c784929a436eb06d73371b53ae5db3cdc19c5e60280f8131553bc805cbf7a1da'],
     }),
     (name, version, {
         'modulename': 'ot',
@@ -43,6 +45,3 @@ exts_list = [
 ]
 
 moduleclass = 'lib'
-
-# TODO
-# pymanopt 2.2.1 has requirement scipy!=1.10.*,!=1.11.*,!=1.12.*,>=1.0, but you have scipy 1.11.1.

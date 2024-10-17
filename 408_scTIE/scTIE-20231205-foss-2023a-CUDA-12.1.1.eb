@@ -3,6 +3,7 @@ easyblock = 'Tarball'
 name = 'scTIE'
 version = '20231205'
 local_commit = '044d91a'
+versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/SydneyBioX/scTIE'
 description = """scTIE (single-cell Temporal Integration and inference of multimodal Experiments)
@@ -20,9 +21,10 @@ checksums = ['bcbf7c846539d0f04e7bbf3cc6ae2fe075a4ba11e3a4388c29def943d39af53e']
 
 dependencies = [
     ('Python', '3.11.3'),
-    ('PyTorch', '2.1.2'),
+    ('PyTorch', '2.1.2', versionsuffix),
     ('SciPy-bundle', '2023.07'),
-    # ('POT', '0.9.4'), # TODO
+    ('CUDA', '12.1.1', '', SYSTEM),
+    ('POT', '0.9.3', versionsuffix),
 ]
 
 postinstallcmds = ['cd %(installdir)s && mkdir bin && ln -r -s main.py bin/sctie && chmod a+x main.py']
@@ -42,14 +44,3 @@ sanity_check_paths = {
 sanity_check_commands = ['sctie --help']
 
 moduleclass = 'bio'
-
-# TODO
-# == 2024-09-09 13:55:31,229 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: sanity check command sctie --help exited with code 1 (output: Traceback (most recent call last):
-#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scTIE/20231205-foss-2023a/bin/sctie", line 9, in <module>
-#     from util.trainingprocess_bnresidualpretrain import (
-#   File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scTIE/20231205-foss-2023a/util/trainingprocess_bnresidualpretrain.py", line 17, in <module>
-#     from util.ot_solvers import get_total_ot_loss, solve_ot, compute_transport_map
-#   File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scTIE/20231205-foss-2023a/util/ot_solvers.py", line 1, in <module>
-#     import ot
-# ModuleNotFoundError: No module named 'ot'
-# ) (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
