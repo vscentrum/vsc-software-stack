@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'CIRCE'
-version = '0.2.2'
+version = '0.3.4'
 
 homepage = 'https://github.com/cantinilab/Circe'
 description = """This repo contains a python package for inferring co-accessibility networks
@@ -23,40 +23,43 @@ dependencies = [
 use_pip = True
 sanity_pip_check = True
 
+# Some requirements are too strict.
+local_preinstallopts = """sed -i 's/pandas = "[^"]*"/pandas = "*"/g' pyproject.toml && """
+local_preinstallopts += """sed -i "s/'pandas>=[^']*'/'pandas'/g" setup.py && """
+
+# build the C components linking `flexiblas` instead of `lapack` and `blas`
+local_preinstallopts += """sed -i "s/lapack/flexiblas/g;s/, 'blas'//g" setup.py && """
+local_preinstallopts += """sed -i "s/lapack/flexiblas/g;/blas/d" pyquic_ext/pyquic.cpp && """
+
 exts_list = [
     ('joblib', '1.4.2', {
         'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['06d478d5674cbc267e7496a410ee875abd68e4340feff4490bcb7afb88060ae6'],
     }),
-    ('rich', '13.8.0', {
+    ('rich', '13.9.2', {
         'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['2e85306a063b9492dffc86278197a60cbece75bcb766022f3436f567cae11bdc'],
+        'checksums': ['8c82a3d3f8dcfe9e734771313e606b39d8247bb6b826e196f4914b333b743cf1'],
     }),
     ('circe_py', version, {
+        'preinstallopts': local_preinstallopts,
         'modulename': 'circe',
-        'patches': ['CIRCE-20240722_requirements.patch'],
-        'checksums': [
-            {'circe_py-0.2.2.tar.gz': '0b828b8819bf1f0a6884016deb73e8551ac1d505c9091fbff2643dd48ebcc20e'},
-            {'CIRCE-20240722_requirements.patch': '8d957f12732118cc36d2700ba2f18ebb260d288c1db372951d435e5aabe3a606'},
-        ],
-        # build the C components and link `flexiblas` instead of `lapack`
-        'preinstallopts': "sed -i 's/lapack/flexiblas/g' build.py && poetry build && ",
+        'checksums': ['279004948dff84816361e857ee3fb383cdb17587f376c6f10f82a66810cba16c'],
     }),
 ]
 
 moduleclass = 'bio'
 
 # TODO
-# /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.2.2-foss-2023a/lib/python3.11/site-packages/circe/circe.py:328: ImplicitModificationWarning: Setting element `.varp['atac_network']` of view, initializing view as actual.
+# /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.3.4-foss-2023a/lib/python3.11/site-packages/circe/circe.py:332: ImplicitModificationWarning: Setting element `.varp['atac_network']` of view, initializing view as actual.
 #   anndata.varp[key] = anndata.varp[key].tocoo()
 # Coaccessibility cutoff used: 0.02
-# Number of CCANs generated: 136
+# Number of CCANs generated: 143
 # Coaccessibility cutoff used: 0.02
 # Coaccessibility cutoff used: 1e-07
-# Number of CCANs generated: 48
+# Number of CCANs generated: 52
 # Traceback (most recent call last):
 #   File "/kyukon/home/gent/453/vsc45304/vsc-software-stack/409_CIRCE/run.py", line 86, in <module>
 #     ci.draw.plot_ccan(
-#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.2.2-foss-2023a/lib/python3.11/site-packages/circe/draw.py", line 270, in plot_ccan
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/CIRCE/0.3.4-foss-2023a/lib/python3.11/site-packages/circe/draw.py", line 276, in plot_ccan
 #     raise ValueError(f"No regions found for ccan module {ccan_module}.")
 # ValueError: No regions found for ccan module 17.
