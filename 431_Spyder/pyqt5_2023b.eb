@@ -110,12 +110,3 @@ modextrapaths = {
 }
 
 moduleclass = 'vis'
-
-# E1: OK
-    # OK The dbus-python package does not seem to be installed. -> --no-dbus-python
-    # sip-build: '12.15' is not a supported ABI version -> change to v12.13 -> still same error
-        # cmd: export PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyQt5/5.15.11-GCCcore-13.2.0/bin:$PATH &&
-        # export PYTHONPATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyQt5/5.15.11-GCCcore-13.2.0/lib/python3.11/site-packages:$PYTHONPATH && 
-        # sip-build --confirm-license --no-designer-plugin --no-qml-plugin --no-dbus-python --no-make --jobs 8 --qmake-setting 'QMAKE_CXXFLAGS+=$$(CFLAGS)' --qmake-setting 'QMAKE_CFLAGS+=$$(CFLAGS)' --qmake-setting 'QMAKE_LFLAGS+=$$(LDFLAGS)' --api-dir /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyQt5/5.15.11-GCCcore-13.2.0/qsci --scripts-dir /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyQt5/5.15.11-GCCcore-13.2.0/bin --target-dir /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyQt5/5.15.11-GCCcore-13.2.0/lib/python3.11/site-packages
-        # -> log1.txt + log1a.txt
-        # -> go for PyQt5 5.15.10 (not 5.15.11)

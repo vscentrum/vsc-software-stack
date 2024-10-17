@@ -9,6 +9,72 @@ description = """Spyder is an interactive Python development environment providi
 
 toolchain = {'name': 'gfbf', 'version': '2023b'}
 
+# DEPS:
+    # 'aiohttp>=3.9.3', OK
+    # 'asyncssh>=2.14.0,<3.0.0', ok
+    # 'atomicwrites>=1.2.0', OK pypi bundle
+    # 'chardet>=2.0.0', OK pypi bundle
+    # 'cloudpickle>=0.5.0', OK pypi bundle
+    # 'cookiecutter>=1.6.0', ok
+    # 'diff-match-patch>=20181111', ok
+    # 'importlib-metadata>=4.6.0', ok
+    # 'intervaltree>=3.0.2', OK pypi bundle
+    # 'ipython>=8.13.0,<9.0.0,!=8.17.1; python_version>"3.8"', OK
+    # 'jedi>=0.17.2,<0.20.0', OK - either in IPython as dep
+    # 'jellyfish>=0.7', ok? -> seems as py jellyfish -> get from pypi not update EC from EB
+    # 'jsonschema>=3.2.0', OK pypi bundle
+    # 'keyring>=17.0.0', OK pypi bundle
+    # 'nbconvert>=4.0', OK jupyter-server
+    # 'numpydoc>=0.6.0', ok
+    # 'parso>=0.7.0,<0.9.0', OK in jedi
+    # 'pexpect>=4.4.0', OK pypi bundle
+    # 'pickleshare>=0.4', OK in IPython
+    # 'psutil>=5.3', OK pypi bundle
+    # 'pygithub>=2.3.0', ok
+    # 'pygments>=2.0', OK pypi bundle
+    # 'pylint>=3.1,<4', OK
+    # 'pylint-venv>=3.0.2', ok
+    # 'pyls-spyder>=0.4.0', ok
+    # 'pyqt5>=5.15,<5.16', OK -> CREATED
+    # 'pyqtwebengine>=5.15,<5.16', ok - will be in pyqt5
+    # 'python-lsp-black>=2.0.0,<3.0.0', ok
+    # 'python-lsp-server[all]>=1.12.0,<1.13.0', ok
+    # 'pyuca>=1.2', ok
+    # 'pyxdg>=0.26;platform_system=="Linux"', ok
+    # 'pyzmq>=24.0.0', OK
+    # 'qdarkstyle>=3.2.0,<3.3.0', ok
+    # 'qstylizer>=0.2.2', ok
+    # 'qtawesome>=1.3.1,<1.4.0', ok
+    # 'qtconsole>=5.6.0,<5.7.0', OK -> CREATED
+    # 'qtpy>=2.4.0', OK - should be in qtconsole
+    # 'rtree>=0.9.7', OK -> CREATED
+    # 'setuptools>=49.6.0', OK python
+    # 'sphinx>=0.6.6', OK pypi bundle
+    # 'spyder-kernels>=3.0.0,<3.2.0', ok
+    # 'superqt>=0.6.2,<1.0.0', ok + preinstallopts
+    # 'textdistance>=4.2.0', ok
+    # 'three-merge>=0.1.1', ok
+    # 'watchdog>=0.10.3', ok
+    # 'yarl>=1.9.4', OK in aiohttp
+    # 'ipykernel' in jupyter-server
+# TEST_DEPS:
+    # coverage
+    # cython
+    # flaky
+    # matplotlib
+    # pandas
+    # pillow
+    # pytest <8.0
+    # pytest-cov
+    # pytest-lazy-fixture
+    # pytest-mock
+    # pytest-order
+    # pytest-qt
+    # pytest-timeout
+    # pyyaml
+    # scipy
+    # sympy
+    
 builddependencies = [
     ('poetry', '1.6.1'),
     ('maturin', '1.3.1'),
@@ -126,6 +192,7 @@ exts_list = [
         'checksums': ['3d316ea04802ed1feb366405cca03df2349dc9e35ad8653538d2fe48c0e9417f'],
     }),
     ('superqt', '0.6.6', {
+        # 'preinstallopts': _preinstallopts_no_hatchling,
         'checksums': ['792e09165c8a788ee245bdb784e018f9077fb309253354d86793cdf1d092f99f'],
     }),
     ('textdistance', '4.6.3', {
@@ -150,6 +217,26 @@ exts_list = [
     }),
 ]
 
+# ok ModuleNotFoundError: No module named 'python_lsp_server'
+# ok ModuleNotFoundError: No module named 'python_lsp_jsonrpc
+# ok ModuleNotFoundError: No module named 'python_lsp_black'
+# ok arrow 1.3.0 requires types-python-dateutil, which is not installed.
+# ? ModuleNotFoundError: No module named 'zmq' -> should be there, load PyZMQ + import zmq works
+# ok black 24.10.0 requires mypy-extensions, which is not installed.q
+# ok cookiecutter 2.6.0 requires arrow, which is not installed.
+# ok python-slugify 8.0.4 requires text-unidecode, which is not installed.
+# ok qstylizer 0.2.3 requires inflection, which is not installed.
+# no cookiecutter 2.6.0 requires arrow, which is not installed. -> seems not pyarrow but only arrow
+# ok cookiecutter 2.6.0 requires binaryornot, which is not installed.
+# ok cookiecutter 2.6.0 requires python-slugify, which is not installed.
+# ok spyder-kernels 3.0.0 requires wurlitzer, which is not installed.
+# ok python-lsp-server 1.12.0 requires docstring-to-markdown, which is not installed.
+# ok python-lsp-server 1.12.0 requires python-lsp-jsonrpc, which is not installed.
+# ok python-lsp-black 2.0.0 requires black, which is not installed.
+# ok pygithub 2.4.0 requires deprecated, which is not installed.
+# ok importlib-metadata 8.5.0 has requirement zipp>=3.20, but you have zipp 3.17.0.
+# ok virtualenv 20.24.6 has requirement platformdirs<4,>=3.9.1, but you have platformdirs 4.2.2.
+
 sanity_check_paths = {
     'files': ['bin/spyder'],
     'dirs': ['lib/python%(pyshortver)s/site-packages'],
@@ -160,3 +247,25 @@ sanity_check_commands = ["spyder --help"]
 sanity_pip_check = True
 
 moduleclass = 'tools'
+
+# Flamefire made PR for 2023a: https://easybuild.slack.com/archives/D07RRKLJZ26/p1729088162910789
+# E2 - OK
+    # -> from Flamefire patch - to preinstallopts
+    # <- on desktop cluster after 'spyder' it starts program but: 
+    # /apps/gent/RHEL8/cascadelake‑ib/software/Python/3.11.5‑GCCcore󈚱.2.0/bin/python: 
+    # Error while finding module specification for 'spyder_kernels.console' (ModuleNotFoundError: No module named 'spyder_kernels')
+    # -> import spyder_kernels.console works ok in python cli
+    # -> add ipykernel to exts?
+# E1 - OK
+    # -> local_preinstallopts + fix shebang -> OK
+    # <- spyder
+    # ModuleNotFoundError: No module named 'zmq'
+    # when I # import zmq in app/start.py ->
+        # Traceback (most recent call last):
+        # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Spyder/6.0.0-foss-2023b-Python-3.11.5/bin/spyder", line 5, in <module>
+        # from spyder.app.start import main
+        # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Spyder/6.0.0-foss-2023b-Python-3.11.5/lib/python3.11/site-packages/spyder/app/start.py", line 53, in <module>
+        # from spyder_kernels.utils.pythonenv import is_conda_env
+        # ModuleNotFoundError: No module named 'spyder_kernels' 
+            # -> spyder_kernels are there - import spyder_kernels from python works either "from spyder_kernels.utils.pythonenv import is_conda_env"
+        
