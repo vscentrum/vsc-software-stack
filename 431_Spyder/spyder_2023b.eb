@@ -2,14 +2,12 @@ easyblock = 'PythonBundle'
 
 name = 'Spyder'
 version = '6.0.1'
-versionsuffix = '-Python-%(pyver)s'
 
 homepage = 'https://github.com/spyder-ide/spyder'
 description = """Spyder is an interactive Python development environment providing MATLAB-like features in a simple
  and light-weighted software."""
 
-toolchain = {'name': 'foss', 'version': '2023b'}
-# toolchainopts = {'cstd': 'c++11'}
+toolchain = {'name': 'gfbf', 'version': '2023b'}
 
 # DEPS:
     # 'aiohttp>=3.9.3', OK
@@ -22,7 +20,7 @@ toolchain = {'name': 'foss', 'version': '2023b'}
     # 'importlib-metadata>=4.6.0', ok
     # 'intervaltree>=3.0.2', OK pypi bundle
     # 'ipython>=8.13.0,<9.0.0,!=8.17.1; python_version>"3.8"', OK
-    # 'jedi>=0.17.2,<0.20.0', OK
+    # 'jedi>=0.17.2,<0.20.0', OK - either in IPython as dep
     # 'jellyfish>=0.7', ok? -> seems as py jellyfish -> get from pypi not update EC from EB
     # 'jsonschema>=3.2.0', OK pypi bundle
     # 'keyring>=17.0.0', OK pypi bundle
@@ -58,6 +56,7 @@ toolchain = {'name': 'foss', 'version': '2023b'}
     # 'three-merge>=0.1.1', ok
     # 'watchdog>=0.10.3', ok
     # 'yarl>=1.9.4', OK in aiohttp
+    # 'ipykernel' in jupyter-server
 # TEST_DEPS:
     # coverage
     # cython
@@ -98,9 +97,9 @@ dependencies = [
 
 use_pip = True
 
-fix_python_shebang_for = ['bin/spyder']
-
+# fix deleting of PYTHONPATH
 local_preinstallopts = "sed -i '13,19d' spyder/app/start.py && "
+local_preinstallopts += "sed -i '171,173d' spyder/plugins/ipythonconsole/utils/kernelspec.py && "
 
 exts_list = [
     ('asyncssh', '2.17.0', {
@@ -243,13 +242,22 @@ sanity_check_paths = {
     'dirs': ['lib/python%(pyshortver)s/site-packages'],
 }
 
-# sanity_check_commands = ["spyder --help"]
+sanity_check_commands = ["spyder --help"]
 
 sanity_pip_check = True
 
 moduleclass = 'tools'
 
-# E1
+# Flamefire made PR for 2023a: https://easybuild.slack.com/archives/D07RRKLJZ26/p1729088162910789
+# E2 - OK
+    # -> from Flamefire patch - to preinstallopts
+    # <- on desktop cluster after 'spyder' it starts program but: 
+    # /apps/gent/RHEL8/cascadelake‑ib/software/Python/3.11.5‑GCCcore󈚱.2.0/bin/python: 
+    # Error while finding module specification for 'spyder_kernels.console' (ModuleNotFoundError: No module named 'spyder_kernels')
+    # -> import spyder_kernels.console works ok in python cli
+    # -> add ipykernel to exts?
+# E1 - OK
+    # -> local_preinstallopts + fix shebang -> OK
     # <- spyder
     # ModuleNotFoundError: No module named 'zmq'
     # when I # import zmq in app/start.py ->
