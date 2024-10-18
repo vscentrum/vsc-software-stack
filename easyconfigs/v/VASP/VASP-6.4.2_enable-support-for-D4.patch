@@ -1,0 +1,16 @@
+# Enable support for D4 in Vasp as indicated in https://dftd4.readthedocs.io/en/latest/recipe/vasp.html
+# Author: Cintia Willemyns (Vrije Universiteit Brussel)
+--- vasp.6.4.2.orig/makefile	2024-10-17 13:40:17.638922548 +0200
++++ vasp.6.4.2/makefile	2024-10-17 13:43:02.649967221 +0200
+@@ -5,6 +5,11 @@
+     VASP_BUILD_DIR=build
+ endif
+ 
++# Enable support for D4 in Vasp 
++CPP_OPTIONS += -DDFTD4
++LLIBS       += $(shell pkg-config --libs dftd4)
++INCS        += $(shell pkg-config --cflags dftd4)
++
+ VERSIONS = std gam ncl
+ .PHONY: all veryclean test test_all versions $(VERSIONS)
+ all: std gam ncl
