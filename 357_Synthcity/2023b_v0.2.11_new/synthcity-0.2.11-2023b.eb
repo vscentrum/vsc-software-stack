@@ -1,0 +1,998 @@
+easyblock = 'PythonBundle'
+
+name = 'synthcity'
+version = '0.2.11'
+
+local_pytorch_version = '2.1.2'
+
+homepage = 'https://github.com/vanderschaarlab/synthcity'
+description = """A library for generating and evaluating synthetic tabular data."""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+# DEPS_old:
+    # importlib-metadata - ok in pypi bundle
+    # pandas>=1.4,<2 - in scipy is pandas v2.0.3 -> unpin
+    # torch>=1.10.0,<2.0 - torch is v2.1.2 -> unpin
+    # scikit-learn>=1.2 OK
+    # nflows>=0.14 ok exts
+    # numpy>=1.20, <1.24 - v1.25.1 in scipy -> unpin but be-great 0.0.5 has requirement numpy>=1.24.2 -> never be-great has lower version of numpy -> use v0.0.7
+    #   -> be-great 0.0.6 and 0.0.7 has numpy >= 1.23.1, 
+    # lifelines>=0.27,!= 0.27.5, <0.27.8 -> NO -> created OK
+    # opacus>=1.3 ok exts
+    # decaf-synthetic-data>=0.1.6 ok exts
+    # optuna>=3.1 OK
+    # shap OK
+    # tqdm OK
+    # loguru ok exts
+    # pydantic<2.0 - v2.5.3 -> unpin
+    # cloudpickle - ok in SHAP
+    # scipy ok
+    # xgboost<2.0.0 - v2.0.2 -> unpin -> error -> try build v1.7.2 and use it
+    # geomloss ok exts
+    # pgmpy ok exts
+        # networkx OK
+        # pyparsing ok in pypi bundle
+        # statsmodels OK
+        # joblib ok in pypi bundle
+    # redis OK
+    # pycox ok exts
+    # xgbse ok exts
+    # pykeops ok exts
+    # fflows ok exts 
+    # monai OK
+    # tsai; python_version>"3.7" ok exts
+    # be-great>=0.0.5;python_version>="3.9" ok exts
+        # v0.0.7 has:
+        # dependencies = ["datasets >= 2.5.2", "numpy >= 1.23.1", "pandas >= 1.4.4", "scikit_learn >= 1.1.1", "torch >= 1.10.2", "tqdm >= 4.64.1", "transformers >= 4.22.1", "accelerate >= 0.20.1",]
+    # arfpy ok exts
+    #
+    # opacus 1.4.1 requires opt-einsum, ok
+    # be-great 0.0.7 requires accelerate, ok
+    # be-great 0.0.7 requires datasets, OK (HF-Datasets)
+    # be-great 0.0.7 requires transformers, OK (Transformers)
+    # pgmpy 0.1.25 requires opt-einsum, ok
+    # pykeops 2.2.3 requires keopscore, ok
+    # tsai 0.3.9 requires fastai, -> UPDATE
+    # tsai 0.3.9 requires imbalanced-learn, OK
+    # tsai 0.3.9 requires pyts, ok
+    # decaf-synthetic-data 0.1.6 requires pytorch-lightning OK
+    # decaf-synthetic-data 0.1.6 requires torchtext -> add PyTorch-bundle instead of PyTorch -> has torchtext OK
+    # pycox 0.2.3 requires feather-format, ok
+    # pycox 0.2.3 requires h5py, OK
+    # pycox 0.2.3 requires py7zr, ok
+    # pycox 0.2.3 requires torchtuples, ok
+    # -> unpin in local_preinstallopts
+        # synthcity 0.2.10 has requirement lifelines!=0.27.5,<0.27.8,>=0.27, but you have lifelines 0.28
+        # synthcity 0.2.10 has requirement numpy<1.24,>=1.20, but you have numpy 1.25.1.
+        # synthcity 0.2.10 has requirement pandas<2,>=1.4, but you have pandas 2.0.3.
+        # synthcity 0.2.10 has requirement pydantic<2.0, but you have pydantic 2.5.3.
+        # synthcity 0.2.10 has requirement torch<2.0,>=1.10.0, but you have torch 2.1.2.
+        # synthcity 0.2.10 has requirement xgboost<2.0.0, but you have xgboost 2.0.2.
+    # -> networkx v2.8.8 in exts -> not -> decaf is separate econfig
+        # decaf-synthetic-data 0.1.6 has requirement networkx<3.0,>=2.0, but you have networkx 3.1.
+    # -> use xgbse v0.2.3
+        # xgbse 0.3.1 has requirement joblib<2.0.0,>=1.4.2, but you have joblib 1.2.0.
+        # xgbse 0.3.1 has requirement lifelines<0.30.0,>=0.29.0, but you have lifelines 0.28.0.
+        # xgbse 0.3.1 has requirement numpy<2.0.0,>=1.26.4, but you have numpy 1.25.1.
+        # xgbse 0.3.1 has requirement scikit-learn<2.0.0,>=1.5.0, but you have scikit-learn 1.3.1.
+        # xgbse 0.3.1 has requirement xgboost<3.0.0,>=2.1.0, but you have xgboost 2.0.2.
+    # py7zr 0.21.1 requires brotli, OK
+    # py7zr 0.21.1 requires inflate64, ok
+    # py7zr 0.21.1 requires multivolumefile, ok
+    # py7zr 0.21.1 requires pybcj, ok
+    # py7zr 0.21.1 requires pycryptodomex, ok
+    # py7zr 0.21.1 requires pyppmd, ok
+    # py7zr 0.21.1 requires pyzpyzstdstd, ok
+    # py7zr 0.21.1 requires texttable, ok
+    # decaf-synthetic-data 0.1.6 has requirement pytorch-lightning<2.0, but you have pytorch-lightning 2.2.1.
+        # -> create econfig for Decaf
+        # problem: decaf has only whl on pypi + no releases on GitHub
+    # fastapi 0.110.0 has requirement typing-extensions>=4.8.0, but you have typing-extensions 4.6.3.
+        # seems it goes from PyTorch-Lightning -> put it as the last dep
+    # py7zr 0.21.1 has requirement brotli>=1.1.0; platform_python_implementation == "CPython", but you have brotli 1.0.9.
+        # use v0.20.6
+    # fastapi 0.110.0 has requirement typing-extensions>=4.8.0, but you have typing-extensions 4.6.3.
+        # -> add v typing-extensions v4.9.0 to exts
+    # py7zr 0.20.6 has requirement pyppmd<1.1.0,>=0.18.1, but you have pyppmd 1.1.0. -> add pyppmd v1.0.0 ok
+    # TESTS
+    # black 24.4.2 requires mypy-extensions ok exts
+    # pre-commit 3.7.1 requires identify, ok exts
+    # pre-commit 3.7.1 requires nodeenv, ok exts
+    # bandit 1.7.9 requires stevedore, ok exts
+    # pytest-benchmark 4.0.0 requires py-cpuinfo, OK
+    # doc8 1.1.1 requires restructuredtext-lint, ok exts
+    # doc8 1.1.1 requires stevedore, ok exts
+    # flake8 7.1.0 requires mccabe, ok exts
+    # flake8 7.1.0 requires pycodestyle, OK
+    # flake8 7.1.0 requires pyflakes, ok exts
+    # pre-commit 3.7.1 requires cfgv, ok exts
+    # flake8 7.1.0 has requirement pycodestyle<2.13.0,>=2.12.0, but you have pycodestyle 2.11.1. -> flake8 v7.0.0
+    
+# NEW_DEPS_0.2.11:
+    # OK wheel>=0.40
+    # OK importlib-metadata
+    # OK pandas>=2.1 # min due to lifelines
+    # OK torch>=2.1, <2.3 # Max due to tsai
+    # OK scikit-learn>=1.2
+    # ok nflows>=0.14
+    # OK numpy>=1.20, <2.0
+    # OK - created: lifelines>=0.29.0, <0.30.0 # max due to xgbse
+    # ok opacus>=1.3
+    # networkx>2.0,<3.0 -> should be in DECAF
+    # decaf-synthetic-data>=0.1.6
+    # OK optuna>=3.1
+    # shap
+    # tenacity
+    # OK tqdm
+    # loguru
+    # OK pydantic<2.0
+    # cloudpickle - should be in SHAP
+    # OK scipy
+    # OK xgboost<3.0.0
+    # geomloss
+    # pgmpy
+    # OK redis
+    # pycox
+    # xgbse>=0.3.1
+    # pykeops
+    # fflows
+    # monai
+    # tsai; python_version>"3.7"
+    # be-great>=0.0.5;python_version>="3.9"
+    # arfpy
+
+builddependencies = [('poetry', '1.6.1')]
+dependencies = [
+    ('Python', '3.11.5'),
+    ('Python-bundle-PyPI', '2023.10'),
+    ('lifelines', '0.29.0'),
+    ('SciPy-bundle', '2023.11'),
+    ('PyTorch', local_pytorch_version),
+    ('pydantic', '2.6.4'),
+    ('Redis', '7.2.4'),
+    ('scikit-learn', '1.3.2'),
+    # ('SHAP', '0.43.0'),
+    ('XGBoost', '2.1.1'),
+    ('tqdm', '4.66.2'),
+    # ('HF-Datasets', '2.18.0'),
+    # ('Transformers', '4.39.3'),
+    # ('fastai', '2.7.15'),
+    ('h5py', '3.11.0'),
+    ('Brotli-python', '1.1.0'),
+    ('statsmodels', '0.14.1'),
+    # ('imbalanced-learn', '0.12.3'),
+    ('Optuna', '3.6.1'),
+    # ('MONAI', '1.3.0'),
+    # ('DECAF-synthetic-data', '0.1.6'),
+    # ('PyTorch-Lightning', '1.8.4'),
+    # TESTS
+    ('Jupyter-bundle', '20240522'),
+    # ('python-igraph', '0.11.4'),
+    ('coverage', '7.4.4'),
+    ('py-cpuinfo', '9.0.0'),
+    # ('pycodestyle', '2.11.1'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+# unpin deps restrictions
+local_preinstallopts = (
+    "sed -i"
+    " -e 's/pandas>=1.4,<2/pandas>=1.4/'"
+    " -e 's/torch>=1.10.0,<2.0/torch>=1.10.0/'"
+    " -e 's/numpy>=1.20, <1.24/numpy>=1.20/'"
+    " -e 's/pydantic<2.0/pydantic/'"
+    # " -e 's/xgboost<2.0.0/xgboost/'"
+    # " -e 's/lifelines>=0.27,!= 0.27.5, <0.27.8/lifelines>=0.27,!= 0.27.5/'"
+    " %(builddir)s/%(name)s/%(name)s-%(version)s/setup.cfg && "
+)
+local_pretestopts = (
+    "echo HERRERE && pwd && ls && "
+    "export TOKENIZERS_PARALLELISM=true && "
+    # fix pydantic.pydantic_core error in test_schema.py::test_schema_fail - WORKING in E8
+    "sed -i"
+    " -e '17 s/pydantic.pydantic_core._pydantic_core.ValidationError/pydantic_core._pydantic_core.ValidationError/'"
+    " -e '3 a import pydantic_core'"
+    " %(builddir)s/%(name)s/%(name)s-%(version)s/tests/plugins/core/test_schema.py && "
+    # try to fix timegan error - it is changed in E8
+    # -> assert np.isclose(np.asarray(static_gen, dtype="object"), np.asarray(static_seed, dtype="object")).all()
+    # "sed -i"
+    # " -e '116 s/static_gen/static_gen, dtype=\"object\"/'"
+    # " -e '116 s/static_seed/static_seed, dtype=\"object\"/'"
+    # " %(builddir)s/%(name)s/%(name)s-%(version)s/tests/plugins/time_series/test_timegan.py && "
+)
+# fix invalid syntax of xgbse/setup.py
+local_xgbse_preinstallopts = (
+    "sed -i "
+    " -e '45,49d'"
+    " -e 's/pandas>=1.0.\*/pandas>=1.0.0/'"
+    " setup.py && "
+)
+
+exts_list = [
+    # ('networkx', '2.8.8', { # already in decaf
+    #     'checksums': ['230d388117af870fce5647a3c52401fcf753e94720e6ea6b4197a5355648885e'],
+    # }),
+    # ('cfgv', '3.4.0', {
+    #     'checksums': ['e52591d4c5f5dead8e0f673fb16db7949d2cfb3f7da4582893288f0ded8fe560'],
+    # }),
+    # ('pyflakes', '3.2.0', {
+    #     'checksums': ['1c61603ff154621fb2a9172037d84dca3500def8c8b630657d1701f026f8af3f'],
+    # }),
+    # ('mccabe', '0.7.0', {
+    #     'checksums': ['348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325'],
+    # }),
+    # ('restructuredtext_lint', '1.4.0', {
+    #     'checksums': ['1b235c0c922341ab6c530390892eb9e92f90b9b75046063e047cacfb0f050c45'],
+    # }),
+    # ('stevedore', '5.2.0', {
+    #     'checksums': ['46b93ca40e1114cea93d738a6c1e365396981bb6bb78c27045b7587c9473544d'],
+    # }),
+    # ('nodeenv', '1.9.1', {
+    #     'checksums': ['6ec12890a2dab7946721edbfbcd91f3319c6ccc9aec47be7c7e6b7011ee6645f'],
+    # }),
+    # ('identify', '2.6.0', {
+    #     'checksums': ['cb171c685bdc31bcc4c1734698736a7d5b6c8bf2e0c15117f4d469c8640ae5cf'],
+    # }),
+    # ('mypy_extensions', '1.0.0', {
+    #     'checksums': ['75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782'],
+    # }),
+    # ('pytest-cov', '5.0.0', {
+    #     'checksums': ['5837b58e9f6ebd335b0f8060eecce69b662415b16dc503883a02f45dfeb14857'],
+    # }),
+    # ('bandit', '1.7.9', {
+    #     'checksums': ['7c395a436743018f7be0a4cbb0a4ea9b902b6d87264ddecf8cfdc73b4f78ff61'],
+    # }),
+    # ('black', '24.4.2', {
+    #     'checksums': ['c872b53057f000085da66a19c55d68f6f8ddcac2642392ad3a355878406fbd4d'],
+    # }),
+    # ('black-nb', '0.7', {
+    #     'checksums': ['8742a4f7c728302c91954325168d779f9444f8e3c31b19598ee8e98fc4bf4782'],
+    # }),
+    # ('darglint', '1.8.1', {
+    #     'checksums': ['080d5106df149b199822e7ee7deb9c012b49891538f14a11be681044f0bb20da'],
+    # }),
+    # ('doc8', '1.1.1', {
+    #     'checksums': ['d97a93e8f5a2efc4713a0804657dedad83745cca4cd1d88de9186f77f9776004'],
+    # }),
+    # ('flake8', '7.0.0', {
+    #     'checksums': ['33f96621059e65eec474169085dc92bf26e7b2d47366b70be2f67ab80dc25132'],
+    # }),
+    # ('isort', '5.13.2', {
+    #     'checksums': ['48fdfcb9face5d58a4f6dde2e72a1fb8dcaf8ab26f95ab49fab84c2ddefb0109'],
+    # }),
+    # ('pytest-benchmark', '4.0.0', {
+    #     'checksums': ['fb0785b83efe599a6a956361c0691ae1dbb5318018561af10f3e915caa0048d1'],
+    # }),
+    # ('pytest-xprocess', '1.0.2', {
+    #     'modulename': 'xprocess',
+    #     'checksums': ['15e270637586eabc56755ee5fcc81c48bdb46ba7ef7c0d5b1b64302d080cc60f'],
+    # }),
+    # ('pre_commit', '3.7.1', {
+    #     'checksums': ['8ca3ad567bc78a4972a3f1a477e94a79d4597e8140a6e0b651c5e33899c3654a'],
+    # }),
+    # ('typing_extensions', '4.9.0', {
+    #     'checksums': ['23478f88c37f27d76ac8aee6c905017a143b0b1b886c3c9f66bc2fd94f9f5783'],
+    # }),
+    # ('fflows', '0.0.3', {
+    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+    #     'checksums': ['18de7a7b98e3708ff2d5ae9f10fad625740230c4de6447906b7ca477667b78fb'],
+    # }),
+    # ('geomloss', '0.2.6', {
+    #     'checksums': ['491c47085c5001b2cb6128ea541fd2d0a8808ae50e88a0798c7853c9d995faeb'],
+    # }),
+    ('nflows', '0.14', {
+        'checksums': ['6299844a62f9999fcdf2d95cb2d01c091a50136bd17826e303aba646b2d11b55'],
+    }),
+    ('opt_einsum', '3.4.0', {
+        # 'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['2455e59e3947d3c275477df7f5205b30635e266fe6dc300e3d9f9646bfcea147'],
+    }),
+    ('opacus', '1.5.2', {
+        'checksums': ['c2b1f2770f627dd4b568d25be5777a87a7e6bfd5aee7b223052b4c2c7d934aca'],
+    }),
+    # ('pgmpy', '0.1.25', {
+    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+    #     'checksums': ['7c4fb15e4c0fd0310160a6a77297d6db382bd18f6ff35fcd0458c3cbd42caf78'],
+    # }),
+    # ('feather-format', '0.4.1', {
+    #     'modulename': 'feather',
+    #     'checksums': ['45f67e3745d394d4f160ca6d636bbfd4f8b68d01199dc1649b6e487d3e878903'],
+    # }),
+    # ('inflate64', '1.0.0', {
+    #     'checksums': ['3278827b803cf006a1df251f3e13374c7d26db779e5a33329cc11789b804bc2d'],
+    # }),
+    # ('multivolumefile', '0.2.3', {
+    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+    #     'checksums': ['237f4353b60af1703087cf7725755a1f6fcaeeea48421e1896940cd1c920d678'],
+    # }),
+    # ('pybcj', '1.0.2', {
+    #     'modulename': 'bcj',
+    #     'checksums': ['c7f5bef7f47723c53420e377bc64d2553843bee8bcac5f0ad076ab1524780018'],
+    # }),
+    # ('pycryptodomex', '3.20.0', {
+    #     'modulename': 'Crypto',
+    #     'checksums': ['7a710b79baddd65b806402e14766c721aee8fb83381769c27920f26476276c1e'],
+    # }),
+    # ('pyppmd', '1.0.0', {
+    #     'checksums': ['075c9bd297e3b0a87dd7aeabca7fee668218acbe69ecc1c6511064558de8840f'],
+    # }),
+    # ('pyzstd', '0.16.0', {
+    #     'checksums': ['fd43a0ae38ae15223fb1057729001829c3336e90f4acf04cf12ebdec33346658'],
+    # }),
+    # ('texttable', '1.7.0', {
+    #     'checksums': ['2d2068fb55115807d3ac77a4ca68fa48803e84ebb0ee2340f858107a36522638'],
+    # }),
+    # ('py7zr', '0.20.6', {
+    #     'checksums': ['d036dee11fce69ad8d4fa86025ccfc4a3511ec27ee1c6b5bd8d6759313dbd077'],
+    # }),
+    # ('torchtuples', '0.2.2', {
+    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+    #     'checksums': ['186625230a149cc09f64116d51b203ffefe78160f5a0445adad195893663f55b'],
+    # }),
+    # ('pycox', '0.2.3', {
+    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+    #     'checksums': ['9ea3c64a4a650ccf6c96cf512712de330f2d75de32122d86995c7cd37ff105d1'],
+    # }),
+    # ('keopscore', '2.2.3', {
+    #     'checksums': ['64d5dad1e8c806d7070cdc60e48fd5bbf006f2bf1afd39ad3fa5e9fb213517d2'],
+    # }),
+    # ('pykeops', '2.2.3', {
+    #     'checksums': ['2e2cba1de5e05c35559957a14f41cb5165dc667cc51b3b2118d7e0027eb435a1'],
+    # }),
+    # ('pyts', '0.13.0', {
+    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+    #     'checksums': ['b49608267b686ea693dba31316ef2b22ad73ea29b27144696c347809ecd5ad62'],
+    # }),
+    # ('tsai', '0.3.9', {
+    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+    #     'checksums': ['0e6460e9ff075176c8af25ef90444ef2e287bc5fe5510e2a0f427e4d0b37ebc0'],
+    # }),
+    # ('accelerate', '0.32.1', {
+    #     'checksums': ['3999acff0237cd0d4f9fd98b42d5a3163544777b53fc4f1eec886b77e992d177'],
+    # }),
+    # ('be_great', '0.0.7', {
+    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+    #     'checksums': ['824f10482581f5211d3a435d8b14adcc6c21b38d952f00b6a792fc7c089788b1'],
+    # }),
+    # ('xgbse', '0.2.3', {
+    #     'preinstallopts': "sed -i  -e '45,49d' -e 's/pandas>=1.0.\*/pandas>=1.0.0/' setup.py && ",
+    #     'source_urls': ['https://github.com/loft-br/xgboost-survival-embeddings/archive/'],
+    #     'sources': ['v%(version)s.tar.gz'],
+    #     'checksums': ['9e6b71539b2b533c00eddfe7681cdd541f393d9573594eca358d263b141c127d'],
+    # }),
+    # ('arfpy', '0.1.1', {
+    #     'checksums': ['88170d5e72638b0dbfec28cfbdfee02e97bd6a06d5a636e960acd5d90d480707'],
+    # }),
+    # ('numpy', '1.23.5', {
+    #     'patches': [
+    #         'numpy-1.20.3_fix-fortran-compiler-error.patch',
+    #         'numpy-1.22.3_disable-broken-override-test.patch',
+    #     ],
+    #     'checksums': [
+    #         {'numpy-1.23.5.tar.gz': '1b1766d6f397c18153d40015ddfc79ddb715cabadc04d2d228d4e5a8bc4ded1a'},
+    #         {'numpy-1.20.3_fix-fortran-compiler-error.patch':
+    #          'f12a49a754cb4c01a39691f8a7470bfa0e56c70139d78ca8b188f049010e7647'},
+    #         {'numpy-1.22.3_disable-broken-override-test.patch':
+    #          '0d894fa9592ba9855397bc89fd4408bd911d49e6b6449d1693f87d2e5fcac486'},
+    #     ],
+    # }),
+    # (name, version, {
+    #     'preinstallopts': local_preinstallopts,
+    #     'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
+    #     'sources': ['v%(version)s.tar.gz'],
+    #     'testinstall': True,
+    #     'runtest': local_pretestopts + 'cd tests && pytest -vvvs -m "not slow" --durations=50',
+    #     'checksums': ['122a8546cad35e3ac5c74cf81281252dec4dd3c7b1d7afe0f45ef785f89cc682'],
+    # }),
+]
+
+sanity_check_commands = [
+    "python -c 'from synthcity.plugins import Plugins'",
+    "python -c 'from decaf import DECAF, DataModule'"
+]
+
+moduleclass = 'lib'
+
+# ERROR9:
+    # crash on pip install numpy 1.23.5
+    # ...
+    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 305, in get_finalized_command
+    #       cmd_obj.ensure_finalized()
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 111, in ensure_finalized
+    #       self.finalize_options()
+    #     File "/tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/numpy/numpy-1.23.5/numpy/distutils/command/config_compiler.py", line 69, in finalize_options
+    #       v = getattr(c, a)
+    #           ^^^^^^^^^^^^^
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/lib/python3.11/site-packages/Cython/Distutils/old_build_ext.py", line 157, in __getattr__
+    #       return _build_ext.build_ext.__getattr__(self, name)
+    #              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 107, in __getattr__
+    #       raise AttributeError(attr)
+    #   AttributeError: fcompiler. Did you mean: 'compiler'?
+    #   [end of output]
+# ERROR8:
+    # -> FROM test_log4.txt
+    # -> pwd = /tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/synthcity/synthcity-0.2.10
+    # -> ls: build CONTRIBUTING.MD docs LICENSE prereq.txt pyproject.toml README.md setup.cfg setup.py src tests tutorials
+    
+    # =========================================== short test summary info ===========================================
+    # OK
+    # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin0] - AttributeError: module 'net...
+    # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin1] - AttributeError: module 'net...
+    # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] - AttributeError: module 'net...
+        # -> decaf.ec updated to use networkx 2.8.8 + delete here dep networkx(3.1) -> OK
+        # -> decaf has its own ec -> networkx unpined -> seems it needs networkx<3 -> fix ok
+        # -> different from E7
+        # test_plugin = <synthcity.plugins.privacy.plugin_decaf.DECAFPlugin object at 0x14e9a30c9890>
+        #     @pytest.mark.parametrize(
+        #         "test_plugin", generate_fixtures(plugin_name, plugin, plugin_args)
+        #     )
+        #     @pytest.mark.skipif(sys.platform != "linux", reason="Linux only for faster results")
+        #     def test_plugin_generate(test_plugin: Plugin) -> None:
+        #         X = pd.DataFrame(load_iris()["data"])
+        # >       test_plugin.fit(GenericDataLoader(X))
+
+        # tests/plugins/privacy/test_decaf.py:110: 
+        # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+        # pydantic/decorator.py:40: in pydantic.decorator.validate_arguments.validate.wrapper_function
+        #     ???
+        # pydantic/decorator.py:134: in pydantic.decorator.ValidatedFunction.call
+        #     ???
+        # pydantic/decorator.py:206: in pydantic.decorator.ValidatedFunction.execute
+        #     ???
+        # /tmp/vsc47063/eb-_tp9y8jo/tmpph_4b7an/lib/python3.11/site-packages/synthcity/plugins/core/plugin.py:256: in fit
+        #     output = self._fit(X, *args, **kwargs)
+        # /tmp/vsc47063/eb-_tp9y8jo/tmpph_4b7an/lib/python3.11/site-packages/synthcity/plugins/privacy/plugin_decaf.py:437: in _fit
+        #     trainer.fit(self.model, dm)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:603: in fit
+        #     call._call_and_handle_interrupt(
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/call.py:38: in _call_and_handle_interrupt
+        #     return trainer_fn(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:645: in _fit_impl
+        #     self._run(model, ckpt_path=self.ckpt_path)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:1098: in _run
+        #     results = self._run_stage()
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:1177: in _run_stage
+        #     self._run_train()
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:1200: in _run_train
+        #     self.fit_loop.run()
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/loop.py:199: in run
+        #     self.advance(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/fit_loop.py:267: in advance
+        #     self._outputs = self.epoch_loop.run(self._data_fetcher)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/loop.py:199: in run
+        #     self.advance(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py:214: in advance
+        #     batch_output = self.batch_loop.run(kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/loop.py:199: in run
+        #     self.advance(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/batch/training_batch_loop.py:88: in advance
+        #     outputs = self.optimizer_loop.run(optimizers, kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/loop.py:199: in run
+        #     self.advance(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py:200: in advance
+        #     result = self._run_optimization(kwargs, self._optimizers[self.optim_progress.optimizer_position])
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py:247: in _run_optimization
+        #     self._optimizer_step(optimizer, opt_idx, kwargs.get("batch_idx", 0), closure)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py:357: in _optimizer_step
+        #     self.trainer._call_lightning_module_hook(
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:1342: in _call_lightning_module_hook
+        #     output = fn(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/core/module.py:1661: in optimizer_step
+        #     optimizer.step(closure=optimizer_closure)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/core/optimizer.py:169: in step
+        #     step_output = self._strategy.optimizer_step(self._optimizer, self._optimizer_idx, closure, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/strategies/strategy.py:234: in optimizer_step
+        #     return self.precision_plugin.optimizer_step(
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/plugins/precision/precision_plugin.py:121: in optimizer_step
+        #     return optimizer.step(closure=closure, **kwargs)
+        # /apps/gent/RHEL8/cascadelake-ib/software/PyTorch/2.1.2-foss-2023a/lib/python3.11/site-packages/torch/optim/optimizer.py:373: in wrapper
+        #     out = func(*args, **kwargs)
+        # /apps/gent/RHEL8/cascadelake-ib/software/PyTorch/2.1.2-foss-2023a/lib/python3.11/site-packages/torch/optim/optimizer.py:76: in _use_grad
+        #     ret = func(self, *args, **kwargs)
+        # /apps/gent/RHEL8/cascadelake-ib/software/PyTorch/2.1.2-foss-2023a/lib/python3.11/site-packages/torch/optim/adamw.py:161: in step
+        #     loss = closure()
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/plugins/precision/precision_plugin.py:107: in _wrap_closure
+        #     closure_result = closure()
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py:147: in __call__
+        #     self._result = self.closure(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py:133: in closure
+        #     step_output = self._step_fn()
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/loops/optimization/optimizer_loop.py:406: in _training_step
+        #     training_step_output = self.trainer._call_strategy_hook("training_step", *kwargs.values())
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/trainer/trainer.py:1480: in _call_strategy_hook
+        #     output = fn(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/1.8.4-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/strategies/strategy.py:378: in training_step
+        #     return self.model.training_step(*args, **kwargs)
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/DECAF-synthetic-data/0.1.6-foss-2023a/lib/python3.11/site-packages/decaf/DECAF.py:354: in training_step
+        #     generated_batch = self.generator.sequential(batch, z, self.get_gen_order())
+        # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+        # self = DECAF(
+        # (generator): Generator_causal(
+        #     (shared): Sequential(
+        #     (0): Linear(in_features=500, out_features=500,...ut_features=500, bias=True)
+        #     (3): ReLU()
+        #     (4): Linear(in_features=500, out_features=1, bias=True)
+        #     )
+        # )
+        # )
+
+        #     def get_gen_order(self) -> list:
+        #         dense_dag = np.array(self.get_dag())
+        #         dense_dag[dense_dag > 0.5] = 1
+        #         dense_dag[dense_dag <= 0.5] = 0
+        # >       G = nx.from_numpy_matrix(dense_dag, create_using=nx.DiGraph)
+        # E       AttributeError: module 'networkx' has no attribute 'from_numpy_matrix'
+    
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin1] - AttributeError: 'DPOpt...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin2] - AttributeError: 'DPOpt...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin0] - AttributeError: 'DPOp...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin1] - AttributeError: 'DPOp...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin2] - AttributeError: 'DPOp...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin0] - AttributeError:...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin1] - AttributeError:...
+    # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin2] - AttributeError:...
+        # -> there is new version 1.5.1 of opacus (where DPOptimizer is) -> try it
+        # -> same error as E7 - problem with Torch version 
+        # -> but in decaf there is torch>=1.9 - so torch should be >= 1.9 < 2 -> v1.13.1
+        # E           AttributeError: 'DPOptimizer' object has no attribute '_optimizer_step_pre_hooks'
+    
+    # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] - ValueError: se...
+    # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source1] - ValueError: se...
+        # -> same as E7 -> fix not working -> numpy problem -> add numpy 1.23.5 to exts - works for 2022b
+        # E           ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (50,) + inhomogeneous part.
+        # try debug by print:
+            # L107: cnt = 50
+            #     static_seed = static_data.head(1).values.tolist() * cnt
+            #     X_gen = test_plugin.generate(
+            #         cnt, static_data=pd.DataFrame(static_seed, columns=static_data.columns)
+            #     )
+            #     static_gen, _, _, _ = X_gen.unpack(as_numpy=True)
+            #     assert len(X_gen.ids()) == cnt
+            #     assert test_plugin.schema_includes(X_gen)
+            #     assert list(X_gen.columns) == list(data.columns)
+            #     assert np.isclose(np.asarray(static_gen), np.asarray(static_seed)).all()
+            # -> print(static_gen) ?
+    # ===== 13 failed, 2146 passed, 13 skipped, 103 deselected, 2 xfailed, 2063 warnings in 15943.46s (4:25:43) =====
+# ERROR7:
+    # -> this seems better - 14 failed vs 18 in test_log2.txt
+    # FROM test_log3.txt:
+        # ============================================== short test summary info ===============================================
+        # FAILED tests/plugins/core/test_schema.py::test_schema_fail - AttributeError: module 'pydantic' has no attribute 'py...
+            # -> move fix prom preinstallopts to runtest cmd - should fix this -> seems fixed from ERROR8 -> OK
+            
+            # def test_schema_fail() -> None:
+            #     if pydantic.__version__ < "2":
+            #         with pytest.raises(pydantic.error_wrappers.ValidationError):
+            #             Schema(data="sdfsfs")
+            #     else:
+            #         with pytest.raises(pydantic.pydantic_core._pydantic_core.ValidationError):
+            # tests/plugins/core/test_schema.py:17: 
+            # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/__init__.
+            # py:363: in __getattr__
+            #     return _getattr_migration(attr_name)
+            # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+            # > raise AttributeError(f'module {module!r} has no attribute {name!r}')
+            # E AttributeError: module 'pydantic' has no attribute 'pydantic_core'
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/_migration.py:306: AttributeError
+
+        # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin0] - RuntimeError: Training with multip...
+            # -> in E8: still test_decaf.py::test_plugin_generate error but another - Attribute not Runtime
+            # -> https://stackoverflow.com/questions/75907443/pytorch-lightning-works-on-cuda-but-throws-training-with-multiple-optimizers-is
+            # -> probably skip this test or create PyTorch-Lightning-1.8.4.foss-2023a -> pytorch-lighning v1.8.4 created ->OK
+            
+            # tests/plugins/privacy/test_decaf.py:110: 
+            # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:55: in wrapper_function
+            #     return vd.call(*args, **kwargs)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:150: in call
+            #     return self.execute(m)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:222: in execute
+            #     return self.raw_function(**d, **var_kwargs)
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/plugin.py:256: in fit
+            #     output = self._fit(X, *args, **kwargs)
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/privacy/plugin_decaf.py:437: in _
+            # fit
+            #     trainer.fit(self.model, dm)
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/trainer/trainer.py:544: in fit
+            #     call._call_and_handle_interrupt(
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/trainer/call.py:44: in _call_and_handle_interrupt
+            #     return trainer_fn(*args, **kwargs)
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/trainer/trainer.py:580: in _fit_impl
+            #     self._run(model, ckpt_path=ckpt_path)
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/trainer/trainer.py:963: in _run
+            #     self.strategy.setup(self)
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/strategies/strategy.py:159: in setup
+            #     self.setup_optimizers(trainer)
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/strategies/strategy.py:139: in setup_optimizers
+            #     self.optimizers, self.lr_scheduler_configs = _init_optimizers_and_lr_schedulers(self.lightning_module)
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/py
+            # thon3.11/site-packages/pytorch_lightning/core/optimizer.py:192: in _init_optimizers_and_lr_schedulers
+            #     _validate_multiple_optimizers_support(optimizers, model)
+            # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+            # def _validate_multiple_optimizers_support(optimizers: List[Optimizer], model: "pl.LightningModule") -> None:
+            #    if is_param_in_hook_signature(model.training_step, "optimizer_idx", explicit=True):
+            #        raise RuntimeError(
+            #             "Training with multiple optimizers is only supported with manual optimization. Remove the `optimizer_idx`"
+            #             " argument from `training_step`, set `self.automatic_optimization = False` and access your optimizers"
+            #             " in `training_step` with `opt1, opt2, ... = self.optimizers()`."
+            #         )
+            # E           RuntimeError: Training with multiple optimizers is only supported with manual optimization. 
+            # Remove the `optimizer_idx` argument from `training_step`, set `self.automatic_optimization = False` and access your optimizers in `training_step` with `opt1, opt2, ... = self.optimizers()`.
+            # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PyTorch-Lightning/2.2.1-foss-2023a/lib/python3.11/site-packages/pytorch_lightning/core/optimizer.py:351: RuntimeError
+        # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin1] - RuntimeError: Training with multip...
+        # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] - RuntimeError: Training with multip...
+        
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin1] - AttributeError: 'DPOptimizer'...
+            # -> seems DPOptimizer in Opacus do not have _optimizer_step_pre_hooks but Optimizer in Torch has -> problem -> can create PyTorch v1.13 but it is either in MONAI
+            # X -> DPOptimizer is in Opacus - but it gets the Torch Optimizer then and it has _optimizer_step_pre_hooks
+            # ->https://github.com/pytorch/opacus/blob/v1.4.1/opacus/optimizers/optimizer.py
+            # ->https://github.com/pytorch/pytorch/blob/v2.1.2/torch/optim/optimizer.py
+            # maybe connected with this bug: https://github.com/pytorch/opacus/issues/649 or https://github.com/pytorch/opacus/issues/523
+            
+            # tests/plugins/privacy/test_dpgan.py:81: 
+            # _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:55: in wrapper_function
+            #     return vd.call(*args, **kwargs)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:150: in call
+            #     return self.execute(m)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:222: in execute
+            #     return self.raw_function(**d, **var_kwargs)
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/plugin.py:256: in fit
+            #     output = self._fit(X, *args, **kwargs)
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/privacy/plugin_dpgan.py:287: in _
+            # fit
+            #     self.model.fit(X.dataframe(), cond=cond)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:55: in wrapper_function
+            #     return vd.call(*args, **kwargs)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:150: in call
+            #     return self.execute(m)
+            # /apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/deprecate
+            # d/decorator.py:222: in execute
+            #     return self.raw_function(**d, **var_kwargs)
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/models/tabular_gan.py:358: i
+            # n fit
+            #     self.model.fit(
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/models/gan.py:278: in fit
+            #     self._train(
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/models/gan.py:616: in _train
+            #     g_loss, d_loss = self._train_epoch(
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/models/gan.py:493: in _train
+            # _epoch
+            #     self._train_epoch_discriminator(
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/models/gan.py:462: in _train
+            # _epoch_discriminator
+            #     self.discriminator.optimizer.step()
+            # ...
+            # @functools.wraps(func)
+            #     def wrapper(*args: _P.args, **kwargs: _P.kwargs) -> R:
+            #         self, *_ = args
+            #         self = cast(Optimizer, self)
+            #         profile_name = f"Optimizer.step#{self.__class__.__name__}.step"
+            #         with torch.autograd.profiler.record_function(profile_name):
+            #             # call optimizer step pre hooks
+            # >           for pre_hook in chain(_global_optimizer_pre_hooks.values(), self._optimizer_step_pre_hooks.values()):
+            # E           AttributeError: 'DPOptimizer' object has no attribute '_optimizer_step_pre_hooks'
+            # /apps/gent/RHEL8/cascadelake-ib/software/PyTorch/2.1.2-foss-2023a/lib/python3.11/site-packages/torch/optim/optimizer.py:363: AttributeError
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin2] - AttributeError: 'DPOptimizer'...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin0] - AttributeError: 'DPOptimizer...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin1] - AttributeError: 'DPOptimizer...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin2] - AttributeError: 'DPOptimizer...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin0] - AttributeError: 'DPOpt...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin1] - AttributeError: 'DPOpt...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin2] - AttributeError: 'DPOpt...
+        
+        # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] - ValueError: setting a...
+            # -> should be solved: it was moved to prerunopts so should be ok -> not working in E8
+                # FROM: https://stackoverflow.com/questions/67183501/setting-an-array-element-with-a-sequence-requested-array-has-an-inhomogeneous-sh
+                # With dtype="object" it works for me. -> variable2 = np.asarray(variable1, dtype="object")
+            # tests/plugins/time_series/test_timegan.py:112:
+            # def unpack(self, as_numpy: bool = False, pad: bool = False) -> Any:
+            #     if pad:
+            #         (
+            #             static_data,
+            #             temporal_data,
+            #             observation_times,
+            #             outcome,
+            #         ) = TimeSeriesDataLoader.pad_and_mask(
+            #             self.data["static_data"],
+            #             self.data["temporal_data"],
+            #             self.data["observation_times"],
+            #             self.data["outcome"],
+            #         )
+            #     else:
+            #         static_data, temporal_data, observation_times, outcome = (
+            #             self.data["static_data"],
+            #             self.data["temporal_data"],
+            #             self.data["observation_times"],
+            #             self.data["outcome"],
+            #         )
+            
+            #     if as_numpy:
+            #         longest_observation_seq = max([len(seq) for seq in temporal_data])
+            #         return (
+            #             np.asarray(static_data),
+            #             np.asarray(
+            #                 temporal_data
+            #             ),  # TODO: check this works with time series benchmarks
+            #             # masked array to handle variable length sequences
+            #             ma.vstack(
+            #                 [
+            #                     ma.array(
+            #                         np.resize(ot, longest_observation_seq),
+            #                         mask=[True for i in range(len(ot))]
+            #                         + [False for j in range(longest_observation_seq - len(ot))],
+            #                     )
+            #                     for ot in observation_times
+            #                 ]
+            #             ),
+            #             np.asarray(outcome),
+            #         )
+            # E           ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after
+            # 1 dimensions. The detected shape was (50,) + inhomogeneous part.
+            # /tmp/vsc47063/eb-2r7nzoxm/tmps38qxu1i/lib/python3.11/site-packages/synthcity/plugins/core/dataloader.py:936: ValueError
+        # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source1] - ValueError: setting a...
+        # ======== 14 failed, 2145 passed, 13 skipped, 103 deselected, 2 xfailed, 2350 warnings in 15515.30s (4:18:35) =========
+# ERROR6:
+    # OK -> created and used XGBoost v1.7.2 -> delete unpin from preinstallopts + use it in decaf
+    # OK -> added 'export TOKENIZERS_PARALLELISM=true' to runtest to fix huggingface/tokenizers problem
+    # OK -> pydantic_core problem -> added sed -i with import pydentic_core and fix the use of pydantic_core._pydantic_core.ValidationError
+        # >>> from pydantic import pydantic_core
+            # Traceback (most recent call last):
+            # File "<stdin>", line 1, in <module>
+            # ImportError: cannot import name 'pydantic_core' from 'pydantic' (/apps/gent/RHEL8/cascadelake-ib/software/pydantic/2.5.3-GCCcore-12.3.0/lib/python3.11/site-packages/pydantic/__init__.py)
+        # >>> import pydantic_core
+        # >>> import pydantic_core._pydantic_core.ValidationError
+            # Traceback (most recent call last):
+            # File "<stdin>", line 1, in <module>
+            # ModuleNotFoundError: No module named 'pydantic_core._pydantic_core.ValidationError'; 'pydantic_core._pydantic_core' is not a package
+        # >>> from pydantic_core import _pydantic_core.ValidationError
+            # File "<stdin>", line 1
+            # from pydantic_core import _pydantic_core.ValidationError
+            # SyntaxError: invalid syntax
+        # >>> from pydantic_core import _pydantic_core
+        # >>> a = _pydantic_core.ValidationError
+        # >>> print(a)
+            # <class 'pydantic_core._pydantic_core.ValidationError'>
+        # >>> from pydantic_core._pydantic_core import ValidationError
+    
+    # FROM test_log2.txt
+        # tests/plugins/core/models/survival_analysis/test_surv_xgb.py::test_train_prediction FAILED
+            # -> problem with xgboost version -> ok fixed
+        
+        # tests/plugins/core/models/dag/test_dag_sanity.py::test_sanity 
+            # Training: |          | 0/? [00:00<?, ?it/s]
+            # Training:   0%|          | 0/1 [00:00<?, ?it/s]
+            # Epoch 0:   0%|          | 0/1 [00:00<?, ?it/s] 
+            # Epoch 0: 100%|| 1/1 [00:03<00:00,  0.29it/s]
+            # Epoch 0: 100%|| 1/1 [00:03<00:00,  0.29it/s, v_num=2.01e+7, mse_loss=0.723, dsl_loss=3.660, total_loss=4.380]
+            # Epoch 0: 100%|| 1/1 [00:03<00:00,  0.29it/s, v_num=2.01e+7, mse_loss=0.723, dsl_loss=3.660, total_loss=4.380]
+            # Epoch 0: 100%|| 1/1 [00:03<00:00,  0.29it/s, v_num=2.01e+7, mse_loss=0.723, dsl_loss=3.660, total_loss=4.380]
+            # XFAIL -> ok expected to fail
+        
+        # tests/plugins/core/models/time_series_survival/test_ts_surv_xgb.py::test_train_prediction[Transformer] FAILED
+            # -> change xgboost version should fix thix 
+        
+        # huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+        #     To disable this warning, you can either:
+	    #     - Avoid using `tokenizers` before the fork if possible
+	    #     - Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+        #     /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scikit-learn/1.3.1-gfbf-2023a/lib/python3.11/site-packages
+        #     /sklearn/metrics/cluster/_supervised.py:66: UserWarning: Clustering metrics expects discrete values but received continuous values for label, and binary values for target
+        #     warnings.warn(msg, UserWarning)
+        #     FAILED
+            # -> OK - should be fixed by set export ... in testrun
+        
+        # tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin1]
+        # 100%|| 1000/1000 [00:49<00:00, 20.18it/s]
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/scikit-learn/1.3.1-gfbf-2023a/lib/python3.11/site-packages/sklearn/metrics/cluster/_supervised.py:66: UserWarning: Clustering metrics expects discrete values but received continuous values for label, and binary values for target
+        #     warnings.warn(msg, UserWarning)
+        # FAILED
+            # -> seems ok in next test, but another test_decaf.py problem -> RuntimeError: Training with multiple optimizers is only supported with manual optimization.
+            # same for: tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] FAILED
+            # -> for problem with sklearn look: https://stackoverflow.com/questions/76713605/using-mutual-info-classif-for-continuous-features-and-discrete-target
+        
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin1] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin2] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin0] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin1] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin2] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin0] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin1] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin2] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # FAILED
+        # -> dpgan: https://github.com/vanderschaarlab/evaluating-generative-models/blob/093910e487d07959db7d87b54698da60aaeb50c0/requirements_dpgan.txt#L2
+
+        # tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 10%|         | 1/10 [00:01<00:09,  1.07s/it]
+        # 20%|        | 2/10 [00:02<00:08,  1.05s/it]
+        # 30%|       | 3/10 [00:03<00:07,  1.05s/it]
+        # 40%|      | 4/10 [00:04<00:06,  1.05s/it]
+        # 50%|     | 5/10 [00:05<00:05,  1.05s/it]
+        # 60%|    | 6/10 [00:06<00:04,  1.05s/it]
+        # 70%|   | 7/10 [00:07<00:03,  1.05s/it]
+        # 80%|  | 8/10 [00:08<00:02,  1.05s/it]
+        # 90%| | 9/10 [00:09<00:01,  1.05s/it]
+        # 100%|| 10/10 [00:10<00:00,  1.04s/it]
+        # 100%|| 10/10 [00:10<00:00,  1.05s/it]
+        # FAILED
+        # tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source1] 
+        # 0%|          | 0/10 [00:00<?, ?it/s]
+        # 10%|         | 1/10 [00:00<00:05,  1.66it/s]
+        # 20%|        | 2/10 [00:01<00:04,  1.74it/s]
+        # 30%|       | 3/10 [00:01<00:03,  1.75it/s]
+        # 40%|      | 4/10 [00:02<00:03,  1.76it/s]
+        # 50%|     | 5/10 [00:02<00:02,  1.77it/s]
+        # 60%|    | 6/10 [00:03<00:02,  1.77it/s]
+        # 70%|   | 7/10 [00:03<00:01,  1.78it/s]
+        # 80%|  | 8/10 [00:04<00:01,  1.78it/s]
+        # 90%| | 9/10 [00:05<00:00,  1.78it/s]
+        # 100%|| 10/10 [00:05<00:00,  1.79it/s]
+        # 100%|| 10/10 [00:05<00:00,  1.77it/s]
+        # FAILED
+        # -> timegan plugin in synthcity: https://github.com/vanderschaarlab/synthcity/blob/v0.2.10/src/synthcity/plugins/time_series/plugin_timegan.py
+        
+        # E  AttributeError: `best_iteration` is only defined when early stopping is used.
+            # -> OK seems as problem with xgboost v2: https://github.com/microsoft/FLAML/issues/1217
+        # E  AttributeError: module 'pydantic' has no attribute 'pydantic_core'
+            # -> OK pydantic_core should be in pydantic, but replace pydantic.pydantic_core only by pydantic_core
+        # E  AttributeError: 'DPOptimizer' object has no attribute '_optimizer_step_pre_hooks'
+            # -> seems as a problem with PyTorch: https://github.com/pytorch/opacus/issues/377
+            # or with the version: https://github.com/vanderschaarlab/synthcity/pull/168
+            # but there is no pytorch < 2 for lates toolchains -> delete this test?
+        # E  ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (50,) + inhomogeneous part.
+            # -> problem with too new numpy? https://stackoverflow.com/questions/67183501/setting-an-array-element-with-a-sequence-requested-array-has-an-inhomogeneous-sh
+            # FROM: https://stackoverflow.com/questions/67183501/setting-an-array-element-with-a-sequence-requested-array-has-an-inhomogeneous-sh
+                # With dtype="object" it works for me. -> variable2 = np.asarray(variable1, dtype="object")
+        # ============================================== short test summary info ===============================================
+        # FAILED tests/metrics/test_performance.py::test_evaluate_performance_time_series_survival[PerformanceEvaluatorXGB-test_plugin0]
+            # fixed
+        # FAILED tests/plugins/core/test_schema.py::test_schema_fail - AttributeError: module 'pydantic' has no attribute 'py...
+        # FAILED tests/plugins/core/models/survival_analysis/test_surv_xgb.py::test_train_prediction - AttributeError: `best_...
+            # fixed
+        # FAILED tests/plugins/core/models/time_series_survival/test_ts_surv_xgb.py::test_train_prediction[Transformer] - Att...
+            # fixed
+        # FAILED tests/plugins/core/models/time_to_event/test_tte_xgb.py::test_train_prediction - AttributeError: `best_itera...
+            # fixed
+        # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin0] - RuntimeError: Training with multip...
+        # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin1] - RuntimeError: Training with multip...
+        # FAILED tests/plugins/privacy/test_decaf.py::test_plugin_generate[test_plugin2] - RuntimeError: Training with multip...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin1] - AttributeError: 'DPOptimizer'...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[True-test_plugin2] - AttributeError: 'DPOptimizer'...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin0] - AttributeError: 'DPOptimizer...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin1] - AttributeError: 'DPOptimizer...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate[False-test_plugin2] - AttributeError: 'DPOptimizer...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin0] - AttributeError: 'DPOpt...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin1] - AttributeError: 'DPOpt...
+        # FAILED tests/plugins/privacy/test_dpgan.py::test_plugin_generate_constraints[test_plugin2] - AttributeError: 'DPOpt...
+        # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source0] - ValueError: setting a...
+        # FAILED tests/plugins/time_series/test_timegan.py::test_plugin_generate_static_cond[source1] - ValueError: setting a...
+        # ======== 18 failed, 2141 passed, 13 skipped, 103 deselected, 2 xfailed, 2316 warnings in 15511.26s (4:18:31) =========
+             
+# ERROR5: OK
+    # -> Delete this - seems is not from synthcity but from others packages
+    # Pytest in sanity check cmds:
+        # ModuleNotFoundError: No module named 'cython_test_exception_raiser' ok
+        # ModuleNotFoundError: No module named 'hamcrest' ok
+        # No module named 'service_identity ok
+        # twisted 24.3.0 requires automat, ok
+        # twisted 24.3.0 requires constantly, ok
+        # twisted 24.3.0 requires hyperlink, ok
+        # twisted 24.3.0 requires zope-interface, ok
+        # No module named 'incremental' ok
+        # ModuleNotFoundError: No module named 'twisted' ok
+        # ModuleNotFoundError: No module named 'fixtures' ok
+        # ModuleNotFoundError: No module named 'hypothesis' OK
+        # ModuleNotFoundError: No module named 'testscenarios' ok
+        # ModuleNotFoundError: No module named 'testtools' ok
+        # ModuleNotFoundError: No module named 'evaluate' ok
+# ERROR4: OK
+    # try runtest + 'testinstall': True
+        # -> WORKS
+    # maybe to postinstallcmds?
+    # add to runtest: "export PYTHONPATH=%(installdir)s/lib/python%(pyshortver)s/site-packages:$PYTHONPATH &&" before pytest?
+        # NO there is no synthcity in site-packages yet
+    # add pytest cmd to sanity check cmds
+        # seems it tests all the packages not only synthcity -> errors about modules etc
+    # when runtest = 'pytest -vvvs -m "not slow" --durations=50'
+        # = 2024-07-16 15:03:20,115 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "  pytest -vvvs -m "n slow" --durations=50 " exited with exit code 4 and output:
+        # ImportError while loading conftest '/tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/synthcity/synthcity-0.2.10/tests/conftest.py'.
+        # tests/conftest.py:10: in <module>
+        #     from synthcity.utils.reproducibility import clear_cache, enable_reproducible_results
+        # E   ModuleNotFoundError: No module named 'synthcity'
+# ERROR3: OK
+    # -> add coverage to deps
+    # -> put runtest to exts - synthcity ext, not as runtest = ...
+    # tests/test_pytest_cov.py:12: in <module>
+    #     import coverage
+    # E   ModuleNotFoundError: No module named 'coverage'
+# ERROR2: OK
+    # -> fix pandas version in setup.py by local_xgbse_preinstallopts
+    # == 2024-07-15 14:17:49,585 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "sed -i '45,49d' setup.py &&  /apps/gent/RHEL8/zen2-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/zen2-ib/software/synthcity/0.2.10-foss-2023a  --no-deps  --ignore-installed  --no-index  --no-build-isolation  ." exited with exit code 1 and output:
+    # Processing /tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/xgbse/xgboost-survival-embeddings-0.2.3
+    #   Preparing metadata (setup.py): started
+    #   Preparing metadata (setup.py): finished with status 'error'
+    #   error: subprocess-exited-with-error
+    
+    #    python setup.py egg_info did not run successfully.
+    #    exit code: 1
+    #   > [3 lines of output]
+    #       error in xgbse setup command: 'install_requires' must be a string or list of strings containing valid project/version requirement specifiers; Expected end or semicolon (after version specifier)
+    #           pandas>=1.0.*
+    #                 ~~~~~^
+    #       [end of output]
+    
+    #   note: This error originates from a subprocess, and is likely not a problem with pip.
+    # error: metadata-generation-failed
+
+    #  Encountered error while generating package metadata.
+    # > See above for output.
+
+    # note: This is an issue with the package mentioned above, not pip.
+    # hint: See above for details.
+# ERROR1: OK
+    # -> add xgbse_preinstallopts to delete wrong part from setup.py
+    # -> seems like a problem with pip and setuptools version: https://stackoverflow.com/questions/77124879/pip-extras-require-must-be-a-dictionary-whose-values-are-strings-or-lists-of
+    # == 2024-07-15 13:57:09,544 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " /apps/gent/RHEL8/zen2-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/zen2-ib/software/synthcity/0.2.10-foss-2023a  --no-deps  --ignore-installed  --no-index  --no-build-isolation  ." exited with exit code 1 and output:
+    # Processing /tmp/vsc47063/easybuild/build/synthcity/0.2.10/foss-2023a/xgbse/xgboost-survival-embeddings-0.2.3
+    #   Preparing metadata (setup.py): started
+    #   Preparing metadata (setup.py): finished with status 'error'
+    #   error: subprocess-exited-with-error
+    
+    #    python setup.py egg_info did not run successfully.
+    #    exit code: 1
+    #   > [1 lines of output]
+    #       error in xgbse setup command: 'extras_require' must be a dictionary whose values are strings or lists of strings containing valid project/version requirement specifiers.
+    #       [end of output]
+    
+    #   note: This error originates from a subprocess, and is likely not a problem with pip.
+    # error: metadata-generation-failed
+
+    #  Encountered error while generating package metadata.
+    # > See above for output.
+
+    # note: This is an issue with the package mentioned above, not pip.
+    # hint: See above for details.

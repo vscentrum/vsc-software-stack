@@ -1,0 +1,32 @@
+easyblock = 'PythonBundle'
+
+name = 'deepdiff'
+version = '8.0.1'
+
+homepage = 'https://zepworks.com/deepdiff/current/'
+description = """DeepDiff: Deep Difference of dictionaries, iterables and almost any other object recursively."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.2.0'}
+
+builddependencies = [
+    ('binutils', '2.40'),
+]
+
+dependencies = [
+    ('Python', '3.11.5'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('orderly_set', '5.2.2', {
+        'checksums': ['52a18b86aaf3f5d5a498bbdb27bf3253a4e5c57ab38e5b7a56fa00115cd28448'],
+    }),
+    (name, version, {
+        'checksums': ['245599a4586ab59bb599ca3517a9c42f3318ff600ded5e80a3432693c8ec3c4b'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'tools'
