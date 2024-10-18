@@ -83,9 +83,11 @@ atac.var[atac.var['CCAN']==2].head(3)
 
 atac.var['CCAN'].value_counts().head()
 
+ccan_number = atac.var['CCAN'].value_counts().index[0]
+
 ci.draw.plot_ccan(
     atac,
-    ccan_module=17,
+    ccan_module=ccan_number,
     sep=('_', '_'),
     abs_threshold=0,
     figsize=(15,5),
