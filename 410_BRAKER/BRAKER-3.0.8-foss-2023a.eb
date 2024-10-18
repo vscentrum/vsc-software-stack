@@ -13,17 +13,17 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 source_urls = ['https://github.com/Gaius-Augustus/BRAKER/archive/']
 sources = ['v%(version)s.tar.gz']
-patches = ['BRAKER-%(version)s_fix-incorrect-ids.patch']
 checksums = ['f2623290c3007a3e42719a0bb2713bec7226db222bfef742895a9d5d0b4ee526']
 
 dependencies = [
     ('Perl', '5.36.1'),
+    ('Python', '3.11.3'),
     ('AUGUSTUS', '3.5.0'),
-    ('GeneMark-ET', '4.71'),  # TODO
+    ('GeneMark-ET', '4.72'),
     ('BamTools', '2.5.2'),
     ('SAMtools', '1.18'),
     ('GenomeThreader', '1.7.3', '-Linux_x86_64-64bit', SYSTEM),
-    ('spaln', '2.4.13f'),  # TODO
+    ('spaln', '3.0.6b'),
     ('Exonerate', '2.4.0'),
     ('BLAST+', '2.14.1'),
     ('Biopython', '1.83'),
@@ -32,9 +32,19 @@ dependencies = [
 ]
 
 fix_perl_shebang_for = ['scripts/*.pl']
+fix_python_shebang_for = ['scripts/*.py']
 
 sanity_check_paths = {
-    'files': ['scripts/align2hints.pl', 'scripts/braker.pl', 'scripts/findGenesInIntrons.pl', 'scripts/startAlign.pl'],
+    'files': [
+        'scripts/braker.pl',
+        'scripts/compare_intervals_exact.pl',
+        'scripts/compute_accuracies.sh',
+        'scripts/compute_accuracies.sh',
+        'scripts/filterGenemark.pl',
+        'scripts/findGenesInIntrons.pl',
+        'scripts/gatech_pmp2hints.pl',
+        'scripts/sortGeneMark.py',
+    ],
     'dirs': ['docs', 'example'],
 }
 
