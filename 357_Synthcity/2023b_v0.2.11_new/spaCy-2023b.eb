@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'spaCy'
-version = '3.7.4'
+version = '3.7.5'
 
 homepage = 'https://spacy.io/'
 description = "Industrial-strength Natural Language Processing (NLP) in Python."
@@ -11,19 +11,26 @@ toolchain = {'name': 'foss', 'version': '2023b'}
 builddependencies = [
     ('poetry', '1.6.1'),
     ('hatchling', '1.18.0'),
+    # ('Cython', '0.29.37'),
 ]
 
 dependencies = [
     ('Python', '3.11.5'),
+    ('Python-bundle-PyPI', '2023.10'),
     ('SciPy-bundle', '2023.11'),
     ('tqdm', '4.66.2'),
     ('pydantic', '2.6.4'),
-    ('Cython', '3.0.10'),
 ]
 
 use_pip = True
 
 exts_list = [
+    # srsly and thinc needs Cython<3 as build dependency, but in Python-bundle-PyPI there is 
+    # Cython>3 - this is a mistake in a Python-bundle-PyPI and should not be in future versions
+    # so this dependency could be removed with more recent version of Python-bundle-PyPI
+    ('Cython', '0.29.37', {
+        'checksums': ['f813d4a6dd94adee5d4ff266191d1d95bf6d4164a4facc535422c021b2504cfb'],
+    }),
     ('spacy-legacy', '3.0.12', {
         'checksums': ['b37d6e0c9b6e1d7ca1cf5bc7152ab64a4c4671f59c85adaf7a3fcb870357a774'],
     }),
@@ -42,26 +49,26 @@ exts_list = [
     ('blis', '0.7.11', {
         'checksums': ['cec6d48f75f7ac328ae1b6fbb372dde8c8a57c89559172277f66e01ff08d4d42'],
     }),
-    ('confection', '0.1.4', {
-        'checksums': ['e80f22fd008b5231a2e8852fac6de9e28f2276a04031d0536cff74fe4a990c8f'],
-    }),
-    ('thinc', '8.2.3', {
-        'checksums': ['f5afc5222912a80bda8bdcec958362a2ba538d7027dc8db6154845d2859dca76'],
-    }),
-    ('ml_datasets', '0.2.0', {
-        'checksums': ['3f9c8901f8d6be3dab5b23ec3a6c01e619a60d0184696b1030cde2e3086943f1'],
-    }),
     ('wasabi', '1.1.2', {
         'checksums': ['1aaef3aceaa32edb9c91330d29d3936c0c39fdb965743549c173cb54b16c30b5'],
-    }),
-    ('srsly', '2.4.8', {
-        'checksums': ['b24d95a65009c2447e0b49cda043ac53fecf4f09e358d87a57446458f91b8a91'],
     }),
     ('catalogue', '2.0.10', {
         'checksums': ['4f56daa940913d3f09d589c191c74e5a6d51762b3a9e37dd53b7437afd6cda15'],
     }),
-    ('typer', '0.9.0', {
-        'checksums': ['50922fd79aea2f4751a8e0408ff10d2662bd0c8bbfa84755a699f3bada2978b2'],
+    ('confection', '0.1.5', {
+        'checksums': ['8e72dd3ca6bd4f48913cd220f10b8275978e740411654b6e8ca6d7008c590f0e'],
+    }),
+    ('srsly', '2.4.8', {
+        'checksums': ['b24d95a65009c2447e0b49cda043ac53fecf4f09e358d87a57446458f91b8a91'],
+    }),
+    ('thinc', '8.2.5', {
+        'checksums': ['c2963791c934cc7fbd8f9b942d571cac79892ad11630bfca690a868c32752b75'],
+    }),
+    ('ml_datasets', '0.2.0', {
+        'checksums': ['3f9c8901f8d6be3dab5b23ec3a6c01e619a60d0184696b1030cde2e3086943f1'],
+    }),
+    ('typer', '0.9.1', {
+        'checksums': ['1cf0d77ad59eed73bf0e414b0258f523732afc7bd896122fd724910ddf308abc'],
     }),
     ('smart-open', '6.4.0', {
         'source_tmpl': 'smart_open-%(version)s.tar.gz',
@@ -78,7 +85,7 @@ exts_list = [
     }),
     (name, version, {
         'sources': ['%(namelower)s-%(version)s.tar.gz'],
-        'checksums': ['525f2ced2e40761562c8cace93ef6a1e6e8c483f27bd564bc1b15f608efbe85b'],
+        'checksums': ['a648c6cbf2acc7a55a69ee9e7fa4f22bdf69aa828a587a1bc5cfff08cf3c2dd3'],
     }),
 ]
 
@@ -87,8 +94,10 @@ sanity_pip_check = True
 moduleclass = 'data'
 
 # E1:
+    # probably problem with cython version -> it needs cython<3 for setup but for foss/2023b is cython>3 -> do EC for cython<3
     # -> https://github.com/cython/cython/issues/5757
     # <- log1.txt
+    # <- fails on "pip install thinc-8.2.3"
     # thinc/backends/numpy_ops.pyx:472:32: Cannot assign type 'daxpy_ptr' to 'ptr'. Exception values are incompatible. Suggest adding 'noexcept' to type 'void (int, double, const double *, int, double *, int) except * nogil'.
     #       Cythonizing sources
     #       Compiling thinc/backends/cblas.pyx because it changed.

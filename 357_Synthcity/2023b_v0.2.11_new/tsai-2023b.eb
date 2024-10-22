@@ -1,0 +1,33 @@
+easyblock = 'PythonBundle'
+
+name = 'tsai'
+version = '0.3.8'
+
+homepage = 'https://github.com/timeseriesAI/tsai'
+description = """Time series Timeseries Deep Learning Machine Learning Python Pytorch fastai
+| State-of-the-art Deep Learning library for Time Series and Sequences in Pytorch / fastai."""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+dependencies = [
+    ('Python', '3.11.5'),
+    ('fastai', '2.7.15'),
+    ('imbalanced-learn', '0.12.3'),
+    ('scikit-learn', '1.3.2'),
+    ('PyTorch', '2.1.2'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('pyts', '0.13.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['b49608267b686ea693dba31316ef2b22ad73ea29b27144696c347809ecd5ad62'],
+    }),
+    (name, version, {
+        'checksums': ['5b00796a01419e9102bd425e27c319d58d1f6cf2dfa751e02ed7f4edf67c3c1b'],
+    }),
+]
+
+moduleclass = 'tools'

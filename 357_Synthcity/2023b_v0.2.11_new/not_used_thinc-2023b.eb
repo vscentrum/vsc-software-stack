@@ -1,0 +1,61 @@
+easyblock = 'PythonBundle'
+
+name = 'thinc'
+version = '8.3.2'
+
+homepage = 'https://github.com/explosion/thinc/'
+description = "A refreshing functional take on deep learning, compatible with your favorite libraries."
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+# builddependencies = [
+#     ('poetry', '1.6.1'),
+#     ('hatchling', '1.18.0'),
+# ]
+
+dependencies = [
+    ('Python', '3.11.5'),
+    ('SciPy-bundle', '2023.11'),
+    # ('tqdm', '4.66.2'),
+    ('pydantic', '2.6.4'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('Cython', '0.29.37', {
+        'checksums': ['f813d4a6dd94adee5d4ff266191d1d95bf6d4164a4facc535422c021b2504cfb'],
+    }),
+    ('cymem', '2.0.8', {
+        'checksums': ['8fb09d222e21dcf1c7e907dc85cf74501d4cea6c4ed4ac6c9e016f98fb59cbbf'],
+    }),
+    ('murmurhash', '1.0.10', {
+        'checksums': ['5282aab1317804c6ebd6dd7f69f15ba9075aee671c44a34be2bde0f1b11ef88a'],
+    }),
+    ('preshed', '3.0.9', {
+        'checksums': ['721863c5244ffcd2651ad0928951a2c7c77b102f4e11a251ad85d37ee7621660'],
+    }),
+    ('blis', '0.9.1', {
+        'checksums': ['91739cd850ca8100dcddbd8ad66942cab20c9473cdea9a35b165b11d7b8d91e4'],
+    }),
+    ('wasabi', '1.1.2', {
+        'checksums': ['1aaef3aceaa32edb9c91330d29d3936c0c39fdb965743549c173cb54b16c30b5'],
+    }),
+    ('catalogue', '2.0.10', {
+        'checksums': ['4f56daa940913d3f09d589c191c74e5a6d51762b3a9e37dd53b7437afd6cda15'],
+    }),
+    ('confection', '0.1.5', {
+        'checksums': ['8e72dd3ca6bd4f48913cd220f10b8275978e740411654b6e8ca6d7008c590f0e'],
+    }),
+    ('srsly', '2.4.8', {
+        'checksums': ['b24d95a65009c2447e0b49cda043ac53fecf4f09e358d87a57446458f91b8a91'],
+    }),
+    (name, version, {
+        'sources': ['%(namelower)s-%(version)s.tar.gz'],
+        'checksums': ['3e8ef69eac89a601e11d47fc9e43d26ffe7ef682dcf667c94ff35ff690549aeb'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'data'
