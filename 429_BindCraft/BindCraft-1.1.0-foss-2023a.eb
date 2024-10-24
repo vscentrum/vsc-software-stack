@@ -9,7 +9,7 @@ description = """Simple binder design pipeline using AlphaFold2 backpropagation,
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-source_urls = ['https://github.com/martinpacesa/BindCraft/archive/']
+source_urls = ['https://github.com/martinpacesa/BindCraft/archive/refs/tags/']
 sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}]
 checksums = ['c682f59501f0bcfbb8289fd066362dcea37ed8553cdff5c794a2baa6d4149ce7']
 
@@ -24,12 +24,12 @@ dependencies = [
     ('matplotlib', '3.7.2'),
 ]
 
-fix_python_shebang_for = ['bindcraft.py']
-
 exts_defaultclass = 'PythonPackage'
 exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
     'download_dep_fail': True,
     'use_pip': True,
+    'sanity_pip_check': True,
 }
 exts_list = [
     ('PDBFixer', '1.9', {
@@ -37,7 +37,7 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['88b9a77e50655f89d0eb2075093773e82c27a4cef842cb7d735c877b20cd39fb'],
     }),
-    # TODO
+    # TODO ?
     # install_requires    = [
     #     'notebook',
     #     'jupyter-console',
@@ -52,6 +52,10 @@ exts_list = [
     }),
 ]
 
+fix_python_shebang_for = ['bindcraft.py']
+
+postinstallcmds = ['chmod a+x %(installdir)s/bindcraft.py']
+
 modextrapaths = {
     'PATH': '',
     'PYTHONPATH': '',
@@ -65,3 +69,6 @@ sanity_check_paths = {
 sanity_check_commands = ["bindcraft.py --help"]
 
 moduleclass = 'bio'
+
+# TODO
+# ModuleNotFoundError: No module named 'pyrosetta'
