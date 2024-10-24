@@ -61,8 +61,8 @@ local_sys_cmake = ['-DITK_USE_SYSTEM_%s=ON' % d for d in local_sys_deps]
 configopts += ' '.join(local_sys_cmake)
 
 # fix missing header with GCC 13: https://github.com/InsightSoftwareConsortium/ITK/pull/4066
-# prebuildopts = "sed -i '22 a #include <cstdint>' %(start_dir)s/Modules/Filtering/MathematicalMorphology/include/itkMathematicalMorphologyEnums.h && "
-prebuildopts = "sed -i '22 a #include <itkIntTypes.h>' %(start_dir)s/Modules/Filtering/MathematicalMorphology/include/itkMathematicalMorphologyEnums.h && "
+prebuildopts = "sed -i '22 a #include <itkIntTypes.h>' "
+prebuildopts += "%(start_dir)s/Modules/Filtering/MathematicalMorphology/include/itkMathematicalMorphologyEnums.h && "
 prebuildopts += "LC_ALL=C "
 
 local_lib_names = ['ITKCommon', 'ITKIOHDF5', 'ITKIOJPEG', 'ITKIOPNG', 'ITKIOTIFF',
