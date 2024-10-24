@@ -1,0 +1,67 @@
+easyblock = 'Tarball'
+
+name = 'BindCraft'
+version = '1.1.0'
+
+homepage = 'https://github.com/martinpacesa/BindCraft'
+description = """Simple binder design pipeline using AlphaFold2 backpropagation, MPNN, and PyRosetta.
+ Select your target and let the script do the rest of the work and finish once you have enough designs to order!"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/martinpacesa/BindCraft/archive/']
+sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}]
+checksums = ['c682f59501f0bcfbb8289fd066362dcea37ed8553cdff5c794a2baa6d4149ce7']
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('Biopython', '1.83'),
+    ('Seaborn', '0.13.2'),
+    ('tqdm', '4.66.1'),
+    ('OpenMM', '8.0.0'),
+    ('FFmpeg', '6.0'),
+    ('matplotlib', '3.7.2'),
+]
+
+fix_python_shebang_for = ['bindcraft.py']
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'download_dep_fail': True,
+    'use_pip': True,
+}
+exts_list = [
+    ('PDBFixer', '1.9', {
+        'source_urls': ['https://github.com/openmm/pdbfixer/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['88b9a77e50655f89d0eb2075093773e82c27a4cef842cb7d735c877b20cd39fb'],
+    }),
+    # TODO
+    # install_requires    = [
+    #     'notebook',
+    #     'jupyter-console',
+    #     'nbconvert',
+    #     'ipykernel',
+    #     'ipywidgets',
+    #     'jupyterlab',
+    # ],
+    ('jupyter', '1.1.1', {
+        'source_tmpl': SOURCE_WHL,
+        'checksums': ['7a59533c22af65439b24bbe60373a4e95af8f16ac65a6c00820ad378e3f7cc83'],
+    }),
+]
+
+modextrapaths = {
+    'PATH': '',
+    'PYTHONPATH': '',
+}
+
+sanity_check_paths = {
+    'files': ['bindcraft.py'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["bindcraft.py --help"]
+
+moduleclass = 'bio'
