@@ -1,0 +1,60 @@
+easyblock = 'PackedBinary'
+
+name = 'Fiji'
+version = '20240925-2317'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://fiji.sc/'
+description = """Fiji is an image processing package—a 'batteries-included' distribution of
+ ImageJ, bundling a lot of plugins which facilitate scientific image analysis.
+This release is based on ImageJ-2.1.0 and Fiji-2.1.1"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://downloads.imagej.net/%(namelower)s/archive/%(version)s']
+sources = [{
+    'download_filename': '%(namelower)s-nojre.zip',
+    'filename': '%(namelower)s-nojre-%(version)s.zip',
+}]
+checksums = ['70cefdceac99e06326ce784963f14bd6f0ea29968d4d55404a71e42da8f5fb6a']
+
+dependencies = [('Java', '11', '', SYSTEM)]
+
+postinstallcmds = [
+    # Remove binaries for other platforms
+    'rm %(installdir)s/{ImageJ-win32.exe,ImageJ-win64.exe}',
+    # Enable any update site (edit existing site with same parameters to enable it)
+    # Full list at https://imagej.github.io/list-of-update-sites/
+    '%(installdir)s/ImageJ-linux64 --headless --update edit-update-site "ImageScience"'
+    ' https://sites.imagej.net/ImageScience/',
+    '%(installdir)s/ImageJ-linux64 --headless --update edit-update-site "3D ImageJ Suite"'
+    ' https://sites.imagej.net/Tboudier/',
+    '%(installdir)s/ImageJ-linux64 --headless --update edit-update-site "ilastik"'
+    ' https://sites.imagej.net/Ilastik/',
+    # Add a new update site
+    # '%(installdir)s/ImageJ-linux64 --headless --update add-update-site "New Name"'
+    # ' https://site.url/NewName/',
+    # Update the installation
+    '%(installdir)s/ImageJ-linux64 --headless --update update',
+]
+
+sanity_check_paths = {
+    'files': ['ImageJ-linux64'],
+    'dirs': [],
+}
+
+modloadmsg = """
+Additional plugins can be installed in your $HOME/.plugins folder or requested to user support
+Use ImageJ/Fiji in headless mode in your scripts with the command `ImageJ-linux64 --headless`
+More information at https://imagej.net/Headless
+"""
+
+moduleclass = 'vis'
+
+# == 2024-10-23 10:37:06,103 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Fiji/20240925-2317-Java-11/ImageJ-linux64 --headless --update edit-update-site "ImageScience" https://sites.imagej.net/ImageScience/" exited with exit code 1 and output:
+# Could not load Java library '/kyukon/home/apps/RHEL8/cascadelake-ib/software/Java/11.0.20/lib/amd64/server/libjvm.so': /kyukon/home/apps/RHEL8/cascadelake-ib/software/Java/11.0.20/lib/amd64/server/libjvm.so: cannot open shared object file: No such file or directory
+# Warning: falling back to System JVM
+# Unrecognized option: -Xincgc
+# Error: Could not create the Java Virtual Machine.
+# Error: A fatal exception has occurred. Program will exit.
+#  (at easybuild/easybuild-framework/easybuild/tools/run.py:695 in parse_cmd_output)
