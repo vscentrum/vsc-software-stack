@@ -51,7 +51,7 @@ dependencies = [
 configopts = '-DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF '
 # configopts += '-DModule_ITKReview=ON -DModule_ITKVtkGlue=ON -DModule_SimpleITKFilters=ON '
 # Enable Python bindings
-configopts += '-DCMAKE_CXX_FLAGS="$CXXFLAGS '
+configopts += '-DCMAKE_CXX_FLAGS="$CXXFLAGS" ' # not working to fix E1
 configopts += '-DITK_WRAP_PYTHON:BOOL=ON -DPython_EXECUTABLE=$EBROOTPYTHON/bin/python '
 # configopts += '-DSWIG_EXECUTABLE=$EBROOTSWIG/bin/swig -DSWIG_DIR=$EBROOTSWIG '
 configopts += '-DPY_SITE_PACKAGES_PATH=%(installdir)s/lib/python%(pyshortver)s/site-packages '
@@ -78,6 +78,12 @@ modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 moduleclass = 'data'
 
 # E1:
+    # It uses precompiled binaries for CastXML v0.6.5
+        # try to create CastXML EC and use it here
+        # set ITK_USE_SYSTEM_CASTXML=ON
+    # seems as problem with CastXML: 
+        # https://github.com/CastXML/CastXML/blob/master/src/RunClang.cxx
+        
     # <- clog2.txt
     # <- during make
     # In file included from /kyukon/home/apps/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/13.2.0/../../../../include/c++/13.2.0/string:42:
