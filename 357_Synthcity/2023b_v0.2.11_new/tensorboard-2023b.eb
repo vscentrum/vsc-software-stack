@@ -12,10 +12,6 @@ toolchain = {'name': 'gfbf', 'version': '2023b'}
 # postinstallpatches = [
 #     ('tensorboard-2.10_jupyterhub-support.patch', 'lib/python%(pyshortver)s/site-packages'),
 # ]
-checksums = [
-    {'tensorboard-2.10_jupyterhub-support.patch':
-     '50a292e6ee518aecb5644595e0f3db4867be4f82e328e008e5a3f6a1f19baf87'},
-]
 
 builddependencies = [
     ('poetry', '1.6.1'),
@@ -25,7 +21,7 @@ dependencies = [
     ('Python', '3.11.5'),
     ('SciPy-bundle', '2023.11'),
     ('protobuf-python', '4.25.3'),
-    # ('grpcio', '1.62.3'), # UPDATE
+    ('grpcio', '1.62.3'),
 ]
 
 use_pip = True
@@ -75,11 +71,11 @@ exts_list = [
     }),
     ('Werkzeug', '3.0.2', {
         'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
-        'checksums': ['507e811ecea72b18a404947aded4b3390e1db8f826b494d76550ef45bb3b1dcc'],
+        'checksums': ['e39b645a6ac92822588e7b39a692e7828724ceae0b0d702ef96701f90e70128d'],
     }),
     (name, version, {
         'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-        'checksums': ['c46c1d1cf13a458c429868a78b2531d8ff5f682058d69ec0840b0bc7a38f1c0f'],
+        'checksums': ['9f2b4e7dad86667615c0e5cd072f1ea8403fc032a299f0072d6f74855775cc45'],
     }),
 ]
 
