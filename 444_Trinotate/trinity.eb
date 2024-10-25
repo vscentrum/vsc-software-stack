@@ -1,0 +1,85 @@
+# This is a contribution from DeepThought HPC Service, Flinders University, Adelaide, Australia
+# Homepage: https://staff.flinders.edu.au/research/deep-thought
+# Authors:  Robert Qiao <rob.qiao@flinders.edu.au>
+# Update:   Pavel Tománek (Inuits)
+
+name = 'Trinity'
+version = '2.15.2'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://github.com/trinityrnaseq/trinityrnaseq'
+description = """Trinity represents a novel method for the efficient and robust de novo reconstruction
+ of transcriptomes from RNA-Seq data. Trinity combines three independent software modules: Inchworm,
+ Chrysalis, and Butterfly, applied sequentially to process large volumes of RNA-Seq reads."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/trinityrnaseq/trinityrnaseq/releases/download/%(name)s-v%(version)s']
+sources = ['trinityrnaseq-v%(version)s.FULL.tar.gz']
+patches = ['Trinity-%(version)s_fix-bamsifter.patch']
+checksums = [
+    {'trinityrnaseq-v2.15.2.FULL.tar.gz': 'baab87e4878ad097e265c46de121414629bf88fa9342022baae5cac12432a15c'},
+    {'Trinity-2.15.2_fix-bamsifter.patch': '42a80d7af51306cd8426cb95d226d88d011577a670060d5a6663ee2a183c0b5c'},
+]
+
+builddependencies = [
+    ('Autotools', '20220317'),
+    ('CMake', '3.26.3'),
+]
+
+# for reference, list of dependencies in the container image used upstream:
+# https://github.com/trinityrnaseq/trinityrnaseq/blob/master/Docker/Dockerfile
+dependencies = [
+    ('Java', '11', '', SYSTEM),
+    ('ant', '1.10.12', '-Java-%(javaver)s', SYSTEM),
+    ('picard', '2.25.1', '-Java-%(javaver)s', SYSTEM),
+    ('GATK', '4.3.0.0', '-Java-%(javaver)s'),
+    ('Perl', '5.36.1'),
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('BLAST+', '2.14.1'),
+    ('BLAT', '3.7'),
+    ('Bowtie', '1.3.1'),
+    ('Bowtie2', '2.5.1'),
+    ('GMAP-GSNAP', '2023-04-20'),
+    ('HISAT2', '2.2.1'),
+    ('HTSlib', '1.18'),
+    ('Jellyfish', '2.3.1'),
+    ('kallisto', '0.51.1'),
+    ('ncurses', '6.4'),
+    ('RSEM', '1.3.3'),
+    ('Salmon', '1.10.3'),
+    ('SAMtools', '1.18'),
+    ('STAR', '2.7.11a'),
+    ('zlib', '1.2.13'),
+]
+
+withsampledata = True
+
+moduleclass = 'bio'
+
+# E3:
+    # <- build is ok - module created - but during ml Trinity/2.15.2... it shows:
+        # [vsc47063@node4009:~/WIP/444_Trinotate]$ ml Trinity/2.15.2-foss-2023a
+        # To execute picard run: java -jar $EBROOTPICARD/picard.jar
+        # Lmod has detected the following error:  A different version of the 'STAR' module is already loaded
+        # (see output of 'ml').
+        # You should load another 'Trinity' module for that is compatible with the currently loaded version of 'STAR'.
+        # Use 'ml spider Trinity' to get an overview of the available versions.
+
+
+        # If you don't understand the warning or error, contact the helpdesk at hpc@ugent.be 
+        # While processing the following module(s):
+        #     Module fullname            Module Filename
+        #     ---------------            ---------------
+        # Trinity/2.15.2-foss-2023a  /apps/gent/RHEL8/cascadelake-ib/modules/all/Trinity/2.15.2-foss-2023a.lua
+# E2: OK
+    # -> create GATK for Java-11 
+    # R-4.3.2 has either Java-11 dep...
+        # problem with RSEM dep
+# E1: OK -> discard -> use Java 11
+    # -> created HISAT2 with Java 17
+    # -> created SRA-Toolkit with Java 17
+    # Problem with Java version:
+        # in HISAT2/2.2.1-gompi-2023a there is SRA-Toolkit/3.0.10-gompi-2023a with Java-11 dep
+    
