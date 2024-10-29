@@ -52,7 +52,7 @@ dependencies = [
 configopts = '-DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF '
 configopts += '-DModule_ITKReview=ON -DModule_ITKVtkGlue=ON -DModule_SimpleITKFilters=ON '
 # Enable Python bindings
-configopts += '-DCMAKE_CXX_FLAGS="$CXXFLAGS" ' # not working to fix E1
+# configopts += '-DCMAKE_CXX_FLAGS="$CXXFLAGS" ' # not working to fix E1
 configopts += '-DITK_WRAP_PYTHON:BOOL=ON -DPython_EXECUTABLE=$EBROOTPYTHON/bin/python '
 configopts += '-DSWIG_EXECUTABLE=$EBROOTSWIG/bin/swig -DSWIG_DIR=$EBROOTSWIG '
 configopts += '-DPY_SITE_PACKAGES_PATH=%(installdir)s/lib/python%(pyshortver)s/site-packages '
@@ -91,6 +91,89 @@ modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 moduleclass = 'data'
 
 # E1:
+    # Error with CastXML: <- log3.txt
+    #     Building C object Modules/ThirdParty/NrrdIO/src/NrrdIO/CMakeFiles/ITKNrrdIO.dir/accessors.c.o
+    #     cd /tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b/easybuild_obj/Modules/ThirdParty/NrrdIO/src/NrrdIO && /apps/gent/
+    #     RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/gcc -DITKNrrdIO_EXPORTS -DTEEM_BUILD -DTEEM_DIO=0 -DTEEM_QNANHIBIT=1 -
+    #     DTEEM_ZLIB=1 -I/tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b/easybuild_obj/Modules/ThirdParty/ZLIB/src -I/apps/gen
+    #     t/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-13.2.0/include -I/tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b
+    #     /easybuild_obj/Modules/ThirdParty/NrrdIO/src/NrrdIO -I/tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b/ITK-5.4.0/Modu
+    #     les/ThirdParty/NrrdIO/src/NrrdIO -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -std=c++17   -w -fno-strict-a
+    #     liasing -O3 -DNDEBUG -fPIC -MD -MT Modules/ThirdParty/NrrdIO/src/NrrdIO/CMakeFiles/ITKNrrdIO.dir/accessors.c.o -MF CMak
+    #     eFiles/ITKNrrdIO.dir/accessors.c.o.d -o CMakeFiles/ITKNrrdIO.dir/accessors.c.o -c /tmp/vsc47063/easybuild/build/ITK/5.4
+    #     .0/foss-2023b/ITK-5.4.0/Modules/ThirdParty/NrrdIO/src/NrrdIO/accessors.c
+    #     In file included from In file included from /tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b/easybuild_obj/Wrapping/c
+    #     astxml_inputs/itkPyImageFilter.cxx:1:
+    #         In file included from /tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b/ITK-5.4.0/Modules/Core/Common/include/itkComma
+    #     nd.h:21:
+    #     In file included from /tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b/ITK-5.4.0/Modules/Core/Common/include/itkObjec
+    #     t.h:31:
+    #     In file included from /tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b/ITK-5.4.0/Modules/Core/Common/include/itkLight
+    #     Object.h:21:
+    #     In file included from /tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b/ITK-5.4.0/Modules/Core/Common/include/itkMacro
+    #     .h:47:
+    #     In file included from /kyukon/home/apps/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu
+    #     /13.2.0/../../../../include/c++/13.2.0/string:42:
+    #     In file included from /kyukon/home/apps/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu
+    #     /13.2.0/../../../../include/c++/13.2.0/bits/char_traits.h:42:
+    #     In file included from /kyukon/home/apps/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu
+    #     /13.2.0/../../../../include/c++/13.2.0/bits/postypes.h:40:
+    #     In file included from /kyukon/home/apps/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu
+    #     /13.2.0/../../../../include/c++/13.2.0/cwchar:44:
+    #     In file included from /usr/include/wchar.h:30:
+    #     /usr/include/bits/floatn.h:86:20: error: typedef redefinition with different types ('__float128' vs 'struct __castxml_F
+    #     loat128_s')
+    #     /tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b/easybuild_obj/Wrapping/castxml_inputs/itkPyCommand.cxx:1:
+    #     In file included from /tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b/ITK-5.4.0/Modules/Core/Common/include/itkComma
+    #     nd.h:21:
+    #     In file included from    86 | typedef __float128 _Float128;
+    #     ...
+    #     In file included from /kyukon/home/apps/RHEL8/cascadelake-ib/software/GCCcore/13.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu
+    #     /13.2.0/../../../../include/c++/13.2.0/cwchar:44:
+    #     In file included from /usr/include/wchar.h:30:
+    #     /usr/include/bits/floatn.h:86:20: error: typedef redefinition with different types ('__float128' vs 'struct __castxml_Float128_s')
+    #     :472:   19: note: expanded from macro '_Float128'
+    #     86  472 | #define _Float128 __castxml_Float128
+    #         |                   ^
+    #     <built-in>:478:124: note: previous definition is here
+    #     478 | typedef struct __castxml_Float128_s {   __float128 x;   operator __float128() const;   __castxml_Float128_s(__float128); } __castxml_Float128;
+    #         |                                                                                                                            ^
+    #     | typedef __float128 _Float128;
+    #     ...
+    #     In file included from /usr/include/wchar.h:30:
+    #     In file included from /usr/include/bits/floatn.h:119:
+    #     /usr/include/bits/floatn-common.h:214:15: error: typedef redefinition with different types ('float' vs 'struct __castxml_Float32_s')
+    #     28
+    #         |                   ^
+    #     <built-in>214 | typedef float _Float32;
+    #         |               ^
+    #     <built-in>:478:124: note: previous definition is here
+    #     :  468:18: note: expanded from macro '_Float32'
+    #     478 | typedef struct __castxml_Float128_s {   __float128 x;   operator __float128() const;   __castxml_Float128_s(__float128); } __castxml_Float128;
+    #         |                                                                                                                            ^
+    #     468 | #define _Float32 __castxml_Float32
+    #         |                  ^
+    #     <built-in>:474:107: note: previous definition is here
+    #     474 | typedef struct __castxml_Float32_In file included from s {   float x;   operator float() const;   __castxml_Float32_s(float); } __castxml_Float32;
+    #     In file included from /usr/include/wchar.h:30:
+    #     In file included from /usr/include/bits/floatn.h:119:
+    #     /usr/include/bits/floatn-common.h:214:15: error: typedef redefinition with different types ('float' vs 'struct __castxml_Float32_s')
+    #     251  214 | typedef float _Float32;
+    #         |               ^
+    #     <built-in> | typedef double _Float64;
+    #         |                ^
+    #     <built-in>:468:18: note: expanded from macro '_Float32'
+    #     :470:18: note: expanded from macro '_Float64'
+    #     468 | #define _Float32 __castxml_Float32
+    #         |                  ^
+    #     <built-in>470 | #define _Float64 __castxml_Float64
+    #         |                  ^
+    #     <built-in>:474:107: note: previous definition is here
+    #     :  476:110: note: previous definition is here
+    #     474  476 | typedef struct __castxml_Float64_s {   double x;   operator double() const;   __castxml_Float64_s(double); } __castxml_Float64;
+    #         |                                                                                                              ^
+    #     | typedeIn file included from f struct __castxml_Float32_s {   float x;   operator float() const;   __castxml_Float32_s(float); } __castxml_Float32;
+    # -> seems add CastXML as dep do not fix problem
     # It uses precompiled binaries for CastXML v0.6.5
         # try to create CastXML EC and use it here
         # set ITK_USE_SYSTEM_CASTXML=ON
