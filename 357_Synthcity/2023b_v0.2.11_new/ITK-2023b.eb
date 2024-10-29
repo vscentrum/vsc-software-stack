@@ -80,8 +80,9 @@ modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'data'
 
-#E1
-    # -> add #include <stdint.h> in prebuildopts to itkMathematicalMorphologyEnums.h
+#E1 OK
+    # -> better use #include <itkIntTypes.h> - https://github.com/InsightSoftwareConsortium/ITK/pull/4066 -> OK
+    # -> add #include <stdint.h> in prebuildopts to itkMathematicalMorphologyEnums.h -> wrok but there is a better solution
         # in itkMathematicalMorphologyEnums.h is #include "ITKMathematicalMorphologyExport.h" but there is no such file in repo
     # <- during make cmd
     # In file included from /tmp/vsc47063/easybuild/build/ITK/5.3.0/foss-2023b/ITK-5.3.0/Modules/Filtering/MathematicalMorphology/src/itkMathematicalMorphologyEnums.cxx:19:/tmp/vsc47063/easybuild/build/ITK/5.3.0/foss-2023b/ITK-5.3.0/Modules/Filtering/MathematicalMorphology/include/itkMathematicalMorphologyEnums.h:41:8: warning: elaborated-type-specifier for a scoped enum must not use the 'class' keyword
