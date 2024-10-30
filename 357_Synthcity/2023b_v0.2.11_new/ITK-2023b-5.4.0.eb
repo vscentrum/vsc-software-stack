@@ -15,6 +15,7 @@ description = """Insight Segmentation and Registration Toolkit (ITK) provides
 
 toolchain = {'name': 'foss', 'version': '2023b'}
 toolchainopts = {'pic': True, 'cstd': 'c++17'}
+# toolchainopts = {'pic': True, 'cstd': 'c++11'}
 
 github_account = 'InsightSoftwareConsortium'
 source_urls = [GITHUB_SOURCE]
@@ -45,7 +46,7 @@ dependencies = [
     ('LibTIFF', '4.6.0'),
     ('VTK', '9.3.0'),
     ('zlib', '1.2.13'),
-    ('CastXML', '0.6.5'),
+    ('CastXML', '0.6.8'),
 ]
 
 # Features
@@ -91,6 +92,9 @@ modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 moduleclass = 'data'
 
 # E1:
+    # -> try to create castXML-0.6.8
+    # -> with created castXML-0.6.5 the error is the same 
+    # -> create an issue on ITK: https://github.com/InsightSoftwareConsortium/ITK/issues/4911
     # Error with CastXML: <- log3.txt
     #     Building C object Modules/ThirdParty/NrrdIO/src/NrrdIO/CMakeFiles/ITKNrrdIO.dir/accessors.c.o
     #     cd /tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b/easybuild_obj/Modules/ThirdParty/NrrdIO/src/NrrdIO && /apps/gent/
