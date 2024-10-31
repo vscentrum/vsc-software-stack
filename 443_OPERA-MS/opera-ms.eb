@@ -26,23 +26,6 @@ dependencies = [
 
 buildopts = 'CFLAGS="$CFLAGS"'
 
-exts_defaultclass = 'ConfigureMake'
-
-exts_list = [
-    ('ncurses', '5.9', {
-        'source_urls': [GNU_SOURCE],
-        'sources': [SOURCE_TAR_GZ],
-        'patches': ['ncurses-5.9_configure_darwin.patch'],
-        # 'patches': {'name': 'ncurses-5.9_configure_darwin.patch', 'alt_location': 'ncurses'},
-        'checksums': [
-            {'ncurses-5.9.tar.gz': '9046298fb440324c9d4135ecea7879ffed8546dd1b58e59430ea07a4633f563b'},
-            {'ncurses-5.9_configure_darwin.patch': 'bc68faa3f7885508d47db85ae81b0d17253dd7facd77463b38cd4d288f3709a7'},
-        ],
-        # 'start_dir': 'libgtextutils-%(version)s',
-        'configopts': ['--with-shared --enable-overwrite', '--with-shared --enable-overwrite --enable-ext-colors --enable-widec --includedir=%(installdir)s/include/ncursesw/'],
-    }),
-]
-
 files_to_copy = [
     'OPERA-MS.pl',
     'bin',
