@@ -1,0 +1,104 @@
+easyblock = 'MakeCp'
+
+name = 'OPERA-MS'
+local_commit = '026f9a5'
+version = '0.9.0-20240703'
+
+homepage = 'https://github.com/CSB5/OPERA-MS'
+description = """OPERA-MS is a hybrid metagenomic assembler which combines the
+ advantages of short and long-read technologies to provide high quality
+ assemblies, addressing issues of low contiguity for short-read only assemblies,
+ and low base-pair quality for long-read only assemblies."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/CSB5/OPERA-MS/archive/']
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
+checksums = ['72a3e16287dd1f2098adac41930d6a54779a033f5bf78c2659580afae5a7280c']
+
+dependencies = [
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '5.36.1'),
+    ('Statistics-R', '0.34'),
+    ('Python', '3.11.3'),
+    ('SAMtools', '0.1.20'),
+]
+
+prebuildopts = 'rm %(start_dir)s/tools_opera_ms/samtools && '
+prebuildopts += 'cd %(start_dir)s/tools_opera_ms && ln -s $EBROOTSAMTOOLS/bin/samtools && '
+prebuildopts += 'cd %(start_dir)s &&'
+buildopts = 'CFLAGS="$CFLAGS"'
+
+files_to_copy = [
+    'OPERA-MS.pl',
+    'bin',
+    'src_utils',
+    'tools_opera_ms',
+    (['OPERA-LG/bin'], 'OPERA-LG'),
+]
+
+postinstallcmds = [
+    "echo '#!/bin/sh\n exec perl %(installdir)s/OPERA-MS.pl $@' > %(installdir)s/bin/OPERA-MS",
+    'chmod +x %(installdir)s/bin/OPERA-MS',
+    'ln -s $EBROOTPERL/bin/perl %(installdir)s/tools_opera_ms/perl',
+    '%(installdir)s/bin/OPERA-MS ' + ' '.join([
+        '--contig-file test_files/contigs.fasta',
+        '--short-read1 test_files/R1.fastq.gz',
+        '--short-read2 test_files/R2.fastq.gz',
+        '--long-read test_files/long_read.fastq',
+        '--no-ref-clustering',
+        '--out-dir $TMPDIR',
+    ]),
+]
+
+fix_perl_shebang_for = ['bin/*.pl', 'OPERA-MS.pl', 'OPERA-LG/bin/*.pl']
+fix_python_shebang_for = ['bin/*.py', 'OPERA-LG/bin/*.py']
+
+sanity_check_paths = {
+    'files': ['bin/OPERA-MS'],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    'OPERA-MS --help',
+    'OPERA-MS check-dependency',
+]
+
+moduleclass = 'bio'
+
+# E1: OK
+    # Error goes from samtools -> add samtools to deps and replace thier binary in prebuildopts -> OK
+    # try to create ec for ncurses-5 -> not working
+    # try to add ncurses-5 as extesion but: EB_ncurses easyblock can not be used to install extensions!
+    # -> try to add ('ncurses', '5.9', '', SYSTEM), as dep -> error during make of ncurses:
+        # == FAILED: Installation ended unsuccessfully (build directory: /tmp/vsc47063/easybuild/build/ncurses/5.9/system-system): build failed (first 300 chars): cmd " make  -j 8 CFLAGS="-O2 -fPIC"" exited with exit code 2
+    # -> seems it needs libncurses.so.5 but on shinx is only libncurses.so.6, but on donphan is libncurses.so.5
+        # $ locate libncurses.so
+    # failed on shinx(AMD), jsc-zen3(AMD) and skitty (Intel) - so not only AMD problem
+        # on step: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/OPERA-MS/0.9.0-20240703-foss-2023a/bin/
+        #   OPERA-MS --contig-file test_files/contigs.fasta --short-read1 test_files/R1.fastq.gz --short-read2 test_files/R2.fastq.gz --long-read test_files/long_read.fastq --no-ref-clustering --out-dir $TMPDIR
+        # Short-read mapping and coverage estimation [3/9] test failed:
+            # Error in during cov_estimate.pl. Please see /tmp/vsc47063/eb-3zn8sikq/intermediate_files/coverage_estimation/cov_estimate.out and /tmp/vsc47063/eb-3zn8sikq/intermediate_files/coverage_estimation/cov_estimate.err for details.
+                # cov_estimate.out: /tmp/vsc47063/eb-3zn8sikq/intermediate_files/lib_1_bundles/clusters_opera needs to be computed. (Nothing else)
+                # cov_estimate.err: 
+                    # Reading config file: /tmp/vsc47063/eb-3zn8sikq/intermediate_files/coverage_estimation/cov_estimate.config
+                    # *** Add lib /tmp/vsc47063/eb-3zn8sikq/intermediate_files/read_mapping/opera.bam
+                    # mkdir /tmp/vsc47063/eb-3zn8sikq/intermediate_files/lib_1_bundles
+                    # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/OPERA-MS/0.9.0-20240703-foss-2023a//tools_opera_ms//perl /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/OPERA-MS/0.9.0-20240703-foss-2023a/bin/../OPERA-LG/bin/preprocess_reads.pl --out /tmp/vsc47063/eb-3zn8sikq/intermediate_files/coverage_estimation/short_read_analysis --tool-dir /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/OPERA-MS/0.9.0-20240703-foss-2023a//tools_opera_ms/ --nproc 2 --contig /tmp/vsc47063/easybuild/build/OPERAMS/0.9.0-20240703/foss-2023a/OPERA-MS-026f9a5f58ba6dca626f677bb50521fa423901ec/test_files/contigs.fasta --illumina-read1 /tmp/vsc47063/easybuild/build/OPERAMS/0.9.0-20240703/foss-2023a/OPERA-MS-026f9a5f58ba6dca626f677bb50521fa423901ec/test_files/R1.fastq.gz --illumina-read2 /tmp/vsc47063/easybuild/build/OPERAMS/0.9.0-20240703/foss-2023a/OPERA-MS-026f9a5f58ba6dca626f677bb50521fa423901ec/test_files/R2.fastq.gz --sigma-conf /tmp/vsc47063/eb-3zn8sikq/intermediate_files/coverage_estimation/sigma.config --bundler-conf /tmp/vsc47063/eb-3zn8sikq/intermediate_files/lib_1_bundles/lib_1.ebconfig 2> /tmp/vsc47063/eb-3zn8sikq/intermediate_files/coverage_estimation/preprocess_reads.err
+                    # PREPROCESS:
+                    # Fastq format is recognized
+                    # [Thu Oct 31 10:22:38 2024]	Building bwa index...
+                    # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/OPERA-MS/0.9.0-20240703-foss-2023a//tools_opera_ms/bwa index -p /tmp/vsc47063/eb-3zn8sikq/intermediate_files/coverage_estimation/contigs.fasta /tmp/vsc47063/easybuild/build/OPERAMS/0.9.0-20240703/foss-2023a/OPERA-MS-026f9a5f58ba6dca626f677bb50521fa423901ec/test_files/contigs.fasta
+                    # [Thu Oct 31 10:22:40 2024]	Generate alignments of reads using bwa mem...
+                    # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/OPERA-MS/0.9.0-20240703-foss-2023a//tools_opera_ms/bwa mem -t 20 /tmp/vsc47063/eb-3zn8sikq/intermediate_files/coverage_estimation/contigs.fasta - | /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/OPERA-MS/0.9.0-20240703-foss-2023a//tools_opera_ms/samtools view -S -h -F 0x4 -  | /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/OPERA-MS/0.9.0-20240703-foss-2023a//tools_opera_ms/../bin/short_read_analysis /tmp/vsc47063/eb-3zn8sikq/intermediate_files/lib_1_bundles/lib_1.ebconfig /tmp/vsc47063/eb-3zn8sikq/intermediate_files/coverage_estimation/sigma.config > /tmp/vsc47063/eb-3zn8sikq/intermediate_files/coverage_estimation/short_read_analysis.out 2> /tmp/vsc47063/eb-3zn8sikq/intermediate_files/coverage_estimation/short_read_analysis.err
+                    # Error during short read pre-preocessing. 
+                    # Please see 
+                    #   /tmp/vsc47063/eb-l0tejymc/intermediate_files/coverage_estimation/preprocess_reads.err 
+                        # ... error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory
+                    #   /tmp/vsc47063/eb-3zn8sikq/intermediate_files/coverage_estimation/short_read_analysis.out 
+                        # The results are in /tmp/vsc47063/eb-3zn8sikq/intermediate_files/lib_1_bundles
+                    #   /tmp/vsc47063/eb-3zn8sikq/intermediate_files/coverage_estimation/short_read_analysis.err -> same error as in preprocess_reads.err (missing libncurses.so.5)
+                    #   for details.
+
+
+                
