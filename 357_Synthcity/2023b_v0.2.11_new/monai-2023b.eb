@@ -1,0 +1,87 @@
+easyblock = 'PythonBundle'
+
+name = 'MONAI'
+version = '1.4.0'
+versionsuffix = '-without-extras'
+
+homepage = 'https://monai.io/'
+description = """
+MONAI is a PyTorch-based, open-source framework for deep learning in healthcare
+imaging, part of PyTorch Ecosystem.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+github_account = 'Project-MONAI'
+
+# DEPS:
+    # setup_requires =
+    #     torch
+    #     OK ninja
+    # install_requires =
+    #     torch>=1.9
+    #     numpy>=1.20
+    # extras =
+        # nibabel
+        # ninja
+        # scikit-image>=0.14.2
+        # scipy>=1.7.1
+        # pillow
+        # tensorboard
+        # gdown>=4.7.3
+        # pytorch-ignite==0.4.11
+        # torchvision
+        # itk>=5.2
+        # tqdm>=4.47.0
+        # lmdb
+        # psutil
+        # cucim-cu12; python_version >= '3.9' and python_version <= '3.10'
+        # openslide-python
+        # tifffile
+        # imagecodecs
+        # pandas
+        # einops
+        # transformers>=4.36.0, <4.41.0; python_version <= '3.10'
+        # mlflow>=2.12.2
+        # clearml>=1.10.0rc0
+        # matplotlib>=3.6.3
+        # tensorboardX
+        # pyyaml
+        # fire
+        # jsonschema
+        # pynrrd
+        # pydicom
+        # h5py
+        # nni
+        # optuna
+        # onnx>=1.13.0
+        # onnxruntime; python_version <= '3.10'
+        # zarr
+        # lpips==0.1.4
+        # nvidia-ml-py
+        # huggingface_hub - NEW one
+    
+builddependencies = [
+    ('Ninja', '1.11.1'),
+]
+
+dependencies = [
+    ('Python', '3.11.5'),
+    ('SciPy-bundle', '2023.11'),
+    ('PyTorch', '2.1.2'),
+]
+
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'preinstallopts': 'BUILD_MONAI=1',
+        'source_urls': ['https://github.com/%(github_account)s/%(name)s/archive'],
+        'sources': ['%(version)s.tar.gz'],
+        'checksums': ['3ed592c7a760f5c3084021da5585cd1ba5e52a969b85a62e1f15495cb71ae26e'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'vis'
