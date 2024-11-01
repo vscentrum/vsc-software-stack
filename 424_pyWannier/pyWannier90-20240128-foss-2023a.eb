@@ -1,0 +1,43 @@
+easyblock = 'MakeCp'
+
+name = 'pyWannier90'
+version = '20240128'
+local_commit = 'c3f65d7'
+
+homepage = 'http://www.wannier.org'
+description = """wannier90 is a well-established package to construct maximally-localied Wannier
+ functions (MLWFs) as well as to perform MLWF-based analysis. pyWannier90 uses the library-mode
+ of wannier90 to perform the wannierization on the wave function obtained by PySCF or VASP."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'usempi': True}
+
+source_urls = ['https://github.com/hungpham2017/pyWannier90/archive/']
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCELOWER_TAR_GZ}]
+checksums = ['9828dcdde92b9627cfe888b5be530040c1c51c97f5a3c930d82ef24d862610e3']
+
+dependencies  = [
+    ('Python', '3.11.3'),
+    ('VASP', '6.3.2'),
+    ('pybind11', '2.11.1'),
+    ('SciPy-bundle', '2023.07'),
+    ('PySCF', '2.7.0'),
+]
+
+start_dir = 'src'
+
+# TODO just copied from Wannier 3.1.0 see https://github.com/hungpham2017/pyWannier90/blob/c3f65d72168493a4e62381d51f24c14f62a5c53f/src/Makefile
+buildopts = 'all F90=$F90 MPIF90=$MPIF90 FCOPTS="$FFLAGS -fallow-argument-mismatch" LDOPTS="$FFLAGS" '
+buildopts += 'LIBDIR="$LAPACK_LIB_DIR" LIBS="$LIBLAPACK" '
+buildopts += 'COMMS=mpi'
+
+files_to_copy = [(['pywannier90.py', 'libwannier90.%s' % SHLIB_EXT], 'lib')]  # TODO
+
+modextrapaths = {'PYTHONPATH': 'lib'}
+
+sanity_check_paths = {
+    'files': ['lib/libwannier.%s' % SHLIB_EXT, 'lib/pywannier90.py'],  # TODO
+    'dirs': []
+}
+
+moduleclass = 'chem'
