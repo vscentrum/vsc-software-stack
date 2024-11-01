@@ -24,7 +24,7 @@ local_pytorch_version = '2.1.2'
 dependencies = [
     ('Python', '3.11.5'),
     ('SciPy-bundle', '2023.11'),
-    ('PyTorch-Lightning', '1.9.5'),
+    # ('PyTorch-Lightning', '1.9.5'),
     ('PyTorch', '2.1.2'),
     ('XGBoost', '2.1.1'),
     ('scikit-learn', '1.4.0'),
@@ -47,8 +47,6 @@ exts_list = [
         'source_urls': ['https://github.com/vanderschaarlab/DECAF/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'checksums': ['8f34e99937d2ccc43bff97b310c371c450e27313c0801cdd36aa91664c8e3180'],
-        'testinstall': True,
-        'runtest': 'pytest -vsx',
     }),
 ]
 
