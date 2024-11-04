@@ -15,16 +15,6 @@ toolchain = {'name': 'foss', 'version': '2023b'}
 sources = [{'download_filename': 'mustache_hic-%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
 checksums = ['fd7cca927e36145bf6e43903a79c3222ecfeeb497c8f57657d7647ec6eee5a6b']
 
-# DEPS:
-    # OK - h5py
-    # OK - hdf5
-    # OK - numpy
-    # OK - cooler -> CREATED
-    # OK - hic-straw -> CREATED
-    # OK - pandas
-    # OK - scipy
-    # OK - statsmodels
-
 dependencies = [
     ('Python', '3.11.5'),
     ('Python-bundle-PyPI', '2023.10'),
@@ -36,6 +26,7 @@ dependencies = [
     ('hic-straw', '1.3.1'),
 ]
 
+# delete pathlib dependency from setup.py
 preinstallopts = "sed -i 's/pathlib//' setup.py && "
 
 sanity_pip_check = True
