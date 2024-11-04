@@ -70,6 +70,9 @@ exts_list = [
         'source_tmpl': 'smart_open-%(version)s.tar.gz',
         'checksums': ['d3672003b1dbc85e2013e4983b88eb9a5ccfd389b0d4e5015f39a9ee5620ec18'],
     }),
+    ('marisa_trie', '1.2.1', {
+        'checksums': ['3a27c408e2aefc03e0f1d25b2ff2afb85aac3568f6fa2ae2a53b57a2e87ce29d'],
+    }),
     ('language_data', '1.2.0', {
         'checksums': ['82a86050bbd677bfde87d97885b17566cfe75dad3ac4f5ce44b52c28f752e773'],
     }),
@@ -92,6 +95,7 @@ sanity_pip_check = True
 
 moduleclass = 'data'
 
+# language-data 1.2.0 requires marisa-trie, which is not installed.
 # E1: OK
     # -> use typer v 0.12.0 - there is no pdm dep
     # <- failed on build

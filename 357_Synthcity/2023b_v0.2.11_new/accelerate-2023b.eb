@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'accelerate'
-version = '0.33.0'
+version = '1.0.1'
 
 homepage = 'https://github.com/huggingface/accelerate'
 description = """A simple way to launch, train, and use PyTorch models on almost any device and 
@@ -14,9 +14,10 @@ dependencies = [
     ('Python', '3.11.5'),
     ('Python-bundle-PyPI', '2023.10'),
     ('SciPy-bundle', '2023.11'),
-    ('PyTorch-bundle', '2.1.2'),
+    ('PyTorch', '2.1.2'),
     ('PyYAML', '6.0.1'),
     ('Safetensors', '0.4.4'),
+    ('tqdm', '4.66.2'),
 ]
 
 sanity_pip_check = True
@@ -25,10 +26,10 @@ use_pip = True
 exts_list = [
     ('huggingface-hub', '0.26.2', {
         'sources': ['huggingface_hub-%(version)s.tar.gz'],
-        'checksums': ['7b45d6744dd53ce9cbf9880957de00e9d10a9ae837f1c9b7255fc8fa4e8264f3'],
+        'checksums': ['b100d853465d965733964d123939ba287da60a547087783ddff8a323f340332b'],
     }),
     (name, version, {
-        'checksums': ['11ba481ed6ea09191775df55ce464aeeba67a024bd0261a44b77b30fb439e26a'],
+        'checksums': ['e8f95fc2db14915dc0a9182edfcf3068e5ddb2fa310b583717ad44e5c442399c'],
     }),
 ]
 
