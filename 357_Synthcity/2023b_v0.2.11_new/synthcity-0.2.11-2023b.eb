@@ -24,7 +24,7 @@ toolchain = {'name': 'foss', 'version': '2023b'}
 # TEST_DEPS:
     # OK setuptools - in py
     # OK pytest - in pypi bundle
-    # ok pytest-cov
+    # ok pytest-cov -> use 5.0.0 - newer are not compatible
     # OK? jupyter
     # OK? notebook
     # ok bandit
@@ -41,22 +41,23 @@ toolchain = {'name': 'foss', 'version': '2023b'}
     # OK? pytest-xdist[psutil]
     # ok pytest-xprocess
     # OK igraph - CREATED
-    # py # pytest 7.2.0 bug https://github.com/pytest-dev/pytest-xprocess/issues/110
+    # ? py # pytest 7.2.0 bug https://github.com/pytest-dev/pytest-xprocess/issues/110
     # ok pre-commit
     # ok tabulate
     # ok click
     # OK coverage
-    # pre-commit 4.0.1 requires cfgv, which is not installed.
-    # pre-commit 4.0.1 requires identify, which is not installed.
-    # pre-commit 4.0.1 requires nodeenv, which is not installed.
-    # flake8 7.1.1 requires mccabe, which is not installed.
-    # flake8 7.1.1 requires pycodestyle, which is not installed.
-    # flake8 7.1.1 requires pyflakes, which is not installed.
-    # doc8 1.1.1 requires restructuredtext-lint, which is not installed.
-    # doc8 1.1.1 requires stevedore, which is not installed.
-    # bandit 1.7.9 requires stevedore, which is not installed.
-    # pytest-benchmark 5.1.0 requires py-cpuinfo, which is not installed.
-    # pytest-benchmark 5.1.0 has requirement pytest>=8.1, but you have pytest 7.4.3.
+    # ok pre-commit 4.0.1 requires cfgv, which is not installed.
+    # ok pre-commit 4.0.1 requires identify, which is not installed.
+    # ok pre-commit 4.0.1 requires nodeenv, which is not installed.
+    # ok flake8 7.1.1 requires mccabe, which is not installed.
+    # OK CRATED flake8 7.1.1 requires pycodestyle, which is not installed.
+    # ok flake8 7.1.1 requires pyflakes, which is not installed.
+    # ok doc8 1.1.1 requires restructuredtext-lint, which is not installed.
+    # ok doc8 1.1.1 requires stevedore, which is not installed.
+    # ok bandit 1.7.9 requires stevedore, which is not installed.
+    # ok pytest-benchmark 5.1.0 has requirement pytest>=8.1, but you have pytest 7.4.3. -> use v5.0.1 pytest-benchmark
+    # OK pytest-benchmark 5.0.1 requires py-cpuinfo, which is not installed.
+    # ok flake8 7.1.1 has requirement pycodestyle<2.13.0,>=2.12.0, but you have pycodestyle 2.11.1. -> use v7.0.0
 
 builddependencies = [('poetry', '1.6.1')]
 dependencies = [
@@ -89,12 +90,12 @@ dependencies = [
     ('black', '24.10.0'),
     ('python-igraph', '0.11.8'),
     ('coverage', '7.4.4'),
-    # ('py-cpuinfo', '9.0.0'),
-    # # ('pycodestyle', '2.11.1'),
+    ('py-cpuinfo', '9.0.0'),
+    ('pycodestyle', '2.11.1'),
 ]
 
-sanity_pip_check = True
 use_pip = True
+sanity_pip_check = True
 
 # unpin deps restrictions
 # local_preinstallopts = (
@@ -139,6 +140,27 @@ local_xgbse_preinstallopts = (
 )
 
 exts_list = [
+    ('stevedore', '5.3.0', {
+        'checksums': ['9a64265f4060312828151c204efbe9b7a9852a0d9228756344dbc7e4023e375a'],
+    }),
+    ('restructuredtext_lint', '1.4.0', {
+        'checksums': ['1b235c0c922341ab6c530390892eb9e92f90b9b75046063e047cacfb0f050c45'],
+    }),
+    ('pyflakes', '3.2.0', {
+        'checksums': ['1c61603ff154621fb2a9172037d84dca3500def8c8b630657d1701f026f8af3f'],
+    }),
+    ('mccabe', '0.7.0', {
+        'checksums': ['348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325'],
+    }),
+    ('nodeenv', '1.9.1', {
+        'checksums': ['6ec12890a2dab7946721edbfbcd91f3319c6ccc9aec47be7c7e6b7011ee6645f'],
+    }),
+    ('identify', '2.6.0', {
+        'checksums': ['cb171c685bdc31bcc4c1734698736a7d5b6c8bf2e0c15117f4d469c8640ae5cf'],
+    }),
+    ('cfgv', '3.4.0', {
+        'checksums': ['e52591d4c5f5dead8e0f673fb16db7949d2cfb3f7da4582893288f0ded8fe560'],
+    }),
     ('bandit', '1.7.9', {
         'checksums': ['7c395a436743018f7be0a4cbb0a4ea9b902b6d87264ddecf8cfdc73b4f78ff61'],
     }),
@@ -148,14 +170,14 @@ exts_list = [
     ('doc8', '1.1.1', {
         'checksums': ['d97a93e8f5a2efc4713a0804657dedad83745cca4cd1d88de9186f77f9776004'],
     }),
-    ('flake8', '7.1.1', {
-        'checksums': ['049d058491e228e03e67b390f311bbf88fce2dbaa8fa673e7aea87b7198b8d38'],
+    ('flake8', '7.0.0', {
+        'checksums': ['33f96621059e65eec474169085dc92bf26e7b2d47366b70be2f67ab80dc25132'],
     }),
     ('isort', '5.13.2', {
         'checksums': ['48fdfcb9face5d58a4f6dde2e72a1fb8dcaf8ab26f95ab49fab84c2ddefb0109'],
     }),
-    ('pytest-benchmark', '5.1.0', {
-        'checksums': ['9ea661cdc292e8231f7cd4c10b0319e56a2118e2c09d9f50e1b3d150d2aca105'],
+    ('pytest-benchmark', '5.0.1', {
+        'checksums': ['8138178618c85586ce056c70cc5e92f4283c2e6198e8422c2c825aeb3ace6afd'],
     }),
     ('pytest-xprocess', '1.0.2', {
         'modulename': 'xprocess',
@@ -243,19 +265,10 @@ exts_list = [
     (name, version, {
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
         'sources': ['v%(version)s.tar.gz'],
-        # 'runtest': "cd tests && pytest -vsx",
-        # 'testinstall': True,
         'checksums': ['5926d2e869e1528e556fb794d5f7e914c635113f9cc58034612fa067cdbf84d4'],
     }),
 ]
 
-    # ('xgbse', '0.3.1', {
-    #     # fix invalid syntax of xgbse/setup.py
-    #     'preinstallopts': "sed -i  -e '45,49d' -e 's/pandas>=1.0.\*/pandas>=1.0.0/' setup.py && ",
-        # 'source_urls': ['https://github.com/loft-br/xgboost-survival-embeddings/archive/'],
-        # 'sources': ['v%(version)s.tar.gz'],
-    #     'checksums': ['5639893d35038c8bd8d0d38c7ed84f4663b20033a105be890ccd39b7ca527a9c'],
-    # }),
 # old exts_list = [
     # ('networkx', '2.8.8', { # already in decaf
     #     'checksums': ['230d388117af870fce5647a3c52401fcf753e94720e6ea6b4197a5355648885e'],
