@@ -1,12 +1,12 @@
 easyblock = 'PythonBundle'
 
 name = 'vLLM'
-version = '0.6.0'
-
+version = '0.6.0' # needs PyTorch == 2.4.0 -> go for 0.4.0 -> separate EC
 homepage = 'https://github.com/vllm-project/vllm'
 description = """A high-throughput and memory-efficient inference and serving engine for LLMs."""
 
 toolchain = {'name': 'foss', 'version': '2023b'}
+toolchainopts = {'cstd': 'c++17'}
 
 # DEPS:
     # OK psutil
@@ -45,6 +45,8 @@ builddependencies = [
     ('hatchling', '1.18.0'),
     ('poetry', '1.6.1'),
     ('PDM', '2.18.2'),
+    ('CMake', '3.27.6'),
+    ('Ninja', '1.11.1'),
 ]
 
 dependencies = [
@@ -66,7 +68,6 @@ dependencies = [
     ('PyZMQ', '25.1.2'),
     ('PyYAML', '6.0.1'),
     ('PyTorch', '2.1.2'),
-    ('git', '2.42.0'),
 ]
 
 use_pip = True
@@ -106,6 +107,8 @@ exts_list = [
         'checksums': ['110e1b937aee99fdcf3cefc6b4e924e7e22ff445246090fe9215051245caa59c'],
     }),
     (name, version, {
+        'preinstallopts': r"sed -i 's/\"cuda\"/\"cpu\"/' vllm/envs.py && sed -i '3 a #include <variant>' csrc/core/scalar_type.hpp && ",
+        'source_urls': ['https://github.com/vllm-project/vllm/archive/'],
         'sources': ['%(namelower)s-%(version)s.tar.gz'],
         'checksums': ['40c573bc5e4124d34f4de02af8e23a584e51de66ae17cd5910af0cf63ee26eaa'],
     }),
@@ -115,8 +118,49 @@ sanity_pip_check = True
 
 moduleclass = 'ai'
 
-# E1:
-    # -> add git as dep -> try to download github version of source if it not works (https://github.com/vllm-project/vllm/issues/9182)
+# E2:
+    # -> try use Ninja instead of CMake (https://github.com/vllm-project/vllm/blob/v0.6.0/setup.py#L199)
+    # <- log1.txt <- during building vllm 
+    # CMake Warning at /apps/gent/RHEL8/cascadelake-ib/software/PyTorch/2.1.2-foss-2023b/lib/python3.11/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:22 (message):
+    #     static library kineto_LIBRARY-NOTFOUND not found.
+    #   Call Stack (most recent call first):
+    #     /apps/gent/RHEL8/cascadelake-ib/software/PyTorch/2.1.2-foss-2023b/lib/python3.11/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:127 (append_torchlib_if_found)
+    #     CMakeLists.txt:70 (find_package)
+      
+      
+    #   -- Found Torch: /apps/gent/RHEL8/cascadelake-ib/software/PyTorch/2.1.2-foss-2023b/lib/python3.11/site-packages/torch/lib/libtorch.so
+    #   -- Enabling core extension.
+    #   CMake Warning at cmake/cpu_extension.cmake:68 (message):
+    #     Disable AVX512-BF16 ISA support, no avx512_bf16 found in local CPU flags.
+    #     If cross-compilation is required, please set env VLLM_CPU_AVX512BF16=1.
+    #   Call Stack (most recent call first):
+    #     CMakeLists.txt:111 (include)
+    # ...
+    # In file included from /tmp/vsc47063/easybuild/build/vLLM/0.6.0/foss-2023b/vLLM/vllm-0.6.0/csrc/core/torch_bindings.cpp:3:
+    #   /tmp/vsc47063/easybuild/build/vLLM/0.6.0/foss-2023b/vLLM/vllm-0.6.0/csrc/core/scalar_type.hpp:219:18: 
+    #     error: variant in namespace std does not name a template type
+    #     219 |   constexpr std::variant<int64_t, double> _raw_max() const {
+    #         |                  ^~~~~~~
+    #   /tmp/vsc47063/easybuild/build/vLLM/0.6.0/foss-2023b/vLLM/vllm-0.6.0/csrc/core/scalar_type.hpp:1:1: 
+    #     note: std::variant is defined in header <variant>; did you forget to #include <variant>?
+    #     +++ |+#include <variant>
+    #       1 | #pragma once
+    #   /tmp/vsc47063/easybuild/build/vLLM/0.6.0/foss-2023b/vLLM/vllm-0.6.0/csrc/core/scalar_type.hpp:229:18:
+    #     error: variant in namespace std does not name a template type
+    #     229 |   constexpr std::variant<int64_t, double> _raw_min() const {
+    #         |                  ^~~~~~~
+    # ...
+    # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/site-packages/setuptools/_distutils/command/build_ext.py", line 345, in run
+    #       self.build_extensions()
+    #     File "<string>", line 238, in build_extensions
+    #     File "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/subprocess.py", line 413, in check_call
+    #       raise CalledProcessError(retcode, cmd)
+    #   subprocess.CalledProcessError: Command '['cmake', '--build', '.', '-j=8', '--target=_core_C', '--target=_C']' returned non-zero exit status 1.
+    #   [end of output]
+# E1: OK
+    # add preinstallopts - replace cuda by cpu -> OK
+    # NO -> add git as dep -> not working
+    # NO -> try to download github version of source (https://github.com/vllm-project/vllm/issues/9182) -> still same error
     # == 2024-11-06 11:47:08,504 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/vLLM/0.6.0-foss-2023b  --no-deps  --ignore-installed  --no-index  --no-build-isolation  ." exited with exit code 1 and output:
     # Processing /tmp/vsc47063/easybuild/build/vLLM/0.6.0/foss-2023b/vLLM/vllm-0.6.0
     # Preparing metadata (pyproject.toml): started

@@ -1,0 +1,100 @@
+easyblock = 'PythonBundle'
+
+name = 'vLLM'
+version = '0.4.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/vllm-project/vllm'
+description = """A high-throughput and memory-efficient inference and serving engine for LLMs."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# DEPS:
+    # OK wheel
+    # OK packaging
+    # OK cmake>=3.21
+    # OK setuptools>=49.4.0
+    # OK ninja  # For faster builds.
+    # OK psutil
+    # OK ray >= 2.9
+    # OK sentencepiece  # Required for LLaMA tokenizer.
+    # OK numpy
+    # OK torch == 2.1.2
+    # OK requests
+    # OK py-cpuinfo
+    # OK transformers >= 4.39.1  # Required for StarCoder2 & Llava.
+    # ok xformers == 0.0.23.post1  # Required for CUDA 12.1.
+    # ok fastapi
+    # ok uvicorn[standard]
+    # OK pydantic >= 2.0  # Required for OpenAI server.
+    # ok prometheus_client >= 0.18.0
+    # ok pynvml == 11.5.0
+    # OK triton >= 2.1.0
+    # ok outlines == 0.0.34
+    # OK tiktoken == 0.6.0 # Required for DBRX tokenizer
+
+builddependencies = [
+    ('hatchling', '1.18.0'),
+    # ('poetry', '1.6.1'),
+    # ('PDM', '2.18.2'),
+    ('CMake', '3.26.3'),
+    ('Ninja', '1.11.1'),
+]
+
+dependencies = [
+    ('CUDA', '12.1.1', '', SYSTEM),
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('SentencePiece', '0.2.0'),
+    # ('tqdm', '4.66.2'),
+    ('py-cpuinfo', '9.0.0'),
+    ('Transformers', '4.39.3'),
+    # ('tokenizers', '0.19.1'),
+    # ('protobuf', '25.3'),
+    # ('aiohttp', '3.9.5'),
+    # ('openai-python', '1.39.0'),
+    ('pydantic', '2.5.3'),
+    # ('Pillow', '10.2.0'),
+    ('tiktoken', '0.6.0'),
+    # ('typing-extensions', '4.10.0'),
+    # ('PyZMQ', '25.1.2'),
+    # ('PyYAML', '6.0.1'),
+    ('PyTorch', '2.1.2', versionsuffix),
+    ('Triton', '2.1.0', versionsuffix),
+    ('Ray-project', '2.9.1'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('starlette', '0.36.3', {
+        'checksums': ['90a671733cfb35771d8cc605e0b679d23b992f8dcfad48cc60b38cb29aeb7080'],
+    }),
+    ('fastapi', '0.110.0', {
+        'checksums': ['266775f0dcc95af9d3ef39bad55cff525329a931d5fd51930aadd4f428bf7ff3'],
+    }),
+    ('uvicorn', '0.30.0', {
+        'checksums': ['f678dec4fa3a39706bbf49b9ec5fc40049d42418716cea52b53f07828a60aa37'],
+    }),
+    ('prometheus_client', '0.21.0', {
+        'checksums': ['96c83c606b71ff2b0a433c98889d275f51ffec6c5e267de37c7a2b5c9aa9233e'],
+    }),
+    ('xformers', '0.0.23.post1', {
+        'checksums': ['b443b158bd7b5275b485d2c6aee94ebc2152878fd784e379b1c8bcb1d67f3b81'],
+    }),
+    ('pynvml', '11.5.0', {
+        'checksums': ['d027b21b95b1088b9fc278117f9f61b7c67f8e33a787e9f83f735f0f71ac32d0'],
+    }),
+    ('outlines', '0.0.34', {
+        'checksums': ['594e7204c770b47a62eb5c2ba7d25ea0ab2e16882b5f04556712a0228d3d3309'],
+    }),
+    (name, version, {
+        'source_tmpl': '%(namelower)s-%(version)s-cp311-cp311-manylinux1_x86_64.whl',
+        'checksums': ['69ce98bba1ad1c2174b4eb98502fb80181f1fcb7653551c512662da59cb18d8c'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'ai'
