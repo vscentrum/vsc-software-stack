@@ -265,6 +265,8 @@ exts_list = [
     (name, version, {
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
         'sources': ['v%(version)s.tar.gz'],
+        # 'runtest': "cd tests && pytest -vsx",
+        # 'testinstall': True,
         'checksums': ['5926d2e869e1528e556fb794d5f7e914c635113f9cc58034612fa067cdbf84d4'],
     }),
 ]
@@ -453,3 +455,34 @@ sanity_check_commands = [
 ]
 
 moduleclass = 'lib'
+
+# E1
+    # -> install without tests -> from synthcity.plugins.generic.plugin_bayesian_network import plugin:
+        # import google.generativeai as genai
+        # ModuleNotFoundError: No module named 'google.generativeai'
+    # <- log1.txt <- pytest
+    # ======================================================= ERRORS ========================================================
+    # ___________________________ ERROR collecting tests/plugins/generic/test_bayesian_network.py ___________________________
+    # ImportError while importing test module '/tmp/vsc47063/easybuild/build/synthcity/0.2.11/foss-2023b/synthcity/synthcity-0.2.11/tests/plugins/generic/test_bayesian_network.py'.
+    # Hint: make sure your test modules/packages have valid Python names.
+    # Traceback:
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python-bundle-PyPI/2023.10-GCCcore-13.2.0/lib/python3.11/site-packages/_pytest/python.py:617: in _importtestmodule
+    #     mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python-bundle-PyPI/2023.10-GCCcore-13.2.0/lib/python3.11/site-packages/_pytest/pathlib.py:567: in import_path
+    #     importlib.import_module(module_name)
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/importlib/__init__.py:126: in import_module
+    #     return _bootstrap._gcd_import(name[level:], package, level)
+    # <frozen importlib._bootstrap>:1204: in _gcd_import
+    #     ???
+    # <frozen importlib._bootstrap>:1176: in _find_and_load
+    #     ???
+    # <frozen importlib._bootstrap>:1147: in _find_and_load_unlocked
+    #     ???
+    # <frozen importlib._bootstrap>:690: in _load_unlocked
+    #     ???
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python-bundle-PyPI/2023.10-GCCcore-13.2.0/lib/python3.11/site-packages/_pytest/assertion/rewrite.py:186: in exec_module
+    #     exec(co, module.__dict__)
+    # plugins/generic/test_bayesian_network.py:11: in <module>
+    #     from synthcity.plugins.generic.plugin_bayesian_network import plugin
+    # E   ImportError: cannot import name 'plugin' from 'synthcity.plugins.generic.plugin_bayesian_network' (/tmp/vsc47063/eb-i_63v859/tmpxxa0lxvs/lib/python3.11/site-packages/synthcity/plugi
+    # ns/generic/plugin_bayesian_network.py)
