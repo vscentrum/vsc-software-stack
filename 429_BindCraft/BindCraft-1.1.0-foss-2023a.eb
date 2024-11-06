@@ -24,6 +24,13 @@ dependencies = [
     ('matplotlib', '3.7.2'),
     ('PyRosetta', '4.release-387'),
     ('jax', '0.4.25'),
+    ('dm-haiku', '0.0.13'),
+    ('dm-tree', '0.1.8'),
+    ('ml-collections', '0.1.1'),
+    ('Optax', '0.2.2'),
+    ('py3Dmol', '2.1.0'),
+    ('JupyterLab', '4.0.5'),
+    ('hatchling', '1.18.0'),
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -39,18 +46,22 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['88b9a77e50655f89d0eb2075093773e82c27a4cef842cb7d735c877b20cd39fb'],
     }),
-    # TODO ?
-    # install_requires    = [
-    #     'notebook',
-    #     'jupyter-console',
-    #     'nbconvert',
-    #     'ipykernel',
-    #     'ipywidgets',
-    #     'jupyterlab',
-    # ],
+    ('jupyter_console', '6.6.3', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['309d33409fcc92ffdad25f0bcdf9a4a9daa61b6f341177570fdac03de5352485'],
+    }),
+    # older version compatible with `jupyterlab-4.0.5`
+    ('notebook', '7.0.8', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['7f421b3fd46a17d91830e724b94e8e9ae922af152ebfd48b1e13ae4a07d8193c'],
+    }),
     ('jupyter', '1.1.1', {
         'source_tmpl': SOURCE_WHL,
         'checksums': ['7a59533c22af65439b24bbe60373a4e95af8f16ac65a6c00820ad378e3f7cc83'],
+    }),
+    ('immutabledict', '4.2.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['d728b2c2410d698d95e6200237feb50a695584d20289ad3379a439aa3d90baba'],
     }),
     ('colabdesign', '1.1.1', {
         'source_tmpl': SOURCE_PY3_WHL,
@@ -64,7 +75,7 @@ postinstallcmds = ['chmod a+x %(installdir)s/bindcraft.py']
 
 modextrapaths = {
     'PATH': '',
-    'PYTHONPATH': '',
+    'PYTHONPATH': ['', 'lib/python%(pyshortver)s/site-packages'],
 }
 
 sanity_check_paths = {
@@ -75,27 +86,3 @@ sanity_check_paths = {
 sanity_check_commands = ["bindcraft.py --help"]
 
 moduleclass = 'bio'
-
-# TODO
-# == 2024-10-25 20:07:10,878 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: sanity check command bindcraft.py --help exited with code 1 (output: Traceback (most recent call last):
-#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/BindCraft/1.1.0-foss-2023a/bindcraft.py", line 6, in <module>
-#     from functions import *
-#   File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/BindCraft/1.1.0-foss-2023a/functions/__init__.py", line 12, in <module>
-#     from .colabdesign_utils import *
-#   File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/BindCraft/1.1.0-foss-2023a/functions/colabdesign_utils.py", line 11, in <module>
-#     from colabdesign import mk_afdesign_model, clear_mem
-# ModuleNotFoundError: No module named 'colabdesign'
-# )
-# extensions sanity check failed for 3 extensions: PDBFixer, jupyter, colabdesign
-# failing sanity check for 'PDBFixer' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import pdbfixer"" failed; output:
-# Traceback (most recent call last):
-#   File "<string>", line 1, in <module>
-# ModuleNotFoundError: No module named 'pdbfixer',
-# failing sanity check for 'jupyter' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import jupyter"" failed; output:
-# Traceback (most recent call last):
-#   File "<string>", line 1, in <module>
-# ModuleNotFoundError: No module named 'jupyter',
-# failing sanity check for 'colabdesign' extension: command "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import colabdesign"" failed; output:
-# Traceback (most recent call last):
-#   File "<string>", line 1, in <module>
-# ModuleNotFoundError: No module named 'colabdesign',  (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
