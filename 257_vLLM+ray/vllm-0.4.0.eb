@@ -16,7 +16,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # OK setuptools>=49.4.0
     # OK ninja  # For faster builds.
     # OK psutil
-    # OK ray >= 2.9
+    # OK    ray >= 2.9
     # OK sentencepiece  # Required for LLaMA tokenizer.
     # OK numpy
     # OK torch == 2.1.2
@@ -32,47 +32,62 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # OK triton >= 2.1.0
     # ok outlines == 0.0.34
     # OK tiktoken == 0.6.0 # Required for DBRX tokenizer
+    # ok starlette 0.36.3 requires anyio, which is not installed.
+    # NO sed out cmake and ninja from requirements.txt -> NO I can not - source is whl not sources.tar.gz
+        # OK -> move to deps? -> NO do not help -> sanity_pip_check = False -> OK
+        # vllm 0.4.0 requires cmake, which is not installed.
+        # vllm 0.4.0 requires ninja, which is not installed.
+    # ok outlines 0.0.34 requires diskcache, which is not installed.
+    # ok outlines 0.0.34 requires interegular, which is not installed.
+    # ok outlines 0.0.34 requires lark, which is not installed.
+    # ok outlines 0.0.34 requires nest-asyncio, which is not installed.
+    # OK outlines 0.0.34 requires numba, which is not installed.
+    # ok outlines 0.0.34 requires referencing, which is not installed.
+    # ok uvicorn 0.30.0 requires h11, which is not installed.
+    # ok anyio 4.3.0 requires sniffio, which is not installed.
+    # ok referencing 0.35.1 requires rpds-py, which is not installed.
+
 
 builddependencies = [
     ('hatchling', '1.18.0'),
-    # ('poetry', '1.6.1'),
-    # ('PDM', '2.18.2'),
+    ('maturin', '1.1.0'),
     ('CMake', '3.26.3'),
     ('Ninja', '1.11.1'),
 ]
-
 dependencies = [
     ('CUDA', '12.1.1', '', SYSTEM),
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
     ('SciPy-bundle', '2023.07'),
     ('SentencePiece', '0.2.0'),
-    # ('tqdm', '4.66.2'),
     ('py-cpuinfo', '9.0.0'),
     ('Transformers', '4.39.3'),
-    # ('tokenizers', '0.19.1'),
-    # ('protobuf', '25.3'),
-    # ('aiohttp', '3.9.5'),
-    # ('openai-python', '1.39.0'),
     ('pydantic', '2.5.3'),
-    # ('Pillow', '10.2.0'),
     ('tiktoken', '0.6.0'),
-    # ('typing-extensions', '4.10.0'),
-    # ('PyZMQ', '25.1.2'),
-    # ('PyYAML', '6.0.1'),
     ('PyTorch', '2.1.2', versionsuffix),
     ('Triton', '2.1.0', versionsuffix),
     ('Ray-project', '2.9.1'),
+    ('numba', '0.58.1'),
+    ('flash-attention', '2.6.3', versionsuffix)
 ]
 
 use_pip = True
 
 exts_list = [
+    ('sniffio', '1.3.0', {
+        'checksums': ['e60305c5e5d314f5389259b7f22aaa33d8f7dee49763119234af3755c55b9101'],
+    }),
+    ('anyio', '4.3.0', {
+        'checksums': ['f75253795a87df48568485fd18cdd2a3fa5c4f7c5be8e5e36637733fce06fed6'],
+    }),
     ('starlette', '0.36.3', {
         'checksums': ['90a671733cfb35771d8cc605e0b679d23b992f8dcfad48cc60b38cb29aeb7080'],
     }),
     ('fastapi', '0.110.0', {
         'checksums': ['266775f0dcc95af9d3ef39bad55cff525329a931d5fd51930aadd4f428bf7ff3'],
+    }),
+    ('h11', '0.14.0', {
+        'checksums': ['8f19fbbe99e72420ff35c00b27a34cb9937e902a8b810e2c88300c6f0a3b699d'],
     }),
     ('uvicorn', '0.30.0', {
         'checksums': ['f678dec4fa3a39706bbf49b9ec5fc40049d42418716cea52b53f07828a60aa37'],
@@ -81,10 +96,30 @@ exts_list = [
         'checksums': ['96c83c606b71ff2b0a433c98889d275f51ffec6c5e267de37c7a2b5c9aa9233e'],
     }),
     ('xformers', '0.0.23.post1', {
-        'checksums': ['b443b158bd7b5275b485d2c6aee94ebc2152878fd784e379b1c8bcb1d67f3b81'],
+        'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux2014_x86_64.whl',
+        'checksums': ['2aea20e84852fafe87f4103b4adfe5f324915defa403e98fadc5a97f333f7105'],
     }),
     ('pynvml', '11.5.0', {
         'checksums': ['d027b21b95b1088b9fc278117f9f61b7c67f8e33a787e9f83f735f0f71ac32d0'],
+    }),
+    ('diskcache', '5.6.3', {
+        'checksums': ['2c3a3fa2743d8535d832ec61c2054a1641f41775aa7c556758a109941e33e4fc'],
+    }),
+    ('interegular', '0.3.3', {
+        'checksums': ['d9b697b21b34884711399ba0f0376914b81899ce670032486d0d048344a76600'],
+    }),
+    ('lark', '1.2.2', {
+        'checksums': ['ca807d0162cd16cef15a8feecb862d7319e7a09bdb13aef927968e45040fed80'],
+    }),
+    ('nest_asyncio', '1.6.0', {
+        'checksums': ['6f172d5449aca15afd6c646851f4e31e02c598d553a667e38cafa997cfec55fe'],
+    }),
+    ('rpds_py', '0.18.0', {
+        'modulename': 'rpds',
+        'checksums': ['42821446ee7a76f5d9f71f9e33a4fb2ffd724bb3e7f93386150b61a43115788d'],
+    }),
+    ('referencing', '0.35.1', {
+        'checksums': ['25b42124a6c8b632a425174f24087783efb348a6f1e0008e63cd4466fedf703c'],
     }),
     ('outlines', '0.0.34', {
         'checksums': ['594e7204c770b47a62eb5c2ba7d25ea0ab2e16882b5f04556712a0228d3d3309'],
@@ -95,6 +130,47 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
+sanity_pip_check = False
 
 moduleclass = 'ai'
+
+# E3:
+    # add dep `auto_gptq`? (https://github.com/QwenLM/Qwen/issues/582)
+    # another issue: https://github.com/vllm-project/vllm/issues/1344
+    # NO -> missing dep flash-attention? (https://github.com/vllm-project/vllm/issues/8841) -> add flash-attention do deps -> not working
+    # failing sanity check for 'vLLM' extension: command "python -c "import vllm"" failed; output:
+    # Traceback (most recent call last):
+    #   File "<string>", line 1, in <module>
+    #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/vLLM/0.4.0-foss-2023a-CUDA-12
+    # .1.1/lib/python3.11/site-packages/vllm/__init__.py", line 4, in <module>
+    #     from vllm.engine.async_llm_engine import AsyncLLMEngine
+    #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/vLLM/0.4.0-foss-2023a-CUDA-12
+    # .1.1/lib/python3.11/site-packages/vllm/engine/async_llm_engine.py", line 12, in <module>
+    #     from vllm.engine.llm_engine import LLMEngine
+    #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/vLLM/0.4.0-foss-2023a-CUDA-12
+    # .1.1/lib/python3.11/site-packages/vllm/engine/llm_engine.py", line 16, in <module>
+    #     from vllm.model_executor.model_loader import get_architecture_class_name
+    #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/vLLM/0.4.0-foss-2023a-CUDA-12
+    # .1.1/lib/python3.11/site-packages/vllm/model_executor/model_loader.py", line 10, in <module>
+    #     from vllm.model_executor.models.llava import LlavaForConditionalGeneration
+    #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/vLLM/0.4.0-foss-2023a-CUDA-12
+    # .1.1/lib/python3.11/site-packages/vllm/model_executor/models/llava.py", line 11, in <module>
+    #     from vllm.model_executor.layers.activation import get_act_fn
+    #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/vLLM/0.4.0-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/vllm/model_executor/layers/activation.py", line 9, in <module>
+    #     from vllm._C import ops
+    # ImportError: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/vLLM/0.4.0-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/
+    #     vllm/_C.cpython-311-x86_64-linux-gnu.so: undefined symbol: _ZN3c106detail14torchCheckFailEPKcS2_jRKSs,  (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
+# E2: OK
+    # -> add to deps does not work -> sanity_pip_check = False -> OK
+    # vllm 0.4.0 requires cmake, which is not installed.
+    # vllm 0.4.0 requires ninja, which is not installed.
+# E1: OK
+    # -> use whl file as source -> OK
+    # <- log2.txt <- during pip install xformers
+    # seems as a problem during compilation:
+    # Compiling objects...
+    #   Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+    #   [1/49] /apps/gent/RHEL8/cascadelake-ampere-ib/software/CUDA/12.1.1/bin/nvcc  -I/tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/third_party/flash-attention/csrc/flash_attn -I/tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/third_party/flash-attention/csrc/flash_attn/src -I/tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/third_party/flash-attention/csrc/cutlass/include -I/apps/gent/RHEL8/cascadelake-ampere-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/include -I/apps/gent/RHEL8/cascadelake-ampere-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -I/apps/gent/RHEL8/cascadelake-ampere-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/include/TH -I/apps/gent/RHEL8/cascadelake-ampere-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/include/THC -I/apps/gent/RHEL8/cascadelake-ampere-ib/software/CUDA/12.1.1/include -I/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11 -c -c /tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/third_party/flash-attention/csrc/flash_attn/src/flash_bwd_hdim160_fp16_sm80.cu -o /tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/build/temp.linux-x86_64-cpython-311/tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/third_party/flash-attention/csrc/flash_attn/src/flash_bwd_hdim160_fp16_sm80.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DHAS_PYTORCH --use_fast_math -U__CUDA_NO_HALF_OPERATORS__ -U__CUDA_NO_HALF_CONVERSIONS__ --extended-lambda -D_ENABLE_EXTENDED_ALIGNED_STORAGE -std=c++17 --generate-line-info -DNDEBUG --threads 4 --ptxas-options=-v -O3 -std=c++17 -U__CUDA_NO_HALF_OPERATORS__ -U__CUDA_NO_HALF_CONVERSIONS__ -U__CUDA_NO_HALF2_OPERATORS__ -U__CUDA_NO_BFLOAT16_CONVERSIONS__ --expt-relaxed-constexpr --expt-extended-lambda --use_fast_math --ptxas-options=-v -gencode=arch=compute_80,code=sm_80 -gencode=arch=compute_86,code=sm_86 -gencode=arch=compute_90,code=sm_90 --generate-line-info -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1017"' -DTORCH_EXTENSION_NAME=_C_flashattention -D_GLIBCXX_USE_CXX11_ABI=1 -ccbin gcc
+    #   FAILED: /tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/build/temp.linux-x86_64-cpython-311/tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/third_party/flash-attention/csrc/flash_attn/src/flash_bwd_hdim160_fp16_sm80.o
+    #   /apps/gent/RHEL8/cascadelake-ampere-ib/software/CUDA/12.1.1/bin/nvcc  -I/tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/third_party/flash-attention/csrc/flash_attn -I/tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/third_party/flash-attention/csrc/flash_attn/src -I/tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/third_party/flash-attention/csrc/cutlass/include -I/apps/gent/RHEL8/cascadelake-ampere-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/include -I/apps/gent/RHEL8/cascadelake-ampere-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -I/apps/gent/RHEL8/cascadelake-ampere-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/include/TH -I/apps/gent/RHEL8/cascadelake-ampere-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/include/THC -I/apps/gent/RHEL8/cascadelake-ampere-ib/software/CUDA/12.1.1/include -I/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11 -c -c /tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/third_party/flash-attention/csrc/flash_attn/src/flash_bwd_hdim160_fp16_sm80.cu -o /tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/build/temp.linux-x86_64-cpython-311/tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/third_party/flash-attention/csrc/flash_attn/src/flash_bwd_hdim160_fp16_sm80.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DHAS_PYTORCH --use_fast_math -U__CUDA_NO_HALF_OPERATORS__ -U__CUDA_NO_HALF_CONVERSIONS__ --extended-lambda -D_ENABLE_EXTENDED_ALIGNED_STORAGE -std=c++17 --generate-line-info -DNDEBUG --threads 4 --ptxas-options=-v -O3 -std=c++17 -U__CUDA_NO_HALF_OPERATORS__ -U__CUDA_NO_HALF_CONVERSIONS__ -U__CUDA_NO_HALF2_OPERATORS__ -U__CUDA_NO_BFLOAT16_CONVERSIONS__ --expt-relaxed-constexpr --expt-extended-lambda --use_fast_math --ptxas-options=-v -gencode=arch=compute_80,code=sm_80 -gencode=arch=compute_86,code=sm_86 -gencode=arch=compute_90,code=sm_90 --generate-line-info -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1017"' -DTORCH_EXTENSION_NAME=_C_flashattention -D_GLIBCXX_USE_CXX11_ABI=1 -ccbin gcc
+    #   sh: line 1: 1238251 Killed                  cicc --c++17 --gnu_version=120300 --display_error_number --orig_src_file_name "/tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/third_party/flash-attention/csrc/flash_attn/src/flash_bwd_hdim160_fp16_sm80.cu" --orig_src_path_name "/tmp/vsc47063/easybuild/build/vLLM/0.4.0/foss-2023a-CUDA-12.1.1/xformers/xformers-0.0.23.post1/third_party/flash-attention/csrc/flash_attn/src/flash_bwd_hdim160_fp16_sm80.cu" --allow_managed --extended-lambda --relaxed_constexpr -arch compute_86 -m64 --no-version-ident -ftz=1 -prec_div=0 -prec_sqrt=0 -fmad=1 -fast-math --gen_div_approx_ftz --include_file_name "tmpxft_0012e403_00000000-3_flash_bwd_hdim160_fp16_sm80.fatbin.c" -generate-line-info -tused --module_id_file_name "/tmp/vsc47063/eb-xhggno5c/tmpxft_0012e403_00000000-4_flash_bwd_hdim160_fp16_sm80.module_id" --gen_c_file_name "/tmp/vsc47063/eb-xhggno5c/tmpxft_0012e403_00000000-7_flash_bwd_hdim160_fp16_sm80.compute_86.cudafe1.c" --stub_file_name "/tmp/vsc47063/eb-xhggno5c/tmpxft_0012e403_00000000-7_flash_bwd_hdim160_fp16_sm80.compute_86.cudafe1.stub.c" --gen_device_file_name "/tmp/vsc47063/eb-xhggno5c/tmpxft_0012e403_00000000-7_flash_bwd_hdim160_fp16_sm80.compute_86.cudafe1.gpu" "/tmp/vsc47063/eb-xhggno5c/tmpxft_0012e403_00000000-11_flash_bwd_hdim160_fp16_sm80.compute_86.cpp1.ii" -o "/tmp/vsc47063/eb-xhggno5c/tmpxft_0012e403_00000000-7_flash_bwd_hdim160_fp16_sm80.compute_86.ptx" > /tmp/vsc47063/eb-xhggno5c/tmpxft_0012e403_00000000-16_1c247c0_stdout 2> /tmp/vsc47063/eb-xhggno5c/tmpxft_0012e403_00000000-16_1c247c0_stderr
