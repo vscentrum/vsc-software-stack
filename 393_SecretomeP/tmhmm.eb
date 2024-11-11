@@ -1,0 +1,35 @@
+easyblock = 'Tarball'
+
+name = 'TMHMM'
+version = '2.0c'
+versionsuffix = '-Linux'
+
+homepage = 'https://services.healthtech.dtu.dk/software.php'
+description = """Prediction of transmembrane helices in proteins."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+# no public download url
+# downloaded from https://services.healthtech.dtu.dk/services/TMHMM-2.0/
+sources = ['%(namelower)s-%(version)s.Linux.tar.gz']
+checksums = ['09b1f01e7262f6f531714ed77dbfd7fe6227635f0f22ec136650946197ef88fb']
+
+dependencies = [
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '5.36.1'),
+    ('gnuplot', '5.4.8'),
+]
+
+fix_perl_shebang_for = [
+    'bin/tmhmm',
+    'bin/tmhmmformat.pl'
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['tmhmm -h']
+
+moduleclass = 'bio'

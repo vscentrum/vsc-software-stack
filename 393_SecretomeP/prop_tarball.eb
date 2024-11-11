@@ -1,0 +1,102 @@
+easyblock = 'Tarball'
+
+name = 'ProP'
+version = '1.0c'
+versionsuffix = '-Linux'
+
+homepage = 'https://services.healthtech.dtu.dk/services/ProP-1.0/'
+description = """The ProP 1.0 server predicts arginine and lysine propeptide cleavage sites in eukaryotic
+protein sequences using an ensemble of neural networks. Furin-specific prediction is the default.
+It is also possible to perform a general proprotein convertase (PC) prediction."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# no public download url
+# downloaded from https://services.healthtech.dtu.dk/services/ProP-1.0/
+sources = ['%(namelower)s-%(version)s.Linux.tar.Z']
+patches = ['patch3-prop.patch']
+checksums = [
+    {'prop-1.0c.Linux.tar.Z': 'd6686b0bad2cd82ca0ec87fb7503838a70b8cbd6040542c2e50101d3ac12d6ed'},
+    {'patch3-prop.patch': '578b9dccf961c715b31d036b57937d0c09296de9089a64887f1c0622d13b5230'},
+]
+
+# builddependencies = [
+#     ('gawk', '5.3.0'),
+# ]
+dependencies = [
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '5.36.1'),
+    ('SignalP', '6.0h', '-fast'),
+    ('gawk', '5.3.0'),
+    ('tcsh', '6.24.10'),
+]
+
+postinstallcmds = ['mv %(installdir)s/prop %(installdir)s/bin/prop']
+
+# preinstall_cmd =
+# prebuildopts = 'rm %(start_dir)s/tools_opera_ms/samtools && '
+# prebuildopts += 'cd %(start_dir)s/tools_opera_ms && ln -s $EBROOTSAMTOOLS/bin/samtools && '
+# prebuildopts += 'cd %(start_dir)s &&'
+# buildopts = 'CFLAGS="$CFLAGS" BINDIR=%(installdir)s/bin MANDIR=%(installdir)s/man/cat1'
+
+# parallel = 1
+# start_dir = 'src'
+# build_cmd_targets = 'all install'  # install copies binaries to ../bin
+
+# files_to_copy = ['bin', 'data', 'LICENSE']
+# files_to_copy = ['*']
+
+# modextrapaths = {'PATH': ''}
+
+# sanity_check_paths = {
+#     'files': ['bin/chkparse', 'bin/psipass2', 'bin/psipred', 'bin/seq2mtx'],
+#     'dirs': ['bin', 'data'],
+# }
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
+
+# E2: 
+    # -> change PROPTMP to $HOME -> another error
+        # open: can't stat file
+        # apparent state: unit 3 named /user/gent/470/vsc47063/WIP/393_SecretomeP/prop_tmp/2745264/in.all.how
+        # lately reading sequential formatted external IO
+        # Segmentation fault (core dumped)
+        # open: can't stat file
+        # apparent state: unit 3 named /user/gent/470/vsc47063/WIP/393_SecretomeP/prop_tmp/2745264/in.all.how
+        # lately reading sequential formatted external IO
+        # Segmentation fault (core dumped)
+        # open: can't stat file
+        # apparent state: unit 3 named /user/gent/470/vsc47063/WIP/393_SecretomeP/prop_tmp/2745264/in.all.how
+        # lately reading sequential formatted external IO
+        # Segmentation fault (core dumped)
+        # open: can't stat file
+        # apparent state: unit 3 named /user/gent/470/vsc47063/WIP/393_SecretomeP/prop_tmp/2745264/in.all.how
+        # lately reading sequential formatted external IO
+    # seems as a problem with /tmp
+    # <- after run `prop test/four.fsa`
+    # open: No such file or directory
+    # apparent state: unit 3 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
+    # lately reading sequential formatted external IO
+    # Abort (core dumped)
+    # open: No such file or directory
+    # apparent state: unit 3 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
+    # lately reading sequential formatted external IO
+    # Abort (core dumped)
+    # open: No such file or directory
+    # apparent state: unit 3 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
+    # lately reading sequential formatted external IO
+    # Abort (core dumped)
+    # open: No such file or directory
+    # apparent state: unit 3 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
+    # lately reading sequential formatted external IO
+    # Abort (core dumped)
+# E1:
+    # -> edit makefile BINDIR and MANDIR -> still error -> avoid their makefile -> use tarball easyblock?
+    # <- during make -j 8
+    # cp prop /usr/opt/bin
+    # cp: cannot create regular file '/usr/opt/bin': No such file or directory
