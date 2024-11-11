@@ -58,6 +58,17 @@ toolchain = {'name': 'foss', 'version': '2023b'}
     # ok pytest-benchmark 5.1.0 has requirement pytest>=8.1, but you have pytest 7.4.3. -> use v5.0.1 pytest-benchmark
     # OK pytest-benchmark 5.0.1 requires py-cpuinfo, which is not installed.
     # ok flake8 7.1.1 has requirement pycodestyle<2.13.0,>=2.12.0, but you have pycodestyle 2.11.1. -> use v7.0.0
+# MISSING_DEPS:
+    # ok google-generativeai 0.8.3 requires google-ai-generativelanguage, which is not installed.
+    # ok google-generativeai 0.8.3 requires google-api-core, which is not installed.
+    # ok google-generativeai 0.8.3 requires google-api-python-client, which is not installed.
+    # ok google-ai-generativelanguage 0.6.10 requires proto-plus, which is not installed.
+    # ok google-api-core 2.22.0 requires proto-plus, which is not installed.
+    # ok google-api-python-client 2.151.0 requires httplib2, which is not installed.
+    # ok google-api-python-client 2.151.0 requires uritemplate, which is not installed.
+    # ok google-auth-httplib2 0.2.0 requires httplib2, which is not installed.
+
+
 
 builddependencies = [('poetry', '1.6.1')]
 dependencies = [
@@ -262,192 +273,63 @@ exts_list = [
         'preinstallopts': "sed -i  -e 's/1.26.4/1.26.2/' -e 's/1.5.0/1.4.0/' -e 's/2.2.0/2.1.3/' -e 's/1.4.2/1.3.2/' pyproject.toml && ",
         'checksums': ['39f7a4a897e085fcfb5c926503a5155d77fd5c9d8d8a621fa4f1b0a49115c098'],
     }),
+    ('uritemplate', '4.1.1', {
+        'checksums': ['4346edfc5c3b79f694bccd6d6099a322bbeb628dbf2cd86eea55a456ce5124f0'],
+    }),
+    ('httplib2', '0.22.0', {
+        'checksums': ['d7a10bc5ef5ab08322488bde8c726eeee5c8618723fdb399597ec58f3d82df81'],
+    }),
+    ('proto_plus', '1.25.0', {
+        'modulename': 'proto',
+        'checksums': ['fbb17f57f7bd05a68b7707e745e26528b0b3c34e378db91eef93912c54982d91'],
+    }),
+    ('google-auth', '2.35.0', {
+        'modulename': 'google.auth',
+        'source_tmpl': 'google_auth-%(version)s.tar.gz',
+        'checksums': ['f4c64ed4e01e8e8b646ef34c018f8bf3338df0c8e37d8b3bba40e7f574a3278a'],
+    }),
+    ('google-auth-httplib2', '0.2.0', {
+        'checksums': ['38aa7badf48f974f1eb9861794e9c0cb2a0511a4ec0679b1f886d108f5640e05'],
+    }),
+    ('google-api-python-client', '2.151.0', {
+        'modulename': 'googleapiclient',
+        'source_tmpl': 'google_api_python_client-%(version)s.tar.gz',
+        'checksums': ['a9d26d630810ed4631aea21d1de3e42072f98240aaf184a8a1a874a371115034'],
+    }),
+    ('googleapis-common-protos', '1.65.0', {
+        'modulename': 'google.api',
+        'source_tmpl': 'googleapis_common_protos-%(version)s.tar.gz',
+        'checksums': ['334a29d07cddc3aa01dee4988f9afd9b2916ee2ff49d6b757155dc0d197852c0'],
+    }),
+    ('google-api-core', '2.22.0', {
+        'modulename': 'google.api_core',
+        'source_tmpl': 'google_api_core-%(version)s.tar.gz',
+        'checksums': ['26f8d76b96477db42b55fd02a33aae4a42ec8b86b98b94969b7333a2c828bf35'],
+    }),
+    ('google-ai-generativelanguage', '0.6.10', {
+        'modulename': 'google.ai',
+        'source_tmpl': 'google_ai_generativelanguage-%(version)s.tar.gz',
+        'checksums': ['6fa642c964d8728006fe7e8771026fc0b599ae0ebeaf83caf550941e8e693455'],
+    }),
+    ('google_generativeai', '0.8.3', {
+        'modulename': 'google.generativeai',
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['1108ff89d5b8e59f51e63d1a8bf84701cd84656e17ca28d73aeed745e736d9b7'],
+    }),
     (name, version, {
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
         'sources': ['v%(version)s.tar.gz'],
-        # 'runtest': "cd tests && pytest -vsx",
-        # 'testinstall': True,
+        'runtest': "cd tests && pytest -vvs",
+        'testinstall': True,
         'checksums': ['5926d2e869e1528e556fb794d5f7e914c635113f9cc58034612fa067cdbf84d4'],
     }),
 ]
 
-# old exts_list = [
-    # ('networkx', '2.8.8', { # already in decaf
-    #     'checksums': ['230d388117af870fce5647a3c52401fcf753e94720e6ea6b4197a5355648885e'],
-    # }),
-    # ('cfgv', '3.4.0', {
-    #     'checksums': ['e52591d4c5f5dead8e0f673fb16db7949d2cfb3f7da4582893288f0ded8fe560'],
-    # }),
-    # ('pyflakes', '3.2.0', {
-    #     'checksums': ['1c61603ff154621fb2a9172037d84dca3500def8c8b630657d1701f026f8af3f'],
-    # }),
-    # ('mccabe', '0.7.0', {
-    #     'checksums': ['348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325'],
-    # }),
-    # ('restructuredtext_lint', '1.4.0', {
-    #     'checksums': ['1b235c0c922341ab6c530390892eb9e92f90b9b75046063e047cacfb0f050c45'],
-    # }),
-    # ('stevedore', '5.2.0', {
-    #     'checksums': ['46b93ca40e1114cea93d738a6c1e365396981bb6bb78c27045b7587c9473544d'],
-    # }),
-    # ('nodeenv', '1.9.1', {
-    #     'checksums': ['6ec12890a2dab7946721edbfbcd91f3319c6ccc9aec47be7c7e6b7011ee6645f'],
-    # }),
-    # ('identify', '2.6.0', {
-    #     'checksums': ['cb171c685bdc31bcc4c1734698736a7d5b6c8bf2e0c15117f4d469c8640ae5cf'],
-    # }),
-    # ('mypy_extensions', '1.0.0', {
-    #     'checksums': ['75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782'],
-    # }),
-    # ('pytest-cov', '5.0.0', {
-    #     'checksums': ['5837b58e9f6ebd335b0f8060eecce69b662415b16dc503883a02f45dfeb14857'],
-    # }),
-    # ('bandit', '1.7.9', {
-    #     'checksums': ['7c395a436743018f7be0a4cbb0a4ea9b902b6d87264ddecf8cfdc73b4f78ff61'],
-    # }),
-    # ('black', '24.4.2', {
-    #     'checksums': ['c872b53057f000085da66a19c55d68f6f8ddcac2642392ad3a355878406fbd4d'],
-    # }),
-    # ('black-nb', '0.7', {
-    #     'checksums': ['8742a4f7c728302c91954325168d779f9444f8e3c31b19598ee8e98fc4bf4782'],
-    # }),
-    # ('darglint', '1.8.1', {
-    #     'checksums': ['080d5106df149b199822e7ee7deb9c012b49891538f14a11be681044f0bb20da'],
-    # }),
-    # ('doc8', '1.1.1', {
-    #     'checksums': ['d97a93e8f5a2efc4713a0804657dedad83745cca4cd1d88de9186f77f9776004'],
-    # }),
-    # ('flake8', '7.0.0', {
-    #     'checksums': ['33f96621059e65eec474169085dc92bf26e7b2d47366b70be2f67ab80dc25132'],
-    # }),
-    # ('isort', '5.13.2', {
-    #     'checksums': ['48fdfcb9face5d58a4f6dde2e72a1fb8dcaf8ab26f95ab49fab84c2ddefb0109'],
-    # }),
-    # ('pytest-benchmark', '4.0.0', {
-    #     'checksums': ['fb0785b83efe599a6a956361c0691ae1dbb5318018561af10f3e915caa0048d1'],
-    # }),
-    # ('pytest-xprocess', '1.0.2', {
-    #     'modulename': 'xprocess',
-    #     'checksums': ['15e270637586eabc56755ee5fcc81c48bdb46ba7ef7c0d5b1b64302d080cc60f'],
-    # }),
-    # ('pre_commit', '3.7.1', {
-    #     'checksums': ['8ca3ad567bc78a4972a3f1a477e94a79d4597e8140a6e0b651c5e33899c3654a'],
-    # }),
-    # ('typing_extensions', '4.9.0', {
-    #     'checksums': ['23478f88c37f27d76ac8aee6c905017a143b0b1b886c3c9f66bc2fd94f9f5783'],
-    # }),
-    # ('fflows', '0.0.3', {
-    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-    #     'checksums': ['18de7a7b98e3708ff2d5ae9f10fad625740230c4de6447906b7ca477667b78fb'],
-    # }),
-    # ('geomloss', '0.2.6', {
-    #     'checksums': ['491c47085c5001b2cb6128ea541fd2d0a8808ae50e88a0798c7853c9d995faeb'],
-    # }),
-    # ('nflows', '0.14', {
-    #     'checksums': ['6299844a62f9999fcdf2d95cb2d01c091a50136bd17826e303aba646b2d11b55'],
-    # }),
-    # ('opt_einsum', '3.4.0', {
-    #     # 'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-    #     'checksums': ['2455e59e3947d3c275477df7f5205b30635e266fe6dc300e3d9f9646bfcea147'],
-    # }),
-    # ('opacus', '1.5.2', {
-    #     'checksums': ['c2b1f2770f627dd4b568d25be5777a87a7e6bfd5aee7b223052b4c2c7d934aca'],
-    # }),
-    # ('pgmpy', '0.1.25', {
-    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-    #     'checksums': ['7c4fb15e4c0fd0310160a6a77297d6db382bd18f6ff35fcd0458c3cbd42caf78'],
-    # }),
-    # ('feather-format', '0.4.1', {
-    #     'modulename': 'feather',
-    #     'checksums': ['45f67e3745d394d4f160ca6d636bbfd4f8b68d01199dc1649b6e487d3e878903'],
-    # }),
-    # ('inflate64', '1.0.0', {
-    #     'checksums': ['3278827b803cf006a1df251f3e13374c7d26db779e5a33329cc11789b804bc2d'],
-    # }),
-    # ('multivolumefile', '0.2.3', {
-    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-    #     'checksums': ['237f4353b60af1703087cf7725755a1f6fcaeeea48421e1896940cd1c920d678'],
-    # }),
-    # ('pybcj', '1.0.2', {
-    #     'modulename': 'bcj',
-    #     'checksums': ['c7f5bef7f47723c53420e377bc64d2553843bee8bcac5f0ad076ab1524780018'],
-    # }),
-    # ('pycryptodomex', '3.20.0', {
-    #     'modulename': 'Crypto',
-    #     'checksums': ['7a710b79baddd65b806402e14766c721aee8fb83381769c27920f26476276c1e'],
-    # }),
-    # ('pyppmd', '1.0.0', {
-    #     'checksums': ['075c9bd297e3b0a87dd7aeabca7fee668218acbe69ecc1c6511064558de8840f'],
-    # }),
-    # ('pyzstd', '0.16.0', {
-    #     'checksums': ['fd43a0ae38ae15223fb1057729001829c3336e90f4acf04cf12ebdec33346658'],
-    # }),
-    # ('texttable', '1.7.0', {
-    #     'checksums': ['2d2068fb55115807d3ac77a4ca68fa48803e84ebb0ee2340f858107a36522638'],
-    # }),
-    # ('py7zr', '0.20.6', {
-    #     'checksums': ['d036dee11fce69ad8d4fa86025ccfc4a3511ec27ee1c6b5bd8d6759313dbd077'],
-    # }),
-    # ('torchtuples', '0.2.2', {
-    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-    #     'checksums': ['186625230a149cc09f64116d51b203ffefe78160f5a0445adad195893663f55b'],
-    # }),
-    # ('pycox', '0.2.3', {
-    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-    #     'checksums': ['9ea3c64a4a650ccf6c96cf512712de330f2d75de32122d86995c7cd37ff105d1'],
-    # }),
-    # ('keopscore', '2.2.3', {
-    #     'checksums': ['64d5dad1e8c806d7070cdc60e48fd5bbf006f2bf1afd39ad3fa5e9fb213517d2'],
-    # }),
-    # ('pykeops', '2.2.3', {
-    #     'checksums': ['2e2cba1de5e05c35559957a14f41cb5165dc667cc51b3b2118d7e0027eb435a1'],
-    # }),
-    # ('pyts', '0.13.0', {
-    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-    #     'checksums': ['b49608267b686ea693dba31316ef2b22ad73ea29b27144696c347809ecd5ad62'],
-    # }),
-    # ('tsai', '0.3.9', {
-    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-    #     'checksums': ['0e6460e9ff075176c8af25ef90444ef2e287bc5fe5510e2a0f427e4d0b37ebc0'],
-    # }),
-    # ('accelerate', '0.32.1', {
-    #     'checksums': ['3999acff0237cd0d4f9fd98b42d5a3163544777b53fc4f1eec886b77e992d177'],
-    # }),
-    # ('be_great', '0.0.7', {
-    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-    #     'checksums': ['824f10482581f5211d3a435d8b14adcc6c21b38d952f00b6a792fc7c089788b1'],
-    # }),
-    # ('xgbse', '0.2.3', {
-    #     'preinstallopts': "sed -i  -e '45,49d' -e 's/pandas>=1.0.\*/pandas>=1.0.0/' setup.py && ",
-    #     'source_urls': ['https://github.com/loft-br/xgboost-survival-embeddings/archive/'],
-    #     'sources': ['v%(version)s.tar.gz'],
-    #     'checksums': ['9e6b71539b2b533c00eddfe7681cdd541f393d9573594eca358d263b141c127d'],
-    # }),
-    # ('arfpy', '0.1.1', {
-    #     'checksums': ['88170d5e72638b0dbfec28cfbdfee02e97bd6a06d5a636e960acd5d90d480707'],
-    # }),
-    # ('numpy', '1.23.5', {
-    #     'patches': [
-    #         'numpy-1.20.3_fix-fortran-compiler-error.patch',
-    #         'numpy-1.22.3_disable-broken-override-test.patch',
-    #     ],
-    #     'checksums': [
-    #         {'numpy-1.23.5.tar.gz': '1b1766d6f397c18153d40015ddfc79ddb715cabadc04d2d228d4e5a8bc4ded1a'},
-    #         {'numpy-1.20.3_fix-fortran-compiler-error.patch':
-    #          'f12a49a754cb4c01a39691f8a7470bfa0e56c70139d78ca8b188f049010e7647'},
-    #         {'numpy-1.22.3_disable-broken-override-test.patch':
-    #          '0d894fa9592ba9855397bc89fd4408bd911d49e6b6449d1693f87d2e5fcac486'},
-    #     ],
-    # }),
-    # (name, version, {
-    #     'preinstallopts': local_preinstallopts,
-    #     'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
-    #     'sources': ['v%(version)s.tar.gz'],
-    #     'testinstall': True,
-    #     'runtest': local_pretestopts + 'cd tests && pytest -vvvs -m "not slow" --durations=50',
-    #     'checksums': ['122a8546cad35e3ac5c74cf81281252dec4dd3c7b1d7afe0f45ef785f89cc682'],
-    # }),
-# ]
+# ok import google_api_python_client -> googleapiclient
+# ok import googleapis_common_protos -> google.api
+# ok import google_api_core -> google.api_core
+# ok import google_ai_generativelanguage -> google.ai
+
 
 sanity_check_commands = [
     "python -c 'from synthcity.plugins import Plugins'",
@@ -456,7 +338,8 @@ sanity_check_commands = [
 
 moduleclass = 'lib'
 
-# E1
+# E1 OK
+    # -> google.generativeai added to exts -> OK
     # -> install without tests -> from synthcity.plugins.generic.plugin_bayesian_network import plugin:
         # import google.generativeai as genai
         # ModuleNotFoundError: No module named 'google.generativeai'

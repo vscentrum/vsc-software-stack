@@ -1,4 +1,4 @@
-easyblock = 'PythonBundle'
+easyblock = 'PythonPackage'
 
 name = 'MONAI'
 version = '1.4.0'
@@ -13,6 +13,9 @@ imaging, part of PyTorch Ecosystem.
 toolchain = {'name': 'foss', 'version': '2023b'}
 
 github_account = 'Project-MONAI'
+source_urls = [GITHUB_SOURCE]
+sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+checksums = ['3ed592c7a760f5c3084021da5585cd1ba5e52a969b85a62e1f15495cb71ae26e']
 
 # DEPS:
     # setup_requires =
@@ -72,15 +75,18 @@ dependencies = [
 ]
 
 use_pip = True
+download_dep_fail = True
 
-exts_list = [
-    (name, version, {
-        'preinstallopts': 'BUILD_MONAI=1',
-        'source_urls': ['https://github.com/%(github_account)s/%(name)s/archive'],
-        'sources': ['%(version)s.tar.gz'],
-        'checksums': ['3ed592c7a760f5c3084021da5585cd1ba5e52a969b85a62e1f15495cb71ae26e'],
-    }),
-]
+preinstallopts = 'BUILD_MONAI=1'
+
+# exts_list = [
+#     (name, version, {
+#         'preinstallopts': 'BUILD_MONAI=1',
+#         'source_urls': ['https://github.com/%(github_account)s/%(name)s/archive'],
+#         'sources': ['%(version)s.tar.gz'],
+#         'checksums': ['3ed592c7a760f5c3084021da5585cd1ba5e52a969b85a62e1f15495cb71ae26e'],
+#     }),
+# ]
 
 sanity_pip_check = True
 
