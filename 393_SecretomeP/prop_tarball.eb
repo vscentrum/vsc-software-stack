@@ -17,7 +17,7 @@ sources = ['%(namelower)s-%(version)s.Linux.tar.Z']
 patches = ['patch3-prop.patch']
 checksums = [
     {'prop-1.0c.Linux.tar.Z': 'd6686b0bad2cd82ca0ec87fb7503838a70b8cbd6040542c2e50101d3ac12d6ed'},
-    {'patch3-prop.patch': '578b9dccf961c715b31d036b57937d0c09296de9089a64887f1c0622d13b5230'},
+    {'patch3-prop.patch': 'd41c82bca76d53170b30c7ba6a312dfc4ab2f48f988a83fad9a9885bf17b97d5'},
 ]
 
 # builddependencies = [
@@ -31,7 +31,10 @@ dependencies = [
     ('tcsh', '6.24.10'),
 ]
 
-postinstallcmds = ['mv %(installdir)s/prop %(installdir)s/bin/prop']
+postinstallcmds = [
+    'mv %(installdir)s/prop %(installdir)s/bin/prop',
+    # 'mkdir -m 1777 $HOME/ProP/tmp'
+]
 
 # preinstall_cmd =
 # prebuildopts = 'rm %(start_dir)s/tools_opera_ms/samtools && '
@@ -77,26 +80,26 @@ moduleclass = 'bio'
         # open: can't stat file
         # apparent state: unit 3 named /user/gent/470/vsc47063/WIP/393_SecretomeP/prop_tmp/2745264/in.all.how
         # lately reading sequential formatted external IO
-    # seems as a problem with /tmp
+    # -> seems as a problem with /tmp
     # <- after run `prop test/four.fsa`
-    # open: No such file or directory
-    # apparent state: unit 3 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
-    # lately reading sequential formatted external IO
-    # Abort (core dumped)
-    # open: No such file or directory
-    # apparent state: unit 3 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
-    # lately reading sequential formatted external IO
-    # Abort (core dumped)
-    # open: No such file or directory
-    # apparent state: unit 3 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
-    # lately reading sequential formatted external IO
-    # Abort (core dumped)
-    # open: No such file or directory
-    # apparent state: unit 3 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
-    # lately reading sequential formatted external IO
-    # Abort (core dumped)
-# E1:
-    # -> edit makefile BINDIR and MANDIR -> still error -> avoid their makefile -> use tarball easyblock?
+        # open: No such file or directory
+        # apparent state: unit 3 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
+        # lately reading sequential formatted external IO
+        # Abort (core dumped)
+        # open: No such file or directory
+        # apparent state: unit 3 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
+        # lately reading sequential formatted external IO
+        # Abort (core dumped)
+        # open: No such file or directory
+        # apparent state: unit 3 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
+        # lately reading sequential formatted external IO
+        # Abort (core dumped)
+        # open: No such file or directory
+        # apparent state: unit 3 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
+        # lately reading sequential formatted external IO
+        # Abort (core dumped)
+# E1: OK
+    # -> edit makefile BINDIR and MANDIR -> still error -> avoid their makefile -> use tarball easyblock
     # <- during make -j 8
     # cp prop /usr/opt/bin
     # cp: cannot create regular file '/usr/opt/bin': No such file or directory

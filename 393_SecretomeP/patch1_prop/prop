@@ -36,7 +36,7 @@ set	SYSTEM		= `uname -s`
 # configure auxiliary software (see installation instructions)
 
 setenv AWK $EBROOTGAWK/bin/gawk
-setenv ECHO /usr/bin/echo
+setenv ECHO "/bin/echo -e"
 setenv SIGNALP $EBROOTSIGNALP/bin/signalp6
 
 
@@ -391,9 +391,9 @@ end # foreach input sequence ...
 ###############################################################################
 
 # clean up
-cd /
-rm -rf $PROPTMP/*
-rm -rf $PROPTMP
+# cd /
+# rm -rf $PROPTMP/*
+# rm -rf $PROPTMP
 
 ###############################################################################
 # End of script

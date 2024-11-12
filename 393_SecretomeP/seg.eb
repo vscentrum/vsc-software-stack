@@ -1,0 +1,25 @@
+easyblock = 'MakeCp'
+
+name = 'Seg'
+version = '0.0.20000620'
+
+homepage = 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6154469/'
+description = "A program for identifying and masking segments of low compositional complexity in amino acid sequences."
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ["https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/ncbi-seg/0.0.20000620-6/"]
+sources = ['ncbi-%(namelower)s_%(version)s.orig.tar.gz']
+checksums = ['77f5e92dd2f70ff70459c412a503d32a33f034c52c678ce152cf03149ae293e4']
+
+files_to_copy = [(['seg'], 'bin'), 'README']
+# files_to_copy = ['*']
+
+sanity_check_paths = {
+    'files': ['bin/seg'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['seg 2>&1 | grep "Usage"']
+
+moduleclass = 'bio'
