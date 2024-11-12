@@ -41,11 +41,12 @@ dependencies = [
 local_wannier90_make = 'make -j %(parallel)s F90="$F90" FCOPTS="$FFLAGS -fPIC" LDOPTS="$FFLAGS" '
 local_wannier90_make += 'LIBDIR="$LAPACK_LIB_DIR" LIBS="$LIBLAPACK"'
 
-prebuildopts = "cd %%(builddir)s/wannier90-%s && touch make.inc && " % local_wannier90_version
+prebuildopts = "sed -i 's/ -undefined dynamic_lookup//g' src/Makefile && "
+prebuildopts += "cd %%(builddir)s/wannier90-%s && touch make.inc && " % local_wannier90_version
 prebuildopts += "cp %(builddir)s/pyWannier90-*/src/wannier_lib.F90 src/wannier_lib.F90 && "
 prebuildopts += local_wannier90_make + " && "
 prebuildopts += local_wannier90_make + " lib && "
-prebuildopts += "cd %(builddir)s/pyWannier90-*/src && pwd && "
+prebuildopts += "cd %(builddir)s/pyWannier90-*/src && "
 
 buildopts = 'CPP="$CXX" LIBS="-L%%(builddir)s/wannier90-%s $LIBLAPACK -lwannier" ' % local_wannier90_version
 # with Intel compilers, use libwannier90_intel as make target
@@ -70,10 +71,3 @@ sanity_check_commands = [
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'chem'
-
-# TODO
-# g++ -O3 -Wall -shared -std=c++11 -fPIC -D_UF  `python3 -m pybind11 --includes` libwannier90.cpp -o libwannier90`python3-config --extension-suffix` -L/tmp/vsc45304/easybuild/build/pyWannier90/2024-01-28/foss-2023a/wannier90-3.1.0 -lflexi
-# blas -lgfortran -lwannier -undefined dynamic_lookup
-# /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: cannot find dynamic_lookup: No such file or directory
-# collect2: error: ld returned 1 exit status
-# make: *** [Makefile:17: libwannier90_gf] Error 1
