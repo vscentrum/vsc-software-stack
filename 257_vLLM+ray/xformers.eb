@@ -38,13 +38,17 @@ use_pip = True
 local_preinstallopts = 'export TORCH_CUDA_ARCH_LIST="5.2;6.0;7.0;7.5;8.0;8.6;9.0" && '
 local_preinstallopts += 'export MAX_JOBS=2 && '
 local_preinstallopts += 'export FORCE_CUDA=1 && '
+local_preinstallopts += "sed -i '225,232d' setup.py && "
+local_preinstallopts += "sed -i '224a cutlass_dir_ebroot=os.getenv(\"$EBROOTCUTLASS\")' setup.py && "
+local_preinstallopts += "sed -i '225a cutlass_dir=os.path.join(cutlass_dir_ebroot, \"include\")' setup.py && "
+local_preinstallopts += "sed -i 's/cutlass_dir, cutlass_examples_dir/cutlass_dir/' setup.py && "
 
 exts_list = [
     (name, version, {
         'preinstallopts': local_preinstallopts,
         'source_urls': ['https://github.com/facebookresearch/xformers/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        'checksums': ['95e5fa8f6ac63f11b4c7122e01c0892beae91f754a64a7e525bc06c3b49feac7'],
+        'checksums': ['931a3c8d97f5d8aa9eddf73326101e97b7185ed6ed706b5f43193a52c9bd2546'],
     }),
 ]
 
