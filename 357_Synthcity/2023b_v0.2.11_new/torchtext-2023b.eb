@@ -12,7 +12,7 @@ toolchain = {'name': 'foss', 'version': '2023b'}
 
 # Sources are no longer available in PyPI, it only has wheels
 source_urls = ['https://github.com/pytorch/text/archive/']
-sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}]
+sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
 patches = [
     {'name': 'torchtext-0.14.1_use-system-libs.patch', 'alt_location': 'PyTorch-bundle'},
     {'name': 'torchtext-0.16.2_download-to-project-root.patch', 'alt_location': 'PyTorch-bundle'},
@@ -38,7 +38,7 @@ dependencies = [
     ('PyTorch', local_pytorch_version),
     ('double-conversion', '3.3.0'),
     ('utf8proc', '2.9.0'),
-    ('torchdata', '0.7.1'),
+    ('torchdata', '0.7.1', '-PyTorch-%s' % local_pytorch_version),
 ]
 
 download_dep_fail = True,

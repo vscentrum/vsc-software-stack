@@ -9,21 +9,6 @@ understanding your TensorFlow runs and graphs."""
 
 toolchain = {'name': 'gfbf', 'version': '2023b'}
 
-# postinstallpatches = [
-#     ('tensorboard-2.10_jupyterhub-support.patch', 'lib/python%(pyshortver)s/site-packages'),
-# ]
-
-# DEPS:
-    # ok absl-py >= 0.4
-    # OK grpcio >= 1.48.2
-    # OK markdown >= 2.6.8
-    # OK numpy >= 1.12.0
-    # OK packaging
-    # OK protobuf >= 3.19.6, != 4.24.0
-    # OK setuptools >= 41.0.0
-    # ok tensorboard-data-server >= 0.7.0, < 0.8.0
-    # ok werkzeug >= 1.0.1
-
 builddependencies = [
     ('poetry', '1.6.1'),
 ]
@@ -70,13 +55,5 @@ exts_list = [
         'checksums': ['107ca4821745f73e2aefa02c50ff70a9b694f39f790b11e6f682f7d326745eab'],
     }),
 ]
-
-#  Relax restriction on protobuf dependency as issue was fixed
-#  in https://github.com/protocolbuffers/upb/pull/1514
-#  see also: https://github.com/easybuilders/easybuild-easyconfigs/pull/19671
-# postinstallcmds = [
-#     'sed -i "s/Requires-Dist: protobuf.*/Requires-Dist: protobuf >=3.19.6/g" ' +
-#     '%(installdir)s/lib/python%(pyshortver)s/site-packages/%(name)s-%(version)s.dist-info/METADATA',
-# ]
 
 moduleclass = 'lib'
