@@ -14,26 +14,30 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # no public download url
 # downloaded from https://services.healthtech.dtu.dk/services/ProP-1.0/
 sources = ['%(namelower)s-%(version)s.Linux.tar.Z']
-patches = ['patch3-prop.patch']
-checksums = [
-    {'prop-1.0c.Linux.tar.Z': 'd6686b0bad2cd82ca0ec87fb7503838a70b8cbd6040542c2e50101d3ac12d6ed'},
-    {'patch3-prop.patch': 'd41c82bca76d53170b30c7ba6a312dfc4ab2f48f988a83fad9a9885bf17b97d5'},
-]
+patches = ['patch5-prop.patch']  # patch4 only to test /tmp dir cleaning
 
 # builddependencies = [
 #     ('gawk', '5.3.0'),
 # ]
+checksums = [
+    {'prop-1.0c.Linux.tar.Z': 'd6686b0bad2cd82ca0ec87fb7503838a70b8cbd6040542c2e50101d3ac12d6ed'},
+    {'patch5-prop.patch': '9efb3f0a5b750763999265bc1a6cbd5ebdcd2b645b434e6f85c105d02631eb0f'},
+]
+
+# patches = ['patch3-prop.patch']
 dependencies = [
     ('Perl', '5.36.1'),
     ('Perl-bundle-CPAN', '5.36.1'),
     ('SignalP', '6.0h', '-fast'),
+    # ('SignalP', '5.0b', '-Linux', SYSTEM), # do not have sources
     ('gawk', '5.3.0'),
     ('tcsh', '6.24.10'),
 ]
 
+preinstall_cmd ="sed -i 's|#! /usr/bin/nawk -f|#! /usr/bin/env gawk -f|' bin/in2how"
 postinstallcmds = [
     'mv %(installdir)s/prop %(installdir)s/bin/prop',
-    # 'mkdir -m 1777 $HOME/ProP/tmp'
+    # 'mkdir -m 777 $HOME/ProP/tmp'
 ]
 
 # preinstall_cmd =

@@ -171,13 +171,17 @@ endif
 # Main: read and analyse input, make predictions 
 ###############################################################################
 
-mkdir ${PROPTMP}
+mkdir -m 777 ${PROPTMP}
 touch ${PROPTMP}/checkfasta
+chmod 777 ${PROPTMP}/checkfasta
 touch ${PROPTMP}/checkfasta.fas
+chmod 777 ${PROPTMP}/checkfasta.fas
 touch ${PROPTMP}/in.all.how
+chmod 777 ${PROPTMP}/in.all.how
 touch ${PROPTMP}/in.all.fas
+chmod 777 ${PROPTMP}/in.all.fas
 
-mkdir $PROPTMP/data
+mkdir -m 777 $PROPTMP/data
 
 # split multiple FASTA entries into single files in $PROPTMP/data
 # perform prediction and output on each file in $PROPTMP/data (if not empty)
