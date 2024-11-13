@@ -47,7 +47,7 @@ setenv SIGNALP $EBROOTSIGNALP/bin/signalp6
 setenv	LANG		C			# else GAWK will fail ...
 
 setenv	PROPBIN		$PROPHOME/bin
-setenv	PROPTMP		$HOME/WIP/393_SecretomeP/prop_tmp/$$
+setenv	PROPTMP		/tmp/$$
 setenv	PROPTXT		$PROPHOME/etc
 setenv	PROPETC		$PROPHOME/etc
 setenv	PROPHOW		$PROPHOME/how
@@ -173,13 +173,13 @@ endif
 
 mkdir -m 777 ${PROPTMP}
 touch ${PROPTMP}/checkfasta
-chmod 777 ${PROPTMP}/checkfasta
+# chmod 777 ${PROPTMP}/checkfasta
 touch ${PROPTMP}/checkfasta.fas
-chmod 777 ${PROPTMP}/checkfasta.fas
+# chmod 777 ${PROPTMP}/checkfasta.fas
 touch ${PROPTMP}/in.all.how
-chmod 777 ${PROPTMP}/in.all.how
+# chmod 777 ${PROPTMP}/in.all.how
 touch ${PROPTMP}/in.all.fas
-chmod 777 ${PROPTMP}/in.all.fas
+# chmod 777 ${PROPTMP}/in.all.fas
 
 mkdir -m 777 $PROPTMP/data
 
@@ -395,9 +395,9 @@ end # foreach input sequence ...
 ###############################################################################
 
 # clean up
-# cd /
-# rm -rf $PROPTMP/*
-# rm -rf $PROPTMP
+cd /
+rm -rf $PROPTMP/*
+rm -rf $PROPTMP
 
 ###############################################################################
 # End of script

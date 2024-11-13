@@ -14,15 +14,15 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # no public download url
 # downloaded from https://services.healthtech.dtu.dk/services/ProP-1.0/
 sources = ['%(namelower)s-%(version)s.Linux.tar.Z']
-patches = ['patch5-prop.patch']  # patch4 only to test /tmp dir cleaning
+patches = ['patch6-prop.patch']
+checksums = [
+    {'prop-1.0c.Linux.tar.Z': 'd6686b0bad2cd82ca0ec87fb7503838a70b8cbd6040542c2e50101d3ac12d6ed'},
+    {'patch6-prop.patch': '4ea7aafe17bc563692c8e98f592f8059a05266a33ac9a8149f180f4a4770f975'},
+]
 
 # builddependencies = [
 #     ('gawk', '5.3.0'),
 # ]
-checksums = [
-    {'prop-1.0c.Linux.tar.Z': 'd6686b0bad2cd82ca0ec87fb7503838a70b8cbd6040542c2e50101d3ac12d6ed'},
-    {'patch5-prop.patch': '9efb3f0a5b750763999265bc1a6cbd5ebdcd2b645b434e6f85c105d02631eb0f'},
-]
 
 # patches = ['patch3-prop.patch']
 dependencies = [
