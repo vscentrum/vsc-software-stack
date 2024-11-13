@@ -36,7 +36,7 @@ dependencies = [
 
 preinstall_cmd ="sed -i 's|#! /usr/bin/nawk -f|#! /usr/bin/env gawk -f|' bin/in2how"
 postinstallcmds = [
-    'mv %(installdir)s/prop %(installdir)s/bin/prop',
+    'mv %(installdir)s/%(namelower)s %(installdir)s/bin/%(namelower)s',
     # 'mkdir -m 777 $HOME/ProP/tmp'
 ]
 

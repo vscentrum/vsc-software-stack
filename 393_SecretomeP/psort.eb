@@ -1,0 +1,38 @@
+easyblock = 'Tarball'
+
+name = 'PSORT'
+version = 'II'
+
+homepage = 'http://www.psort.org/'
+description = "Program to predict protein subcellular localization sites from their amino acid sequences."
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+# no public download url
+sources = ['%(namelower)s2.tar.gz']
+checksums = ['406d2ecb924cb9c5720b926a4aa126fd86f8718d45a4a39ef04e8bb49fde6213']
+
+dependencies = [
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '5.36.1'),
+]
+
+fix_perl_shebang_for = [
+    '%(namelower)s',
+    # 'bin/tmhmmformat.pl'
+]
+
+# postinstallcmds = [
+#     'cd %(installdir)s && ./psort -t all.seq',
+# ]
+
+sanity_check_paths = {
+    'files': ['%(namelower)s'],
+    'dirs': [],
+}
+
+modextrapaths = {'PATH': ''}
+
+sanity_check_commands = ['%(namelower)s -t all.seq']
+
+moduleclass = 'bio'
