@@ -1,0 +1,48 @@
+#! /usr/bin/nawk -f
+
+# convert fasta to how with empty assignments, protein alphabet
+#
+# VERSION:	K. Rapacki, Aug 2001
+
+/^>/ { # header line ===========================================================
+
+  # print previous entry, if any ..............................................
+  len=length(seq);
+  if (len)
+     printhow();
+
+  # reset all entry fields ....................................................
+  ecount++;
+  name=substr($1,2);
+  if (name=="")
+     name="seq." ecount;
+  seq=""; len=0;
+  next;
+}
+
+{ # sequence line =============================================================
+  $0 = toupper($0);
+  gsub("[ \t]","",$0);				# wipe out whitespace
+  gsub("[^ACDEFGHIKLMNPQRSTVWY]","X",$0);	# handle non-aa symbols
+  seq=(seq $0);
+}
+
+END {	# print previous entry, if any ........................................
+	len=length(seq);
+	if (len)
+	   printhow();
+}
+
+function printhow() # use: name, len, seq; create: ass
+{
+  printf("%5d %s\n",len,name);
+  for (i=1;length(substr(seq,i)); i=i+80)
+      printf("%-80s%7d\n",substr(seq,i,80),i+79);
+  for (i=1; i<=len; i++) {
+      printf(".");
+      if (i%80==0)
+         printf("%7d\n",i);
+  }
+  if (i%80) 
+     printf("\n");
+}

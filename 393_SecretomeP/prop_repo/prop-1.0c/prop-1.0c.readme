@@ -1,0 +1,109 @@
+
+   ProP 1.0c		INSTALLATION INSTRUCTIONS
+
+
+   DESCRIPTION
+
+   ProP predicts arginine and lysine  propeptide cleavage sites in eukaryotic
+   protein sequences  using  an ensemble  of neural  networks.  The method is
+   described in detail in the reference:
+
+   Prediction of proprotein convertase cleavage sites.
+   Peter Duckert, Søren Brunak, and Nikolaj Blom
+   Protein Engineering, Design and Selection 17:107-112, 2004
+
+   Information on the method can also be found at:
+
+      http://www.cbs.dtu.dk/services/ProP/
+
+
+   DOWNLOAD
+
+   ProP 1.0 is a property of Center for Biological Sequence Analysis.  It may
+   be  downloaded  only by special agreement.  For academic users  there is a
+   download site at:
+
+        http://www.cbs.dtu.dk/cgi-bin/nph-sw_request?prop
+
+   Other users are requested to contact software@cbs.dtu.dk.
+
+
+   PRE-INSTALLATION
+
+   ProP 1.0 will run on the most common UNIX platforms e.g. Linux, SunOS etc.
+   The package consists of two files:
+  
+       prop-1.0.readme           this file
+       prop-1.0.unix.tar.Z       compressed TAR archive
+
+   where 'unix' is the UNIX platform on which you are about to install. After
+   installation the software will occupy not more than 5 Mb of diskspace.
+
+
+   INSTALLATION
+
+   1. Uncompress and untar the package:
+
+      cat prop-1.0c.unix.tar.Z | uncompress | tar xvf -
+
+   This will produce a directory 'prop-1.0c'.
+
+   2. In the 'prop-1.0c' directory  edit the main 'prop' script.  At the head
+   of the script the following variables should be configured:
+
+      PROPHOME	full path to the prop-1.0c directory		mandatory
+      AWK	      "		 awk/nawk/gawk executable	mandatory
+      ECHO	      "		 echo executable		mandatory
+      GNUPLOT	      "		 gnuplot executable		optional
+      PPM2GIF	      "		 ppmtogif executable		optional
+      SIGNALP	      "		 signalp executable		optional
+
+   PROPHOME defines  the location of the software in the file system.  AWK is
+   used by a number of auxiliary scripts  called by ProP.  The shell built-in
+   'echo' command should be avoided  as its behavior differs from platform to
+   platform.
+
+   GNUPLOT and PPM2GIF are needed for generation of output graphics.  If they
+   are not both configured the '-g' option to ProP will not work.
+
+   SIGNALP is needed for signal peptide cleavage site prediction. The SignalP
+   software can be obtained from  Center for Biological Sequence Analysis  by
+   special agreement;  send mail to  software@cbs.dtu.dk for details.  If the
+   SIGNALP variable is not configured the '-s' option to ProP will not work.
+   
+   3. Make sure that the 'tmp' directory has the sticky bit set.  The listing
+   should read "drwxrwxrwt ...". If the sticky bit is not set, set it:
+
+      chmod 1777 tmp
+
+   4. Test the package:
+   
+      ./prop test/EDA_HUMAN.fsa		# one sequence
+      ./prop test/FGF2_HUMAN.fsa
+      ./prop -g -s test/GDNF_HUMAN.fsa	# one sequence, graphics, signalp
+      ./prop -g -s test/P53_HUMAN.fsa
+      ./prop -g -s test/four.fsa	# many sequences, graphics, signalp
+
+   The text ouptput of the last command above should be identical to the file
+   test/four.out; the GIF figures generated should be very similar to the GIF
+   files in the test directory.
+
+   5. Install  the executable and  the manpage using  the provided  makefile.
+   Edit the BINDIR and MANDIR variables to taste and type:
+   
+      make install
+      make install.man
+
+   If you need compiled manpages you should choose 'installc.man'  instead of
+   'install.man'.
+
+
+   PROBLEMS
+
+   Contact packages@cbs.dtu.dk in case of problems.
+   
+   Questions  on the scientific aspects of the ProP method  should be sent to
+   Nikolaj Blom, nikob@cbs.dtu.dk.
+
+   CBS, 2 MAr 2007
+   K. Rapacki

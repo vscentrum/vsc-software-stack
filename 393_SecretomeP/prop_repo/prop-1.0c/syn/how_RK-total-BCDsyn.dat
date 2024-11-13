@@ -1,0 +1,201 @@
+**************************************************************************
+                HOW INPUT PARAMETERS (C) COPYRIGHT 1989-1998
+**************************************************************************
+**************************************************************************
+ RUN IDENTIFICATION ******************************************************
+**************************************************************************
+TESTRUNID
+(RUNID   ** RUN IDENTIFIER)
+**************************************************************************
+ NETWORK ARCHITECTURE ****************************************************
+**************************************************************************
+21
+(NIALPH  ** NUMBER OF LETTERS IN THE INPUT ALPHABET)
+2  
+(NOALPH  ** NUMBER OF LETTERS IN THE OUTPUT ALPHABET)
+11
+(NWSIZE  ** WINDOW SIZE IN LETTERS)
+8
+(N2HID   ** NUMBER OF UNITS IN THE SECOND LAYER)
+0
+(N3HID   ** NUMBER OF UNITS IN THE THIRD LAYER)
+0
+(N4HID   ** NUMBER OF UNITS IN THE FOURTH LAYER)
+3
+(NLAYER  ** NUMBER OF LAYERS, INCLUDING INPUT AND OUTPUT)
+-90
+(ICOVER  ** SIZE OF RECEPTIVE FIELDS FOR NEURONS IN FIRST HIDDEN LAYER)
+-2
+(IHOLEL  ** LEFT POSITION OF HOLE IN WINDOW)
+-1
+(IHOLER  ** RIGHT POSITION OF HOLE IN WINDOW) 
+-1 
+(LENPOS  ** ADD SEQUENCE POSITION UNITS TO INPUT LAYER)
+-1 
+(LSIZE   ** ADD SEQUENCE SIZE UNITS TO INPUT LAYER)
+6671
+(MAXLEN  ** MAXIMAL SEQUENCE LENGTH FOR NORMALIZATION IN LSIZE MODE)
+-1       
+(LCOMPO  ** ADD COMPOSITION UNITS TO INPUT LAYER)
+**************************************************************************
+ MODE SELECTION **********************************************************
+**************************************************************************
+1
+(MODE    ** SAMPLE OR HOMOLOGY (ONE-SEQUENCE-AT-TIME))
+1
+(INORM   ** IN SAMPLE MODE: FULL OR INCREMENTAL TRAINING)
+-1
+(IPRIM   ** SAMPLE/HOMOLOGY MODES: PRIMARY OR SECONDARY OUTPUT CATAGORIES)
+-1
+(IDIST   ** SAMPLE AND SECONDARY MODE: DISTANCE MATRIX OUTPUT OR NOT)
+1
+(IVIRGN  ** SYNAPSES READ FROM FILE OR RANDOM)
+**************************************************************************
+ CODING ******************************************************************
+**************************************************************************
+FIVWMLCHYAGNRTPDEQSK
+(LETIN   ** INPUT ALPHABET - INPUT CATEGORIES)
+ACGT
+(LETALT  ** ALTERNATIVE INPUT ALPHABET) FIVWMLCHYAGNRTPDEQSK
+QZ
+(LETOUT  ** OUTPUT ALPHABET - OUTPUT CATEGORIES)
+1
+(NRULES  ** NUMBER OF CONVERSION RULES FOR OUTPUT CATAGORIES)
+A=A
+(RULES   ** CONVERSION RULES FOR OUTPUT CATAGORIES)
+0.1
+(SATMIN  ** `ZERO' TRAINING TARGET VALUE)
+0.9
+(SATMAX  ** `ONE' TRAINING TARGET VALUE)
+0.0
+(OFFNUM  ** `ZERO' INPUT VALUE)
+1.0
+(ONNUM   ** `ONE' INPUT VALUE)
+-32
+(LENPAT  ** LENGTH OF INPUT CATEGORY PATTERNS)
+**************************************************************************
+ NETWORK INITIATION ******************************************************
+**************************************************************************
+0.1
+(SYNFAC  ** ABSOLUTE VALUE FOR RANDOM SYNAPSES)
+30
+(CUTOFF  ** ABSOLUTE VALUE OF LIMIT FOR TRANSFER FUNCTION TABLE)
+**************************************************************************
+ INPUT FORMATS ***********************************************************
+**************************************************************************
+-1
+(IDNA    ** USE DNA SEQUENCE (AND AMINO ACID SEQUENCE) AS NETWORK INPUT)
+1
+(ITMODE  ** READ SECONDARY- AND/OR DM INPUT FROM TEST FILE - 0,1,2)
+**************************************************************************
+ LEARNING AND TEST PARAMETERS ********************************************
+**************************************************************************
+0.005
+(ETA     ** LEARNING RATE)
+1
+(ICETA   ** SEPARATE LEARNING RATE FOR EACH CATEGORY)
+0.0
+(ALPHA   ** MOMENTUM STRENGTH)
+17910
+(LSTOP   ** MAXIMAL NUMBER OF TRAINING SWEEPS) 
+1 1 1 1 1 1 1 1 1 1 1 1
+(IRPEAT  ** NUMBER OF BACKPROP REPEATS WITH SAME INPUT (NOALPH VALUES))
+10
+(ITEST   ** TEST FREQUENCY)
+0.01
+(BPLIM   ** ABSOLUTE VALUE FOR BACKPROPAGATION TO TAKE PLACE)
+99.999
+(CLIMIT  ** WHEN LEARNING SAMPLE IS INCREMENTED (NORMAL OUTPUT SUCCESS)
+99.0
+(DLIMIT  ** WHEN LEARNING SAMPLE IS INCREMENTED (DISTANCE OUTPUT SUCCESS)
+1
+(IRAN    ** LEARNING SAMPLE SHUFFLE)
+4
+(IPIECE  ** INCREMENTAL LEARNING MODE: NUMBER OF PARTS IN LEARNING SAMPLE)
+-1
+(IEUP    ** SYNAPS UPDATE: SAMPLE OR SINGLE WINDOW CONFIGURATION) 
+5432199 
+(ISSEED  ** SYNAPS INITIALISATION SEED)
+**************************************************************************
+ LEARNING AND TEST SAMPLES ***********************************************
+**************************************************************************
+175
+(LEARNC  ** NUMBER OF SEQUENCES IN TRAINING FILE)
+0
+(LSKIP   ** NUMBER OF SEQUENCES TO SKIP IN TRAINING FILE)
+-1
+(IFULL   ** REDUCE THE SEQUENCES TO FULL WINDOW CONFIGURATIONS)
+-1
+(IREDUC  ** REDUCE THE TRAINING SET TO SUBSEQUENCES OF SPECIFIC SITES)
+20
+(ILEFT   ** THE NUMBER OF LETTERS TO THE LEFT OF EACH SPECIFIC SITE)
+20
+(IRIGHT  ** THE NUMBER OF LETTERS TO THE RIGHT OF EACH SPECIFIC SITE)
+E
+(LREDUC  ** THE OUTPUT LETTER CENTRAL IN SPECIFIC SITE REDUCTION)
+52
+(TESTC   ** NUMBER OF SEQUENCES IN TEST FILE)
+0
+(ITSKIP  ** NUMBER OF SEQUENCES TO SKIP IN TEST FILE)
+**************************************************************************
+ EVALUATION OF NETWORK OUTPUT ********************************************
+**************************************************************************
+1
+(MEVAL   ** EVAL MODE, 1:WINNER-TAKE-ALL, 2:VARIABLE FIRST LETTER CUTOFF)
+0.5
+(EVAL    ** ASSIGNMENT CUTOFF FOR THE FIRST LETTER /0.0 - 1.0/  
+1
+(IWIN    ** FOR NETS = 2, 1:HIGHEST ACTIVITY OUTPUT, 2:LETOUT(1) OR OUTPUT
+**************************************************************************
+ OUTPUT LEVELS AND FREQUENCIES *******************************************
+**************************************************************************
+1000
+(ISYN    ** SYNAPS DUMP FREQUENCY WHEN >0; WHEN <0 DUMP WHEN CC INCREASES)
+1000
+(IHIST   ** SYNAPS HISTOGRAM GENERATION FREQUENCY) 
+-1
+(ICPER   ** PERCENTAGE OUTPUT FOR EVERY EXAMPLE)
+-1
+(ICSEQ   ** SEQUENCE OUTPUT FOR EVERY EXAMPLE)
+-1
+(ICANSW  ** CATEGORY STATISTICS FOR EVERY EXAMPLE)
+1
+(IANSW   ** CATEGORY STATISTICS FOR SAMPLES)
+-1
+(I1LET   ** FIRST LETTER DEVIATION - SAMPLES AND/OR EXAMPLES)
+1
+(ICOR    ** COMPUTATION OF CORRELATION COEFFICIENTS)  
+-1
+(IACTIV  ** SINGLE WINDOW OUTPUT ACTIVITIES, TEST ONLY)
+-1
+(IWHERE  ** TEST: LOCALIZATION OF MATCH)
+1
+(IQUAL   ** TEST: CONFIDENCE LEVELS)
+-1
+(ILEVEL  ** WRITE OUTPUT NEURON ACTIVITIES ON FILE)
+-1
+(IAFILE  ** WRITE OUTPUT CATEGORY ASSIGNMENTS ON FILE)
+-1
+(ILIST   ** WRITE LEARNT SUBSEQUENCES OF SPECIFIC SITES ON FILE)
+-1
+(IDMOUT  ** TEST: FULL DISTANCE MATRIX OUTPUT) 
+**************************************************************************
+ INPUT/OUTPUT FILE NAMES *************************************************
+**************************************************************************
+total-BCD.syn
+(SYNFIL  ** SYNAPS FILE NAME)
+A.how
+(TESFIL  ** TEST SEQUENCE CODE FILE NAME)
+BCD.how
+(LEAFIL  ** LEARN SEQUENCE CODE FILE NAME)
+levels.dat
+(LEVFIL  ** ACTIVITY LEVELS FILE NAME)
+record.dat 
+(RECFIL  ** CATEGORY ASSIGNMENT FILE NAME)
+record.dat 
+(DNFIL   ** LEARNT SUBSEQUENCE FILE NAME) 
+pat_13.dat
+(PATFIL  ** INPUT CATEGORY PATTERN FILE NAME) 
+**************************************************************************
+**************************************************************************
+

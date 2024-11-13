@@ -1,0 +1,94 @@
+#! /usr/bin/nawk -f
+
+#	${LOCALBIN}/gethow -s -x T -r 0 $infile | \
+#	${LOCALBIN}/gethow -s -x S -r 0 $infile | \
+#	        ${LOCALBIN}/gethow -n $entry $infile | \
+#	        ${LOCALBIN}/gethow -n $entry -B ${Tloc}:T $infile | \
+#	                ${LOCALBIN}/gethow -B ${Sloc}:S | \
+
+
+#
+# This script provides the following selection of 'gethow' options:
+#
+#	-s -x val -r 0		X=val
+#	-n val			N=val
+#	-B loc:val		B=loc:val
+#
+
+# VERSION: 29 Sep 1997, K. Rapacki
+#
+
+/^[ 0-9]?[ 0-9][ 0-9][ 0-9][ 0-9][0-9] [A-Za-z0-9]/{
+					# HEADER LINE -------------------------
+  len		= $1;			# sequence length
+  name		= $2;			# sequence name
+  comment	= $3;			# header line comment
+
+  seq		= "";			# sequence
+  ass		= "";			# assignment
+
+  for (i=4; i<=NF; i++)			# read comment
+      comment = (comment " " $i);
+
+  seq_in = 1;				# activate sequence reading
+  curr_len=len;				# left to read
+  next;
+}
+
+seq_in {				# SEQUENCE LINE -----------------------
+  seq = (seq $1);			# add to sequence
+  curr_len = curr_len - 80;		# left to read
+  if (curr_len <= 0) {			# if last sequence line
+     seq_in = 0;			# ... desactivate sequence reading
+     ass_in = 1;			# ... activate assignment reading
+     curr_len = len;			# ... left to read
+  }
+  next;
+}
+
+ass_in {				# ASSIGNMENT LINE ---------------------
+  ass = (ass $1);			# add to assignment
+  curr_len = curr_len - 80;		# left to read
+  if (curr_len <= 0) {			# if last assignment line
+     ass_in = 0;			# ... desactivate assignment reading
+     done = 1;				# ... entry completed
+  }
+}
+
+done {					# ENTRY NOW AVAILABLE -----------------
+  #
+  # HERE: HOWentry is parsed: len, name, comment, seq, ass
+  #
+  if (( N != "" ) && ( name != N )) {	# N=name ..............................
+     done = 0;
+     next;
+  }
+  if (length(X)==1) {			# X=val ...............................
+     for (i=1; i<=len; i++) {
+         if (substr(seq,i,1)==X)
+	    print ".",X,name,i;
+     }
+  }
+  else {
+     if ( B != "" ) {			# B=loc:val
+        split(B,a,":");
+	locs = split(a[1],b,",");
+	newass="";j=1;
+	for (i=1; i<=len; i++) {
+	    if ((j<=locs) && (b[j]==i)) {
+	       newass = (newass a[2]);
+	       j++;
+	    }
+	    else
+	       newass = (newass substr(ass,i,1));
+	}
+	ass=newass;	    
+     }
+     printf("%5d %-11s %s\n",len,name,comment);
+     for (i=1;length(substr(seq,i)); i=i+80)
+         printf("%-80s%8d\n",substr(seq,i,80),i+79);
+     for (i=1;length(substr(ass,i)); i=i+80)
+         printf("%-80s%8d\n",substr(ass,i,80),i+79);
+  }
+  done = 0;
+}

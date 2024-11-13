@@ -1,0 +1,110 @@
+.de Id
+.ds Rv \\$3
+.ds Dt \\$4
+..
+.Id $Header: prop.1,v 1.0b 04/01/06 12:00:00 rapacki Exp $
+.TH prop 1 \" -*- nroff -*-
+.SH NAME
+prop \- predict propeptide cleavage sites in proteins
+.SH SYNOPSIS
+\fBprop\fP [\fB-g\fP] [\fB-h\fP] [\fB-p\fP] [\fB-s\fP] [\fB-v\fP]
+[\fIfile\fP] ...
+.SH DESCRIPTION
+.B prop
+predicts arginine and lysine propeptide cleavage sites in eukaryotic protein
+sequences using an ensemble of neural networks. Furin-specific prediction is
+the default. It is also possible to perform a general proprotein convertase
+(PC) prediction (\fB\-p\fP). The entire method is described in detail
+in the reference quoted below.
+
+The input sequences are read from \fIfiles\fP or, if no file is specified,
+from the standard input. The input format is Pearson \fBFASTA\fP.
+
+The default output is text; it will go to \fIstdout\fP. For each input protein
+the length, name and sequence are shown with an indication of the predicted
+cleavage sites. Then follows a table in which the prediction scores for each
+potential propeptide cleavage site are given in detail; the columns are:
+
+.B *
+Sequence name
+
+.B *
+Position in the sequence
+
+.B *
+Context:
+.in +2n
+7 amino acids to the left and 2 amino acids to the right of the potential
+cleavage site.
+.in -2n
+
+.B *
+Prediction score:
+.in +2n
+The scores are in the range (0.0-1.0), where the scores
+above the fixed threshold of \fB0.5\fP indicate a potential cleavage
+site. The higher the score the higher the confidence of the prediction.
+.in -2n
+
+If the verbose output format (\fB-v\fP) is chosen the scores produced
+by the 4 individual neural networks are shown as well, alongside the average
+score.
+
+If \fBprop\fP is configured to use \fBsignalp\fP it also possible
+to include signal peptide cleavage site predictions
+in the output (\fB\-s\fP). If a propeptide cleavage site is predicted
+inside a predicted signal peptide a warning is issued.
+
+If the graphics option (\fB-g\fP) is selected, a graphical
+illustration of the predictions is generated. One \fBGIF\fP file
+per input protein is produced.
+.SH OPTIONS
+.TP
+.B \-g
+Generate graphics, plotting the strength of the cleavage site prediction
+(between 0 and 1) against the position in the sequence of the arginine or
+lysine residue being examined. One \fBGIF\fP file for each input sequence
+is generated.
+.TP
+.B \-h
+Show the allowed command line syntax and exit.
+.TP
+.B \-p
+Perform general proprotein convertase (PC) prediction instead of the
+default furin-specific prediction.
+.TP
+.B \-s
+Include signal peptide cleavage site prediction.
+.TP
+.B \-v
+Verbose output: the scores produced by the 4 individual neural networks
+are shown alongside the average score.
+.TP
+.I file ...
+The input files to process. If no file is specified, \fIstdin\fP will be
+used instead.
+.SH AUTHORS
+Peter Duckert, peterd@cbs.dtu.dk, August 2001.
+.br
+Nikolaj Blom, nikob@cbs.dtu.dk, August 2001.
+.SH REFERENCES
+The method is described in detail in the following article:
+
+Prediction of proprotein convertase cleavage sites.
+.br
+Peter Duckert, Soren Brunak, and Nikolaj Blom
+.br
+Protein Engineering, Design and Selection 17:107-112, 2004
+
+Information on the method can also be found at:
+
+     http://www.cbs.dtu.dk/services/ProP/
+.SH FILES
+\fB/usr/cbs/bio/bin/prop\fP             main executable
+.br
+\fB/usr/cbs/bio/src/prop-1.0b\fP        software home
+.SH SEE ALSO
+fasta(1), how(1), signalp(1)
+
+
+
