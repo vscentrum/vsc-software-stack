@@ -373,7 +373,9 @@ crates = [
     ('windows_x86_64_msvc', '0.52.6'),
 ]
 
-# It looks like we need to specify this as else it will not work. 
+prebuildopts = "rm Cargo.lock && "  # not working
+
+# It looks like we need to specify this as else it will not work.
 buildopts = '-Z unstable-options '
 testopts = '-Z unstable-options '
 installopts = '-Z unstable-options '
@@ -388,11 +390,40 @@ sanity_check_commands = ["subset-bam --help"]
 moduleclass = 'bio'
 
 # E1:
-    # -> build failed (with new Cargo.lock)
-    # == 2024-11-14 12:22:54,368 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " cargo build --profile=release  --tests -j 8 -Z unstable-options " exited with exit code 101 and output:
-    # error: failed to select a version for the requirement `clap = "*"` (locked to 2.33.1)
-    # candidate versions found which didn't match: 4.5.21, 2.34.0
-    # location searched: directory source `/tmp/vsc47063/easybuild/build/subsetbam/1.1.0/GCCcore-12.3.0/easybuild_vendor` (which is replacing registry `crates-io`)
-    # required by package `subset-bam v1.1.0 (/tmp/vsc47063/easybuild/build/subsetbam/1.1.0/GCCcore-12.3.0/subset-bam-1.1.0)`
-    # perhaps a crate was updated and forgotten to be re-vendored?
-    # As a reminder, you're using offline mode (--offline) which can sometimes cause surprising resolution failures, if this error is too confusing you may wish to retry without the offline flag.
+    # -> delete Cargo.lock -> another error:
+        # error[E0283]: type annotations needed
+        # --> /tmp/vsc47063/easybuild/build/subsetbam/1.1.0/GCCcore-12.3.0/easybuild_vendor/ring-0.14.6/build.rs:475:52
+        #     |
+        # 475 |                 let _ = c.flag("-Wl,--gc-sections".into());
+        #     |                           ----                     ^^^^
+        #     |                           |
+        #     |                           required by a bound introduced by this call
+        #     |
+        #     = note: multiple `impl`s satisfying `_: AsRef<OsStr>` found in the following crates: `cc`, `std`:
+        #             - impl AsRef<OsStr> for OsStr;
+        #             - impl AsRef<OsStr> for OsString;
+        #             - impl AsRef<OsStr> for Path;
+        #             - impl AsRef<OsStr> for PathBuf;
+        #             - impl AsRef<OsStr> for String;
+        #             - impl AsRef<OsStr> for str;
+        #             - impl AsRef<OsStr> for windows_registry::Env;
+        # note: required by a bound in `Build::flag`
+        # --> /tmp/vsc47063/easybuild/build/subsetbam/1.1.0/GCCcore-12.3.0/easybuild_vendor/cc-1.2.1/src/lib.rs:537:39
+        #     |
+        # 537 |     pub fn flag(&mut self, flag: impl AsRef<OsStr>) -> &mut Build {
+        #     |                                       ^^^^^^^^^^^^ required by this bound in `Build::flag`
+        # help: try using a fully qualified path to specify the expected types
+        #     |
+        # 475 |                 let _ = c.flag(<&str as Into<T>>::into("-Wl,--gc-sections"));
+        #     |                                ++++++++++++++++++++++++                   ~
+
+        # For more information about this error, try `rustc --explain E0283`.
+        # error: could not compile `ring` (build script) due to previous error
+    # -> build failed (with new Cargo.lock) error:
+        # == 2024-11-14 12:22:54,368 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " cargo build --profile=release  --tests -j 8 -Z unstable-options " exited with exit code 101 and output:
+        # error: failed to select a version for the requirement `clap = "*"` (locked to 2.33.1)
+        # candidate versions found which didn't match: 4.5.21, 2.34.0
+        # location searched: directory source `/tmp/vsc47063/easybuild/build/subsetbam/1.1.0/GCCcore-12.3.0/easybuild_vendor` (which is replacing registry `crates-io`)
+        # required by package `subset-bam v1.1.0 (/tmp/vsc47063/easybuild/build/subsetbam/1.1.0/GCCcore-12.3.0/subset-bam-1.1.0)`
+        # perhaps a crate was updated and forgotten to be re-vendored?
+        # As a reminder, you're using offline mode (--offline) which can sometimes cause surprising resolution failures, if this error is too confusing you may wish to retry without the offline flag.
