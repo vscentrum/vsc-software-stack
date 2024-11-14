@@ -15,22 +15,6 @@ checksums = ['ef6f454a73f545e5f90a28a80d388afb763a43ac1256f3c182bf947728b4e39a']
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-#DEPS:
-    # OK Cellranger
-    # OK? R (version 3.6)
-    # OK Seurat
-    # OK UPDATE - TEtranscripts
-    # OK STAR aligner
-    # OK UPDATE - subset-bam
-    # OK UPDATE - bamtofastq
-    # OK Velocyto
-
-# builddependencies = [
-#     ('hatchling', '1.18.0'),
-#     ('maturin', '1.1.0'),
-#     ('CMake', '3.26.3'),
-#     ('Ninja', '1.11.1'),
-# ]
 dependencies = [
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
@@ -42,26 +26,11 @@ dependencies = [
     ('velocyto', '0.17.17'),
     ('TEtranscripts','2.2.3'),
     ('bamtofastq','1.4.1'),
-    ('subset-bam', '1.1.0'),
+    ('subset-bam', '1.1.0', '', SYSTEM),
 ]
 
 use_pip = True
 download_dep_fail = True
-
-# exts_list = [
-#     ('truster', version, {
-#         'checksums': ['36081b7aac1988566b0d42278f77671faabe17725006e56865b0ec5f7374e185'],
-#     }),
-# ]
-
-    # (name, version, {
-    #     # delete cmake and ninja deps to let pip check pass
-    #     'preinstallopts': "sed -i -e '/cmake>=3.21/d' -e '/ninja/d' requirements.txt && ",
-    #     'source_urls': ['https://github.com/vllm-project/vllm/archive/'],
-    #     'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-    #     'checksums': ['95e5fa8f6ac63f11b4c7122e01c0892beae91f754a64a7e525bc06c3b49feac7'],
-    # }),
-
 sanity_pip_check = True
 
 moduleclass = 'bio'

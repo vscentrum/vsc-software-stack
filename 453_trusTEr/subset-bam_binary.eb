@@ -7,7 +7,7 @@ homepage = 'https://github.com/10XGenomics/subset-bam'
 description = """subset-bam is a tool to subset a 10x Genomics BAM file based on a tag, 
 most commonly the cell barcode tag."""
 
-toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+toolchain = SYSTEM
 
 source_urls = ['https://github.com/10XGenomics/subset-bam/releases/download/v%(version)s/']
 
@@ -20,7 +20,5 @@ sanity_check_paths = {
 }
 
 sanity_check_commands = ["%(name)s --help"]
-
-modextrapaths = {'PATH': ''}
 
 moduleclass = 'bio'
