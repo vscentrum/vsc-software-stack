@@ -1,0 +1,60 @@
+easyblock = 'PythonBundle'
+
+name = 'trusTEr'
+version = '0.1.1'
+
+homepage = 'https://github.com/raquelgarza/truster'
+description = """Takes fastq files from 10x single cell RNA sequencing, clusters cells using Seurat,
+and can be used to produce read count matrices in a cluster level.
+You can also quantify reads per cluster having predefined clusters."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+#DEPS:
+    # OK Cellranger
+    # OK? R (version 3.6)
+    # OK Seurat
+    # OK UPDATE - TEtranscripts
+    # OK STAR aligner
+    # UPDATE - subset-bam
+    # UPDATE - bamtofastq
+    # Velocyto
+
+# builddependencies = [
+#     ('hatchling', '1.18.0'),
+#     ('maturin', '1.1.0'),
+#     ('CMake', '3.26.3'),
+#     ('Ninja', '1.11.1'),
+# ]
+dependencies = [
+    ('Python', '3.11.3'),
+    # ('Python-bundle-PyPI', '2023.06'),
+    # ('SciPy-bundle', '2023.07'),
+    ('CellRanger', '8.0.1', '', SYSTEM),
+    ('R', '4.3.2'),
+    ('R-bundle-CRAN', '2023.12'),
+    ('Seurat', '5.1.0', '-R-%(rver)s'),
+    ('STAR', '2.7.11a'),
+    ('velocyto', '0.17.17'),
+    ('TEtranscripts' '2.2.3'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('truster', version, {
+        'checksums': ['36081b7aac1988566b0d42278f77671faabe17725006e56865b0ec5f7374e185'],
+    }),
+]
+
+    # (name, version, {
+    #     # delete cmake and ninja deps to let pip check pass
+    #     'preinstallopts': "sed -i -e '/cmake>=3.21/d' -e '/ninja/d' requirements.txt && ",
+    #     'source_urls': ['https://github.com/vllm-project/vllm/archive/'],
+    #     'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+    #     'checksums': ['95e5fa8f6ac63f11b4c7122e01c0892beae91f754a64a7e525bc06c3b49feac7'],
+    # }),
+
+sanity_pip_check = True
+
+moduleclass = 'bio'
