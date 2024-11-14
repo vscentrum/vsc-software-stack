@@ -39,25 +39,10 @@ exts_list = [
     }),
     (name, version, {
         # `import kaggle` fails for missing API token (`kaggle.json`)
+        # see `api.authenticate()` in `kaggle/__init__.py`
         'modulename': False,
         'checksums': ['439a7dea1d5039f320fd6ad5ec21b688dcfa70d405cb42095b81f41edc401b81'],
     }),
 ]
 
-# TODO
-# sanity_check_commands = [
-#     'python -c "import kaggle; from kaggle.api.kaggle_api_extended import KaggleApi; api = KaggleApi()"',
-# ]
-
 moduleclass = 'tools'
-
-# TODO
-# == 2024-11-14 12:57:29,967 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: extensions sanity check failed for 1 extensions: kaggle
-# failing sanity check for 'kaggle' extension: command "python -c "import kaggle"" failed; output:
-# Traceback (most recent call last):
-#   File "<string>", line 1, in <module>
-#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/kaggle/1.6.17-foss-2023b/lib/python3.11/site-packages/kaggle/__init__.py", line 7, in <module>
-#     api.authenticate()
-#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/kaggle/1.6.17-foss-2023b/lib/python3.11/site-packages/kaggle/api/kaggle_api_extended.py", line 407, in authenticate
-#     raise IOError('Could not find {}. Make sure it\'s located in'
-# OSError: Could not find kaggle.json. Make sure it's located in /user/gent/453/vsc45304/.config/kaggle. Or use the environment method. See setup instructions at https://github.com/Kaggle/kaggle-api/,  (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
