@@ -1,0 +1,38 @@
+# should be compatible with Single-cell-python-bundle/2024.02-foss-2023a
+easyblock = 'PythonBundle'
+
+name = 'bin2cell'
+version = '0.3.2'
+
+homepage = 'https://github.com/Teichlab/bin2cell'
+description = """Bin2cell proposes 2um bin to cell groupings based on segmentation,
+which can be done on the morphology image and/or a visualisation of the gene expression."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# DEPS:
+    # ok build_backend: flit_core >=3.2,<4
+    # OK "numpy < 2",
+    # OK "scanpy",
+    # UPDATE - "stardist",
+    # OK? "opencv-python",
+    # UPDATE - "fastparquet"
+    
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('scanpy', '1.9.8'),
+    ('OpenCV', '4.8.1', '-contrib'),
+]
+
+exts_list = [
+    ('flit_core', '3.9.0', {
+        'checksums': ['72ad266176c4a3fcfab5f2930d76896059851240570ce9a98733b658cb786eba'],
+    }),
+    (name, version),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+moduleclass = 'bio'
