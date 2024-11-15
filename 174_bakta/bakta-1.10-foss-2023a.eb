@@ -1,0 +1,82 @@
+easyblock = 'PythonBundle'
+
+name = 'bakta'
+version = '1.10.0'
+
+homepage = "https://github.com/oschwengers/bakta"
+description = """Bakta is a tool for the rapid & standardized annotation of bacterial genomes and plasmids
+ from both isolates and MAGs. It provides dbxref-rich, sORF-including and taxon-independent annotations
+ in machine-readable JSON & bioinformatics standard file formats for automated downstream analysis."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [
+    ('scikit-build-core', '0.5.0'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Biopython', '1.83'),
+    ('PyYAML', '6.0'),
+    ('PyHMMER', '0.10.6'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('alive_progress', '3.2.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['0677929f8d3202572e9d142f08170b34dbbe256cc6d2afbf75ef187c7da964a8'],
+    }),
+    ('pyCirclize', '1.7.1', {
+        'source_tmpl': SOURCELOWER_PY3_WHL,
+        'checksums': ['e0c049877b1ee47245866cc9968f2aded5fe3ead8a3333841536dc29fd14bc90'],
+    }),
+    # ('pyrodigal', '3.6.3', {
+    #     'checksums': ['3e226f743c960d4d30c46ae6868aff7e2a6b98f8d837cfbd2637568569b21f78'],
+    # }),
+    ('xopen', '2.0.2', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['74e7f7fb7e7f42bd843c798595fa5a52086d7d1bf3de0e8513c6615516431313'],
+    }),
+    (name, version, {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['48c24b23e1adad62ea22bee572341923cb84454bf76de0b03848b132363f1bed'],
+    }),
+]
+
+moduleclass = 'tools'
+
+# TODO
+# == 2024-11-15 20:35:34,863 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -m pip install --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/bakta/1.10.0-foss-2023a  --no-deps  --ignore-installed  --no-index  --no-build-isolation  ." exited with exit code 1 and output:
+# Processing /tmp/vsc45304/easybuild/build/bakta/1.10.0/foss-2023a/pyrodigal/pyrodigal-3.6.3
+#   Preparing metadata (pyproject.toml): started
+#   Preparing metadata (pyproject.toml): finished with status 'error'
+#   error: subprocess-exited-with-error
+#
+#    Preparing metadata (pyproject.toml) did not run successfully.
+#    exit code: 7
+#   > [2 lines of output]
+#       ERROR: Unrecognized options in pyproject.toml:
+#         tool.scikit-build.overrides -> Did you mean: tool.scikit-build.wheel, tool.scikit-build.generate, tool.scikit-build.editable?
+#       [end of output]
+#
+#   note: This error originates from a subprocess, and is likely not a problem with pip.
+# error: metadata-generation-failed
+#
+#  Encountered error while generating package metadata.
+# > See above for output.
+#
+# note: This is an issue with the package mentioned above, not pip.
+# hint: See above for details.
+#  (at easybuild/easybuild-framework/easybuild/tools/run.py:695 in parse_cmd_output)
+
+# TODO
+# pycirclize 1.7.1 requires matplotlib, which is not installed.
+# xopen 2.0.2 requires isal, which is not installed.
+# xopen 2.0.2 requires zlib-ng, which is not installed.
+# alive-progress 3.2.0 requires about-time, which is not installed.
+# alive-progress 3.2.0 requires grapheme, which is not installed.
+# bakta 1.10.0 requires pyrodigal, which is not installed.
+# bakta 1.10.0 has requirement pyhmmer>=0.10.15, but you have pyhmmer 0.10.6.
