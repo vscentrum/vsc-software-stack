@@ -1,39 +1,33 @@
-easyblock = 'PythonBundle'
+easyblock = 'PythonPackage'
 
 name = 'stardist'
-version = '0.8.3'
+version = '0.8.5'
 
 homepage = 'https://github.com/stardist/stardist'
 description = "Object Detection with Star-convex Shapes."
 
-toolchain = {'name': 'foss', 'version': '2021b'}
-toolchainopts = {'pic': True}
+toolchain = {'name': 'foss', 'version': '2023a'}
 
+sources = [SOURCE_TAR_GZ]
+checksums = ['260a31df86ca711e5e98cb91597c6cb9a10dcd1dc3c6b826d41b7c73c9646a1e']
+
+# DEPS:
+    # 'csbdeep>=0.8.0', -> for 0.9.1 -> NO use older version
+    # 'csbdeep>=0.7.4', -> for 0.8.5 seems ok
+    # OK 'scikit-image',
+    # OK 'numba',
+    # OK 'imageio',
 dependencies = [
-    ('Python', '3.9.6'),
-    ('TensorFlow', '2.7.1'),
-    ('numba', '0.54.1'),
-    ('imageio', '2.13.5'),
-    ('scikit-image', '0.19.1'),
-    ('tqdm', '4.62.3'),
+    ('Python', '3.11.3'),
+    ('TensorFlow', '2.13.0'),
+    ('numba', '0.58.1'),
+    ('scikit-image', '0.22.0'),
+    ('imageio', '2.33.1'),
+    ('CSBDeep', '0.7.4'),
 ]
 
 use_pip = True
-
-exts_list = [
-    ('tifffile', '2022.10.10', {
-        'checksums': ['50b61ba943b866d191295bc38a00191c9fdab23ece063544c7f1a264e3f6aa8e'],
-    }),
-    ('csbdeep', '0.7.2', {
-        'checksums': ['8a000eb71d04aa753f52ffe81a34c0a30a06ee986d20b9986d76272253e2fd53'],
-    }),
-    ('edt', '2.3.0', {
-        'checksums': ['220e2086fdf32bbd8964df76b3e1a42061ece1f4b9ea95ec83a094d24d258664'],
-    }),
-    (name, version, {
-        'checksums': ['8ac1f6165ca8e8496651c6e2b49ce57d6d574dfb22bf6f63ddaec1f64b8868d1'],
-    }),
-]
+download_dep_fail = True
 
 sanity_pip_check = True
 
