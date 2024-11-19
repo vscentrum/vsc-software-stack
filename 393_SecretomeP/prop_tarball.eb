@@ -14,10 +14,14 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # no public download url
 # downloaded from https://services.healthtech.dtu.dk/services/ProP-1.0/
 sources = ['%(namelower)s-%(version)s.Linux.tar.Z']
-patches = ['patch6-prop.patch']
+patches = [
+    'patch9-prop.patch',
+    'patch1-furin.patch'
+]
 checksums = [
     {'prop-1.0c.Linux.tar.Z': 'd6686b0bad2cd82ca0ec87fb7503838a70b8cbd6040542c2e50101d3ac12d6ed'},
-    {'patch6-prop.patch': '4ea7aafe17bc563692c8e98f592f8059a05266a33ac9a8149f180f4a4770f975'},
+    {'patch9-prop.patch': '68e2f0fc1c256bb8a30841785c6f91a647f9fe48e9b897cea0f4b912b65f144b'},
+    {'patch1-furin.patch': 'd9d56c355f2c1f1186e53450599623941e9f4921e21af2b13c5bac6f080de243'},
 ]
 
 # builddependencies = [
@@ -29,16 +33,16 @@ dependencies = [
     ('Perl', '5.36.1'),
     ('Perl-bundle-CPAN', '5.36.1'),
     ('SignalP', '6.0h', '-fast'),
-    # ('SignalP', '5.0b', '-Linux', SYSTEM), # do not have sources
     ('gawk', '5.3.0'),
     ('tcsh', '6.24.10'),
 ]
 
-preinstall_cmd ="sed -i 's|#! /usr/bin/nawk -f|#! /usr/bin/env gawk -f|' bin/in2how"
-postinstallcmds = [
-    'mv %(installdir)s/%(namelower)s %(installdir)s/bin/%(namelower)s',
-    # 'mkdir -m 777 $HOME/ProP/tmp'
-]
+preinstall_cmd ="sed -i 's|#! /usr/bin/nawk -f|#! /usr/bin/env -S gawk|' bin/in2how"
+preinstall_cmd = 'export BINDIR=%(installdir)s/bin'
+# postinstallcmds = [
+#     'mv %(installdir)s/%(namelower)s %(installdir)s/bin/%(namelower)s',
+#     # 'mkdir -m 777 $HOME/ProP/tmp'
+# ]
 
 # preinstall_cmd =
 # prebuildopts = 'rm %(start_dir)s/tools_opera_ms/samtools && '
@@ -53,21 +57,42 @@ postinstallcmds = [
 # files_to_copy = ['bin', 'data', 'LICENSE']
 # files_to_copy = ['*']
 
-# modextrapaths = {'PATH': ''}
-
-# sanity_check_paths = {
-#     'files': ['bin/chkparse', 'bin/psipass2', 'bin/psipred', 'bin/seq2mtx'],
-#     'dirs': ['bin', 'data'],
-# }
+modextrapaths = {'PATH': ''}
 
 sanity_check_paths = {
-    'files': ['bin/%(namelower)s'],
+    'files': ['%(namelower)s'],
     'dirs': [],
 }
 
+# sanity_check_paths = {
+#     'files': ['bin/%(namelower)s'],
+#     'dirs': [],
+# }
+
 moduleclass = 'bio'
 
+# change shebang to: #! /bin/env -S tcsh -f
 # E2: 
+    # after patch8:
+        # if ( $?f_opt ) then
+
+        # ${PROPBIN}/prop_furin ${PROPTMP}/in.all.how > ${PROPTMP}/rresults
+        # open: No such file or directory
+        # apparent state: unit 8 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
+        # lately writing sequential formatted external IO
+        # Abort (core dumped)
+        # open: No such file or directory
+        # apparent state: unit 8 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
+        # lately writing sequential formatted external IO
+        # Abort (core dumped)
+        # open: No such file or directory
+        # apparent state: unit 8 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
+        # lately writing sequential formatted external IO
+        # Abort (core dumped)
+        # open: No such file or directory
+        # apparent state: unit 8 named /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Pro
+        # lately writing sequential formatted external IO
+        # Abort (core dumped)
     # -> change PROPTMP to $HOME -> another error
         # open: can't stat file
         # apparent state: unit 3 named /user/gent/470/vsc47063/WIP/393_SecretomeP/prop_tmp/2745264/in.all.how

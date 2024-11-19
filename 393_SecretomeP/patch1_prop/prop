@@ -1,4 +1,4 @@
-#! /bin/tcsh -f
+#! /bin/env -S tcsh -f 
 
 ###############################################################################
 # FILE:		prop	(ProPeptide Prediction Server)
@@ -27,6 +27,8 @@
 #	GENERAL SETTINGS, CUSTOMIZE
 ###############################################################################
 
+set verbose
+
 # full path to ProP directory
 setenv	PROPHOME	$EBROOTPROP
 
@@ -47,7 +49,7 @@ setenv SIGNALP $EBROOTSIGNALP/bin/signalp6
 setenv	LANG		C			# else GAWK will fail ...
 
 setenv	PROPBIN		$PROPHOME/bin
-setenv	PROPTMP		/tmp/$$
+setenv	PROPTMP		$HOME/WIP/393_SecretomeP/prop_tmp/$$
 setenv	PROPTXT		$PROPHOME/etc
 setenv	PROPETC		$PROPHOME/etc
 setenv	PROPHOW		$PROPHOME/how
@@ -171,7 +173,7 @@ endif
 # Main: read and analyse input, make predictions 
 ###############################################################################
 
-mkdir -m 777 ${PROPTMP}
+mkdir ${PROPTMP}
 touch ${PROPTMP}/checkfasta
 # chmod 777 ${PROPTMP}/checkfasta
 touch ${PROPTMP}/checkfasta.fas
@@ -181,12 +183,12 @@ touch ${PROPTMP}/in.all.how
 touch ${PROPTMP}/in.all.fas
 # chmod 777 ${PROPTMP}/in.all.fas
 
-mkdir -m 777 $PROPTMP/data
+mkdir ${PROPTMP}/data
 
 # split multiple FASTA entries into single files in $PROPTMP/data
 # perform prediction and output on each file in $PROPTMP/data (if not empty)
 
-$AWK -f ${PROPBIN}/fasta2dir -v OUTDIR=$PROPTMP/data $infile
+$AWK -f ${PROPBIN}/fasta2dir -v OUTDIR=${PROPTMP}/data $infile
 
 if ( ! `ls -1 $PROPTMP/data | wc -l` ) then
 	$ECHO ProP: no sequences found in \"$infile\", check format
@@ -197,9 +199,9 @@ endif
 # for each input sequence ...
 ###############################################################################
 #foreach f ($PROPTMP/data/*)           # [t]csh bug: no * expantion
-foreach ff (`\ls $PROPTMP/data`)
+foreach ff (`\ls ${PROPTMP}/data`)
 
-   set f = $PROPTMP/data/$ff
+   set f = ${PROPTMP}/data/$ff
 
    if ( `cat $f | wc -l` == 1 ) then
       # skip if file only has one line (> fasta header)
@@ -236,10 +238,10 @@ foreach ff (`\ls $PROPTMP/data`)
 
    if ( $?f_opt ) then
       # predict sites in <in.all.how> using FURIN-specific network
-      $PROPBIN/prop_furin ${PROPTMP}/in.all.how > ${PROPTMP}/rresults
+      ${PROPBIN}/prop_furin ${PROPTMP}/in.all.how > ${PROPTMP}/rresults
    else
       # predict sites in <in.all.how> using GENERAL/TOTAL SET-specific network
-      $PROPBIN/prop_total ${PROPTMP}/in.all.how > ${PROPTMP}/rresults
+      ${PROPBIN}/prop_total ${PROPTMP}/in.all.how > ${PROPTMP}/rresults
    endif
 
    ############################################################################
@@ -290,13 +292,13 @@ foreach ff (`\ls $PROPTMP/data`)
             @ i++
       end
       cat ${PROPTMP}/in.all.how | \
-         $AWK -v B=${sppos}:s -f $PROPBIN/gethow \
+         $AWK -v B=${sppos}:s -f ${PROPBIN}/gethow \
          >${PROPTMP}/in.all.how.tmp
       mv ${PROPTMP}/in.all.how.tmp ${PROPTMP}/in.all.how
    endif
 
    cat ${PROPTMP}/in.all.how | \
-      $AWK -v B=${Ppos}:P -f $PROPBIN/gethow  \
+      $AWK -v B=${Ppos}:P -f ${PROPBIN}/gethow  \
       > ${PROPTMP}/current_pred.how
 
 
@@ -353,14 +355,14 @@ foreach ff (`\ls $PROPTMP/data`)
 
 
       # data for plotting
-      touch $PROPTMP/gr.sp.dat
+      touch ${PROPTMP}/gr.sp.dat
       if ( $signalpnum ) then
-         $ECHO $signalpnum 1.3 >$PROPTMP/gr.sp.dat
+         $ECHO $signalpnum 1.3 >${PROPTMP}/gr.sp.dat
       else
-         $ECHO 0 0 >$PROPTMP/gr.sp.dat
+         $ECHO 0 0 >${PROPTMP}/gr.sp.dat
       endif
 
-      $AWK '/\|/{print $2,$4;}' $PROPTMP/rresults >$PROPTMP/gr.pp.dat
+      $AWK '/\|/{print $2,$4;}' ${PROPTMP}/rresults >${PROPTMP}/gr.pp.dat
 
       # customize GNUPLOT script
       setenv ENAME `cat ${PROPTMP}/rresults | $AWK '/[\.\*]$/{print $1;exit;}'`
@@ -376,7 +378,7 @@ foreach ff (`\ls $PROPTMP/data`)
 	 sed 's/_LEN_/'$elen'/g' | \
 	 sed "s/_PRED_/$predtype/g" | \
 	 sed 's/+/\//g' \
-	 >$PROPTMP/custom.gnu
+	 >${PROPTMP}/custom.gnu
 
       # plot
       if ( $?w_opt ) then
@@ -395,9 +397,9 @@ end # foreach input sequence ...
 ###############################################################################
 
 # clean up
-cd /
-rm -rf $PROPTMP/*
-rm -rf $PROPTMP
+# cd /
+# rm -rf $PROPTMP/*
+# rm -rf $PROPTMP
 
 ###############################################################################
 # End of script
