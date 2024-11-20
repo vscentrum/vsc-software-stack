@@ -29,6 +29,7 @@ dependencies = [
     ('Triton', '2.1.0', versionsuffix),
     ('Ray-project', '2.9.1'),
     ('numba', '0.58.1'),
+    ('xformers', '0.0.23.post1', versionsuffix),
 ]
 
 use_pip = True
@@ -55,10 +56,10 @@ exts_list = [
     ('prometheus_client', '0.21.0', {
         'checksums': ['96c83c606b71ff2b0a433c98889d275f51ffec6c5e267de37c7a2b5c9aa9233e'],
     }),
-    ('xformers', '0.0.23.post1', {
-        'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux2014_x86_64.whl',
-        'checksums': ['2aea20e84852fafe87f4103b4adfe5f324915defa403e98fadc5a97f333f7105'],
-    }),
+    # ('xformers', '0.0.23.post1', {
+    #     'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux2014_x86_64.whl',
+    #     'checksums': ['2aea20e84852fafe87f4103b4adfe5f324915defa403e98fadc5a97f333f7105'],
+    # }),
     ('pynvml', '11.5.0', {
         'checksums': ['d027b21b95b1088b9fc278117f9f61b7c67f8e33a787e9f83f735f0f71ac32d0'],
     }),
@@ -95,10 +96,6 @@ exts_list = [
 
 sanity_pip_check = True
 
-moduleclass = 'ai'
+# my_check_cmd = 'from vllm import LLM, SamplingParams'
 
-# xformers with cuda:
-    #   TORCH_CUDA_ARCH_LIST="6.0;6.1;6.2;7.0;7.2;8.0;8.6"
-    #   5.2;6.0;7.0;7.5;8.0;8.6;9.0
-    # TORCH_CUDA_ARCH_LIST="5.2;6.0;7.0;7.5;8.0;8.6;9.0"
-    
+moduleclass = 'ai'

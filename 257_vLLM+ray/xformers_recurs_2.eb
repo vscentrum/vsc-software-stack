@@ -45,8 +45,12 @@ preinstallopts += 'export XFORMERS_DISABLE_FLASH_ATTN=1 && '
 # preinstallopts += 'export NVCC_THREADS=1 && '
 preinstallopts += 'export TORCH_CUDA_ARCH_LIST="5.2;6.0;7.0;7.5;8.0;8.6;9.0" && '
 # preinstallopts += 'export MAX_JOBS=1 && '
-preinstallopts += 'export MAX_JOBS=2 && '
-preinstallopts += 'export FORCE_CUDA=1 && '
+preinstallopts += 'export MAX_JOBS=3 && '
+# preinstallopts += 'export FORCE_CUDA=1 && '
+# fix version to 0.0.23.post1
+preinstallopts += "sed -i 's/24/23.post1/' version.txt && "
+preinstallopts += "sed -i '385d' setup.py && "
+
 # local_preinstallopts += "sed -i '225,232d' setup.py && "
 # local_preinstallopts += "sed -i '224a\    cutlass_dir_ebroot=os.getenv(\"$EBROOTCUTLASS\")' setup.py && "
 # local_preinstallopts += "sed -i '225a\    cutlass_dir=os.path.join(cutlass_dir_ebroot, \"include\")' setup.py && "
@@ -73,6 +77,7 @@ preinstallopts += 'export FORCE_CUDA=1 && '
 
 sanity_pip_check = True
 
+# my_test_cmd = 'python -m xformers.info'
 moduleclass = 'ai'
 
 # xformers with cuda:
