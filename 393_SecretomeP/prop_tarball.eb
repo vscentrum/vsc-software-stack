@@ -37,8 +37,13 @@ dependencies = [
     ('tcsh', '6.24.10'),
 ]
 
-preinstall_cmd ="sed -i 's|#! /usr/bin/nawk -f|#! /usr/bin/env -S gawk|' bin/in2how"
-preinstall_cmd = 'export BINDIR=%(installdir)s/bin'
+preinstall_cmd = "sed -i 's|#! /usr/bin/nawk -f|#! /usr/bin/env -S gawk -f|' bin/in2how"
+preinstall_cmd += 'chmod +x bin/in2how'
+preinstall_cmd = "sed -i 's|#! /usr/freeware/bin/gawk -f|#! /usr/bin/env -S gawk -f|' bin/fasta2dir"
+preinstall_cmd += 'chmod +x bin/fasta2dir'
+preinstall_cmd = "sed -i 's|#! /usr/bin/nawk -f|#! /usr/bin/env -S gawk -f|' bin/gethow"
+preinstall_cmd += 'chmod +x bin/gethow'
+preinstall_cmd += 'export BINDIR=%(installdir)s/bin'
 # postinstallcmds = [
 #     'mv %(installdir)s/%(namelower)s %(installdir)s/bin/%(namelower)s',
 #     # 'mkdir -m 777 $HOME/ProP/tmp'
