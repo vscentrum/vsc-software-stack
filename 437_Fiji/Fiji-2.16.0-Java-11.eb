@@ -1,0 +1,59 @@
+easyblock = 'PackedBinary'
+
+name = 'Fiji'
+version = '2.16.0'
+local_version = '20241022'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://fiji.sc/'
+description = """Fiji is an image processing package—a 'batteries-included' distribution of
+ ImageJ, bundling a lot of plugins which facilitate scientific image analysis.
+This release is based on ImageJ-2.1.0 and Fiji-2.1.1"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://downloads.imagej.net/fiji/future/']
+sources = ['%%(namelower)s-future-linux64-%s.zip' % local_version]
+checksums = ['9501837d1e5d8bf0549fa32cf157a48ab312d2470d9da0f82b330601ac7f5956']
+
+dependencies = [('Java', '11', '', SYSTEM)]
+
+# postinstallcmds = [
+#     # Remove binaries for other platforms
+#     'rm %(installdir)s/{ImageJ-win32.exe,ImageJ-win64.exe}',
+#     # Enable any update site (edit existing site with same parameters to enable it)
+#     # Full list at https://imagej.github.io/list-of-update-sites/
+#     '%(installdir)s/ImageJ-linux64 --headless --update edit-update-site "ImageScience"'
+#     ' https://sites.imagej.net/ImageScience/',
+#     '%(installdir)s/ImageJ-linux64 --headless --update edit-update-site "3D ImageJ Suite"'
+#     ' https://sites.imagej.net/Tboudier/',
+#     '%(installdir)s/ImageJ-linux64 --headless --update edit-update-site "ilastik"'
+#     ' https://sites.imagej.net/Ilastik/',
+#     # Add a new update site
+#     # '%(installdir)s/ImageJ-linux64 --headless --update add-update-site "New Name"'
+#     # ' https://site.url/NewName/',
+#     # Update the installation
+#     '%(installdir)s/ImageJ-linux64 --help',
+#     '%(installdir)s/ImageJ-linux64 --headless --update update',
+#     '%(installdir)s/ImageJ-linux64 --headless --update',
+# ]
+
+sanity_check_paths = {
+    # 'files': ['ImageJ-linux64'],
+    'files': ['fiji-linux-x64'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['fiji-linux-x64']
+
+modloadmsg = """
+Additional plugins can be installed in your $HOME/.plugins folder or requested to user support
+Use ImageJ/Fiji in headless mode in your scripts with the command `ImageJ-linux64 --headless`
+More information at https://imagej.net/Headless
+"""
+
+moduleclass = 'vis'
+
+# TODO
+# == 2024-11-20 13:51:23,376 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: sanity check command fiji-linux-x64 --help exited with code 1 (output: fiji-linux-x64: /lib64/libc.so.6: version `GLIBC_2.34' not found (required by fiji-linux-x64)
+# ) (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
