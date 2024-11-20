@@ -2,7 +2,7 @@ easyblock = 'PythonPackage'
 
 name = 'xformers'
 version = '0.0.23.post1'
-versionsuffix = '-CUDA-%(cudaver)s'
+# versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/facebookresearch/xformers'
 description = """Flexible Transformers, defined by interoperable and optimized building blocks."""
@@ -26,27 +26,21 @@ builddependencies = [
     ('Ninja', '1.11.1'),
 ]
 dependencies = [
-    ('CUDA', '12.1.1', '', SYSTEM),
+    # ('CUDA', '12.1.1', '', SYSTEM),
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
     ('SciPy-bundle', '2023.07'),
-    ('PyTorch-bundle', '2.1.2', versionsuffix),
-    ('flash-attention', '2.6.3', versionsuffix),
-    ('CUTLASS', '3.4.0', versionsuffix),
-    ('Triton', '2.1.0', versionsuffix),
+    ('PyTorch-bundle', '2.1.2'),
+    # ('flash-attention', '2.6.3', versionsuffix),
+    # ('CUTLASS', '3.4.0', versionsuffix),
 ]
 
-maxparallel = 1
 use_pip = True
 download_dep_fail = True
 
-preinstallopts = 'export XFORMERS_MORE_DETAILS=1 && '
-preinstallopts += 'export XFORMERS_DISABLE_FLASH_ATTN=1 && '
-# preinstallopts += 'export NVCC_THREADS=1 && '
-preinstallopts += 'export TORCH_CUDA_ARCH_LIST="5.2;6.0;7.0;7.5;8.0;8.6;9.0" && '
-# preinstallopts += 'export MAX_JOBS=1 && '
-preinstallopts += 'export MAX_JOBS=2 && '
-preinstallopts += 'export FORCE_CUDA=1 && '
+# preinstallopts = 'export TORCH_CUDA_ARCH_LIST="5.2;6.0;7.0;7.5;8.0;8.6;9.0" && '
+# preinstallopts = 'export MAX_JOBS=1 && '
+# preinstallopts += 'export FORCE_CUDA=1 && '
 # local_preinstallopts += "sed -i '225,232d' setup.py && "
 # local_preinstallopts += "sed -i '224a\    cutlass_dir_ebroot=os.getenv(\"$EBROOTCUTLASS\")' setup.py && "
 # local_preinstallopts += "sed -i '225a\    cutlass_dir=os.path.join(cutlass_dir_ebroot, \"include\")' setup.py && "
@@ -82,6 +76,9 @@ moduleclass = 'ai'
     # export MAX_JOBS=2
     # FORCE_CUDA=1
     # ? export NVCC_THREADS=1
+    # XFORMERS_DISABLE_FLASH_ATTN=1
+        # https://github.com/facebookresearch/xformers/issues/905
+    # XFORMERS_MORE_DETAILS=1
     
 # E1: 
     # problem in /PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/utils/cpp_extension.py ->log5.txt
