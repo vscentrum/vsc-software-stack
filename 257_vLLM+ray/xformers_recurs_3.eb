@@ -9,17 +9,8 @@ description = """Flexible Transformers, defined by interoperable and optimized b
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-sources = [{
-    'filename': 'v%(version)s-rec.tar.gz',
-    'git_config': {
-        'url': 'https://github.com/facebookresearch',
-        'repo_name': 'xformers',
-        'tag': 'v%(version)s',
-        'recursive': True,
-        'keep_git_dir': True,
-    }
-}]
-checksums = [None]
+sources = [SOURCE_TAR_GZ]
+checksums = ['b443b158bd7b5275b485d2c6aee94ebc2152878fd784e379b1c8bcb1d67f3b81']
 
 builddependencies = [
     ('CMake', '3.26.3'),
@@ -41,15 +32,18 @@ use_pip = True
 download_dep_fail = True
 
 preinstallopts = 'export XFORMERS_MORE_DETAILS=1 && '
-preinstallopts += 'export XFORMERS_DISABLE_FLASH_ATTN=1 && '
+# preinstallopts += 'export XFORMERS_DISABLE_FLASH_ATTN=1 && '
 # preinstallopts += 'export NVCC_THREADS=1 && '
 preinstallopts += 'export TORCH_CUDA_ARCH_LIST="5.2;6.0;7.0;7.5;8.0;8.6;9.0" && '
-# preinstallopts += 'export MAX_JOBS=1 && '
-preinstallopts += 'export MAX_JOBS=3 && '
+preinstallopts += 'export MAX_JOBS=1 && '
+# preinstallopts += 'export MAX_JOBS=3 && '
 # preinstallopts += 'export FORCE_CUDA=1 && '
 # fix version to 0.0.23.post1
-preinstallopts += "sed -i 's/24/23.post1/' version.txt && "
-preinstallopts += "sed -i '385d' setup.py && "
+# preinstallopts += "sed -i 's/24/23.post1/' version.txt && "
+# preinstallopts += "sed -i '385d' setup.py && "
+preinstallopts += "sed -i '274 s/4/1/' setup.py && "
+preinstallopts += "sed -i '191 s/3/2/' setup.py && "
+preinstallopts += "sed -i '238 s/3/2/' setup.py && "
 
 # local_preinstallopts += "sed -i '225,232d' setup.py && "
 # local_preinstallopts += "sed -i '224a\    cutlass_dir_ebroot=os.getenv(\"$EBROOTCUTLASS\")' setup.py && "
@@ -87,11 +81,8 @@ moduleclass = 'ai'
     # export MAX_JOBS=2
     # FORCE_CUDA=1
     # ? export NVCC_THREADS=1
-
-# E2: OK
-    # problem with xformers showing wrong version -> fix version.py + setup.py    
-# E1: OK
-    # -> export XFORMERS_DISABLE_FLASH_ATTN=1 only helps -> OK
+    
+# E1: 
     # problem in /PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/utils/cpp_extension.py ->log5.txt
         # remove ninja a put cmake -> still same - fail on _run_ninja_build
     # problem with compiling cpp stuff -> log4.txt
