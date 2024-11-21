@@ -55,7 +55,7 @@ setenv	PROPETC		$PROPHOME/etc
 setenv	PROPHOW		$PROPHOME/how
 setenv	PROPSYN		$PROPHOME/syn
 
-setenv	HOW98		$PROPHOW/how98_$SYSTEM
+setenv	HOW98		$PROPHOW/how98_Linux_v2
 
 set	f_opt				# obsolete option, now default
 set	infile		= ()		# use stdin if no file specified
@@ -179,7 +179,7 @@ touch ${PROPTMP}/checkfasta
 touch ${PROPTMP}/checkfasta.fas
 # chmod 777 ${PROPTMP}/checkfasta.fas
 touch ${PROPTMP}/in.all.how
-# chmod 777 ${PROPTMP}/in.all.how
+chmod 777 ${PROPTMP}/in.all.how
 touch ${PROPTMP}/in.all.fas
 # chmod 777 ${PROPTMP}/in.all.fas
 
@@ -235,7 +235,15 @@ foreach ff (`\ls ${PROPTMP}/data`)
    ############################################################################
 
    rm -f ${PROPTMP}/rresults
+   touch ${PROPTMP}/rresults
+   chmod 777 ${PROPTMP}/rresults
 
+   #HERE it failing:
+      # ${PROPBIN}/prop_furin ${PROPTMP}/in.all.how > ${PROPTMP}/rresults
+      # open: can't stat file
+      # apparent state: unit 3 named /user/gent/470/vsc47063/WIP/393_SecretomeP/prop_tmp/1557454/in.all.how
+      # lately reading sequential formatted external IO
+      # Segmentation fault (core dumped)
    if ( $?f_opt ) then
       # predict sites in <in.all.how> using FURIN-specific network
       ${PROPBIN}/prop_furin ${PROPTMP}/in.all.how > ${PROPTMP}/rresults

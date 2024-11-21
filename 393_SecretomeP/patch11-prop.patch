@@ -1,0 +1,196 @@
+--- prop.orig	2024-11-11 14:54:05.005484415 +0100
++++ prop	2024-11-21 19:26:07.255717000 +0100
+@@ -1,8 +1,8 @@
+-#! /bin/tcsh -f
++#! /bin/env -S tcsh -f 
+ 
+ ###############################################################################
+ # FILE:		prop	(ProPeptide Prediction Server)
+-# VERSION: 	1.0b
++# VERSION: 	1.0c
+ # DATE:		Januari 16, 2004
+ # AUTHORS:	Peter Duckert, peterd@cbs.dtu.dk
+ # 		Nikolaj Blom, nikob@cbs.dtu.dk
+@@ -27,38 +27,20 @@
+ #	GENERAL SETTINGS, CUSTOMIZE
+ ###############################################################################
+ 
++set verbose
++
+ # full path to ProP directory
+-setenv	PROPHOME	/usr/cbs/packages/prop/1.0c/prop-1.0c
++setenv	PROPHOME	$EBROOTPROP
+ 
+ # determine platform (do not change this unless you don't have 'uname'!)
+ set	SYSTEM		= `uname -s`
+ 
+ # configure auxiliary software (see installation instructions)
+-if (( $SYSTEM == "IRIX" ) || ( $SYSTEM == "IRIX64" )) then # typical IRIX
+ 
+-   setenv AWK /usr/freeware/bin/gawk
+-   setenv ECHO /sbin/echo
+-   setenv GNUPLOT /usr/freeware/bin/gnuplot
+-   setenv PPM2GIF /usr/freeware/bin/ppmtogif
+-   setenv SIGNALP /usr/cbs/bio/bin/signalp
+-
+-else if ( $SYSTEM == "Linux" ) then             # typical Linux
+-
+-   setenv AWK /usr/bin/gawk
+-   setenv ECHO "/bin/echo -e"	
+-   setenv GNUPLOT /usr/bin/gnuplot		# /usr/local/bin/gnuplot-3.7
+-   setenv PPM2GIF /usr/bin/ppmtogif
+-   setenv SIGNALP /usr/cbs/bio/bin/signalp
+-
+-else                                            # edit to suit your UNIX
+-
+-   setenv AWK /bin/nawk
+-   setenv ECHO /usr/bin/echo
+-   setenv GNUPLOT /usr/bin/gnuplot
+-   setenv PPM2GIF /usr/bin/ppmtogif
+-   setenv SIGNALP /usr/cbs/bio/bin/signalp
++setenv AWK $EBROOTGAWK/bin/gawk
++setenv ECHO "/bin/echo -e"
++setenv SIGNALP $EBROOTSIGNALP/bin/signalp6
+ 
+-endif
+ 
+ ###############################################################################
+ #	OTHER SETTINGS: NOTHING SHOULD NEED CHANGING BELOW THIS LINE!
+@@ -67,7 +49,7 @@
+ setenv	LANG		C			# else GAWK will fail ...
+ 
+ setenv	PROPBIN		$PROPHOME/bin
+-setenv	PROPTMP		$PROPHOME/tmp/$$
++setenv	PROPTMP		$HOME/WIP/393_SecretomeP/prop_tmp/$$
+ setenv	PROPTXT		$PROPHOME/etc
+ setenv	PROPETC		$PROPHOME/etc
+ setenv	PROPHOW		$PROPHOME/how
+@@ -75,11 +57,9 @@
+ 
+ setenv	HOW98		$PROPHOW/how98_$SYSTEM
+ 
+-setenv	WWWOUT		/usr/opt/www/pub/CBS/services/ProP-1.0/tmp/$$
+-
+ set	f_opt				# obsolete option, now default
+ set	infile		= ()		# use stdin if no file specified
+-set 	propversion 	= "ProP v.1.0b"
++set 	propversion 	= "ProP v.1.0c"
+ 
+ ###############################################################################
+ # handle command-line options 
+@@ -195,16 +175,20 @@
+ 
+ mkdir ${PROPTMP}
+ touch ${PROPTMP}/checkfasta
++# chmod 777 ${PROPTMP}/checkfasta
+ touch ${PROPTMP}/checkfasta.fas
++# chmod 777 ${PROPTMP}/checkfasta.fas
+ touch ${PROPTMP}/in.all.how
++chmod 777 ${PROPTMP}/in.all.how
+ touch ${PROPTMP}/in.all.fas
++# chmod 777 ${PROPTMP}/in.all.fas
+ 
+-mkdir $PROPTMP/data
++mkdir ${PROPTMP}/data
+ 
+ # split multiple FASTA entries into single files in $PROPTMP/data
+ # perform prediction and output on each file in $PROPTMP/data (if not empty)
+ 
+-$AWK -f ${PROPBIN}/fasta2dir -v OUTDIR=$PROPTMP/data $infile
++$AWK -f ${PROPBIN}/fasta2dir -v OUTDIR=${PROPTMP}/data $infile
+ 
+ if ( ! `ls -1 $PROPTMP/data | wc -l` ) then
+ 	$ECHO ProP: no sequences found in \"$infile\", check format
+@@ -215,9 +199,9 @@
+ # for each input sequence ...
+ ###############################################################################
+ #foreach f ($PROPTMP/data/*)           # [t]csh bug: no * expantion
+-foreach ff (`\ls $PROPTMP/data`)
++foreach ff (`\ls ${PROPTMP}/data`)
+ 
+-   set f = $PROPTMP/data/$ff
++   set f = ${PROPTMP}/data/$ff
+ 
+    if ( `cat $f | wc -l` == 1 ) then
+       # skip if file only has one line (> fasta header)
+@@ -251,13 +235,21 @@
+    ############################################################################
+ 
+    rm -f ${PROPTMP}/rresults
++   touch ${PROPTMP}/rresults
++   chmod 777 ${PROPTMP}/rresults
+ 
++   #HERE it failing:
++      # ${PROPBIN}/prop_furin ${PROPTMP}/in.all.how > ${PROPTMP}/rresults
++      # open: can't stat file
++      # apparent state: unit 3 named /user/gent/470/vsc47063/WIP/393_SecretomeP/prop_tmp/1557454/in.all.how
++      # lately reading sequential formatted external IO
++      # Segmentation fault (core dumped)
+    if ( $?f_opt ) then
+       # predict sites in <in.all.how> using FURIN-specific network
+-      $PROPBIN/prop_furin ${PROPTMP}/in.all.how > ${PROPTMP}/rresults
++      ${PROPBIN}/prop_furin ${PROPTMP}/in.all.how > ${PROPTMP}/rresults
+    else
+       # predict sites in <in.all.how> using GENERAL/TOTAL SET-specific network
+-      $PROPBIN/prop_total ${PROPTMP}/in.all.how > ${PROPTMP}/rresults
++      ${PROPBIN}/prop_total ${PROPTMP}/in.all.how > ${PROPTMP}/rresults
+    endif
+ 
+    ############################################################################
+@@ -308,13 +300,13 @@
+             @ i++
+       end
+       cat ${PROPTMP}/in.all.how | \
+-         $AWK -v B=${sppos}:s -f $PROPBIN/gethow \
++         $AWK -v B=${sppos}:s -f ${PROPBIN}/gethow \
+          >${PROPTMP}/in.all.how.tmp
+       mv ${PROPTMP}/in.all.how.tmp ${PROPTMP}/in.all.how
+    endif
+ 
+    cat ${PROPTMP}/in.all.how | \
+-      $AWK -v B=${Ppos}:P -f $PROPBIN/gethow  \
++      $AWK -v B=${Ppos}:P -f ${PROPBIN}/gethow  \
+       > ${PROPTMP}/current_pred.how
+ 
+ 
+@@ -371,14 +363,14 @@
+ 
+ 
+       # data for plotting
+-      touch $PROPTMP/gr.sp.dat
++      touch ${PROPTMP}/gr.sp.dat
+       if ( $signalpnum ) then
+-         $ECHO $signalpnum 1.3 >$PROPTMP/gr.sp.dat
++         $ECHO $signalpnum 1.3 >${PROPTMP}/gr.sp.dat
+       else
+-         $ECHO 0 0 >$PROPTMP/gr.sp.dat
++         $ECHO 0 0 >${PROPTMP}/gr.sp.dat
+       endif
+ 
+-      $AWK '/\|/{print $2,$4;}' $PROPTMP/rresults >$PROPTMP/gr.pp.dat
++      $AWK '/\|/{print $2,$4;}' ${PROPTMP}/rresults >${PROPTMP}/gr.pp.dat
+ 
+       # customize GNUPLOT script
+       setenv ENAME `cat ${PROPTMP}/rresults | $AWK '/[\.\*]$/{print $1;exit;}'`
+@@ -394,7 +386,7 @@
+ 	 sed 's/_LEN_/'$elen'/g' | \
+ 	 sed "s/_PRED_/$predtype/g" | \
+ 	 sed 's/+/\//g' \
+-	 >$PROPTMP/custom.gnu
++	 >${PROPTMP}/custom.gnu
+ 
+       # plot
+       if ( $?w_opt ) then
+@@ -413,9 +405,9 @@
+ ###############################################################################
+ 
+ # clean up
+-cd /
+-rm -rf $PROPTMP/*
+-rm -rf $PROPTMP
++# cd /
++# rm -rf $PROPTMP/*
++# rm -rf $PROPTMP
+ 
+ ###############################################################################
+ # End of script

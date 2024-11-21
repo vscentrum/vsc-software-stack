@@ -15,12 +15,12 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # downloaded from https://services.healthtech.dtu.dk/services/ProP-1.0/
 sources = ['%(namelower)s-%(version)s.Linux.tar.Z']
 patches = [
-    'patch9-prop.patch',
+    'patch12-prop.patch',
     'patch1-furin.patch'
 ]
 checksums = [
     {'prop-1.0c.Linux.tar.Z': 'd6686b0bad2cd82ca0ec87fb7503838a70b8cbd6040542c2e50101d3ac12d6ed'},
-    {'patch9-prop.patch': '68e2f0fc1c256bb8a30841785c6f91a647f9fe48e9b897cea0f4b912b65f144b'},
+    {'patch12-prop.patch': '827a9b57bd81468403d2cd1f0805bbfd2cd6c2dadf4877c37846b248545d3f2a'},
     {'patch1-furin.patch': 'd9d56c355f2c1f1186e53450599623941e9f4921e21af2b13c5bac6f080de243'},
 ]
 
@@ -37,16 +37,19 @@ dependencies = [
     ('tcsh', '6.24.10'),
 ]
 
-preinstall_cmd = "sed -i 's|#! /usr/bin/nawk -f|#! /usr/bin/env -S gawk -f|' bin/in2how"
-preinstall_cmd += 'chmod +x bin/in2how'
-preinstall_cmd = "sed -i 's|#! /usr/freeware/bin/gawk -f|#! /usr/bin/env -S gawk -f|' bin/fasta2dir"
-preinstall_cmd += 'chmod +x bin/fasta2dir'
-preinstall_cmd = "sed -i 's|#! /usr/bin/nawk -f|#! /usr/bin/env -S gawk -f|' bin/gethow"
-preinstall_cmd += 'chmod +x bin/gethow'
+preinstall_cmd = "sed -i 's|#! /usr/bin/nawk -f|#! /usr/bin/env -S gawk -f|' bin/in2how && "
+preinstall_cmd += 'chmod +x bin/in2how && '
+preinstall_cmd += "sed -i 's|#! /usr/freeware/bin/gawk -f|#! /usr/bin/env -S gawk -f|' bin/fasta2dir && "
+preinstall_cmd += 'chmod +x bin/fasta2dir && '
+preinstall_cmd += "sed -i 's|#! /usr/bin/nawk -f|#! /usr/bin/env -S gawk -f|' bin/gethow && "
+preinstall_cmd += 'chmod +x bin/gethow && '
+# preinstall_cmd += 'ln -s prop bin/prop && '
 preinstall_cmd += 'export BINDIR=%(installdir)s/bin'
+
 # postinstallcmds = [
-#     'mv %(installdir)s/%(namelower)s %(installdir)s/bin/%(namelower)s',
-#     # 'mkdir -m 777 $HOME/ProP/tmp'
+# #     'mv %(installdir)s/%(namelower)s %(installdir)s/bin/%(namelower)s',
+# #     # 'mkdir -m 777 $HOME/ProP/tmp',
+#     'ln -s prop bin/prop',
 # ]
 
 # preinstall_cmd =
@@ -65,8 +68,11 @@ preinstall_cmd += 'export BINDIR=%(installdir)s/bin'
 modextrapaths = {'PATH': ''}
 
 sanity_check_paths = {
-    'files': ['%(namelower)s'],
-    'dirs': [],
+    'files': [
+        '%(namelower)s',
+        # 'bin/%(namelower)s'
+    ],
+    'dirs': ['bin'],
 }
 
 # sanity_check_paths = {
@@ -78,6 +84,19 @@ moduleclass = 'bio'
 
 # change shebang to: #! /bin/env -S tcsh -f
 # E2: 
+    # use how98_Linux_v2 binary as $HOW -> error during prop test/four.fsa:
+        # ${PROPBIN}/prop_furin ${PROPTMP}/in.all.how > ${PROPTMP}/rresults
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/ProP/1.0c-foss-2023a-Linux/how/how98_Linux_v2: 
+        # error while loading shared libraries: libgfortran.so.3: cannot open shared object file: No such file or directory
+
+
+    # it goes to prop_furin - there is somethign wrong -> maybe how98_Linux binary? -> use how98_Linux_v2 binary instead
+        # output of 'dmesg' after few attemps to run prop_furin on in.all.how in tcsh:
+        # 1749721.058398] how98_Linux[1549013]: segfault at 8000000 ip 00000000080744f7 sp 00000000ff894f74 error 4 in how98_Linux[8048000+5a000]
+        # [1749721.058408] Code: 42 fc 02 74 0e 89 f0 e8 57 f2 ff ff eb 66 90 8d 74 26 00 3b 35 28 96 0a 08 73 08 3b 35 74 9a 0a 08 73 10 89 f0 25 00 00 f0 ff <8b> 18 eb 0a 90 8d 74 26 00 bb 20 96 0a 08 b8 00 00 00 00 85 c0 74
+        # [1749721.315298] how98_Linux[1549016]: segfault at 8000000 ip 00000000080744f7 sp 00000000ff918a34 error 4 in how98_Linux[8048000+5a000]
+        # [1749721.315306] Code: 42 fc 02 74 0e 89 f0 e8 57 f2 ff ff eb 66 90 8d 74 26 00 3b 35 28 96 0a 08 73 08 3b 35 74 9a 0a 08 73 10 89 f0 25 00 00 f0 ff <8b> 18 eb 0a 90 8d 74 26 00 bb 20 96 0a 08 b8 00 00 00 00 85 c0 74
+        # [1749721.506506] how98_Linux[1549023]: segfault at 8000000 ip 00000000080744f7 sp 00000000ff8b8c54 error 4 in how98_Linux[8048000+5a000]
     # after patch8:
         # if ( $?f_opt ) then
 
