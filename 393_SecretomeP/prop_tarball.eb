@@ -16,12 +16,12 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 sources = ['%(namelower)s-%(version)s.Linux.tar.Z']
 patches = [
     'patch12-prop.patch',
-    'patch1-furin.patch'
+    'patch2-furin.patch'
 ]
 checksums = [
     {'prop-1.0c.Linux.tar.Z': 'd6686b0bad2cd82ca0ec87fb7503838a70b8cbd6040542c2e50101d3ac12d6ed'},
     {'patch12-prop.patch': '827a9b57bd81468403d2cd1f0805bbfd2cd6c2dadf4877c37846b248545d3f2a'},
-    {'patch1-furin.patch': 'd9d56c355f2c1f1186e53450599623941e9f4921e21af2b13c5bac6f080de243'},
+    {'patch2-furin.patch': '3c874b67207aa92f988ce2e9d9289c80c2092c1e8d377dc54a72920a86ed8a9f'},
 ]
 
 # builddependencies = [
@@ -35,6 +35,8 @@ dependencies = [
     ('SignalP', '6.0h', '-fast'),
     ('gawk', '5.3.0'),
     ('tcsh', '6.24.10'),
+    ('patchelf', '0.18.0'),
+    ('QIIME2', '2020.11', '', SYSTEM),  # for libgfortran.so.3
 ]
 
 preinstall_cmd = "sed -i 's|#! /usr/bin/nawk -f|#! /usr/bin/env -S gawk -f|' bin/in2how && "
@@ -45,6 +47,12 @@ preinstall_cmd += "sed -i 's|#! /usr/bin/nawk -f|#! /usr/bin/env -S gawk -f|' bi
 preinstall_cmd += 'chmod +x bin/gethow && '
 # preinstall_cmd += 'ln -s prop bin/prop && '
 preinstall_cmd += 'export BINDIR=%(installdir)s/bin'
+
+postinstallcmds = [
+    "mkdir %(installdir)s/lib",
+    "cd %(installdir)s/lib && ln -s $EBROOTGCC/lib/libgfortran.so.5 libgfortran.so.3",
+    # "patchelf --force-rpath --set-rpath '$ORIGIN:$ORIGIN/../lib' %(installdir)s/how/how98_Linux_v2",
+]
 
 # postinstallcmds = [
 # #     'mv %(installdir)s/%(namelower)s %(installdir)s/bin/%(namelower)s',
@@ -65,7 +73,10 @@ preinstall_cmd += 'export BINDIR=%(installdir)s/bin'
 # files_to_copy = ['bin', 'data', 'LICENSE']
 # files_to_copy = ['*']
 
-modextrapaths = {'PATH': ''}
+modextrapaths = {
+    'PATH': '',
+    'LD_LIBRARY_PATH': 'lib',
+}
 
 sanity_check_paths = {
     'files': [
@@ -80,6 +91,8 @@ sanity_check_paths = {
 #     'dirs': [],
 # }
 
+# my_test_cmd = 'prop test/four.fsa'
+
 moduleclass = 'bio'
 
 # change shebang to: #! /bin/env -S tcsh -f
@@ -90,7 +103,7 @@ moduleclass = 'bio'
         # error while loading shared libraries: libgfortran.so.3: cannot open shared object file: No such file or directory
 
 
-    # it goes to prop_furin - there is somethign wrong -> maybe how98_Linux binary? -> use how98_Linux_v2 binary instead
+    # it goes to prop_furin - there is something wrong -> maybe how98_Linux binary? -> use how98_Linux_v2 binary instead
         # output of 'dmesg' after few attemps to run prop_furin on in.all.how in tcsh:
         # 1749721.058398] how98_Linux[1549013]: segfault at 8000000 ip 00000000080744f7 sp 00000000ff894f74 error 4 in how98_Linux[8048000+5a000]
         # [1749721.058408] Code: 42 fc 02 74 0e 89 f0 e8 57 f2 ff ff eb 66 90 8d 74 26 00 3b 35 28 96 0a 08 73 08 3b 35 74 9a 0a 08 73 10 89 f0 25 00 00 f0 ff <8b> 18 eb 0a 90 8d 74 26 00 bb 20 96 0a 08 b8 00 00 00 00 85 c0 74
