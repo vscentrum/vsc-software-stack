@@ -24,13 +24,13 @@ github_account = 'Project-MONAI'
         # ok pytorch-ignite==0.4.11 -> add to exts - pin to 0.4.11 version + fix from monai
         # ok gdown>=4.7.3
         # ?OK scipy>=1.12.0; python_version >= '3.9' -> no, I have 1.11.4 -> unpin? - seems I do not have to unpin - no pip check errors
-        # itk>=5.2
-        # nibabel
-        # pillow!=8.3.0  # https://github.com/python-pillow/Pillow/issues/5571
-        # tensorboard>=2.12.0  # https://github.com/Project-MONAI/MONAI/issues/7434
-        # scikit-image>=0.19.0
+        # OK CREATED itk>=5.2 - ctreated ITK-5.3.0 -> 5.4.0 not working (CastXML problem)
+        # OK CREATED nibabel
+        # OK pillow!=8.3.0  # https://github.com/python-pillow/Pillow/issues/5571
+        # OK tensorboard>=2.12.0  # https://github.com/Project-MONAI/MONAI/issues/7434
+        # OK CREATED scikit-image>=0.19.0
         # tqdm>=4.47.0
-        # lmdb
+        # ok lmdb
         # flake8>=3.8.1
         # flake8-bugbear<=24.2.6  # https://github.com/Project-MONAI/MONAI/issues/7690
         # flake8-comprehensions
@@ -45,27 +45,27 @@ github_account = 'Project-MONAI'
         # types-setuptools
         # mypy>=1.5.0, <1.12.0
         # ninja
-        # torchvision
-        # psutil
-        # cucim-cu12; platform_system == "Linux" and python_version >= "3.9" and python_version <= "3.10"
-        # openslide-python
+        # OK torchvision
+        # OK psutil - v5.9.6 in pypi bundle
+        # X cucim-cu12; platform_system == "Linux" and python_version >= "3.9" and python_version <= "3.10"
+        # OK CREATED openslide-python + CREATED OpenSlide-4.0.0
         # imagecodecs; platform_system == "Linux" or platform_system == "Darwin"
         # tifffile; platform_system == "Linux" or platform_system == "Darwin"
-        # pandas
+        # OK pandas
         # requests
         # OK CRATED einops
-        # transformers>=4.36.0, <4.41.0; python_version <= '3.10'
+        # OK transformers>=4.36.0, <4.41.0; python_version <= '3.10'
         # mlflow>=2.12.2
         # clearml>=1.10.0rc0
         # matplotlib>=3.6.3
         # tensorboardX
         # types-PyYAML
-        # pyyaml
+        # OK pyyaml
         # ok fire
-        # jsonschema
+        # OK jsonschema - v4.17.3 in pypi bundle
         # pynrrd
         # pre-commit
-        # pydicom
+        # OK CREATED pydicom - in NiBabel
         # h5py
         # nni==2.10.1; platform_system == "Linux" and "arm" not in platform_machine and "aarch" not in platform_machine
         # optuna
@@ -86,22 +86,46 @@ github_account = 'Project-MONAI'
     # OK gdown 5.2.0 requires beautifulsoup4, which is not installed.
     # OK gdown 5.2.0 requires tqdm, which is not installed.
 
+# Optional deps from import monai; monai.config.print_config():
+    # Pytorch Ignite version: 0.4.11
+    # ITK version: 5.3.0
+    # Nibabel version: 5.3.2
+    # scikit-image version: 0.24.0
+    # scipy version: 1.11.4
+    # Pillow version: 10.4.0
+    # Tensorboard version: 2.18.0
+    # gdown version: 5.2.0
+    # TorchVision version: 0.17.0
+    # tqdm version: 4.66.2
+    # lmdb version: 1.5.1
+    # psutil version: 5.9.6
+    # pandas version: 2.1.3
+    # einops version: 0.8.0
+    # transformers version: 4.44.0
+    # mlflow version: NOT INSTALLED or UNKNOWN VERSION.
+    # pynrrd version: NOT INSTALLED or UNKNOWN VERSION.
+    # clearml version: NOT INSTALLED or UNKNOWN VERSION.
+
+
 # extras: not in local_pip_extras now
-    # [ cucim, transformers, mlflow, clearml, matplotlib, tensorboardX, tifffile, imagecodecs, 
+    # [ cucim, mlflow, clearml, matplotlib, tensorboardX, tifffile, imagecodecs, 
     # ninja, pynrrd, h5py, nni, optuna, onnx, onnxruntime, zarr, lpips, pynvml, huggingface_hub]
 
 # ORIGINAL
-# local_pip_extras = "einops,fire,gdown,ignite,itk,jsonschema,lmdb,nibabel,"
-# local_pip_extras += "openslide,pandas,pillow,psutil,pydicom,pyyaml,scipy,"
+# local_pip_extras = "einops,fire,gdown,ignite,itk,jsonschema,lmdb,nibabel,pydicom,"
+# local_pip_extras += "openslide,pandas,pillow,psutil,pyyaml,scipy,"
 # local_pip_extras += "skimage,tensorboard,torchvision,tqdm"
 
-local_pip_extras = "einops,fire,gdown,ignite,scipy,tqdm,itk"
+local_pip_extras = "einops,fire,gdown,ignite,scipy,tqdm,itk,jsonschema,lmdb,nibabel,pydicom,"
+local_pip_extras += "openslide,pandas,pillow,psutil,pyyaml,skimage,tensorboard,torchvision,"
+local_pip_extras += "transformers"
 
 builddependencies = [
     ('hatchling', '1.18.0'),
     ('Ninja', '1.11.1'),
 ]
 
+# dep_list.txt for details
 dependencies = [
     ('Python', '3.11.5'),
     ('Python-bundle-PyPI', '2023.10'),
@@ -110,11 +134,24 @@ dependencies = [
     ('einops', '0.8.0'),
     ('BeautifulSoup', '4.12.2'),
     ('tqdm', '4.66.2'),
+    ('ITK', '5.3.0'),
+    ('pydicom', '3.0.1'),
+    ('NiBabel', '5.3.2'),
+    ('openslide-python', '1.4.1'),
+    ('Pillow-SIMD', '10.4.0'), # not merged yet
+    ('PyYAML', '6.0.1'),
+    ('scikit-image', '0.24.0'),
+    ('tensorboard', '2.18.0'), # not merged yet
+    ('torchvision', '0.17.0'), # not merged yet
+    ('Transformers', '4.44.0'),
 ]
 
 use_pip = True
 
 exts_list = [
+    ('lmdb', '1.5.1', {
+        'checksums': ['717c255827d331e02f7242b44051aa06466c90f6d732ecb07b31edfb1e06c67a'],
+    }),
     ('pytorch-ignite', '0.4.11', {
         'modulename': 'ignite',
         'patches': ['PyTorch-Ignite-0.4.11_fix_error_on_importing_Events.patch'],

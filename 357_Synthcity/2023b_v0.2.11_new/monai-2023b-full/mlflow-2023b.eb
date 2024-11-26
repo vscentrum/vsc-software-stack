@@ -1,0 +1,89 @@
+easyblock = 'PythonBundle'
+
+name = 'MLflow'
+version = '2.18.0'
+
+homepage = 'https://mlflow.org'
+description = """MLflow is a platform to streamline machine learning development, including tracking experiments,
+packaging code into reproducible runs, and sharing and deploying models."""
+
+toolchain = {'name': 'gfbf', 'version': '2023b'}
+
+#DEPS:
+    # ok alembic<2,!=1.10.0
+    # ok docker<8,>=4.0.0
+    # OK Flask<4
+    # OK numpy<3
+    # OK scipy<2
+    # OK pandas<3
+    # OK sqlalchemy<3,>=1.4.0
+    # ok gunicorn<24; platform_system != 'Windows'
+    # OK scikit-learn<2
+    # OK pyarrow<19,>=4.0.0
+    # OK markdown<4,>=3.3
+    # OK Jinja2<4,>=2.11; platform_system != 'Windows'
+    # OK matplotlib<4
+    # ok graphene<4
+    # ok mlflow 2.18.0 requires mlflow-skinny, which is not installed.
+    # ok graphene 3.4.1 requires graphql-core, which is not installed.
+    # graphene 3.4.1 requires graphql-relay, which is not installed.
+
+
+builddependencies = [
+    ('binutils', '2.40'),
+    ('hatchling', '1.18.0'),
+    ('poetry', '1.6.1'),
+]
+dependencies = [
+    ('Python', '3.11.5'),
+    ('Python-bundle-PyPI', '2023.10'),
+    ('GitPython', '3.1.42'),
+    ('SciPy-bundle', '2023.11'),
+    ('matplotlib', '3.8.2'),
+    ('scikit-learn', '1.3.2'),
+    # ('PyYAML', '6.0.1'),
+    ('SQLAlchemy', '2.0.29'),
+    # ('protobuf-python', '4.25.3'),
+    ('Flask', '3.0.0'),
+    ('Arrow', '16.1.0'),
+    ('Markdown', '3.6'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('graphql-relay', '3.2.0', {
+        'checksums': ['1ff1c51298356e481a0be009ccdff249832ce53f30559c1338f22a0e0d17250c'],
+    }),
+    ('graphql_core', '3.2.5', {
+        'checksums': ['e671b90ed653c808715645e3998b7ab67d382d55467b7e2978549111bbabf8d5'],
+    }),
+    ('graphene', '3.4.1', {
+        'checksums': ['828a8d7b1bce450566a72cc8733716c20f3acfc659960de73dd38f46dc302040'],
+    }),
+    ('alembic', '1.14.0', {
+        'checksums': ['b00892b53b3642d0b8dbedba234dbf1924b69be83a9a769d5a624b01094e304b'],
+    }),
+    ('docker', '7.1.0', {
+        'checksums': ['ad8c70e6e3f8926cb8a92619b832b4ea5299e2831c14284663184e200546fa6c'],
+    }),
+    ('gunicorn', '23.0.0', {
+        'checksums': ['f014447a0101dc57e294f6c18ca6b40227a4c90e9bdb586042628030cba004ec'],
+    }),
+    ('mlflow_skinny', version, {
+        'checksums': ['87e83f56c362a520196b2f0292b24efdca7f8b2068a6a6941f2ec9feb9bfd914'],
+    }),
+    ('mlflow', version, {
+        'checksums': ['90f0d04b02e35c0f2fccc88e892e37b84871cb4f766acd3ef904c1c30be63ee3'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/%(namelower)s'],
+}
+
+sanity_check_commands = ['%(namelower)s --help']
+
+moduleclass = 'tools'
