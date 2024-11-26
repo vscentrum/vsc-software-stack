@@ -15,7 +15,10 @@ description = """Insight Segmentation and Registration Toolkit (ITK) provides
 
 toolchain = {'name': 'foss', 'version': '2023b'}
 # toolchainopts = {'pic': True, 'cstd': 'c++17'}
-toolchainopts = {'extra_cxxflags': '-U_Float128 -U_Float32 -U_Float64 -U_Float32x -U_Float64x'}
+toolchainopts = {
+    'extra_cxxflags': '-U_Float128 -U_Float32 -U_Float64 -U_Float32x -U_Float64x',
+    'extra_cflags': '-U_Float128 -U_Float32 -U_Float64 -U_Float32x -U_Float64x',
+}
 
 github_account = 'InsightSoftwareConsortium'
 source_urls = [GITHUB_SOURCE]
@@ -102,7 +105,7 @@ moduleclass = 'data'
         # -> add next line: -DITK_WRAP_PYTHON:BOOL=ON -DPython3_EXECUTABLE=$EBROOTPYTHON/bin/python -> ERROR
             # -> add buildopts CXXFLAGS="$CXXFLAGS -U_Float128 -U_Float32 -U_Float64 -U_Float32x -U_Float64x" -> NO
                 # -> try add cxx flags to buildopts -> NO
-                    # try put it into 'extra_cxxflags' ->
+                    # try put it into 'extra_cxxflags' and 'extra_cflags' -> NO
     # -> delete all ITK_USE_SYSTEM...-> still same error
         # cmake:
             # == 2024-11-25 16:55:45,484 run.py:714 WARNING Found 33 potential errors (some may be harmless) in output of  cmake  
