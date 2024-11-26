@@ -14,7 +14,7 @@ description = """Insight Segmentation and Registration Toolkit (ITK) provides
  multidimensional imaging data."""
 
 toolchain = {'name': 'foss', 'version': '2023b'}
-toolchainopts = {'pic': True, 'cstd': 'c++17'}
+# toolchainopts = {'pic': True, 'cstd': 'c++17'}
 # toolchainopts = {'pic': True, 'cstd': 'c++11'}
 
 github_account = 'InsightSoftwareConsortium'
@@ -35,7 +35,7 @@ builddependencies = [
     ('CMake', '3.27.6'),
     ('Bison', '3.8.2'),
     ('Eigen', '3.4.0'),
-    ('SWIG', '4.2.1'),
+    # ('SWIG', '4.2.1'),
     ('Perl', '5.38.0'),
     ('git', '2.42.0'),
 ]
@@ -49,7 +49,7 @@ dependencies = [
     ('LibTIFF', '4.6.0'),
     ('VTK', '9.3.0'),
     ('zlib', '1.2.13'),
-    ('CastXML', '0.6.8'),
+    # ('CastXML', '0.6.8'),
 ]
 
 # Features
@@ -61,7 +61,7 @@ configopts += '-DSWIG_EXECUTABLE=$EBROOTSWIG/bin/swig -DSWIG_DIR=$EBROOTSWIG '
 configopts += '-DPY_SITE_PACKAGES_PATH=%(installdir)s/lib/python%(pyshortver)s/site-packages '
 # Dependencies from EB
 local_sys_deps = [
-    'CASTXML',
+    # 'CASTXML',
     'DOUBLECONVERSION',
     'EIGEN',
     'EXPAT',
@@ -69,7 +69,7 @@ local_sys_deps = [
     'HDF5',
     'JPEG',
     'PNG',
-    'SWIG',
+    # 'SWIG',
     'TIFF',
     'ZLIB'
 ]
@@ -94,6 +94,7 @@ modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 moduleclass = 'data'
 
 # E1:
+    # -> try delete SWIG and CastXML from system_deps -> NO
     # -> try create SWIG-4.2.1 as the v4.2.0 is minimal version -> not help
     # problem during make:
         # same as E1_old
