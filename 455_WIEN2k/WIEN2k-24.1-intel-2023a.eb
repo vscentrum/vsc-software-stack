@@ -1,5 +1,5 @@
 name = 'WIEN2k'
-version = '23.2'
+version = '24.1'
 
 homepage = 'http://www.wien2k.at/'
 description = """The program package WIEN2k allows to perform electronic structure calculations of solids
@@ -10,15 +10,9 @@ WIEN2k is an all-electron scheme including relativistic effects and has many fea
 toolchain = {'name': 'intel', 'version': '2023a'}
 
 sources = ['%(name)s_%(version)s.tar']
-# patches = [
-#     '%(name)s-%(version)s_fix_libxc_for_lapw0_mpi.patch',
-#     '%(name)s-%(version)s_fix_system_stderr_redirection.patch',
-# ]
+
 checksums = [
-    '15ccceea0fe64c2bb94b3e7252c36537c04c8fd7c0ae46367e837cedb5402713',  # WIEN2k_23.2.tar
-    # '1cc480a4824d9185ad5918dfc68c47bcb7826114626c8133d573be901bbdca84',  # WIEN2k-23.2_fix_libxc_for_lapw0_mpi.patch
-    # 'eb3f987b1f839b9f10c315d3f7a57e181e46bc98bec3a18e5b9942689b75fcc7',
-    # # WIEN2k-23.2_fix_system_stderr_redirection.patch
+    '15ccceea0fe64c2bb94b3e7252c36537c04c8fd7c0ae46367e837cedb5402713',  # WIEN2k_24.1.tar
 ]
 
 
@@ -80,3 +74,10 @@ tests = [
 ]
 
 moduleclass = 'chem'
+
+# TODO
+# == 2024-11-27 15:14:02,162 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: no file found at '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/WIEN2k/24.1-intel-2023a/lapw0_mpi' in /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/WIEN2k/24.1-intel-2023a
+# no file found at '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/WIEN2k/24.1-intel-2023a/lapw1_mpi' in /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/WIEN2k/24.1-intel-2023a
+# no file found at '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/WIEN2k/24.1-intel-2023a/lapw1c_mpi' in /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/WIEN2k/24.1-intel-2023a
+# no file found at '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/WIEN2k/24.1-intel-2023a/lapw2_mpi' in /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/WIEN2k/24.1-intel-2023a
+# no file found at '/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/WIEN2k/24.1-intel-2023a/lapw2c_mpi' in /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/WIEN2k/24.1-intel-2023a (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3670 in _sanity_check_step)
