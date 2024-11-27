@@ -2,7 +2,6 @@ easyblock = 'MesonNinja'
 
 name = 'OpenSlide'
 version = '4.0.0'
-# versionsuffix = '-largefiles'
 
 homepage = 'https://openslide.org/'
 description = """OpenSlide is a C library that provides a simple interface to
@@ -14,14 +13,9 @@ source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
 checksums = ['0845f3bc5db660ccff890602efc0167524f6269dd20c49a9a5b469658dbb603c']
 
-# patches = ['%(name)s-%(version)s_large_file_support.patch']
-
 builddependencies = [
     ('Meson', '1.2.3'),
     ('Ninja', '1.11.1'),
-    # ('Autotools', '20220317'),
-    # ('M4', '1.4.19'),
-    # ('pkgconf', '1.9.5'),
     ('binutils', '2.40'),
 ]
 
@@ -38,18 +32,11 @@ dependencies = [
     ('GLib', '2.78.1'),
 ]
 
-# configure_cmd = 'meson setup'
-# build_cmd = 'meson compile'
-# install_cmd = 'meson install'
-
-# preconfigopts = "autoreconf -f -i && "
-
 sanity_check_paths = {
     'files': [
         'bin/openslide-quickhash1sum',
         'bin/openslide-show-properties',
         'bin/openslide-write-png',
-        # 'lib/libopenslide.la',
         'lib/libopenslide.%s' % SHLIB_EXT
     ],
     'dirs': ['include/openslide']
