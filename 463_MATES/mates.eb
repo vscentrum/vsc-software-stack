@@ -9,18 +9,6 @@ description = "A Deep Learning-Based Model for Quantifying Transposable Elements
 
 toolchain = {'name': 'foss', 'version': '2023b'}
 
-# DPES:
-    # OK "matplotlib==3.7.2",
-    # OK "numpy==1.25.2",
-    # OK "pandas==2.0.0",
-    # OK CREATED "pybedtools==0.10.0",
-    # OK "pysam==0.22.1",
-    # OK "scipy==1.11.2",
-    # OK "torch==2.0.0",
-    # OK "tqdm==4.66.1",
-    # ok "pyranges==0.0.129",
-    # OK CREATED "anndata==0.8.0"
-
 dependencies = [
     ('Python', '3.11.5'),
     ('Python-bundle-PyPI', '2023.10'),
@@ -48,9 +36,10 @@ exts_list = [
     }),
     (name, version, {
         'modulename': 'MATES',
+        # unpin exact versions of dependencies
         'preinstallopts': """sed -i 's/==.*//g' requirements.txt && sed -i 's/==.*/\",/g' setup.py && """,
         'source_urls': ['https://github.com/mcgilldinglab/MATES/archive'],
-        'sources': [{'download_filename': '3846ad5.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
         'checksums': ['40fbb87dd72ca4c9e5347f2e984f9c0a0caa817d4eee692476be71e733e76f61'],
     }),
 ]
