@@ -28,49 +28,47 @@ dependencies = [
     ('CFITSIO', '4.3.1'),
     ('CharLS', '2.4.2'), # CREATED
     ('giflib', '5.2.1'),
-    # ('jxrlib', '1.1'), # CREATE 1.2
+    ('jxrlib', '1.1'), # CREATED
     ('LittleCMS', '2.15'),
     ('LERC', '4.0.0'),
     ('libaec', '1.0.6'),
-    # ('libavif', '1.0.4'), # CREATE
+    ('libavif', '1.1.1'), # CREATED
     ('libdeflate', '1.19'),
-    # ('libheif', '1.17.6'), # CREATE
+    ('libheif', '1.19.5'), # CREATED
     ('libjpeg-turbo', '3.0.1'),
     ('libjxl', '0.8.2'),
-    # ('LibLZF', '3.6'), # CREATE
+    ('LibLZF', '3.6'), # CREATED
     ('libpng', '1.6.40'),
     ('LibTIFF', '4.6.0'),
     ('libwebp', '1.3.2'),
     ('lz4', '1.9.4'),
     ('OpenJPEG', local_openjpeg_maj_min + '.0'),
     ('snappy', '1.1.10'),
-    # ('zlib-ng', '2.1.6'), # CREATE
-    # ('Zopfli', '1.0.3'), # CREATE
-    # ('zfp', '1.0.1'), # CREATE
+    ('zlib-ng', '2.2.2'), # PR: https://github.com/easybuilders/easybuild-easyconfigs/pull/21861
+    ('Zopfli', '1.0.3'), # CREATED
+    ('zfp', '1.0.1'), # CREATED
     ('zstd', '1.5.5'),
     ('HDF5', '1.14.3'),
     ('h5py', '3.11.0'),
-    # ('bitshuffle', '0.5.1'),  # CREATE # Cannot be as extension because Cython 3.0.8 is too new
+    ('bitshuffle', '0.5.2'),  # CREATED # Cannot be as extension because Cython 3.0.8 is too new
 ]
 
 use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    ('colorlog', '6.8.2', {
-        'checksums': ['3e3e079a41feb5a1b64f978b5ea4f46040a94f11f0e8bbb8261e3dbbeca64d44'],
+    ('colorlog', '6.9.0', {
+        'checksums': ['bfba54a1b93b94f54e1f4fe48395725a3d92fd2a4af702f6bd70946bdc0c6ac2'],
     }),
     (name, version, {
         'buildopts': '--global-option="build_ext" --global-option="--lite"',
         'extract_cmd': "tar -xvf %s && find . -type f -print0 | xargs -0 dos2unix",
         'patches': ['imagecodecs-2024.1.1_fix-aec-version.patch'],
         'preinstallopts': "export CPATH=$EBROOTOPENJPEG/include/openjpeg-2.5/:$CPATH && ",
-        'source_urls': [
-            'https://github.com/cgohlke/imagecodecs/releases/download/v%(version)s/imagecodecs-2024.1.1.tar.gz'
-        ],
+        'source_urls': ['https://github.com/cgohlke/imagecodecs/releases/download/v%(version)s/'],
         'sources': ['%(name)s-%(version)s.tar.gz'],
         'checksums': [
-            {'imagecodecs-2024.1.1.tar.gz': 'fde46bd698d008255deef5411c59b35c0e875295e835bf6079f7e2ab22f216eb'},
+            {'imagecodecs-2024.6.1.tar.gz': '0f3e94b7f51e2f78287b7ffae82cd850b1007639148894538274fa50bd179886'},
             {'imagecodecs-2024.1.1_fix-aec-version.patch':
              '7feb0a5fe37893d1a186f85c8f6cdb940704605ee2da5ea8e5d555ec5bfa01aa'},
         ],
