@@ -44,21 +44,21 @@ github_account = 'Project-MONAI'
         # pytype>=2020.6.1; platform_system != "Windows"
         # types-setuptools
         # mypy>=1.5.0, <1.12.0
-        # ninja
+        # OK ninja
         # OK torchvision
         # OK psutil - v5.9.6 in pypi bundle
         # X cucim-cu12; platform_system == "Linux" and python_version >= "3.9" and python_version <= "3.10"
         # OK CREATED openslide-python + CREATED OpenSlide-4.0.0
-        # CREATE imagecodecs; platform_system == "Linux" or platform_system == "Darwin"
+        # OK CREATED imagecodecs; platform_system == "Linux" or platform_system == "Darwin"
         # OK tifffile; platform_system == "Linux" or platform_system == "Darwin" in scikit-image
         # OK pandas
         # requests
         # OK CREATED einops
         # OK transformers>=4.36.0, <4.41.0; python_version <= '3.10'
         # OK CREATED mlflow>=2.12.2
-        # clearml>=1.10.0rc0
-        # matplotlib>=3.6.3
-        # tensorboardX
+        # OK CREATED clearml>=1.10.0rc0
+        # OK matplotlib>=3.6.3
+        # OK tensorboardX
         # types-PyYAML
         # OK pyyaml
         # ok fire
@@ -66,18 +66,17 @@ github_account = 'Project-MONAI'
         # pynrrd
         # pre-commit
         # OK CREATED pydicom - in NiBabel
-        # h5py
-        # nni==2.10.1; platform_system == "Linux" and "arm" not in platform_machine and "aarch" not in platform_machine
-        # optuna
+        # OK h5py
+        # ok nni==2.10.1; platform_system == "Linux" and "arm" not in platform_machine and "aarch" not in platform_machine
+        # OK optuna
         # git+https://github.com/Project-MONAI/MetricsReloaded@monai-support#egg=MetricsReloaded
-        # onnx>=1.13.0
-        # onnxruntime; python_version <= '3.10'
+        # OK CREATED onnx>=1.13.0
         # typeguard<3  # https://github.com/microsoft/nni/issues/5457
         # filelock<3.12.0  # https://github.com/microsoft/nni/issues/5523
         # zarr
         # lpips==0.1.4
         # nvidia-ml-py
-        # huggingface_hub
+        # ok huggingface_hub
         # pyamg>=5.0.0
         # git+https://github.com/facebookresearch/segment-anything.git@6fdee8f2727f4506cfbbe553e23b895e27956588
         # onnx_graphsurgeon
@@ -109,17 +108,18 @@ github_account = 'Project-MONAI'
 
 
 # extras: not in local_pip_extras now
-    # [ cucim (some cuda stuff, do not install),
-    # imagecodecs, ninja, pynrrd, h5py, nni, optuna, onnx, onnxruntime, zarr, lpips, pynvml, huggingface_hub]
+    # [ cucim, (some cuda stuff, do not install)
+    # pynvml, (NVIDIA mng lib)
+    # pynrrd, onnxruntime, zarr, lpips, ]
 
 # ORIGINAL from 5.3.0
 # local_pip_extras = "einops,fire,gdown,ignite,itk,jsonschema,lmdb,nibabel,pydicom,"
 # local_pip_extras += "openslide,pandas,pillow,psutil,pyyaml,scipy,"
 # local_pip_extras += "skimage,tensorboard,torchvision,tqdm"
 
-local_pip_extras = "einops,fire,gdown,ignite,scipy,tqdm,itk,jsonschema,lmdb,nibabel,pydicom,"
-local_pip_extras += "openslide,pandas,pillow,psutil,pyyaml,skimage,tensorboard,torchvision,"
-local_pip_extras += "transformers,mlflow,clearml,matplotlib,tensorboardX,tifffile"
+local_pip_extras = "einops,fire,gdown,ignite,scipy,tqdm,itk,jsonschema,lmdb,nibabel,pydicom,ninja,h5py,optuna,"
+local_pip_extras += "openslide,pandas,pillow,psutil,pyyaml,skimage,tensorboard,torchvision,_hubhuggingface,nni,"
+local_pip_extras += "transformers,mlflow,clearml,matplotlib,tensorboardX,tifffile,imagecodecs,onnx"
 
 builddependencies = [
     ('hatchling', '1.18.0'),
@@ -149,11 +149,20 @@ dependencies = [
     ('matplotlib', '3.8.2'),
     ('clearml', '1.16.5'),
     ('tensorboardX', '2.6.2.2'), # not merged yet
+    ('imagecodecs', '2024.6.1'),
+    ('h5py', '3.11.0'),
+    ('Optuna', '3.6.1'),
+    ('ONNX', '1.17.0'),
 ]
 
 use_pip = True
 
 exts_list = [
+    ('nni', '3.0'),
+    ('huggingface-hub', '0.26.2', {
+        'sources': ['huggingface_hub-%(version)s.tar.gz'],
+        'checksums': ['b100d853465d965733964d123939ba287da60a547087783ddff8a323f340332b'],
+    }),
     ('lmdb', '1.5.1', {
         'checksums': ['717c255827d331e02f7242b44051aa06466c90f6d732ecb07b31edfb1e06c67a'],
     }),
