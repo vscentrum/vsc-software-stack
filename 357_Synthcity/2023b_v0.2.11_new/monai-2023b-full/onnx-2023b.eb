@@ -15,11 +15,7 @@ capabilities needed for inferencing (scoring)."""
 toolchain = {'name': 'gfbf', 'version': '2023b'}
 
 sources = [SOURCELOWER_TAR_GZ]
-patches = ['ONNX-1.15.0_fix-protobuf-linking.patch']
-checksums = [
-    {'onnx-1.15.0.tar.gz': 'b18461a7d38f286618ca2a6e78062a2a9c634ce498e631e708a8041b00094825'},
-    {'ONNX-1.15.0_fix-protobuf-linking.patch': '5c11eca5275a25d69f989571fe1f387b84c7334478356577f6f6349c5954f54d'},
-]
+checksums = ['48ca1a91ff73c1d5e3ea2eef20ae5d0e709bb8a2355ed798ffc2169753013fd3']
 
 builddependencies = [
     ('CMake', '3.27.6'),
@@ -38,6 +34,12 @@ download_dep_fail = True
 # hardcode version in pyproject.toml rather than determining it dynamically
 preinstallopts = """sed -i 's/"version",//g' pyproject.toml && """
 preinstallopts += """sed -i 's/readme = .*/version = "%(version)s"/g' pyproject.toml && """
+
+# fix for: undefined symbol: _ZN6google8protobuf8internal15ThreadSafeArena13thread_cache_E
+# see also https://bugs.archlinux.org/task/75242
+# author: Kenneth Hoste (HPC-UGent)
+preinstallopts += "sed -i '50 s/if(MSVC)/#if(MSVC)/' CMakeLists.txt && "
+preinstallopts += "sed -i '53 s/endif()/#endif()/' CMakeLists.txt && "
 
 # specify C++17 standard and link to protobuf shared library (also requires patch to use -DPROTOBUF_USE_DLLS);
 # required to fix "error: 'string_view' in namespace 'std' does not name a type",

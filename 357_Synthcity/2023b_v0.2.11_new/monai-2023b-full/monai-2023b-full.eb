@@ -23,27 +23,14 @@ github_account = 'Project-MONAI'
     # extras =
         # ok pytorch-ignite==0.4.11 -> add to exts - pin to 0.4.11 version + fix from monai
         # ok gdown>=4.7.3
-        # ?OK scipy>=1.12.0; python_version >= '3.9' -> no, I have 1.11.4 -> unpin? - seems I do not have to unpin - no pip check errors
+        # OK? scipy>=1.12.0; python_version >= '3.9' -> no, I have 1.11.4 -> unpin? - seems I do not have to unpin - no pip check errors
         # OK CREATED itk>=5.2 - ctreated ITK-5.4.0
         # OK CREATED nibabel
         # OK pillow!=8.3.0  # https://github.com/python-pillow/Pillow/issues/5571
         # OK tensorboard>=2.12.0  # https://github.com/Project-MONAI/MONAI/issues/7434
         # OK CREATED scikit-image>=0.19.0
-        # tqdm>=4.47.0
+        # OK tqdm>=4.47.0
         # ok lmdb
-        # flake8>=3.8.1
-        # flake8-bugbear<=24.2.6  # https://github.com/Project-MONAI/MONAI/issues/7690
-        # flake8-comprehensions
-        # mccabe
-        # pep8-naming
-        # pycodestyle
-        # pyflakes
-        # black>=22.12
-        # isort>=5.1
-        # ruff
-        # pytype>=2020.6.1; platform_system != "Windows"
-        # types-setuptools
-        # mypy>=1.5.0, <1.12.0
         # OK ninja
         # OK torchvision
         # OK psutil - v5.9.6 in pypi bundle
@@ -52,35 +39,31 @@ github_account = 'Project-MONAI'
         # OK CREATED imagecodecs; platform_system == "Linux" or platform_system == "Darwin"
         # OK tifffile; platform_system == "Linux" or platform_system == "Darwin" in scikit-image
         # OK pandas
-        # requests
+        # OK requests
         # OK CREATED einops
         # OK transformers>=4.36.0, <4.41.0; python_version <= '3.10'
         # OK CREATED mlflow>=2.12.2
         # OK CREATED clearml>=1.10.0rc0
         # OK matplotlib>=3.6.3
         # OK tensorboardX
-        # types-PyYAML
         # OK pyyaml
         # ok fire
         # OK jsonschema - v4.17.3 in pypi bundle
-        # pynrrd
-        # pre-commit
+        # ok pynrrd
         # OK CREATED pydicom - in NiBabel
         # OK h5py
         # ok nni==2.10.1; platform_system == "Linux" and "arm" not in platform_machine and "aarch" not in platform_machine
         # OK optuna
         # git+https://github.com/Project-MONAI/MetricsReloaded@monai-support#egg=MetricsReloaded
         # OK CREATED onnx>=1.13.0
-        # typeguard<3  # https://github.com/microsoft/nni/issues/5457
-        # filelock<3.12.0  # https://github.com/microsoft/nni/issues/5523
-        # zarr
-        # lpips==0.1.4
-        # nvidia-ml-py
+        # ok typeguard  # https://github.com/microsoft/nni/issues/5457
+        # ok filelock<3.12.0  # https://github.com/microsoft/nni/issues/5523
+        # OK CREATED zarr
+        # ok lpips==0.1.4
+        # X nvidia-ml-py
         # ok huggingface_hub
-        # pyamg>=5.0.0
+        # CREATE pyamg>=5.0.0
         # git+https://github.com/facebookresearch/segment-anything.git@6fdee8f2727f4506cfbbe553e23b895e27956588
-        # onnx_graphsurgeon
-        # polygraphy
     # ok fire 0.7.0 requires termcolor, which is not installed.
     # OK gdown 5.2.0 requires beautifulsoup4, which is not installed.
     # OK gdown 5.2.0 requires tqdm, which is not installed.
@@ -108,9 +91,11 @@ github_account = 'Project-MONAI'
 
 
 # extras: not in local_pip_extras now
-    # [ cucim, (some cuda stuff, do not install)
+    # [ 
+    # cucim, (some cuda stuff)
     # pynvml, (NVIDIA mng lib)
-    # pynrrd, onnxruntime, zarr, lpips, ]
+    # onnxruntime, (not needed?)
+    # ]
 
 # ORIGINAL from 5.3.0
 # local_pip_extras = "einops,fire,gdown,ignite,itk,jsonschema,lmdb,nibabel,pydicom,"
@@ -118,8 +103,10 @@ github_account = 'Project-MONAI'
 # local_pip_extras += "skimage,tensorboard,torchvision,tqdm"
 
 local_pip_extras = "einops,fire,gdown,ignite,scipy,tqdm,itk,jsonschema,lmdb,nibabel,pydicom,ninja,h5py,optuna,"
-local_pip_extras += "openslide,pandas,pillow,psutil,pyyaml,skimage,tensorboard,torchvision,_hubhuggingface,nni,"
-local_pip_extras += "transformers,mlflow,clearml,matplotlib,tensorboardX,tifffile,imagecodecs,onnx"
+# local_pip_extras += "openslide,pandas,pillow,psutil,pyyaml,skimage,tensorboard,torchvision,_hubhuggingface,nni,"
+# local_pip_extras += "transformers,mlflow,clearml,matplotlib,tensorboardX,tifffile,imagecodecs,onnx,zarr,lpips,pynrrd"
+
+# local_pip_extras = "all"
 
 builddependencies = [
     ('hatchling', '1.18.0'),
@@ -153,12 +140,30 @@ dependencies = [
     ('h5py', '3.11.0'),
     ('Optuna', '3.6.1'),
     ('ONNX', '1.17.0'),
+    ('zarr', '2.18.3'),
+    ('PyAMG', '5.2.1'),
 ]
 
 use_pip = True
 
 exts_list = [
-    ('nni', '3.0'),
+    ('pynrrd', '1.0.0', {
+        'modulename': 'nrrd',
+        'checksums': ['4eb4caba03fbca1b832114515e748336cb67bce70c7f3ae36bfa2e135fc990d2'],
+    }),
+    ('lpips', '0.1.4', {
+        'checksums': ['3846331df6c69688aec3d300a5eeef6c529435bc8460bd58201c3d62e56188fa'],
+    }),
+    ('filelock', '3.11.0', {
+        'checksums': ['3618c0da67adcc0506b015fd11ef7faf1b493f0b40d87728e19986b536890c37'],
+    }),
+    ('typeguard', '4.1.2', {
+        'checksums': ['3be187945f9ef5a9f6d7a926dfe54babb7dfd807085ce05f9a5e8735f2487990'],
+    }),
+    ('nni', '3.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-manylinux1_x86_64.whl',
+        'checksums': ['176456f8275c096655b6f178dc0589a7642afbb37ecbcce7afe6ad9949592088'],
+    }),
     ('huggingface-hub', '0.26.2', {
         'sources': ['huggingface_hub-%(version)s.tar.gz'],
         'checksums': ['b100d853465d965733964d123939ba287da60a547087783ddff8a323f340332b'],
