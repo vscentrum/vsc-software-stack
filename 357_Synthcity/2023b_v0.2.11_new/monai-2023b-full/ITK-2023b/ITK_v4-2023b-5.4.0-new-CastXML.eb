@@ -14,12 +14,6 @@ description = """Insight Segmentation and Registration Toolkit (ITK) provides
  multidimensional imaging data."""
 
 toolchain = {'name': 'foss', 'version': '2023b'}
-# toolchainopts = {'pic': True, 'cstd': 'c++11'}
-# toolchainopts = {'pic': True, 'cstd': 'gnu++14'}
-# toolchainopts = {
-#     'extra_cxxflags': '-U_Float128 -U_Float32 -U_Float64 -U_Float32x -U_Float64x',
-#     'extra_cflags': '-U_Float128 -U_Float32 -U_Float64 -U_Float32x -U_Float64x',
-# }
 
 github_account = 'InsightSoftwareConsortium'
 source_urls = [GITHUB_SOURCE]
@@ -32,9 +26,6 @@ checksums = [
     {'ITK-5.3.0_add-vtk-include-dir.patch': 'df7e834a024db5d1a1459d898bd43a044351e29759ab0bf69ce03d64da95b3f7'},
 ]
 
-# DEPS:
-    # SWIG minimal version is 4.2.0 - https://github.com/InsightSoftwareConsortium/ITK/blob/v5.4.0/Wrapping/Generators/SwigInterface/CMakeLists.txt#L16
-
 builddependencies = [
     ('CMake', '3.27.6'),
     ('Bison', '3.8.2'),
@@ -45,7 +36,7 @@ builddependencies = [
 ]
 dependencies = [
     ('Python', '3.11.5'),
-    ('SciPy-bundle', '2023.11'),  # NumPy
+    ('SciPy-bundle', '2023.11'),
     ('double-conversion', '3.3.0'),
     ('expat', '2.5.0'),
     ('HDF5', '1.14.3'),
@@ -62,7 +53,7 @@ configopts = '-DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF '
 configopts += '-DModule_ITKReview=ON -DModule_ITKVtkGlue=ON -DModule_SimpleITKFilters=ON '
 # Enable Python bindings
 configopts += '-DITK_WRAP_PYTHON:BOOL=ON -DPython3_EXECUTABLE=$EBROOTPYTHON/bin/python '
-# configopts += '-DSWIG_EXECUTABLE=$EBROOTSWIG/bin/swig -DSWIG_DIR=$EBROOTSWIG '
+configopts += '-DSWIG_EXECUTABLE=$EBROOTSWIG/bin/swig -DSWIG_DIR=$EBROOTSWIG '
 configopts += '-DPY_SITE_PACKAGES_PATH=%(installdir)s/lib/python%(pyshortver)s/site-packages '
 # Dependencies from EB
 local_sys_deps = [
@@ -88,7 +79,7 @@ local_lib_names = ['ITKCommon', 'ITKIOHDF5', 'ITKIOJPEG', 'ITKIOPNG', 'ITKIOTIFF
 
 sanity_check_paths = {
     'files': ['bin/itkTestDriver'] +
-             ['lib/lib%s-%%(version_major)s.%%(version_minor)s.%s' % (l, SHLIB_EXT) for l in local_lib_names],
+             ['lib/lib%s-%%(version_major)s.%%(version_minor)s.%s' % (lname, SHLIB_EXT) for lname in local_lib_names],
     'dirs': ['include/ITK-%(version_major)s.%(version_minor)s', 'lib/python%(pyshortver)s/site-packages', 'share'],
 }
 
@@ -97,25 +88,3 @@ sanity_check_commands = ["python -c 'import itk'"]
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'data'
-
-# E2: OK
-    # -> create SWIG-4.3.0 and use -> works
-    # -> use bundled SWIG -> works
-    # <- after use SWIG-4.2.1 instaed of 4.1.1 <- log2-swig-4.2.1.txt
-        # /tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b/easybuild_obj/Wrapping/Generators/Python/PyBase/ITKPyBasePyth
-        # on.cpp: In function 'PyObject* PyInit__ITKPyBasePython()':
-        # /tmp/vsc47063/easybuild/build/ITK/5.4.0/foss-2023b/easybuild_obj/Wrapping/Generators/Python/PyBase/ITKPyBasePyth
-        # on.cpp:3816:5: error: 'SWIG_Py_DECREF' was not declared in this scope; did you mean 'Py_DECREF'?
-        # 3816 |     SWIG_Py_DECREF( pyBaseModule);
-        #     |     ^~~~~~~~~~~~~~
-        #     |     Py_DECREF
-        # make[2]: *** [Wrapping/Generators/Python/PyBase/CMakeFiles/ITKPyBasePython.dir/build.make:99: Wrapping/Generators/Python/PyBase/CMakeFiles/ITKPyBasePython.dir/ITKPyBasePython.cpp.o] Error 1
-
-# E1: OK
-    # -> use SWIG-4.2.1 -> errors are gone but new error E2
-    # problem with python 3.11?
-    # <- log1-new_castXML.txt
-    # <- error: 'PyTuple_GET_ITEM' was not declared in this scope; did you mean 'PyTuple_GetItem'? 
-# 1) try with SWIG-4.1.1 -> if crash try SWIG-4.2.1 (minimum should be 4.2.0)
-    # https://github.com/InsightSoftwareConsortium/ITK/blob/master/Wrapping/Generators/SwigInterface/CMakeLists.txt#L16
-# 2) CastXML should be with cstd c++11
