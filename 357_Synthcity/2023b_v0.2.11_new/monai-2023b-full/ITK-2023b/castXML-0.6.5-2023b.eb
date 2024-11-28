@@ -1,0 +1,34 @@
+easyblock = 'CMakeMake'
+
+name = 'CastXML'
+version = '0.6.5'
+
+homepage = 'https://github.com/CastXML/CastXML'
+description = """CastXML is a C-family abstract syntax tree XML output tool."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.2.0'}
+
+github_account = 'CastXML'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['fea4754bdb1fb4496fec12352e2bd07854843aa757e85d0553f224ff0111c482']
+
+builddependencies = [
+    ('binutils', '2.40'),
+    ('CMake', '3.27.6'),
+]
+
+dependencies = [
+    ('Clang', '17.0.6'),
+    ('ncurses', '6.4'),
+    ('zlib', '1.2.13'),
+]
+
+separate_build_dir = True
+
+sanity_check_paths = {
+    'files': ['bin/castxml'],
+    'dirs': ['share/castxml'],
+}
+
+moduleclass = 'tools'
