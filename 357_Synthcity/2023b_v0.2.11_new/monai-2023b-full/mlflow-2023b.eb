@@ -9,38 +9,6 @@ packaging code into reproducible runs, and sharing and deploying models."""
 
 toolchain = {'name': 'gfbf', 'version': '2023b'}
 
-#DEPS:
-    # ok alembic<2,!=1.10.0
-    # ok docker<8,>=4.0.0
-    # OK Flask<4
-    # OK numpy<3
-    # OK scipy<2
-    # OK pandas<3
-    # OK sqlalchemy<3,>=1.4.0
-    # ok gunicorn<24; platform_system != 'Windows'
-    # OK scikit-learn<2
-    # OK pyarrow<19,>=4.0.0
-    # OK markdown<4,>=3.3
-    # OK Jinja2<4,>=2.11; platform_system != 'Windows'
-    # OK matplotlib<4
-    # ok graphene<4
-    # ok mlflow 2.18.0 requires mlflow-skinny, which is not installed.
-    # ok graphene 3.4.1 requires graphql-core, which is not installed.
-    # ok graphene 3.4.1 requires graphql-relay, which is not installed.
-    # ok mlflow-skinny 2.18.0 requires cachetools, which is not installed.
-    # ok mlflow-skinny 2.18.0 requires databricks-sdk, which is not installed.
-    # ok mlflow-skinny 2.18.0 requires opentelemetry-api, which is not installed.
-    # ok mlflow-skinny 2.18.0 requires opentelemetry-sdk, which is not installed.
-    # OK mlflow-skinny 2.18.0 requires protobuf, which is not installed.
-    # OK mlflow-skinny 2.18.0 requires pyyaml, which is not installed.
-    # ok mlflow-skinny 2.18.0 requires sqlparse, which is not installed.
-    # ok opentelemetry-sdk 1.27.0 requires opentelemetry-semantic-conventions, which is not installed.
-    # ok databricks-sdk 0.36.0 requires google-auth, which is not installed.
-    # OK opentelemetry-api 1.27.0 requires deprecated, which is not installed.
-    # ok google-auth 2.35.0 requires pyasn1-modules, which is not installed.
-    # ok google-auth 2.35.0 requires rsa, which is not installed.
-
-
 builddependencies = [
     ('binutils', '2.40'),
     ('hatchling', '1.18.0'),
@@ -59,7 +27,7 @@ dependencies = [
     ('Flask', '3.0.0'),
     ('Arrow', '16.1.0'),
     ('Markdown', '3.6'),
-    ('Deprecated', '1.2.14'), # not merged yet (Spyder)
+    ('Deprecated', '1.2.14'),
 ]
 
 sanity_pip_check = True
