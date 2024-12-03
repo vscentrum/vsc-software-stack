@@ -22,17 +22,17 @@ postinstallcmds = [
     'rm %(installdir)s/{ImageJ-win32.exe,ImageJ-win64.exe}',
     # Enable any update site (edit existing site with same parameters to enable it)
     # Full list at https://imagej.github.io/list-of-update-sites/
-    '%(installdir)s/ImageJ-linux64 --headless --update edit-update-site "ImageScience"'
-    ' https://sites.imagej.net/ImageScience/',
-    '%(installdir)s/ImageJ-linux64 --headless --update edit-update-site "3D ImageJ Suite"'
-    ' https://sites.imagej.net/Tboudier/',
-    '%(installdir)s/ImageJ-linux64 --headless --update edit-update-site "ilastik"'
-    ' https://sites.imagej.net/Ilastik/',
+    '%(installdir)s/ImageJ-linux64 --default-gc --java-home "$EBROOTJAVA/lib/server/" --headless'
+    ' --update edit-update-site "ImageScience" https://sites.imagej.net/ImageScience/',
+    '%(installdir)s/ImageJ-linux64 --default-gc --java-home "$EBROOTJAVA/lib/server/" --headless'
+    ' --update edit-update-site "3D ImageJ Suite" https://sites.imagej.net/Tboudier/',
+    '%(installdir)s/ImageJ-linux64 --default-gc --java-home "$EBROOTJAVA/lib/server/" --headless'
+    ' --update edit-update-site "ilastik" https://sites.imagej.net/Ilastik/',
     # Add a new update site
     # '%(installdir)s/ImageJ-linux64 --headless --update add-update-site "New Name"'
     # ' https://site.url/NewName/',
     # Update the installation
-    '%(installdir)s/ImageJ-linux64 --headless --update update',
+    '%(installdir)s/ImageJ-linux64 --default-gc --java-home "$EBROOTJAVA/lib/server/" --headless --update update',
 ]
 
 sanity_check_paths = {
@@ -47,12 +47,3 @@ More information at https://imagej.net/Headless
 """
 
 moduleclass = 'vis'
-
-# TODO
-# == 2024-11-20 13:15:33,677 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Fiji/2.14.0-Java-11/ImageJ-linux64 --headless --update edit-update-site "ImageScience" https://sites.imagej.net/ImageScience/" exited with exit code 1 and output:
-# Could not load Java library '/kyukon/home/apps/RHEL8/cascadelake-ib/software/Java/11.0.20/lib/amd64/server/libjvm.so': /kyukon/home/apps/RHEL8/cascadelake-ib/software/Java/11.0.20/lib/amd64/server/libjvm.so: cannot open shared object file: No such file or directory
-# Warning: falling back to System JVM
-# Unrecognized option: -Xincgc
-# Error: Could not create the Java Virtual Machine.
-# Error: A fatal exception has occurred. Program will exit.
-#  (at easybuild/easybuild-framework/easybuild/tools/run.py:695 in parse_cmd_output)
