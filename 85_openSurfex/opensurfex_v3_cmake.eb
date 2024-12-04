@@ -1,0 +1,127 @@
+easyblock = 'CMakeMake'
+
+name = 'OPEN-SURFEX'
+version = '8.1.0'
+local_commit = '70d2395'
+
+homepage = 'https://github.com/joewkr/open-SURFEX'
+description = """
+SURFEX (SURFace EXternalisée) is a modelling platform that parametrizes land and water surfaces.
+SURFEX is being developed by Météo-France and Open-SURFEX is a freely available SURFEX version
+released under terms of CECILL-C Licence.
+"""
+
+# toolchain = {'name': 'iimpi', 'version': '2023a'}
+toolchain = {'name': 'foss', 'version': '2023a'}
+# toolchainopts = {'usempi': True, 'openmp': True, 'pic': True}
+
+source_urls = ['https://github.com/joewkr/open-SURFEX/archive/']
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
+checksums = ['44341eee2ae952a21cc0055533c1ea7b3ef27fc88b716b46f88ca339a7bfebe1']
+
+dependencies = [
+    ('CMake', '3.26.3'),
+    # ('netCDF', '4.9.0'),
+    # ('netCDF-Fortran', '4.6.0'),
+]
+
+# configopts = '-DENABLE_OMP=ON -DENABLE_MPI=ON'
+# configopts = '-DENABLE_OMP=ON -DENABLE_MPI=ON -DINSPECT_MASTER_SOURCES=ON'
+# separate_build_dir = False
+buildininstalldir = True
+build_cmd = 'cmake --build .' # + -j 8
+install_cmd = 'cmake --build . --target install'
+
+# files_to_copy = ['*']
+
+# sanity_check_paths = { # CMMCp
+#     'files': ['PGD'],
+#     'dirs': ['auxiliary'],
+# }
+
+# modextrapaths = {'PATH': ''} # CMMCp
+
+# skipsteps = ['configure']
+
+# prebuildopts = "cd src/ && "
+# prebuildopts += "export OMP_NUM_THREADS=%(parallel)s && "  # no. of threads for installation
+# prebuildopts += "mkdir MYDIR && export MYDIR=$PWD/MYDIR && "  # FIXME: probably not needed
+# prebuildopts += "export ARCH=LXifort && "  # FIXME: probably not needed
+# prebuildopts += "export VER_MPI=NOMPI && "  # FIXME try building with MPI support?
+# prebuildopts += 'export VER_CDF="$EBVERSIONNETCDF" && '  # FIXME does this work? probably not
+
+# NEED_NCARG ? MVWORK ? NEED_TOOLS? VER_XIOS ? OPTLEVEL ? MNHENV ? VER_ECCODES ? VER_GRIBAPI ?
+
+# prebuildopts += "./configure zifort && "
+# prebuildopts += "./configure zgfortran && "
+# prebuildopts += "sed -i 's|bash --norc|bash|g' %(builddir)s/open_SURFEX_V8_1/conf/profile_surfex-LXifort-SFX-V8-1-1-NOMPI-OMP-O2-X0 && "
+# prebuildopts += ". %(builddir)s/open_SURFEX_V8_1/conf/profile_surfex-LXifort-SFX-V8-1-1-NOMPI-OMP-O2-X0 && "
+# prebuildopts += "export NETCDF_INC=$EBROOTNETCDF/include && "
+# prebuildopts += "export NETCDF_LIB=$EBROOTNETCDF/lib && "
+# prebuildopts += "export NETCDF_INCLUDE=$EBROOTNETCDF/include && "
+# prebuildopts += "echo $NETCDF_INC && "
+# prebuildopts += "echo $NETCDF_LIB && "
+# prebuildopts += "echo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx && "
+
+# build_cmd = 'make installmaster '
+
+moduleclass = 'geo'
+
+#E3:
+    # CMakeMake + buildininstalldir = True -> PGD -> error
+        # $ PGD
+        # aborted with text:ERROR WHILE OPENING OPTIONS.nam                  THIS FILE IS MISSING IN THE RUN DIRECTORY|
+        # Program aborted. Backtrace:
+        # #0  0x43654e in __modi_abor1_sfx_MOD_abor1_sfx
+        #         at /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OPEN-SURFEX/8.1.0-foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/SURFEX/abor1_sfx.F90:105
+        # #1  0x4089ac in __modi_open_namelist_asc_MOD_open_namelist_asc
+        #         at /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OPEN-SURFEX/8.1.0-foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/SURFEX/open_namelist_asc.F90:81
+        # #2  0x408726 in __modi_open_namelist_MOD_open_namelist
+        #         at /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OPEN-SURFEX/8.1.0-foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/SURFEX/open_namelist.F90:102
+        # #3  0x403c5d in pgd
+        #         at /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OPEN-SURFEX/8.1.0-foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/OFFLIN/pgd.F90:300
+        # #4  0x403802 in main
+        #         at /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OPEN-SURFEX/8.1.0-foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/OFFLIN/pgd.F90:68
+        # Aborted (core dumped)
+    # -> add OPTIONS.nam to root -> error:
+        # $ PGD
+        # ERROR WHILE OPENING 'ecoclimapI_covers_param.bin' THIS FILE IS NEEDED AND MUST BE IN (OR LINKED TO) THE RUN DIRECTORY
+        # -------------------------------------------------------------------------------
+        # MORE DETAILS ABOUT THE CRASH IN THE OUTPUT LISTING FILE: LISTING_PGD.txt
+        # -------------------------------------------------------------------------------
+        # aborted with text:ERROR WHILE OPENING 'ecoclimapI_covers_param.bin' THIS FILE IS NEEDED AND MUST BE IN (OR LINKED TO) THE RUN DIRECTORY|
+        # Program aborted. Backtrace:
+        # #0  0x43654e in __modi_abor1_sfx_MOD_abor1_sfx
+        #         at /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OPEN-SURFEX/8.1.0-foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/SURFEX/abor1_sfx.F90:105
+        # #1  0x4d4cb2 in __modi_read_covers_param_MOD_read_covers_param
+        #         at /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OPEN-SURFEX/8.1.0-foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/SURFEX/read_covers_param.F90:101
+        # #2  0x4679c5 in __modi_ini_data_cover_MOD_ini_data_cover
+        #         at /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OPEN-SURFEX/8.1.0-foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/SURFEX/ini_data_cover.F90:1027
+        # #3  0x408eb8 in __modi_pgd_surf_atm_MOD_pgd_surf_atm
+        #         at /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OPEN-SURFEX/8.1.0-foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/SURFEX/pgd_surf_atm.F90:173
+        # #4  0x403f7d in pgd
+        #         at /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OPEN-SURFEX/8.1.0-foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/OFFLIN/pgd.F90:209
+        # #5  0x403802 in main
+        #         at /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OPEN-SURFEX/8.1.0-foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/OFFLIN/pgd.F90:68
+        # Aborted (core dumped)
+#E2:
+    # <- CMakeMake + separate_build_dir = False -> created /bin + /lib - seems ok, but OPTIONS.nam is in /MY_RUN/NAMELIST/hapex in builddir
+        # $ PGD
+        # aborted with text:ERROR WHILE OPENING OPTIONS.nam                  THIS FILE IS MISSING IN THE RUN DIRECTORY|
+        # Program aborted. Backtrace:
+        # #0  0x43654e in __modi_abor1_sfx_MOD_abor1_sfx
+        #         at /tmp/vsc47063/easybuild/build/OPENSURFEX/8.1.0/foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/SURFEX/abor1_sfx.F90:105
+        # #1  0x4089ac in __modi_open_namelist_asc_MOD_open_namelist_asc
+        #         at /tmp/vsc47063/easybuild/build/OPENSURFEX/8.1.0/foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/SURFEX/open_namelist_asc.F90:81
+        # #2  0x408726 in __modi_open_namelist_MOD_open_namelist
+        #         at /tmp/vsc47063/easybuild/build/OPENSURFEX/8.1.0/foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/SURFEX/open_namelist.F90:102
+        # #3  0x403c5d in pgd
+        #         at /tmp/vsc47063/easybuild/build/OPENSURFEX/8.1.0/foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/OFFLIN/pgd.F90:300
+        # #4  0x403802 in main
+        #         at /tmp/vsc47063/easybuild/build/OPENSURFEX/8.1.0/foss-2023a/open-SURFEX-70d23957e90ac9dfe4f076669f78e967a5e234e3/src/OFFLIN/pgd.F90:68
+        # Aborted (core dumped)
+#E1: 
+    # CMakeMakeCp + cp all -> PGD: error while loading shared libraries: libnetcdff.so.6: cannot open shared object file: No such file or directory
+        # libnetcdff.so.6 is in:
+            # ./NetCDF_Fortran-prefix/src/NetCDF_Fortran-build/fortran/libnetcdff.so.6
+            # ./auxiliary/lib/libnetcdff.so.6
