@@ -11,37 +11,31 @@ SURFEX is being developed by Météo-France and Open-SURFEX is a freely availabl
 released under terms of CECILL-C Licence.
 """
 
-# toolchain = {'name': 'iimpi', 'version': '2023a'}
-toolchain = {'name': 'foss', 'version': '2023a'}
-# toolchainopts = {'usempi': True, 'openmp': True, 'pic': True}
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
 source_urls = ['https://github.com/joewkr/open-SURFEX/archive/']
 sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
 checksums = ['44341eee2ae952a21cc0055533c1ea7b3ef27fc88b716b46f88ca339a7bfebe1']
 
-dependencies = [
+builddependencies = [
+    ('binutils', '2.40'),
     ('CMake', '3.26.3'),
-    # ('netCDF', '4.9.0'),
-    # ('netCDF-Fortran', '4.6.0'),
 ]
 
-# configopts = '-DENABLE_OMP=ON -DENABLE_MPI=ON'
-# configopts = '-DENABLE_OMP=ON -DENABLE_MPI=ON -DINSPECT_MASTER_SOURCES=ON'
-# separate_build_dir = False
-buildininstalldir = True
-build_cmd = 'cmake --build .' # + -j 8
+# buildininstalldir = True
+build_cmd = 'cmake --build .'
 install_cmd = 'cmake --build . --target install'
 
-# files_to_copy = ['*']
+sanity_check_paths = {
+    'files': ['bin/PGD', 'bin/PREP', 'bin/OFFLINE'],
+    'dirs': ['lib'],
+}
 
-# sanity_check_paths = { # CMMCp
-#     'files': ['PGD'],
-#     'dirs': ['auxiliary'],
-# }
-
-# modextrapaths = {'PATH': ''} # CMMCp
-
-# skipsteps = ['configure']
+modextrapaths = {
+    'PATH': 'lib/surfex/bin',
+    'CPATH': 'lib/surfex/include',
+    'LD_LIBRARY_PATH': 'lib/surfex/lib',
+}
 
 # prebuildopts = "cd src/ && "
 # prebuildopts += "export OMP_NUM_THREADS=%(parallel)s && "  # no. of threads for installation
