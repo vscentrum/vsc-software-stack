@@ -52,13 +52,16 @@ exts_list = [
     ('gcmr', '1.0.3', {
         'checksums': ['75773d5119179f186467d33608e9ce1c030d0755dfd6ff196546884078e89754'],
     }),
+    ('frbs', '3.2-0', {
+        'checksums': ['48505d415e3687afcb837e162b63b74173b3cd5df5f96140240e441c86343b2e'],
+    }),
 ]
 
 modextrapaths = {'R_LIBS_SITE': ''}
 
 sanity_check_paths = {
     'files': [],
-    'dirs': ['gcmr'],
+    'dirs': ['gcmr', 'frbs'],
 }
 
 # sanity_check_paths = {
@@ -66,6 +69,6 @@ sanity_check_paths = {
 #     'dirs': ['abind', 'base64', 'calibrate'],
 # }
 
-sanity_check_commands = ['Rscript -e "library(gcmr)"']
+sanity_check_commands = ['Rscript -e "library(gcmr)"', 'Rscript -e "library(frbs)"']
 
 moduleclass = 'lang'

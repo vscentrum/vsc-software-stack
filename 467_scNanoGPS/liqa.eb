@@ -1,6 +1,6 @@
 easyblock = 'PythonPackage'
 
-name = 'Liqa'
+name = 'LIQA'
 version = '1.3.4'
 
 homepage = "https://pypi.org/project/liqa/"
@@ -8,7 +8,7 @@ description = """LIQA (Long-read Isoform Quantification and Analysis) is an Expe
 based statistical method to quantify isoform expression and detect differential alternative splicing (DAS)
 events using long-read RNA-seq data."""
 
-toolchain = {'name': 'gfbf', 'version': '2023a'}
+toolchain = {'name': 'foss', 'version': '2023a'}
 
 sources = [SOURCELOWER_TAR_GZ]
 checksums = ['f8b2e6f0226d99f513d17be3758e6b3e2e9b7b40579f840d28737e827358850e']
@@ -30,12 +30,15 @@ dependencies = [
     ('Pysam', '0.22.0'),
     ('lifelines', '0.28.0'),
     ('R', '4.3.2'),
-    ('R-bundle-CRAN', '2023.12'),
+    # ('R-bundle-CRAN', '2023.12'),
+    ('R-bundle-CRAN-test-gcmr', '2023.12'),
 ]
 
 use_pip = True
-sanity_pip_check = True
 download_dep_fail = True
+sanity_pip_check = True
+
+options = {'modulename': '%(namelower)s_src'}
 
 sanity_check_commands = ['liqa -h']
 
