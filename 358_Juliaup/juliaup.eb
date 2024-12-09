@@ -8,7 +8,6 @@ description = """This repository contains a cross-platform installer for the Jul
 
 toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
-sources = []
 checksums = [
     {'juliaup-1.17.9.tar.gz': '623e65f93377b21096e2fec84c7474ed940d10956ca5d51dbaf04e3b428e0261'},
     {'addr2line-0.24.2.tar.gz': 'dfbe277e56a376000877090da837660b4427aad530e3028d44e0bffe4f89a1c1'},
@@ -548,6 +547,8 @@ builddependencies = [
     ('Rust', '1.75.0'),
 ]
 
+pretestopts = "sed -i 's/1.11.1/1.11/' tests/command_initial_setup_from_launcher_test.rs && "
+
 sanity_check_paths = {
     'files': ['bin/%(name)s'],
     'dirs': [],
@@ -556,3 +557,33 @@ sanity_check_paths = {
 sanity_check_commands = [f"{name} --help"]
 
 moduleclass = 'lang'
+
+#E1: OK
+    # -> sed version in pretestopts -> OK
+    # -> seems as problem with version assertation: expected 1.11.1 but get 1.11.2 -> wrong test (failing on their pipelines)
+    # <- on skitty test failed:
+        # Running tests/command_initial_setup_from_launcher_test.rs (target/release/deps/command_initial_setup_from_launcher_test-2b7d14809744a66c)
+        # running 1 test
+        # test command_initial_setup ... FAILED
+        # failures:
+        # ---- command_initial_setup stdout ----
+        # thread 'command_initial_setup' panicked at /tmp/vsc40003/easybuild/Rust/1.75.0/GCCcore-12.3.0/rustc-1.75.0-src/library/core/src/ops/function.rs:250:5:
+        # Unexpected stderr, failed (var.starts_with("Installing Julia 1.11.1") && ((! var.contains(apple.darwin14)) || (var.contains(Checking standard library notarization) && var.ends_with("done.\n"))))
+        # var as str: Installing Julia 1.11.2+0.x64.linux.gnu
+        # var.starts_with("Installing Julia 1.11.1")
+        #     var: Installing Julia 1.11.2+0.x64.linux.gnu
+        # command=`JULIAUP_DEPOT_PATH="/tmp/vsc47063/eb-om7oh7vh/.tmpGyFUli" JULIA_DEPOT_PATH="/tmp/vsc47063/eb-om7oh7vh/.tmpGyFUli" "/tmp/vsc47063/easybuild/build/juliaup/1.17.9/GCCcore-12.3.0/easybuild_vendor/juliaup-1.17.9/target/release/juliaup" "46029ef5-0b73-4a71-bff3-d0d05de42aac"`
+        # code=0
+        # stdout=""
+        # stderr="Installing Julia 1.11.2+0.x64.linux.gnu\n"
+        # stack backtrace:
+        # 0: rust_begin_unwind
+        # 1: core::panicking::panic_fmt
+        # 2: assert_cmd::assert::AssertError::panic::panic_cold_display
+        # 3: core::ops::function::FnOnce::call_once
+        # 4: core::ops::function::FnOnce::call_once
+        # note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+        # failures:
+        #     command_initial_setup
+
+        # test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.58s
