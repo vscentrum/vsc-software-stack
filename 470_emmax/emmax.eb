@@ -1,0 +1,40 @@
+easyblock = 'MakeCp'
+
+name = 'EMMAX'
+# version is based on datestamp of files in emmax-beta-src.tar.gz
+# (last checked on 13 Aug 2024)
+version = '20120210'
+
+homepage = 'https://csg.sph.umich.edu//kang/emmax'
+description = """EMMAX is a statistical test for large scale human or model organism
+  association mapping accounting for the sample structure"""
+
+toolchain = {'name': 'intel', 'version': '2023b'}
+# https://csg.sph.umich.edu/kang/emmax/download/emmax-beta-intel.tar.gz
+source_urls = ['https://csg.sph.umich.edu//kang/emmax/download/']
+sources = [{'download_filename': 'emmax-beta-intel.tar.gz', 'filename': f'{name}-{version}-intel.tar.gz'}]
+checksums = ['d40a30b520f65d27cea6c47a8612d24a6e975a4b59623d3b23965d5a8e1755f5']
+
+# patches = ['EMMAX-20100310_fix-build.patch']
+
+dependencies = [
+    ('zlib', '1.2.13'),
+]
+
+# buildopts = 'CC="$CC $CFLAGS" CLIBS="-lflexiblas -lm -lz"'
+
+files_to_copy = [(['emmax', 'emmax-kin'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/emmax', 'bin/emmax-kin'],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    "emmax 2>&1 | grep '^Usage: emmax'",
+    "emmax-kin 2>&1 | grep '^Usage: emmax_IBS_kin'",
+]
+
+moduleclass = 'bio'
+
+# $EBROOTINTELMINCOMPILERS
