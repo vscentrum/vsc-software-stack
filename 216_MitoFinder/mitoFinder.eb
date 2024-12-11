@@ -21,21 +21,37 @@ dependencies = [
     ('IDBA-UD', '1.1.3'), # should be v1.1.2
     ('Infernal', '1.1.5'), # should be v1.1.3
     ('tRNAscan-SE', '2.0.12'), # should be v2.0.6
+    ('Automake', '1.16.5'),
 ]
 
+# rename = Popen(args1, stdout=open(os.devnull, 'wb'))
+# MitoFinder root: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18
+# IDBA-UD root: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/IDBA-UD/1.1.3-GCCcore-12.3.0/
 postinstallcmds = [
-    # "sed -i '2,9d' install.sh && "
-    # "rm -rf idba/bin && "
-    "ln -s $EBROOTIDBAMINUD/bin idba/bin && " # nor working - update
-    # "sed -i '15,38d' install.sh && "
-    # create /trnascanSE/infernal-1.1.3/exec dir and link the $EBROOTINFERNAL there (there should be ../exec/bin and ../exec/share)
-    # create /trnascanSE/automake-1.13.4/exec dir and link the $EBROOTAUTOMAKE there (there should be ../exec/bin and ../exec/share)
+    # avoid run install.sh
+    # replace idba/bin by $EBROOTIDBAMINUD/bin
+    "rm -rf %(installdir)s/idba/bin && cd %(installdir)s/idba && ln -s $EBROOTIDBAMINUD/bin && "
+    # create link to metaspades.py
     "cd %(installdir)s/metaspades/bin && ln -s spades.py metaspades.py && "
-    'cd %(installdir)s && touch install.sh.ok'
+    # create trnascanSE/infernal-1.1.3/exec dir and link the $EBROOTINFERNAL/bin and /share there
+    "cd %(installdir)s/trnascanSE && mkdir -p infernal-1.1.3/exec && cd infernal-1.1.3/exec && "
+    "ln -s $EBROOTINFERNAL/bin && ln -s $EBROOTINFERNAL/share && "
+    # create /trnascanSE/automake-1.13.4/exec dir and link the $EBROOTAUTOMAKE/bin and /share there
+    "cd %(installdir)s/trnascanSE && mkdir -p automake-1.13.4/exec && cd automake-1.13.4/exec && "
+    "ln -s $EBROOTAUTOMAKE/bin && ln -s $EBROOTAUTOMAKE/share && "
+    # create trnascanSE/tRNAscan-SE-2.0/exec dir and link the $EBROOTTRNASCANMINSE/bin and /lib and /include there
+    "cd %(installdir)s/trnascanSE && mkdir -p tRNAscan-SE-2.0/exec && cd tRNAscan-SE-2.0/exec && "
+    "ln -s $EBROOTTRNASCANMINSE/bin && ln -s $EBROOTTRNASCANMINSE/lib && ln -s $EBROOTTRNASCANMINSE/include && "
+    # create mitfi/infernal-1.0.2/exec dir and link the $EBROOTINFERNAL/bin and /share there
+    "cd %(installdir)s/mitfi && mkdir -p infernal-1.0.2/exec && cd infernal-1.0.2/exec && "
+    "ln -s $EBROOTINFERNAL/bin && ln -s $EBROOTINFERNAL/share && "
+    # create install.sh.ok
+    'cd %(installdir)s && touch install.sh.ok && '
+    # fix mitofinder
+    "sed -i 's/os.devnull, \'wb\')/os.devnull, \'wb\'), shell=True/g' mitofinder"
 ]
-# postinstallcmds = ['./install.sh']
 
-fix_python_shebang_for = ['mitofinder']
+fix_python_shebang_for = ['mitofinder', '*.py']
 
 sanity_check_paths = {
     'files': ['mitofinder'],
@@ -58,7 +74,22 @@ moduleclass = 'bio'
     # MiTFi folder = /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/mitfi/
     # tRNAscan-SE folder = /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/trnascanSE/tRNAscan-SE-2.0/
 
-# E2: 
+# E3:
+    # <- after $ mitofinder -j Aphaenogaster_megommata_SRR1303315 -1 Aphaenogaster_megommata_SRR1303315_R1_cleaned.fastq.gz -2 Aphaenogaster_megommata_SRR1303315_R2_cleaned.fastq.gz -r reference.gb -o 5 -p 5 -m 10
+        # Creating summary statistics for the mtDNA contig
+        # Annotating mitochondrial contig
+        # ERROR: tRNA annotation failed.
+        # To see what happened, please check:
+        # /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/test_case/Hospitalitermes_medioflavus_NCBI/geneChecker_error.log 
+        # /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/test_case/Hospitalitermes_medioflavus_NCBI/geneChecker.log 
+        # or /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/test_case/Hospitalitermes_medioflavus_NCBI/Hospitalitermes_medioflavus_NCBI_MitoFinder_mitfi_Final_Results/MiTFi.log
+        # Aborting
+# E2: OK
+    # command = module_dir+"/circularizationCheck.py " + pathOfResult + " " + str(args.circularSize) $
+    # print("COMMAND: "+command)
+    # args1 = shlex.split(command)
+    # print("ARGS1: "+args1)
+
     # <- after: $ mitofinder -j Aphaenogaster_megommata_SRR1303315 -1 Aphaenogaster_megommata_SRR1303315_R1_cleaned.fastq.gz -2 Aphaenogaster_megommata_SRR1303315_R2_cleaned.fastq.gz -r reference.gb -o 5 -p 5 -m 10
         # MitoFinder found a single mitochondrial contig
         # Checking resulting contig for circularization...
