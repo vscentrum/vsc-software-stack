@@ -24,13 +24,16 @@ dependencies = [
 ]
 
 postinstallcmds = [
-    "sed -i '2,9d' install.sh && "
-    "rm -rf idba/bin && "
-    "ln -s $EBROOTIDBAMINUD/bin idba/bin && "
+    # "sed -i '2,9d' install.sh && "
+    # "rm -rf idba/bin && "
+    "ln -s $EBROOTIDBAMINUD/bin idba/bin && " # nor working - update
     # "sed -i '15,38d' install.sh && "
-    './install.sh && '
-    'touch install.sh.ok'
+    # create /trnascanSE/infernal-1.1.3/exec dir and link the $EBROOTINFERNAL there (there should be ../exec/bin and ../exec/share)
+    # create /trnascanSE/automake-1.13.4/exec dir and link the $EBROOTAUTOMAKE there (there should be ../exec/bin and ../exec/share)
+    "cd %(installdir)s/metaspades/bin && ln -s spades.py metaspades.py && "
+    'cd %(installdir)s && touch install.sh.ok'
 ]
+# postinstallcmds = ['./install.sh']
 
 fix_python_shebang_for = ['mitofinder']
 
