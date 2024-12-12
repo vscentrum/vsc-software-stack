@@ -45,17 +45,21 @@ postinstallcmds = [
     # create mitfi/infernal-1.0.2/exec dir and link the $EBROOTINFERNAL/bin and /share there
     "cd %(installdir)s/mitfi && mkdir -p infernal-1.0.2/exec && cd infernal-1.0.2/exec && "
     "ln -s $EBROOTINFERNAL/bin && ln -s $EBROOTINFERNAL/share && "
+    # link $EBROOTINFERNAL/bin to mitfi/infernal-1.0.2/src
+    "cd %(installdir)s/mitfi/infernal-1.0.2 && ln -s $EBROOTINFERNAL/bin src && "
     # create install.sh.ok
     'cd %(installdir)s && touch install.sh.ok && '
     # fix mitofinder
     "sed -i 's/os.devnull, \'wb\')/os.devnull, \'wb\'), shell=True/g' mitofinder"
+    # run test
+    # "./mitofinder -j Aphaenogaster_megommata_SRR1303315 -1 Aphaenogaster_megommata_SRR1303315_R1_cleaned.fastq.gz -2 Aphaenogaster_megommata_SRR1303315_R2_cleaned.fastq.gz -r reference.gb -o 5 -p 5 -m 10"
 ]
 
 fix_python_shebang_for = ['mitofinder', '*.py']
 
 sanity_check_paths = {
     'files': ['mitofinder'],
-    'dirs': [],
+    'dirs': ['idba', 'megahit', 'metaspades', 'mitfi', 'trnascanSE'],
 }
 
 sanity_check_commands = ['mitofinder -h']
@@ -74,7 +78,8 @@ moduleclass = 'bio'
     # MiTFi folder = /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/mitfi/
     # tRNAscan-SE folder = /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/trnascanSE/tRNAscan-SE-2.0/
 
-# E3:
+# E3: OK
+    # -> problem in /mitfi/infernal-1.0.2 - it needs to unzip infernal to get src/cmsearch.c -> no -> cmsearch is in exec/bin -> ln all from exec/bin to src -> OK -> tests passed
     # <- after $ mitofinder -j Aphaenogaster_megommata_SRR1303315 -1 Aphaenogaster_megommata_SRR1303315_R1_cleaned.fastq.gz -2 Aphaenogaster_megommata_SRR1303315_R2_cleaned.fastq.gz -r reference.gb -o 5 -p 5 -m 10
         # Creating summary statistics for the mtDNA contig
         # Annotating mitochondrial contig
@@ -84,6 +89,20 @@ moduleclass = 'bio'
         # /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/test_case/Hospitalitermes_medioflavus_NCBI/geneChecker.log 
         # or /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/test_case/Hospitalitermes_medioflavus_NCBI/Hospitalitermes_medioflavus_NCBI_MitoFinder_mitfi_Final_Results/MiTFi.log
         # Aborting
+            # <- MiTFi.log
+            # Exception in thread "main" java.io.IOException: Cannot run program "./infernal-1.0.2/src/cmsearch": error=2, No such file or directory
+            #         at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1128)
+            #         at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1071)
+            #         at java.base/java.lang.Runtime.exec(Runtime.java:592)
+            #         at java.base/java.lang.Runtime.exec(Runtime.java:416)
+            #         at java.base/java.lang.Runtime.exec(Runtime.java:313)
+            #         at mitfi.Main.main(Main.java:228)
+            # Caused by: java.io.IOException: error=2, No such file or directory
+            #         at java.base/java.lang.ProcessImpl.forkAndExec(Native Method)
+            #         at java.base/java.lang.ProcessImpl.<init>(ProcessImpl.java:340)
+            #         at java.base/java.lang.ProcessImpl.start(ProcessImpl.java:271)
+            #         at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1107)
+            #         ... 5 more
 # E2: OK
     # command = module_dir+"/circularizationCheck.py " + pathOfResult + " " + str(args.circularSize) $
     # print("COMMAND: "+command)
