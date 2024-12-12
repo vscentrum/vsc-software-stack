@@ -14,45 +14,31 @@ source_urls = ['https://github.com/RemiAllio/MitoFinder/archive/']
 sources = ['v%(version)s.tar.gz']
 checksums = ['2d6d3925fb014777df97f272134143cc518944ae05d000a44ada2862d46ec95a']
 
-# builddependencies = [('Autotools', '20220317')]
 dependencies = [
     ('Java', '11', '', SYSTEM),
     ('Python', '2.7.18'),
-    ('IDBA-UD', '1.1.3'), # should be v1.1.2
-    ('Infernal', '1.1.5'), # should be v1.1.3
-    ('tRNAscan-SE', '2.0.12'), # should be v2.0.6
+    ('IDBA-UD', '1.1.3'),
+    ('Infernal', '1.1.5'),
+    ('tRNAscan-SE', '2.0.12'),
     ('Automake', '1.16.5'),
 ]
 
-# rename = Popen(args1, stdout=open(os.devnull, 'wb'))
-# MitoFinder root: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18
-# IDBA-UD root: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/IDBA-UD/1.1.3-GCCcore-12.3.0/
 postinstallcmds = [
-    # avoid run install.sh
-    # replace idba/bin by $EBROOTIDBAMINUD/bin
+    # avoid run install.sh + link EB modules
     "rm -rf %(installdir)s/idba/bin && cd %(installdir)s/idba && ln -s $EBROOTIDBAMINUD/bin && "
-    # create link to metaspades.py
     "cd %(installdir)s/metaspades/bin && ln -s spades.py metaspades.py && "
-    # create trnascanSE/infernal-1.1.3/exec dir and link the $EBROOTINFERNAL/bin and /share there
     "cd %(installdir)s/trnascanSE && mkdir -p infernal-1.1.3/exec && cd infernal-1.1.3/exec && "
     "ln -s $EBROOTINFERNAL/bin && ln -s $EBROOTINFERNAL/share && "
-    # create /trnascanSE/automake-1.13.4/exec dir and link the $EBROOTAUTOMAKE/bin and /share there
     "cd %(installdir)s/trnascanSE && mkdir -p automake-1.13.4/exec && cd automake-1.13.4/exec && "
     "ln -s $EBROOTAUTOMAKE/bin && ln -s $EBROOTAUTOMAKE/share && "
-    # create trnascanSE/tRNAscan-SE-2.0/exec dir and link the $EBROOTTRNASCANMINSE/bin and /lib and /include there
     "cd %(installdir)s/trnascanSE && mkdir -p tRNAscan-SE-2.0/exec && cd tRNAscan-SE-2.0/exec && "
     "ln -s $EBROOTTRNASCANMINSE/bin && ln -s $EBROOTTRNASCANMINSE/lib && ln -s $EBROOTTRNASCANMINSE/include && "
-    # create mitfi/infernal-1.0.2/exec dir and link the $EBROOTINFERNAL/bin and /share there
     "cd %(installdir)s/mitfi && mkdir -p infernal-1.0.2/exec && cd infernal-1.0.2/exec && "
     "ln -s $EBROOTINFERNAL/bin && ln -s $EBROOTINFERNAL/share && "
-    # link $EBROOTINFERNAL/bin to mitfi/infernal-1.0.2/src
     "cd %(installdir)s/mitfi/infernal-1.0.2 && ln -s $EBROOTINFERNAL/bin src && "
-    # create install.sh.ok
     'cd %(installdir)s && touch install.sh.ok && '
-    # fix mitofinder
+    # fix mitofinder - https://github.com/RemiAllio/MitoFinder/issues/26
     "sed -i 's/os.devnull, \'wb\')/os.devnull, \'wb\'), shell=True/g' mitofinder"
-    # run test
-    # "./mitofinder -j Aphaenogaster_megommata_SRR1303315 -1 Aphaenogaster_megommata_SRR1303315_R1_cleaned.fastq.gz -2 Aphaenogaster_megommata_SRR1303315_R2_cleaned.fastq.gz -r reference.gb -o 5 -p 5 -m 10"
 ]
 
 fix_python_shebang_for = ['mitofinder', '*.py']
@@ -67,64 +53,3 @@ sanity_check_commands = ['mitofinder -h']
 modextrapaths = {'PATH': ''}
 
 moduleclass = 'bio'
-
-# test text - when I start tests by: $ mitofinder -j Aphaenogaster_megommata_SRR1303315 -1 Aphaenogaster_megommata_SRR1303315_R1_cleaned.fastq.gz -2 Aphaenogaster_megommata_SRR1303315_R2_cleaned.fastq.gz -r reference.gb -o 5 -p 5 -m 10
-    # Program folders:
-    # MEGAHIT = /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/megahit/
-    # MetaSPAdes folder = /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/metaspades/bin/
-    # IDBA-UD folder = /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/idba/bin/
-    # Blast folder = /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/blast/bin/
-    # ARWEN folder = /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/arwen/
-    # MiTFi folder = /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/mitfi/
-    # tRNAscan-SE folder = /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/trnascanSE/tRNAscan-SE-2.0/
-
-# E3: OK
-    # -> problem in /mitfi/infernal-1.0.2 - it needs to unzip infernal to get src/cmsearch.c -> no -> cmsearch is in exec/bin -> ln all from exec/bin to src -> OK -> tests passed
-    # <- after $ mitofinder -j Aphaenogaster_megommata_SRR1303315 -1 Aphaenogaster_megommata_SRR1303315_R1_cleaned.fastq.gz -2 Aphaenogaster_megommata_SRR1303315_R2_cleaned.fastq.gz -r reference.gb -o 5 -p 5 -m 10
-        # Creating summary statistics for the mtDNA contig
-        # Annotating mitochondrial contig
-        # ERROR: tRNA annotation failed.
-        # To see what happened, please check:
-        # /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/test_case/Hospitalitermes_medioflavus_NCBI/geneChecker_error.log 
-        # /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/test_case/Hospitalitermes_medioflavus_NCBI/geneChecker.log 
-        # or /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/test_case/Hospitalitermes_medioflavus_NCBI/Hospitalitermes_medioflavus_NCBI_MitoFinder_mitfi_Final_Results/MiTFi.log
-        # Aborting
-            # <- MiTFi.log
-            # Exception in thread "main" java.io.IOException: Cannot run program "./infernal-1.0.2/src/cmsearch": error=2, No such file or directory
-            #         at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1128)
-            #         at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1071)
-            #         at java.base/java.lang.Runtime.exec(Runtime.java:592)
-            #         at java.base/java.lang.Runtime.exec(Runtime.java:416)
-            #         at java.base/java.lang.Runtime.exec(Runtime.java:313)
-            #         at mitfi.Main.main(Main.java:228)
-            # Caused by: java.io.IOException: error=2, No such file or directory
-            #         at java.base/java.lang.ProcessImpl.forkAndExec(Native Method)
-            #         at java.base/java.lang.ProcessImpl.<init>(ProcessImpl.java:340)
-            #         at java.base/java.lang.ProcessImpl.start(ProcessImpl.java:271)
-            #         at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1107)
-            #         ... 5 more
-# E2: OK
-    # command = module_dir+"/circularizationCheck.py " + pathOfResult + " " + str(args.circularSize) $
-    # print("COMMAND: "+command)
-    # args1 = shlex.split(command)
-    # print("ARGS1: "+args1)
-
-    # <- after: $ mitofinder -j Aphaenogaster_megommata_SRR1303315 -1 Aphaenogaster_megommata_SRR1303315_R1_cleaned.fastq.gz -2 Aphaenogaster_megommata_SRR1303315_R2_cleaned.fastq.gz -r reference.gb -o 5 -p 5 -m 10
-        # MitoFinder found a single mitochondrial contig
-        # Checking resulting contig for circularization...
-        # Traceback (most recent call last):
-        # File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/mitofinder", line 965, in <module>
-        #     fourthStep = Popen(args1, stdout=subprocess.PIPE, stderr=open(os.devnull, 'wb')).communicate()[0]
-        # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/2.7.18-GCCcore-12.3.0/lib/python2.7/subprocess.py", line 394, in __init__
-        #     errread, errwrite)
-        # File "/apps/gent/RHEL8/cascadelake-ib/software/Python/2.7.18-GCCcore-12.3.0/lib/python2.7/subprocess.py", line 1047, in _execute_child
-        #     raise child_exception
-        # OSError: [Errno 2] No such file or directory
-
-# E1: OK
-    # -> touch install.sh.ok
-    # <- after: $ mitofinder -j Aphaenogaster_megommata_SRR1303315 -1 Aphaenogaster_megommata_SRR1303315_R1_cleaned.fastq.gz -2 Aphaenogaster_megommata_SRR1303315_R2_cleaned.fastq.gz -r reference.gb -o 5 -p 5 -m 10
-        # ERROR: MitoFinder is not installed.
-        # No such file or directory: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/MitoFinder/1.4.2-foss-2023a-Python-2.7.18/install.sh.ok
-        # Please run ./install.sh in the MitoFinder directory.
-        # Aborting. 
