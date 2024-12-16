@@ -7,7 +7,10 @@ homepage = 'https://github.com/firemodels/smv'
 description = """Smokeview is a visualization program that displays output of FDS and CFAST simulations."""
 
 # toolchain = {'name': 'intel-compilers', 'version': '2023.1.0'}
-toolchain = {'name': 'intel', 'version': '2023a'}
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+# toolchain = {'name': 'intel', 'version': '2023a'} -> needs cstd: gnu99
+# toolchainopts = {'cstd': 'gnu99'}
+# toolchainopts = {'cstd': 'gnu11'}
 
 source_urls = ['https://github.com/firemodels/smv/archive/']
 sources = [SOURCE_TAR_GZ]
@@ -16,6 +19,7 @@ checksums = ['6c6203f6d6cd83c3525c7447ce4201c8df373d18d0c992d607ad232a77590ef7']
 builddependencies = [
     ('CMake', '3.26.3'),
     ('pkgconf', '1.9.5'),
+    ('binutils', '2.40'),
 ]
 dependencies = [
     ('libgd', '2.3.3'),
@@ -23,12 +27,15 @@ dependencies = [
     ('libjpeg-turbo', '2.1.5.1'),
     ('libpng', '1.6.39'),
     ('zlib', '1.2.13'),
+    ('json-c', '0.16'),
+    ('Doxygen', '1.9.7'),
     # ('Lua', '5.4.6'),
     # ('LPeg', '1.1.0'),
     ('glew', '2.2.0', '-osmesa'),
     # ('Xvfb', '21.1.8'),
 ]
 
+configopts = '-DVERIFICATION_TESTS=ON'
 # local_buildopts = ' LDFLAGS="-L%(installdir)s -L$EBROOTFREEGLUT/lib -L$EBROOTLIBGD/lib -L%(start_dir)s/Source/glui_v2_1_beta" '
 # local_buildopts += ' IFLAGS="-I$EBROOTFREEGLUT/include/GL -I%(builddir)s/smv-SMV-%(version)s/Source/glui_v2_1_beta/ '
 # local_buildopts += ' -I%(builddir)s/smv-SMV-%(version)s/Source/glui_gl/GL/glut.h "'
@@ -53,13 +60,30 @@ dependencies = [
 #     'ln -s %(installdir)s/bin/smokeview_linux_64 %(installdir)s/bin/smokeview'
 # ]
 
-# sanity_check_commands = [
-#     "cd %(builddir)s/smv-SMV-%(version)s && timeout 10 xvfb-run smokeview example 2>&1 | grep 'Terminated' ",
-# ]
+sanity_check_commands = [
+    'smokediff -h',
+    'smokezip -h',
+    'smvq -h',
+    'smokeview -h 2>&1 | grep "Visualize"',
+]
 
 sanity_check_paths = {
-    'files': ['bin/smokeview'],
+    'files': ['bin/smokeview', 'bin/smokediff', 'bin/smokezip', 'bin/smvq'],
     'dirs': [],
 }
 
 moduleclass = 'vis'
+
+# E1: OK
+    # -> add toolchainopts = {'cstd': 'gnu99'} + json-c + Doxygen (missing in CMake) -> OK
+    # <- during compilation of SMV
+        # [ 60%] Linking C executable ../parse_hvac_vals
+        # cd /tmp/vsc47063/easybuild/build/SMV/6.9.5/intel-2023a/easybuild_obj/Tests && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/bin/cmake -E cmake_link_script CMakeFiles/parse_hvac_vals.dir/link.txt --verbose=1
+        # /tmp/vsc47063/easybuild/build/SMV/6.9.5/intel-2023a/easybuild_obj/Source/smvq/json-c/json-c/printbuf.c:163:15: error: call to undeclared function 'vasprintf'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+        #                 if ((size = vasprintf(&t, msg, ap)) < 0)
+        #                             ^
+        # /tmp/vsc47063/easybuild/build/SMV/6.9.5/intel-2023a/easybuild_obj/Source/smvq/json-c/json-c/printbuf.c:163:15: note: did you mean 'vsprintf'?
+        # /usr/include/stdio.h:349:12: note: 'vsprintf' declared here
+        # extern int vsprintf (char *__restrict __s, const char *__restrict __format,
+        #         ^
+        # 1 error generated.
