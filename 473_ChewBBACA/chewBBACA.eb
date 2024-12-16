@@ -14,23 +14,6 @@ The "chew" part adds extra coolness to the name and could be thought of as
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# DEPS:
-    # OK "numpy~=1.24.3",
-    # OK "scipy~=1.10.1",
-    # OK "biopython>=1.79",
-    # OK "plotly>=5.8.0",
-    # ok "SPARQLWrapper>=2.0.0",
-    # OK "pandas>=1.5.1,<2.1",
-    # OK "requests>=2.27.1",
-    # ok "pyrodigal>=3.0.0"
-    # OK BLAST >=2.9.0 (we recommend using BLAST 2.9.0+)
-    # NO - not need Prodigal >=2.6.3 (for chewBBACA <3.3.0)
-    # OK MAFFT >=7.505 (for schema evaluation only)
-    # OK FastTree >=2.1.11 (for allele calling evaluation only)
-    # OK pyrodigal 3.6.3 requires archspec, which is not installed.
-    # OK chewbbaca 3.3.10 has requirement numpy~=1.24.3, but you have numpy 1.25.1.
-    # OK chewbbaca 3.3.10 has requirement scipy~=1.10.1, but you have scipy 1.11.1.
-
 builddependencies = [
     ('scikit-build-core', '0.9.3'),
     ('poetry', '1.5.1'),
@@ -51,10 +34,11 @@ dependencies = [
 use_pip = True
 sanity_pip_check = True
 
-local_preinstallopts = ("sed -i "
-"-e 's/numpy~=1.24.3/numpy>=1.24.3/g' "
-"-e 's/scipy~=1.10.1/scipy>=1.10.1/g' "
-'pyproject.toml && '
+local_preinstallopts = (
+    "sed -i "
+    "-e 's/numpy~=1.24.3/numpy>=1.24.3/g' "
+    "-e 's/scipy~=1.10.1/scipy>=1.10.1/g' "
+    'pyproject.toml && '
 )
 
 exts_list = [
