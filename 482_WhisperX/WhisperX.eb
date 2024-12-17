@@ -1,0 +1,48 @@
+easyblock = 'PythonBundle'
+
+name = 'WhisperX'
+version = '3.2.0'
+versionsuffix = '-CUDA-12.1.1'
+
+homepage = 'https://github.com/openai/whisper'
+description = "Whisper is a general-purpose speech recognition model"
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('PyTorch-bundle', '2.1.2', versionsuffix),
+    ('NLTK', '3.8.1'),
+    ('Transformers', '4.39.3'),
+    ('CTranslate2', '4.5.0'),
+    ('FFmpeg', '6.0'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('faster-whisper', '1.1.0', {
+        'checksums': ['cea4bba5d4527173fdbacafa56f2ffb17dd322688f6c3fdf5fd7b6b6c193ce17'],
+    }),
+    ('pyannote.audio', '3.3.2', {
+        'sources': ['pyannote_audio-%(version)s.tar.gz'],
+        'checksums': ['b2115e86b0db5faedb9f36ee1a150cebd07f7758e65e815accdac1a12ca9c777'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/m-bain/whisperX/archive/'],
+        'sources': ['v%(version)s.tar.gz'],
+        'checksums': ['c2db12ec295fa8416d475aeccb94f9f6f16397e096e7bf0f77cf32ba6c4f4351'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/whisperx'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["whisperx --help"]
+
+sanity_pip_check = True
+
+moduleclass = 'ai'
