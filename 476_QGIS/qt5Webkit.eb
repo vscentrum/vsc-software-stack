@@ -61,6 +61,11 @@ sanity_check_paths = {
 moduleclass = 'devel'
 
 # E1:
+    # -> from chat.com: https://chatgpt.com/share/e/6762c273-e0f8-800f-a2fb-66c82885295b
+        # replace all: if (@idx == @tokens.length and not final) or (final and @tokens[@idx] =~ final)
+        # by:
+            # token_str = @tokens[@idx].is_a?(Annotation) ? @tokens[@idx].string : @tokens[@idx].to_s
+            # if (@idx == @tokens.length && !final) || (final && token_str =~ final)
     # <- logqtWebkitE1.txt
     # [124/4450] Generating ../../DerivedSources/JavaScriptCore/LLIntDesiredOffsets.h
     # FAILED: DerivedSources/JavaScriptCore/LLIntDesiredOffsets.h /tmp/vsc47063/easybuild/build/Qt5Webkit/5.212.0-

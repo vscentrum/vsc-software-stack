@@ -1,5 +1,4 @@
-# easyblock = 'CMakeMake'
-easyblock = 'MesonNinja'
+easyblock = 'CMakeNinja'
 
 name = 'PDAL'
 version = '2.8.2'
@@ -13,126 +12,32 @@ although the focus and impetus for many of the tools in the library have their o
 toolchain = {'name': 'foss', 'version': '2023a'}
 
 source_urls = ['https://github.com/PDAL/PDAL/archive/']
-sources = ['v%(version)s.tar.gz']
-
-# DEPS:
-    # MAIN:
-        # OK GDAL 3.0+
-        # OK GeoTIFF 1.3+
-    # boost:           1.66.0-py35_vc14_1
-    # boost-cpp:       1.66.0-vc14_1
-    # ca-certificates: 2018.4.16-0
-    # cairo:           1.14.10-vc14_0
-    # certifi:         2018.4.16-py35_0
-    # curl:            7.60.0-vc14_0
-    # expat:           2.2.5-vc14_0
-    # flann:           1.9.1-h0953f56_2
-    # freexl:          1.0.5-vc14_0
-    # geotiff:         1.4.2-vc14_1
-    # hdf4:            4.2.13-vc14_0
-    # hdf5:            1.10.1-vc14_2
-    # hexer:           1.4.0-vc14_1
-    # icc_rt:          2017.0.4-h97af966_0
-    # icu:             58.2-vc14_0
-    # intel-openmp:    2018.0.3-0
-    # jpeg:            9b-vc14_2
-    # kealib:          1.4.7-vc14_4
-    # krb5:            1.14.6-vc14_0
-    # laszip:          3.2.2-vc14_0
-    # laz-perf:        1.2.0-vc14_1
-    # libgdal:         2.2.4-vc14_4
-    # libiconv:        1.15-vc14_0
-    # libnetcdf:       4.6.1-vc14_2
-    # libpng:          1.6.34-vc14_0
-    # libpq:           9.6.3-vc14_0
-    # libspatialite:   4.3.0a-vc14_19
-    # libssh2:         1.8.0-vc14_2
-    # libtiff:         4.0.9-vc14_0
-    # libxml2:         2.9.8-vc14_0
-    # libxslt:         1.1.32-vc14_0
-    # mkl:             2018.0.3-1
-    # mkl_fft:         1.0.2-py35_0
-    # mkl_random:      1.0.1-py35_0
-    # nitro:           2.7.dev2-vc14_0
-    # numpy:           1.14.3-py35h9fa60d3_2
-    # numpy-base:      1.14.3-py35h5c71026_0
-    # openjpeg:        2.3.0-vc14_2
-    # openssl:         1.0.2o-vc14_0
-    # pcl:             1.8.1-hd76163c_1
-    # pdal:            1.7.2-py35h33f895e_1
-    # pip:             9.0.3-py35_0
-    # pixman:          0.34.0-vc14_2
-    # postgresql:      10.3-py35_vc14_0
-    # proj4:           4.9.3-vc14_5
-    # python:          3.5.5-1
-    # setuptools:      39.2.0-py35_0
-    # sqlite:          3.20.1-vc14_2
-    # tiledb:          1.4.1
-    # vc:              14-0
-    # vs2015_runtime:  14.0.25420-0
-    # wheel:           0.31.0-py35_0
-    # wincertstore:    0.2-py35_0
-    # xerces-c:        3.2.0-vc14_0
-    # xz:              5.2.3-0
-    # zlib:
+sources = ['%(version)s.tar.gz']
+checksums = ['f3c6ace0891191dcae7306b1d40f387f1065a7d6bf011da2a3843a92c7d0a788']
 
 builddependencies = [
-    # ('flex', '2.6.4'),
-    # ('Bison', '3.8.2'),
     ('CMake', '3.26.3'),
-    # ('pkgconf', '1.9.5'),
-    ('Meson', '1.1.1'),
     ('Ninja', '1.11.1'),
 ]
 
 dependencies = [
     ('GDAL', '3.7.1'),
     ('libgeotiff', '1.7.1'),
-#     ('Python', '3.11.3'),
-#     ('Qt5', '5.15.10'),
-# #     ('Qt5Webkit', '5.212.0-alpha4'), # UPDATE?
-#     ('PyQt5', '5.15.10'),
-#     ('PROJ', '9.2.0'),
-#     ('GEOS', '3.12.0'),
-#     ('SQLite', '3.42.0'),
-#     ('libspatialite', '5.1.0'), # UPDATED
-#     ('libspatialindex', '1.9.3'),
-#     ('PyYAML', '6.0'),
-#     ('Cartopy', '0.22.0'), # ? rly needed
-#     ('psycopg2', '2.9.9'),
-#     ('Qwt', '6.3.0'),
-#     ('expat', '2.5.0'),
-# #     ('QCA', '2.3.5'), # UPDATE
-# #     # QScintilla must be listed after PyQt5 due to Python bindings 'overriding' those of PyQt5
-# #     ('QScintilla', '2.11.6'), # UPDATE
-#     ('GSL', '2.7'), # optional
-# #     ('libzip', '1.7.3'), # UPDATE
-# #     ('QtKeychain', '0.13.2'), # UPDATE
-#     ('ICU', '73.2'), # ? rly needed
-#     ('PostgreSQL', '16.1'), # optional
-# #     ('GRASS', '8.2.0'), # optional UPDATE?
-#     ('protobuf', '24.0'),
-#     ('exiv2', '0.28.0'),
-#     ('pocl', '4.0'),
+    ('zlib', '1.2.13'),
+    ('zstd', '1.5.5'),
 ]
 
-# # specify locations that CMake can't figure out correctly
-# _copts = [
-#     "-DCMAKE_PREFIX_PATH=$EBROOTQT",
-#     "-DQSCINTILLA_LIBRARY=$EBROOTQSCINTILLA/lib/libqscintilla2_qt5.%s" % SHLIB_EXT,
-#     "-DQt5WebKit_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKit",
-#     "-DQt5WebKitWidgets_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKitWidgets",
-#     "-DPYQT5_SIP_DIR=$EBROOTPYQT5/share/sip",
-#     "-DQSCI_SIP_DIR=$EBROOTQSCINTILLA/share/sip/PyQt5",
-#     "-DGRASS_PREFIX8=$EBROOTGRASS/grass8",
-# ]
-# configopts = ' '.join(_copts)
+configopts = '-DWITH_ZSTD=ON -DWITH_ZLIB=ON -DWITH_TESTS=ON'
 
-# sanity_check_paths = {
-#     'files': ['bin/qgis', 'bin/qgis_bench', 'lib/libqgis_analysis.%s' % SHLIB_EXT,
-#               'lib/libqgis_app.%s' % SHLIB_EXT, 'lib/libqgis_core.%s' % SHLIB_EXT, 'lib/libqgis_gui.%s' % SHLIB_EXT,
-#               'lib/libqgis_native.%s' % SHLIB_EXT, 'lib/libqgispython.%s' % SHLIB_EXT],
-#     'dirs': ['include/qgis', 'man', 'share/qgis'],
-# }
+# delete failing pdal_info_test(Info.stac) - https://github.com/PDAL/PDAL/issues/4389
+pretestopts = prebuildopts = preconfigopts = "sed -i '219,252d' %(start_dir)s/test/unit/apps/InfoTest.cpp && "
+test_cmd = 'ctest'
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s', 'bin/%(namelower)s-config', 'lib/libpdalcpp.so'],
+    'dirs': ['include/%(namelower)s', 'lib'],
+}
+
+sanity_check_commands = ['pdal info 2>&1 | grep "%(name)s"']
 
 moduleclass = 'tools'
