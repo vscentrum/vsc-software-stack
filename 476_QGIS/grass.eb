@@ -41,8 +41,9 @@ dependencies = [
     ('X11', '20230603'),
     ('Mesa', '23.1.4'),
     ('libGLU', '9.0.3'),
-    # ('wxPython', '4.2.0'), # UPDATE
+    ('wxPython', '4.2.1'), # UPDATE -> https://github.com/easybuilders/easybuild-easyconfigs/pull/21949
     ('zstd', '1.5.5'),
+    # PDAL https://pdal.io
 ]
 
 preconfigopts = "sed -e 's/-lblas/$LIBBLAS/g' -e 's/-llapack/$LIBLAPACK/g' -i configure && "
