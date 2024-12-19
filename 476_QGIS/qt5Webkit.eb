@@ -15,8 +15,13 @@ toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 source_urls = ['https://github.com/qtwebkit/qtwebkit/releases/download/qtwebkit-%(version)s/']
 sources = ['qtwebkit-%(version)s.tar.xz']
 patches = [
+    'parser_rb.patch',
     '%(name)s-%(version)s_bison3.7.patch',
     '%(name)s-%(version)s_json.patch',
+    '%(name)s-%(version)s_fix_python_path.patch',
+    '%(name)s-%(version)s_fix_deprecated_encoding_in_json.load.patch',
+    '%(name)s-%(version)s_use_CXX_true_instead_of_TRUE_define.patch',
+    '%(name)s-%(version)s_dont_use_multiarch_lib_dir.patch',
 ]
 checksums = [
     {'qtwebkit-5.212.0-alpha4.tar.xz': '9ca126da9273664dd23a3ccd0c9bebceb7bb534bddd743db31caf6a5a6d4a9e6'},
@@ -34,6 +39,7 @@ builddependencies = [
     ('Ninja', '1.11.1'),
     ('Python', '3.11.3'),
     ('Ruby', '2.3.4', '', SYSTEM),
+    # ('Ruby', '3.3.0'),
 ]
 
 dependencies = [
@@ -61,6 +67,7 @@ sanity_check_paths = {
 moduleclass = 'devel'
 
 # E1:
+    # -> made patch_parser_rb
     # -> from chat.com: https://chatgpt.com/share/e/6762c273-e0f8-800f-a2fb-66c82885295b
         # replace all: if (@idx == @tokens.length and not final) or (final and @tokens[@idx] =~ final)
         # by:
