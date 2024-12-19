@@ -1,0 +1,43 @@
+# Author: Pavel Grochal (INUITS)
+# License: GPLv2
+
+name = 'QScintilla'
+version = '2.11.6'
+
+homepage = 'https://www.riverbankcomputing.com/software/qscintilla'
+description = "QScintilla is a port to Qt of Neil Hodgson's Scintilla C++ editor control"
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+toolchainopts = {'pic': True, 'cstd': 'c++11'}
+
+source_urls = ['https://www.riverbankcomputing.com/static/Downloads/QScintilla/%(version)s/']
+sources = [SOURCE_TAR_GZ]
+patches = ['QScintilla-2.11.2_fix-link-python-bindings.patch']
+checksums = [
+    {'QScintilla-2.11.6.tar.gz': 'e7346057db47d2fb384467fafccfcb13aa0741373c5d593bc72b55b2f0dd20a7'},
+    {'QScintilla-2.11.2_fix-link-python-bindings.patch':
+     '6296efa69ce9448e43dda80573cb0a70fee72462157d3d6fc194fe61fd477803'},
+]
+
+builddependencies = [
+    ('binutils', '2.40'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('PyQt5', '5.15.10'),
+]
+
+prebuildopts = 'export CPATH=$EBROOTQT5/include/QtWidgets:$EBROOTQT5/include/QtPrintSupport:$CPATH && '
+
+moduleclass = 'vis'
+
+# E2:
+# == 2024-12-19 16:16:38,691 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
+# cmd "python configure.py --destdir /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/QScintilla/2.11.6-GCCcore-12.3.0/lib/python3.11/site-packages/PyQt5 --qsci-sipdir /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/QScintilla/2.11.6-GCCcore-12.3.0/share/sip/PyQt5 --qsci-incdir /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/QScintilla/2.11.6-GCCcore-12.3.0/include --qsci-libdir /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/QScintilla/2.11.6-GCCcore-12.3.0/lib --pyqt-sipdir /apps/gent/RHEL8/cascadelake-ib/software/PyQt5/5.15.10-GCCcore-12.3.0/share/sip --apidir /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/QScintilla/2.11.6-GCCcore-12.3.0/qsci/api/python --no-stubs --no-dist-info --pyqt=PyQt5" exited with exit code 1 and output:
+# Error: Make sure you have a working sip on your PATH or use the --sip argument to explicitly specify a working sip.
+
+# E1: -> stay with 2.11.6 - next version is changed (2.12.0)
+# -> has its own EBlock: https://github.com/easybuilders/easybuild-easyblocks/blob/develop/easybuild/easyblocks/q/qscintilla.py
+    # == 2024-12-19 16:01:31,933 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
+    # Failed to change to /tmp/vsc47063/easybuild/build/QScintilla/2.14.1/GCCcore-12.3.0/QScintilla_src-2.14.1/Qt4Qt5: [Errno 2] No such file or directory: '/tmp/vsc47063/easybuild/build/QScintilla/2.14.1/GCCcore-12.3.0/QScintilla_src-2.14.1/Qt4Qt5' (at easybuild/easybuild-easyblocks/easybuild/easyblocks/q/qscintilla.py:77 in configure_step)
