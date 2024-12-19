@@ -12,7 +12,6 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 source_urls = ['https://grass.osgeo.org/grass%s/source' % ''.join(version.split('.')[:2])]
 sources = [SOURCELOWER_TAR_GZ]
-# patches = ['%(name)s-%(version)s_GCC_ldlibs.patch']
 
 builddependencies = [
     ('flex', '2.6.4'),
@@ -46,8 +45,6 @@ dependencies = [
     ('PDAL', '2.8.2'),
     ('FFTW', '3.3.10'),
 ]
-
-# parallel = 1
 
 preconfigopts = "sed -i -e 's/-lblas/$LIBBLAS/g' -e 's/-llapack/$LIBLAPACK/g' configure && "
 preconfigopts += "sed -i 's/LDFLAGS=\"-Wl,--export-dynamic\"/LDFLAGS=\"-pthread -lm -Wl,--export-dynamic\"/g' configure && "
