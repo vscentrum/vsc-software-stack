@@ -233,7 +233,8 @@ exts_list = [
     (name, version, {
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        'runtest': local_pretestopts + 'cd tests && pytest -vvvs -m "not slow"',
+        # 'runtest': local_pretestopts + 'cd tests && pytest -vvvs -m "not slow"',
+        'runtest': 'cd tests && pytest -vvvs -m "not slow" --ignore=plugins/generic/test_great.py',
         'testinstall': True,
         'checksums': ['5926d2e869e1528e556fb794d5f7e914c635113f9cc58034612fa067cdbf84d4'],
     }),
@@ -248,8 +249,22 @@ sanity_check_commands = [
 
 moduleclass = 'lib'
 
-#E1: 
-    # -> test_plugin_fit disabled in local_pretestopts
+# E2:
+    # plugins/generic/test_great.py:74: 
+    # E           clearml.backend_api.session.defs.MissingConfigError: It seems ClearML is not configured on this machine!     To get started with ClearML, setup your own 'clearml-server' or create a free account at https://app.clear
+    # E           Setup instructions can be found here: https://clear.ml/docs
+    # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/clearml/1.16.5-foss-2023b/lib/python3.11/ages/clearml/backend_api/session/session.py:224: MissingConfigError
+    # FAILED plugins/generic/test_great.py::test_plugin_generate[True-test_plugin0] - clearml.backend_api.session.defs.Mi...
+    # FAILED plugins/generic/test_great.py::test_plugin_generate[True-test_plugin1] - clearml.backend_api.session.defs.Mi...
+    # FAILED plugins/generic/test_great.py::test_plugin_generate[True-test_plugin2] - clearml.backend_api.session.defs.Mi...
+    # FAILED plugins/generic/test_great.py::test_plugin_generate[False-test_plugin0] - clearml.backend_api.session.defs.M...
+    # FAILED plugins/generic/test_great.py::test_plugin_generate[False-test_plugin1] - clearml.backend_api.session.defs.M...
+    # FAILED plugins/generic/test_great.py::test_plugin_generate[False-test_plugin2] - clearml.backend_api.session.defs.M...
+    # FAILED plugins/generic/test_great.py::test_eval_performance_great[True] - clearml.backend_api.session.defs.MissingC...
+    # FAILED plugins/generic/test_great.py::test_eval_performance_great[False] - clearml.backend_api.session.defs.Missing...
+
+#E1: OK
+    # -> test_plugin_fit disabled in local_pretestopts -> OK
     # -> seems it needs ClearML - disable this tests? (neither in PyTorch - https://github.com/easybuilders/easybuild-easyconfigs/blob/develop/easybuild/easyconfigs/p/PyTorch-bundle/PyTorch-bundle-2.1.2-foss-2023a.eb#L142)
         # but ClearML is in MONAI-full
     # <- log_fail_monai_full.txt
