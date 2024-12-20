@@ -1,0 +1,97 @@
+# Author: Pavel Grochal (INUITS)
+# License: GPLv2
+
+# Installation
+# ------------
+
+# The GPL version of QScintilla can be installed from PyPI::
+
+#     pip install QScintilla
+
+# The wheels include a statically linked copy of the QScintilla C++ library.
+
+# ``pip`` will also build and install the bindings from the sdist package but
+# Qt's ``qmake`` tool must be on ``PATH``.
+
+# The ``sip-install`` tool will also install the bindings from the sdist package
+# but will allow you to configure many aspects of the installation.
+
+easyblock = 'PythonBundle'
+
+name = 'python-QScintilla'
+version = '2.14.1'
+
+homepage = 'https://www.riverbankcomputing.com/software/qscintilla'
+description = "QScintilla is a port to Qt of Neil Hodgson's Scintilla C++ editor control"
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+# toolchainopts = {'pic': True, 'cstd': 'c++11'}
+# toolchainopts = {'pic': True}
+
+# source_urls = ['https://www.riverbankcomputing.com/static/Downloads/QScintilla/%(version)s/']
+# sources = ['%(name)s_src-%(version)s.tar.gz']
+
+# patches = ['QScintilla-2.11.2_fix-link-python-bindings.patch']
+
+builddependencies = [
+    ('binutils', '2.40'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('PyQt5', '5.15.10'),
+    ('PyQt-builder', '1.15.4'),
+    ('SIP', '6.8.1'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('QScintilla', version, {
+        'easyblock': 'PythonPackage',  # if not it will choose EB_QScintilla instead of python
+        'checksums': ['2c120a56d60363ff4bc73b8a763dc69fae5f84681c24efcb03064c7df103052b'],
+    }),
+]
+
+# prebuildopts = 'export CPATH=$EBROOTQT5/include/QtWidgets:$EBROOTQT5/include/QtPrintSupport:$CPATH && '
+# prebuildopts += 'qmake -o cmd/gvedit/qMakefile cmd/gvedit/gvedit.pro && '
+# prebuildopts += (
+#     "sed -i "
+#     # "-e 's|\$\$\[QT_HOST_DATA\]|%(installdir)s/data|g' "
+#     # "-e 's|\$\$\[QT_INSTALL_DATA\]|%(installdir)s/data|g' "
+#     "-e 's|\$\$\[QT_INSTALL_HEADERS\]|%(installdir)s/include|g' "
+#     "-e 's|\$\$\[QT_INSTALL_LIBS\]|%(installdir)s/lib|g' "
+#     # "-e 's|\$\$\[QT_INSTALL_TRANSLATIONS\]|%(installdir)s/trans|g' "
+#     "%(start_dir)s/features/qscintilla2.prf && "
+# )
+# prebuildopts += (
+#     "sed -i "
+#     "-e 's|\$\$\[QT_HOST_DATA\]|%(installdir)s/data|g' "
+#     "-e 's|\$\$\[QT_INSTALL_DATA\]|%(installdir)s/data|g' "
+#     "-e 's|\$\$\[QT_INSTALL_HEADERS\]|%(installdir)s/include|g' "
+#     "-e 's|\$\$\[QT_INSTALL_LIBS\]|%(installdir)s/lib|g' "
+#     "-e 's|\$\$\[QT_INSTALL_TRANSLATIONS\]|%(installdir)s/trans|g' "
+#     "%(start_dir)s/qscintilla.pro && "
+# )
+# prebuildopts += 'cd Qt4Qt5 && qmake && '
+# prebuildopts += 'qmake && '
+# buildopts = 'CXXFLAGS="$CXXFLAGS \$(DEFINES)"'
+
+# preinstallopts = 'cd Qt4Qt5 && '
+
+moduleclass = 'vis'
+
+# E1:
+    # Generating the Qsci bindings...  
+    # _in_process.py: /tmp/vsc47063/easybuild/build/pythonQScintilla/2.14.1/GCCcore-12.3.0/QScintilla/QScinti
+    # lla-2.14.1/sip/qscimodcommon.sip: line 42: column 9: 'QtCore/QtCoremod.sip' could not be found
+    # -> it is in: PyQt5/5.15.10-GCCcore-12.3.0/lib/python3.11/site-packages/PyQt5/bindings/QtCore
+    # -> modify sip/qscimodcommon.sip:L42 ?
+    # /tmp/vsc47063/easybuild/build/pythonQScintilla/2.14.1/GCCcore-12.3.0/QScintilla/QScintilla-2.14.1/sip/q
+    # scimodcommon.sip: line 43: column 9: 'QtGui/QtGuimod.sip' could not be found
+    # /tmp/vsc47063/easybuild/build/pythonQScintilla/2.14.1/GCCcore-12.3.0/QScintilla/QScintilla-2.14.1/sip/q
+    # scimodcommon.sip: line 44: column 9: 'QtWidgets/QtWidgetsmod.sip' could not be found
+    # /tmp/vsc47063/easybuild/build/pythonQScintilla/2.14.1/GCCcore-12.3.0/QScintilla/QScintilla-2.14.1/sip/q
+    # scimodcommon.sip: line 46: column 6: 'PyQt_Printer' is not a known qualifier
+    # /tmp/vsc47063/easybuild/build/pythonQScintilla/2.14.1/GCCcore-12.3.0/QScintilla/QScintilla-2.14.1/sip/qsciprinter.sip: line 21: column 6: 'PyQt_Printer' is not a known qualifier

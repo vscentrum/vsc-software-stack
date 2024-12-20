@@ -1,0 +1,62 @@
+# Author: Pavel Grochal (INUITS)
+# License: GPLv2
+
+easyblock = 'ConfigureMake'
+
+name = 'QScintilla-CM'
+version = '2.14.1'
+
+homepage = 'https://www.riverbankcomputing.com/software/qscintilla'
+description = "QScintilla is a port to Qt of Neil Hodgson's Scintilla C++ editor control"
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+# toolchainopts = {'pic': True, 'cstd': 'c++11'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://www.riverbankcomputing.com/static/Downloads/QScintilla/%(version)s/']
+sources = ['QScintilla_src-%(version)s.tar.gz']
+checksums = ['dfe13c6acc9d85dfcba76ccc8061e71a223957a6c02f3c343b30a9d43a4cdd4d']
+
+# patches = ['QScintilla-2.11.2_fix-link-python-bindings.patch']
+
+builddependencies = [
+    ('binutils', '2.40'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('PyQt5', '5.15.10'),
+    ('PyQt-builder', '1.15.4'),
+    ('SIP', '6.8.1'),
+]
+
+skipsteps = ['configure']
+start_dir = 'src'
+
+prebuildopts = 'export CPATH=$EBROOTQT5/include/QtWidgets:$EBROOTQT5/include/QtPrintSupport:$CPATH && '
+# prebuildopts += 'qmake -o cmd/gvedit/qMakefile cmd/gvedit/gvedit.pro && '
+prebuildopts += (
+    "sed -i "
+    # "-e 's|\$\$\[QT_HOST_DATA\]|%(installdir)s/data|g' "
+    # "-e 's|\$\$\[QT_INSTALL_DATA\]|%(installdir)s/data|g' "
+    "-e 's|\$\$\[QT_INSTALL_HEADERS\]|%(installdir)s/include|g' "
+    "-e 's|\$\$\[QT_INSTALL_LIBS\]|%(installdir)s/lib|g' "
+    # "-e 's|\$\$\[QT_INSTALL_TRANSLATIONS\]|%(installdir)s/trans|g' "
+    "%(start_dir)s/features/qscintilla2.prf && "
+)QScintilla
+prebuildopts += (
+    "sed -i "
+    "-e 's|\$\$\[QT_HOST_DATA\]|%(installdir)s/data|g' "
+    "-e 's|\$\$\[QT_INSTALL_DATA\]|%(installdir)s/data|g' "
+    "-e 's|\$\$\[QT_INSTALL_HEADERS\]|%(installdir)s/include|g' "
+    "-e 's|\$\$\[QT_INSTALL_LIBS\]|%(installdir)s/lib|g' "
+    "-e 's|\$\$\[QT_INSTALL_TRANSLATIONS\]|%(installdir)s/trans|g' "
+    "%(start_dir)s/qscintilla.pro && "
+)
+# prebuildopts += 'cd Qt4Qt5 && qmake && '
+prebuildopts += 'qmake && '
+# buildopts = 'CXXFLAGS="$CXXFLAGS \$(DEFINES)"'
+
+# preinstallopts = 'cd Qt4Qt5 && '
+
+moduleclass = 'vis'
