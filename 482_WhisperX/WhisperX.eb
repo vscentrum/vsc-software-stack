@@ -4,10 +4,20 @@ name = 'WhisperX'
 version = '3.2.0'
 versionsuffix = '-CUDA-12.1.1'
 
-homepage = 'https://github.com/openai/whisper'
-description = "Whisper is a general-purpose speech recognition model"
+homepage = 'https://github.com/m-bain/whisperx'
+description = "Automatic Speech Recognition with Word-level Timestamps (& Diarization)."
 
 toolchain = {'name': 'foss', 'version': '2023a'}
+
+# DEPS:
+    # OK torch>=2
+    # OK torchaudio>=2
+    # OK? faster-whisper==1.0.0
+    # ctranslate2==4.4.0
+    # OK transformers
+    # OK pandas
+    # OK setuptools>=65
+    # OK nltk
 
 dependencies = [
     ('Python', '3.11.3'),
@@ -32,7 +42,7 @@ exts_list = [
     (name, version, {
         'source_urls': ['https://github.com/m-bain/whisperX/archive/'],
         'sources': ['v%(version)s.tar.gz'],
-        'checksums': ['c2db12ec295fa8416d475aeccb94f9f6f16397e096e7bf0f77cf32ba6c4f4351'],
+        'checksums': ['67246b330eaede1539df96627b61d21c510ffd912841d3adf878ca78d46f2235'],
     }),
 ]
 
