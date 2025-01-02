@@ -57,11 +57,6 @@ local_xgbse_preinstallopts = (
     " pyproject.toml && "
 )
 
-# delete failing test_plugin_fit
-local_pretestopts = (
-    "sed -i '60,72d' %(builddir)s/%(name)s/%(name)s-%(version)s/tests/plugins/generic/test_great.py && "
-)
-
 exts_list = [
     # tests exts:
     ('stevedore', '5.3.0', {
@@ -233,7 +228,6 @@ exts_list = [
     (name, version, {
         'source_urls': ['https://github.com/vanderschaarlab/synthcity/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        # 'runtest': local_pretestopts + 'cd tests && pytest -vvvs -m "not slow"',
         'runtest': 'cd tests && pytest -vvvs -m "not slow" --ignore=plugins/generic/test_great.py',
         'testinstall': True,
         'checksums': ['5926d2e869e1528e556fb794d5f7e914c635113f9cc58034612fa067cdbf84d4'],
@@ -249,7 +243,7 @@ sanity_check_commands = [
 
 moduleclass = 'lib'
 
-# E2:
+# E2: OK
     # plugins/generic/test_great.py:74: 
     # E           clearml.backend_api.session.defs.MissingConfigError: It seems ClearML is not configured on this machine!     To get started with ClearML, setup your own 'clearml-server' or create a free account at https://app.clear
     # E           Setup instructions can be found here: https://clear.ml/docs
