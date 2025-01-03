@@ -8,72 +8,119 @@ homepage = 'https://opennmt.net/CTranslate2/'
 description = "Fast inference engine for Transformer models."
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-# toolchainopts = {'openmp': True}
-# toolchainopts = {'pic': True, 'optarch': False}
+# toolchainopts = {'openmp': True, 'pic': True}
+toolchainopts = {'optarch': False}
 
-# source_urls = ['https://github.com/OpenNMT/CTranslate2/archive/']
-# sources = [{
-#     "download_filename": "v%(version)s.tar.gz",
-#     "filename": SOURCE_TAR_GZ,
-# }]
-# checksums = ['f3040c7c3da5dde022fdc16906c279f3f936c6e79f3df8f998c908bb01a77cfe']
-
+source_urls = ['https://github.com/OpenNMT/CTranslate2/archive/']
 sources = [{
-    'filename': '%(namelower)s_v%(version)s_recursive.tar.gz',
-    'git_config': {
-        'url': 'https://github.com/OpenNMT',
-        'repo_name': 'CTranslate2',
-        'tag': 'v%(version)s',
-        'recursive': True,
-        'keep_git_dir': True,
-    }
+    "download_filename": "v%(version)s.tar.gz",
+    "filename": SOURCE_TAR_GZ,
 }]
-checksums = [None]
+patches = [
+    'patch1-third_party.patch',
+    'patch2-CMake_tests.patch',
+    'patch3-cxxopts-cmakelists.patch',
+]
+checksums = [
+    {'CTranslate2-4.5.0.tar.gz': 'f3040c7c3da5dde022fdc16906c279f3f936c6e79f3df8f998c908bb01a77cfe'},
+    {'patch1-third_party.patch': '81ba5fa0fb682e9baf574cf660fb9c5990470e36e2ec1e436db3033e90211ed5'},
+    {'patch2-CMake_tests.patch': '89da8ee6fba54e13a0ca5c951667329ac2f9f8a3b86e13916ad7ce3331114bac'},
+    {'patch3-cxxopts-cmakelists.patch': '8e6f844d954a152d4ecb38f28733e065ac3e753d08ecca465938c86dc8f8f258'},
+]
+
+# sources = [{
+#     'filename': '%(namelower)s_v%(version)s_recursive.tar.gz',
+#     'git_config': {
+#         'url': 'https://github.com/OpenNMT',
+#         'repo_name': 'CTranslate2',
+#         'tag': 'v%(version)s',
+#         'recursive': True,
+#         'keep_git_dir': True,
+#     }
+# }]
+# checksums = [None]
 
 builddependencies = [
-    # ('flex', '2.6.4'),
-    # ('Bison', '3.8.2'),
     ('CMake', '3.26.3'),
-    # ('pkgconf', '1.9.5'),
+    ('pybind11', '2.11.1'), # buildeps or deps?
+    ('cxxopts', '3.0.0', '', SYSTEM),
+    ('spdlog', '1.11.0'),
+    ('cpu_features', '0.9.0'),
 ]
 
 dependencies = [
     ('CUDA', '12.1.1', '', SYSTEM),
     ('Python', '3.11.3'),
-    ('spdlog', '1.11.0'),
-    # cpu_features UPDATE
+    ('SciPy-bundle', '2023.07'),  # numpy
     ('CUTLASS', '3.4.0', versionsuffix),
-    ('cxxopts', '3.0.0', '', SYSTEM),
     ('googletest', '1.13.0'),
-    # ruy CREATE
-    # thrust - not in EB but maybe in AMGX/2.4.0 ?
+    ('PyYAML', '6.0'),
+    # ruy CREATE - no
+    # thrust - in CUDA?
 ]
 
+# make sure that CTranslate2 libraries are linked to FlexiBLAS, not OpenBLAS
+preconfigopts = "export CMAKE_INCLUDE_PATH=$EBROOTFLEXIBLAS/include/flexiblas:${CMAKE_INCLUDE_PATH} && "
+preconfigopts += "sed -i 's/openblas/flexiblas/g' %(start_dir)s/CMakeLists.txt && "
+
 # configopts = '-DOPENMP_RUNTIME=COMP -DWITH_CUDA=ON -DWITH_MKL=OFF -DWITH_CUDNN=ON -DCUDA_DYNAMIC_LOADING=ON -DENABLE_CPU_DISPATCH=OFF'
-configopts = '-DOPENMP_RUNTIME=COMP -DWITH_CUDA=ON -DWITH_MKL=OFF -DENABLE_CPU_DISPATCH=OFF'
+configopts = '-DOPENMP_RUNTIME=COMP -DWITH_CUDA=ON -DWITH_MKL=OFF '
+configopts += '-DOPENBLAS_INCLUDE_DIR="$EBROOTFLEXIBLAS/include" -DWITH_OPENBLAS=ON '
+configopts += '-DCUTLASS_INCLUDE_DIRS="$EBROOTCUTLASS/include" '
+configopts += '-DBUILD_TESTS=ON '
+configopts += '-DWITH_CUDNN=ON '
+configopts += ' -DENABLE_CPU_DISPATCH=OFF '
 
-# # specify locations that CMake can't figure out correctly
-# _copts = [
-#     "-DCMAKE_PREFIX_PATH=$EBROOTQT",
-#     "-DQSCINTILLA_LIBRARY=$EBROOTQSCINTILLA/lib/libqscintilla2_qt5.%s" % SHLIB_EXT,
-#     "-DQt5WebKit_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKit",
-#     "-DQt5WebKitWidgets_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKitWidgets",
-#     "-DPYQT5_SIP_DIR=$EBROOTPYQT5/share/sip",
-#     "-DQSCI_SIP_DIR=$EBROOTQSCINTILLA/share/sip/PyQt5",
-#     "-DGRASS_PREFIX8=$EBROOTGRASS/grass8",
+# test_cmd = './tests/ctranslate2_test'
+# test_cmd = 'cd tests && ctest --no-tests=error'
+test_cmd = 'cp -r %(start_dir)s/tests/data %(builddir)s/easybuild_obj/tests && cd tests && ./ctranslate2_test'
+test_cmd = 'cp -r %(start_dir)s/tests/data %(builddir)s/easybuild_obj/tests'
+
+# runtest = True
+# runtest = 'ctranslate2_test'
+
+# postinstallcmds = [
+#     'make benchmark_ops',
 # ]
-# configopts = ' '.join(_copts)
 
-# sanity_check_paths = {
-#     'files': ['bin/qgis', 'bin/qgis_bench', 'lib/libqgis_analysis.%s' % SHLIB_EXT,
-#               'lib/libqgis_app.%s' % SHLIB_EXT, 'lib/libqgis_core.%s' % SHLIB_EXT, 'lib/libqgis_gui.%s' % SHLIB_EXT,
-#               'lib/libqgis_native.%s' % SHLIB_EXT, 'lib/libqgispython.%s' % SHLIB_EXT],
-#     'dirs': ['include/qgis', 'man', 'share/qgis'],
-# }
+exts_defaultclass = 'PythonPackage'
+
+exts_list = [
+    ('ctranslate2', version, {
+        'download_dep_fail': True,
+        'sources': ['CTranslate2-%(version)s.tar.gz'],
+        'start_dir': 'python',
+        'use_pip': True,
+        'runtest': False,
+        'checksums': ['f3040c7c3da5dde022fdc16906c279f3f936c6e79f3df8f998c908bb01a77cfe'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/ct2-translator', 'lib/libctranslate2.%s' % SHLIB_EXT],
+    'dirs': ['include/ctranslate2', 'lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    "ct2-translator --help",
+    "python -c 'import ctranslate2'",
+    "python -m pip check",
+    # "./tests/ctranslate2_test",
+    # "./tests/benchmark_ops",
+]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 moduleclass = 'ai'
 
-# E1:
+# /tmp/vsc47063/easybuild/build/CTranslate2/4.5.0/foss-2023a-CUDA-12.1.1/CTranslate2-4.5.0//tests/data 
+# /tmp/vsc47063/easybuild/build/CTranslate2/4.5.0/foss-2023a-CUDA-12.1.1/easybuild_obj/tests
+
+# WITH_OPENBLAS 
+    # it is finding for cblas.h - it is in FlexiBLAS/3.3.1-GCC-12.3.0/include/flexiblas/cblas.h
+    # set configopts =  -DOPENBLAS_INCLUDE_DIR=$EBROOTFLEXIBLAS/include/flexiblas
+    # + preconfigopts
+# E1: OK
     # Works with:
         # A)
             # toolchainopts = {'pic': True, 'optarch': False}

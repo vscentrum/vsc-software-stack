@@ -2,7 +2,7 @@ easyblock = 'PythonBundle'
 
 name = 'WhisperX'
 version = '3.2.0'
-versionsuffix = '-CUDA-12.1.1'
+versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/m-bain/whisperx'
 description = "Automatic Speech Recognition with Word-level Timestamps (& Diarization)."
@@ -13,19 +13,20 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # OK torch>=2
     # OK torchaudio>=2
     # OK? faster-whisper==1.0.0
-    # ctranslate2==4.4.0
+    # OK CREATED ctranslate2==4.4.0
     # OK transformers
     # OK pandas
     # OK setuptools>=65
     # OK nltk
 
 dependencies = [
+    ('CUDA', '12.1.1', '', SYSTEM),
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
     ('PyTorch-bundle', '2.1.2', versionsuffix),
     ('NLTK', '3.8.1'),
     ('Transformers', '4.39.3'),
-    ('CTranslate2', '4.5.0'),
+    ('CTranslate2', '4.5.0', versionsuffix),
     ('FFmpeg', '6.0'),
 ]
 
