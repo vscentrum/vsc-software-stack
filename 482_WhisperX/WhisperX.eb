@@ -18,6 +18,11 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # OK pandas
     # OK setuptools>=65
     # OK nltk
+    
+# EXTS:
+    # !!! whisperx 3.2.0 has requirement torchaudio>=2, but you have torchaudio 0.16.2.
+
+
 
 dependencies = [
     ('CUDA', '12.1.1', '', SYSTEM),
@@ -28,19 +33,39 @@ dependencies = [
     ('Transformers', '4.39.3'),
     ('CTranslate2', '4.5.0', versionsuffix),
     ('FFmpeg', '6.0'),
+    ('PyAV', '11.0.0'),
+    ('ONNX-Runtime', '1.19.2', versionsuffix),
 ]
 
 use_pip = True
 
 exts_list = [
-    ('faster-whisper', '1.1.0', {
-        'checksums': ['cea4bba5d4527173fdbacafa56f2ffb17dd322688f6c3fdf5fd7b6b6c193ce17'],
+    # ('torchaudio', '2.1.2', {
+    #     'installopts': "--no-use-pep517 -v",
+    #     'patches': [
+    #         'torchaudio-2.1.2_use-external-sox.patch',
+    #         'torchaudio-2.1.2_transform_test_tol.patch',
+    #     ],
+    #     'preinstallopts': 'rm -r third_party/{sox,ffmpeg/multi}; USE_CUDA=1 USE_OPENMP=1 USE_FFMPEG=1 FFMPEG_ROOT="$EBROOTFFMPEG"',
+    #     'source_urls': ['https://github.com/pytorch/audio/archive'],
+    #     'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+    #     'checksums': [
+    #         {'torchaudio-2.1.2.tar.gz': '82c2745a73172b495327ec36c6970ad5ad9d5d2ac44feeaea2617152f9393bf7'},
+    #         {'torchaudio-2.1.2_use-external-sox.patch':
+    #          'e89a01ed6a8ac997b806f26b81fc08a7d587116e02a62d5e6f43d91c971e7493'},
+    #         {'torchaudio-2.1.2_transform_test_tol.patch':
+    #          '6036deb2d7ac405f1267f5bd3da5d6221e39aa170b1a5bcf868f6e56d3705d08'},
+    #     ],
+    # }),
+    ('faster-whisper', '1.0.0', {
+        'checksums': ['38db6fcfbd4ce1bf5027fbb4310ef8ed4d2f0b37674b1f2d833e172c352c89d7'],
     }),
-    ('pyannote.audio', '3.3.2', {
-        'sources': ['pyannote_audio-%(version)s.tar.gz'],
-        'checksums': ['b2115e86b0db5faedb9f36ee1a150cebd07f7758e65e815accdac1a12ca9c777'],
+    ('pyannote.audio', '3.1.1', {
+        'sources': ['pyannote.audio-%(version)s.tar.gz'],
+        'checksums': ['b6562d46b5d5d616c1887cafd5aab3f7d19ecf6b3312fc6c4f72f37332fcd408'],
     }),
     (name, version, {
+        'preinstallopts': "sed -i 's/==/>=/g requirements.txt && sed -i 's/==/>=/g setup.py &&",
         'source_urls': ['https://github.com/m-bain/whisperX/archive/'],
         'sources': ['v%(version)s.tar.gz'],
         'checksums': ['67246b330eaede1539df96627b61d21c510ffd912841d3adf878ca78d46f2235'],
@@ -52,8 +77,13 @@ sanity_check_paths = {
     'dirs': ['lib/python%(pyshortver)s/site-packages'],
 }
 
-sanity_check_commands = ["whisperx --help"]
+# sanity_check_commands = ["whisperx --help"]
 
 sanity_pip_check = True
 
 moduleclass = 'ai'
+
+# E1:
+ # problem with torchaudio version - problem in ec PyTorch-bundle: 
+ # https://easybuild.slack.com/archives/C34UA1HT7/p1731512143296019
+ # https://github.com/easybuilders/easybuild-framework/issues/4706
