@@ -1,0 +1,161 @@
+easyblock = 'CMakeMake'
+
+name = 'CTranslate2'
+version = '4.5.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://opennmt.net/CTranslate2/'
+description = "Fast inference engine for Transformer models."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+# toolchainopts = {'openmp': True, 'pic': True}
+toolchainopts = {'optarch': False}
+
+source_urls = ['https://github.com/OpenNMT/CTranslate2/archive/']
+sources = [{
+    "download_filename": "v%(version)s.tar.gz",
+    "filename": SOURCE_TAR_GZ,
+}]
+patches = [
+    'patch1-third_party.patch',
+    'patch2-CMake_tests.patch',
+    'patch3-cxxopts-cmakelists.patch',
+]
+checksums = [
+    {'CTranslate2-4.5.0.tar.gz': 'f3040c7c3da5dde022fdc16906c279f3f936c6e79f3df8f998c908bb01a77cfe'},
+    {'patch1-third_party.patch': '81ba5fa0fb682e9baf574cf660fb9c5990470e36e2ec1e436db3033e90211ed5'},
+    {'patch2-CMake_tests.patch': '89da8ee6fba54e13a0ca5c951667329ac2f9f8a3b86e13916ad7ce3331114bac'},
+    {'patch3-cxxopts-cmakelists.patch': '8e6f844d954a152d4ecb38f28733e065ac3e753d08ecca465938c86dc8f8f258'},
+]
+
+# sources = [{
+#     'filename': '%(namelower)s_v%(version)s_recursive.tar.gz',
+#     'git_config': {
+#         'url': 'https://github.com/OpenNMT',
+#         'repo_name': 'CTranslate2',
+#         'tag': 'v%(version)s',
+#         'recursive': True,
+#         'keep_git_dir': True,
+#     }
+# }]
+# checksums = [None]
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+    ('pybind11', '2.11.1'), # buildeps or deps?
+    ('cxxopts', '3.0.0', '', SYSTEM),
+    ('spdlog', '1.11.0'),
+    ('cpu_features', '0.9.0'),
+]
+
+dependencies = [
+    ('CUDA', '12.1.1', '', SYSTEM),
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),  # numpy
+    ('CUTLASS', '3.4.0', versionsuffix),
+    ('googletest', '1.13.0'),
+    ('PyYAML', '6.0'),
+    # ruy CREATE - no
+    # thrust - in CUDA?
+]
+
+# make sure that CTranslate2 libraries are linked to FlexiBLAS, not OpenBLAS
+preconfigopts = "export CMAKE_INCLUDE_PATH=$EBROOTFLEXIBLAS/include/flexiblas:${CMAKE_INCLUDE_PATH} && "
+preconfigopts += "sed -i 's/openblas/flexiblas/g' %(start_dir)s/CMakeLists.txt && "
+
+# configopts = '-DOPENMP_RUNTIME=COMP -DWITH_CUDA=ON -DWITH_MKL=OFF -DWITH_CUDNN=ON -DCUDA_DYNAMIC_LOADING=ON -DENABLE_CPU_DISPATCH=OFF'
+configopts = '-DOPENMP_RUNTIME=COMP -DWITH_CUDA=ON -DWITH_MKL=OFF '
+configopts += '-DOPENBLAS_INCLUDE_DIR="$EBROOTFLEXIBLAS/include" -DWITH_OPENBLAS=ON '
+configopts += '-DCUTLASS_INCLUDE_DIRS="$EBROOTCUTLASS/include" '
+configopts += '-DBUILD_TESTS=ON '
+configopts += '-DWITH_CUDNN=ON '
+configopts += ' -DENABLE_CPU_DISPATCH=OFF '
+
+# test_cmd = './tests/ctranslate2_test'
+# test_cmd = 'cd tests && ctest --no-tests=error'
+test_cmd = 'cp -r %(start_dir)s/tests/data %(builddir)s/easybuild_obj/tests && cd tests && ./ctranslate2_test'
+test_cmd = 'cp -r %(start_dir)s/tests/data %(builddir)s/easybuild_obj/tests'
+
+# runtest = True
+# runtest = 'ctranslate2_test'
+
+# postinstallcmds = [
+#     'make benchmark_ops',
+# ]
+
+exts_defaultclass = 'PythonPackage'
+
+exts_list = [
+    ('ctranslate2', version, {
+        'download_dep_fail': True,
+        'sources': ['CTranslate2-%(version)s.tar.gz'],
+        'start_dir': 'python',
+        'use_pip': True,
+        'runtest': False,
+        'checksums': ['f3040c7c3da5dde022fdc16906c279f3f936c6e79f3df8f998c908bb01a77cfe'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/ct2-translator', 'lib/libctranslate2.%s' % SHLIB_EXT],
+    'dirs': ['include/ctranslate2', 'lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    "ct2-translator --help",
+    "python -c 'import ctranslate2'",
+    "python -m pip check",
+    # "./tests/ctranslate2_test",
+    # "./tests/benchmark_ops",
+]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+moduleclass = 'ai'
+
+# /tmp/vsc47063/easybuild/build/CTranslate2/4.5.0/foss-2023a-CUDA-12.1.1/CTranslate2-4.5.0//tests/data 
+# /tmp/vsc47063/easybuild/build/CTranslate2/4.5.0/foss-2023a-CUDA-12.1.1/easybuild_obj/tests
+
+# WITH_OPENBLAS 
+    # it is finding for cblas.h - it is in FlexiBLAS/3.3.1-GCC-12.3.0/include/flexiblas/cblas.h
+    # set configopts =  -DOPENBLAS_INCLUDE_DIR=$EBROOTFLEXIBLAS/include/flexiblas
+    # + preconfigopts
+# E1: OK
+    # Works with:
+        # A)
+            # toolchainopts = {'pic': True, 'optarch': False}
+            # configopts = '-DOPENMP_RUNTIME=COMP -DWITH_CUDA=ON -DWITH_MKL=OFF -DWITH_CUDNN=ON -DCUDA_DYNAMIC_LOADING=ON -DENABLE_CPU_DISPATCH=OFF'
+        # B)
+            # without toolchainopts + configopts from A
+        # C)
+            # without toolchainopts + configopts = '-DOPENMP_RUNTIME=COMP -DWITH_CUDA=ON -DWITH_MKL=OFF -DWITH_CUDNN=ON -DENABLE_CPU_DISPATCH=OFF'
+    # -> tried recursive download of sources
+        # configopts = '-DOPENMP_RUNTIME=COMP -DWITH_CUDA=ON -DWITH_MKL=OFF' -> cmake ok -> make error -> log1.txt
+            # collect2: error: ld returned 1 exit status
+            # make[2]: *** [CMakeFiles/ctranslate2.dir/build.make:2192: libctranslate2.so.4.5.0] Error 1
+            # make[2]: Leaving directory '/tmp/vsc47063/easybuild/build/CTranslate2/4.5.0/foss-2023a-CUDA-12.1.1/easybuild_obj'
+            # make[1]: *** [CMakeFiles/Makefile2:141: CMakeFiles/ctranslate2.dir/all] Error 2
+            # make[1]: Leaving directory '/tmp/vsc47063/easybuild/build/CTranslate2/4.5.0/foss-2023a-CUDA-12.1.1/easybuild_obj'
+            # make: *** [Makefile:139: all] Error 2
+        # -> add toolchainopts = {'openmp': True} -> NO -> seems it needs intel compilers -> use different backend via configopts?
+        # -> missing OpenMP
+            # -- Found OpenMP_C: -fopenmp (found version "4.5")
+            # -- Found OpenMP_CXX: -fopenmp (found version "4.5")
+            # -- Found OpenMP: TRUE (found version "4.5")
+            # CMake Error at CMakeLists.txt:297 (message):
+            # Intel OpenMP runtime libiomp5 not found
+    # -> in third_party are linked deps -> replace by deps from EB
+    # <- failed on cmake step
+        # CMake Error at CMakeLists.txt:98 (add_subdirectory):
+        # The source directory /tmp/vsc47063/easybuild/build/CTranslate2/4.5.0/foss-2023a/CTranslate2-4.5.0/third_party/spdlog
+        # does not contain a CMakeLists.txt file.
+        # CMake Error at CMakeLists.txt:249 (add_subdirectory):
+        # The source directory /tmp/vsc47063/easybuild/build/CTranslate2/4.5.0/foss-2023a/CTranslate2-4.5.0/third_party/cpu_features 
+        # does not contain a CMakeLists.txt file.
+        # -- Compiling for multiple CPU ISA and enabling runtime dispatch
+        # -- Found OpenMP_C: -fopenmp (found version "4.5") 
+        # -- Found OpenMP_CXX: -fopenmp (found version "4.5") 
+        # -- Found OpenMP: TRUE (found version "4.5")  
+        # CMake Error at CMakeLists.txt:297 (message):
+        # Intel OpenMP runtime libiomp5 not found
+        # -- Configuring incomplete, errors occurred!
