@@ -12,17 +12,32 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # DEPS:
     # OK torch>=2
     # OK torchaudio>=2
-    # OK? faster-whisper==1.0.0
+    # OK faster-whisper==1.0.0
     # OK CREATED ctranslate2==4.4.0
     # OK transformers
     # OK pandas
     # OK setuptools>=65
     # OK nltk
+    # ok pyannote.audio==3.1.1
     
 # EXTS:
-    # !!! whisperx 3.2.0 has requirement torchaudio>=2, but you have torchaudio 0.16.2.
-
-
+    # !!! whisperx 3.2.0 has requirement torchaudio>=2, but you have torchaudio 0.16.2. -> E1
+    # pyannote-audio 3.1.1 requires asteroid-filterbanks, which is not installed.
+    # pyannote-audio 3.1.1 requires einops, which is not installed.
+    # pyannote-audio 3.1.1 requires lightning, which is not installed.
+    # pyannote-audio 3.1.1 requires omegaconf, which is not installed.
+    # pyannote-audio 3.1.1 requires pyannote-core, which is not installed.
+    # pyannote-audio 3.1.1 requires pyannote-database, which is not installed.
+    # pyannote-audio 3.1.1 requires pyannote-metrics, which is not installed.
+    # pyannote-audio 3.1.1 requires pyannote-pipeline, which is not installed.
+    # pyannote-audio 3.1.1 requires pytorch-metric-learning, which is not installed.
+    # pyannote-audio 3.1.1 requires semver, which is not installed.
+    # pyannote-audio 3.1.1 requires soundfile, which is not installed.
+    # pyannote-audio 3.1.1 requires speechbrain, which is not installed.
+    # pyannote-audio 3.1.1 requires tensorboardx, which is not installed.
+    # pyannote-audio 3.1.1 requires torch-audiomentations, which is not installed.
+    # pyannote-audio 3.1.1 requires torchmetrics, which is not installed.
+    # pyannote-audio 3.1.1 has requirement torchaudio>=2.0.0, but you have torchaudio 0.16.2.
 
 dependencies = [
     ('CUDA', '12.1.1', '', SYSTEM),
@@ -35,6 +50,7 @@ dependencies = [
     ('FFmpeg', '6.0'),
     ('PyAV', '11.0.0'),
     ('ONNX-Runtime', '1.19.2', versionsuffix),
+    # pyannote-bundle: https://github.com/easybuilders/easybuild-easyconfigs/pull/19992/
 ]
 
 use_pip = True
