@@ -9,22 +9,6 @@ description = "Whisper command line client compatible with original OpenAI clien
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# DEPS:
-    # OK numpy
-    # ok faster-whisper>=1.1.1
-    # OK ctranslate2
-    # OK tqdm
-    # ok sounddevice
-# faster-whisper-1.1.1 DEPS:
-    # OK ctranslate2>=4.0,<5
-    # ok huggingface_hub>=0.13
-    # OK tokenizers>=0.13,<1
-    # OK onnxruntime>=1.14,<2 
-    # OK CREATED av>=11
-    # OK tqdm
-# OK sounddevice: OSError: PortAudio library not found
-# OK? ModuleNotFoundError: No module named 'whisper_ctranslate2'
-
 dependencies = [
     ('CUDA', '12.1.1', '', SYSTEM),
     ('Python', '3.11.3'),
