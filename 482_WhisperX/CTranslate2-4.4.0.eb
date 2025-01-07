@@ -1,7 +1,7 @@
 easyblock = 'CMakeMake'
 
 name = 'CTranslate2'
-version = '4.5.0'
+version = '4.4.0'
 versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://opennmt.net/CTranslate2/'
@@ -21,7 +21,7 @@ patches = [
     'CTranslate2-4.5.0_replace-cxxopts.patch',
 ]
 checksums = [
-    {'CTranslate2-4.5.0.tar.gz': 'f3040c7c3da5dde022fdc16906c279f3f936c6e79f3df8f998c908bb01a77cfe'},
+    {'CTranslate2-4.4.0.tar.gz': '2896451f2485fdc3587c0fda1468f836bd2bdcbd156f2a8d9580515d9fd23253'},
     {'CTranslate2-4.5.0_fix-third-party.patch': '07a6e2842e7261901460e0e1e705db645be366008be184db23778668a3bf8de2'},
     {'CTranslate2-4.5.0_fix-tests.patch': '73123eafe612538354be5aa96c750199e1a219a5316800848c3894c1cc6ca2ad'},
     {'CTranslate2-4.5.0_replace-cxxopts.patch': 'e378969c2968e2fd57863956a4d2f267731a49d1b890dcc45593d6a310531271'},
@@ -52,11 +52,13 @@ preconfigopts += "sed -i 's/openblas/flexiblas/g' %(start_dir)s/CMakeLists.txt &
 configopts = '-DOPENMP_RUNTIME=COMP -DWITH_CUDA=ON -DWITH_MKL=OFF '
 configopts += '-DOPENBLAS_INCLUDE_DIR="$EBROOTFLEXIBLAS/include" -DWITH_OPENBLAS=ON '
 configopts += '-DCUTLASS_INCLUDE_DIRS="$EBROOTCUTLASS/include" '
-configopts += '-DBUILD_TESTS=ON '
+# configopts += '-DBUILD_TESTS=ON '
 configopts += '-DWITH_CUDNN=ON '
 configopts += '-DENABLE_CPU_DISPATCH=OFF '
+configopts += '-DCT2_CUDA_ALLOW_BF16=0 '
+configopts += '-DCT2_WITH_BFLOAT16=OFF '
 
-prebuildopts = 'export CT2_VERBOSE=3 && '
+prebuildopts = 'export CT2_VERBOSE=3 && export CT2_CUDA_ALLOW_BF16=0 && '
 
 exts_defaultclass = 'PythonPackage'
 exts_default_options = {
@@ -72,7 +74,7 @@ exts_list = [
     ('ctranslate2', version, {
         'sources': ['CTranslate2-%(version)s.tar.gz'],
         'start_dir': 'python',
-        'checksums': ['f3040c7c3da5dde022fdc16906c279f3f936c6e79f3df8f998c908bb01a77cfe'],
+        'checksums': ['2896451f2485fdc3587c0fda1468f836bd2bdcbd156f2a8d9580515d9fd23253'],
     }),
 ]
 
