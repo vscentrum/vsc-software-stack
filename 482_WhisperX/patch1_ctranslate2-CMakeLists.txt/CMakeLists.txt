@@ -99,6 +99,7 @@ find_package(spdlog)
 
 set(PRIVATE_INCLUDE_DIRECTORIES
   ${CMAKE_CURRENT_SOURCE_DIR}/src
+  ${CMAKE_CURRENT_SOURCE_DIR}/third_party
   )
 set(SOURCES
   src/allocator.cc
