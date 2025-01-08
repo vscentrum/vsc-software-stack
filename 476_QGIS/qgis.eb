@@ -23,12 +23,13 @@ builddependencies = [
     ('Bison', '3.8.2'),
     ('CMake', '3.26.3'),
     ('pkgconf', '1.9.5'),
+    ('PyQt-builder', '1.15.4'),
 ]
 
 dependencies = [
     ('Python', '3.11.3'),
     ('Qt5', '5.15.10'),
-#     ('Qt5Webkit', '5.212.0-alpha4'), # UPDATE?
+    ('Qt5Webkit', '5.212.0-alpha4'), # UPDATED
     ('PyQt5', '5.15.10'),
     ('PROJ', '9.2.0'),
     ('GEOS', '3.12.0'),
@@ -44,6 +45,7 @@ dependencies = [
     ('QCA', '2.3.9'), # UPDATED
 #     # QScintilla must be listed after PyQt5 due to Python bindings 'overriding' those of PyQt5
 #     ('QScintilla', '2.11.6'), # UPDATE - problem...
+    ('python-QScintilla', '2.14.1'),
     ('GSL', '2.7'), # optional
     ('libzip', '1.10.1'), # UPDATED
     ('QtKeychain', '0.14.3'), # UPDATED
@@ -54,16 +56,19 @@ dependencies = [
     ('exiv2', '0.28.0'),
     ('pocl', '4.0'),
     ('draco', '1.5.7'), # CREATED
+    ('SIP', '6.8.1'),
 ]
 
+preconfigopts = 'export LD_LIBRARY_PATH=/home/john/anaconda3/envs/genesis_env/lib/python3.9/site-packages/pymeshlab/lib:$LD_LIBRARY_PATH'
 # specify locations that CMake can't figure out correctly
 _copts = [
     "-DCMAKE_PREFIX_PATH=$EBROOTQT",
     # "-DQSCINTILLA_LIBRARY=$EBROOTQSCINTILLA/lib/libqscintilla2_qt5.%s" % SHLIB_EXT,
-    # "-DQt5WebKit_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKit",
-    # "-DQt5WebKitWidgets_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKitWidgets",
-    # "-DPYQT5_SIP_DIR=$EBROOTPYQT5/share/sip",
+    "-DQt5WebKit_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKit",
+    "-DQt5WebKitWidgets_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKitWidgets",
+    "-DPYQT5_SIP_DIR=$EBROOTPYQT5/share/sip",
     # "-DQSCI_SIP_DIR=$EBROOTQSCINTILLA/share/sip/PyQt5",
+    "-DQSCI_SIP_DIR=$EBROOTPYTHONMINQSCINTILLA/lib/python3.11/site-packages/PyQt5/bindings",
     "-DGRASS_PREFIX8=$EBROOTGRASS/grass8",
 ]
 configopts = ' '.join(_copts)
@@ -77,28 +82,27 @@ configopts = ' '.join(_copts)
 
 moduleclass = 'geo'
 
-#E1:
-    # crash on cmake:
-        # -> add 'pocl'?
-            # -- Looking for CL_VERSION_3_0 - not found
-            # -- Looking for CL_VERSION_2_2
-            # -- Looking for CL_VERSION_2_2 - not found
-            # -- Looking for CL_VERSION_2_1
-            # -- Looking for CL_VERSION_2_1 - not found
-            # -- Looking for CL_VERSION_2_0
-            # -- Looking for CL_VERSION_2_0 - not found
-            # -- Looking for CL_VERSION_1_2
-            # -- Looking for CL_VERSION_1_2 - not found
-            # -- Looking for CL_VERSION_1_1
-            # -- Looking for CL_VERSION_1_1 - not found
-            # -- Looking for CL_VERSION_1_0
-            # -- Looking for CL_VERSION_1_0 - not found
-            # -- Could NOT find OpenCL (missing: OpenCL_LIBRARY OpenCL_INCLUDE_DIR) 
-            # -- Couldn't find OpenCL: support DISABLED
-        # +
-        # -- Could not find GRASS 7
-        # -- Could not find GRASS 8
-        # +
-        # Could NOT find LibZip (missing: LIBZIP_LIBRARY LIBZIP_INCLUDE_DIR
-        # LIBZIP_CONF_INCLUDE_DIR)
+# E2:
+    # <- cmake failed <- log1.txt
+        # ImportError: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/python-QScintilla/2.14.1-GCCcore-12.3.0
+        #  /lib/python3.11/site-packages/PyQt5/Qsci.abi3.so: undefined symbol: _ZdlPvm, version Qt_5
+        # QSCINTILLA_INCLUDE_DIR-NOT FOUND
+        # QSCINTILLA_LIBRARY-NOT FOUND
+        # Qsci sip file not found
+# E1: OK
+    # -> add SIP and PyQt-builder to deps
+    # <- missing only qscintilla2 -failed on cmake
+        # Traceback (most recent call last):
+        #   File "/tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/qgis-3.38.3/cmake/FindSIP.py", line 34, in <module>
+        #     import sipbuild
+        # ModuleNotFoundError: No module named 'sipbuild'
+        # During handling of the above exception, another exception occurred:
+        # Traceback (most recent call last):
+        #   File "/tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/qgis-3.38.3/cmake/FindSIP.py", line 47, in <module>
+        #     import sipconfig
+        # ModuleNotFoundError: No module named 'sipconfig'
+        # CMake Error at cmake/FindSIP.cmake:58 (MESSAGE):
+        #   Could not find SIP
+        # Call Stack (most recent call first):
+        #   CMakeLists.txt:1079 (find_package)
         
