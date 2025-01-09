@@ -1,0 +1,82 @@
+# Author: Pavel Grochal (INUITS)
+# License: GPLv2
+
+# Installation
+# ------------
+
+# The GPL version of QScintilla can be installed from PyPI::
+
+#     pip install QScintilla
+
+# The wheels include a statically linked copy of the QScintilla C++ library.
+
+# ``pip`` will also build and install the bindings from the sdist package but
+# Qt's ``qmake`` tool must be on ``PATH``.
+
+# The ``sip-install`` tool will also install the bindings from the sdist package
+# but will allow you to configure many aspects of the installation.
+
+easyblock = 'PythonBundle'
+
+name = 'python-QScintilla'
+version = '2.14.1'
+
+homepage = 'https://www.riverbankcomputing.com/software/qscintilla'
+description = "QScintilla is a port to Qt of Neil Hodgson's Scintilla C++ editor control"
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+# toolchainopts = {'pic': True, 'cstd': 'c++11'}
+# toolchainopts = {'pic': True}
+
+# source_urls = ['https://www.riverbankcomputing.com/static/Downloads/QScintilla/%(version)s/']
+# sources = ['%(name)s_src-%(version)s.tar.gz']
+
+# patches = ['QScintilla-2.11.2_fix-link-python-bindings.patch']
+
+builddependencies = [
+    ('binutils', '2.40'),
+    ('PyQt-builder', '1.15.4'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('PyQt5', '5.15.10'),
+    ('SIP', '6.8.1'),
+    ('QScintilla', '2.14.1'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('QScintilla', version, {
+        'easyblock': 'PythonPackage',
+        'checksums': ['2c120a56d60363ff4bc73b8a763dc69fae5f84681c24efcb03064c7df103052b'],
+    }),
+]
+
+# QScintilla_src-%(version)s.tar.gz
+
+moduleclass = 'vis'
+
+# E1:
+    # -> QtCore/QtCoremod.sip is in PyQt5/5.15.10-GCCcore-12.3.0/share/sip/QtCore
+    # -> QtGui/QtGuimod.sip is in PyQt5/5.15.10-GCCcore-12.3.0/share/sip/QtGui
+    # Processing /tmp/vsc47063/easybuild/build/pythonQScintilla/2.14.1/GCCcore-12.3.0/QScintilla/QScintilla-2.14.1
+    #   Preparing metadata (pyproject.toml): started
+    #   Preparing metadata (pyproject.toml): finished with status 'error'
+    #   error: subprocess-exited-with-error
+    
+    #    Preparing metadata (pyproject.toml) did not run successfully.
+    #    exit code: 1
+    #   > [9 lines of output]
+    #       pyproject.toml: line 7: using '[tool.sip.metadata]' to specify the project metadata is deprecated and will be removed in SIP v7.0.0, use '[project]' instead
+    #       Querying qmake about your Qt installation...
+    #       These bindings will be built: Qsci.
+    #       Generating the Qsci bindings...
+    #       _in_process.py: /tmp/vsc47063/easybuild/build/pythonQScintilla/2.14.1/GCCcore-12.3.0/QScintilla/QScintilla-2.14.1/sip/qscimodcommon.sip: line 42: column 9: 'QtCore/QtCoremod.sip' could not be found
+    #       /tmp/vsc47063/easybuild/build/pythonQScintilla/2.14.1/GCCcore-12.3.0/QScintilla/QScintilla-2.14.1/sip/qscimodcommon.sip: line 43: column 9: 'QtGui/QtGuimod.sip' could not be found
+    #       /tmp/vsc47063/easybuild/build/pythonQScintilla/2.14.1/GCCcore-12.3.0/QScintilla/QScintilla-2.14.1/sip/qscimodcommon.sip: line 44: column 9: 'QtWidgets/QtWidgetsmod.sip' could not be found
+    #       /tmp/vsc47063/easybuild/build/pythonQScintilla/2.14.1/GCCcore-12.3.0/QScintilla/QScintilla-2.14.1/sip/qscimodcommon.sip: line 46: column 6: 'PyQt_Printer' is not a known qualifier
+    #       /tmp/vsc47063/easybuild/build/pythonQScintilla/2.14.1/GCCcore-12.3.0/QScintilla/QScintilla-2.14.1/sip/qsciprinter.sip: line 21: column 6: 'PyQt_Printer' is not a known qualifier
+    #       [end of output]

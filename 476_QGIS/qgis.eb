@@ -47,7 +47,7 @@ dependencies = [
     ('QCA', '2.3.9'), # UPDATED
 #     # QScintilla must be listed after PyQt5 due to Python bindings 'overriding' those of PyQt5
 #     ('QScintilla', '2.11.6'), # UPDATE - problem...
-    ('python-QScintilla', '2.14.1'),
+    # ('python-QScintilla', '2.14.1'),
     ('QScintilla', '2.14.1'),
     ('GSL', '2.7'), # optional
     ('libzip', '1.10.1'), # UPDATED
@@ -71,11 +71,13 @@ dependencies = [
 _copts = [
     "-DCMAKE_PREFIX_PATH=$EBROOTQT",
     "-DQSCINTILLA_LIBRARY=$EBROOTQSCINTILLAMINCM/lib/libqscintilla2_qt5.%s" % SHLIB_EXT,
+    # "-DQSCINTILLA_LIBRARY=$EBROOTQSCINTILLA/lib,
     "-DQt5WebKit_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKit",
     "-DQt5WebKitWidgets_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKitWidgets",
     "-DPYQT5_SIP_DIR=$EBROOTPYQT5/share/sip",
     # "-DQSCI_SIP_DIR=$EBROOTQSCINTILLA/share/sip/PyQt5",
-    "-DQSCI_SIP_DIR=$EBROOTPYTHONMINQSCINTILLA/lib/python3.11/site-packages/PyQt5/bindings",
+    # "-DQSCI_SIP_DIR=$EBROOTPYTHONMINQSCINTILLA/lib/python3.11/site-packages/PyQt5/bindings",
+    # "-DQSCI_SIP_DIR=$EBROOTPYTHONMINQSCINTILLA/lib/python3.11/site-packages/PyQt5/bindings",
     "-DGRASS_PREFIX8=$EBROOTGRASS/grass8",
 ]
 configopts = ' '.join(_copts)
@@ -89,8 +91,14 @@ configopts = ' '.join(_copts)
 
 moduleclass = 'geo'
 
-# cmake log: /tmp/vsc47063/eb-thnia6eb/easybuild-run_cmd-i2f9rplf.log
-# E4:
+
+# E5:
+    # <- make failed <- log3.txt
+    # There is error in CMake step:
+        # Traceback (most recent call last):
+        #   File "<string>", line 1, in <module>
+        # ModuleNotFoundError: No module named 'PyQt5.Qsci'
+# E4: ??
     # <- make failed <- log2.txt
 # E3: OK
     # -> build draco with toolchainopts = {'pic': True} -> seems OK

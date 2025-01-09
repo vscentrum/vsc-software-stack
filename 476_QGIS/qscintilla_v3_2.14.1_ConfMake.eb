@@ -58,13 +58,13 @@ prebuildopts += 'qmake qscintilla.pro && '
 # builddir: /tmp/vsc47063/easybuild/build/QScintilla/2.14.1/GCCcore-12.3.0
 # start_dir: /tmp/vsc47063/easybuild/build/QScintilla/2.14.1/GCCcore-12.3.0/QScintilla_src-2.14.1/src
 # Python dir at: /tmp/vsc47063/easybuild/build/QScintilla/2.14.1/GCCcore-12.3.0/QScintilla_src-2.14.1/Python
-postinstallcmds = [
-    'export LD_LIBRARY_PATH=%(installdir)s/lib:$LD_LIBRARY_PATH && '
-    'export CXXFLAGS="$CXXFLAGS -I%(installdir)s/include/Qsci" && '
-    'export LDFLAGS="$LDFLAGS -L%(installdir)s/lib" && '
-    'cd %(builddir)s/QScintilla_src-2.14.1/Python && cp pyproject-qt5.toml pyproject.toml && '
-    'sip-install --target=%(installdir)s/lib/python%(pyshortver)s/site-packages --verbose'
-]
+# postinstallcmds = [
+#     'export LD_LIBRARY_PATH=%(installdir)s/lib:$LD_LIBRARY_PATH && '
+#     'export CXXFLAGS="$CXXFLAGS -I%(installdir)s/include/Qsci" && '
+#     'export LDFLAGS="$LDFLAGS -L%(installdir)s/lib" && '
+#     'cd %(builddir)s/QScintilla_src-2.14.1/Python && cp pyproject-qt5.toml pyproject.toml && '
+#     'sip-install --target=%(installdir)s/lib/python%(pyshortver)s/site-packages --verbose'
+# ]
 # postinstall - add python bindings
 # 1) rename pyproject-qt5.toml to pyproject.toml
 # 2) sip-install
@@ -72,8 +72,12 @@ postinstallcmds = [
 
 sanity_check_paths = {
     'files': [],
-    'dirs': ['lib', 'lib/python%(pyshortver)s/site-packages'],
+    'dirs': ['lib'],
 }
+# sanity_check_paths = {
+#     'files': [],
+#     'dirs': ['lib', 'lib/python%(pyshortver)s/site-packages'],
+# }
 
 moduleclass = 'vis'
 
