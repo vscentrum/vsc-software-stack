@@ -41,15 +41,18 @@ builddependencies = [
 dependencies = [
     ('Python', '3.11.3'),
     ('PyQt5', '5.15.10'),
-    ('SIP', '6.8.1'),
-    ('QScintilla', '2.14.1'),
+    # ('SIP', '6.8.1'),
+    # ('QScintilla', '2.14.1'),
 ]
 
 use_pip = True
 sanity_pip_check = True
 
+local_preinstallopts = 'cd %(builddir)s/QScintilla/QScintilla-2.14.1 && ln -s $EBROOTPYQT5/share/sip/* sip &&'
 exts_list = [
     ('QScintilla', version, {
+        'preinstallopts': local_preinstallopts,
+        'modulename': 'PyQt5.Qsci',
         'easyblock': 'PythonPackage',
         'checksums': ['2c120a56d60363ff4bc73b8a763dc69fae5f84681c24efcb03064c7df103052b'],
     }),
