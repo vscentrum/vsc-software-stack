@@ -1,21 +1,9 @@
-FROM ubuntu:22.04
+FROM rocker/r-ver:4.2.2
 
 # Base packages
-RUN apt -y update
-RUN apt -y install make wget vim
-RUN apt -y install gcc build-essential
-RUN apt -y install libx11-dev xterm perl cpanminus libxml2-dev
-RUN apt -y install libpng-dev
-RUN apt -y install mousepad
-
-# R4.x installation instructions based on
-# https://cran.r-project.org/bin/linux/ubuntu/
-ARG DEBIAN_FRONTEND=noninteractive
-RUN apt -y update -qq
-RUN apt -y install --no-install-recommends software-properties-common dirmngr
-RUN wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-RUN add-apt-repository -y "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
-RUN apt -y install --no-install-recommends r-base
+RUN apt -y update && \
+    apt -y install wget vim mousepad && \
+    apt -y install libx11-dev perl xterm cpanminus libxml2-dev libpng-dev
 
 RUN mkdir /perl_modules
 RUN cpanm -v -L /perl_modules local::lib@2.000029
@@ -59,13 +47,16 @@ ENV PERL5LIB /perl_modules/lib/perl5
 ENV PIRANA_LOCALLIB /perl_modules
 
 # RsNLME installation
-RUN apt -y install grep pkg-config libfontconfig1-dev gzip
-RUN apt -y install libcurl4-openssl-dev libssl-dev libssh-dev
-RUN apt -y install liblapack-dev libblas-dev gfortran
+RUN apt -y install pkg-config libfontconfig1-dev libcurl4-openssl-dev && \
+    R -e 'Certara_Packages <- c("Certara.RsNLME", "Certara.NLME8", "Certara.Xpose.NLME", "Certara.RsNLME.ModelExecutor", "Certara.RsNLME.ModelBuilder"); install.packages(Certara_Packages, repos=c("https://certara.jfrog.io/artifactory/certara-cran-release-public/", "https://cloud.r-project.org"))'
 
-RUN R -e 'Certara_Packages <- c("Certara.RsNLME", "Certara.NLME8", "Certara.Xpose.NLME", "Certara.RsNLME.ModelExecutor", "Certara.RsNLME.ModelBuilder"); install.packages(Certara_Packages, repos=c("https://certara.jfrog.io/artifactory/certara-cran-release-public/", "https://cloud.r-project.org"))'
+# Installing a PDF viewer
+RUN apt -y install xdg-utils mupdf && xdg-mime default mupdf.desktop application/pdf
 
-RUN apt -y install mupdf
-RUN xdg-mime default mupdf.desktop application/pdf
+# Installing RStudio
+RUN apt -y install libclang-dev libxkbcommon-x11-0 libnss3 ffmpeg libgbm1 libasound2 libssl-dev && \
+    wget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2024.04.2-764-amd64.deb && \
+    dpkg -i rstudio-2024.04.2-764-amd64.deb
+ENV LD_LIBRARY_PATH="/usr/lib/rstudio:${LD_LIBRARY_PATH}"
 
 WORKDIR /
