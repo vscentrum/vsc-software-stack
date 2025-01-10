@@ -85,9 +85,9 @@ exts_list = [
 
 moduleclass = 'vis'
 
-# Tthe .sip files which should be in $EBROOTQSCINTILLA/share/sip/PyQt5/Qsci are in /lib/python3.11/site-packages/PyQt5/bindings/Qsci
+# The .sip files which should be in $EBROOTQSCINTILLA/share/sip/PyQt5/Qsci are in /lib/python3.11/site-packages/PyQt5/bindings/Qsci
 
-# There is no libqscintilla2_qt5.so nut there is /lib/python3.11/site-packages/PyQt5/Qsci.abi3.so with all statically linked stuff
+# There is no libqscintilla2_qt5.so but there is /lib/python3.11/site-packages/PyQt5/Qsci.abi3.so with all statically linked stuff
 # $ ldd Qsci.abi3.so
 #     ldd: warning: you do not have execution permission for `./Qsci.abi3.so'
 #         linux-vdso.so.1 (0x000014d1f8865000)
@@ -125,6 +125,11 @@ moduleclass = 'vis'
 #         libxcb.so.1 => /apps/gent/RHEL8/cascadelake-ib/software/X11/20230603-GCCcore-12.3.0/lib/libxcb.so.1 (0x000014d1f36e4000)
 #         libXau.so.6 => /apps/gent/RHEL8/cascadelake-ib/software/X11/20230603-GCCcore-12.3.0/lib/libXau.so.6 (0x000014d1f36df000)
 #         libXdmcp.so.6 => /apps/gent/RHEL8/cascadelake-ib/software/X11/20230603-GCCcore-12.3.0/lib/libXdmcp.so.6 (0x000014d1f36d7000)
+
+# E2: 
+    # Traceback (most recent call last):
+    #   File "<string>", line 1, in <module>
+    # ImportError: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/python-QScintilla/2.14.1-GCCcore-12.3.0/lib/python3.11/site-packages/PyQt5/Qsci.abi3.so: undefined symbol: _ZdlPvm, version Qt_5
 
 # E1: OK
     # Generating the Qsci bindings...  
