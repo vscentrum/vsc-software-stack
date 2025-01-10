@@ -11,7 +11,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # Users have found that vectorizion caused OpenFOAM to produce some very incorrect results.
 # Disabling vectorize was confirmed to fix the the known issues.
 # With no test suite, sticking to known working toolchain options until proven otherwise.
-toolchainopts = {'cstd': 'c++11', 'vectorize': False}
+toolchainopts = {'vectorize': False}
 
 source_urls = ['https://sourceforge.net/projects/openfoam/files/%(version)s/']
 sources = [SOURCE_TGZ]
@@ -61,3 +61,41 @@ moduleclass = 'cae'
 # /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.4-GCCcore-12.3.0/include/CGAL/number_utils.h:320:1: error: decltype(auto) type specifier only available with -std=c++14 or -std=gnu++14
 # /apps/gent/RHEL8/cascadelake-ib/software/CGAL/5.4-GCCcore-12.3.0/include/CGAL/Point_2.h:99:3: error: decltype(auto) type specifier only available with -std=c++14 or -std=gnu++14
 # ...
+
+# == sanity checking...
+#   >> file 'OpenFOAM-v2112/etc/bashrc' found: OK
+#   >> file 'OpenFOAM-v2112/etc/cshrc' found: OK
+#   >> file 'OpenFOAM-v2112/bin/paraFoam' found: OK
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/boundaryFoam' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/engineFoam' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/buoyantSimpleFoam' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/buoyantBoussinesqSimpleFoam' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/sonicFoam' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/surfaceAdd' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/surfaceFind' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/blockMesh' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/checkMesh' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/deformedGeom' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/engineSwirl' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/modifyMesh' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/refineMesh' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin/surfaceLambdaMuSmooth' found: FAILED
+#   >> file 'OpenFOAM-v2112/bin/foamMonitor' found: OK
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/dummy/libPstream.so' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/eb-mpi/libPstream.so' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/dummy/libptscotchDecomp.so' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/eb-mpi/libptscotchDecomp.so' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/libscotchDecomp.so' found: FAILED
+#   >> file 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib/dummy/libscotchDecomp.so' found: FAILED
+#   >> (non-empty) directory 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/bin' found: FAILED
+#   >> (non-empty) directory 'OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib' found: FAILED
+#   >> loading modules: OpenFOAM/v2112-foss-2023a...
+#   >> running command 'source $FOAM_BASH' ...
+#   >> result for command 'source $FOAM_BASH': OK
+#   >> running command 'source $FOAM_BASH && ! foamMonitor -h 2>&1 | grep 'not installed'' ...
+#   >> result for command 'source $FOAM_BASH && ! foamMonitor -h 2>&1 | grep 'not installed'': OK
+#   >> running command 'source $FOAM_BASH && command -V $(wmake -show-cxx) && command -V $(wmake -show-c)' ...
+#   >> result for command 'source $FOAM_BASH && command -V $(wmake -show-cxx) && command -V $(wmake -show-c)': OK
+# == ... (took 58 secs)
+# == FAILED: Installation ended unsuccessfully (build directory: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/zen2-ib/software/OpenFOAM/v2112-foss-2023a): build failed (first 300 chars): cmd "flexiblas list" exited with exit code -4 and output:
+#  (took 8 mins 12 secs)
