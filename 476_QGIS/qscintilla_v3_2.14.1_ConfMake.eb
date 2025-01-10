@@ -82,7 +82,7 @@ postinstallcmds = [
     'sip-install --target=%(installdir)s/lib/python%(pyshortver)s/site-packages --verbose '
     '--qsci-include-dir=%(installdir)s/include --qsci-library-dir=%(installdir)s/lib '
     # "patchelf --force-rpath --set-rpath '$ORIGIN:$ORIGIN/../lib' "
-    'patchelf --remove-rpath %(installdir)s/lib/python%(pyshortver)s/site-packages/PyQt5/Qsci.abi3.so '
+    # 'patchelf --remove-rpath %(installdir)s/lib/python%(pyshortver)s/site-packages/PyQt5/Qsci.abi3.so '
     # '--sip-module=PyQt5.sip --sip-dir=$EBROOTPYQT5/share/sip' NO
     # '--qsip-dir=$EBROOTPYQT5/share/sip ' NO
     # '--include-dir $EBROOTQT5/include ' NO
