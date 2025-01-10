@@ -67,12 +67,11 @@ dependencies = [
 # specify locations that CMake can't figure out correctly
 _copts = [
     "-DCMAKE_PREFIX_PATH=$EBROOTQT",
-    "-DQSCINTILLA_LIBRARY=$EBROOTQSCINTILLAMINCM/lib/libqscintilla2_qt5.%s" % SHLIB_EXT,
-    "-DQSCINTILLA_LIBRARY=$EBROOTQSCINTILLA/lib,
+    "-DQSCINTILLA_LIBRARY=$EBROOTQSCINTILLA/lib/libqscintilla2_qt5.%s" % SHLIB_EXT,
     "-DQt5WebKit_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKit",
     "-DQt5WebKitWidgets_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKitWidgets",
     "-DPYQT5_SIP_DIR=$EBROOTPYQT5/share/sip",
-    "-DQSCI_SIP_DIR=$EBROOTQSCINTILLA/share/sip/PyQt5",
+    "-DQSCI_SIP_DIR=$EBROOTQSCINTILLA/lib/python%(pyshortver)s/site-packages/PyQt5/bindings/Qsci",
     "-DGRASS_PREFIX8=$EBROOTGRASS/grass8",
 ]
 configopts = ' '.join(_copts)

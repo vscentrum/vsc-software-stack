@@ -67,12 +67,11 @@ dependencies = [
 # specify locations that CMake can't figure out correctly
 _copts = [
     "-DCMAKE_PREFIX_PATH=$EBROOTQT",
-    "-DQSCINTILLA_LIBRARY=$EBROOTQSCINTILLAMINCM/lib/libqscintilla2_qt5.%s" % SHLIB_EXT,
-    "-DQSCINTILLA_LIBRARY=$EBROOTQSCINTILLA/lib,
+    "-DQSCINTILLA_LIBRARY=$EBROOTQSCINTILLA/lib/libqscintilla2_qt5.so,
     "-DQt5WebKit_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKit",
     "-DQt5WebKitWidgets_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKitWidgets",
     "-DPYQT5_SIP_DIR=$EBROOTPYQT5/share/sip",
-    "-DQSCI_SIP_DIR=$EBROOTQSCINTILLA/share/sip/PyQt5",
+    "-DQSCI_SIP_DIR=$EBROOTQSCINTILLA/lib/python%(pyshortver)s/site-packages/PyQt5/bindings/Qsci",
     "-DGRASS_PREFIX8=$EBROOTGRASS/grass8",
 ]
 configopts = ' '.join(_copts)
@@ -86,7 +85,14 @@ configopts = ' '.join(_copts)
 
 moduleclass = 'geo'
 
-
+# E6:
+    # -> update -DQSCINTILLA_LIBRARY
+    # -> update _copts to see libqscintilla2_qt5.so -> no
+    # <- log6.txt
+        # [ 86%] Building CXX object src/gui/CMakeFiles/qgis_gui.dir/providers/ept/qgseptproviderguimetadata.cpp.o
+        # cd /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/src/gui && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/bin/g++ -DCMAKE_SOURCE_DIR=\"/tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/qgis-3.38.3\" -DPROJ_DLL="" -DPROTOBUF_USE_DLLS -DQT_CONCURRENT_LIB -DQT_CORE_LIB -DQT_DBUS_LIB -DQT_DEPRECATED_WARNINGS -DQT_DISABLE_DEPRECATED_BEFORE=0x050800 -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_NO_CAST_TO_ASCII -DQT_NO_DEBUG -DQT_NO_FOREACH -DQT_POSITIONING_LIB -DQT_PRINTSUPPORT_LIB -DQT_QMLMODELS_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SERIALPORT_LIB -DQT_SQL_LIB -DQT_SVG_LIB -DQT_UITOOLS_LIB -DQT_USE_QSTRINGBUILDER -DQT_WEBKITWIDGETS_LIB -DQT_WEBKIT_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -DSIP_VERSION=0x060801 -DWITH_QML -DWITH_QTWEBKIT -Dqgis_gui_EXPORTS -I/tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/src/gui/qgis_gui_autogen/include ...
+        # make[2]: *** No rule to make target '/lib/libqscintilla2_qt5.so', needed by 'output/lib/libqgis_gui.so.3.38.3'.  Stop.
+        # make[1]: *** [CMakeFiles/Makefile2:5582: src/gui/CMakeFiles/qgis_gui.dir/all] Error 2
 # E5: OK
     # -> update Qscintilla ec - add python bindings to "import PyQt5.Qsci"
     # <- make failed <- log3.txt
