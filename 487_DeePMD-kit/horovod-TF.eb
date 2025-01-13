@@ -1,0 +1,219 @@
+easyblock = 'PythonBundle'
+
+name = 'Horovod'
+version = '0.28.1'
+local_tf_version = '2.15.1'
+# local_cuda_suffix = '-CUDA-%(cudaver)s'
+# versionsuffix = local_cuda_suffix + '-TensorFlow-%s' % local_tf_version
+versionsuffix = '-TensorFlow-%s' % local_tf_version
+
+homepage = 'https://github.com/uber/horovod'
+description = "Horovod is a distributed training framework for TensorFlow."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+    # ('protobuf', '3.21.9'),
+]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('PyYAML', '6.0'),
+    ('TensorFlow', local_tf_version),
+    # ('CUDA', '12.1.1', '', SYSTEM),
+    # ('NCCL', '2.18.3', local_cuda_suffix),
+    # ('TensorFlow', local_tf_version, local_cuda_suffix),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+# preinstallopts = 'module swap protobuf/3.21.9-GCCcore-12.3.0 && HOROVOD_WITH_MPI=1 HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_GPU_BROADCAST=NCCL '
+# preinstallopts += 'HOROVOD_WITH_TENSORFLOW=1 HOROVOD_WITHOUT_PYTORCH=1 HOROVOD_WITHOUT_MXNET=1 '
+local_preinstallopts = 'HOROVOD_WITH_TENSORFLOW=1 HOROVOD_WITH_MPI=1 HOROVOD_WITHOUT_PYTORCH=1 HOROVOD_WITHOUT_MXNET=1'
+
+exts_list = [
+    ('cloudpickle', '2.2.1', {
+        'checksums': ['d89684b8de9e34a2a43b3460fbca07d09d6e25ce858df4d5a44240403b6178f5'],
+    }),
+    ('horovod', version, {
+        'preinstallopts': local_preinstallopts,
+        'patches': ['Horovod-0.28.1_support_flatbuffers_2.0.6.patch'],
+        'sources': [{
+            'filename': '%(name)s-%(version)s-recursive.tar.gz',
+            'git_config': {
+                'url': 'https://github.com/uber',
+                'repo_name': 'horovod',
+                'tag': 'v%(version)s',
+                'recursive': True,
+                'keep_git_dir': True,
+            }
+        }],
+        'checksums': [None],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/horovodrun'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["horovodrun --help"]
+
+moduleclass = 'tools'
+
+# E1:
+    # -> add patch for flatbuffers -> 
+    # <- make step failed <- log1.txt
+        # Building CXX object horovod/tensorflow/CMakeFiles/tensorflow.dir/__/common/process_set.cc.o
+        #       cd /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/build/temp.linux-x8
+        # 6_64-cpython-311/RelWithDebInfo/horovod/tensorflow && /apps/gent/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/bin/g++ 
+        # -DEIGEN_MPL2_ONLY=1 -DHAVE_GLOO=1 -DHAVE_MPI=1 -DTENSORFLOW_VERSION=2015001000 -Dtensorflow_EXPORTS -I/tmp/vsc47063/ea
+        # sybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/third_party/HTTPRequest/include -I/tmp/vsc47
+        # 063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/third_party/boost/assert/include -I/tm
+        # p/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/third_party/boost/config/includ
+        # e -I/tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/third_party/boost/core/i
+        # nclude -I/tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/third_party/boost/d
+        # etail/include -I/tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/third_party/
+        # boost/iterator/include -I/tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/thi
+        # rd_party/boost/lockfree/include -I/tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/ho
+        # rovod/third_party/boost/mpl/include -I/tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovo
+        # d/horovod/third_party/boost/parameter/include -I/tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.1
+        # 5.1/horovod/horovod/third_party/boost/predef/include -I/tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorF
+        # low-2.15.1/horovod/horovod/third_party/boost/preprocessor/include -I/tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-
+        # 2023a-TensorFlow-2.15.1/horovod/horovod/third_party/boost/static_assert/include -I/tmp/vsc47063/easybuild/build/Horovo
+        # d/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/third_party/boost/type_traits/include -I/tmp/vsc47063/easybuild/
+        # build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/third_party/boost/utility/include -I/tmp/vsc47063/ea
+        # sybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/third_party/lbfgs/include -I/tmp/vsc47063/ea
+        # sybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/third_party/gloo -I/apps/gent/RHEL8/cascadel
+        # ake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include -isystem /kyukon/home/apps/RHEL8/cascadelake-ib/software/Op
+        # enMPI/4.1.5-GCC-12.3.0/include -isystem /apps/gent/RHEL8/cascadelake-ib/software/OpenMPI/4.1.5-GCC-12.3.0/include -isy
+        # stem /apps/gent/RHEL8/cascadelake-ib/software/TensorFlow/2.15.1-foss-2023a/lib/python3.11/site-packages/tensorflow/inc
+        # lude -I/apps/gent/RHEL8/cascadelake-ib/software/TensorFlow/2.15.1-foss-2023a/lib/python3.11/site-packages/tensorflow/i
+        # nclude -D_GLIBCXX_USE_CXX11_ABI=1 --std=c++17 -DEIGEN_MAX_ALIGN_BYTES=64 -O2 -ftree-vectorize -march=native -fno-math-
+        # errno -pthread -fPIC -Wall -ftree-vectorize -mf16c -mavx -mfma -O3 -g -DNDEBUG -std=c++17 -fPIC -MD -MT horovod/tensor
+        # flow/CMakeFiles/tensorflow.dir/__/common/process_set.cc.o -MF CMakeFiles/tensorflow.dir/__/common/process_set.cc.o.d -
+        # o CMakeFiles/tensorflow.dir/__/common/process_set.cc.o -c /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-Tens
+        # orFlow-2.15.1/horovod/horovod/horovod/common/process_set.cc
+        #       In file included from /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/
+        # horovod/common/message.cc:23:
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/me
+        # ssage_generated.h: In member function bool horovod::common::wire::Request::Verify(flatbuffers::Verifier&) const:
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:282:32: error: no matching function for call to horovod::common::wire::Request::VerifyField<int32_t>(flatbuffers::Verifier&, horovod::common::wire::Request::FlatBuffersVTableOffset) const
+        #         282 |            VerifyField<int32_t>(verifier, VT_REQUEST_RANK) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+        #       In file included from /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/flatbuffer_builder.h:36,
+        #                        from /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/flatbuffers.h:29,
+        #                        from /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:23:
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:283:31: error: no matching function for call to horovod::common::wire::Request::VerifyField<int8_t>(flatbuffers::Verifier&, horovod::common::wire::Request::FlatBuffersVTableOffset) const
+        #         283 |            VerifyField<int8_t>(verifier, VT_REQUEST_TYPE) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:284:31: error: no matching function for call to horovod::common::wire::Request::VerifyField<int8_t>(flatbuffers::Verifier&, horovod::common::wire::Request::FlatBuffersVTableOffset) const
+        #         284 |            VerifyField<int8_t>(verifier, VT_TENSOR_TYPE) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:287:32: error: no matching function for call to horovod::common::wire::Request::VerifyField<int32_t>(flatbuffers::Verifier&, horovod::common::wire::Request::FlatBuffersVTableOffset) const
+        #         287 |            VerifyField<int32_t>(verifier, VT_ROOT_RANK) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:288:32: error: no matching function for call to horovod::common::wire::Request::VerifyField<int32_t>(flatbuffers::Verifier&, horovod::common::wire::Request::FlatBuffersVTableOffset) const
+        #         288 |            VerifyField<int32_t>(verifier, VT_DEVICE) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:291:31: error: no matching function for call to horovod::common::wire::Request::VerifyField<double>(flatbuffers::Verifier&, horovod::common::wire::Request::FlatBuffersVTableOffset) const
+        #         291 |            VerifyField<double>(verifier, VT_PRESCALE_FACTOR) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:292:31: error: no matching function for call to horovod::common::wire::Request::VerifyField<double>(flatbuffers::Verifier&, horovod::common::wire::Request::FlatBuffersVTableOffset) const
+        #         292 |            VerifyField<double>(verifier, VT_POSTSCALE_FACTOR) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:293:31: error: no matching function for call to horovod::common::wire::Request::VerifyField<int8_t>(flatbuffers::Verifier&, horovod::common::wire::Request::FlatBuffersVTableOffset) const
+        #         293 |            VerifyField<int8_t>(verifier, VT_REDUCE_OP) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h: In member function bool horovod::common::wire::RequestList::Verify(flatbuffers::Verifier&) const:
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:414:32: error: no matching function for call to horovod::common::wire::RequestList::VerifyField<uint8_t>(flatbuffers::Verifier&, horovod::common::wire::RequestList::FlatBuffersVTableOffset) const
+        #         414 |            VerifyField<uint8_t>(verifier, VT_SHUTDOWN) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h: In member function bool horovod::common::wire::Response::Verify(flatbuffers::Verifier&) const:
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:507:31: error: no matching function for call to horovod::common::wire::Response::VerifyField<int8_t>(flatbuffers::Verifier&, horovod::common::wire::Response::FlatBuffersVTableOffset) const
+        #         507 |            VerifyField<int8_t>(verifier, VT_RESPONSE_TYPE) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:517:31: error: no matching function for call to horovod::common::wire::Response::VerifyField<int8_t>(flatbuffers::Verifier&, horovod::common::wire::Response::FlatBuffersVTableOffset) const
+        #         517 |            VerifyField<int8_t>(verifier, VT_TENSOR_TYPE) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:518:31: error: no matching function for call to horovod::common::wire::Response::VerifyField<double>(flatbuffers::Verifier&, horovod::common::wire::Response::FlatBuffersVTableOffset) const
+        #         518 |            VerifyField<double>(verifier, VT_PRESCALE_FACTOR) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:519:31: error: no matching function for call to horovod::common::wire::Response::VerifyField<double>(flatbuffers::Verifier&, horovod::common::wire::Response::FlatBuffersVTableOffset) const
+        #         519 |            VerifyField<double>(verifier, VT_POSTSCALE_FACTOR) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:520:32: error: no matching function for call to horovod::common::wire::Response::VerifyField<int32_t>(flatbuffers::Verifier&, horovod::common::wire::Response::FlatBuffersVTableOffset) const
+        #         520 |            VerifyField<int32_t>(verifier, VT_LAST_JOINED_RANK) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:521:31: error: no matching function for call to horovod::common::wire::Response::VerifyField<int8_t>(flatbuffers::Verifier&, horovod::common::wire::Response::FlatBuffersVTableOffset) const
+        #         521 |            VerifyField<int8_t>(verifier, VT_REDUCE_OP) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h: In member function bool horovod::common::wire::ResponseList::Verify(flatbuffers::Verifier&) const:
+        #       /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-TensorFlow-2.15.1/horovod/horovod/horovod/common/wire/message_generated.h:644:32: error: no matching function for call to horovod::common::wire::ResponseList::VerifyField<uint8_t>(flatbuffers::Verifier&, horovod::common::wire::ResponseList::FlatBuffersVTableOffset) const
+        #         644 |            VerifyField<uint8_t>(verifier, VT_SHUTDOWN) &&
+        #             |            ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note: candidate: template<class T> bool flatbuffers::Table::VerifyField(const flatbuffers::Verifier&, flatbuffers::voffset_t, size_t) const
+        #         125 |   bool VerifyField(const Verifier &verifier, voffset_t field,
+        #             |        ^~~~~~~~~~~
+        #       /apps/gent/RHEL8/cascadelake-ib/software/flatbuffers/23.5.26-GCCcore-12.3.0/include/flatbuffers/table.h:125:8: note:   candidate expects 3 arguments, 2 provided
