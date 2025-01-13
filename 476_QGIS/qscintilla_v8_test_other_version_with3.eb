@@ -4,7 +4,7 @@
 easyblock = 'ConfigureMake'
 
 name = 'QScintilla'
-version = '2.14.1'
+version = '2.13.4'
 
 homepage = 'https://www.riverbankcomputing.com/software/qscintilla'
 description = "QScintilla is a port to Qt of Neil Hodgson's Scintilla C++ editor control"
@@ -14,7 +14,7 @@ toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
 source_urls = ['https://www.riverbankcomputing.com/static/Downloads/QScintilla/%(version)s/']
 sources = ['QScintilla_src-%(version)s.tar.gz']
-checksums = ['dfe13c6acc9d85dfcba76ccc8061e71a223957a6c02f3c343b30a9d43a4cdd4d']
+checksums = ['890c261f31e116f426b0ea03a136d44fc89551ebfd126d7b0bdf8a7197879986']
 
 # patches = ['QScintilla-2.11.2_fix-link-python-bindings.patch']
 
@@ -69,26 +69,6 @@ prebuildopts += 'qmake qscintilla.pro && '
 #     'sip-install --target=%(installdir)s/lib/python%(pyshortver)s/site-packages --verbose'
 # ]
 
-# postinstallcmds = [
-#     'export LD_LIBRARY_PATH=%(installdir)s/lib:$LD_LIBRARY_PATH && '
-#     # 'export LD_LIBRARY_PATH=$EBROOTQT5/lib:$LD_LIBRARY_PATH && '
-#     # 'export CXXFLAGS="$CXXFLAGS -I%(installdir)s/include/Qsci" && '
-#     # 'export CXXFLAGS="$CXXFLAGS -I%(installdir)s/include" && '
-#     'export LDFLAGS="$LDFLAGS -L%(installdir)s/lib" && '
-#     # 'export SIP_INCLUDE_DIR=$EBROOTPYQT5/share && '
-#     'export CPATH=$EBROOTQT5/include/QtWidgets:$EBROOTQT5/include/QtPrintSupport:$CPATH && '
-#     'cp -r %(builddir)s/QScintilla_src-%(version)s/Python/* %(installdir)s && '
-#     'cd %(installdir)s && cp pyproject-qt5.toml pyproject.toml && ln -s $EBROOTPYQT5/share/sip/* sip && '
-#     'sip-install --target=%(installdir)s/lib/python%(pyshortver)s/site-packages --verbose '
-#     '--qsci-include-dir=%(installdir)s/include --qsci-library-dir=%(installdir)s/lib '
-#     # "patchelf --force-rpath --set-rpath '$ORIGIN:$ORIGIN/../lib' "
-#     # 'patchelf --remove-rpath %(installdir)s/lib/python%(pyshortver)s/site-packages/PyQt5/Qsci.abi3.so '
-#     # '--sip-module=PyQt5.sip --sip-dir=$EBROOTPYQT5/share/sip' NO
-#     # '--qsip-dir=$EBROOTPYQT5/share/sip ' NO
-#     # '--include-dir $EBROOTQT5/include ' NO
-#     "--qmake-setting 'LIBS += -lqscintilla2_qt5' --qmake-setting 'INCLUDEPATH += %(installdir)s/include' && " 
-# ]
-
 postinstallcmds = [
     'export LD_LIBRARY_PATH=%(installdir)s/lib:$LD_LIBRARY_PATH && '
     # 'export LD_LIBRARY_PATH=$EBROOTQT5/lib:$LD_LIBRARY_PATH && '
@@ -97,9 +77,8 @@ postinstallcmds = [
     'export LDFLAGS="$LDFLAGS -L%(installdir)s/lib" && '
     # 'export SIP_INCLUDE_DIR=$EBROOTPYQT5/share && '
     'export CPATH=$EBROOTQT5/include/QtWidgets:$EBROOTQT5/include/QtPrintSupport:$CPATH && '
-    # 'cd %(installdir)s && ln -s $EBROOTPYQT5/share/sip/* sip && '
-    'cd %(builddir)s/QScintilla_src-%(version)s/Python && ln -s $EBROOTPYQT5/share/sip/* sip && '
-    'cp pyproject-qt5.toml pyproject.toml && '
+    'cp -r %(builddir)s/QScintilla_src-%(version)s/Python/* %(installdir)s && '
+    'cd %(installdir)s && cp pyproject-qt5.toml pyproject.toml && ln -s $EBROOTPYQT5/share/sip/* sip && '
     'sip-install --target=%(installdir)s/lib/python%(pyshortver)s/site-packages --verbose '
     '--qsci-include-dir=%(installdir)s/include --qsci-library-dir=%(installdir)s/lib '
     # "patchelf --force-rpath --set-rpath '$ORIGIN:$ORIGIN/../lib' "
@@ -107,10 +86,6 @@ postinstallcmds = [
     # '--sip-module=PyQt5.sip --sip-dir=$EBROOTPYQT5/share/sip' NO
     # '--qsip-dir=$EBROOTPYQT5/share/sip ' NO
     # '--include-dir $EBROOTQT5/include ' NO
-    "--qmake-setting 'LIBS += -lqscintilla2_qt5' --qmake-setting 'INCLUDEPATH += %(installdir)s/include' && "
-    'cd %(installdir)s && mkdir share && cd share && mkdir sip && cd sip && '
-    # 'ln -s ../../lib/python3.11/site-packages/PyQt5/bindings/Qsci && ln -s $EBROOTPYQT5/share/sip/*' # returns failed to create symbolic link ... Permission denied
-    'ln -s ../../lib/python3.11/site-packages/PyQt5/bindings/Qsci'
 ]
 
 # postinstall - add python bindings
@@ -142,8 +117,7 @@ moduleclass = 'vis'
 #                    [--no-protected-is-public] [--tracing] [--qsci-features-dir DIR]
 #                    [--qsci-include-dir DIR] [--qsci-library-dir DIR]
 
-# E3: OK
-    # -> add --qmake-setting LIBS and INCLUDEPATH helps -> OK
+# E3: 
     # -> problem with RPATH?
         # 0x000000000000000f (RPATH)              
         # Library rpath: [/kyukon/home/apps/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/lib]
