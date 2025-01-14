@@ -100,6 +100,8 @@ sanity_pip_check = True
 moduleclass = 'ai'
 
 # E1:
- # problem with torchaudio version - problem in ec PyTorch-bundle: 
- # https://easybuild.slack.com/archives/C34UA1HT7/p1731512143296019
- # https://github.com/easybuilders/easybuild-framework/issues/4706
+    # => local fix: unset BUILD_VERSION && in preinstallopts of torchaudio extension as a workaround (in pytorch-bundle)
+    # => general bug fix in framework: https://github.com/easybuilders/easybuild-framework/issues/4706
+    # problem with torchaudio version - problem in ec PyTorch-bundle: 
+    # https://easybuild.slack.com/archives/C34UA1HT7/p1731512143296019
+    # https://github.com/easybuilders/easybuild-framework/issues/4706
