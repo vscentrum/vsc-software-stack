@@ -26,9 +26,13 @@ dependencies = [
     ('dotNET-Core', '8.0', '', SYSTEM),
 ]
 
-prebuildopts = 'export NUGET_HTTP_CACHE_PATH=%(builddir)s/nuget-cache4 && '
-prebuildopts += 'export NUGET_PLUGINS_CACHE_PATH=%(builddir)s/plugins-cache4 && '
-prebuildopts += 'export NUGET_PACKAGES=%(builddir)s/packages4 && '
+prebuildopts = 'export NUGET_HTTP_CACHE_PATH=%(builddir)s/nuget-cache && '
+prebuildopts += 'export NUGET_PLUGINS_CACHE_PATH=%(builddir)s/plugins-cach && '
+prebuildopts += 'export NUGET_PACKAGES=%(builddir)s/packages && '
+
+buildopts = 'python_lib'
+
+preinstallopts = 'export HOME=%(builddir)s/home && '
 
 modextrapaths = {'PYTHONPATH': 'share/illumina/interop/src/python'}
 
@@ -54,10 +58,4 @@ sanity_check_commands = ['%s --help' % binary for binary in local_bins] + ['pyth
 moduleclass = 'bio'
 
 # TODO
-# == 2024-12-17 12:10:24,822 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: sanity check command python -m interop --test exited with code 1 (output: Traceback (most recent call last):
-#   File "<frozen runpy>", line 189, in _run_module_as_main
-#   File "<frozen runpy>", line 148, in _get_module_details
-#   File "<frozen runpy>", line 112, in _get_module_details
-#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/InterOp/1.3.2-foss-2023a/share/illumina/interop/src/python/interop/__init__.py", line 11, in <module>
-#     from interop.core import *
-# ModuleNotFoundError: No module named 'interop.core'
+# == 2025-01-14 13:04:45,808 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): build failed (first 300 chars): Sanity check failed: sanity check command python -m interop --test exited with code 1 (output: /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python: Error while finding module specification for 'interop.__main__' (ImportError: cannot import name '_py_interop_run_metrics'  (at easybuild/easybuild-framework/easybuild/main.py:140 in build_and_install_software)
