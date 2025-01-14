@@ -5,7 +5,7 @@
 easyblock = 'CMakeNinja'
 
 name = 'QGIS'
-version = '3.38.3'
+version = '3.40.2'
 
 homepage = 'http://www.qgis.org/'
 description = "QGIS is a user friendly Open Source Geographic Information System (GIS)."
@@ -17,7 +17,7 @@ source_urls = ['http://qgis.org/downloads/']
 sources = [SOURCELOWER_TAR_BZ2]
 patches = ['patch2.5_fix-SIP-macro.patch']
 checksums = [
-    {'qgis-3.38.3.tar.bz2': 'd72d07a39729d97d8d3f536301819a4ca9c2c00f9f396e9022a5ec4356d828bf'},
+    {'qgis-3.40.2.tar.bz2': '3eddc2cb93f339dabb4c90d94ea31d5d1845c21542e8317ec2cbe3e95d124b9a'},
     {'patch2.5_fix-SIP-macro.patch': 'd8094ff803a6918843568d9561610f770ebd159b1d63b27ec863ce698857410f'},
 ]
 
@@ -91,14 +91,17 @@ configopts = ' '.join(_copts)
 
 moduleclass = 'geo'
 
-# maybe add python to the path? EBROOTQGIS/share/qgis/python/
 # E10:
-    # Run on desktop cluster -> qgis -> error
+    # -> try run on desktop cluster: LD_DEBUG=libs qgis
+    # ->  modules: LLVM-16.0.6-GCCcore-12.3.0 and Clang/16.0.6-GCCcore-12.3.0
+    #  -> Clang - pocl, LLVM - libGLU - Qt5
+    #  -> Also there is in modules: X11 and Waylandpp - from WebKitGTK+ (Wayland, not my EC) - should not be problem
+    # Run on desktop cluster -> qgis -> error (for both versions)
         # CommandLine Error: Option 'use-dbg-addr' registered more than once!
         # LLVM ERROR: inconsistency in registered CommandLine options
         # Aborted (core dumped)
 # E1: OK
-    # -> update patch2.5 (E7 in qgis-3.40.2) -> OK -> can be build
+    # -> update patch2.5 (E7 in qgis-3.40.2)
     # -> update patch2 to see sip files in qsci -> still same error
         # 9942/11440] Generating gui/build/_gui/sip_guipart0.cpp, gui/build/_gui/sip_guipart1.cpp, gui/build/_gui/sip_guipart2.cpp, gui/build/_gui/sip_guipart3.cpp, gui/build/_gui/sip_guipart4.cpp, gui/build/_gui/sip_guipart5.cpp, gui/build/_gui/sip_guipart6.cpp, gui/build/_gui/sip_guipart7.cpp, gui/build/_gui/sip_guipart8.cpp, gui/build/_gui/sip_guipart9.cpp, gui/build/_gui/sip_guipart10.cpp, gui/build/_gui/sip_guipart11.cpp, gui/build/_gui/sip_guipart12.cpp, gui/build/_gui/sip_guipart13.cpp, gui/build/_gui/sip_guipart14.cpp, gui/build/_gui/sip_guipart15.cpp, gui/build/_gui/sip_guipart16.cpp, gui/build/_gui/sip_guipart17.cpp, gui/build/_gui/sip_guipart18.cpp, gui/build/_gui/sip_guipart19.cpp, gui/build/_gui/sip_guipart20.cpp, gui/build/_gui/sip_guipart21.cpp
         # FAILED: python/gui/build/_gui/sip_guipart0.cpp python/gui/build/_gui/sip_guipart1.cpp python/gui/build/_gui/sip_guipart2.cpp python/gui/build/_gui/sip_guipart3.cpp python/gui/build/_gui/sip_guipart4.cpp python/gui/build/_gui/sip_guipart5.cpp python/gui/build/_gui/sip_guipart6.cpp python/gui/build/_gui/sip_guipart7.cpp python/gui/build/_gui/sip_guipart8.cpp python/gui/build/_gui/sip_guipart9.cpp python/gui/build/_gui/sip_guipart10.cpp python/gui/build/_gui/sip_guipart11.cpp python/gui/build/_gui/sip_guipart12.cpp python/gui/build/_gui/sip_guipart13.cpp python/gui/build/_gui/sip_guipart14.cpp python/gui/build/_gui/sip_guipart15.cpp python/gui/build/_gui/sip_guipart16.cpp python/gui/build/_gui/sip_guipart17.cpp python/gui/build/_gui/sip_guipart18.cpp python/gui/build/_gui/sip_guipart19.cpp python/gui/build/_gui/sip_guipart20.cpp python/gui/build/_gui/sip_guipart21.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart0.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart1.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart2.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart3.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart4.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart5.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart6.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart7.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart8.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart9.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart10.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart11.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart12.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart13.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart14.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart15.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart16.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart17.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart18.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart19.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart20.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart21.cpp 
