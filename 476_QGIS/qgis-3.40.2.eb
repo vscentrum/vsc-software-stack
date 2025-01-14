@@ -15,7 +15,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 source_urls = ['http://qgis.org/downloads/']
 sources = [SOURCELOWER_TAR_BZ2]
-patches = ['patch2.4_fix-SIP-macro.patch']
+patches = ['patch2.5_fix-SIP-macro.patch']
 checksums = [
     {'qgis-3.40.2.tar.bz2': '3eddc2cb93f339dabb4c90d94ea31d5d1845c21542e8317ec2cbe3e95d124b9a'},
     {'patch2.4_fix-SIP-macro.patch': 'ad8d90256d2b252764127a04bc6948042c4b83a0d98ad7c0ba8d6d9ce0915c95'},
@@ -90,7 +90,9 @@ configopts = ' '.join(_copts)
 moduleclass = 'geo'
 
 # E7:
-    # -> update patch2.4
+    # -> update patch2.5
+    # -> update patch2.4 -> failed log9.txt -> wrong --include-dir - 2x PyQt and no Qsci
+        # cd /tmp/vsc47063/easybuild/build/QGIS/3.40.2/foss-2023a/easybuild_obj/python/gui && /apps/gent/RHEL8/cascadelake-ib/software/SIP/6.8.1-GCCcore-12.3.0/bin/sip-build --no-protected-is-public --pep484-pyi --no-make --concatenate=25 --qmake=/apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/bin/qmake --include-dir=/tmp/vsc47063/easybuild/build/QGIS/3.40.2/foss-2023a/easybuild_obj/python --include-dir=/apps/gent/RHEL8/cascadelake-ib/software/PyQt5/5.15.10-GCCcore-12.3.0/lib/python3.11/site-packages/PyQt5/bindings --include-dir=/apps/gent/RHEL8/cascadelake-ib/software/PyQt5/5.15.10-GCCcore-12.3.0/lib/python3.11/site-packages/PyQt5/bindings --api-dir /tmp/vsc47063/easybuild/build/QGIS/3.40.2/foss-2023a/easybuild_obj/python
     # <- build failed <- log8.txt
         # sip-build: /tmp/vsc47063/easybuild/build/QGIS/3.40.2/foss-2023a/easybuild_obj/
         #  python/gui/gui.sip: line 15: column 9: 'Qsci/qscimod5.sip' could not be found

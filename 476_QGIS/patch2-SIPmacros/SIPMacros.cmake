@@ -101,7 +101,7 @@ MACRO(GENERATE_SIP_PYTHON_MODULE_CODE MODULE_NAME MODULE_SIP SIP_FILES CPP_FILES
       ENDIF( ${CONCAT_NUM} LESS ${SIP_CONCAT_PARTS} )
     ENDFOREACH(CONCAT_NUM RANGE 0 ${SIP_CONCAT_PARTS} )
 
-    SET(SIPCMD ${SIP_BUILD_EXECUTABLE} --no-protected-is-public --pep484-pyi --no-make --concatenate=${SIP_CONCAT_PARTS} --qmake=${QMAKE_EXECUTABLE} --include-dir=${CMAKE_CURRENT_BINARY_DIR} --include-dir=${PYQT_SIP_DIR} --include-dir=${QSCI_SIP_DIR} --api-dir ${CMAKE_BINARY_DIR}/python ${SIP_BUILD_EXTRA_OPTIONS})
+    SET(SIPCMD ${SIP_BUILD_EXECUTABLE} --no-protected-is-public --pep484-pyi --no-make --concatenate=${SIP_CONCAT_PARTS} --qmake=${QMAKE_EXECUTABLE} --include-dir=${CMAKE_CURRENT_BINARY_DIR} --include-dir=${PYQT_SIP_DIR} --include-dir=$ENV{EBROOTQSCINTILLA}/share/sip --api-dir ${CMAKE_BINARY_DIR}/python ${SIP_BUILD_EXTRA_OPTIONS})
 
     ADD_CUSTOM_COMMAND(
       OUTPUT ${_sip_output_files}
@@ -140,7 +140,7 @@ MACRO(GENERATE_SIP_PYTHON_MODULE_CODE MODULE_NAME MODULE_SIP SIP_FILES CPP_FILES
       ENDIF( ${CONCAT_NUM} LESS ${SIP_CONCAT_PARTS} )
     ENDFOREACH(CONCAT_NUM RANGE 0 ${SIP_CONCAT_PARTS} )
 
-    SET(SIPCMD ${SIP_BINARY_PATH} ${_sip_tags} -w -e ${_sip_x} ${SIP_EXTRA_OPTIONS} -j ${SIP_CONCAT_PARTS} -c ${CMAKE_CURRENT_BINARY_DIR}/${_module_path} -I ${CMAKE_CURRENT_BINARY_DIR}/${_module_path} ${_sip_includes} -I$ENV{EBROOTPYQT5}/share/sip/PyQt5 -I$ENV{EBROOTQSCINTILLA}/sip ${_configured_module_sip})
+    SET(SIPCMD ${SIP_BINARY_PATH} ${_sip_tags} -w -e ${_sip_x} ${SIP_EXTRA_OPTIONS} -j ${SIP_CONCAT_PARTS} -c ${CMAKE_CURRENT_BINARY_DIR}/${_module_path} -I ${CMAKE_CURRENT_BINARY_DIR}/${_module_path} ${_sip_includes} -I$ENV{EBROOTPYQT5}/share/sip/PyQt5 -I$ENV{EBROOTQSCINTILLA}/share/sip ${_configured_module_sip})
     ADD_CUSTOM_COMMAND(
       OUTPUT ${_sip_output_files}
       COMMAND ${CMAKE_COMMAND} -E echo ${message}
