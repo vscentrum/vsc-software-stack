@@ -32,7 +32,7 @@ dependencies = [
     ('libreadline', '8.2'),
     ('ncurses', '6.4'),
     ('netCDF', '4.9.2'),
-    ('libspatialite', '5.1.0'),
+    ('libspatialite', '5.1.0'), # UPDATED
     ('GEOS', '3.12.0'),
     ('freetype', '2.13.0'),
     ('LibTIFF', '4.5.0'),
@@ -40,16 +40,15 @@ dependencies = [
     ('X11', '20230603'),
     ('Mesa', '23.1.4'),
     ('libGLU', '9.0.3'),
-    ('wxPython', '4.2.1'),
+    ('wxPython', '4.2.1'), # UPDATE -> https://github.com/easybuilders/easybuild-easyconfigs/pull/21949
     ('zstd', '1.5.5'),
     ('PDAL', '2.8.2'),
     ('FFTW', '3.3.10'),
 ]
 
 preconfigopts = "sed -i -e 's/-lblas/$LIBBLAS/g' -e 's/-llapack/$LIBLAPACK/g' configure && "
-preconfigopts += (
-    "sed -i 's/LDFLAGS=\"-Wl,--export-dynamic\"/LDFLAGS=\"-pthread -lm -Wl,--export-dynamic\"/g' configure && "
-)
+preconfigopts += "sed -i 's/LDFLAGS=\"-Wl,--export-dynamic\"/LDFLAGS=\"-pthread -lm -Wl,--export-dynamic\"/g' configure && "
+
 configopts = '--enable-largefile=yes '
 configopts += '--enable-64bit '
 configopts += '--with-cairo=yes '
@@ -95,3 +94,23 @@ sanity_check_paths = {
 }
 
 moduleclass = 'geo'
+
+# E2: OK
+    # add parallel = 1 + add wxPython -> OK
+    # <- build step failed
+    # No such file or directory: 'g.parser'
+    # /bin/sh: g.parser: command not found
+    # ModuleNotFoundError: No module named 'wx'
+
+# E1: OK
+    # -> PDAL added -> OK
+    # checking whether to use PDAL... yes
+    # Package pdal was not found in the pkg-config search path.
+    # Perhaps you should add the directory containing `pdal.pc'
+    # to the PKG_CONFIG_PATH environment variable
+    # Package 'pdal', required by 'virtual:world', not found
+    # Package pdal was not found in the pkg-config search path.
+    # Perhaps you should add the directory containing `pdal.pc'
+    # to the PKG_CONFIG_PATH environment variable
+    # Package 'pdal', required by 'virtual:world', not found
+    # configure: error: *** Unable to locate suitable (>=1.7.1) PDAL library.

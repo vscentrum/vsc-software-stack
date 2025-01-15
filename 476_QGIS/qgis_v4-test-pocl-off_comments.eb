@@ -1,0 +1,181 @@
+# Author: Pavel Grochal (INUITS)
+# Update to 3.40.2: Pavel Tománek (INUITS)
+# License: GPLv2
+
+easyblock = 'CMakeNinja'
+
+name = 'QGIS'
+version = '3.40.2'
+versionsuffix = '-no-pocl'
+
+homepage = 'http://www.qgis.org/'
+description = "QGIS is a user friendly Open Source Geographic Information System (GIS)."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+# toolchainopts = {'pic': True, 'cstd': 'gnu++11'}
+
+source_urls = ['http://qgis.org/downloads/']
+sources = [SOURCELOWER_TAR_BZ2]
+patches = ['patch2.5_fix-SIP-macro.patch']
+checksums = [
+    {'qgis-3.40.2.tar.bz2': '3eddc2cb93f339dabb4c90d94ea31d5d1845c21542e8317ec2cbe3e95d124b9a'},
+    {'patch2.5_fix-SIP-macro.patch': 'd8094ff803a6918843568d9561610f770ebd159b1d63b27ec863ce698857410f'},
+]
+
+builddependencies = [
+    ('flex', '2.6.4'),
+    ('Bison', '3.8.2'),
+    ('CMake', '3.26.3'),
+    ('pkgconf', '1.9.5'),
+    ('PyQt-builder', '1.15.4'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Qt5', '5.15.10'),
+    ('Qt5Webkit', '5.212.0-alpha4'), # UPDATED
+    ('PyQt5', '5.15.10'),
+    ('PROJ', '9.2.0'),
+    ('GEOS', '3.12.0'),
+    ('PDAL', '2.8.2'),
+    ('zstd', '1.5.5'),
+    ('SQLite', '3.42.0'),
+    ('libspatialite', '5.1.0'), # UPDATED
+    ('libspatialindex', '1.9.3'),
+    ('PyYAML', '6.0'),
+    ('Cartopy', '0.22.0'), # ? rly needed
+    ('psycopg2', '2.9.9'),
+    ('GDAL', '3.7.1'),
+    ('Qwt', '6.3.0'),
+    ('expat', '2.5.0'),
+    ('QCA', '2.3.9'), # UPDATED
+#     # QScintilla must be listed after PyQt5 due to Python bindings 'overriding' those of PyQt5
+    ('QScintilla', '2.14.1'),
+    ('GSL', '2.7'), # optional
+    ('libzip', '1.10.1'), # UPDATED
+    ('QtKeychain', '0.14.3'), # UPDATED
+    ('ICU', '73.2'), # ? rly needed
+    ('PostgreSQL', '16.1'), # optional
+    ('GRASS', '8.4.0'), # optional UPDATED
+    ('protobuf-python', '4.24.0'),
+    ('exiv2', '0.28.0'),
+    # ('pocl', '4.0'),
+    ('draco', '1.5.7'), # CREATED
+    # ('SIP', '6.8.1'),
+    ('HDF5', '1.14.0'),
+    ('netCDF', '4.9.2'),
+    ('libxml2', '2.11.4'),
+]
+
+# specify locations that CMake can't figure out correctly
+_copts = [
+    "-DCMAKE_PREFIX_PATH=$EBROOTQT",
+    "-DQSCINTILLA_LIBRARY=$EBROOTQSCINTILLA/lib/libqscintilla2_qt5.%s" % SHLIB_EXT,
+    "-DQt5WebKit_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKit",
+    "-DQt5WebKitWidgets_DIR=$EBROOTQT5WEBKIT/lib64/cmake/Qt5WebKitWidgets",
+    "-DPYQT5_SIP_DIR=$EBROOTPYQT5/share/sip",
+    # "-DQSCI_SIP_DIR=$EBROOTQSCINTILLA/lib/python%(pyshortver)s/site-packages/PyQt5/bindings/Qsci", # does it works? -> E1
+    "-DQSCI_SIP_DIR=$EBROOTQSCINTILLA/share/sip",
+    "-DGRASS_PREFIX8=$EBROOTGRASS/grass8",
+]
+configopts = ' '.join(_copts)
+
+# fix gui.sip
+
+# sanity_check_paths = {
+#     'files': ['bin/qgis', 'bin/qgis_bench', 'lib/libqgis_analysis.%s' % SHLIB_EXT,
+#               'lib/libqgis_app.%s' % SHLIB_EXT, 'lib/libqgis_core.%s' % SHLIB_EXT, 'lib/libqgis_gui.%s' % SHLIB_EXT,
+#               'lib/libqgis_native.%s' % SHLIB_EXT, 'lib/libqgispython.%s' % SHLIB_EXT],
+#     'dirs': ['include/qgis', 'man', 'share/qgis'],
+# }
+
+moduleclass = 'geo'
+
+# E10:
+    # -> try without pocl (OpenCL conflict) -> OK works!!!
+    # -> try on shinx or try to create Qt5 with LLVM-15 
+    # -> here they see problem in OpenCL: https://www.linuxquestions.org/questions/slackware-14/new-llvm-kills-libreoffice-7-5-2-a-4175723640/#post6421577
+        # they did export SAL_DISABLE_OPENCL=1 and it was fixed to run libreoffice
+        # -> `ls /etc/OpenCL/vendors/` -> nvidia.icd -> try on shinx where this nvidia.icd is not? (no GPU)
+        # -> also this is interesting: https://www.linuxquestions.org/questions/slackware-14/new-llvm-kills-libreoffice-7-5-2-a-4175723640/page3.html#post6422038
+            # LLVM CommandLine errors
+            # If multiple OpenCL platforms using shared LLVM libraries are present in the  sys‐
+            # tem, clinfo (and other OpenCL application) may crash with errors to the tune of
+
+            #         : CommandLine Error: Option '(some option name)' registered more than once!
+            #         LLVM ERROR: inconsistency in registered CommandLine options
+
+            # or similar. This is not an issue in clinfo, or in any OpenCL platform or applica‐
+            # tion, but it is due to the way LLVM handles its own command-line options parsing.
+            # The     issue     has     been     reported     upstream    as    issue    #30587
+            # https://bugs.llvm.org/show_bug.cgi?id=30587 .  See the next point  for  possible
+            # workarounds and assistance in identifying the conflicting platforms.
+    # -> try run on desktop cluster: LD_DEBUG=libs qgis
+    # ->  modules: LLVM-16.0.6-GCCcore-12.3.0 and Clang/16.0.6-GCCcore-12.3.0
+    #  -> Clang - pocl, LLVM - libGLU - Qt5
+    # -> problem Vulcan - X11 + Wayland: https://github.com/RPCS3/rpcs3/issues/13641
+    #  -> Also there is in modules: X11 and Waylandpp - from WebKitGTK+ (Wayland, not my EC) - should not be problem
+    # Run on desktop cluster -> qgis -> error (for both versions)
+        # CommandLine Error: Option 'use-dbg-addr' registered more than once!
+        # LLVM ERROR: inconsistency in registered CommandLine options
+        # Aborted (core dumped)
+# E1: OK
+    # -> update patch2.5 (E7 in qgis-3.40.2)
+    # -> update patch2 to see sip files in qsci -> still same error
+        # 9942/11440] Generating gui/build/_gui/sip_guipart0.cpp, gui/build/_gui/sip_guipart1.cpp, gui/build/_gui/sip_guipart2.cpp, gui/build/_gui/sip_guipart3.cpp, gui/build/_gui/sip_guipart4.cpp, gui/build/_gui/sip_guipart5.cpp, gui/build/_gui/sip_guipart6.cpp, gui/build/_gui/sip_guipart7.cpp, gui/build/_gui/sip_guipart8.cpp, gui/build/_gui/sip_guipart9.cpp, gui/build/_gui/sip_guipart10.cpp, gui/build/_gui/sip_guipart11.cpp, gui/build/_gui/sip_guipart12.cpp, gui/build/_gui/sip_guipart13.cpp, gui/build/_gui/sip_guipart14.cpp, gui/build/_gui/sip_guipart15.cpp, gui/build/_gui/sip_guipart16.cpp, gui/build/_gui/sip_guipart17.cpp, gui/build/_gui/sip_guipart18.cpp, gui/build/_gui/sip_guipart19.cpp, gui/build/_gui/sip_guipart20.cpp, gui/build/_gui/sip_guipart21.cpp
+        # FAILED: python/gui/build/_gui/sip_guipart0.cpp python/gui/build/_gui/sip_guipart1.cpp python/gui/build/_gui/sip_guipart2.cpp python/gui/build/_gui/sip_guipart3.cpp python/gui/build/_gui/sip_guipart4.cpp python/gui/build/_gui/sip_guipart5.cpp python/gui/build/_gui/sip_guipart6.cpp python/gui/build/_gui/sip_guipart7.cpp python/gui/build/_gui/sip_guipart8.cpp python/gui/build/_gui/sip_guipart9.cpp python/gui/build/_gui/sip_guipart10.cpp python/gui/build/_gui/sip_guipart11.cpp python/gui/build/_gui/sip_guipart12.cpp python/gui/build/_gui/sip_guipart13.cpp python/gui/build/_gui/sip_guipart14.cpp python/gui/build/_gui/sip_guipart15.cpp python/gui/build/_gui/sip_guipart16.cpp python/gui/build/_gui/sip_guipart17.cpp python/gui/build/_gui/sip_guipart18.cpp python/gui/build/_gui/sip_guipart19.cpp python/gui/build/_gui/sip_guipart20.cpp python/gui/build/_gui/sip_guipart21.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart0.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart1.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart2.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart3.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart4.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart5.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart6.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart7.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart8.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart9.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart10.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart11.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart12.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart13.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart14.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart15.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart16.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart17.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart18.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart19.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart20.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart21.cpp 
+        # cd /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/bin/cmake -E echo && /apps/gent/RHEL8/cascadelake-ib/software/SIP/6.8.1-GCCcore-12.3.0/bin/sip-build --no-protected-is-public --pep484-pyi --no-make --concatenate=22 --qmake=/apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/bin/qmake --include-dir=/tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python --include-dir=/apps/gent/RHEL8/cascadelake-ib/software/PyQt5/5.15.10-GCCcore-12.3.0/lib/python3.11/site-packages/PyQt5/bindings --api-dir /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python && /kyukon/home/apps/RHEL8/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/bin/cmake -E touch /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart0.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart1.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart2.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart3.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart4.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart5.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart6.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart7.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart8.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart9.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart10.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart11.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart12.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart13.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart14.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart15.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart16.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart17.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart18.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart19.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart20.cpp /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/build/_gui/sip_guipart21.cpp
+
+        # pyproject.toml: line 7: using '[tool.sip.metadata]' to specify the project metadata is deprecated and will be removed in SIP v7.0.0, use '[project]' instead
+        # Querying qmake about your Qt installation...
+        # These bindings will be built: gui.
+        # Generating the gui bindings...
+        # sip-build: /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/easybuild_obj/python/gui/gui.sip: line 15: column 9: 
+        # 'Qsci/qscimod5.sip' could not be found
+        # [9943/11440] Building CXX object tests/src/core/CMakeFiles/test_core_feature.dir/testqgsfeature.cpp.o
+        # [9944/11440] Linking CXX executable output/bin/test_core_expressioncontext
+        # [9945/11440] Linking CXX executable output/bin/test_core_featurerequest
+        # [9946/11440] Building CXX object tests/src/core/CMakeFiles/test_core_expression.dir/testqgsexpression.cpp.o
+        # [9947/11440] Generating 3d/build/_3d/sip_3dpart0.cpp, 3d/build/_3d/sip_3dpart1.cpp, 3d/build/_3d/sip_3dpart2.cpp, 3d/build/_3d/sip_3dpart3.cpp, 3d/build/_3d/sip_3dpart4.cpp, 3d/build/_3d/sip_3dpart5.cpp, 3d/build/_3d/sip_3dpart6.cpp, 3d/build/_3d/sip_3dpart7.cpp, 3d/build/_3d/sip_3dpart8.cpp, 3d/build/_3d/sip_3dpart9.cpp, 3d/build/_3d/sip_3dpart10.cpp, 3d/build/_3d/sip_3dpart11.cpp, 3d/build/_3d/sip_3dpart12.cpp, 3d/build/_3d/sip_3dpart13.cpp, 3d/build/_3d/sip_3dpart14.cpp, 3d/build/_3d/sip_3dpart15.cpp, 3d/build/_3d/sip_3dpart16.cpp, 3d/build/_3d/sip_3dpart17.cpp, 3d/build/_3d/sip_3dpart18.cpp, 3d/build/_3d/sip_3dpart19.cpp, 3d/build/_3d/sip_3dpart20.cpp, 3d/build/_3d/sip_3dpart21.cpp
+    # -> try set PEDANTIC=OFF -> seems it wroks but build failed -> log7.txt
+    # <- lot of these same warnings from struct QTypedArrayData:
+        # Building CXX object src/auth/awss3/CMakeFiles/authmethod_awss3_a.dir/core/qgsauthawss3method.cpp.o
+        # In file included from /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/qstring.h:216
+        # 8,
+        #                  from /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/qobject.h:47,
+        #                  from /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/QObject:1,
+        #                  from /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/qgis-3.38.3/src/auth/awss3/core/qgsauthawss
+        # 3method.h:19,
+        #                  from /tmp/vsc47063/easybuild/build/QGIS/3.38.3/foss-2023a/qgis-3.38.3/src/auth/awss3/core/qgsauthawss
+        # 3method.cpp:16:
+        # In static member function static void QConcatenable<QByteArray>::appendTo(const QByteArray&, char*&),
+        #     inlined from static void QConcatenable<QStringBuilder<A, B> >::appendTo(const type&, T*&) [with T = char; A = QByt
+        # eArray; B = char] at /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/qstringbuilder
+        # .h:428:35,
+        #     inlined from static void QConcatenable<QStringBuilder<A, B> >::appendTo(const type&, T*&) [with T = char; A = QStr
+        # ingBuilder<QByteArray, char>; B = QByteArray] at /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/i
+        # nclude/QtCore/qstringbuilder.h:428:35,
+        #     inlined from static void QConcatenable<QStringBuilder<A, B> >::appendTo(const type&, T*&) [with T = char; A = QStr
+        # ingBuilder<QStringBuilder<QByteArray, char>, QByteArray>; B = char] at /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.
+        # 15.10-GCCcore-12.3.0/include/QtCore/qstringbuilder.h:428:35,
+        #     inlined from static void QConcatenable<QStringBuilder<A, B> >::appendTo(const type&, T*&) [with T = char; A = QStr
+        # ingBuilder<QStringBuilder<QStringBuilder<QByteArray, char>, QByteArray>, char>; B = char] at /apps/gent/RHEL8/cascadel
+        # ake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/qstringbuilder.h:428:35,
+        #     inlined from static void QConcatenable<QStringBuilder<A, B> >::appendTo(const type&, T*&) [with T = char; A = QStr
+        # ingBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QByteArray, char>, QByteArray>, char>, char>; B = char [6]] at
+        #  /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/qstringbuilder.h:428:35,
+        #     inlined from static void QConcatenable<QStringBuilder<A, B> >::appendTo(const type&, T*&) [with T = char; A = QStr
+        # ingBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QByteArray, char>, QByteArray>, char>, char>, c
+        # har [6]>; B = QByteArray] at /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/qstrin
+        # gbuilder.h:428:35, ...
+        # inlined from T QStringBuilder<A, B>::convertTo() const [with T = QByteArray; A = QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QByteArray, char>, QByteArray>, char>, char>, char [6]>, QByteArray>, char>, char [22]>, QByteArray>, char>, char [12]>, QByteArray>, char>, char>, QByteArray>, char>; B = QByteArray] at /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/qstringbuilder.h:118:56:
+        # /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/qstringbuilder.h:411:20: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+        #   411 |             *out++ = *a++;
+        #       |             ~~~~~~~^~~~~~
+        # In file included from /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/qbytearray.h:46,
+        #                  from /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/qstring.h:50:
+        # /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/qarraydata.h: In member function T QStringBuilder<A, B>::convertTo() const [with T = QByteArray; A = QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QStringBuilder<QByteArray, char>, QByteArray>, char>, char>, char [6]>, QByteArray>, char>, char [22]>, QByteArray>, char>, char [12]>, QByteArray>, char>, char>, QByteArray>, char>; B = QByteArray]:
+        # /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/qarraydata.h:129:8: note: at offset 40 into destination object QTypedArrayData<char>::<anonymous> of size 24
+        #   129 | struct QTypedArrayData
+        #       |        ^~~~~~~~~~~~~~~
+        # /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.10-GCCcore-12.3.0/include/QtCore/qarraydata.h:129:8: note: at offset [8, 24] into destination object QTypedArrayData<char>::<anonymous> of size 24

@@ -26,12 +26,12 @@ dependencies = [
     ('zlib', _zlib_version),
 ]
 
-start_dir = 'contrib/minizip'
+start_dir = 'contrib/%(name)s'
 
 preconfigopts = 'autoreconf -i && '
 
 sanity_check_paths = {
-    'files': ['include/minizip/unzip.h', 'lib/libminizip.a', 'lib/libminizip.%s' % SHLIB_EXT],
+    'files': ['include/%(name)s/unzip.h', 'lib/libminizip.a', 'lib/libminizip.%s' % SHLIB_EXT],
     'dirs': [],
 }
 
