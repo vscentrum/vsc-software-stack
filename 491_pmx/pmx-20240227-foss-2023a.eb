@@ -1,0 +1,38 @@
+easyblock = 'PythonBundle'
+
+name = 'pmx'
+version = '20240227'
+local_commit = '369bff2'
+
+homepage = 'https://degrootlab.github.io/pmx/'
+description = "Toolkit for free-energy calculation setup/analysis and biomolecular structure handling."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '2.7.18'),
+    # ('SciPy-bundle', ''),
+    # ('matplotlib', ''),
+    # ('GROMACS', ''),  # TODO maybe not needed?
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    (name, version, {
+        'source_urls': ['https://github.com/deGrootLab/pmx/archive/'],
+        'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['031d3cac553a79741167bef4778eecf23028db4cfb1111537946d80374f0a26f'],
+    }),
+]
+
+sanity_check_commands = [
+    "python -c 'from pmx.gmx import set_gmxlib; set_gmxlib()'",
+    'echo "q" | pmx gmxlib'
+]
+
+moduleclass = 'bio'
+
+# TODO
+# ImportError: No module named numpy
