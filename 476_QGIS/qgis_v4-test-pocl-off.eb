@@ -6,6 +6,7 @@ easyblock = 'CMakeNinja'
 
 name = 'QGIS'
 version = '3.40.2'
+versionsuffix = '-no-pocl'
 
 homepage = 'http://www.qgis.org/'
 description = "QGIS is a user friendly Open Source Geographic Information System (GIS)."
@@ -58,7 +59,7 @@ dependencies = [
     ('GRASS', '8.4.0'), # optional UPDATED
     ('protobuf-python', '4.24.0'),
     ('exiv2', '0.28.0'),
-    ('pocl', '4.0'),
+    # ('pocl', '4.0'),
     ('draco', '1.5.7'), # CREATED
     # ('SIP', '6.8.1'),
     ('HDF5', '1.14.0'),
@@ -92,9 +93,24 @@ configopts = ' '.join(_copts)
 moduleclass = 'geo'
 
 # E10:
-    # here they see problem in OpenCL: https://www.linuxquestions.org/questions/slackware-14/new-llvm-kills-libreoffice-7-5-2-a-4175723640/#post6421577
+    # -> try without pocl (OpenCL conflict) -> OK works!!!
+    # -> try on shinx or try to create Qt5 with LLVM-15 
+    # -> here they see problem in OpenCL: https://www.linuxquestions.org/questions/slackware-14/new-llvm-kills-libreoffice-7-5-2-a-4175723640/#post6421577
         # they did export SAL_DISABLE_OPENCL=1 and it was fixed to run libreoffice
-        # `ls /etc/OpenCL/vendors/` -> nvidia.icd
+        # -> `ls /etc/OpenCL/vendors/` -> nvidia.icd -> try on shinx where this nvidia.icd is not? (no GPU)
+        # -> also this is interesting: https://www.linuxquestions.org/questions/slackware-14/new-llvm-kills-libreoffice-7-5-2-a-4175723640/page3.html#post6422038
+            # LLVM CommandLine errors
+            # If multiple OpenCL platforms using shared LLVM libraries are present in the  sys‐
+            # tem, clinfo (and other OpenCL application) may crash with errors to the tune of
+
+            #         : CommandLine Error: Option '(some option name)' registered more than once!
+            #         LLVM ERROR: inconsistency in registered CommandLine options
+
+            # or similar. This is not an issue in clinfo, or in any OpenCL platform or applica‐
+            # tion, but it is due to the way LLVM handles its own command-line options parsing.
+            # The     issue     has     been     reported     upstream    as    issue    #30587
+            # https://bugs.llvm.org/show_bug.cgi?id=30587 .  See the next point  for  possible
+            # workarounds and assistance in identifying the conflicting platforms.
     # -> try run on desktop cluster: LD_DEBUG=libs qgis
     # ->  modules: LLVM-16.0.6-GCCcore-12.3.0 and Clang/16.0.6-GCCcore-12.3.0
     #  -> Clang - pocl, LLVM - libGLU - Qt5
