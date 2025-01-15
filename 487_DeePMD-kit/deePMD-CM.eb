@@ -1,58 +1,44 @@
-easyblock = 'PythonBundle'
+easyblock = 'ConfigureMake'
 
 name = 'DeePDM-kit'
 version = '3.0.1'
 # versionsuffix = '-CUDA-%(cudaver)s'
+versionsuffix = '-CM-version'
 
 homepage = 'https://github.com/deepmodeling/deepmd-kit/'
 description = "A deep learning package for many-body potential energy representation and molecular dynamics."
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# DEPS:
-    # OK scikit-build-core>=0.5,<0.11,!=0.6.0
-    # OK 'numpy>=1.21',
-    # OK 'scipy',
-    # OK 'pyyaml',
-    # ok 'dargs >= 0.4.7',
-    # OK "h5py>=3.6.0,!=3.11.0; platform_system=='Linux' and platform_machine=='aarch64'",
-    # ok 'wcmatch',
-    # OK 'ml_dtypes',
-    # ok 'mendeleev',
-    # ok 'array-api-compat',
-    # ok dpdata
-    # horovod
-    # OK mpi4py
+# builddependencies = [('scikit-build-core', '0.9.3')]
+# dependencies = [
+#     # ('CUDA', '12.6.0', '', SYSTEM),
+#     ('Python', '3.11.3'),
+#     ('SciPy-bundle', '2023.07'),
+#     ('ml_dtypes', '0.3.2'),
+#     ('PyYAML', '6.0'),
+#     ('h5py', '3.9.0'),
+#     ('TensorFlow', '2.15.1'),
+#     ('mpi4py', '3.1.4'),
+#     # horovod
+# ]
 
-builddependencies = [('scikit-build-core', '0.9.3')]
-dependencies = [
-    # ('CUDA', '12.6.0', '', SYSTEM),
-    ('Python', '3.11.3'),
-    ('SciPy-bundle', '2023.07'),
-    ('ml_dtypes', '0.3.2'),
-    ('PyYAML', '6.0'),
-    ('h5py', '3.9.0'),
-    ('TensorFlow', '2.15.1'),
-    ('mpi4py', '3.1.4'),
-    # horovod
-]
+# use_pip = True
+# sanity_pip_check = True
 
-use_pip = True
-sanity_pip_check = True
-
-exts_list = [
-    ('dargs', '0.4.10'),
-    ('wcmatch', '10.0'),
-    ('mendeleev', '0.20.1'),
-    ('array_api_compat', '1.10.0'),
-    ('dpdata', '0.2.21'),
-    ('deepmd_kit', version, {
-        # 'modulename': False,
-        # 'source_urls': ['https://github.com/Softcatala/whisper-ctranslate2/archive/'],
-        # 'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        'checksums': ['8a7c7b232086b8bfa7022f3a3b3f95c8c5175c33663cf8d3fd840539f2be9a49'],
-    }),
-]
+# exts_list = [
+#     ('dargs', '0.4.10'),
+#     ('wcmatch', '10.0'),
+#     ('mendeleev', '0.20.1'),
+#     ('array_api_compat', '1.10.0'),
+#     ('dpdata', '0.2.21'),
+#     ('deepmd_kit', version, {
+#         # 'modulename': False,
+#         # 'source_urls': ['https://github.com/Softcatala/whisper-ctranslate2/archive/'],
+#         # 'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+#         'checksums': ['8a7c7b232086b8bfa7022f3a3b3f95c8c5175c33663cf8d3fd840539f2be9a49'],
+#     }),
+# ]
 
 # sanity_check_paths = {
 #     'files': ['bin/%(name)s'],

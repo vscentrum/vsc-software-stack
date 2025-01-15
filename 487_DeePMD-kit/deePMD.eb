@@ -9,38 +9,63 @@ description = "A deep learning package for many-body potential energy representa
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
+# DEPS:
+    # OK scikit-build-core>=0.5,<0.11,!=0.6.0
+    # OK 'numpy>=1.21',
+    # OK 'scipy',
+    # OK 'pyyaml',
+    # ok 'dargs >= 0.4.7',
+    # OK "h5py>=3.6.0,!=3.11.0; platform_system=='Linux' and platform_machine=='aarch64'",
+    # ok 'wcmatch',
+    # OK 'ml_dtypes',
+    # ok 'mendeleev',
+    # ok 'array-api-compat',
+    # ok dpdata
+    # parallel training deps:
+        # horovod
+        # OK mpi4py
+
+builddependencies = [
+    ('scikit-build-core', '0.9.3'),
+    ('hatchling', '1.18.0'),
+    ('poetry', '1.5.1'),
+    ('git', '2.41.0', '-nodocs'),
+]
 dependencies = [
     # ('CUDA', '12.6.0', '', SYSTEM),
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
-    ('tqdm', '4.66.1'),
-    ('tokenizers', '0.15.2'),
-    ('CTranslate2', '4.5.0', versionsuffix),
-    ('PyAV', '11.0.0'),
-    ('ONNX-Runtime', '1.19.2', versionsuffix),
-    ('cffi', '1.15.1'),
-    ('PortAudio', '19.7.0'),
+    ('ml_dtypes', '0.3.2'),
+    ('PyYAML', '6.0'),
+    ('h5py', '3.9.0'),
+    ('TensorFlow', '2.15.1'),
+    ('jax', '0.4.25'),
+    ('mpi4py', '3.1.4'),
+    ('protobuf', '24.0'),
+    # horovod
 ]
 
 use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    ('huggingface-hub', '0.26.5', {
-        'sources': ['huggingface_hub-%(version)s.tar.gz'],
-        'checksums': ['1008bd18f60bfb65e8dbc0a97249beeeaa8c99d3c2fa649354df9fa5a13ed83b'],
+    ('dargs', '0.4.10', {
+        'checksums': ['2b39e0a93dcd323d0affb3f54ee2c11a439084d718934df08f38692dfbadddf8'],
     }),
-    ('sounddevice', '0.5.1', {
-        'checksums': ['09ca991daeda8ce4be9ac91e15a9a81c8f81efa6b695a348c9171ea0c16cb041'],
+    ('wcmatch', '8.5.2', {
+        'checksums': ['a70222b86dea82fb382dd87b73278c10756c138bd6f8f714e2183128887b9eb2'],
     }),
-    ('faster-whisper', '1.1.1', {
-        'checksums': ['50d27571970c1be0c2b2680a2593d5d12f9f5d2f10484f242a1afbe7cb946604'],
+    ('mendeleev', '0.20.1', {
+        'checksums': ['26f27099f0587cab82dd7f84ee31a5c48e994eb478ea2a92756c5fd50764f7da'],
     }),
-    (name, version, {
-        # 'modulename': False,
-        # 'source_urls': ['https://github.com/Softcatala/whisper-ctranslate2/archive/'],
-        # 'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        'checksums': ['8a7c7b232086b8bfa7022f3a3b3f95c8c5175c33663cf8d3fd840539f2be9a49'],
+    ('array_api_compat', '1.10.0', {
+        'checksums': ['eb98056fa4993e7e98860b7a1ca73c9ae1c77f1ef95366a5ebd5dec8e6d55bad'],
+    }),
+    ('dpdata', '0.2.21', {
+        'checksums': ['55dcec61bdc8707fb6b3e57406fb7c07b6ccb7a0ac763a1407cc1c3222bf58b1'],
+    }),
+    ('deepmd_kit', version, {
+        'checksums': ['10d4443c6fe31a9a4573ed6eda73b6a669dae572cf2bc43f45e9a63aaae02cff'],
     }),
 ]
 
