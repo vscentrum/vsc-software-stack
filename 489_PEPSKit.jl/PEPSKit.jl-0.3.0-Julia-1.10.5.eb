@@ -1,0 +1,95 @@
+easyblock = 'JuliaBundle'
+
+name = 'PEPSKit.jl'
+version = '0.3.0'
+local_juliaver = '1.10.5'
+versionsuffix = '-R-%%(rver)s-Julia-%s' % local_juliaver
+
+homepage = 'https://github.com/QuantumKitHub/PEPSKit.jl'
+description = """Tools for working with projected entangled-pair states"""
+
+toolchain = SYSTEM
+
+dependencies = [
+    ('Julia', local_juliaver, '-linux-%s' % ARCH, SYSTEM),
+]
+
+exts_default_options = {
+    'source_tmpl': 'v%(version)s.tar.gz',
+}
+
+exts_list = [
+    ('VectorInterface.jl', '0.5.0', {
+        'source_urls': ['https://github.com/Jutho/VectorInterface.jl/archive/'],
+        'checksums': ['4ec978b47e5fff9a5e7d484f89da992d780e62bf6ab24a8656d0279f2f6bb472'],
+    }),
+    ('TensorOperations.jl', '5.1.3', {
+        'source_urls': ['https://github.com/Jutho/TensorOperations.jl/archive/'],
+        'checksums': ['1b22dca5ad2d39a887763e1440165a6e52adb4db42262916cf5367a8fc5716e9'],
+    }),
+    ('TensorKitSectors.jl', '0.1.1', {
+        'source_urls': ['https://github.com/QuantumKitHub/TensorKitSectors.jl/archive/'],
+        'checksums': ['eb7a18389fde1c03e621dfb7e506fe1168d391c2186a514fd0e608deba1f120d'],
+    }),
+    ('TensorKit', '0.14.2', {
+        'source_urls': ['https://github.com/Jutho/TensorKit.jl/archive/'],
+        'checksums': ['d3cde6aeed8f8f95e6d26e1d0ea1dab007b4f7ea8412ea05c5d92a230478ad1c'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/QuantumKitHub/PEPSKit.jl/archive/'],
+        'checksums': ['cfec2de82d159f7247066459eb934c7b7dcca31b15ca8daa47fbd4a5c3122a7c'],
+    }),
+]
+
+# local_julia_env = "%(installdir)s/environments/v" + '.'.join(local_juliaver.split('.')[:2])
+#
+# sanity_check_commands = [
+#     """julia -e 'using Pkg; Pkg.activate("%s"); Pkg.test("%%(name)s")'""" % local_julia_env,
+# ]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['packages/%(name)s'],
+}
+
+moduleclass = 'tools'
+
+# TODO
+# == 2025-01-17 14:35:46,001 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " julia -e 'using Pkg; Pkg.activate("/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PEPSKit.jl/0.3.0-R-%(rver)s-Julia-1.10.5/environments/v1.10"); Pkg.develop(PackageSpec(path="/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PEPSKit.jl/0.3.0-R-%(rver)s-Julia-1.10.5/packages/VectorInterface.jl"); preserve=PRESERVE_ALL); Pkg.build("VectorInterface.jl")' " exited with exit code 1 and output:
+#   Activating new project at `/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PEPSKit.jl/0.3.0-R-%(rver)s-Julia-1.10.5/environments/v1.10`
+#   Installing known registries into `/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PEPSKit.jl/0.3.0-R-%(rver)s-Julia-1.10.5`
+#        Added `General` registry to /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PEPSKit.jl/0.3.0-R-%(rver)s-Julia-1.10.5/registries
+#    Resolving package versions...
+#     Updating `/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PEPSKit.jl/0.3.0-R-%(rver)s-Julia-1.10.5/environments/v1.10/Project.toml`
+#   [409d34a3] + VectorInterface v0.5.0 `/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PEPSKit.jl/0.3.0-R-%(rver)s-Julia-1.10.5/packages/VectorInterface.jl`
+#     Updating `/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PEPSKit.jl/0.3.0-R-%(rver)s-Julia-1.10.5/environments/v1.10/Manifest.toml`
+#   [409d34a3] + VectorInterface v0.5.0 `/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/PEPSKit.jl/0.3.0-R-%(rver)s-Julia-1.10.5/packages/VectorInterface.jl`
+#   [56f22d72] + Artifacts
+#   [8f399da3] + Libdl
+#   [37e2e46d] + LinearAlgebra
+#   [e66e0078] + CompilerSupportLibraries_jll v1.1.1+0
+#   [4536629a] + OpenBLAS_jll v0.3.23+4
+#   [8e850b90] + libblastrampoline_jll v5.11.0+0
+# ERROR: The following package names could not be resolved:
+#  * VectorInterface.jl (not found in project or manifest)
+#    Suggestions: VectorInterface
+# Stacktrace:
+#  [1] pkgerror(msg::String)
+#    @ Pkg.Types /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Julia/1.10.5-linux-x86_64/share/julia/stdlib/v1.10/Pkg/src/Types.jl:70
+#  [2] ensure_resolved(ctx::Pkg.Types.Context, manifest::Pkg.Types.Manifest, pkgs::Vector{Pkg.Types.PackageSpec}; registry::Bool)
+#    @ Pkg.Types /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Julia/1.10.5-linux-x86_64/share/julia/stdlib/v1.10/Pkg/src/Types.jl:1048
+#  [3] ensure_resolved
+#    @ /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Julia/1.10.5-linux-x86_64/share/julia/stdlib/v1.10/Pkg/src/Types.jl:999 [inlined]
+#  [4] build(ctx::Pkg.Types.Context, pkgs::Vector{Pkg.Types.PackageSpec}; verbose::Bool, kwargs::@Kwargs{io::Base.PipeEndpoint})
+#    @ Pkg.API /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Julia/1.10.5-linux-x86_64/share/julia/stdlib/v1.10/Pkg/src/API.jl:1055
+#  [5] build(pkgs::Vector{Pkg.Types.PackageSpec}; io::Base.PipeEndpoint, kwargs::@Kwargs{})
+#    @ Pkg.API /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Julia/1.10.5-linux-x86_64/share/julia/stdlib/v1.10/Pkg/src/API.jl:159
+#  [6] build(pkgs::Vector{Pkg.Types.PackageSpec})
+#    @ Pkg.API /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Julia/1.10.5-linux-x86_64/share/julia/stdlib/v1.10/Pkg/src/API.jl:148
+#  [7] build
+#    @ /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Julia/1.10.5-linux-x86_64/share/julia/stdlib/v1.10/Pkg/src/API.jl:147 [inlined]
+#  [8] build(pkg::String)
+#    @ Pkg.API /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/Julia/1.10.5-linux-x86_64/share/julia/stdlib/v1.10/Pkg/src/API.jl:146
+#  [9] top-level scope
+#    @ none:1
+#  (at easybuild/easybuild-framework/easybuild/tools/run.py:695 in parse_cmd_output)

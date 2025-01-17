@@ -1,0 +1,21 @@
+easyblock = 'JuliaPackage'
+
+name = 'PEPSKit.jl'
+version = '0.3.0'
+_julia_ver = '1.10.5'
+versionsuffix = "-Julia-%s" % _julia_ver
+
+homepage = 'https://github.com/QuantumKitHub/PEPSKit.jl'
+description = """Tools for working with projected entangled-pair states"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/QuantumKitHub/PEPSKit.jl/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['cfec2de82d159f7247066459eb934c7b7dcca31b15ca8daa47fbd4a5c3122a7c']
+
+dependencies = [
+    ('Julia', _julia_ver, '-linux-%s' % ARCH, SYSTEM),
+]
+
+moduleclass = 'lib'
