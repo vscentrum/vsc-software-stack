@@ -26,3 +26,10 @@ dependencies = [
 parallel = 1
 
 moduleclass = 'bio'
+
+# E1:
+    # -> parallel=1 -> OK
+    # -> tried with 8 and 4 parrallel -> failed
+    # cmd "mpirun -n 4 nrniv -mpi test0.hoc" exited with exit code 1 and output:
+    # There are not enough slots available in the system to satisfy the 4
+    # slots that were requested by the application: nrniv
