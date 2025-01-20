@@ -1,0 +1,123 @@
+name = 'OpenFOAM'
+version = '8'
+
+homepage = 'https://www.openfoam.org/'
+description = """OpenFOAM is a free, open source CFD software package.
+ OpenFOAM has an extensive range of features to solve anything from complex fluid flows
+ involving chemical reactions, turbulence and heat transfer,
+ to solid dynamics and electromagnetics."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'cstd': 'c++11'}
+
+source_urls = ['https://github.com/OpenFOAM/OpenFOAM-%(version_major)s/archive']
+sources = ['version-%(version)s.tar.gz']
+patches = [
+    'OpenFOAM-%(version)s-cleanup.patch',
+    'OpenFOAM-%(version)s_fix-OSHA1stream.patch',
+]
+checksums = [
+    {'version-8.tar.gz': '94ba11cbaaa12fbb5b356e01758df403ac8832d69da309a5d79f76f42eb008fc'},
+    {'OpenFOAM-8-cleanup.patch': 'e3fac8049611ee109f07eb5b0ed4b1526782a21b3f12435e03529d56c8483b9f'},
+    {'OpenFOAM-8_fix-OSHA1stream.patch': '09a361d5c19fe7e602025d42838af36474ed2902445001d2bf5cf744862240fb'},
+]
+
+builddependencies = [
+    ('Bison', '3.8.2'),
+    ('CMake', '3.26.3'),
+    ('flex', '2.6.4'),
+]
+dependencies = [
+    ('libreadline', '8.2'),
+    ('ncurses', '6.4'),
+    # OpenFOAM requires 64 bit METIS using 32 bit indexes (array indexes)
+    ('METIS', '5.1.0'),
+    ('SCOTCH', '7.0.3'),
+    ('CGAL', '5.6'),
+    ('ParaView', '5.11.2'),
+    ('gnuplot', '5.4.8'),
+]
+
+moduleclass = 'cae'
+
+# E1: OK
+    # -> same error solved: https://github.com/OpenFOAM/OpenFOAM-9/issues/12 -> OK patch works
+        # -> https://github.com/OpenFOAM/OpenFOAM-9/commit/b0c15bebd37142f3902901ed5e9a60e33ed456eb
+        # -> CREATED patch patch1.1-OSHA1stream.patch
+    # -> problem seems in /tmp/vsc47063/eb-hg3u4y8m/tmpoj1tye1a/motorBike/0 -> there should be U file not U.orig file (not recognized by decomposePar?)
+        # https://www.cfd-online.com/Forums/openfoam-solving/126081-simplefoam-parallel.html#post461265
+        # update block to fix U file (cp -r U.orig U and then decomposePar?)
+    # goes from this code: https://github.com/OpenFOAM/OpenFOAM-8/blob/version-8/src/OpenFOAM/db/IOstreams/IOstreams/IOstream.C#L92
+    # -> goes from eblock: https://github.com/easybuilders/easybuild-easyblocks/blob/develop/easybuild/easyblocks/o/openfoam.py#L562
+    # <- failed on sanity_check cmd <- logOF8_1.txt
+        # cp -a /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OpenFOAM/8-foss-2023a/OpenFOAM-8/tutorials/incompressible/simpleFoam/motorBike /tmp/vsc47063/eb-bsk6z18_/tmp8dwond4g
+        # && chmod -R +w /tmp/vsc47063/eb-bsk6z18_/tmp8dwond4g
+        # && cd /tmp/vsc47063/eb-bsk6z18_/tmp8dwond4g/motorBike
+        # && source $FOAM_BASH
+        # && . $WM_PROJECT_DIR/bin/tools/RunFunctions
+        # && cp $FOAM_TUTORIALS/resources/geometry/motorBike.obj.gz constant/triSurface/
+        # && runApplication surfaceFeatures && runApplication blockMesh && runApplication decomposePar -copyZero && runParallel snappyHexMesh -overwrite && runParallel patchSummary && runParallel potentialFoam && runParallel simpleFoam && runApplication reconstructParMesh -constant && runApplication reconstructPar -latestTime
+        # && cd /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OpenFOAM/8-foss-2023a && rm -r /tmp/vsc47063/eb-bsk6z18_/tmp8dwond4g'
+    # <- from log.simpleFoam <- logOF8_simpleF.txt
+        # -> other logs are ok
+        # No MRF models present
+        # No finite volume options present
+        # Starting time loop
+        # [0] --> FOAM FATAL IO ERROR: 
+        # [0] [2] 
+        # [2] 
+        # [2] --> FOAM FATAL IO ERROR: 
+        # [2] error in IOstream "OSHA1stream.sinkFile_" for operation Ostream& operator<<(Ostream&, const char)
+        # [2] 
+        # [2] file: OSHA1stream.sinkFile_ at line error in IOstream "OSHA1stream.sinkFile_" for operation Ostream& operator<<(Ostream&, const char)
+        # [0] 
+        # [0] file: OSHA1stream.sinkFile_ at line 0.
+        # [0] 
+        # [0]     From function virtual bool Foam::IOstream::check(const char*) const0.
+        # [2] 
+        # [2]     From function 
+        # [0]     in file db/IOstreams/IOstreams/IOstream.C at line 96.
+        # [0] 
+        # FOAM parallel run exiting
+        # [0] 
+        # virtual bool Foam::IOstream::check(const char*) const
+        # [2]     in file db/IOstreams/IOstreams/IOstream.C at line 96.
+        # [2] 
+        # FOAM parallel run exiting
+        # [3] --> FOAM FATAL IO ERROR: 
+        # [3] error in IOstream "OSHA1stream.sinkFile_" for operation Ostream& operator<<(Ostream&, const char)
+        # [3] 
+        # [3] file: OSHA1stream.sinkFile_ at line 0.
+        # [1] [3]     From function virtual bool Foam::IOstream::check(const char*) const
+        # [3]     in file db/IOstreams/IOstreams/IOstream.C at line 96.
+        # [3] 
+        # FOAM parallel run exiting
+        # [1] --> FOAM FATAL IO ERROR: 
+        # [1] error in IOstream "OSHA1stream.sinkFile_" for operation Ostream& operator<<(Ostream&, const char)
+        # [1] 
+        # [1] file: OSHA1stream.sinkFile_ at line 0.
+        # [1] 
+        # [1]     From function virtual bool Foam::IOstream::check(const char*) const
+        # [1]     in file db/IOstreams/IOstreams/IOstream.C at line 96.
+        # [1] 
+        # FOAM parallel run exiting
+        # [1] 
+        # [4] [5] 
+        # [4] 
+        # [4] --> FOAM FATAL IO ERROR: 
+        # [4] error in IOstream "OSHA1stream.sinkFile_" for operation Ostream& operator<<(Ostream&, const char)
+        # [4] 
+        # [4] file: OSHA1stream.sinkFile_ at line [5] --> FOAM FATAL IO ERROR: 
+        # [5] error in IOstream "OSHA1stream.sinkFile_" for operation Ostream& operator<<(Ostream&, const char)0.
+        # [4] 
+        # [4]     From function virtual bool Foam::IOstream::check(const char*) const
+        # [4]     in file db/IOstreams/IOstreams/IOstream.C at line 96.
+        # [5] file: OSHA1stream.sinkFile_ at line 0.
+        # [5] 
+        # [5]     From function 
+        # FOAM parallel run exiting
+        # [4] 
+        # virtual bool Foam::IOstream::check(const char*) const
+        # [5]     in file db/IOstreams/IOstreams/IOstream.C at line 96.
+        # [5] 
+        # FOAM parallel run exiting
