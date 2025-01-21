@@ -14,22 +14,34 @@ builddependencies = [
     ('CMake', '3.26.3'),
     ('flex', '2.6.4'),
     ('Bison', '3.8.2'),
-    ('scikit-build', '0.17.6'),
+    # ('scikit-build', '0.17.6'),
 ]
 
 dependencies = [
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
-    ('libreadline', '8.2'),
+    # ('libreadline', '8.2'),
 ]
 
-parallel = 1
+# parallel = 1
 
 moduleclass = 'bio'
 
-# E1:
+# E1: OK
+    # echo $SLURM_NTASKS_PER_NODE = 8, echo $SLURM_NTASKS = 1 -> ssh nodexxxx -> OK (exit slurms)
     # -> parallel=1 -> OK
-    # -> tried with 8 and 4 parrallel -> failed
-    # cmd "mpirun -n 4 nrniv -mpi test0.hoc" exited with exit code 1 and output:
-    # There are not enough slots available in the system to satisfy the 4
-    # slots that were requested by the application: nrniv
+    # -> tried with 8 and 4 parallel -> failed
+        # cmd "mpirun -n 4 nrniv -mpi test0.hoc" exited with exit code 1 and output:
+        # There are not enough slots available in the system to satisfy the 4
+        # slots that were requested by the application: nrniv
+        
+# E0: OK
+    # problem with block neuron.py - wrong sanity checks -> fix line 190 as in block_neuron.py
+        
+# After install by 'pip install NEURON':
+    # find_libpython 0.4.0
+    # NEURON         8.2.6
+    # numpy          1.26.4
+    # packaging      24.2
+    # pip            24.0
+    # setuptools     75.8.0
