@@ -11,12 +11,17 @@ toolchain = {'name': 'GCCcore', 'version': '13.2.0'}
 
 source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
-checksums = ['0845f3bc5db660ccff890602efc0167524f6269dd20c49a9a5b469658dbb603c']
+patches = ['OpenSlide-4.0.0_fix-poison.patch']
+checksums = [
+    {'v4.0.0.tar.gz': '0845f3bc5db660ccff890602efc0167524f6269dd20c49a9a5b469658dbb603c'},
+    {'OpenSlide-4.0.0_fix-poison.patch': 'd77fa93ea5dd34e10f9e3aa28fcd19370a2de3d833cedfcb4ac0f60361535b61'},
+]
 
 builddependencies = [
     ('Meson', '1.2.3'),
     ('Ninja', '1.11.1'),
     ('binutils', '2.40'),
+    ('CMake', '3.27.6'),
 ]
 
 dependencies = [
@@ -44,3 +49,39 @@ sanity_check_paths = {
 
 
 moduleclass = 'vis'
+
+# E1:
+    # -> fix here: https://github.com/openslide/openslide/issues/429#issuecomment-2265200360 -> patch fix-poison
+    # <- error on jsc3:
+    # FAILED: src/libopenslide.so.1.0.0.p/openslide.c.o 
+    # gcc -Isrc/libopenslide.so.1.0.0.p -Isrc -I../openslide-4.0.0/src -I. -I../openslide-4.0.0 -I../openslide-4.0.0/subprojects/libdicom-1.0.5/include -Isubprojects/libdicom-1.0.5 -I../openslide-4.0.0/subprojects/libdicom-1.0.5 -I/project/def-maintainers/boegelbot/rocky9/zen3/software/GLib/2.78.1-GCCcore-13.2.0/include/glib-2.0 -I/project/def-maintainers/boegelbot/rocky9/zen3/software/GLib/2.78.1-GCCcore-13.2.0/lib/glib-2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/util-linux/2.39-GCCcore-13.2.0/include/libmount -I/project/def-maintainers/boegelbot/rocky9/zen3/software/util-linux/2.39-GCCcore-13.2.0/include/blkid -I/project/def-maintainers/boegelbot/rocky9/zen3/software/Gdk-Pixbuf/2.42.10-GCCcore-13.2.0/include/gdk-pixbuf-2.0 -I/project/def-maintainers/boegelbot/rocky9/zen3/software/libpng/1.6.40-GCCcore-13.2.0/include/libpng16 -I/project/def-maintainers/boegelbot/rocky9/zen3/software/cairo/1.18.0-GCCcore-13.2.0/include/cairo -I/project/def-maintainers/boegelbot/rocky9/zen3/software/pixman/0.42.2-GCCcore-13.2.0/include/pixman-1 -I/project/def-maintainers/boegelbot/rocky9/zen3/software/OpenJPEG/2.5.0-GCCcore-13.2.0/include/openjpeg-2.5 -I/project/def-maintainers/boegelbot/rocky9/zen3/software/GLib/2.78.1-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/Gdk-Pixbuf/2.42.10-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/cairo/1.18.0-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/SQLite/3.43.1-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/libxml2/2.11.5-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/OpenJPEG/2.5.0-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/LibTIFF/4.6.0-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/libjpeg-turbo/3.0.1-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/libpng/1.6.40-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/zlib/1.2.13-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/binutils/2.40-GCCcore-13.2.0/include -fvisibility=hidden -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=gnu99 -O2 -g -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs -fno-common -DG_DISABLE_SINGLE_INCLUDES -DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_56 -DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_MIN_REQUIRED -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -pthread -D_OPENSLIDE_BUILDING_DLL '-DG_LOG_DOMAIN="OpenSlide"' -MD -MQ src/libopenslide.so.1.0.0.p/openslide.c.o -MF src/libopenslide.so.1.0.0.p/openslide.c.o.d -o src/libopenslide.so.1.0.0.p/openslide.c.o -c ../openslide-4.0.0/src/openslide.c
+    # In file included from /usr/include/features.h:490,
+    #                  from /usr/include/bits/libc-header-start.h:33,
+    #                  from /usr/include/stdint.h:26,
+    #                  from /project/60006/boegelbot/rocky9/zen3/software/GCCcore/13.2.0/lib/gcc/x86_64-pc-linux-gnu/13.2.0/include/stdint.h:9,
+    #                  from ../openslide-4.0.0/src/openslide.h:37,
+    #                  from ../openslide-4.0.0/src/openslide-private.h:25,
+    #                  from ../openslide-4.0.0/src/openslide.c:25:
+    # ../openslide-4.0.0/src/openslide-private.h:388:40: error: error__use__openslide_fclose_instead undeclared here (not in a function)
+    #   388 | #define _OPENSLIDE_POISON(replacement) error__use_ ## replacement ## _instead
+    #       |                                        ^~~~~~~~~~~
+    # [19/72] Compiling C object src/libopenslide.so.1.0.0.p/openslide-decode-jpeg.c.o
+    # [20/72] Compiling C object src/libopenslide.so.1.0.0.p/openslide-decode-sqlite.c.o
+    # [21/72] Generating symbol file subprojects/libdicom-1.0.5/libdicom.so.1.0.0.p/libdicom.so.1.0.0.symbols
+    # [22/72] Compiling C object src/libopenslide.so.1.0.0.p/openslide-decode-xml.c.o
+    # FAILED: src/libopenslide.so.1.0.0.p/openslide-decode-xml.c.o 
+    # gcc -Isrc/libopenslide.so.1.0.0.p -Isrc -I../openslide-4.0.0/src -I. -I../openslide-4.0.0 -I../openslide-4.0.0/subprojects/libdicom-1.0.5/include -Isubprojects/libdicom-1.0.5 -I../openslide-4.0.0/subprojects/libdicom-1.0.5 -I/project/def-maintainers/boegelbot/rocky9/zen3/software/GLib/2.78.1-GCCcore-13.2.0/include/glib-2.0 -I/project/def-maintainers/boegelbot/rocky9/zen3/software/GLib/2.78.1-GCCcore-13.2.0/lib/glib-2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/util-linux/2.39-GCCcore-13.2.0/include/libmount -I/project/def-maintainers/boegelbot/rocky9/zen3/software/util-linux/2.39-GCCcore-13.2.0/include/blkid -I/project/def-maintainers/boegelbot/rocky9/zen3/software/Gdk-Pixbuf/2.42.10-GCCcore-13.2.0/include/gdk-pixbuf-2.0 -I/project/def-maintainers/boegelbot/rocky9/zen3/software/libpng/1.6.40-GCCcore-13.2.0/include/libpng16 -I/project/def-maintainers/boegelbot/rocky9/zen3/software/cairo/1.18.0-GCCcore-13.2.0/include/cairo -I/project/def-maintainers/boegelbot/rocky9/zen3/software/pixman/0.42.2-GCCcore-13.2.0/include/pixman-1 -I/project/def-maintainers/boegelbot/rocky9/zen3/software/OpenJPEG/2.5.0-GCCcore-13.2.0/include/openjpeg-2.5 -I/project/def-maintainers/boegelbot/rocky9/zen3/software/GLib/2.78.1-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/Gdk-Pixbuf/2.42.10-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/cairo/1.18.0-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/SQLite/3.43.1-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/libxml2/2.11.5-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/OpenJPEG/2.5.0-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/LibTIFF/4.6.0-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/libjpeg-turbo/3.0.1-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/libpng/1.6.40-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/zlib/1.2.13-GCCcore-13.2.0/include -I/project/def-maintainers/boegelbot/rocky9/zen3/software/binutils/2.40-GCCcore-13.2.0/include -fvisibility=hidden -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=gnu99 -O2 -g -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs -fno-common -DG_DISABLE_SINGLE_INCLUDES -DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_56 -DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_MIN_REQUIRED -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -pthread -D_OPENSLIDE_BUILDING_DLL '-DG_LOG_DOMAIN="OpenSlide"' -MD -MQ src/libopenslide.so.1.0.0.p/openslide-decode-xml.c.o -MF src/libopenslide.so.1.0.0.p/openslide-decode-xml.c.o.d -o src/libopenslide.so.1.0.0.p/openslide-decode-xml.c.o -c ../openslide-4.0.0/src/openslide-decode-xml.c
+    # In file included from /usr/include/features.h:490,
+    #                  from /usr/include/bits/libc-header-start.h:33,
+    #                  from /usr/include/stdint.h:26,
+    #                  from /project/60006/boegelbot/rocky9/zen3/software/GCCcore/13.2.0/lib/gcc/x86_64-pc-linux-gnu/13.2.0/include/stdint.h:9,
+    #                  from ../openslide-4.0.0/src/openslide.h:37,
+    #                  from ../openslide-4.0.0/src/openslide-private.h:25,
+    #                  from ../openslide-4.0.0/src/openslide-decode-xml.c:23:
+    # ../openslide-4.0.0/src/openslide-private.h:388:40: error: error__use__openslide_fclose_instead undeclared here (not in a function)
+    #   388 | #define _OPENSLIDE_POISON(replacement) error__use_ ## replacement ## _instead
+    #       |                                        ^~~~~~~~~~~
+    # [23/72] Compiling C object src/libopenslide.so.1.0.0.p/openslide-decode-tiff.c.o
+    # [24/72] Compiling C object src/libopenslide.so.1.0.0.p/openslide-decode-tifflike.c.o
+    # [25/72] Compiling C object src/libopenslide.so.1.0.0.p/openslide-decode-gdkpixbuf.c.o
+    # ninja: build stopped: subcommand failed.
