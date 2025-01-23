@@ -4,41 +4,30 @@ name = 'DeePDM-kit'
 version = '3.0.1'
 # versionsuffix = '-CUDA-%(cudaver)s'
 versionsuffix = '-CM-version'
+local_tf_version = '2.15.1'
 
 homepage = 'https://github.com/deepmodeling/deepmd-kit/'
 description = "A deep learning package for many-body potential energy representation and molecular dynamics."
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# builddependencies = [('scikit-build-core', '0.9.3')]
-# dependencies = [
-#     # ('CUDA', '12.6.0', '', SYSTEM),
-#     ('Python', '3.11.3'),
-#     ('SciPy-bundle', '2023.07'),
-#     ('ml_dtypes', '0.3.2'),
-#     ('PyYAML', '6.0'),
-#     ('h5py', '3.9.0'),
-#     ('TensorFlow', '2.15.1'),
-#     ('mpi4py', '3.1.4'),
-#     # horovod
-# ]
+source_tmpl = 'deepmd_kit-%(version)s.tar.gz',
 
-# use_pip = True
-# sanity_pip_check = True
+builddependencies = [('CMake', '3.26.3')]
+dependencies = [
+    # ('Python', '3.11.3'),
+    # ('SciPy-bundle', '2023.07'),
+    # ('ml_dtypes', '0.3.2'),
+    # ('PyYAML', '6.0'),
+    # ('h5py', '3.9.0'),
+    ('TensorFlow', local_tf_version),
+    # ('mpi4py', '3.1.4'),
+    # horovod
+    ('DeePDM-kit', '3.0.1', '-TensorFlow-%s' % local_tf_version),
+]
 
-# exts_list = [
-#     ('dargs', '0.4.10'),
-#     ('wcmatch', '10.0'),
-#     ('mendeleev', '0.20.1'),
-#     ('array_api_compat', '1.10.0'),
-#     ('dpdata', '0.2.21'),
-#     ('deepmd_kit', version, {
-#         # 'modulename': False,
-#         # 'source_urls': ['https://github.com/Softcatala/whisper-ctranslate2/archive/'],
-#         # 'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-#         'checksums': ['8a7c7b232086b8bfa7022f3a3b3f95c8c5175c33663cf8d3fd840539f2be9a49'],
-#     }),
-# ]
+start_dir = 'deepmd_kit-%(version)s/source',
+
 
 # sanity_check_paths = {
 #     'files': ['bin/%(name)s'],

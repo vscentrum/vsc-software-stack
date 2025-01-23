@@ -1,0 +1,102 @@
+easyblock = 'PythonBundle'
+
+name = 'Horovod'
+version = '0.28.1'
+local_pt_version = '2.1.2'
+# local_cuda_suffix = '-CUDA-%(cudaver)s'
+# versionsuffix = local_cuda_suffix + '-TensorFlow-%s' % local_tf_version
+versionsuffix = '-PyTorch-%s' % local_pt_version
+
+homepage = 'https://github.com/uber/horovod'
+description = "Horovod is a distributed training framework for TensorFlow."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'cstd': 'c++17'}
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+    # ('protobuf', '3.21.9'),
+]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('PyYAML', '6.0'),
+    ('PyTorch', '2.1.2'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+# local_preinstallopts = 'module swap protobuf/3.21.9-GCCcore-12.3.0 && HOROVOD_WITH_MPI=1 '
+local_preinstallopts = 'HOROVOD_WITH_MPI=1 HOROVOD_WITHOUT_TENSORFLOW=1 '
+local_preinstallopts += 'HOROVOD_WITH_PYTORCH=1 HOROVOD_WITHOUT_MXNET=1 '
+
+exts_list = [
+    ('cloudpickle', '2.2.1', {
+        'checksums': ['d89684b8de9e34a2a43b3460fbca07d09d6e25ce858df4d5a44240403b6178f5'],
+    }),
+    ('horovod', version, {
+        'patches': [
+            'Horovod-0.28.1_support_flatbuffers_2.0.6.patch',
+            # 'patch1.1-horovod-pt.patch',
+        ],
+        'preinstallopts': "HOROVOD_WITH_MPI=1 HOROVOD_WITHOUT_TENSORFLOW=1 HOROVOD_WITH_PYTORCH=1 HOROVOD_WITHOUT_MXNET=1 ",
+        'checksums': [
+            {'horovod-0.28.1.tar.gz': '92a43f5a94c43907a56805bad15f19700c62ffc83b7ca483f9e104e229f67ef0'},
+            {'Horovod-0.28.1_support_flatbuffers_2.0.6.patch':
+             '9696ffb3b2bad1d6dd5a9f37bc58078ca7c585f933bcbec037036ad9fc0b297d'},
+            # {'patch1.1-horovod-pt.patch': 'd1eb70e28de43c799c1525e071b914ed040cd93f2a5bcc69001859014e5935e6'},
+        ],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/horovodrun'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["horovodrun --help"]
+
+moduleclass = 'tools'
+
+# E1:
+    # -> seems as a problem with new PyTorch (>2.1): https://github.com/horovod/horovod/issues/3941
+    # <- log3.txt - failed on pip install
+    # 
+    # Building CXX object horovod/torch/CMakeFiles/pytorch.dir/__/common/parameter_manager.cc.o
+    # In file included from /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-PyTorch-2.1.2/horovod/horo
+    # vod-0.28.1/horovod/common/half.cc:16:
+    #     /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-PyTorch-2.1.2/horovod/horovod-0.28.1/horovod/com
+    # mon/half.h: In function void horovod::common::HalfBits2Float(const short unsigned int*, float*):
+    #     /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-PyTorch-2.1.2/horovod/horovod-0.28.1/horovod/com
+    # mon/half.h:76:11: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasi
+    # ng]
+    #         76 |   *res = *reinterpret_cast<float const*>(&f);
+    #             |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #     In file included from /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-PyTorch-2.1.2/horovod/horo
+    # vod-0.28.1/third_party/flatbuffers/include/flatbuffers/base.h:241,
+    #                     from /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-PyTorch-2.1.2/horovod/horo
+    # vod-0.28.1/third_party/flatbuffers/include/flatbuffers/flatbuffers.h:20,
+    #                     from /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-PyTorch-2.1.2/horovod/horo
+    # vod-0.28.1/horovod/common/wire/message_generated.h:23,
+    #                     from /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-PyTorch-2.1.2/horovod/horo
+    # vod-0.28.1/horovod/common/message.cc:23:
+    #     /apps/gent/RHEL9/skylake-ib/software/Abseil/20230125.3-GCCcore-12.3.0/include/absl/strings/string_view.h:52:26: error: string_view in namespace std does not name a type
+    #         52 | using string_view = std::string_view;
+    #             |                          ^~~~~~~~~~~
+    #     /apps/gent/RHEL9/skylake-ib/software/Abseil/20230125.3-GCCcore-12.3.0/include/absl/strings/string_view.h:52:21: note: std::string_view is only available from C++17 onwards
+    #         52 | using string_view = std::string_view;
+    #             |                     ^~~
+    #     /apps/gent/RHEL9/skylake-ib/software/Abseil/20230125.3-GCCcore-12.3.0/include/absl/strings/string_view.h:686:8: error: string_view does not name a type
+    #         686 | inline string_view ClippedSubstr(string_view s, size_t pos,
+    #             |        ^~~~~~~~~~~
+    #     /apps/gent/RHEL9/skylake-ib/software/Abseil/20230125.3-GCCcore-12.3.0/include/absl/strings/string_view.h:697:11: error: string_view does not name a type
+    #         697 | constexpr string_view NullSafeStringView(const char* p) {
+    #             |           ^~~~~~~~~~~
+    #     /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-PyTorch-2.1.2/horovod/horovod-0.28.1/third_party/flatbuffers/include/flatbuffers/base.h:243:23: error: string_view in namespace absl does not name a type
+    #         243 |         typedef absl::string_view string_view;
+    #             |                       ^~~~~~~~~~~
+    #     /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-PyTorch-2.1.2/horovod/horovod-0.28.1/third_party/flatbuffers/include/flatbuffers/flatbuffers.h:634:16: error: string_view in namespace flatbuffers does not name a type
+    #         634 |   flatbuffers::string_view string_view() const {
+    #             |                ^~~~~~~~~~~
+    #     /tmp/vsc47063/easybuild/build/Horovod/0.28.1/foss-2023a-PyTorch-2.1.2/horovod/horovod-0.28.1/third_party/flatbuffers/include/flatbuffers/flatbuffers.h:660:28: error: string_view in namespace flatbuffers does not name a type
+        

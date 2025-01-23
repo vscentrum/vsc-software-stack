@@ -66,10 +66,85 @@ dependencies = [
     
 ]
 
+# https://files.pythonhosted.org/packages/5c/f5/3be09970408c89c7767ab629cf80ecbd984ef3401a534a41e332f0e75bb7/deepmd_kit-3.0.1.tar.gz
+components = [
+    ('deepmd', version, {
+        'easyblock': 'PythonPackage',
+        # 'modulename': 'deepmd',
+        # 'source_tmpl': 'deepmd_kit-%(version)s.tar.gz',
+        # 'source_urls': [PYPI_SOURCE],
+        'source_urls': ['https://pypi.python.org/packages/source/d/deepmd-kit/'],
+        'sources': ['deepmd_kit-%(version)s.tar.gz'],
+        'preinstallopts': "module swap protobuf/3.21.9-GCCcore-12.3.0 && ",
+        'use_pip': True,
+        'start_dir': 'deepmd_kit-%(version)s',
+        'checksums': ['10d4443c6fe31a9a4573ed6eda73b6a669dae572cf2bc43f45e9a63aaae02cff'],
+    }),
+    ('deepmd_cpp', version, {
+        'easyblock': 'CMakeMake',
+        # 'source_tmpl': 'deepmd_kit-%(version)s.tar.gz',
+        # 'source_urls': [PYPI_SOURCE],
+        'source_urls': ['https://pypi.python.org/packages/source/d/deepmd-kit/'],
+        'sources': ['deepmd_kit-%(version)s.tar.gz'],
+        'start_dir': 'deepmd_kit-%(version)s/source',
+        'preconfigopts': "module swap protobuf/3.21.9-GCCcore-12.3.0 && ",
+        'configopts': '-DENABLE_TENSORFLOW=TRUE -DUSE_TF_PYTHON_LIBS=TRUE ',
+        'prebuildopts': "module swap protobuf/3.21.9-GCCcore-12.3.0 && ",
+        'checksums': ['10d4443c6fe31a9a4573ed6eda73b6a669dae572cf2bc43f45e9a63aaae02cff'],
+    }),
+    # ('OpenMM', '7.5.1', {
+    #     'easyblock': 'CMakeMake',
+    #     'source_urls': ['https://github.com/openmm/openmm/archive/'],
+    #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+    #     'patches': [('OpenMM-%(version)s_AlphaFold.patch', 'wrappers/python')],
+    #     'checksums': [
+    #         'c88d6946468a2bde2619acb834f57b859b5e114a93093cf562165612e10f4ff7',  # OpenMM-7.5.1.tar.gz
+    #         '1b109dfff3af5c6aa70690bca14618612953c68840a7e64f679db7ca33c1aff6',  # OpenMM-7.5.1_AlphaFold.patch
+    #     ],
+    #     'start_dir': 'openmm-%(version)s',
+    #     'preinstallopts': local_openmm_preinstallopts,
+    #     'installopts': local_openmm_installopts,
+    # }),
+    # (name, version, {
+    #     'easyblock': 'PythonPackage',
+    #     'source_urls': [
+    #         'https://github.com/deepmind/alphafold/archive/refs/tags/',
+    #         'https://git.scicore.unibas.ch/schwede/openstructure/-/raw/%s/modules/mol/alg/src/' % local_scp_commit,
+    #     ],
+    #     'sources': [
+    #         {
+    #             'download_filename': 'v%(version)s.tar.gz',
+    #             'filename': SOURCE_TAR_GZ,
+    #         },
+    #         {
+    #             'download_filename': 'stereo_chemical_props.txt',
+    #             'filename': 'stereo_chemical_props-%s.txt' % local_scp_commit,
+    #             'extract_cmd': "cp %s .",
+    #         },
+    #     ],
+    #     'patches': [
+    #         'AlphaFold-%(version)s_fix-packages.patch',
+    #         'AlphaFold-%(version)s_data-dep-paths.patch',
+    #         'AlphaFold-%(version)s_n-cpu.patch',
+    #         'AlphaFold-%(version)s_fix-scp-path.patch',
+    #     ],
+    #     'checksums': [
+    #         '78cf443a2d9250917b05f5d40ede140ed8e8341b42fdfa54340336aca52f53f2',  # v2.0.0.tar.gz
+    #         '24510899eeb49167cffedec8fa45363a4d08279c0c637a403b452f7d0ac09451',  # stereo_chemical_props-7102c6.txt
+    #         '826d2d1a5d6ac52c51a60ba210e1947d5631a1e2d76f8815305b5d23f74458db',  # AlphaFold-2.0.0_fix-packages.patch
+    #         '7223e297b23f90816219095696bc6453910c617add60b907a0d3e869da8733bb',  # AlphaFold-2.0.0_data-dep-paths.patch
+    #         'dfda4dd5f9aba19fe2b6eb9a0ec583d12dcefdfee8ab8803fc57ad48d582db04',  # AlphaFold-2.0.0_n-cpu.patch
+    #         '83dc82a8b1c647eb7e217aef683153e98a4fc7f871a85280976c92a1bfe28f27',  # AlphaFold-2.0.0_fix-scp-path.patch
+    #     ],
+    #     'start_dir': 'alphafold-%(version)s',
+    #     'use_pip': True,
+    # }),
+]
+
 use_pip = True
 sanity_pip_check = True
 
-local_preinstallopts = 'module swap protobuf/3.21.9-GCCcore-12.3.0 && '
+# local_preinstallopts = 'module swap protobuf/3.21.9-GCCcore-12.3.0 && '
 
 exts_list = [
     ('wrapt', '1.14.1', {
@@ -103,17 +178,6 @@ exts_list = [
     ('dpdata', '0.2.21', {
         'checksums': ['55dcec61bdc8707fb6b3e57406fb7c07b6ccb7a0ac763a1407cc1c3222bf58b1'],
     }),
-    ('deepmd_kit', version, {
-        'modulename': 'deepmd',
-        'preinstallopts': "module swap protobuf/3.21.9-GCCcore-12.3.0 && ",
-        'checksums': ['10d4443c6fe31a9a4573ed6eda73b6a669dae572cf2bc43f45e9a63aaae02cff'],
-    }),
-    # ('deepmd_cpp', version, { # NO - can not have CMakeMake as extension
-    #     'easyblock': 'CMakeMake',
-    #     'source_tmpl': 'deepmd_kit-%(version)s.tar.gz',
-    #     'start_dir': 'source',
-    #     'checksums': ['10d4443c6fe31a9a4573ed6eda73b6a669dae572cf2bc43f45e9a63aaae02cff'],
-    # }),
 ]
 
 # sanity_check_paths = {
@@ -128,6 +192,21 @@ moduleclass = 'ai'
 # $EBROOTDEEPDMMINKIT
 # libtensorflow_cc.so is in $EBROOTTESORFLOW/lib/python3.11/site-packages/tensorflow/libtensorflow_cc.so.2
 
+# E2: OK
+    # -> put hack to prebuildopts too -> OK
+    # <- problem with build step (make of cpp component) - even with the heck it retuns this <- log4.txt
+    # In file included from /apps/gent/RHEL8/cascadelake-ib/software/TensorFlow/2.15.1-foss-2023a/lib/python3.11/sit
+    # e-packages/tensorflow/include/tensorflow/core/graph/default_device.h:21,
+    #                  from /tmp/vsc47063/easybuild/build/DeePDMkit/3.0.1/foss-2023a-TensorFlow-2.15.1/deepmd_kit-3.
+    # 0.1/source/api_cc/include/tf_private.h:8,
+    #                  from /tmp/vsc47063/easybuild/build/DeePDMkit/3.0.1/foss-2023a-TensorFlow-2.15.1/deepmd_kit-3.
+    # 0.1/source/api_cc/include/commonTF.h:6,
+    #                  from /tmp/vsc47063/easybuild/build/DeePDMkit/3.0.1/foss-2023a-TensorFlow-2.15.1/deepmd_kit-3.
+    # 0.1/source/api_cc/include/DataModifierTF.h:6,
+    #                  from /tmp/vsc47063/easybuild/build/DeePDMkit/3.0.1/foss-2023a-TensorFlow-2.15.1/deepmd_kit-3.
+    # 0.1/source/api_cc/src/DataModifierTF.cc:3:
+    # f protoc which is
+    #    17 | #error This file was generated by an older version of protoc which is
 # E1: OK
     # -> use Kenneth's hack in preinstallopts (module swap protobuf/3.21.9-GCCcore-12.3.0) -> works
     # ? but in tensorflow-2.15.1 there is req protobuf: protobuf==4.23.4 not 3.21.9

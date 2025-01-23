@@ -1,0 +1,25 @@
+Fix for new PyTorch: https://github.com/horovod/horovod/issues/3941#issuecomment-1732505345
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2c12719..1a58a26 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -16,7 +16,7 @@ endif()
+
+project(horovod CXX)
+
+-set(CMAKE_CXX_STANDARD 14)
++set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+diff --git a/horovod/torch/CMakeLists.txt b/horovod/torch/CMakeLists.txt
+index 7234d74..5a20a21 100644
+--- a/horovod/torch/CMakeLists.txt
++++ b/horovod/torch/CMakeLists.txt
+@@ -64,7 +64,7 @@ parse_version(${Pytorch_VERSION} VERSION_DEC)
+add_definitions(-DPYTORCH_VERSION=${VERSION_DEC} -DTORCH_API_INCLUDE_EXTENSION_H=1)
+set(Pytorch_CXX11 ${Pytorch_CXX11} PARENT_SCOPE)
+if(NOT Pytorch_VERSION VERSION_LESS "1.5.0")
+-    set(CMAKE_CXX_STANDARD 14)
++    set(CMAKE_CXX_STANDARD 17)
+endif()
