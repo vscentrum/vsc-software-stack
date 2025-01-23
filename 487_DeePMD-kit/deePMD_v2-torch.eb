@@ -1,0 +1,85 @@
+easyblock = 'PythonBundle'
+
+name = 'DeePDM-kit'
+version = '3.0.1'
+# versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/deepmodeling/deepmd-kit/'
+description = "A deep learning package for many-body potential energy representation and molecular dynamics."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# DEPS:
+    # OK scikit-build-core>=0.5,<0.11,!=0.6.0
+    # OK 'numpy>=1.21',
+    # OK 'scipy',
+    # OK 'pyyaml',
+    # ok 'dargs >= 0.4.7',
+    # OK "h5py>=3.6.0,!=3.11.0; platform_system=='Linux' and platform_machine=='aarch64'",
+    # ok 'wcmatch',
+    # OK 'ml_dtypes',
+    # ok 'mendeleev',
+    # ok 'array-api-compat',
+    # ok dpdata
+    # parallel training deps:
+        # NO horovod - 
+        # OK mpi4py
+
+builddependencies = [
+    ('scikit-build-core', '0.9.3'),
+    ('hatchling', '1.18.0'),
+    ('poetry', '1.5.1'),
+    ('git', '2.41.0', '-nodocs'),
+]
+dependencies = [
+    # ('CUDA', '12.6.0', '', SYSTEM),
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('ml_dtypes', '0.3.2'),
+    ('PyYAML', '6.0'),
+    ('h5py', '3.9.0'),
+    ('PyTorch', '2.1.2'),
+    # ('TensorFlow', '2.15.1'),
+    # ('jax', '0.4.25'),
+    ('mpi4py', '3.1.4'),
+    # ('protobuf', '24.0'),
+    # horovod
+]
+
+use_pip = True
+sanity_pip_check = True
+
+# preinstallopts = 'module swap protobuf/3.21.9-GCCcore-12.3.0 && '
+local_preinstallopts = 'export DP_ENABLE_PYTORCH=1 && export DP_ENABLE_TENSORFLOW=0 && '
+local_preinstallopts += 'export PYTORCH_ROOT=$EBROOTPYTORCH && '
+
+exts_list = [
+    ('dargs', '0.4.10', {
+        'checksums': ['2b39e0a93dcd323d0affb3f54ee2c11a439084d718934df08f38692dfbadddf8'],
+    }),
+    ('wcmatch', '8.5.2', {
+        'checksums': ['a70222b86dea82fb382dd87b73278c10756c138bd6f8f714e2183128887b9eb2'],
+    }),
+    ('mendeleev', '0.20.1', {
+        'checksums': ['26f27099f0587cab82dd7f84ee31a5c48e994eb478ea2a92756c5fd50764f7da'],
+    }),
+    ('array_api_compat', '1.10.0', {
+        'checksums': ['eb98056fa4993e7e98860b7a1ca73c9ae1c77f1ef95366a5ebd5dec8e6d55bad'],
+    }),
+    ('dpdata', '0.2.21', {
+        'checksums': ['55dcec61bdc8707fb6b3e57406fb7c07b6ccb7a0ac763a1407cc1c3222bf58b1'],
+    }),
+    ('deepmd_kit', version, {
+        'preinstallopts': "export DP_ENABLE_PYTORCH=1 && export DP_ENABLE_TENSORFLOW=0 && export PYTORCH_ROOT=$EBROOTPYTORCH && ",
+        'checksums': ['10d4443c6fe31a9a4573ed6eda73b6a669dae572cf2bc43f45e9a63aaae02cff'],
+    }),
+]
+
+# sanity_check_paths = {
+#     'files': ['bin/%(name)s'],
+#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
+# }
+
+# sanity_check_commands = ['%(name)s --help']
+
+moduleclass = 'ai'
