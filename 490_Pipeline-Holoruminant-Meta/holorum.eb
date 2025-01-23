@@ -75,3 +75,9 @@
 # split_fasta.sh
 # proteinortho
 # sylph profile
+
+# rename test log:
+# -> try Rename from PYPI: not working
+    # only one cmd in snakemake: https://github.com/fischuu/Pipeline-Holoruminant-Meta/blob/d32ac6404296f4ba0c4420919df790caec672cf6/workflow/rules/assemble/maxbin2.smk#L45
+    # -> rename 's/\\.fasta$/.fa/' . -> warning: / found in <regex> but this tool doesn't support directory traversal.
+    # -> rename 's/\.fasta$/.fa/' *.fasta -> rename: error: unrecognized arguments: 2.fasta 3.fasta a.fasta
