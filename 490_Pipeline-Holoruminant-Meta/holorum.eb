@@ -1,80 +1,86 @@
-# DEPS and CMDS:
-# R
-#     rmarkdown
-#     Rscript
-#     r-argparse=2.2.2
-#     r-nonpareil=3.4.0
-#     r-tidyverse=2.0.0
-#     r-funr=0.3.2
-#     r-optparse=1.7.3
-# coreutils=9.3 - it is du, ln and other basic bash programs, mazbe no need to have this n deps?
-# multiqc=1.18
-    # multiqc
-# samtools=1.18
-#     samtools sort, samtools view, samtools stats, samtools idxstats, samtools collate, 
-#     samtools fast, samtools index, samtools faidx, samtools flagstats
-# bowtie2=2.5.1
-#     bowtie2-build, bowtie2
-# coverm=0.6.1
-#     coverm genome, coverm contig
-# csvkit=1.3.0
-#     csvstack, csvformat
-# fastp=0.23.4
-#     fastp 
-# fastqc=0.12.1
-#     fastqc
-# gzip=1.10
-#     gzip, bgzip, gunzip
-# kraken2=2.1.3
-#     kraken2
-# nonpareil=3.4.1
-#     nonpareil
-# pigz=2.8
-# rsync=3.2.7
-# singlem=0.16.0
-#     singlem pipe, singlem condense
-# dram=1.4.6 
-# parallel=20230922
-# quast=5.2.0
-#     quast
-# vamb==4.1.3
-#     vamb
-# seqtk=1.3
-#     seqtk seq
-# biopython=1.81
-# checkm-genome=1.2.2
-# drep=3.4.3
-#     dRep dereplicate
-# hmmer=3.3.2
-#     hmmsearc
-# maxbin2=2.2.7
-# megahit=1.2.9
-#     megahit
-# metabat2=2.15
-#     metabat2
-# pandas=2.1.2
-# prodigal=2.6.3
-#     prodigal
-# rename=1.601
-#     rename
-# checkm2=1.0.1
-#     checkm2 predict
+# I have tried to find all dependencies of Holoruminant-pipeline and it seems it needs this programs/commands:
+    # (!! - not in EB [7x], ** - in EB not for 2023a [11x], OK - should be ready to use)
 
-# CMDS used in snakemake:
-# diamond blastx
-# humann
-# rsync
-# metaphlan
-# phyloFlash.pl
-# featureCounts
-# run_MaxBin.pl
-# jgi_summarize_bam_contig_depths
-# bakta
-# classify_wf
-# phylophlan
-# split_fasta.sh
-# proteinortho
-# sylph profile
+# - R
+    #     rmarkdown - OK
+    #     r-argparse=2.2.2 - OK
+    #     !! r-nonpareil=3.4.0
+    #     r-tidyverse=2.0.0 - OK
+    #     !! r-funr=0.3.2
+    #     r-optparse=1.7.3 - OK
+# - coreutils=9.3 - maybe no need to have this in deps?
+# - multiqc=1.18 - OK
+    #     multiqc
+# - samtools=1.18 - OK
+    #     samtools sort, samtools view, samtools stats, samtools idxstats, samtools collate, 
+    #     samtools fast, samtools index, samtools faidx, samtools flagstats
+# - bowtie2=2.5.1 - OK
+    #     bowtie2-build, bowtie2
+# - !! coverm=0.6.1
+    #     coverm genome, coverm contig
+# - ** csvkit=1.3.0
+    #     csvstack, csvformat
+# - fastp=0.23.4 - OK
+    #     fastp 
+# - fastqc=0.12.1 - OK
+    #     fastqc
+    #     needs Java 11
+# - gzip=1.10 - OK
+#     gzip, bgzip, gunzip
+# - kraken2=2.1.3 - OK
+#     kraken2
+# - !! nonpareil=3.4.1
+#     nonpareil
+# - pigz=2.8 - OK
+# - rsync=3.2.7 - OK?
+# - singlem=0.16.0 - OK
+#     singlem pipe, singlem condense
+# - !! dram=1.4.6 
+# - parallel=20230922 - OK? (have 20230722)
+# - quast=5.2.0 - OK
+#     quast
+# - ** vamb==4.1.3
+#     vamb
+# - seqtk=1.3 - OK
+#     seqtk seq
+# - biopython=1.81 - OK
+# - ** checkm-genome=1.2.2
+# - ** drep=3.4.3
+#     dRep dereplicate
+# - hmmer=3.3.2 - OK
+#     hmmsearc
+# - ** maxbin2=2.2.7
+# - megahit=1.2.9 - OK
+#     megahit
+# - ** metabat2=2.15
+#     metabat2, jgi_summarize_bam_contig_depths
+# - pandas=2.1.2 - OK
+# - prodigal=2.6.3 - OK
+#     prodigal
+# - !! rename=1.601
+#     rename
+# - ** checkm2=1.0.1
+#     checkm2 predict
+# - GTDB-Tk=2.4.0 OK
+#     classify_wf
+# - !! Sylph
+#     sylph profile
+# - Proteinortho - OK
+#     proteinortho
+# - ** PhyloPhlAn
+#     phylophlan
+# - ** bakta
+#     bakta
+# - Perl - OK
+#     run_MaxBin.pl, phyloFlash.pl
+# - Subread - OK
+#     featureCounts
+# - ** MetaPhlAn
+#     metaphlan
+# - ** HumanN3
+#     humann
+# - DIAMOND=2.1.8 - OK
+#     diamond blastx
 
 # rename test log:
 # -> try Rename from PYPI: not working
