@@ -63,6 +63,7 @@ dependencies = [
     ('Horovod', '0.28.1', versionsuffix),
     ('typing-extensions', '4.9.0'),
     # ('protobuf', '24.0'),
+    ('LAMMPS', '2Aug2023_update2', '-kokkos'),
     
 ]
 
@@ -88,7 +89,8 @@ components = [
         'sources': ['deepmd_kit-%(version)s.tar.gz'],
         'start_dir': 'deepmd_kit-%(version)s/source',
         'preconfigopts': "module swap protobuf/3.21.9-GCCcore-12.3.0 && ",
-        'configopts': '-DENABLE_TENSORFLOW=TRUE -DUSE_TF_PYTHON_LIBS=TRUE ',
+        # $EBROOTLAMMPS
+        'configopts': '-DENABLE_TENSORFLOW=TRUE -DUSE_TF_PYTHON_LIBS=TRUE -DLAMMPS_SOURCE_ROOT=$EBROOTLAMMPS',
         'prebuildopts': "module swap protobuf/3.21.9-GCCcore-12.3.0 && ",
         'checksums': ['10d4443c6fe31a9a4573ed6eda73b6a669dae572cf2bc43f45e9a63aaae02cff'],
     }),
@@ -189,6 +191,7 @@ sanity_check_commands = ['dp -h']
 
 moduleclass = 'ai'
 
+# TODO: add LAMMPS support
 # $EBROOTDEEPDMMINKIT
 # libtensorflow_cc.so is in $EBROOTTESORFLOW/lib/python3.11/site-packages/tensorflow/libtensorflow_cc.so.2
 
