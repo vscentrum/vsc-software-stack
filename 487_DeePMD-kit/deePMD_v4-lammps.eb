@@ -69,6 +69,12 @@ dependencies = [
 
 # https://files.pythonhosted.org/packages/5c/f5/3be09970408c89c7767ab629cf80ecbd984ef3401a534a41e332f0e75bb7/deepmd_kit-3.0.1.tar.gz
 components = [
+    ('LLAMPS', '2Aug2023_update2', {
+        'easyblock': 'Tarball',
+        'source_urls': ['https://github.com/lammps/lammps/archive/'],
+        'sources': ['stable_2Aug2023_update4.tar.gz'],
+        'checksums': ['6eed007cc24cda80b5dd43372b2ad4268b3982bb612669742c8c336b79137b5b'],
+    }),
     ('deepmd', version, {
         'easyblock': 'PythonPackage',
         # 'modulename': 'deepmd',
@@ -89,6 +95,7 @@ components = [
         'sources': ['deepmd_kit-%(version)s.tar.gz'],
         'start_dir': 'deepmd_kit-%(version)s/source',
         # 'preconfigopts': "module swap protobuf/3.21.9-GCCcore-12.3.0 && ",
+        # $EBROOTLAMMPS
         # 'configopts': '-DENABLE_TENSORFLOW=TRUE -DUSE_TF_PYTHON_LIBS=TRUE -DLAMMPS_SOURCE_ROOT=$EBROOTLAMMPS',
         'configopts': '-DENABLE_TENSORFLOW=TRUE -DUSE_TF_PYTHON_LIBS=TRUE',
         'prebuildopts': "module swap protobuf/3.21.9-GCCcore-12.3.0 && ",

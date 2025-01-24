@@ -27,7 +27,9 @@ use_pip = True
 sanity_pip_check = True
 
 # local_preinstallopts = 'module swap protobuf/3.21.9-GCCcore-12.3.0 && HOROVOD_WITH_MPI=1 '
-local_preinstallopts = 'HOROVOD_WITH_MPI=1 HOROVOD_WITHOUT_TENSORFLOW=1 '
+local_preinstallopts = "sed -i 's/CMAKE_CXX_STANDARD 14/CMAKE_CXX_STANDARD 17/g' CMakeLists.txt && "
+local_preinstallopts = "sed -i 's/CMAKE_CXX_STANDARD 14/CMAKE_CXX_STANDARD 17/g' horovod/torch/CMakeLists.txt && "
+local_preinstallopts += 'HOROVOD_WITH_MPI=1 HOROVOD_WITHOUT_TENSORFLOW=1 '
 local_preinstallopts += 'HOROVOD_WITH_PYTORCH=1 HOROVOD_WITHOUT_MXNET=1 '
 
 exts_list = [
@@ -59,6 +61,7 @@ sanity_check_commands = ["horovodrun --help"]
 moduleclass = 'tools'
 
 # E1:
+    # -> tried to use c++17 as recomended -> not help
     # -> seems as a problem with new PyTorch (>2.1): https://github.com/horovod/horovod/issues/3941
     # <- log3.txt - failed on pip install
     # 
