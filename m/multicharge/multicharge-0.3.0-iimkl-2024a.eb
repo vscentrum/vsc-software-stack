@@ -1,0 +1,42 @@
+# Author: J. Sassmannshausen (Imperial College London/UK)
+
+easyblock = 'CMakeNinja'
+
+name = 'multicharge'
+version = '0.3.0'
+
+homepage = 'https://github.com/grimme-lab/multicharge'
+description = """Electronegativity equilibration model for atomic partial charges."""
+
+toolchain = {'name': 'iimkl', 'version': '2024a'}
+
+github_account = 'grimme-lab'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['2fcc1f80871f404f005e9db458ffaec95bb28a19516a0245278cd3175b63a6b2']
+
+builddependencies = [
+    ('CMake', '3.29.3'),
+    ('Ninja', '1.12.1'),
+    ('binutils', '2.42'),
+]
+
+dependencies = [
+    ('mctc-lib', '0.3.2'),
+    ('mstore', '0.3.0'),
+]
+
+configopts = '-DBLAS_LIBRARIES="-lmkl_sequential -lmkl_intel_lp64 -lmkl_core" '
+configopts += '-DLAPACK_LIBRARIES="-lmkl_sequential -lmkl_intel_lp64 -lmkl_core" '
+
+sanity_check_paths = {
+    'files': ['bin/multicharge', 'lib/libmulticharge.a'],
+    'dirs': ['include/%(name)s', 'lib/cmake', 'lib/pkgconfig'],
+}
+
+sanity_check_commands = ["multicharge --help"]
+
+# run suite of tests with ctest
+runtest = True
+
+moduleclass = 'chem'
