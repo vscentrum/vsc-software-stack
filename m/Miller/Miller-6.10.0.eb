@@ -1,0 +1,30 @@
+easyblock = 'GoPackage'
+
+name = 'Miller'
+version = '6.10.0'
+
+homepage = 'https://miller.readthedocs.io/'
+description = "Miller is like awk, sed, cut, join, and sort for name-indexed data such as CSV, TSV, and tabular JSON"
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/johnkerl/miller/releases/download/v%(version)s']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['ac93a3e666c0c9629261e786b5e574556e79061d8733d4b1f7f562765e2e1761']
+
+builddependencies = [
+    ('Go', '1.21.6'),
+]
+
+installopts = './cmd/mlr'
+
+sanity_check_commands = [
+    "mlr version",
+]
+
+sanity_check_paths = {
+    'files': ['bin/mlr'],
+    'dirs': [],
+}
+
+moduleclass = 'tools'
