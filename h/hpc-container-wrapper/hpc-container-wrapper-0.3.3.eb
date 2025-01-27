@@ -1,0 +1,65 @@
+easyblock = 'Binary'
+
+name = 'hpc-container-wrapper'
+version = '0.3.3'
+
+homepage = 'https://github.com/CSCfi/hpc-container-wrapper'
+
+description = """hpc-container-wrapper (formerly known as Tykky) is a tool
+for wrapping a software environment in an Apptainer container."""
+
+docurls = ['https://docs.csc.fi/computing/containers/tykky/']
+
+toolchain = SYSTEM
+
+sources = [
+    {
+        'filename': '%(namelower)s-%(version)s.tar.gz',
+        'git_config': {
+            'url': 'https://github.com/CSCfi',
+            'repo_name': 'hpc-container-wrapper',
+            'tag': 'v%(version)s'
+        },
+        'extract_cmd': 'tar --strip-components=1 -xf %s',
+    },
+    {
+        'filename': 'calcua.yaml',
+        'extract_cmd': 'cp %s %(builddir)s/configs',
+    }
+]
+
+checksums = [
+    None,  # hpc-container-wrapper-<version>.tar.gz
+    '775c5fffc8ff0d7690d53469df17590220cd9d9d6aac46f2a59f445807730fc8',  # calcua.yaml
+]
+
+osdependencies = ['python3', 'python3-pip']
+
+usage = """
+Initialize new conda environment:
+
+  conda-containerize new --prefix /path/to_install conda_env.yaml
+
+Update already existing environment:
+
+  conda-containerize update --post-install post.sh /path/to_install
+
+Initialize new python environment with pip requirements to install:
+
+  pip-containerize new --prefix /path/to_install req.txt
+
+To start your environment simply run the program from bin/ subdirectory of the installation directory.
+"""
+
+extract_sources = 'True'
+
+buildininstalldir = 'True'
+
+install_cmd = 'bash install.sh calcua'
+
+sanity_check_paths = {
+    'files': ['bin/conda-containerize', 'bin/pip-containerize'],
+    'dirs':  ['bin', 'frontends'],
+}
+
+moduleclass = 'tools'
