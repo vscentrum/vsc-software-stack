@@ -1,0 +1,63 @@
+--- vasp.6.4.3_orig/arch/makefile.include.intel	2024-03-19 10:17:51.000000000 +0100
++++ vasp.6.4.3/arch/makefile.include.intel	2024-08-14 16:08:04.941999404 +0200
+@@ -1,5 +1,5 @@
+ # Default precompiler options
+-CPP_OPTIONS = -DHOST=\"LinuxIFC\" \
++CPP_OPTIONS = -DHOST=\"$(VSC_INSTITUTE_CLUSTER)\" \
+               -DMPI -DMPI_BLOCK=8000 -Duse_collective \
+               -DscaLAPACK \
+               -DCACHE_SIZE=4000 \
+@@ -7,7 +7,8 @@
+               -Dvasp6 \
+               -Duse_bse_te \
+               -Dtbdyn \
+-              -Dfock_dblbuf
++              -Dfock_dblbuf \
++              -DLONGCHAR 
+ 
+ CPP         = fpp -f_com=no -free -w0  $*$(FUFFIX) $*$(SUFFIX) $(CPP_OPTIONS)
+ 
+@@ -16,7 +17,7 @@
+ 
+ FREE        = -free -names lowercase
+ 
+-FFLAGS      = -assume byterecl -w
++FFLAGS      = -assume byterecl -w -mcmodel=large -shared-intel
+ 
+ OFLAG       = -O2
+ OFLAG_IN    = $(OFLAG)
+@@ -48,7 +49,7 @@
+ 
+ # When compiling on the target machine itself, change this to the
+ # relevant target when cross-compiling for another architecture
+-VASP_TARGET_CPU ?= -xHOST
++VASP_TARGET_CPU ?= $(EBVAROPTFLAGS)
+ FFLAGS     += $(VASP_TARGET_CPU)
+ 
+ # Intel MKL (FFTW, BLAS, LAPACK, and scaLAPACK)
+@@ -59,12 +60,18 @@
+ INCS        =-I$(MKLROOT)/include/fftw
+ 
+ # HDF5-support (optional but strongly recommended)
+-#CPP_OPTIONS+= -DVASP_HDF5
+-#HDF5_ROOT  ?= /path/to/your/hdf5/installation
+-#LLIBS      += -L$(HDF5_ROOT)/lib -lhdf5_fortran
+-#INCS       += -I$(HDF5_ROOT)/include
++CPP_OPTIONS+= -DVASP_HDF5
++HDF5_ROOT  ?= $(EBROOTHDF5)
++LLIBS      += -L$(HDF5_ROOT)/lib -lhdf5_fortran
++INCS       += -I$(HDF5_ROOT)/include
+ 
+ # For the VASP-2-Wannier90 interface (optional)
+-#CPP_OPTIONS    += -DVASP2WANNIER90
+-#WANNIER90_ROOT ?= /path/to/your/wannier90/installation
+-#LLIBS          += -L$(WANNIER90_ROOT)/lib -lwannier
++CPP_OPTIONS    += -DVASP2WANNIER90
++WANNIER90_ROOT ?= $(EBROOTWANNIER90)
++LLIBS          += -L$(WANNIER90_ROOT)/lib -lwannier
++
++# DFT-D4 support
++CPP_OPTIONS    += -DDFTD4
++DFTD4_ROOT     ?= $(EBROOTDFTMIND4)
++LLIBS          += -L$(DFTD4_ROOT)/lib -ldftd4 -L$(EBROOTMCTCMINLIB)/lib -lmctc-lib
++INCS           += -I$(DFTD4_ROOT)/include

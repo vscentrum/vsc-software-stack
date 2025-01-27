@@ -1,0 +1,43 @@
+easyblock = 'MesonNinja'
+
+name = 'DFT-D4'
+version = '3.7.0'
+
+homepage = 'https://dftd4.readthedocs.io'
+description = """Generally Applicable Atomic-Charge Dependent London Dispersion Correction."""
+
+toolchain = {'name': 'intel', 'version': '2024a'}
+
+github_account = 'dftd4'
+source_urls = [GITHUB_LOWER_SOURCE]
+sources = ['v%(version)s.tar.gz']
+patches = ['DFT-D4-3.2.0-remove_module_id.patch']
+checksums = [
+    {'v3.7.0.tar.gz': 'f00b244759eff2c4f54b80a40673440ce951b6ddfa5eee1f46124297e056f69c'},
+    {'DFT-D4-3.2.0-remove_module_id.patch': '8c3c81338cb57972580e4cf3db307aa2e44b8b3f6d1ba7ae24fa9d807490a93b'},
+]
+
+builddependencies = [
+    ('Ninja', '1.12.1'),
+    ('Meson', '1.4.0'),
+    ('pkgconf', '2.2.0'),
+]
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('cffi', '1.16.0'),
+    ('mstore', '0.3.0'),
+    ('mctc-lib', '0.3.2'),
+    ('multicharge', '0.3.0'),
+]
+
+configopts = '-Dpython=true -Dapi_v2=true'
+
+sanity_check_paths = {
+    'files': ['bin/dftd4', 'lib/libdftd4.a', 'lib/libdftd4.%s' % SHLIB_EXT, 'include/dftd4.mod'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["dftd4 --version"]
+
+moduleclass = 'chem'

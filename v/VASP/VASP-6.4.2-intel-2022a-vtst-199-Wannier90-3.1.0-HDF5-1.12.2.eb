@@ -1,0 +1,70 @@
+easyblock = 'MakeCp'
+
+name = 'VASP'
+version = '6.4.2'
+local_vtstver = '199'
+local_wanver = '3.1.0'
+local_hdf5ver = '1.12.2'
+versionsuffix = '-vtst-%s-Wannier90-%s-HDF5-%s' % (local_vtstver, local_wanver, local_hdf5ver)
+
+homepage = 'http://www.vasp.at'
+description = """The Vienna Ab initio Simulation Package (VASP) is a computer program for atomic scale
+materials modelling, e.g. electronic structure calculations and quantum-mechanical molecular dynamics,
+from first principles."""
+
+toolchain = {'name': 'intel', 'version': '2022a'}
+toolchainopts = {'usempi': True}
+
+# Vasp is proprietary software, see http://www.vasp.at/index.php/faqs on how to get access to the code
+sources = [
+    '%(namelower)s.%(version)s.tgz',
+    {
+        'source_urls': ['https://theory.cm.utexas.edu/code/'],
+        'filename': 'vtstcode-%s.tgz' % local_vtstver,
+    },
+]
+patches = [('VASP-6.4.2-intel-vtst-Wannier90-HDF5.patch', 1)]
+checksums = [
+    'b704637f7384673f91adfbc803edc5cc7fe736d9623453461f7cdc29b123410e',  # vasp.6.4.2.tgz
+    '130261a4c15ce3f6b92cf3ead9949bb72b0f0211503f3326a9ad848e2bdfec19',  # vtstcode-199.tgz
+    '24d03b44160db1b28eab43100b61454ec1754877fdca2ef9f5fb2592528357ab',  # VASP-6.4.2-intel-vtst-Wannier90-HDF5.patch
+]
+
+dependencies = [('Wannier90', local_wanver), ('HDF5', local_hdf5ver, '', ('iimpi', '2022a'))]
+
+prebuildopts = 'cp -v arch/makefile.include.intel ./makefile.include &&'
+# Install VTST
+prebuildopts += "cp -v src/main.F src/main.F_vtst_backup &&"
+prebuildopts += "sed -z 's/       LATT_CUR%A,LATT_CUR%B,IO%IU6)/       TSIF,LATT_CUR%A,LATT_CUR%B,IO%IU6)/'"
+prebuildopts += ' -i src/main.F &&'
+prebuildopts += "sed -e 's/IF (LCHAIN) CALL chain_init( T_INFO, IO)/CALL chain_init( T_INFO, IO)/'"
+prebuildopts += ' -i src/main.F &&'
+prebuildopts += 'mv -v src/chain.F src/chain.F_vtst_backup &&'
+prebuildopts += 'cp -v ../vtstcode-*/vtstcode6.4/*.F src/. &&'
+prebuildopts += 'cp -vr ../vtstcode-*/vtstcode6.4/pyamff_fortran/ src/. &&'
+prebuildopts += "sed -e 's#	chain.o#	bfgs.o dynmat.o instanton.o lbfgs.o sd.o cg.o dimer.o bbm.o"
+prebuildopts += " fire.o lanczos.o neb.o qm.o pyamff_fortran/*.o ml_pyamff.o"
+prebuildopts += " opt.o chain.o#' -i src/.objects &&"
+prebuildopts += "sed -e 's/LIB=lib parser/LIB=lib parser pyamff_fortran/' -i src/makefile &&"
+
+# Makefile uses LIBS as a list of folders
+prebuildopts += 'unset LIBS && '
+
+_targets = ['std', 'gam', 'ncl']
+
+# https://www.vasp.at/wiki/index.php/Validation_tests
+runtest = 'test'
+
+parallel = 1
+
+files_to_copy = [
+    (['bin/vasp_' + x for x in _targets], 'bin'),
+    (['testsuite'], ''),
+]
+
+sanity_check_paths = {
+    'files': ['bin/vasp_' + x for x in _targets],
+    'dirs': []
+}
+
+moduleclass = 'phys'

@@ -1,0 +1,61 @@
+--- vasp.6.5.0_orig/arch/makefile.include.oneapi_omp	2024-12-16 16:35:35.000000000 +0100
++++ vasp.6.5.0/arch/makefile.include.oneapi_omp		2024-12-20 22:24:46.859476154 +0100
+@@ -1,5 +1,5 @@
+ # Default precompiler options
+-CPP_OPTIONS = -DHOST=\"LinuxIFC\" \
++CPP_OPTIONS = -DHOST=\"$(VSC_INSTITUTE_CLUSTER)\" \
+               -DMPI -DMPI_BLOCK=8000 -Duse_collective \
+               -DscaLAPACK \
+               -DCACHE_SIZE=4000 \
+@@ -7,7 +7,8 @@
+               -Dvasp6 \
+               -Dtbdyn \
+               -Dfock_dblbuf \
+-              -D_OPENMP
++              -D_OPENMP \
++              -DLONGCHAR
+ 
+ CPP         = fpp -f_com=no -free -w0  $*$(FUFFIX) $*$(SUFFIX) $(CPP_OPTIONS)
+ 
+@@ -44,7 +45,7 @@
+ 
+ # When compiling on the target machine itself, change this to the
+ # relevant target when cross-compiling for another architecture
+-VASP_TARGET_CPU ?= -xHOST
++VASP_TARGET_CPU ?= $(EBVAROPTFLAGS)
+ FFLAGS     += $(VASP_TARGET_CPU)
+ 
+ # Intel MKL (FFTW, BLAS, LAPACK, and scaLAPACK)
+@@ -55,15 +56,15 @@
+ INCS        =-I$(MKLROOT)/include/fftw
+ 
+ # HDF5-support (optional but strongly recommended, and mandatory for some features)
+-#CPP_OPTIONS+= -DVASP_HDF5
+-#HDF5_ROOT  ?= /path/to/your/hdf5/installation
+-#LLIBS      += -L$(HDF5_ROOT)/lib -lhdf5_fortran
+-#INCS       += -I$(HDF5_ROOT)/include
++CPP_OPTIONS+= -DVASP_HDF5
++HDF5_ROOT  ?= $(EBROOTHDF5)
++LLIBS      += -L$(HDF5_ROOT)/lib -lhdf5_fortran
++INCS       += -I$(HDF5_ROOT)/include
+ 
+ # For the VASP-2-Wannier90 interface (optional)
+-#CPP_OPTIONS    += -DVASP2WANNIER90
+-#WANNIER90_ROOT ?= /path/to/your/wannier90/installation
+-#LLIBS          += -L$(WANNIER90_ROOT)/lib -lwannier
++CPP_OPTIONS    += -DVASP2WANNIER90
++WANNIER90_ROOT ?= $(EBROOTWANNIER90)
++LLIBS          += -L$(WANNIER90_ROOT)/lib -lwannier
+ 
+ # For the fftlib library (hardly any benefit in combination with MKL's FFTs)
+ #FCL         = mpiifort fftlib.o -qmkl
+@@ -79,3 +80,9 @@
+ #CXX_ML      = mpiicpc -cxx=icpx -qopenmp
+ #CXXFLAGS_ML = -O3 -std=c++17 -Wall
+ #INCLUDE_ML  =
++
++# DFT-D4 support
++CPP_OPTIONS    += -DDFTD4
++DFTD4_ROOT     ?= $(EBROOTDFTMIND4)
++LLIBS          += -L$(DFTD4_ROOT)/lib -ldftd4 -L$(EBROOTMCTCMINLIB)/lib -lmctc-lib
++INCS           += -I$(DFTD4_ROOT)/include
