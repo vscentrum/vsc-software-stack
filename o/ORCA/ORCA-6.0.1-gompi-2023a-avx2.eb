@@ -1,0 +1,28 @@
+name = 'ORCA'
+version = '6.0.1'
+versionsuffix = '-avx2'
+
+homepage = 'https://orcaforum.kofo.mpg.de'
+description = """
+ORCA is a flexible, efficient and easy-to-use general purpose tool for quantum
+chemistry with specific emphasis on spectroscopic properties of open-shell
+molecules. It features a wide variety of standard quantum chemical methods
+ranging from semiempirical methods to DFT to single- and multireference
+correlated ab initio methods. It can also treat environmental and relativistic
+effects."""
+
+toolchain = {'name': 'gompi', 'version': '2023a'}
+
+download_instructions = "Shared build of ORCA: download from https://orcaforum.kofo.mpg.de"
+# mostly dynamically linked (SCALAPACK, OpenBLAS are still embedded)
+sources = ['%%(namelower)s_%s_linux_%%(orcaarch)s_shared_openmpi416_avx2.tar.xz' % version.replace('.', '_')]
+checksums = [
+    # orca_6_0_1_linux_x86-64_shared_openmpi416_avx2.tar.xz 
+    'bdb14a0b6b49064531eb6cf3811b5b95b628ce88a576b8b842b201b9c37e6779',
+]
+
+dependencies = [
+    ('xtb', '6.7.1', '', ('gfbf', '2023a')),
+]
+
+moduleclass = 'chem'
