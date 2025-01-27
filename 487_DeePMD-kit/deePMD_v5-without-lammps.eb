@@ -2,9 +2,7 @@ easyblock = 'PythonBundle'
 
 name = 'DeePDM-kit'
 version = '3.0.1'
-versionsuffix = '-with-LAMMPS-plugin'
 local_tf_version = '2.15.1'
-local_lammps_version = '2Aug2023_update2'
 
 homepage = 'https://github.com/deepmodeling/deepmd-kit/'
 description = "A deep learning package for many-body potential energy representation and molecular dynamics."
@@ -32,20 +30,11 @@ dependencies = [
     ('ruamel.yaml', '0.17.32'),
     ('Horovod', '0.28.1', '-TensorFlow-%s' % local_tf_version),
     ('typing-extensions', '4.9.0'),
-    ('LAMMPS', local_lammps_version, '-kokkos'),
 ]
 
 local_deepdm_configopts = '-DENABLE_TENSORFLOW=TRUE -DUSE_TF_PYTHON_LIBS=TRUE '
-local_deepdm_configopts += '-DLAMMPS_SOURCE_ROOT=%%(builddir)s/lammps-stable_%s ' % local_lammps_version
 
 components = [
-    ('LAMMPS', local_lammps_version, {
-        'easyblock': 'Tarball',
-        'source_urls': ['https://github.com/lammps/lammps/archive/'],
-        'sources': ['stable_%s.tar.gz' % local_lammps_version],
-        'skipsteps': ['install'],
-        'checksums': ['3bcecabc9cad08d0a4e4d989b52d29c58505f7ead8ebacf43c9db8d9fd3d564a'],
-    }),
     ('deepmd', version, {
         'easyblock': 'PythonPackage',
         'source_urls': ['https://pypi.python.org/packages/source/d/deepmd-kit/'],

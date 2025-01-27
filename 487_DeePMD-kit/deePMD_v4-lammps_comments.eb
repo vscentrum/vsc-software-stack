@@ -1,0 +1,212 @@
+easyblock = 'PythonBundle'
+
+name = 'DeePDM-kit'
+version = '3.0.1'
+# versionsuffix = '-CUDA-%(cudaver)s'
+local_tf_version = '2.15.1'
+# versionsuffix = '-TensorFlow-%s' % local_tf_version
+
+homepage = 'https://github.com/deepmodeling/deepmd-kit/'
+description = "A deep learning package for many-body potential energy representation and molecular dynamics."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# DEPS:
+    # OK scikit-build-core>=0.5,<0.11,!=0.6.0
+    # OK 'numpy>=1.21',
+    # OK 'scipy',
+    # OK 'pyyaml',
+    # ok 'dargs >= 0.4.7',
+    # OK "h5py>=3.6.0,!=3.11.0; platform_system=='Linux' and platform_machine=='aarch64'",
+    # ok 'wcmatch',
+    # OK 'ml_dtypes',
+    # ok 'mendeleev',
+    # ok 'array-api-compat',
+    # ok dpdata
+    # parallel training deps:
+        # OK? horovod - horovod_v2_kenneths_hack
+        # OK mpi4py
+    # ok dpdata 0.2.21 requires monty, which is not installed.
+    # ok dargs 0.4.10 requires typeguard, which is not installed.
+    # OK mendeleev 0.20.1 requires deprecated, which is not installed.
+    # OK mendeleev 0.20.1 requires pydantic, which is not installed.
+    # ok mendeleev 0.20.1 requires pyfiglet, which is not installed.
+    # OK mendeleev 0.20.1 requires sqlalchemy, which is not installed.
+    # ok monty 2025.1.9 requires ruamel-yaml, which is not installed.
+    # ok wcmatch 8.5.2 requires bracex, which is not installed.
+    # ok typeguard 4.3.0 has requirement typing-extensions>=4.10.0, but you have typing-extensions 4.9.0. -> v4.2.0
+    # ok mendeleev 0.20.1 has requirement pydantic<3.0.0,>=2.9.2, but you have pydantic 2.5.3. -> 0.18.1
+    # ok mendeleev 0.20.1 has requirement pyfiglet<0.9,>=0.8.post1, but you have pyfiglet 1.0.2. 
+    # ok tensorflow 2.15.1 has requirement wrapt<1.15,>=1.11.0, but you have wrapt 1.15.0.
+
+builddependencies = [
+    ('scikit-build-core', '0.9.3'),
+    ('hatchling', '1.18.0'),
+    ('poetry', '1.5.1'),
+    ('git', '2.41.0', '-nodocs'),
+    ('CMake', '3.26.3'),
+]
+dependencies = [
+    # ('CUDA', '12.6.0', '', SYSTEM),
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('TensorFlow', local_tf_version),
+    ('jax', '0.4.25'),
+    ('ml_dtypes', '0.3.2'),
+    ('PyYAML', '6.0'),
+    ('h5py', '3.9.0'),
+    ('mpi4py', '3.1.4'),
+    ('Deprecated', '1.2.14'),
+    # ('pydantic', '2.5.3'),
+    ('SQLAlchemy','2.0.25'),
+    ('ruamel.yaml', '0.17.32'),
+    ('Horovod', '0.28.1', '-TensorFlow-%s' % local_tf_version),
+    ('typing-extensions', '4.9.0'),
+    # ('protobuf', '24.0'),
+    ('LAMMPS', '2Aug2023_update2', '-kokkos'),
+    
+]
+
+# https://files.pythonhosted.org/packages/5c/f5/3be09970408c89c7767ab629cf80ecbd984ef3401a534a41e332f0e75bb7/deepmd_kit-3.0.1.tar.gz
+# /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/DeePDM-kit/3.0.1-foss-2023a-TensorFlow-2.15.1
+# /tmp/vsc47063/easybuild/build/DeePDMkit/3.0.1/foss-2023a-TensorFlow-2.15.1
+# /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/DeePDM-kit/3.0.1-foss-2023a-TensorFlow-2.15.1/lammps-stable_2Aug2023_update4
+components = [
+    ('LAMMPS', '2Aug2023_update2', {
+        'easyblock': 'Tarball',
+        'source_urls': ['https://github.com/lammps/lammps/archive/'],
+        'sources': ['stable_2Aug2023_update2.tar.gz'],
+        'skipsteps': ['install'],
+        # 'checksums': ['6eed007cc24cda80b5dd43372b2ad4268b3982bb612669742c8c336b79137b5b'], # 2Aug2023_update4
+        'checksums': ['3bcecabc9cad08d0a4e4d989b52d29c58505f7ead8ebacf43c9db8d9fd3d564a'],  # 2Aug2023_update2
+    }),
+    ('deepmd', version, {
+        'easyblock': 'PythonPackage',
+        # 'modulename': 'deepmd',
+        # 'source_tmpl': 'deepmd_kit-%(version)s.tar.gz',
+        # 'source_urls': [PYPI_SOURCE],
+        'source_urls': ['https://pypi.python.org/packages/source/d/deepmd-kit/'],
+        'sources': ['deepmd_kit-%(version)s.tar.gz'],
+        'preinstallopts': "module swap protobuf/3.21.9-GCCcore-12.3.0 && ",
+        'use_pip': True,
+        'start_dir': 'deepmd_kit-%(version)s',
+        'checksums': ['10d4443c6fe31a9a4573ed6eda73b6a669dae572cf2bc43f45e9a63aaae02cff'],
+    }),
+    ('deepmd_cpp', version, {
+        'easyblock': 'CMakeMake',
+        # 'source_tmpl': 'deepmd_kit-%(version)s.tar.gz',
+        # 'source_urls': [PYPI_SOURCE],
+        'source_urls': ['https://pypi.python.org/packages/source/d/deepmd-kit/'],
+        'sources': ['deepmd_kit-%(version)s.tar.gz'],
+        'start_dir': 'deepmd_kit-%(version)s/source',
+        # 'preconfigopts': "module swap protobuf/3.21.9-GCCcore-12.3.0 && ",
+        # $EBROOTLAMMPS
+        'configopts': '-DENABLE_TENSORFLOW=TRUE -DUSE_TF_PYTHON_LIBS=TRUE -DLAMMPS_SOURCE_ROOT=%(builddir)s/lammps-stable_2Aug2023_update2',
+        # 'configopts': '-DENABLE_TENSORFLOW=TRUE -DUSE_TF_PYTHON_LIBS=TRUE',
+        'prebuildopts': "module swap protobuf/3.21.9-GCCcore-12.3.0 && ",
+        'checksums': ['10d4443c6fe31a9a4573ed6eda73b6a669dae572cf2bc43f45e9a63aaae02cff'],
+    }),
+    # ('OpenMM', '7.5.1', {
+    #     'easyblock': 'CMakeMake',
+    #     'source_urls': ['https://github.com/openmm/openmm/archive/'],
+    #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+    #     'patches': [('OpenMM-%(version)s_AlphaFold.patch', 'wrappers/python')],
+    #     'checksums': [
+    #         'c88d6946468a2bde2619acb834f57b859b5e114a93093cf562165612e10f4ff7',  # OpenMM-7.5.1.tar.gz
+    #         '1b109dfff3af5c6aa70690bca14618612953c68840a7e64f679db7ca33c1aff6',  # OpenMM-7.5.1_AlphaFold.patch
+    #     ],
+    #     'start_dir': 'openmm-%(version)s',
+    #     'preinstallopts': local_openmm_preinstallopts,
+    #     'installopts': local_openmm_installopts,
+    # }),
+    # (name, version, {
+    #     'easyblock': 'PythonPackage',
+    #     'source_urls': [
+    #         'https://github.com/deepmind/alphafold/archive/refs/tags/',
+    #         'https://git.scicore.unibas.ch/schwede/openstructure/-/raw/%s/modules/mol/alg/src/' % local_scp_commit,
+    #     ],
+    #     'sources': [
+    #         {
+    #             'download_filename': 'v%(version)s.tar.gz',
+    #             'filename': SOURCE_TAR_GZ,
+    #         },
+    #         {
+    #             'download_filename': 'stereo_chemical_props.txt',
+    #             'filename': 'stereo_chemical_props-%s.txt' % local_scp_commit,
+    #             'extract_cmd': "cp %s .",
+    #         },
+    #     ],
+    #     'patches': [
+    #         'AlphaFold-%(version)s_fix-packages.patch',
+    #         'AlphaFold-%(version)s_data-dep-paths.patch',
+    #         'AlphaFold-%(version)s_n-cpu.patch',
+    #         'AlphaFold-%(version)s_fix-scp-path.patch',
+    #     ],
+    #     'checksums': [
+    #         '78cf443a2d9250917b05f5d40ede140ed8e8341b42fdfa54340336aca52f53f2',  # v2.0.0.tar.gz
+    #         '24510899eeb49167cffedec8fa45363a4d08279c0c637a403b452f7d0ac09451',  # stereo_chemical_props-7102c6.txt
+    #         '826d2d1a5d6ac52c51a60ba210e1947d5631a1e2d76f8815305b5d23f74458db',  # AlphaFold-2.0.0_fix-packages.patch
+    #         '7223e297b23f90816219095696bc6453910c617add60b907a0d3e869da8733bb',  # AlphaFold-2.0.0_data-dep-paths.patch
+    #         'dfda4dd5f9aba19fe2b6eb9a0ec583d12dcefdfee8ab8803fc57ad48d582db04',  # AlphaFold-2.0.0_n-cpu.patch
+    #         '83dc82a8b1c647eb7e217aef683153e98a4fc7f871a85280976c92a1bfe28f27',  # AlphaFold-2.0.0_fix-scp-path.patch
+    #     ],
+    #     'start_dir': 'alphafold-%(version)s',
+    #     'use_pip': True,
+    # }),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+# local_preinstallopts = 'module swap protobuf/3.21.9-GCCcore-12.3.0 && '
+
+exts_list = [
+    ('wrapt', '1.14.1', {
+        'checksums': ['380a85cf89e0e69b7cfbe2ea9f765f004ff419f34194018a6827ac0e3edfed4d'],
+    }),
+    ('typeguard', '4.2.0', {
+        'checksums': ['2aeae510750fca88d0a2ceca3e86de7f71aa43b6c3e6c267737ce1f5effc4b34'],
+    }),
+    ('dargs', '0.4.10', {
+        'checksums': ['2b39e0a93dcd323d0affb3f54ee2c11a439084d718934df08f38692dfbadddf8'],
+    }),
+    ('bracex', '2.5.post1', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['13e5732fec27828d6af308628285ad358047cec36801598368cb28bc631dbaf6'],
+    }),
+    ('wcmatch', '8.5.2', {
+        'checksums': ['a70222b86dea82fb382dd87b73278c10756c138bd6f8f714e2183128887b9eb2'],
+    }),
+    ('pyfiglet', '0.8.post1', {
+        'checksums': ['c6c2321755d09267b438ec7b936825a4910fec696292139e664ca8670e103639'],
+    }),
+    ('mendeleev', '0.18.1', {
+        'checksums': ['a5b60bd313a5d2b404a6a250186e643663d5625c8138b3cfba829f1f4384f2a0'],
+    }),
+    ('array_api_compat', '1.10.0', {
+        'checksums': ['eb98056fa4993e7e98860b7a1ca73c9ae1c77f1ef95366a5ebd5dec8e6d55bad'],
+    }),
+    ('monty', '2025.1.9', {
+        'checksums': ['edb680b01ea1e59225cb666634b0dd2b2393eef07f3d45748445db92e1f1006d'],
+    }),
+    ('dpdata', '0.2.21', {
+        'checksums': ['55dcec61bdc8707fb6b3e57406fb7c07b6ccb7a0ac763a1407cc1c3222bf58b1'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/dp', 'bin/dpdata', 'bin/dp_ipi', 'lib/libdeepmd_cc.so', 'lib/libdeepmd.so'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages', 'include/deepmd'],
+}
+
+sanity_check_commands = ['dp -h']
+
+moduleclass = 'ai'
+
+# $EBROOTDEEPDMMINKIT
+
+# implement lammps: OK
+    # there are 2 ways: 
+        # 1) build in module - it runs from deepmd by `make lammps`
+        # 2) plugin mode: lammps is installed separately but with PLUGIN=ON and BUILD_SHARED_LIBS=yes (it is ok for LAMMPS)
+            # + I need sources of lammps during installation of C++ interface phase -> how to provide it?

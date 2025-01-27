@@ -2,9 +2,8 @@ easyblock = 'PythonBundle'
 
 name = 'DeePDM-kit'
 version = '3.0.1'
-versionsuffix = '-with-LAMMPS-plugin'
+versionsuffix = '-CUDA-%(cudaver)s'
 local_tf_version = '2.15.1'
-local_lammps_version = '2Aug2023_update2'
 
 homepage = 'https://github.com/deepmodeling/deepmd-kit/'
 description = "A deep learning package for many-body potential energy representation and molecular dynamics."
@@ -19,10 +18,12 @@ builddependencies = [
     ('CMake', '3.26.3'),
 ]
 dependencies = [
+    ('CUDA', '12.6.0', '', SYSTEM),
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
-    ('TensorFlow', local_tf_version),
-    ('jax', '0.4.25'),
+    ('TensorFlow', local_tf_version, versionsuffix),
+    ('jax', '0.4.25', versionsuffix),
+    ('Horovod', '0.28.1', '%s-TensorFlow-%s' % (versionsuffix, local_tf_version)),
     ('ml_dtypes', '0.3.2'),
     ('PyYAML', '6.0'),
     ('h5py', '3.9.0'),
@@ -30,27 +31,18 @@ dependencies = [
     ('Deprecated', '1.2.14'),
     ('SQLAlchemy', '2.0.25'),
     ('ruamel.yaml', '0.17.32'),
-    ('Horovod', '0.28.1', '-TensorFlow-%s' % local_tf_version),
     ('typing-extensions', '4.9.0'),
-    ('LAMMPS', local_lammps_version, '-kokkos'),
 ]
 
 local_deepdm_configopts = '-DENABLE_TENSORFLOW=TRUE -DUSE_TF_PYTHON_LIBS=TRUE '
-local_deepdm_configopts += '-DLAMMPS_SOURCE_ROOT=%%(builddir)s/lammps-stable_%s ' % local_lammps_version
+local_deepdm_configopts += '-DVARIANT=cuda '
 
 components = [
-    ('LAMMPS', local_lammps_version, {
-        'easyblock': 'Tarball',
-        'source_urls': ['https://github.com/lammps/lammps/archive/'],
-        'sources': ['stable_%s.tar.gz' % local_lammps_version],
-        'skipsteps': ['install'],
-        'checksums': ['3bcecabc9cad08d0a4e4d989b52d29c58505f7ead8ebacf43c9db8d9fd3d564a'],
-    }),
     ('deepmd', version, {
         'easyblock': 'PythonPackage',
         'source_urls': ['https://pypi.python.org/packages/source/d/deepmd-kit/'],
         'sources': ['deepmd_kit-%(version)s.tar.gz'],
-        'preinstallopts': "module swap protobuf/3.21.9-GCCcore-12.3.0 && ",
+        'preinstallopts': "module swap protobuf/3.21.9-GCCcore-12.3.0 && -DVARIANT=cuda ",
         'use_pip': True,
         'start_dir': 'deepmd_kit-%(version)s',
         'checksums': ['10d4443c6fe31a9a4573ed6eda73b6a669dae572cf2bc43f45e9a63aaae02cff'],
