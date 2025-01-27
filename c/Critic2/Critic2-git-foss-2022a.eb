@@ -1,0 +1,52 @@
+easyblock = 'CMakeMake'
+
+local_latest_commit = 'aee9bdc'  # on Sep 23
+
+name = 'Critic2'
+version = 'git-%s' % local_latest_commit
+
+homepage = 'https://aoterodelaroza.github.io/critic2/'
+whatis = ["Critic2 is a program for the analysis of quantum mechanical calculation results in molecules and periodic solids."]
+description = """
+Critic2 is a program for the analysis of quantum mechanical calculation results in molecules and periodic solids.
+This module is based on commit %s.
+""" % local_latest_commit
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'usempi': False, 'precise': True}
+
+sources = [
+    {
+        'filename': '%(name)s-%(version)s.tar.gz',
+        'extract_cmd': 'tar xfvz %s && mv %(namelower)s/ Critic2-%(version)s/',
+        'git_config': {
+            'url': 'https://github.com/aoterodelaroza/',
+            'repo_name': 'critic2',
+            'commit': local_latest_commit,
+            'recursive': True,
+            'keep_git_dir': False,
+        },
+    },
+]
+
+builddependencies = [
+    ('CMake', '3.24.3')
+]
+
+dependencies = [
+    ('libreadline', '8.1.2'),
+    ('libxc', '5.2.3'),
+    ('libcint', '5.1.6'),
+    ('NLopt', '2.7.1'),
+    ('numdiff', '5.9.0'),
+]
+
+# Set CRITIC_HOME environment variable upon loading module
+modextravars = {'CRITIC_HOME': '%(installdir)s'}
+
+#runtest = "check "
+#runtest = "installcheck "
+
+sanity_check_paths = {'files': ["bin/critic2",], 'dirs': ["bin", "share"]} 
+
+moduleclass = 'phys'
