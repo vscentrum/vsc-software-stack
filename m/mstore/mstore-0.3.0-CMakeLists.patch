@@ -1,0 +1,10 @@
+--- mstore-0.3.0.orig/CMakeLists.txt	2024-06-13 16:16:18.000000000 +0200
++++ mstore-0.3.0/CMakeLists.txt	2024-12-11 13:57:26.341897784 +0100
+@@ -31,6 +31,7 @@
+ 
+ # Collect subprojects
+ if(NOT TARGET "mctc-lib::mctc-lib")
++  find_package(OpenMP REQUIRED Fortran)
+   find_package("mctc-lib")
+ endif()
+ set(
