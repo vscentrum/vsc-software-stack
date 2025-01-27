@@ -2,8 +2,10 @@ easyblock = 'PythonBundle'
 
 name = 'DeePDM-kit'
 version = '3.0.1'
-versionsuffix = '-CUDA-%(cudaver)s'
+local_cuda_suffix = '-CUDA-%(cudaver)s'
 local_tf_version = '2.15.1'
+local_lammps_version = '2Aug2023_update2'
+versionsuffix = local_cuda_suffix + '-with-LAMMPS-plugin'
 
 homepage = 'https://github.com/deepmodeling/deepmd-kit/'
 description = "A deep learning package for many-body potential energy representation and molecular dynamics."
@@ -21,9 +23,9 @@ dependencies = [
     ('CUDA', '12.1.1', '', SYSTEM),
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
-    ('TensorFlow', local_tf_version, versionsuffix),
-    ('jax', '0.4.25', versionsuffix),
-    ('Horovod', '0.28.1', '%s-TensorFlow-%s' % (versionsuffix, local_tf_version)),
+    ('TensorFlow', local_tf_version, local_cuda_suffix),
+    ('jax', '0.4.25', local_cuda_suffix),
+    ('Horovod', '0.28.1', '%s-TensorFlow-%s' % (local_cuda_suffix, local_tf_version)),
     ('ml_dtypes', '0.3.2'),
     ('PyYAML', '6.0'),
     ('h5py', '3.9.0'),
@@ -32,12 +34,20 @@ dependencies = [
     ('SQLAlchemy', '2.0.25'),
     ('ruamel.yaml', '0.17.32'),
     ('typing-extensions', '4.9.0'),
+    ('LAMMPS', local_lammps_version, '-kokkos%s' % local_cuda_suffix),
 ]
 
-local_deepdm_configopts = '-DENABLE_TENSORFLOW=TRUE -DUSE_TF_PYTHON_LIBS=TRUE '
-local_deepdm_configopts += '-DUSE_CUDA_TOOLKIT=ON '
+local_deepdm_configopts = '-DENABLE_TENSORFLOW=TRUE -DUSE_TF_PYTHON_LIBS=TRUE -DUSE_CUDA_TOOLKIT=ON '
+local_deepdm_configopts += '-DLAMMPS_SOURCE_ROOT=%%(builddir)s/lammps-stable_%s ' % local_lammps_version
 
 components = [
+    ('LAMMPS', local_lammps_version, {
+        'easyblock': 'Tarball',
+        'source_urls': ['https://github.com/lammps/lammps/archive/'],
+        'sources': ['stable_%s.tar.gz' % local_lammps_version],
+        'skipsteps': ['install'],
+        'checksums': ['3bcecabc9cad08d0a4e4d989b52d29c58505f7ead8ebacf43c9db8d9fd3d564a'],
+    }),
     ('deepmd', version, {
         'easyblock': 'PythonPackage',
         'source_urls': ['https://pypi.python.org/packages/source/d/deepmd-kit/'],
