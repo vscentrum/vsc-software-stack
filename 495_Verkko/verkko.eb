@@ -1,0 +1,65 @@
+easyblock = 'MakeCp'
+
+name = 'Verkko'
+version = '2.2.1'
+# local_commit = '0e5fa5d'
+
+homepage = 'https://github.com/marbl/verkko'
+description = """Telomere-to-telomere assembly of accurate long reads (PacBio HiFi, Oxford Nanopore Duplex,
+HERRO corrected Oxford Nanopore Simplex) and Oxford Nanopore ultra-long reads."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://github.com/marbl/%(namelower)s/releases/download/v%(version)s/']
+sources = [{'download_filename': '%(namelower)s-v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+checksums = ['4ab40961352cac22eebfb37606c82bb5a589f9361c36430e7278227e62db3860']
+
+builddependencies = [('Rust', '1.75.0')]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('snakemake', '8.4.2'), # there is Snakemake >=7.0, <8.0 in deps
+    ('MashMap', '3.1.3'),  # MashMap - v2.0 or newer CREATED OK
+    # GraphAligner - v1.0.19 or newer CREATE
+    # Winnowmap - UPDATE
+    ('BWA', '0.7.18'),
+    ('minimap2', '2.26'),
+    ('SAMtools', '1.18'),
+    ('seqtk', '1.4'),
+]
+
+# exts_defaultclass = 'PythonPackage'
+# exts_default_options = {
+#     'source_urls': [PYPI_SOURCE],
+#     'download_dep_fail': True,
+#     'use_pip': True,
+#     'sanity_pip_check': True,
+#     'preinstallopts': '',
+#     'installopts': '',
+# }
+
+# exts_list = [
+#     ('Paralleltask', '0.2.3', {
+#         'modulename': 'paralleltask',
+#         'checksums': ['8015a8311d5021bc44edbfbf45ff2557a529999e235d25190bac62993fdf7b66'],
+#     }),
+# ]
+
+start_dir = 'src'
+
+files_to_copy = ['*']
+# files_to_copy = ['bin', 'lib', 'test_data', 'LICENSE', 'nextDenovo']
+
+# sanity_check_paths = {
+#     'files': ['nextDenovo', 'bin/minimap2-nd', 'bin/paralleltask', 'bin/nextgraph'],
+#     'dirs': ['bin', 'test_data', 'lib/python%(pyshortver)s/site-packages'],
+# }
+
+# sanity_check_commands = ['nextDenovo --help']
+
+# modextrapaths = {
+#     'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages',
+#     'PATH': '',
+# }
+
+moduleclass = 'bio'
