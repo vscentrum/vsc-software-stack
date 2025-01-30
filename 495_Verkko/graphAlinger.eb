@@ -10,13 +10,17 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 source_urls = ['https://github.com/user-attachments/files/17976913/']
 sources = [{'download_filename': '%(name)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
-checksums = ['b5d95302fac6f433994e0b62e3f19648120aee0e0ee9a3c392f42b4a749346bf']
+patches = ['patch1.2-makefile.patch']
+checksums = [
+    {'GraphAligner-1.0.20.tar.gz': 'b5d95302fac6f433994e0b62e3f19648120aee0e0ee9a3c392f42b4a749346bf'},
+    {'patch1.2-makefile.patch': '7d4ac707d53c5a68274a444db53776d2044731f7e32065f84770a6b4750a086e'},
+]
 
 builddependencies = [('pkgconf', '1.9.5')]
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
-    ('Abseil', '20230125.3'),
+    # ('Abseil', '20230125.3'),
     ('BamTools', '2.5.2'),
     ('bzip2', '1.0.8'),
     ('jemalloc', '5.3.0'),
@@ -47,7 +51,11 @@ dependencies = [
 # prebuildopts = r"sed -i 's|zlib`/bamtools|bamtools`|' makefile && " -> NO
 # try CPPFLAGS += -I$(CPATH) -> NO
 # try CPPFLAGS += -I$(EBROOTBAMTOOLS)/include/bamtools -> OK
-prebuildopts = r"sed -i '6 s|^.*$|CPPFLAGS += -I$(EBROOTBAMTOOLS)/include/bamtools|' makefile && "
+# prebuildopts = ('sed -i '
+#     r"-e '6 s|^.*$|CPPFLAGS += -I$(EBROOTBAMTOOLS)/include/bamtools|' "
+#     "-e 's/'"
+#     "makefile && "
+# )
 
 # exts_defaultclass = 'PythonPackage'
 # exts_default_options = {
@@ -86,6 +94,9 @@ files_to_copy = ['*']
 moduleclass = 'bio'
 
 # E4:
+    # -> patch1.1 created -> NO -> log1.txt
+    # -> add LD_LIBRARY_PATH to LIBS in makefile?
+    # -> add -Lpath/to/abseil ?
     # g++ -o bin/GraphAligner obj/AlignerMain.o obj/Aligner.o obj/vg.pb.o obj/fastqloader.o obj/BigraphToDigraph.o obj/ThreadReadAssertion.o obj/AlignmentGraph.o obj/
     # CommonUtils.o obj/GraphAlignerWrapper.o obj/GfaGraph.o obj/ReadCorrection.o obj/MinimizerSeeder.o obj/AlignmentSelection.o obj/EValue.o obj/MEMSeeder.o obj/DNAS
     # tring.o obj/DiploidHeuristic.o MEMfinder/lib/memfinder.a -Wall -Wextra -std=c++17 -O3 -g -Iconcurrentqueue -IBBHash -Izstr/src -Iparallel-hashmap/parallel_hashm
