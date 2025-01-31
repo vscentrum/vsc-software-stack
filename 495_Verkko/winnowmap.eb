@@ -15,8 +15,6 @@ checksums = ['f6375960ee2184b68c0f56d3ca95e12ec3218f9e44aeecbdb14f85f581112c83']
 
 builddependencies = [('binutils', '2.40')]
 
-# files_to_copy = [(['computeHighFreqKmers', 'winnowmap'], 'bin')]
-# files_to_copy = ['*']
 files_to_copy = ['bin', 'lib']
 
 sanity_check_paths = {
@@ -27,37 +25,3 @@ sanity_check_paths = {
 sanity_check_commands = ["winnowmap -h"]
 
 moduleclass = 'bio'
-
-# E1:
-    # -> add binutils to builddeps -> 
-    # == 2025-01-30 13:03:43,506 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in 
-    # __init__): cmd " make  -j 8 " exited with exit code 2 and output:
-    # make -e -C src
-    # make[1]: Entering directory '/tmp/vsc47063/easybuild/build/Winnowmap/2.03/GCCcore-12.3.0/Winnowmap-2.03/src'
-    # g++ -c  -g -Wall -O2 -DHAVE_KALLOC -fopenmp -std=c++11 -Wno-sign-compare -Wno-write-strings -Wno-unused-but-set-variable -fno-tree-vectorize  main.c -o main.o
-    # g++ -c  -g -Wall -O2 -DHAVE_KALLOC -fopenmp -std=c++11 -Wno-sign-compare -Wno-write-strings -Wno-unused-but-set-variable -fno-tree-vectorize  kthread.c -o kthread.o
-    # g++ -c  -g -Wall -O2 -DHAVE_KALLOC -fopenmp -std=c++11 -Wno-sign-compare -Wno-write-strings -Wno-unused-but-set-variable -fno-tree-vectorize  kalloc.c -o kalloc.o
-    # g++ -c  -g -Wall -O2 -DHAVE_KALLOC -fopenmp -std=c++11 -Wno-sign-compare -Wno-write-strings -Wno-unused-but-set-variable -fno-tree-vectorize  misc.c -o misc.o
-    # g++ -c  -g -Wall -O2 -DHAVE_KALLOC -fopenmp -std=c++11 -Wno-sign-compare -Wno-write-strings -Wno-unused-but-set-variable -fno-tree-vectorize  bseq.c -o bseq.o
-    # g++ -c  -g -Wall -O2 -DHAVE_KALLOC -fopenmp -std=c++11 -Wno-sign-compare -Wno-write-strings -Wno-unused-but-set-variable -fno-tree-vectorize  sketch.c -o sketch.o
-    # g++ -c  -g -Wall -O2 -DHAVE_KALLOC -fopenmp -std=c++11 -Wno-sign-compare -Wno-write-strings -Wno-unused-but-set-variable -fno-tree-vectorize  sdust.c -o sdust.o
-    # g++ -c  -g -Wall -O2 -DHAVE_KALLOC -fopenmp -std=c++11 -Wno-sign-compare -Wno-write-strings -Wno-unused-but-set-variable -fno-tree-vectorize  options.c -o options.o
-    # as: unrecognized option '--gdwarf-5'
-    # make[1]: *** [Makefile:35: kthread.o] Error 1
-    # make[1]: *** Waiting for unfinished jobs....
-    # as: unrecognized option '--gdwarf-5'
-    # make[1]: *** [Makefile:35: kalloc.o] Error 1
-    # as: unrecognized option '--gdwarf-5'
-    # make[1]: *** [Makefile:35: sdust.o] Error 1
-    # as: unrecognized option '--gdwarf-5'
-    # make[1]: *** [Makefile:35: bseq.o] Error 1
-    # as: unrecognized option '--gdwarf-5'
-    # make[1]: *** [Makefile:35: options.o] Error 1
-    # as: unrecognized option '--gdwarf-5'
-    # make[1]: *** [Makefile:35: misc.o] Error 1
-    # as: unrecognized option '--gdwarf-5'
-    # make[1]: *** [Makefile:35: sketch.o] Error 1
-    # as: unrecognized option '--gdwarf-5'
-    # make[1]: *** [Makefile:35: main.o] Error 1
-    # make[1]: Leaving directory '/tmp/vsc47063/easybuild/build/Winnowmap/2.03/GCCcore-12.3.0/Winnowmap-2.03/src'
-    # make: *** [Makefile:8: winnowmap] Error 2
