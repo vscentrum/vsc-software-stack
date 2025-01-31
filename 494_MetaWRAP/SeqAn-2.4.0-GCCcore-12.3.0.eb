@@ -1,0 +1,65 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Pablo Escobar Lopez
+# sciCORE - University of Basel
+# SIB Swiss Institute of Bioinformatics
+# Updated: Jakub Zarybnicky (INUITS), Denis Kristak (INUITS)
+easyblock = 'CMakeMake'
+
+name = 'SeqAn'
+version = '2.4.0'
+
+homepage = 'https://github.com/seqan/seqan'
+
+description = """
+ SeqAn is an open source C++ library of efficient algorithms and data structures
+ for the analysis of sequences with the focus on biological data.
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://github.com/seqan/seqan/archive/']
+sources = ['%(namelower)s-v%(version)s.tar.gz']
+checksums = ['d7084d17729214003e84818e0280a16f223c8f1c6a30eeef040c27e0c0047bd7']
+
+builddependencies = [
+    ('binutils', '2.40'),
+    ('CMake', '3.26.3'),
+    ('Python', '3.11.3'),
+]
+
+dependencies = [
+    ('bzip2', '1.0.8'),
+    ('zlib', '1.2.13'),
+]
+
+separate_build_dir = True
+
+postinstallcmds = [
+    "mkdir -p %(installdir)s/util/cmake",
+    "cp -a %(builddir)s/seqan-*/util/cmake/seqan-config.cmake %(installdir)s/util/cmake/",
+    "cp -a %(builddir)s/seqan-*/include %(installdir)s",
+]
+
+local_binaries = ['gustaf_mate_joining', 'mason_materializer', 'mason_variator', 'rabema_prepare_sam',
+                  'razers3', 'seqan_tcoffee', 'samcat', 'splazers', 'yara_mapper']
+
+sanity_check_paths = {
+    'files': ["bin/%s" % x for x in local_binaries] + ['util/cmake/seqan-config.cmake'],
+    'dirs': ['include/seqan'],
+}
+
+sanity_check_commands = ["%s --help" % x for x in local_binaries]
+
+moduleclass = 'bio'
+
+# TODO
+# g++: fatal error: Killed signal terminated program cc1plus
+# compilation terminated.
+# make[2]: *** [apps/yara/CMakeFiles/yara_mapper.dir/build.make:79: apps/yara/CMakeFiles/yara_mapper.dir/mapper.cpp.o] Error 1
+# make[2]: Leaving directory '/tmp/vsc45304/easybuild/build/SeqAn/2.4.0/GCCcore-12.3.0/easybuild_obj'
+# make[1]: *** [CMakeFiles/Makefile2:17755: apps/yara/CMakeFiles/yara_mapper.dir/all] Error 2
+# ...
+# == FAILED: Installation ended unsuccessfully: shell command 'make ...' failed with exit code 2 in build step for SeqAn-2.4.0-GCCcore-12.3.0.eb (took 11 mins 59 secs)
+# == Results of the build can be found in the log file(s) /tmp/vsc45304/eb-2etuymdc/easybuild-SeqAn-2.4.0-20250131.161811.MlpEj.log
+#
+# ERROR: Installation of SeqAn-2.4.0-GCCcore-12.3.0.eb failed: "shell command 'make ...' failed with exit code 2 in build step for SeqAn-2.4.0-GCCcore-12.3.0.eb"
