@@ -10,17 +10,17 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 source_urls = ['https://github.com/user-attachments/files/17976913/']
 sources = [{'download_filename': '%(name)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
-patches = ['patch1.2-makefile.patch']
+patches = ['GraphAligner-1.0.20_fix-makefile.patch']
 checksums = [
     {'GraphAligner-1.0.20.tar.gz': 'b5d95302fac6f433994e0b62e3f19648120aee0e0ee9a3c392f42b4a749346bf'},
-    {'patch1.2-makefile.patch': '7d4ac707d53c5a68274a444db53776d2044731f7e32065f84770a6b4750a086e'},
+    {'GraphAligner-1.0.20_fix-makefile.patch': '2d6120be1b5806786919bc7e4fb351aa6ff88a1c3e914496b2dea56e27f17cd6'},
 ]
 
 builddependencies = [('pkgconf', '1.9.5')]
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
-    # ('Abseil', '20230125.3'),
+    ('Abseil', '20230125.3'),
     ('BamTools', '2.5.2'),
     ('bzip2', '1.0.8'),
     ('jemalloc', '5.3.0'),
@@ -36,14 +36,7 @@ dependencies = [
     ('sdsl-lite', '2.0.3'),
     ('HTSlib', '1.18'),
     ('libdivsufsort', '2.0.1'),
-    # ('snakemake', '8.4.2'), # there is Snakemake >=7.0, <8.0 in deps
-    # ('MashMap', '3.1.3'),  # MashMap - v2.0 or newer CREATED OK
-    # # GraphAligner - v1.0.19 or newer CREATE
-    # # Winnowmap - UPDATE
-    # ('BWA', '0.7.18'),
-    # ('minimap2', '2.26'),
-    # ('SAMtools', '1.18'),
-    # ('seqtk', '1.4'),
+    ('snakemake', '8.4.2'),
 ]
 # fix E1
 # prebuildopts = "sed -i 's|#include <api/BamReader.h>|#include <bamtools/api/BamReader.h>|' src/fastqloader.h && "
@@ -76,15 +69,15 @@ dependencies = [
 
 # start_dir = 'src'
 
-files_to_copy = ['*']
+files_to_copy = ['bin']
 # files_to_copy = ['bin', 'lib', 'test_data', 'LICENSE', 'nextDenovo']
 
-# sanity_check_paths = {
-#     'files': ['nextDenovo', 'bin/minimap2-nd', 'bin/paralleltask', 'bin/nextgraph'],
-#     'dirs': ['bin', 'test_data', 'lib/python%(pyshortver)s/site-packages'],
-# }
+sanity_check_paths = {
+    'files': ['bin/%(name)s'],
+    'dirs': ['bin'],
+}
 
-# sanity_check_commands = ['nextDenovo --help']
+sanity_check_commands = ['%(name)s --help']
 
 # modextrapaths = {
 #     'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages',
@@ -93,7 +86,12 @@ files_to_copy = ['*']
 
 moduleclass = 'bio'
 
-# E4:
+# pkg-config --cflags protobuf -> -DPROTOBUF_USE_DLLS -DNOMINMAX
+# pkg-config --libs protobuf -> -L/apps/gent/RHEL8/cascadelake-ib/software/protobuf/24.0-GCCcore-12.3.0/lib64 -lprotobuf -L/apps/gent/RHEL8/cascadelake-ib/software/Abseil/20230125.3-GCCcore-12.3.0/lib64 -labsl_die_if_null -labsl_flags -labsl_log_initialize -labsl_statusor -lutf8_validity -lutf8_range -lpthread -labsl_log_internal_check_op -labsl_strings_internal -labsl_spinlock_wait -labsl_examine_stack -labsl_log_internal_format -labsl_log_internal_proto -labsl_demangle_internal -labsl_civil_time -labsl_time_zone -labsl_str_format_internal -labsl_city -labsl_low_level_hash -labsl_bad_optional_access -labsl_bad_variant_access -labsl_graphcycles_internal -labsl_crc32c -labsl_crc_internal -labsl_cordz_handle -labsl_leak_check -labsl_flags_internal -labsl_flags_reflection -labsl_flags_program_name -labsl_flags_marshalling -labsl_flags_private_handle_accessor -labsl_hashtablez_sampler -labsl_log_internal_nullguard -labsl_debugging_internal -labsl_log_internal_log_sink_set -labsl_log_internal_conditions -labsl_crc_cord_state -labsl_crc_cpu_detect -labsl_cordz_functions -labsl_cordz_info -labsl_exponential_biased -labsl_strerror -labsl_status -labsl_log_entry -labsl_malloc_internal -labsl_log_sink -labsl_log_internal_message -labsl_cord_internal -labsl_flags_config -labsl_flags_commandlineflag_internal -labsl_hash -labsl_log_globals -labsl_raw_hash_set -labsl_symbolize -labsl_flags_commandlineflag -labsl_log_internal_globals -labsl_cord -labsl_int128 -labsl_stacktrace -labsl_throw_delegate -labsl_time -labsl_synchronization -labsl_log_severity -lrt -labsl_base -labsl_raw_logging_internal -labsl_strings
+# E4: OK
+    # -> patch1.6 -> replace cxxopts and Parallel-Hashmap with EB modules -> NO
+    # -> patch1.5 -> move pkg-config --libs protobuf after -Bdynamic -> OK WORKS!
+    # -> pacth1.4 - only change bamtools link -> NO
     # -> patch1.1 created -> NO -> log1.txt
     # -> add LD_LIBRARY_PATH to LIBS in makefile?
     # -> add -Lpath/to/abseil ?
