@@ -29,15 +29,3 @@ sanity_check_paths = {
 sanity_check_commands = ["winnowmap -h"]
 
 moduleclass = 'bio'
-
-# E1: OK
-    # -> build my own meryl-utility + meryl? from master
-    # -> https://github.com/marbl/meryl-utility/blob/v1.0/src/utility/system.C
-    # -> it goes from here: https://github.com/marbl/Winnowmap/blob/v2.03/ext/meryl/src/utility/src/utility/system.C
-    # <- error from RHEL9 nodes, on donphan ok
-    # ERROR:
-        # g++ -o /tmp/vsc47063/easybuild/build/Winnowmap/2.03/GCCcore-12.3.0/Winnowmap-2.03/ext/meryl/Linux-amd64/obj/lib/libmeryl.a/utility/src/utility/system.o -c -MD -O2 -ftree-vectorize -march=native -fno-math-errno -pthread -fopenmp -fPIC -DNOBACKTRACE -I/tmp/vsc47063/easybuild/build/Winnowmap/2.03/GCCcore-12.3.0/Winnowmap-2.03/ext/meryl/src -Imeryl -Iutility utility/src/utility/system.C
-        # utility/src/utility/system.C:37:10: fatal error: sys/sysctl.h: No such file or directory
-        # 37 | #include <sys/sysctl.h>
-        #     |          ^~~~~~~~~~~~~~
-        # compilation terminated.
