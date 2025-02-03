@@ -3,6 +3,7 @@
 # sciCORE - University of Basel
 # SIB Swiss Institute of Bioinformatics
 # Updated: Jakub Zarybnicky (INUITS), Denis Kristak (INUITS)
+# Update: Petr Král (INUITS)
 easyblock = 'CMakeMake'
 
 name = 'SeqAn'
@@ -51,15 +52,3 @@ sanity_check_paths = {
 sanity_check_commands = ["%s --help" % x for x in local_binaries]
 
 moduleclass = 'bio'
-
-# TODO
-# g++: fatal error: Killed signal terminated program cc1plus
-# compilation terminated.
-# make[2]: *** [apps/yara/CMakeFiles/yara_mapper.dir/build.make:79: apps/yara/CMakeFiles/yara_mapper.dir/mapper.cpp.o] Error 1
-# make[2]: Leaving directory '/tmp/vsc45304/easybuild/build/SeqAn/2.4.0/GCCcore-12.3.0/easybuild_obj'
-# make[1]: *** [CMakeFiles/Makefile2:17755: apps/yara/CMakeFiles/yara_mapper.dir/all] Error 2
-# ...
-# == FAILED: Installation ended unsuccessfully: shell command 'make ...' failed with exit code 2 in build step for SeqAn-2.4.0-GCCcore-12.3.0.eb (took 11 mins 59 secs)
-# == Results of the build can be found in the log file(s) /tmp/vsc45304/eb-2etuymdc/easybuild-SeqAn-2.4.0-20250131.161811.MlpEj.log
-#
-# ERROR: Installation of SeqAn-2.4.0-GCCcore-12.3.0.eb failed: "shell command 'make ...' failed with exit code 2 in build step for SeqAn-2.4.0-GCCcore-12.3.0.eb"

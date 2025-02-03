@@ -1,0 +1,47 @@
+easyblock = 'PythonPackage'
+
+name = 'CONCOCT'
+version = '1.1.0'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://concoct.readthedocs.io'
+description = """Clustering cONtigs with COverage and ComposiTion (CONCOCT) is a
+program for unsupervised binning of metagenomic contigs by using nucleotide
+composition, coverage data in multiple samples and linkage data from paired end
+reads."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/BinPro/CONCOCT/archive/']
+sources = ['%(version)s.tar.gz']
+checksums = ['00aecacb4b720ac123a63e65072c61e0b5a8690d844c869aaee4dbf287c82888']
+
+dependencies = [
+    ('Python', '2.7.18'),
+    ('BEDTools', '2.31.0'),
+    # ('Biopython', '1.83', versionsuffix),  # TODO python2 version
+    ('Bowtie2', '2.5.1'),
+    # ('CheckM', '1.0.18', versionsuffix),  # TODO
+    ('GSL', '2.7'),
+    # ('MEGAHIT', '1.2.9', versionsuffix),  # TODO python2 version
+    ('parallel', '20230722'),
+    ('picard', '2.25.1', '-Java-11', SYSTEM),
+    # ('Pysam', '0.22.0', versionsuffix),  # TODO python2 version
+    ('SAMtools', '1.18'),
+    # ('scikit-learn', '0.20.4', versionsuffix),  # TODO python2 version
+]
+
+download_dep_fail = True
+
+use_pip = True
+
+sanity_check_paths = {
+    'files': ['bin/concoct'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["concoct --help"]
+
+sanity_pip_check = True
+
+moduleclass = 'bio'

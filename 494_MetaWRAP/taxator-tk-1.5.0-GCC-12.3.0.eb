@@ -15,11 +15,12 @@ checksums = ['c58a4fa3ed5c5b10da4701df6d3f3776f2194988d415b9f73c1a0b121baac6a4']
 builddependencies = [('CMake', '3.26.3')]
 
 dependencies = [
-    ('SeqAn', '2.4.0'),  # TODO
+    ('SeqAn', '2.4.0'),
     ('Boost', '1.82.0'),
+    ('OrfM', '0.7.1'),
 ]
 
-configopts = "-DBoost_NO_BOOST_CMAKE=ON"
+start_dir = 'core'
 
 buildopts = "&& mkdir -p %(installdir)s/bin"
 buildopts += " && cp -a {alignments-filter,binner,taxator,taxknife,unittest_ncbitaxonomy} %(installdir)s/bin/"
