@@ -8,6 +8,7 @@ easyblock = 'PythonPackage'
 
 name = 'CheckM'
 version = '1.2.3'
+versionsuffix = '-Python-%(pyver)s'
 
 homepage = 'https://github.com/Ecogenomics/CheckM'
 description = """CheckM provides a set of tools for assessing the quality of genomes recovered from isolates,
@@ -22,13 +23,13 @@ checksums = ['5f8340e71d3256ba8cf407d27bdc7914d1aa86b14b2d63d1e32cceb325e5aa82']
 # Dependencies:
 # https://github.com/Ecogenomics/CheckM/blob/master/setup.py
 dependencies = [
-    ('Python', '3.11.3'),
+    ('Python', '2.7.18'),
     ('pplacer', '1.1.alpha19', '', SYSTEM),
     ('prodigal', '2.6.3'),
-    ('HMMER', '3.4'),
-    ('SciPy-bundle', '2023.07'),  # numpy
-    ('matplotlib', '3.7.2'),
-    ('Pysam', '0.22.0'),
+    # ('HMMER', '3.4'),  # TODO python 2 version
+    # ('SciPy-bundle', '2023.07'),  # numpy  # TODO python 2 version
+    # ('matplotlib', '3.7.2'),  # TODO python 2 version
+    # ('Pysam', '0.22.0'),  # TODO python 2 version
     ('DendroPy', '4.6.1'),
     ('CheckM-Database', '2015_01_16', '', SYSTEM),
 ]
