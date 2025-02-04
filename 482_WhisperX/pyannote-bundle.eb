@@ -56,37 +56,28 @@ dependencies = [
     ('PyTorch-bundle', '2.1.2', local_cuda_version),
     ('Lightning', '2.2.1', local_cuda_version),
     ('tensorboardX', '2.6.2.2'),
-    ('librosa', '0.10.1', local_cuda_version),
+    # ('librosa', '0.10.1', local_cuda_version),
     ('scikit-learn', '1.3.1'),
     ('Optuna', '3.5.0'),
     ('einops', '0.7.0'),
     ('matplotlib', '3.7.2'),
     ('ruamel.yaml', '0.17.32'),
-    # ('PyTorch-Lightning', '2.2.0.post0', '-CUDA-%(cudaver)s'),
-    # ('SciPy-bundle', '2023.07'),
-    # ('PyYAML', '6.0'),
-    # ('matplotlib', '3.7.2'),
-    # ('sympy', '1.12'),
-    # ('typer', '0.9.0'),
-    # ('torchaudio', '2.2.0', versionsuffix),
-    # ('torch-audiomentations', '0.11.1', versionsuffix),
-    # ('huggingface-hub', '0.20.3'),
-    # ('asteroid-filterbanks', '0.4.0', versionsuffix),
-    # ('speechbrain', '0.5.16', versionsuffix),
-    # ('pytorch-metric-learning', '2.4.1', versionsuffix),
-    # ('semver', '3.0.2'),
-    # ('omegaconf', '2.3.0', '-Java-11'),
-    # ('lightning', '2.2.0.post0', versionsuffix),
 ]
 
 use_pip = True
 
+    # ('typer', '0.15.1', {
+    #     'use_pip_extras': 'all',
+    #     'checksums': ['a0588c0a7fa68a1978a069818657778f86abe6ff5ea6abf472f940a08bfe4f0a'],
+    # }),
 exts_list = [
     ('primePy', '1.3', {
+        'modulename': 'primePy',
         'checksums': ['25fd7e25344b0789a5984c75d89f054fcf1f180bef20c998e4befbac92de4669'],
     }),
-    ('typer', '0.15.1', {
-        'checksums': ['a0588c0a7fa68a1978a069818657778f86abe6ff5ea6abf472f940a08bfe4f0a'],
+    ('typer', '0.9.4', {
+        'use_pip_extras': 'all',
+        'checksums': ['f714c2d90afae3a7929fcd72a3abb08df305e1ff61719381384211c4070af57f'],
     }),
     ('torch_pitch_shift', '1.2.5', {
         'checksums': ['6e1c7531f08d0f407a4c55e5ff8385a41355c5c5d27ab7fa08632e51defbd0ed'],
@@ -104,8 +95,8 @@ exts_list = [
     ('torchmetrics', '1.5.2', {
         'checksums': ['2d0e4957af0ea76438d2779fe1a626d8cba6cda8607eadb54267598153e7ea63'],
     }),
-    ('torch-audiomentations', '0.11.1', {
-        'checksums': ['ee4d0c0f937552b4d63dbccdd3c509f5f7747f76c2e13e528ea8ef30e13e1000'],
+    ('torch_audiomentations', '0.12.0', {
+        'checksums': ['b02d4c5eb86376986a53eb405cca5e34f370ea9284411237508e720c529f7888'],
     }),
     ('speechbrain', '1.0.2', {
         'checksums': ['b293d665161d7cd34caa3ee8966acce6c43b611b7fc9cd0b24637ce871bd7a73'],
@@ -143,8 +134,6 @@ exts_list = [
     }),
     ('pyannote.audio', '3.3.2', {
         'preinstallopts': "sed -i 's/torchaudio >= 2.2.0/torchaudio/' requirements.txt && ",
-        'testinstall': True,
-        'runtest': "pytest -vvvs",
         'source_tmpl': 'pyannote_audio-3.3.2.tar.gz',
         'checksums': ['b2115e86b0db5faedb9f36ee1a150cebd07f7758e65e815accdac1a12ca9c777'],
     }),

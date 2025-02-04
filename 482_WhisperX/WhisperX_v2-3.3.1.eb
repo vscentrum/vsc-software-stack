@@ -46,11 +46,11 @@ dependencies = [
     ('PyTorch-bundle', '2.1.2', versionsuffix),
     ('NLTK', '3.8.1'),
     ('Transformers', '4.39.3'),
-    # ('CTranslate2', '4.5.0', versionsuffix),
     ('FFmpeg', '6.0'),
     ('PyAV', '11.0.0'),
     ('ONNX-Runtime', '1.19.2', versionsuffix),
     # pyannote-bundle: https://github.com/easybuilders/easybuild-easyconfigs/pull/19992/
+    ('pyannote-bundle', '2025.02', '-PyTorch-2.1.2-CUDA-12.1.1'),
 ]
 
 use_pip = True
@@ -59,16 +59,12 @@ exts_list = [
     ('faster-whisper', '1.1.0', {
         'checksums': ['cea4bba5d4527173fdbacafa56f2ffb17dd322688f6c3fdf5fd7b6b6c193ce17'],
     }),
-    # ('pyannote.audio', '3.1.1', {
-    #     'sources': ['pyannote.audio-%(version)s.tar.gz'],
-    #     'checksums': ['b6562d46b5d5d616c1887cafd5aab3f7d19ecf6b3312fc6c4f72f37332fcd408'],
-    # }),
     ('ctranslate2', '4.4.0', {
         'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
         'checksums': ['7653f1f22da29bbb0ba5704ac27b1a3fbde1f34b2b65a703dd20f7e2331eb03c'],
     }),
     (name, version, {
-        'preinstallopts': "sed -i 's/==/>=/g' requirements.txt && sed -i 's/==/>=/g' setup.py &&",
+        'preinstallopts': "sed -i 's/torchaudio>=2/torchaudio/g' requirements.txt && ",
         'source_urls': ['https://github.com/m-bain/whisperX/archive/'],
         'sources': ['v%(version)s.tar.gz'],
         'checksums': ['37136d07f991d684744129a98096ca0f300a5098a1a387aa0b6c7e5eb815a2aa'],
