@@ -28,6 +28,12 @@ dependencies = [
     ('SRPRISM', '3.3.2', versionsuffix),
 ]
 
+prebuildopts = "sed -i 's/#include <unistd.h>/#include <unistd.h>\\n"
+prebuildopts += "#include <ctime>/g' general/cprogressindicator.hpp && "
+prebuildopts += "sed -i 's/m_good = std::getline( *m_fin, m_buffer );"
+prebuildopts += "/m_good = static_cast<bool>(std::getline( *m_fin, m_buffer ));/g' "  # TODO does nothing
+prebuildopts += "general/cfareader.hpp && "
+
 files_to_copy = [(['bmtagger/bmfilter', 'bmtagger/bmtagger.sh', 'bmtagger/bmtool', 'bmtagger/extract_fullseq'], 'bin')]
 
 sanity_check_paths = {
@@ -43,54 +49,8 @@ sanity_check_commands = [
 moduleclass = 'bio'
 
 # TODO
-# == 2025-02-03 11:34:53,963 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd " make  -j 8 " exited with exit code 2 and output:
-# set -e ; for file in general bmtagger ; do make -C $file all CC="gcc" CXX="g++" FLAGS="-O2 -ftree-vectorize -march=native -fno-math-errno"; done
-# make[1]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
-# make[1]: Entering directory '/tmp/vsc45304/easybuild/build/bmtagger/3.101/gompi-2023a-Java-11/bmtools/general'
-# g++ -O2 -ftree-vectorize -march=native -fno-math-errno -DSTANDALONE -o capp.d -MM capp.cpp
-# g++ -O2 -ftree-vectorize -march=native -fno-math-errno -DSTANDALONE -o csamrecords.d -MM csamrecords.cpp
-# g++ -O2 -ftree-vectorize -march=native -fno-math-errno -DSTANDALONE -o cshortreader.d -MM cshortreader.cpp
-# g++ -O2 -ftree-vectorize -march=native -fno-math-errno -DSTANDALONE -o cprogressindicator.d -MM cprogressindicator.cpp
-# g++ -O2 -ftree-vectorize -march=native -fno-math-errno -DSTANDALONE -o cpermutator8b.d -MM cpermutator8b.cpp
-# g++ -O2 -ftree-vectorize -march=native -fno-math-errno -DSTANDALONE -o cseqcoding.d -MM cseqcoding.cpp
-# make[1]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
-# g++ -O2 -ftree-vectorize -march=native -fno-math-errno -DSTANDALONE -o cseqcoding.o -c cseqcoding.cpp
-# g++ -O2 -ftree-vectorize -march=native -fno-math-errno -DSTANDALONE -o cpermutator8b.o -c cpermutator8b.cpp
-# cpermutator8b.cpp: In constructor ncbi::oligofar::CPermutator8b::CPermutator8b(int, int):
-# cpermutator8b.cpp:12:5: warning: template<class> class std::auto_ptr is deprecated: use 'std::unique_ptr' instead [-Wdeprecated-declarations]
-#    12 |     auto_ptr<CProgressIndicator> pi( new CProgressIndicator() );
-#       |     ^~~~~~~~
-# In file included from /kyukon/home/apps/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/include/c++/12.3.0/memory:75,
-#                  from cpermutator8b.cpp:5:
-# /kyukon/home/apps/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/include/c++/12.3.0/bits/unique_ptr.h:64:28: note: declared here
-#    64 |   template<typename> class auto_ptr;
-#       |                            ^~~~~~~~
-# g++ -O2 -ftree-vectorize -march=native -fno-math-errno -DSTANDALONE -o cprogressindicator.o -c cprogressindicator.cpp
-# In file included from cprogressindicator.cpp:1:
-# cprogressindicator.hpp: In constructor ncbi::oligofar::CProgressIndicator::CProgressIndicator(const std::string&, const std::string&):
-# cprogressindicator.hpp:21:15: error: time was not declared in this scope
-#    21 |         m_t0( time(0) ), m_t1( m_t0 ),
-#       |               ^~~~
-# cprogressindicator.hpp:9:1: note: time is defined in header <ctime>; did you forget to #include <ctime>?
-#     8 | #include <unistd.h>
-#   +++ |+#include <ctime>
-#     9 | #else
-# cprogressindicator.hpp: In member function void ncbi::oligofar::CProgressIndicator::ResetTimer():
-# cprogressindicator.hpp:32:39: error: time was not declared in this scope
-#    32 |     void ResetTimer() { m_t0 = m_t1 = time(0); }
-#       |                                       ^~~~
-# cprogressindicator.hpp:32:39: note: time is defined in header <ctime>; did you forget to #include <ctime>?
-# cprogressindicator.hpp: In member function void ncbi::oligofar::CProgressIndicator::Format(EIndicate):
-# cprogressindicator.hpp:40:57: error: time was not declared in this scope
-#    40 |     void Format( EIndicate i = e_current ) { Format( i, time(0) ); }
-#       |                                                         ^~~~
-# cprogressindicator.hpp:40:57: note: time is defined in header <ctime>; did you forget to #include <ctime>?
-# cprogressindicator.hpp: In member function void ncbi::oligofar::CProgressIndicator::Indicate(EIndicate):
-# cprogressindicator.hpp:41:60: error: time was not declared in this scope
-#    41 |     void Indicate( EIndicate i = e_current ) { time_t t2 = time(0); if( (m_isatty && t2 != m_t1) || (t2 - m_t1 >= 60) ) Format( i, t2 ); }
-#       |                                                            ^~~~
-# cprogressindicator.hpp:41:60: note: time is defined in header <ctime>; did you forget to #include <ctime>?
-# make[1]: *** [Makefile:25: cprogressindicator.o] Error 1
-# make[1]: Leaving directory '/tmp/vsc45304/easybuild/build/bmtagger/3.101/gompi-2023a-Java-11/bmtools/general'
-# make: *** [Makefile:7: all] Error 2
-#  (at easybuild/easybuild-framework/easybuild/tools/run.py:695 in parse_cmd_output)
+# ../general/cfareader.hpp:40:26: error: cannot convert std::basic_istream<char> to bool in assignment
+#    40 |     m_good = std::getline( *m_fin, m_buffer );
+#       |              ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+#       |                          |
+#       |                          std::basic_istream<char>
