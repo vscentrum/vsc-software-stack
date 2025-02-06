@@ -24,15 +24,6 @@ source_urls = ['https://github.com/rstudio/rstudio/archive']
 sources = ['v%(version)s.tar.gz']
 checksums = ['4f976a3b77f1c3b6a61b8e1a1850aeba0e0a847efbfc17b03b2fcb19fce13d6a']
 
-# DEPS:
-    # R
-    # Cmake
-    # Boost 1.78
-    # epel
-    # dnf-plugins-core
-    # https://github.com/rstudio/rstudio/blob/cf37a3e5488c937207f992226d255be71f5e3f41/docker/jenkins/Dockerfile.rhel9#L15
-    
-    
 builddependencies = [
     ('ant', '1.10.12', '-Java-%(javaver)s', SYSTEM),
     ('CMake', '3.29.3'),
@@ -77,6 +68,10 @@ configopts = " ".join([
     "-DRSTUDIO_GIT_REVISION_HASH=" + local_git_rev
 ])
 
+# fix for compatibility with Boost-1.85.0
+prebuildopts = "sed -i 's/return afterResponse_;/return static_cast<bool>(afterResponse_);/' "
+prebuildopts += '%(start_dir)s/src/cpp/core/json/JsonRpc.cpp && '
+
 sanity_check_commands = [
     # RSession requires environment variables R_HOME and R_DOC_DIR
     'R_HOME="$EBROOTR/lib64/R" R_DOC_DIR="$R_HOME/doc" rsession --verify-installation=1',
@@ -106,7 +101,9 @@ sanity_check_paths = {
 
 moduleclass = 'lang'
 
-# E1:
+# E1: OK
+    # -> patch https://github.com/rstudio/rstudio/pull/15625/commits/fc7510b99863739273cf346f206c050ee7006a64
+        # 
     # -> try older version of BOOST
     # -> try older version of RStudio -> 
     # <- ninja -j 8 <- log1.txt
