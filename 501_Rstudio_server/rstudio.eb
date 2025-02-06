@@ -100,16 +100,3 @@ sanity_check_paths = {
 }
 
 moduleclass = 'lang'
-
-# E1: OK
-    # -> patch https://github.com/rstudio/rstudio/pull/15625/commits/fc7510b99863739273cf346f206c050ee7006a64
-        # 
-    # -> try older version of BOOST
-    # -> try older version of RStudio -> 
-    # <- ninja -j 8 <- log1.txt
-    # /tmp/vsc47063/easybuild/build/RStudioServer/2024.12.0+467/foss-2024a-Java-17-R-4.4.2/rstudio-2024.12.0-467/src/cpp/core/json/JsonRpc.cpp: In member function bool rstudio::core::json::JsonRpcResponse::hasAfterResponse() const:
-    # /tmp/vsc47063/easybuild/build/RStudioServer/2024.12.0+467/foss-2024a-Java-17-R-4.4.2/rstudio-2024.12.0-467/src/cpp/core/json/JsonRpc.cpp:196:11: error: cannot convert const boost::function<void()> to bool in return
-    # 196 |    return afterResponse_;
-    #     |           ^~~~~~~~~~~~~~
-    #     |           |
-    #     |           const boost::function<void()>
