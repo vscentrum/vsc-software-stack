@@ -1,0 +1,96 @@
+easyblock = 'CMakeMake'
+
+name = 'ParaView'
+version = '5.6.2'
+versionsuffix = '-Python-%(pyver)s-mpi'
+
+homepage = "https://www.paraview.org"
+description = "ParaView is a scientific parallel visualizer."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'pic': True, 'usempi': True}
+
+local_download_suffix = 'download.php?submit=Download&version=v%(version_major_minor)s&type=source&os=all&downloadFile='
+source_urls = ['https://www.paraview.org/paraview-downloads/%s' % local_download_suffix]
+sources = ["ParaView-v%(version)s.tar.xz"]
+checksums = ['1f3710b77c58a46891808dbe23dc59a1259d9c6b7bb123aaaeaa6ddf2be882ea']
+
+builddependencies = [('CMake', '3.26.3')]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('XZ', '5.4.2'),
+    ('HDF5', '1.14.0'),
+    ('netCDF', '4.9.2'),
+    ('libGLU', '9.0.3'),
+    ('X11', '20230603'),
+    ('Mesa', '23.1.4'),
+    ('Qt5', '5.15.10'),
+    ('zlib', '1.2.13'),
+    ('FFmpeg', '6.0'),
+    ('Szip', '2.1.1'),
+    ('mpi4py', '3.1.4'),
+]
+
+separate_build_dir = True
+
+# Paraview
+configopts = '-DPARAVIEW_INSTALL_DEVELOPMENT_FILES=ON -DBUILD_SHARED_LIBS=ON '
+configopts += '-DPARAVIEW_QT_VERSION=5 -DQT_QMAKE_EXECUTABLE=$EBROOTQT5/bin/qmake '
+configopts += '-DPARAVIEW_USE_MPI=ON '
+configopts += '-DPARAVIEW_ENABLE_FFMPEG=ON '
+configopts += '-DPARAVIEW_ENABLE_PYTHON=ON '
+
+# Python
+configopts += "-DVTK_WRAP_PYTHON=ON "
+configopts += "-DVTK_PYTHON_VERSION=%(pyver)s "
+configopts += "-DPYTHON_INCLUDE_DIR=$EBROOTPYTHON/include/python%(pyshortver)s "
+configopts += "-DPYTHON_LIBRARY=$EBROOTPYTHON/lib/libpython%%(pyshortver)s.%s " % SHLIB_EXT
+
+# Third party libs
+configopts += '-DVTK_USE_SYSTEM_MPI4PY=ON '
+configopts += "-DVTK_USE_SYSTEM_LZMA=ON "
+configopts += "-DVTK_USE_SYSTEM_HDF5=ON "
+configopts += "-DVTK_USE_SYSTEM_NETCDF=ON "
+
+# OpenGL & Mesa
+configopts += '-DOPENGL_glu_LIBRARY=$EBROOTLIBGLU/lib/libGLU.%s ' % SHLIB_EXT
+configopts += '-DOPENGL_INCLUDE_DIR=$EBROOTMESA/include -DOPENGL_gl_LIBRARY=$EBROOTMESA/lib/libGL.%s ' % SHLIB_EXT
+configopts += '-DVTK_OPENGL_HAS_OSMESA=ON '
+configopts += '-DOSMESA_INCLUDE_DIR=$EBROOTMESA/include -DOSMESA_LIBRARY=$EBROOTMESA/lib/libOSMesa.%s ' % SHLIB_EXT
+
+
+# Without internet connection turn off testing (uncomment the following line)
+# configopts += '-DBUILD_TESTING=OFF '
+# Or consult https://gitlab.kitware.com/vtk/vtk/blob/master/Documentation/dev/git/data.md
+# and download ExternalData to $EASYBUILD_SOURCEPATH and adjust -DExternalData_OBJECT_STORES accordingly
+# Without internet connection, comment the following two lines (configopts and prebuildopts)
+configopts += '-DExternalData_OBJECT_STORES=%(builddir)s/ExternalData '
+
+# The ParaView server can be cranky, test downloads are quite often failing, especially in the case
+# of parallel downloads. Using ; insted of && gives a second chance to download the test files, if the
+# first serial attempt would fail.
+prebuildopts = 'make VTKData ;'
+
+sanity_check_paths = {
+    'files': ['bin/paraview'],
+    'dirs': ['include/paraview-%(version_major_minor)s', 'lib'],
+}
+
+moduleclass = 'vis'
+
+# E1:
+    # CMake Error at VTK/CMake/FindPythonLibs.cmake:183 (FILE):
+    #   FILE STRINGS file
+    #   "/apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11m/patchlevel.h"
+    #   cannot be read.
+    # Call Stack (most recent call first):
+    #   VTK/CMake/vtkWrapPython.cmake:168 (find_package)
+    #   VTK/Utilities/Python/CMakeLists.txt:4 (include)
+
+    # Traceback (most recent call last):
+    #   File "<string>", line 1, in <module>
+    # ModuleNotFoundError: No module named 'mpi4py'
+    # CMake Error at VTK/Parallel/MPI4Py/CMakeLists.txt:23 (include_directories):
+    #   include_directories given empty-string as include directory.
