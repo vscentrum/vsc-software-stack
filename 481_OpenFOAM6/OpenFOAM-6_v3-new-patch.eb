@@ -8,7 +8,7 @@ description = """OpenFOAM is a free, open source CFD software package.
  to solid dynamics and electromagnetics."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-# toolchainopts = {'cstd': 'c++11'}
+toolchainopts = {'cstd': 'c++11'}
 
 source_urls = ['https://github.com/OpenFOAM/OpenFOAM-%(version_major)s/archive']
 sources = ['version-%(version)s.tar.gz']
@@ -40,7 +40,8 @@ builddependencies = [
 moduleclass = 'cae'
 
 # E1:
-    # -> try update patch to not set ParaView DIR -> OpenFOAM-6_v3 with new_cleanup.patch -> 
+    # try update openfoam.py (delete ParaView at L300) -> NO
+    # -> try update patch to not set ParaView DIR -> OpenFOAM-6_v3 with new_cleanup.patch -> NO
     # -> try download latest version (not commit they have it in releases with date) -> OpenFOAM_v2 -> patch failing...
     # <- without ParaView <- log1.txt <- failed on sanity_check_cmds
     #>> result for command 'cp -a 
