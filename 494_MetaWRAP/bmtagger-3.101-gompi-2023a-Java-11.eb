@@ -30,8 +30,8 @@ dependencies = [
 
 prebuildopts = "sed -i 's/#include <unistd.h>/#include <unistd.h>\\n"
 prebuildopts += "#include <ctime>/g' general/cprogressindicator.hpp && "
-prebuildopts += "sed -i 's/m_good = std::getline( *m_fin, m_buffer );"
-prebuildopts += "/m_good = static_cast<bool>(std::getline( *m_fin, m_buffer ));/g' "  # TODO does nothing
+prebuildopts += "sed -i 's/m_good = std::getline( \\*m_fin, m_buffer );"
+prebuildopts += "/m_good = static_cast<bool>(std::getline( \\*m_fin, m_buffer ));/g' "
 prebuildopts += "general/cfareader.hpp && "
 
 files_to_copy = [(['bmtagger/bmfilter', 'bmtagger/bmtagger.sh', 'bmtagger/bmtool', 'bmtagger/extract_fullseq'], 'bin')]
@@ -49,8 +49,6 @@ sanity_check_commands = [
 moduleclass = 'bio'
 
 # TODO
-# ../general/cfareader.hpp:40:26: error: cannot convert std::basic_istream<char> to bool in assignment
-#    40 |     m_good = std::getline( *m_fin, m_buffer );
-#       |              ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
-#       |                          |
-#       |                          std::basic_istream<char>
+# ../general/of-debug.hpp:19:51: error: unable to find string literal operator operator""c with const char [4], long unsigned int arguments
+#    19 |     "\t" << VT100("35m") << #what << VT100("32m") "=" << VT100("36m") << "[" << VT100("37m") << (what) << VT100("36m") << "]" << VT100("0m")
+#       |                                                   ^~~
