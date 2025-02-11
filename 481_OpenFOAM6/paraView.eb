@@ -9,7 +9,7 @@ description = "ParaView is a scientific parallel visualizer."
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 toolchainopts = {'pic': True, 'usempi': True, 'cstd': 'c++11'}
-
+# https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.6&type=source&os=all&downloadFile=ParaView-v5.6.2.tar.xz
 local_download_suffix = 'download.php?submit=Download&version=v%(version_major_minor)s&type=source&os=all&downloadFile='
 source_urls = ['https://www.paraview.org/paraview-downloads/%s' % local_download_suffix]
 sources = ["ParaView-v%(version)s.tar.xz"]
@@ -61,7 +61,7 @@ configopts += '-DOPENGL_glu_LIBRARY=$EBROOTLIBGLU/lib/libGLU.%s ' % SHLIB_EXT
 configopts += '-DOPENGL_INCLUDE_DIR=$EBROOTMESA/include -DOPENGL_gl_LIBRARY=$EBROOTMESA/lib/libGL.%s ' % SHLIB_EXT
 configopts += '-DVTK_OPENGL_HAS_OSMESA=ON ' # VTK has mesa
 configopts += '-DOSMESA_INCLUDE_DIR=$EBROOTMESA/include -DOSMESA_LIBRARY=$EBROOTMESA/lib/libOSMesa.%s ' % SHLIB_EXT
-# configopts += '-DCMAKE_C_FLAGS="-fcommon"'
+configopts += '-DCMAKE_C_FLAGS="-fcommon"'
 
 # Without internet connection turn off testing (uncomment the following line)
 # configopts += '-DBUILD_TESTING=OFF '
@@ -73,7 +73,12 @@ configopts += '-DExternalData_OBJECT_STORES=%(builddir)s/ExternalData '
 # The ParaView server can be cranky, test downloads are quite often failing, especially in the case
 # of parallel downloads. Using ; insted of && gives a second chance to download the test files, if the
 # first serial attempt would fail.
-prebuildopts = 'make VTKData ;'
+prebuildopts = 'make VTKData ; '
+
+# Fix E2 - exodus_unused_symbol_dummy_1 -> NO
+# local_sed_exodus = "sed -i 's/const char exodus_unused_symbol_dummy_1;/const char exodus_unused_symbol_dummy_ex_create_par;/' "
+# prebuildopts += local_sed_exodus + '%(start_dir)s/VTK/ThirdParty/exodusII/vtkexodusII/src/ex_open_par.c && '
+# prebuildopts += local_sed_exodus + '%(start_dir)s/VTK/ThirdParty/exodusII/vtkexodusII/src/ex_create_par.c && '
 
 sanity_check_paths = {
     'files': ['bin/paraview'],
@@ -86,7 +91,25 @@ moduleclass = 'vis'
     # -> try PARAVIEW_USE_EXTERNAL_VTK -> not working
     # -> docs not working: https://www.paraview.org/paraview-docs/v5.6.2/cxx/md__builds_gitlab-kitware-sciviz-ci_Documentation_dev_build.html
     # -> look: https://discourse.vtk.org/t/multiple-definition-of-exodus-unused-symbol-dummy-1-when-building-vtk-8-2-0/11744
-        #  it was fixed in 9.0 ? -> use external VTK 9.3.0
+        # "it was fixed in 9.0" ? -> use external VTK 9.3.0 -> NO
+        # fix here?: https://discourse.vtk.org/t/multiple-definition-of-exodus-unused-symbol-dummy-1-when-building-vtk-8-2-0/11744/3
+            # -> sed in prebuildopts -> patch ex_open_par.c + ex_create_par.c -> NO -> log3.txt
+                # make[2]: Entering directory '/tmp/vsc47063/easybuild/build/ParaView/5.6.2/foss-2023a-Python-3.11.3-mpi/easybuild_obj'
+                # /apps/gent/RHEL8/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: CMakeFiles/vtkexodusII.dir/src/ex_open_par.c.o:(.rodata+0x0): multiple definition of `exodus_unused_symbol_dummy_ex_create_par'; CMakeFiles/vtkexodusII.dir/src/ex_create_par.c.o:(.rodata+0x0): first defined here
+                # collect2: error: ld returned 1 exit status
+                # make[2]: *** [VTK/ThirdParty/exodusII/vtkexodusII/CMakeFiles/vtkexodusII.dir/build.make:4437: lib/libvtkexodusII-pv5.6.so.1] Error 1
+                # +
+                # /tmp/vsc47063/easybuild/build/ParaView/5.6.2/foss-2023a-Python-3.11.3-mpi/ParaView-v5.6.2/VTK/ThirdParty/xdmf2/vtkxdmf2/libsrc/XdmfH5Driver.cxx:159:5: error: invalid conversion from const char* to unsigned int [-fpermissive]
+                #   159 |     "dsm",                      /*name          */
+                #       |     ^~~~~
+                #       |     |
+                #       |     const char*
+                # /tmp/vsc47063/easybuild/build/ParaView/5.6.2/foss-2023a-Python-3.11.3-mpi/ParaView-v5.6.2/VTK/ThirdParty/xdmf2/vtkxdmf2/libsrc/XdmfH5Driver.cxx:161:5: error: cannot convert H5F_close_degree_t to const char* in initialization
+                #   161 |     H5F_CLOSE_WEAK,             /*fc_degree     */
+                #       |     ^~~~~~~~~~~~~~
+                #       |     |
+                #       |     H5F_close_degree_t
+                # make[2]: *** [VTK/ThirdParty/xdmf2/vtkxdmf2/libsrc/CMakeFiles/vtkxdmf2.dir/build.make:499: VTK/ThirdParty/xdmf2/vtkxdmf2/libsrc/CMakeFiles/vtkxdmf2.dir/XdmfH5Driver.cxx.o] Error 1
     # -> add configopts += '-DCMAKE_C_FLAGS="-fcommon"' -> NO -> cmake Error log2.txt
     # [  5%] Linking C shared library ../../../../lib/libvtkpng-pv5.6.so
     # cd /tmp/vsc47063/easybuild/build/ParaView/5.6.2/foss-2023a-Python-3.11.3-mpi/easybuild_obj/VTK/ThirdParty/png/vtkpng && /kyukon/home/apps/RHEL8/
