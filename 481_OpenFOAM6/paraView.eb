@@ -31,7 +31,7 @@ dependencies = [
     ('FFmpeg', '6.0'),
     ('Szip', '2.1.1'),
     ('mpi4py', '3.1.4'),
-    ('VTK', '9.3.0'),
+    # ('VTK', '9.3.0'),
 ]
 
 separate_build_dir = True
@@ -42,7 +42,7 @@ configopts += '-DPARAVIEW_QT_VERSION=5 -DQT_QMAKE_EXECUTABLE=$EBROOTQT5/bin/qmak
 configopts += '-DPARAVIEW_USE_MPI=ON '
 configopts += '-DPARAVIEW_ENABLE_FFMPEG=ON '
 configopts += '-DPARAVIEW_ENABLE_PYTHON=ON '
-configopts += '-DPARAVIEW_USE_EXTERNAL_VTK=ON '
+# configopts += '-DPARAVIEW_USE_EXTERNAL_VTK=ON '
 
 # Python
 configopts += "-DVTK_WRAP_PYTHON=ON "
@@ -83,8 +83,10 @@ sanity_check_paths = {
 moduleclass = 'vis'
 
 # E2:
+    # -> try PARAVIEW_USE_EXTERNAL_VTK -> not working
     # -> docs not working: https://www.paraview.org/paraview-docs/v5.6.2/cxx/md__builds_gitlab-kitware-sciviz-ci_Documentation_dev_build.html
     # -> look: https://discourse.vtk.org/t/multiple-definition-of-exodus-unused-symbol-dummy-1-when-building-vtk-8-2-0/11744
+        #  it was fixed in 9.0 ? -> use external VTK 9.3.0
     # -> add configopts += '-DCMAKE_C_FLAGS="-fcommon"' -> NO -> cmake Error log2.txt
     # [  5%] Linking C shared library ../../../../lib/libvtkpng-pv5.6.so
     # cd /tmp/vsc47063/easybuild/build/ParaView/5.6.2/foss-2023a-Python-3.11.3-mpi/easybuild_obj/VTK/ThirdParty/png/vtkpng && /kyukon/home/apps/RHEL8/
