@@ -21,7 +21,7 @@ dependencies = [
     ('Python-bundle-PyPI', '2023.06'),
     ('SciPy-bundle', '2023.07'),
     ('XZ', '5.4.2'),
-    ('HDF5', '1.14.0'),
+    # ('HDF5', '1.14.0'),
     ('netCDF', '4.9.2'),
     ('libGLU', '9.0.3'),
     ('X11', '20230603'),
@@ -53,7 +53,7 @@ configopts += "-DPYTHON_LIBRARY=$EBROOTPYTHON/lib/libpython%%(pyshortver)s.%s " 
 # Third party libs
 configopts += '-DVTK_USE_SYSTEM_MPI4PY=ON '
 configopts += "-DVTK_USE_SYSTEM_LZMA=ON "
-configopts += "-DVTK_USE_SYSTEM_HDF5=ON "
+# configopts += "-DVTK_USE_SYSTEM_HDF5=ON "
 configopts += "-DVTK_USE_SYSTEM_NETCDF=ON "
 
 # OpenGL & Mesa
@@ -61,7 +61,7 @@ configopts += '-DOPENGL_glu_LIBRARY=$EBROOTLIBGLU/lib/libGLU.%s ' % SHLIB_EXT
 configopts += '-DOPENGL_INCLUDE_DIR=$EBROOTMESA/include -DOPENGL_gl_LIBRARY=$EBROOTMESA/lib/libGL.%s ' % SHLIB_EXT
 configopts += '-DVTK_OPENGL_HAS_OSMESA=ON ' # VTK has mesa
 configopts += '-DOSMESA_INCLUDE_DIR=$EBROOTMESA/include -DOSMESA_LIBRARY=$EBROOTMESA/lib/libOSMesa.%s ' % SHLIB_EXT
-configopts += '-DCMAKE_C_FLAGS="-fcommon"'
+configopts += '-DCMAKE_C_FLAGS="-fcommon" '
 
 # Without internet connection turn off testing (uncomment the following line)
 # configopts += '-DBUILD_TESTING=OFF '
@@ -87,7 +87,26 @@ sanity_check_paths = {
 
 moduleclass = 'vis'
 
-# E2:
+# E3: 
+    # -> not compatible with py3.11
+    # -> Deprecated function: PyEval_CallObjectWithKeywords(func, args, kwds) has been deprecated since Python 3.9 and is now completely removed in Python 3.11.
+    # /tmp/vsc47063/easybuild/build/ParaView/5.6.2/foss-2023a-Python-3.11.3-mpi/ParaView-v5.6.2/VTK/Wrapping/PythonCore/PyVTKMethodDescriptor.cxx:101:43: warning: PyObject* PyEval_CallObjectWithKeywords(PyObject*, PyObject*, PyObject*) is deprecated [-Wdeprecated-declarations]
+    #   101 |     result = PyEval_CallObjectWithKeywords(func, args, kwds);
+    #       |              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+    # In file included from /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/Python.h:95,
+    #                  from /tmp/vsc47063/easybuild/build/ParaView/5.6.2/foss-2023a-Python-3.11.3-mpi/ParaView-v5.6.2/VTK/Utilities/Python/vtkPython.h:80,
+    #                  from /tmp/vsc47063/easybuild/build/ParaView/5.6.2/foss-2023a-Python-3.11.3-mpi/ParaView-v5.6.2/VTK/Wrapping/PythonCore/PyVTKMethodDescriptor.h:28,
+    #                  from /tmp/vsc47063/easybuild/build/ParaView/5.6.2/foss-2023a-Python-3.11.3-mpi/ParaView-v5.6.2/VTK/Wrapping/PythonCore/PyVTKMethodDescriptor.cxx:16:
+    # /apps/gent/RHEL8/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/include/python3.11/ceval.h:27:43: note: declared here
+    #    27 | Py_DEPRECATED(3.9) PyAPI_FUNC(PyObject *) PyEval_CallObjectWithKeywords(
+    #       |                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # /tmp/vsc47063/easybuild/build/ParaView/5.6.2/foss-2023a-Python-3.11.3-mpi/ParaView-v5.6.2/VTK/Wrapping/PythonCore/PyVTKMethodDescriptor.cxx: At global scope:
+    # /tmp/vsc47063/easybuild/build/ParaView/5.6.2/foss-2023a-Python-3.11.3-mpi/ParaView-v5.6.2/VTK/Wrapping/PythonCore/PyVTKMethodDescriptor.cxx:230:1: error: cannot convert std::nullptr_t to Py_ssize_t {aka long int} in initialization
+    #   230 | };
+    #       | ^
+    # make[2]: *** [VTK/Wrapping/PythonCore/CMakeFiles/vtkWrappingPythonCore.dir/build.make:163: VTK/Wrapping/PythonCore/CMakeFiles/vtkWrappingPythonCore.dir/PyVTKMethodDescriptor.cxx.o] Error 1
+# E2:OK 
+    # -> do not use -DVTK_USE_SYSTEM_HDF5 -> problem with too new HDF5 version -> need 1.10.x
     # -> try PARAVIEW_USE_EXTERNAL_VTK -> not working
     # -> docs not working: https://www.paraview.org/paraview-docs/v5.6.2/cxx/md__builds_gitlab-kitware-sciviz-ci_Documentation_dev_build.html
     # -> look: https://discourse.vtk.org/t/multiple-definition-of-exodus-unused-symbol-dummy-1-when-building-vtk-8-2-0/11744
@@ -110,7 +129,7 @@ moduleclass = 'vis'
                 #       |     |
                 #       |     H5F_close_degree_t
                 # make[2]: *** [VTK/ThirdParty/xdmf2/vtkxdmf2/libsrc/CMakeFiles/vtkxdmf2.dir/build.make:499: VTK/ThirdParty/xdmf2/vtkxdmf2/libsrc/CMakeFiles/vtkxdmf2.dir/XdmfH5Driver.cxx.o] Error 1
-    # -> add configopts += '-DCMAKE_C_FLAGS="-fcommon"' -> NO -> cmake Error log2.txt
+    # -> add configopts += '-DCMAKE_C_FLAGS="-fcommon" ' -> working - exodus problem is gone, but still error: invalid conversion from const char* to unsigned int
     # [  5%] Linking C shared library ../../../../lib/libvtkpng-pv5.6.so
     # cd /tmp/vsc47063/easybuild/build/ParaView/5.6.2/foss-2023a-Python-3.11.3-mpi/easybuild_obj/VTK/ThirdParty/png/vtkpng && /kyukon/home/apps/RHEL8/
     # cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/bin/cmake -E cmake_link_script CMakeFiles/vtkpng.dir/link.txt --verbose=1
