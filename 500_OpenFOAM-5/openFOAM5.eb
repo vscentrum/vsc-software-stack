@@ -38,19 +38,7 @@ dependencies = [
     ('METIS', '5.1.0'),
     ('SCOTCH', '7.0.3'),
     ('CGAL', '5.6'),
-    # ('ParaView', '5.11.2'),
     ('gnuplot', '5.4.8'),
 ]
 
 moduleclass = 'cae'
-
-# E1: log1.txt: OK
-    # -> exclude ParaView from deps -> OK
-    # CMake Deprecation Warning at /apps/gent/RHEL8/cascadelake-ib/software/ParaView/5.11.2-foss-2023a/lib64/cmake/paraview
-    # -5.11/paraview-use-file-deprecated.cmake:1 (message):
-    #   The `PARAVIEW_USE_FILE` is no longer used starting with 5.7.
-    # Call Stack (most recent call first):
-    #   CMakeLists.txt:5 (INCLUDE)
-    # CMake Error at CMakeLists.txt:43 (ADD_PARAVIEW_PLUGIN):
-    #   Unknown CMake command "ADD_PARAVIEW_PLUGIN".
-    # -- Configuring incomplete, errors occurred!
