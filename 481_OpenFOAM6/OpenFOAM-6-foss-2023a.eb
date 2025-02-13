@@ -1,5 +1,6 @@
 name = 'OpenFOAM'
 version = '6'
+versionsuffix = '-without-ParaView'
 
 homepage = 'https://www.openfoam.org/'
 description = """OpenFOAM is a free, open source CFD software package.
@@ -25,7 +26,6 @@ dependencies = [
     ('METIS', '5.1.0'),
     ('SCOTCH', '7.0.3'),
     ('CGAL', '5.6'),
-    #('ParaView', '5.11.2'),
     ('gnuplot', '5.4.8'),
 ]
 
@@ -38,55 +38,3 @@ builddependencies = [
 sanity_check_motorbike = False
 
 moduleclass = 'cae'
-
-# E1:
-    # -> try update patch to not set ParaView DIR -> OpenFOAM-6_v3 with new_cleanup.patch -> 
-    # -> try download latest version (not commit they have it in releases with date) -> OpenFOAM_v2 -> patch failing...
-    # <- without ParaView <- log1.txt <- failed on sanity_check_cmds
-    #>> result for command 'cp -a 
-    # /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OpenFOAM/6-foss-2023a
-    #   /OpenFOAM-6/tutorials/incompressible/simpleFoam/motorBike 
-    # /tmp/vsc47063/eb-pwu9n2xh/tmpuu0vgywf && 
-    # chmod -R +w /tmp/vsc47063/eb-pwu9n2xh/tmpuu0vgywf && 
-    # cd /tmp/vsc47063/eb-pwu9n2xh/tmpuu0vgywf/motorBike && 
-    # source $FOAM_BASH && . $WM_PROJECT_DIR/bin/tools/RunFunctions && 
-    # cp $FOAM_TUTORIALS/resources/geometry/motorBike.obj.gz constant/triSurface/ && 
-    # runApplication surfaceFeatures && runApplication blockMesh && runApplication decomposePar -copyZero && 
-    # runParallel snappyHexMesh -overwrite && runParallel patchSummary && runParallel potentialFoam && 
-    # runParallel simpleFoam && runApplication reconstructParMesh -constant && runApplication reconstructPar -latestTime && 
-    # cd /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OpenFOAM/6-foss-2023a && 
-    # rm -r /tmp/vsc47063/eb-pwu9n2xh/tmpuu0vgywf': FAILED
-    # exited with code 1 (output: /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/OpenFOAM/6-foss-2023a/OpenFOAM-6/etc/config.sh/paraview: line 99: [: too many arguments
-    # Running surfaceFeatures on /tmp/vsc47063/eb-pwu9n2xh/tmpuu0vgywf/motorBike
-    # Running blockMesh on /tmp/vsc47063/eb-pwu9n2xh/tmpuu0vgywf/motorBike
-    # Running decomposePar on /tmp/vsc47063/eb-pwu9n2xh/tmpuu0vgywf/motorBike
-    # Running snappyHexMesh in parallel on /tmp/vsc47063/eb-pwu9n2xh/tmpuu0vgywf/motorBike using 6 processes
-    # Running patchSummary in parallel on /tmp/vsc47063/eb-pwu9n2xh/tmpuu0vgywf/motorBike using 6 processes
-    # Running potentialFoam in parallel on /tmp/vsc47063/eb-pwu9n2xh/tmpuu0vgywf/motorBike using 6 processes
-    # Running simpleFoam in parallel on /tmp/vsc47063/eb-pwu9n2xh/tmpuu0vgywf/motorBike using 6 processes
-    # ) (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3678 in _sanity_check_step)
-        # -> OpenFOAM-6/etc/config.sh/paraview:
-        # 98 # Set paths if binaries or source are present
-        # 99 if [ -r $ParaView_DIR -o -r $paraviewInstDir ] => THIS FAILING
-        # 100 then
-        # 101     export ParaView_INCLUDE_DIR=$ParaView_DIR/include/paraview-$ParaView_MAJOR
-        # 102 
-        # 103     ParaView_LIB_DIR=$ParaView_DIR/lib/paraview-$ParaView_MAJOR
-        # 104 
-        # 105     export PV_PLUGIN_PATH=$FOAM_LIBBIN/paraview-$ParaView_MAJOR
-        # 106 
-        # 107     if [ "$FOAM_VERBOSE" -a "$PS1" ]
-        # 108     then
-        # 109         echo "Using paraview"
-        # 110         echo "    ParaView_DIR         : $ParaView_DIR"
-        # 111         echo "    ParaView_LIB_DIR     : $ParaView_LIB_DIR"
-        # 112         echo "    ParaView_INCLUDE_DIR : $ParaView_INCLUDE_DIR"
-        # 113         echo "    PV_PLUGIN_PATH       : $PV_PLUGIN_PATH"
-        # 114     fi
-        # 115 
-        # 116 else
-        # 117     unset PV_PLUGIN_PATH
-        # 118 fi
-        # 119 
-        # 120 unset _foamParaviewEval
-        # 121 unset cleaned cmake paraviewInstDir paraviewPython
