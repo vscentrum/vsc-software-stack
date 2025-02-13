@@ -102,15 +102,3 @@ sanity_check_paths = {
 sanity_check_commands = ["dorado basecaller --help"]
 
 moduleclass = 'bio'
-
-# E1: 
-    # <- log1.txt
-    # -> cant download sources rec...
-        # == 2025-02-11 17:38:16,977 build_log.py:171 ERROR EasyBuild crashed with an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): cmd "git clone --depth 1 --branch v0.9.1 --recursive https://github.com/nanoporetech/dorado.git" exited with exit code 128 and output:                                                               
-        # Cloning into 'dorado'...
-        # error: RPC failed; curl 18 transfer closed with outstanding read data remaining
-        # error: 11336 bytes of body are still expected
-        # fetch-pack: unexpected disconnect while reading sideband packet
-        # fatal: early EOF
-        # fatal: fetch-pack: invalid index-pack output
-        # (at easybuild/easybuild-framework/easybuild/tools/run.py:695 in parse_cmd_output)
