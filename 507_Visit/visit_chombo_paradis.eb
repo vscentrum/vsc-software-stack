@@ -48,11 +48,12 @@ dependencies = [
 # enable only plugins compatible with HDF5
 # https://github.com/vscentrum/vsc-software-stack/issues/507#issuecomment-2654130002
 # https://github.com/visit-dav/visit/issues/5345
-local_plugins = 'Chombo;AMR;BATL;CaleHDF5;CarpetHDF5;CosmosPP;Denovo;Enzo;FLASH;Geqdsk;GTC;paraDIS;'
-local_plugins += 'H5Nimrod;PFLOTRAN;SAMRAI;SXRIS;Tetrad;UNIC;Velodyne;XGC;Xolotl;VisItXdmf'
+local_plugins = 'Chombo;AMR;BATL;CaleHDF5;CarpetHDF5;CosmosPP;Denovo;Enzo;FLASH;Geqdsk;GTC;'
+local_plugins += 'H5Nimrod;paraDIS;PFLOTRAN;SAMRAI;SXRIS;Tetrad;UNIC;Velodyne;XGC;Xolotl;VisItXdmf'
 
 configopts = "-DVISIT_ZLIB_DIR=$EBROOTZLIB "
 configopts += "-DVISIT_VTK_DIR=$EBROOTVTK -DVISIT_VTK_VERSION=$EBVERSIONVTK "
+configopts += "-DVISIT_BOOST_DIR=$EBROOTBOOST -DVISIT_BOOST_VERSION=$EBVERSIONBOOST "
 configopts += "-DVISIT_QWT_DIR=$EBROOTQWT "
 configopts += "-DVISIT_QT_VERSION=$EBVERSIONQT5 -DVISIT_QT_DIR=$EBROOTQT5 "
 configopts += "-DVISIT_OSMESA_DIR=$EBROOTMESA "
@@ -63,7 +64,6 @@ configopts += "-DVISIT_PYTHON_SKIP_INSTALL=ON "
 configopts += "-DVISIT_PARALLEL=ON -DVISIT_MPI_COMPILER=$MPICC -DVISIT_MPI_COMPILER_CXX=$MPICXX "
 configopts += "-DOpenGL_GL_PREFERENCE=GLVND "
 configopts += "-DVISIT_SELECTED_DATABASE_PLUGINS='%s' " % local_plugins
-configopts += "-DVISIT_BOOST_DIR=$EBROOTBOOST -DVISIT_BOOST_VERSION=$EBVERSIONBOOST "
 
 # add missing include to fix make step
 prebuildopts = "sed -i '23 a #include <cmath>' %(builddir)s/%(namelower)s%(version)s/src/gui/QvisStripChart.C && "
