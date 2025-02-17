@@ -8,7 +8,7 @@ homepage = 'ftp://ftp.ncbi.nlm.nih.gov/pub/agarwala/bmtagger/'
 description = "Best Match Tagger for removing human reads from metagenomics datasets"
 
 toolchain = {'name': 'gompi', 'version': '2023a'}
-# toolchainopts = {'cstd': 'c++98'}
+toolchainopts = {'cstd': 'c++98'}
 
 source_urls = ['ftp://ftp.ncbi.nlm.nih.gov/pub/agarwala/bmtagger/']
 sources = [{'download_filename': 'bmtools.tar.gz', 'filename': 'bmtools-%(version)s.tar.gz'}]
@@ -47,8 +47,3 @@ sanity_check_commands = [
 ]
 
 moduleclass = 'bio'
-
-# TODO
-# ../general/of-debug.hpp:19:51: error: unable to find string literal operator operator""c with const char [4], long unsigned int arguments
-#    19 |     "\t" << VT100("35m") << #what << VT100("32m") "=" << VT100("36m") << "[" << VT100("37m") << (what) << VT100("36m") << "]" << VT100("0m")
-#       |                                                   ^~~

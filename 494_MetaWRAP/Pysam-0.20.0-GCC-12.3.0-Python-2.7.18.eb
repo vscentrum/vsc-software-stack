@@ -17,7 +17,7 @@ checksums = ['5a25d95b986c2cb9f5040b9df4e1d93ce9a8bc3af5a956b1317416ed05269f60']
 
 dependencies = [
     ('Python', '2.7.18'),
-    ('Cython', '3.0.11', versionsuffix),
+    ('Cython', '0.29.37', versionsuffix),
     ('ncurses', '6.4'),
     ('cURL', '8.0.1'),
     ('XZ', '5.4.2'),
@@ -29,18 +29,3 @@ use_pip = True
 sanity_pip_check = True
 
 moduleclass = 'bio'
-
-# TODO
-#   Error compiling Cython file:
-#   ------------------------------------------------------------
-#   ...
-#       p   = pysam_bam_get_seq(src)
-#
-#       for k from start <= k < end:
-#           # equivalent to seq_nt16_str[bam1_seqi(s, i)] (see bam.c)
-#           # note: do not use string literal as it will be a python string
-#           s[k-start] = seq_nt16_str[p[k/2] >> 4 * (1 - k%2) & 0xf]
-#                                      ^
-#   ------------------------------------------------------------
-#
-#   pysam/libcalignedsegment.pyx:570:35: Invalid index type 'double'

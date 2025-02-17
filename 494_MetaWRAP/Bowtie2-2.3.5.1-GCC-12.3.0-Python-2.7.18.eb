@@ -1,0 +1,65 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Pablo Escobar Lopez
+# Swiss Institute of Bioinformatics
+# Biozentrum - University of Basel
+# Modified by: Robert Schmidt <rjeschmi@gmail.com>
+# Ottawa Hospital Research Institute - Bioinformatics Team
+# Modified by: Adam Huffman <adam.huffman@crick.ac.uk>
+# The Francis Crick Institute
+# Modified by: Kurt Lust, UAntwerp
+# Update: Petr Král (INUITS)
+
+name = 'Bowtie2'
+version = '2.3.5.1'
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = 'https://bowtie-bio.sourceforge.net/bowtie2/index.shtml'
+description = """ Bowtie 2 is an ultrafast and memory-efficient tool for aligning sequencing reads
+ to long reference sequences. It is particularly good at aligning reads of about 50 up to 100s or 1,000s
+ of characters, and particularly good at aligning to relatively long (e.g. mammalian) genomes.
+ Bowtie 2 indexes the genome with an FM Index to keep its memory footprint small: for the human genome,
+ its memory footprint is typically around 3.2 GB. Bowtie 2 supports gapped, local, and paired-end alignment modes."""
+
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+toolchainopts = {'pic': True, 'cstd': 'gnu++98'}
+
+source_urls = [('https://sourceforge.net/projects/bowtie-bio/files/%(namelower)s/%(version)s', 'download')]
+sources = ['%(namelower)s-%(version)s-source.zip']
+checksums = ['335c8dafb1487a4a9228ef922fbce4fffba3ce8bc211e2d7085aac092155a53f']
+
+dependencies = [
+    ('zlib', '1.2.13'),
+    ('Perl', '5.36.1'),
+    ('Python', '2.7.18'),
+    ('tbb', '2020.3'),
+]
+
+# to add script folder to path just uncomment this line
+# modextrapaths = {'PATH': 'scripts'}
+
+sanity_check_commands = [
+    "%(namelower)s --help",
+    "%(namelower)s-build --help",
+]
+
+moduleclass = 'bio'
+
+# TODO
+# g++ -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -std=gnu++98 \
+#         -DCOMPILER_OPTIONS="\"-O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -std=gnu++98 -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -std=gnu++98 -std=c++98 -DPOPCNT_CAPABILITY -DWITH_TBB -DNO_SPINLOCK -DWITH_QUE
+# UELOCK=1\"" -O2 -ftree-vectorize -march=native -fno-math-errno -fPIC -std=gnu++98 -std=c++98 -DPOPCNT_CAPABILITY -DWITH_TBB -DNO_SPINLOCK -DWITH_QUEUELOCK=1 \
+#         -fno-strict-aliasing -DBOWTIE2_VERSION="\"`cat VERSION`\"" -DBUILD_HOST="\"\"" -DBUILD_TIME="\"`date -u -r NEWS`\"" -DCOMPILER_VERSION="\"`g++ -v 2>&1 | tail -1`\"" -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE  -DBOW
+# TIE_MM  -DBOWTIE2 -DBOWTIE_INSPECT_MAIN  -DBOWTIE_64BIT_INDEX -Wall \
+#         -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/tbb/2020.3-GCCcore-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/software/Python/2.7.18-GCCcore-12.3.0/include -I/apps/gent/RHEL8/cascadelake-ib/s
+# oftware/zlib/1.2.13-GCCcore-12.3.0/include -I third_party -I . \
+#         -o bowtie2-inspect-l bt2_inspect.cpp \
+#         ccnt_lut.cpp ref_read.cpp alphabet.cpp shmem.cpp edit.cpp bt2_idx.cpp bt2_io.cpp bt2_util.cpp reference.cpp ds.cpp multikey_qsort.cpp limit.cpp random_source.cpp \
+#         -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/tbb/2020.3-GCCcore-12.3.0/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/tbb/2020.3-GCCcore-12.3.0/lib -L/apps/
+# gent/RHEL8/cascadelake-ib/software/Python/2.7.18-GCCcore-12.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/Python/2.7.18-GCCcore-12.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib64 -L/apps/gent/R
+# HEL8/cascadelake-ib/software/Perl/5.36.1-GCCcore-12.3.0/lib -L/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/lib -L/apps/gent/RHEL8/cascade
+# lake-ib/software/GCCcore/12.3.0/lib64 -L/apps/gent/RHEL8/cascadelake-ib/software/GCCcore/12.3.0/lib -lz -lpthread -ltbb -ltbbmalloc_proxy
+# In file included from bt2_idx.h:59,
+#                  from bt2_build.cpp:28:
+# processor_support.h:52:22: error: extended character  is not valid in an identifier
+#    52 |         std::cerr << ERROR: please define __cpuid() for this build.\n;
+#       |                      ^
