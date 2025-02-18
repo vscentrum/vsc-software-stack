@@ -1,0 +1,94 @@
+easyblock = 'CMakeMake'
+
+name = 'Visit'
+version = '3.4.2'
+versionsuffix = '-with-Chombo-and-paraDIS'
+
+homepage = 'https://github.com/visit-dav/visit'
+description = """
+VisIt is an Open Source, interactive, scalable, visualization, animation
+and analysis tool. From Unix, Windows or Mac workstations, users can
+interactively visualize and analyze data ranging in scale from small
+(<101 core) desktop-sized projects to large (>105 core) leadership-class
+computing facility simulation campaigns. Users can quickly generate
+visualizations, animate them through time, manipulate them with a
+variety of operators and mathematical expressions, and save the
+resulting images and animations for presentations. VisIt contains a rich
+set of visualization features to enable users to view a wide variety of
+data including scalar and vector fields defined on two- and
+three-dimensional (2D and 3D) structured, adaptive and unstructured
+meshes. Owing to its customizeable plugin design, VisIt is capabable of
+visualizing data from over 120 different scientific data formats.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+source_urls = ['https://github.com/visit-dav/visit/releases/download/v%(version)s/']
+sources = ['%(namelower)s%(version)s.tar.gz']
+checksums = ['9279975bc855dfcd5ba264d6abbc19e1a3527ff800493fa4ffa67f6eb2ec0ee3']
+
+builddependencies = [
+    ('CMake', '3.27.6'),
+    ('git', '2.42.0'),
+    ('Doxygen', '1.9.8'),
+]
+dependencies = [
+    ('zlib', '1.2.13'),
+    ('Python', '3.11.5'),
+    ('Python-bundle-PyPI', '2023.10'),
+    ('SciPy-bundle', '2023.11'),
+    ('X11', '20231019'),
+    ('Mesa', '23.1.9'),
+    ('libglvnd', '1.7.0'),
+    ('Qt5', '5.15.13'),
+    ('Qwt', '6.3.0'),
+    # Visit-3.4.1 needs VTK-9.2.x (not 9.3.x) - https://github.com/visit-dav/visit/issues/19547
+    ('VTK', '9.3.0'),
+    ('FFmpeg', '6.0'),
+    ('HDF5', '1.14.3'),
+    ('Boost', '1.83.0'),
+]
+
+start_dir = 'src'
+# enable only plugins compatible with HDF5
+# https://github.com/vscentrum/vsc-software-stack/issues/507#issuecomment-2654130002
+# https://github.com/visit-dav/visit/issues/5345
+local_plugins = 'Chombo;AMR;BATL;CaleHDF5;CarpetHDF5;CosmosPP;Denovo;Enzo;FLASH;Geqdsk;GTC;paraDIS;'
+local_plugins += 'H5Nimrod;PFLOTRAN;SAMRAI;SXRIS;Tetrad;UNIC;Velodyne;XGC;Xolotl;VisItXdmf'
+
+configopts = "-DVISIT_ZLIB_DIR=$EBROOTZLIB "
+configopts += "-DVISIT_VTK_DIR=$EBROOTVTK -DVISIT_VTK_VERSION=$EBVERSIONVTK "
+configopts += "-DVISIT_QWT_DIR=$EBROOTQWT "
+configopts += "-DVISIT_QT_VERSION=$EBVERSIONQT5 -DVISIT_QT_DIR=$EBROOTQT5 "
+configopts += "-DVISIT_OSMESA_DIR=$EBROOTMESA "
+configopts += "-DVISIT_MESAGL_DIR=$EBROOTLIBGLVND "
+configopts += "-DVISIT_HDF5_DIR=$EBROOTHDF5 "
+configopts += "-DPYTHON_DIR=$EBROOTPYTHON "
+configopts += "-DVISIT_PYTHON_SKIP_INSTALL=ON "
+configopts += "-DVISIT_PARALLEL=ON -DVISIT_MPI_COMPILER=$MPICC -DVISIT_MPI_COMPILER_CXX=$MPICXX "
+configopts += "-DOpenGL_GL_PREFERENCE=GLVND "
+configopts += "-DVISIT_CONFIG_SITE=NONE "
+# configopts += "-DVISIT_SELECTED_DATABASE_PLUGINS='%s' " % local_plugins
+# configopts += "-DVISIT_BOOST_DIR=$EBROOTBOOST -DVISIT_BOOST_VERSION=$EBVERSIONBOOST "
+
+# add missing include to fix make step
+prebuildopts = "sed -i '23 a #include <cmath>' %(builddir)s/%(namelower)s%(version)s/src/gui/QvisStripChart.C && "
+
+# sanity_check_paths = {
+#     'files': ['bin/%s' % x for x in ['frontendlauncher', 'frontendlauncher.py', 'visit']] +
+#     ['%(version)s/linux-x86_64/plugins/databases/libEChomboDatabase_par.so'],
+#     'dirs': ['%(version)s/bin'],
+# }
+
+moduleclass = 'vis'
+
+# E1
+    # -> Visit 3.4.2 is not compatible with VTK 9.3.x and newer, seems they are working on it: https://github.com/visit-dav/visit/issues/19857
+    # <- log1.txt
+    # [ 13%] Building CXX object winutil/CMakeFiles/winutil.dir/QvisVariableButtonHelper.C.o
+    # cd /tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/easybuild_obj/winutil && /scratch/gent/vo/001/gvo00117/easybuild/RHEL8/cascadelake-ampere-ib/software/GCCcore/13.2.0/bin/g++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_X11EXTRAS_LIB -DVTK_VERSION_HEX=590592 -D_LARGEFILE64_SOURCE -Dwinutil_EXPORTS -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/easybuild_obj/winutil/winutil_autogen/include -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/easybuild_obj/include -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/include -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/Exceptions/Database -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/Exceptions/Pipeline -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/Exceptions/Plotter -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/comm -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/expr -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/icons -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/misc -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/parser -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/plugin -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/proxybase -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/state -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/utility -I/apps/gent/RHEL8/cascadelake-ib/software/zlib/1.2.13-GCCcore-13.2.0/include -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/winutil -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/avt/DBAtts/MetaData -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/avt/DBAtts/SIL -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/comm/. -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/Exceptions/Database/. -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/Exceptions/Pipeline/. -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/Exceptions/Plotter/. -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/expr/. -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/misc/. -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/parser/. -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/plugin/. -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/proxybase/. -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/state/. -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/common/utility/. -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/avt/DBAtts/MetaData/. -I/tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/avt/DBAtts/SIL/. -isystem /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.13-GCCcore-13.2.0/include -isystem /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.13-GCCcore-13.2.0/include/QtCore -isystem /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.13-GCCcore-13.2.0/./mkspecs/linux-g++-64 -isystem /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.13-GCCcore-13.2.0/include/QtGui -isystem /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.13-GCCcore-13.2.0/include/QtWidgets -isystem /apps/gent/RHEL8/cascadelake-ib/software/Qt5/5.15.13-GCCcore-13.2.0/include/QtX11Extras -O2 -ftree-vectorize -march=native -fno-math-errno    -O3 -DNDEBUG -std=c++14 -fPIC -fPIC -MD -MT winutil/CMakeFiles/winutil.dir/QvisVariableButtonHelper.C.o -MF CMakeFiles/winutil.dir/QvisVariableButtonHelper.C.o.d -o CMakeFiles/winutil.dir/QvisVariableButtonHelper.C.o -c /tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/winutil/QvisVariableButtonHelper.C
+    # /tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/visit_vtk/full/vtkCSGGrid.C: In member function vtkUnstructuredGrid* vtkCSGGrid::DiscretizeSpaceMultiPass(int, bool, const double*, const int*, const int*):
+    # /tmp/vsc47063/easybuild/build/Visit/3.4.2/foss-2023b-with-Chombo-and-paraDIS/visit3.4.2/src/visit_vtk/full/vtkCSGGrid.C:3019:16: error: class vtkThreshold has no member named ThresholdByUpper; did you mean ThresholdType?
+    #  3019 |     threshold->ThresholdByUpper(0.5);
+    #       |                ^~~~~~~~~~~~~~~~
+    #       |                ThresholdType
