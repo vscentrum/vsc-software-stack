@@ -31,22 +31,24 @@ dependencies = [
     ('Bowtie2', '2.5.4', versionsuffix),
     ('BWA', '0.7.17'),  # 0.7.18?
     ('CheckM', '1.0.18', versionsuffix),
-    ('FastQC', '0.12.1', '-Java-11', SYSTEM),
+    ('FastQC', '0.11.9', '-Java-11', SYSTEM),
     ('Kraken2', '2.1.3'),  # previously Kraken
     ('KronaTools', '2.8.1'),
     ('MEGAHIT', '1.2.9', versionsuffix),
     ('MetaBAT', '2.17'),
     ('CONCOCT', '1.1.0', versionsuffix),
     ('MaxBin', '2.2.7', versionsuffix),
-    # ('QUAST', '5.2.0', versionsuffix),  # TODO Python 2
+    ('QUAST', '5.2.0', versionsuffix),
     ('SAMtools', '1.18'),  # 1.13?
-    ('SPAdes', '3.15.4', versionsuffix),
-    # ('Trim_Galore', '0.6.10', versionsuffix),  # TODO Python 2
+    ('SPAdes', '3.15.5', versionsuffix),
+    ('Trim_Galore', '0.6.10', versionsuffix),
     ('Seaborn', '0.9.1', versionsuffix),
     ('Salmon', '1.10.3'),
     ('taxator-tk', '1.5.0'),
     ('prokka', '1.14.5'),
 ]
+
+postinstallcmds = ['cd %(installdir)s/bin && ln -r -s metawrap metaWRAP']
 
 sanity_check_paths = {
     'files': ['bin/config-metawrap', 'bin/metaWRAP'],
