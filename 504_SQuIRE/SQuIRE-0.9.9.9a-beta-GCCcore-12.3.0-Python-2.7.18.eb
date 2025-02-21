@@ -2,22 +2,22 @@ easyblock = 'PythonBundle'
 
 name = 'SQuIRE'
 version = '0.9.9.9a-beta'
+versionsuffix = '-Python-%(pyver)s'
 
 homepage = 'https://github.com/wyang17/SQuIRE'
 description = """Software for Quantifying Interspersed Repeat Expression"""
 
-toolchain = {'name': 'foss', 'version': '2024a'}
+toolchain = {'name': 'foss', 'version': '2023a'}
 
 dependencies = [
-    ('Python', '3.12.3'),
-    ('pyfaidx', '0.8.1.2'),
-    ('Python-bundle-PyPI', '2024.06'),  # for `six` and `urllib3`
+    ('Python', '2.7.18'),
+    ('pyfaidx', '0.7.1', versionsuffix),
 ]
 
 use_pip = True
 
-# leading zeros in decimal integer literals are not permitted `os.makedirs(path, 0770)`
-preinstallopts = "sed -i 's/0770/0o770/g' squire/*.py && "
+# Remove `urllib3` requirement as it is not used in the code.
+preinstallopts = "sed -i \"s/,'urllib3\\[secure\\]'//g\" setup.py && "
 
 exts_list = [
     (name, version, {
@@ -39,6 +39,3 @@ sanity_check_commands = [
 sanity_pip_check = True
 
 moduleclass = 'bio'
-
-# TODO
-# cannot import name 'urlopen' from 'urllib3
