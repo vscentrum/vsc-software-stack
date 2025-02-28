@@ -1,6 +1,9 @@
-easyblock = 'PythonBundle'
+# Updated from previous config
+# Author: Pavel Grochal (INUITS)
+# License: GPLv2
+# Update:Petr Král (INUITS)
 
-name = 'fastStructure_new'
+name = 'fastStructure'
 version = '1.0'
 versionsuffix = '-Python-%(pyver)s'
 
@@ -14,6 +17,12 @@ docurls = ['https://github.com/rajanil/fastStructure']
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
+# https://github.com/rajanil/fastStructure/archive/
+github_account = 'rajanil'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['f1bfb24bb5ecd108bc3a90145fad232012165c1e60608003f1c87d200f867b81']
+
 builddependencies = [
     ('Cython', '0.29.37', versionsuffix),
 ]
@@ -24,27 +33,6 @@ dependencies = [
     ('matplotlib', '2.2.5', versionsuffix),
     ('GSL', '2.7'),
 ]
-
-sanity_pip_check = True
-use_pip = True
-
-exts_list = [
-    # Needs Cython v0.27.3 see:
-    # https://github.com/rajanil/fastStructure/issues/39
-    ('Cython', '0.27.3', {
-        'checksums': ['6a00512de1f2e3ce66ba35c5420babaef1fe2d9c43a8faab4080b0dbcc26bc64'],
-    }),
-    (name, version, {
-        'source_urls': ['https://github.com/rajanil/fastStructure/archive/'],
-        'sources': ['v%(version)s.tar.gz'],
-        # 'preinstallopts': 'cd vars && python -m pip install --prefix %(installdir)s --no-build-isolation . && cd - && ',
-        'preinstallopts': 'cd vars && python setup.py build_ext --inplace && cd - && ',
-        'install_cmd': 'python setup.py build_ext --inplace',
-        'checksums': ['f1bfb24bb5ecd108bc3a90145fad232012165c1e60608003f1c87d200f867b81'],
-    }),
-]
-
-fix_python_shebang_for = ['*.py']
 
 sanity_check_paths = {
     'files': [
@@ -66,6 +54,3 @@ sanity_check_commands = [
 ]
 
 moduleclass = 'bio'
-
-# TODO https://github.com/easybuilders/easybuild-easyblocks/blob/develop/easybuild/easyblocks/f/faststructure.py
-# ERROR: More than one .egg-info directory found in /tmp/vsc45304/eb-b7wy4wzt/pip-pip-egg-info-r5KDqI
