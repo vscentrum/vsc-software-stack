@@ -29,8 +29,8 @@ builddependencies = [
 
 dependencies = [
     ('Python', '3.12.3'),
-    ('Java', '17', '', SYSTEM),  # TODO 11?
-    ('OpenSSL', '1.1', '', SYSTEM),
+    ('Java', '17', '', SYSTEM),
+    ('OpenSSL', '3', '', SYSTEM),
     ('ncbi-vdb', version),
     ('bzip2', '1.0.8'),
     ('file', '5.46'),
@@ -75,6 +75,3 @@ modextrapaths = {
 }
 
 moduleclass = 'bio'
-
-# TODO
-# == 2025-02-28 17:48:31,666 build_log.py:267 INFO FAILED: Installation ended unsuccessfully (build directory: /tmp/vsc45304/easybuild/build/SRAToolkit/3.2.0/gompi-2024a): build failed (first 300 chars): Module command '/usr/share/lmod/lmod/libexec/lmod python load OpenSSL/1.1' failed with exit code 1; stderr: Lmod has detected the following error: A different version of the 'OpenSSL' module is already loaded (see output of 'ml').
