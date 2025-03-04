@@ -3,7 +3,7 @@
 easyblock = 'PythonBundle'
 
 name = 'AlphaPulldown'
-version = '2.0.0'
+version = '2.0.2'
 versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/KosinskiLab/AlphaPulldown'
@@ -22,13 +22,12 @@ dependencies = [
     ('OpenMM', '8.0.0', versionsuffix),
     ('Kalign', '3.4.0'),
     ('PyYAML', '6.0'),
-    ('jax', '0.4.25', versionsuffix),  # also provides absl-py
+    ('jax', '0.4.25', versionsuffix),
     ('Biopython', '1.83'),
     ('h5py', '3.9.0'),
     ('IPython', '8.14.0'),
     ('matplotlib', '3.7.2'),
-    # ('TensorFlow', '2.15.1', versionsuffix),
-    ('TensorFlow', '2.13.0'),  # to be consistent with AF2 ?
+    ('TensorFlow', '2.13.0'),
     ('PyTorch', '2.1.2', versionsuffix),
     ('tqdm', '4.66.1'),
     ('dm-tree', '0.1.8'),
@@ -39,7 +38,7 @@ dependencies = [
     ('Uni-Core', '0.0.3', versionsuffix),
     ('JupyterLab', '4.0.5'),
 ]
-local_commit = 'cc4b0af60518c078305bbe4c584691d1ed9ade31'
+
 use_pip = True
 
 local_tests = [
@@ -48,11 +47,9 @@ local_tests = [
     'modelcif',
     'features_with_templates',
     'post_prediction',
-    # require pyrosetta, analysis aptainer image, and AlphaFold2 data:
-    # 'pdb_analyser',
-    # 'get_good_inter_pae',
 ]
 local_testinstall_PATH = """ PATH=$(echo $PYTHONPATH|awk -F ':' '{print $1}')/../../../bin:$PATH """
+
 exts_list = [
     ('contextlib2', '21.6.0', {
         'checksums': ['ab1e2bfe1d01d968e1b7e8d9023bc51ef3509bba217bb730cee3827e1ee82869'],
@@ -98,8 +95,6 @@ exts_list = [
             }
         }],
         'testinstall': True,
-        # This needs to be [None], at least until EB v5 is out
-        # 'checksums': ['e338195987e003f3caadb06bda0ca56dece87e358738143ea72662f9ad69b1d4'],
         'checksums': [None],
     }),
 ]
@@ -115,7 +110,7 @@ sanity_check_paths = {
 
 sanity_check_commands = [
     "run_multimer_jobs.py --help | grep 'A script to perform structure prediction'",
-    "create_individual_features.py --helpfull|grep 'Additional allowance for hydrogen bonding'",
+    "create_individual_features.py --helpfull | grep 'Additional allowance for hydrogen bonding'",
 ]
 
 moduleclass = 'bio'
