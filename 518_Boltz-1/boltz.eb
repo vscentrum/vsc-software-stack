@@ -1,0 +1,83 @@
+easyblock = 'PythonBundle'
+
+name = 'Boltz-1'
+version = '0.4.1'
+# versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/jwohlwend/boltz'
+description = """
+Boltz-1 is the state-of-the-art open-source model to predict biomolecular structures
+containing combinations of proteins, RNA, DNA, and other molecules.
+It also supports modified residues, covalent ligands and glycans, as well as
+conditioning the prediction on specified interaction pockets or contacts.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# DEPS:
+    # OK? "torch>=2.2", -> try 2.1.2 
+    # OK "numpy==1.26.3",
+    # OK "hydra-core==1.3.2",
+    # OK "pytorch-lightning==2.4.0",
+    # OK "rdkit>=2024.3.2",
+    # OK "dm-tree==0.1.8",
+    # OK "requests==2.32.3",
+    # OK "pandas>=2.2.2",
+    # ok "types-requests",
+    # OK "einops==0.8.0",
+    # ok "einx==0.3.0",
+    # ok "fairscale==0.4.13",
+    # ok "mashumaro==3.14",
+    # ok "modelcif==1.2",
+    # OK "wandb==0.18.7",
+    # OK "click==8.1.7",
+    # OK "pyyaml==6.0.2",
+    # OK "biopython==1.84",
+    # OK "scipy==1.13.1",
+
+dependencies = [
+    # ('CUDA', '12.1.1', '', SYSTEM),
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('Biopython', '1.83'),
+    ('PyYAML', '6.0'),
+    ('PyTorch', '2.1.2'),
+    ('Hydra', '1.3.2'),
+    ('PyTorch-Lightning', '2.2.1'),
+    ('RDKit', '2024.03.3'),
+    ('dm-tree', '0.1.8'),
+    ('einops', '0.7.0'),
+    ('wandb', '0.16.1'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('types-requests', '2.32.0.20240914', {
+        'modulename': False,
+        'checksums': ['2850e178db3919d9bf809e434eef65ba49d0e7e33ac92d588f4a5e295fffd405'],
+    }),
+    ('einx', '0.3.0', {
+        'checksums': ['17ff87c6a0f68ab358c1da489f00e95f1de106fd12ff17d0fb3e210aaa1e5f8c'],
+    }),
+    ('fairscale', '0.4.13', {
+        'checksums': ['1b797825c427f5dba92253fd0d8daa574e8bd651a2423497775fab1b30cfb768'],
+    }),
+    ('mashumaro', '3.14', {
+        'checksums': ['5ef6f2b963892cbe9a4ceb3441dfbea37f8c3412523f25d42e9b3a7186555f1d'],
+    }),
+    ('modelcif', '1.2', {
+        'checksums': ['517d2a7be67c96fd56dcc3b50cf7bb0b130958c325653d9925f9a5dbfe151d78'],
+    }),
+    ('boltz', version, {
+        'preinstallopts': "sed -i -e 's/==.*//g' -e 's/torch>=2.2/torch/g' pyproject.toml && ",
+        'checksums': ['7bc4081d578ac7be5972387546f9dd28723ce132264bc13f1d7471f2ce4aa56b'],
+    }),
+]
+
+sanity_pip_check = True
+
+sanity_check_commands = ["boltz --help"]
+
+moduleclass = 'bio'
