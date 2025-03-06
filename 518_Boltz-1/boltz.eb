@@ -34,6 +34,11 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # OK "pyyaml==6.0.2",
     # OK "biopython==1.84",
     # OK "scipy==1.13.1",
+# ok einx 0.3.0 requires frozendict, which is not installed.
+# ok modelcif 1.2 requires ihm, which is not installed.
+# OK boltz 0.4.1 requires rdkit, which is not installed.
+# ok types-requests 2.32.0.20240914 has requirement urllib3>=2, but you have urllib3 1.26.16.
+# ok boltz 0.4.1 has requirement pandas>=2.2.2, but you have pandas 2.0.3.
 
 dependencies = [
     # ('CUDA', '12.1.1', '', SYSTEM),
@@ -53,7 +58,23 @@ dependencies = [
 
 use_pip = True
 
+local_preinstallopts = ("sed -i -e "
+    r"'s/==.*/\",/g' -e "
+    "'s/torch>=2.2/torch/g' -e "
+    "'16d' -e "  # delete rdkit dep
+    "'s/pandas>=2.2.2/pandas/g' "
+    "pyproject.toml && "
+)
 exts_list = [
+    ('urllib3', '2.0.7', {
+        'checksums': ['c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84'],
+    }),
+    ('ihm', '1.7', {
+        'checksums': ['f7d3b9a76d9652f7091bbd1c6bea044a1d40b35bcba9b64c8e51a061fc2463de'],
+    }),
+    ('frozendict', '2.4.5', {
+        'checksums': ['fd7add309789595c044c0155a0bddfa9d20c77f65de1e33a14aa3033b936ef63'],
+    }),
     ('types-requests', '2.32.0.20240914', {
         'modulename': False,
         'checksums': ['2850e178db3919d9bf809e434eef65ba49d0e7e33ac92d588f4a5e295fffd405'],
@@ -71,13 +92,17 @@ exts_list = [
         'checksums': ['517d2a7be67c96fd56dcc3b50cf7bb0b130958c325653d9925f9a5dbfe151d78'],
     }),
     ('boltz', version, {
-        'preinstallopts': "sed -i -e 's/==.*//g' -e 's/torch>=2.2/torch/g' pyproject.toml && ",
+        'preinstallopts': local_preinstallopts,
+        'runtest': "cd %(start_dir)s && pytest -svv tests/",
+        'testinstall': True,
         'checksums': ['7bc4081d578ac7be5972387546f9dd28723ce132264bc13f1d7471f2ce4aa56b'],
     }),
 ]
 
+# postinstallcmds = ['cp -r %(start_dir)s/boltz/boltz-%(version)s/tests %(installdir)s/tests']
+
 sanity_pip_check = True
 
-sanity_check_commands = ["boltz --help"]
+sanity_check_commands = ["boltz 2>&1 | grep 'Usage: boltz'"]
 
 moduleclass = 'bio'
