@@ -47,15 +47,29 @@ RUN cpanm -v -L /perl_modules Nice::Try@1.3.1
 ENV PERL5LIB /perl_modules/lib/perl5
 ENV PIRANA_LOCALLIB /perl_modules
 
-# RsNLME installation
-RUN apt -y install pkg-config libfontconfig1-dev libcurl4-openssl-dev && \
-    R -e 'Certara_Packages <- c("Certara.RsNLME", "Certara.NLME8", "Certara.Xpose.NLME", "Certara.RsNLME.ModelExecutor", "Certara.RsNLME.ModelBuilder"); install.packages(Certara_Packages, repos=c("https://certara.jfrog.io/artifactory/certara-cran-release-public/", "https://cloud.r-project.org"))'
+# R package installations and their remaining OS dependencies
+ARG REPO="https://certara.jfrog.io/artifactory/certara-cran-release-public/src/contrib"
+COPY renv-R-4.2.2.lock renv.lock
+RUN apt -y install \
+        pkg-config libfontconfig1-dev libcurl4-openssl-dev libssh-dev libssl-dev \
+        libharfbuzz-dev libfribidi-dev libcairo2-dev libtiff5-dev libjpeg-dev && \
+    R -e 'install.packages("renv")' && \
+    wget $REPO/Archive/Certara.NLME8/1.2.1/Certara.NLME8_1.2.1.tar.gz \
+         $REPO/Archive/Certara.RsNLME/1.1.0/Certara.RsNLME_1.1.0.tar.gz \
+         $REPO/Archive/Certara.RsNLME.ModelBuilder/1.1.0/Certara.RsNLME.ModelBuilder_1.1.0.tar.gz \
+         $REPO/Archive/Certara.RsNLME.ModelExecutor/1.1.0/Certara.RsNLME.ModelExecutor_1.1.0.tar.gz \
+         $REPO/Archive/Certara.Xpose.NLME/1.1.0/Certara.Xpose.NLME_1.1.0.tar.gz \
+         $REPO/Certara.ModelResults_3.0.0.tar.gz \
+         $REPO/Certara.shinyAce.NLME_1.0.0.tar.gz \
+         $REPO/Certara.shinymeta.NLME_1.0.0.tar.gz && \
+    R -e 'library(renv); renv::restore()' && \
+    ln -s /usr/local/bin/R /usr/bin/R  # needed for Pirana
 
 # Installing a PDF viewer
 RUN apt -y install xdg-utils mupdf && xdg-mime default mupdf.desktop application/pdf
 
 # Installing RStudio
-RUN apt -y install libclang-dev libxkbcommon-x11-0 libnss3 ffmpeg libgbm1 libasound2 libssl-dev && \
+RUN apt -y install libclang-dev libxkbcommon-x11-0 libnss3 ffmpeg libgbm1 libasound2 && \
     wget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2024.04.2-764-amd64.deb && \
     dpkg -i rstudio-2024.04.2-764-amd64.deb
 ENV LD_LIBRARY_PATH="/usr/lib/rstudio:${LD_LIBRARY_PATH}"
