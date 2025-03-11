@@ -1,0 +1,453 @@
+easyblock = 'PythonBundle'
+
+name = 'QIIME2'
+version = '2024.10.1'
+
+homepage = 'https://qiime2.org'
+description = """QIIME 2 is a powerful, extensible, and decentralized microbiome bioinformatics platform that is free,
+open source, and community developed."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+    ('IPython', '8.14.0'),
+    ('PyYAML', '6.0'),
+    ('Java', '11', '', SYSTEM),
+    ('Perl', '5.36.1'),
+    ('R', '4.3.2'),
+    ('R-bundle-Bioconductor', '3.18', '-R-%(rver)s'),
+    ('Parsl', '2024.4.22'),
+    ('alsa-lib', '1.2.9'),
+    ('BLAST+', '2.14.1'),
+    ('bokeh', '3.2.2'),
+    ('Bowtie2', '2.5.1'),
+    # ('bwidget', '1.9.15'), update
+    ('bzip2', '1.0.8'),
+    ('cairo', '1.17.8'),
+    ('cURL', '8.0.1'),
+    ('cutadapt', '4.9'),
+    ('DendroPy', '4.6.1'),
+    ('expat', '2.5.0'),
+    ('FastTree', '2.1.11'),
+    ('fontconfig', '2.14.2'),
+    ('FriBidi', '1.0.12'),
+    ('giflib', '5.2.1'),
+    ('GLib', '2.77.1'),
+    ('GSL', '2.7'),
+    ('h5py', '3.9.0'),
+    ('HarfBuzz', '5.3.1'),
+    ('MAFFT', '7.520', '-with-extensions'),
+    ('scikit-bio', '0.6.0'),
+    ('scikit-learn', '1.3.1'),
+    ('Seaborn', '0.13.2'),
+    ('statsmodels', '0.14.1'),
+    ('umap-learn', '0.5.5'),
+    ('VSEARCH', '2.25.0'),
+    # ('UniFrac', '1.3.2'), update
+    ('attr', '2.5.1'),
+    ('Brotli-python', '1.0.9'),
+    ('SAMtools', '1.18'),
+    ('HTSlib', '1.18'),
+    ('HMMER', '3.4'),
+    ('networkx', '3.1'),
+]
+
+use_pip = True
+
+# avoid that hidden (sub)directories like .config/q2cli are created in home directory
+preinstallopts = "export HOME=%(builddir)s/home && "
+
+# avoid hatchling requirement to install altair
+# (since installing it introduces conflicting version requirements with poetry included with Python)
+# also copy missing vega-lite-schema.json to installdir
+_altair_preinstallopts = ' '.join([
+    """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g'""",
+    """-e 's/^requires = .*/requires = ["setuptools"]/g'""",
+    """-e 's/^license-files = .*//g'""",
+    r"""-e 's/dynamic = \["version"\]/version = "%(version)s"/g' pyproject.toml && """,
+    'schemadir=%(installdir)s/lib/python%(pyshortver)s/site-packages/altair/vegalite/v5/schema/ && ',
+    'mkdir -p $schemadir && cp altair/vegalite/v5/schema/vega-lite-schema.json $schemadir && ',
+])
+
+# versions of QIIME2 extensions taken from:
+# https://github.com/qiime2/package-integration/blob/main/2023.7/staged/core/conda_build_config.yaml
+exts_list = [
+    (name, version, {
+        'source_urls': ['https://github.com/qiime2/qiime2/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['cfde7ffd2f1746865fa53e93471f94079a32cb7003673c6ea5fcde56dd6b91ec'],
+    }),
+    ('q2cli', version, {
+        'source_urls': ['https://github.com/qiime2/q2cli/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['919ef1c765bb3dadb23535657388f8b90ca9e85624f98a9bd3b419f8e3432c7d'],
+    }),
+    ('q2-alignment', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-alignment/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['275b9243e6db89e6be5aba9d7f6bde54c4b316a63455d8c0052af04abc4a4757'],
+    }),
+    ('q2-composition', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-composition/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['7b3062059d8d2c417b93d4cb08d96012bc69227183192b5f0ba1977916db4a4a'],
+    }),
+    ('q2-cutadapt', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-cutadapt/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['7dd494fbb5a4df1de7770f83f8bbd85696c9da566d6b4fd6fd7faf176025247c'],
+    }),
+    ('q2-dada2', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-dada2/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['ef10f15e3acd0440eec397cf95baab7179626e468f712b910a427bc7f7151295'],
+    }),
+    ('q2-deblur', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-deblur/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['59ab28c094ef799f1dc5be87f3f298b05d39fd50aaa7003d2de908771b15a383'],
+    }),
+    ('q2-demux', '2024.10.0', {
+        'preinstallopts': "make all && ",
+        'source_urls': ['https://github.com/qiime2/q2-demux/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['6cb6728f3d27086da0c5dbb75363f1f83605138ea6103dcb4aae587ea9ccf820'],
+    }),
+    ('q2-diversity', '2024.10.0', {
+        'preinstallopts': "make all && ",
+        'source_urls': ['https://github.com/qiime2/q2-diversity/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['1f3bb3505495d81dba7f51306df115686d3c372b8df87279d2a4c342b7864d2c'],
+    }),
+    ('q2-diversity-lib', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-diversity-lib/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['fbf6f8cf9af8d65bef5e40c734b5ce1c97528a988a7b64a5911f806ae37195be'],
+    }),
+    ('q2-emperor', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-emperor/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['68a1a32e67aecdab58293ad475cfcb66b4653c2c3819fc5ec48f0b492b805129'],
+    }),
+    ('q2-feature-classifier', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-feature-classifier/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['5f2bb2308edb3abcd7c4f74e84d9fc277b5abd12712a2e4826877c5638d97082'],
+    }),
+    ('q2-feature-table', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-feature-table/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['b6538f11410cd0cd0f528c8b56057ce4b0185e5b199371fc5c78b3d4cf80dfaa'],
+    }),
+    ('q2-fragment-insertion', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-fragment-insertion/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['7ab74862ae1d9608036f830590ec996722bb1324abbbe16a9fd10717f15f3380'],
+    }),
+    ('q2-longitudinal', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-longitudinal/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['735052cf73c293ce1a5b06ad8dccbf1519c4dc100717dad4f42b1f3b8f94ca95'],
+    }),
+    ('q2-metadata', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-metadata/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['3d9d8425c67383f5c975c26c9345b5e93a1ab9ada65fbb627ed1f51d28437acb'],
+    }),
+    ('q2-phylogeny', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-phylogeny/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['d4caa104432cf1c6b9e689de770ba68eef0de18a2dd7b32a74b70cf0cbfa297d'],
+    }),
+    ('q2-quality-control', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-quality-control/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['a00e0fa0659d8aef45b0e8f9ac0aec6a9073c8193af4493f1fd7d851090b746b'],
+    }),
+    ('q2-quality-filter', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-quality-filter/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['18b7198d15dfe71cabff744d3d1644d6f0433132594bdce3cbfec6046bd1f51b'],
+    }),
+    ('q2-sample-classifier', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-sample-classifier/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['1f499cb2e02a7cab18f1d0ac0863b03fccca141b46f944facfb965dedfb96e3e'],
+    }),
+    ('q2-taxa', '2024.10.0', {
+        'preinstallopts': "make all && ",
+        'source_urls': ['https://github.com/qiime2/q2-taxa/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['7e71ce9461c57fb5d884320a920cf7de9f778f0efac6b83647028b5eca6a7457'],
+    }),
+    ('q2-types', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-types/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['ef253689bc2c3a1a7c8f0f41e6503919efe1e44fd635ab79d2dc7be1d80b3c84'],
+    }),
+    ('q2-vsearch', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2-vsearch/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['87b2f7476f41a2761d4cbfdddd3c5111249a92a89aac92b516ea22bbe8e6e89a'],
+    }),
+    ('q2templates', '2024.10.0', {
+        'source_urls': ['https://github.com/qiime2/q2templates/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['e937bb8b2a46ff774f6813ec3448fb921cba20cc72dc757d4c9b3621502eb8f8'],
+    }),
+]
+
+# old_exts_list = [
+#     ('unifrac', '1.1.1', {
+#         'patches': ['%(name)s-%(version)s_fix.patch'],
+#         'source_tmpl': '%(version)s.tar.gz',
+#         'source_urls': ['https://github.com/biocore/unifrac/archive/refs/tags'],
+#         'checksums': [
+#             {'1.1.1.tar.gz': '95aeb107d014ffd614fda5d3c58bfac860c1a6185a63e7cd6eb2462e4d4d4f06'},
+#             {'unifrac-1.1.1_fix.patch': '4f31e9e1f8c40a166d0a66852f6ae2434a95575664a69e49bb513997891d3806'},
+#         ],
+#     }),
+#     ('argcomplete', '2.0.0', {
+#         'checksums': ['6372ad78c89d662035101418ae253668445b391755cfe94ea52f1b9d22425b20'],
+#     }),
+#     ('sniffio', '1.3.0', {
+#         'checksums': ['e60305c5e5d314f5389259b7f22aaa33d8f7dee49763119234af3755c55b9101'],
+#     }),
+#     ('anyio', '3.6.1', {
+#         'checksums': ['413adf95f93886e442aea925f3ee43baa5a765a64a0f52c6081894f9992fdd0b'],
+#     }),
+#     ('cached-property', '1.5.2', {
+#         'checksums': ['9fa5755838eecbb2d234c3aa390bd80fbd3ac6b6869109bfc1b499f7bd89a130'],
+#     }),
+#     ('contourpy', '1.0.7', {
+#         'checksums': ['d8165a088d31798b59e91117d1f5fc3df8168d8b48c4acc10fc0df0d0bdbcc5e'],
+#     }),
+#     ('tzdata', '2022.7', {
+#         'checksums': ['fe5f866eddd8b96e9fcba978f8e503c909b19ea7efda11e52e39494bad3a7bfa'],
+#     }),
+#     ('pytz-deprecation-shim', '0.1.0.post0', {
+#         'source_tmpl': 'pytz_deprecation_shim-%(version)s.tar.gz',
+#         'checksums': ['af097bae1b616dde5c5744441e2ddc69e74dfdcb0c263129610d85b87445a59d'],
+#     }),
+#     ('tzlocal', '5.0.1', {
+#         'checksums': ['46eb99ad4bdb71f3f72b7d24f4267753e240944ecfc16f25d2719ba89827a803'],
+#     }),
+#     ('argon2-cffi-bindings', '21.2.0', {
+#         'modulename': '_argon2_cffi_bindings',
+#         'checksums': ['bb89ceffa6c791807d1305ceb77dbfacc5aa499891d2c55661c6459651fc39e3'],
+#     }),
+#     ('biom-format', '2.1.15', {
+#         'modulename': 'biom',
+#         'checksums': ['3bda2096e663dc1cb6f90f51b394da0838b9be5164a44370c134ce5b3b2a4dd3'],
+#     }),
+#     ('pylatexenc', '2.10', {
+#         'checksums': ['3dd8fd84eb46dc30bee1e23eaab8d8fb5a7f507347b23e5f38ad9675c84f40d3'],
+#     }),
+#     ('bibtexparser', '1.4.0', {
+#         'checksums': ['ca7ce2bc34e7c48a678dd49416429bb567441f26dbb13b3609082d8cd109ace6'],
+#     }),
+#     ('deblur', '1.1.0', {
+#         'checksums': ['78ca2c9946ed99c0d49352e92b63083ae10d04734af7682baddb2c31966c1674'],
+#     }),
+#     ('emperor', '1.0.4', {
+#         'checksums': ['8b57d6ee3709b62b4dfdd8e1f815dd88e5fee3a05947d72fa32191a16ac08854'],
+#     }),
+#     ('fastcluster', '1.2.6', {
+#         'checksums': ['aab886efa7b6bba7ac124f4498153d053e5a08b822d2254926b7206cdf5a8aa6'],
+#     }),
+#     ('gneiss', '0.4.6', {
+#         'preinstallopts': "sed -i '/nose/d' setup.py && ",
+#         'checksums': ['5ebf32148909cf74475e45682042c68224f002c1cbf723a5c96014a30f1cf323'],
+#     }),
+#     ('toolz', '0.12.0', {
+#         'checksums': ['88c570861c440ee3f2f6037c4654613228ff40c93a6c25e0eba70d17282c6194'],
+#     }),
+#     ('ijson', '3.2.3', {
+#         'checksums': ['10294e9bf89cb713da05bc4790bdff616610432db561964827074898e174f917'],
+#     }),
+#     ('iow', '1.0.6', {
+#         'modulename': 'bp',
+#         'preinstallopts': """sed -i "/'nose /d" setup.py && """,
+#         'checksums': ['ac4f579a0881f1c827f75033a304341ae91d3a527cc6aed3fea53749f1b9951c'],
+#     }),
+#     # using prebuilt wheels for atpublic and flufl.lock because building them requires pdm
+#     ('atpublic', '4.0', {
+#         'modulename': 'public',
+#         'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+#         'checksums': ['80057c55641253b86dcb68b524f82328172371b6547d4c7462a9127fbfbbabfc'],
+#     }),
+#     ('flufl-lock', '8.0.1', {
+#         'modulename': 'flufl.lock',
+#         'source_tmpl': 'flufl_lock-%(version)s-py3-none-any.whl',
+#         'checksums': ['a3df854d76173d59813fdcba91671234b59e2a14db3390793745c77a7bb92d9d'],
+#     }),
+#     ('astor', '0.8.1', {
+#         'checksums': ['6a6effda93f4e1ce9f618779b2dd1d9d84f1e32812c23a29b3fff6fd7f63fa5e'],
+#     }),
+#     ('interface_meta', '1.3.0', {
+#         'checksums': ['8a4493f8bdb73fb9655dcd5115bc897e207319e36c8835f39c516a2d7e9d79a1'],
+#     }),
+#     ('wrapt', '1.14.1', {
+#         'checksums': ['380a85cf89e0e69b7cfbe2ea9f765f004ff419f34194018a6827ac0e3edfed4d'],
+#     }),
+#     ('formulaic', '0.4.0', {
+#         'checksums': ['087950518c53a2491deb52b8ddd66833f953882e517a42e476c007cc8f6892c5'],
+#     }),
+#     ('altair', '5.0.1', {
+#         'preinstallopts': _altair_preinstallopts,
+#         'checksums': ['087d7033cb2d6c228493a053e12613058a5d47faf6a36aea3ff60305fd8b4cb0'],
+#     }),
+#     (name, version, {
+#         'patches': ['QIIME2-2023.5.1_fix.patch'],
+#         'source_urls': ['https://github.com/qiime2/qiime2/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': [
+#             {'QIIME2-2023.7.0.tar.gz': 'e812188bc2f658c556a3a9d4670c6d25595114726e975cff0b0cbc88e47318ec'},
+#             {'QIIME2-2023.5.1_fix.patch': '6148e5334f478bcdd6f5bf30fbe39426be71c391af1a384a529c49e658ada7a5'},
+#         ],
+#     }),
+#     ('q2cli', version, {
+#         'source_urls': ['https://github.com/qiime2/q2cli/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['2ee2f1f95bacaee8c8a3c4fbc43b20d01ab32bb8736a8d142216ba3ff6817487'],
+#     }),
+#     ('q2-alignment', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-alignment/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['8b93b0b5a156f0d318e984b2a9aff677e7de0426150019056266200c32b4b3c8'],
+#     }),
+#     ('q2-composition', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-composition/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['e884ce154fdc6e8ad3c77f2e799beab27a3de511836a9d0261cef56d96523721'],
+#     }),
+#     ('q2-cutadapt', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-cutadapt/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['73c95ba387dd6f1612488cd8ad8ee4d483f6a85bb342b9b77dd8b075b1fde09d'],
+#     }),
+#     ('q2-dada2', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-dada2/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['0597d81acea64f63b10a8e5061ae2acb4dd1cc04a77be243f921a70d3303ee93'],
+#     }),
+#     ('q2-deblur', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-deblur/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['284ade6685e873642cf52d3d8625048a913fd218ec79427fc64d3825e5665578'],
+#     }),
+#     ('q2-demux', version, {
+#         'preinstallopts': "make all && ",
+#         'source_urls': ['https://github.com/qiime2/q2-demux/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['ba3358e7af1f88dfbecb74aea31927b3b7208c534233f0691abea1df33445ce3'],
+#     }),
+#     ('q2-diversity', version, {
+#         'preinstallopts': "make all && ",
+#         'source_urls': ['https://github.com/qiime2/q2-diversity/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['30e1c3f72f6dbbd05752248f525950ba42d4c8e627c3b50599565848b969e7c4'],
+#     }),
+#     ('q2-diversity-lib', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-diversity-lib/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['4c907b957e40356ac66bd9af2272051553491aaa8580be543da199f44e48f688'],
+#     }),
+#     ('q2-emperor', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-emperor/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['d6581926a3038a3e8dbaad563281c4bb2b707ba2133329fb239af7fde0627a97'],
+#     }),
+#     ('q2-feature-classifier', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-feature-classifier/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['f802804dec72c29e2b2a6b8052858739fb5b3791d579e0020f4a0f4f92eb8587'],
+#     }),
+#     ('q2-feature-table', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-feature-table/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['3175223586013da3b71cf982076aec4bc4548d13e9afa87422f35c6c9f7e009f'],
+#     }),
+#     ('q2-fragment-insertion', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-fragment-insertion/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['bee91e55e4fce25475430c2f04f15a022850cc4c1f00d6872619a525c5ea568c'],
+#     }),
+#     ('q2-gneiss', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-gneiss/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['f495d0cfb9125325f85c39ba87a69ca843b856211c0b3250e34877cc5bdccb68'],
+#     }),
+#     ('q2-longitudinal', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-longitudinal/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['141272036a032b29784101dd67f2537fc246b2ce0014189be8d48b48db7aa6b1'],
+#     }),
+#     ('q2-metadata', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-metadata/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['b3359c9660bfb2d913f0338c1d54633b197be7887f79d05e12930ab1e263044c'],
+#     }),
+#     ('q2-phylogeny', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-phylogeny/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['c42361fb8878ed08c8cb130c3f6f894c0b35220a7d761b7d6e3f5c701bd19acc'],
+#     }),
+#     ('q2-quality-control', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-quality-control/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['8aacd517dc422dd429dc298f07f9bb324a2c1e261d6fce64b990b7d54e7216ce'],
+#     }),
+#     ('q2-quality-filter', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-quality-filter/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['ed2abc58656585c1f7767f43b8a2f70e4c8e5a6f3393b4d05cce04a656b9418d'],
+#     }),
+#     ('q2-sample-classifier', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-sample-classifier/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['8736b7fdd985ae6d33d74bde97a0500a2fc28e4d5d1349bcee3656ff9b354d1d'],
+#     }),
+#     ('q2-taxa', version, {
+#         'preinstallopts': "make all && ",
+#         'source_urls': ['https://github.com/qiime2/q2-taxa/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['df2fca8df1dfd2c795b2c7fd72a9ea2dd887813df468c9a9777fc902bddfdb1c'],
+#     }),
+#     ('q2-types', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-types/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['eb646be101d499f92e60801f613ac54329f246936dd110c148d4381df4a0f64b'],
+#     }),
+#     ('q2-vsearch', version, {
+#         'source_urls': ['https://github.com/qiime2/q2-vsearch/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['4d67bfc97ff350538f07fd7aadc4a9ef7ad8dde8087052360dda937c13887aa1'],
+#     }),
+#     ('q2templates', version, {
+#         'source_urls': ['https://github.com/qiime2/q2templates/archive/'],
+#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+#         'checksums': ['405a3f5e9146104ee6f16b6a164b317ee1c9692e8984c2fc54360b9bc267382d'],
+#     }),
+# ]
+
+sanity_pip_check = True
+
+sanity_check_paths = {
+    'files': ['bin/biom', 'bin/qiime'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    "qiime --help",
+    "qiime info",
+    "qiime tools validate "
+    # "%(installdir)s/lib/python%(pyshortver)s/site-packages/q2_sample_classifier/tests/data/vaw.qza",
+]
+
+modextrapaths = {'CONDA_PREFIX': ''}
+
+moduleclass = 'bio'
