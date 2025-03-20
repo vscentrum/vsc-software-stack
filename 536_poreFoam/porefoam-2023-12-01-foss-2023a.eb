@@ -1,0 +1,60 @@
+easyblock = 'ConfigureMake'
+
+name = 'porefoam'
+local_commit = 'bce1ff4'
+version = '2023-12-01'
+
+homepage = 'https://github.com/ImperialCollegeLondon/porefoam'
+description = "Direct pore-scale simulation of single- and two-phase flow through confined media"
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/ImperialCollegeLondon/porefoam/archive/']
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
+patches = [
+    'porefoam-2021-09-21_fix-scotch-linking.patch',
+    'porefoam-2021-09-21_fix-hardcoded-mpicommand.patch',
+]
+checksums = [
+    'f6eb8dcb24e1fa5de312199b50878f4621a8dee01f5c15fcec431303ffdc4c06',  # porefoam-2023-12-01.tar.gz
+    '86b7e389b62f54bbd3c931ae3dbdc363226e250faa181e7e50ed121da9959a92',  # porefoam-2021-09-21_fix-scotch-linking.patch
+    # porefoam-2021-09-21_fix-hardcoded-mpicommand.patch
+    '4cfa924c9a5d3ec38cf233312eb325ed625219644468f4b34fba8bc6ceee5ba2',
+]
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+]
+
+dependencies = [
+    ('SCOTCH', '7.0.3'),
+]
+
+buildininstalldir = True
+unpack_options = '--strip-components=1'
+
+skipsteps = ['configure', 'install']
+
+prebuildopts = "export WM_COMPILER=Gcc && export WM_COMPILE_OPTION=Opt && "
+# using ld.gold linker doesn't work
+prebuildopts += 'export WM_CC="$CC $CFLAGS -fuse-ld=bfd" && export WM_CXX="$CXX $CXXFLAGS -fuse-ld=bfd" && '
+
+sanity_check_paths = {
+    'files': ['bin/interFaceFoam', 'bin/smoothMesh', 'bin/voxelToSurface'],
+    'dirs': ['include', 'lib'],
+}
+
+sanity_check_commands = ["voxelToFoam --help | grep 'convert micro-CT images to OpenFOAM mesh'"]
+
+moduleclass = 'cae'
+
+# TODO
+# SOURCE=primitives/Lists/PackedBoolList.C ;  g++ -O2 -ftree-vectorize -march=native -fno-math-errno -fuse-ld=bfd -std=c++11 -m64 -Dlinux64 -DWM_ARCH_OPTION=64 -DWM_DP -DWM_LABEL_SIZE=32 -Wall -Wextra -Wno-unused-parameter -Wnon-virtual-d
+# tor -O3  -DNoRepository -ftemplate-depth-200 -DOMPI_SKIP_MPICXX -I/apps/gent/RHEL9/cascadelake-ib/software/OpenMPI/4.1.5-GCC-12.3.0/include   -DWM_PROJECT_VERSION=\"4.1\"    -I/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascade
+# lake-ampere-ib/software/porefoam/2023-12-01-foss-2023a/pkgs/foamx4m/ThirdParty/zlib-1.2.3 -IlnInclude -I. -I/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/porefoam/2023-12-01-foss-2023a/pkgs/foamx4m/
+# src/foam/lnInclude -I/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/porefoam/2023-12-01-foss-2023a/pkgs/foamx4m/src/OSspecific/POSIX/lnInclude   -fPIC -c $SOURCE -o Make/linux64GccDPInt32Opt/PackedBo
+# olList.o
+# In file included from primitives/Lists/PackedBoolList.C:26:
+# primitives/Lists/PackedBoolList.H:119:54: error: ‘class Foam::UList<unsigned int> Foam::UList<unsigned int>::UList’ is private within this context
+#   119 |                 explicit inline PackedBoolList(const UList<label>& indices);
+#       |                                                      ^~~~~~~~~~~~
