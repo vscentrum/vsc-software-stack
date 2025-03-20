@@ -1,0 +1,98 @@
+easyblock = 'CmdCp'
+
+name = 'REShAPE'
+version = '1.0.5-20230410'
+_commit = '8f1865e'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://qiime2.org'
+description = """QIIME 2 is a powerful, extensible, and decentralized microbiome bioinformatics platform that is free,
+open source, and community developed."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/NIH-NEI/REShAPE/archive/']
+sources = [{'download_filename': '8f1865e.tar.gz', 'filename': '%(name)s-%(version)s-8f1865e.tar.gz'}]
+checksums = ['bdd333a23660311c7dac033c07ea8d6d5347302130eeb30f609c27783a04d9c4']
+
+# DEPS:
+    # 'epel-release', - enterprise linux packages from fedora - mostly perl, python, rust, ...
+    # 'python-pip', ok
+    # 'tkinter', OK
+    # 'python-devel', OK 
+    # 'freeglut-devel', OK 
+    # 'libXt-devel', in X11 in freeglut
+    # 'centos-release-scl', Red Hat replaced Software Collections with Application Streams
+    # 'devtoolset-7',
+    # 'libjpeg-turbo-devel', OK
+    # 'libcurl-devel', OK
+    # 'openssl-devel', OK
+    # 'libxml2-devel', OK
+    # 'R', OK
+    # 'Pillow', OK
+    # 'Jinja2', ok in pypi bundle
+    # cmake3 OK
+    # fiji OK
+    # OK ITK4, MIN_ITK_VER = '4.12.0', ITK_FILE = 'InsightToolkit-4.13.2.zip'
+    # ok MatlabRT
+        # MRT_DOWNLOAD_URL = 'https://ssd.mathworks.com/supportfiles/downloads/R2019b/Release/4/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2019b_Update_4_glnxa64.zip'
+        # MRT_FILE = 'MATLAB_Runtime_R2019b_Update_4_glnxa64.zip' 
+    # OK Qt5, MIN_QT_VER = '5.13.2'
+    # OK VTK8, MIN_VTK_VER = '8.0.0', VTK_FILE = 'VTK-8.2.0.zip'
+    # R: all in CRAN-bundle
+        # ggplot2 ok
+        # Hmisc ok
+        # tidyverse ok
+        
+    # installation:
+        # probably CmdCp EBlock
+        # first module is Segmentation
+        # next is Fiji
+        # last cpp
+            # all staff to install is in cpp source - there are build.sh and CMakeLists
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+]
+dependencies = [
+    ('CUDA', '12.1.1', '', SYSTEM),
+    ('Python', '3.11.3'),
+    ('Tkinter', '%(pyver)s'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('freeglut', '3.4.0'),
+    ('libjpeg-turbo', '2.1.5.1'),
+    ('cURL', '8.0.1'),
+    ('OpenSSL', '3', '', SYSTEM),
+    ('libxml2', '2.11.4'),
+    ('R', '4.3.2'),
+    ('R-bundle-CRAN', '2023.12'),
+    ('Pillow', '10.0.0'),
+    ('Fiji', '2.14.0', '-Java-11', SYSTEM),
+    ('ITK', '5.3.0'),
+    # ('MATLAB', '2023a', '', SYSTEM),
+    ('Qt5', '5.15.10'),
+    # ('VTK', '9.3.0'),
+]
+
+with_configure = True
+configure_without_installdir = True
+configure_cmd = 'chmod 777 %(start_dir)sStandalone/deviceQuery && cd %(start_dir)s && ./Standalone/deviceQuery'  # OK
+build_cmd = ''
+install_cmd = ''
+# cmds_map = [('.*', "./configure.py --bootstrap")]
+
+files_to_copy = ['*']
+
+# sanity_check_paths = {
+#     'files': ['bin/qiime'],
+#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
+# }
+
+# sanity_check_commands = [
+#     "qiime --help",
+#     "export CONDA_PREFIX='' && qiime info",
+#     "qiime tools validate "
+#     "%(installdir)s/lib/python%(pyshortver)s/site-packages/q2_sample_classifier/tests/data/vaw.qza",
+# ]
+
+moduleclass = 'bio'
