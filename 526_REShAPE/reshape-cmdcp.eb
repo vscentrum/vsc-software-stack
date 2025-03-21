@@ -16,9 +16,10 @@ sources = [{'download_filename': '8f1865e.tar.gz', 'filename': '%(name)s-%(versi
 checksums = ['bdd333a23660311c7dac033c07ea8d6d5347302130eeb30f609c27783a04d9c4']
 
 # DEPS:
+    # python2 !!!
     # 'epel-release', - enterprise linux packages from fedora - mostly perl, python, rust, ...
     # 'python-pip', ok
-    # 'tkinter', OK
+    # 'tkinter', OK even for py2
     # 'python-devel', OK 
     # 'freeglut-devel', OK 
     # 'libXt-devel', in X11 in freeglut
@@ -29,11 +30,11 @@ checksums = ['bdd333a23660311c7dac033c07ea8d6d5347302130eeb30f609c27783a04d9c4']
     # 'openssl-devel', OK
     # 'libxml2-devel', OK
     # 'R', OK
-    # 'Pillow', OK
-    # 'Jinja2', ok in pypi bundle
+    # 'Pillow', not for py2
+    # 'Jinja2', in pypi-bundle but not for py2
     # cmake3 OK
     # fiji OK
-    # OK ITK4, MIN_ITK_VER = '4.12.0', ITK_FILE = 'InsightToolkit-4.13.2.zip'
+    # not OK ITK4, MIN_ITK_VER = '4.12.0', ITK_FILE = 'InsightToolkit-4.13.2.zip' - not for py2
     # ok MatlabRT
         # MRT_DOWNLOAD_URL = 'https://ssd.mathworks.com/supportfiles/downloads/R2019b/Release/4/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2019b_Update_4_glnxa64.zip'
         # MRT_FILE = 'MATLAB_Runtime_R2019b_Update_4_glnxa64.zip' 
@@ -56,19 +57,21 @@ builddependencies = [
 ]
 dependencies = [
     ('CUDA', '12.1.1', '', SYSTEM),
-    ('Python', '3.11.3'),
-    ('Tkinter', '%(pyver)s'),
-    ('Python-bundle-PyPI', '2023.06'),
+    # ('Python', '3.11.3'),
+    ('Python', '2.7.18'),
+    ('Tkinter', '%(pyver)s', '-Python-%(pyver)s'),
+    # ('Python-bundle-PyPI', '2023.06'),
+    # jinja2 for python2
     ('freeglut', '3.4.0'),
     ('libjpeg-turbo', '2.1.5.1'),
     ('cURL', '8.0.1'),
-    ('OpenSSL', '3', '', SYSTEM),
+    # ('OpenSSL', '3', '', SYSTEM), already in python
     ('libxml2', '2.11.4'),
     ('R', '4.3.2'),
     ('R-bundle-CRAN', '2023.12'),
-    ('Pillow', '10.0.0'),
+    # ('Pillow', '10.0.0'), not for py2
     ('Fiji', '2.14.0', '-Java-11', SYSTEM),
-    ('ITK', '5.3.0'),
+    # ('ITK', '5.3.0'), not for py2
     # ('MATLAB', '2023a', '', SYSTEM),
     ('Qt5', '5.15.10'),
     # ('VTK', '9.3.0'),
@@ -76,7 +79,7 @@ dependencies = [
 
 with_configure = True
 configure_without_installdir = True
-configure_cmd = 'chmod 777 %(start_dir)sStandalone/deviceQuery && cd %(start_dir)s && ./Standalone/deviceQuery'  # OK
+configure_cmd = 'chmod 777 %(start_dir)sStandalone/deviceQuery && cd %(start_dir)s && ./Standalone/deviceQuery'  # OK pass
 build_cmd = ''
 install_cmd = ''
 # cmds_map = [('.*', "./configure.py --bootstrap")]
@@ -96,3 +99,64 @@ files_to_copy = ['*']
 # ]
 
 moduleclass = 'bio'
+
+# from chatgpt:
+# First, note that this script is intended to be run on CentOS 7. It checks your OS version and will exit if you’re not on CentOS 7 
+# (or a close enough variant). The script then performs a sequence of installation steps, controlled by the `ALL_SETUP` list. 
+# Each tuple in `ALL_SETUP` corresponds to a method of the `SudoInstaller` class along with the parameters to pass to that method. 
+# Below is the breakdown:
+
+# 1. **OS Check (lines ~119–131)**
+#    - Reads the distribution name and version via `platform.dist()`.
+#    - If the system is not CentOS or the major version is not at least 7, the script exits.
+#    - If it’s CentOS but version > 7, it prints a warning but proceeds.
+
+# 2. **Setting Executable Permissions (lines ~134–149)**
+#    - In `set_exec_permissions()`, it looks at folders like `Standalone`, `Imaging`, `thirdparty`, and `cppsource` and sets `chmod 0755` on any `.sh`, `.run`, 
+#    or extensionless file so they become executable.
+
+# 3. **Asking for sudo Password (line ~155)**
+#    - The script prompts you to type the sudo password. That is stored in-memory so it can run privileged commands.
+
+# 4. **SudoInstaller Class**
+#    - This is a helper class for running commands with or without sudo, storing outputs, and keeping a “context” (installation state) in `reshape_setup.json`.
+
+#    4.1. `yum_packages()`
+#    - Installs each package from a list (for example, `epel-release`, `python-pip`, `tkinter`, etc.) using `yum -y install ...`.
+
+#    4.2. `yum_groups()`
+#    - Installs a “yum group” (like “development tools”) using `yum groupinstall`.
+
+#    4.3. `pip_packages()`
+#    - Upgrades pip, then installs packages like Pillow, Jinja2.
+
+#    4.4. `thirdparty()`
+#    - Enters the `thirdparty` folder and runs `install.py` via sudo.  
+#    - That `install.py` apparently prints JSON (fenced by `START_JSON_RESPONSE` and `END_JSON_RESPONSE`), and the script extracts that JSON 
+#    and merges it into the `context` dictionary. The dictionary is saved to `reshape_setup.json`.
+
+#    4.5. `segmentation()`
+#    - Creates a little shell script (segmentation.sh) that sets up the `LD_LIBRARY_PATH` from the stored `MRT_ENV` in the context, 
+#    then calls `segmfunc`. 
+#    This is presumably so that the segmentation program has its environment properly configured.
+
+#    4.6. `cppsource()`
+#    - Goes into `cppsource` and for each subdirectory with a `CMakeLists.txt`, it writes a `build.sh` that calls CMake with certain parameters (including the install prefix in `Imaging`).  
+#    - It then calls `scl enable devtoolset-7 bash` to compile with a newer compiler toolchain, runs `gmake install`, and copies the resulting build output to `Imaging`.  
+#    - Tracks the installed paths in the context.
+
+#    4.7. `r_packages()`
+#    - Runs a script named `setup.R` in the `templates` folder to install R packages (or do some R-based setup tasks).
+
+# 5. **Loop Through Installation Steps (lines ~164–167)**
+#    - For each entry in `ALL_SETUP`, the script calls the corresponding method of `SudoInstaller` (yum_packages, yum_groups, pip_packages, etc.).  
+#    - If any step fails (nonzero return code), the script breaks out, prints `FAILED`, and exits.
+
+# 6. **Final Output**
+#    - If everything succeeded, it prints the final context dictionary (collected installation info and paths) and says `Setup status: SUCCESS.`  
+#    - Otherwise, it shows `FAILED.`
+
+# In short, the script automates installing OS packages (yum), Python libraries (pip), building and installing C++ code with CMake, 
+# installing R packages, and setting up environment scripts for the Reshape program. 
+# The “context” dictionary tracks discovered or built paths, and gets saved to `reshape_setup.json` so that later steps (or future scripts) 
+# can remember where various dependencies ended up.
