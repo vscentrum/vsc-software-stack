@@ -35,7 +35,7 @@ VENDORED_CONFIG = {
         'strategy': 'None',
         'executors': [
             {'class': 'ThreadPoolExecutor', 'label': 'tpool',
-                'max_threads': CORE_NUM}
+                'max_threads': CORE_NUM},
             {'class': 'HighThroughputExecutor', 'label': 'default',
                 'max_workers': CORE_NUM,
                 'provider': {'class': 'LocalProvider'}}

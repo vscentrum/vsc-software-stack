@@ -14,7 +14,7 @@ Author: Pavel Tomanek(Inuits)
          'executors': [
              {'class': 'ThreadPoolExecutor', 'label': 'tpool',
 -                'max_threads': max(psutil.cpu_count() - 1, 1)},
-+                'max_threads': CORE_NUM}
++                'max_threads': CORE_NUM},
              {'class': 'HighThroughputExecutor', 'label': 'default',
 -                'max_workers': max(psutil.cpu_count() - 1, 1),
 +                'max_workers': CORE_NUM,
