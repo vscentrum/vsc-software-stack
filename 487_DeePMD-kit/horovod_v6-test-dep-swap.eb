@@ -16,7 +16,11 @@ builddependencies = [
 dependencies = [
     ('Python', '3.11.3'),
     ('PyYAML', '6.0'),
-    ('TensorFlow', local_tf_version),
+    ('TensorFlow', local_tf_version),  # has protobuf/24.0-GCCcore-12.3.0 as dep
+]
+
+swapdependencies = [
+    ('protobuf', '3.21.9'),
 ]
 
 use_pip = True
