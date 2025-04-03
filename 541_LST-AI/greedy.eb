@@ -26,11 +26,9 @@ dependencies = [
 
 configopts = '-DITK_DIR=$EBROOTITK -DUSE_FFTW=OFF '
 
-# sanity_check_paths = {
-#     'files': ['include/parallel_hashmap/phmap%s.h' % x for x in [
-#         '', '_base', '_bits', '_config', '_dump', '_fwd_decl', '_utils'
-#     ]],
-#     'dirs': [],
-# }
+sanity_check_paths = {
+    'files': ['bin/%(name)s'],
+    'dirs': ['include'],
+}
 
 moduleclass = 'vis'
