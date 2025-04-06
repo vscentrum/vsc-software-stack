@@ -6,23 +6,37 @@ version = '1.1.0'
 homepage = 'https://github.com/chklovski/CheckM2/'
 description = "Assessing the quality of metagenome-derived genome bins using machine learning"
 
-toolchain = {'name': 'foss', 'version': '2023a'}
+toolchain = {'name': 'foss', 'version': '2024a'}
 
+# DEPS:
+    # OK - python>3.12
+    # OK - scikit-learn=1.6.1 -> have 1.5.2 -> create 1.6.1? -> created -> put to exts better?
+    # OK - diamond=2.1.11
+    # - tensorflow=2.17 -> create
+    # - lightgbm -> create
+    # OK - pandas
+    # OK - numpy
+    # OK - scipy
+    # OK - prodigal=2.6.3 - in PR: https://github.com/easybuilders/easybuild-easyconfigs/pull/22716
+    # OK - setuptools - py
+    # OK - requests - pypi
+    # OK - packaging - pypi
+    # OK - tqdm
+  
 builddependencies = [
-    ('CMake', '3.26.3'),
-    ('scikit-build-core', '0.9.3'),
+    ('CMake', '3.29.3'),
+    ('scikit-build-core', '0.10.6'),
 ]
 dependencies = [
-    ('Python', '3.11.3'),
-    ('Python-bundle-PyPI', '2023.06'),
-    ('SciPy-bundle', '2023.07'),
-    ('DIAMOND', '2.1.8'),
-    ('TensorFlow', '2.13.0'),
+    ('Python', '3.12.3'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('SciPy-bundle', '2024.05'),
+    ('DIAMOND', '2.1.11'),
+    # ('TensorFlow', '2.13.0'),
     ('prodigal', '2.6.3'),
-    ('h5py', '3.9.0'),
-    ('tqdm', '4.66.1'),
-    ('scikit-learn', '1.3.1'),
-    ('LightGBM', '4.5.0'),
+    ('tqdm', '4.66.5'),
+    ('scikit-learn', '1.6.1'), # maybe put this to exts
+    # ('LightGBM', '4.5.0'),
 ]
 
 exts_list = [
@@ -58,17 +72,3 @@ $ checkm2 testrun
 """
 
 moduleclass = 'bio'
-
-#E1:
-    # -> go for 2024a toolchain -> new ec
-    # -> look req: https://github.com/chklovski/CheckM2/blob/1.1.0/checkm2.yml
-    # problem with python version - should be v3.12 or TensorFlow version
-        # https://github.com/tensorflow/tensorflow/issues/66381
-        # https://github.com/chklovski/CheckM2/issues/135
-    # <- after download db and $ checkm2 testrun
-    # [04/04/2025 02:18:31 PM] INFO: Test run: Running quality prediction workflow on test genomes with 1 threads.
-    # [04/04/2025 02:18:31 PM] INFO: Running checksum on test genomes.
-    # [04/04/2025 02:18:31 PM] INFO: Checksum successful.
-    # [04/04/2025 02:18:31 PM] ERROR: Saved models could not be loaded: 
-    # Error when deserializing class 'InputLayer' using config={'batch_shape': [None, 20021, 1], 'dtype': 'float32', 'sparse': False, 'name': 'conv1d_input'}.
-    # Exception encountered: Unrecognized keyword arguments: ['batch_shape']
