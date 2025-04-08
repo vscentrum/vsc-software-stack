@@ -10,6 +10,7 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 toolchainopts = {'pic': True}
 
 builddependencies = [
+    ('hatchling', '1.24.2'),
     ('Bazel', '7.4.1'),
     # git 2.x required, see also https://github.com/tensorflow/tensorflow/issues/29053
     ('git', '2.45.1'),
@@ -48,8 +49,7 @@ dependencies = [
     ('wrapt', '1.16.0'),
     ('Markdown', '3.7'),
     ('absl-py', '2.1.0'),
-    ('tensorboard', '2.18.0')
-    # tensorboard create 2.17.1
+    ('tensorboard', '2.18.0'),
 ]
 
 # Dependencies created and updated using findPythonDeps, see:
@@ -59,8 +59,11 @@ dependencies = [
 # - portpicker for tests no longer needed (TF@e85860e838)
 # - opt_einsum now comes from ml_dtypes
 exts_list = [
-    ('termcolor', '3.0.1', {
-        'checksums': ['a6abd5c6e1284cea2934443ba806e70e5ec8fd2449021be55c280f8a3731b611'],
+    ('astor', '0.8.1', {
+        'checksums': ['6a6effda93f4e1ce9f618779b2dd1d9d84f1e32812c23a29b3fff6fd7f63fa5e'],
+    }),
+    ('termcolor', '2.5.0', {
+        'checksums': ['998d8d27da6d48442e8e1f016119076b690d962507531df4890fcd2db2ef8a6f'],
     }),
     ('Werkzeug', '3.1.3', {
         'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
@@ -160,3 +163,44 @@ exts_list = [
 # ]
 
 moduleclass = 'lib'
+
+# E3:
+    # <- after bazel cmd <- log1.txt
+        # ERROR: Skipping '//tensorflow/tools/pip_package:build_pip_package': no such target '//tensorflow/tools/pip_package:build_pip_package': target 'build_pip_package' not declared in package 'tensorflow/tools/pip_package' defined by /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/tensorflow-2.17.1/tensorflow/tools/pip_package/BUILD (did you mean build_pip_package.py, or build_pip_package_py?)
+        # ERROR: no such target '//tensorflow/tools/pip_package:build_pip_package': target 'build_pip_package' not declared in package 'tensorflow/tools/pip_package' defined by /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/tensorflow-2.17.1/tensorflow/tools/pip_package/BUILD (did you mean build_pip_package.py, or build_pip_package_py?)
+# E2: OK
+    # import astor +  No module named 'cython'
+# E1: OK
+    # fixed by termcolor 2.5.0
+    # -> try v2.19.0...
+    # -> problem with python version?
+    # == 2025-04-08 12:58:22,825 run.py:598 INFO Output of '/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python ...' shell command (stdout + stderr):
+    # Processing /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/termcolor/termcolor-3.0.1
+    #   Preparing metadata (pyproject.toml): started
+    #   Preparing metadata (pyproject.toml): finished with status 'error'
+    #   error: subprocess-exited-with-error
+    #   × Preparing metadata (pyproject.toml) did not run successfully.
+    #   │ exit code: 1
+    #   ╰─> [21 lines of output]
+    #       Traceback (most recent call last):
+    #         File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 353, in <module>
+    #           main()
+    #         File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 335, in main
+    #           json_out['return_val'] = hook(**hook_input['kwargs'])
+    #                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    #         File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 152, in prepare_metadata_for_build_wheel
+    #           whl_basename = backend.build_wheel(metadata_directory, config_settings)
+    #                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    #         File "/apps/gent/RHEL9/cascadelake-ib/software/hatchling/1.24.2-GCCcore-13.3.0/lib/python3.12/site-packages/hatchling/build.py", line 58, in build_wheel
+    #           return os.path.basename(next(builder.build(directory=wheel_directory, versions=['standard'])))
+    #                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    #         File "/apps/gent/RHEL9/cascadelake-ib/software/hatchling/1.24.2-GCCcore-13.3.0/lib/python3.12/site-packages/hatchling/builders/plugin/interface.py", line 90, in build
+    #           self.metadata.validate_fields()
+    #         File "/apps/gent/RHEL9/cascadelake-ib/software/hatchling/1.24.2-GCCcore-13.3.0/lib/python3.12/site-packages/hatchling/metadata/core.py", line 266, in validate_fields
+    #           self.core.validate_fields()
+    #         File "/apps/gent/RHEL9/cascadelake-ib/software/hatchling/1.24.2-GCCcore-13.3.0/lib/python3.12/site-packages/hatchling/metadata/core.py", line 1376, in validate_fields
+    #           getattr(self, attribute)
+    #         File "/apps/gent/RHEL9/cascadelake-ib/software/hatchling/1.24.2-GCCcore-13.3.0/lib/python3.12/site-packages/hatchling/metadata/core.py", line 750, in license_files
+    #           raise TypeError(message)
+    #       TypeError: Field `project.license-files` must be a table
+    #       [end of output]
