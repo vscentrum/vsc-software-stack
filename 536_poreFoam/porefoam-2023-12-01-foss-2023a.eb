@@ -24,6 +24,7 @@ checksums = [
 
 builddependencies = [
     ('CMake', '3.26.3'),
+    ('zlib', '1.2.13'),
 ]
 
 dependencies = [
@@ -38,6 +39,9 @@ skipsteps = ['configure', 'install']
 prebuildopts = "export WM_COMPILER=Gcc && export WM_COMPILE_OPTION=Opt && "
 # using ld.gold linker doesn't work
 prebuildopts += 'export WM_CC="$CC $CFLAGS -fuse-ld=bfd" && export WM_CXX="$CXX $CXXFLAGS -fuse-ld=bfd" && '
+# to avoid `error: ‘class Foam::UList<unsigned int> Foam::UList<unsigned int>::UList’ is private within this context`
+prebuildopts += "sed -i 's/private List/public List/g' "
+prebuildopts += "pkgs/foamx4m/src/foam/containers/Lists/PackedList/PackedList.H && "
 
 sanity_check_paths = {
     'files': ['bin/interFaceFoam', 'bin/smoothMesh', 'bin/voxelToSurface'],
@@ -49,12 +53,17 @@ sanity_check_commands = ["voxelToFoam --help | grep 'convert micro-CT images to 
 moduleclass = 'cae'
 
 # TODO
-# SOURCE=primitives/Lists/PackedBoolList.C ;  g++ -O2 -ftree-vectorize -march=native -fno-math-errno -fuse-ld=bfd -std=c++11 -m64 -Dlinux64 -DWM_ARCH_OPTION=64 -DWM_DP -DWM_LABEL_SIZE=32 -Wall -Wextra -Wno-unused-parameter -Wnon-virtual-d
-# tor -O3  -DNoRepository -ftemplate-depth-200 -DOMPI_SKIP_MPICXX -I/apps/gent/RHEL9/cascadelake-ib/software/OpenMPI/4.1.5-GCC-12.3.0/include   -DWM_PROJECT_VERSION=\"4.1\"    -I/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascade
-# lake-ampere-ib/software/porefoam/2023-12-01-foss-2023a/pkgs/foamx4m/ThirdParty/zlib-1.2.3 -IlnInclude -I. -I/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/porefoam/2023-12-01-foss-2023a/pkgs/foamx4m/
-# src/foam/lnInclude -I/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/porefoam/2023-12-01-foss-2023a/pkgs/foamx4m/src/OSspecific/POSIX/lnInclude   -fPIC -c $SOURCE -o Make/linux64GccDPInt32Opt/PackedBo
-# olList.o
-# In file included from primitives/Lists/PackedBoolList.C:26:
-# primitives/Lists/PackedBoolList.H:119:54: error: ‘class Foam::UList<unsigned int> Foam::UList<unsigned int>::UList’ is private within this context
-#   119 |                 explicit inline PackedBoolList(const UList<label>& indices);
-#       |                                                      ^~~~~~~~~~~~
+# src/script/Makefile.msRoot == src/script/Makefile.msRoot? :/
+# mkdir -p lib
+# mkdir -p bin
+# mkdir -p include
+# (cd /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/pkgs && make -f /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/src/script/makefile.3rd  zlib)
+# make[1]: Entering directory '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/pkgs'
+# foamx4m libtiff zlib
+# msRoot set to /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a
+# ms3rd set to /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/pkgs
+# [ Zlib  != "Zlib" ] || (mkdir -p /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/build/zlib )
+# [ Zlib  != "Zlib" ] || (cd       /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/build/zlib &&  cmake -DBUILD_SHARED_LIBS=False  -DCMAKE_INSTALL_PREFIX=/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a  -DCMAKE_TOOLCHAIN_FILE=/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/src/script/toolchain.txt /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/pkgs/zlib)
+# make[1]: *** [/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/src/script/makefile.3rd:54: zlib] Error 132
+# make[1]: Leaving directory '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/pkgs'
+# make: *** [src/script/Makefile.msRoot:20: all] Error 2
