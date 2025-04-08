@@ -24,7 +24,6 @@ checksums = [
 
 builddependencies = [
     ('CMake', '3.26.3'),
-    ('zlib', '1.2.13'),
 ]
 
 dependencies = [
@@ -51,19 +50,3 @@ sanity_check_paths = {
 sanity_check_commands = ["voxelToFoam --help | grep 'convert micro-CT images to OpenFOAM mesh'"]
 
 moduleclass = 'cae'
-
-# TODO
-# src/script/Makefile.msRoot == src/script/Makefile.msRoot? :/
-# mkdir -p lib
-# mkdir -p bin
-# mkdir -p include
-# (cd /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/pkgs && make -f /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/src/script/makefile.3rd  zlib)
-# make[1]: Entering directory '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/pkgs'
-# foamx4m libtiff zlib
-# msRoot set to /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a
-# ms3rd set to /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/pkgs
-# [ Zlib  != "Zlib" ] || (mkdir -p /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/build/zlib )
-# [ Zlib  != "Zlib" ] || (cd       /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/build/zlib &&  cmake -DBUILD_SHARED_LIBS=False  -DCMAKE_INSTALL_PREFIX=/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a  -DCMAKE_TOOLCHAIN_FILE=/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/src/script/toolchain.txt /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/pkgs/zlib)
-# make[1]: *** [/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/src/script/makefile.3rd:54: zlib] Error 132
-# make[1]: Leaving directory '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/porefoam/2023-12-01-foss-2023a/pkgs'
-# make: *** [src/script/Makefile.msRoot:20: all] Error 2
