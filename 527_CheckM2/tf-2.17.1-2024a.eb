@@ -11,7 +11,7 @@ toolchainopts = {'pic': True}
 
 builddependencies = [
     ('hatchling', '1.24.2'),
-    ('Bazel', '7.4.1'),
+    ('Bazel', '6.5.0'),
     # git 2.x required, see also https://github.com/tensorflow/tensorflow/issues/29053
     ('git', '2.45.1'),
     ('pybind11', '2.12.0'),
@@ -22,6 +22,7 @@ builddependencies = [
     # Compiling with system protobuf don't seem to work, see:
     # https://github.com/tensorflow/tensorflow/issues/61593
     # ('protobuf', '24.0'),
+    ('Cython', '3.0.10'),
 ]
 
 dependencies = [
@@ -83,10 +84,20 @@ exts_list = [
         'checksums': ['a6df30f272c08bf8be66e0775fad862005d950a6b8449b94f7c788731d70ecd7'],
     }),
     (name, version, {
+        'patches': [
+            'TensorFlow-2.15.1_fix-flatbuffer-license.patch',
+            'TensorFlow-2.15.1_fix-pybind11-build.patch',
+        ],
         'source_tmpl': 'v%(version)s.tar.gz',
         'source_urls': ['https://github.com/tensorflow/tensorflow/archive/'],
         'with_xla': True,
-        'checksums': ['2d3cfb48510f92f3a52fb05b820481c6f066a342a9f5296fe26d72c4ea757700'],
+        'checksums': [
+            {'v2.17.1.tar.gz': '2d3cfb48510f92f3a52fb05b820481c6f066a342a9f5296fe26d72c4ea757700'},
+            {'TensorFlow-2.15.1_fix-flatbuffer-license.patch':
+             '2c04d5095977a628a238dbf93c5fada7159c86752a7183e64e0cf7c7ab00caf4'},
+            {'TensorFlow-2.15.1_fix-pybind11-build.patch':
+             '3bb350ac92ab99c63c951c96b3b0160699f5f16822b64f72111ebfd2275cafce'},
+        ],
     }),
 ]
 
@@ -164,8 +175,33 @@ exts_list = [
 
 moduleclass = 'lib'
 
-# E4:
-    # -> seems as a bazel version problem - in .bazelversion is 6.5.0 but I have 7.4.1
+# E7:
+    # -> absl-py work ok...
+    # ERROR: /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/tensorflow-2.17.1/tensorflow/python/util/BUILD:756:18: Extracting tensorflow APIs for //tensorflow/python/util:tf_inspect to bazel-out/k8-opt/bin/tensorflow/python/util/tf_inspect_extracted_tensorflow_api.json. failed: (Exit 1): main failed: error executing command (from target //tensorflow/python/util:tf_inspect)
+    #   (cd /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/execroot/org_tensorflow && \
+    #   exec env - \
+    #   bazel-out/k8-opt-exec-50AE0418/bin/tensorflow/python/tools/api/generator2/extractor/main --output bazel-out/k8-opt/bin/tensorflow/python/util/tf_inspect_extracted_tensorflow_api.json --decorator tensorflow.python.util.tf_export.tf_export --api_name tensorflow tensorflow/python/util/tf_inspect.py)
+    # # Configuration: 68a9a1eb4733c168b1855c6c0bc0145ab4a1941b21e6e10d0591be21ddaf581f
+    # # Execution platform: @local_execution_config_platform//:platform
+    # Traceback (most recent call last):
+    #   File "/tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/execroot/org_tensorflow/bazel-out/k8-opt-exec-50AE0418/bin/tensorflow/python/tools/api/generator2/extractor/main.runfiles/org_tensorflow/tensorflow/python/tools/api/generator2/extractor/main.py", line 17, in <module>
+    #     from absl import app
+    # ModuleNotFoundError: No module named 'absl'
+    # Target //tensorflow/tools/pip_package:wheel failed to build
+# E6: OK
+    # -> add patch 'TensorFlow-2.15.1_fix-flatbuffer-license.patch' + 'TensorFlow-2.15.1_fix-pybind11-build.patch'
+    # ERROR: /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/tensorflow-2.17.1/tensorflow/tools/pip_package/BUILD:83:10: no such target '@flatbuffers//:LICENSE': target 'LICENSE' not declared in package '' defined by /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/external/flatbuffers/BUILD.bazel (Tip: use `query "@flatbuffers//:*"` to see all the targets in that package) and referenced by '//tensorflow/tools/pip_package:licenses'
+# E5: OK
+    # -> update easyblosk to use need wheel build command: https://github.com/tensorflow/tensorflow/issues/63298#issuecomment-1986141742 -> OK
+    # same issue here: https://github.com/tensorflow/tensorflow/issues/63302
+    # -> update easyblock L972 to `bazel-bin/tensorflow/tools/pip_package/build_pip_package_py` -> NO
+        # usage: build_pip_package.py [-h] --output-name OUTPUT_NAME --project-name PROJECT_NAME [--headers HEADERS] [--srcs SRCS]
+        #                     [--xla_aot XLA_AOT] [--version VERSION] [--collab COLLAB]
+        # build_pip_package.py: error: the following arguments are required: --output-name, --project-name
+    # == 2025-04-09 11:56:30,684 run.py:598 INFO Output of 'bazel-bin/tensorflow/tools/pip_package/build_pip_package ...' shell command (stdout + stderr):
+    # /usr/bin/bash: line 1: bazel-bin/tensorflow/tools/pip_package/build_pip_package: No such file or directory
+# E4: OK
+    # -> seems as a bazel version problem - in .bazelversion is 6.5.0 but I have 7.4.1 -> prepare bazel 6.5.0
     # <- log2.txt <- bazel cmd 
         # ERROR: /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/external/local_config_python/BUILD:10:11: in py_runtime rule @@local_config_python//:py2_runtime: 
         # Traceback (most recent call last):

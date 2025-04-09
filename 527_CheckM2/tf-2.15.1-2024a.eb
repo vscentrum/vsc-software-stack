@@ -11,7 +11,7 @@ toolchainopts = {'pic': True}
 
 builddependencies = [
     ('hatchling', '1.24.2'),
-    ('Bazel', '7.4.1'),
+    ('Bazel', '6.5.0'),
     # git 2.x required, see also https://github.com/tensorflow/tensorflow/issues/29053
     ('git', '2.45.1'),
     ('pybind11', '2.12.0'),
@@ -196,9 +196,7 @@ exts_list = [
 moduleclass = 'lib'
 
 # E3:
-    # <- after bazel cmd <- log1.txt
-        # ERROR: Skipping '//tensorflow/tools/pip_package:build_pip_package': no such target '//tensorflow/tools/pip_package:build_pip_package': target 'build_pip_package' not declared in package 'tensorflow/tools/pip_package' defined by /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/tensorflow-2.17.1/tensorflow/tools/pip_package/BUILD (did you mean build_pip_package.py, or build_pip_package_py?)
-        # ERROR: no such target '//tensorflow/tools/pip_package:build_pip_package': target 'build_pip_package' not declared in package 'tensorflow/tools/pip_package' defined by /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/tensorflow-2.17.1/tensorflow/tools/pip_package/BUILD (did you mean build_pip_package.py, or build_pip_package_py?)
+    # <- problem with flatbuffers version: Non-compatible flatbuffers version included -> it needs v23
 # E2: OK
     # import astor +  No module named 'cython'
 # E1: OK
