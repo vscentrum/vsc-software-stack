@@ -204,6 +204,45 @@ exts_list = [
 
 moduleclass = 'lib'
 
+# E8:
+    # -> seems patchelf is not on the PATH
+    # <- build nearly done - patchelf is in deps
+        # [14,093 / 14,094] [Prepa] Action tensorflow/tools/pip_package/wheel_house
+        # SUBCOMMAND: # //tensorflow/tools/pip_package:wheel [action 'Action tensorflow/tools/pip_package/wheel_house', configuration: 27c5d858386b230acd447b1fcb701ea8fde4c0c745b933c5bf7444388d93d52d, execution platform: @local_execution_config_platform//:platform]
+        # (cd /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/execroot/org_tensorflow && \
+        # exec env - \
+        # bazel-out/k8-opt-exec-50AE0418/bin/tensorflow/tools/pip_package/build_pip_package_py @bazel-out/k8-opt/bin/tensorflow/tools/pip_package/wheel_house-0.params)
+        # # Configuration: 27c5d858386b230acd447b1fcb701ea8fde4c0c745b933c5bf7444388d93d52d
+        # # Execution platform: @local_execution_config_platform//:platform
+        # [14,093 / 14,094] Action tensorflow/tools/pip_package/wheel_house; 1s local
+        # ERROR: /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/tensorflow-2.17.1/tensorflow/tools/pip_package/BUILD:265:9: Action tensorflow/tools/pip_package/wheel_house failed: (Exit 1): build_pip_package_py failed: error executing command (from target //tensorflow/tools/pip_package:wheel)
+        # (cd /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/execroot/org_tensorflow && \
+        # exec env - \
+        # bazel-out/k8-opt-exec-50AE0418/bin/tensorflow/tools/pip_package/build_pip_package_py @bazel-out/k8-opt/bin/tensorflow/tools/pip_package/wheel_house-0.params)
+        # # Configuration: 27c5d858386b230acd447b1fcb701ea8fde4c0c745b933c5bf7444388d93d52d
+        # # Execution platform: @local_execution_config_platform//:platform
+        # Traceback (most recent call last):
+        # File "/tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/execroot/org_tensorflow/bazel-out/k8-opt-exec-50AE0418/bin/tensorflow/tools/pip_package/build_pip_package_py.runfiles/org_tensorflow/tensorflow/tools/pip_package/build_pip_package.py", line 343, in <module>
+        #     prepare_wheel_srcs(args.headers, args.srcs, args.xla_aot,
+        # File "/tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/execroot/org_tensorflow/bazel-out/k8-opt-exec-50AE0418/bin/tensorflow/tools/pip_package/build_pip_package_py.runfiles/org_tensorflow/tensorflow/tools/pip_package/build_pip_package.py", line 197, in prepare_wheel_srcs
+        #     patch_so(srcs_dir)
+        # File "/tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/execroot/org_tensorflow/bazel-out/k8-opt-exec-50AE0418/bin/tensorflow/tools/pip_package/build_pip_package_py.runfiles/org_tensorflow/tensorflow/tools/pip_package/build_pip_package.py", line 242, in patch_so
+        #     rpath = subprocess.check_output(
+        #             ^^^^^^^^^^^^^^^^^^^^^^^^
+        # File "/tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/external/python_x86_64-unknown-linux-gnu/lib/python3.12/subprocess.py", line 466, in check_output
+        #     return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+        #         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        # File "/tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/external/python_x86_64-unknown-linux-gnu/lib/python3.12/subprocess.py", line 548, in run
+        #     with Popen(*popenargs, **kwargs) as process:
+        #         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        # File "/tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/external/python_x86_64-unknown-linux-gnu/lib/python3.12/subprocess.py", line 1026, in __init__
+        #     self._execute_child(args, executable, preexec_fn, close_fds,
+        # File "/tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/external/python_x86_64-unknown-linux-gnu/lib/python3.12/subprocess.py", line 1950, in _execute_child
+        #     raise child_exception_type(errno_num, err_msg, err_filename)
+        # FileNotFoundError: [Errno 2] No such file or directory: 'patchelf'
+        # Target //tensorflow/tools/pip_package:wheel failed to build
+        # INFO: Elapsed time: 8276.555s, Critical Path: 263.76s
+        # INFO: 14094 processes: 993 internal, 13101 local.
 # E7: OK
     # -> posibly fixed in TensorFlow-2.15.1_add-default-shell-env.patch
     # -> absl-py work ok...
