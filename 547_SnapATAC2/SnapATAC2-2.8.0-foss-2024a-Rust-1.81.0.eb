@@ -1,25 +1,14 @@
-easyblock = "CargoPythonPackage"
+easyblock = 'CargoPythonPackage'
 
-name = 'rustworkx'
-version = '0.16.0'
+name = 'SnapATAC2'
+version = '2.8.0'
+local_rustver = '1.81.0'
+versionsuffix = '-Rust-' + local_rustver
 
-homepage = 'https://github.com/Qiskit/rustworkx'
-description = """rustworkx (previously retworkx) is a general purpose graph library for Python written in Rust to take
-advantage of the performance and safety that Rust provides. It is designed to provide a high performance general
-purpose graph library for any Python application."""
+homepage = 'https://github.com/kaizhang/SnapATAC2'
+description = "Single-cell epigenomics analysis tools"
 
-toolchain = {'name': 'gfbf', 'version': '2024a'}
-
-builddependencies = [
-    ('Rust', '1.78.0'),
-    ('setuptools-rust', '1.9.0'),
-]
-
-dependencies = [
-    ('Python', '3.12.3'),
-    ('Python-bundle-PyPI', '2024.06'),  # for python-dateutil and pytz
-    ('SciPy-bundle', '2024.05'),
-]
+toolchain = {'name': 'foss', 'version': '2024a'}
 
 crates = [
     ('addr2line', '0.24.2'),
@@ -36,7 +25,7 @@ crates = [
     ('anstyle-parse', '0.2.6'),
     ('anstyle-query', '1.1.2'),
     ('anstyle-wincon', '3.0.7'),
-    ('anyhow', '1.0.98'),
+    ('anyhow', '1.0.97'),
     ('approx', '0.4.0'),
     ('approx', '0.5.1'),
     ('arc-swap', '1.7.1'),
@@ -69,8 +58,8 @@ crates = [
     ('chrono', '0.4.40'),
     ('chrono-tz', '0.8.6'),
     ('chrono-tz-build', '0.2.1'),
-    ('clap', '4.5.36'),
-    ('clap_builder', '4.5.36'),
+    ('clap', '4.5.35'),
+    ('clap_builder', '4.5.35'),
     ('clap_derive', '4.5.32'),
     ('clap_lex', '0.7.4'),
     ('cmake', '0.1.54'),
@@ -425,10 +414,13 @@ crates = [
     ('zstd-sys', '2.0.15+zstd.1.5.7'),
 ]
 
-
-sources = [SOURCELOWER_TAR_GZ]
+sources = [{
+    'source_urls': ['https://github.com/kaizhang/SnapATAC2/archive/refs/tags/'],
+    'download_filename': 'v%(version)s.tar.gz',
+    'filename': SOURCE_TAR_GZ
+}]
 checksums = [
-    {'rustworkx-0.16.0.tar.gz': '9f0dcb83f38d5ca2c3a683eb9b6951c8aec3262fbfe5141946a7ee5ba37e0bb6'},
+    {'SnapATAC2-2.8.0.tar.gz': '962ebece9e8cbce57966ce67cb40f513b9035cc2b9c7a2b6ff97e32f7477e835'},
     {'addr2line-0.24.2.tar.gz': 'dfbe277e56a376000877090da837660b4427aad530e3028d44e0bffe4f89a1c1'},
     {'adler2-2.0.0.tar.gz': '512761e0bb2578dd7380c6baaa0f4ce03e84f95e960231d1dec8bf4d7d6e2627'},
     {'ahash-0.8.11.tar.gz': 'e89da841a80418a9b391ebaea17f5c112ffaaa96f621d2c285b5174da76b9011'},
@@ -443,7 +435,7 @@ checksums = [
     {'anstyle-parse-0.2.6.tar.gz': '3b2d16507662817a6a20a9ea92df6652ee4f94f914589377d69f3b21bc5798a9'},
     {'anstyle-query-1.1.2.tar.gz': '79947af37f4177cfead1110013d678905c37501914fba0efea834c3fe9a8d60c'},
     {'anstyle-wincon-3.0.7.tar.gz': 'ca3534e77181a9cc07539ad51f2141fe32f6c3ffd4df76db8ad92346b003ae4e'},
-    {'anyhow-1.0.98.tar.gz': 'e16d2d3311acee920a9eb8d33b8cbc1787ce4a264e85f964c2404b969bdcd487'},
+    {'anyhow-1.0.97.tar.gz': 'dcfed56ad506cb2c684a14971b8861fdc3baaaae314b9e5f9bb532cbe3ba7a4f'},
     {'approx-0.4.0.tar.gz': '3f2a05fd1bd10b2527e20a2cd32d8873d115b8b39fe219ee25f42a8aca6ba278'},
     {'approx-0.5.1.tar.gz': 'cab112f0a86d568ea0e627cc1d6be74a1e9cd55214684db5561995f6dad897c6'},
     {'arc-swap-1.7.1.tar.gz': '69f7f8c3906b62b754cd5326047894316021dcfe5a194c8ea52bdd94934a3457'},
@@ -476,8 +468,8 @@ checksums = [
     {'chrono-0.4.40.tar.gz': '1a7964611d71df112cb1730f2ee67324fcf4d0fc6606acbbe9bfe06df124637c'},
     {'chrono-tz-0.8.6.tar.gz': 'd59ae0466b83e838b81a54256c39d5d7c20b9d7daa10510a242d9b75abd5936e'},
     {'chrono-tz-build-0.2.1.tar.gz': '433e39f13c9a060046954e0592a8d0a4bcb1040125cbf91cb8ee58964cfb350f'},
-    {'clap-4.5.36.tar.gz': '2df961d8c8a0d08aa9945718ccf584145eee3f3aa06cddbeac12933781102e04'},
-    {'clap_builder-4.5.36.tar.gz': '132dbda40fb6753878316a489d5a1242a8ef2f0d9e47ba01c951ea8aa7d013a5'},
+    {'clap-4.5.35.tar.gz': 'd8aa86934b44c19c50f87cc2790e19f54f7a67aedb64101c2e1a2e5ecfb73944'},
+    {'clap_builder-4.5.35.tar.gz': '2414dbb2dd0695280da6ea9261e327479e9d37b0630f6b53ba2a11c60c679fd9'},
     {'clap_derive-4.5.32.tar.gz': '09176aae279615badda0765c0c0b3f6ed53f4709118af73cf4655d85d1530cd7'},
     {'clap_lex-0.7.4.tar.gz': 'f46ad14479a25103f283c0f10005961cf086d8dc42205bb44c46ac563475dca6'},
     {'cmake-0.1.54.tar.gz': 'e7caa3f9de89ddbe2c607f4101924c5abec803763ae9534e4f4d7d8f84aa81f0'},
@@ -833,4 +825,41 @@ checksums = [
     {'zstd-sys-2.0.15+zstd.1.5.7.tar.gz': 'eb81183ddd97d0c74cedf1d50d85c8d08c1b8b68ee863bdee9e706eedba1a237'},
 ]
 
-moduleclass = 'math'
+builddependencies = [
+    ('Rust', local_rustver),
+    ('CMake', '3.29.3'),
+    ('maturin', '1.6.0', versionsuffix),
+]
+
+dependencies = [
+    ('Python', '3.12.3'),
+    # ('python-igraph', '0.11.4'),
+    # ('scikit-learn', '1.3.1'),
+    ('umap-learn', '0.5.7'),
+    ('pyfaidx', '0.8.1.2'),
+    ('tqdm', '4.66.5'),
+    ('rustworkx', '0.16.0'),
+]
+
+start_dir = 'snapatac2-python'
+
+offline = False  # vendoring of git sources not supported in Cargo easyblock yet
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+
+moduleclass = 'lib'
+
+# TODO
+# snapatac2 2.8.0 requires anndata, which is not installed.
+# snapatac2 2.8.0 requires igraph, which is not installed.
+# snapatac2 2.8.0 requires kaleido, which is not installed.
+# snapatac2 2.8.0 requires macs3, which is not installed.
+# snapatac2 2.8.0 requires multiprocess, which is not installed.
+# snapatac2 2.8.0 requires natsort, which is not installed.
+# snapatac2 2.8.0 requires plotly, which is not installed.
+# snapatac2 2.8.0 requires polars, which is not installed.
+# snapatac2 2.8.0 requires pyarrow, which is not installed.
+# snapatac2 2.8.0 requires typeguard, which is not installed.
+# snapatac2 2.8.0 has requirement pandas<2.1.2,>=1.0, but you have pandas 2.2.2.
+# snapatac2 2.8.0 has requirement pyfaidx<0.8.0,>=0.7.0, but you have pyfaidx 0.8.1.2.
