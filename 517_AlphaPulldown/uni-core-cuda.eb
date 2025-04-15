@@ -2,6 +2,7 @@ easyblock = 'PythonBundle'
 
 name = 'Uni-Core'
 version = '0.0.3'
+versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/dptech-corp/Uni-Core'
 description = "An efficient distributed PyTorch framework"
@@ -9,9 +10,10 @@ description = "An efficient distributed PyTorch framework"
 toolchain = {'name': 'foss', 'version': '2023a'}
 
 dependencies = [
+    ('CUDA', '12.1.1', '', SYSTEM),
     ('Python', '3.11.3'),
-    ('PyTorch', '2.1.2'),
-    ('jax', '0.4.25'),  # provides absl-py
+    ('PyTorch', '2.1.2', versionsuffix),
+    ('jax', '0.4.25', versionsuffix),  # provides absl-py
     ('tensorboardX', '2.6.2.2'),
     ('tqdm', '4.66.1'),
     ('wandb', '0.16.1'),
@@ -19,7 +21,7 @@ dependencies = [
 ]
 
 local_preinstallopts = "sed -i "
-local_preinstallopts += "-e 's/DISABLE_CUDA_EXTENSION = False/DISABLE_CUDA_EXTENSION = True/g' "
+# local_preinstallopts += "-e 's/DISABLE_CUDA_EXTENSION = False/DISABLE_CUDA_EXTENSION = True/g' "
 local_preinstallopts += "-e 's/torch>=[0-9.]*/torch/g' setup.py && "
 
 exts_list = [
