@@ -98,6 +98,7 @@ exts_list = [
         'source_tmpl': 'v%(version)s.tar.gz',
         'source_urls': ['https://github.com/tensorflow/tensorflow/archive/'],
         'with_xla': True,
+        'preinstallopts': "sed -i '59 a\        use_default_shell_env = True,' tensorflow/tools/pip_package/utils/tf_wheel.bzl && ",
         'checksums': [
             {'v2.17.1.tar.gz': '2d3cfb48510f92f3a52fb05b820481c6f066a342a9f5296fe26d72c4ea757700'},
             {'TensorFlow-2.13.0_add-missing-system-protobuf-targets.patch':
