@@ -35,7 +35,6 @@ dependencies = [
     ('dm-haiku', '0.0.13'),
     ('Uni-Core', '0.0.3'),
     ('JupyterLab', '4.0.5'),
-    ('PyRosetta', '4.release-387'),
 ]
 
 local_tests = [
@@ -102,29 +101,39 @@ exts_list = [
     }),
 ]
 
-postinstallcmds = [
-    # fix failing import from get_good_inter_pae.py
-    'cd %(installdir)s/bin && '
-    'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/alphapulldown/analysis_pipeline/pdb_analyser.py && '
-    'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/alphapulldown/analysis_pipeline/calculate_mpdockq.py',
-    # scripts not working without GPU
-    'rm %(installdir)s/bin/run_multimer_jobs.py',
-    'rm %(installdir)s/bin/run_structure_prediction.py',
-]
-
 fix_python_shebang_for = ['bin/*.py']
 
 sanity_check_paths = {
-    'files': [
-        'bin/rename_colab_search_a3m.py', 'bin/calculate_mpdockq.py',
-        'lib/python%(pyshortver)s/site-packages/alphafold/common/stereo_chemical_props.txt',
-    ],
+    'files': ['bin/run_multimer_jobs.py', 'bin/rename_colab_search_a3m.py',
+              'lib/python%(pyshortver)s/site-packages/alphafold/common/stereo_chemical_props.txt'],
     'dirs': ['lib/python%(pyshortver)s/site-packages/alphapulldown'],
 }
 
 sanity_check_commands = [
-    "get_good_inter_pae.py --help | grep ' USAGE:'",
+    # "run_multimer_jobs.py --help | grep 'A script to perform structure prediction'",  # not working without GPU
     "create_individual_features.py --helpfull | grep 'Additional allowance for hydrogen bonding'",
 ]
 
 moduleclass = 'bio'
+
+#E1: 
+    # == 2025-04-10 11:38:14,181 easyblock.py:3898 WARNING Sanity check: sanity check command run_multimer_jobs.py --help | grep 'A script to perform structure prediction' failed with exit code 1 (output: An NVIDIA GPU may be present on this machine, but a CUDA-enabled jaxlib is not installed. Falling back to cpu.
+    # Traceback (most recent call last):
+    #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AlphaPulldown/2.0.3-foss-2023a/bin/run_multimer_jobs.py", line 14, in <module>
+    #     from alphapulldown.scripts.run_structure_prediction import FLAGS
+    #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AlphaPulldown/2.0.3-foss-2023a/lib/python3.11/site-packages/alphapulldown/scripts/run_structure_prediction.py", line 13, in <module>
+    #     gpus = jax.local_devices(backend='gpu')
+    #            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    #   File "/apps/gent/RHEL9/cascadelake-ib/software/jax/0.4.25-gfbf-2023a/lib/python3.11/site-packages/jax/_src/xla_bridge.py", line 933, in local_devices
+    #     process_index = get_backend(backend).process_index()
+    #                     ^^^^^^^^^^^^^^^^^^^^
+    #   File "/apps/gent/RHEL9/cascadelake-ib/software/jax/0.4.25-gfbf-2023a/lib/python3.11/site-packages/jax/_src/xla_bridge.py", line 821, in get_backend
+    #     return _get_backend_uncached(platform)
+    #            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    #   File "/apps/gent/RHEL9/cascadelake-ib/software/jax/0.4.25-gfbf-2023a/lib/python3.11/site-packages/jax/_src/xla_bridge.py", line 803, in _get_backend_uncached
+    #     platform = canonicalize_platform(platform)
+    #                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    #   File "/apps/gent/RHEL9/cascadelake-ib/software/jax/0.4.25-gfbf-2023a/lib/python3.11/site-packages/jax/_src/xla_bridge.py", line 641, in canonicalize_platform
+    #     raise RuntimeError(f"Unknown backend: '{platform}' requested, but no "
+    # RuntimeError: Unknown backend: 'gpu' requested, but no platforms that are instances of gpu are present. Platforms present are: cpu
+    # )
