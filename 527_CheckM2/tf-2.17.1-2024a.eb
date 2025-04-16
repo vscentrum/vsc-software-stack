@@ -209,7 +209,17 @@ exts_list = [
 
 moduleclass = 'lib'
 
-# E8:
+# E9:
+    # -> tensorflow-2.17.1-cp312-cp312-linux_x86_64.whl is in /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/
+    #       TensorFlow/bazel-root/141223baaa9a9295ba809e928a04b21d/execroot/org_tensorflow/bazel-out/k8-opt/bin/tensorflow/tools/pip_package/wheel_house
+    # only link: /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a/TensorFlow/tensorflow-2.17.1/bazel-bin/tensorflow/tools/pip_package/wheel_house
+    # <- install step failed
+    # FAILED: Installation ended unsuccessfully: Failed to isolate built .whl in []:
+    # /tmp/vsc47063/easybuild/build/TensorFlow/2.17.1/foss-2024a (took 2 hours 27 mins 12 secs)
+    # == Results of the build can be found in the log file(s)
+    # /tmp/vsc47063/eb-rfl_eas2/easybuild-TensorFlow-2.17.1-20250416.093004.ljuae.log
+# E8: OK
+    # -> add patch3 from FlameFire -> build OK -> log5.txt
     # -> update easyblock to add PATH to bazel build - L971 -> not help :(
     # -> seems patchelf is not on the PATH
     # <- build nearly done - patchelf is in deps
