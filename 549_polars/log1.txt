@@ -1,0 +1,36 @@
+Processing /tmp/vsc47063/easybuild/build/polars/1.27.1/gfbf-2024a/polars-1.27.1
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × Preparing metadata (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [18 lines of output]
+      error: failed to load manifest for workspace member `/tmp/vsc47063/easybuild/build/polars/1.27.1/gfbf-2024a/polars-1.27.1/crates/polars`
+      referenced by workspace at `/tmp/vsc47063/easybuild/build/polars/1.27.1/gfbf-2024a/polars-1.27.1/Cargo.toml`
+      
+      Caused by:
+        failed to parse manifest at `/tmp/vsc47063/easybuild/build/polars/1.27.1/gfbf-2024a/polars-1.27.1/crates/polars/Cargo.toml`
+      
+      Caused by:
+        feature `edition2024` is required
+      
+        The package requires the Cargo feature called `edition2024`, but that feature is not stabilized in this version of Cargo (1.83.0-nightly (5ffbef321 2024-10-29)).
+        Consider adding `cargo-features = ["edition2024"]` to the top of Cargo.toml (above the [package] table) to tell Cargo you are opting in to use this unstable feature.
+        See https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#edition-2024 for more information about the status of this feature.
+      💥 maturin failed
+        Caused by: Cargo metadata failed. Does your crate compile with `cargo build`?
+        Caused by: `cargo metadata` exited with an error:
+      Error running maturin: Command '['maturin', 'pep517', 'write-dist-info', '--metadata-directory', '/tmp/vsc47063/eb-9e0ilirg/pip-modern-metadata-3h4c9b86', '--interpreter', '/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python']' returned non-zero exit status 1.
+      Checking for Rust toolchain....
+      Running `maturin pep517 write-dist-info --metadata-directory /tmp/vsc47063/eb-9e0ilirg/pip-modern-metadata-3h4c9b86 --interpreter /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python`
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
