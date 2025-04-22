@@ -1,0 +1,28 @@
+#From PR 22616
+easyblock = 'PythonPackage'
+
+name = 'optree'
+version = '0.14.1'
+
+homepage = 'https://optree.readthedocs.io/en/latest/'
+description = "Optimized PyTree Utilities"
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+sources = [SOURCE_TAR_GZ]
+patches = ['optree-0.14.1_fix-path-type.patch']
+checksums = [
+    {'optree-0.14.1.tar.gz': 'c011c6124d6dcbfceade2d7c4f836eab66ed8cf9ab12f94535b41a71dd734637'},
+    {'optree-0.14.1_fix-path-type.patch': 'a18a223bb50b56a46847fdf33b1743817540cedce588db006b36beff169d4825'},
+]
+
+builddependencies = [
+    ('binutils', '2.42'),
+    ('CMake', '3.29.3'),
+]
+
+dependencies = [
+    ('Python', '3.12.3'),
+]
+
+moduleclass = 'lib'

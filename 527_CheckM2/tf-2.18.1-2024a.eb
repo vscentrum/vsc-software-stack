@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'TensorFlow'
-version = '2.17.1'
+version = '2.18.1'
 
 homepage = 'https://www.tensorflow.org/'
 description = "An open-source software library for Machine Intelligence"
@@ -71,7 +71,9 @@ exts_list = [
         'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
         'checksums': ['60723ce945c19328679790e3282cc758aa4a6040e4bb330f53d30fa546d44746'],
     }),
-    ('namex', '0.0.8'),
+    ('namex', '0.0.8', {
+        'checksums': ['32a50f6c565c0bb10aa76298c959507abdc0e850efe085dc38f3440fcb3aa90b'],
+    }),
     ('keras', '3.9.2', {
         'checksums': ['322aab6418ee3de1e2bd0871b60a07f0e444e744a7e8cba79af8b42408879ecf'],
     }),
@@ -98,12 +100,11 @@ exts_list = [
             'patch2.1-disable-tf32-in-fused-matmul-tests.patch',
             'patch3-fix_patchelf.patch',
         ],
-        # 'preinstallopts': "sed -i '59 a\        use_default_shell_env = True,' tensorflow/tools/pip_package/utils/tf_wheel.bzl && ",
         'source_tmpl': 'v%(version)s.tar.gz',
         'source_urls': ['https://github.com/tensorflow/tensorflow/archive/'],
         'with_xla': True,
         'checksums': [
-            {'v2.17.1.tar.gz': '2d3cfb48510f92f3a52fb05b820481c6f066a342a9f5296fe26d72c4ea757700'},
+            {'v2.18.1.tar.gz': '467c512b631e72ad5c9d5c16b23669bcf89675de630cfbb58f9dde746d34afa8'},
             {'TensorFlow-2.13.0_add-missing-system-protobuf-targets.patch':
              '77d8c8a5627493fc7c38b4de79d49e60ff6628b05ff969f4cd3ff9857176c459'},
             {'TensorFlow-2.15.1_fix-flatbuffer-license.patch':
@@ -211,6 +212,7 @@ exts_list = [
 
 moduleclass = 'lib'
 # E10:
+    # -> tf-2.18.1
     # <- log6.txt
     # ok - keras 3.9.2 requires namex, which is not installed.
     # OK - keras 3.9.2 requires optree, which is not installed. - create - in PR 22616
