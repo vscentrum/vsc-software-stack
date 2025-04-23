@@ -12,10 +12,10 @@ toolchain = {'name': 'gfbf', 'version': '2024a'}
 
 sources = [SOURCELOWER_TAR_GZ]
 patches = [
-    'patch1-hashbrovn_version.patch',
-    'patch2.1-polars_utils.patch',
-    'patch3-polars_arrow.patch',
-    'patch4.2-mod.rs_fix.patch',
+    'polars_1.27.1-hashbrown_version.patch',
+    'polars_1.27.1-polars_utils.patch',
+    'polars_1.27.1-polars_arrow.patch',
+    'polars_1.27.1-polars_stream.patch',
 ]
 checksums = [
     {'polars-1.27.1.tar.gz': '94fcb0216b56cd0594aa777db1760a41ad0dfffed90d2ca446cf9294d2e97f02'},
@@ -535,10 +535,10 @@ checksums = [
     {'zstd-0.13.3.tar.gz': 'e91ee311a569c327171651566e07972200e76fcfe2242a4fa446149a3881c08a'},
     {'zstd-safe-7.2.3.tar.gz': 'f3051792fbdc2e1e143244dc28c60f73d8470e93f3f9cbd0ead44da5ed802722'},
     {'zstd-sys-2.0.14+zstd.1.5.7.tar.gz': '8fb060d4926e4ac3a3ad15d864e99ceb5f343c6b34f5bd6d81ae6ed417311be5'},
-    {'patch1-hashbrovn_version.patch': '8a7c58de2675e119368aa6da2a6e00f9821fbd0d7a8ad7cb5a1eb8b8a1ca1556'},
-    {'patch2.1-polars_utils.patch': '3c8770180fcfe63263e4fb95d727c8a3a4cc942fd6d0ebc6a80ff316ffc4e29b'},
-    {'patch3-polars_arrow.patch': 'f23ea9b03edecd05cc9709559ade84e188e8b7feed086925f16c5a253de335ed'},
-    {'patch4.2-mod.rs_fix.patch': '8f27c26e3b2868aa35842855f5377eb5753f8f0acc5bfcdcb2a129d0764c5781'},
+    {'polars_1.27.1-hashbrown_version.patch': '52bea1d6248949b187e22622966bbc565e45a2b06da3ca30c00366e5dfdd8996'},
+    {'polars_1.27.1-polars_utils.patch': '0d9da3b2e0b068b3d399070285fd5896043bc2bfab747fe6f38c97a1865956ef'},
+    {'polars_1.27.1-polars_arrow.patch': 'fbab955d54f7244cd2e12f25f8a1f2215849b3afee9afb3192da094b5875727a'},
+    {'polars_1.27.1-polars_stream.patch': 'd642ae68bfc3533b42ef80c94a1ea729fa13487b06a46e2f62e5a3197c776b1d'},
 ]
 
 crates = [
@@ -1059,11 +1059,8 @@ crates = [
     ('zstd-sys', '2.0.14+zstd.1.5.7'),
 ]
 
-# Requires Rust version >=1.80 -> create new maturin
-builddependencies = [
-    ('maturin', '1.8.3', '-Rust-1.83.0'),  # created
-]
-
+# Requires Rust version >=1.80
+builddependencies = [('maturin', '1.8.3', '-Rust-1.83.0')]
 dependencies = [
     ('Python', '3.12.3'),
     ('Python-bundle-PyPI', '2024.06'),
@@ -1074,7 +1071,9 @@ dependencies = [
     ('openpyxl', '3.1.5'),
 ]
 
+# Fix feature `edition2024` is required
 preinstallopts = """for file in crates/polars*/Cargo.toml; do sed -i '1i cargo-features = ["edition2024"]\n' "$file"; done && """
+# Fix by_key.rs async block problem in polars-stream
 preinstallopts += "sed -i -e 's/let mut receive_and_pass = async || {/let mut receive_and_pass = async {/' "
 preinstallopts += "-e 's/receive_and_pass().await?;/receive_and_pass.await?;/' "
 preinstallopts += "crates/polars-stream/src/nodes/io_sinks/partition/by_key.rs && "
