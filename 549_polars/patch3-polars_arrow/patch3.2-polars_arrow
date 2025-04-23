@@ -1,0 +1,11 @@
+--- crates/polars-arrow/src/array/binview/builder.rs.orig	2025-04-22 17:15:25.915097000 +0200
++++ crates/polars-arrow/src/array/binview/builder.rs	2025-04-22 17:16:55.021671000 +0200
+@@ -148,7 +148,7 @@
+                         .get_unchecked(view.buffer_idx as usize)
+                         .clone()
+                         .expand_end_to_storage();
+-                    let buf_id = buffer.as_slice().as_ptr().addr();
++                    let buf_id = buffer.as_slice().as_ptr() as usize;
+                     let idx = match self.stolen_buffers.entry(buf_id) {
+                         Entry::Occupied(o) => *o.get(),
+                         Entry::Vacant(v) => {

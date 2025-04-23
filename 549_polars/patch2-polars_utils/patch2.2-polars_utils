@@ -1,0 +1,10 @@
+--- crates/polars-utils/src/lib.rs.orig	2025-04-22 16:56:24.097576838 +0200
++++ crates/polars-utils/src/lib.rs	2025-04-22 16:58:23.572914944 +0200
+@@ -3,7 +3,6 @@
+     feature(stdarch_aarch64_prefetch)
+ )]
+ #![cfg_attr(feature = "nightly", feature(core_intrinsics))] // For algebraic ops.
+-#![cfg_attr(feature = "nightly", feature(select_unpredictable))] // For branchless programming.
+ #![cfg_attr(feature = "nightly", allow(internal_features))]
+ #![cfg_attr(docsrs, feature(doc_auto_cfg))]
+ pub mod abs_diff;
