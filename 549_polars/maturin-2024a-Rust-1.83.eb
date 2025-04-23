@@ -750,12 +750,7 @@ builddependencies = [
 ]
 dependencies = [
     ('Python', '3.12.3'),
-    ('Rust', '1.83.0'),
+    ('Rust', _rust_ver),
 ]
 
 moduleclass = 'tools'
-
-#E1:
-# == 2025-04-17 14:13:41,234 easyblock.py:3936 WARNING RPATH sanity check failed!
-# == 2025-04-17 14:13:41,524 build_log.py:226 ERROR EasyBuild encountered an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): 
-#     Sanity check failed: No '(RPATH)' found in 'readelf -d' output for /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/maturin/1.8.3-GCCcore-13.3.0-Rust-1.83.0/bin/maturin (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:3943 in _sanity_check_step)
