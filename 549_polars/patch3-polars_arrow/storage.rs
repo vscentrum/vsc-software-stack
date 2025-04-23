@@ -127,7 +127,7 @@ impl<T> SharedStorage<T> {
         assert!(align_of::<T>() <= 1 << 30);
         static INNER: SharedStorageInner<()> = SharedStorageInner {
             ref_count: AtomicU64::new(1),
-            ptr: (1 << 30) as *mut u8
+            ptr: (1 << 30) as *mut (),
             length_in_bytes: 0,
             backing: BackingStorage::Leaked,
             phantom: PhantomData,

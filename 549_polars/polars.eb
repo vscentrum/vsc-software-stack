@@ -15,6 +15,7 @@ patches = [
     'patch1-hashbrovn_version.patch',
     'patch2.1-polars_utils.patch',
     'patch3-polars_arrow.patch',
+    'patch4.2-mod.rs_fix.patch',
 ]
 checksums = [
     {'polars-1.27.1.tar.gz': '94fcb0216b56cd0594aa777db1760a41ad0dfffed90d2ca446cf9294d2e97f02'},
@@ -536,7 +537,8 @@ checksums = [
     {'zstd-sys-2.0.14+zstd.1.5.7.tar.gz': '8fb060d4926e4ac3a3ad15d864e99ceb5f343c6b34f5bd6d81ae6ed417311be5'},
     {'patch1-hashbrovn_version.patch': '8a7c58de2675e119368aa6da2a6e00f9821fbd0d7a8ad7cb5a1eb8b8a1ca1556'},
     {'patch2.1-polars_utils.patch': '3c8770180fcfe63263e4fb95d727c8a3a4cc942fd6d0ebc6a80ff316ffc4e29b'},
-    {'patch3-polars_arrow.patch': '2a98aab65c60edbb75e638fe67e99e53d40d00af248c6ef3d612ecc4bb5d63b9'},
+    {'patch3-polars_arrow.patch': 'f23ea9b03edecd05cc9709559ade84e188e8b7feed086925f16c5a253de335ed'},
+    {'patch4.2-mod.rs_fix.patch': '8f27c26e3b2868aa35842855f5377eb5753f8f0acc5bfcdcb2a129d0764c5781'},
 ]
 
 crates = [
@@ -1060,48 +1062,27 @@ crates = [
 # Requires Rust version >=1.80 -> create new maturin
 builddependencies = [
     ('maturin', '1.8.3', '-Rust-1.83.0'),  # created
-    # ('CMake', '3.26.3'),  # needed by crate libz-ng-sys
 ]
 
 dependencies = [
     ('Python', '3.12.3'),
-    # ('Python-bundle-PyPI', '2024.06'),
+    ('Python-bundle-PyPI', '2024.06'),
     ('SciPy-bundle', '2024.05'),
-    # ('matplotlib', '3.7.2'),
-    # ('Arrow', '14.0.1'),
-    # ('DeltaLake', '0.15.1'),
-    # ('openpyxl', '3.1.2'),
+    ('matplotlib', '3.9.2'),
+    ('Arrow', '17.0.0'),
+    ('DeltaLake', '0.25.5'),
+    ('openpyxl', '3.1.5'),
 ]
 
-# preinstallopts = """sed -i '1i cargo-features = ["edition2024"]\n' crates/polars/Cargo.toml crates/polars-arrow/Cargo.toml && """
 preinstallopts = """for file in crates/polars*/Cargo.toml; do sed -i '1i cargo-features = ["edition2024"]\n' "$file"; done && """
-# preinstallopts += """ """
-# 3a9bfc1af68b1726ea47d3d5109de126281def866b33970e10fbab11b5dafab3
-# use_pip_extras = "deltalake,matplotlib,numpy,openpyxl,pandas,pyarrow"
+preinstallopts += "sed -i -e 's/let mut receive_and_pass = async || {/let mut receive_and_pass = async {/' "
+preinstallopts += "-e 's/receive_and_pass().await?;/receive_and_pass.await?;/' "
+preinstallopts += "crates/polars-stream/src/nodes/io_sinks/partition/by_key.rs && "
+
+use_pip_extras = "deltalake,matplotlib,numpy,openpyxl,pandas,pyarrow"
 
 moduleclass = 'data'
 
-#E5:
-    # <- log5.txt
-        # error: expected one of `!`, `(`, `,`, `.`, `::`, `<`, `?`, or `}`, found `length_in_bytes`
-        #          --> crates/polars-arrow/src/storage.rs:131:13
-        #           |
-        #       128 |         static INNER: SharedStorageInner<()> = SharedStorageInner {
-        #           |                                                ------------------ while parsing this struct
-        #       129 |             ref_count: AtomicU64::new(1),
-        #       130 |             ptr: (1 << 30) as *mut u8
-        #           |                                      -
-        #           |                                      |
-        #           |                                      expected one of 8 possible tokens
-        #           |                                      help: try adding a comma: `,`
-        #       131 |             length_in_bytes: 0,
-        #           |             ^^^^^^^^^^^^^^^ unexpected token
-
-        #       error[E0063]: missing field `length_in_bytes` in initializer of `SharedStorageInner<_>`
-        #          --> crates/polars-arrow/src/storage.rs:128:48
-        #           |
-        #       128 |         static INNER: SharedStorageInner<()> = SharedStorageInner {
-        #           |                                                ^^^^^^^^^^^^^^^^^^ missing `length_in_bytes`
 #E4: OK
     # -> patch3 ->
     # <- log4.txt
