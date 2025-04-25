@@ -212,21 +212,27 @@ Author: Pavel Tomanek (Inuits)
  
 --- crates/polars-stream/src/nodes/io_sinks/partition/by_key.rs.orig	2025-04-24 15:25:10.518214000 +0200
 +++ crates/polars-stream/src/nodes/io_sinks/partition/by_key.rs	2025-04-24 15:27:42.591896000 +0200
-@@ -202,7 +202,7 @@
- 
+@@ -202,7 +202,7 @@ impl Sink for PartitionByKey {
              // Wrap this in a closure so that a failure to send (which signifies a failure) can be
              // caught while waiting for tasks.
 -            let mut receive_and_pass = async || {
-+            let mut receive_and_pass = async {
++            let mut receive_and_pass = async move {
                  while let Ok(mut lin_rx) = io_rx.recv().await {
                      while let Some(Priority(Reverse(seq), (source_token, partitions))) =
                          lin_rx.get().await
-@@ -271,7 +271,7 @@
- 
-                 PolarsResult::Ok(())
+@@ -229,7 +229,7 @@ impl Sink for PartitionByKey {
+                         }
+                     }
+                 }
+-                Ok::<(), PolarsError>(())
++                Ok(())
              };
--            receive_and_pass().await?;
-+            receive_and_pass.await?;
  
-             // At this point, we need to wait for all sinks to finish writing and close them. Also,
-             // sinks that ended up buffering need to output their data.
+             // Wait for the receive‐and‐pass loop to finish (i.e. all partitions ended)
+@@ -237,7 +237,7 @@ impl Sink for PartitionByKey {
+             {
+-                receive_and_pass().await?;
++                receive_and_pass.await?;
+             }
+ 
+             // now emit the final “stop” signal to the bridge so it can clean up
