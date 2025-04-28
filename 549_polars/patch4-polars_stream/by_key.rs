@@ -4,6 +4,7 @@ use std::sync::Arc;
 use tokio::sync::Mutex;
 
 use futures::stream::FuturesUnordered;
+use indexmap::map::Entry;
 use futures::StreamExt;
 use polars_core::config;
 use polars_core::frame::DataFrame;
@@ -174,44 +175,51 @@ impl SinkNode for PartitionByKeySinkNode {
                         for (row_encoded, keys, partition) in partitions {
                             let mut open_partitions = partitions_ref.lock().await;
                             let num_open = open_partitions.len();
-                            match open_partitions.get_mut(&row_encoded) {
-                                None if num_open >= max_open_partitions => {
-                                    open_partitions.insert(row_encoded, OpenPartition::Buffer(keys, vec![partition]));
-                                },
-                                None => {
-                                    let result = open_new_sink(
-                                        base_path.as_path(),
-                                        file_path_cb.as_ref(),
-                                        super::default_by_key_file_path_cb,
-                                        file_idx,
-                                        file_idx,
-                                        0,
-                                        Some(keys.as_slice()),
-                                        &create_new_sink,
-                                        sink_input_schema.clone(),
-                                        "by-key",
-                                        ext.as_str(),
-                                        verbose,
-                                        &state,
-                                    ).await?;
-                                    file_idx += 1;
-                                    let Some((join_handles, sender)) = result else { return Ok(()) };
-                                    open_partitions.insert(row_encoded, OpenPartition::Sink(sender, join_handles));
-                                },
-                                Some(open_partition) => {
-                                    match open_partition {
+                            match open_partitions.entry(row_encoded) {
+                                Entry::Occupied(mut entry) => {
+                                    match entry.get_mut() {
+                                        OpenPartition::Buffer(_, buffer) => {
+                                            buffer.push(partition);
+                                        },
                                         OpenPartition::Sink(sender, _) => {
                                             let morsel = Morsel::new(partition, seq, source_token.clone());
                                             if sender.send(morsel).await.is_err() {
                                                 return Ok(());
                                             }
                                         },
-                                        OpenPartition::Buffer(_, buffer) => {
-                                            buffer.push(partition);
+                                    }
+                                },
+                                Entry::Vacant(entry) => {
+                                    if open_partitions.len() >= max_open_partitions {
+                                        entry.insert(OpenPartition::Buffer(keys, vec![partition]));
+                                    } else {
+                                        let result = open_new_sink(
+                                            base_path.as_path(),
+                                            file_path_cb.as_ref(),
+                                            super::default_by_key_file_path_cb,
+                                            file_idx,
+                                            file_idx,
+                                            0,
+                                            Some(keys.as_slice()),
+                                            &create_new_sink,
+                                            sink_input_schema.clone(),
+                                            "by-key",
+                                            ext.as_str(),
+                                            verbose,
+                                            &state,
+                                        ).await?;
+                                        file_idx += 1;
+                                        if let Some((join_handles, sender)) = result {
+                                            entry.insert(OpenPartition::Sink(sender, join_handles));
+                                            let morsel = Morsel::new(partition, seq, source_token.clone());
+                                            if sender.send(morsel).await.is_err() {
+                                                return Ok(());
+                                            }
                                         }
                                     }
-                                }
+                                },
                             }
+                            
                         }
                     }
                 }
