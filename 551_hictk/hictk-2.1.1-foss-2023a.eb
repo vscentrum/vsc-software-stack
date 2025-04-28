@@ -12,11 +12,43 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 source_urls = ['https://github.com/paulsengroup/hictk/archive/']
 sources = ['v%(version)s.tar.gz']
+checksums = ['0a00eb9cc599fa80f4d6edafd4f0bc4db75863e7d11337775fc3f2547aa7c829']
 
 builddependencies = [
     ('binutils', '2.40'),
     ('CMake', '3.26.3'),
-    ('conan', '1.60.2'),
+    # ('conan', '1.60.2'),
+]
+
+dependencies = [
+    ('Arrow', '14.0.1'),
+    ('Boost', '1.82.0'),
+    # ('bshoshany-thread-pool', '5.0.0'),  # TODO
+    ('bzip2', '1.0.8'),
+    ('Catch2', '2.13.9'),
+    ('CLI11', '2.5.0'),
+    ('concurrentqueue', '1.0.4'),
+    ('Eigen', '3.4.0'),
+    ('fast_float', '8.0.2'),
+    ('fmt', '10.1.0'),
+    ('HDF5', '1.14.0'),
+    ('HighFive', '2.7.1'),
+    ('libarchive', '3.6.2'),
+    ('cURL', '8.0.1'),
+    ('libdeflate', '1.18'),
+    ('lz4', '1.9.4'),
+    ('LZO', '2.10'),
+    ('nlohmann_json', '3.11.2'),
+    # ('opentelemetry-cpp', '1.20.0'),  # TODO
+    ('parallel-hashmap', '2.0.0'),
+    ('pybind11', '2.11.1'),
+    ('readerwriterqueue', '1.0.7'),
+    ('span-lite', '0.11.0'),
+    ('spdlog', '1.11.0'),
+    ('tomlplusplus', '3.4.0'),
+    ('XZ', '5.4.2'),
+    ('zstd', '1.5.5'),
+    ('zlib', '1.2.13'),
 ]
 
 # TODO 
@@ -26,10 +58,6 @@ builddependencies = [
 # ERROR: Unable to find 'arrow/19.0.1#f6937fd566ecbec1eab37b40e292dfec' in remotes
 # preconfigopts = 'conan install --build=missing -pr default -s build_type=Release'
 # preconfigopts += ' -s compiler.cppstd=17 --output-folder=%(builddir)s %(builddir)s/%(name)s-%(version)s && '
-
-# dependencies = [
-#     ('DependencyName', '0.0.0'),
-# ]
 
 # sanity_check_paths = {
 #     'files': ['bin/%(namelower)s', f'lib/lib%(namelower)s.{SHLIB_EXT}'],

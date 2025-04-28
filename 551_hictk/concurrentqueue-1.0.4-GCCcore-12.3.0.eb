@@ -1,0 +1,27 @@
+easyblock = 'CMakeMake'
+
+name = 'concurrentqueue'
+version = '1.0.4'
+
+homepage = 'https://github.com/cameron314/concurrentqueue'
+description = """
+A fast multi-producer, multi-consumer lock-free concurrent queue for C++11
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://github.com/cameron314/concurrentqueue/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['87fbc9884d60d0d4bf3462c18f4c0ee0a9311d0519341cac7cbd361c885e5281']
+
+builddependencies = [
+    ('binutils', '2.40'),
+    ('CMake', '3.26.3'),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['include'],
+}
+
+moduleclass = 'lib'
