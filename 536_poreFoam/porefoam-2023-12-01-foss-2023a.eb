@@ -58,3 +58,23 @@ moduleclass = 'cae'
 #    56 | using objRegistry = std::unordered_map<std::string,unique_void_ptr>;
 #       |                                                    ^~~~~~~~~~~~~~~
 # ...
+
+# TODO
+# surfaceFormats/vtk/VTKsurfaceFormatCore.H:51:12: error: ‘unique_ptr’ has not been declared in ‘std’
+#    51 | using std::unique_ptr<void, deleter_t> = std::unique_ptr<void, deleter_t>;
+#       |            ^~~~~~~~~~
+# surfaceFormats/vtk/VTKsurfaceFormatCore.H:51:22: error: expected ‘;’ before ‘<’ token
+#    51 | using std::unique_ptr<void, deleter_t> = std::unique_ptr<void, deleter_t>;
+#       |                      ^
+#       |                      ;
+# surfaceFormats/vtk/VTKsurfaceFormatCore.H:51:22: error: expected unqualified-id before ‘<’ token
+
+# collect2: error: ld returned 1 exit status
+# make[9]: *** [/dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/script/Makefile.in:423: msApp] Error 1
+# make[9]: Leaving directory '/dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/porefoam2f/utilities/surfaceSmoothVP'
+# make[8]: *** [/dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/script/Makefile.in:349: make_surfaceSmoothVP] Error 2
+# make[8]: *** Waiting for unfinished jobs....
+
+# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.cpp:622:22: error: redefinition of default argument for ‘class First’
+#   622 | template<class InpT, typename First=uint8_t, typename... Rest>
+#       |                      ^~~~~~~~
