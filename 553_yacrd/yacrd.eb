@@ -1,0 +1,27 @@
+easyblock = 'Cargo'
+
+name = 'yacrd'
+version = '1.0.0'
+
+homepage = 'https://github.com/natir/yacrd'
+description = """Yet Another Chimeric Read Detector."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/natir/yacrd/archive/']
+sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+
+builddependencies = [('Rust', '1.75.0')]
+
+# preinstallopts = 'cd bgzip-cli && '
+
+crates = 
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["%(namelower)s --help"]
+
+moduleclass = 'tools'
