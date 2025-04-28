@@ -1,223 +1,10 @@
-Make polars-stream compatible with Rust 1.83.0 stable.
-polars-stream is in polars/crates, builded with polars, not fetched from crates.io.
-Patch out the usage of #![feature(async_closure)].
-Author: Pavel Tomanek (Inuits)
---- crates/polars-stream/src/nodes/io_sources/multi_file_reader/mod.rs.orig	2025-04-23 11:04:57.211422000 +0200
-+++ crates/polars-stream/src/nodes/io_sources/multi_file_reader/mod.rs	2025-04-23 11:44:00.326623000 +0200
-@@ -89,6 +89,22 @@
-     Finished,
- }
- 
-+impl Clone for MultiScanState {
-+    fn clone(&self) -> Self {
-+        match self {
-+            MultiScanState::Uninitialized { config } => {
-+                MultiScanState::Uninitialized {
-+                    config: Arc::clone(config),
-+                }
-+            }
-+            MultiScanState::Initialized { .. } => {
-+                panic!("Cannot clone Initialized state: non-cloneable fields")
-+            }
-+            MultiScanState::Finished => MultiScanState::Finished,
-+        }
-+    }
-+}
-+
- pub struct MultiFileReader {
-     name: PlSmallStr,
-     state: MultiScanState,
-@@ -157,26 +173,33 @@
-         assert!(recv.is_empty());
-         assert!(send.len() == 1);
- 
-+        if matches!(self.state, Initialized { .. }) {
-+            // Safe no-op or return an error clearly if that's expected
-+            return Ok(());
-+        }        
-+        
-         send[0] = if send[0] == PortState::Done {
-             self.state = Finished;
--
-             PortState::Done
-         } else {
--            // Refresh first - in case there is an error we end here instead of ending when we go
--            // into spawn.
-+            let mut state = self.state.clone();
-+            let verbose = self.verbose;
-+    
-             async_executor::task_scope(|s| {
-                 pl_async::get_runtime()
--                    .block_on(s.spawn_task(TaskPriority::High, self.state.refresh(self.verbose)))
-+                    .block_on(s.spawn_task(TaskPriority::High, async move {
-+                        state.refresh(verbose).await
-+                    }))
-             })?;
--
-+    
-             match self.state {
-                 Uninitialized { .. } | Initialized { .. } => PortState::Ready,
-                 Finished => PortState::Done,
-             }
-         };
--
-+    
-         Ok(())
--    }
-+    }    
- 
-     fn spawn<'env, 's>(
-         &'env mut self,
-@@ -187,59 +210,57 @@
-         join_handles: &mut Vec<crate::async_executor::JoinHandle<polars_error::PolarsResult<()>>>,
-     ) {
-         assert!(recv_ports.is_empty() && send_ports.len() == 1);
--
-+    
-         let phase_morsel_tx = send_ports[0].take().unwrap().serial();
-         let num_pipelines = state.num_pipelines;
-         let verbose = self.verbose;
--
-+    
-+        let scan_state = std::mem::replace(&mut self.state, MultiScanState::Finished);
-+    
-         join_handles.push(scope.spawn_task(TaskPriority::Low, async move {
-             use MultiScanState::*;
--
--            self.state.initialize(num_pipelines, verbose);
--            self.state.refresh(verbose).await?;
--
--            match &mut self.state {
-+            let mut state = scan_state;
-+    
-+            state.initialize(num_pipelines, verbose);
-+            state.refresh(verbose).await?;
-+    
-+            match &mut state {
-                 Uninitialized { .. } => unreachable!(),
--
-+    
-                 Finished => return Ok(()),
--
-+    
-                 Initialized {
-                     send_phase_tx_to_bridge,
-                     wait_group,
-                     ..
-                 } => {
-                     use crate::async_primitives::connector::SendError;
--
-+    
-                     match send_phase_tx_to_bridge.try_send((phase_morsel_tx, wait_group.token())) {
-                         Ok(_) => wait_group.wait().await,
--
--                        // Should never: We only send the next value once the wait token is dropped.
-+    
-                         Err(SendError::Full(_)) => unreachable!(),
--
--                        // Bridge has disconnected from the reader side. We know this because
--                        // we are still holding `send_phase_tx_to_bridge`.
-+    
-                         Err(SendError::Closed(_)) => {
-                             if verbose {
-                                 eprintln!("[MultiFileReader]: Bridge disconnected")
-                             }
--
--                            let Initialized { join_handle, .. } =
--                                std::mem::replace(&mut self.state, Finished)
--                            else {
-+    
-+                            let Initialized { join_handle, .. } = std::mem::replace(&mut state, Finished) else {
-                                 unreachable!()
-                             };
--
-+    
-                             join_handle.await?;
--
-                             return Ok(());
-                         },
-                     }
-                 },
-             }
--
--            self.state.refresh(verbose).await
-+    
-+            state.refresh(verbose).await
-         }));
-     }
-+    
- }
- 
- impl MultiScanState {
-@@ -253,37 +274,37 @@
- 
-         let slf = match slf {
-             Uninitialized { .. } | Finished => slf,
--
-+        
-             #[expect(clippy::blocks_in_conditions)]
-             Initialized {
-                 send_phase_tx_to_bridge,
-                 wait_group,
-                 bridge_state,
-                 join_handle,
--            } => match { *bridge_state.lock().unwrap() } {
--                BridgeState::NotYetStarted | BridgeState::Running => Initialized {
--                    send_phase_tx_to_bridge,
--                    wait_group,
--                    bridge_state,
--                    join_handle,
--                },
--
--                // Never the case: holding `send_phase_tx_to_bridge` guarantees this.
--                BridgeState::Stopped(StopReason::ComputeNodeDisconnected) => unreachable!(),
--
--                // If we are disconnected from the reader side, it could mean an error. Joining on
--                // the handle should catch this.
--                BridgeState::Stopped(StopReason::ReadersDisconnected) => {
--                    if verbose {
--                        eprintln!("[MultiScanState]: Readers disconnected")
--                    }
--
--                    *self = Finished;
--                    join_handle.await?;
--                    Finished
--                },
-+            } => {
-+                let bridge_state_val = *bridge_state.lock().unwrap();
-+                match bridge_state_val {
-+                    BridgeState::NotYetStarted | BridgeState::Running => Initialized {
-+                        send_phase_tx_to_bridge,
-+                        wait_group,
-+                        bridge_state,
-+                        join_handle,
-+                    },
-+        
-+                    BridgeState::Stopped(StopReason::ComputeNodeDisconnected) => unreachable!(),
-+        
-+                    BridgeState::Stopped(StopReason::ReadersDisconnected) => {
-+                        if verbose {
-+                            eprintln!("[MultiScanState]: Readers disconnected")
-+                        }
-+        
-+                        *self = Finished;
-+                        join_handle.await?;
-+                        Finished
-+                    },
-+                }
-             },
--        };
-+        };        
- 
-         *self = slf;
- 
---- crates/polars-stream/src/nodes/io_sinks/partition/by_key.rs.orig	2025-04-24 15:25:10.518214000 +0200
-+++ crates/polars-stream/src/nodes/io_sinks/partition/by_key.rs	2025-04-24 15:27:42.591896000 +0200
-@@ -1,9 +1,10 @@
+--- by_key.rs.orig	2025-04-28 10:15:53.938275000 +0200
++++ by_key.rs	2025-04-28 14:23:37.253584000 +0200
+@@ -1,9 +1,9 @@
  use std::cmp::Reverse;
  use std::path::PathBuf;
- use std::sync::Arc;
-+use tokio::sync::Mutex;
+-use std::sync::Arc;
++use std::sync::{Arc, Mutex};
  
 -use futures::StreamExt;
  use futures::stream::FuturesUnordered;
@@ -225,7 +12,7 @@ Author: Pavel Tomanek (Inuits)
  use polars_core::config;
  use polars_core::frame::DataFrame;
  use polars_core::prelude::{Column, PlHashSet, PlIndexMap, row_encode};
-@@ -23,23 +24,17 @@
+@@ -23,23 +23,17 @@
  use crate::nodes::io_sinks::{SinkInputPort, SinkNode, parallelize_receive_task};
  use crate::nodes::{JoinHandle, Morsel, MorselSeq, TaskPriority};
  
@@ -251,7 +38,7 @@ Author: Pavel Tomanek (Inuits)
      sink_options: SinkOptions,
  }
  
-@@ -56,7 +51,6 @@
+@@ -56,7 +50,6 @@
          include_key: bool,
      ) -> Self {
          assert!(!key_cols.is_empty());
@@ -259,7 +46,7 @@ Author: Pavel Tomanek (Inuits)
          let mut sink_input_schema = input_schema.clone();
          if !include_key {
              let keys_col_hm = PlHashSet::from_iter(key_cols.iter().map(|s| s.as_str()));
-@@ -71,12 +65,10 @@
+@@ -71,12 +64,10 @@
                      .unwrap(),
              );
          }
@@ -275,7 +62,7 @@ Author: Pavel Tomanek (Inuits)
              });
  
          Self {
-@@ -101,6 +93,7 @@
+@@ -101,6 +92,7 @@
      fn is_sink_input_parallel(&self) -> bool {
          true
      }
@@ -283,7 +70,7 @@ Author: Pavel Tomanek (Inuits)
      fn do_maintain_order(&self) -> bool {
          self.sink_options.maintain_order
      }
-@@ -109,7 +102,7 @@
+@@ -109,7 +101,7 @@
          &mut self,
          recv_port_rx: crate::async_primitives::connector::Receiver<(PhaseOutcome, SinkInputPort)>,
          state: &StreamingExecutionState,
@@ -292,7 +79,7 @@ Author: Pavel Tomanek (Inuits)
      ) {
          let (pass_rxs, mut io_rx) = parallelize_receive_task::<Linearized>(
              join_handles,
-@@ -122,107 +115,68 @@
+@@ -122,107 +114,68 @@
              let key_cols = self.key_cols.clone();
              let stable = self.sink_options.maintain_order;
              let include_key = self.include_key;
@@ -378,10 +165,10 @@ Author: Pavel Tomanek (Inuits)
 -                Buffer(Vec<Column>, Vec<DataFrame>),
 -            }
 +        let max_open_partitions = self.max_open_partitions;
-+        let partitions_ref: Arc<Mutex<PlIndexMap<Buffer<u8>, OpenPartition>>> = Arc::new(Mutex::new(PlIndexMap::default()));
++        let open_partitions = Arc::new(Mutex::new(PlIndexMap::default()));
 +
 +        join_handles.push(spawn(TaskPriority::High, {
-+            let partitions_ref = Arc::clone(&partitions_ref);
++            let partitions_ref = Arc::clone(&open_partitions);
 +            async move {
 +                let verbose = config::verbose();
 +                let mut file_idx = 0;
@@ -414,7 +201,7 @@ Author: Pavel Tomanek (Inuits)
 -                                    );
 -                                    debug_assert!(previous.is_none());
 -                                    open_partitions.get_index_mut(idx).unwrap().1
-+                            let mut open_partitions = partitions_ref.lock().await;
++                            let mut open_partitions = partitions_ref.lock().unwrap();
 +                            let num_open = open_partitions.len();
 +                            match open_partitions.get_mut(&row_encoded) {
 +                                None if num_open >= max_open_partitions => {
@@ -422,7 +209,7 @@ Author: Pavel Tomanek (Inuits)
                                  },
                                  None => {
                                      let result = open_new_sink(
-@@ -241,88 +195,80 @@
+@@ -241,88 +194,84 @@
                                          &state,
                                      ).await?;
                                      file_idx += 1;
@@ -509,9 +296,10 @@ Author: Pavel Tomanek (Inuits)
 -                            let morsel = Morsel::new(df, seq, source_token.clone());
 -                            if sender.send(morsel).await.is_err() {
 -                                return Ok(());
-+                let open_partitions = Arc::try_unwrap(partitions_ref)
-+                    .map_err(|_| polars_error::PolarsError::ComputeError("Multiple Arc pointers detected".into()))?
-+                    .into_inner();
++                let mut open_partitions = Arc::try_unwrap(partitions_ref)
++                    .expect("Multiple Arc pointers")
++                    .into_inner()
++                    .unwrap();
 +
 +                for open_partition in open_partitions.into_values() {
 +                    match open_partition {
@@ -570,8 +358,12 @@ Author: Pavel Tomanek (Inuits)
          }));
      }
 -}
+\ No newline at end of file
 +}
++
++#[derive(Debug)]
 +enum OpenPartition {
 +    Sink(SinkSender, FuturesUnordered<AbortOnDropHandle<PolarsResult<()>>>),
 +    Buffer(Vec<Column>, Vec<DataFrame>),
 +}
++

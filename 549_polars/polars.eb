@@ -538,7 +538,7 @@ checksums = [
     {'polars-1.27.1_hashbrown-version.patch': 'bdbed3b1dd97d7ef5211852389d72032c8b5489ddb613bf5e0459ef422ca8fdc'},
     {'polars-1.27.1_polars-utils.patch': '029af17012c51d10f5502e4027537d84661101826cd463780a42611edccb73b2'},
     {'polars-1.27.1_polars-arrow.patch': '706209c3e7f193b7b7b9f1f2fef9a704de54c19c91b09bb0fefa515326586843'},
-    {'polars-1.27.1_polars-stream.patch': '6f3baaeb9f43320b27e4c9fab02c700a30343e7fa1b450e38fa4c7d4ae275362'},
+    {'polars-1.27.1_polars-stream.patch': '2fb3df28a6c185cf0290fa281ed84d90a3ec010215afc06824b2685daff261ce'},
 ]
 
 # Requires Rust version >=1.80
@@ -1076,6 +1076,5 @@ preinstallopts = """
 for file in crates/polars*/Cargo.toml; do sed -i '1i cargo-features = ["edition2024"]\n' "$file"; done && """
 
 use_pip_extras = "deltalake,matplotlib,numpy,openpyxl,pandas,pyarrow"
-
 
 moduleclass = 'data'

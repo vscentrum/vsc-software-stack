@@ -1,0 +1,24 @@
+--- by_key.rs.orig	2025-04-28 10:15:53.938275000 +0200
++++ by_key.rs	2025-04-28 11:18:54.043535000 +0200
+@@ -202,7 +202,7 @@
+ 
+             // Wrap this in a closure so that a failure to send (which signifies a failure) can be
+             // caught while waiting for tasks.
+-            let mut receive_and_pass = async || {
++            let receive_and_pass = async move {
+                 while let Ok(mut lin_rx) = io_rx.recv().await {
+                     while let Some(Priority(Reverse(seq), (source_token, partitions))) =
+                         lin_rx.get().await
+@@ -268,10 +268,10 @@
+                         }
+                     }
+                 }
+-
++                
+                 PolarsResult::Ok(())
+             };
+-            receive_and_pass().await?;
++            receive_and_pass.await?;
+ 
+             // At this point, we need to wait for all sinks to finish writing and close them. Also,
+             // sinks that ended up buffering need to output their data.

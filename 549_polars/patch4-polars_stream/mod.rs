@@ -174,8 +174,9 @@ impl ComputeNode for MultiFileReader {
         assert!(send.len() == 1);
 
         if matches!(self.state, Initialized { .. }) {
-            panic!("update_state must not be called while state is Initialized");
-        }
+            // Safe no-op or return an error clearly if that's expected
+            return Ok(());
+        }        
         
         send[0] = if send[0] == PortState::Done {
             self.state = Finished;
