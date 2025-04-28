@@ -109,8 +109,6 @@ checksums = [
 
 builddependencies = [('Rust', '1.75.0')]
 
-# preinstallopts = 'cd bgzip-cli && '
-
 crates = [
     ('adler', '1.0.2'),
     ('aho-corasick', '0.7.18'),
@@ -206,6 +204,9 @@ crates = [
     ('zstd-safe', '3.1.0+zstd.1.4.9'),
     ('zstd-sys', '1.5.0+zstd.1.4.9'),
 ]
+
+# update test paths to release
+pretestopts = "sed -i 's/debug/release/g' tests/run.rs && "
 
 sanity_check_paths = {
     'files': ['bin/%(namelower)s'],
