@@ -1,0 +1,64 @@
+easyblock = 'Tarball'
+
+name = 'scNanoGPS'
+version = '2.0'
+
+homepage = 'https://github.com/gaolabtools/scNanoGPS/'
+description = "Single cell Nanopore sequencing data for Genotype and Phenotype."
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+source_urls = ['https://github.com/gaolabtools/scNanoGPS/archive/refs/tags/']
+sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+checksums = ['60cce1c771283b6d7a3639aa5744acfd6162306d95dd419ad3c265461fdda218']
+
+dependencies = [
+    ('Python', '3.11.5'),
+    ('Python-bundle-PyPI', '2023.10'),
+    ('SciPy-bundle', '2023.11'),
+    ('Biopython', '1.84'),
+    ('matplotlib', '3.8.2'),
+    ('Pysam', '0.22.0'),
+    ('Seaborn', '0.13.2'),
+    ('Perl', '5.38.0'),
+    ('minimap2', '2.28'),
+    ('SAMtools', '1.19.2'),
+    # ('tabix', '0.2.6'),  # TODO
+    ('spoa', '4.1.0'),
+    # ('Subread', '2.0.6'),  # TODO
+    # ('Longshot', '1.0.0'),  # TODO
+    ('BCFtools', '1.19'),
+    # ('gffread', '0.12.7'),  # TODO
+    # ('LIQA', '1.3.4'),  # TODO
+    # ('annovar', '20200607'),  # TODO
+]
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('Distance', '0.1.3', {
+        'checksums': ['60807584f5b6003f5c521aa73f39f51f631de3be5cccc5a1d67166fcbf0d4551'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    'liqa -h',
+    "python other_utils/read_length_profiler.py -h",
+    "python scanner.py -h",
+    "python assigner.py -h",
+    "python curator.py -h ",
+    "python reporter_expression.py -h",
+    "python reporter_isoform.py -h",
+    "python reporter_SNV.py -h",
+    "python reporter_summary.py -h"
+]
+
+moduleclass = 'bio'
