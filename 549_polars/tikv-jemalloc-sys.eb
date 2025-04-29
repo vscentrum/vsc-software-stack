@@ -1,0 +1,62 @@
+easyblock = 'Cargo'
+
+name = 'tikv-jemalloc-sys'
+version = '0.6.0'
+local_commit = 'c7991e5bb6b3e9f79db6b0f48dcda67c5c3d2936'
+
+homepage = 'https://github.com/pola-rs/jemallocator'
+description = """Rust allocator using jemalloc as a backend."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+# source_urls = ['https://github.com/natir/yacrd/archive/']
+# sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+sources = [{
+    'filename': 'v%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/pola-rs',
+        'repo_name': 'jemallocator',
+        'commit': local_commit,
+        'recursive': True,
+        'keep_git_dir': True,
+    }
+}]
+checksums = [
+    {'v0.6.0.tar.gz': None},
+    {'cc-1.2.20.tar.gz': '04da6a0d40b948dfc4fa8f5bbf402b0fc1a64a28dbf7d12ffd683550f2c1b63a'},
+    {'cfg-if-0.1.10.tar.gz': '4785bdd1c96b2a846b2bd7cc02e86b6b3dbf14e7e53446c4f54c92a361040822'},
+    {'libc-0.2.172.tar.gz': 'd750af042f7ef4f724306de029d18836c26c1765a54a6a3f094cbd23a7267ffa'},
+    {'paste-1.0.15.tar.gz': '57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a'},
+    {'shlex-1.3.0.tar.gz': '0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64'},
+]
+
+builddependencies = [('Rust', '1.86.0')]
+
+crates = [
+    ('cc', '1.2.20'),
+    ('cfg-if', '0.1.10'),
+    ('libc', '0.2.172'),
+    ('paste', '1.0.15'),
+    ('shlex', '1.3.0'),
+]
+
+preinstallopts = prebuildopts = pretestopts= 'cd jemalloc-sys && '
+skipsteps = ['install']
+# install_step = False
+# enable_tests = False
+postinstallcmds = [
+    'mkdir %(installdir)s/lib',
+    'cp %(builddir)s/jemallocator/target/release/deps/* %(installdir)s/lib',
+]
+
+# update test paths to release
+# pretestopts = "sed -i 's/debug/release/g' tests/run.rs && "
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["%(namelower)s --help"]
+
+moduleclass = 'tools'
