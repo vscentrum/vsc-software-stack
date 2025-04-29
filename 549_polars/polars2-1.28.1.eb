@@ -11,12 +11,7 @@ interface for Python."""
 toolchain = {'name': 'gfbf', 'version': '2024a'}
 
 sources = [SOURCELOWER_TAR_GZ]
-patches = [
-#     'polars-1.27.1_hashbrown-version.patch',
-    'polars-1.28.1_polars-utils.patch',
-#     'polars-1.27.1_polars-arrow.patch',
-#     'polars-1.27.1_polars-stream.patch',
-]
+patches = ['polars-1.28.1_polars-utils.patch']
 checksums = [
     {'polars-1.28.1.tar.gz': 'cdc0a62a1452e2daf1777e36fcf9351424cba2a588827cc32550fe0fa79dec82'},
     {'addr2line-0.24.2.tar.gz': 'dfbe277e56a376000877090da837660b4427aad530e3028d44e0bffe4f89a1c1'},
@@ -539,7 +534,6 @@ checksums = [
     {'polars-1.28.1_polars-utils.patch': '6dcd1d849a48855935e1b4303bf6fb86864bd4010dbeb58b4dfe9bff2751fc34'},
 ]
 
-# Requires Rust version >=1.80
 builddependencies = [('maturin', '1.8.3', '-Rust-1.86.0')]
 dependencies = [
     ('Python', '3.12.3'),
@@ -959,8 +953,18 @@ crates = [
     ('thiserror', '2.0.12'),
     ('thiserror-impl', '1.0.69'),
     ('thiserror-impl', '2.0.12'),
-    ('tikv-jemalloc-sys', '0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7', 'https://github.com/pola-rs/jemallocator', 'c7991e5bb6b3e9f79db6b0f48dcda67c5c3d2936'),
-    ('tikv-jemallocator', '0.6.0', 'https://github.com/pola-rs/jemallocator', 'c7991e5bb6b3e9f79db6b0f48dcda67c5c3d2936'),
+    (
+        'tikv-jemalloc-sys',
+        '0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7',
+        'https://github.com/pola-rs/jemallocator',
+        'c7991e5bb6b3e9f79db6b0f48dcda67c5c3d2936'
+    ),
+    (
+        'tikv-jemallocator',
+        '0.6.0',
+        'https://github.com/pola-rs/jemallocator',
+        'c7991e5bb6b3e9f79db6b0f48dcda67c5c3d2936'
+    ),
     ('time', '0.3.38'),
     ('time-core', '0.1.3'),
     ('time-macros', '0.2.20'),
@@ -1070,29 +1074,6 @@ crates = [
     ('zstd-sys', '2.0.14+zstd.1.5.7'),
 ]
 
-
 use_pip_extras = "deltalake,matplotlib,numpy,openpyxl,pandas,pyarrow"
 
 moduleclass = 'data'
-
-#E1:
-    # -> problem with tikv-jemalloc-sys from polar-rs repo not from crates.io
-        # Processing /tmp/vsc47063/easybuild/build/polars/1.28.1/gfbf-2024a/polars-1.28.1
-        #   Preparing metadata (pyproject.toml): started
-        #   Preparing metadata (pyproject.toml): finished with status 'error'
-        #   error: subprocess-exited-with-error
-        #   × Preparing metadata (pyproject.toml) did not run successfully.
-        #   │ exit code: 1
-        #   ╰─> [22 lines of output]
-        #       error: failed to load source for dependency `tikv-jemallocator`
-        #       Caused by:
-        #         Unable to update https://github.com/pola-rs/jemallocator?rev=c7991e5bb6b3e9f79db6b0f48dcda67c5c3d2936#c7991e5b
-        #       Caused by:
-        #         failed to update replaced source https://github.com/pola-rs/jemallocator?rev=c7991e5bb6b3e9f79db6b0f48dcda67c5c3d2936#c7991e5b
-        #       Caused by:
-        #         failed to load checksum `.cargo-checksum.json` of tikv-jemalloc-sys v0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7
-        #       Caused by:
-        #         failed to read `/tmp/vsc47063/easybuild/build/polars/1.28.1/gfbf-2024a/easybuild_vendor_git/jemallocator/jemalloc-sys/.cargo-checksum.json`
-        #       Caused by:
-        #         No such file or directory (os error 2)
-        #       💥 maturin failed
