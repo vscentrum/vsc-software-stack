@@ -1,1 +1,1524 @@
-make: *** No rule to make target 'test.serial'.  Stop.
+./test_amber_clean.sh
+make[1]: Entering directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/remd'
+make[2]: Entering directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/remd'
+Skipping hrem_wat_pv cuda test, 29mar24 dac
+make[2]: Leaving directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/remd'
+make[1]: Leaving directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/remd'
+make[1]: Entering directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/hip/remd'
+make[2]: Entering directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/hip/remd'
+make[2]: Leaving directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/hip/remd'
+make[1]: Leaving directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/hip/remd'
+./test_amber_cuda_serial.sh
+Using default PREC_MODEL = DPFP
+make[1]: Entering directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test'
+cd cuda && make -k test.pmemd.cuda PREC_MODEL=DPFP
+make[2]: Entering directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda'
+------------------------------------
+Running CUDA Implicit solvent tests.
+  Precision Model = DPFP
+------------------------------------
+cd gb_ala3/ && ./Run.igb1_ntc1_min  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing igb1_ntc1_min.out.GPU_DPFP with igb1_ntc1_min.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt0_igb1_ntc1  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt0_igb1_ntc1.out.GPU_DPFP with irest1_ntt0_igb1_ntc1.out
+PASSED
+==============================================================
+diffing irest1_ntt0_igb1_ntc1.rst.GPU_DPFP with irest1_ntt0_igb1_ntc1.rst
+PASSED
+==============================================================
+diffing irest1_ntt0_igb1_ntc1.mdcrd.GPU_DPFP with irest1_ntt0_igb1_ntc1.mdcrd
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest0_ntt0_igb1_ntc1_hotstart  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest0_ntt0_igb1_ntc1_hotstart.out.GPU_DPFP with irest0_ntt0_igb1_ntc1_hotstart.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest0_ntt0_igb1_ntc1_coldstart  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest0_ntt0_igb1_ntc1_coldstart.out.GPU_DPFP with irest0_ntt0_igb1_ntc1_coldstart.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt0_igb1_ntc2  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt0_igb1_ntc2.out.GPU_DPFP with irest1_ntt0_igb1_ntc2.out
+PASSED
+==============================================================
+diffing irest1_ntt0_igb1_ntc2.rst.GPU_DPFP with irest1_ntt0_igb1_ntc2.rst
+PASSED
+==============================================================
+diffing irest1_ntt0_igb1_ntc2.mdcrd.GPU_DPFP with irest1_ntt0_igb1_ntc2.mdcrd
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt0_igb2_ntc1  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt0_igb2_ntc1.out.GPU_DPFP with irest1_ntt0_igb2_ntc1.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt0_igb2_ntc2  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt0_igb2_ntc2.out.GPU_DPFP with irest1_ntt0_igb2_ntc2.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt0_igb5_ntc1  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt0_igb5_ntc1.out.GPU_DPFP with irest1_ntt0_igb5_ntc1.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt0_igb7_ntc2  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt0_igb7_ntc2.out.GPU_DPFP with irest1_ntt0_igb7_ntc2.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt0_igb8_ntc2  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt0_igb8_ntc2.out.GPU_DPFP with irest1_ntt0_igb8_ntc2.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt0_igb5_ntc2  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt0_igb5_ntc2.out.GPU_DPFP with irest1_ntt0_igb5_ntc2.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt0_igb5_ntc2_ntr1  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt0_igb5_ntc2_ntr1.out.GPU_DPFP with irest1_ntt0_igb5_ntc2_ntr1.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt0_igb5_ntc2_saltcon  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt0_igb5_ntc2_saltcon.out.GPU_DPFP with irest1_ntt0_igb5_ntc2_saltcon.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt0_igb5_ntc2_rgbmax  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt0_igb5_ntc2_rgbmax.out.GPU_DPFP with irest1_ntt0_igb5_ntc2_rgbmax.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt0_igb5_ntc2_alpb  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt0_igb5_ntc2_alpb.out.GPU_DPFP with irest1_ntt0_igb5_ntc2_alpb.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt1_igb1_ntc2  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt1_igb1_ntc2.out.GPU_DPFP with irest1_ntt1_igb1_ntc2.out
+PASSED
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt2_igb1_ntc2  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt2_igb1_ntc2.out.GPU_DPFP with irest1_ntt2_igb1_ntc2.out
+possible FAILURE: (ignored)  check irest1_ntt2_igb1_ntc2.out.dif
+==============================================================
+cd gb_ala3/ && ./Run.irest1_ntt3_igb1_ntc2  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing irest1_ntt3_igb1_ntc2.out.GPU_DPFP with irest1_ntt3_igb1_ntc2.out
+PASSED
+==============================================================
+cd nmropt/gb/multi-angle/ && ./Run.nmropt_2angle_gb  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+cd nmropt/gb/angle_torsion_com/ && ./Run.angdih_gb DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing angtorCOM_gb_output.GPU_DPFP with angtorCOM_gb_output
+PASSED
+==============================================================
+diffing angtorCOM_gb_vs_t.GPU_DPFP with angtorCOM_gb_vs_t
+PASSED
+==============================================================
+cd chamber/dhfr/ && ./Run.dhfr_charmm.min  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing mdout.dhfr_charmm_min.GPU_DPFP with mdout.dhfr_charmm_min
+PASSED
+==============================================================
+cd chamber/dhfr_cmap/ && ./Run.dhfr_charmm.min  DPFP yes
+
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing mdout.dhfr_charmm_min.GPU_DPFP with mdout.dhfr_charmm_min
+PASSED
+==============================================================
+cd nucleosome/ && ./Run_min.1  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing nucleosome_min.out.GPU_DPFP with nucleosome_min.out
+PASSED
+==============================================================
+---------------------------------------------
+Running Extended CUDA Implicit solvent tests.
+      Precision Model = DPFP
+---------------------------------------------
+cd trpcage/ && ./Run_md_trpcage  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing trpcage_md.out.GPU_DPFP with trpcage_md.out
+PASSED
+==============================================================
+cd myoglobin/ && ./Run_md_myoglobin  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing myoglobin_md.out.GPU_DPFP with myoglobin_md.out
+PASSED
+==============================================================
+cd myoglobin/ && ./Run_md_myoglobin_igb7  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing myoglobin_md_igb7.out.GPU_DPFP with myoglobin_md_igb7.out
+PASSED
+==============================================================
+cd myoglobin/ && ./Run_md_myoglobin_igb8  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing myoglobin_md_igb8.out.GPU_DPFP with myoglobin_md_igb8.out
+PASSED
+==============================================================
+cd myoglobin/ && ./Run_md_myoglobin_igb8_gbsa  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing myoglobin_md_igb8_gbsa.out.GPU_DPFP with myoglobin_md_igb8_gbsa.out
+PASSED
+==============================================================
+cd myoglobin/ && ./Run_md_myoglobin_igb8_gbsa3  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing myoglobin_md_igb8_gbsa3.out.GPU_DPFP with myoglobin_md_igb8_gbsa3.out
+PASSED
+==============================================================
+cd gbsa_xfin/ && ./Run.gbsa3  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.gbsa3_out.GPU_DPFP with mdout.gbsa3_out
+PASSED
+==============================================================
+cd cnstph/implicit/ && ./Run.cnstph  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing cpout.GPU_DPFP with cpout
+PASSED
+==============================================================
+cd cnste/implicit/ && ./Run.cnste  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing ceout.GPU_DPFP with ceout
+PASSED
+==============================================================
+cd cnstphe/implicit/ && ./Run.cnstphe  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing cpout.GPU_DPFP with cpout
+PASSED
+==============================================================
+diffing ceout.GPU_DPFP with ceout
+PASSED
+==============================================================
+cd chamber/dhfr/ && ./Run.dhfr_charmm.md  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.dhfr_charmm_md.GPU_DPFP with mdout.dhfr_charmm_md
+PASSED
+==============================================================
+cd chamber/dhfr_cmap/ && ./Run.dhfr_charmm.md  DPFP yes
+
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.dhfr_charmm_md.GPU_DPFP with mdout.dhfr_charmm_md
+PASSED
+==============================================================
+cd nucleosome/ && ./Run_md.1  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing nucleosome_md1_ntt1.out.GPU_DPFP with nucleosome_md1_ntt1.out
+PASSED
+==============================================================
+cd nucleosome/ && ./Run_md.2  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing nucleosome_md2_ntt0.out.GPU_DPFP with nucleosome_md2_ntt0.out
+PASSED
+==============================================================
+cd amd/rna_gb && ./Run.gb.amd1  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.gb.amd1.GPU_DPFP with mdout.gb.amd1
+PASSED
+==============================================================
+cd amd/rna_gb && ./Run.gb.amd2  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.gb.amd2.GPU_DPFP with mdout.gb.amd2
+PASSED
+==============================================================
+cd amd/rna_gb && ./Run.gb.amd3  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.gb.amd3.GPU_DPFP with mdout.gb.amd3
+PASSED
+==============================================================
+cd nmropt/gb/angle/ && ./Run.nmropt_1angle_gb  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing angle_gb_vs_t.GPU_DPFP with angle_gb_vs_t
+PASSED
+==============================================================
+cd nmropt/gb/distance/ && ./Run.dist_gb  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing dist_gb_vs_t.GPU_DPFP with dist_gb_vs_t
+PASSED
+==============================================================
+cd nmropt/gb/distance_COM/ && ./Run.distCOM_gb  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing distCOM_gb_vs_t.GPU_DPFP with distCOM_gb_vs_t
+PASSED
+==============================================================
+cd nmropt/gb/jar_distance_COM/ && ./Run.jar_gb  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing distCOM_gb_vs_t.GPU_DPFP with distCOM_gb_vs_t
+PASSED
+==============================================================
+cd nmropt/gb/jar_distance/ && ./Run.jar_gb  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing dist_gb_vs_t.GPU_DPFP with dist_gb_vs_t
+PASSED
+==============================================================
+cd nmropt/gb/jar_torsion/ && ./Run.jar_torsion  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing jartorsion_gb.dat.GPU_DPFP with jartorsion_gb.dat
+PASSED
+==============================================================
+cd nmropt/gb/nmropt_1_torsion/ && ./Run.nmropt_1_torsion  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing torsion_gb.dat.GPU_DPFP with torsion_gb.dat
+PASSED
+==============================================================
+cd nmropt/gb/tautp/ && ./Run.nmropt_1tautp_gb  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+cd nmropt/gb/temp/ && ./Run.nmropt_1temp_gb  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+cd nmropt/gb/angle_torsion_com/ && ./Run.angdih_gb  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing angtorCOM_gb_output.GPU_DPFP with angtorCOM_gb_output
+PASSED
+==============================================================
+diffing angtorCOM_gb_vs_t.GPU_DPFP with angtorCOM_gb_vs_t
+PASSED
+==============================================================
+cd kmmd/kmmd_pmemd_gb && ./Run.kmmd DPFP yes
+diffing mdout.GPU_DPFP.save with mdout.GPU_DPFP
+PASSED
+==============================================================
+---------------------------------------------
+Running Extended CUDA Explicit solvent tests.
+      Precision Model = DPFP
+---------------------------------------------
+cd 4096wat/ && ./Run.pure_wat  DPFP yes
+diffing mdout.pure_wat.GPU_DPFP with mdout.pure_wat
+PASSED
+==============================================================
+cd 4096wat/ && ./Run.pure_wat_fswitch DPFP yes
+diffing mdout.pure_wat_fswitch.GPU_DPFP with mdout.pure_wat_fswitch
+PASSED
+==============================================================
+cd 4096wat/ && ./Run.pure_wat_efield DPFP yes
+diffing mdout.pure_wat_efield.GPU_DPFP with mdout.pure_wat_efield
+PASSED
+==============================================================
+cd 4096wat_oct/ && ./Run.pure_wat_oct_NVE  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.pure_wat_oct_nve.GPU_DPFP with mdout.pure_wat_oct_nve
+PASSED
+==============================================================
+diffing mdcrd.pure_wat_oct_nve.GPU_DPFP with mdcrd.pure_wat_oct_nve
+PASSED
+==============================================================
+cd 4096wat_oct/ && ./Run.pure_wat_oct_NVT_NTT1  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.pure_wat_oct_nvt_ntt1.GPU_DPFP with mdout.pure_wat_oct_nvt_ntt1
+PASSED
+==============================================================
+diffing mdcrd.pure_wat_oct_nvt_ntt1.GPU_DPFP with mdcrd.pure_wat_oct_nvt_ntt1
+PASSED
+==============================================================
+cd 4096wat_oct/ && ./Run.pure_wat_oct_NPT_NTT1  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.pure_wat_oct_npt_ntt1.GPU_DPFP with mdout.pure_wat_oct_npt_ntt1
+PASSED
+==============================================================
+diffing mdcrd.pure_wat_oct_npt_ntt1.GPU_DPFP with mdcrd.pure_wat_oct_npt_ntt1
+PASSED
+==============================================================
+cd large_solute_count/ && ./Run.ntb2_ntt1  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.ntb2_ntt1.GPU_DPFP with mdout.ntb2_ntt1
+PASSED
+==============================================================
+cd jac/ && ./Run.jac  DPFP yes
+diffing jac.out.GPU_DPFP with jac.out
+PASSED
+==============================================================
+cd dhfr/ && ./Run.dhfr  DPFP yes
+diffing mdout.dhfr.GPU_DPFP with mdout.dhfr
+PASSED
+==============================================================
+cd dhfr/ && ./Run.dhfr.ntr1  DPFP yes
+diffing mdout.dhfr.ntr1.GPU_DPFP with mdout.dhfr.ntr1
+PASSED
+==============================================================
+cd dhfr/ && ./Run.dhfr.ntb2  DPFP yes
+diffing mdout.dhfr.ntb2.GPU_DPFP with mdout.dhfr.ntb2
+PASSED
+==============================================================
+cd dhfr/ && ./Run.dhfr.ntb2_ntt1  DPFP yes
+diffing mdout.dhfr.ntb2_ntt1.GPU_DPFP with mdout.dhfr.ntb2_ntt1
+PASSED
+==============================================================
+cd dhfr/ && ./Run.dhfr.ntb2_ntt1_ntr1  DPFP yes
+diffing mdout.dhfr.ntb2_ntt1_ntr1.GPU_DPFP with mdout.dhfr.ntb2_ntt1_ntr1
+PASSED
+==============================================================
+cd dhfr/ && ./Run.dhfr.noshake  DPFP yes
+diffing mdout.dhfr.noshake.GPU_DPFP with mdout.dhfr.noshake
+PASSED
+==============================================================
+cd chamber/dhfr_pbc/ && ./Run.dhfr_pbc_charmm_noshake.md  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.dhfr_charmm_pbc_noshake_md.GPU_DPFP with mdout.dhfr_charmm_pbc_noshake_md
+PASSED
+==============================================================
+cd chamber/dhfr_cmap_pbc/ && ./Run.dhfr_cmap_pbc_charmm.md  DPFP yes
+
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.dhfr_charmm_pbc_md.GPU_DPFP with mdout.dhfr_charmm_pbc_md
+PASSED
+==============================================================
+cd chamber/dhfr_cmap_pbc/ && ./Run.dhfr_cmap_pbc_charmm_NPT.md  DPFP yes
+
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.dhfr_charmm_pbc_md_NPT.GPU_DPFP with mdout.dhfr_charmm_pbc_md_NPT
+PASSED
+==============================================================
+cd chamber/dhfr_cmap_pbc/ && ./Run.dhfr_cmap_pbc_charmm_noshake.md  DPFP yes
+
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.dhfr_charmm_pbc_noshake_md.GPU_DPFP with mdout.dhfr_charmm_pbc_noshake_md
+PASSED
+==============================================================
+cd ips/ && ./Run.ips  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.ips.GPU_DPFP with mdout.ips
+PASSED
+==============================================================
+cd amd/dhfr_pme && ./Run.pme.amd1  DPFP yes
+diffing mdout.pme.amd1.GPU_DPFP with mdout.pme.amd1
+PASSED
+==============================================================
+cd amd/dhfr_pme && ./Run.pme.amd2  DPFP yes
+diffing mdout.pme.amd2.GPU_DPFP with mdout.pme.amd2
+PASSED
+==============================================================
+cd amd/dhfr_pme && ./Run.pme.amd3  DPFP yes
+diffing mdout.pme.amd3.GPU_DPFP with mdout.pme.amd3
+PASSED
+==============================================================
+cd amd/gact_ips && ./Run.ips.amd1  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.ips.amd1.GPU_DPFP with mdout.ips.amd1
+PASSED
+==============================================================
+cd amd/gact_ips && ./Run.ips.amd2  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.ips.amd2.GPU_DPFP with mdout.ips.amd2
+PASSED
+==============================================================
+cd amd/gact_ips && ./Run.ips.amd3  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.ips.amd3.GPU_DPFP with mdout.ips.amd3
+PASSED
+==============================================================
+cd scaledMD && ./Run.scaledMD  DPFP yes
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+cd nmropt/pme/angle/ && ./Run.nmropt_1angle_pbc  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing angle_pbc_vs_t.GPU_DPFP with angle_pbc_vs_t
+PASSED
+==============================================================
+cd nmropt/pme/distance/ && ./Run.dist_pbc  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing dist_pbc_vs_t.GPU_DPFP with dist_pbc_vs_t
+PASSED
+==============================================================
+cd nmropt/pme/distance_COM/ && ./Run.distCOM_pbc DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing distCOM_pbc_vs_t.GPU_DPFP with distCOM_pbc_vs_t
+PASSED
+==============================================================
+cd nmropt/pme/distance_COM/ && ./Run.multi-distCOM-multi-dist_pbc DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing multi-distCOM-multi-dist_pbc.GPU_DPFP with multi-distCOM-multi-dist_pbc
+PASSED
+==============================================================
+diffing multi-distCOM-multi-dist_pbc_vs_t.GPU_DPFP with multi-distCOM-multi-dist_pbc_vs_t
+PASSED
+==============================================================
+cd nmropt/pme/jar_distance_COM/ && ./Run.jar_pbc  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing distCOM_pbc_vs_t.GPU_DPFP with distCOM_pbc_vs_t
+PASSED
+==============================================================
+cd nmropt/pme/jar_distance/ && ./Run.jar_pbc  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing dist_pbc_vs_t.GPU_DPFP with dist_pbc_vs_t
+PASSED
+==============================================================
+cd nmropt/pme/jar_torsion/ && ./Run.jar_torsion  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing jartorsion_pbc.dat.GPU_DPFP with jartorsion_pbc.dat
+PASSED
+==============================================================
+cd nmropt/pme/nmropt_1_torsion/ && ./Run.nmropt_1_torsion  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing torsion_pbc.dat.GPU_DPFP with torsion_pbc.dat
+PASSED
+==============================================================
+cd nmropt/pme/angle_torsion_com/ && ./Run.angdihmultCOM  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_OVERFLOW_FLAG IEEE_DENORMAL
+diffing angtorCOM_output.GPU_DPFP with angtorCOM_output
+PASSED
+==============================================================
+diffing angtorCOM_vs_t.GPU_DPFP with angtorCOM_vs_t
+PASSED
+==============================================================
+cd nmropt/pme/tautp/ && ./Run.nmropt_1tautp_pbc  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+cd nmropt/pme/temp/ && ./Run.nmropt_1temp_pbc  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+cd tip4pew/ && ./Run.tip4pew_box_nvt  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.tip4pew_box_nvt.GPU_DPFP with mdout.tip4pew_box_nvt
+PASSED
+==============================================================
+cd tip4pew/ && ./Run.tip4pew_box_npt  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.tip4pew_box_npt.GPU_DPFP with mdout.tip4pew_box_npt
+PASSED
+==============================================================
+cd tip4pew/ && ./Run.tip4pew_oct_nvt  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.tip4pew_oct_nvt.GPU_DPFP with mdout.tip4pew_oct_nvt
+PASSED
+==============================================================
+cd tip4pew/ && ./Run.tip4pew_oct_npt  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.tip4pew_oct_npt.GPU_DPFP with mdout.tip4pew_oct_npt
+PASSED
+==============================================================
+cd tip4pew/ && ./Run.tip4pew_box_npt_mcbar  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.tip4pew_box_npt_mcbar.GPU_DPFP with mdout.tip4pew_box_npt_mcbar
+PASSED
+==============================================================
+cd tip4pew/ && ./Run.tip4pew_oct_npt_mcbar  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.tip4pew_oct_npt_mcbar.GPU_DPFP with mdout.tip4pew_oct_npt_mcbar
+PASSED
+==============================================================
+cd tip5p/ && ./Run.tip5p_box_nvt  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.tip5p_box_nvt.GPU_DPFP with mdout.tip5p_box_nvt
+PASSED
+==============================================================
+cd tip5p/ && ./Run.tip5p_box_npt  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.tip5p_box_npt.GPU_DPFP with mdout.tip5p_box_npt
+PASSED
+==============================================================
+cd tip5p/ && ./Run.tip5p_oct_nvt  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.tip5p_oct_nvt.GPU_DPFP with mdout.tip5p_oct_nvt
+PASSED
+==============================================================
+cd tip5p/ && ./Run.tip5p_oct_npt  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.tip5p_oct_npt.GPU_DPFP with mdout.tip5p_oct_npt
+PASSED
+==============================================================
+cd HMR/ && ./Run.HMR	DPFP yes
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+cd lipid_npt_tests/ && ./Run_npt_isotropic.lipid14	DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_OVERFLOW_FLAG IEEE_DENORMAL
+diffing mdout_npt_isotropic_lipid14.GPU_DPFP with mdout_npt_isotropic_lipid14
+PASSED
+==============================================================
+cd lipid_npt_tests/ && ./Run_npt_anisotropic.lipid14	DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_OVERFLOW_FLAG IEEE_DENORMAL
+diffing mdout_npt_anisotropic_lipid14.GPU_DPFP with mdout_npt_anisotropic_lipid14
+PASSED
+==============================================================
+cd lipid_npt_tests/ && ./Run_npt_semiisotropic.lipid14	DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_OVERFLOW_FLAG IEEE_DENORMAL
+diffing mdout_npt_semiisotropic_lipid14.GPU_DPFP with mdout_npt_semiisotropic_lipid14
+PASSED
+==============================================================
+cd cnstph/explicit/ && ./Run.cnstph  DPFP yes
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing cpout.GPU_DPFP with cpout
+PASSED
+==============================================================
+cd cnste/explicit/ && ./Run.cnste  DPFP yes
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing ceout.GPU_DPFP with ceout
+PASSED
+==============================================================
+cd cnstphe/explicit/ && ./Run.cnstphe  DPFP yes
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing cpout.GPU_DPFP with cpout
+PASSED
+==============================================================
+diffing ceout.GPU_DPFP with ceout
+PASSED
+==============================================================
+cd phmd/explicit/ && ./Run.phmd DPFP yes
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Amber/24.0-foss-2023b-AmberTools-24.0-CUDA-12.4.0/bin/pmemd.cuda_DPFP
+
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_OVERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.GPU_DPFP with mdout
+PASSED
+==============================================================
+diffing phmdout.save with phmdout
+PASSED
+==============================================================
+cd kmmd/kmmd_pmemd/ && ./Run.kmmd DPFP yes
+diffing mdout.GPU_DPFP.save with mdout.GPU_DPFP
+PASSED
+==============================================================
+------------------------------------
+Running CUDA Explicit solvent tests.
+  Precision Model = DPFP
+------------------------------------
+cd 4096wat/ && ./Run.vrand  DPFP yes
+diffing mdout.vrand.GPU_DPFP with mdout.vrand
+possible FAILURE: (ignored)  check mdout.vrand.dif
+==============================================================
+cd 4096wat_oct/ && ./Run.pure_wat_oct_NVT_NTT2  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.pure_wat_oct_nvt_ntt2.GPU_DPFP with mdout.pure_wat_oct_nvt_ntt2
+possible FAILURE: (ignored)  check mdout.pure_wat_oct_nvt_ntt2.dif
+==============================================================
+diffing mdcrd.pure_wat_oct_nvt_ntt2.GPU_DPFP with mdcrd.pure_wat_oct_nvt_ntt2
+possible FAILURE: (ignored)  check mdcrd.pure_wat_oct_nvt_ntt2.dif
+==============================================================
+cd 4096wat_oct/ && ./Run.pure_wat_oct_NVT_NTT3  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.pure_wat_oct_nvt_ntt3.GPU_DPFP with mdout.pure_wat_oct_nvt_ntt3
+PASSED
+==============================================================
+diffing mdcrd.pure_wat_oct_nvt_ntt3.GPU_DPFP with mdcrd.pure_wat_oct_nvt_ntt3
+PASSED
+==============================================================
+cd dhfr/ && ./Run.dhfr.ntb2_ntt3  DPFP yes
+diffing mdout.dhfr.ntb2_ntt3.GPU_DPFP with mdout.dhfr.ntb2_ntt3
+PASSED
+==============================================================
+cd ips/ && ./Run.ips_ntt3  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.ips_ntt3.GPU_DPFP with mdout.ips_ntt3
+PASSED
+==============================================================
+cd npt_ntr_ntt3_oct/ && ./Run.ntp1  DPFP yes
+diffing mdout.ntp1.GPU_DPFP with mdout.ntp1
+PASSED
+==============================================================
+cd dhfr/ && ./Run.dhfr.min  DPFP yes
+diffing mdout.dhfr.min.GPU_DPFP with mdout.dhfr.min
+PASSED
+==============================================================
+cd mcwat && ./Run.mcwat DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.mcwat.GPU_DPFP with mdout.mcwat
+possible FAILURE: (ignored)  check mdout.mcwat.dif
+==============================================================
+cd RAMD && ./Run.ramd DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.ramd.GPU_DPFP with mdout.ramd
+file ddtmp.mdout.ramd.GPU_DPFP is short
+possible FAILURE: (ignored)  check mdout.ramd.dif
+==============================================================
+cd chamber/dhfr_pbc/ && ./Run.dhfr_pbc_charmm_noshake.min  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.dhfr_charmm_pbc_noshake_min.GPU_DPFP with mdout.dhfr_charmm_pbc_noshake_min
+PASSED
+==============================================================
+cd chamber/dhfr_cmap_pbc/ && ./Run.dhfr_cmap_pbc_charmm.min  DPFP yes
+
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.dhfr_charmm_pbc_min.GPU_DPFP with mdout.dhfr_charmm_pbc_min
+PASSED
+==============================================================
+cd chamber/dhfr_cmap_pbc/ && ./Run.dhfr_cmap_pbc_charmm_noshake.min  DPFP yes
+
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.dhfr_charmm_pbc_noshake_min.GPU_DPFP with mdout.dhfr_charmm_pbc_noshake_min
+PASSED
+==============================================================
+cd nfe/ && ./run-pmemd-serial.sh  DPFP yes
+>>>>>>> doing 'abmd_ANALYSIS'
+>>>>>>> doing 'abmd_FLOODING'
+>>>>>>> doing 'abmd_UMBRELLA'
+>>>>>>> doing 'smd'
+diffing save.pmemd/mdout with mdout
+PASSED
+==============================================================
+diffing save.pmemd/smd.txt with smd.txt
+PASSED
+==============================================================
+>>>>>>> doing 'smd2'
+diffing save.pmemd/mdout with mdout
+PASSED
+==============================================================
+diffing save.pmemd/work.DPFP.txt with work.txt
+PASSED
+==============================================================
+>>>>>>> doing 'pmd'
+diffing save.pmemd/mdout with mdout
+PASSED
+==============================================================
+diffing save.pmemd/pmd.txt with pmd.txt
+PASSED
+==============================================================
+cd ff19SB/ && ./Run  DPFP yes
+
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.GPU_DPFP.save with mdout.GPU_DPFP
+PASSED
+==============================================================
+cd dhfr/ && ./Run.dhfr_reweight  DPFP yes
+diffing mdout.dhfr_reweight.GPU_DPFP with mdout.dhfr_reweight
+PASSED
+==============================================================
+cd ../middle-scheme/4096wat/ && ./Run.pure_wat_middle_scheme.cuda DPFP yes
+diffing mdout.pure_wat_middle_scheme.GPU_DPFP with mdout.pure_wat_middle_scheme
+PASSED
+==============================================================
+cd ../middle-scheme/DNA7/ && ./Run.DNA_middle_scheme.cuda DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing mdout.DNA_middle_scheme.GPU_DPFP with mdout.DNA_middle_scheme
+PASSED
+==============================================================
+cd ../middle-scheme/ETH/ && ./Run.ETH_middle_scheme.cuda DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_OVERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.ETH_middle_scheme.GPU_DPFP with mdout.ETH_middle_scheme
+PASSED
+==============================================================
+cd gamd/rna_gb && ./Run.gb.gamd1  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.gb.gamd1.GPU_DPFP with mdout.gb.gamd1
+PASSED
+==============================================================
+cd gamd/rna_gb && ./Run.gb.gamd2  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.gb.gamd2.GPU_DPFP with mdout.gb.gamd2
+PASSED
+==============================================================
+cd gamd/rna_gb && ./Run.gb.gamd3  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.gb.gamd3.GPU_DPFP with mdout.gb.gamd3
+PASSED
+==============================================================
+cd gamd/dhfr_pme && ./Run.pme.gamd1  DPFP yes
+diffing mdout.pme.gamd1.GPU_DPFP with mdout.pme.gamd1
+PASSED
+==============================================================
+cd gamd/dhfr_pme && ./Run.pme.gamd2  DPFP yes
+diffing mdout.pme.gamd2.GPU_DPFP with mdout.pme.gamd2
+PASSED
+==============================================================
+cd gamd/dhfr_pme && ./Run.pme.gamd3  DPFP yes
+diffing mdout.pme.gamd3.GPU_DPFP with mdout.pme.gamd3
+PASSED
+==============================================================
+cd gamd/LiGaMD && ./Run.liggamd  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_OVERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.pme.ligamd.GPU_DPFP with mdout.pme.ligamd
+PASSED
+==============================================================
+cd gamd/PepGaMD && ./Run.pepgamd DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_OVERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.pme.pepgamd.GPU_DPFP with mdout.pme.pepgamd
+PASSED
+==============================================================
+cd gamd/PPIGaMD && ./Run.ppigamd DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_OVERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.pme.ppigamd.GPU_DPFP with mdout.pme.ppigamd
+PASSED
+==============================================================
+#Begin tests
+------------------------------------
+Running CUDA Virtual Site tests.
+cd virtual_sites/tip4p && ./Run.ec DPFP
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing etot.type5_DPFP.save with etot.type5
+PASSED
+==============================================================
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing etot.type6_DPFP.save with etot.type6
+PASSED
+==============================================================
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing etot.type7_DPFP.save with etot.type7
+PASSED
+==============================================================
+cd virtual_sites/tip4p && ./Run.npt DPFP
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing virial.type5_DPFP.save with virial.type5
+PASSED
+==============================================================
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing virial.type6_DPFP.save with virial.type6
+PASSED
+==============================================================
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing virial.type7_DPFP.save with virial.type7
+PASSED
+==============================================================
+cd virtual_sites/tip5p && ./Run.ec DPFP
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing etot.type8_DPFP.save with etot.type8
+PASSED
+==============================================================
+cd virtual_sites/tip5p && ./Run.npt DPFP
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing virial.type8_DPFP.save with virial.type8
+PASSED
+==============================================================
+cd virtual_sites/Methanol && ./Run.ec DPFP
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing etot.type10_DPFP.save with etot.type10
+PASSED
+==============================================================
+cd virtual_sites/Methanol && ./Run.npt DPFP
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing virial.type10_DPFP.save with virial.type10
+PASSED
+==============================================================
+cd virtual_sites/BromoBenzene && ./Run.ec DPFP
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing etot.type4_DPFP.save with etot.type4
+PASSED
+==============================================================
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing etot.type9_DPFP.save with etot.type9
+PASSED
+==============================================================
+cd virtual_sites/BromoBenzene && ./Run.npt DPFP
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing virial.type4_DPFP.save with virial.type4
+PASSED
+==============================================================
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing virial.type9_DPFP.save with virial.type9
+PASSED
+==============================================================
+cd virtual_sites/DimethylEther && ./Run.ec DPFP
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing etot.type8_DPFP.save with etot.type8
+PASSED
+==============================================================
+cd virtual_sites/DimethylEther && ./Run.npt DPFP
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing virial.type8_DPFP.save with virial.type8
+PASSED
+==============================================================
+cd virtual_sites/BenzenePi && ./Run.ec DPFP
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing etot.type8_DPFP.save with etot.type8
+PASSED
+==============================================================
+cd virtual_sites/BenzenePi && ./Run.npt DPFP
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing virial.type8_DPFP.save with virial.type8
+PASSED
+==============================================================
+cd sgld/trpcage && ./Run.sgld  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing sgld.out.GPU_DPFP with sgld.out
+PASSED
+==============================================================
+cd sgld/trpcage && ./Run.sgmd  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing sgmd.out.GPU_DPFP with sgmd.out
+PASSED
+==============================================================
+cd sgld/gact && ./Run.sgld  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.sgld.GPU_DPFP with mdout.sgld
+possible FAILURE: (ignored)  check mdout.sgld.dif
+==============================================================
+cd sgld/gact && ./Run.sgmd  DPFP yes
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+diffing mdout.sgmd.GPU_DPFP with mdout.sgmd
+PASSED
+==============================================================
+------------------------------------
+Running CUDA GTI free energy tests.
+cd gti/Na/ && ./Run.NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/Na
+diffing md_NVE.o.DPFP with md_NVE.o
+PASSED
+==============================================================
+cd gti/Na/ && ./Run.NVT_ntt1  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/Na
+diffing md_NVT_ntt1.o.DPFP with md_NVT_ntt1.o
+PASSED
+==============================================================
+cd gti/Na/ && ./Run.NVT_ntt3  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/Na
+diffing md_NVT_ntt3.o.DPFP with md_NVT_ntt3.o
+PASSED
+==============================================================
+cd gti/Na/ && ./Run.NPT_MC  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/Na
+diffing md_NPT_MC.o.DPFP with md_NPT_MC.o
+PASSED
+==============================================================
+cd gti/Na/ && ./Run.SC_NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/Na
+diffing md_SC_NVE.o.DPFP with md_SC_NVE.o
+PASSED
+==============================================================
+cd gti/Na/ && ./Run.SC_NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/Na
+diffing md_SC_NVT.o.DPFP with md_SC_NVT.o
+PASSED
+==============================================================
+cd gti/Na/ && ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/Na
+diffing md_SC_NVT_MBAR.o.DPFP with md_SC_NVT_MBAR.o
+PASSED
+==============================================================
+cd gti/ligand/ && ./Run.NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/ligand
+diffing md_NVE.o.DPFP with md_NVE.o
+PASSED
+==============================================================
+cd gti/ligand/ && ./Run.NVT_ntt1  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/ligand
+diffing md_NVT_ntt1.o.DPFP with md_NVT_ntt1.o
+PASSED
+==============================================================
+cd gti/ligand/ && ./Run.NVT_ntt3  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/ligand
+diffing md_NVT_ntt3.o.DPFP with md_NVT_ntt3.o
+PASSED
+==============================================================
+cd gti/ligand/ && ./Run.NPT_MC  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/ligand
+diffing md_NPT_MC.o.DPFP with md_NPT_MC.o
+PASSED
+==============================================================
+cd gti/ligand/ && ./Run.SC_NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/ligand
+diffing md_SC_NVE.o.DPFP with md_SC_NVE.o
+PASSED
+==============================================================
+cd gti/ligand/ && ./Run.SC_NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/ligand
+diffing md_SC_NVT.o.DPFP with md_SC_NVT.o
+PASSED
+==============================================================
+cd gti/ligand/ && ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/ligand
+diffing md_SC_NVT_MBAR.o.DPFP with md_SC_NVT_MBAR.o
+PASSED
+==============================================================
+cd gti/complex/ && ./Run.NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/complex
+diffing md_NVE.o.DPFP with md_NVE.o
+PASSED
+==============================================================
+cd gti/complex/ && ./Run.NVT_ntt1  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/complex
+diffing md_NVT_ntt1.o.DPFP with md_NVT_ntt1.o
+PASSED
+==============================================================
+cd gti/complex/ && ./Run.NVT_ntt3  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/complex
+diffing md_NVT_ntt3.o.DPFP with md_NVT_ntt3.o
+PASSED
+==============================================================
+cd gti/complex/ && ./Run.NPT_MC  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/complex
+diffing md_NPT_MC.o.DPFP with md_NPT_MC.o
+PASSED
+==============================================================
+cd gti/complex/ && ./Run.SC_NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/complex
+diffing md_SC_NVE.o.DPFP with md_SC_NVE.o
+PASSED
+==============================================================
+cd gti/complex/ && ./Run.SC_NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/complex
+diffing md_SC_NVT.o.DPFP with md_SC_NVT.o
+PASSED
+==============================================================
+cd gti/AFE_TI/campTI && ./Run.campTI  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/AFE_TI/campTI
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing campTI.out.DPFP with campTI.out
+PASSED
+==============================================================
+cd gti/AFE_TI/softcore/complex && ./Run.complex  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/AFE_TI/softcore/complex
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing complex.out.DPFP with complex.out
+possible FAILURE:  check complex.out.dif
+==============================================================
+cd gti/AFE_TI/softcore/electro && ./Run.electro  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/AFE_TI/softcore/electro
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing electro.out.DPFP with electro.out
+possible FAILURE:  check electro.out.dif
+==============================================================
+cd gti/AFE_TI/softcore/dynlmb && ./Run.dynlmb  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/AFE_TI/softcore/dynlmb
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing dynlmb.out.DPFP with dynlmb.out
+PASSED
+==============================================================
+diffing dynlmb.rst.DPFP with dynlmb.rst
+PASSED
+==============================================================
+cd gti/AFE_MBAR/campMBAR && ./Run.campMBAR  DPFP  SCH=222 ./Run.SC_NVT_MBAR SPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/AFE_MBAR/campMBAR
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing campMBAR.out.DPFP with campMBAR.out
+PASSED
+==============================================================
+cd gti/AFE_MBAR/softcore/complex && ./Run.complex  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/AFE_MBAR/softcore/complex
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing complex.out.DPFP with complex.out
+possible FAILURE:  check complex.out.dif
+==============================================================
+cd gti/AFE_MBAR/softcore/electro && ./Run.electro  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/AFE_MBAR/softcore/electro
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+diffing electro.out.DPFP with electro.out
+possible FAILURE:  check electro.out.dif
+==============================================================
+cd gti/tishake2vsite && Run.tishake2vsite  DPFP
+/bin/sh: line 1: Run.tishake2vsite: command not found
+make[2]: [Makefile:302: test.pmemd.cuda.gti.TI] Error 127 (ignored)
+------------------------------------
+Running CUDA GTI NMR Restratin tests.
+cd gti/NMR_Restraint/SimpleTorsion && CASE=A ./Run  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NMR_Restraint/SimpleTorsion
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_A.o.DPFP with md_A.o
+PASSED
+==============================================================
+cd gti/NMR_Restraint/SimpleTorsion && CASE=B ./Run  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NMR_Restraint/SimpleTorsion
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_B.o.DPFP with md_B.o
+PASSED
+==============================================================
+cd gti/NMR_Restraint/SimpleTorsion && CASE=C ./Run  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NMR_Restraint/SimpleTorsion
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_C.o.DPFP with md_C.o
+PASSED
+==============================================================
+#Begin GTI Tests
+------------------------------------
+Running CUDA GTI 12-6-4 tests.
+cd gti/1264/MgMD && ./Run.NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/1264/MgMD
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_NVT_ntt1.o.DPFP with md_NVT_ntt1.o
+PASSED
+==============================================================
+cd gti/1264/2ionMD && ./Run.NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/1264/2ionMD
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_NVT_ntt1.o.DPFP with md_NVT_ntt1.o
+PASSED
+==============================================================
+cd gti/1264/Mg2Zn && ./Run.NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/1264/Mg2Zn
+diffing md_NVT_ntt1.o.DPFP with md_NVT_ntt1.o
+PASSED
+==============================================================
+cd gti/1264/SimpleTI && ./Run  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/1264/SimpleTI
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md.o.DPFP with md.o
+PASSED
+==============================================================
+#Begin GTI Tests
+------------------------------------
+Running CUDA GTI BAT tests.
+cd gti/BAT/Simple && DIR=for ./Run  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/BAT/Simple
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_for.o.DPFP with md_for.o
+PASSED
+==============================================================
+cd gti/BAT/Simple && DIR=back ./Run  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/BAT/Simple
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_back.o.DPFP with md_back.o
+PASSED
+==============================================================
+#Begin GTI Tests
+------------------------------------
+Running CUDA GTI Lambda Scheduling.
+cd gti/LambdaScheduling/complex/ && SCH=222 ./Run.SC_NVT_MBAR DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/LambdaScheduling/complex
+Lambda Scheduling:    3    2    1 0.0000 1.0000 
+Lambda Scheduling:    4    2    1 0.0000 1.0000 
+Lambda Scheduling:    5    2    1 0.0000 1.0000 
+diffing md_SC_NVT_MBAR_222.o.DPFP with md_SC_NVT_MBAR_222.o
+PASSED
+==============================================================
+cd gti/LambdaScheduling/complex/ && SCH=333 ./Run.SC_NVT_MBAR DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/LambdaScheduling/complex
+Lambda Scheduling:    3    3    1 0.0000 1.0000 
+Lambda Scheduling:    4    3    1 0.0000 1.0000 
+Lambda Scheduling:    5    3    1 0.0000 1.0000 
+diffing md_SC_NVT_MBAR_333.o.DPFP with md_SC_NVT_MBAR_333.o
+PASSED
+==============================================================
+cd gti/LambdaScheduling/complex/ && SCH=444 ./Run.SC_NVT_MBAR DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/LambdaScheduling/complex
+Lambda Scheduling:    3    4    1 0.0000 1.0000 
+Lambda Scheduling:    4    4    1 0.0000 1.0000 
+Lambda Scheduling:    5    4    1 0.0000 1.0000 
+diffing md_SC_NVT_MBAR_444.o.DPFP with md_SC_NVT_MBAR_444.o
+PASSED
+==============================================================
+cd gti/LambdaScheduling/complex/ && SCH=22T ./Run.SC_NVT_MBAR DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/LambdaScheduling/complex
+Lambda Scheduling:    3    2    1 0.0000 1.0000 
+Lambda Scheduling:    4    2    1 0.0000 1.0000 
+Lambda Scheduling:    5   -1    1 0.5000 0.1500 
+diffing md_SC_NVT_MBAR_22T.o.DPFP with md_SC_NVT_MBAR_22T.o
+possible FAILURE: (ignored)  check md_SC_NVT_MBAR_22T.o.dif
+==============================================================
+#Begin GTI Tests
+------------------------------------
+Running CUDA GTI free energy SC correction tests.
+cd gti/SC_Correction/methane_2_methanol/ && SC_CORR=0 ./Run.NVT_ntt3  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/methane_2_methanol
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_NVT_ntt3_SC_0.o.DPFP with md_NVT_ntt3_SC_0.o
+PASSED
+==============================================================
+cd gti/SC_Correction/methane_2_methanol/ && SC_CORR=-1 ./Run.NVT_ntt3  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/methane_2_methanol
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_NVT_ntt3_SC_-1.o.DPFP with md_NVT_ntt3_SC_-1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/methane_2_methanol/ && SC_CORR=1 ./Run.NVT_ntt3  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/methane_2_methanol
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_NVT_ntt3_SC_1.o.DPFP with md_NVT_ntt3_SC_1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/methane_2_methanol/ && SC_CORR=2 ./Run.NVT_ntt3  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/methane_2_methanol
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_NVT_ntt3_SC_2.o.DPFP with md_NVT_ntt3_SC_2.o
+PASSED
+==============================================================
+cd gti/SC_Correction/ligand/ && SC_CORR=0 ./Run.SC_NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/ligand
+diffing md_SC_NVE_SC_0.o.DPFP with md_SC_NVE_SC_0.o
+PASSED
+==============================================================
+cd gti/SC_Correction/ligand/ && SC_CORR=-1 ./Run.SC_NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/ligand
+diffing md_SC_NVE_SC_-1.o.DPFP with md_SC_NVE_SC_-1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/ligand/ && SC_CORR=1 ./Run.SC_NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/ligand
+diffing md_SC_NVE_SC_1.o.DPFP with md_SC_NVE_SC_1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/ligand/ && SC_CORR=2 ./Run.SC_NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/ligand
+diffing md_SC_NVE_SC_2.o.DPFP with md_SC_NVE_SC_2.o
+PASSED
+==============================================================
+cd gti/SC_Correction/ligand/ && SC_CORR=0 ./Run.SC_NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/ligand
+diffing md_SC_NVT_SC_0.o.DPFP with md_SC_NVT_SC_0.o
+PASSED
+==============================================================
+cd gti/SC_Correction/ligand/ && SC_CORR=-1 ./Run.SC_NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/ligand
+diffing md_SC_NVT_SC_-1.o.DPFP with md_SC_NVT_SC_-1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/ligand/ && SC_CORR=1 ./Run.SC_NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/ligand
+diffing md_SC_NVT_SC_1.o.DPFP with md_SC_NVT_SC_1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/ligand/ && SC_CORR=2 ./Run.SC_NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/ligand
+diffing md_SC_NVT_SC_2.o.DPFP with md_SC_NVT_SC_2.o
+PASSED
+==============================================================
+cd gti/SC_Correction/ligand/ && SC_CORR=0 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/ligand
+diffing md_SC_NVT_MBAR_SC_0.o.DPFP with md_SC_NVT_MBAR_SC_0.o
+PASSED
+==============================================================
+cd gti/SC_Correction/ligand/ && SC_CORR=-1 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/ligand
+diffing md_SC_NVT_MBAR_SC_-1.o.DPFP with md_SC_NVT_MBAR_SC_-1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/ligand/ && SC_CORR=1 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/ligand
+diffing md_SC_NVT_MBAR_SC_1.o.DPFP with md_SC_NVT_MBAR_SC_1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/ligand/ && SC_CORR=2 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/ligand
+diffing md_SC_NVT_MBAR_SC_2.o.DPFP with md_SC_NVT_MBAR_SC_2.o
+PASSED
+==============================================================
+cd gti/SC_Correction/complex/ && SC_CORR=0 ./Run.SC_NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/complex
+diffing md_SC_NVE_SC_0.o.DPFP with md_SC_NVE_SC_0.o
+PASSED
+==============================================================
+cd gti/SC_Correction/complex/ && SC_CORR=-1 ./Run.SC_NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/complex
+diffing md_SC_NVE_SC_-1.o.DPFP with md_SC_NVE_SC_-1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/complex/ && SC_CORR=1 ./Run.SC_NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/complex
+diffing md_SC_NVE_SC_1.o.DPFP with md_SC_NVE_SC_1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/complex/ && SC_CORR=2 ./Run.SC_NVE  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/complex
+diffing md_SC_NVE_SC_2.o.DPFP with md_SC_NVE_SC_2.o
+PASSED
+==============================================================
+cd gti/SC_Correction/complex/ && SC_CORR=0 ./Run.SC_NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/complex
+diffing md_SC_NVT_SC_0.o.DPFP with md_SC_NVT_SC_0.o
+PASSED
+==============================================================
+cd gti/SC_Correction/complex/ && SC_CORR=-1 ./Run.SC_NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/complex
+diffing md_SC_NVT_SC_-1.o.DPFP with md_SC_NVT_SC_-1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/complex/ && SC_CORR=1 ./Run.SC_NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/complex
+diffing md_SC_NVT_SC_1.o.DPFP with md_SC_NVT_SC_1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/complex/ && SC_CORR=2 ./Run.SC_NVT  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/complex
+diffing md_SC_NVT_SC_2.o.DPFP with md_SC_NVT_SC_2.o
+PASSED
+==============================================================
+cd gti/SC_Correction/complex/ && SC_CORR=0 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/complex
+diffing md_SC_NVT_MBAR_SC_0.o.DPFP with md_SC_NVT_MBAR_SC_0.o
+PASSED
+==============================================================
+cd gti/SC_Correction/complex/ && SC_CORR=-1 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/complex
+diffing md_SC_NVT_MBAR_SC_-1.o.DPFP with md_SC_NVT_MBAR_SC_-1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/complex/ && SC_CORR=1 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/complex
+diffing md_SC_NVT_MBAR_SC_1.o.DPFP with md_SC_NVT_MBAR_SC_1.o
+PASSED
+==============================================================
+cd gti/SC_Correction/complex/ && SC_CORR=2 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SC_Correction/complex
+diffing md_SC_NVT_MBAR_SC_2.o.DPFP with md_SC_NVT_MBAR_SC_2.o
+PASSED
+==============================================================
+#Begin GTI Tests
+------------------------------------
+Running CUDA GTI free energy NB exponent tests.
+cd gti/NB_EXP/ligand/ && NB_N=6 NB_M=6 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N6_M6.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N6_M6.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=1 NB_M=6 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N1_M6.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N1_M6.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=2 NB_M=6 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N2_M6.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N2_M6.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=4 NB_M=6 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N4_M6.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N4_M6.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=6 NB_M=4 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N6_M4.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N6_M4.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=1 NB_M=4 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N1_M4.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N1_M4.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=2 NB_M=4 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N2_M4.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N2_M4.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=4 NB_M=4 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N4_M4.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N4_M4.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=6 NB_M=2 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N6_M2.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N6_M2.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=1 NB_M=2 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N1_M2.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N1_M2.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=2 NB_M=2 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N2_M2.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N2_M2.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=4 NB_M=2 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N4_M2.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N4_M2.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=6 NB_M=1 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N6_M1.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N6_M1.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=1 NB_M=1 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N1_M1.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N1_M1.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=2 NB_M=1 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N2_M1.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N2_M1.o
+PASSED
+==============================================================
+cd gti/NB_EXP/ligand/ && NB_N=4 NB_M=1 ./Run.SC_NVT_MBAR  DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/NB_EXP/ligand
+diffing md_SC_NVT_MBAR_NB_EXP_N4_M1.o.DPFP with md_SC_NVT_MBAR_NB_EXP_N4_M1.o
+PASSED
+==============================================================
+#Begin GTI Tests
+------------------------------------
+Running CUDA GTI free energy other tests.
+cd gti/REAF/ligand && LAMBDA=0 TAU=0 ./Run.REAF DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/REAF/ligand
+diffing md_REAF.0.0.o.DPFP with md_REAF.0.0.o
+PASSED
+==============================================================
+cd gti/REAF/ligand && LAMBDA=0 TAU=0.292893218813 ./Run.REAF DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/REAF/ligand
+diffing md_REAF.0.0.292893218813.o.DPFP with md_REAF.0.0.292893218813.o
+PASSED
+==============================================================
+cd gti/REAF/ligand && LAMBDA=0.5 TAU=0 ./Run.REAF DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/REAF/ligand
+diffing md_REAF.0.5.0.o.DPFP with md_REAF.0.5.0.o
+PASSED
+==============================================================
+cd gti/REAF/ligand && LAMBDA=1 TAU=0.292893218813 ./Run.REAF DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/REAF/ligand
+diffing md_REAF.1.0.292893218813.o.DPFP with md_REAF.1.0.292893218813.o
+PASSED
+==============================================================
+cd gti/REAF/ligand && LAMBDA=1 TAU=0 ./Run.REAF DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/REAF/ligand
+diffing md_REAF.1.0.o.DPFP with md_REAF.1.0.o
+PASSED
+==============================================================
+cd gti/SHAKE/cyclopentane_2_thf && LAMBDA=0 ./Run DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SHAKE/cyclopentane_2_thf
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing md_SHAKE.0.o.DPFP with md_SHAKE.0.o
+PASSED
+==============================================================
+cd gti/SHAKE/cyclopentane_2_thf && LAMBDA=0.5 ./Run DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SHAKE/cyclopentane_2_thf
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing md_SHAKE.0.5.o.DPFP with md_SHAKE.0.5.o
+PASSED
+==============================================================
+cd gti/SHAKE/cyclopentane_2_thf && LAMBDA=1 ./Run DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SHAKE/cyclopentane_2_thf
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DENORMAL
+diffing md_SHAKE.1.o.DPFP with md_SHAKE.1.o
+PASSED
+==============================================================
+cd gti/SHAKE/JAK2 && LAMBDA=0 ./Run DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SHAKE/JAK2
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_SHAKE.0.o.DPFP with md_SHAKE.0.o
+PASSED
+==============================================================
+cd gti/SHAKE/JAK2 && LAMBDA=0.5 ./Run DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SHAKE/JAK2
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_SHAKE.0.5.o.DPFP with md_SHAKE.0.5.o
+PASSED
+==============================================================
+cd gti/SHAKE/JAK2 && LAMBDA=1.0 ./Run DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/SHAKE/JAK2
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+diffing md_SHAKE.1.0.o.DPFP with md_SHAKE.1.0.o
+PASSED
+==============================================================
+cd gti/TargetVolume/ligand && ./Run DPFP
+/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda/gti/TargetVolume/ligand
+diffing md.o.DPFP with md.o
+PASSED
+==============================================================
+make[2]: Leaving directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test/cuda'
+export TESTsander=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Amber/24.0-foss-2023b-AmberTools-24.0-CUDA-12.4.0///bin/sander.quick.cuda; make -k test.sander.Quick
+make[2]: Entering directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test'
+diffing h2o.blyp_6-31g.out.save with h2o.blyp_6-31g.out
+PASSED
+==============================================================
+diffing h2o.blyp_6-31g_md.out.save with h2o.blyp_6-31g_md.out
+PASSED
+==============================================================
+diffing h2o.hf_sto-3g.out.save with h2o.hf_sto-3g.out
+PASSED
+==============================================================
+diffing aladip.hf_sto-3g.mdout.save with aladip.hf_sto-3g.mdout
+PASSED
+==============================================================
+diffing aladip.hf_sto-3g.restrt.save with aladip.hf_sto-3g.restrt
+PASSED
+==============================================================
+diffing aladip.hf_sto-3g.MechEm.mdout.save with aladip.hf_sto-3g.MechEm.mdout
+PASSED
+==============================================================
+diffing aladip.hf_sto-3g.MechEm.restrt.save with aladip.hf_sto-3g.MechEm.restrt
+PASSED
+==============================================================
+diffing nma-spcfw-15.hf_sto-3g.mdout.save with nma-spcfw-15.hf_sto-3g.mdout
+PASSED
+==============================================================
+diffing nma-spcfw-15.hf_sto-3g.restrt.save with nma-spcfw-15.hf_sto-3g.restrt
+PASSED
+==============================================================
+diffing nma-spcfw-15.hf_sto-3g.MechEm.mdout.save with nma-spcfw-15.hf_sto-3g.MechEm.mdout
+PASSED
+==============================================================
+diffing nma-spcfw-15.hf_sto-3g.MechEm.restrt.save with nma-spcfw-15.hf_sto-3g.MechEm.restrt
+PASSED
+==============================================================
+diffing water-qmmm-cew.mdout.save with water-qmmm-cew.mdout
+PASSED
+==============================================================
+diffing water-qmmm-cew.rst7.save with water-qmmm-cew.rst7
+PASSED
+==============================================================
+diffing diala-wat-qmmm-cew.mdout.save with diala-wat-qmmm-cew.mdout
+PASSED
+==============================================================
+diffing diala-wat-qmmm-cew.rst7.save with diala-wat-qmmm-cew.rst7
+PASSED
+==============================================================
+make[2]: Leaving directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test'
+make[1]: Leaving directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test'
+make[1]: Entering directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test'
+
+Finished CUDA test suite for Amber 24 at Thu May  1 12:48:13 PM CEST 2025.
+
+make[1]: Leaving directory '/tmp/vsc47063/easybuild/build/Amber/24.0/foss-2023b-AmberTools-24.0-CUDA-12.4.0/test'
+297 file comparisons passed
+12 file comparisons failed (8 of which can be ignored)
+0 tests experienced errors
+Test log file saved as /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Amber/24.0-foss-2023b-AmberTools-24.0-CUDA-12.4.0/logs/test_amber_cuda_serial/2025-05-01_12-35-33.log
+Test diffs file saved as /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Amber/24.0-foss-2023b-AmberTools-24.0-CUDA-12.4.0/logs/test_amber_cuda_serial/2025-05-01_12-35-33.diff
+make: *** [Makefile:21: test.cuda.serial] Error 1
