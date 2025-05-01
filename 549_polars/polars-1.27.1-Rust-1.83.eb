@@ -1,3 +1,4 @@
+# not used ec - needs newer Rust, replaced by polars 1.28.1 with Rust 1.86.0
 easyblock = 'CargoPythonPackage'
 
 name = 'polars'
@@ -15,7 +16,7 @@ patches = [
     'polars-1.27.1_hashbrown-version.patch',
     'polars-1.27.1_polars-utils.patch',
     'polars-1.27.1_polars-arrow.patch',
-    'polars-1.27.1_polars-stream.patch',
+    'polars-1.27.1_polars-stream.patch', # not working patch, better to use newer Rust
 ]
 checksums = [
     {'polars-1.27.1.tar.gz': '94fcb0216b56cd0594aa777db1760a41ad0dfffed90d2ca446cf9294d2e97f02'},
