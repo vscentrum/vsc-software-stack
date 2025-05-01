@@ -56,6 +56,7 @@ checksums = [
      '38f0bcc4e270f839b40f8c49ebaac81564956e886187039732415937a90b7571'},
     {'Amber-24_skip-TempRem-tests.patch': '3817781a05680a1041d78d49eec3637b51c5b8068c143bd586ff82be74ca320d'},
 ]
+
 download_instructions = f"""{name} requires manual download from https://ambermd.org/GetAmber.php
 Required downloads: {sources[0]} and {sources[1]['filename']}"""
 
@@ -94,3 +95,13 @@ runtest = True
 static = False
 
 moduleclass = 'chem'
+
+# E1: 
+    # -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+    # -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+    # -- Found Threads: TRUE
+    # -- Found CUDA: /apps/gent/RHEL9/cascadelake-ampere-ib/software/CUDA/12.6.0 (found version "12.6")
+    # -- CUDA version 12.6 detected
+    # CMake Error at cmake/CudaConfig.cmake:75 (message):
+    #   Error: Untested CUDA version.  AMBER currently requires CUDA version >= 7.5
+    #   and < 12.5.
