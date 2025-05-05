@@ -18,10 +18,6 @@ builddependencies = [
     ('UnZip', '6.0'),
     # Required to build some of the extensions
     ('poetry', '1.8.3'),
-    # Protobuf disabled since 2.13.0 easyconfigs:
-    # Compiling with system protobuf don't seem to work, see:
-    # https://github.com/tensorflow/tensorflow/issues/61593
-    # ('protobuf', '24.0'),
     ('Cython', '3.0.10'),
 ]
 
@@ -94,11 +90,11 @@ exts_list = [
             'TensorFlow-2.15.1_fix-pybind11-build.patch',
             'TensorFlow-2.15.1_add-default-shell-env.patch',
             'TensorFlow-2.4.0_dont-use-var-lock.patch',
-            'TensorFlow-2.13.0_exclude-xnnpack-on-ppc.patch',
-            'TensorFlow-2.15.1_disable-avx512-extensions.patch',
-            'patch1.1-fix_setup.py.patch',
             'patch2.1-disable-tf32-in-fused-matmul-tests.patch',
             'patch3-fix_patchelf.patch',
+            'patch4.1-xnnpack.patch',
+            'patch5.1-fixedpoint.patch',
+            'patch6.1-setup.py.patch',
         ],
         'source_tmpl': 'v%(version)s.tar.gz',
         'source_urls': ['https://github.com/tensorflow/tensorflow/archive/'],
@@ -115,14 +111,12 @@ exts_list = [
              '3d5196b4bf2e91048dc8a18f9e8f487a223fcd973d6302e80b0d4000ea3d652b'},
             {'TensorFlow-2.4.0_dont-use-var-lock.patch':
              'b14f2493fd2edf79abd1c4f2dde6c98a3e7d5cb9c25ab9386df874d5f072d6b5'},
-            {'TensorFlow-2.13.0_exclude-xnnpack-on-ppc.patch':
-             'd0818206846911d946666ded7d3216c0546e37cee1890a2f48dc1a9d71047cad'},
-            {'TensorFlow-2.15.1_disable-avx512-extensions.patch':
-             '506ceecff67237eed9cd9e9e114bc1461f35a343f77f83cb3dab710aa701dc0f'},
-            {'patch1.1-fix_setup.py.patch': '3725f863e2034ec8ddfde36dcabb729e39081851b5efd72aa1616c2055cb4562'},
             {'patch2.1-disable-tf32-in-fused-matmul-tests.patch':
              'eb39f2d9d11c6ff8b1755ae630d8be9e52a4bbf5aaeb3ca125c5dc9c398e2e69'},
             {'patch3-fix_patchelf.patch': '3fadb6b4b2a0e24c5086e43990bafae34dfbdee4cde42439efc8b06f4283debe'},
+            {'patch4.1-xnnpack.patch': 'baf81d7b2b61b5a923cf1f171d5e2400df6b8bd9073d3afa7a356e3bbe11984c'},
+            {'patch5.1-fixedpoint.patch': 'bcd93eedb9c7598259203eac8970a28ec16c7f64e71efe40ce067eff4cf03afc'},
+            {'patch6.1-setup.py.patch': '824a290da23d6dc0869be047252060e2c6343895965fd82a5d544d844c95377e'},
         ],
     }),
 ]
@@ -140,14 +134,14 @@ exts_list = [
 #             'TensorFlow-2.15.1_upgrade-ml_dtypes-dependency-version.patch', -> UPDATE of setup.py - OK patch1
 #             'TensorFlow-2.1.0_fix-cuda-build.patch', -> not working -> this looks fixed in 2.17.1 OK?
 #             'TensorFlow-2.4.0_dont-use-var-lock.patch', OK
-#             'TensorFlow-2.13.0_exclude-xnnpack-on-ppc.patch', OK
+#             'TensorFlow-2.13.0_exclude-xnnpack-on-ppc.patch', UPDATE patch4
 #             'TensorFlow-2.15.1_remove-duplicate-gpu-tests.patch', -> not working TEST -> seems already fixed in 2.17.1 OK?
 #             'TensorFlow-2.15.1_fix-cuda_build_defs.patch', -> not working -> this looks fixed in 2.17.1 OK?
                 # there are 3 fixes:
                     # 1) third_party/nccl/system.BUILD.tpl - already fixed OK
                     # 2) third_party/xla/third_party/nccl/system.BUILD.tpl - not there anymore OK
                     # 3) third_party/xla/third_party/tsl/third_party/nccl/system.BUILD.tpl - already fixed OK
-#             'TensorFlow-2.15.1_disable-avx512-extensions.patch', OK
+#             'TensorFlow-2.15.1_disable-avx512-extensions.patch', UPDATE patch5
 #             'TensorFlow-2.15.1_disable-tf32-in-fused-matmul-tests.patch' -> not working TEST -> created patch2.1-disable-tf32-in-fused-matmul-tests.patch - OK
 #         ],
 #         'source_tmpl': 'v%(version)s.tar.gz',
@@ -211,7 +205,17 @@ exts_list = [
 # ]
 
 moduleclass = 'lib'
-# E10:
+# E12: 
+    # -> changes in .bazelrc -> update block self.target_opts L602 -> 
+    # Extracting Bazel installation...
+    # Starting local Bazel server and connecting to it...
+    # ERROR: Config value 'noaws' is not defined in any .rc file
+# E11: OK
+    # patches are not compatible with 2.18.1: 
+        # 1) TensorFlow-2.13.0_exclude-xnnpack-on-ppc.patch -> patch4 -> OK
+        # 2) Can't determine patch level for patch TensorFlow-2.15.1_disable-avx512-extensions.patch -> patch5 -> OK
+        # 3) Couldn't apply patch file patch1.1-fix_setup.py.patch -> patch6 -> OK
+# E10: OK
     # -> tf-2.18.1
     # <- log6.txt
     # ok - keras 3.9.2 requires namex, which is not installed.
