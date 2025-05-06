@@ -12,15 +12,15 @@ toolchain = {'name': 'foss', 'version': '2024a'}
     # OK - python>3.12
     # OK - scikit-learn=1.6.1 -> have 1.5.2 -> create 1.6.1? -> created -> put to exts better?
     # OK - diamond=2.1.11
-    # - tensorflow=2.17 -> create 2.17.1?
+    # OK - tensorflow=2.17 -> create 2.17.1? -> create 2.18.1
     # OK?- lightgbm -> create -> there is sk-learn too - put 1.6.1 there
     # OK - pandas
     # OK - numpy
     # OK - scipy
     # OK - prodigal=2.6.3 - in PR: https://github.com/easybuilders/easybuild-easyconfigs/pull/22716
-    # OK - setuptools - py
-    # OK - requests - pypi
-    # OK - packaging - pypi
+    # OK - setuptools - py-ec
+    # OK - requests - pypi-bundle
+    # OK - packaging - pypi-bundle
     # OK - tqdm
 
 builddependencies = [
@@ -32,7 +32,7 @@ dependencies = [
     ('Python-bundle-PyPI', '2024.06'),
     ('SciPy-bundle', '2024.05'),
     ('DIAMOND', '2.1.11'),
-    # ('TensorFlow', '2.13.0'),
+    ('TensorFlow', '2.18.1'),
     ('prodigal', '2.6.3'),
     ('tqdm', '4.66.5'),
     ('scikit-learn', '1.6.1'), # maybe put this to exts
@@ -41,32 +41,33 @@ dependencies = [
 
 exts_list = [
     (name, version, {
-        # 'patches': ['CheckM2-1.0.2_fileManager.py-database-fix.patch'],
         'source_urls': ['https://github.com/chklovski/CheckM2/archive/'],
         'sources': ['%(version)s.tar.gz'],
-        'checksums': [
-            {'1.1.0.tar.gz': '7978e4ca08ae8ea3285931b955d1a4818684f9f955995837e98e6ab7ff90674f'},
-            # {'CheckM2-1.0.2_fileManager.py-database-fix.patch':
-            #  '953f0eeef49ea537c0cb97c173a2488c29f09b58cd10800c60078b436a7ea2c7'},
-        ],
+        'checksums': ['7978e4ca08ae8ea3285931b955d1a4818684f9f955995837e98e6ab7ff90674f'],
     }),
 ]
 
-# postinstallcmds = [
-#     # np.float is depreciated in newer numpy
-#     'sed -i "s/np.float/float/g" %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2/predictQuality.py',
-#     # update DB_LOCATION_DEFINITION in defaultValues.py to env CHECKM2DB
-#     "cd %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2 && "
-#     r"sed -i 's/\(DB_LOCATION_DEFINITION\) = .*/\1 = os.environ.get(\"CHECKM2DB\", \"Not Set\")/' defaultValues.py",
-# ]
+# Fix undefined variable from https://github.com/chklovski/CheckM2/commit/6144f70
+postinstallcmds = [
+    "cd %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2 && "
+    "sed -i 's/format(f)/format(bin)/' main.py",
+]
 
-modloadmsg = """You need download a diamond database now and setup a path to this db:
-First you need to setup $CHECKM2DB as:
-$ export CHECKM2DB="path/to/database/CheckM2_database/uniref100.KO.1.dmnd"
-Next, download the database (/CheckM2_database/uniref100.KO.1.dmnd will be created):
-$ checkm2 database --download --path path/to/database
+modloadmsg = """
+You need to download a Diamond database now and setup a path to this db:
+
+1) Download the database (/CheckM2_database/uniref100.KO.1.dmnd will be created):
+$ checkm2 database --download --path /path/to/database --no_write_json_db
+- for example: $ checkm2 database --download --path $HOME/DB_CHECKM2 --no_write_json_db
+
+2) Setup $CHECKM2DB as:
+$ export CHECKM2DB="/path/to/database/CheckM2_database/uniref100.KO.1.dmnd"
+- for example: $ export CHECKM2DB="$HOME/DB_CHECKM2/CheckM2_database/uniref100.KO.1.dmnd"
+Unset it by: $ unset CHECKM2DB
+
 You can check path to the database by:
 $ checkm2 database --current
+
 You can either test if everything is setup properly by:
 $ checkm2 testrun
 """
