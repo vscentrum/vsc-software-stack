@@ -1,4 +1,4 @@
-easyblock = 'PythonBundle'
+easyblock = 'PythonPackage'
 
 name = 'CheckM2'
 version = '1.1.0'
@@ -8,20 +8,8 @@ description = "Assessing the quality of metagenome-derived genome bins using mac
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
-# DEPS:
-    # OK - python>3.12
-    # OK - scikit-learn=1.6.1 -> have 1.5.2 -> create 1.6.1? -> created -> put to exts better?
-    # OK - diamond=2.1.11
-    # OK - tensorflow=2.17 -> create 2.17.1? -> create 2.18.1
-    # OK?- lightgbm -> create -> there is sk-learn too - put 1.6.1 there
-    # OK - pandas
-    # OK - numpy
-    # OK - scipy
-    # OK - prodigal=2.6.3 - in PR: https://github.com/easybuilders/easybuild-easyconfigs/pull/22716
-    # OK - setuptools - py-ec
-    # OK - requests - pypi-bundle
-    # OK - packaging - pypi-bundle
-    # OK - tqdm
+source_urls = ['https://github.com/chklovski/CheckM2/archive/']
+sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
 
 builddependencies = [
     ('CMake', '3.29.3'),
@@ -39,14 +27,6 @@ dependencies = [
     ('LightGBM', '4.6.0'),
 ]
 
-exts_list = [
-    (name, version, {
-        'source_urls': ['https://github.com/chklovski/CheckM2/archive/'],
-        'sources': ['%(version)s.tar.gz'],
-        'checksums': ['7978e4ca08ae8ea3285931b955d1a4818684f9f955995837e98e6ab7ff90674f'],
-    }),
-]
-
 # Fix undefined variable from https://github.com/chklovski/CheckM2/commit/6144f70
 postinstallcmds = [
     "cd %(installdir)s/lib/python%(pyshortver)s/site-packages/checkm2 && "
@@ -60,15 +40,15 @@ You need to download a Diamond database now and setup a path to this db:
 $ checkm2 database --download --path /path/to/database --no_write_json_db
 - for example: $ checkm2 database --download --path $HOME/DB_CHECKM2 --no_write_json_db
 
-2) Setup $CHECKM2DB as:
+2) Setup $CHECKM2DB:
 $ export CHECKM2DB="/path/to/database/CheckM2_database/uniref100.KO.1.dmnd"
 - for example: $ export CHECKM2DB="$HOME/DB_CHECKM2/CheckM2_database/uniref100.KO.1.dmnd"
 Unset it by: $ unset CHECKM2DB
 
-You can check path to the database by:
+You can check path to the database:
 $ checkm2 database --current
 
-You can either test if everything is setup properly by:
+You can test if everything is setup properly:
 $ checkm2 testrun
 """
 
