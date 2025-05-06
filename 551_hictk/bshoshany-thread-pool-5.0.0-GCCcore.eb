@@ -1,4 +1,4 @@
-easyblock = 'PythonBundle'
+easyblock = 'CmdCp'
 
 name = 'bshoshany-thread-pool'
 version = '5.0.0'
@@ -10,57 +10,43 @@ BS::thread_pool: a fast, lightweight, modern, and easy-to-use C++17 / C++20 / C+
 
 toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
+# source_urls = ['https://github.com/bshoshany/thread-pool/archive/'],
+# sources = ['v%(version)s.tar.gz'],
+# checksums = ['617a8fbc2c360577f498998f336777c73d581810831d4ce9c920f11ec680b07b'],
+
+source_urls = ['https://github.com/bshoshany/thread-pool/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['617a8fbc2c360577f498998f336777c73d581810831d4ce9c920f11ec680b07b']
+
 builddependencies = [
     ('binutils', '2.40'),
+    ('CMake', '3.26.3'),
+    ('conan', '1.60.2'),
 ]
 
-dependencies = [
-    ('Python', '3.11.3'),
-]
+# local_comp_cmd = ''
+# local_comp_cmd = " && "
+# local_comp_cmd += ' && '
+# local_comp_cmd += ''
 
-exts_list = [
-    ('thread-pool', version, {
-        'modulename': 'BS.thread_pool',
-        'source_urls': ['https://github.com/bshoshany/thread-pool/archive/'],
-        'sources': ['v%(version)s.tar.gz'],
-        'checksums': ['617a8fbc2c360577f498998f336777c73d581810831d4ce9c920f11ec680b07b'],
-    }),
-]
+local_crate_conanfile_cmd = "echo \"builddir: %(builddir)s\" && pwd && ls -lh ../../*/* && echo '[requires]' > conanfile.txt && "
+local_crate_conanfile_cmd += "echo 'opentelemetry-cpp/1.18.0' >> conanfile.txt && "
+local_crate_conanfile_cmd += "echo '[generators]' >> conanfile.txt && "
+local_crate_conanfile_cmd += "echo 'CMakeDeps' >> conanfile.txt && "
+local_crate_conanfile_cmd += "echo 'CMakeToolchain' >> conanfile.txt && "
+local_crate_conanfile_cmd += "echo '[layout]' >> conanfile.txt && "
+local_crate_conanfile_cmd += "echo 'cmake_layout' >> conanfile.txt && "
+local_crate_conanfile_cmd += "export CONAN_USER_HOME=%(builddir)s/%(name)s-%(version)s && conan install ."
 
-sanity_pip_check = True
+cmds_map = [('.*', local_crate_conanfile_cmd)]
+
+files_to_copy = [
+    (['include'], 'include'),
+    # (['mcqd.h'], 'include'),
+]
 
 moduleclass = 'lib'
 
 # TODO
-# Processing /tmp/vsc45304/easybuild/build/bshoshanythreadpool/5.0.0/GCCcore-12.3.0/threadpool/thread-pool-5.0.0
-#   Preparing metadata (pyproject.toml): started
-#   Preparing metadata (pyproject.toml): finished with status 'error'
-#   error: subprocess-exited-with-error
-  
-#   × Preparing metadata (pyproject.toml) did not run successfully.
-#   │ exit code: 1
-#   ╰─> [14 lines of output]
-#       error: Multiple top-level packages discovered in a flat-layout: ['include', 'modules'].
-      
-#       To avoid accidental inclusion of unwanted files or directories,
-#       setuptools will not proceed with this build.
-      
-#       If you are trying to create a single distribution with multiple packages
-#       on purpose, you should not rely on automatic discovery.
-#       Instead, consider the following options:
-      
-#       1. set up custom discovery (`find` directive with `include` or `exclude`)
-#       2. use a `src-layout`
-#       3. explicitly set `py_modules` or `packages` with a list of names
-      
-#       To find more information, look for "package discovery" on setuptools docs.
-#       [end of output]
-  
-#   note: This error originates from a subprocess, and is likely not a problem with pip.
-# error: metadata-generation-failed
-
-# × Encountered error while generating package metadata.
-# ╰─> See above for output.
-
-# note: This is an issue with the package mentioned above, not pip.
-# hint: See above for details.
+# eb-shell> less conanfile.txt
+# Illegal instruction (core dumped)
