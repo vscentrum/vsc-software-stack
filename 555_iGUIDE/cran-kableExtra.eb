@@ -1,0 +1,64 @@
+easyblock = 'Bundle'
+
+name = 'R-bundle-CRAN'
+version = '2023.12'
+version_suffix = '-with-kableExtra'
+
+homepage = 'https://www.r-project.org/'
+description = "Bundle of R packages from CRAN"
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [
+    ('pkgconf', '1.9.5'),
+    ('Xvfb', '21.1.8'),
+    ('Autotools', '20220317'),
+    ('CMake', '3.26.3'),
+]
+
+dependencies = [
+    ('R-bundle-CRAN', '2023.12'),
+]
+
+# Some R extensions (mclust, quantreg, waveslim for example) require the math library (-lm) to avoid undefined symbols.
+# Adding it to FLIBS makes sure it is present when needed.
+preconfigopts = 'export FLIBS="$FLIBS -lm" && '
+
+configopts = "--with-pic --enable-threads --enable-R-shlib"
+# some recommended packages may fail in a parallel build (e.g. Matrix), and
+# we're installing them anyway below
+configopts += " --with-recommended-packages=no"
+
+exts_defaultclass = 'RPackage'
+
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# check whether correct version is installed in extension filter
+# (some versions in this bundle may be newer than the ones provided by R)
+local_ext_version_check = "pkgver = packageVersion('%(ext_name)s'); if (pkgver != '%(ext_version)s') "
+local_stop_msg = "stop('%(ext_name)s %(ext_version)s not installed, found ', pkgver, ' instead')"
+exts_filter = ("R -q --no-save", "%s { %s }" % (local_ext_version_check, local_stop_msg))
+
+# !! order of packages is important !!
+# packages updated on 10th December 2023
+exts_list = [
+    ('kableExtra', '1.4.0', {
+        'checksums': ['8fe2cc9fc2e8991685c4dc9e4904459e6f572c945319befde36d76f3ab527409'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['kableExtra'],
+}
+
+moduleclass = 'lang'

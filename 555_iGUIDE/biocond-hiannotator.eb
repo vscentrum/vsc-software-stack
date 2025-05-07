@@ -1,0 +1,56 @@
+easyblock = 'Bundle'
+
+name = 'R-bundle-Bioconductor'
+version = '3.18'
+versionsuffix = '-with-HiAnnotator'
+
+homepage = 'https://bioconductor.org'
+description = """Bioconductor provides tools for the analysis and coprehension
+ of high-throughput genomic data."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [('pkgconf', '1.9.5')]
+
+dependencies = [
+    ('R-bundle-Bioconductor', '3.18', '-R-4.3.2'),
+]
+
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.18/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.18/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.18/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'sources': ['%(name)s_%(version)s.tar.gz'],
+}
+
+exts_defaultclass = 'RPackage'
+
+# check whether correct version is installed in extension filter
+# (some versions in this bundle may be newer than the ones provided by R)
+local_ext_version_check = "pkgver = packageVersion('%(ext_name)s'); if (pkgver != '%(ext_version)s') "
+local_stop_msg = "stop('%(ext_name)s %(ext_version)s not installed, found ', pkgver, ' instead')"
+exts_filter = ("R -q --no-save", "%s { %s }" % (local_ext_version_check, local_stop_msg))
+
+# CRAN packages on which these Bioconductor packages depend are available in R module on which this depends
+# !! order of packages is important !!
+# packages updated on 18th March 2023
+exts_list = [
+    ('hiAnnotator', '1.36.0', {
+        'checksums': ['3e61e8cc67f8ae21fbd9713b1c64a39ecbe74d81f7b9fcb335824efe9783561c'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['hiAnnotator'],
+}
+
+moduleclass = 'bio'

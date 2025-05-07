@@ -1,0 +1,74 @@
+easyblock = 'PythonBundle'
+
+name = 'iGUIDE'
+version = '1.1.2'
+
+homepage = 'https://github.com/cnobles/iGUIDE'
+description = """iGUIDE is a pipeline written in snakemake for processing and analyzing double-strand DNA break events.
+These events may be induced, such as by designer nucleases like Cas9, or spontaneous,
+as produced through DNA replication or ionizing radiation."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# source_urls = ['https://github.com/cnobles/iGUIDE/archive']
+# sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+# checksums = ['cb19e2d24b529cc830b8e1849075195ef298fae6016743fd65cc67b28b815806']
+
+# R-bioconductor missing:
+    # OK hiAnnotator 1.36.0
+# CRAN missing:
+    # OK kableExtra
+    
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('snakemake', '8.4.2'),
+    ('ruamel.yaml', '0.17.32'),
+    ('BLAT', '3.7'),
+    ('BWA', '0.7.17'),
+    ('SAMtools', '1.18'),
+    ('Pandoc', '3.1.2', '', SYSTEM),
+    ('graphviz-python', '0.20.1'),
+    ('R', '4.3.2'),
+    # ('R-bundle-Bioconductor', '3.18', '-with-HiAnnotator'),  # UPDATE bundle
+    ('R-bundle-CRAN', '2023.12', '-with-kableExtra'),  # UPDATE CRAN
+]
+
+components = [
+    ('iguideSupport', version, {
+        'easyblock': 'RPackage',
+        'source_urls': ['https://github.com/cnobles/iGUIDE/archive'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'start_dir': 'iGUIDE-1.1.2/tools/iguideSupport',
+        'checksums': ['cb19e2d24b529cc830b8e1849075195ef298fae6016743fd65cc67b28b815806'],
+    }),
+]
+
+exts_list = [
+    ('semantic_version', '2.10.0', {
+        'checksums': ['bdabb6d336998cbb378d4b9db3a4b56a1e3235701dc05ea2690d9a997ed5041c'],
+    }),
+    ('pandoc', '2.3', {
+        'checksums': ['e772c2c6d871146894579828dbaf1efd538eb64fc7e71d4a6b3a11a18baef90d'],
+    }),
+    ('iguidelib', version, {
+        'source_urls': ['https://github.com/cnobles/iGUIDE/archive'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'start_dir': 'iGUIDE-1.1.2/tools/iguidelib',
+        'checksums': ['cb19e2d24b529cc830b8e1849075195ef298fae6016743fd65cc67b28b815806'],
+    }),
+]
+
+# sanity_check_paths = {
+#     'files': ['bin/ipa', 'etc/ipa.snakefile'],
+#     'dirs': [],
+# }
+
+# sanity_check_commands = [
+#     'ipa --version',
+# ]
+
+modextrapaths = {'IGUIDE_DIR': ''}
+
+moduleclass = 'bio'
