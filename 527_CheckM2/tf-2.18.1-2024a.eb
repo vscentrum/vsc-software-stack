@@ -99,7 +99,10 @@ exts_list = [
         'source_urls': ['https://github.com/tensorflow/tensorflow/archive/'],
         'test_script': 'TensorFlow-2.x_mnist-test.py',
         'test_tag_filters_cpu': '-gpu,-tpu,-no_cuda_on_cpu_tap,-no_pip,-no_oss,-oss_serial,-benchmark-test,-v1only',
-        'test_tag_filters_gpu': 'gpu,-no_gpu,-nogpu,-gpu_cupti,-no_cuda11,-no_pip,-no_oss,-oss_serial,-benchmark-test,-v1only',
+        'test_tag_filters_gpu': (
+            'gpu,-no_gpu,-nogpu,-gpu_cupti,-no_cuda11,'
+            '-no_pip,-no_oss,-oss_serial,-benchmark-test,-v1only'
+        ),
         'test_targets': [
             '//tensorflow/core/...',
             '-//tensorflow/core:example_java_proto',
@@ -119,7 +122,10 @@ exts_list = [
             '-//tensorflow/core/ir/importexport/tests/roundtrip/...',
         ],
         'testopts': "--test_env=HOME=/tmp --test_timeout=3600 --test_size_filters=small ",
-        'testopts_gpu': "--test_env=HOME=/tmp --test_timeout=3600 --test_size_filters=small --run_under=//tensorflow/tools/ci_build/gpu_build:parallel_gpu_execute ",
+        'testopts_gpu': (
+            '--test_env=HOME=/tmp --test_timeout=3600 --test_size_filters=small '
+            '--run_under=//tensorflow/tools/ci_build/gpu_build:parallel_gpu_execute '
+        ),
         'with_xla': True,
         'checksums': [
             {'v2.18.1.tar.gz': '467c512b631e72ad5c9d5c16b23669bcf89675de630cfbb58f9dde746d34afa8'},
@@ -134,13 +140,13 @@ exts_list = [
             {'TensorFlow-2.4.0_dont-use-var-lock.patch':
              'b14f2493fd2edf79abd1c4f2dde6c98a3e7d5cb9c25ab9386df874d5f072d6b5'},
             {'TensorFlow-2.18.1_disable-tf32-in-fused-matmul-tests.patch':
-             'eb39f2d9d11c6ff8b1755ae630d8be9e52a4bbf5aaeb3ca125c5dc9c398e2e69'},
+             '97ec29666f3449f2249b121d3c88a374d888732c978c8f2aa74aa5243c7088cc'},
             {'TensorFlow-2.18.1_fix-patchelf.patch':
-             '3fadb6b4b2a0e24c5086e43990bafae34dfbdee4cde42439efc8b06f4283debe'},
+             '6c9a4d8484868b68aad99527420f22ff09528db588cdb11926ec9340f0c4a816'},
             {'TensorFlow-2.18.1_fix-xnnpack.patch': 'baf81d7b2b61b5a923cf1f171d5e2400df6b8bd9073d3afa7a356e3bbe11984c'},
-            {'TensorFlow-2.18.1_fixedpoint.patch': 'bcd93eedb9c7598259203eac8970a28ec16c7f64e71efe40ce067eff4cf03afc'},
+            {'TensorFlow-2.18.1_fixedpoint.patch': '5ea1eb3b32e7df5f9ae711a71778b4cae544b3380f18882186eea035873fb640'},
             {'TensorFlow-2.18.1_fix-setup.py.patch':
-             '824a290da23d6dc0869be047252060e2c6343895965fd82a5d544d844c95377e'},
+             '6a30d61fd47b773d5e3a40ba3d02288df16321ffc45500f91b666437d8ec3343'},
         ],
     }),
 ]
