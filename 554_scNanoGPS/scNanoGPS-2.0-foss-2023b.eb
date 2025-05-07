@@ -31,6 +31,8 @@ dependencies = [
     ('gffread', '0.12.7'),
     ('LIQA', '1.3.4'),
     ('annovar', '20200607'),
+    # ('Arrow', '16.1.0'),  # TODO needed by `gtfparse`
+    # ('polars', '1.29.0'),  # TODO needed by `gtfparse`
 ]
 
 exts_defaultclass = 'PythonPackage'
@@ -42,7 +44,18 @@ exts_list = [
     ('Distance', '0.1.3', {
         'checksums': ['60807584f5b6003f5c521aa73f39f51f631de3be5cccc5a1d67166fcbf0d4551'],
     }),
+    # TODO needed by `find_fusion_isoform.py`
+    # ('gtfparse', '2.5.0', {
+    #     'checksums': ['9fea54811cd87f597a110a49dc1b1b6a3325ffb7d1f36ecc62c32d14d3eb9493'],
+    # }),
 ]
+
+postinstallcmds = ['cd %(installdir)s && chmod a+x *.py other_utils/*.py']
+
+modextrapaths = {
+    'PATH': ['', 'other_utils'],
+    'PYTHONPATH': ['', 'lib/python%(pyshortver)s/site-packages'],
+}
 
 sanity_check_paths = {
     'files': [],
@@ -51,67 +64,22 @@ sanity_check_paths = {
 
 sanity_check_commands = [
     'liqa -h',
-    "python other_utils/read_length_profiler.py -h",
-    "python scanner.py -h",
-    "python assigner.py -h",
-    "python curator.py -h ",
-    "python reporter_expression.py -h",
-    "python reporter_isoform.py -h",
-    "python reporter_SNV.py -h",
-    "python reporter_summary.py -h"
+    # 'find_fusion_isoform.py -h',  # TODO needs `gtfparse`
+    'format_res2tenx.py -h',
+    'parse_annovar_column.py -h',
+    'prepare_read_qc.py -h',
+    'read_length_profiler.py -h',
+    'reporter_exon_usage.py -h',
+    'reporter_expression.by_featurecounts.py -h',
+    'reporter_expression.by_samtools.py -h',
+    'assigner.py -h',
+    'curator.py -h',
+    'reporter_expression.py -h',
+    'reporter_isoform.py -h',
+    'reporter_SNV.py -h',
+    'reporter_summary.py -h',
+    'run_scNanoGPS.py -h',
+    'scanner.py -h',
 ]
 
 moduleclass = 'bio'
-
-# TODO
-# == sanity checking...
-#   >> (non-empty) directory 'lib/python3.11/site-packages' found: OK
-#   >> loading modules: scNanoGPS/2.0-foss-2023b...
-#   >> running command 'liqa -h' ...
-#   >> result for command 'liqa -h': OK
-#   >> running command 'python other_utils/read_length_profiler.py -h' ...
-#   >> result for command 'python other_utils/read_length_profiler.py -h': FAILED
-#   >> running command 'python scanner.py -h' ...
-#   >> result for command 'python scanner.py -h': FAILED
-#   >> running command 'python assigner.py -h' ...
-#   >> result for command 'python assigner.py -h': FAILED
-#   >> running command 'python curator.py -h ' ...
-#   >> result for command 'python curator.py -h ': FAILED
-#   >> running command 'python reporter_expression.py -h' ...
-#   >> result for command 'python reporter_expression.py -h': FAILED
-#   >> running command 'python reporter_isoform.py -h' ...
-#   >> result for command 'python reporter_isoform.py -h': FAILED
-#   >> running command 'python reporter_SNV.py -h' ...
-#   >> result for command 'python reporter_SNV.py -h': FAILED
-#   >> running command 'python reporter_summary.py -h' ...
-#   >> result for command 'python reporter_summary.py -h': FAILED
-#   >> running shell command:
-#         /apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/bin/python -m pip check
-#         [started at: 2025-04-29 09:56:52]
-#         [working dir: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scNanoGPS/2.0-foss-2023b]
-#         [output and state saved to /tmp/vsc45304/eb-laszab0b/run-shell-cmd-output/python-78skxabm]
-#   >> command completed: exit 0, ran in 00h00m03s
-#   >> running shell command:
-#         /apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/bin/python -c "import distance"
-#         [started at: 2025-04-29 09:56:57]
-#         [working dir: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scNanoGPS/2.0-foss-2023b]
-#         [output and state saved to /tmp/vsc45304/eb-laszab0b/run-shell-cmd-output/python-bzlu_tns]
-#   >> command completed: exit 0, ran in < 1s
-# == ... (took 26 secs)
-# == FAILED: Installation ended unsuccessfully: Sanity check failed: sanity check command python other_utils/read_length_profiler.py -h failed with exit code 2 (output: python: can't open file 
-# '/tmp/vsc45304/eb-laszab0b/eb-sanity-check-i7bgcq8h/other_utils/read_length_profiler.py': [Errno 2] No such file or directory
-# )
-# sanity check command python scanner.py -h failed with exit code 2 (output: python: can't open file '/tmp/vsc45304/eb-laszab0b/eb-sanity-check-i7bgcq8h/scanner.py': [Errno 2] No such file or directory
-# )
-# sanity check command python assigner.py -h failed with exit code 2 (output: python: can't open file '/tmp/vsc45304/eb-laszab0b/eb-sanity-check-i7bgcq8h/assigner.py': [Errno 2] No such file or directory
-# )
-# sanity check command python curator.py -h  failed with exit code 2 (output: python: can't open file '/tmp/vsc45304/eb-laszab0b/eb-sanity-check-i7bgcq8h/curator.py': [Errno 2] No such file or directory
-# )
-# sanity check command python reporter_expression.py -h failed with exit code 2 (output: python: can't open file '/tmp/vsc45304/eb-laszab0b/eb-sanity-check-i7bgcq8h/reporter_expression.py': [Errno 2] No such file or directory
-# )
-# sanity check command python reporter_isoform.py -h failed with exit code 2 (output: python: can't open file '/tmp/vsc45304/eb-laszab0b/eb-sanity-check-i7bgcq8h/reporter_isoform.py': [Errno 2] No such file or directory
-# )
-# sanity check command python reporter_SNV.py -h failed with exit code 2 (output: python: can't open file '/tmp/vsc45304/eb-laszab0b/eb-sanity-check-i7bgcq8h/reporter_SNV.py': [Errno 2] No such file or directory
-# )
-# sanity check command python reporter_summary.py -h failed with exit code 2 (output: python: can't open file '/tmp/vsc45304/eb-laszab0b/eb-sanity-check-i7bgcq8h/reporter_summary.py': [Errno 2] No such file or directory
-# ) (took 1 min 9 secs)
