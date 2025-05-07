@@ -10,6 +10,7 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 
 source_urls = ['https://github.com/chklovski/CheckM2/archive/']
 sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+checksums = ['7978e4ca08ae8ea3285931b955d1a4818684f9f955995837e98e6ab7ff90674f']
 
 builddependencies = [
     ('CMake', '3.29.3'),
@@ -23,7 +24,7 @@ dependencies = [
     ('TensorFlow', '2.18.1'),
     ('prodigal', '2.6.3'),
     ('tqdm', '4.66.5'),
-    ('scikit-learn', '1.6.1'), # maybe put this to exts
+    ('scikit-learn', '1.6.1'),
     ('LightGBM', '4.6.0'),
 ]
 
@@ -34,7 +35,7 @@ postinstallcmds = [
 ]
 
 modloadmsg = """
-You need to download a Diamond database now and setup a path to this db:
+You need to download a Diamond database and setup a path to this db now:
 
 1) Download the database (/CheckM2_database/uniref100.KO.1.dmnd will be created):
 $ checkm2 database --download --path /path/to/database --no_write_json_db
@@ -45,7 +46,7 @@ $ export CHECKM2DB="/path/to/database/CheckM2_database/uniref100.KO.1.dmnd"
 - for example: $ export CHECKM2DB="$HOME/DB_CHECKM2/CheckM2_database/uniref100.KO.1.dmnd"
 Unset it by: $ unset CHECKM2DB
 
-You can check path to the database:
+You can check the path to the database:
 $ checkm2 database --current
 
 You can test if everything is setup properly:
