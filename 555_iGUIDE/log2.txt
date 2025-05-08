@@ -1,0 +1,136 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                        count
+-----------------------  -------
+align                         18
+all                            1
+all_uniq_sites                 1
+assimilate_sites               1
+bin_passing_reads              3
+collect_umitags                9
+combine_multihits              3
+compress_align                18
+consolidate                   18
+core_stat_matrix               1
+demultiplex                    1
+eval_stat_matrix               1
+gen_stat_report                1
+generate_ref                   1
+iguide_evaluation              1
+move_demulti_stat              1
+post_align                     9
+run_report                     1
+run_summary                    1
+seq_filter                     9
+seq_trim_bp_read               9
+seq_trim_ic_read_odn           9
+seq_trim_ic_read_primer        9
+total                        126
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu May  8 15:59:39 2025]
+localrule generate_ref:
+    input: configs/simulationA.config.yml
+    output: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/genomes/hg38.2bit
+    jobid: 13
+    reason: Missing output files: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/genomes/hg38.2bit
+    resources: tmpdir=/tmp, mem_mb=2000, mem_mib=1908
+
+Rscript /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/tools/rscripts/generate_ref_genome.R hg38 /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/genomes/hg38.2bit
+[Thu May  8 16:00:57 2025]
+Finished job 13.
+1 of 126 steps (1%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu May  8 16:00:57 2025]
+localrule demultiplex:
+    input: /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/sampleInfo/simulationA.sampleInfo.csv, etc/tests/DataA/Undetermined_S0_L001_R1_001.fastq.gz, etc/tests/DataA/Undetermined_S0_L001_R2_001.fastq.gz, etc/tests/DataA/Undetermined_S0_L001_I1_001.fastq.gz, etc/tests/DataA/Undetermined_S0_L001_I2_001.fastq.gz
+    output: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.R1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.R2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.I1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.I2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.R1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.R2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.I1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.I2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXC.R1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXC.R2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXC.I1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXC.I2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/ambiguous.R1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/ambiguous.R2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/ambiguous.I1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/ambiguous.I2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/degenerate.R1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/degenerate.R2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/degenerate.I1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/degenerate.I2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/unassigned.R1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/unassigned.R2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/unassigned.I1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/unassigned.I2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/simulationA.demulti.stat
+    log: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/logs/demultiplex.simulationA.log
+    jobid: 10
+    reason: Missing output files: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.R2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXC.I2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXC.R2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.R2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.R1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/simulationA.demulti.stat, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.I2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.R1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.I2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXC.R1.fastq.gz
+    resources: tmpdir=/tmp, mem_mb=40000, mem_mib=38147
+
+
+    Rscript /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/tools/rscripts/demulti.R -m /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/sampleInfo/simulationA.sampleInfo.csv       --read1 etc/tests/DataA/Undetermined_S0_L001_R1_001.fastq.gz --read2 etc/tests/DataA/Undetermined_S0_L001_R2_001.fastq.gz       --idx1 etc/tests/DataA/Undetermined_S0_L001_I1_001.fastq.gz --idx2 etc/tests/DataA/Undetermined_S0_L001_I2_001.fastq.gz       --bc1 I1 --bc1Len 8       --bc2 I2 --bc2Len 8       --bc1Mis 0 --bc2Mis 0 --maxN 1       -o /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti --stat simulationA.demulti.stat -c 1       --readNamePattern '[\w\:\-\+]+' --compress > /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/logs/demultiplex.simulationA.log 2>&1
+    
+[Thu May  8 16:01:18 2025]
+Finished job 10.
+2 of 126 steps (2%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu May  8 16:01:19 2025]
+localrule bin_passing_reads:
+    input: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.R1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.R2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.I2.fastq.gz
+    output: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R1.bin1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R1.bin2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R1.bin3.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R2.bin1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R2.bin2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R2.bin3.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.I2.bin1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.I2.bin2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.I2.bin3.fastq.gz
+    log: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/logs/iGXB.bin.log
+    jobid: 45
+    reason: Missing output files: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R1.bin2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.I2.bin3.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R2.bin3.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R1.bin3.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.I2.bin2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R2.bin1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.I2.bin1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R1.bin1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R2.bin2.fastq.gz; Input files updated by another job: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.I2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.R1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.R2.fastq.gz
+    wildcards: sample=iGXB
+    resources: tmpdir=/tmp, mem_mb=2000, mem_mib=1908
+
+
+    Rscript /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/tools/rscripts/bin_seqs.R /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.R1.fastq.gz /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.R2.fastq.gz /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXB.I2.fastq.gz -o /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned       -b 3 -l 250 --compress       --readNamePattern '[\w\:\-\+]+' > /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/logs/iGXB.bin.log 2>&1
+    
+[Thu May  8 16:01:33 2025]
+Finished job 45.
+3 of 126 steps (2%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu May  8 16:01:33 2025]
+localrule bin_passing_reads:
+    input: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.R1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.R2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.I2.fastq.gz
+    output: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.R1.bin1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.R1.bin2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.R1.bin3.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.R2.bin1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.R2.bin2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.R2.bin3.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.I2.bin1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.I2.bin2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.I2.bin3.fastq.gz
+    log: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/logs/iGXA.bin.log
+    jobid: 9
+    reason: Missing output files: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.I2.bin3.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.R1.bin3.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.R1.bin1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.I2.bin2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.R2.bin3.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.R2.bin2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.R1.bin2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.I2.bin1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXA.R2.bin1.fastq.gz; Input files updated by another job: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.R2.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.R1.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.I2.fastq.gz
+    wildcards: sample=iGXA
+    resources: tmpdir=/tmp, mem_mb=2000, mem_mib=1908
+
+
+    Rscript /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/tools/rscripts/bin_seqs.R /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.R1.fastq.gz /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.R2.fastq.gz /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/demulti/iGXA.I2.fastq.gz -o /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned       -b 3 -l 250 --compress       --readNamePattern '[\w\:\-\+]+' > /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/logs/iGXA.bin.log 2>&1
+    
+[Thu May  8 16:01:47 2025]
+Finished job 9.
+4 of 126 steps (3%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu May  8 16:01:47 2025]
+localrule seq_trim_bp_read:
+    input: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R1.bin3.fastq.gz
+    output: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/trimmed/iGXB.R1.bin3.trim.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/stats/iGXB.R1.bin3.trim.stat
+    log: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/logs/iGXB.R1.bin3.trim.log
+    jobid: 67
+    reason: Missing output files: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/stats/iGXB.R1.bin3.trim.stat, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/trimmed/iGXB.R1.bin3.trim.fastq.gz; Input files updated by another job: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R1.bin3.fastq.gz
+    wildcards: sample=iGXB, bin=bin3
+    resources: tmpdir=/tmp, mem_mb=8000, mem_mib=7630
+
+
+    Rscript /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/tools/rscripts/trim.R /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R1.bin3.fastq.gz -o /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/trimmed/iGXB.R1.bin3.trim.fastq.gz       -l . --leadMismatch 0       -r TCGCGTATACCGTTATTAACATATGACAACTCAA --overMismatch 4       --overMaxLength 20 --stat /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/stats/iGXB.R1.bin3.trim.stat       --compress > /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/logs/iGXB.R1.bin3.trim.log 2>&1
+    
+[Thu May  8 16:02:00 2025]
+Error in rule seq_trim_bp_read:
+    jobid: 67
+    input: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R1.bin3.fastq.gz
+    output: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/trimmed/iGXB.R1.bin3.trim.fastq.gz, /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/stats/iGXB.R1.bin3.trim.stat
+    log: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/logs/iGXB.R1.bin3.trim.log (check log file(s) for error details)
+    shell:
+        
+    Rscript /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/tools/rscripts/trim.R /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/binned/iGXB.R1.bin3.fastq.gz -o /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/trimmed/iGXB.R1.bin3.trim.fastq.gz       -l . --leadMismatch 0       -r TCGCGTATACCGTTATTAACATATGACAACTCAA --overMismatch 4       --overMaxLength 20 --stat /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/process_data/stats/iGXB.R1.bin3.trim.stat       --compress > /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/analysis/simulationA/logs/iGXB.R1.bin3.trim.log 2>&1
+    
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-05-08T155937.362934.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

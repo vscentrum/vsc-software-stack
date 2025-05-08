@@ -18,7 +18,8 @@ toolchain = {'name': 'foss', 'version': '2023a'}
     # OK hiAnnotator 1.36.0
 # CRAN missing:
     # OK kableExtra
-    
+
+builddependencies = [('hatchling', '1.18.0')]
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
@@ -32,7 +33,8 @@ dependencies = [
     ('graphviz-python', '0.20.1'),
     ('R', '4.3.2'),
     # ('R-bundle-Bioconductor', '3.18', '-with-HiAnnotator'),  # UPDATE bundle
-    ('R-bundle-CRAN', '2023.12', '-with-kableExtra'),  # UPDATE CRAN
+    ('RbB', '3.18', '-with-HiAnnotator'),
+    ('R-bundle-CRAN', '2023.12'),
 ]
 
 components = [
@@ -49,15 +51,33 @@ exts_list = [
     ('semantic_version', '2.10.0', {
         'checksums': ['bdabb6d336998cbb378d4b9db3a4b56a1e3235701dc05ea2690d9a997ed5041c'],
     }),
+    ('plumbum', '1.8.3', {
+        'checksums': ['6092c85ab970b7a7a9d5d85c75200bc93be82b33c9bdf640ffa87d2d7c8709f0'],
+    }),
     ('pandoc', '2.3', {
         'checksums': ['e772c2c6d871146894579828dbaf1efd538eb64fc7e71d4a6b3a11a18baef90d'],
     }),
     ('iguidelib', version, {
+        'preinstallopts': 'export IGUIDE_DIR="%(builddir)s/iguidelib/iGUIDE-1.1.2" && ',
         'source_urls': ['https://github.com/cnobles/iGUIDE/archive'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'start_dir': 'iGUIDE-1.1.2/tools/iguidelib',
+        'start_dir': 'tools/iguidelib',
         'checksums': ['cb19e2d24b529cc830b8e1849075195ef298fae6016743fd65cc67b28b815806'],
     }),
+]
+
+postinstallcmds = [
+    'cp %(builddir)s/iGUIDE-1.1.2/Snakefile %(installdir)s',
+    'cp %(builddir)s/iguidelib/iGUIDE-1.1.2/.version %(installdir)s',
+    'cp -r %(builddir)s/iGUIDE-1.1.2/rules %(installdir)s/rules',
+    'cp -r %(builddir)s/iGUIDE-1.1.2/configs %(installdir)s/configs',
+    'cp -r %(builddir)s/iGUIDE-1.1.2/analysis %(installdir)s/analysis',
+    'cp -r %(builddir)s/iGUIDE-1.1.2/sampleInfo %(installdir)s/sampleInfo',
+    'cp -r %(builddir)s/iGUIDE-1.1.2/tools %(installdir)s/tools',
+    'cp -r %(builddir)s/iGUIDE-1.1.2/etc %(installdir)s/etc',
+    'cp -r %(builddir)s/iGUIDE-1.1.2/genomes %(installdir)s/genomes',
+    "sed -i 's/(unique_index_seqs,/(as.character(unique_index_seqs),/' %(installdir)s/tools/rscripts/demulti.R",
+    "sed -i 's/lengths(/base::lengths(/' %(installdir)s/tools/rscripts/demulti.R",
 ]
 
 # sanity_check_paths = {
@@ -69,6 +89,42 @@ exts_list = [
 #     'ipa --version',
 # ]
 
-modextrapaths = {'IGUIDE_DIR': ''}
+modextrapaths = {
+    'IGUIDE_DIR': '',
+    'R_LIBS_SITE': '',
+}
 
 moduleclass = 'bio'
+
+# E3:
+    # -> GPT: replace all 'lengths(...)' with 'base::lengths(...)' in demulti.R -> OK
+        # This error occurs because BiocGenerics::lengths was deprecated and removed from the exported namespace in newer Bioconductor versions. 
+        # In older versions of Bioconductor (prior to ~3.10), lengths() was re-exported by BiocGenerics, but in more recent setups, 
+        # you must use base::lengths() or explicitly call S4Vectors::lengths().
+    # <- error from test: iguide run configs/simulationA.config.yml -- -p -w 30 --notemp --nolock --cores 1 (after fix E2 manually)
+        # Error: 'lengths' is not an exported object from 'namespace:BiocGenerics'
+
+# E2: 
+    # -> patch2.3 -> not working - in final dir it is unchaged
+    # <- error from test: iguide run configs/simulationA.config.yml -- -p -w 30 --notemp --nolock --cores 1
+        # Error in `stringr::str_count()`:
+        # ! `string` must be a vector, not a <DNAStringSet> object.
+        # Backtrace:
+        #     ▆
+        # 1. ├─global parseIndexReads(...)
+        # 2. │ ├─base::which(stringr::str_count(unique_index_seqs, "N") > max.N.count)
+        # 3. │ └─stringr::str_count(unique_index_seqs, "N")
+        # 4. │   └─stringr:::check_lengths(string, pattern)
+        # 5. │     └─vctrs::vec_size_common(...)
+        # 6. └─vctrs:::stop_scalar_type(`<fn>`(`<DNAStrnS>`), "string", `<env>`)
+        # 7.   └─vctrs:::stop_vctrs(...)
+        # 8.     └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
+        # Execution halted
+
+# E1: OK
+    # -> preinstallopts with export IGUIDE_DIR -> OK
+    # -> .version is in /tmp/vsc47063/easybuild/build/iGUIDE/1.1.2/foss-2023a/iguidelib/iGUIDE-1.1.2
+    # -> goes from setup.py and IGUIDE_DIR envvar
+    # <- during pip install iguidelib <- log1.txt
+        # FileNotFoundError: [Errno 2] No such file or directory:
+        # '/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/iGUIDE/1.1.2-foss-2023a/.version'

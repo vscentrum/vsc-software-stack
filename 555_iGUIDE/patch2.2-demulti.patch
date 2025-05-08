@@ -1,0 +1,11 @@
+--- a/tools/rscripts/demulti.R
++++ b/tools/rscripts/demulti.R
+@@ parseIndexReads <- function(barcode.seqs, reads, indices = NULL, 
+-  degenerate_idxs <- which(
+-    stringr::str_count(unique_index_seqs, "N") > max.N.count
+-  )
++  degenerate_idxs <- which(
++    stringr::str_count(as.character(unique_index_seqs), "N") > max.N.count
++  )
+@@ if( args$cores > 1 ){
++  parallel::clusterExport(cluster, varlist=c("parseIndexReads"), envir=environment())

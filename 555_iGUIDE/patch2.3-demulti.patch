@@ -1,0 +1,30 @@
+--- tools/rscripts/demulti.R.orig	2025-05-08 14:20:44.568946000 +0200
++++ tools/rscripts/demulti.R	2025-05-08 14:21:24.980700000 +0200
+@@ -267,7 +267,7 @@
+   # Sequence variability accounted for and ambiguous, degenerate, and unassigned
+   # sequences identified
+   degenerate_idxs <- which(
+-    stringr::str_count(unique_index_seqs, "N") > max.N.count
++    stringr::str_count(as.character(unique_index_seqs), "N") > max.N.count
+   )
+   
+   ambiguous_idxs <- as.numeric(names(table(unlist(bc_to_unique_idxs)))[
+@@ -423,7 +423,8 @@
+ cat(paste("\nReads to demultiplex : ", length(bc1_reads), "\n"))
+ 
+ if( args$cores > 1 ){
+-  
++  parallel::clusterExport(cluster, varlist=c("parseIndexReads"), envir=environment())
++
+   bc1_proc_grps <- split(
+     bc1_reads,
+     ceiling( seq_along(bc1_reads) / (length(bc1_reads)/args$cores) )
+@@ -748,7 +749,7 @@
+ 
+ # Write files to read files to outfolder directory ----
+ if( args$cores > 1 ){
+-  
++  parallel::clusterExport(cluster, varlist=c("parseIndexReads"), envir=environment())
+   cluster <- parallel::makeCluster(min(c(parallel::detectCores(), args$cores)))
+   
+   read_list <- demulti$readType[demulti$path != "NA"]
