@@ -45,7 +45,7 @@ class PsN(PerlModule):
             'Press ENTER to exit the installation program.': '',
         }
 
-        maxhits = 200  # to give enough time to pharmpy installation
+        maxhits = 2000  # to give enough time to pharmpy installation
 
         run_cmd_qa(cmd, qanda, maxhits=maxhits, log_all=True, simple=True)
 
