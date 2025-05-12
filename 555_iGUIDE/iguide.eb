@@ -44,6 +44,7 @@ components = [
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'start_dir': 'iGUIDE-1.1.2/tools/iguideSupport',
         'checksums': ['cb19e2d24b529cc830b8e1849075195ef298fae6016743fd65cc67b28b815806'],
+        'preinstallopts': """sed -i 's/if( class(d) != "matrix" )/if (!inherits(d, "matrix"))/' R/utils.R && """,
     }),
 ]
 
@@ -78,6 +79,30 @@ postinstallcmds = [
     'cp -r %(builddir)s/iGUIDE-1.1.2/genomes %(installdir)s/genomes',
     "sed -i 's/(unique_index_seqs,/(as.character(unique_index_seqs),/' %(installdir)s/tools/rscripts/demulti.R",
     "sed -i 's/lengths(/base::lengths(/' %(installdir)s/tools/rscripts/demulti.R",
+    "sed -i 's/ BiocGenerics::lengths/S4Vectors::elementNROWS/g' %(installdir)s/tools/rscripts/supporting_scripts/trimOverreading.R",
+    "sed -i 's/S4Vectors::lengths/S4Vectors::elementNROWS/g' %(installdir)s/tools/rscripts/supporting_scripts/trimLeading.R",
+    """sed -i 's/if( class(d) != "matrix" )/if (!inherits(d, "matrix"))/' %(installdir)s/tools/iguideSupport/R/utils.R""",
+    # "sed -i '/split(\.\$specimen)/, /dplyr::bind_rows()/s/alt_names <- combos_exp_specimen_list\[\[unique(x\$specimen)\]\]/if (any(is.na(x\$specimen))) return(NULL); alt_names <- combos_exp_specimen_list[[unique(x$specimen)]]/' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    "sed -i '/^algnmts <- algnmts_unmod %>%$/,/dplyr::bind_rows()/c\
+    algnmts <- algnmts_unmod %>%\
+    split(.$specimen) %>%\
+    lapply(function(x){\
+        alt_names <- combos_exp_specimen_list[[as.character(unique(x$specimen))]]\
+        if (!is.null(alt_names) && length(alt_names) > 1) {\
+        mod_algns <- x[rep(seq_len(nrow(x)), length(alt_names)),]\
+        mod_algns$alt_specimen <- rep(alt_names, each = nrow(x))\
+        return(mod_algns)\
+        } else if (!is.null(alt_names) && length(alt_names) == 1) {\
+        x$alt_specimen <- alt_names\
+        return(x)\
+        } else {\
+        x$alt_specimen <- x$specimen\
+        return(x)\
+        }\
+    }) %>%\
+    dplyr::bind_rows()' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    r"sed -i '/algnmts_grl <- split(/i grouping_keys <- unlist(nuclease)[algnmts_gr\$alt_specimen] \n\ valid_idx <- !is.na(grouping_keys) \n\ algnmts_gr <- algnmts_gr[valid_idx] \n' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    "sed -i 's/algnmts_grl <- split.*/algnmts_grl <- split(algnmts_gr, grouping_keys[valid_idx])/' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
 ]
 
 # sanity_check_paths = {
@@ -96,16 +121,17 @@ modextrapaths = {
 
 moduleclass = 'bio'
 
-# E3:
-    # -> GPT: replace all 'lengths(...)' with 'base::lengths(...)' in demulti.R -> OK
+# E3: OK
+    # -> replace all lengths(...) by base::lengths(...) in tools/rscripts/supporting_scripts/
+    # -> GPT: replace all 'lengths(...)' by 'base::lengths(...)' in demulti.R -> OK
         # This error occurs because BiocGenerics::lengths was deprecated and removed from the exported namespace in newer Bioconductor versions. 
         # In older versions of Bioconductor (prior to ~3.10), lengths() was re-exported by BiocGenerics, but in more recent setups, 
-        # you must use base::lengths() or explicitly call S4Vectors::lengths().
+        # you must use base::lengths() or explicitly call base::lengths().
     # <- error from test: iguide run configs/simulationA.config.yml -- -p -w 30 --notemp --nolock --cores 1 (after fix E2 manually)
         # Error: 'lengths' is not an exported object from 'namespace:BiocGenerics'
 
-# E2: 
-    # -> patch2.3 -> not working - in final dir it is unchaged
+# E2: OK
+    # -> patch2.3 -> not working - in final dir it is unchaged -> patched manually -> OK but...
     # <- error from test: iguide run configs/simulationA.config.yml -- -p -w 30 --notemp --nolock --cores 1
         # Error in `stringr::str_count()`:
         # ! `string` must be a vector, not a <DNAStringSet> object.
