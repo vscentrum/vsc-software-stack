@@ -45,9 +45,10 @@ exts_list = [
         'checksums': ['60807584f5b6003f5c521aa73f39f51f631de3be5cccc5a1d67166fcbf0d4551'],
     }),
     # TODO needed by `find_fusion_isoform.py`
-    # ('gtfparse', '2.5.0', {
-    #     'checksums': ['9fea54811cd87f597a110a49dc1b1b6a3325ffb7d1f36ecc62c32d14d3eb9493'],
-    # }),
+    ('gtfparse', '2.5.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['ccc9e9e77b7bdd90dda0e41da864714cb40b6b0c64ecc1d8a131e11497357140'],
+    }),
 ]
 
 postinstallcmds = ['cd %(installdir)s && chmod a+x *.py other_utils/*.py']
@@ -64,7 +65,7 @@ sanity_check_paths = {
 
 sanity_check_commands = [
     'liqa -h',
-    # 'find_fusion_isoform.py -h',  # TODO needs `gtfparse`
+    'find_fusion_isoform.py -h',  # TODO needs `gtfparse`
     'format_res2tenx.py -h',
     'parse_annovar_column.py -h',
     'prepare_read_qc.py -h',
