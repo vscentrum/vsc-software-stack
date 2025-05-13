@@ -60,7 +60,7 @@ exts_list = [
     }),
     ('iguidelib', version, {
         'preinstallopts': 'export IGUIDE_DIR="%(builddir)s/iguidelib/iGUIDE-1.1.2" && ',
-        'source_urls': ['https://github.com/cnobles/iGUIDE/archive'],
+        'source_urls': ['c/archive'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'start_dir': 'tools/iguidelib',
         'checksums': ['cb19e2d24b529cc830b8e1849075195ef298fae6016743fd65cc67b28b815806'],
@@ -101,14 +101,21 @@ postinstallcmds = [
     #     }\
     # }) %>%\
     # dplyr::bind_rows()' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
-    r"sed -i '/^algnmts <- algnmts_unmod %>%$/,/dplyr::bind_rows()/c\algnmts <- algnmts_unmod %>% split(.$specimen) %>% lapply(function(x){ alt_names <- combos_exp_specimen_list[[as.character(unique(x$specimen))]]; if (!is.null(alt_names) && length(alt_names) > 1) { mod_algns <- x[rep(seq_len(nrow(x)), length(alt_names)),]; mod_algns$alt_specimen <- rep(alt_names, each = nrow(x)); return(mod_algns) } else if (!is.null(alt_names) && length(alt_names) == 1) { x$alt_specimen <- alt_names; return(x) } else { x$alt_specimen <- x$specimen; return(x) } }) %>% dplyr::bind_rows()' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
     # r"sed -i '/algnmts_grl <- split(/i grouping_keys <- unlist(nuclease)[algnmts_gr\$alt_specimen] \n\ valid_idx <- !is.na(grouping_keys) \n\ algnmts_gr <- algnmts_gr[valid_idx] \n' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
     # r"sed -i '/^algnmts_grl <- split(/i grouping_keys_all <- unlist(nuclease); valid_idx <- which(!is.na(algnmts_gr$alt_specimen) & algnmts_gr$alt_specimen %in% names(grouping_keys_all)); grouping_keys <- grouping_keys_all[algnmts_gr$alt_specimen[valid_idx]]; algnmts_gr <- algnmts_gr[valid_idx]' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
     # "sed -i 's/algnmts_grl <- split.*/algnmts_grl <- split(algnmts_gr, grouping_keys)/' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
     # "sed -i 's/algnmts_grl <- split.*/algnmts_grl <- split(algnmts_gr, grouping_keys[valid_idx])/' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
-    r"sed -i '/^algnmts_grl <- split(/i grouping_keys_all <- unlist(nuclease); valid_idx <- which(!is.na(algnmts_gr$alt_specimen) & algnmts_gr$alt_specimen %in% names(grouping_keys_all)); grouping_keys <- grouping_keys_all[algnmts_gr$alt_specimen[valid_idx]]; algnmts_gr <- algnmts_gr[valid_idx]' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
-    "sed -i 's/^algnmts_grl <- split.*/algnmts_grl <- split(algnmts_gr, grouping_keys)/' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
-    r"sed -i '/^ *gr <- grl\\[\\[i\\]\\]/a\\        if (anyNA(gr$alt_specimen)) stop(\"alt_specimen contains NA at i=\", i)' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # r"sed -i '/^algnmts_grl <- split(/i grouping_keys_all <- unlist(nuclease); valid_idx <- which(!is.na(algnmts_gr$alt_specimen) & algnmts_gr$alt_specimen %in% names(grouping_keys_all)); grouping_keys <- grouping_keys_all[algnmts_gr$alt_specimen[valid_idx]]; algnmts_gr <- algnmts_gr[valid_idx]' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # "sed -i 's/^algnmts_grl <- split.*/algnmts_grl <- split(algnmts_gr, grouping_keys)/' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # r"sed -i '/^algnmts_grl <- split(/i grouping_keys_all <- unlist(nuclease)\\ngrouping_keys_all <- grouping_keys_all[!duplicated(names(grouping_keys_all))]\\nvalid_idx <- which(!is.na(algnmts_gr$alt_specimen) & as.character(algnmts_gr$alt_specimen) %in% names(grouping_keys_all))\\nif (length(valid_idx) == 0) stop(\"No valid alt_specimen found for grouping.\")\\ngrouping_keys <- grouping_keys_all[as.character(algnmts_gr$alt_specimen[valid_idx])]\\nalgnmts_gr <- algnmts_gr[valid_idx]' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # should works:
+    # r"sed -i '/^algnmts <- algnmts_unmod %>%$/,/dplyr::bind_rows()/c\algnmts <- algnmts_unmod %>% split(.$specimen) %>% lapply(function(x){ alt_names <- combos_exp_specimen_list[[as.character(unique(x$specimen))]]; if (!is.null(alt_names) && length(alt_names) > 1) { mod_algns <- x[rep(seq_len(nrow(x)), length(alt_names)),]; mod_algns$alt_specimen <- rep(alt_names, each = nrow(x)); return(mod_algns) } else if (!is.null(alt_names) && length(alt_names) == 1) { x$alt_specimen <- alt_names; return(x) } else { x$alt_specimen <- x$specimen; return(x) } }) %>% dplyr::bind_rows()' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # r"sed -i '/^algnmts_grl <- split(/i grouping_keys_all <- unlist(nuclease)\ngrouping_keys_all <- grouping_keys_all[!duplicated(names(grouping_keys_all))]\nvalid_idx <- which(!is.na(algnmts_gr$alt_specimen) & as.character(algnmts_gr$alt_specimen) %in% names(grouping_keys_all))\nif (length(valid_idx) == 0) stop(\"No valid alt_specimen found for grouping.\")\ngrouping_keys <- grouping_keys_all[as.character(algnmts_gr$alt_specimen[valid_idx])]\nalgnmts_gr <- algnmts_gr[valid_idx]' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # "sed -i 's/algnmts_grl <- split.*/algnmts_grl <- split(algnmts_gr, grouping_keys)/' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # r"sed -i '/^ *gr <- grl\\[\\[i\\]\\]/a\\        if (anyNA(gr$alt_specimen)) stop(\"alt_specimen contains NA at i=\", i)' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # new GPT patchges:
+    # "sed -i '/^algnmts_grl <- split(/i valid_idx <- which(!is.na(algnmts_gr\\$alt_specimen)); algnmts_gr <- algnmts_gr[valid_idx]' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    "sed -i '/^algnmts_grl <- split(/i grouping_keys <- unlist(nuclease); keys <- grouping_keys[algnmts_gr$alt_specimen]; valid_idx <- !is.na(keys); algnmts_gr <- algnmts_gr[valid_idx]; grouping_keys <- keys[valid_idx]' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
 ]
 
 # sanity_check_paths = {
