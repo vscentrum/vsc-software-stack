@@ -79,7 +79,7 @@ exts_list = [
         'checksums': ['9a030b44ff6841e219431ddcb0d6483bb659d6ec32cbb8f9fe756e13cddfd312'],
         # Installing from the extension's directory leads to R CMD INSTALL to use renv
         # which then fails because it is not finding packages included in the R installation
-        'preinstallopts': 'mkdir build && cd build &&',
+        'preinstallopts': 'mkdir -p build && cd build &&',
     }),
     ('Math::Random', '0.72', {
         'source_tmpl': 'Math-Random-%(version)s.tar.gz',
