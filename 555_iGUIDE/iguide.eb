@@ -82,6 +82,7 @@ postinstallcmds = [
     "sed -i 's/ BiocGenerics::lengths/S4Vectors::elementNROWS/g' %(installdir)s/tools/rscripts/supporting_scripts/trimOverreading.R",
     "sed -i 's/S4Vectors::lengths/S4Vectors::elementNROWS/g' %(installdir)s/tools/rscripts/supporting_scripts/trimLeading.R",
     """sed -i 's/if( class(d) != "matrix" )/if (!inherits(d, "matrix"))/' %(installdir)s/tools/iguideSupport/R/utils.R""",
+    # Problem with evaluate_incorp_data.R in testA:
     # "sed -i '/split(\.\$specimen)/, /dplyr::bind_rows()/s/alt_names <- combos_exp_specimen_list\[\[unique(x\$specimen)\]\]/if (any(is.na(x\$specimen))) return(NULL); alt_names <- combos_exp_specimen_list[[unique(x$specimen)]]/' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
     # "sed -i '/^algnmts <- algnmts_unmod %>%$/,/dplyr::bind_rows()/c\
     # algnmts <- algnmts_unmod %>%\
@@ -115,7 +116,35 @@ postinstallcmds = [
     # r"sed -i '/^ *gr <- grl\\[\\[i\\]\\]/a\\        if (anyNA(gr$alt_specimen)) stop(\"alt_specimen contains NA at i=\", i)' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
     # new GPT patchges:
     # "sed -i '/^algnmts_grl <- split(/i valid_idx <- which(!is.na(algnmts_gr\\$alt_specimen)); algnmts_gr <- algnmts_gr[valid_idx]' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
-    "sed -i '/^algnmts_grl <- split(/i grouping_keys <- unlist(nuclease); keys <- grouping_keys[algnmts_gr$alt_specimen]; valid_idx <- !is.na(keys); algnmts_gr <- algnmts_gr[valid_idx]; grouping_keys <- keys[valid_idx]' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # "sed -i '/^algnmts_grl <- split(/i grouping_keys <- unlist(nuclease); keys <- grouping_keys[algnmts_gr$alt_specimen]; valid_idx <- !is.na(keys); algnmts_gr <- algnmts_gr[valid_idx]; grouping_keys <- keys[valid_idx]' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # "sed -i '/^algnmts_grl <- split(/c grouping_keys <- unlist(nuclease); key_idx <- match(algnmts_gr$alt_specimen, names(grouping_keys)); if (any(is.na(key_idx))) { bad_vals <- unique(algnmts_gr$alt_specimen[is.na(key_idx)]); stop(\"Invalid alt_specimen values in algnmts_gr: \", paste(bad_vals, collapse=\", \")) }; grouping_factors <- grouping_keys[key_idx]; algnmts_grl <- split(algnmts_gr, grouping_factors)' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # 1) insert the closing brace
+    # "sed -i '/rm(sample_index)/a }' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # # 2) drop-rows assignment
+    # "sed -i '/rm(sample_index)/a algnmts <- algnmts[!bad, ]' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # # 3) warning() call
+    # """sed -i '/rm(sample_index)/a warning("Dropping ", sum(bad), " alignments on seqnames not in reference: ", paste(unique(algnmts\$seqnames[bad]), collapse = ", "))' %(installdir)s/tools/rscripts/evaluate_incorp_data.R""",
+    # # 4) if-statement open
+    # "sed -i '/rm(sample_index)/a if (any(bad)) {' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # # 5) define bad
+    # r"sed -i '/rm(sample_index)/a bad <- !algnmts\$seqnames %in% valid_seqnames' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # # 6) define valid_seqnames
+    # "sed -i '/rm(sample_index)/a valid_seqnames <- names(GenomeInfoDb::seqinfo(ref_genome))' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # 1) define valid_seqnames
+    # "sed -i '/rm(sample_index)/a valid_seqnames <- names(GenomeInfoDb::seqinfo(ref_genome))' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # # 2) define bad
+    # r"sed -i '/rm(sample_index)/a bad <- !algnmts\$seqnames %in% valid_seqnames' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # # 3) open the if
+    # "sed -i '/rm(sample_index)/a if (any(bad)) {' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # # 4) warning() call
+    # """sed -i '/rm(sample_index)/a warning("Dropping ", sum(bad), " alignments on seqnames not in reference: ", paste(unique(algnmts\\$seqnames[bad]), collapse = ", "))' %(installdir)s/tools/rscripts/evaluate_incorp_data.R""",
+    # # 5) drop‐rows assignment
+    # "sed -i '/rm(sample_index)/a algnmts <- algnmts[!bad, ]' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # # 6) insert the closing brace
+    # "sed -i '/rm(sample_index)/a }' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # "sed -i '/rm(sample_index)/a valid_seqnames <- names(GenomeInfoDb::seqinfo(ref_genome)); bad <- !algnmts\\$seqnames %in% valid_seqnames; if (any(bad)) { warning(\"Dropping \", sum(bad), \" alignments on seqnames not in reference: \", paste(unique(algnmts\\$seqnames[bad]), collapse=\", \")); algnmts <- algnmts[!bad, ] }' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    # "sed -i '/rm(sample_index)/a algnmts <- algnmts[!is.na(match(algnmts\\$seqnames, names(GenomeInfoDb::seqinfo(ref_genome)))), ]' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
+    r"sed -i 's/      if( !nuc %in% names(nuc_profiles) ){/      if( is.na(nuc) || !nuc %in% names(nuc_profiles) ){/' %(installdir)s/tools/rscripts/evaluate_incorp_data.R",
 ]
 
 # sanity_check_paths = {
