@@ -117,10 +117,11 @@ exts_list = [
     ('altair', '5.3.0', {
         'checksums': ['5a268b1a0983b23d8f9129f819f956174aa7aea2719ed55a52eba9979b9f6675'],
     }),
-    ('iow', '1.0.7', {
+    ('iow', '1.0.8', {
+        # fix wrong bp/tests/test_bp_cy.pyx - can not cythonize by cython 3.x
+        'preinstallopts': "sed -i '88,92d' setup.py && ",
         'modulename': 'bp',
-        'preinstallopts': """sed -i "/'nose /d" setup.py && """,
-        'checksums': ['149219bf78b2d5ae076fa85822c73a39e17b982233d6710c250295e9803388ed'],
+        'checksums': ['8f2397addcf77dfc439686114d5df86c559f705f9ee73a21df4519ce28008ad9'],
     }),
     ('rescript', '2024.10.0', {
         'source_urls': ['https://github.com/bokulich-lab/RESCRIPt/archive/'],
