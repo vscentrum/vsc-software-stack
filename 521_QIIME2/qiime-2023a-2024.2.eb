@@ -16,7 +16,7 @@ builddependencies = [
 ]
 dependencies = [
     ('Python', '3.11.3'),
-    ('SciPy-bundle', '2023.07'),  # pandas 2.0.3
+    ('SciPy-bundle', '2023.07'),
     ('matplotlib', '3.7.2'),
     ('IPython', '8.14.0'),
     ('PyYAML', '6.0'),
@@ -129,6 +129,8 @@ exts_list = [
     }),
     (name, version, {
         'patches': ['%(name)s-%(version)s_parallel-fix.patch'],
+        # fix python 3.11 compatibility - commit f24fdd
+        'preinstallopts': "sed -i 's/expr.slice.value/expr.slice/' qiime2/core/type/parse.py && ",
         'source_urls': ['https://github.com/qiime2/qiime2/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': [
@@ -273,4 +275,5 @@ modextrapaths = {'CONDA_PREFIX': ''}
 moduleclass = 'bio'
 
 #E1:
+    # -> python problem - expr.slice.value is not in v3.11 -> fix to expr.slice in preinstall..
     # <- log10.txt <- failed on sanity check validate?
