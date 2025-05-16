@@ -2,6 +2,7 @@ easyblock = 'PythonBundle'
 
 name = 'TensorFlow'
 version = '2.18.1'
+versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://www.tensorflow.org/'
 description = "An open-source software library for Machine Intelligence"
@@ -22,6 +23,9 @@ builddependencies = [
 ]
 
 dependencies = [
+    ('CUDA', '12.6.0', '', SYSTEM),
+    ('cuDNN', '9.5.0.50', versionsuffix, SYSTEM),
+    ('NCCL', '2.22.3', versionsuffix),
     ('Python', '3.12.3'),
     ('h5py', '3.12.1'),
     ('cURL', '8.7.1'),
@@ -94,7 +98,10 @@ exts_list = [
         'source_tmpl': 'v%(version)s.tar.gz',
         'source_urls': ['https://github.com/tensorflow/tensorflow/archive/'],
         'test_script': 'TensorFlow-2.x_mnist-test.py',
-        'test_tag_filters_cpu': '-gpu,-tpu,-no_cuda_on_cpu_tap,-no_pip,-no_oss,-oss_serial,-benchmark-test,-v1only',
+        'test_tag_filters_cpu': (
+            '-gpu,-tpu,-no_cuda_on_cpu_tap,'
+            '-no_pip,-no_oss,-oss_serial,-benchmark-test,-v1only'
+        ),
         'test_tag_filters_gpu': (
             'gpu,-no_gpu,-nogpu,-gpu_cupti,-no_cuda11,'
             '-no_pip,-no_oss,-oss_serial,-benchmark-test,-v1only'
