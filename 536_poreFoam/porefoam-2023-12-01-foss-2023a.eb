@@ -43,6 +43,9 @@ prebuildopts += "sed -i 's/private List/public List/g' "
 prebuildopts += "pkgs/foamx4m/src/foam/containers/Lists/PackedList/PackedList.H && "
 prebuildopts += "sed -i '/using unique_void_ptr/d;s/unique_void_ptr/std::unique_ptr<void, deleter_t>/g' "
 prebuildopts += "pkgs/foamx4m/src/surfMesh/surfaceFormats/vtk/VTKsurfaceFormatCore.H && "
+prebuildopts += "sed -i 's/#include <functional>/#include <functional>\\n"
+prebuildopts += "#include <memory>/g' pkgs/foamx4m/src/surfMesh/surfaceFormats/vtk/VTKsurfaceFormatCore.H && "
+prebuildopts += "sed -i 's/typename First=uint8_t/typename First/g' src/libvoxel/voxelImage.cpp && "
 
 sanity_check_paths = {
     'files': ['bin/interFaceFoam', 'bin/smoothMesh', 'bin/voxelToSurface'],
@@ -54,12 +57,17 @@ sanity_check_commands = ["voxelToFoam --help | grep 'convert micro-CT images to 
 moduleclass = 'cae'
 
 # TODO
-# In file included from surfaceFormats/vtk/VTKsurfaceFormatCore.C:27:
-# surfaceFormats/vtk/VTKsurfaceFormatCore.H: At global scope:
-# surfaceFormats/vtk/VTKsurfaceFormatCore.H:50:1: note: ‘std::unique_ptr’ is defined in header ‘<memory>’; did you forget to ‘#include <memory>’?
-#    49 | #include <functional>
-#   +++ |+#include <memory>
-#    50 | using deleter_t = std::function<void(void *)>;
-# surfaceFormats/vtk/VTKsurfaceFormatCore.H:55:57: error: ‘unique_ptr’ is not a member of ‘std’
-#    55 | using objRegistry = std::unordered_map<std::string,std::unique_ptr<void, deleter_t>>;
-#       |                                                         ^~~~~~~~~~
+# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.cpp: At global scope:
+# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.cpp:622:22: error: redefinition of default argument for ‘class First’
+#   622 | template<class InpT, typename First=uint8_t, typename... Rest>
+#       |                      ^~~~~~~~
+# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.h:277:22: note: original definition appeared here
+#   277 | template<class InpT, typename First=uint8_t, typename... Rest> int vxlProcess(const InpT& inks, voxelImageTBase* ptr, std::string nam="");
+#       |                      ^~~~~~~~
+# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.cpp: At global scope:
+# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.cpp:622:22: error: redefinition of default argument for ‘class First’
+#   622 | template<class InpT, typename First=uint8_t, typename... Rest>
+#       |                      ^~~~~~~~
+# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.h:277:22: note: original definition appeared here
+#   277 | template<class InpT, typename First=uint8_t, typename... Rest> int vxlProcess(const InpT& inks, voxelImageTBase* ptr, std::string nam="");
+#       |                      ^~~~~~~~
