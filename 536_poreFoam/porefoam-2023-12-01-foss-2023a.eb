@@ -45,7 +45,10 @@ prebuildopts += "sed -i '/using unique_void_ptr/d;s/unique_void_ptr/std::unique_
 prebuildopts += "pkgs/foamx4m/src/surfMesh/surfaceFormats/vtk/VTKsurfaceFormatCore.H && "
 prebuildopts += "sed -i 's/#include <functional>/#include <functional>\\n"
 prebuildopts += "#include <memory>/g' pkgs/foamx4m/src/surfMesh/surfaceFormats/vtk/VTKsurfaceFormatCore.H && "
+# fixes `error: redefinition of default argument for ‘class First’`
 prebuildopts += "sed -i 's/typename First=uint8_t/typename First/g' src/libvoxel/voxelImage.cpp && "
+# fixes `error: reference to ‘filesystem’ is ambiguous`
+prebuildopts += "sed -i 's/filesystem::current_path().string()/std::experimental::filesystem::current_path().string()/g' src/libvoxel/globals.h && "
 
 sanity_check_paths = {
     'files': ['bin/interFaceFoam', 'bin/smoothMesh', 'bin/voxelToSurface'],
@@ -57,17 +60,19 @@ sanity_check_commands = ["voxelToFoam --help | grep 'convert micro-CT images to 
 moduleclass = 'cae'
 
 # TODO
-# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.cpp: At global scope:
-# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.cpp:622:22: error: redefinition of default argument for ‘class First’
-#   622 | template<class InpT, typename First=uint8_t, typename... Rest>
-#       |                      ^~~~~~~~
-# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.h:277:22: note: original definition appeared here
-#   277 | template<class InpT, typename First=uint8_t, typename... Rest> int vxlProcess(const InpT& inks, voxelImageTBase* ptr, std::string nam="");
-#       |                      ^~~~~~~~
-# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.cpp: At global scope:
-# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.cpp:622:22: error: redefinition of default argument for ‘class First’
-#   622 | template<class InpT, typename First=uint8_t, typename... Rest>
-#       |                      ^~~~~~~~
-# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.h:277:22: note: original definition appeared here
-#   277 | template<class InpT, typename First=uint8_t, typename... Rest> int vxlProcess(const InpT& inks, voxelImageTBase* ptr, std::string nam="");
-#       |                      ^~~~~~~~
+# In file included from /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/typses.h:67,
+#                  from /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelImage.h:33,
+#                  from /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/voxelToFoamPar.cpp:34:
+# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/globals.h: In function ‘std::string getpwd()’:
+# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/globals.h:18:38: error: reference to ‘filesystem’ is ambiguous
+#    18 | inline std::string getpwd() { return filesystem::current_path().string(); }
+#       |                                      ^~~~~~~~~~
+# In file included from /kyukon/home/apps/RHEL9/zen4-ib/software/GCCcore/12.3.0/include/c++/12.3.0/experimental/bits/fs_fwd.h:39,
+#                  from /kyukon/home/apps/RHEL9/zen4-ib/software/GCCcore/12.3.0/include/c++/12.3.0/experimental/filesystem:37,
+#                  from /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/globals.h:16:
+# /kyukon/home/apps/RHEL9/zen4-ib/software/GCCcore/12.3.0/include/c++/12.3.0/bits/chrono.h:52:13: note: candidates are: ‘namespace std::filesystem { }’
+#    52 |   namespace filesystem { struct __file_clock; };
+#       |             ^~~~~~~~~~
+# /dev/shm/vsc45304/software/porefoam/2023-12-01-foss-2023a/src/libvoxel/globals.h:17:53: note:                 ‘namespace filesystem = std::experimental::std::experimental::filesystem;’
+#    17 | namespace filesystem = std::experimental::filesystem;
+#       |                                                     ^
