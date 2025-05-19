@@ -45,7 +45,7 @@ dependencies = [
     ('HarfBuzz', '5.3.1'),
     ('MAFFT', '7.520', '-with-extensions'),
     ('scikit-bio', '0.6.0'),
-    ('scikit-learn', '1.4.0'),
+    ('scikit-learn', '1.3.1'),
     ('Seaborn', '0.13.2'),
     ('statsmodels', '0.14.1'),
     ('umap-learn', '0.5.5'),
@@ -273,3 +273,15 @@ sanity_check_commands = [
 modextrapaths = {'CONDA_PREFIX': ''}
 
 moduleclass = 'bio'
+
+#  File "/tmp/vsc47063/easybuild/build/QIIME2/2024.2.0/foss-2023a-amplicon/unifrac/unifrac-1.3/setup.py", line 61, in run_compile_ssu
+#           self.execute(compile_ssu, [], 'Compiling SSU')
+#         File "/apps/gent/RHEL9/zen4-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 339, in execute
+#           util.execute(func, args, msg, dry_run=self.dry_run)
+#         File "/apps/gent/RHEL9/zen4-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/setuptools/_distutils/util.py", line 337, in execute
+#           func(*args)
+#         File "/tmp/vsc47063/easybuild/build/QIIME2/2024.2.0/foss-2023a-amplicon/unifrac/unifrac-1.3/setup.py", line 46, in compile_ssu
+#           cmd = ["ln", "-s", os.environ.get('CONDA_PREFIX') + '/include/' + f,
+#                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+#       TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+#       [end of output]
