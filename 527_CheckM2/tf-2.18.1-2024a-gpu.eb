@@ -156,8 +156,32 @@ exts_list = [
 
 moduleclass = 'lib'
 
+# E04: OK
+    # -> fixed in tf block -> OK
+    # -> fix on Slack https://easybuild.slack.com/archives/C34UA1HT7/p1747402906824849?thread_ts=1747331139.051349&cid=C34UA1HT7
+        # I found https://github.com/tensorflow/tensorflow/issues/78846 matching this with a comment from (seemingly) a Spack developer:
+        # > In addition to:
+        # TF_NEED_CUDA=1
+        # TF_CUDA_COMPUTE_CAPABILITIES=...
+        # > we also needed to set:
+        # CUDA_NVCC=1
+        # HERMETIC_CUDA_COMPUTE_CAPABILITIES=...
+    # <- log7.txt <- during bazel install tf
+        # gcc: error: unrecognized command-line option '--cuda-gpu-arch=sm_35'
+        # gcc: error: unrecognized command-line option '--cuda-include-ptx=sm_70'
+        # gcc: error: unrecognized command-line option '--cuda-gpu-arch=sm_70'
+        # gcc: error: unrecognized command-line option '-Xcuda-fatbinary=--compress-all'
+        # gcc: error: unrecognized command-line option '-nvcc_options=expt-relaxed-constexpr'
+        # gcc: error: unrecognized command-line option '-nvcc_options'
+        # gcc: error: unrecognized command-line option '-nvcc_options'
+        # gcc: error: unrecognized command-line option '-nvcc_options'
+        # Target //tensorflow/tools/pip_package:wheel failed to build
+        # INFO: Elapsed time: 246.672s, Critical Path: 20.30s
+        # INFO: 5982 processes: 5099 internal, 883 local.
+        # FAILED: Build did NOT complete successfully
+
 # E03:
-    # on shinx it stucks on 'installing extension tensorflow' forever -> unset OMP_PROC_BIND before run -> 
+    # on shinx it stucks on 'installing extension tensorflow' forever -> unset OMP_PROC_BIND before run -> NO
     
 # E02: OK
         # -> from 2.16.1 estimator is not needed by TF:
