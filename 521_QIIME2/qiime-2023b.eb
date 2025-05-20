@@ -66,10 +66,10 @@ dependencies = [
 ]
 
 exts_list = [
-    ('unifrac', '1.3', {
+    ('unifrac', '1.3.1', {
         'source_urls': ['https://github.com/biocore/unifrac/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'checksums': ['e8cc37c3d5aaa31494c218df8a336eae135049d6840023d057da4fda8c4a4377'],
+        'checksums': ['32e922d2c448d9a1359fe66de65a92282833aad47e0cf3963e279a048896143d'],
     }),
     ('jsonlines', '3.1.0', {
         'checksums': ['2579cb488d96f815b0eb81629e3e6b0332da0962a18fa3532958f7ba14a5c37f'],
@@ -138,6 +138,7 @@ exts_list = [
         ],
     }),
     ('q2cli', version, {
+        'preinstallopts': 'export HOME=%(builddir)s/home && ',
         'source_urls': ['https://github.com/qiime2/q2cli/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['919ef1c765bb3dadb23535657388f8b90ca9e85624f98a9bd3b419f8e3432c7d'],
@@ -269,6 +270,7 @@ sanity_check_commands = [
     "%(installdir)s/lib/python%(pyshortver)s/site-packages/q2_sample_classifier/tests/data/vaw.qza",
 ]
 
-modextrapaths = {'CONDA_PREFIX': ''}
+# modextrapaths = {'CONDA_PREFIX': ''}
+modextravars = {'CONDA_PREFIX': ''}
 
 moduleclass = 'bio'
