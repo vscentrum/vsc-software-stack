@@ -36,6 +36,7 @@ install_cmds = [
     'mkdir -p %(installdir)s/bin',
     'cp -a %(builddir)s/%(namelower)s*/*/* %(installdir)s/bin/',
     'cp -a %(builddir)s/utils*/run* %(installdir)s/bin/',
+    'chmod +x %(installdir)s/bin/*',
     'echo localhost >%(installdir)s/bin/nodes.par',
 ]
 
