@@ -1,0 +1,61 @@
+--- cmake/hictkConfig.cmake.in.orig	2025-04-09 11:28:30.000000000 +0200
++++ cmake/hictkConfig.cmake.in	2025-05-20 08:51:31.976853246 +0200
+@@ -13,7 +13,18 @@
+     find_dependency(Arrow CONFIG QUIET REQUIRED)
+ endif()
+ 
+-find_dependency(bshoshany-thread-pool CONFIG QUIET REQUIRED)
++include(FetchContent)
++set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
++FetchContent_Declare(
++    bshoshany_thread_pool
++    GIT_REPOSITORY https://github.com/bshoshany/thread-pool.git
++    GIT_TAG v5.0.0
++    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
++    EXCLUDE_FROM_ALL
++    SYSTEM
++)
++FetchContent_MakeAvailable(bshoshany_thread_pool)
++
+ find_dependency(concurrentqueue CONFIG QUIET REQUIRED)
+ 
+ if(HICTK_WITH_EIGEN)
+--- src/libhictk/balancing/CMakeLists.txt.orig  2025-04-09 11:28:30.000000000 +0200
++++ src/libhictk/balancing/CMakeLists.txt       2025-05-20 09:15:06.926899949 +0200
+@@ -2,8 +2,25 @@
+ #
+ # SPDX-License-Identifier: MIT
+ 
+-find_package(bshoshany-thread-pool REQUIRED QUIET)
+-find_package(phmap REQUIRED QUIET)
++include(FetchContent)
++set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
++FetchContent_Declare(
++    bshoshany_thread_pool
++    GIT_REPOSITORY https://github.com/bshoshany/thread-pool.git
++    GIT_TAG v5.0.0
++    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
++    EXCLUDE_FROM_ALL
++    SYSTEM
++)
++FetchContent_MakeAvailable(bshoshany_thread_pool)
++
++FetchContent_Declare(
++    parallel-hashmap
++    GIT_REPOSITORY https://github.com/greg7mdp/parallel-hashmap.git
++    GIT_TAG        v2.0.0    # adjust tag/branch/commit as needed
++)
++FetchContent_MakeAvailable(parallel-hashmap)
++
+ find_package(span-lite REQUIRED QUIET)
+ find_package(zstd REQUIRED QUIET)
+ 
+@@ -50,7 +67,7 @@
+   INTERFACE
+     bshoshany-thread-pool::bshoshany-thread-pool
+     nonstd::span-lite
+-    phmap
++    parallel-hashmap
+     "zstd::libzstd_$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static>"
+ )
+ 

@@ -12,18 +12,20 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 source_urls = ['https://github.com/paulsengroup/hictk/archive/']
 sources = ['v%(version)s.tar.gz']
-checksums = ['0a00eb9cc599fa80f4d6edafd4f0bc4db75863e7d11337775fc3f2547aa7c829']
+patches = ['hictk-2.1.1_CMake_deps.patch']
+checksums = [
+    '0a00eb9cc599fa80f4d6edafd4f0bc4db75863e7d11337775fc3f2547aa7c829',  # v2.1.1.tar.gz
+    'a84d1697cd42fab428d8d5ab7dae5542c9aa3eb1aa48febe856089496325c9c4',  # hictk-2.1.1_CMake_deps.patch
+]
 
 builddependencies = [
     ('binutils', '2.40'),
     ('CMake', '3.26.3'),
-    # ('conan', '1.60.2'),
 ]
 
 dependencies = [
     ('Arrow', '14.0.1'),
     ('Boost', '1.82.0'),
-    # ('bshoshany-thread-pool', '5.0.0'),  # TODO
     ('bzip2', '1.0.8'),
     ('Catch2', '2.13.9'),
     ('CLI11', '2.5.0'),
@@ -51,64 +53,23 @@ dependencies = [
     ('zlib', '1.2.13'),
 ]
 
-# TODO 
-# arrow/19.0.1: Not found in local cache, looking in remotes...
-# arrow/19.0.1: Trying with 'conancenter'...
-# ERROR: Failed requirement 'arrow/19.0.1' from 'conanfile.py (hictk/None)'
-# ERROR: Unable to find 'arrow/19.0.1#f6937fd566ecbec1eab37b40e292dfec' in remotes
-# preconfigopts = 'conan install --build=missing -pr default -s build_type=Release'
-# preconfigopts += ' -s compiler.cppstd=17 --output-folder=%(builddir)s %(builddir)s/%(name)s-%(version)s && '
-
-# sanity_check_paths = {
-#     'files': ['bin/%(namelower)s', f'lib/lib%(namelower)s.{SHLIB_EXT}'],
-#     'dirs': ['include'],
-# }
-
-# sanity_check_commands = [
-#     "%(namelower)s -v",
-#     "%(namelower)s -h 2>&1 | grep 'pattern.*in.*output'",
-# ]
-
 moduleclass = 'tools'
 
 # TODO
-# -- The C compiler identification is GNU 12.3.0
-# -- The CXX compiler identification is GNU 12.3.0
-# -- Detecting C compiler ABI info
-# -- Detecting C compiler ABI info - done
-# -- Check for working C compiler: /tmp/vsc45304/eb-jrkw9mjc/tmpp5gw_rg9/rpath_wrappers/gcc_wrapper/gcc - skipped
-# -- Detecting C compile features
-# -- Detecting C compile features - done
-# -- Detecting CXX compiler ABI info
-# -- Detecting CXX compiler ABI info - done
-# -- Check for working CXX compiler: /tmp/vsc45304/eb-jrkw9mjc/tmpp5gw_rg9/rpath_wrappers/gxx_wrapper/g++ - skipped
-# -- Detecting CXX compile features
-# -- Detecting CXX compile features - done
-# -- Developer mode is OFF. For developement, use `-DENABLE_DEVELOPER_MODE:BOOL=ON`. Building the project for the end-user...
-# -- Interprocedural optimization is enabled. In other projects, linking with the compiled libraries of this project might require `set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)`
-# CMake Warning at /tmp/vsc45304/easybuild/build/hictk/2.1.1/foss-2023a/easybuild_obj/_deps/_hictk_project_options-src/src/Cache.cmake:23 (message):
-#   ccache is enabled but was not found.  Not using it
-# Call Stack (most recent call first):
-#   /tmp/vsc45304/easybuild/build/hictk/2.1.1/foss-2023a/easybuild_obj/_deps/_hictk_project_options-src/src/Index.cmake:247 (enable_cache)
-#   /tmp/vsc45304/easybuild/build/hictk/2.1.1/foss-2023a/easybuild_obj/_deps/_hictk_project_options-src/src/DynamicProjectOptions.cmake:250 (project_options)
-#   CMakeLists.txt:107 (dynamic_project_options)
+# CMake Error at src/libhictk/balancing/CMakeLists.txt:25 (find_package):
+#   By not providing "Findzstd.cmake" in CMAKE_MODULE_PATH this project has
+#   asked CMake to find a package configuration file provided by "zstd", but
+#   CMake did not find one.
+#
+#   Could not find a package configuration file provided by "zstd" with any of
+#   the following names:
+#
+#     zstdConfig.cmake
+#     zstd-config.cmake
+#
+#   Add the installation prefix of "zstd" to CMAKE_PREFIX_PATH or set
+#   "zstd_DIR" to a directory containing one of the above files.  If "zstd"
+#   provides a separate development package or SDK, be sure it has been
+#   installed.
+#
 
-
-# CMake Error at src/libhictk/balancing/CMakeLists.txt:5 (find_package):
-#   By not providing "Findbshoshany-thread-pool.cmake" in CMAKE_MODULE_PATH
-#   this project has asked CMake to find a package configuration file provided
-#   by "bshoshany-thread-pool", but CMake did not find one.
-
-#   Could not find a package configuration file provided by
-#   "bshoshany-thread-pool" with any of the following names:
-
-#     bshoshany-thread-poolConfig.cmake
-#     bshoshany-thread-pool-config.cmake
-
-#   Add the installation prefix of "bshoshany-thread-pool" to CMAKE_PREFIX_PATH
-#   or set "bshoshany-thread-pool_DIR" to a directory containing one of the
-#   above files.  If "bshoshany-thread-pool" provides a separate development
-#   package or SDK, be sure it has been installed.
-
-
-# -- Configuring incomplete, errors occurred!
