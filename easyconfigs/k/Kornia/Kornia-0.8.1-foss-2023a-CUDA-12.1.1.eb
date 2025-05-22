@@ -21,6 +21,8 @@ dependencies = [
     ('PyTorch', '2.1.2', versionsuffix),
 ]
 
+use_pip = True
+
 _whl_tmpl = '%(name)s-%(version)s-cp311-cp311-manylinux_2_17_{}.manylinux2014_{}.whl'
 
 exts_list = [
@@ -35,5 +37,7 @@ exts_list = [
         'checksums': ['65b54a50f70c1f88240b557fda3fdcc1ab866982a5d062e52213130f5a48465c'],
     }),
 ]
+
+sanity_pip_check = True
 
 moduleclass = 'vis'
