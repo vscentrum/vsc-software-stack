@@ -1,0 +1,65 @@
+easyblock = 'PythonBundle'
+
+name = 'pycomlink'
+version = '0.4.1'
+
+homepage = 'https://github.com/pycomlink/pycomlink'
+description = """
+A python toolbox for deriving rainfall information from commercial microwave link (CML) data.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [
+    ('poetry', '1.5.1'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+    ('numba', '0.58.1'),
+    ('h5py', '3.9.0'),
+    ('xarray', '2023.9.0'),
+    ('netcdf4-python', '1.6.4'),
+    ('Shapely', '2.0.1'),
+    ('tqdm', '4.66.1'),
+    ('pyproj', '3.6.0'),
+    ('scikit-learn', '1.3.1'),
+]
+
+exts_list = [
+    ('sparse', '0.17.0', {
+        # fixes TypeError: Configuration.__init__() got an unexpected keyword argument 'version_file'
+        'source_tmpl': SOURCE_WHL,
+        'checksums': ['1922d1d97f692b1061c4f03a1dd6ee21850aedc88e171aa845715f5069952f18'],
+    }),
+    ('pykrige', '1.7.2', {
+        'checksums': ['25b45a4173714c0b62098d19019404cb3978fa8bd8abae9ba55a272a53979e35'],
+    }),
+    ('future', '1.0.0', {
+        'checksums': ['bd2968309307861edae1458a4f8a4f3598c03be43b97521076aebf5d94c07b05'],
+    }),
+    ('poligrain', '0.3.0', {
+        # fixes ModuleNotFoundError: No module named 'poetry_dynamic_versioning'
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['efd4addf35021b1dbf13f5716b3f66e549e0b127d8e71cad332b01fbecdf4134'],
+    }),
+    (name, version, {
+        # fixes FileNotFoundError: [Errno 2] No such file or directory: 'requirements.txt'
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['e46539697006b1cc71f4212eab2046fec77af036710c7b49dba8f7cf744c79ff'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'phys'
+
+#TODO
+# poligrain 0.3.0 has requirement llvmlite>=0.42.0, but you have llvmlite 0.41.1.
+# poligrain 0.3.0 has requirement matplotlib>=3.8.2, but you have matplotlib 3.7.2.
+# poligrain 0.3.0 has requirement netcdf4>=1.6.5, but you have netcdf4 1.6.4.
+# poligrain 0.3.0 has requirement pyproj>=3.6.1, but you have pyproj 3.6.0.
+# poligrain 0.3.0 has requirement scipy>=1.12.0, but you have scipy 1.11.1.
+# poligrain 0.3.0 has requirement xarray>=2023.12.0, but you have xarray 2023.9.0.
