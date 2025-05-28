@@ -20,7 +20,7 @@ class PsN(PerlModule):
 
     def install_perl_module(self):
         rlibdir = self.installdir
-        cmd = 'R_LIBS_SITE=%s perl setup.pl' % rlibdir
+        cmd = 'R_LIBS_SITE=%s:${R_LIBS_SITE} perl setup.pl' % rlibdir
 
         bindir = os.path.join(self.installdir, 'bin')
         libdir = os.path.join(self.installdir, self.cfg['perllib'])
