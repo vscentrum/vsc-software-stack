@@ -6,10 +6,12 @@ homepage = 'https://www.ks.uiuc.edu/Research/namd/'
 description = """NAMD is a parallel molecular dynamics code designed for high-performance simulation of
  large biomolecular systems."""
 
-toolchain = {'name': 'foss', 'version': '2023a'}
+toolchain = {'name': 'foss', 'version': '2024a'}
 toolchainopts = {'usempi': False, 'openmp': False, 'pic': True}
 
-
+# By downloading, you accept the HPC SDK Software License Agreement
+# https://docs.nvidia.com/hpc-sdk/eula/index.html
+# accept_eula = True
 sources = ['NAMD_%(version)s_Source.tar.gz']
 # download_instructions = f'Manually obtain {sources[0]} at'
 # download_instructions += ' https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD'
@@ -24,12 +26,12 @@ checksums = [
 ]
 
 dependencies = [
-    ('Tcl', '8.6.13'),
-    ('CUDA', '12.1.1', '', SYSTEM),
+    ('Tcl', '8.6.14'),
+    ('CUDA', '12.6.0', '', SYSTEM),
 ]
 
 builddependencies = [
-    ('tcsh', '6.24.10'),
+    ('tcsh', '6.24.13'),
 ]
 
 charm_arch = "multicore-linux-%(arch)s"
@@ -48,6 +50,6 @@ moduleclass = 'chem'
 # CharmLB> Load balancer assumes all CPUs are same.
 # Charm++> Running on 1 hosts (2 sockets x 4 cores x 1 PUs = 8-way SMP)
 # Charm++> cpu topology info is gathered in 0.001 seconds.
-# Info: Built with CUDA version 12010
+# Info: Built with CUDA version 12060
 # FATAL ERROR: CUDA error cudaGetDeviceCount(&deviceCount) in file src/DeviceCUDA.C, function initialize, line 157
 #  on Pe 0 (node4236.shinx.os): CUDA driver version is insufficient for CUDA runtime version
