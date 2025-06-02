@@ -9,18 +9,11 @@ description = """NAMD is a parallel molecular dynamics code designed for high-pe
 toolchain = {'name': 'foss', 'version': '2023a'}
 toolchainopts = {'usempi': False, 'openmp': False, 'pic': True}
 
-
 sources = ['NAMD_%(version)s_Source.tar.gz']
-# download_instructions = f'Manually obtain {sources[0]} at'
-# download_instructions += ' https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD'
-# patches = [
-#     "%(name)s-%(version)s_Linux-POWER-cuda.patch",
-#     "%(name)s-%(version)s-use_system_mremap_decl.patch"
-# ]
+download_instructions = f'Manually obtain {sources[0]} at'
+download_instructions += ' https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD'
 checksums = [
     '3be0854545c45e58afb439a96708e127aef435d30113cc89adbab8f4b6888733',  # NAMD_2.14_Source.tar.gz
-    # 'db4aeb482dfa805c859ea18940026395763169e0257401ee5341ca550029031c',  # NAMD-2.14_Linux-POWER-cuda.patch
-    # 'a838bd66a8f741247436687bd355c439f3d77542996d96e091b8b6bd0ccc34e2',  # NAMD-2.14-use_system_mremap_decl.patch
 ]
 
 dependencies = [
@@ -36,18 +29,3 @@ charm_arch = "multicore-linux-%(arch)s"
 charm_extra_cxxflags = '-fpermissive'
 
 moduleclass = 'chem'
-
-# TODO
-# Charm++> No provisioning arguments specified. Running with a single PE.
-#          Use +auto-provision to fully subscribe resources or +p1 to silence this message.
-# Charm++: standalone mode (not using charmrun)
-# Charm++> Running in Multicore mode: 1 threads (PEs)
-# Charm++> Using recursive bisection (scheme 3) for topology aware partitions
-# Converse/Charm++ Commit ID:
-# CUDA initialization error on node4236.shinx.os: CUDA driver version is insufficient for CUDA runtime version
-# CharmLB> Load balancer assumes all CPUs are same.
-# Charm++> Running on 1 hosts (2 sockets x 4 cores x 1 PUs = 8-way SMP)
-# Charm++> cpu topology info is gathered in 0.001 seconds.
-# Info: Built with CUDA version 12010
-# FATAL ERROR: CUDA error cudaGetDeviceCount(&deviceCount) in file src/DeviceCUDA.C, function initialize, line 157
-#  on Pe 0 (node4236.shinx.os): CUDA driver version is insufficient for CUDA runtime version
