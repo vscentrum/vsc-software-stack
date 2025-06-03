@@ -17,7 +17,7 @@ toolchain = {'name': 'intel', 'version': '2023a'}
     # OK fonttools==4.27.1 in matplotlib is 4.42.0
     # OK h5py==3.1.0 - NOT for intel -> CREATED
     # OK kiwisolver==1.3.1 in matplotlib is 1.4.4
-    # OK matplotlib==3.3.4 have 3.7.2 -> error -> fix matplotlib and countoutpy -> OK
+    # OK matplotlib==3.3.4 have 3.7.2 -> error -> fix matplotlib and countourpy -> OK
     # ok mypy-extensions==0.4.3
     # OK numpy==1.19.5 have 1.25.1
     # OK packaging==21.3 have 23.1 in py
@@ -38,6 +38,7 @@ dependencies = [
     ('matplotlib', '3.7.2'),
     ('Pillow', '10.0.0'),
     ('PyYAML', '6.0'),
+    ('h5py', '3.9.0'),
     ('OpenMolcas', '24.10'),
 ]
 
@@ -46,10 +47,13 @@ exts_list = [
         'checksums': ['2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8'],
     }),
     (name, version, {
+        'preinstallopts': "sed -i 's/==.*//g' requirements.txt &&",
         'source_tmpl': 'scine_autocas-%(version)s.tar.gz',
         'checksums': ['a2d58299edc8e110fbfb9e95049a68ba6a69c81d32101cb9c3d202677985b226'],
     }),
 ]
+
+sanity_check_commands = ["python3 -m scine_autocas -h"]
 
 moduleclass = 'chem'
 
