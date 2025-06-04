@@ -1,0 +1,141 @@
+easyblock = 'CMakeMake'
+
+name = 'OpenMolcas'
+version = '25.02'
+versionsuffix = '-DMRG'
+
+homepage = "https://gitlab.com/Molcas/OpenMolcas"
+description = "OpenMolcas is a quantum chemistry software package."
+
+toolchain = {'name': 'intel', 'version': '2023a'}
+toolchainopts = {'usempi': True, 'optarch': False, 'cstd': 'gnu89', 'extra_cflags': '-std=gnu89'}  # optarch required to pass all tests
+
+source_urls = ['https://gitlab.com/Molcas/OpenMolcas/-/archive/v%(version)s/']
+sources = ["%(name)s-v%(version)s.tar.gz"]
+patches = ['%(name)s-23.06_mcpdft_deps.patch']
+checksums = [
+    {'OpenMolcas-v25.02.tar.gz': '7d25d4f0563bf3c1c08ed4b48c50e38fc9a8ece77f28661d55886df6e88dcf26'},
+    {'OpenMolcas-23.06_mcpdft_deps.patch': 'a798ec6f93a19539aa2211a978da461d4ecd31c5521b9dab6f2a9b1c2fa65f0e'},
+]
+
+builddependencies = [('CMake', '3.26.3')]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('lxml', '4.9.2'),
+    ('HDF5', '1.14.0', '-serial'),
+    ('GlobalArrays', '5.8.2'),
+    ('libxc', '6.2.2'),
+    ('GSL', '2.7'),
+    ('Boost', '1.82.0'),
+]
+
+build_shared_libs = True
+
+preconfigopts = 'export CFLAGS="$CFLAGS -std=gnu89" && '
+preconfigopts += 'GAROOT=$EBROOTGLOBALARRAYS'
+_copts = [
+    '-DLINALG=MKL',
+    '-DMKLROOT=$MKLROOT',
+    '-DOPENMP=ON',
+    '-DTOOLS=ON',
+    '-DFDE=ON',
+    '-DMPI=ON',
+    '-DGA=ON',
+    '-DEXTERNAL_LIBXC=$EBROOTLIBXC',
+    '-DPython_ROOT=$EBROOTPYTHON',
+    '-DDMRG=ON',
+    '-DNEVPT2=ON',
+]
+configopts = ' '.join(_copts)
+# configopts += " --enable-c++ CPPFLAGS=-fgnu89-inline "
+# configopts += "CFLAGS=-std=c99 "
+configopts += " CFLAGS='-std=gnu89' "
+
+# prebuildopts = 'export CFLAGS="$CFLAGS -std=gnu89" && '
+# prebuildopts = 'export CFLAGS="-std=gnu89" && '
+# buildopts = "CFLAGS='-std=gnu89' CC='icc -std=gnu89'"
+
+prebuildopts = (
+    r"sed -i '1i\\#include <string.h>\\\n#include <time.h>' "
+    "%(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
+    r"sed -i 's/^gctime *(fstr, *lstr) *f77_char \\*fstr; *int lstr; *{/int gctime(f77_char fstr, int lstr) {/' "
+    "%(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
+    r"sed -i 's/^gctime_ *(fstr, *lstr) *f77_char \\*fstr; *int lstr; *{/int gctime_(f77_char fstr, int lstr) {/' "
+    "%(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
+    "sed -i '/long time(), t;/d' %(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
+    "sed -i '/char \\*ctime();/d' %(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
+)
+
+
+pretestopts = 'MOLCAS=%(builddir)s/easybuild_obj '
+pretestopts += 'MOLCAS_DRIVER=%(builddir)s/easybuild_obj/pymolcas '
+pretestopts += 'MOLCAS_SOURCE=%(builddir)s/easybuild_obj '
+pretestopts += 'PATH=%(builddir)s/easybuild_obj:$PATH '
+test_cmd = 'pymolcas verify'
+
+fix_python_shebang_for = ['pymolcas', 'Tools/AugerOca/*.py', 'Tools/AugerOca/auger_oca/*.py', 'Tools/mort/mort.py',
+                          'Tools/dynamixtools/dynamixtools.py']
+
+modextrapaths = {'PATH': ''}
+modextravars = {
+    'MOLCAS': '%(installdir)s',
+    'MOLCAS_DRIVER': '%(installdir)s/pymolcas',
+    'MOLCAS_SOURCE': '%(installdir)s',
+}
+
+sanity_check_commands = ['pymolcas --help']
+
+sanity_check_paths = {
+    'files': ['bin/dynamix.exe', 'bin/mpprop.exe', 'lib/libmolcas.%s' % SHLIB_EXT,
+              'sbin/help_basis', 'pymolcas'],
+    'dirs': ['data/', 'basis_library/'],
+}
+
+moduleclass = 'chem'
+
+#E2
+    # -> add 'cstd': 'gnu89' to toolchainopts -> 
+    # <- log2.txt
+        # tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c:4:1: error: type specifier missing, defaults to 'int'; ISO C99 and later do not support implicit int [-Wimplicit-int]
+        # gctime (fstr, lstr) f77_char *fstr; int lstr; {
+        # ^
+        # int
+        # /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c:7:13: warning: passing arguments to 'time' without a prototype is deprecated in all versions of C and is not supported in C2x [-Wdeprecated-non-prototype]
+        #    t = time ( (long *) 0);
+        #             ^
+        # /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c:8:4: error: call to undeclared library function 'strcpy' with type 'char *(char *, const char *)'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+        #    strcpy(CH_F2C(fstr),ctime(&t));
+        #    ^
+        # /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c:8:4: note: include the header <string.h> or explicitly provide a declaration for 'strcpy'
+        # /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c:8:29: warning: passing arguments to 'ctime' without a prototype is deprecated in all versions of C and is not supported in C2x [-Wdeprecated-non-prototype]
+        #    strcpy(CH_F2C(fstr),ctime(&t));
+        #                             ^
+        # /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c:4:1: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C2x [-Wdeprecated-non-prototype]
+        # gctime (fstr, lstr) f77_char *fstr; int lstr; {
+        # ^
+        # /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c:11:1: error: type specifier missing, defaults to 'int'; ISO C99 and later do not support implicit int [-Wimplicit-int]
+        # gctime_(fstr, lstr) f77_char *fstr; int lstr; {
+        # ^
+        # int
+        # /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c:14:13: warning: passing arguments to 'time' without a prototype is deprecated in all versions of C and is not supported in C2x [-Wdeprecated-non-prototype]
+        #    t = time ( (long *) 0);
+        #             ^
+        # /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c:15:29: warning: passing arguments to 'ctime' without a prototype is deprecated in all versions of C and is not supported in C2x [-Wdeprecated-non-prototype]
+        #    strcpy(CH_F2C(fstr),ctime(&t));
+        #                             ^
+        # /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c:11:1: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C2x [-Wdeprecated-non-prototype]
+        # gctime_(fstr, lstr) f77_char *fstr; int lstr; {
+        # ^
+        # 6 warnings and 3 errors generated.
+
+#E1: OK
+    # -> crate HDF5-serial -> OK but E2...
+    # -> try to build QSmaquis -> it still needs HDF5 with iimpi -> NO
+        # CMake Warning at alps/CMakeLists.txt:49 (MESSAGE):
+        #   parallel(MPI) hdf5 is detected.  We will compile but ALPS does not use
+        #   parallel HDF5.  The standard version is preferred.
+        # CMake Error at alps/CMakeLists.txt:51 (MESSAGE):
+        #   parallel(MPI) hdf5 needs MPI.  Enable MPI or install serial HDF5 libraries.
+        # -- Configuring incomplete, errors occurred!
