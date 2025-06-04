@@ -11,7 +11,6 @@ interface for Python."""
 toolchain = {'name': 'gfbf', 'version': '2024a'}
 
 sources = [SOURCELOWER_TAR_GZ]
-patches = ['polars-1.28.1_polars-utils.patch']
 checksums = [
     {'polars-1.28.1.tar.gz': 'cdc0a62a1452e2daf1777e36fcf9351424cba2a588827cc32550fe0fa79dec82'},
     {'addr2line-0.24.2.tar.gz': 'dfbe277e56a376000877090da837660b4427aad530e3028d44e0bffe4f89a1c1'},
@@ -531,7 +530,6 @@ checksums = [
     {'zstd-0.13.3.tar.gz': 'e91ee311a569c327171651566e07972200e76fcfe2242a4fa446149a3881c08a'},
     {'zstd-safe-7.2.3.tar.gz': 'f3051792fbdc2e1e143244dc28c60f73d8470e93f3f9cbd0ead44da5ed802722'},
     {'zstd-sys-2.0.14+zstd.1.5.7.tar.gz': '8fb060d4926e4ac3a3ad15d864e99ceb5f343c6b34f5bd6d81ae6ed417311be5'},
-    {'polars-1.28.1_polars-utils.patch': '6dcd1d849a48855935e1b4303bf6fb86864bd4010dbeb58b4dfe9bff2751fc34'},
 ]
 
 builddependencies = [('maturin', '1.8.3', '-Rust-1.86.0')]
@@ -1073,6 +1071,8 @@ crates = [
     ('zstd-safe', '7.2.3'),
     ('zstd-sys', '2.0.14+zstd.1.5.7'),
 ]
+
+preinstallopts = 'export MATURIN_PEP517_ARGS="--no-default-features --features all" && '
 
 use_pip_extras = "deltalake,matplotlib,numpy,openpyxl,pandas,pyarrow"
 
