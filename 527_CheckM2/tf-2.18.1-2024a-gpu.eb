@@ -159,6 +159,23 @@ exts_list = [
 
 moduleclass = 'lib'
 
+#E2:
+    # -> add LOCAL_ to build command -> same error with cupti.h -> log03.txt
+        # https://gist.github.com/pavelToman/8d5dcb4becfc70f873e963de6603da79
+    # -> it is in: CUDA/12.6.0/extras/CUPTI/include/cupti.h
+    # -> goes from third_party/xla/xla/tsl/cuda/cupti_stub.cc
+    # <- on donphan with new LOCAL_ vars <- https://gist.github.com/pavelToman/604d681e26e69906807234995586f2c6
+        # # Configuration: 83a8fcc8d5eacc446943d43c652940a500879683068caf98334bb97736c6f248
+        # # Execution platform: @local_execution_config_platform//:platform
+        # /tmp/vsc47063/easybuild/build/TensorFlow/2.18.1/foss-2024a-CUDA-12.6.0/TensorFlow/bazel-root/ff7480e58a9aac53ea1227d23b94aedb/execroot/org_tensorflow/external/local_config_cuda/crosstool/clang/bin/crosstool_wrapper_driver_is_not_gcc:227: SyntaxWarning: invalid escape sequence '\.'
+        # re.search('\.cpp$|\.cc$|\.c$|\.cxx$|\.C$', f)]
+        # external/local_xla/xla/tsl/cuda/cupti_stub.cc:16:10: fatal error: third_party/gpus/cuda/extras/CUPTI/include/cupti.h: No such file or directory
+        # 16 | #include "third_party/gpus/cuda/extras/CUPTI/include/cupti.h"
+        #     |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # compilation terminated.
+        # Target //tensorflow/tools/pip_package:wheel failed to build
+
 # E1:
-# <- sanity_checks failing on donphan <- logA1.txt
-# <- test failing on joltik and accelgor
+    # failed again: https://gist.github.com/pavelToman/72c8550a186ce5e57790124e6bbca65a
+    # <- sanity_checks failing on donphan <- logA1.txt
+    # <- test failing on joltik and accelgor (report in PR)
