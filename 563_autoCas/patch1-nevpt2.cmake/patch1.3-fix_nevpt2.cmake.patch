@@ -1,0 +1,74 @@
+Fix for old C code of NEVPT2
+https://github.com/qcscine/nevpt2/issues/1
+Author: Pavel Tomanek (INUITS)
+--- cmake/custom/nevpt2.cmake.orig	2025-06-05 11:58:16.347737000 +0200
++++ cmake/custom/nevpt2.cmake	2025-06-05 11:59:41.059288000 +0200
+@@ -46,10 +46,6 @@
+   set (LINALG_LIBRARIES_FILES $<TARGET_FILE:blas> $<TARGET_FILE:lapack>)
+ endif()
+ 
+-# CMake does not support passing lists inside lists, so we need to
+-# replace the semicolons in the lists and pass them as normal strings
+-# and then replace the new separators with semicolons on the other side
+-
+ string(REPLACE ";" "<->" LINALG_LIBRARIES_NEVPT "${LINALG_LIBRARIES_FILES}")
+ list(APPEND NEVPT2CMakeArgs
+   "-DCMAKE_BUILD_TYPE=${NEVPT2_BUILD_TYPE}"
+@@ -77,28 +73,24 @@
+ endif()
+ 
+ if (MPI AND GA)
+-# MPI and GA
+-target_files(GA_LIBRARIES_FILES ${GA_LIBRARIES})
+-list(APPEND GA_LIBRARIES_FILES "${MPI_Fortran_LIBRARIES}")
+-string(REPLACE ";" "<->" GA_LIBRARIES_NEVPT "${GA_LIBRARIES_FILES}")
+-list(APPEND NEVPT2CMakeArgs
+-  "-DGA_LIBS=${GA_LIBRARIES_NEVPT}")
++  target_files(GA_LIBRARIES_FILES ${GA_LIBRARIES})
++  list(APPEND GA_LIBRARIES_FILES "${MPI_Fortran_LIBRARIES}")
++  string(REPLACE ";" "<->" GA_LIBRARIES_NEVPT "${GA_LIBRARIES_FILES}")
++  list(APPEND NEVPT2CMakeArgs
++    "-DGA_LIBS=${GA_LIBRARIES_NEVPT}")
+ endif()
+ 
+-
+ if (MAQUIS_DMRG_DIR)
+-list(APPEND NEVPT2CMakeArgs
+-  "-DMAQUIS_DMRG_DIR=${MAQUIS_DMRG_DIR}")
++  list(APPEND NEVPT2CMakeArgs
++    "-DMAQUIS_DMRG_DIR=${MAQUIS_DMRG_DIR}")
+ endif()
+ 
+-
+ ######################################
+ # git references for NEVPT2          #
+ ######################################
+ set(reference_git_repo https://github.com/qcscine/nevpt2.git)
+ set(reference_git_commit e1484fd)
+ 
+-
+ set(EP_PROJECT nevpt2_ext)
+ 
+ # Enabling source changes to keep ExternalProject happy
+@@ -125,6 +117,21 @@
+                     INSTALL_DIR "${PROJECT_BINARY_DIR}/qcmaquis"
+                    )
+ 
++# -------------- PATCH STEP FOR gctime.c -------------------
++ExternalProject_Add_Step(${EP_PROJECT} patch_gctime
++  COMMAND ${CMAKE_COMMAND} -E echo "Patching gctime.c in NEVPT2..."
++  COMMAND ${CMAKE_COMMAND} -E env bash -c "for i in {1..20}; do test -f ${CUSTOM_NEVPT2_LOCATION}/src/nevpt2_ext/src/gctime.c && exit 0; sleep 1; done; echo 'gctime.c not found!' && exit 1"
++  COMMAND sed -i 1i#include\ <string.h> ${CUSTOM_NEVPT2_LOCATION}/src/nevpt2_ext/src/gctime.c
++  COMMAND sed -i 2i#include\ <time.h> ${CUSTOM_NEVPT2_LOCATION}/src/nevpt2_ext/src/gctime.c
++  COMMAND sed -i 's/^gctime *(fstr, *lstr) *f77_char \*fstr; *int lstr; *{/int gctime(f77_char fstr, int lstr) {/' ${CUSTOM_NEVPT2_LOCATION}/src/nevpt2_ext/src/gctime.c
++  COMMAND sed -i 's/^gctime_ *(fstr, *lstr) *f77_char \*fstr; *int lstr; *{/int gctime_(f77_char fstr, int lstr) {/' ${CUSTOM_NEVPT2_LOCATION}/src/nevpt2_ext/src/gctime.c
++  COMMAND sed -i '/long time(), t;/d' ${CUSTOM_NEVPT2_LOCATION}/src/nevpt2_ext/src/gctime.c
++  COMMAND sed -i '/char \*ctime();/d' ${CUSTOM_NEVPT2_LOCATION}/src/nevpt2_ext/src/gctime.c
++  DEPENDEES update
++  ALWAYS 1
++)
++# ----------------------------------------------------------
++
+ ExternalProject_Add_Step (${EP_PROJECT} update_hash
+                           COMMAND echo ${reference_git_commit} > ${hash_file}
+                           DEPENDEES build

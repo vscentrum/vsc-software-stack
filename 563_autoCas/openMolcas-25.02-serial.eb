@@ -8,14 +8,19 @@ homepage = "https://gitlab.com/Molcas/OpenMolcas"
 description = "OpenMolcas is a quantum chemistry software package."
 
 toolchain = {'name': 'intel', 'version': '2023a'}
-toolchainopts = {'usempi': True, 'optarch': False, 'cstd': 'gnu89', 'extra_cflags': '-std=gnu89'}  # optarch required to pass all tests
+# toolchainopts = {'usempi': True, 'optarch': False, 'cstd': 'gnu89', 'extra_cflags': '-std=gnu89'}  # optarch required to pass all tests
+toolchainopts = {'usempi': True, 'optarch': False}
 
 source_urls = ['https://gitlab.com/Molcas/OpenMolcas/-/archive/v%(version)s/']
 sources = ["%(name)s-v%(version)s.tar.gz"]
-patches = ['%(name)s-23.06_mcpdft_deps.patch']
+patches = [
+    '%(name)s-23.06_mcpdft_deps.patch',
+    'patch1.1.0-fix_nevpt2.cmake.patch',
+]
 checksums = [
     {'OpenMolcas-v25.02.tar.gz': '7d25d4f0563bf3c1c08ed4b48c50e38fc9a8ece77f28661d55886df6e88dcf26'},
     {'OpenMolcas-23.06_mcpdft_deps.patch': 'a798ec6f93a19539aa2211a978da461d4ecd31c5521b9dab6f2a9b1c2fa65f0e'},
+    {'patch1.1.0-fix_nevpt2.cmake.patch': '06e3def784341db7221fe6c9f6768a9c5c4946ed98a7f9eb54f69de858a57c0b'},
 ]
 
 builddependencies = [('CMake', '3.26.3')]
@@ -33,8 +38,9 @@ dependencies = [
 
 build_shared_libs = True
 
-preconfigopts = 'export CFLAGS="$CFLAGS -std=gnu89" && '
-preconfigopts += 'GAROOT=$EBROOTGLOBALARRAYS'
+# preconfigopts = 'export CFLAGS="$CFLAGS -std=gnu89" && '
+# preconfigopts += 'GAROOT=$EBROOTGLOBALARRAYS'
+preconfigopts = 'GAROOT=$EBROOTGLOBALARRAYS'
 _copts = [
     '-DLINALG=MKL',
     '-DMKLROOT=$MKLROOT',
@@ -51,22 +57,22 @@ _copts = [
 configopts = ' '.join(_copts)
 # configopts += " --enable-c++ CPPFLAGS=-fgnu89-inline "
 # configopts += "CFLAGS=-std=c99 "
-configopts += " CFLAGS='-std=gnu89' "
+# configopts += " CFLAGS='-std=gnu89' "
 
 # prebuildopts = 'export CFLAGS="$CFLAGS -std=gnu89" && '
 # prebuildopts = 'export CFLAGS="-std=gnu89" && '
 # buildopts = "CFLAGS='-std=gnu89' CC='icc -std=gnu89'"
 
-prebuildopts = (
-    r"sed -i '1i\\#include <string.h>\\\n#include <time.h>' "
-    "%(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
-    r"sed -i 's/^gctime *(fstr, *lstr) *f77_char \\*fstr; *int lstr; *{/int gctime(f77_char fstr, int lstr) {/' "
-    "%(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
-    r"sed -i 's/^gctime_ *(fstr, *lstr) *f77_char \\*fstr; *int lstr; *{/int gctime_(f77_char fstr, int lstr) {/' "
-    "%(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
-    "sed -i '/long time(), t;/d' %(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
-    "sed -i '/char \\*ctime();/d' %(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
-)
+# prebuildopts = ( # /External/nevpt2_ext/src/nevpt2_ext is empty before builds
+    # r"sed -i '1i\\#include <string.h>\\\n#include <time.h>' "
+    # "%(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
+    # r"sed -i 's/^gctime *(fstr, *lstr) *f77_char \\*fstr; *int lstr; *{/int gctime(f77_char fstr, int lstr) {/' "
+    # "%(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
+    # r"sed -i 's/^gctime_ *(fstr, *lstr) *f77_char \\*fstr; *int lstr; *{/int gctime_(f77_char fstr, int lstr) {/' "
+    # "%(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
+    # "sed -i '/long time(), t;/d' %(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
+    # "sed -i '/char \\*ctime();/d' %(builddir)s/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c && "
+# )
 
 
 pretestopts = 'MOLCAS=%(builddir)s/easybuild_obj '
@@ -95,8 +101,19 @@ sanity_check_paths = {
 
 moduleclass = 'chem'
 
-#E2
-    # -> add 'cstd': 'gnu89' to toolchainopts -> 
+#E2 OK
+    # -> patch1.1.0 working -> OK
+    # -> patch1.0 to fix nevpt2.cmake -> patch is not ok: -> fixed patch1.1
+        # [ 60%] Performing patch_gctime step for 'nevpt2_ext'
+        # cd /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj/External/nevpt2_ext && /kyukon/home/app
+        # s/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/bin/cmake -E echo "Patching gctime.c in NEVPT2..."
+        # Patching gctime.c in NEVPT2...
+        # cd /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj/External/nevpt2_ext && sed -i "'1i"
+        # [ 60%] Performing configure step for 'nevpt2_ext'
+        # cd /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext-build && /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj/External -DCMAKE_Fortran_COMPILER=/apps/gent/RHEL9/cascadelake-ib/software/impi/2021.9.0-intel-compilers-2023.1.0/mpi/2021.9.0/bin/mpiifort "-DCMAKE_Fortran_FLAGS=-O2 -ftz -fp-speculation=safe -fp-model precise  -fpp -i8 -heap-arrays -qopenmp" -DCMAKE_C_COMPILER=/apps/gent/RHEL9/cascadelake-ib/software/impi/2021.9.0-intel-compilers-2023.1.0/mpi/2021.9.0/bin/mpiicc -DCMAKE_C_FLAGS= -DCMAKE_INSTALL_PREFIX:PATH=/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj/qcmaquis -DENABLE_DEBUG_DMRG=OFF -DENABLE_DMRG=ON -DENABLE_OPENMP=ON "-DMOLCAS_MATHLIBS=/apps/gent/RHEL9/cascadelake-ib/software/imkl/2023.1.0/mkl/2023.1.0/lib/intel64/libmkl_scalapack_ilp64.so<->/apps/gent/RHEL9/cascadelake-ib/software/imkl/2023.1.0/mkl/2023.1.0/lib/intel64/libmkl_intel_ilp64.so<->/apps/gent/RHEL9/cascadelake-ib/software/imkl/2023.1.0/mkl/2023.1.0/lib/intel64/libmkl_core.so<->/apps/gent/RHEL9/cascadelake-ib/software/imkl/2023.1.0/mkl/2023.1.0/lib/intel64/libmkl_intel_thread.so<->/apps/gent/RHEL9/cascadelake-ib/software/imkl/2023.1.0/mkl/2023.1.0/lib/intel64/libmkl_blacs_intelmpi_ilp64.so" -DENABLE_MOLCAS=ON -DMOLCAS_BUILD_DIR=/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj -DCMAKE_Fortran_MODULE_DIRECTORY=/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj/CMakeFiles/mod/nevpt2 -DDMRG_INCLUDE=/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj/CMakeFiles/mod "-DGA_LIBS=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/GlobalArrays/5.8.2-intel-2023a/lib/libga.a<->/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/GlobalArrays/5.8.2-intel-2023a/lib/libarmci.a<->" "-GUnix Makefiles" -S /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext -B /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext-build
+        # sed: -e expression #1, char 1: unknown command: `''
+        # make[2]: *** [/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj/External/nevpt2_ext/CMakeFiles/nevpt2_ext.dir/build.make:139: /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext-stamp/nevpt2_ext-patch_gctime] Error 1
+    # -> add 'cstd': 'gnu89' to toolchainopts or CFLAGS='-std=gnu89'  -> NO
     # <- log2.txt
         # tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext/src/gctime.c:4:1: error: type specifier missing, defaults to 'int'; ISO C99 and later do not support implicit int [-Wimplicit-int]
         # gctime (fstr, lstr) f77_char *fstr; int lstr; {
