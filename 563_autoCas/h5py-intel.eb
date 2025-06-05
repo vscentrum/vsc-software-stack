@@ -19,7 +19,7 @@ builddependencies = [('pkgconfig', '1.5.5', '-python')]
 dependencies = [
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
-    ('mpi4py', '3.1.4'),  # not for intel/iimpi -> CREATED
+    ('mpi4py', '3.1.4'),
     ('HDF5', '1.14.0'),
 ]
 
@@ -29,11 +29,3 @@ dependencies = [
 preinstallopts = 'HDF5_MPI=ON HDF5_DIR="$EBROOTHDF5" H5PY_SETUP_REQUIRES=0 '
 
 moduleclass = 'data'
-
-#E1: OK
-    # -> try on donphan -> OK
-    # <- HDF5-1.14.0-iimpi-2023a failed to compile on shinx:
-        # configure: error: in `/tmp/vsc47063/easybuild/build/HDF5/1.14.0/iimpi-2023a/hdf5-1.14.0':
-        # configure: error: cannot run C compiled programs.
-        # If you meant to cross compile, use `--host'.
-        # See `config.log' for more details
