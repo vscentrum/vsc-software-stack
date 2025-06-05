@@ -1,0 +1,70 @@
+easyblock = 'PythonBundle'
+
+name = 'MorphoSONIC'
+version = '1.0-20240110'
+local_commit = '64a0a23'
+
+homepage = 'https://github.com/tjjlemaire/MorphoSONIC'
+description = """
+MorphoSONIC is a Python+NEURON implementation of spatially extended representations of the multi-Scale Optimized
+Neuronal Intramembrane Cavitation (SONIC) model. It enables the simulation of the distributed electrical
+response of morphologically realistic neuron representations to acoustic stimuli, as predicted by the intramembrane
+cavitation hypothesis. The details of the MorphoSONIC framework and of its application to study ultrasound
+neuromodulation in peripheral nerve fibers are described in.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [
+    ('binutils', '2.40'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('NEURON', '8.2.6'),  # TODO maybe different `neuron`?
+    ('Seaborn', '0.13.2'),
+    ('PySONIC', '1.0-20250519'),
+]
+
+# fixes ModuleNotFoundError: No module named 'MorphoSONIC.core'
+local_setup_py_patch = """sed -i "s/import setup/import setup, find_packages/g;"""
+local_setup_py_patch += """s/packages=\['MorphoSONIC'\]/packages=find_packages()/g" setup.py && """
+
+exts_list = [
+    ('MarkdownPP', '1.5.1', {
+        'modulename': '%(name)s',
+        'checksums': ['a70babf819a6cf7f1035400ffa5763799fa67f2efcb5e701a59fc5ff79dd9696'],
+    }),
+    ('watchdog', '6.0.0', {
+        'checksums': ['9ddf7c82fda3ae8e24decda1338ede66e1c99883db93711d8fb941eaa2d8c282'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/tjjlemaire/MorphoSONIC/archive/'],
+        'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
+        'preinstallopts': local_setup_py_patch,
+        'modulename': name,
+        'checksums': ['d264f0af5471bfccac09b7eb1ffa340bcb70192e2c73ff37ae58bfee2c9ddfef'],
+    }),
+]
+
+sanity_check_commands = [
+    "python -c 'from MorphoSONIC.models import Node'",
+    "python -c 'from PySONIC.neurons import getPointNeuron'",
+]
+
+moduleclass = 'lib'
+
+# TODO
+# morphosonic 1.0 requires neuron, which is not installed.
+# ...
+# Traceback (most recent call last):
+#   File "<string>", line 1, in <module>
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/__init__.py", line 8, in <module>
+#     from .core import *
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/core/__init__.py", line 14, in <module>
+#     from .synapses import *
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/core/synapses.py", line 15, in <module>
+#     load_mechanisms(nmodl_dir, syn_mod_file)
+#   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/utils.py", line 58, in load_mechanisms
+#     raise RuntimeError(f'Compiled library file not found for mechanisms in "{path}"')
+# RuntimeError: Compiled library file not found for mechanisms in "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/nmodl"
