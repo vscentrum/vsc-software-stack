@@ -54,6 +54,7 @@ configopts = ' '.join(_copts)
 pretestopts = 'MOLCAS=%(builddir)s/easybuild_obj '
 pretestopts += 'MOLCAS_DRIVER=%(builddir)s/easybuild_obj/pymolcas '
 pretestopts += 'MOLCAS_SOURCE=%(builddir)s/easybuild_obj '
+pretestopts += 'MOLCAS_WORKDIR=%(builddir)s/easybuild_obj '
 pretestopts += 'PATH=%(builddir)s/easybuild_obj:$PATH '
 test_cmd = 'pymolcas verify'
 
@@ -78,6 +79,7 @@ sanity_check_paths = {
 moduleclass = 'chem'
 
 #ET1:
+    # -> this could be problem with serial HDF5 and MPI=ON -> try to set MPI=OFF?
     # test failed for:
         # group additional from: /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/OpenMolcas-v25.02/test/additional
             # 2:additional:100 Failed! (scf)

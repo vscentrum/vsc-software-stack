@@ -1,6 +1,5 @@
 easyblock = 'PythonBundle'
 
-# name = 'autoCas'
 name = 'scine-autocas'
 version = '2.3.1'
 
@@ -12,25 +11,6 @@ it identifies all strongly correlated orbitals to be included in the active spac
 
 toolchain = {'name': 'intel', 'version': '2023a'}
 
-# DEPS:
-    # OK cycler==0.11.0 in matplotlib
-    # OK fonttools==4.27.1 in matplotlib is 4.42.0
-    # OK h5py==3.1.0 - NOT for intel -> CREATED
-    # OK kiwisolver==1.3.1 in matplotlib is 1.4.4
-    # OK matplotlib==3.3.4 have 3.7.2 -> error -> fix matplotlib and countourpy -> OK
-    # ok mypy-extensions==0.4.3
-    # OK numpy==1.19.5 have 1.25.1
-    # OK packaging==21.3 have 23.1 in py
-    # OK Pillow==8.2.0 have 10.0.0
-    # OK pyparsing==3.0.9 in pypi 3.1.0
-    # OK python-dateutil==2.8.2 in pypi
-    # OK PyYAML==6.0
-    # OK six==1.16.0 in pypi
-
-# builddependencies = [
-#     ('meson-python', '0.15.0'),
-#     ('pybind11', '2.11.1'),
-# ]
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
@@ -38,7 +18,7 @@ dependencies = [
     ('matplotlib', '3.7.2'),
     ('Pillow', '10.0.0'),
     ('PyYAML', '6.0'),
-    ('h5py', '3.9.0', '-serial'), # have HDF5 - change to serial
+    ('h5py', '3.9.0', '-serial'),
     ('OpenMolcas', '25.02'),
 ]
 
@@ -47,20 +27,30 @@ exts_list = [
         'checksums': ['2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8'],
     }),
     (name, version, {
+        'patches': ['patch2.0-tests.patch'],
         'preinstallopts': "sed -i 's/==.*//g' requirements.txt &&",
-        'source_tmpl': 'scine_autocas-%(version)s.tar.gz',
-        'checksums': ['a2d58299edc8e110fbfb9e95049a68ba6a69c81d32101cb9c3d202677985b226'],
+        'runtest': "mkdir -p scine_autocas/tests/dummy_dir/scratch && pytest -vvvs scine_autocas/tests",
+        'source_urls': ['https://github.com/qcscine/autocas/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'testinstall': True,
+        'checksums': [
+            {'scine-autocas-2.3.1.tar.gz': '387db9ca42d9bc64322ea3e3d4d85aba289a82a8f08ae485ce1b2ca9dd052af5'},
+            {'patch2.0-tests.patch': 'b3c2d51f2d774f16f256a31abab2b767995e03f1154a353a34250806f81497ef'},
+        ],
     }),
 ]
+
+check_ldshared = True
 
 sanity_check_commands = ["python3 -m scine_autocas -h"]
 
 moduleclass = 'chem'
 
-#E2: OK
-    # problem with HDF5-serial -> h5py needs to be either serial -> no mpi support
-
-#E1: OK
-    # -> update matplotlib ec - preinstallopts for countourpy -> OK
-    # <- build of matplotlib-3.7.2-iimkl-2023a.eb failed <- log1.txt
-        # problem with installation of ext countourpy
+#ET1:
+    # in Tools/pymolcas/molcas_wrapper.py the python use `parallel_task` to create scratch dir and it use molcas parnell bin to create dirs in parallel but it fails
+        # the bug is reported here: https://molcasforum.univie.ac.at/viewtopic.php?id=911
+    # GPT chat: https://chatgpt.com/share/e/6842ff8a-13c8-800f-a2ea-4f06b7b55c82 
+    # -> it is connected with failing mocas tests and fail to create workdir etc.
+    # <- log_test1.txt
+    # pytests are failing with: AttributeError: 'Molcas' object has no attribute 's1_list' -> it is beacuse the molcas can to create the scratch dirs for its tests
+        # patch2 : test if s1_list and other are sets -> no it is not -> seems as a missing dir with molcas results
