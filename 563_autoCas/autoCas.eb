@@ -38,7 +38,7 @@ dependencies = [
     ('matplotlib', '3.7.2'),
     ('Pillow', '10.0.0'),
     ('PyYAML', '6.0'),
-    ('h5py', '3.9.0'),
+    ('h5py', '3.9.0', '-serial'), # have HDF5 - change to serial
     ('OpenMolcas', '25.02'),
 ]
 
@@ -56,6 +56,9 @@ exts_list = [
 sanity_check_commands = ["python3 -m scine_autocas -h"]
 
 moduleclass = 'chem'
+
+#E2: OK
+    # problem with HDF5-serial -> h5py needs to be either serial -> no mpi support
 
 #E1: OK
     # -> update matplotlib ec - preinstallopts for countourpy -> OK
