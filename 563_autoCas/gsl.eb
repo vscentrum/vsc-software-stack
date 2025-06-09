@@ -9,7 +9,7 @@ description = """The GNU Scientific Library (GSL) is a numerical library for C a
  and least-squares fitting."""
 
 toolchain = {'name': 'intel-compilers', 'version': '2023.1.0'}
-toolchainopts = {'unroll': True, 'pic': True}
+toolchainopts = {'unroll': True, 'pic': True, 'optarch': 'march=native'}  # failing with -xHost on AMD cpus
 
 source_urls = [GNU_SOURCE]
 sources = [SOURCELOWER_TAR_GZ]
@@ -22,3 +22,8 @@ sanity_check_paths = {
 }
 
 moduleclass = 'numlib'
+
+#E1:
+    # -> problem with ac_cv_env_CFLAGS_value='-O2 -xHost -ftz -fp-speculation=safe -fp-model precise -fPIC -unroll'
+        # should not be -xHost but -march=native
+    # <- failing on shinx on configure, ok on donphan

@@ -7,7 +7,7 @@ homepage = "https://gitlab.com/Molcas/OpenMolcas"
 description = "OpenMolcas is a quantum chemistry software package."
 
 toolchain = {'name': 'intel', 'version': '2023a'}
-toolchainopts = {'usempi': True, 'optarch': False}
+toolchainopts = {'optarch': False, 'openmp': True}
 
 source_urls = ['https://gitlab.com/Molcas/OpenMolcas/-/archive/v%(version)s/']
 sources = ["%(name)s-v%(version)s.tar.gz"]
@@ -42,7 +42,7 @@ _copts = [
     '-DOPENMP=ON',
     '-DTOOLS=ON',
     '-DFDE=ON',
-    '-DMPI=ON',
+    '-DMPI=OFF',
     '-DGA=ON',
     '-DEXTERNAL_LIBXC=$EBROOTLIBXC',
     '-DPython_ROOT=$EBROOTPYTHON',
@@ -51,8 +51,7 @@ _copts = [
 ]
 configopts = ' '.join(_copts)
 
-pretestopts = 'mkdir -p %(builddir)s/easybuild_obj/test/tmp && '
-pretestopts += 'MOLCAS=%(builddir)s/easybuild_obj '
+pretestopts = 'MOLCAS=%(builddir)s/easybuild_obj '
 pretestopts += 'MOLCAS_DRIVER=%(builddir)s/easybuild_obj/pymolcas '
 pretestopts += 'MOLCAS_SOURCE=%(builddir)s/easybuild_obj '
 pretestopts += 'MOLCAS_WORKDIR=%(builddir)s/easybuild_obj '
@@ -79,12 +78,8 @@ sanity_check_paths = {
 
 moduleclass = 'chem'
 
-#ET2:
-    # -> tru to add pretestopts = 'mkdir -p %(builddir)s/easybuild_obj/test/tmp && ' -> 
-    # -> with MOLCAS_WORKDIR: only additional:100 Failed + some greyzone with:
-        # slurmstepd: error: couldn't chdir to `/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/test/tmp': No such file or directory: going to /tmp instead
-#ET1: 
-    # -> this could be problem with serial HDF5 and MPI=ON -> try to set MPI=OFF? -> openMolcas-25.02-nompi.eb
+#ET1:
+    # -> this could be problem with serial HDF5 and MPI=ON -> try to set MPI=OFF?
     # test failed for:
         # group additional from: /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/OpenMolcas-v25.02/test/additional
             # 2:additional:100 Failed! (scf)
