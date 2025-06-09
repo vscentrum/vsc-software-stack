@@ -7,14 +7,13 @@ homepage = "https://gitlab.com/Molcas/OpenMolcas"
 description = "OpenMolcas is a quantum chemistry software package."
 
 toolchain = {'name': 'intel', 'version': '2023a'}
-toolchainopts = {'usempi': True}
+toolchainopts = {'usempi': True, 'optarch': False}
 
 source_urls = ['https://github.com/qcscine/qcmaquis/archive']
 sources = ["release-%(version)s.tar.gz"]
 checksums = ['98eaa0a057a8f056ebeab8427c8b59efaf2d71667a2d71491b900adbe0d29341']
 
 builddependencies = [('CMake', '3.26.3')]
-
 dependencies = [
     ('HDF5', '1.14.0'),
     ('GSL', '2.7'),
@@ -23,10 +22,24 @@ dependencies = [
 
 start_dir = 'dmrg'
 
+# fix missing MPI find for ALPS CMakeLists.txt
 preconfigopts = "sed  -i '32ifind_package(MPI)' %(start_dir)s/alps/CMakeLists.txt && "
+
+configopts = '-DBUILD_OPENMOLCAS_INTERFACE=ON -DCMAKE_Fortran_FLAGS="-fpp" -DQCMAQUIS_TESTS=ON'
+
+# fix build of test
+prebuildopts = "sed -i '14i#include <array>' %(start_dir)s/tests/test_wigner.cpp && "
+
+runtest = True
 
 moduleclass = 'chem'
 
+#E4: OK
+    # problem with -DQCMAQUIS_TESTS=ON -> log7.txt -> fix in prebuildopts
+#E3: OK
+    # -> problem s .f90 - should be .F90, ot add flag CMAKE_Fortran_FLAGS="-fpp" -> added -DCMAKE_Fortran_FLAGS="-fpp" -> OK
+    # -> add -DBUILD_OPENMOLCAS_INTERFACE=ON -DQCMAQUIS_TESTS=ON -> error -> log6.txt
+    # <- from E03 in openmolcas-parallel
 #E2: OK
     # -> preconfigopts = "sed  -i '32ifind_package(MPI)' %(start_dir)s/alps/CMakeLists.txt && " -> OK
         # CMake Warning at alps/CMakeLists.txt:49 (MESSAGE):
