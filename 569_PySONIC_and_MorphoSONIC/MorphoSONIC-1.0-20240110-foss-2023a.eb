@@ -48,8 +48,9 @@ exts_list = [
 ]
 
 sanity_check_commands = [
+    "python -c 'from MorphoSONIC.core import ExtracellularCurrent'",
+    "python -c 'from MorphoSONIC.parsers import IextraFiberParser'",
     "python -c 'from MorphoSONIC.models import Node'",
-    "python -c 'from PySONIC.neurons import getPointNeuron'",
 ]
 
 moduleclass = 'lib'
@@ -57,6 +58,9 @@ moduleclass = 'lib'
 # TODO
 # morphosonic 1.0 requires neuron, which is not installed.
 # ...
+# == 2025-06-10 10:40:01,179 run.py:502 INFO Running shell command '/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import MorphoSONIC"' in /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadel
+# ake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a
+# == 2025-06-10 10:40:23,092 run.py:613 INFO Output of '/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python ...' shell command (stdout + stderr):
 # Traceback (most recent call last):
 #   File "<string>", line 1, in <module>
 #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/__init__.py", line 8, in <module>
@@ -68,3 +72,4 @@ moduleclass = 'lib'
 #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/utils.py", line 58, in load_mechanisms
 #     raise RuntimeError(f'Compiled library file not found for mechanisms in "{path}"')
 # RuntimeError: Compiled library file not found for mechanisms in "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/nmodl"
+
