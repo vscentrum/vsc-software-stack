@@ -50,7 +50,7 @@ moduleclass = 'chem'
     # in Tools/pymolcas/molcas_wrapper.py the python use `parallel_task` to create scratch dir and it use molcas parnell bin to create dirs in parallel but it fails
         # the bug is reported here: https://molcasforum.univie.ac.at/viewtopic.php?id=911
     # GPT chat: https://chatgpt.com/share/e/6842ff8a-13c8-800f-a2ea-4f06b7b55c82 
-    # -> it is connected with failing mocas tests and fail to create workdir etc.
+    # -> it is connected with failing molcas tests and fail to create workdir etc.
     # <- log_test1.txt
     # pytests are failing with: AttributeError: 'Molcas' object has no attribute 's1_list' -> it is beacuse the molcas can to create the scratch dirs for its tests
         # patch2 : test if s1_list and other are sets -> no it is not -> seems as a missing dir with molcas results

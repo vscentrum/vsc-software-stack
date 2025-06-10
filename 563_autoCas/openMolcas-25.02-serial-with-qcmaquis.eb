@@ -1,0 +1,142 @@
+easyblock = 'CMakeMake'
+
+name = 'OpenMolcas'
+version = '25.02'
+
+homepage = "https://gitlab.com/Molcas/OpenMolcas"
+description = "OpenMolcas is a quantum chemistry software package."
+
+toolchain = {'name': 'iomkl', 'version': '2023a'}
+toolchainopts = {'usempi': True, 'optarch': False}
+
+source_urls = ['https://gitlab.com/Molcas/OpenMolcas/-/archive/v%(version)s/']
+sources = ["%(name)s-v%(version)s.tar.gz"]
+patches = [
+    '%(name)s-23.06_mcpdft_deps.patch',
+    '%(name)s-%(version)s_fix-nevpt2.cmake.patch',
+]
+checksums = [
+    {'OpenMolcas-v25.02.tar.gz': '7d25d4f0563bf3c1c08ed4b48c50e38fc9a8ece77f28661d55886df6e88dcf26'},
+    {'OpenMolcas-23.06_mcpdft_deps.patch': 'a798ec6f93a19539aa2211a978da461d4ecd31c5521b9dab6f2a9b1c2fa65f0e'},
+    {'OpenMolcas-25.02_fix-nevpt2.cmake.patch': '0d97593f5f4757c475a427799626e43d93334e69b5a14551e3ee7875f4327d0b'},
+]
+
+builddependencies = [('CMake', '3.26.3')]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('lxml', '4.9.2'),
+    ('HDF5', '1.14.0', '-serial'),
+    ('GlobalArrays', '5.8.2'),
+    ('libxc', '6.2.2'),
+    ('GSL', '2.7'),
+    ('Boost', '1.82.0'),
+    ('QCMaquis', '3.1.4'),
+]
+
+# _qcmaquis_prebuildopts = "sed -i '14i#include <array>' %(start_dir)s/tests/test_wigner.cpp && "
+# _qcmaquis_prebuildopts += "export MOLCAS_INCLUDE_DIR=%(builddir)s/OpenMolcas-v25.02/src/Include && "
+
+# components = [
+#     ('QCMaquis', '3.1.4', {
+#         'source_urls':  ['https://github.com/qcscine/qcmaquis/archive'],
+#         'sources': ["release-%(version)s.tar.gz"],
+#         'easyblock': 'CMakeMake',
+#         # 'configure_cmd': 'sip-build',
+#         'start_dir': 'dmrg',
+#         # 'configure_without_installdir': True,
+#         # 'preconfigopts': local_setup_env,
+#         'configopts': '-DBUILD_OPENMOLCAS_INTERFACE=ON -DCMAKE_Fortran_FLAGS="-fpp -D_MOLCAS_MPP_" -DQCMAQUIS_TESTS=ON',
+#         'prebuildopts': _qcmaquis_prebuildopts,
+#         'runtest': True,
+#         # 'preinstallopts': "cd build && ",
+#         # 'checksums': ['d46b7804b1b10a4ff91753f8113e5b5580d2b4462f3226288e2d84497334898a'],
+#     }),
+# ]
+
+build_shared_libs = True
+
+preconfigopts = 'GAROOT=$EBROOTGLOBALARRAYS'
+_copts = [
+    '-DLINALG=MKL',
+    '-DMKLROOT=$MKLROOT',
+    '-DOPENMP=ON',
+    '-DTOOLS=ON',
+    '-DFDE=ON',
+    '-DMPI=ON',
+    '-DGA=ON',
+    '-DEXTERNAL_LIBXC=$EBROOTLIBXC',
+    '-DPython_ROOT=$EBROOTPYTHON',
+    '-DDMRG=ON',
+    '-DNEVPT2=ON',
+    '-DQCMaquis_ROOT=$EBROOTQCMAQUIS',
+    # '-DCMAKE_Fortran_FLAGS="-fpp"',
+]
+configopts = ' '.join(_copts)
+
+pretestopts = 'mkdir -p %(builddir)s/easybuild_obj/test/tmp && '
+pretestopts += 'MOLCAS=%(builddir)s/easybuild_obj '
+pretestopts += 'MOLCAS_DRIVER=%(builddir)s/easybuild_obj/pymolcas '
+pretestopts += 'MOLCAS_SOURCE=%(builddir)s/easybuild_obj '
+pretestopts += 'MOLCAS_WORKDIR=%(builddir)s/easybuild_obj '
+pretestopts += 'PATH=%(builddir)s/easybuild_obj:$PATH '
+test_cmd = 'pymolcas verify'
+
+fix_python_shebang_for = ['pymolcas', 'Tools/AugerOca/*.py', 'Tools/AugerOca/auger_oca/*.py', 'Tools/mort/mort.py',
+                          'Tools/dynamixtools/dynamixtools.py']
+
+modextrapaths = {'PATH': ''}
+modextravars = {
+    'MOLCAS': '%(installdir)s',
+    'MOLCAS_DRIVER': '%(installdir)s/pymolcas',
+    'MOLCAS_SOURCE': '%(installdir)s',
+}
+
+sanity_check_commands = ['pymolcas --help']
+
+sanity_check_paths = {
+    'files': ['bin/dynamix.exe', 'bin/mpprop.exe', 'lib/libmolcas.%s' % SHLIB_EXT,
+              'sbin/help_basis', 'pymolcas'],
+    'dirs': ['data/', 'basis_library/'],
+}
+
+moduleclass = 'chem'
+
+#ET2:
+    # -> try to add pretestopts = 'mkdir -p %(builddir)s/easybuild_obj/test/tmp && ' -> not help ->
+        # in tmp dir the same logs as in tests/results 
+    # -> with MOLCAS_WORKDIR: only additional:100 Failed + some greyzone with:
+        # slurmstepd: error: couldn't chdir to `/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/test/tmp': No such file or directory: going to /tmp instead
+        # in /tmp there is nothing
+#ET1: 
+    # -> this could be problem with serial HDF5 and MPI=ON -> try to set MPI=OFF? -> openMolcas-25.02-nompi.eb
+    # test failed for:
+        # group additional from: /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/OpenMolcas-v25.02/test/additional
+            # 2:additional:100 Failed! (scf)
+                # less additional__100.err:
+                    # slurmstepd: error: couldn't chdir to `/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj/test/tmp': No such file or directory: going to /tmp instead
+                    # additional__100.err (END)
+                        #             Label                     Value              Reference         Error   Tolerance
+                        # --------------------------------------------------------------------------------------------
+                        # E_SCF                               -79.74828290374      -79.74840299953 1.201e-04 1.000e-08 Failed
+                        # DFT_ENERGY                          -13.00137993829      -13.00150685762 1.269e-04 1.000e-06 Failed
+                        # NQ_DENSITY                           17.99997180538        17.9999718054 2.000e-11 1.000e-08 
+                        # MLTPL__2[0]                          0.224210477311       0.224206892954 3.584e-06 1.000e-05 
+                        # MLTPL__2[2]                         -0.098355072548      -0.098353500206 1.572e-06 1.000e-05 
+                        # MLTPL__2[3]                          0.238002648461       0.237998842684 3.806e-06 1.000e-05 
+                        # MLTPL__2[5]                         -0.462213125773      -0.462205735638 7.390e-06 1.000e-05 
+            # 2:additional:343 Failed! ([none])
+                # less additional__343.err 
+                # [mpiexec@node4007.donphan.os] check_exit_codes (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:117): unable to run bstrap_proxy on node4007.donphan.os (pid 4175546, exit code 256)
+                # [mpiexec@node4007.donphan.os] poll_for_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:159): check exit codes error
+                # [mpiexec@node4007.donphan.os] HYD_dmx_poll_wait_for_proxy_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:212): poll for event error
+                # [mpiexec@node4007.donphan.os] HYD_bstrap_setup (../../../../../src/pm/i_hydra/libhydra/bstrap/src/intel/i_hydra_bstrap.c:1065): error waiting for event
+                # [mpiexec@node4007.donphan.os] HYD_print_bstrap_setup_error_message (../../../../../src/pm/i_hydra/mpiexec/intel/i_mpiexec.c:1027): error setting up the bootstrap proxies
+                # [mpiexec@node4007.donphan.os] Possible reasons:
+                # [mpiexec@node4007.donphan.os] 1. Host is unavailable. Please check that all hosts are available.
+                # [mpiexec@node4007.donphan.os] 2. Cannot launch hydra_bstrap_proxy or it crashed on one of the hosts. Make sure hydra_bstrap_proxy is available on all hosts and it has right permissions.
+                # [mpiexec@node4007.donphan.os] 3. Firewall refused connection. Check that enough ports are allowed in the firewall and specify them with the I_MPI_PORT_RANGE variable.
+                # [mpiexec@node4007.donphan.os] 4. slurm bootstrap cannot launch processes on remote host. You may try using -bootstrap option to select alternative launcher.
+                # parnell failed to create a WorkDir at /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/easybuild_obj/test/tmp/additional__343
+        # group grayzone from: /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a-DMRG/OpenMolcas-v25.02/test/grayzone
+            # 3:grayzone:898 Failed! (caspt2)

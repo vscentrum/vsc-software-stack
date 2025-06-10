@@ -3,8 +3,9 @@ easyblock = 'CMakeMake'
 name = 'QCMaquis'
 version = '3.1.4'
 
-homepage = "https://gitlab.com/Molcas/OpenMolcas"
-description = "OpenMolcas is a quantum chemistry software package."
+homepage = "https://github.com/qcscine/qcmaquis"
+description = """QCMaquis is written in C++ (C++14 standard) and parallelizes the computationally heavy steps of
+a DMRG simulation with shared-memory parallelism (OpenMP)."""
 
 toolchain = {'name': 'intel', 'version': '2023a'}
 toolchainopts = {'usempi': True, 'optarch': False}
@@ -34,6 +35,8 @@ runtest = True
 
 moduleclass = 'chem'
 
+#E5: 
+    # problem to use it as dep for OpenMolcas -> openMolcas-parallel E04
 #E4: OK
     # problem with -DQCMAQUIS_TESTS=ON -> log7.txt -> fix in prebuildopts
 #E3: OK

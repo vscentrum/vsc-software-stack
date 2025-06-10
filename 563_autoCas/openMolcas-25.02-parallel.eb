@@ -31,7 +31,7 @@ dependencies = [
     ('libxc', '6.2.2'),
     ('GSL', '2.7'),
     ('Boost', '1.82.0'),
-    # ('QCMaquis', '3.1.4'),
+    ('QCMaquis', '3.1.4'),
 ]
 
 build_shared_libs = True
@@ -50,8 +50,8 @@ _copts = [
     '-DPython_ROOT=$EBROOTPYTHON',
     '-DDMRG=ON',
     '-DNEVPT2=ON',
-    # '-DQCMaquis_ROOT=$EBROOTQCMAQUIS',
-    # '-DCMAKE_Fortran_FLAGS="-fpp"',
+    '-DQCMaquis_ROOT=$EBROOTQCMAQUIS',
+    '-DCMAKE_Fortran_FLAGS="-fpp"',
 ]
 configopts = ' '.join(_copts)
 
@@ -83,6 +83,11 @@ sanity_check_paths = {
 
 moduleclass = 'chem'
 
+# what next?
+    # escape SLURM jobs by ssh node....
+    # use iomkl not intel
+    # try to update cmake or another file to fix ALPS
+    # try to fix QCMaquis to work with OpenMolcas
 # summary:
     #1) openMolcas with default (internal) QCMaquis + HDF5-mpi: ALPS error parallel(MPI) hdf5 needs MPI.  Enable MPI or install serial HDF5 libraries. - can not patch this since it is downlaoded during the build cmd
     #2) OpenMolcas with local (installed) QCMaquis + HDF5-mpi: ALPS could be patched -> problem with fortran arguments -> log8.txt
@@ -133,7 +138,7 @@ moduleclass = 'chem'
         # -- HDF5 QCMaquis include path: /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/CMakeFiles/mod
         # -- HDF5 QCMaquis libraries: qcmaquis-hdf5-interface
 #ET2:
-    # -> try to add pretestopts = 'mkdir -p %(builddir)s/easybuild_obj/test/tmp && ' -> 
+    # -> try to add pretestopts = 'mkdir -p %(builddir)s/easybuild_obj/test/tmp && ' -> NO
     # -> with MOLCAS_WORKDIR: only additional:100 Failed + some greyzone with:
         # slurmstepd: error: couldn't chdir to `/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/test/tmp': No such file or directory: going to /tmp instead
 #ET1: 
