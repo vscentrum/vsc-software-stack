@@ -80,9 +80,11 @@ sanity_check_paths = {
 moduleclass = 'chem'
 
 #ET2:
-    # -> tru to add pretestopts = 'mkdir -p %(builddir)s/easybuild_obj/test/tmp && ' -> 
+    # -> try to add pretestopts = 'mkdir -p %(builddir)s/easybuild_obj/test/tmp && ' -> not help ->
+        # in tmp dir the same logs as in tests/results 
     # -> with MOLCAS_WORKDIR: only additional:100 Failed + some greyzone with:
         # slurmstepd: error: couldn't chdir to `/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/easybuild_obj/test/tmp': No such file or directory: going to /tmp instead
+        # in /tmp there is nothing
 #ET1: 
     # -> this could be problem with serial HDF5 and MPI=ON -> try to set MPI=OFF? -> openMolcas-25.02-nompi.eb
     # test failed for:
