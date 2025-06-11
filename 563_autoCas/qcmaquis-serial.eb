@@ -10,12 +10,14 @@ a DMRG simulation with shared-memory parallelism (OpenMP)."""
 toolchain = {'name': 'iomkl', 'version': '2023a'}
 # toolchainopts = {'usempi': True, 'optarch': False}
 
-# source_urls = ['https://github.com/qcscine/qcmaquis/archive']
-# sources = ["release-%(version)s.tar.gz"]
+source_urls = ['https://github.com/qcscine/qcmaquis/archive']
+sources = [{'download_filename': 'release-%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+checksums = ['98eaa0a057a8f056ebeab8427c8b59efaf2d71667a2d71491b900adbe0d29341']
 
-_molcas_name = 'OpenMolcas'
-_molcas_version = '25.02'
-_molcas_commit = 'bd63d2168b911f0dc2f7ea00013cb2b37bf41d95'
+# sources = ["release-%(version)s.tar.gz"]
+# _molcas_name = 'OpenMolcas'
+# _molcas_version = '25.02'
+# _molcas_commit = 'bd63d2168b911f0dc2f7ea00013cb2b37bf41d95'
 
 # OpenMolcas-v25.02-bd63d2168b911f0dc2f7ea00013cb2b37bf41d95/
 # qcmaquis-release-3.1.4/
@@ -24,29 +26,26 @@ _molcas_commit = 'bd63d2168b911f0dc2f7ea00013cb2b37bf41d95'
     #     # 'download_filename': 'OpenMolcas-25.02.tar.gz',
     #     'filename': f"{_molcas_name}-v{_molcas_version}.tar.gz",
     # },
-sources = [
-    {
-        'source_urls': ['https://github.com/qcscine/qcmaquis/archive'],
-        'download_filename': 'release-%(version)s.tar.gz',
-        'filename': '%(name)s-%(version)s.tar.gz',
-    },
-    # {
-    #     'source_urls': ['https://gitlab.com/Molcas/OpenMolcas/-/archive/v25.02/'],
-    #     # 'download_filename': 'OpenMolcas-25.02.tar.gz',
-    #     'filename': f"{_molcas_name}-v{_molcas_version}.tar.gz",
-    # },    
-    { 'filename': f"{_molcas_name}-v{_molcas_version}.tar.gz", 'alt_location': f"{_molcas_name}"},
-]
-checksums = [
-    {'QCMaquis-3.1.4.tar.gz': '98eaa0a057a8f056ebeab8427c8b59efaf2d71667a2d71491b900adbe0d29341'},
-    {'OpenMolcas-v25.02.tar.gz': '7d25d4f0563bf3c1c08ed4b48c50e38fc9a8ece77f28661d55886df6e88dcf26'},
-]
+# sources = [
+#     {
+#         'source_urls': ['https://github.com/qcscine/qcmaquis/archive'],
+#         'download_filename': 'release-%(version)s.tar.gz',
+#         'filename': '%(name)s-%(version)s.tar.gz',
+#     },
+#     # {
+#     #     'source_urls': ['https://gitlab.com/Molcas/OpenMolcas/-/archive/v25.02/'],
+#     #     # 'download_filename': 'OpenMolcas-25.02.tar.gz',
+#     #     'filename': f"{_molcas_name}-v{_molcas_version}.tar.gz",
+#     # },    
+#     { 'filename': f"{_molcas_name}-v{_molcas_version}.tar.gz", 'alt_location': f"{_molcas_name}"},
+# ]
 
 builddependencies = [('CMake', '3.26.3')]
 dependencies = [
     ('HDF5', '1.14.0', '-serial'),
     ('GSL', '2.7'),
     ('Boost', '1.82.0'),
+    ('GlobalArrays', '5.8.2'),
 ]
 
 start_dir = 'dmrg'
@@ -54,13 +53,18 @@ start_dir = 'dmrg'
 # fix missing MPI find for ALPS CMakeLists.txt
 # preconfigopts = "sed  -i '32ifind_package(MPI)' %(start_dir)s/alps/CMakeLists.txt && "
 
-configopts = '-DBUILD_OPENMOLCAS_INTERFACE=ON -DCMAKE_Fortran_FLAGS="-fpp -D_MOLCAS_MPP_" -DQCMAQUIS_TESTS=ON'
+# preconfigopts = f"export MOLCAS_INCLUDE_DIR=%(builddir)s/{_molcas_name}-v{_molcas_version}-{_molcas_commit}/src/Include && "
+# preconfigopts = f"export MOLCAS_INCLUDE_DIR=%(builddir)s/{_molcas_name}-v{_molcas_version}/src/Include && "
+preconfigopts = "export GA_INCLUDE_DIR=$EBROOTGLOBALARRAYS/include && "
+# configopts = '-DBUILD_OPENMOLCAS_INTERFACE=ON -DCMAKE_Fortran_FLAGS="-fpp -D_MOLCAS_MPP_ -I${MOLCAS_INCLUDE_DIR}" -DQCMAQUIS_TESTS=ON'
+configopts = '-DBUILD_OPENMOLCAS_INTERFACE=ON -DCMAKE_Fortran_FLAGS="-fpp -D_MOLCAS_MPP_ -I${GA_INCLUDE_DIR}" -DQCMAQUIS_TESTS=ON'
 # configopts = '-DBUILD_OPENMOLCAS_INTERFACE=ON -DQCMAQUIS_TESTS=ON'
 
 # fix build of test_wigner
 prebuildopts = "sed -i '14i#include <array>' %(start_dir)s/tests/test_wigner.cpp && "
-prebuildopts += "export MOLCAS_INCLUDE_DIR="
-prebuildopts += f"%(builddir)s/{_molcas_name}-v{_molcas_version}-{_molcas_commit}/src/Include && "
+# prebuildopts += "export MOLCAS_INCLUDE_DIR="
+# prebuildopts += f"%(builddir)s/{_molcas_name}-v{_molcas_version}-{_molcas_commit}/src/Include && "
+# prebuildopts += f"%(builddir)s/{_molcas_name}-v{_molcas_version}/src/Include && "
 
 runtest = True
 
@@ -68,9 +72,8 @@ moduleclass = 'chem'
 
 # test MPSSI function
 #E5: 
-    # -> OpenMolcas-v25.02/src/Include/mafdecls.fh is in sources of OpenMolcas -> needs: 
-        # export MOLCAS_INCLUDE_DIR=/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/intel-2023a/OpenMolcas-v25.02/src/Include
-        # + have sources of OpenMolcas -> components, but do I need QCMaquis as a separate module? 
+    # -> mafdecls.fh is in EBROOTGLOBALARRAYS/include -> needs: 
+        # export GA_INCLUDE_DIR=$EBROOTGLOBALARRAYS/include + -DCMAKE_Fortran_FLAGS="-fpp -D_MOLCAS_MPP_ -I${GA_INCLUDE_DIR}"
     # -> problem to use it as dep for OpenMolcas -> openMolcas-parallel E04 -> add either -D_MOLCAS_MPP_ to CMAKE_Fortran_FLAGS -> error: -> log9.txt
             # [ 12%] Building CXX object framework/dmrg/CMakeFiles/dmrg_utils.dir/utils/utils.cpp.o
             # cd /tmp/vsc47063/easybuild/build/QCMaquis/3.1.4/iomkl-2023a/easybuild_obj/framework/dmrg && /tmp/vsc47063/eb-35f3yt9w/tmp6gia17tx/r
