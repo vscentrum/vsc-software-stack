@@ -21,7 +21,11 @@ group = 'bqchem'
 postinstallcmds = [
     # this needs to be done manually, as we only install the module of Q-Chem (--module-only)
     "ln -s /apps/brussel/licenses/qchem/client_license.lic %(installdir)s/qcaux/license/client_license.lic",
+    # delete broken wget binaries (wget only needed for installation)
+    "rm %(installdir)s/bin/wget*",
 ]
+
+check_readelf_rpath = False
 
 sanity_check_paths = {
     'files': ['bin/qchem', 'qcaux/license/client_license.lic'],
