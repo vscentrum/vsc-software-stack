@@ -84,15 +84,16 @@ sanity_check_paths = {
 moduleclass = 'chem'
 
 # what next?
-    # escape SLURM jobs by ssh node....
-    # use iomkl not intel
-    # try to update cmake or another file to fix ALPS
-    # try to fix QCMaquis to work with OpenMolcas
+    # escape SLURM jobs by ssh node...
+    # use iomkl not intel -> OK - test fixed?
+    # try to update cmake or another file to fix ALPS -> no it needs serial HDF5
+    # try to fix QCMaquis to work with OpenMolcas -> OK qcmaquis-serial.eb
 # summary:
     #1) openMolcas with default (internal) QCMaquis + HDF5-mpi: ALPS error parallel(MPI) hdf5 needs MPI.  Enable MPI or install serial HDF5 libraries. - can not patch this since it is downlaoded during the build cmd
     #2) OpenMolcas with local (installed) QCMaquis + HDF5-mpi: ALPS could be patched -> problem with fortran arguments -> log8.txt
     #3) OpeMolcas with default QCMaquis + HDF5-serial: could be build
-#E04: 
+#E04: OK
+    # fixed in qcmaquis-serial
     # -> build openMolcas with dafault QCMaquis...
     # -> try to add same -DCMAKE_Fortran_FLAGS="-fpp" as for QCmaquis -> NO
     # <- log8.txt

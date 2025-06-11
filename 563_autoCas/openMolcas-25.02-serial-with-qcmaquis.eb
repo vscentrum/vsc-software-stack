@@ -22,6 +22,7 @@ checksums = [
 ]
 
 builddependencies = [('CMake', '3.26.3')]
+
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
@@ -33,26 +34,6 @@ dependencies = [
     ('Boost', '1.82.0'),
     ('QCMaquis', '3.1.4'),
 ]
-
-# _qcmaquis_prebuildopts = "sed -i '14i#include <array>' %(start_dir)s/tests/test_wigner.cpp && "
-# _qcmaquis_prebuildopts += "export MOLCAS_INCLUDE_DIR=%(builddir)s/OpenMolcas-v25.02/src/Include && "
-
-# components = [
-#     ('QCMaquis', '3.1.4', {
-#         'source_urls':  ['https://github.com/qcscine/qcmaquis/archive'],
-#         'sources': ["release-%(version)s.tar.gz"],
-#         'easyblock': 'CMakeMake',
-#         # 'configure_cmd': 'sip-build',
-#         'start_dir': 'dmrg',
-#         # 'configure_without_installdir': True,
-#         # 'preconfigopts': local_setup_env,
-#         'configopts': '-DBUILD_OPENMOLCAS_INTERFACE=ON -DCMAKE_Fortran_FLAGS="-fpp -D_MOLCAS_MPP_" -DQCMAQUIS_TESTS=ON',
-#         'prebuildopts': _qcmaquis_prebuildopts,
-#         'runtest': True,
-#         # 'preinstallopts': "cd build && ",
-#         # 'checksums': ['d46b7804b1b10a4ff91753f8113e5b5580d2b4462f3226288e2d84497334898a'],
-#     }),
-# ]
 
 build_shared_libs = True
 
@@ -103,6 +84,7 @@ sanity_check_paths = {
 moduleclass = 'chem'
 
 #ET2:
+    # -> change to iomkl
     # -> try to add pretestopts = 'mkdir -p %(builddir)s/easybuild_obj/test/tmp && ' -> not help ->
         # in tmp dir the same logs as in tests/results 
     # -> with MOLCAS_WORKDIR: only additional:100 Failed + some greyzone with:
