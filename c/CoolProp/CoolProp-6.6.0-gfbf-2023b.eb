@@ -1,0 +1,104 @@
+easyblock = 'PythonPackage'
+
+name = 'CoolProp'
+version = '6.6.0'
+
+homepage = 'http://coolprop.org'
+description = """
+CoolProp is a thermophysical property database and wrappers
+for a selection of programming environments. It offers similar functionality
+to REFPROP, but CoolProp is open-source and free.
+"""
+
+toolchain = {'name': 'gfbf', 'version': '2023b'}
+
+_external_dir = '%%(builddir)s/%%(name)s-%%(version)s/externals/%s/'
+_external_extract = 'tar -C %s' % _external_dir
+_external_extract += ' --strip-components=1 -xzf %%s'
+
+sources = [
+    {
+        'source_urls': ['https://github.com/CoolProp/CoolProp/archive/'],
+        'download_filename': 'v%(version)s.tar.gz',
+        'filename': SOURCE_TAR_GZ,
+    },
+    {
+        'source_urls': ['https://github.com/catchorg/Catch2/archive/'],
+        'download_filename': 'v3.0.0-preview4.tar.gz',
+        'filename': 'Catch2-3.0.0-preview4.tar.gz',
+        'extract_cmd': _external_extract % 'Catch2',
+    },
+    {
+        'source_urls': ['https://github.com/eigenteam/eigen-git-mirror/archive/'],
+        'download_filename': '3.3.5.tar.gz',
+        'filename': 'Eigen-3.3.5.tar.gz',
+        'extract_cmd': _external_extract % 'Eigen',
+    },
+    {
+        'source_urls': ['https://github.com/CoolProp/IF97/archive/'],
+        'download_filename': 'v2.1.3.tar.gz',
+        'filename': 'IF97-2.1.3.tar.gz',
+        'extract_cmd': _external_extract % 'IF97',
+    },
+    {
+        'source_urls': ['https://github.com/CoolProp/REFPROP-headers/archive/'],
+        'download_filename': 'b4faab1b73911c32c4b69c526c7e92f74edb67de.tar.gz',
+        'filename': 'REFPROP-headers-b4faab1.tar.gz',
+        'extract_cmd': _external_extract % 'REFPROP-headers',
+    },
+    {
+        'source_urls': ['https://github.com/fmtlib/fmt/archive/'],
+        'download_filename': '10.0.0.tar.gz',
+        'filename': 'fmt-10.0.0.tar.gz',
+        'extract_cmd': _external_extract % 'fmtlib',
+    },
+    {
+        'source_urls': ['https://github.com/msgpack/msgpack-c/archive/'],
+        'download_filename': 'cpp-3.0.1.tar.gz',
+        'filename': 'msgpack-c-cpp-3.0.1.tar.gz',
+        'extract_cmd': _external_extract % 'msgpack-c',
+    },
+    {
+        'source_urls': ['https://github.com/pybind/pybind11/archive/'],
+        'download_filename': 'v2.2.3.tar.gz',
+        'filename': 'pybind11-2.2.3.tar.gz',
+        'extract_cmd': _external_extract % 'pybind11',
+    },
+    {
+        'source_urls': ['https://github.com/Tencent/rapidjson/archive/'],
+        'download_filename': '73063f5002612c6bf64fe24f851cd5cc0d83eef9.tar.gz',
+        'filename': 'rapidjson-73063f5.tar.gz',
+        'extract_cmd': _external_extract % 'rapidjson',
+    },
+]
+
+checksums = [
+    '20b94ca42ca5339641163b4a55e2affb95e1c9dcb1f6169a6970cd8fbfb63490',  # CoolProp-6.6.0.tar.gz
+    '2458d47d923b65ab611656cb7669d1810bcc4faa62e4c054a7405b1914cd4aee',  # Catch2-3.0.0-preview4.tar.gz
+    '992855522dfdd0dea74d903dcd082cdb01c1ae72be5145e2fe646a0892989e43',  # Eigen-3.3.5.tar.gz
+    '5d24a8ca0aeefb3a5085c9c10c92cf7b8e8c43a56953f5b5f7ced49cc03f6d1f',  # IF97-2.1.3.tar.gz
+    'ca0c32502369c710f3525d704edda329337c0a1b157d93a793de95aa0fe4eabb',  # REFPROP-headers-b4faab1.tar.gz
+    'ede1b6b42188163a3f2e0f25ad5c0637eca564bd8df74d02e31a311dd6b37ad8',  # fmt-10.0.0.tar.gz
+    '1b834ab0b5b41da1dbfb96dd4a673f6de7e79dbd7f212f45a553ff9cc54abf3b',  # msgpack-c-cpp-3.0.1.tar.gz
+    '3a3b7b651afab1c5ba557f4c37d785a522b8030dfc765da26adc2ecd1de940ea',  # pybind11-2.2.3.tar.gz
+    '896eb817fb2bc62a0a84ca65fac3e3c385b410e6dbf70d69c411e25776663e39',  # rapidjson-73063f5.tar.gz
+]
+
+builddependencies = [
+    ('CMake', '3.27.6'),
+]
+dependencies = [
+    ('Python', '3.11.5'),
+    ('Python-bundle-PyPI', '2023.10'),
+    ('SciPy-bundle', '2023.11'),
+    ('matplotlib', '3.8.2'),
+]
+
+install_src = 'wrappers/Python'
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+options = {'modulename': 'CoolProp'}
+
+moduleclass = 'phys'
