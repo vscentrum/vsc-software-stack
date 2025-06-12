@@ -1,6 +1,6 @@
-# easyblock = "Tarball"
+easyblock = "Tarball"
 # easyblock = "PythonPackage"
-easyblock = "PythonBundle"
+# easyblock = "PythonBundle"
 
 name = 'RoseTTAFold-All-Atom'
 version = "1.0.0"
@@ -15,12 +15,23 @@ proteins, nucleic acids, small molecules, covalent modifications and metals.
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-# source_urls = ['https://github.com/baker-laboratory/RoseTTAFold-All-Atom/archive']
+source_urls = ['https://github.com/baker-laboratory/RoseTTAFold-All-Atom/archive']
 # sources = [{
 #     'download_filename': f'{local_commit}.tar.gz',
 #     'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz',
 # }]
-# checksums = ['a8169267802c6898794077da7553d062de3bb92c48e476b123bce6b619beefcb']
+sources = [
+    {
+        'download_filename': f'{local_commit}.tar.gz',
+        'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz',
+    },
+    {
+        'source_urls': ['https://wwwuser.gwdg.de/~compbiol/data/csblast/releases/'],
+        'filename': 'csblast-2.2.3_linux64.tar.gz',
+        'extract_cmd': f"tar --strip-components=1 -xf %s",  # + link to csblast-2.2.3 dir
+    },
+]
+checksums = ['a8169267802c6898794077da7553d062de3bb92c48e476b123bce6b619beefcb']
 
 builddependencies = [
     ('poetry', '1.5.1'),
@@ -351,13 +362,13 @@ dependencies = [
     ('wandb', '0.16.1'), # [x] wandb==0.12.0
 ]
 
-# exts_defaultclass = 'PythonPackage'
-# exts_default_options = {
-#     'source_urls': [PYPI_SOURCE],
-#     'download_dep_fail': True,
-#     'use_pip': True,
-#     'sanity_pip_check': True,
-# }
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+    'download_dep_fail': True,
+    'use_pip': True,
+    'sanity_pip_check': True,
+}
 
 exts_list = [
     ('dllogger', '1.1.0', {
@@ -460,14 +471,21 @@ exts_list = [
     }),
 ]
 
-# source_urls = ['https://github.com/baker-laboratory/RoseTTAFold-All-Atom/archive']
-# sources = [{
-#     'download_filename': f'{local_commit}.tar.gz',
-#     'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz',
-# }]
+postinstallcmds = [
+    'cd %(installdir)s && mkdir csblast-2.2.3 && cp -r %(builddir)s/csblast-2.2.3_linux64 %(installdir)s/csblast-2.2.3 && '
+    'cd %(installdir)s && mkdir blast-2.2.26 && ln -s $EBROOTCSBLAST blast-2.2.26'
+]
 
-# start_dir = 'rf2aa/SE3Transformer'
-
-# modextrapaths = {'PYTHONPATH': ['lib/python%(pyshortver)s/site-packages']}
+modextrapaths = {'PYTHONPATH': ['lib/python%(pyshortver)s/site-packages']}
 
 moduleclass = 'lib'
+
+#NEXT:
+    # provide BLAST 2.2.26 in install dir -> link -> postinstallcmds
+    # download stuff from install_dependencies.sh -> in sources + link to csblast-2.2.3 in postinstallcmds
+    # download weights and DB
+    # patch out SignalP
+    # set envs:
+        # export DB_UR30=`pwd`/UniRef30_2020_06
+        # export DB_BFD=`pwd`/bfd/
+        # export BLASTMAT=`pwd`/blast-2.2.26/data/
