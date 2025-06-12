@@ -9,7 +9,7 @@ calculations. Based on orbital entanglement measures derived from an approximate
 it identifies all strongly correlated orbitals to be included in the active space of a final, converged calculation.
 """
 
-toolchain = {'name': 'intel', 'version': '2023a'}
+toolchain = {'name': 'iomkl', 'version': '2023a'}
 
 dependencies = [
     ('Python', '3.11.3'),
@@ -27,9 +27,11 @@ exts_list = [
         'checksums': ['2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8'],
     }),
     (name, version, {
-        'patches': ['patch2.0-tests.patch'],
+        'patches': ['patch2.0-tests.patch'],  # only to see if there are files from Molcas - ET1
+        # remove dependencies pin
         'preinstallopts': "sed -i 's/==.*//g' requirements.txt &&",
-        'runtest': "mkdir -p scine_autocas/tests/dummy_dir/scratch && pytest -vvvs scine_autocas/tests",
+        'runtest': "mkdir -p %(builddir)s/scineautocas/autocas-2.3.1/scine_autocastests/dummy_dir/scratch && pytest -vvvs scine_autocas/tests",
+        # 'runtest': "pytest -vvvs scine_autocas/tests",
         'source_urls': ['https://github.com/qcscine/autocas/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'testinstall': True,
@@ -46,6 +48,9 @@ sanity_check_commands = ["python3 -m scine_autocas -h"]
 
 moduleclass = 'chem'
 
+#ET2:
+    # -> try escape SLURM by ssh node... -> NO
+    # <- log_test2.txt <- Molcas failing
 #ET1:
     # in Tools/pymolcas/molcas_wrapper.py the python use `parallel_task` to create scratch dir and it use molcas parnell bin to create dirs in parallel but it fails
         # the bug is reported here: https://molcasforum.univie.ac.at/viewtopic.php?id=911

@@ -24,6 +24,7 @@ dependencies = [
 
 start_dir = 'dmrg'
 
+# provide mafdecls.fh from GlobalArrays + preprocess fortran sources by -fpp
 preconfigopts = "export GA_INCLUDE_DIR=$EBROOTGLOBALARRAYS/include && "
 configopts = '-DBUILD_OPENMOLCAS_INTERFACE=ON -DCMAKE_Fortran_FLAGS="-fpp -D_MOLCAS_MPP_ -I${GA_INCLUDE_DIR}" -DQCMAQUIS_TESTS=ON'
 
@@ -34,7 +35,6 @@ runtest = True
 
 moduleclass = 'chem'
 
-# test MPSSI function
 #E5: OK
     # -> mafdecls.fh is in EBROOTGLOBALARRAYS/include -> needs: 
         # export GA_INCLUDE_DIR=$EBROOTGLOBALARRAYS/include + -DCMAKE_Fortran_FLAGS="-fpp -D_MOLCAS_MPP_ -I${GA_INCLUDE_DIR}"
