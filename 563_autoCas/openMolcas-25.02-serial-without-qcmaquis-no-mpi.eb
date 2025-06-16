@@ -33,7 +33,7 @@ dependencies = [
     ('libxc', '6.2.2'),
     ('GSL', '2.7'),
     ('Boost', '1.82.0'),
-    ('QCMaquis', '3.1.4'),
+    # ('QCMaquis', '3.1.4'),
 ]
 
 build_shared_libs = True
@@ -51,7 +51,7 @@ _copts = [
     '-DPython_ROOT=$EBROOTPYTHON',
     '-DDMRG=ON',
     '-DNEVPT2=ON',
-    '-DQCMaquis_ROOT=$EBROOTQCMAQUIS',
+    # '-DQCMaquis_ROOT=$EBROOTQCMAQUIS',
 ]
 configopts = ' '.join(_copts)
 
@@ -87,8 +87,8 @@ sanity_check_paths = {
 moduleclass = 'chem'
 
 # -> do not use MPI with OpenMP: https://github.com/qcscine/qcmaquis/issues/12#issuecomment-2975810625
-# E11:
-    # -> use default QCMaquis -> delete '-DQCMaquis_ROOT=$EBROOTQCMAQUIS', -> ec without-qcmaquis
+# E11: OK?
+    # -> use default QCMaquis -> delete '-DQCMaquis_ROOT=$EBROOTQCMAQUIS', -> ec without-qcmaquis -> OK can be build (tests failing still on additional_100)
     # <- log9.txt
     # [ 16%] Building Fortran object CMakeFiles/ccsd_util/CMakeFiles/ccsd_util_obj.dir/grc43y.F90.o
     # cd /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/iomkl-2023a-no-MPI/easybuild_obj/CMakeFiles/ccsd_util && /tmp/vsc47063/eb-3jvl
