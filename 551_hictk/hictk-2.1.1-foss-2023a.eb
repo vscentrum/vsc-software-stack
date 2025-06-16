@@ -53,6 +53,12 @@ dependencies = [
     ('zlib', '1.2.13'),
 ]
 
+preconfigopts = """sed -i 's|find_package(zstd REQUIRED QUIET)|find_library(zstd PATHS $ENV{EBROOTZSTD}/lib64)|g' %(builddir)s/%(name)s-%(version)s/src/libhictk/balancing/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/common/default_delete_zstd/CMakeLists.txt && """
+
+preconfigopts += """sed -i '/find_package(phmap REQUIRED QUIET)/d' %(builddir)s/%(name)s-%(version)s/src/libhictk/cooler/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/expected_values_aggregator/CMakeLists.txt && """
+
+configopts = '-DZSTD_LIBRARY=$EBROOTZSTD/lib/libzstd.%s ' % SHLIB_EXT
+
 moduleclass = 'tools'
 
 # TODO
