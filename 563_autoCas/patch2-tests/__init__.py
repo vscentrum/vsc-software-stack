@@ -614,12 +614,23 @@ class Molcas(Interface):
                         + ".h5"
                     )
                     self.qc_maquis.make_diagnostics()
+                    print("BBBBBB QC_MAQUIS_ENTROPY: ")
+                    print(f"ENTROPY1: {self.qc_maquis.s1_entropy}")
+                    type_s1_entropy = type(self.qc_maquis.s1_entropy)
+                    print(f"ENTROPY1_TYPE: {type_s1_entropy}")
+                    print(f"ENTROPY2: {self.qc_maquis.s2_entropy}")
+                    type_s2_entropy = type(self.qc_maquis.s2_entropy)
+                    print(f"ENTROPY2_TYPE: {type_s2_entropy}")
                     s1_list.append(self.qc_maquis.s1_entropy)
                     s2_list.append(self.qc_maquis.s2_entropy)
                     mutual_information_list.append(self.qc_maquis.mutual_information)
+                print('CCCCCCC: ')
                 print("s1_list:", hasattr(self, "s1_list"))
+                print(s1_list)
                 print("s2_list:", hasattr(self, "s2_list"))
+                print(s2_list)
                 print("mutual_information_list:", hasattr(self, "mutual_information_list"))
+                print(mutual_information_list)
                 self.s1_list = s1_list
                 self.s2_list = s2_list
                 self.mutual_information_list = mutual_information_list

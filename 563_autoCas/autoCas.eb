@@ -27,17 +27,18 @@ exts_list = [
         'checksums': ['2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8'],
     }),
     (name, version, {
-        'patches': ['patch2.0-tests.patch'],  # only to see if there are files from Molcas - ET1
+        'patches': ['patch2.2-tests.patch'],  # only to see if there are files from Molcas - ET1
         # remove dependencies pin
         'preinstallopts': "sed -i 's/==.*//g' requirements.txt &&",
-        'runtest': "mkdir -p %(builddir)s/scineautocas/autocas-2.3.1/scine_autocastests/dummy_dir/scratch && pytest -vvvs scine_autocas/tests",
+        # 'pretestopts': "sed -i '"
+        'runtest': "export MOLCAS_WORKDIR=%(builddir)s/scineautocas/autocas-2.3.1/scine_autocas/tests/dummy_dir/scratch && mkdir -p %(builddir)s/scineautocas/autocas-2.3.1/scine_autocas/tests/dummy_dir/scratch && ls %(builddir)s/scineautocas/autocas-2.3.1/scine_autocas/tests && echo 'AAAAAAA' && pytest -vvvs scine_autocas/tests",
         # 'runtest': "pytest -vvvs scine_autocas/tests",
         'source_urls': ['https://github.com/qcscine/autocas/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'testinstall': True,
         'checksums': [
             {'scine-autocas-2.3.1.tar.gz': '387db9ca42d9bc64322ea3e3d4d85aba289a82a8f08ae485ce1b2ca9dd052af5'},
-            {'patch2.0-tests.patch': 'b3c2d51f2d774f16f256a31abab2b767995e03f1154a353a34250806f81497ef'},
+            {'patch2.2-tests.patch': '675fefdafd826d91344d7ea04454899d6c442952d130467c8ffae0e91fca04bc'},
         ],
     }),
 ]
@@ -49,6 +50,20 @@ sanity_check_commands = ["python3 -m scine_autocas -h"]
 moduleclass = 'chem'
 
 #ET2:
+    # -> log_test3.txt with prints - seems dummy_dir is ok -> ask in Issue? 
+    # -> tests dir before tests run: but after fail there is no dummy_dir
+        # dummy_dir
+        # files
+        # __init__.py
+        # test_autocas.py
+        # test_cas_combination.py
+        # test_input_handler.py
+        # test_main_functions.py
+        # test_molcas_interface.py
+        # test_molecule.py
+        # test_plots.py
+        # test_qcmaquis_utils.py
+
     # -> try escape SLURM by ssh node... -> NO
     # <- log_test2.txt <- Molcas failing
 #ET1:
