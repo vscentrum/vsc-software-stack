@@ -12,17 +12,6 @@ checksums = ['1136b2c796f14a34774f01293c885704acafcacc0cdf70b017e09eb9929d380a']
 
 toolchain = {'name': 'foss', 'version': '2023b'}
 
-# DEPS
-        # OK 'molmod==1.4.8', -> UPDATED
-        # OK? 'numpy==1.26.4', (has 1.26.2 in scipy-bundle)
-        # ok 'pyiron_atomistics==0.6.10',
-        # ok 'pyiron_snippets==0.1.3',
-        # OK? 'quickff==2.2.4', -> UPDATED to 2.2.8
-        # OK tamkin==1.2.6', -> UPDATED
-        # OK 'yaff==1.6.0' -> UPDATED
-        # ok pyiron-gpl 0.0.5 has requirement numpy>=1.26.4, but you have numpy 1.26.2.
-        # ok pyiron-gpl 0.0.5 has requirement scipy>=1.12.0, but you have scipy 1.11.4.
-
 builddependencies = [('hatchling', '1.18.0')]
 dependencies = [
     ('Python', '3.11.5'),
@@ -38,22 +27,7 @@ dependencies = [
 
 # unpin scipy and numpy versions
 preinstallopts = "sed -i -e 's/>=1.26.4//' -e 's/>=1.12.0//' setup.py && "
-# exts_list = [
-#     (name, version, {
-#         'runtest': "pytest -vvvs tests",
-#         'testinstall': True,
-#         'checksums': ['1136b2c796f14a34774f01293c885704acafcacc0cdf70b017e09eb9929d380a'],
-#     }),
-# ]
 
 check_ldshared = True
 
 moduleclass = 'chem'
-
-#E1: OK
-    # -> get sources from github -> version error -> missing metadat -> use pypi sources and do not test
-    # in /tmp/vsc47063/easybuild/build/pyirongpl/0.0.5/foss-2023b/pyiron-gpl-0.0.5/tests there is no /static
-    # <- test1.log <- tests failing
-        # E       FileNotFoundError: [Errno 2] 
-        # No such file or directory: 
-        # '/tmp/vsc47063/easybuild/build/pyirongpl/0.0.5/foss-2023b/pyiron-gpl-0.0.5/tests/static/quickff_test_files/input.fchk'
