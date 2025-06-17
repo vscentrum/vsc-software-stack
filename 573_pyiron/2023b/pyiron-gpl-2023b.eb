@@ -17,19 +17,6 @@ toolchain = {'name': 'foss', 'version': '2023b'}
         # OK? 'quickff==2.2.4', -> UPDATED to 2.2.8
         # OK tamkin==1.2.6', -> UPDATED
         # OK 'yaff==1.6.0' -> UPDATED
-        # ok ModuleNotFoundError: No module named 'pyiron_base' (from installation of pyiron_atomistics)
-        # ok ModuleNotFoundError: No module named 'h5io_browser' (from pyiron_base)
-        # ok ModuleNotFoundError: No module named 'h5io' (from h5io_browser)
-        # ok ModuleNotFoundError: No module named 'monty' (from pyiron_base)
-        # OK ModuleNotFoundError: No module named 'sqlalchemy' (from pyiron_base)
-        # ok ModuleNotFoundError: No module named 'pysqa' (from pyiron_base)
-        # OK No module named 'hatchling' (from pysqa)
-        # OK ModuleNotFoundError: No module named 'yaml' (from pyiron_base)
-        # OK ModuleNotFoundError: No module named 'tqdm' (from pyiron_base)
-        # ok ModuleNotFoundError: No module named 'pyfileindex' (from pyiron_base)
-        # ok ModuleNotFoundError: No module named 'pyiron_dataclasses' (from pyiron_base)
-        # ok ModuleNotFoundError: No module named 'traitlets' (from pyiron_base)
-        # ModuleNotFoundError: No module named 'seekpath' (from pyiron_atomistics)
 
 builddependencies = [('hatchling', '1.18.0')]
 dependencies = [
@@ -41,39 +28,10 @@ dependencies = [
     ('SQLAlchemy', '2.0.29'),
     ('PyYAML', '6.0.1'),
     ('tqdm', '4.66.2'),
+    ('pyiron', '0.5.2'),
 ]
 
 exts_list = [
-    ('h5io', '0.2.5', {
-        'checksums': ['265bc9c24508b30575e8a8806b19cd4440643ff26f8b82b51d0280444807eed8'],
-    }),
-    ('h5io_browser', '0.1.12', {
-        'checksums': ['87ed320d04b4677f01320bcf0d5fccfd66d382f0b88e4b954073522567346936'],
-    }),
-    ('pyiron_snippets', '0.2.0', {
-        'checksums': ['c46532fe476c79d1182477709b7fa8a66c92e3ae6082c6ccfc0ebef1f69ed046'],
-    }),
-    ('monty', '2025.3.3', {
-        'checksums': ['16c1eb54b2372e765c2f3f14cff01cc76ab55c3cc12b27d49962fb8072310ae0'],
-    }),
-    ('pysqa', '0.2.6', {
-        'checksums': ['e68c24947c43141f8afe20227b9b41e40bea57a90ba96fd55e33a8039bb3a422'],
-    }),
-    ('pyfileindex', '0.0.37', {
-        'checksums': ['a1df73765aa882eaa72ef7cb16ecfc35ac5134f714fea0a4eeceb7b34f00c2f1'],
-    }),
-    ('pyiron_dataclasses', '0.0.1', {
-        'checksums': ['23270dc5825b433da32d8716de49ca70514142b85fc1b2aaa93afd05bc4b7e91'],
-    }),
-    ('traitlets', '5.14.3', {
-        'checksums': ['9ed0579d3502c94b4b3732ac120375cda96f923114522847de4b3bb98b96b6b7'],
-    }),
-    ('pyiron_base', '0.13.0', {
-        'checksums': ['29442b9fcf5e83961866ed5dcf1baf67eb0dac0a8c62767551553be02caca4be'],
-    }),
-    ('pyiron_atomistics', '0.7.8', {
-        'checksums': ['fe100bf1a979735f1d7d478a654b4bb9ea1433d3de91cbf2d6affeba9cefbd23'],
-    }),
     (name, version, {
         'runtest': "pytest -vvvs tests",
         'testinstall': True,
