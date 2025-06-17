@@ -42,6 +42,7 @@ git pull origin "$SITE_REPO" || fail "Failed to sync site repo with remote"
 
 while read -r site_file; do
     site_filename=$(basename "$site_file")
+    echo ""
     echo "=== $site_filename"
     eb_file=$(find_easyconfig "$site_filename")
     if [ -z "$eb_file" ]; then
@@ -49,16 +50,18 @@ while read -r site_file; do
     else
         echo "    > Found upstream"
         # check the diff between both files
-        if diff -q "$site_file" "$eb_file" 1>/dev/null; then
+        difftxt=$(diff -u "$site_file" "$eb_file")
+        if [ -z "$difftxt" ]; then
             echo "    > Files are equal"
-            # remove site copy of the file
-            # if git_repo_remove "$site_file" 1>/dev/null; then
-            #     echo "    > Removed from local site repo"
-            # else
-            #     fail "Failed to remove file from site repo: $site_file"
-            # fi
+            remove site copy of the file
+            if git_repo_remove "$site_file" 1>/dev/null; then
+                echo "    > Removed from local site repo"
+            else
+                fail "Failed to remove file from site repo: $site_file"
+            fi
         else
             echo "    > Files differ"
+            echo "$difftxt"
         fi
     fi
 done < <(find "$SITE_EASYCONFIGS" -type f -print)
