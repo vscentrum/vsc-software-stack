@@ -38,7 +38,7 @@ exts_list = [
             'molmod-1.4.8_fix-git-version-check.patch',
             'molmod-1.4.8_fix-np-unicode.patch',
         ],
-        'runtest': "export MATPLOTLIBRC=$PWD; echo 'backend: agg' > $MATPLOTLIBRC/matplotlibrc;python setup.py build_ext -i && pytest -ra",
+        'runtest': _runtest,
         'checksums': [
             {'molmod-1.4.8.tar.gz': '759f8894f8a206e8d83f3f88882f29fcf73a7f9be375026e03c58e19496f42e8'},
             {'molmod-1.4.8_fix-git-version-check.patch':

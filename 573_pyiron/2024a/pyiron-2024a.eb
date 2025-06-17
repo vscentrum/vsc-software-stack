@@ -1,36 +1,3 @@
-# 'pyiron_atomistics==0.7.8'
-# lua: '5'
-# numpy: '1.26'
-# perl: 5.26.2
-# x11
-#     - _libgcc_mutex 0.1 conda_forge
-#     - _openmp_mutex 4.5 2_gnu
-#     - bzip2 1.0.8 h4bc722e_7
-#     - ca-certificates 2024.12.14 hbcca054_0
-#     - ld_impl_linux-64 2.43 h712a8e2_2
-#     - libffi 3.4.2 h7f98852_5
-#     - libgcc 14.2.0 h77fa898_1
-#     - libgcc-ng 14.2.0 h69a702a_1
-#     - libgomp 14.2.0 h77fa898_1
-#     - liblzma 5.6.3 hb9d3cd8_1
-#     - libnsl 2.0.1 hd590300_0
-#     - libsqlite 3.47.2 hee588c1_0
-#     - libuuid 2.38.1 h0b41bf4_0
-#     - libxcrypt 4.4.36 hd590300_1
-#     - libzlib 1.3.1 hb9d3cd8_2
-#     - ncurses 6.5 he02047a_1
-#     - openssl 3.4.0 h7b32b05_1
-#     - pip 24.3.1 pyh8b19718_2
-#     - python 3.10.16 he725a3c_1_cpython
-#     - readline 8.2 h8228510_1
-#     - setuptools 75.6.0 pyhff2d567_1
-#     - tk 8.6.13 noxft_h4845f30_101
-#     - tzdata 2024b hc8b5060_0
-#     - wheel 0.45.1 pyhd8ed1ab_1
-#   run:
-#     - pyiron_atomistics >=0.4.5
-#     - python >=3.10
-
 easyblock = 'PythonBundle'
 
 name = 'pyiron'
@@ -41,102 +8,106 @@ description = "An integrated development environment (IDE) for computational mat
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
-builddependencies = [('poetry', '1.5.1')]
+builddependencies = [
+    ('poetry', '1.8.3'),
+    ('hatchling', '1.24.2'),
+]
+
 dependencies = [
-    ('Python', '3.11.3'),
-    ('SciPy-bundle', '2023.07'),
-    ('Python-bundle-PyPI', '2023.06'),
-    ('matplotlib', '3.7.2'),
-    ('h5py', '3.9.0'),
-    ('PyYAML', '6.0'),
-    ('phonopy', '2.20.0'),
-    ('ASE', '3.22.1'),
-    ('PyTables', '3.8.0'),
-    ('nglview', '3.1.2'),
-    ('tqdm', '4.66.1'),
-    ('molmod', '1.4.8'),
-    ('scikit-learn', '1.3.1'),
-    ('yaff', '1.6.0'),
-    ('TAMkin', '1.2.6'),
-    ('QuickFF', '2.2.7'),
-    ('plotly.py', '5.16.0'),
-    ('GitPython', '3.1.40'),
-    ('dill', '0.3.7'),
-    ('sympy', '1.12'),
-    ('pymatgen', '2023.12.18'),
-    ('Pint', '0.23'),
-    ('SQLAlchemy', '2.0.25'),
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('Python-bundle-PyPI', '2024.06'),
+    # ('pymatgen', '2024.5.1'), # UPDATE
+    ('ASE', '3.24.0'),
+    ('phonopy', '2.34.0'), # UPDATE
+    ('scikit-learn', '1.5.2'),
+    ('nglview', '3.1.4'),
+    ('h5py', '3.12.1'),
+    ('SQLAlchemy', '2.0.36'),
+    ('PyYAML', '6.0.2'),
+    ('tqdm', '4.66.5'),
+    ('GitPython', '3.1.43'),
+    ('Pint', '0.24.4'),
+    ('PyTables', '3.10.2'),
+    ('PyZMQ', '26.2.0'),
+    ('ruamel.yaml', '0.18.6'),
 ]
 
 check_ldshared = True
 
+_pyiron_atomistics_preinstallopts = (
+    "sed -i "
+    "-e 's/==3.22.1//g' "  # unpin ASE version
+    "-e 's/,<=3.10.0//g' "  # unpin h5py version
+    "-e 's/,<=0.23//g' "  # unpin Pint version
+    "-e 's/,<=2.3.1//g' "  # unpin spglib version
+    "pyproject.toml && "
+)
+
 exts_list = [
-    ('h5io', '0.1.2', {
-        'checksums': ['6400543224c489f1cf487be551f892310fa7060fcd4935b84e515efdc1e1fa43'],
+    ('h5io', '0.2.4', {
+        'checksums': ['46cde79252b1a014e9bbc9c98efc2dd5aac01cc79931ac2226a55837a4bf49b8'],
     }),
-    ('defusedxml', '0.6.0', {
-        'checksums': ['f684034d135af4c6cbb949b8a4d2ed61634515257a67299e5f940fbaa34377f5'],
+    ('h5io_browser', '0.1.5', {
+        'checksums': ['9110d61ac58b8b9c07cb472794977b36f7f10eb29fbb20565697b056f2a52497'],
     }),
-    ('pysqa', '0.1.7', {
-        'checksums': ['fdc37e0178649750e7386b4e9b8287693ee2d47559723c11b9ad42afcfc55900'],
+    ('pyiron_snippets', '0.1.4', {
+        'checksums': ['c46532fe476c79d1182477709b7fa8a66c92e3ae6082c6ccfc0ebef1f69ed046'],
     }),
-    ('pyfiglet', '0.8.post1', {
-        'checksums': ['c6c2321755d09267b438ec7b936825a4910fec696292139e664ca8670e103639'],
+    ('monty', '2024.12.10', {
+        'checksums': ['802f9b03a07172d4841dea63c60c51389be45c20b5ce21ffb2f78f7b4b99daa0'],
     }),
-    ('mendeleev', '0.14.0', {
-        'checksums': ['1a89ccf05c708aebe627c5eb19ff5c6379585a2f9e588e1dcf9b03182fe61f3c'],
+    ('pysqa', '0.2.3', {
+        'checksums': ['231780604fd46b714f6ba11d175d2294860912af4209eee263c68d4dd7b1c179'],
     }),
-    ('pyfileindex', '0.0.18', {
-        'checksums': ['6d5acf2500f568667aa5273ae57692c2b62facbcaae7c0bbbf21ba3bdd904961'],
+    ('pyfileindex', '0.0.32', {
+        'checksums': ['2d27ff6030f6bc0ffab501db49728ead0e0462614befc882b5addc3f32411796'],
+    }),
+    ('pyiron_dataclasses', '0.0.1', {
+        'checksums': ['23270dc5825b433da32d8716de49ca70514142b85fc1b2aaa93afd05bc4b7e91'],
+    }),
+    ('traitlets', '5.14.3', {
+        'checksums': ['8cdd83c040dab7d1dee822678e5f5d100b514f7b72b01615b26fc5718916fdf9'],
+    }),
+    # ('pympipool', '0.7.17', {
+    #     'checksums': ['9622bf98a025ac3da4578ca4ecefc008041a2ff17bbb7360f8ed1e0fdb78e8c2'],
+    # }),
+    ('pyiron_base', '0.10.11', {
+        'runtest': "pytest -vvvs tests",
+        'testinstall': True,
+        'checksums': ['ef14fb0e1fd661512e06a9be8c05f2cbc352b61184c052f772d8d3d854e42c21'],
     }),
     ('seekpath', '2.1.0', {
         'checksums': ['31cec579628262e6d4a4c3693fefa70d6ccae1ceeef7c9d10ea3cd48988452c4'],
     }),
+    ('structuretoolkit', '0.0.30', {
+        'checksums': ['42dc7cc13d0eb84390d8600f2136e1d6d244ebaba913119977ae0f69e308c97d'],
+    }),
+    ('defusedxml', '0.7.1', {
+        'checksums': ['1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69'],
+    }),
+    ('atomistics', '0.1.34', {
+        'checksums': ['10336311db5829964f5d613a3dceca24523f78cacd91e3f15b6cfdec703f3c4a'],
+    }),
+    ('pyfiglet', '0.8.post1', {
+        'checksums': ['c6c2321755d09267b438ec7b936825a4910fec696292139e664ca8670e103639'],
+    }),
+    ('mendeleev', '0.19.0', {
+        'checksums': ['c8fabc213886d80973ce472f21891d43d78e2eecf9a39a1f4842eeb0d256aa7c'],
+    }),
+    ('mp-api', '0.45.1', { # needs pymatgen>=2022.3.7
+        'checksums': ['dc6c840da150013859bd407cadd0567fa046e5f78c2f72c5a8dd4b1b00916122'],
+    }),
+    ('pylammpsmpi', '0.2.27', {
+        'checksums': ['787d943f20e878d3e949e77ee0ae24233c4c87dfbc6cef0a0e8ff31e226e510f'],
+    }),
+    ('pyiron_atomistics', '0.6.22', {
+        'runtest': "pytest -vvvs tests",
+        'testinstall': True,
+        'checksums': ['f668b38e3f27141e70ca381d1a2918a1eb0f3a33b356f84c3d97ffeec0d008b9'],
+    }),
     (name, version, {
-        'modulename': False,
-        'checksums': ['2e5e3f892b7e49a15443569870aa4ea049951b71fe2ad1ad7f4ac7551d475788'],
-    }),
-    ('pyiron_base', '0.6.12', {
-        'patches': ['pyiron-0.5.1_fix-pyiron-base-version.patch'],
-        'source_urls': ['https://github.com/pyiron/pyiron_base/archive/refs/tags/'],
-        'checksums': [
-            {'pyiron_base-0.6.12.tar.gz': '7ef8fa8b21724776c1ced3ee1efb8484984234150a7f3da296577f90c63751cb'},
-            {'pyiron-0.5.1_fix-pyiron-base-version.patch':
-             'a6390dcd366e17361fb71f26c6d3b75835526bdf773d9ef535c02836fe551b31'},
-        ],
-    }),
-    ('atomistics', '0.1.15', {
-        'patches': ['pyiron-0.5.1_fix-atomistics-requirements.patch'],
-        'source_urls': ['https://github.com/pyiron/atomistics/archive/refs/tags/'],
-        'checksums': [
-            {'atomistics-0.1.15.tar.gz': 'e9c505cace0cbeb9ea5ed33799f332f5cc95230a05ba14b646475cff1bdecaee'},
-            {'pyiron-0.5.1_fix-atomistics-requirements.patch':
-             'deaa57c27be147efc7e4926f6795bfa421280a299fc96de8c0bae342e4770d6c'},
-        ],
-    }),
-    ('pyiron_atomistics', '0.3.11', {
-        'patches': ['pyiron-0.5.1_fix-pyiron-atomistics-version.patch'],
-        'source_urls': ['https://github.com/pyiron/pyiron_atomistics/archive/refs/tags/'],
-        'checksums': [
-            {'pyiron_atomistics-0.3.11.tar.gz': '8c73c452fe60cb808961d22361f9b749488e3d50a8bda7f5c0132aea2f69e00f'},
-            {'pyiron-0.5.1_fix-pyiron-atomistics-version.patch':
-             '5c9b987cb63508f482bff696e252987e10df9b8ee8e860491583c8e547d4568c'},
-        ],
-    }),
-    ('pylammpsmpi', '0.2.10', {
-        'patches': ['pyiron-0.5.1_fix-pylammpsmpi.patch'],
-        'source_urls': ['https://github.com/pyiron/pylammpsmpi/archive/refs/tags/'],
-        'checksums': [
-            {'pylammpsmpi-0.2.10.tar.gz': 'bd5af29a935dacbee743c3cc0bcc799e24e7c2483801f56cb9092a79f016f2ed'},
-            {'pyiron-0.5.1_fix-pylammpsmpi.patch':
-             'd7cacf8eb73cb43e47526bfa3f98157073c01cd88918f191f87d7e75ab4c7c30'},
-        ],
-    }),
-    ('pympipool', '0.7.9', {
-        'checksums': ['5698181bc5dc9a69595fd00ff6a8ba651b77734ccf00df79ae3aea8aaf32790a'],
-    }),
-    ('structuretoolkit', '0.0.15', {
-        'checksums': ['1a258a072055d0c20e9d56156afd4481cfc94c2612c1b908de4b274b423cc6e6'],
+        'checksums': ['eaa30c944cc24da1088ca7d7ab008524fda260a97f40e0cf02619d3c1ed53f7b'],
     }),
 ]
 
