@@ -14,6 +14,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 builddependencies = [
     ('binutils', '2.40'),
+    ('git-lfs', '3.6.1', '', SYSTEM),
 ]
 
 dependencies = [
@@ -27,8 +28,8 @@ dependencies = [
 ]
 
 # fixes ModuleNotFoundError: No module named 'PySONIC.core'
-local_setup_py_patch = """sed -i "s/import setup/import setup, find_packages/g;"""
-local_setup_py_patch += """s/packages=\['PySONIC'\]/packages=find_packages()/g" setup.py && """
+# local_setup_py_patch = """sed -i "s/import setup/import setup, find_packages/g;"""
+# local_setup_py_patch += """s/packages=\['PySONIC'\]/packages=find_packages()/g" setup.py && """
 
 exts_list = [
     ('boltons', '23.0.0', {
@@ -38,11 +39,15 @@ exts_list = [
         'checksums': ['bfba54a1b93b94f54e1f4fe48395725a3d92fd2a4af702f6bd70946bdc0c6ac2'],
     }),
     (name, version, {
+        'patches': ['patch2_fix-setup.py.patch'],
         'source_urls': ['https://github.com/tjjlemaire/PySONIC/archive/'],
         'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
-        'preinstallopts': local_setup_py_patch,
+        # 'preinstallopts': local_setup_py_patch,
         'modulename': name,
-        'checksums': ['fbf8c68a18971fba30f5c63d3e0755aa7f7f9c735e343b6b09e84cb97370c1a2'],
+        'checksums': [
+            {'PySONIC-1.0-20250519.tar.gz': 'fbf8c68a18971fba30f5c63d3e0755aa7f7f9c735e343b6b09e84cb97370c1a2'},
+            {'patch2_fix-setup.py.patch': 'f2dda99f47d9eee6a305df2efb765f26d29e28616e7c0802903a4b4ba1e4236a'},
+        ],
     }),
 ]
 
@@ -50,5 +55,10 @@ sanity_check_commands = [
     "python -c 'from PySONIC.core import NeuronalBilayerSonophore, AcousticDrive'",
     "python -c 'from PySONIC.neurons import getPointNeuron'",
 ]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [f'lib/python%(pyshortver)s/site-packages/{name}/lookups'],
+}
 
 moduleclass = 'lib'
