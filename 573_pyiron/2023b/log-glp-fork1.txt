@@ -1,0 +1,80 @@
+Processing /tmp/vsc47063/easybuild/build/pyirongpl/0.0.5/foss-2023b-mbocus/pyiron_gpl-d2d86801f046f3e5524a543ddc831c6902c2047d
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × python setup.py egg_info did not run successfully.
+  │ exit code: 1
+  ╰─> [62 lines of output]
+      /apps/gent/RHEL9/zen4-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/site-packages/setuptools/dist.py:315: SetuptoolsDeprecationWarning: Invalid version: '-d2d86801f046f3e5524a543ddc831c6902c2047d'.
+      !!
+      
+              ********************************************************************************
+              The version specified is not a valid version according to PEP 440.
+              This may not work as expected with newer versions of
+              setuptools, pip, and PyPI.
+      
+              This deprecation is overdue, please update your project and remove deprecated
+              calls to avoid build errors in the future.
+      
+              See https://peps.python.org/pep-0440/ for details.
+              ********************************************************************************
+      
+      !!
+        self._validate_version(self.metadata.version)
+      running egg_info
+      /apps/gent/RHEL9/zen4-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/site-packages/setuptools/command/egg_info.py:130: SetuptoolsDeprecationWarning: Invalid version: '-d2d86801f046f3e5524a543ddc831c6902c2047d'.
+      !!
+      
+              ********************************************************************************
+              Version '-d2d86801f046f3e5524a543ddc831c6902c2047d' is not valid according to PEP 440.
+      
+              Please make sure to specify a valid version for your package.
+              Also note that future releases of setuptools may halt the build process
+              if an invalid version is given.
+      
+              This deprecation is overdue, please update your project and remove deprecated
+              calls to avoid build errors in the future.
+      
+              See https://peps.python.org/pep-0440/ for details.
+              ********************************************************************************
+      
+      !!
+        return _normalization.best_effort_version(tagged)
+      Traceback (most recent call last):
+        File "<string>", line 2, in <module>
+        File "<pip-setuptools-caller>", line 34, in <module>
+        File "/tmp/vsc47063/easybuild/build/pyirongpl/0.0.5/foss-2023b-mbocus/pyiron_gpl-d2d86801f046f3e5524a543ddc831c6902c2047d/setup.py", line 7, in <module>
+          setup(
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/site-packages/setuptools/__init__.py", line 103, in setup
+          return distutils.core.setup(**attrs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/site-packages/setuptools/_distutils/core.py", line 185, in setup
+          return run_commands(dist)
+                 ^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/site-packages/setuptools/_distutils/core.py", line 201, in run_commands
+          dist.run_commands()
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/site-packages/setuptools/_distutils/dist.py", line 969, in run_commands
+          self.run_command(cmd)
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/site-packages/setuptools/dist.py", line 989, in run_command
+          super().run_command(command)
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/site-packages/setuptools/_distutils/dist.py", line 987, in run_command
+          cmd_obj.ensure_finalized()
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 111, in ensure_finalized
+          self.finalize_options()
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/site-packages/setuptools/command/egg_info.py", line 224, in finalize_options
+          parsed_version = packaging.version.Version(self.egg_version)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/site-packages/setuptools/_vendor/packaging/version.py", line 198, in __init__
+          raise InvalidVersion(f"Invalid version: '{version}'")
+      setuptools.extern.packaging.version.InvalidVersion: Invalid version: '-d2d86801f046f3e5524a543ddc831c6902c2047d'
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
