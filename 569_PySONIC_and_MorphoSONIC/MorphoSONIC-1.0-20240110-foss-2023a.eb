@@ -15,23 +15,12 @@ neuromodulation in peripheral nerve fibers are described in.
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-builddependencies = [
-    ('binutils', '2.40'),
-]
-
 dependencies = [
     ('Python', '3.11.3'),
-    ('NEURON', '8.2.6'),  # TODO maybe different `neuron`?
+    ('NEURON', '8.2.6'),
     ('Seaborn', '0.13.2'),
     ('PySONIC', '1.0-20250519'),
 ]
-
-# fixes ModuleNotFoundError: No module named 'MorphoSONIC.core' -> add to patch1-setup.py
-# local_setup_py_patch = """sed -i "s/import setup/import setup, find_packages/g;"""
-# local_setup_py_patch += """s/packages=\['MorphoSONIC'\]/packages=find_packages()/g" setup.py && """
-
-# delete neuron from requirements.txt -> fix E2
-# _preinstallopts = "sed -i '2d' requirements.txt && "
 
 exts_list = [
     ('MarkdownPP', '1.5.1', {
@@ -45,7 +34,7 @@ exts_list = [
         'patches': ['%(name)s-%(version)s_fix-setup.py.patch'],
         'source_urls': ['https://github.com/tjjlemaire/MorphoSONIC/archive/'],
         'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
-        # delete neuron from requirements.txt -> fix E2
+        # delete neuron from requirements.txt - pip check failing
         'preinstallopts': "sed -i '2d' requirements.txt && ",
         'modulename': name,
         'checksums': [
@@ -57,10 +46,7 @@ exts_list = [
 ]
 
 # generate libs from mod files by neuron's nrnivmodl
-postinstallcmds = [
-    f'cd %(installdir)s/lib/python%(pyshortver)s/site-packages/{name}/nmodl  && nrnivmodl && '
-    f'cp -r %(builddir)s/{name}/{name}*/tests %(installdir)s/lib/python%(pyshortver)s/site-packages/{name}/tests'
-]
+postinstallcmds = [f'cd %(installdir)s/lib/python%(pyshortver)s/site-packages/{name}/nmodl  && nrnivmodl']
 
 sanity_check_commands = [
     "python -c 'from MorphoSONIC.core import ExtracellularCurrent'",
@@ -74,54 +60,3 @@ sanity_check_paths = {
 }
 
 moduleclass = 'lib'
-
-#tests: 3 errors -> OK
-    # -> problem with PySonic installation - it needs git-lfs to get lookups files -> clone repo and run git lfs pull -> add this repo to tar.gz to zips -> OK only 2 errors
-    # -> tests with patch2:
-        # -> again 3 errors - one is different:
-            # test_senn_estim_multisource.py + test_cortical_network.py as before +
-            # test_fiber_currents.py with different error:
-                # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/PySONIC/1.0-20250519-foss-2023a/lib/python3.11/site-packages/PySONIC/core/lookups.py:391: in fromPickle
-                #     d = pickle.load(fh)
-                # E   _pickle.UnpicklingError: invalid load key, 'v'.
-
-    # ET1: test_senn_estim_multisource.py -> OK
-        # -> really does not works! -> from MorphoSONIC.core import ExtracellularCurrent works -> wrong test
-        # from MorphoSONIC.models import SennFiber, ExtracellularCurrent, PointSourceArray
-        # E   ImportError: cannot import name 'ExtracellularCurrent' from 'MorphoSONIC.models' (/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/models/__init__.py)
-    # ET2: test_fiber_currents.py OK?
-        # -> there is missing dir lookups in PyScenic -> update setup.py of PyScenic -> patch2
-        # FileNotFoundError: Missing lookup file: 
-        # "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/PySONIC/1.0-20250519-foss-2023a/lib/python3.11/site-packages/PySONIC/lookups/FHnode_lookups_fs1.00.pkl"
-    # ET3: test_cortical_network.py ??? E   SystemExit: 2 - failed on L27? -> PASS
-
-
-#E2: OK
-    # pip check MorphoSONIC fail -> delete neuron from requirements.txt
-        # morphosonic 1.0 requires neuron, which is not installed.
-        # or use hack from: https://github.com/easybuilders/easybuild-easyblocks/pull/2903
-#E1:
-    # -> enable tests and sanity_check_commands:
-        # -> tests failing - needs libs in nmodl -> cannot run it before tests it cerates some tmp dir with lib/python%(pyshortver)s/site-packages ...
-            # -> copy tests to installdir and test it there in postinstalcmds?
-    # -> nmodl dir is in installdir! -> need to run nrnivmodl in postinstallcmds to compile libnrnmech.so? -> add postinstallcmds -> postinstallcmds passed OK ->
-        # -> fix import MorphoSONIC
-    # -> patch1 - update setup.py to have nmodl in installdir -> sanity_check import MorphoSONIC failing:
-        # <- log1.txt: still libnrnmech.so and nmodl error
-    # -> there is /tmp/vsc47063/easybuild/build/MorphoSONIC/1.0-20240110/foss-2023a/MorphoSONIC/MorphoSONIC-64a0a2325ec8a1cfa90ce5595ea93301e4a1ff91/MorphoSONIC/nmodl
-        # -> but it is not in installdir and there is no libnrnmech.so
-    # <- error from sanity check: python -c 'from MorphoSONIC.core import ExtracellularCurrent
-        # == 2025-06-10 10:40:01,179 run.py:502 INFO Running shell command '/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python -c "import MorphoSONIC"' in /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a
-        # == 2025-06-10 10:40:23,092 run.py:613 INFO Output of '/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python ...' shell command (stdout + stderr):
-        # Traceback (most recent call last):
-        #   File "<string>", line 1, in <module>
-        #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/__init__.py", line 8, in <module>
-        #     from .core import *
-        #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/core/__init__.py", line 14, in <module>
-        #     from .synapses import *
-        #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/core/synapses.py", line 15, in <module>
-        #     load_mechanisms(nmodl_dir, syn_mod_file)
-        #   File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/utils.py", line 58, in load_mechanisms
-        #     raise RuntimeError(f'Compiled library file not found for mechanisms in "{path}"')
-        # RuntimeError: Compiled library file not found for mechanisms in "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MorphoSONIC/1.0-20240110-foss-2023a/lib/python3.11/site-packages/MorphoSONIC/nmodl"
-
