@@ -41,11 +41,12 @@ exts_list = [
     (name, version, {
         'patches': ['patch2_fix-setup.py.patch'],
         'source_urls': ['https://github.com/tjjlemaire/PySONIC/archive/'],
-        'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
+        # 'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
+        'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': '%(name)s-%(version)s-LFS.tar.gz'}],
         # 'preinstallopts': local_setup_py_patch,
         'modulename': name,
         'checksums': [
-            {'PySONIC-1.0-20250519.tar.gz': 'fbf8c68a18971fba30f5c63d3e0755aa7f7f9c735e343b6b09e84cb97370c1a2'},
+            {'PySONIC-1.0-20250519-LFS.tar.gz': '115668a42f4393e0da95ecd057cb672e3f53a261b49f62704657a897cac1e957'},
             {'patch2_fix-setup.py.patch': 'f2dda99f47d9eee6a305df2efb765f26d29e28616e7c0802903a4b4ba1e4236a'},
         ],
     }),
