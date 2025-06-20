@@ -10,14 +10,14 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 toolchainopts = {'openmp': True}
 
 dependencies = [
-    ('R', '4.4.1'),
-    ('R-bundle-CRAN', '2025.11'),
+    ('R', '4.4.2'),
+    ('R-bundle-CRAN', '2024.11'),
     ('GSL', '2.8'),
     ('zlib', '1.3.1'),
     ('SuiteSparse', '7.10.1'),
     ('METIS', '5.1.0'),
-    # ('muParser', '2.3.4'),  # TODO
-    # ('Rmath', '%(rver)s'),  # TODO
+    ('muParser', '2.3.5'),
+    ('Rmath', '%(rver)s'),
     ('X11', '20240607'),
     ('libtool', '2.4.7'),  # provides libltdl
 ]
@@ -28,7 +28,7 @@ default_component_specs = {
     'source_urls': ['https://github.com/hrue/r-inla/archive/refs/tags/'],
     'sources': [{'download_filename': 'Version_%s.tar.gz' % version, 'filename': 'R-INLA-%s.tar.gz' % version}],
     'skipsteps': ['configure'],
-    'checksums': ['ad166a01b8d774d52e4e9a1dc94547439c263af6539605f47735d3a3cc294145'],
+    'checksums': ['7b3cfb1fbd08bd9d8751bdae0378821a8496630b89a3e961e3b23d9c4a39a6d6'],
 }
 
 local_gmrflib_buildopts = ' -C r-inla-*/gmrflib PREFIX=%(installdir)s CC="$CC" FC="$FC" '
@@ -50,9 +50,9 @@ components = [
         'files_to_copy': [(['r-inla-*/extlibs/taucs-2.2--my-fix/lib/linux/libtaucs.a'], 'lib')],
     }),
     ('fmesher-R-INLA', version, {
-        'patches': ['R-INLA-24.01-18_fix-hardcoded-deps.patch'],
+        'patches': ['R-INLA-25.06.13_fix-hardcoded-deps.patch'],
         'checksums': default_component_specs['checksums'] + [
-            '6dadd25dff99862f6271513cb97330549b74e29580209c0b204cd93192f98507',
+            'c3ac69211647b76c2ef7b67eda4ecae22c26040528ab7e7a802f113e57ec361b',
         ],
         'buildopts': '-C r-inla-*/fmesher PREFIX=%(installdir)s CC="$CC" CXX="$CXX" LD="$CXX" FLAGS="$CXXFLAGS"',
         'installopts': '-C r-inla-*/fmesher PREFIX=%(installdir)s',
@@ -72,9 +72,9 @@ components = [
         'start_dir': 'fmesher',
     }),
     ('rinla', version, {
-        'patches': ['R-INLA-24.01-18_remove-hardcoding.patch'],
+        'patches': ['R-INLA-25.06.13_remove-hardcoding.patch'],
         'checksums': default_component_specs['checksums'] + [
-            'fca2bab58ad0bfd08422c06af8991a85f537caccbfbfe1bd6cb5e6892503c7d4',
+            '23a0b254c21e98d145ac25519f0d4cf77d1a85de3e1df0be7986d914df2cacd6',
         ],
         'easyblock': 'RPackage',
         'start_dir': 'r-inla-Version_%(version)s/rinla',
@@ -102,3 +102,10 @@ sanity_check_commands = ["Rscript -e 'library(INLA)'"] + ["%s -h" % x for x in l
 modextrapaths = {'R_LIBS_SITE': ''}
 
 moduleclass = 'math'
+
+# TODO
+# GMRFLib/fsort/fluxsort.h:45:10: fatal error: GMRFLib/fsort/quadsort.h: No such file or directory
+#    45 | #include "GMRFLib/fsort/quadsort.h"
+#       |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+# compilation terminated.
+# make: *** [Makefile:107: fsort.o] Error 1
