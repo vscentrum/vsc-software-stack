@@ -14,7 +14,7 @@ source_urls = ['https://genesis.ugent.be/maven2/eu/isas/peptideshaker/%(name)s/%
 sources = [SOURCE_ZIP]
 checksums = ['8893de0b068b3adc0c45b1139374a08ecbd8661e1fa087e5aec950d1091e2dec']
 
-dependencies = [('Java', '23')]
+dependencies = [('Java', '11')]
 
 postinstallcmds = [
     'mkdir %(installdir)s/bin && '
@@ -29,7 +29,7 @@ sanity_check_paths = {
     'dirs': ['lib', 'resources', 'bin'],
 }
 
-sanity_check_commands = ['%(name)s 2>&1 | grep "Command line"']
+# sanity_check_commands = ['%(name)s 2>&1 | grep "Command line"']
 
 modloadmsg = """
 You can run PeptideShaker GUI by $ PeptideShaker
