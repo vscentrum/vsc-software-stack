@@ -11,10 +11,6 @@ description = "Fast and accurate machine learning interatomic potentials with hi
 toolchain = {'name': 'foss', 'version': '2023a'}
 
 #DEPS
-    # GPU: 
-        # ok cuequivariance 
-        # ok cuequivariance-torch 
-        # ok cuequivariance-ops-torch-cu12 - only WHL
     # OK torch>=1.12
     # OK? e3nn==0.4.4
     # OK numpy
@@ -157,24 +153,12 @@ exts_list = [
     ('torch_ema', '0.3', {
         'checksums': ['5a3595405fa311995f01291a1d4a9242d6be08a0fc9db29152ec6cfd586ea414'],
     }),
-    ('cuequivariance', '0.3.0', {
-        'checksums': ['47c024e7b00028f5769ae69531bde692c4f7c252e53a87f703049ae4278c227a'],
-    }),
-    ('cuequivariance_torch', '0.3.0', {
-        'checksums': ['37b72c9f34b2118fa0bbcbcb155213145d0a4b9fb3c58281ae538e284f8dadcc'],
-    }),
-    ('pynvml', '11.5.0', {
-        'checksums': ['d027b21b95b1088b9fc278117f9f61b7c67f8e33a787e9f83f735f0f71ac32d0'],
-    }),
-    ('cuequivariance_ops_torch_cu12', '0.3.0', {
-        'modulename': 'cuequivariance_ops_torch',
-        'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl',
-        'checksums': ['9297279de2780e8d1daa0e67c93580b572c84c0c8096cf5c818252fdf848a958'],
-    }),
     ('mace_torch', version, {
         'modulename': 'mace',
         'preinstallopts': "sed -i 's/==0.4.4//' setup.cfg && ",
         'checksums': ['32b44478cb40ffe625216a81bcbac001165baff1fa9378a47ad50c4550806da5'],
+        'testinstall': True,
+        'runtest': "pytest -vvvs tests",
     }),
 ]
 
