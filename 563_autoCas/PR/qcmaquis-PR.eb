@@ -24,14 +24,17 @@ dependencies = [
 
 start_dir = 'dmrg'
 
-# provide mafdecls.fh from GlobalArrays + preprocess fortran sources by -fpp
-# preconfigopts = "export GA_INCLUDE_DIR=$EBROOTGLOBALARRAYS/include && "
-# configopts = '-DBUILD_OPENMOLCAS_INTERFACE=ON -DCMAKE_Fortran_FLAGS="-fpp -D_MOLCAS_MPP_ -I${GA_INCLUDE_DIR}" -DQCMAQUIS_TESTS=ON'
+# preprocess fortran sources by -fpp
 configopts = '-DBUILD_OPENMOLCAS_INTERFACE=ON -DCMAKE_Fortran_FLAGS="-fpp" -DQCMAQUIS_TESTS=ON'
 
 # fix build of test_wigner
 prebuildopts = "sed -i '14i#include <array>' %(start_dir)s/tests/test_wigner.cpp && "
 
 runtest = True
+
+sanity_check_paths = {
+    'files': ['bin/dmrgIPI', 'include/maquis_dmrg.h', 'lib/libmaquis_dmrg.so'],
+    'dirs': ['include', 'share/qcmaquis'],
+}
 
 moduleclass = 'chem'
