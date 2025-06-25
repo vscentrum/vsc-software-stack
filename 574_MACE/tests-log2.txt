@@ -1,0 +1,81 @@
+===================================================== test session starts ======================================================
+platform linux -- Python 3.11.3, pytest-7.4.0, pluggy-1.2.0 -- /apps/gent/RHEL9/zen4-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python
+cachedir: .pytest_cache
+rootdir: /tmp/vsc47063/easybuild/build/MACE/0.3.8/foss-2023a-CUDA-12.1.1/macetorch/mace-torch-0.3.8
+plugins: mock-3.14.0, xdist-3.3.1
+collecting ... Using Materials Project MACE for MACECalculator with /user/gent/470/vsc47063/.cache/mace/20231210mace128L0_energy_epoch249model
+Using float64 for MACECalculator, which is slower but more accurate. Recommended for geometry optimization.
+Using Materials Project MACE for MACECalculator with /user/gent/470/vsc47063/.cache/mace/20231203mace128L1_epoch199model
+Using float64 for MACECalculator, which is slower but more accurate. Recommended for geometry optimization.
+Downloading MACE model from 'https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0/MACE_MPtrj_2022.9.model'
+Cached MACE model to /user/gent/470/vsc47063/.cache/mace/MACE_MPtrj_20229model
+Using Materials Project MACE for MACECalculator with /user/gent/470/vsc47063/.cache/mace/MACE_MPtrj_20229model
+Using float64 for MACECalculator, which is slower but more accurate. Recommended for geometry optimization.
+collected 57 items / 1 error / 1 skipped
+
+============================================================ ERRORS ============================================================
+__________________________________________ ERROR collecting tests/test_foundations.py __________________________________________
+mace/calculators/foundations_models.py:111: in mace_mp
+    raise FileNotFoundError(f"{model} not found locally")
+E   FileNotFoundError: /tmp/vsc47063/easybuild/build/MACE/0.3.8/foss-2023a-CUDA-12.1.1/macetorch/mace-torch-0.3.8/mace/calculators/foundations_models/2023-12-03-mace-mp.model not found locally
+
+The above exception was the direct cause of the following exception:
+/apps/gent/RHEL9/zen4-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/lib/python3.11/site-packages/_pytest/runner.py:341: in from_call
+    result: Optional[TResult] = func()
+/apps/gent/RHEL9/zen4-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/lib/python3.11/site-packages/_pytest/runner.py:372: in <lambda>
+    call = CallInfo.from_call(lambda: list(collector.collect()), "collect")
+/apps/gent/RHEL9/zen4-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/lib/python3.11/site-packages/_pytest/python.py:531: in collect
+    self._inject_setup_module_fixture()
+/apps/gent/RHEL9/zen4-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/lib/python3.11/site-packages/_pytest/python.py:545: in _inject_setup_module_fixture
+    self.obj, ("setUpModule", "setup_module")
+/apps/gent/RHEL9/zen4-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/lib/python3.11/site-packages/_pytest/python.py:310: in obj
+    self._obj = obj = self._getobj()
+/apps/gent/RHEL9/zen4-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/lib/python3.11/site-packages/_pytest/python.py:528: in _getobj
+    return self._importtestmodule()
+/apps/gent/RHEL9/zen4-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/lib/python3.11/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+/apps/gent/RHEL9/zen4-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/lib/python3.11/site-packages/_pytest/pathlib.py:565: in import_path
+    importlib.import_module(module_name)
+/apps/gent/RHEL9/zen4-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1206: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1178: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1149: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:690: in _load_unlocked
+    ???
+/apps/gent/RHEL9/zen4-ib/software/Python-bundle-PyPI/2023.06-GCCcore-12.3.0/lib/python3.11/site-packages/_pytest/assertion/rewrite.py:178: in exec_module
+    exec(co, module.__dict__)
+tests/test_foundations.py:185: in <module>
+    mace_mp(model=MODEL_PATH, device="cpu", default_dtype="float64").models[0],
+mace/calculators/foundations_models.py:114: in mace_mp
+    raise RuntimeError("Model download failed and no local model found") from exc
+E   RuntimeError: Model download failed and no local model found
+======================================================= warnings summary =======================================================
+../../../../../../../../../apps/gent/RHEL9/zen4-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/pkg_resources/__init__.py:121
+  /apps/gent/RHEL9/zen4-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/pkg_resources/__init__.py:121: DeprecationWarning: pkg_resources is deprecated as an API
+    warnings.warn("pkg_resources is deprecated as an API", DeprecationWarning)
+
+../../../../../../../../../apps/gent/RHEL9/zen4-hopper-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/overrides.py:110
+  /apps/gent/RHEL9/zen4-hopper-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/overrides.py:110: UserWarning: 'has_cuda' is deprecated, please use 'torch.backends.cuda.is_built()'
+    torch.has_cuda,
+
+../../../../../../../../../apps/gent/RHEL9/zen4-hopper-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/overrides.py:111
+  /apps/gent/RHEL9/zen4-hopper-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/overrides.py:111: UserWarning: 'has_cudnn' is deprecated, please use 'torch.backends.cudnn.is_available()'
+    torch.has_cudnn,
+
+../../../../../../../../../apps/gent/RHEL9/zen4-hopper-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/overrides.py:117
+  /apps/gent/RHEL9/zen4-hopper-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/overrides.py:117: UserWarning: 'has_mps' is deprecated, please use 'torch.backends.mps.is_built()'
+    torch.has_mps,
+
+../../../../../../../../../apps/gent/RHEL9/zen4-hopper-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/overrides.py:118
+  /apps/gent/RHEL9/zen4-hopper-ib/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/overrides.py:118: UserWarning: 'has_mkldnn' is deprecated, please use 'torch.backends.mkldnn.is_available()'
+    torch.has_mkldnn,
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=================================================== short test summary info ====================================================
+ERROR tests/test_foundations.py - RuntimeError: Model download failed and no local model found
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+====================================== 1 skipped, 5 warnings, 1 error in 87.84s (0:01:27) ======================================
