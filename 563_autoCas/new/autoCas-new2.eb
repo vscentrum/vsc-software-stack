@@ -32,6 +32,7 @@ exts_list = [
         'patches': [
             'patch2.8-tests.patch',
             'patch22.4-hdf5.patch',
+            'patch222.1-test-main.patch',
         ],  # only to see if there are files from Molcas - ET1
         # remove dependencies pin
         'preinstallopts': "sed -i 's/==.*//g' requirements.txt &&",
@@ -45,6 +46,7 @@ exts_list = [
             {'scine-autocas-2.3.1.tar.gz': '387db9ca42d9bc64322ea3e3d4d85aba289a82a8f08ae485ce1b2ca9dd052af5'},
             {'patch2.8-tests.patch': '2dda1180060fa6f1f75bdc0fc94532593bdb49dba8b7c96bed9b7f1bb2af5ec6'},
             {'patch22.4-hdf5.patch': '65e304a80b2501e7a973969b7735e7c34bb18d854d3e19129a68c2eeff07e289'},
+            {'patch222.1-test-main.patch': 'a3e02d4641e72a2b7907d316cffdb8480ddc56c94ada7ec4119210a3ee747670'},
         ],
     }),
 ]
@@ -54,3 +56,5 @@ check_ldshared = True
 sanity_check_commands = ["python3 -m scine_autocas -h"]
 
 moduleclass = 'chem'
+
+# /tmp/vsc47063/easybuild/build/scineautocas/2.3.1/iomkl-2023a-new2/scineautocas/autocas-2.3.1/scine_autocas/tests/dummy_dir
