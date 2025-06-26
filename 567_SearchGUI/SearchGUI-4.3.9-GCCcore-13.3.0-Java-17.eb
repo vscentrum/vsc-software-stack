@@ -10,15 +10,15 @@ description = """SearchGUI is a user-friendly open-source graphical user interfa
  currently supporting X! Tandem, MS-GF+, MS Amanda, MyriMatch, Comet, Tide, Andromeda, OMSSA,
  Novor and DirecTag."""
 
-toolchain = SYSTEM
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
 source_urls = ['http://genesis.ugent.be/maven2/eu/isas/searchgui/SearchGUI/%(version)s/']
 sources = ['SearchGUI-%(version)s-mac_and_linux.tar.gz']
 checksums = ['937898927c1727f72aad6a0fd1873324af5bc8eb946f79035d30b9407652032e']
 
 dependencies = [
-    ('Java', '17'),
-    # ('Mono', '4.6.2.7')  # TODO ?
+    ('Java', '17', '', SYSTEM),
+    ('Mono', '6.12.0.199')  # TODO
 ]
 
 sanity_check_paths = {
