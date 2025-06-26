@@ -7,7 +7,7 @@ homepage = 'https://github.com/Cantera/cantera'
 description = """Chemical kinetics, thermodynamics, and transport tool suite"""
 
 toolchain = {'name': 'foss', 'version': '2024a'}
-toolchainopts = {'strict': True}
+toolchainopts = {'strict': True, 'usempi': True}
 
 source_urls = ['https://github.com/Cantera/cantera/archive/']
 sources = ['v%(version)s.tar.gz']
@@ -60,8 +60,11 @@ moduleclass = 'chem'
 #     /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python (Python 3.12)
 # fatal: not a git repository (or any parent up to mount point /)
 # Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+# ERROR: The deprecated Intel compiler suite (icc/icpc) is no longer supported
 # INFO: Compiling on 'Intel(R) Xeon(R) Gold 6240 CPU @ 2.60GHz'
 # INFO: Configuration variables read from 'cantera.conf' and command line:
+#     CC = 'mpicc'
+#     CXX = 'mpicxx'
 #     cxx_flags = '-O2 -ftree-vectorize -march=native -mieee-fp -mno-recip'
 #     cc_flags = '-O2 -ftree-vectorize -march=native -mieee-fp -mno-recip'
 #     prefix = '/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Cantera/3.1.0-foss-2024a'
@@ -92,7 +95,18 @@ moduleclass = 'chem'
 # Checking for C library flexiblas... yes
 # Checking for C library None... yes
 # WARNING: Sundials version 7.3.0 has not been tested.
-# Checking for SUNContext ctx; SUNContext_Create(SUN_COMM_NULL, &ctx) in C++ library sundials_core... no
-# ERROR: Could not link to the Sundials library. Did you set the include/library paths?
-#
-# See 'config.log' for details.
+# Checking for SUNContext ctx; SUNContext_Create(SUN_COMM_NULL, &ctx) in C++ library sundials_core... yes
+# INFO: Using system installation of Sundials version 7.3.0.
+# Checking whether SUNDIALS_BLAS_LAPACK_ENABLED is declared... yes
+# Checking for C library hdf5... yes
+# Checking for C library hdf5_serial... no
+# Checking for C++ library hdf5... yes
+# INFO: Using system installation of HighFive library.
+# Checking for HighFive::details::Boolean::HighFiveTrue... yes
+# INFO: Using HighFive version 2.10.1 for HDF5 1.14.5
+# INFO: Using 'gfortran' to build the Fortran 90 interface
+# WARNING: Unexpected output while checking Python dependency versions:
+# | No module named 'Cython'
+# INFO: Using NumPy version 1.26.4
+# WARNING: Cython not found. Not building the Python package.
+# ERROR: cantera-example-data is missing. Extract package in data/example_data.
