@@ -2,8 +2,8 @@ easyblock = 'PythonPackage'
 
 name = 'pyiron-gpl'
 version = '0.0.5-20250512'
-versionsuffix = '-mbocus'
 local_commit = 'd2d8680'
+versionsuffix = '-mbocus'
 
 homepage = 'https://github.com/mbocus/pyiron_gpl'
 description = """Additional modules for the pyiron IDE licensed under GPLv3.
@@ -21,12 +21,6 @@ dependencies = [
     ('SciPy-bundle', '2023.11'),
     ('pyiron', '0.5.2'),
     ('iodata', '1.0.0a5'),
-    # ('molmod', '1.4.8'),
-    # ('QuickFF', '2.2.8'),
-    # ('TAMkin', '1.2.6'),
-    # ('SQLAlchemy', '2.0.29'),
-    # ('PyYAML', '6.0.1'),
-    # ('tqdm', '4.66.2'),
 ]
 
 # unpin deps versions and fix versioneer error
@@ -36,7 +30,7 @@ preinstallopts = (
 
 # fix __version__
 postinstallcmds = [
-    f"sed -i -e 's/0.1.1/{version}/' -e '2,$d' "
+    f"sed -i -e 's/0.1.1/{version}/' -e '10,15d' "
     "%(installdir)s/lib/python%(pyshortver)s/site-packages/pyiron_gpl/__init__.py"
 ]
 
