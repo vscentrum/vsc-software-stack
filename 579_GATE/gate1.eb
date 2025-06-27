@@ -1,0 +1,75 @@
+easyblock = 'PythonBundle'
+
+name = 'GATE'
+version = '10.0.2'
+
+homepage = 'http://www.opengatecollaboration.org/'
+description = """GATE is an advanced opensource software developed by the international OpenGATE collaboration and
+ dedicated to the numerical simulations in medical imaging. It currently supports simulations of Emission Tomography
+(Positron Emission Tomography - PET and Single Photon Emission Computed Tomography - SPECT), and Computed Tomography.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+builddependencies = [('CMake', '3.27.6')]
+
+# DEPS
+    # there is fmt and pybind11 in /lib/python3.11/site-packages/core/external after installation - replace by modules?
+        # needs to be downloaded recurs. from github if I want them in core/external
+        # nalinkovat pybind and fwt to external/fmt and external/pybind11
+        # update CMakeLists.txt in core/CMakeLists.txt? to find_package(pybind11)
+    # OK opengate_core needs ITK - https://opengate-python.readthedocs.io/en/10.0.2/developer_guide/developer_guide_installation.html
+        # OK? ITK needs to be build with this: -> in ITK-5.4.0 there is FFTW but not FFTWD and FFTWF
+            # cmake -DCMAKE_CXX_FLAGS=-std=c++17 \
+            # -DBUILD_TESTING=OFF \
+            # -DITK_USE_FFTWD=ON \
+            # -DITK_USE_FFTWF=ON \
+            # -DITK_USE_SYSTEM_FFTW:BOOL=ON
+    # ? Opengate_core install deps: ["wget", "colored>1.5", "requests"
+        # OK builddeps:  "pybind11>=2.10.0"
+
+builddependencies = [('pybind11', '2.11.1')]
+dependencies = [
+    ('Python', '3.11.5'),
+    ('Python-bundle-PyPI', '2023.10'), 
+    ('Geant4', '11.3.0'),
+    ('ITK', '5.4.0'),  # opengate_core dep
+    # ('wget', '1.21.4'),  # opengate_core dep
+    ('fmt', '10.2.1'), # opengate_core dep
+    # ('ROOT', '6.30.06'), UPDATE?
+]
+
+# preinstallopts = "sed -i 's|/usr/local/bin|%(installdir)s/bin|g' Makefile &&"
+
+# # enable extra capabilities (Davis requires Geant4 10.04 or newer)
+# configopts = "-DGATE_USE_OPTICAL=1 -DGATE_USE_DAVIS=1"
+
+exts_list = [
+    ('opengate', version, {
+        'checksums': ['4ee85f0b3c288234ab15d8f051f8a40e51fba28bf324ea1b19199dcdc4a65557'],
+    }),
+]
+
+postinstallcmds = [
+    "opengate_info",  # fetch Geant4 data - not on path, not working here
+    # "opengate_tests",
+]
+
+# sanity_check_paths = {
+#     'files': ['bin/mace_run_train', 'bin/mace_prepare_data', 'bin/hostlist'],
+#     'dirs': ['share'],
+# }
+
+# sanity_check_commands = [
+#     "python -c 'from mace.calculators import mace_mp'",
+#     "mace_run_train --help",
+# ]
+
+moduleclass = 'cae'
+
+#E2:
+    # there are no .so in opengate/lib
+    # there is /lib/python3.11/site-packages/core/opengate_core/opengate_lib only with init.py
+#E1:
+    # <- failed on 'opengate_info' in 'postinstallcmds' <- log1.txt
+        # /usr/bin/bash: line 1: opengate_info: command not found

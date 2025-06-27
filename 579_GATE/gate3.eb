@@ -1,0 +1,127 @@
+easyblock = 'PythonBundle'
+
+name = 'GATE'
+version = '10.0.2'
+
+homepage = 'http://www.opengatecollaboration.org/'
+description = """GATE is an advanced opensource software developed by the international OpenGATE collaboration and
+ dedicated to the numerical simulations in medical imaging. It currently supports simulations of Emission Tomography
+(Positron Emission Tomography - PET and Single Photon Emission Computed Tomography - SPECT), and Computed Tomography.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+
+# DEPS
+    # there is fmt and pybind11 in /lib/python3.11/site-packages/core/external after installation - replace by modules?
+        # needs to be downloaded recurs. from github if I want them in core/external
+        # nalinkovat pybind and fwt to external/fmt and external/pybind11
+        # update CMakeLists.txt in core/CMakeLists.txt? to find_package(pybind11)
+    # OK opengate_core needs ITK - https://opengate-python.readthedocs.io/en/10.0.2/developer_guide/developer_guide_installation.html
+        # OK? ITK needs to be build with this: -> in ITK-5.4.0 there is FFTW but not FFTWD and FFTWF
+            # cmake -DCMAKE_CXX_FLAGS=-std=c++17 \
+            # -DBUILD_TESTING=OFF \
+            # -DITK_USE_FFTWD=ON \
+            # -DITK_USE_FFTWF=ON \
+            # -DITK_USE_SYSTEM_FFTW:BOOL=ON
+    # ? Opengate_core install deps: ["wget", "colored>1.5", "requests"
+        # OK builddeps:  "pybind11>=2.10.0"
+
+builddependencies = [
+    ('pybind11', '2.11.1'),
+    ('CMake', '3.27.6'),
+]
+dependencies = [
+    ('Python', '3.11.5'),
+    ('Python-bundle-PyPI', '2023.10'), 
+    ('Geant4', '11.3.0'),
+    ('ITK', '5.4.0'),  # opengate_core dep
+    # ('wget', '1.21.4'),  # opengate_core dep
+    ('fmt', '10.2.1'), # opengate_core dep
+    # ('ROOT', '6.30.06'), UPDATE?
+]
+
+# start_dir = 'core'
+
+# preinstallopts = "sed -i 's|/usr/local/bin|%(installdir)s/bin|g' Makefile &&"
+
+# # enable extra capabilities (Davis requires Geant4 10.04 or newer)
+# configopts = "-DGATE_USE_OPTICAL=1 -DGATE_USE_DAVIS=1"
+
+_core_preinstallopts = (
+    "sed -i "
+    "-e 's|add_subdirectory(external/pybind11)|find_package(pybind11 REQUIRED)|' "
+    "-e 's|add_subdirectory(external/fmt EXCLUDE_FROM_ALL)|find_package(fmt)|' CMakeLists.txt && "
+    "sed -i "
+    r"'s|cmake_args += [\"-DITK_DIR=\" + sconfig[\"ITKDIR\"]]|cmake_args += [\"-DGeant4_USE_QT=OFF\"]|' setup.py"
+)
+exts_list = [
+    ('colored', '2.3.0', {
+        'checksums': ['4daf9b3ed687a01d59005e1bd03f354475226b933abb9a01836d6dde926d4c6f'],
+    }),
+    ('opengate_core', version, {
+        'source_urls': ['https://github.com/OpenGATE/opengate/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': 'opengate-%(version)s.tar.gz'}],
+        'start_dir': 'core',
+        'preinstallopts': _core_preinstallopts,
+        'checksums': ['91551b9275c1793b61ec0b68b9ca9b4aa5e81fc16731d6ec5b4bf8f19d52c010'],
+    }),
+    ('opengate', version, {
+        'source_urls': ['https://github.com/OpenGATE/opengate/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['91551b9275c1793b61ec0b68b9ca9b4aa5e81fc16731d6ec5b4bf8f19d52c010'],
+    }),
+]
+
+# postinstallcmds = [
+#     "opengate_info",  # fetch Geant4 data - not on path, not working here
+#     # "opengate_tests",
+# ]
+
+# sanity_check_paths = {
+#     'files': ['bin/mace_run_train', 'bin/mace_prepare_data', 'bin/hostlist'],
+#     'dirs': ['share'],
+# }
+
+# sanity_check_commands = [
+#     "python -c 'from mace.calculators import mace_mp'",
+#     "mace_run_train --help",
+# ]
+
+moduleclass = 'cae'
+
+#E4: OK
+    # -> gate4.eb
+    # -> there should be support for Qt6 on master: https://github.com/OpenGATE/opengate/issues/338#issuecomment-3013132663
+    # -> problem with Qt version, have 6, it expects 5 -> disable Qt -> preinstallopts - update setup.py by -DGeant4_USE_QT=OFF -> no... 
+    # <- form E3 after cmake pass - failed on make <- log2.txt
+#E3: OK
+    # -> add preinstallopts to opengate_core to use find_package() for pybind11 and fmt -> OK the cmake step pass but make failed -> E4
+        #   CMAKE args ['
+        #               -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/tmp/vsc47063/easybuild/build/GATE/10.0.2/foss-2023b/opengate_core/opengate-10.0.2/core/build/lib.linux-x86_64-cpython-311/opengate_core/', '-
+        #               -DPYTHON_EXECUTABLE=/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/bin/python', '
+        #               -DCMAKE_BUILD_WITH_INSTALL_RPATH=TRUE', '
+        #               -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE', '
+        #               -DCMAKE_INSTALL_RPATH=$ORIGIN', '
+        #               -DCMAKE_EXPORT_COMPILE_COMMANDS=ON', '
+        #               -DCMAKE_CXX_FLAGS="-Wno-pedantic"', '
+        #               -DCMAKE_BUILD_TYPE=Release', '
+        #               -DGeant4_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Geant4/11.3.0-GCC-13.2.0', '
+        #               -DITK_DIR=']
+    # <- during pip install opengate_core
+        # CMake Error at CMakeLists.txt:48 (add_subdirectory):
+        #         The source directory /tmp/vsc47063/easybuild/build/GATE/10.0.2/foss-2023b/opengate_core/opengate-10.0.2/core/external/pybind11      
+        #         does not contain a CMakeLists.txt file.
+        #   CMake Error at CMakeLists.txt:63 (add_subdirectory):
+        #     The source directory /tmp/vsc47063/easybuild/build/GATE/10.0.2/foss-2023b/opengate_core/opengate-10.0.2/core/external/fmt
+        #     does not contain a CMakeLists.txt file.
+        #   CMake Error at CMakeLists.txt:72 (pybind11_add_module):
+        #     Unknown CMake command "pybind11_add_module".
+
+#E2: OK
+    # -> needs sources from github - there are .cpp
+    # there are no .so in opengate/lib
+    # there is /lib/python3.11/site-packages/core/opengate_core/opengate_lib only with init.py
+#E1: OK
+    # <- failed on 'opengate_info' in 'postinstallcmds' <- log1.txt
+        # /usr/bin/bash: line 1: opengate_info: command not found
