@@ -24,13 +24,13 @@ dependencies = [
 ]
 
 # unpin deps versions and fix versioneer error
-preinstallopts = (
+preinstallopts = (  
     rf"""sed -i -e "s/\('.*\)==[^']\+',/\1',/g" -e 's/versioneer.get_version(),/"{version}",/' setup.py && """
 )
 
 # fix __version__
 postinstallcmds = [
-    f"sed -i -e 's/0.1.1/{version}/' -e '10,15d' "
+    f"sed -i -e 's/0.1.1/{version}/' -e '/get_versions/d' "
     "%(installdir)s/lib/python%(pyshortver)s/site-packages/pyiron_gpl/__init__.py"
 ]
 
