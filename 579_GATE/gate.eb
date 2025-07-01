@@ -25,7 +25,7 @@ dependencies = [
     ('SciPy-bundle', '2023.11'),
     ('Geant4', '11.3.0', '-Qt5'),
     ('ITK', '5.4.0'),
-    ('wget', '1.21.4'),
+    ('wget', '1.24.5'),
     ('fmt', '10.2.1'),
     ('GitPython', '3.1.42'),
     ('matplotlib', '3.8.2'),
@@ -36,10 +36,10 @@ dependencies = [
     ('tqdm', '4.66.2'),
     ('xxHash', '0.8.2'),
     ('networkx', '3.2.1'),
-    ('sympy', '1.13.3'),
+    ('sympy', '1.12'),
 ]
 
-# replace pybind11 and ftm by local modules
+# replace pybind11 and ftm by local modules in opengate_core
 _core_preinstallopts = (
     "sed -i "
     "-e 's|add_subdirectory(external/pybind11)|find_package(pybind11 REQUIRED)|' "
@@ -117,8 +117,14 @@ exts_list = [
     }),
 ]
 
+# link geant4-data to opengate_core dir
+postinstallcmds = [
+    "mkdir %(installdir)s/lib/python%(pyshortver)s/site-packages/opengate_core/geant4_data",
+    "ln -s $EBROOTGEANT4MINDATA/* %(installdir)s/lib/python%(pyshortver)s/site-packages/opengate_core/geant4_data",
+    "rm %(installdir)s/lib/python%(pyshortver)s/site-packages/opengate_core/geant4_data/easybuild",
+]
+
 sanity_check_commands = [
-    # fixes ImportError: cannot allocate memory in static TLS block
     "export LD_PRELOAD=$EBROOTGEANT4/lib/libG4processes.so:$EBROOTGEANT4/lib/libG4geometry.so:${LD_PRELOAD} && "
     "python -c 'import opengate_core' && "
     "python -c 'import opengate' && "
@@ -127,13 +133,6 @@ sanity_check_commands = [
 
 # export LD_PRELOAD=<path to libG4processes>:<path to libG4geometry>:${LD_PRELOAD}
 # to fix ImportError: cannot allocate memory in static TLS block
-# modextrapaths = {'LD_PRELOAD': [
-#     '$EBROOTGEANT4/lib/libG4processes.%s' % SHLIB_EXT,
-#     '$EBROOTGEANT4/lib/libG4geometry.%s' % SHLIB_EXT,
-# ]}
-modextrapaths = {'LD_PRELOAD': [
-    '$EBROOTGEANT4/lib/libG4processes.so',
-    '$EBROOTGEANT4/lib/libG4geometry.so',
-]}
+modextravars = {'LD_PRELOAD': '$EBROOTGEANT4/lib/libG4processes.so:$EBROOTGEANT4/lib/libG4geometry.so'}
 
 moduleclass = 'cae'

@@ -76,7 +76,7 @@ dependencies = [
     ('SciPy-bundle', '2023.11'),
     ('Geant4', '11.3.0', '-Qt5'),
     ('ITK', '5.4.0'),
-    ('wget', '1.21.4'),
+    ('wget', '1.24.5'),
     ('fmt', '10.2.1'),
     ('GitPython', '3.1.42'),
     ('matplotlib', '3.8.2'),
@@ -87,7 +87,7 @@ dependencies = [
     ('tqdm', '4.66.2'),
     ('xxHash', '0.8.2'),
     ('networkx', '3.2.1'),
-    ('sympy', '1.13.3'),
+    ('sympy', '1.12'),
     # ('ROOT', '6.30.06'), UPDATE?
 ]
 
@@ -98,6 +98,7 @@ dependencies = [
 # # enable extra capabilities (Davis requires Geant4 10.04 or newer)
 # configopts = "-DGATE_USE_OPTICAL=1 -DGATE_USE_DAVIS=1"
 
+# replace pybind11 and ftm by local modules
 _core_preinstallopts = (
     "sed -i "
     "-e 's|add_subdirectory(external/pybind11)|find_package(pybind11 REQUIRED)|' "
@@ -151,6 +152,7 @@ exts_list = [
         'checksums': ['4daf9b3ed687a01d59005e1bd03f354475226b933abb9a01836d6dde926d4c6f'],
     }),
     ('gatetools', '0.12.7', {
+        # skip pip check for failing local installations
         'preinstallopts': "sed -i -e '/itk>=/d' -e '/lz4/d' -e '/xxhash/d' pyproject.toml && ",
         'checksums': ['15e275871dc52d5d3d7410120cdf589def5f5daebe26e5fe94b5369d45c04677'],
     }),
@@ -159,13 +161,16 @@ exts_list = [
         'source_urls': ['https://github.com/OpenGATE/opengate/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': 'opengate-%(version)s.tar.gz'}],
         'start_dir': 'core',
+        # skip 'import opengate_core' in sanity_checks - missing LD_PRELOAD - added to sanity_check_commands
         'modulename': False,
         'checksums': ['91551b9275c1793b61ec0b68b9ca9b4aa5e81fc16731d6ec5b4bf8f19d52c010'],
     }),
     ('opengate', version, {
+        # skip pip check for failing local installations
         'preinstallopts': "sed -i '/itk/d' setup.py && ",
         'source_urls': ['https://github.com/OpenGATE/opengate/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        # skip 'import opengate' in sanity_checks - missing LD_PRELOAD - added to sanity_check_commands
         'modulename': False,
         'checksums': ['91551b9275c1793b61ec0b68b9ca9b4aa5e81fc16731d6ec5b4bf8f19d52c010'],
     }),
@@ -178,6 +183,12 @@ exts_list = [
 #     # "opengate_tests",
 # ]
 
+postinstallcmds = [
+    "mkdir %(installdir)s/lib/python%(pyshortver)s/site-packages/opengate_core/geant4_data",
+    "ln -s $EBROOTGEANT4MINDATA/* %(installdir)s/lib/python%(pyshortver)s/site-packages/opengate_core/geant4_data",
+    "rm %(installdir)s/lib/python%(pyshortver)s/site-packages/opengate_core/geant4_data/easybuild",
+]
+
 # sanity_check_paths = {
 #     'files': ['bin/mace_run_train', 'bin/mace_prepare_data', 'bin/hostlist'],
 #     'dirs': ['share'],
@@ -186,8 +197,9 @@ exts_list = [
 sanity_check_commands = [
     "export LD_PRELOAD=$EBROOTGEANT4/lib/libG4processes.so:$EBROOTGEANT4/lib/libG4geometry.so:${LD_PRELOAD} && "
     "python -c 'import opengate_core' && "
+    # "python -c 'import opengate'"
     "python -c 'import opengate' && "
-    # "opengate_tests" # this failing
+    # "opengate_tests" # this failing - no tests data (need recursive download)
     "opengate_info"
 ]
 
@@ -197,15 +209,62 @@ sanity_check_commands = [
 #     '$EBROOTGEANT4/lib/libG4processes.%s' % SHLIB_EXT,
 #     '$EBROOTGEANT4/lib/libG4geometry.%s' % SHLIB_EXT,
 # ]}
-modextrapaths = {'LD_PRELOAD': [
-    '$EBROOTGEANT4/lib/libG4processes.so',
-    '$EBROOTGEANT4/lib/libG4geometry.so',
-]}
+# modextrapaths = {'LD_PRELOAD': [
+#     '$EBROOTGEANT4/lib/libG4processes.so',
+#     '$EBROOTGEANT4/lib/libG4geometry.so',
+# ]}
+
+# export LD_PRELOAD=<path to libG4processes>:<path to libG4geometry>:${LD_PRELOAD}
+# to fix ImportError: cannot allocate memory in static TLS block
+modextravars = {
+    'LD_PRELOAD': '$EBROOTGEANT4/lib/libG4processes.so:$EBROOTGEANT4/lib/libG4geometry.so',
+    # 'MOLCAS_DRIVER': '%(installdir)s/pymolcas',
+    # 'MOLCAS_SOURCE': '%(installdir)s',
+}
 
 moduleclass = 'cae'
 
-#E8: 
-    # -> all this should be in Geant4-data-11.3.eb, also opengate_info retirns: 
+#E8: OK
+    # -> fixed by postinstallcmds - link data
+    # -> seems the data download is triggered either by import opengate_core not only opengate_info
+    # the script to download data is in core/opengate_core/g4DataSetup.py and it is run from core/opengate_core/__init__.py?
+    # -> link to /lib/python3.11/site-packages/opengate_core/geant4_data in postinstallcmds
+        # in EBROOTGEANT4MINDATA now:
+        # drwxrwxr-x  3 vsc47063 vsc47063   4096 Jul  1 11:36 easybuild/
+        # drwxrwxr-x  2 vsc47063 gvo00117   4096 Mar 23  2023 G4ABLA3.3/
+        # drwxrwxr-x  2 vsc47063 gvo00117   4096 Aug 23  2024 G4CHANNELING1.0/
+        # drwxrwxr-x 28 vsc47063 gvo00117   4096 Aug 27  2024 G4EMLOW8.6.1/
+        # drwxrwxr-x  2 vsc47063 gvo00117   4096 Sep 19  2024 G4ENSDFSTATE3.0/
+        # drwxrwxr-x  2 vsc47063 gvo00117   4096 Oct  5  2023 G4INCL1.2/
+        # drwxrwxr-x  9 vsc47063 gvo00117   4096 May 28  2024 G4NDL4.7.1/
+        # drwxrwxr-x  6 vsc47063 gvo00117   4096 May 17  2024 G4NUDEXLIB1.0/
+        # drwxrwxr-x 10 vsc47063 gvo00117   4096 Mar  6  2024 G4PARTICLEXS4.1/
+        # drwxrwxr-x  3 vsc47063 gvo00117   4096 Jun 21  2011 G4PII1.3/
+        # drwxrwxr-x  2 vsc47063 gvo00117   4096 Feb 15  2018 G4SAIDDATA2.0/
+        # drwxrwxr-x  7 vsc47063 gvo00117   4096 Sep 16  2021 G4TENDL1.4/
+        # drwxrwxr-x  4 vsc47063 gvo00117   4096 Oct  2  2024 G4URRPT1.1/
+        # drwxrwxr-x  2 vsc47063 gvo00117 131072 Nov  8  2024 PhotonEvaporation6.1/
+        # drwxrwxr-x  2 vsc47063 gvo00117 131072 Nov 25  2024 RadioactiveDecay6.1.2/
+        # drwxrwxr-x  2 vsc47063 gvo00117   4096 Oct 12  2020 RealSurface2.2/
+    # -> created geant4-data.eb with missing G4CHANNELING
+    # -> G4CHANNELING1.0/ is missing in EBROOTGEANT4MINDATA
+    # -> in EBROOTGEANT4MINDATA: 
+        # drwxrwxr-x  3 vsc47063 vsc47063   4096 Jun 27 10:57 easybuild/
+        # drwxrwxr-x  2 vsc47063 gvo00117   4096 Mar 23  2023 G4ABLA3.3/
+        # drwxrwxr-x 28 vsc47063 gvo00117   4096 Aug 27  2024 G4EMLOW8.6.1/
+        # drwxrwxr-x  2 vsc47063 gvo00117   4096 Sep 19  2024 G4ENSDFSTATE3.0/
+        # drwxrwxr-x  2 vsc47063 gvo00117   4096 Oct  5  2023 G4INCL1.2/
+        # drwxrwxr-x  9 vsc47063 gvo00117   4096 May 28  2024 G4NDL4.7.1/
+        # drwxrwxr-x  6 vsc47063 gvo00117   4096 May 17  2024 G4NUDEXLIB1.0/
+        # drwxrwxr-x 10 vsc47063 gvo00117   4096 Mar  6  2024 G4PARTICLEXS4.1/
+        # drwxrwxr-x  3 vsc47063 gvo00117   4096 Jun 21  2011 G4PII1.3/
+        # drwxrwxr-x  2 vsc47063 gvo00117   4096 Feb 15  2018 G4SAIDDATA2.0/
+        # drwxrwxr-x  7 vsc47063 gvo00117   4096 Sep 16  2021 G4TENDL1.4/
+        # drwxrwxr-x  4 vsc47063 gvo00117   4096 Oct  2  2024 G4URRPT1.1/
+        # drwxrwxr-x  2 vsc47063 gvo00117 131072 Nov  8  2024 PhotonEvaporation6.1/
+        # drwxrwxr-x  2 vsc47063 gvo00117 131072 Nov 25  2024 RadioactiveDecay6.1.2/
+        # drwxrwxr-x  2 vsc47063 gvo00117   4096 Oct 12  2020 RealSurface2.2/
+    # -> all this should be in Geant4-data-11.3.eb, also opengate_info returns: 
         # Geant4 data      /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/GATE/10.0.2-foss-2023b/lib/
     # <- during opengate_info the G4 data are downloaded to /lib/python3.11/site-packages/opengate_core/geant4_data
         # dr-xr-xr-x  2 vsc47063 gvo00117   4096 Mar 23  2023 G4ABLA3.3/
@@ -220,8 +279,25 @@ moduleclass = 'cae'
         # dr-xr-xr-x  2 vsc47063 gvo00117 131072 Nov  8  2024 PhotonEvaporation6.1/
         # dr-xr-xr-x  2 vsc47063 gvo00117 131072 Nov 25  2024 RadioactiveDecay6.1.2/
         # dr-xr-xr-x  2 vsc47063 gvo00117   4096 Oct 12  2020 RealSurface2.2/
-
-#E7:
+#E7: 
+    # -> for now fixed by modextravars
+        # exported LD_PRELOAD stays in envs even after mlpurge
+    # -> ldd of opengate_core.cpython-311-x86_64-linux-gnu.so in ldd1.txt
+    # -> best way is to get rid of these TSL error - could be connected with cmake of opengate_core:
+        #   CMAKE args ['
+        #               -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/tmp/vsc47063/easybuild/build/GATE/10.0.2/foss-2023b/opengate_core/opengate-10.0.2/core/build/lib.linux-x86_64-cpython-311/opengate_core/', '-
+        #               -DPYTHON_EXECUTABLE=/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/bin/python', '
+        #               -DCMAKE_BUILD_WITH_INSTALL_RPATH=TRUE', '
+        #               -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE', '
+        #               -DCMAKE_INSTALL_RPATH=$ORIGIN', '
+        #               -DCMAKE_EXPORT_COMPILE_COMMANDS=ON', '
+        #               -DCMAKE_CXX_FLAGS="-Wno-pedantic"', '
+        #               -DCMAKE_BUILD_TYPE=Release', '
+        #               -DGeant4_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Geant4/11.3.0-GCC-13.2.0', '
+        #               -DITK_DIR=']
+    # -> use modextravars instead?
+    # -> seems modextrapaths is not working with $EBROOT... and it checks/update existing paths not adding ones:
+        # https://easybuild.slack.com/archives/C34UA1HT7/p1751298991776739
     # <- after `ml GATE...' there is no  LD_PRELOAD in env - modextrapaths does not work?
 #E6: OK
     # -> skip opengate_tests -> add opengate_info
@@ -344,7 +420,6 @@ moduleclass = 'cae'
         #     does not contain a CMakeLists.txt file.
         #   CMake Error at CMakeLists.txt:72 (pybind11_add_module):
         #     Unknown CMake command "pybind11_add_module".
-
 #E2: OK
     # -> needs sources from github - there are .cpp
     # there are no .so in opengate/lib
