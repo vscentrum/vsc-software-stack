@@ -13,7 +13,11 @@ toolchain = {'name': 'GCCcore', 'version': '14.2.0'}
 
 source_urls = ['https://download.sourceforge.net/infozip']
 sources = ['%(namelower)s%(version_major)s%(version_minor)s.tar.gz']
-checksums = ['f0e8bb1f9b7eb0b01285495a2699df3a4b766784c1765a8f1aeedf63c0806369']
+patches = ['%(name)s-%(version)s_gcc-14-compability.patch']
+checksums = [
+    {'zip30.tar.gz': 'f0e8bb1f9b7eb0b01285495a2699df3a4b766784c1765a8f1aeedf63c0806369'},
+    {'Zip-3.0_gcc-14-compability.patch': '5bf576105aaaa944b514337465835f03210151e8d5fe4fe037bb83f289ad9df1'},
+]
 
 builddependencies = [
     ('binutils', '2.42'),
@@ -25,8 +29,10 @@ dependencies = [
 skipsteps = ['configure']
 
 buildopts = '-f unix/Makefile CC="$CC" IZ_OUR_BZIP2_DIR=$EBROOTBZIP2 '
-buildopts += 'CFLAGS="$CFLAGS -I. -DUNIX -DBZIP2_SUPPORT -DUNICODE_SUPPORT -DLARGE_FILE_SUPPORT" '
-buildopts += 'generic_gcc'
+buildopts += 'CFLAGS="$CFLAGS -I. -DUNIX -DBZIP2_SUPPORT -DUNICODE_SUPPORT -DLARGE_FILE_SUPPORT -DHAVE_DIRENT_H -DHAVE_TERMIOS_H" '
+buildopts += 'LFLAGS2="$LDFLAGS -L$EBROOTBZIP2/lib -lbz2" '
+buildopts += 'OCRCU8="crc32_.o" OCRCTB="" '
+buildopts += 'zips'
 
 installopts = '-f unix/Makefile prefix=%(installdir)s '
 

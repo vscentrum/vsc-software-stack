@@ -1,0 +1,12 @@
+timezone.c uses struct tm and localtime but doesn't include <time.h>
+Author: Pavel Tomanek (Inuits)
+--- timezone.c.orig	2025-07-01 18:30:30.464756000 +0200
++++ timezone.c	2025-07-01 18:30:46.550872000 +0200
+@@ -41,6 +41,7 @@
+ #include "timezone.h"
+ #include <ctype.h>
+ #include <errno.h>
++#include <time.h>
+ 
+ #ifdef IZTZ_DEFINESTDGLOBALS
+ long timezone = 0;
