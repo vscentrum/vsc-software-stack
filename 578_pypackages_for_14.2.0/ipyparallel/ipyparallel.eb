@@ -1,0 +1,47 @@
+easyblock = "PythonBundle"
+
+name = 'ipyparallel'
+version = '9.0.1'
+
+homepage = 'https://github.com/ipython/ipyparallel'
+description = "IPython Parallel: Interactive Parallel Computing in Python."
+
+toolchain = {'name': 'foss', 'version': '2025a'}
+
+#DEPS:
+    # build:
+        # OK "jupyterlab==4.*", -> PR: https://github.com/easybuilders/easybuild-easyconfigs/pull/23272
+        # OK "hatchling>=0.25",
+    # OK "importlib_metadata>=3.6; python_version < '3.10'",
+    # OK "decorator",
+    # OK "pyzmq>=25",
+    # OK "traitlets>=5", - in Ipy
+    # OK "ipython>=5",
+    # OK "jupyter_client>=7", in JupLab
+    # OK "ipykernel>=6.9.1", in JupLab
+    # OK "tornado>=6.1", in JupLab
+    # OK "psutil",
+    # OK "python-dateutil>=2.1",
+    # OK "tqdm",
+
+builddependencies = [
+    ('hatchling', '1.27.0'),
+    # ('Cython', '3.1.1'),
+]
+
+dependencies = [
+    ('Python', '3.13.1'),
+    # ('SciPy-bundle', '2025.06'),
+    ('JupyterLab', '4.4.4'),
+    ('PyZMQ', '27.0.0'),
+    ('IPython', '9.3.0'),
+    ('tqdm', '4.67.1'),
+]
+
+exts_list = [
+    (name, version, {
+        'checksums': ['2e592cad2200c5a94fbbff639bff36e6ec9122f34b36b2fc6b4d678d9e98f29c'],
+    }),
+]
+
+moduleclass = 'tools'

@@ -1,0 +1,122 @@
+Processing /tmp/vsc47063/easybuild/build/zarr/3.0.9/foss-2025a/numcodecs/numcodecs-0.16.1
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × Preparing metadata (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [104 lines of output]
+      [numcodecs] setting up Blosc extension
+      [numcodecs] compiling Blosc extension with SSE2 support
+      [numcodecs] compiling Blosc extension with AVX2 support
+      [numcodecs] setting up Zstandard extension
+      [numcodecs] setting up LZ4 extension
+      [numcodecs] setting up compat extension
+      [numcodecs] setting up shuffle extension
+      [numcodecs] setting up vlen extension
+      [numcodecs] setting up fletcher32 extension
+      [numcodecs] setting up jenkins extension
+      configuration error: `project.license` must be valid exactly by one definition (2 matches found):
+      
+          - keys:
+              'file': {type: string}
+            required: ['file']
+          - keys:
+              'text': {type: string}
+            required: ['text']
+      
+      DESCRIPTION:
+          `Project license <https://peps.python.org/pep-0621/#license>`_.
+      
+      GIVEN VALUE:
+          "MIT"
+      
+      OFFENDING RULE: 'oneOf'
+      
+      DEFINITION:
+          {
+              "oneOf": [
+                  {
+                      "properties": {
+                          "file": {
+                              "type": "string",
+                              "$$description": [
+                                  "Relative path to the file (UTF-8) which contains the license for the",
+                                  "project."
+                              ]
+                          }
+                      },
+                      "required": [
+                          "file"
+                      ]
+                  },
+                  {
+                      "properties": {
+                          "text": {
+                              "type": "string",
+                              "$$description": [
+                                  "The license of the project whose meaning is that of the",
+                                  "`License field from the core metadata",
+                                  "<https://packaging.python.org/specifications/core-metadata/#license>`_."
+                              ]
+                          }
+                      },
+                      "required": [
+                          "text"
+                      ]
+                  }
+              ]
+          }
+      Traceback (most recent call last):
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 353, in <module>
+          main()
+          ~~~~^^
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 335, in main
+          json_out['return_val'] = hook(**hook_input['kwargs'])
+                                   ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 149, in prepare_metadata_for_build_wheel
+          return hook(metadata_directory, config_settings)
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/setuptools/build_meta.py", line 377, in prepare_metadata_for_build_wheel
+          self.run_setup()
+          ~~~~~~~~~~~~~~^^
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/setuptools/build_meta.py", line 320, in run_setup
+          exec(code, locals())
+          ~~~~^^^^^^^^^^^^^^^^
+        File "<string>", line 385, in <module>
+        File "<string>", line 376, in run_setup
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/setuptools/__init__.py", line 117, in setup
+          return distutils.core.setup(**attrs)
+                 ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/setuptools/_distutils/core.py", line 157, in setup
+          dist.parse_config_files()
+          ~~~~~~~~~~~~~~~~~~~~~~~^^
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/setuptools/dist.py", line 648, in parse_config_files
+          pyprojecttoml.apply_configuration(self, filename, ignore_option_errors)
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/setuptools/config/pyprojecttoml.py", line 72, in apply_configuration
+          config = read_configuration(filepath, True, ignore_option_errors, dist)
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/setuptools/config/pyprojecttoml.py", line 140, in read_configuration
+          validate(subset, filepath)
+          ~~~~~~~~^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/setuptools/config/pyprojecttoml.py", line 61, in validate
+          raise ValueError(f"{error}\n{summary}") from None
+      ValueError: invalid pyproject.toml config: `project.license`.
+      configuration error: `project.license` must be valid exactly by one definition (2 matches found):
+      
+          - keys:
+              'file': {type: string}
+            required: ['file']
+          - keys:
+              'text': {type: string}
+            required: ['text']
+      
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
