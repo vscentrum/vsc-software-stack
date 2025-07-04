@@ -1,10 +1,8 @@
-easyblock = 'CargoPythonPackage'
+easyblock = 'CargoPythonBundle'
 
 name = 'SnapATAC2'
 version = '2.9.0-dev0-20250630'
 local_commit = '2eaff6c'
-local_rustver = '1.86.0'
-versionsuffix = '-Rust-' + local_rustver
 
 homepage = 'https://github.com/kaizhang/SnapATAC2'
 description = "Single-cell epigenomics analysis tools"
@@ -491,14 +489,8 @@ crates = [
     ('zstd-sys', '2.0.15+zstd.1.5.7'),
 ]
 
-sources = [{
-    'source_urls': ['https://github.com/scverse/SnapATAC2/archive/'],
-    'download_filename': '%s.tar.gz' % local_commit,
-    'filename': SOURCE_TAR_GZ
-}]
-
 builddependencies = [
-    ('Rust', local_rustver),
+    ('Rust', '1.86.0'),
     ('CMake', '3.29.3'),
     ('maturin', '1.6.0'),
 ]
@@ -518,37 +510,28 @@ dependencies = [
     ('plotly.py', '5.24.1'),
     ('polars', '1.28.1'),
     ('Arrow', '17.0.0'),
-    ('anndata', '0.10.9'), # TODO use 0.11.4 and patch SnapATAC2's requirements?
+    ('anndata', '0.10.9'),  # snapatac2 2.9.0.dev0 has requirement anndata<0.11.0,>=0.8.0
 ]
-
-# TODO `CargoPythonBundle`?
-exts_defaultclass = 'PythonPackage'
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-    'download_dep_fail': True,
-    'use_pip': True,
-    'sanity_pip_check': True,
-    'installopts': '',
-}
 
 exts_list = [
-    ('typeguard', '4.4.2', {  # TODO patch requirements instead?
+    ('typeguard', '4.4.2', {
         'checksums': ['a6f1065813e32ef365bc3b3f503af8a96f9dd4e0033a02c28c4a4983de8c6c49'],
     }),
-    ('pyfaidx', '0.7.2.2', {  # TODO patch requirements instead?
+    # fixes `snapatac2 2.9.0.dev0 has requirement pyfaidx<0.8.0,>=0.7.0, but you have pyfaidx 0.8.1.2.`
+    ('pyfaidx', '0.7.2.2', {
         'checksums': ['3b7693c052c82691000fe4a92475db82ffc3b5a721a12b10dfbc87119c4b4d30'],
     }),
-    # ('packaging', '25.0', {
-    #     'checksums': ['d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f'],
-    # }),
+    (name, version, {
+        'start_dir': 'snapatac2-python',
+        'sources': [{
+            'source_urls': ['https://github.com/scverse/SnapATAC2/archive/'],
+            'download_filename': '%s.tar.gz' % local_commit,
+            'filename': SOURCE_TAR_GZ
+        }],
+        'checksums': ['747df33440ec8b8c09b6704f0ff565b6e79dbf3cff8c949641667a9dd9250c8c'],
+    }),
 ]
 
-start_dir = 'snapatac2-python'
-
-# TODO unset these?
 offline = False  # vendoring of git sources not supported in Cargo easyblock yet
-download_dep_fail = True
-use_pip = True
-sanity_pip_check = True
 
 moduleclass = 'lib'
