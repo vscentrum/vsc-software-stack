@@ -55,37 +55,3 @@ pretestopts = "PRTE_MCA_rmaps_default_mapping_policy=:oversubscribe "
 runtest = 'test'
 
 moduleclass = 'data'
-
-# E1: OK
-    # -> seems zstd is needed for HDF5 plugin, but there is no such plugin in HDF5 -> remove zstd dep or update run_par_test.sh.in - delete L10-23
-        # -> delete run_par_test.sh.in L10-23 works OK
-        # -> delete zstd from deps not working
-    # -> it from: https://github.com/Unidata/netcdf-c/blob/3a6b1debf1557f07b606ce3653e44f0d711203be/plugins/findplugin.in#L57
-    # <- failed on tests step <- log1.txt
-        # 149/224 Test #149: nc_test4_run_par_test .....................***Failed    0.06 sec
-        # Cannot find plugin extension: please execute 'cd ../plugins; make check'
-
-# CMake cmd:
-# sed -i -e 's|@MPIEXEC@ -n 4 ./tst_parallel5|echo "skipped by EasyBuild"|g' -e 's|@MPIEXEC@ -n 4 ./tst_parallel_zlib|echo
-# "skipped by EasyBuild"|g' -e 's|@MPIEXEC@ -n 4 ./tst_parallel_compress|echo "skipped by EasyBuild"|g'
-# /tmp/vsc47063/easybuild/build/netCDF/4.9.3/gompi-2025a/netcdf-c-4.9.3/nc_test4/run_par_test.sh.in &&
-# cmake
-# -DCMAKE_INSTALL_PREFIX=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/netCDF/4.9.3-gompi-2025a
-# -DCMAKE_BUILD_TYPE=Release
-# -DCMAKE_INSTALL_LIBDIR:PATH=lib
-# -DCMAKE_POSITION_INDEPENDENT_CODE=ON
-# -DCMAKE_VERBOSE_MAKEFILE=ON
-# -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF
-# -DENABLE_DAP_REMOTE_TESTS=OFF
-# -DBUILD_SHARED_LIBS=OFF
-# -DCURL_INCLUDE_DIR=/apps/gent/RHEL9/cascadelake-ib/software/cURL/8.11.1-GCCcore-14.2.0/include
-# -DCURL_LIBRARY=/apps/gent/RHEL9/cascadelake-ib/software/cURL/8.11.1-GCCcore-14.2.0/lib/libcurl.so
-# -DHDF5_INCLUDE_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HDF5/1.14.6-gompi-2025a/include
-# -DUSE_HDF5=ON
-# -DHDF5_C_LIBRARY=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HDF5/1.14.6-gompi-2025a/lib/libhdf5.so
-# -DHDF5_HL_LIBRARY=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HDF5/1.14.6-gompi-2025a/lib/libhdf5_hl.so
-# -DSZIP_INCLUDE_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Szip/2.1.1-GCCcore-14.2.0/include
-# -DSZIP_LIBRARY=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Szip/2.1.1-GCCcore-14.2.0/lib/libsz.so
-# -DZLIB_INCLUDE_DIR=/apps/gent/RHEL9/cascadelake-ib/software/zlib/1.3.1-GCCcore-14.2.0/include
-# -DZLIB_LIBRARY=/apps/gent/RHEL9/cascadelake-ib/software/zlib/1.3.1-GCCcore-14.2.0/lib/libz.so
-# /tmp/vsc47063/easybuild/build/netCDF/4.9.3/gompi-2025a/netcdf-c-4.9.3/
