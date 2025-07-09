@@ -1,0 +1,51 @@
+easyblock = 'CMakeMake'
+
+name = 'ANTs'
+version = '2.6.2'
+
+homepage = 'https://stnava.github.io/ANTs/'
+description = """ANTs extracts information from complex datasets that include imaging. ANTs is useful for managing,
+ interpreting and visualizing multidimensional data."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+#toolchainopts = {'pic': True}
+
+source_urls = ['https://github.com/ANTsX/ANTs/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['b38bc5438a7bef0c460dc7014320fee58dd1439e2397876645ad9269f52d9451']
+
+builddependencies = [('CMake', '3.26.3')]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('ITK', '5.4.3'),
+    ('VTK', '9.3.1'),
+]
+
+#separate_build_dir = True
+
+build_type = 'Release'
+
+configopts = '-DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF '
+configopts += '-DUSE_VTK=ON -DUSE_SYSTEM_VTK=ON '
+#configopts += '-DUSE_VTK=ON -DUSE_SYSTEM_VTK=ON -DVTK_DIR=$EBROOTVTK '
+configopts += '-DSuperBuild_ANTS_USE_GIT_PROTOCOL=OFF '
+
+configopts += '-DUSE_ITK=ON -DUSE_SYSTEM_ITK=ON '
+#configopts += '-DUSE_ITK=ON -DUSE_SYSTEM_ITK=ON -DITK_DIR=$EBROOTITK '
+
+#configopts += '-DITK_BUILD_MINC_SUPPORT=ON '
+#configopts += '-DANTS_SNAPSHOT_VERSION=%(version)s '
+#-DSuperBuild_ANTS_C_OPTIMIZATION_FLAGS="-mtune=native -march=native" \
+#-DSuperBuild_ANTS_CXX_OPTIMIZATION_FLAGS="-mtune=native -march=native"
+
+preinstallopts = "cd ANTS-build && "
+
+sanity_check_paths = {
+    'files': ['bin/ANTS', 'bin/antsBrainExtraction.sh'],
+    'dirs': ['lib'],
+}
+
+modextravars = {'ANTSPATH': '%(installdir)s/bin'}
+
+moduleclass = 'data'
