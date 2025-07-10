@@ -1,0 +1,68 @@
+name = 'GROMACS'
+version = '20250409'
+local_commit = '28807b11'
+versionsuffix = '-constant-pH'
+
+homepage = 'https://gitlab.com/gromacs-constantph'
+description = """
+GROMACS is a versatile package to perform molecular dynamics, i.e. simulate the
+Newtonian equations of motion for systems with hundreds to millions of
+particles.
+
+This is a CPU only build, containing both MPI and threadMPI binaries
+for both single and double precision.
+
+It also contains the gmxapi extension for the single precision MPI build.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+toolchainopts = {'openmp': True, 'usempi': True}
+
+# https://gitlab.com/gromacs-constantph/constantph/-/archive/main/constantph-main.tar.gz
+source_urls = ['https://gitlab.com/gromacs-constantph/constantph/-/archive/']
+sources = [{
+    'download_filename': '%s.tar.gz' % local_commit,
+    'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
+}]
+checksums = ['88548354e02c872052f2fa662eab5f111421706cb0ea264e94af19e7274d0f78']
+
+# patches = [
+#     'GROMACS-2023.1_set_omp_num_threads_env_for_ntomp_tests.patch',
+#     'GROMACS-2023.1_fix_tests_for_gmx_thread_mpi.patch',
+# ]
+
+builddependencies = [
+    ('CMake', '3.27.6'),
+    ('scikit-build-core', '0.9.3'),
+]
+
+dependencies = [
+    ('Python', '3.11.5'),
+    ('SciPy-bundle', '2023.11'),
+    ('networkx', '3.2.1'),
+    ('mpi4py', '3.1.5'),
+]
+
+start_dir = 'gromacs-constantph'
+
+# be a bit more forgiving w.r.t. timeouts for GROMACS test suite,
+# see also https://gitlab.com/gromacs/gromacs/-/issues/5062
+configopts = "-DGMX_TEST_TIMEOUT_FACTOR=3"
+
+exts_defaultclass = 'PythonPackage'
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('gmxapi', '0.4.2', {
+        'preinstallopts': 'export CMAKE_ARGS="-Dgmxapi_ROOT=%(installdir)s -C %(installdir)s/share/cmake/gromacs_mpi/gromacs-hints_mpi.cmake" && ',
+        'checksums': ['c746c6498c73a75913d7fcb01c13cc001d4bcb82999e9bf91d63578565ed1a1f'],
+    }),
+]
+
+moduleclass = 'bio'
+
+#E1:
+    # failing on cmake
