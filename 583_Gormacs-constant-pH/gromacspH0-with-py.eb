@@ -1,0 +1,131 @@
+name = 'GROMACS'
+version = '20250409'
+local_commit = '28807b11'
+versionsuffix = '-constant-pH'
+# seems the fork is from v2021.0-beta1
+# SOVERSION = 6.0.0
+
+homepage = 'https://gitlab.com/gromacs-constantph'
+description = """
+GROMACS is a versatile package to perform molecular dynamics, i.e. simulate the
+Newtonian equations of motion for systems with hundreds to millions of
+particles.
+
+This is a CPU only build, containing both MPI and threadMPI binaries
+for both single and double precision.
+
+It also contains the gmxapi extension for the single precision MPI build.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+toolchainopts = {'openmp': True, 'usempi': True}
+
+# https://gitlab.com/gromacs-constantph/constantph/-/archive/main/constantph-main.tar.gz
+source_urls = ['https://gitlab.com/gromacs-constantph/constantph/-/archive/']
+sources = [{
+    'download_filename': '%s.tar.gz' % local_commit,
+    'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
+}]
+patches = [
+    'patch1_fix-pybind11.patch',
+    'patch2.patch',
+]
+checksums = [
+    {'GROMACS-20250409-28807b11.tar.gz': '88548354e02c872052f2fa662eab5f111421706cb0ea264e94af19e7274d0f78'},
+    {'patch1_fix-pybind11.patch': '81b69c34df5720ff7c25853ae5b63f1b64276888b89505a339a739cc0ad9febb'},
+    {'patch2.patch': 'c7ed9c1f84c416eeb0cc065868f25053a11581300e9de504b8bf804cdd1f9fd9'},
+]
+
+builddependencies = [
+    ('CMake', '3.27.6'),
+    ('scikit-build-core', '0.9.3'),
+    ('pybind11', '2.11.1'),
+]
+
+dependencies = [
+    ('Python', '3.11.5'),
+    ('SciPy-bundle', '2023.11'),
+    ('networkx', '3.2.1'),
+    ('mpi4py', '3.1.5'),
+]
+
+start_dir = 'gromacs-constantph'
+
+# be a bit more forgiving w.r.t. timeouts for GROMACS test suite,
+# see also https://gitlab.com/gromacs/gromacs/-/issues/5062
+# configopts = "-DGMX_TEST_TIMEOUT_FACTOR=3"
+# configopts += "-DGMX_PYTHON_PACKAGE=OFF"
+
+# not working:
+# configopts = "-DGMX_EXTERNAL_PYBIND11=ON "
+# configopts += "-Dpybind11_DIR=$EBROOTPYBIND11 "
+
+preconfigopts = (
+    "sed -i "
+    "-e 's/pybind11 2.2 REQUIRED/pybind11 2.11 REQUIRED/' "
+    "-e 's/_gmxapi PRIVATE Gromacs::gmxapi/_gmxapi PRIVATE pybind11::pybind11 Gromacs::gmxapi/' "
+    "%(builddir)s/constantph-28807b11-28807b1162cacd9dc797520bc509d12edca13d1a/gromacs-constantph/python_packaging/src/CMakeLists.txt && "
+)
+# preconfigopts += "export CPATH=/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/include/python3.11:$CPATH && "
+# preconfigopts += 'echo $CPATH && '
+configopts = "-DGMXAPI_USE_BUNDLED_PYBIND=OFF "
+# configopts += "-DPYTHON_INCLUDE_DIR=/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/include/python3.11 " # not working
+# configopts += "-DPython3_INCLUDE_DIR=/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/include/python3.11"
+configopts += "-DPYTHON_LIBRARIES=/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/libpython3.11.so "
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('gmxapi', '0.4.2', {
+        'preinstallopts': 'export CMAKE_ARGS="-Dgmxapi_ROOT=%(installdir)s -C %(installdir)s/share/cmake/gromacs_mpi/gromacs-hints_mpi.cmake" && ',
+        'checksums': ['c746c6498c73a75913d7fcb01c13cc001d4bcb82999e9bf91d63578565ed1a1f'],
+    }),
+]
+
+moduleclass = 'bio'
+
+#E2:
+    # -> do not create python bindings -> delete Python from deps -> gromacspH1.eb
+    # -> problem with too new pybind -> try patch1 and patch2 -> no still error:
+        # -- Found Python interpreter: /apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/bin/python
+        # -- Python site-packages directory is /apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/python3.11/site-packages
+        # CMake Error at /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.27.6-GCCcore-13.2.0/share/cmake-3.27/Modules/FindPython/Support.cmake:4035 (add_library):
+        # add_library cannot create target "gmxapi_extension" because another target
+        # with the same name already exists.  The existing target is a module library
+        # created in source directory
+        # "/tmp/vsc47063/easybuild/build/GROMACS/20250409/foss-2023b-constant-pH/constantph-28807b11-28807b1162cacd9dc797520bc509d12edca13d1a/gromacs-constantph/python_packaging/sample_restraint/src/pythonmodule".
+        # See documentation for policy CMP0002 for more details.
+        # Call Stack (most recent call first):
+        # /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.27.6-GCCcore-13.2.0/share/cmake-3.27/Modules/FindPython3.cmake:549 (__Python3_add_library)
+        # /apps/gent/RHEL9/cascadelake-ib/software/pybind11/2.11.1-GCCcore-13.2.0/share/cmake/pybind11/pybind11NewTools.cmake:189 (python3_add_library)
+        # python_packaging/sample_restraint/src/pythonmodule/CMakeLists.txt:43 (pybind11_add_module)
+    # <- cmake still failing <- log2.txt
+        # CMake Error at /apps/gent/RHEL9/cascadelake-ib/software/pybind11/2.11.1-GCCcore-13.2.0/share/cmake/pybind11/pybind11NewTools.cmake:194 (target_link_libraries):
+        # Target "gmxapi_extension" links to:
+        #     pybind11::headers
+        # but the target was not found.  Possible reasons include:
+        #     * There is a typo in the target name.
+        #     * A find_package call is missing for an IMPORTED target.
+        #     * An ALIAS target is missing.
+        # Call Stack (most recent call first):
+        # python_packaging/sample_restraint/src/pythonmodule/CMakeLists.txt:5 (pybind11_add_module)
+#E1: OK
+    # -> fixed by -DPYTHON_LIBRARIES=/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/lib/libpython3.11.so
+    # -> add preconfigopts to find pybind11 -> yes it pick local pybind11 + add configopts = "-DGMXAPI_USE_BUNDLED_PYBIND=OFF "
+        # -> pybind seems ok but this error in the end of cmake:
+            # -- Found Python interpreter: /apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/bin/python
+            # CMake Error at python_packaging/sample_restraint/CMakeLists.txt:160 (message):
+            # Found Python interpreter
+            # /apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.5-GCCcore-13.2.0/bin/python
+            # but this Python installation does not have developer tools.Set
+            # PYTHON_EXECUTABLE to the Python interpreter that was installed with a
+            # working Python.h header file.
+    # update this: https://gitlab.com/gromacs-constantph/constantph/-/blame/main/gromacs-constantph/python_packaging/src/CMakeLists.txt?ref_type=heads#L118
+    # pybind is in /gromacs-constantph/python_packaging/src/external/pybind - there is CMakeLists.txt, incllude/pybind11/files.h + tools where are .cmake files
+    # add -DGMX_PYTHON_PACKAGE=ON -DGMX_EXTERNAL_PYBIND11=ON -Dpybind11_DIR=/path/to/pybind11/share/cmake/pybind11 -> no it not works
+    # pybind11 ≥ 2.10 is required for Python 3.11., in cmake there is: pybind11 v2.5.0
+    # -> problem with old bundled pybind11 -> not compoatible with py3.11 -> use system one or not create python-packages
+    # <- failed on make <- log1.txt
