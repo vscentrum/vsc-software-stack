@@ -13,6 +13,7 @@ description = """AmberTools consists of several independently developed packages
 
 toolchain = {'name': 'foss', 'version': '2025a'}
 toolchainopts = {'usempi': True}
+# toolchainopts = {'usempi': True, 'cstd': 'c++17'}
 
 # download requires registration
 local_download_credentials = '?Name=Easybuild&Institution=Easybuild&City=Internet&State=Other&Country=Belgium'
@@ -27,14 +28,14 @@ patches = [
     'AmberTools-20_fix_xblas_missing_make_dependency.patch',
     'AmberTools-21_CMake-FlexiBLAS.patch',
     'AmberTools-21_fix_incorrect_dvout_call.patch',
-    'AmberTools-21_fix_more_blas_argument_problems.patch',
+    # 'AmberTools-21_fix_more_blas_argument_problems.patch',
     'AmberTools-21_fix_potential_use_before_init.patch',
     'AmberTools-21_fix_rism_argument_mismatch.patch',
     'AmberTools-21_fix_xray_fftpack_arg_mismatch.patch',
-    'AmberTools-22_fix_test_missing_cuda_dir.patch',
+    # 'AmberTools-22_fix_test_missing_cuda_dir.patch',
 ]
 checksums = [
-    {'AmberTools23.tar.bz2': 'debb52e6ef2e1b4eaa917a8b4d4934bd2388659c660501a81ea044903bf9ee9d'},
+    {'AmberTools25.tar.bz2': 'ac009b2adeb25ccd2191db28905b867df49240e038dc590f423edf0d84f8a13b'},
     {'AmberTools-20_cmake-locate-netcdf.patch': '473e07c53b6f641d96d333974a6af2e03413fecef79f879d3fdecf7fecaab4d0'},
     {'AmberTools-20_fix_missing_MPI_LIBRARY_error.patch':
      '0b89a0624167bc23876bcdefcb1055f591e38e3bd559a71d5749e342bd311acc'},
@@ -43,16 +44,12 @@ checksums = [
     {'AmberTools-21_CMake-FlexiBLAS.patch': '9543812c24c4b7842f64f1f8abaf2c92b5c4c0fadcdbd9811e76b81a778f0d36'},
     {'AmberTools-21_fix_incorrect_dvout_call.patch':
      '1054d4007f5c79126a41582e1e80514267cf406416ed6c471574cd708b16319b'},
-    {'AmberTools-21_fix_more_blas_argument_problems.patch':
-     'c6279b57752239184b942d37f760749494ae0eff95236f3368c76ac0d2726a7c'},
     {'AmberTools-21_fix_potential_use_before_init.patch':
      '377e645b5bd2c91ebb4d0b6fbca0407a94289e5ddc5b1e7ed0cb0b0724ad2139'},
     {'AmberTools-21_fix_rism_argument_mismatch.patch':
      '14255e5739cec39303df570f06820c7532f7395e1b73b1e4104377984e2c9fc1'},
     {'AmberTools-21_fix_xray_fftpack_arg_mismatch.patch':
      '99c954e693659efc2a1d121f91510f56408006f0751d91595f45a34b03364e2f'},
-    {'AmberTools-22_fix_test_missing_cuda_dir.patch':
-     'fb1ab74314d7816169bb9f3f527b78085654aae2825c52cebf50a5760401b737'},
 ]
 
 builddependencies = [
@@ -61,6 +58,7 @@ builddependencies = [
     ('Bison', '3.8.2'),
     ('flex', '2.6.4'),
     ('make', '4.4.1'),
+    ('Cython', '3.1.1'),
 ]
 
 dependencies = [
@@ -70,7 +68,7 @@ dependencies = [
     ('SciPy-bundle', '2025.06'),
     ('Perl', '5.40.0'),
     ('Perl-bundle-CPAN', '5.40.0'),
-    ('Boost', '1.88.0'),
+    # ('Boost', '1.88.0'),
     ('libreadline', '8.2'),
     ('matplotlib', '3.10.3'),
     ('netCDF', '4.9.3'),
@@ -81,6 +79,33 @@ dependencies = [
     ('mpi4py', '4.1.0'),
 ]
 
+# configopts = 'CXXFLAGS="$CXXFLAGS -std=gnu++17" -DCMAKE_CXX_STANDARD=17 '
+
+prebuildopts = "cd %(builddir)s/%(name)s/src/pytraj && find . -name '*.cpp' -delete && python setup.py --cythonize && "
+prebuildopts += "cd %(builddir)s/easybuild_obj && "
+
 runtest = True
 
 moduleclass = 'chem'
+
+#E3:
+    # -> "It works fine, you just have to re-cythonize the source in pytraj dir using the command: python setup.py --cythonize " 
+        # first delete all cpp files  -> find . -name '*.cpp' -delete
+        # in /tmp/vsc47063/easybuild/build/AmberTools/25.1/foss-2025a/AmberTools/src/pytraj
+    # -> AmberTools 25 and pytraj are not compatible with python 3.13 but there is fix -> http://archive.ambermd.org/202505/0059.html
+    # <- another error in make <- log-amber3.txt
+
+#E2: OK
+    # -> remove boost from deps -> should pick internal boost -> OK
+    # -> internaly it use boost 1.68
+    # -> it seems it can not use Boost 1.88: http://archive.ambermd.org/202507/0018.html
+    # -> 'cstd': 'c++17' in toolchainopts -> no -> log-amber2.txt
+        # cc1: warning: command-line option ‘-std=c++17’ is valid for C++/ObjC++ but not for C
+    # -> Your build is explicitly setting -std=gnu++11, but the Boost 1.88.0 headers require C++14 or newer.
+    # <- failed on make <- log-amber1.txt
+        # make[2]: *** [AmberTools/src/moft/CMakeFiles/metatwist.dir/build.make:82: AmberTools/src/moft/CMakeFiles/metatwist.dir/metatwist.cpp.o] Error 1
+
+#E1:
+    # -> try to not use it -> seems ok
+    # <- AmberTools-21_fix_more_blas_argument_problems.patch not working
+    #<- AmberTools-22_fix_test_missing_cuda_dir.patch not working
