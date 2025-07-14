@@ -33,6 +33,7 @@ patches = [
     'AmberTools-21_fix_rism_argument_mismatch.patch',
     'AmberTools-21_fix_xray_fftpack_arg_mismatch.patch',
     # 'AmberTools-22_fix_test_missing_cuda_dir.patch',
+    'AmberTools-25_fix_test_missing_dirs.patch',
 ]
 checksums = [
     {'AmberTools25.tar.bz2': 'ac009b2adeb25ccd2191db28905b867df49240e038dc590f423edf0d84f8a13b'},
@@ -50,6 +51,7 @@ checksums = [
      '14255e5739cec39303df570f06820c7532f7395e1b73b1e4104377984e2c9fc1'},
     {'AmberTools-21_fix_xray_fftpack_arg_mismatch.patch':
      '99c954e693659efc2a1d121f91510f56408006f0751d91595f45a34b03364e2f'},
+    {'AmberTools-25_fix_test_missing_dirs.patch': '1c4c44cb012b625933781e9811f1657d5ddfd14cfbf4894bb1f767995eadc3b6'},
 ]
 
 builddependencies = [
@@ -88,7 +90,18 @@ runtest = True
 
 moduleclass = 'chem'
 
-#E3:
+#E4:
+    # -> there is a problem with Parmed - it is installed by AMber but it is python package. Internally it use old version not compatilbe with numpy 2.x
+        # TODO:
+            # in sources/a/AmberTools/ambertools25_src/AmberTools/src/parmed/parmed/utils/netcdf.py 
+                # delete numpy.compat and def asbytes and asstr
+                # https://github.com/ParmEd/ParmEd/blob/9fa8b08b760f57d45a271854ffa4a17f3f2647c0/parmed/utils/netcdf.py#L52
+            # create patch for numpy 2.x compatibility: https://github.com/ParmEd/ParmEd/commit/3a0b8af01b3133fb6471c8acc2c8538d38582de3
+    # <- log-amber4.txt <- test step: 
+        # source /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AmberTools/25.1-foss-2025a/amber.sh && 
+        # cd /tmp/vsc47063/easybuild/build/AmberTools/25.1/foss-2025a/test && make test.parallel
+
+#E3: OK
     # -> "It works fine, you just have to re-cythonize the source in pytraj dir using the command: python setup.py --cythonize " 
         # first delete all cpp files  -> find . -name '*.cpp' -delete
         # in /tmp/vsc47063/easybuild/build/AmberTools/25.1/foss-2025a/AmberTools/src/pytraj

@@ -1,0 +1,21 @@
+./test_amber_clean.sh
+./test_amber_clean.sh: line 1276: cd: cuda/remd: No such file or directory
+./test_amber_clean.sh: line 1279: cd: hip/remd: No such file or directory
+make: [Makefile:1851: clean] Error 1 (ignored)
+./test_amber_parallel.sh
+
+Tests being run with DO_PARALLEL="mpirun -n 4 ".
+
+
+Error: Could not import Amber Python modules! 
+   Probably your Amber Python environment was not set up correctly.
+
+We recommend adding the line:
+
+   test -f /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/AmberTools/25.1-foss-2025a/amber.sh  && source /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/AmberTools/25.1-foss-2025a/amber.sh (sh/bash/zsh)
+or
+   test -f /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/AmberTools/25.1-foss-2025a/amber.csh && source /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/AmberTools/25.1-foss-2025a/amber.csh (csh/tcsh)
+
+to your login shell resource file (e.g., ~/.bashrc or ~/.cshrc).
+
+make: *** [Makefile:18: test.parallel] Error 1
