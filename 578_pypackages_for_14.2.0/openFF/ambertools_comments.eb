@@ -13,6 +13,7 @@ description = """AmberTools consists of several independently developed packages
 
 toolchain = {'name': 'foss', 'version': '2025a'}
 toolchainopts = {'usempi': True}
+# toolchainopts = {'usempi': True, 'cstd': 'c++17'}
 
 # download requires registration
 local_download_credentials = '?Name=Easybuild&Institution=Easybuild&City=Internet&State=Other&Country=Belgium'
@@ -27,9 +28,11 @@ patches = [
     'AmberTools-20_fix_xblas_missing_make_dependency.patch',
     'AmberTools-21_CMake-FlexiBLAS.patch',
     'AmberTools-21_fix_incorrect_dvout_call.patch',
+    # 'AmberTools-21_fix_more_blas_argument_problems.patch',
     'AmberTools-21_fix_potential_use_before_init.patch',
     'AmberTools-21_fix_rism_argument_mismatch.patch',
     'AmberTools-21_fix_xray_fftpack_arg_mismatch.patch',
+    # 'AmberTools-22_fix_test_missing_cuda_dir.patch',
     'AmberTools-25_fix_test_missing_dirs.patch',
     'AmberTools-25_parmed-update.patch',
 ]
@@ -50,7 +53,7 @@ checksums = [
     {'AmberTools-21_fix_xray_fftpack_arg_mismatch.patch':
      '99c954e693659efc2a1d121f91510f56408006f0751d91595f45a34b03364e2f'},
     {'AmberTools-25_fix_test_missing_dirs.patch': '1c4c44cb012b625933781e9811f1657d5ddfd14cfbf4894bb1f767995eadc3b6'},
-    {'AmberTools-25_parmed-update.patch': 'b16934cea7bb782ce07fdddbdbe0750c6044e7300fd0e0afa20e3b4cd94fc3d5'},
+    {'parmed3.patch': '2195b425a7c1a2a57d9c99dcbc6d97a22dffd2401e8c8c980ce59c58d9214c86'},
 ]
 
 builddependencies = [
@@ -69,6 +72,7 @@ dependencies = [
     ('SciPy-bundle', '2025.06'),
     ('Perl', '5.40.0'),
     ('Perl-bundle-CPAN', '5.40.0'),
+    # ('Boost', '1.88.0'),
     ('libreadline', '8.2'),
     ('matplotlib', '3.10.3'),
     ('netCDF', '4.9.3'),
@@ -79,10 +83,47 @@ dependencies = [
     ('mpi4py', '4.1.0'),
 ]
 
-# recreate all cpp files in pytraj with new cython - compatibilty with python 3.13
+# configopts = 'CXXFLAGS="$CXXFLAGS -std=gnu++17" -DCMAKE_CXX_STANDARD=17 '
+
 prebuildopts = "cd %(builddir)s/%(name)s/src/pytraj && find . -name '*.cpp' -delete && python setup.py --cythonize && "
 prebuildopts += "cd %(builddir)s/easybuild_obj && "
 
 runtest = True
 
 moduleclass = 'chem'
+
+#E4: OK
+    # -> patch for parmed from latest commit -> OK
+    # -> Pearmend is not in 3rd paty cmake -> can not use FORCE_EXTERNAL_LIBS
+    # -> create Parmed from latest commit -> hasnumpy patch + numpy.compat fix
+    # -> there is a problem with Parmed - it is installed by Amber but it is python package. Internally it use old version not compatilbe with numpy 2.x
+        # TODO:
+            # in sources/a/AmberTools/ambertools25_src/AmberTools/src/parmed/parmed/utils/netcdf.py 
+                # delete numpy.compat and def asbytes and asstr
+                # https://github.com/ParmEd/ParmEd/blob/9fa8b08b760f57d45a271854ffa4a17f3f2647c0/parmed/utils/netcdf.py#L52
+            # create patch for numpy 2.x compatibility: https://github.com/ParmEd/ParmEd/commit/3a0b8af01b3133fb6471c8acc2c8538d38582de3
+    # <- log-amber4.txt <- test step: 
+        # source /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AmberTools/25.1-foss-2025a/amber.sh && 
+        # cd /tmp/vsc47063/easybuild/build/AmberTools/25.1/foss-2025a/test && make test.parallel
+
+#E3: OK
+    # -> "It works fine, you just have to re-cythonize the source in pytraj dir using the command: python setup.py --cythonize " 
+        # first delete all cpp files  -> find . -name '*.cpp' -delete
+        # in /tmp/vsc47063/easybuild/build/AmberTools/25.1/foss-2025a/AmberTools/src/pytraj
+    # -> AmberTools 25 and pytraj are not compatible with python 3.13 but there is fix -> http://archive.ambermd.org/202505/0059.html
+    # <- another error in make <- log-amber3.txt
+
+#E2: OK
+    # -> remove boost from deps -> should pick internal boost -> OK
+    # -> internaly it use boost 1.68
+    # -> it seems it can not use Boost 1.88: http://archive.ambermd.org/202507/0018.html
+    # -> 'cstd': 'c++17' in toolchainopts -> no -> log-amber2.txt
+        # cc1: warning: command-line option ‘-std=c++17’ is valid for C++/ObjC++ but not for C
+    # -> Your build is explicitly setting -std=gnu++11, but the Boost 1.88.0 headers require C++14 or newer.
+    # <- failed on make <- log-amber1.txt
+        # make[2]: *** [AmberTools/src/moft/CMakeFiles/metatwist.dir/build.make:82: AmberTools/src/moft/CMakeFiles/metatwist.dir/metatwist.cpp.o] Error 1
+
+#E1:
+    # -> try to not use it -> seems ok
+    # <- AmberTools-21_fix_more_blas_argument_problems.patch not working
+    #<- AmberTools-22_fix_test_missing_cuda_dir.patch not working
