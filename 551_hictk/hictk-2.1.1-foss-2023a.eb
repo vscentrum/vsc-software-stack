@@ -15,7 +15,7 @@ sources = ['v%(version)s.tar.gz']
 patches = ['hictk-2.1.1_CMake_deps.patch']
 checksums = [
     '0a00eb9cc599fa80f4d6edafd4f0bc4db75863e7d11337775fc3f2547aa7c829',  # v2.1.1.tar.gz
-    'a84d1697cd42fab428d8d5ab7dae5542c9aa3eb1aa48febe856089496325c9c4',  # hictk-2.1.1_CMake_deps.patch
+    '9653a1855fc1686333741f584e7e72eb15561265eeb3076b2a3029324dc6ba71',  # hictk-2.1.1_CMake_deps.patch
 ]
 
 builddependencies = [
@@ -54,9 +54,9 @@ dependencies = [
 ]
 
 # TODO sed commands to patchfile
-preconfigopts = """sed -i 's|find_package(zstd REQUIRED QUIET)|find_library(zstd PATHS $ENV{EBROOTZSTD}/lib64)|g' %(builddir)s/%(name)s-%(version)s/src/libhictk/balancing/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/common/default_delete_zstd/CMakeLists.txt && """
+preconfigopts = """sed -i 's|find_package(zstd REQUIRED QUIET)|find_library(zstd PATHS $ENV{EBROOTZSTD}/lib64)|g' %(builddir)s/%(name)s-%(version)s/src/libhictk/balancing/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/common/default_delete_zstd/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/hic/CMakeLists.txt && """
 
-preconfigopts = """sed -i 's|find_package(opentelemetry-cpp REQUIRED QUIET)|find_library(opentelemetry-cpp PATHS $ENV{EBROOTOPENTELEMETRYCPP}/lib64)|g' %(builddir)s/%(name)s-%(version)s/src/hictk/telemetry/CMakeLists.txt && """
+preconfigopts += """sed -i 's|find_package(opentelemetry-cpp REQUIRED QUIET)|find_library(opentelemetry-cpp PATHS $ENV{EBROOTOPENTELEMETRYCPP}/lib64)|g' %(builddir)s/%(name)s-%(version)s/src/hictk/telemetry/CMakeLists.txt && """
 
 preconfigopts += """sed -i '/find_package(phmap REQUIRED QUIET)/d' %(builddir)s/%(name)s-%(version)s/src/libhictk/cooler/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/expected_values_aggregator/CMakeLists.txt && """
 
@@ -65,18 +65,12 @@ configopts = '-DZSTD_LIBRARY=$EBROOTZSTD/lib/libzstd.%s ' % SHLIB_EXT
 moduleclass = 'tools'
 
 # TODO
-# CMake Error at src/libhictk/balancing/CMakeLists.txt:25 (find_package):
-#   By not providing "Findzstd.cmake" in CMAKE_MODULE_PATH this project has
-#   asked CMake to find a package configuration file provided by "zstd", but
-#   CMake did not find one.
-#
-#   Could not find a package configuration file provided by "zstd" with any of
-#   the following names:
-#
-#     zstdConfig.cmake
-#     zstd-config.cmake
-#
-#   Add the installation prefix of "zstd" to CMAKE_PREFIX_PATH or set
-#   "zstd_DIR" to a directory containing one of the above files.  If "zstd"
-#   provides a separate development package or SDK, be sure it has been
-#   installed.
+# CMake Error at /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+#   Could NOT find zstdAlt (missing: ZSTD_LIB) (found version "1.5.5")
+# Call Stack (most recent call first):
+#   /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
+#   /apps/gent/RHEL9/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/FindzstdAlt.cmake:124 (find_package_handle_standard_args)
+#   /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+#   /apps/gent/RHEL9/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:99 (find_dependency)
+#   /apps/gent/RHEL9/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:122 (arrow_find_dependencies)
+#   src/libhictk/transformers/CMakeLists.txt:6 (find_package)

@@ -59,3 +59,60 @@
      "zstd::libzstd_$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static>"
  )
  
+--- src/libhictk/hic/CMakeLists.txt.orig
++++ src/libhictk/hic/CMakeLists.txt
+@@ -2,13 +2,31 @@
+ #
+ # SPDX-License-Identifier: MIT
+
+-find_package(bshoshany-thread-pool REQUIRED QUIET)
++include(FetchContent)
++set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
++FetchContent_Declare(
++    bshoshany_thread_pool
++    GIT_REPOSITORY https://github.com/bshoshany/thread-pool.git
++    GIT_TAG v5.0.0
++    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
++    EXCLUDE_FROM_ALL
++    SYSTEM
++)
++FetchContent_MakeAvailable(bshoshany_thread_pool)
+ find_package(concurrentqueue REQUIRED QUIET)
+ find_package(fmt REQUIRED QUIET)
+ find_package(libdeflate REQUIRED QUIET)
+-find_package(phmap REQUIRED QUIET)
++FetchContent_MakeAvailable(bshoshany_thread_pool)
++
++FetchContent_Declare(
++    parallel-hashmap
++    GIT_REPOSITORY https://github.com/greg7mdp/parallel-hashmap.git
++    GIT_TAG        v2.0.0    # adjust tag/branch/commit as needed
++)
++FetchContent_MakeAvailable(parallel-hashmap)
++
+ find_package(readerwriterqueue REQUIRED QUIET)
+-find_package(zstd REQUIRED QUIET)
++find_library(zstd PATHS $ENV{EBROOTZSTD}/lib64)
+
+ set(HICTK_CXX_BYTE_ORDER "${CMAKE_CXX_BYTE_ORDER}" CACHE STRING "Specify the CPU architecture endianness")
+
+@@ -105,7 +123,7 @@ target_link_system_libraries(
+     concurrentqueue::concurrentqueue
+     fmt::fmt-header-only
+     "libdeflate::libdeflate_$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static>"
+-    phmap
++    parallel-hashmap
+     readerwriterqueue::readerwriterqueue
+     "zstd::libzstd_$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static>"
+ )
+--- src/libhictk/reference/CMakeLists.txt.orig
++++ src/libhictk/reference/CMakeLists.txt
+@@ -2,8 +2,6 @@
+ #
+ # SPDX-License-Identifier: MIT
+
+-find_package(phmap REQUIRED QUIET)
+-
+ add_library(hictk_internal_reference INTERFACE)
+ add_library(hictk::reference ALIAS hictk_internal_reference)
+
