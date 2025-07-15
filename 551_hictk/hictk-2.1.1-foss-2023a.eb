@@ -41,7 +41,7 @@ dependencies = [
     ('lz4', '1.9.4'),
     ('LZO', '2.10'),
     ('nlohmann_json', '3.11.2'),
-    # ('opentelemetry-cpp', '1.20.0'),  # TODO
+    ('opentelemetry-cpp', '1.22.0'),  # TODO ok?
     ('parallel-hashmap', '2.0.0'),
     ('pybind11', '2.11.1'),
     ('readerwriterqueue', '1.0.7'),
@@ -53,7 +53,10 @@ dependencies = [
     ('zlib', '1.2.13'),
 ]
 
+# TODO sed commands to patchfile
 preconfigopts = """sed -i 's|find_package(zstd REQUIRED QUIET)|find_library(zstd PATHS $ENV{EBROOTZSTD}/lib64)|g' %(builddir)s/%(name)s-%(version)s/src/libhictk/balancing/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/common/default_delete_zstd/CMakeLists.txt && """
+
+preconfigopts = """sed -i 's|find_package(opentelemetry-cpp REQUIRED QUIET)|find_library(opentelemetry-cpp PATHS $ENV{EBROOTOPENTELEMETRYCPP}/lib64)|g' %(builddir)s/%(name)s-%(version)s/src/hictk/telemetry/CMakeLists.txt && """
 
 preconfigopts += """sed -i '/find_package(phmap REQUIRED QUIET)/d' %(builddir)s/%(name)s-%(version)s/src/libhictk/cooler/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/expected_values_aggregator/CMakeLists.txt && """
 
@@ -77,5 +80,3 @@ moduleclass = 'tools'
 #   "zstd_DIR" to a directory containing one of the above files.  If "zstd"
 #   provides a separate development package or SDK, be sure it has been
 #   installed.
-#
-
