@@ -92,6 +92,23 @@ runtest = True
 
 moduleclass = 'chem'
 
+# AmberTools25 is not compatible with:
+    # python 3.13
+    # Boost 1.88
+    # numpy 2.x
+
+#E5:
+    # + parmed is missing in site-packages and pip list -> patch is wrong?
+    # <- after manually run pip check:
+    # ndfes 3.4 requires netcdf4, which is not installed.
+    # ndfes 3.4 requires pyyaml, which is not installed.
+    # edgembar 3.4 requires pyyaml, which is not installed.
+    # fetkutils 3.3 requires netcdf4, which is not installed.
+    # fetkutils 3.3 requires rdkit, which is not installed.
+    # ndfes 3.4 has requirement numpy<2, but you have numpy 2.3.1.
+    # edgembar 3.4 has requirement numpy<2, but you have numpy 2.3.1.
+    # fetkutils 3.3 has requirement numpy<2, but you have numpy 2.3.1.
+
 #E4: OK
     # -> patch for parmed from latest commit -> OK
     # -> Pearmend is not in 3rd paty cmake -> can not use FORCE_EXTERNAL_LIBS
