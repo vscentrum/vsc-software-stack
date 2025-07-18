@@ -2,7 +2,6 @@ easyblock = 'CMakeMake'
 
 name = 'bitsandbytes'
 version = '0.46.1'
-versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://huggingface.co/docs/bitsandbytes/main/en/index'
 description = "bitsandbytes enables accessible large language models via k-bit quantization for PyTorch."
@@ -21,13 +20,12 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('CUDA', '12.6.0', '', SYSTEM),
     ('Python', '3.12.3'),
-    ('PyTorch', '2.6.0', versionsuffix),
+    ('PyTorch', '2.6.0'),
     ('SciPy-bundle', '2024.05'),
 ]
 
-configopts = "-DCOMPUTE_BACKEND=cuda"
+configopts = "-DCOMPUTE_BACKEND=cpu"
 
 # skip install step in CMakeMake, but we still need install step in extension
 install_cmd = 'exit'
