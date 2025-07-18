@@ -25,10 +25,10 @@ builddependencies = [
 
 dependencies = [
     ('Python', '3.13.1'),
-    # ('SciPy-bundle', '2023.07'),
-    # ('absl-py', '2.1.0'),
+    ('SciPy-bundle', '2025.06'),
+    ('absl-py', '2.3.1'),
     # ('flatbuffers-python', '23.5.26'),
-    # ('ml_dtypes', '0.3.2'),
+    ('ml_dtypes', '0.5.1'),
     # ('zlib', '1.2.13'),
 ]
 
@@ -50,7 +50,7 @@ dependencies = [
 
 components = [
     ('jaxlib', version, {  # use its own easyblock
-        'easyblock': 'CmdCp',
+        # 'easyblock': 'CmdCp',
         'sources': [
             {
                 'source_urls': ['https://github.com/google/jax/archive/'],
@@ -73,8 +73,8 @@ components = [
         'checksums': [
             {'jax-v0.6.2.tar.gz':
              'd46cb98795f2c1ccdf2b081e02d9d74b659063679a80beb001ad17d482a60e17'},
-            {'xla-3d5ece64.tar.gz':
-             'fbd20cf83bad78f66977fa7ff67a12e52964abae0b107ddd5486a0355643ec8a'},
+            # {'xla-3d5ece64.tar.gz':
+            #  'fbd20cf83bad78f66977fa7ff67a12e52964abae0b107ddd5486a0355643ec8a'},
             # {'jax-0.4.25_fix-pybind11-systemlib.patch':
             #  'daad5b726d1a138431b05eb60ecf4c89c7b5148eb939721800bdf43d804ca033'},
         ],
