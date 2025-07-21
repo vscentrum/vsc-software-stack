@@ -27,11 +27,13 @@ patches = [
     'AmberTools-20_fix_xblas_missing_make_dependency.patch',
     'AmberTools-21_CMake-FlexiBLAS.patch',
     'AmberTools-21_fix_incorrect_dvout_call.patch',
+    # 'AmberTools-21_fix_more_blas_argument_problems.patch',  # this is fixed
     'AmberTools-21_fix_potential_use_before_init.patch',
     'AmberTools-21_fix_rism_argument_mismatch.patch',
     'AmberTools-21_fix_xray_fftpack_arg_mismatch.patch',
+    # 'AmberTools-22_fix_test_missing_cuda_dir.patch',
     'AmberTools-25_fix_test_missing_dirs.patch',
-    'AmberTools-25_parmed-update.patch',
+    'AmberTools-25_parmed-update2.patch',
     'AmberTools-25_fix-boost.patch',
 ]
 checksums = [
@@ -51,7 +53,7 @@ checksums = [
     {'AmberTools-21_fix_xray_fftpack_arg_mismatch.patch':
      '99c954e693659efc2a1d121f91510f56408006f0751d91595f45a34b03364e2f'},
     {'AmberTools-25_fix_test_missing_dirs.patch': '1c4c44cb012b625933781e9811f1657d5ddfd14cfbf4894bb1f767995eadc3b6'},
-    {'AmberTools-25_parmed-update.patch': '2216c7883be026ce48aac7589f75749f2a42ec74f6e3ceba378d762403c50924'},
+    {'AmberTools-25_parmed-update2.patch': '2216c7883be026ce48aac7589f75749f2a42ec74f6e3ceba378d762403c50924'},
     {'AmberTools-25_fix-boost.patch': 'f4ccf7dedb5aa5b289ad5f69f3c1dc808c3fcc226d7118eaba40b108688e37cc'},
 ]
 
@@ -86,23 +88,72 @@ dependencies = [
     ('RDKit', '2025.03.4'),
 ]
 
+# configopts = 'CXXFLAGS="$CXXFLAGS -std=gnu++17" -DCMAKE_CXX_STANDARD=17 '
 _fe_toolkit_path = "%(builddir)s/%(name)s/src/fe-toolkit/"
 _setup_path = "/src/python/setup.py"
-_fe_toolkit_pkgs = ['edgembar', 'fetkutils', 'ndfes']
-# recythonize pytraj files - python3.13 compability
 prebuildopts = "cd %(builddir)s/%(name)s/src/pytraj && find . -name '*.cpp' -delete && python setup.py --cythonize && "
 prebuildopts += "cd %(builddir)s/easybuild_obj && "
-# unpin numpy version restriction in fe-toolkit pkgs
 prebuildopts += """sed -i "/'numpy<2',/d" """
-for pkg in _fe_toolkit_pkgs:
-    prebuildopts += f"{_fe_toolkit_path}{pkg}{_setup_path} "
-prebuildopts += '&& '
-
-sanity_check_commands = [
-    f"python -c 'import {', '.join(_fe_toolkit_pkgs)}'",
-    "pip check",
-]
+prebuildopts += f"{_fe_toolkit_path}edgembar{_setup_path} "
+prebuildopts += f"{_fe_toolkit_path}fetkutils{_setup_path} "
+prebuildopts += f"{_fe_toolkit_path}ndfes{_setup_path} && "
 
 runtest = True
 
 moduleclass = 'chem'
+
+# AmberTools25 is not compatible with:
+    # python 3.13 -> fix pytraj in prebuildopts
+    # Boost 1.88 -> fix boost patch
+    # numpy 2.x -> parmed patch + update setup.py in fe-toolkit (prebuildopts)
+
+#E5:
+    # use patch from Arch + add numpy.compat fix
+        # https://aur.archlinux.org/cgit/aur.git/tree/0002-NumPy-2-compatibility.patch?h=ambertools
+    # + parmed is missing in site-packages and pip list -> patch is wrong?
+    # <- after manually run pip check:
+    # ndfes 3.4 requires netcdf4, which is not installed.
+    # ndfes 3.4 requires pyyaml, which is not installed.
+    # edgembar 3.4 requires pyyaml, which is not installed.
+    # fetkutils 3.3 requires netcdf4, which is not installed.
+    # fetkutils 3.3 requires rdkit, which is not installed.
+    # ndfes 3.4 has requirement numpy<2, but you have numpy 2.3.1.
+    # edgembar 3.4 has requirement numpy<2, but you have numpy 2.3.1.
+    # fetkutils 3.3 has requirement numpy<2, but you have numpy 2.3.1.
+
+#E4: OK
+    # -> patch for parmed from latest commit -> OK
+    # -> Pearmend is not in 3rd paty cmake -> can not use FORCE_EXTERNAL_LIBS
+    # -> create Parmed from latest commit -> hasnumpy patch + numpy.compat fix
+    # -> there is a problem with Parmed - it is installed by Amber but it is python package. Internally it use old version not compatilbe with numpy 2.x
+        # TODO:
+            # in sources/a/AmberTools/ambertools25_src/AmberTools/src/parmed/parmed/utils/netcdf.py 
+                # delete numpy.compat and def asbytes and asstr
+                # https://github.com/ParmEd/ParmEd/blob/9fa8b08b760f57d45a271854ffa4a17f3f2647c0/parmed/utils/netcdf.py#L52
+            # create patch for numpy 2.x compatibility: https://github.com/ParmEd/ParmEd/commit/3a0b8af01b3133fb6471c8acc2c8538d38582de3
+    # <- log-amber4.txt <- test step: 
+        # source /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AmberTools/25.1-foss-2025a/amber.sh && 
+        # cd /tmp/vsc47063/easybuild/build/AmberTools/25.1/foss-2025a/test && make test.parallel
+
+#E3: OK
+    # -> "It works fine, you just have to re-cythonize the source in pytraj dir using the command: python setup.py --cythonize " 
+        # first delete all cpp files  -> find . -name '*.cpp' -delete
+        # in /tmp/vsc47063/easybuild/build/AmberTools/25.1/foss-2025a/AmberTools/src/pytraj
+    # -> AmberTools 25 and pytraj are not compatible with python 3.13 but there is fix -> http://archive.ambermd.org/202505/0059.html
+    # <- another error in make <- log-amber3.txt
+
+#E2:
+    # -> try patch fix-boost
+    # -> remove boost from deps -> should pick internal boost -> OK
+    # -> internaly it use boost 1.68
+    # -> it seems it can not use Boost 1.88: http://archive.ambermd.org/202507/0018.html
+    # -> 'cstd': 'c++17' in toolchainopts -> no -> log-amber2.txt
+        # cc1: warning: command-line option ‘-std=c++17’ is valid for C++/ObjC++ but not for C
+    # -> Your build is explicitly setting -std=gnu++11, but the Boost 1.88.0 headers require C++14 or newer.
+    # <- failed on make <- log-amber1.txt
+        # make[2]: *** [AmberTools/src/moft/CMakeFiles/metatwist.dir/build.make:82: AmberTools/src/moft/CMakeFiles/metatwist.dir/metatwist.cpp.o] Error 1
+
+#E1:
+    # -> try to not use it -> seems ok
+    # <- AmberTools-21_fix_more_blas_argument_problems.patch not working
+    #<- AmberTools-22_fix_test_missing_cuda_dir.patch not working
