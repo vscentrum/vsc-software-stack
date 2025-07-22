@@ -12,10 +12,10 @@ homepage = 'https://jax.readthedocs.io/'
 description = """Composable transformations of Python+NumPy programs:
 differentiate, vectorize, JIT to GPU/TPU, and more"""
 
-toolchain = {'name': 'gfbf', 'version': '2025a'}  # 14.2.0
+toolchain = {'name': 'gfbf', 'version': '2025a'}
 
 builddependencies = [
-    ('Bazel', '7.4.1', '-Java-21'), # UPDATED
+    ('Bazel', '7.4.1', '-Java-21'),
     # ('pytest-xdist', '3.3.1'),
     # ('git', '2.41.0', '-nodocs'),  # bazel uses git to fetch repositories
     # ('matplotlib', '3.7.2'),  # required for tests/lobpcg_test.py
@@ -36,7 +36,7 @@ dependencies = [
 # downloading xla  tarball to avoid that Bazel downloads it during the build
 # note: following commits *must* be the exact same onces used upstream
 # XLA_COMMIT from jax-jaxlib: third_party/xla/workspace.bzl
-local_xla_commit = '3d5ece64321630dade7ff733ae1353fc3c83d9cc'
+_xla_commit = '3d5ece64321630dade7ff733ae1353fc3c83d9cc'
 # # TFRT_COMMIT from xla: third_party/tsl/third_party/tf_runtime/workspace.bzl -> not in third_party anymore
 # local_tfrt_commit = '0aeefb1660d7e37964b2bb71b1f518096bda9a25'
 
@@ -60,8 +60,8 @@ components = [
             },
             {
                 'source_urls': ['https://github.com/openxla/xla/archive'],
-                'download_filename': f'{local_xla_commit}.tar.gz',
-                'filename': f'xla-{local_xla_commit[:8]}.tar.gz',
+                'download_filename': f'{_xla_commit}.tar.gz',
+                'filename': f'xla-{_xla_commit[:8]}.tar.gz',
                 'extract_cmd': 'mkdir -p %(builddir)s/archives && cp %s %(builddir)s/archives',
             },
             # {
@@ -81,17 +81,24 @@ components = [
             #  'daad5b726d1a138431b05eb60ecf4c89c7b5148eb939721800bdf43d804ca033'},
         ],
         'start_dir': f'jax-jax-v{version}',
+        # fix jaxlib version - removes .dev suffix
+        'prebuildopts': 'export WHEEL_VERSION_SUFFIX="" && ',
         'buildopts': _jaxlib_buildopts,
         # 'buildopts': 'build',
         # 'build_cmd': 'python build/build.py build --wheels-jaxlib --bazel_path=$EBROOTBAZEL --verbose',
     }),
 ]
+# BackendsTest is failing on systems with GPU detected when cpu version is built
+_failing_test = 'tests/api_test.py::BackendsTest::test_no_backend_warning_on_cpu_if_platform_specified'
 
 exts_list = [
     (name, version, {
+        # fix jax version - removes .dev suffix
+        'preinstallopts': 'export WHEEL_VERSION_SUFFIX="" && ',
         'testinstall': True,
         # 'runtest': "pytest -n %(parallel)s tests",
-        'runtest': "pytest -n 2 tests",
+        # with -n 8 the workers crushing during tests -> test-log1/2.txt
+        'runtest': f'pytest -n 2 tests --deselect={_failing_test}',
         'sources': [{'source_urls': ['https://github.com/google/jax/archive/'], 'filename': '%(name)s-v%(version)s.tar.gz'}],
         'checksums': ['d46cb98795f2c1ccdf2b081e02d9d74b659063679a80beb001ad17d482a60e17'],
     }),
@@ -109,7 +116,15 @@ moduleclass = 'ai'
 # --bazel_options="--distdir=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2025a/archives" --wheels=jaxlib
 # --use_clang=false --gcc_path=$CC
 
-#E3:
+#E5:
+    # failing test BackendsTest::test_no_backend_warning_on_cpu_if_platform_specified:
+        # add --deselect=tests/api_test.py::BackendsTes... -> 
+        # -> export CUDA_VISIBLE_DEVICES="" -> NO 
+    # crashing workers in test -> -n 2 -> OK
+#E4:
+    # <- pip check failed:
+        # jax 0.6.2.dev20250722 has requirement jaxlib<=0.6.2,>=0.6.2, but you have jaxlib 0.6.2.dev20250722.
+#E3: OK
     # -> failed on tests -> test-log2.txt
     # -> add deps hypothesis + flatbuffers
     # <- test not pass <- test-log1.txt
