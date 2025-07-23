@@ -50,6 +50,8 @@ _jaxlib_buildopts = '--bazel_options="--distdir=%(builddir)s/archives" '
 
 _jaxlib_buildopts += '--wheels=jaxlib '
 _jaxlib_buildopts += '--use_clang=false --gcc_path=$CC '
+# _jaxlib_buildopts += '--bazel_options="--define=WHEEL_VERSION=0.6.2 --define=WHEEL_VERSION_SUFFIX=" '
+_jaxlib_buildopts += '--bazel_options="--define=ML_WHEEL_VERSION_SUFFIX=" '
 
 components = [
     ('jaxlib', version, {
@@ -82,7 +84,7 @@ components = [
         ],
         'start_dir': f'jax-jax-v{version}',
         # fix jaxlib version - removes .dev suffix
-        'prebuildopts': 'export WHEEL_VERSION_SUFFIX="" && ',
+        # 'prebuildopts': 'export WHEEL_VERSION_SUFFIX="" && ',
         'buildopts': _jaxlib_buildopts,
         # 'buildopts': 'build',
         # 'build_cmd': 'python build/build.py build --wheels-jaxlib --bazel_path=$EBROOTBAZEL --verbose',
@@ -94,13 +96,18 @@ _failing_test = 'tests/api_test.py::BackendsTest::test_no_backend_warning_on_cpu
 exts_list = [
     (name, version, {
         # fix jax version - removes .dev suffix
-        'preinstallopts': 'export WHEEL_VERSION_SUFFIX="" && ',
+        # 'preinstallopts': 'export WHEEL_VERSION_SUFFIX="" && ',
+        'patches': ['jax-0.6.2_version.patch'],
         'testinstall': True,
         # 'runtest': "pytest -n %(parallel)s tests",
-        # with -n 8 the workers crushing during tests -> test-log1/2.txt
-        'runtest': f'pytest -n 2 tests --deselect={_failing_test}',
+        # with -n 8 the workers are crushing during tests -> test-log1/2.txt
+        # 'runtest': f'pytest -n 2 tests --deselect={_failing_test}',
+        'runtest': f'pytest -n %(parallel)s tests --deselect={_failing_test}',
         'sources': [{'source_urls': ['https://github.com/google/jax/archive/'], 'filename': '%(name)s-v%(version)s.tar.gz'}],
-        'checksums': ['d46cb98795f2c1ccdf2b081e02d9d74b659063679a80beb001ad17d482a60e17'],
+        'checksums': [
+            {'jax-v0.6.2.tar.gz': 'd46cb98795f2c1ccdf2b081e02d9d74b659063679a80beb001ad17d482a60e17'},
+            {'jax-0.6.2_version.patch': '9f4f4a38e827aa1f2645b080c95645f79ee8781f81a4a0b750bf69643f3a5e31'},
+        ],
     }),
 ]
 
@@ -122,6 +129,11 @@ moduleclass = 'ai'
         # -> export CUDA_VISIBLE_DEVICES="" -> NO 
     # crashing workers in test -> -n 2 -> OK
 #E4:
+    # -> patch either jaxlib
+    # -> patch version - same af in PR: https://github.com/easybuilders/easybuild-easyconfigs/pull/21924/files -> fix jax version not jaxlib
+    # GPT suggests to use: export SETUPTOOLS_SCM_PRETEND_VERSION=0.6.2
+    # -> export WHEEL_VERSION_SUFFIX="" -> NO stil dev...
+    # -> wrong logic for version set: https://github.com/jax-ml/jax/blob/1ad05bb26105f23ee7728b36cca12901fe70e187/jax/version.py#L33C1-L45C43
     # <- pip check failed:
         # jax 0.6.2.dev20250722 has requirement jaxlib<=0.6.2,>=0.6.2, but you have jaxlib 0.6.2.dev20250722.
 #E3: OK
