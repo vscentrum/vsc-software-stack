@@ -1,0 +1,17 @@
+--- build/build.py.orig	2025-07-23 17:52:47.049929000 +0200
++++ build/build.py	2025-07-23 17:53:38.115471000 +0200
+@@ -749,11 +749,11 @@
+         dst_dir = os.path.join(output_path, wheel_dir)
+         utils.copy_dir_recursively(src_dir, dst_dir)
+       else:
+-        wheel_version_suffix = "dev0+selfbuilt"
++        wheel_version_suffix = ""
+         if wheel_type == "release":
+-          wheel_version_suffix = custom_wheel_version_suffix
++          wheel_version_suffix = ""
+         elif wheel_type in ["nightly", "custom"]:
+-          wheel_version_suffix = f".dev{wheel_build_date}"
++          wheel_version_suffix = ""
+           if wheel_type == "custom":
+             wheel_version_suffix += (
+                 f"+{wheel_git_hash}{custom_wheel_version_suffix}"
