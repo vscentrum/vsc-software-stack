@@ -1,0 +1,34 @@
+easyblock = 'CMakeMake'
+
+name = 'docopt.cpp'
+_commit = '400e6dd'
+version = f'3.8.0-{_commit}'
+
+homepage = 'https://github.com/docopt/docopt.cpp'
+description = """docopt helps you create most beautiful command-line interfaces easily. This is
+a port of docopt written in C++11."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+sources = [{
+    'filename': SOURCE_TAR_XZ,
+    'git_config': {
+        'url': 'https://github.com/docopt/',
+        'repo_name': 'docopt.cpp',
+        'commit': _commit,
+    }
+}]
+
+builddependencies = [
+    ('binutils', '2.42'),  # to make CMake compiler health check pass on old systems
+    ('CMake', '3.29.3'),
+]
+
+separate_build_dir = True
+
+sanity_check_paths = {
+    'files': ['include/catch2/catch_all.hpp'],
+    'dirs':  ['lib/cmake'],
+}
+
+moduleclass = 'lib'
