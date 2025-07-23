@@ -25,7 +25,7 @@ dependencies = [
     ('JupyterNotebook', '7.4.4'),
     ('AmberTools', '25.2'),
     ('Pint', '0.24.4'),
-    ('nglview', '3.1.4'),
+    # ('nglview', '3.1.4'),
 ]
 
 # fix old syntax in versioneer.py
@@ -123,6 +123,18 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['5276462b88726ae7f6927580d8728c8703c6e72b61a76fd5fb8669a83d8eac5c'],
     }),
+    # ('OpenForceField-NAGL-Models', '0.3.0', {
+    #     'modulename': 'openff.nagl_models',
+    #     'source_urls': ['https://github.com/openforcefield/openff-nagl-models/archive/'],
+    #     'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+    #     'checksums': ['070864fadee96be80f85b98984ddea198bab00aa63bb57ec9fe82ca43f9046d9'],
+    # }),
+    # ('OpenForceField-Models', '0.1.2', {
+    #     'modulename': 'openff.models',
+    #     'source_urls': ['https://github.com/openforcefield/openff-models/archive/'],
+    #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+    #     'checksums': ['cf2aa7ef467721f141149e4ce96134db390b27012f09996c4442a3fad2371653'],
+    # }),
     ('OpenForceField-Interchange', '0.4.3', {
         'modulename': 'openff.interchange',
         'preinstallopts': _interchange_fix,
@@ -138,6 +150,12 @@ exts_list = [
         'checksums': ['26d817f4f254293a4551a0a73f1bf94debf7532f422daa2253a2f7ec8c44b02f'],
     }),
 ]
+
+# sanity_check_commands = [
+#     "python -c 'from openff.toolkit import Molecule, Topology, ForceField'",
+#     "python -c 'from openff.units import unit'",
+#     "python -c 'from openff.toolkit.typing.engines.smirnoff import ForceField'",
+# ]
 
 sanity_check_commands = [
     "python -c 'from openff.toolkit import Molecule, Topology, ForceField'",
