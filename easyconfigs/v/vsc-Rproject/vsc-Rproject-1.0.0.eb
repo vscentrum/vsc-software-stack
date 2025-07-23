@@ -1,0 +1,36 @@
+easyblock = 'Binary'
+
+name = 'vsc-Rproject'
+version = '1.0.0'
+
+homepage = 'https://github.com/hpcleuven/vsc-Rproject/tree/main'
+description = """vsc-Rproject is a command-line tool that facilitates the creation and use of
+RStudio Project-based R environments on top of the existing module system."""
+
+toolchain = SYSTEM
+
+sources = ['vsc-Rproject-%(version)s.tar.gz']
+source_urls = ['https://github.com/hpcleuven/vsc-Rproject/releases/download/v%(version)s']
+
+checksums = ['48254e67f1e1b15518944562a135a3437f30af97b173e7e5af7d749e2ac42f06']
+
+# Extract tarball
+install_cmd = 'tar -xzf %(builddir)s/vsc-Rproject-%(version)s.tar.gz -C %(builddir)s'
+
+# Copy the scripts from the extracted source to the install location
+postinstallcmds = [
+    'cp -r %(builddir)s/vsc-Rproject-%(version)s/libexec %(installdir)s',
+]
+
+# Module file
+modluafooter = """
+execute{cmd="source " .. root .. "/libexec/load.sh", modeA={"load"}}
+execute{cmd="source " .. root .. "/libexec/unload.sh", modeA={"unload"}}
+"""
+
+sanity_check_paths = {
+    'files': ['libexec/load.sh', 'libexec/unload.sh'],
+    'dirs': ['libexec'],
+}
+
+moduleclass = 'tools'
