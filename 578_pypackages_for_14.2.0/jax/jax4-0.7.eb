@@ -75,6 +75,7 @@ components = [
             # },
         ],
         # 'patches': ['patch4_jaxlib-version.patch'],
+        'patches': ['patch5-jax-0.7.patch'],
         'checksums': [
             {'jax-v0.7.0.tar.gz':
             '518966801e4402667e77915c2dc7cf1a178a80e22ff253204a837f207a87fcde'},
@@ -84,6 +85,8 @@ components = [
             #  'fbd20cf83bad78f66977fa7ff67a12e52964abae0b107ddd5486a0355643ec8a'},
             {'xla-3d25fed5.tar.gz':
             '9efd7d303edab24fd8552d602045722f462870d17b888fa607e9b7143b9e0515'},
+            {'patch5-jax-0.7.patch':
+            '8ce4bcfd1cc6a0e42288c58ee28af5d29363ca72dbde3436ee60c336f1efc575'}
             # {'patch4_jaxlib-version.patch':
             #  '6aa7c31cbd90ce0a677b71fc25e87ebd578d55f549daaaf05c1bff59d525d82f'},
         ],
@@ -107,7 +110,7 @@ exts_list = [
         'testinstall': True,
         # 'runtest': "pytest -n %(parallel)s tests",
         # with -n 8 the workers are crushing during tests -> test-log1/2.txt
-        # 'runtest': f'pytest -n 2 tests --deselect={_failing_test}',
+        'runtest': f'pytest -n 4 tests --deselect={_failing_test}',
         # 'runtest': f'pytest -n %(parallel)s tests --deselect={_failing_test}',
         'sources': [{'source_urls': ['https://github.com/google/jax/archive/'], 'filename': '%(name)s-v%(version)s.tar.gz'}],
         'checksums': [
