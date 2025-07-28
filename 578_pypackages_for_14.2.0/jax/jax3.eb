@@ -50,8 +50,9 @@ _jaxlib_buildopts = '--bazel_options="--distdir=%(builddir)s/archives" '
 
 _jaxlib_buildopts += '--wheels=jaxlib '
 _jaxlib_buildopts += '--use_clang=false --gcc_path=$CC '
-# _jaxlib_buildopts += '--bazel_options="--define=WHEEL_VERSION=0.6.2 --define=WHEEL_VERSION_SUFFIX=" '
-# _jaxlib_buildopts += '--bazel_options="--define=ML_WHEEL_VERSION_SUFFIX=" '
+_jaxlib_buildopts += '--bazel_options="--action_env=JAXLIB_RELEASE" '
+# _jaxlib_buildopts += '--bazel_options="--define=WHEEL_VERSION=0.6.2 --define=WHEEL_VERSION_SUFFIX=" ' NO
+# _jaxlib_buildopts += '--bazel_options="--define=ML_WHEEL_VERSION_SUFFIX=" ' NO
 
 components = [
     ('jaxlib', version, {
@@ -73,18 +74,19 @@ components = [
             #     'extract_cmd': local_extract_cmd,
             # },
         ],
-        'patches': ['patch4_jaxlib-version.patch'],
+        # 'patches': ['patch4_jaxlib-version.patch'],
         'checksums': [
             {'jax-v0.6.2.tar.gz':
              'd46cb98795f2c1ccdf2b081e02d9d74b659063679a80beb001ad17d482a60e17'},
             {'xla-3d5ece64.tar.gz':
              'fbd20cf83bad78f66977fa7ff67a12e52964abae0b107ddd5486a0355643ec8a'},
-            {'patch4_jaxlib-version.patch':
-             '6aa7c31cbd90ce0a677b71fc25e87ebd578d55f549daaaf05c1bff59d525d82f'},
+            # {'patch4_jaxlib-version.patch':
+            #  '6aa7c31cbd90ce0a677b71fc25e87ebd578d55f549daaaf05c1bff59d525d82f'},
         ],
         'start_dir': f'jax-jax-v{version}',
         # fix jaxlib version - removes .dev suffix
         # 'prebuildopts': 'export WHEEL_VERSION_SUFFIX="" && ',
+        'prebuildopts': 'export JAXLIB_RELEASE=%(version)s && ',
         'buildopts': _jaxlib_buildopts,
         # 'buildopts': 'build',
         # 'build_cmd': 'python build/build.py build --wheels-jaxlib --bazel_path=$EBROOTBAZEL --verbose',
@@ -102,7 +104,7 @@ exts_list = [
         # 'runtest': "pytest -n %(parallel)s tests",
         # with -n 8 the workers are crushing during tests -> test-log1/2.txt
         # 'runtest': f'pytest -n 2 tests --deselect={_failing_test}',
-        # 'runtest': f'pytest -n %(parallel)s tests --deselect={_failing_test}',
+        'runtest': f'pytest -n %(parallel)s tests --deselect={_failing_test}',
         'sources': [{'source_urls': ['https://github.com/google/jax/archive/'], 'filename': '%(name)s-v%(version)s.tar.gz'}],
         'checksums': [
             {'jax-v0.6.2.tar.gz': 'd46cb98795f2c1ccdf2b081e02d9d74b659063679a80beb001ad17d482a60e17'},
@@ -112,6 +114,17 @@ exts_list = [
 ]
 
 moduleclass = 'ai'
+
+# export JAXLIB_RELEASE=0.6.2 &&  
+# /apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/bin/python build/build.py build 
+# --target_cpu_features=default --disable_mkl_dnn 
+# --bazel_startup_options="--output_user_root=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2025a/tmp4rs_euqb-bazel" 
+# --bazel_options="--jobs=8" --bazel_options="--subcommands" --bazel_options="--action_env=PYTHONPATH" 
+# --bazel_options="--action_env=EBPYTHONPREFIXES" --bazel_options="--copt=-O2" 
+# --bazel_options="--copt=-ftree-vectorize" --bazel_options="--copt=-march=native" 
+# --bazel_options="--copt=-fno-math-errno" 
+# --bazel_options="--distdir=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2025a/archives" --wheels=jaxlib 
+# --use_clang=false --gcc_path=$CC --bazel_options='--action_env=JAXLIB_RELEASE'
 
 # python build/build.py build
 # --target_cpu_features=default --disable_mkl_dnn
@@ -123,12 +136,17 @@ moduleclass = 'ai'
 # --bazel_options="--distdir=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2025a/archives" --wheels=jaxlib
 # --use_clang=false --gcc_path=$CC
 
-#E5:
+#UPDATE:
+    # which flag use with --target_cpu_features? -> for now it is default, but maybe other is better:
+        # https://github.com/jax-ml/jax/blob/6f5ae5a94af47060846c32e50fe1e842aa128caa/build/build.py#L322
+#E5: OK
     # failing test BackendsTest::test_no_backend_warning_on_cpu_if_platform_specified:
-        # add --deselect=tests/api_test.py::BackendsTes... -> 
+        # add --deselect=tests/api_test.py::BackendsTes... -> OK
         # -> export CUDA_VISIBLE_DEVICES="" -> NO 
     # crashing workers in test -> -n 2 -> OK
-#E4:
+#E4: OK
+    # -> add  'prebildopts': 'export JAXLIB_RELEASE=%(version)s' + --bazel_options='--action_env=JAXLIB_RELEASE' -> OK
+    # -> add patch4 -> NO
     # -> in /build/jax/0.6.2/gfbf-2025a/jax-jax-v0.6.2/jaxlib there is setup.py -> update setup - version
     # -> add --bazel_options="--define=ML_WHEEL_VERSION_SUFFIX=" to prebuildopts -> NO still wrong version
     # -> patch either jaxlib -> no there is no version
