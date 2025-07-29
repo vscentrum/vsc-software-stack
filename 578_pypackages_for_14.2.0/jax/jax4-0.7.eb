@@ -116,19 +116,22 @@ exts_list = [
         # with -n 8 the workers are crushing during tests -> test-log1/2.txt
         # 'runtest': f'pytest -n 4 tests --deselect={_failing_test}',
         # 'runtest': f'pytest -n %(parallel)s tests --deselect={_failing_test}',
-        # 'runtest': f'pytest -n %(parallel)s tests --deselect={_failing_backend_test} --deselect={_failing_version_tests}',
-        'runtest': f'pytest -n 2 tests --deselect={_failing_backend_test} --deselect={_failing_version_tests}',
+        'runtest': f'pytest -n %(parallel)s tests --deselect={_failing_backend_test} --deselect={_failing_version_tests}',
+        # 'runtest': f'pytest -n 2 tests --deselect={_failing_backend_test} --deselect={_failing_version_tests}',
         'sources': [{'source_urls': ['https://github.com/google/jax/archive/'], 'filename': '%(name)s-v%(version)s.tar.gz'}],
         'checksums': [
             {'jax-v0.7.0.tar.gz': '518966801e4402667e77915c2dc7cf1a178a80e22ff253204a837f207a87fcde'},
-            {'jax-0.6.2_version.patch': '9f4f4a38e827aa1f2645b080c95645f79ee8781f81a4a0b750bf69643f3a5e31'},
+            {'jax-0.6.2_version.patch': 'e15615fd9f4e1698f7c5fd384f146d7b2dbfde3d4657b69bd2d044d75c9fb1d4'},
         ],
     }),
 ]
 
 moduleclass = 'ai'
 
-#E1:
+#E2:
+    # failing test - crushing workers
+        # -> ask for 126gb, 8 cores on shinx and run with -n 8 -> 
+#E1: OK
     # -> need patch from aur: https://aur.archlinux.org/cgit/aur.git/diff/jaxlib.diff?h=python-jaxlib&id=3f735e0121564f9ed7e021a5f577ff048516af7d
     # <- log-0.7-1.txt
     # ERROR: /tmp/vsc47063/easybuild/build/jax/0.7.0/gfbf-2025a/jax-jax-v0.7.0/jaxlib/mosaic/dialect/gpu/BUILD:80:11: Compiling jaxlib/mosaic/dialect/gpu/mosaic_gpu.cc failed: (Exit 1): gcc failed: error executing CppCompile command (from target //jaxlib/mosaic/dialect/gpu:mosaic_gpu) 
