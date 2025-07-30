@@ -1,12 +1,13 @@
 # This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
 # Author: Denis Kristak
 # Updated by: Alex Domingo (Vrije Universiteit Brussel)
-# Updated by: Pavel Tománek (INUITS)
 # Updated by: Thomas Hoffmann (EMBL Heidelberg)
+# Updated by: Pavel Tománek (INUITS)
+
 easyblock = 'PythonBundle'
 
 name = 'jax'
-version = '0.6.2'
+version = '0.7.0'
 
 homepage = 'https://jax.readthedocs.io/'
 description = """Composable transformations of Python+NumPy programs:
@@ -31,7 +32,7 @@ dependencies = [
 # downloading xla  tarball to avoid that Bazel downloads it during the build
 # note: following commits *must* be the exact same onces used upstream
 # XLA_COMMIT from jax-jaxlib: third_party/xla/workspace.bzl
-_xla_commit = '3d5ece64321630dade7ff733ae1353fc3c83d9cc'
+_xla_commit = '3d25fed5571304e446903bc00e4f457b2b0f73dc'
 
 # Use sources downloaded by EasyBuild
 _jaxlib_buildopts = '--bazel_options="--distdir=%(builddir)s/archives" '
@@ -40,7 +41,7 @@ _jaxlib_buildopts += '--wheels=jaxlib '
 # use GCC instead of default Clang
 _jaxlib_buildopts += '--use_clang=false --gcc_path=$CC '
 # fix jaxlib version
-_jaxlib_buildopts += '--bazel_options="--action_env=JAXLIB_RELEASE" '
+_jaxlib_buildopts += "--bazel_options='--action_env=JAXLIB_RELEASE' "
 
 components = [
     ('jaxlib', version, {
@@ -56,11 +57,14 @@ components = [
                 'extract_cmd': 'mkdir -p %(builddir)s/archives && cp %s %(builddir)s/archives',
             },
         ],
+        'patches': ['jax-0.7.0_fix-mosaic.patch'],
         'checksums': [
-            {'jax-v0.6.2.tar.gz':
-             'd46cb98795f2c1ccdf2b081e02d9d74b659063679a80beb001ad17d482a60e17'},
-            {'xla-3d5ece64.tar.gz':
-             'fbd20cf83bad78f66977fa7ff67a12e52964abae0b107ddd5486a0355643ec8a'},
+            {'jax-v0.7.0.tar.gz':
+             '518966801e4402667e77915c2dc7cf1a178a80e22ff253204a837f207a87fcde'},
+            {'xla-3d25fed5.tar.gz':
+             '9efd7d303edab24fd8552d602045722f462870d17b888fa607e9b7143b9e0515'},
+            {'jax-0.7.0_fix-mosaic.patch':
+             '8ce4bcfd1cc6a0e42288c58ee28af5d29363ca72dbde3436ee60c336f1efc575'}
         ],
         'start_dir': f'jax-jax-v{version}',
         # fix jaxlib version - removes .dev suffix
@@ -77,15 +81,15 @@ _runtest_cmd = f"pytest -n %(parallel)s tests --deselect={_failing_backend_test}
 
 exts_list = [
     (name, version, {
-        "patches": ["jax-0.6.2_version.patch"],
-        "testinstall": True,
+        'patches': ['jax-0.6.2_version.patch'],
+        'testinstall': True,
         "runtest": _runtest_cmd,
-        "sources": [
-            {"source_urls": ["https://github.com/google/jax/archive/"], "filename": "%(name)s-v%(version)s.tar.gz"}
+        'sources': [
+            {'source_urls': ['https://github.com/google/jax/archive/'], 'filename': '%(name)s-v%(version)s.tar.gz'}
         ],
-        "checksums": [
-            {"jax-v0.6.2.tar.gz": "d46cb98795f2c1ccdf2b081e02d9d74b659063679a80beb001ad17d482a60e17"},
-            {"jax-0.6.2_version.patch": "e15615fd9f4e1698f7c5fd384f146d7b2dbfde3d4657b69bd2d044d75c9fb1d4"},
+        'checksums': [
+            {'jax-v0.7.0.tar.gz': '518966801e4402667e77915c2dc7cf1a178a80e22ff253204a837f207a87fcde'},
+            {'jax-0.6.2_version.patch': 'e15615fd9f4e1698f7c5fd384f146d7b2dbfde3d4657b69bd2d044d75c9fb1d4'},
         ],
     }),
 ]
