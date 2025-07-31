@@ -58,19 +58,28 @@ preconfigopts = """sed -i 's|find_package(zstd REQUIRED QUIET)|find_library(zstd
 
 preconfigopts += """sed -i 's|find_package(opentelemetry-cpp REQUIRED QUIET)|find_library(opentelemetry-cpp PATHS $ENV{EBROOTOPENTELEMETRYCPP}/lib64)|g' %(builddir)s/%(name)s-%(version)s/src/hictk/telemetry/CMakeLists.txt && """
 
-preconfigopts += """sed -i '/find_package(phmap REQUIRED QUIET)/d' %(builddir)s/%(name)s-%(version)s/src/libhictk/cooler/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/expected_values_aggregator/CMakeLists.txt && """
+preconfigopts += """sed -i '/find_package(phmap REQUIRED QUIET)/d' %(builddir)s/%(name)s-%(version)s/src/libhictk/cooler/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/expected_values_aggregator/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/transformers/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/hictk/cli/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/hictk/dump/CMakeLists.txt && """
 
-configopts = '-DZSTD_LIBRARY=$EBROOTZSTD/lib/libzstd.%s ' % SHLIB_EXT
+configopts = '-DZSTD_LIB=$EBROOTZSTD/lib/libzstd.%s ' % SHLIB_EXT
 
 moduleclass = 'tools'
 
 # TODO
-# CMake Error at /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
-#   Could NOT find zstdAlt (missing: ZSTD_LIB) (found version "1.5.5")
-# Call Stack (most recent call first):
-#   /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
-#   /apps/gent/RHEL9/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/FindzstdAlt.cmake:124 (find_package_handle_standard_args)
-#   /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
-#   /apps/gent/RHEL9/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:99 (find_dependency)
-#   /apps/gent/RHEL9/cascadelake-ib/software/Arrow/14.0.1-gfbf-2023a/lib64/cmake/Arrow/ArrowConfig.cmake:122 (arrow_find_dependencies)
-#   src/libhictk/transformers/CMakeLists.txt:6 (find_package)
+# CMake Error at src/hictk/load/CMakeLists.txt:5 (find_package):
+#   By not providing "Findbshoshany-thread-pool.cmake" in CMAKE_MODULE_PATH
+#   this project has asked CMake to find a package configuration file provided
+#   by "bshoshany-thread-pool", but CMake did not find one.
+#
+#   Could not find a package configuration file provided by
+#   "bshoshany-thread-pool" with any of the following names:
+#
+#     bshoshany-thread-poolConfig.cmake
+#     bshoshany-thread-pool-config.cmake
+#
+#   Add the installation prefix of "bshoshany-thread-pool" to CMAKE_PREFIX_PATH
+#   or set "bshoshany-thread-pool_DIR" to a directory containing one of the
+#   above files.  If "bshoshany-thread-pool" provides a separate development
+#   package or SDK, be sure it has been installed.
+#
+#
+# -- Configuring incomplete, errors occurred!
