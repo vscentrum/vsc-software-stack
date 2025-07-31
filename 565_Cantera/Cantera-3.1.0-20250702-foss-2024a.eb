@@ -1,7 +1,8 @@
 easyblock = 'SCons'
 
 name = 'Cantera'
-version = '3.1.0'
+version = '3.1.0-20250702'
+local_commit = 'b105c52'
 
 homepage = 'https://github.com/Cantera/cantera'
 description = """Chemical kinetics, thermodynamics, and transport tool suite"""
@@ -10,8 +11,8 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 toolchainopts = {'strict': True, 'usempi': True}
 
 source_urls = ['https://github.com/Cantera/cantera/archive/']
-sources = ['v%(version)s.tar.gz']
-checksums = ['4d9004660d83ea5200216cbd465ae77277fde9191fd47d1eb30a68c1ad6ee09e']
+sources = ['%s.tar.gz' % local_commit]
+checksums = ['6f9b66f9b86da9ed64c8a581f5883aed2c5e155cdcd3e229aa71f08bd527e383']
 
 builddependencies = [
     ('SCons', '4.9.0'),
