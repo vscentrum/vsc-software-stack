@@ -101,8 +101,23 @@ prebuildopts += '&& '
 sanity_check_commands = [
     f"python -c 'import {', '.join(_fe_toolkit_pkgs)}'",
     "pip check",
+    "python -c 'import parmed'",
 ]
 
 runtest = True
 
 moduleclass = 'chem'
+
+# pmemd test problem:
+    # I have to do first export DO_PARALLEL="mpirun --oversubscribe -n 4" and then all test pass from make test.parallel.at
+    # make test.parallel.gem.pmemd failing even with oversubscribe
+    # -> update serial target to test.parallel.at -> test-AT1.log
+        # -> failed because of MPI
+        
+# source /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AmberTools/25.2-foss-2025a/amber.sh && cd /tmp/vsc47063/easybuild/build/AmberTools/25.2/foss-2025a/test && ./test_amber_serial.sh test.parallel.at
+
+# source /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AmberTools/25.2-foss-2025a/amber.sh && cd /tmp/vsc47063/easybuild/build/AmberTools/25.2/foss-2025a/test && make test.parallel.at
+
+# source /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AmberTools/25.2-foss-2025a/amber.sh && cd /tmp/vsc47063/easybuild/build/AmberTools/25.2/foss-2025a/test && make test.parallel.gem.pmemd
+
+# source /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AmberTools/25.2-foss-2025a/amber.sh && cd /tmp/vsc47063/easybuild/build/AmberTools/25.2/foss-2025a/test && make test.serial.gem.pmemd
