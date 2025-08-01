@@ -53,6 +53,9 @@ sanity_check_paths = {
 moduleclass = 'chem'
 
 #E1:
+    # -> --maxtasks 2 --mpiranks 1 --maxerrors 200 --timeout 1000 --debug -> log8.txt -> NO, reach maxerrors
+    # -> --maxtasks 8 --mpiranks 1  --maxerrors 200 --timeout 1000 --debug -> log6.txt -> NO parallel task fails
+    # -> --maxtasks 1 --mpiranks 1 --ompthreads 1 --maxerrors 200 --timeout 1000 --debug -> log7.txt - OK?
     # -> put all at 1 -> log5.txt
     # -> --maxtasks 4 --mpiranks 1 --ompthreads 2 -> log4.txt
     # -> --maxtasks 1 --mpiranks 1 --ompthreads 2 -> no: maxtasks >= mpiranks * ompthreads and maxtasks * ompthreads <= #cpus
