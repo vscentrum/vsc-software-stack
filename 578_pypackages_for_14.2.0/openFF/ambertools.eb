@@ -111,6 +111,8 @@ runtest = True
 
 moduleclass = 'chem'
 
+# parallel tests: export DO_PARALLEL="mpirun --oversubscribe -n 4"
+# make test fails: test-AT3.log
 # New easyblock amber.py:
     # -> delete test for pytraj - it is not compatible with python3.13: https://github.com/Amber-MD/pytraj/issues/1648
     # failing on 'make test' <- test-AT2.txt
