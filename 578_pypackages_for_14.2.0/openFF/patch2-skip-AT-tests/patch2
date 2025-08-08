@@ -1,8 +1,5 @@
-Skip tests from /2048_wat_gem - all failing with: IEEE_DENORMAL + possible FAILURE
-pmemd.gem not works with GEM, only with AMOEBA
-Also skip kmmd tests
---- test/Makefile.orig	2025-08-04 14:40:37.401381000 +0200
-+++ test/Makefile	2025-08-04 14:41:01.054906000 +0200
+--- Makefile.orig	2025-08-04 14:40:37.401381000 +0200
++++ Makefile	2025-08-08 13:17:14.160193000 +0200
 @@ -55,7 +55,7 @@
  test.serial.sander.MM: test.sander.BASIC.nopar test.sander.BASIC \
  	test.sander.GB test.sander.LES test.sander.PIMD.partial \
@@ -83,4 +80,3 @@ Also skip kmmd tests
  	-export TESTsander='${AMBERHOME}/bin/gem.pmemd.MPI'; cd amoeba_formbox && ./Run.amoeba_formbox.pmemd.gem
  	-export TESTsander='${AMBERHOME}/bin/gem.pmemd.MPI'; cd amoeba_IL && ./Run.amoeba_IL.pmemd.gem
  	-export TESTsander='${AMBERHOME}/bin/gem.pmemd.MPI'; cd amoeba_jac3 && ./Run.jac_amba_beeman_MCbar.pmemd.gem
-

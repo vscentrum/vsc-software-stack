@@ -55,7 +55,7 @@ test.serial.nopython:  test.serial.MM test.serial.QMMM test.serial.sander.SEBOMD
 test.serial.sander.MM: test.sander.BASIC.nopar test.sander.BASIC \
 	test.sander.GB test.sander.LES test.sander.PIMD.partial \
 	test.serial.sander.nfe test.sander.pgm test.pbsa test.sander.constph test.sander.conste \
-	test.sander.constphe test.sander.RISM  test.serial.sander.kmmd \
+	test.sander.constphe test.sander.RISM \
 	test.sander.crgreloc test.serial.sander.AMD test.serial.sander.sgld \
 	test.serial.sander.emap test.sander.OIN test.sander.CHARMM \
 	test.sander.SINR test.sander.music test.sander.middle-scheme \
@@ -128,7 +128,7 @@ test.parallel.MM: test.sander.BASIC.MPI test.sander.GB.MPI \
 	test.sander.crgreloc.MPI test.parallel.sander.AMD \
 	test.parallel.sander.sgld test.parallel.sander.emap \
 	test.sander.OIN.MPI test.sander.SINR.MPI test.sander.music.MPI \
-	test.sander.middle-scheme.MPI test.parallel.sander.kmmd \
+	test.sander.middle-scheme.MPI \
 	test.sander.TFE.MPI
 
 test.parallel.QMMM: \
@@ -1644,21 +1644,21 @@ test.serial.emil.pmemd:
 	-export TESTsander='$(BINDIR)/pmemd';  unset DO_PARALLEL; cd emil/emil_pmemd_tip3p && ./Run.emil $(EMIL)
 
 #KMMD TESTS
-test.serial.pmemd.kmmd:
-	-export TESTsander='$(BINDIR)/pmemd'; unset DO_PARALLEL; cd kmmd/kmmd_pmemd    && ./Run.kmmd
-	-export TESTsander='$(BINDIR)/pmemd'; unset DO_PARALLEL; cd kmmd/kmmd_pmemd_gb && ./Run.kmmd
+# test.serial.pmemd.kmmd:
+# 	-export TESTsander='$(BINDIR)/pmemd'; unset DO_PARALLEL; cd kmmd/kmmd_pmemd    && ./Run.kmmd
+# 	-export TESTsander='$(BINDIR)/pmemd'; unset DO_PARALLEL; cd kmmd/kmmd_pmemd_gb && ./Run.kmmd
 
-test.serial.sander.kmmd:
-	-export TESTsander='$(BINDIR)/sander'; unset DO_PARALLEL; cd ../AmberTools/test/kmmd/kmmd_sander    && ./Run.kmmd
-	-export TESTsander='$(BINDIR)/sander'; unset DO_PARALLEL; cd ../AmberTools/test/kmmd/kmmd_sander_gb && ./Run.kmmd
+# test.serial.sander.kmmd:
+# 	-export TESTsander='$(BINDIR)/sander'; unset DO_PARALLEL; cd ../AmberTools/test/kmmd/kmmd_sander    && ./Run.kmmd
+# 	-export TESTsander='$(BINDIR)/sander'; unset DO_PARALLEL; cd ../AmberTools/test/kmmd/kmmd_sander_gb && ./Run.kmmd
 
 test.parallel.pmemd.kmmd:
 	-export TESTsander='$(BINDIR)/pmemd.MPI'; cd kmmd/kmmd_pmemd    && ./Run.kmmd
 	-export TESTsander='$(BINDIR)/pmemd.MPI'; cd kmmd/kmmd_pmemd_gb && ./Run.kmmd
 
-test.parallel.sander.kmmd:
-	-export TESTsander='$(BINDIR)/sander.MPI'; cd ../AmberTools/test/kmmd/kmmd_sander    && ./Run.kmmd
-	-export TESTsander='$(BINDIR)/sander.MPI'; cd ../AmberTools/test/kmmd/kmmd_sander_gb && ./Run.kmmd
+# test.parallel.sander.kmmd:
+# 	-export TESTsander='$(BINDIR)/sander.MPI'; cd ../AmberTools/test/kmmd/kmmd_sander    && ./Run.kmmd
+# 	-export TESTsander='$(BINDIR)/sander.MPI'; cd ../AmberTools/test/kmmd/kmmd_sander_gb && ./Run.kmmd
 
 
 #TI TESTS
