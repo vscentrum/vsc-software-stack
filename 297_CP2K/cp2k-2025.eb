@@ -1,5 +1,5 @@
 name = 'CP2K'
-version = '2024.2'
+version = '2025.2'
 
 homepage = 'https://www.cp2k.org/'
 description = """CP2K is a freely available (GPL) program, written in Fortran 95, to perform atomistic and molecular
@@ -51,35 +51,6 @@ sanity_check_paths = {
 }
 
 moduleclass = 'chem'
-
-# eb-shell> /apps/gent/RHEL9/zen4-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python /tmp/vsc47063/easybuild/build/CP2K/2024.2/foss-2023a/cp2k-2024.2/tests/do_regtest.py --maxtasks 1 --mpiranks 1 --ompthreads 1 --maxerrors 1000 --timeout 1000 --debug Linux-x86-64-foss psmp
-# *************************** Testing started ****************************
-# Creating subprocess: ['mpiexec', '-n', '1', '--bind-to', 'none', '/tmp/vsc47063/easybuild/build/CP2K/2024.2/foss-2023a/cp2k-2024.2/exe/Linux-x86-64-foss/cp2k.psmp'] ('--version',)
-
-# ----------------------------- Settings ---------------------------------
-# MPI ranks:      1
-# OpenMP threads: 1
-# GPU devices:    1
-# Workers:        1
-# Timeout [s]:    1000
-# Work base dir:  /tmp/vsc47063/easybuild/build/CP2K/2024.2/foss-2023a/cp2k-2024.2/regtesting/Linux-x86-64-foss/psmp/TEST-Linux-x86-64-foss-psmp-2025-08-08_10-52-29
-# MPI exec:       mpiexec -n {N} --bind-to none
-# Smoke test:     False
-# Valgrind:       False
-# Keepalive:      False
-# Flag slow:      False
-# Debug:          True
-# ARCH:           Linux-x86-64-foss
-# VERSION:        psmp
-# Flags:          omp,libint,fftw3,libxc,elpa,parallel,scalapack,xsmm,plumed2,libvori,libbqb
-# ------------------------------------------------------------------------
-
-#E2:
-# == 2025-08-07 15:19:39,042 run.py:613 INFO Output of 'python ...' shell command (stdout + stderr):
-# == 2025-08-07 15:19:39,042 run.py:616 INFO Shell command completed successfully (see output above): python /tmp/vsc47063/easybuild/build/CP2K/2024.2/foss-2023a/cp2k-2024.2/tests/do_regtest.py --maxtasks 1 --mpiranks 1 --ompthreads 1 --maxerrors 10000 --timeout 1000 Linux-x86-64-foss psmp
-# == 2025-08-07 15:19:39,043 cp2k.py:813 INFO Regression test output:
-# == 2025-08-07 15:19:39,222 build_log.py:226 ERROR EasyBuild encountered an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Finding total number of tests in regression test summary failed (at easybuild/easybuild-easyblocks/easybuild/easyblocks/c/cp2k.py:827 in test_step)
-# == 2025-08-07 15:19:39,223 build_log.py:226 ERROR EasyBuild encountered an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): An error was raised during test step: 'Finding total number of tests in regression test summary failed' (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:2516 in report_test_failure)
 
 #E1:
     # -> --maxtasks 2 --mpiranks 1 --maxerrors 200 --timeout 1000 --debug -> log8.txt -> NO, reach maxerrors
