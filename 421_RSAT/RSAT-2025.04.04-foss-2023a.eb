@@ -7,11 +7,9 @@ homepage = 'https://github.com/rsa-tools/rsat-code/'
 description = """Regulatory Sequence Analysis Tools (RSAT)."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-# toolchainopts = {'pic': True}
 
 builddependencies = [
     ('binutils', '2.40'),
-    # ('groff', '1.22.4'),
 ]
 
 dependencies = [
@@ -22,7 +20,6 @@ dependencies = [
     ('expat', '2.5.0'),  # for XML::Parser
     ('ncurses', '6.4'),  # for Term::ReadLine::Gnu
     ('libreadline', '8.2'),  # for Term::ReadLine::Gnu
-    # ('OpenSSL', '1.1', '', SYSTEM),  # required for Net::SSLeay
 ]
 
 default_component_specs = {
@@ -30,6 +27,8 @@ default_component_specs = {
     'sources': ['%(version)s.tar.gz'],
     'checksums': ['e1391de42c9115f1675f6399f02b5e364fc229d4ae185643a78ac75d1fe97c62'],
 }
+
+default_easyblock = 'MakeCp'
 
 local_bins = [
     'compare-matrices-quick',
@@ -40,12 +39,37 @@ local_bins = [
     'variation-scan',
 ]
 
+# see https://github.com/bioconda/bioconda-recipes/blob/master/recipes/rsat-core/build.sh
 components = [
     (binary, version, {
-        'easyblock': 'MakeCp',
         'start_dir': 'rsat-code-%s/contrib/%s' % (version, binary),
         'files_to_copy': [([binary], 'bin')]
     }) for binary in local_bins
+] + [
+    ('rsat', version, {
+        'skipsteps': ['build'],
+        'start_dir': 'rsat-code-%s' % version,
+        'files_to_copy': [
+            ([
+                'version.txt',
+                'perl-scripts',
+                'python-scripts',
+                'makefiles',
+                'R-scripts',
+                'RSAT_config_default.mk',
+                'RSAT_config_default.bashrc',
+                'RSAT_config_default.props',
+                'RSAT_config_default.conf',
+                'share/rsat/rsat.yaml',
+            ], 'share/rsat'),
+            (['bin/rsat'], 'bin'),
+            (['version.txt'], ''),
+            (['public_html/publications.csv'], 'public_html'),
+        ],
+        # TODO Is this just some Conda stuff?
+        # 'postinstallcmds': ['cd %%(installdir)s/share/rsat/ && perl-scripts/configure_rsat.pl -auto rsat_site=conda_rsat rsat_www=auto ucsc_tools=0 ensembl_tools=0 mail_supported=no variations_tools=0 LOGO_PROGRAM=weblogo'],
+        'postinstallcmds': ['cd %%(installdir)s/share/rsat/ && perl-scripts/configure_rsat.pl -auto rsat_www=auto ucsc_tools=0 ensembl_tools=0 mail_supported=no variations_tools=0 LOGO_PROGRAM=weblogo'],
+    })
 ]
 
 # components = [
@@ -79,13 +103,36 @@ components = [
 #         'start_dir': 'rsat-code-%(version)s/contrib/variation-scan',
 #         'files_to_copy': [(['variation-scan'], 'bin')],
 #     }),
+#     ('rsat', version, {
+#         'skipsteps': ['build'],
+#         'start_dir': 'rsat-code-%s' % version,
+#         'files_to_copy': [
+#             ([
+#                 'version.txt',
+#                 'perl-scripts',
+#                 'python-scripts',
+#                 'makefiles',
+#                 'R-scripts',
+#                 'RSAT_config_default.mk',
+#                 'RSAT_config_default.bashrc',
+#                 'RSAT_config_default.props',
+#                 'RSAT_config_default.conf',
+#                 'share/rsat/rsat.yaml',
+#             ], 'share/rsat'),
+#             (['bin/rsat'], 'bin'),
+#             (['version.txt'], ''),
+#             (['public_html/publications.csv'], 'public_html'),
+#         ],
+#         # TODO Is this just some Conda stuff?
+#         # 'postinstallcmds': ['cd %%(installdir)s/share/rsat/ && perl-scripts/configure_rsat.pl -auto rsat_site=conda_rsat rsat_www=auto ucsc_tools=0 ensembl_tools=0 mail_supported=no variations_tools=0 LOGO_PROGRAM=weblogo'],
+#     }),
 # ]
 
 exts_defaultclass = 'RPackage'
 exts_list = [
     ('TFBMclust', version, {
         'start_dir': 'R-scripts/TFBMclust',
-        # 'installopts': ' --no-multiarch --with-keep.source',  # TODO Didn't help'
+        # 'installopts': ' --no-multiarch --with-keep.source',  # TODO Conda does this
         'source_urls': ['https://github.com/rsa-tools/rsat-code/archive/'],
         'sources': ['%(version)s.tar.gz'],
         'checksums': ['e1391de42c9115f1675f6399f02b5e364fc229d4ae185643a78ac75d1fe97c62'],
@@ -96,10 +143,7 @@ modextrapaths = {'R_LIBS_SITE': ''}
 
 sanity_check_paths = {
     'files': ['bin/%s' % x for x in local_bins],
-    # 'dirs': ['share/%(namelower)s'],  # TODO
-    'dirs': [],
+    'dirs': ['share/%(namelower)s'],
 }
 
 moduleclass = 'bio'
-
-# TODO share/%(namelower)s
