@@ -116,3 +116,44 @@
  add_library(hictk_internal_reference INTERFACE)
  add_library(hictk::reference ALIAS hictk_internal_reference)
 
+--- src/hictk/load/CMakeLists.txt.orig  2025-04-09 20:28:31.000000000 +0200
++++ src/hictk/load/CMakeLists.txt       2025-08-12 12:57:47.348050079 +0200
+@@ -2,9 +2,26 @@
+ #
+ # SPDX-License-Identifier: MIT
+ 
+-find_package(bshoshany-thread-pool REQUIRED QUIET)
++include(FetchContent)
++set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
++FetchContent_Declare(
++    bshoshany_thread_pool
++    GIT_REPOSITORY https://github.com/bshoshany/thread-pool.git
++    GIT_TAG v5.0.0
++    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
++    EXCLUDE_FROM_ALL
++    SYSTEM
++)
++FetchContent_MakeAvailable(bshoshany_thread_pool)
++
++FetchContent_Declare(
++    parallel-hashmap
++    GIT_REPOSITORY https://github.com/greg7mdp/parallel-hashmap.git
++    GIT_TAG        v2.0.0    # adjust tag/branch/commit as needed
++)
++FetchContent_MakeAvailable(parallel-hashmap)
++
+ find_package(fmt REQUIRED QUIET)
+-find_package(phmap REQUIRED QUIET)
+ find_package(readerwriterqueue REQUIRED QUIET)
+ find_package(spdlog REQUIRED QUIET)
+ find_package(Filesystem REQUIRED QUIET)
+@@ -60,7 +77,7 @@
+     readerwriterqueue::readerwriterqueue
+     spdlog::spdlog_header_only
+     std::filesystem
+-    phmap
++    parallel-hashmap
+   PUBLIC
+     Threads::Threads
+ )
+

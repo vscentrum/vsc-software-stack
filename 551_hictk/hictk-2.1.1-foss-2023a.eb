@@ -15,7 +15,7 @@ sources = ['v%(version)s.tar.gz']
 patches = ['hictk-2.1.1_CMake_deps.patch']
 checksums = [
     '0a00eb9cc599fa80f4d6edafd4f0bc4db75863e7d11337775fc3f2547aa7c829',  # v2.1.1.tar.gz
-    '9653a1855fc1686333741f584e7e72eb15561265eeb3076b2a3029324dc6ba71',  # hictk-2.1.1_CMake_deps.patch
+    'fc8a5f89a967c118f33dccb593c537418791c12bddd3acfddcb053a5818b9552',  # hictk-2.1.1_CMake_deps.patch
 ]
 
 builddependencies = [
@@ -65,21 +65,21 @@ configopts = '-DZSTD_LIB=$EBROOTZSTD/lib/libzstd.%s ' % SHLIB_EXT
 moduleclass = 'tools'
 
 # TODO
-# CMake Error at src/hictk/load/CMakeLists.txt:5 (find_package):
-#   By not providing "Findbshoshany-thread-pool.cmake" in CMAKE_MODULE_PATH
-#   this project has asked CMake to find a package configuration file provided
-#   by "bshoshany-thread-pool", but CMake did not find one.
+# CMake Error at src/hictk/metadata/CMakeLists.txt:7 (find_package):
+#   By not providing "Findphmap.cmake" in CMAKE_MODULE_PATH this project has
+#   asked CMake to find a package configuration file provided by "phmap", but
+#   CMake did not find one.
 #
-#   Could not find a package configuration file provided by
-#   "bshoshany-thread-pool" with any of the following names:
+#   Could not find a package configuration file provided by "phmap" with any of
+#   the following names:
 #
-#     bshoshany-thread-poolConfig.cmake
-#     bshoshany-thread-pool-config.cmake
+#     phmapConfig.cmake
+#     phmap-config.cmake
 #
-#   Add the installation prefix of "bshoshany-thread-pool" to CMAKE_PREFIX_PATH
-#   or set "bshoshany-thread-pool_DIR" to a directory containing one of the
-#   above files.  If "bshoshany-thread-pool" provides a separate development
-#   package or SDK, be sure it has been installed.
+#   Add the installation prefix of "phmap" to CMAKE_PREFIX_PATH or set
+#   "phmap_DIR" to a directory containing one of the above files.  If "phmap"
+#   provides a separate development package or SDK, be sure it has been
+#   installed.
 #
 #
 # -- Configuring incomplete, errors occurred!
