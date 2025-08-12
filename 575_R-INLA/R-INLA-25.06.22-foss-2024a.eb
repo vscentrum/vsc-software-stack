@@ -31,6 +31,12 @@ default_component_specs = {
     'checksums': ['725bfbec0ca3e8435e25a19780ac777c3f4dbb5c3f11aaf8a6cf599a93440b69'],
 }
 
+# fixes fixes `GMRFLib/fsort/fluxsort.h:45:10: fatal error: GMRFLib/fsort/quadsort.h: No such file or directory`
+local_gmrflib_prebuildopts = """sed -i 's|\-I\.\.|\-I\.\. \-I%(builddir)s/r-inla-Version_%(version)s/gmrflib|g;"""
+# fixes %(installdir)s/include/GMRFLib/graph.h:9:10: fatal error: GMRFLib/sha.h: No such file or directory
+local_gmrflib_prebuildopts += "s/my-numa.h/my-numa.h sha.h/g' "
+local_gmrflib_prebuildopts += "r-inla-Version_%(version)s/gmrflib/Makefile && "
+
 local_gmrflib_buildopts = ' -C r-inla-*/gmrflib PREFIX=%(installdir)s CC="$CC" FC="$FC" '
 local_gmrflib_buildopts += ' FLAGS="$CXXFLAGS -DINLA_LINK_WITH_OPENBLAS " '
 
@@ -58,8 +64,7 @@ components = [
         'installopts': '-C r-inla-*/fmesher PREFIX=%(installdir)s',
     }),
     ('GMRFLib', version, {
-        # fixes `GMRFLib/fsort/fluxsort.h:45:10: fatal error: GMRFLib/fsort/quadsort.h: No such file or directory`
-        'prebuildopts': """sed -i 's|\-I\.\.|\-I\.\. \-I%(builddir)s/r-inla-Version_%(version)s/gmrflib|g' r-inla-*/gmrflib/Makefile && echo HERE && pwd && ls -lh && grep '\-I' r-inla-*/gmrflib/Makefile && """,
+        'prebuildopts': local_gmrflib_prebuildopts,
         'buildopts': local_gmrflib_buildopts,
         'installopts': '-C r-inla-*/gmrflib PREFIX=%(installdir)s',
     }),
@@ -103,7 +108,6 @@ components = [
 local_bins = ['inla', 'fmesher']
 
 postinstallcmds = ['ln -s %%(installdir)s/bin/%s %%(installdir)s/INLA/bin/linux/64bit/%s' % (x, x) for x in local_bins]
-postinstallcmds += ['echo HERE && find %(builddir)s -type f -name inla.mkl']
 
 sanity_check_paths = {
     'files': ['%s/%s' % (p, x) for p in ['bin', 'INLA/bin/linux/64bit'] for x in local_bins] +
@@ -117,7 +121,7 @@ modextrapaths = {'R_LIBS_SITE': ''}
 
 moduleclass = 'math'
 
-# TODO
-# /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/R-INLA/25.06.22-foss-2024a/include/GMRFLib/graph.h:9:10: fatal error: GMRFLib/sha.h: No such file or directory
-#     9 | #include "GMRFLib/sha.h"
-#       |          ^~~~~~~~~~~~~~~
+# TODO https://github.com/search?q=repo%3Ahrue%2Fr-inla%20sTiles_unbind&type=code
+# /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin/ld: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/R-INLA/25.06.22-foss-2024a/lib/libGMRFLib.a(smtp-stiles.o): in function `GMRFLib_
+# stiles_quit.part.0':
+# smtp-stiles.c:(.text+0xa3): undefined reference to `sTiles_unbind'
