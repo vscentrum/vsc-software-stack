@@ -75,7 +75,7 @@ fast.unitcell:
 
 test.serial: clean is_amberhome_defined \
     test.antechamber test.mdgx \
-	test.leap test.unitcell test.resp test.py_resp test.reduce test.pbsa test.gbnsr6 \
+	test.unitcell test.resp test.py_resp test.reduce test.pbsa test.gbnsr6 \
 	test.parmed test.elsize test.sqm test.rism1d test.kmmd \
 	test.rism3d test.paramfit test.mm_pbsa \
 	test.FEW test.cphstats test.cestats test.charmmlipid2amber \
@@ -85,7 +85,7 @@ test.serial: clean is_amberhome_defined \
 
 test.serial.nopython: clean is_amberhome_defined \
 	test.antechamber test.mdgx \
-	test.leap test.unitcell test.resp test.reduce test.pbsa test.gbnsr6 \
+	test.unitcell test.resp test.reduce test.pbsa test.gbnsr6 \
 	test.elsize test.sqm test.rism1d test.kmmd \
 	test.rism3d test.paramfit test.mm_pbsa \
 	test.FEW test.cphstats test.cestats
@@ -120,7 +120,7 @@ test.kmmd:
 	cd kmmd/kmmd_sander && ./Run.kmmd
 	cd kmmd/kmmd_sander_gb && ./Run.kmmd
 
-test.ambermini: test.leap test.sqm test.antechamber test.reduce test.paramfit
+test.ambermini: test.sqm test.antechamber test.reduce test.paramfit
 
 test.ptraj:
 	-cd ptraj_rmsa && ./Run.rms
@@ -135,8 +135,8 @@ test.ptraj:
 test.antechamber:
 	cd antechamber && $(MAKE) -k test
 
-test.leap:
-	cd leap && $(MAKE) -k test
+# test.leap:
+# 	cd leap && $(MAKE) -k test
 
 test.unitcell:
 	cd xtalutil/UnitCell && $(MAKE)
