@@ -36,6 +36,8 @@ local_gmrflib_prebuildopts = """sed -i 's|\-I\.\.|\-I\.\. \-I%(builddir)s/r-inla
 # fixes %(installdir)s/include/GMRFLib/graph.h:9:10: fatal error: GMRFLib/sha.h: No such file or directory
 local_gmrflib_prebuildopts += "s/my-numa.h/my-numa.h sha.h/g' "
 local_gmrflib_prebuildopts += "r-inla-Version_%(version)s/gmrflib/Makefile && "
+local_gmrflib_prebuildopts += "sed -i 's/void sTiles_quit(void) EMPTY_FUNCTION;/void sTiles_quit(void) EMPTY_FUNCTION;\\n\\n\\tint sTiles_unbind(int, int, void**) EMPTY_FUNCTION;\\n\\n\\tint sTiles_chol(int, int, void**) EMPTY_FUNCTION;\\n\\n\\tint sTiles_clear_selinv(int, int, void**) EMPTY_FUNCTION;\\n\\n\\tdouble sTiles_get_selinv_elm(int, int, int, int, void**) EMPTY_FUNCTION;\\n\\n\\tint sTiles_bind(int, int, void**) EMPTY_FUNCTION;\\n\\n\\tint sTiles_selinv(int, int, void**) EMPTY_FUNCTION;/g' "
+local_gmrflib_prebuildopts += "r-inla-Version_%(version)s/gmrflib/no-stiles.c && "
 
 local_gmrflib_buildopts = ' -C r-inla-*/gmrflib PREFIX=%(installdir)s CC="$CC" FC="$FC" '
 local_gmrflib_buildopts += ' FLAGS="$CXXFLAGS -DINLA_LINK_WITH_OPENBLAS " '
@@ -122,6 +124,28 @@ modextrapaths = {'R_LIBS_SITE': ''}
 moduleclass = 'math'
 
 # TODO https://github.com/search?q=repo%3Ahrue%2Fr-inla%20sTiles_unbind&type=code
-# /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin/ld: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/R-INLA/25.06.22-foss-2024a/lib/libGMRFLib.a(smtp-stiles.o): in function `GMRFLib_
-# stiles_quit.part.0':
-# smtp-stiles.c:(.text+0xa3): undefined reference to `sTiles_unbind'
+# g++ -lltdl -O2 -ftree-vectorize -march=native -fno-math-errno -fopenmp -DINLA_LINK_WITH_OPENBLAS  -o inla src/inla.o src/dictionary.o  src/iniparser.o  src/strlib.o src/my-fix.o src/spde.o src/spde2.o src/spde3.o src/eval.o src/ar.o src/bessel.o src/pc-priors.o src/R-interface.o src/fgn.o src/quantile-regression.o src/my.o src/stochvol.o src/xerbla.o src/tweedie.o src/libpardiso.o src/pc-powerlink.o src/link-gevit.o src/cgeneric.o src/libpardiso.o -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/R-INLA/25.06.22-foss-2024a/lib  -lRmath -lR -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/R-INLA/25.06.22-foss-2024a/lib -lGMRFLib -ltaucs -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/R-INLA/25.06.22-foss-2024a/lib  -lgsl -lmetis -lscalapack -lflexiblas -lgslcblas -lmuparser -lz -lgfortran -lcrypto -Wl,--whole-archive -lpthread -Wl,--no-whole-archive -lm
+# /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin/ld: src/libpardiso.o: in function `pardisoinit':
+# libpardiso.c:(.text+0x0): multiple definition of `pardisoinit'; src/libpardiso.o:libpardiso.c:(.text+0x0): first defined here
+# /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin/ld: src/libpardiso.o: in function `pardiso':
+# libpardiso.c:(.text+0x10): multiple definition of `pardiso'; src/libpardiso.o:libpardiso.c:(.text+0x10): first defined here
+# /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin/ld: src/libpardiso.o: in function `pardiso_chkmatrix':
+# libpardiso.c:(.text+0x40): multiple definition of `pardiso_chkmatrix'; src/libpardiso.o:libpardiso.c:(.text+0x40): first defined here
+# /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin/ld: src/libpardiso.o: in function `pardiso_chkvec':
+# libpardiso.c:(.text+0x70): multiple definition of `pardiso_chkvec'; src/libpardiso.o:libpardiso.c:(.text+0x70): first defined here
+# /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin/ld: src/libpardiso.o: in function `pardiso_printstats':
+# libpardiso.c:(.text+0xa0): multiple definition of `pardiso_printstats'; src/libpardiso.o:libpardiso.c:(.text+0xa0): first defined here
+# /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin/ld: src/libpardiso.o: in function `pardiso_get_factor_csc':
+# libpardiso.c:(.text+0xd0): multiple definition of `pardiso_get_factor_csc'; src/libpardiso.o:libpardiso.c:(.text+0xd0): first defined here
+# /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin/ld: src/libpardiso.o: in function `pardiso_get_inverse_factor_csc':
+# libpardiso.c:(.text+0x100): multiple definition of `pardiso_get_inverse_factor_csc'; src/libpardiso.o:libpardiso.c:(.text+0x100): first defined here
+# /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin/ld: src/libpardiso.o: in function `pardiso_residual':
+# libpardiso.c:(.text+0x130): multiple definition of `pardiso_residual'; src/libpardiso.o:libpardiso.c:(.text+0x130): first defined here
+# /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin/ld: src/libpardiso.o: in function `pardiso_copy_symbolic_factor_single':
+# libpardiso.c:(.text+0x160): multiple definition of `pardiso_copy_symbolic_factor_single'; src/libpardiso.o:libpardiso.c:(.text+0x160): first defined here
+# /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin/ld: src/libpardiso.o: in function `pardiso_delete_symbolic_factor_single':
+# libpardiso.c:(.text+0x190): multiple definition of `pardiso_delete_symbolic_factor_single'; src/libpardiso.o:libpardiso.c:(.text+0x190): first defined here
+# /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin/ld: src/libpardiso.o: in function `METIS51PARDISO_NodeND':
+# libpardiso.c:(.text+0x1c0): multiple definition of `METIS51PARDISO_NodeND'; src/libpardiso.o:libpardiso.c:(.text+0x1c0): first defined here
+# collect2: error: ld returned 1 exit status
+# make: *** [Makefile:46: inla] Error 1
