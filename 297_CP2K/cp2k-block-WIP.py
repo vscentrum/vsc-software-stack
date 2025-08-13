@@ -103,6 +103,11 @@ class EB_CP2K(EasyBlock):
             'plumed': [None, "Enable PLUMED support", CUSTOM],
             'type': ['popt', "Type of build ('popt' or 'psmp')", CUSTOM],
             'typeopt': [True, "Enable optimization", CUSTOM],
+            'tests_maxtasks': [1, "--maxtasks in regtest command", CUSTOM],
+            'tests_mpiranks': [1, "--mpiranks in regtest command", CUSTOM],
+            'tests_ompthreads': [1, "--ompthreads in regtest command", CUSTOM],
+            'tests_maxerrors': [10000, "--maxerrors in regtest command", CUSTOM],
+            'tests_timeout': [1000, "--timeout in regtest command", CUSTOM],
         }
         return EasyBlock.extra_options(extra_vars)
 
@@ -726,84 +731,94 @@ class EB_CP2K(EasyBlock):
                     regtest_refdir = d
                     break
 
-            # location of do_regtest script
-            cfg_fn = 'cp2k_regtest.cfg'
+            if LooseVersion(self.version) >= LooseVersion('2025'):
+                exedir = os.path.join(self.cfg['start_dir'], 'exe', self.typearch)
+            else:
+                exedir = self.typearch
 
-            regtest_script = os.path.join(self.cfg['start_dir'], 'tests', 'do_regtest.py')
-
-            # regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'regtesting', 'do_regtest')
-            # regtest_cmd = [regtest_script, '-nobuild', '-config', cfg_fn]
-            # regtest_cmd = ['python', regtest_script, '--mpiranks 2 --ompthreads 2', self.typearch, self.cfg['type']]
-            # regtest_cmd = ['python', regtest_script, '--mpiranks 1 --ompthreads 2 --mpiexec mympirun', self.typearch, self.cfg['type']]
-            # regtest_cmd = ['python', regtest_script, '--maxtasks 4 --mpiranks 1 --ompthreads 4', self.typearch, self.cfg['type']]
-            regtest_cmd = [
-                'python', regtest_script,
-                # '--maxtasks 1 --mpiranks 1 --ompthreads 1 --maxerrors 200 --timeout 1000 --debug',
-                # '--maxtasks 8 --mpiranks 1  --maxerrors 200 --timeout 1000 --debug',
-                # '--maxtasks 2 --mpiranks 1 --maxerrors 200 --timeout 1000 --debug',
-                '--maxtasks 1 --mpiranks 1 --maxerrors 200 --timeout 1000 --debug',
-                self.typearch, self.cfg['type']
-            ]
-            if LooseVersion(self.version) < LooseVersion('7.1'):
-                # -nosvn option was removed in CP2K 7.1
-                regtest_cmd.insert(1, '-nosvn')
-
-            # older version of CP2K
-            if not os.path.exists(regtest_script):
-                regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'do_regtest')
-                regtest_cmd = [regtest_script, '-nocvs', '-quick', '-nocompile', '-config', cfg_fn]
-
-            regtest_cmd = ' '.join(regtest_cmd)
-
-            # patch do_regtest so that reference output is used
-            if regtest_refdir:
-                self.log.info("Using reference output available in %s" % regtest_refdir)
-                try:
-                    for line in fileinput.input(regtest_script, inplace=1, backup='.orig.refout'):
-                        line = re.sub(r"^(dir_last\s*=\${dir_base})/.*$", r"\1/%s" % regtest_refdir, line)
-                        sys.stdout.write(line)
-                except IOError as err:
-                    raise EasyBuildError("Failed to modify '%s': %s", regtest_script, err)
+            if LooseVersion(self.version) > LooseVersion('2024.0'):
+                regtest_script = os.path.join(self.cfg['start_dir'], 'tests', 'do_regtest.py')
+                regtest_cmd = [
+                    f"{get_software_root('python')}/bin/python",
+                    regtest_script,
+                    f"--maxtasks {self.cfg['tests_maxtasks']}",
+                    f"--mpiranks {self.cfg['tests_mpiranks']}",
+                    f"--ompthreads {self.cfg['tests_ompthreads']}",
+                    f"--maxerrors {self.cfg['tests_maxerrors']}",
+                    f"--timeout {self.cfg['tests_timeout']}",
+                    "--debug",
+                    # self.typearch,
+                    exedir,
+                    self.cfg['type'],
+                ]
 
             else:
-                self.log.info("No reference output found for regression test, just continuing without it...")
+                # configuration file for CP2K's test suite
+                cfg_fn = 'cp2k_regtest.cfg'
 
-            # prefer using 4 cores, since some tests require/prefer square (n^2) numbers or powers of 2 (2^n)
-            test_core_cnt = min(self.cfg.parallel, 4)
-            if get_avail_core_count() < test_core_cnt:
-                raise EasyBuildError("Cannot run MPI tests as not enough cores (< %s) are available", test_core_cnt)
-            else:
-                self.log.info("Using %s cores for the MPI tests" % test_core_cnt)
+                regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'regtesting', 'do_regtest')
+                regtest_cmd = [regtest_script, '-nobuild', '-config', cfg_fn]
 
-            # configure regression test
-            cfg_txt = '\n'.join([
-                'FORT_C_NAME="%(f90)s"',
-                'dir_base=%(base)s',
-                'cp2k_version=%(cp2k_version)s',
-                'dir_triplet=%(triplet)s',
-                'export ARCH=${dir_triplet}',
-                'cp2k_dir=%(cp2k_dir)s',
-                'leakcheck="YES"',
-                'maxtasks=%(maxtasks)s',
-                'cp2k_run_prefix="%(mpicmd_prefix)s"',
-            ]) % {
-                'f90': os.getenv('F90'),
-                'base': os.path.dirname(os.path.normpath(self.cfg['start_dir'])),
-                'cp2k_version': self.cfg['type'],
-                'triplet': self.typearch,
-                'cp2k_dir': os.path.basename(os.path.normpath(self.cfg['start_dir'])),
-                'maxtasks': self.cfg['maxtasks'],
-                'mpicmd_prefix': self.toolchain.mpi_cmd_for('', test_core_cnt),
-            }
+                if LooseVersion(self.version) < LooseVersion('7.1'):
+                    # -nosvn option was removed in CP2K 7.1
+                    regtest_cmd.insert(1, '-nosvn')
 
-            write_file(cfg_fn, cfg_txt)
-            self.log.debug("Contents of %s: %s" % (cfg_fn, cfg_txt))
+                # older version of CP2K
+                if not os.path.exists(regtest_script):
+                    regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'do_regtest')
+                    regtest_cmd = [regtest_script, '-nocvs', '-quick', '-nocompile', '-config', cfg_fn]
+
+                # patch do_regtest so that reference output is used
+                if regtest_refdir:
+                    self.log.info("Using reference output available in %s" % regtest_refdir)
+                    try:
+                        for line in fileinput.input(regtest_script, inplace=1, backup='.orig.refout'):
+                            line = re.sub(r"^(dir_last\s*=\${dir_base})/.*$", r"\1/%s" % regtest_refdir, line)
+                            sys.stdout.write(line)
+                    except IOError as err:
+                        raise EasyBuildError("Failed to modify '%s': %s", regtest_script, err)
+
+                else:
+                    self.log.info("No reference output found for regression test, just continuing without it...")
+
+                # prefer using 4 cores, since some tests require/prefer square (n^2) numbers or powers of 2 (2^n)
+                test_core_cnt = min(self.cfg.parallel, 4)
+                if get_avail_core_count() < test_core_cnt:
+                    raise EasyBuildError("Cannot run MPI tests as not enough cores (< %s) are available", test_core_cnt)
+                else:
+                    self.log.info("Using %s cores for the MPI tests" % test_core_cnt)
+
+                # configure regression test
+                cfg_txt = '\n'.join([
+                    'FORT_C_NAME="%(f90)s"',
+                    'dir_base=%(base)s',
+                    'cp2k_version=%(cp2k_version)s',
+                    'dir_triplet=%(triplet)s',
+                    'export ARCH=${dir_triplet}',
+                    'cp2k_dir=%(cp2k_dir)s',
+                    'leakcheck="YES"',
+                    'maxtasks=%(maxtasks)s',
+                    'cp2k_run_prefix="%(mpicmd_prefix)s"',
+                ]) % {
+                    'f90': os.getenv('F90'),
+                    'base': os.path.dirname(os.path.normpath(self.cfg['start_dir'])),
+                    'cp2k_version': self.cfg['type'],
+                    'triplet': self.typearch,
+                    'cp2k_dir': os.path.basename(os.path.normpath(self.cfg['start_dir'])),
+                    'maxtasks': self.cfg['maxtasks'],
+                    'mpicmd_prefix': self.toolchain.mpi_cmd_for('', test_core_cnt),
+                }
+
+                write_file(cfg_fn, cfg_txt)
+                self.log.debug("Contents of %s: %s" % (cfg_fn, cfg_txt))
 
             # run regression test
+            regtest_cmd = ' '.join(regtest_cmd)
             regtest = run_shell_cmd(regtest_cmd, fail_on_error=False)
-
-            if regtest.exit_code == 0:
+            if regtest.exit_code == 0 and regtest.output:
                 self.log.info("Regression test output:\n%s" % regtest.output)
+            elif regtest.exit_code == 0:
+                raise EasyBuildError("Regression test failed: there is no output, tests probably did not run.")
             else:
                 raise EasyBuildError("Regression test failed (non-zero exit code): %s", regtest.output)
 
