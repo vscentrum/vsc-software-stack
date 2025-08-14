@@ -1,6 +1,3 @@
-##
-# Author:    Robert Mijakovic <robert.mijakovic@lxp.lu>
-##
 name = 'CP2K'
 version = '2025.2'
 
@@ -13,7 +10,7 @@ description = """CP2K is a freely available (GPL) program, written in Fortran 95
 toolchain = {'name': 'foss', 'version': '2025a'}
 toolchainopts = {'pic': True, 'openmp': True}
 
-source_urls = ['https://github.com/cp2k/cp2k/releases/download/v%(version)s/']
+source_urls = ['https://github.com/%(namelower)s/%(namelower)s/releases/download/v%(version)s']
 sources = [SOURCELOWER_TAR_BZ2]
 checksums = ['c8392a4e123304644ec8d241443796277c6ed7ae977452317e779f3c387c2e19']
 
@@ -27,8 +24,11 @@ dependencies = [
     ('libxc', '7.0.0'),
     ('libvori', '220621'),
     ('FFTW', '3.3.10'),
+    ('HDF5', '1.14.6'),
     ('PLUMED', '2.9.4'),
+    ('SIRIUS', '7.7.0'),
 ]
+
 if ARCH == 'x86_64':
     # LIBXSMM is not supported supported on ARM with GCC 12.2.0 and 12.3.0
     # see https://www.cp2k.org/dev:compiler_support
@@ -36,11 +36,16 @@ if ARCH == 'x86_64':
         ('libxsmm', '1.17'),
     ]
 
-type = 'psmp'
-tests_maxtasks = 4
+extradflags = '-D__SIRIUS '
+# configopts = '-D__SIRIUS '
 
-# regression test reports handful of failures,
-# we're assuming those are OK to ignore...
+type = 'psmp'
+
 ignore_regtest_fails = True
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s.psmp'],
+    'dirs': ['data', 'tests'],
+}
 
 moduleclass = 'chem'

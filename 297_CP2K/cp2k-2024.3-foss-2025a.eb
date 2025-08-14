@@ -1,8 +1,5 @@
-##
-# Author:    Robert Mijakovic <robert.mijakovic@lxp.lu>
-##
 name = 'CP2K'
-version = '2025.2'
+version = '2024.3'
 
 homepage = 'https://www.cp2k.org/'
 description = """CP2K is a freely available (GPL) program, written in Fortran 95, to perform atomistic and molecular
@@ -15,7 +12,7 @@ toolchainopts = {'pic': True, 'openmp': True}
 
 source_urls = ['https://github.com/cp2k/cp2k/releases/download/v%(version)s/']
 sources = [SOURCELOWER_TAR_BZ2]
-checksums = ['c8392a4e123304644ec8d241443796277c6ed7ae977452317e779f3c387c2e19']
+checksums = ['a6eeee773b6b1fb417def576e4049a89a08a0ed5feffcd7f0b33c7d7b48f19ba']
 
 builddependencies = [
     ('flex', '2.6.4'),
@@ -29,6 +26,7 @@ dependencies = [
     ('FFTW', '3.3.10'),
     ('PLUMED', '2.9.4'),
 ]
+
 if ARCH == 'x86_64':
     # LIBXSMM is not supported supported on ARM with GCC 12.2.0 and 12.3.0
     # see https://www.cp2k.org/dev:compiler_support
@@ -37,10 +35,11 @@ if ARCH == 'x86_64':
     ]
 
 type = 'psmp'
-tests_maxtasks = 4
 
 # regression test reports handful of failures,
 # we're assuming those are OK to ignore...
 ignore_regtest_fails = True
 
 moduleclass = 'chem'
+
+# tests failed with CPASSERT
