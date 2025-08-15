@@ -27,7 +27,11 @@ dependencies = [
     ('spla', '1.6.1'),
     ('COSTA', '2.2.4'),
     ('Umpire', '2025.03.1'),
+    ('pugixml', '1.15'),
 ]
+
+# CP2K need SIRIUS with pugixml
+configopts = '-DSIRIUS_USE_PUGIXML=ON'
 
 sanity_check_paths = {
     'files': [
