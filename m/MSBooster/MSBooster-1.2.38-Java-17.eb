@@ -1,0 +1,38 @@
+easyblock = 'JAR'
+
+name = 'MSBooster'
+version = '1.2.38'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://github.com/Nesvilab/MSBooster'
+description = """MSBooster is a tool for incorporating spectral libary predictions into peptide-spectrum match (PSM) rescoring in bottom-up tandem liquid chromatography mass spectrometry proteomics data."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/Nesvilab/%(name)s/releases/download/v%(version)s/']
+sources = [
+    '%(name)s-%(version)s.jar',
+]
+#source_urls = ['https://github.com/Nesvilab/%(name)s/archive/']
+#sources = [{'filename': '%s-%s.jar' % (name,version)}]
+
+checksums = [
+    '980296d2aa2dc2252200aba156bae358c7dfad038d3a648252793c5bc24a2006',  # MSBooster-1.2.38.jar
+]
+
+
+dependencies = [('Java', '17')]
+
+postinstallcmds = [
+    "ln -s %(installdir)s/%(name)s-%(version)s.jar %(installdir)s/%(name)s.jar",
+]
+
+sanity_check_paths = {
+    'files': [
+        '%(name)s-%(version)s.jar', 
+        '%(name)s.jar',
+    ],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

@@ -1,0 +1,49 @@
+easyblock = 'Tarball'
+
+name = 'Julia'
+version = '1.9.4'
+
+homepage = 'https://julialang.org/'
+description = """
+ Julia is a high-level, high-performance dynamic programming language for
+ technical computing, with syntax that is familiar to users of other technical
+ computing environments. It provides a sophisticated compiler, distributed
+ parallel execution, numerical accuracy, and an extensive mathematical function
+ library.
+
+ Note:
+
+ Julia creates a .julia folder in "$VSC_HOME" by default where it stores
+ downloaded modules and binaries which could easily fill up your user folder
+ quota.
+
+ Therefore, before using julia, choose a folder in another, more appropriate
+ location, e.g. by executing "export JULIA_DEPOT_PATH=$VSC_DATA/julia", in
+ order to avoid the user quota build up. Add this instruction to your
+ ~/.bashrc file in order to automate this. 
+
+ When deleting the $JULIA_DEPOT_PATH folder, all the downloaded modules and
+ binaries will be deleted as well.
+"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://julialang-s3.julialang.org/bin/linux/x64/%(version_major_minor)s/']
+sources = ['%(namelower)s-%(version)s-linux-x86_64.tar.gz']
+checksums = ['07d20c4c2518833e2265ca0acee15b355463361aa4efdab858dad826cf94325c']
+
+sanity_check_paths = {
+    'files': ['bin/julia', 'include/julia/julia.h', 'lib/libjulia.%s' % SHLIB_EXT],
+    'dirs': ['bin', 'etc', 'include', 'lib', 'share']
+}
+
+sanity_check_commands = ['julia --help']
+
+modextravars = {
+    # Use default DEPOT_PATH where first entry is user's depot
+    # JULIA_DEPOT_PATH must be set to be able to load other JuliaPackage modules and have
+    # those installations appended to DEPOT_PATH without disabling any of the default paths
+    'JULIA_DEPOT_PATH': ':',
+}
+
+moduleclass = 'lang'

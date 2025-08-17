@@ -1,0 +1,73 @@
+easyblock = 'PythonBundle'
+
+name = 'Casanovo'
+version = '4.2.1'
+
+homepage = 'https://casanovo.readthedocs.io'
+description = "De Novo Mass Spectrometry Peptide Sequencing with a Transformer Model"
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+use_pip = True
+
+builddependencies = [
+    ('setuptools-rust', '1.6.0'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('Lightning', '2.2.1'),
+    ('matplotlib', '3.7.2'),
+    ('h5py', '3.9.0'),
+    ('lxml', '4.9.2'),
+    ('einops', '0.8.0'),
+    ('scikit-learn', '1.3.1'),
+    ('numba', '0.58.1'),
+    ('tensorboard', '2.15.1'),
+]
+
+exts_list = [
+    ('pyteomics', '4.7.5', {
+        'checksums': ['382aeaa8b921bdd2a7e5b4aa9fe46c6184bb43701205a845b4b861ee3e88f46a'],
+    }),
+    ('depthcharge-ms', '0.2.3', {
+        'modulename': 'depthcharge',
+        'checksums': ['a1cc45f0f68cac30837f094789222903df56026b7bd9b6f7aa43adc5121e9b9d'],
+    }),
+    ('natsort', '8.4.0', {
+        'checksums': ['45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581'],
+    }),
+    ('PyGithub', '2.4.0', {
+        'modulename': 'github',
+        'sources': ['pygithub-%(version)s.tar.gz'],
+        'checksums': ['6601e22627e87bac192f1e2e39c6e6f69a43152cfb8f307cee575879320b3051'],
+    }),
+    ('Deprecated', '1.2.14', {
+        'checksums': ['e5323eb936458dccc2582dc6f9c322c852a775a27065ff2b0c4970b9d53d01b3'],
+    }),
+    ('fastobo', '0.12.3', {
+        'checksums': ['f375932a24b078706797eb9296740f2d2e6987a34309bda7c9f235aba1d74217'],
+    }),
+    ('lark', '1.2.2', {
+        'checksums': ['ca807d0162cd16cef15a8feecb862d7319e7a09bdb13aef927968e45040fed80'],
+    }),
+    ('spectrum-utils', '0.4.2', {
+        'sources': ['spectrum_utils-%(version)s.tar.gz'],
+        'checksums': ['7a0212f12b6770c592184f4e82f4b7bb1f110b4db2a3b914a1b4b2f3f8c79693'],
+    }),
+    ('casanovo', version, {
+        'checksums': ['275708a5b20487ca6f2e7299477fc0643adedae82934bec9a403c3a106397d27'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/casanovo'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["casanovo --help"]
+
+sanity_pip_check = True
+
+moduleclass = 'bio'

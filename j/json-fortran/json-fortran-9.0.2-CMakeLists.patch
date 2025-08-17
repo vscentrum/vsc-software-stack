@@ -1,0 +1,64 @@
+--- json-fortran-9.0.2.orig/CMakeLists.txt	2024-08-25 16:41:50.000000000 +0200
++++ json-fortran-9.0.2/CMakeLists.txt	2024-12-11 11:35:50.234715667 +0100
+@@ -168,20 +168,12 @@
+ #---------------------------------------------
+ 
+ set ( LIB_NAME ${PROJECT_NAME} )
+-if(CMAKE_Fortran_COMPILER_ID STREQUAL IntelLLVM)
+-    add_library ( ${LIB_NAME}-obj    OBJECT ${JF_LIB_SRCS} )
+-    set_property(TARGET ${LIB_NAME}-obj PROPERTY POSITION_INDEPENDENT_CODE 1)
+-
+-    add_library ( ${LIB_NAME}        SHARED $<TARGET_OBJECTS:${LIB_NAME}-obj> )
+-    add_library ( ${LIB_NAME}-static STATIC $<TARGET_OBJECTS:${LIB_NAME}-obj> )
++if (JSONFORTRAN_STATIC_LIBRARY_ONLY)
++  add_library ( ${LIB_NAME}        STATIC ${JF_LIB_SRCS} )
++  add_library ( ${LIB_NAME}-static STATIC ${JF_LIB_SRCS} )
+ else()
+-  if (JSONFORTRAN_STATIC_LIBRARY_ONLY)
+-    add_library ( ${LIB_NAME}        STATIC ${JF_LIB_SRCS} )
+-    add_library ( ${LIB_NAME}-static STATIC ${JF_LIB_SRCS} )
+-  else()
+-    add_library ( ${LIB_NAME}        SHARED ${JF_LIB_SRCS} )
+-    add_library ( ${LIB_NAME}-static STATIC ${JF_LIB_SRCS} )
+-  endif()
++  add_library ( ${LIB_NAME}        SHARED ${JF_LIB_SRCS} )
++  add_library ( ${LIB_NAME}-static STATIC ${JF_LIB_SRCS} )
+ endif()
+ 
+ # add an alias so that including json-fortran is agnostic
+@@ -204,26 +196,15 @@
+   PUBLIC
+   $<BUILD_INTERFACE:${MODULE_DIR}>
+   $<INSTALL_INTERFACE:${INSTALL_MOD_DIR}>)
+-if(CMAKE_Fortran_COMPILER_ID STREQUAL IntelLLVM)
+-    set_target_properties ( ${LIB_NAME}-static
+-      PROPERTIES
+-      if(NOT MSVC_IDE)
+-      PREFIX lib
+-      endif()
+-      VERSION ${PROJECT_VERSION}
+-      ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib
+-      Fortran_MODULE_DIRECTORY ${MODULE_DIR} )
+-else()
+-    set_target_properties ( ${LIB_NAME}-static
+-      PROPERTIES
+-      OUTPUT_NAME ${LIB_NAME}
+-      if(NOT MSVC_IDE)
+-      PREFIX lib
+-      endif()
+-      VERSION ${PROJECT_VERSION}
+-      ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib
+-      Fortran_MODULE_DIRECTORY ${MODULE_DIR} )
+-endif()
++set_target_properties ( ${LIB_NAME}-static
++  PROPERTIES
++  OUTPUT_NAME ${LIB_NAME}
++  if(NOT MSVC_IDE)
++  PREFIX lib
++  endif()
++  VERSION ${PROJECT_VERSION}
++  ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib
++  Fortran_MODULE_DIRECTORY ${MODULE_DIR} )
+ set_target_properties ( ${LIB_NAME}
+   PROPERTIES
+   OUTPUT_NAME ${LIB_NAME}

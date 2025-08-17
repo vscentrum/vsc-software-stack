@@ -1,0 +1,24 @@
+diff -ruN telemac-mascaret-v8p5r0/sources/telemac2d/declarations_telemac2d.f telemac-mascaret-v8p5r0-patched/sources/telemac2d/declarations_telemac2d.f
+--- telemac-mascaret-v8p5r0/sources/telemac2d/declarations_telemac2d.f	2023-12-01 10:57:11.000000000 +0100
++++ telemac-mascaret-v8p5r0-patched/sources/telemac2d/declarations_telemac2d.f	2024-09-30 10:40:16.774078580 +0200
+@@ -807,7 +807,7 @@
+ !
+ !     MAXIMUM NUMBER OF OUTPUT VARIABLES
+ !
+-      INTEGER, PARAMETER :: MAXVAR = 100
++      INTEGER, PARAMETER :: MAXVAR = 1000
+       INTEGER :: NVAR_T2D
+ !
+ !     MAXIMUM NUMBER OF TRACERS
+diff -ruN telemac-mascaret-v8p5r0/sources/utils/special/declarations_special.F telemac-mascaret-v8p5r0-patched/sources/utils/special/declarations_special.F
+--- telemac-mascaret-v8p5r0/sources/utils/special/declarations_special.F	2023-12-01 10:57:11.000000000 +0100
++++ telemac-mascaret-v8p5r0-patched/sources/utils/special/declarations_special.F	2024-09-26 16:52:10.930338019 +0200
+@@ -46,7 +46,7 @@
+       ! VERSION THAT IS DISPLAYED everywhere in the system
+       CHARACTER(LEN=6), PARAMETER :: VERSION = 'V8P5  '
+       ! Max number of keywords
+-      INTEGER, PARAMETER :: MAXKEYWORD = 300
++      INTEGER, PARAMETER :: MAXKEYWORD = 500
+       ! Max lenght of the path of the temporary folder
+       INTEGER, PARAMETER :: MAXLENTMPDIR = 250
+       ! Max lenght for the name of a file

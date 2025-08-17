@@ -1,0 +1,21 @@
+easyblock = 'ConfigureMake'
+
+name = 'QD'
+version = '2.3.24'
+
+homepage = 'https://www.davidhbailey.com/dhbsoftware'
+description = "QD is a library for real double-double and quad-double arithmetic."
+
+toolchain = {'name': 'NVHPC', 'version': '24.9-CUDA-12.6.0'}
+toolchainopts = {'opt': True, 'pic': True}
+
+source_urls = ['https://www.davidhbailey.com/dhbsoftware/']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['a47b6c73f86e6421e86a883568dd08e299b20e36c11a99bdfbe50e01bde60e38']
+
+sanity_check_paths = {
+    'files': ['lib/libqd.a', 'lib/libqd_f_main.a', 'lib/libqdmod.a', 'lib/libqd.so', 'lib/libqd_f_main.so', 'lib/libqdmod.so'],
+    'dirs': ['include', 'lib'],
+}
+
+moduleclass = 'math'

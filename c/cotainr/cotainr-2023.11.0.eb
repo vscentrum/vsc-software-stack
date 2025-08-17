@@ -1,0 +1,40 @@
+easyblock = 'Tarball'
+
+name = 'cotainr'
+version = '2023.11.0'
+homepage = 'https://github.com/DeiC-HPC/cotainr'
+description = 'cotainr is a tool that helps making Singularity/Apptainer containers.'
+
+docurls = [
+    'Web-based documentation on https://cotainr.readthedocs.io/'
+]
+
+sources = [ {
+  'filename': '%(name)s-%(version)s.tar.gz',
+  'download_filename': '%(version)s.tar.gz',
+  'source_urls': ['https://github.com/DeiC-HPC/cotainr/archive/refs/tags'],
+} ]
+
+toolchain = SYSTEM
+
+local_systems = """{
+  "rocky-8.10": {
+    "base-image": "docker://rockylinux/rockylinux:8.10"
+  },
+  "rocky-9.5": {
+    "base-image": "docker://rockylinux/rockylinux:9.5"
+  }
+}"""
+
+postinstallcmds = ['cd %(installdir)s/ ; cat >systems.json <<EOF\n' + local_systems + '\nEOF\n']
+
+sanity_check_paths = {
+    'files': ['bin/cotainr'],
+    'dirs':  ['cotainr'],
+}
+
+sanity_check_commands = [
+    'cotainr --help'
+]
+
+moduleclass = "tools"
