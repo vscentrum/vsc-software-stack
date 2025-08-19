@@ -1,0 +1,742 @@
+--- Pr1.eb	2025-08-19 11:16:05.932224000 +0200
++++ Pr2.eb	2025-08-19 11:16:25.531988000 +0200
+@@ -1,5 +1,5 @@
+ ##
+-# Copyright 2009-2024 Ghent University
++# Copyright 2009-2025 Ghent University
+ #
+ # This file is part of EasyBuild,
+ # originally created by the HPC team of Ghent University (http://ugent.be/hpc/en),
+@@ -36,7 +36,8 @@
+ @author: Alan O'Cais (Forschungszentrum Juelich GmbH)
+ @author: Balazs Hajgato (Free University Brussels (VUB))
+ @author: O. Baris Malcioglu (Middle East Technical University)
+-@author: Bibek Chapagain(Barcelona Supercomputing Center)
++@author: Bibek Chapagain (Barcelona Supercomputing Center)
++@author: Pavel Tomanek (Inuits)
+ """
+ 
+ import fileinput
+@@ -44,9 +45,8 @@
+ import re
+ import os
+ import sys
+-from easybuild.tools import LooseVersion
+-
+ import easybuild.tools.toolchain as toolchain
++from easybuild.tools import LooseVersion
+ from easybuild.framework.easyblock import EasyBlock
+ from easybuild.framework.easyconfig import CUSTOM
+ from easybuild.tools.build_log import EasyBuildError
+@@ -54,7 +54,7 @@
+ from easybuild.tools.filetools import change_dir, copy_dir, copy_file, mkdir, write_file
+ from easybuild.tools.config import build_option
+ from easybuild.tools.modules import get_software_root, get_software_version
+-from easybuild.tools.run import run_cmd
++from easybuild.tools.run import run_shell_cmd
+ from easybuild.tools.systemtools import get_avail_core_count
+ 
+ 
+@@ -69,7 +69,7 @@
+     """
+ 
+     def __init__(self, *args, **kwargs):
+-        super(EB_CP2K, self).__init__(*args, **kwargs)
++        super().__init__(*args, **kwargs)
+ 
+         self.typearch = None
+ 
+@@ -93,19 +93,20 @@
+         extra_vars = {
+             'extracflags': ['', "Extra CFLAGS to be added", CUSTOM],
+             'extradflags': ['', "Extra DFLAGS to be added", CUSTOM],
+-            'ignore_regtest_fails': [False, ("Ignore failures in regression test "
+-                                             "(should be used with care)"), CUSTOM],
++            'ignore_regtest_fails': [False, "Ignore failures in regression test", CUSTOM],
+             'library': [False, "Also build CP2K as a library", CUSTOM],
+-            'maxtasks': [4, ("Maximum number of CP2K instances run at "
+-                             "the same time during testing"), CUSTOM],
+-            'modinc': [[], ("List of modinc's to use (*.f90], or 'True' to use "
+-                            "all found at given prefix"), CUSTOM],
++            'modinc': [[], ("List of modinc's to use (*.f90), or 'True' to use all found at given prefix"), CUSTOM],
+             'modincprefix': ['', "Intel MKL prefix for modinc include dir", CUSTOM],
+             'runtest': [True, "Build and run CP2K tests", CUSTOM],
+             'omp_num_threads': [None, "Value to set $OMP_NUM_THREADS to during testing", CUSTOM],
+             'plumed': [None, "Enable PLUMED support", CUSTOM],
+             'type': ['popt', "Type of build ('popt' or 'psmp')", CUSTOM],
+             'typeopt': [True, "Enable optimization", CUSTOM],
++            'tests_maxtasks': [4, "--maxtasks in regtest command", CUSTOM],
++            'tests_mpiranks': [1, "--mpiranks in regtest command", CUSTOM],
++            'tests_ompthreads': [1, "--ompthreads in regtest command", CUSTOM],
++            'tests_maxerrors': [10000, "--maxerrors in regtest command", CUSTOM],
++            'tests_timeout': [1000, "--timeout in regtest command", CUSTOM],
+             'gpuver': ['H100', "CUDA gpu version", CUSTOM],
+         }
+         return EasyBlock.extra_options(extra_vars)
+@@ -123,16 +124,17 @@
+         - build Libint wrapper
+         - generate Makefile
+         """
+-        cp2k_version = LooseVersion(self.version)
+ 
++        cp2k_version = LooseVersion(self.version)
+         known_types = ['popt', 'psmp']
+         if self.cfg['type'] not in known_types:
+-            raise EasyBuildError("Unknown build type specified: '%s', known types are %s",
+-                                 self.cfg['type'], known_types)
++            raise EasyBuildError(
++                "Unknown build type specified: '%s', known types are %s", self.cfg['type'], known_types
++            )
+         if cp2k_version >= LooseVersion('2024') and self.cfg['type'] == 'popt':
+             self.cfg['type'] = 'psmp'
+             setvar('OMP_NUM_THREADS', '1')
+-            self.log.debug('In 2023 version popt is psmp with OMP_NUM_THREADS set to 1')
++            self.log.debug('In 2024+ popt maps to psmp with OMP_NUM_THREADS=1')
+ 
+         # correct start dir, if needed
+         # recent CP2K versions have a 'cp2k' dir in the unpacked 'cp2k' dir
+@@ -204,7 +206,8 @@
+                 options = self.configure_BLAS_lib(options)
+ 
+             # FFTW (no MKL involved)
+-            if 'fftw3' in os.getenv('LIBFFT', ''):
++            fftw_loaded = get_software_root('FFTW') or 'fftw3' in os.getenv('LIBFFT', '')
++            if fftw_loaded:
+                 options = self.configure_FFTW3(options)
+ 
+             # LAPACK
+@@ -225,6 +228,29 @@
+             options['LIBS'] += ' -lplumed'
+             options['DFLAGS'] += ' -D__PLUMED2'
+ 
++        # SIRIUS
++        sirius = get_software_root('SIRIUS')
++        if sirius:
++            options['DFLAGS'] += ' -D__SIRIUS'
++
++            # includes for sirius.mod
++            include_dir = os.path.join(sirius, 'include', 'sirius')
++            if os.path.isdir(include_dir):
++                options['INCS'] += f' -I{include_dir}'
++            else:
++                options['INCS'] += f" -I{os.path.join(sirius, 'include')}"
++
++            # ensure C++ linker flags are OK
++            if not options.get('CXX'):
++                options['CXX'] = os.getenv('MPICXX') or 'mpicxx'
++
++            # library search paths
++            for libdir in (os.path.join(sirius, 'lib'), os.path.join(sirius, 'lib64')):
++                if os.path.isdir(libdir):
++                    options['LDFLAGS'] += f' -L{libdir}'
++
++            options['LIBS'] += ' -lsirius -lstdc++ -ldl'
++
+         # ELPA
+         elpa = get_software_root('ELPA')
+         if elpa:
+@@ -252,7 +278,7 @@
+                 options['DFLAGS'] += ' -D__OFFLOAD_CUDA -D__DBCSR_ACC '
+                 options['LIBS'] += ' -lcufft -lcudart -lnvrtc -lcuda -lcublas'
+                 options['OFFLOAD_CC'] = 'nvcc'
+-                options['OFFLOAD_FLAGS'] = "-O3 -g -w --std=c++11 $(DFLAGS) -Xcompiler='-fopenmp -Wall -Wextra -Werror'"
++                options['OFFLOAD_FLAGS'] = "-O3 -g -w --std=c++11 $(DFLAGS) -Xcompiler='-fopenmp -Wall -Wextra' "
+                 options['OFFLOAD_TARGET'] = 'cuda'
+                 options['GPUVER'] = self.cfg['gpuver']
+                 options['CXX'] = 'mpicxx'
+@@ -263,6 +289,7 @@
+                 options['NVCC'] = ' nvcc'
+             # reset typearch
+             self.typearch = "Linux-x86-64-%s-cuda" % self.toolchain.name
++
+         # avoid group nesting
+         options['LIBS'] = options['LIBS'].replace('-Wl,--start-group', '').replace('-Wl,--end-group', '')
+ 
+@@ -271,6 +298,10 @@
+         # specify correct location for 'data' directory in final installation
+         options['DATA_DIR'] = os.path.join(self.installdir, 'data')
+ 
++        # fix problem with v2024.x and the cp_cfm_basic_linalg.F asserts errors
++        if LooseVersion('2024.2') <= cp2k_version <= LooseVersion('2024.3'):
++            self.make_instructions += "cp_cfm_basic_linalg.o: fm/cp_cfm_basic_linalg.F\n" "\t$(FC) -c $(FCFLAGS2) $<\n"
++
+         # create arch file using options set
+         archfile = os.path.join(self.cfg['start_dir'], 'arch', '%s.%s' % (self.typearch, self.cfg['type']))
+         txt = self._generate_makefile(options)
+@@ -302,8 +333,10 @@
+                 modfiles = glob.glob(os.path.join(modincdir, '*.f90'))
+ 
+             else:
+-                raise EasyBuildError("prepmodinc: Please specify either a boolean value or a list of files in modinc "
+-                                     "(found: %s).", self.cfg["modinc"])
++                raise EasyBuildError(
++                    "prepmodinc: Please specify either a boolean value or a list of files in modinc " "(found: %s).",
++                    self.cfg["modinc"],
++                )
+ 
+             f77 = os.getenv('F77')
+             if not f77:
+@@ -318,7 +351,7 @@
+                 else:
+                     raise EasyBuildError("prepmodinc: Unknown value specified for F77 (%s)", f77)
+ 
+-                run_cmd(cmd, log_all=True, simple=True)
++                run_shell_cmd(cmd)
+ 
+             return modincpath
+         else:
+@@ -346,8 +379,13 @@
+         # make sure a MPI-2 able MPI lib is used
+         mpi2 = False
+         if hasattr(self.toolchain, 'MPI_FAMILY') and self.toolchain.MPI_FAMILY is not None:
+-            known_mpi2_fams = [toolchain.MPICH, toolchain.MPICH2, toolchain.MVAPICH2, toolchain.OPENMPI,
+-                               toolchain.INTELMPI]
++            known_mpi2_fams = [
++                toolchain.MPICH,
++                toolchain.MPICH2,
++                toolchain.MVAPICH2,
++                toolchain.OPENMPI,
++                toolchain.INTELMPI,
++            ]
+             mpi_fam = self.toolchain.mpi_family()
+             if mpi_fam in known_mpi2_fams:
+                 mpi2 = True
+@@ -360,28 +398,28 @@
+             for mpi2lib in mpi2libs:
+                 if get_software_root(mpi2lib):
+                     mpi2 = True
+-                    self.log.debug("Determined MPI2 compatibility based on loaded MPI module: %s")
++                    self.log.debug("Determined MPI2 compatibility based on loaded MPI module: %s" % mpi2lib)
+                 else:
+-                    self.log.debug("MPI-2 supporting MPI library %s not loaded.")
++                    self.log.debug("MPI-2 supporting MPI library %s not loaded." % mpi2lib)
+ 
+         if not mpi2:
+             raise EasyBuildError("CP2K needs MPI-2, no known MPI-2 supporting library loaded?")
+ 
+-        ldflags = os.getenv('LDFLAGS')
+-        fflags = os.getenv('FFLAGS')
++        ldflags = os.getenv('LDFLAGS') or ''
++        fflags = os.getenv('FFLAGS') or ''
++        mpicc = os.getenv('MPICC') or getattr(self.toolchain, 'cc', 'mpicc')
++        mpif90 = os.getenv('MPIF90') or getattr(self.toolchain, 'fc', 'mpif90')
+         fflags_lowopt = re.sub('-O[0-9]', '-O1', fflags)
+-
+         options = {
+-            'CC': os.getenv('MPICC'),
++            'CC': mpicc,
+             'AR': 'ar -r',
+-            'FC': '%s' % (os.getenv('MPIF90')),
+-            'LD': '%s' % (os.getenv('MPIF90')),
++            'FC': mpif90,
++            'LD': mpif90,
+             'FPIC': self.fpic,
+             'DFLAGS': ' -D__parallel -D__BLACS -D__SCALAPACK -D__FFTSG %s' % self.cfg['extradflags'],
+             'INCS': '',
+-            'CFLAGS': '-O3 -fopenmp -ftree-vectorize -march=native -fno-math-errno -fopenmp -std=c11 $(FPIC) $(DEBUG) '
+-                      '$(INCS) $(DFLAGS) %s' %
+-                      self.cfg['extracflags'],
++            'CFLAGS': '-O3 -fopenmp -ftree-vectorize -march=native -fno-math-errno -std=c11 $(FPIC) $(DEBUG) '
++            '$(INCS) $(DFLAGS) %s' % self.cfg['extracflags'],
+             'DEBUG': self.debug,
+             'FREE': '',
+             'FCFLAGS': '$(FCFLAGS%s) $(INCS)' % optflags,
+@@ -389,12 +427,21 @@
+             'FCFLAGSNOOPT': '$(DFLAGS) $(CFLAGS) -O0  $(FREE) $(FPIC) $(DEBUG)',
+             'FCFLAGSOPT': '%s $(FREE) $(SAFE) $(FPIC) $(DEBUG)' % fflags,
+             'FCFLAGSOPT2': '%s $(FREE) $(SAFE) $(FPIC) $(DEBUG)' % fflags_lowopt,
+-
+             'LDFLAGS': '$(FCFLAGS) %s ' % ldflags,
+             'LIBS': os.getenv('LIBS', ''),
+-
+         }
+ 
++        # Make LIBXSMM visible for all CP2K versions (2023.x and 2024+)
++        if self.libsmm_path:
++            # headers / .mod
++            options['INCS'] += f' -I{self.libsmm_path}/include'
++            # library search path (keep both lib and lib64 in case)
++            options['LDFLAGS'] += f' -L{self.libsmm_path}/lib'
++            lib64 = os.path.join(self.libsmm_path, 'lib64')
++            if os.path.isdir(lib64):
++                options['LDFLAGS'] += f' -L{lib64}'
++
++        # LIBINT
+         libint = get_software_root('LibInt')
+         if libint:
+             options['DFLAGS'] += ' -D__LIBINT'
+@@ -421,7 +468,8 @@
+ 
+                 # build libint wrapper
+                 cmd = "%s -c libint_cpp_wrapper.cpp -I%s/include" % (libintcompiler, libint)
+-                if not run_cmd(cmd, log_all=True, simple=True):
++                res = run_shell_cmd(cmd, fail_on_error=False)
++                if res.exit_code:
+                     raise EasyBuildError("Building the libint wrapper failed")
+                 libint_wrapper = '%s/libint_cpp_wrapper.o' % libinttools_path
+ 
+@@ -448,6 +496,7 @@
+             # throw a warning, since CP2K without Libint doesn't make much sense
+             self.log.warning("Libint module not loaded, so building without Libint support")
+ 
++        # LIBXC
+         libxc = get_software_root('libxc')
+         if libxc:
+             cur_libxc_version = get_software_version('libxc')
+@@ -462,17 +511,19 @@
+                 raise EasyBuildError("This version of CP2K is not compatible with libxc < %s" % libxc_min_version)
+ 
+             if LooseVersion(cur_libxc_version) >= LooseVersion('4.0.3'):
+-                # cfr. https://www.cp2k.org/howto:compile#k_libxc_optional_wider_choice_of_xc_functionals
+                 options['LIBS'] += ' -L%s/lib -lxcf03 -lxc' % libxc
+             elif LooseVersion(cur_libxc_version) >= LooseVersion('2.2'):
+                 options['LIBS'] += ' -L%s/lib -lxcf90 -lxc' % libxc
+             else:
+                 options['LIBS'] += ' -L%s/lib -lxc' % libxc
+ 
+-            if cp2k_version >= LooseVersion('2024'):
+-                options['INCS'] += ' -I%s/include ' % libxc
+-
+-            self.log.info("Using Libxc-%s" % cur_libxc_version)
++            # only add existing include dirs
++            inc_main = os.path.join(libxc, 'include')
++            inc_sub = os.path.join(libxc, 'include', 'libxc')
++            if os.path.isdir(inc_main):
++                options['INCS'] += f' -I{inc_main}'
++            if os.path.isdir(inc_sub):
++                options['INCS'] += f' -I{inc_sub}'
+         else:
+             self.log.info("libxc module not loaded, so building without libxc support")
+ 
+@@ -483,8 +534,12 @@
+ 
+         # based on guidelines available at
+         # http://software.intel.com/en-us/articles/build-cp2k-using-intel-fortran-compiler-professional-edition/
+-        intelurl = ''.join(["http://software.intel.com/en-us/articles/",
+-                            "build-cp2k-using-intel-fortran-compiler-professional-edition/"])
++        intelurl = ''.join(
++            [
++                "http://software.intel.com/en-us/articles/",
++                "build-cp2k-using-intel-fortran-compiler-professional-edition/",
++            ]
++        )
+ 
+         options = self.configure_common()
+ 
+@@ -492,18 +547,17 @@
+         if self.modincpath:
+             extrainc = '-I%s' % self.modincpath
+ 
+-        options.update({
+-            # -Vaxlib : older options
+-            'FREE': '-fpp -free',
+-
+-            # SAFE = -assume protect_parens -fp-model precise -ftz  # causes problems, so don't use this
+-            'SAFE': '-assume protect_parens -no-unroll-aggressive',
+-
+-            'INCFLAGS': '$(DFLAGS) -I$(INTEL_INC) -I$(INTEL_INCF) %s' % extrainc,
+-
+-            'LDFLAGS': '$(INCFLAGS) ',
+-            'OBJECTS_ARCHITECTURE': 'machine_intel.o',
+-        })
++        options.update(
++            {
++                # -Vaxlib : older options
++                'FREE': '-fpp -free',
++                # SAFE = -assume protect_parens -fp-model precise -ftz  # causes problems, so don't use this
++                'SAFE': '-assume protect_parens -no-unroll-aggressive',
++                'INCFLAGS': '$(DFLAGS) -I$(INTEL_INC) -I$(INTEL_INCF) %s' % extrainc,
++                'LDFLAGS': options['LDFLAGS'] + ' $(INCFLAGS) ',
++                'OBJECTS_ARCHITECTURE': 'machine_intel.o',
++            }
++        )
+ 
+         options['DFLAGS'] += ' -D__INTEL'
+ 
+@@ -523,8 +577,9 @@
+ 
+         # Required due to memory leak that occurs if high optimizations are used (from CP2K 7.1 intel-popt-makefile)
+         if ifortver >= LooseVersion("2018.5"):
+-            self.make_instructions += "mp2_optimize_ri_basis.o: mp2_optimize_ri_basis.F\n" \
+-                                      "\t$(FC) -c $(subst O2,O0,$(FCFLAGSOPT)) $<\n"
++            self.make_instructions += (
++                "mp2_optimize_ri_basis.o: mp2_optimize_ri_basis.F\n" "\t$(FC) -c $(subst O2,O0,$(FCFLAGSOPT)) $<\n"
++            )
+             self.log.info("Optimization level of mp2_optimize_ri_basis.F was decreased to '-O0'")
+ 
+         # RHEL8 intel/2020a lots of CPASSERT failed (due to high optimization in cholesky decomposition)
+@@ -569,24 +624,29 @@
+ 
+     def configure_GCC_based(self):
+         """Configure for GCC based toolchains"""
+-        cp2k_version = LooseVersion(self.version)
+ 
++        cp2k_version = LooseVersion(self.version)
+         options = self.configure_common()
+         if cp2k_version >= LooseVersion('2024'):
+-            options.update({
+-                # need this to prevent "Unterminated character constant beginning" errors
+-                'FREE': '-ffree-form -ffree-line-length-none -std=f2008',
+-            })
+-            options[
+-                'FCFLAGSOPT'] = '-O3 -ftree-vectorize -march=native -fno-math-errno -fopenmp -fPIC $(FREE) $(DFLAGS)'
+-
++            options.update(
++                {
++                    # need this to prevent "Unterminated character constant beginning" errors
++                    'FREE': '-ffree-form -ffree-line-length-none -std=f2008',
++                }
++            )
++            options['FCFLAGSOPT'] = (
++                '-O3 -ftree-vectorize -march=native -fno-math-errno -fopenmp '
++                '-fPIC $(FREE) $(DFLAGS) -fmax-stack-var-size=32768 -frecursive'
++            )
++            options['FCFLAGSOPT2'] = options['FCFLAGSOPT'].replace('-O3', '-O2')
+         else:
+-            options.update({
+-                # need this to prevent "Unterminated character constant beginning" errors
+-                'FREE': '-ffree-form -ffree-line-length-none ',
+-                'LDFLAGS': '$(FCFLAGS) ',
+-                'OBJECTS_ARCHITECTURE': 'machine_gfortran.o',
+-            })
++            options.update(
++                {
++                    # need this to prevent "Unterminated character constant beginning" errors
++                    'FREE': '-ffree-form -ffree-line-length-none ',
++                    'OBJECTS_ARCHITECTURE': 'machine_gfortran.o',
++                }
++            )
+             options['FCFLAGSOPT'] += ' $(DFLAGS) $(CFLAGS) -fmax-stack-var-size=32768'
+             options['FCFLAGSOPT2'] += ' $(DFLAGS) $(CFLAGS)'
+ 
+@@ -629,18 +689,15 @@
+         """Configure for BLAS library."""
+ 
+         cp2k_version = LooseVersion(self.version)
+-
+-        options['LIBS'] += ' %s %s' % (self.libsmm, os.getenv('LIBBLAS', ''))
+         if cp2k_version >= LooseVersion('2024'):
+             options['LDFLAGS'] += ' -L%s/lib ' % self.libsmm_path
+             options['INCS'] += ' -I%s/include ' % self.libsmm_path
++        options['LIBS'] += ' %s %s' % (self.libsmm, os.getenv('LIBBLAS', ''))
+         return options
+ 
+     def configure_MKL(self, options):
+         """Configure for Intel Math Kernel Library (MKL)"""
+ 
+-        cp2k_version = LooseVersion(self.version)
+-
+         options['INTEL_INC'] = '$(MKLROOT)/include'
+         options['DFLAGS'] += ' -D__FFTW3'
+ 
+@@ -671,32 +728,27 @@
+             options['INTEL_INCF'] = '$(INTEL_INC)/fftw'
+             options['LIBS'] = '%s %s' % (os.getenv('LIBFFT', ''), options['LIBS'])
+ 
+-        if cp2k_version >= LooseVersion('2024'):
+-            options['LDFLAGS'] += ' %s ' % self.libsmm
+-
+         return options
+ 
+     def configure_FFTW3(self, options):
+-        """Configure for FFTW3"""
+-
+         cp2k_version = LooseVersion(self.version)
+-
+         if cp2k_version >= LooseVersion('2024'):
+-            libfft = os.getenv('LIBFFT_MT', '')
+             options['LIBS'] += ' -lfftw3_omp -lfftw3'
+-            options['LDFLAGS'] += ' -L%s ' % os.getenv('FFT_LIB_DIR', '')
+-            options['INCS'] += ' -I%s ' % os.getenv('FFT_INC_DIR', '')
++            libdir = os.getenv('FFT_LIB_DIR')
++            incdir = os.getenv('FFT_INC_DIR')
++            if libdir:
++                options['LDFLAGS'] += f' -L{libdir}'
++            if incdir:
++                options['INCS'] += f' -I{incdir}'
+         else:
+-            options.update({
+-                'FFTW_INC': os.getenv('FFT_INC_DIR', ''),  # GCC
+-                'FFTW3INC': os.getenv('FFT_INC_DIR', ''),  # Intel
+-                'FFTW3LIB': os.getenv('FFT_LIB_DIR', ''),  # Intel
+-            })
+-
+-            if self.cfg['type'] == 'psmp':
+-                libfft = os.getenv('LIBFFT_MT', '')
+-            else:
+-                libfft = os.getenv('LIBFFT', '')
++            options.update(
++                {
++                    'FFTW_INC': os.getenv('FFT_INC_DIR', ''),
++                    'FFTW3INC': os.getenv('FFT_INC_DIR', ''),
++                    'FFTW3LIB': os.getenv('FFT_LIB_DIR', ''),
++                }
++            )
++            libfft = os.getenv('LIBFFT_MT', '') if self.cfg['type'] == 'psmp' else os.getenv('LIBFFT', '')
+             options['LIBS'] += ' -L%s %s' % (os.getenv('FFT_LIB_DIR', '.'), libfft)
+         options['DFLAGS'] += ' -D__FFTW3'
+         return options
+@@ -725,18 +777,17 @@
+             change_dir(makefiles)
+ 
+             # modify makefile for parallel build
+-            parallel = self.cfg['parallel']
+-            if parallel:
+-
++            parallel = self.cfg.parallel
++            if parallel > 1:
+                 try:
+                     for line in fileinput.input('Makefile', inplace=1, backup='.orig.patchictce'):
+-                        line = re.sub(r"^PMAKE\s*=.*$", "PMAKE\t= $(SMAKE) -j %s" % parallel, line)
++                        line = re.sub(r"^PMAKE\s*=.*$", f"PMAKE\t= $(SMAKE) -j {parallel}", line)
+                         sys.stdout.write(line)
+                 except IOError as err:
+                     raise EasyBuildError("Can't modify/write Makefile in %s: %s", makefiles, err)
+ 
+         # update make options with MAKE
+-        self.cfg.update('buildopts', 'MAKE="make -j %s"' % self.cfg['parallel'])
++        self.cfg.update('buildopts', f'MAKE="make -j {self.cfg.parallel}"')
+ 
+         # update make options with ARCH and VERSION
+         self.cfg.update('buildopts', 'ARCH=%s VERSION=%s' % (self.typearch, self.cfg['type']))
+@@ -744,16 +795,16 @@
+         cmd = "make %s" % self.cfg['buildopts']
+ 
+         # clean first
+-        run_cmd(cmd + " clean", log_all=True, simple=True, log_output=True)
++        run_shell_cmd(cmd + " clean")
+ 
+         # build and install
+         # compile regularly first with the default make target
+         # and only then build the library
+-        run_cmd(cmd + ' all', log_all=True, simple=True, log_output=True)
++        run_shell_cmd(cmd + ' all')
+ 
+         # build as a library
+         if self.cfg['library']:
+-            run_cmd(cmd + 'libcp2k', log_all=True, simple=True, log_output=True)
++            run_shell_cmd(cmd + 'libcp2k')
+ 
+     def test_step(self):
+         """Run regression test."""
+@@ -775,92 +826,114 @@
+             # change to root of build dir
+             change_dir(self.builddir)
+ 
+-            # use regression test reference output if available
+-            # try and find an unpacked directory that starts with 'LAST-'
+-            regtest_refdir = None
+-            for d in os.listdir(self.builddir):
+-                if d.startswith("LAST-"):
+-                    regtest_refdir = d
+-                    break
+-
+-            # location of do_regtest script
+-            cfg_fn = 'cp2k_regtest.cfg'
+-
+-            regtest_script = os.path.join(self.cfg['start_dir'], 'tests', 'do_regtest.py')
+             if LooseVersion(self.version) >= LooseVersion('2025'):
+                 exedir = os.path.join(self.cfg['start_dir'], 'exe', self.typearch)
+             else:
+                 exedir = self.typearch
+-            regtest_cmd = [regtest_script, exedir, self.cfg['type']]
+-            if LooseVersion(self.version) < LooseVersion('7.1'):
+-                # -nosvn option was removed in CP2K 7.1
+-                regtest_cmd.insert(1, '-nosvn')
+-
+-            # older version of CP2K
+-            if not os.path.exists(regtest_script):
+-                regtest_script = os.path.join(self.cfg['start_dir'], 'tests', 'do_regtest.py')
+-                regtest_cmd = [regtest_script, '-nocvs', '-quick', '-nocompile', '-config', cfg_fn]
+ 
+-            regtest_cmd = ' '.join(regtest_cmd)
+-
+-            # patch do_regtest so that reference output is used
+-            if regtest_refdir:
+-                self.log.info("Using reference output available in %s" % regtest_refdir)
+-                try:
+-                    for line in fileinput.input(regtest_script, inplace=1, backup='.orig.refout'):
+-                        line = re.sub(r"^(dir_last\s*=\${dir_base})/.*$", r"\1/%s" % regtest_refdir, line)
+-                        sys.stdout.write(line)
+-                except IOError as err:
+-                    raise EasyBuildError("Failed to modify '%s': %s", regtest_script, err)
++            if LooseVersion(self.version) >= LooseVersion('2023.2'):
++                if LooseVersion(self.version) > LooseVersion('2024.0'):
++                    regtest_script = os.path.join(self.cfg['start_dir'], 'tests', 'do_regtest.py')
++                else:
++                    regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'regtesting', 'do_regtest.py')
++                regtest_cmd = [
++                    regtest_script,
++                    f"--maxtasks {self.cfg['tests_maxtasks']}",
++                    f"--mpiranks {self.cfg['tests_mpiranks']}",
++                    f"--ompthreads {self.cfg['tests_ompthreads']}",
++                    f"--maxerrors {self.cfg['tests_maxerrors']}",
++                    f"--timeout {self.cfg['tests_timeout']}",
++                    "--debug",
++                    exedir,
++                    self.cfg['type'],
++                ]
+ 
+             else:
+-                self.log.info("No reference output found for regression test, just continuing without it...")
++                # configuration file for CP2K's test suite
++                cfg_fn = 'cp2k_regtest.cfg'
+ 
+-            # prefer using 4 cores, since some tests require/prefer square (n^2) numbers or powers of 2 (2^n)
+-            test_core_cnt = min(self.cfg['parallel'], 4)
+-            if get_avail_core_count() < test_core_cnt:
+-                raise EasyBuildError("Cannot run MPI tests as not enough cores (< %s) are available", test_core_cnt)
+-            else:
+-                self.log.info("Using %s cores for the MPI tests" % test_core_cnt)
+-
+-            # configure regression test
+-            cfg_txt = '\n'.join([
+-                'FORT_C_NAME="%(f90)s"',
+-                'dir_base=%(base)s',
+-                'cp2k_version=%(cp2k_version)s',
+-                'dir_triplet=%(triplet)s',
+-                'export ARCH=${dir_triplet}',
+-                'cp2k_dir=%(cp2k_dir)s',
+-                'leakcheck="YES"',
+-                'maxtasks=%(maxtasks)s',
+-                'cp2k_run_prefix="%(mpicmd_prefix)s"',
+-            ]) % {
+-                'f90': os.getenv('F90'),
+-                'base': os.path.dirname(os.path.normpath(self.cfg['start_dir'])),
+-                'cp2k_version': self.cfg['type'],
+-                'triplet': self.typearch,
+-                'cp2k_dir': os.path.basename(os.path.normpath(self.cfg['start_dir'])),
+-                'maxtasks': self.cfg['maxtasks'],
+-                'mpicmd_prefix': self.toolchain.mpi_cmd_for('', test_core_cnt),
++                regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'regtesting', 'do_regtest')
++                regtest_cmd = [regtest_script, '-nobuild', '-config', cfg_fn]
++
++                if LooseVersion(self.version) < LooseVersion('7.1'):
++                    # -nosvn option was removed in CP2K 7.1
++                    regtest_cmd.insert(1, '-nosvn')
++
++                # older version of CP2K
++                if not os.path.exists(regtest_script):
++                    regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'do_regtest')
++                    regtest_cmd = [regtest_script, '-nocvs', '-quick', '-nocompile', '-config', cfg_fn]
++
++                # patch do_regtest so that reference output is used
++                # use regression test reference output if available
++                # try and find an unpacked directory that starts with 'LAST-'
++                regtest_refdir = None
++                for d in os.listdir(self.builddir):
++                    if d.startswith("LAST-"):
++                        regtest_refdir = d
++                        break
++
++                if regtest_refdir:
++                    self.log.info("Using reference output available in %s" % regtest_refdir)
++                    try:
++                        for line in fileinput.input(regtest_script, inplace=1, backup='.orig.refout'):
++                            line = re.sub(r"^(dir_last\s*=\${dir_base})/.*$", r"\1/%s" % regtest_refdir, line)
++                            sys.stdout.write(line)
++                    except IOError as err:
++                        raise EasyBuildError("Failed to modify '%s': %s", regtest_script, err)
++
++                else:
++                    self.log.info("No reference output found for regression test, just continuing without it...")
++
++                # prefer using 4 cores, since some tests require/prefer square (n^2) numbers or powers of 2 (2^n)
++                test_core_cnt = min(self.cfg.parallel, 4)
++                if get_avail_core_count() < test_core_cnt:
++                    raise EasyBuildError("Cannot run MPI tests as not enough cores (< %s) are available", test_core_cnt)
++                else:
++                    self.log.info("Using %s cores for the MPI tests" % test_core_cnt)
++
++                # configure regression test
++                cfg_txt = '\n'.join(
++                    [
++                        'FORT_C_NAME="%(f90)s"',
++                        'dir_base=%(base)s',
++                        'cp2k_version=%(cp2k_version)s',
++                        'dir_triplet=%(triplet)s',
++                        'export ARCH=${dir_triplet}',
++                        'cp2k_dir=%(cp2k_dir)s',
++                        'leakcheck="YES"',
++                        'maxtasks=%(maxtasks)s',
++                        'cp2k_run_prefix="%(mpicmd_prefix)s"',
++                    ]
++                ) % {
++                    'f90': os.getenv('F90'),
++                    'base': os.path.dirname(os.path.normpath(self.cfg['start_dir'])),
++                    'cp2k_version': self.cfg['type'],
++                    'triplet': self.typearch,
++                    'cp2k_dir': os.path.basename(os.path.normpath(self.cfg['start_dir'])),
++                    'maxtasks': self.cfg['tests_maxtasks'],
++                    'mpicmd_prefix': self.toolchain.mpi_cmd_for('', test_core_cnt),
+                 }
+ 
+-            write_file(cfg_fn, cfg_txt)
+-            self.log.debug("Contents of %s: %s" % (cfg_fn, cfg_txt))
++                write_file(cfg_fn, cfg_txt)
++                self.log.debug("Contents of %s: %s" % (cfg_fn, cfg_txt))
+ 
+             # run regression test
+-            (regtest_output, ec) = run_cmd(regtest_cmd, log_all=True, simple=False, log_output=True)
+-
+-            if ec == 0:
+-                self.log.info("Regression test output:\n%s" % regtest_output)
++            regtest_cmd = ' '.join(regtest_cmd)
++            regtest = run_shell_cmd(regtest_cmd, fail_on_error=False)
++            if regtest.exit_code == 0 and regtest.output:
++                self.log.info("Regression test output:\n%s" % regtest.output)
++            elif regtest.exit_code == 0:
++                raise EasyBuildError("Regression test failed: there is no output, tests probably did not run.")
+             else:
+-                raise EasyBuildError("Regression test failed (non-zero exit code): %s", regtest_output)
++                raise EasyBuildError("Regression test failed (non-zero exit code): %s", regtest.output)
+ 
+             # pattern to search for regression test summary
+             re_pattern = r"number\s+of\s+%s\s+tests\s+(?P<cnt>[0-9]+)"
+ 
+             # find total number of tests
+             regexp = re.compile(re_pattern % "", re.M | re.I)
+-            res = regexp.search(regtest_output)
++            res = regexp.search(regtest.output)
+             tot_cnt = None
+             if res:
+                 tot_cnt = int(res.group('cnt'))
+@@ -877,10 +950,11 @@
+                 regexp = re.compile(re_pattern % test_result, re.M | re.I)
+ 
+                 cnt = None
+-                res = regexp.search(regtest_output)
++                res = regexp.search(regtest.output)
+                 if not res:
+-                    raise EasyBuildError("Finding number of %s tests in regression test summary failed",
+-                                         test_result.lower())
++                    raise EasyBuildError(
++                        "Finding number of %s tests in regression test summary failed", test_result.lower()
++                    )
+                 else:
+                     cnt = int(res.group('cnt'))
+ 
+@@ -979,20 +1053,17 @@
+         """Custom sanity check for CP2K"""
+ 
+         cp2k_type = self.cfg['type']
+-        custom_paths = {
+-            'files': ["bin/%s.%s" % (x, cp2k_type) for x in ["cp2k", "cp2k_shell"]],
+-            'dirs': ["tests"]
+-        }
++        custom_paths = {'files': ["bin/%s.%s" % (x, cp2k_type) for x in ["cp2k", "cp2k_shell"]], 'dirs': ["tests"]}
+         if self.cfg['library']:
+             custom_paths['files'].append(os.path.join('lib', 'libcp2k.a'))
+             custom_paths['files'].append(os.path.join('include', 'libcp2k.h'))
+             custom_paths['files'].append(os.path.join('include', 'libcp2k.mod'))
+-        super(EB_CP2K, self).sanity_check_step(custom_paths=custom_paths)
++        super().sanity_check_step(custom_paths=custom_paths)
+ 
+     def make_module_extra(self):
+         """Set up a CP2K_DATA_DIR environment variable to find CP2K provided basis sets"""
+ 
+-        txt = super(EB_CP2K, self).make_module_extra()
++        txt = super().make_module_extra()
+ 
+         # also define $CP2K_DATA_DIR in module,
+         # even though CP2K was already configured to pick up 'data' from install dir
