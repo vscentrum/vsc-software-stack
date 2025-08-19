@@ -21,6 +21,9 @@ dependencies = [
     ('R-bundle-Bioconductor', '3.20', versionsuffix),
 ]
 
+# fixes `Unrecognized VM option 'MaxPermSize=1024m'`
+preinstallopts = "sed -i 's/MaxPermSize/MaxMetaspaceSize/g' qualimap qualimap_bash_fix && "
+
 sanity_check_paths = {
     'files': ['qualimap'],
     'dirs': [],
@@ -31,12 +34,3 @@ sanity_check_commands = ["qualimap --help"]
 modextrapaths = {'PATH': ''}
 
 moduleclass = 'bio'
-
-# TODO
-# == 2025-08-19 10:32:37,964 build_log.py:226 ERROR EasyBuild encountered an error (at easybuild/easybuild-framework/easybuild/base/exceptions.py:126 in __init__): Sanity check failed: sanity check command qualimap --help failed with exit code 1 (output: Java memory size is set to 1200M
-# Launching application...
-#
-# Unrecognized VM option 'MaxPermSize=1024m'
-# Error: Could not create the Java Virtual Machine.
-# Error: A fatal exception has occurred. Program will exit.
-# ) (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:4368 in _sanity_check_step)
