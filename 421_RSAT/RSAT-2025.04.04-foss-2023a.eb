@@ -80,7 +80,10 @@ exts_list = [
     }),
 ]
 
-postinstallcmds = ['cd %(installdir)s/share/rsat/ && perl-scripts/configure_rsat.pl -auto rsat_site=easybuild_rsat rsat_www=auto ucsc_tools=0 ensembl_tools=0 mail_supported=no variations_tools=0 LOGO_PROGRAM=weblogo']
+local_configuration = 'perl-scripts/configure_rsat.pl -auto rsat_site=easybuild_rsat rsat_www=auto '
+local_configuration += 'ucsc_tools=0 ensembl_tools=0 mail_supported=no variations_tools=0 LOGO_PROGRAM=weblogo'
+
+postinstallcmds = ['cd %(installdir)s/share/rsat/ && ' + local_configuration]
 
 modextrapaths = {'R_LIBS_SITE': ''}
 
