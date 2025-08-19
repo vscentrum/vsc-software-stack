@@ -1,3 +1,8 @@
+Explicitly cast the result to matrix to avoid implicit cast conversions, as recommended in ITK-5.4.4/Modules/ThirdParty/VNL/src/vxl/core/vnl/vnl_matrix_fixed.h.
+The patched file is also just an example code file.
+
+Author: Franky Backeljauw (Universiteit Antwerpen)
+
 --- Examples/WarpVTKPolyDataMultiTransform.cxx.orig	2025-06-10 20:33:01.000000000 +0200
 +++ Examples/WarpVTKPolyDataMultiTransform.cxx	2025-08-16 22:25:58.292843942 +0200
 @@ -254,7 +254,7 @@
