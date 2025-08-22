@@ -106,7 +106,6 @@ class EB_CP2K(EasyBlock):
             'tests_mpiranks': [None, "--mpiranks in regtest command", CUSTOM],
             'tests_maxerrors': [10000, "--maxerrors in regtest command", CUSTOM],
             'tests_timeout': [1000, "--timeout in regtest command", CUSTOM],
-            # 'gpuver': ['H100', "CUDA gpu version", CUSTOM], #TODO
             'gpuver': [None, "CUDA gpu version", CUSTOM],
         }
         return EasyBlock.extra_options(extra_vars)
@@ -277,7 +276,8 @@ class EB_CP2K(EasyBlock):
             if cp2k_version >= LooseVersion('2024'):
                 if not self.cfg['gpuver']:
                     raise EasyBuildError(
-                        "gpuver variable is not set in the easyconfig file. You must set 'gpuver' if you have CUDA included."
+                        "gpuver variable is not set in the easyconfig file. "
+                        "You must set 'gpuver' if you have CUDA included."
                     )
                 options['DFLAGS'] += ' -D__OFFLOAD_CUDA -D__DBCSR_ACC '
                 options['LIBS'] += ' -lcufft -lcudart -lnvrtc -lcuda -lcublas'
@@ -828,7 +828,7 @@ class EB_CP2K(EasyBlock):
 
             # set maxtasks to parallel if not specified in easyconfig file
             tests_maxtasks = self.cfg['tests_maxtasks'] or self.cfg.parallel
-            
+
             if LooseVersion(self.version) >= LooseVersion('2025'):
                 exedir = os.path.join(self.cfg['start_dir'], 'exe', self.typearch)
             else:
@@ -838,6 +838,7 @@ class EB_CP2K(EasyBlock):
                 if LooseVersion(self.version) > LooseVersion('2024.0'):
                     regtest_script = os.path.join(self.cfg['start_dir'], 'tests', 'do_regtest.py')
                 else:
+                    # only v2023.2 has test script in different directory
                     regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'regtesting', 'do_regtest.py')
                 regtest_cmd = [
                     regtest_script,
@@ -845,16 +846,15 @@ class EB_CP2K(EasyBlock):
                     f"--maxerrors {self.cfg['tests_maxerrors']}",  # 10 000 by default
                     f"--timeout {self.cfg['tests_timeout']}",  # 1000 by default
                     "--debug",
-                    # f"--mpiranks {self.cfg['tests_mpiranks']}",  # 1 by default #TODO
-                     # set --mpiranks test flag only when tests_mpiranks is set
-                    *([f"--mpiranks {self.cfg['tests_mpiranks']}"] if self.cfg['tests_mpiranks'] else []),  # 2 by default
-                    # set --ompthreads test flag only when omp_num_threads is set
+                    # set --mpiranks test flag only when tests_mpiranks is set, 2 by default
+                    *([f"--mpiranks {self.cfg['tests_mpiranks']}"] if self.cfg['tests_mpiranks'] else []),
+                    # set --ompthreads test flag only when omp_num_threads is set, 2 by default?
                     *([f"--ompthreads {self.cfg['omp_num_threads']}"] if self.cfg['omp_num_threads'] else []),
                     exedir,
                     self.cfg['type'],
                 ]
 
-            else:
+            else:  # older versions up to v2023.1
                 # configuration file for CP2K's test suite
                 cfg_fn = 'cp2k_regtest.cfg'
 
@@ -918,7 +918,6 @@ class EB_CP2K(EasyBlock):
                     'triplet': self.typearch,
                     'cp2k_dir': os.path.basename(os.path.normpath(self.cfg['start_dir'])),
                     'maxtasks': tests_maxtasks,
-                    # 'maxtasks': test_core_cnt, #TODO
                     'mpicmd_prefix': self.toolchain.mpi_cmd_for('', test_core_cnt),
                 }
 
