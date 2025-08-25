@@ -1,0 +1,65 @@
+    working directory         ->  
+/tmp/vsc47063/easybuild/build/BigStitcherSpark/0.1.0-2025.08.18/foss-2023a-Java-17/BigStitcher-Spark-0c1806f
+9ff607cdf71b3c1dc4443ed8ecdbf20b5
+    output (stdout + stderr)  ->  /tmp/vsc47063/eb-scyvr1tu/run-shell-cmd-output/mvn-j363988t/out.txt
+    interactive shell script  ->  /tmp/vsc47063/eb-scyvr1tu/run-shell-cmd-output/mvn-j363988t/cmd.sh
+
+    == postprocessing...
+  >> running shell command:
+        mvn clean package -P fatjar
+        [started at: 2025-08-21 12:33:47]
+        [working dir: 
+/tmp/vsc47063/easybuild/build/BigStitcherSpark/0.1.0-2025.08.18/foss-2023a-Java-17/BigStitcher-Spark-0c1806f9ff607cdf71b3c1dc4443ed8ecdbf20b5]
+        [output and state saved to /tmp/vsc47063/eb-sv6b6k6u/run-shell-cmd-output/mvn-g5snd8d5]
+  >> command completed: exit 0, ran in 00h10m04s
+== ... (took 10 mins 4 secs)
+== sanity checking...
+  >> (non-empty) directory 'bin' found: FAILED
+  >> (non-empty) directory 'lib' or 'lib64' found: FAILED
+  >> loading modules: BigStitcher-Spark/0.1.0-2025.08.18-foss-2023a-Java-17...
+== ... (took 31 secs)
+== FAILED: Installation ended unsuccessfully: Sanity check failed: no (non-empty) directory found at 'bin' 
+in 
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/BigStitcher-Spark/0.1.0-2025.08.18-foss-2023a-Java-17
+BigStitcher-Spark-0.1.0-SNAPSHOT.jar
+BigStitcher-Spark-0.1.0-SNAPSHOT.jar
+
+spark-submit --master local[8] --driver-memory 2g \
+  --class net.preibisch.bigstitcher.spark.SparkResaveN5 \
+  target/BigStitcher-Spark-0.1.0-SNAPSHOT.jar \
+  -x ~/SparkTest/Stitching/dataset.xml -xo ~/SparkTest/Stitching/dataset.xml
+  
+spark-submit --master local[8] --driver-memory 2g \
+  --class net.preibisch.bigstitcher.spark.SparkResaveN5 target/BigStitcher-Spark-0.1.0-SNAPSHOT.jar \
+  -x dataset.xml -xo datatset1.xml \
+  --blockSize 256,256,64 --blockScale 2,2,2
+  
+  spark-submit --master local[1] --driver-memory 512m \
+  --class net.preibisch.bigstitcher.spark.SparkPairwiseStitching \
+  /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/BigStitcher-Spark/0.1.0-2025.08.18-foss-2023a-Java-17/target/BigStitcher-Spark-0.1.0-SNAPSHOT.jar \
+  --help
+
+  cat > minidataset.xml <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<SpimData version="0.2">
+  <BasePath type="relative">.</BasePath>
+  <SequenceDescription>
+    <ImageLoader format="bdv.n5">/tmp/fake.n5</ImageLoader>
+    <ViewSetups></ViewSetups>
+    <Timepoints type="range">0</Timepoints>
+  </SequenceDescription>
+  <ViewRegistrations></ViewRegistrations>
+</SpimData>
+EOF
+
+spark-submit --master local[1] --driver-memory 256m \
+--class net.preibisch.bigstitcher.spark.SparkResaveN5 \
+/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/BigStitcher-Spark/0.1.0-2025.08.18-foss-2023a-Java-17/target/BigStitcher-Spark-0.1.0-SNAPSHOT.jar \
+--help
+
+spark-submit --master local[1] --driver-memory 512m \
+  --class net.preibisch.bigstitcher.spark.SparkResaveN5 \
+  /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/BigStitcher-Spark/0.1.0-2025.08.18-foss-2023a-Java-17/target/BigStitcher-Spark-0.1.0-SNAPSHOT.jar \
+  --dryRun \
+  -x "file:minidataset.xml"
+
