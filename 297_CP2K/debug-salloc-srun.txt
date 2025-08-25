@@ -1,0 +1,166 @@
+qsub -I -l nodes=1:ppn=8,walltime=10:0:0,mem=26gb
+> /usr/bin/salloc 
+--job-name=INTERACTIVE 
+--mail-type=NONE 
+--mem=26624M 
+--nodes=1 
+--ntasks-per-node=8 
+--ntasks=8 
+--time=10:00:00 
+/usr/bin/srun 
+--chdir=/user/gent/470/vsc47063 
+--cpu-bind=none 
+--export=USER,HOME,TERM 
+--mem=0 
+--mpi=none 
+--nodes=1 
+--ntasks=1 
+--pty /bin/bash 
+-i -l
+
+
+1) not working
+/usr/bin/salloc \
+--job-name=INTERACTIVE \
+--mail-type=NONE \
+--mem=26624M \
+--nodes=1 \
+--ntasks-per-node=4 \
+--cpus-per-task=2 \
+--time=10:00:00 \
+/usr/bin/srun \
+--chdir=/user/gent/470/vsc47063 \
+--cpu-bind=cores \
+--export=USER,HOME,TERM \
+--mpi=pmix \
+--nodes=1 \
+--ntasks=4 \
+--cpus-per-task=2 \
+--pty /bin/bash -i -l
+>>> srun: error: node4202.shinx.os: tasks 1-3: Exited with exit code 1
+
+export OMP_NUM_THREADS=2
+export OMP_PLACES=cores
+export OMP_PROC_BIND=close
+export MPIRUN="srun --mpi=pmix -n"
+
+2) not working
+/usr/bin/salloc \
+--job-name=INTERACTIVE \
+--mail-type=NONE \
+--mem=26624M \
+--nodes=1 \
+--ntasks-per-node=4 \
+--cpus-per-task=2 \
+--time=10:00:00 \
+/usr/bin/srun \
+--chdir=/user/gent/470/vsc47063 \
+--cpu-bind=none \
+--export=USER,HOME,TERM \
+--ntasks=1 \
+--pty /bin/bash -i -l
+
+export OMP_NUM_THREADS=2 \
+export OMP_PLACES=cores \
+export OMP_PROC_BIND=close \
+export MPIRUN="srun --mpi=pmix -n" 
+
+3) not working
+/usr/bin/salloc \
+--job-name=INTERACTIVE \
+--mail-type=NONE \
+--mem=26624M \
+--nodes=1 \
+--ntasks=4 \
+--ntasks-per-node=4 \
+--cpus-per-task=2 \
+--time=10:00:00
++
+/usr/bin/srun \
+--chdir=/user/gent/470/vsc47063 \
+--cpu-bind=none \
+--export=USER,HOME,TERM \
+--ntasks=1 \
+--cpus-per-task=1 \
+--overlap \
+--pty /bin/bash -i -l
++
+export OMP_NUM_THREADS=2 \
+export OMP_PLACES=cores \
+export OMP_PROC_BIND=close
+
+4) nearly working
+/usr/bin/salloc \
+--job-name=INTERACTIVE \
+--mail-type=NONE \
+--mem=26624M \
+--nodes=1 \
+--ntasks=4 \
+--ntasks-per-node=4 \
+--cpus-per-task=2 \
+--time=10:00:00
++
+/usr/bin/srun \
+--chdir=/user/gent/470/vsc47063 \
+--cpu-bind=none \
+--export=USER,HOME,TERM \
+--ntasks=1 \
+--cpus-per-task=2 \
+--overlap \
+--pty /bin/bash -i -l
++
+export OMP_NUM_THREADS=2 \
+export OMP_PLACES=cores \
+export OMP_PROC_BIND=close
++
+export MPIRUN="srun --mpi=pmi2 -n"
+>>> now parallel is only 2
+>>> nproc = 2
+
+5) kenneths advice #1
+/usr/bin/salloc \
+--job-name=INTERACTIVE \
+--mail-type=NONE \
+--mem=26624M \
+--nodes=1 \
+--ntasks-per-node=8 \
+--ntasks=8 \
+--time=10:00:00 \
+/usr/bin/srun \
+--chdir=/user/gent/470/vsc47063 \
+--cpu-bind=none \
+--export=USER,HOME,TERM \
+--mem=0 \
+--mpi=none \
+--nodes=1 \
+--ntasks=8 \
+--pty /bin/bash \
+-i -l
+>>> srun: error: Unable to create step for job 33844881: More processors requested than permitted
+salloc: Relinquishing job allocation 33844881
+
+6)kenneths advice #2
+/usr/bin/salloc \
+--job-name=INTERACTIVE \
+--mail-type=NONE \
+--mem=26624M \
+--nodes=1 \
+--ntasks-per-node=8 \
+--ntasks=8 \
+--time=10:00:00 \
+/usr/bin/srun \
+--chdir=/user/gent/470/vsc47063 \
+--cpu-bind=none \
+--export=USER,HOME,TERM \
+--mem=0 \
+--mpi=none \
+--nodes=1 \
+--ntasks=1 \
+--cpus-per-task=8 \
+--pty /bin/bash \
+-i -l
+>>> srun: Job step's --cpus-per-task value exceeds that of job (8 > 2). Job step may never run.
+
+Debug command:
+srun --mpi=pmi2 -n 4 --cpus-per-task=2 --cpu-bind=cores -l hostname
+> should return 4 lines
