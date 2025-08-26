@@ -58,28 +58,14 @@ preconfigopts = """sed -i 's|find_package(zstd REQUIRED QUIET)|find_library(zstd
 
 preconfigopts += """sed -i 's|find_package(opentelemetry-cpp REQUIRED QUIET)|find_library(opentelemetry-cpp PATHS $ENV{EBROOTOPENTELEMETRYCPP}/lib64)|g' %(builddir)s/%(name)s-%(version)s/src/hictk/telemetry/CMakeLists.txt && """
 
-preconfigopts += """sed -i '/find_package(phmap REQUIRED QUIET)/d' %(builddir)s/%(name)s-%(version)s/src/libhictk/cooler/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/expected_values_aggregator/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/transformers/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/hictk/cli/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/hictk/dump/CMakeLists.txt && """
+preconfigopts += """sed -i '/find_package(phmap REQUIRED QUIET)/d' %(builddir)s/%(name)s-%(version)s/src/libhictk/cooler/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/expected_values_aggregator/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/libhictk/transformers/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/hictk/cli/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/hictk/dump/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/hictk/metadata/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/hictk/rename_chromosomes/CMakeLists.txt %(builddir)s/%(name)s-%(version)s/src/hictk/telemetry/CMakeLists.txt && """
 
 configopts = '-DZSTD_LIB=$EBROOTZSTD/lib/libzstd.%s ' % SHLIB_EXT
 
 moduleclass = 'tools'
 
 # TODO
-# CMake Error at src/hictk/metadata/CMakeLists.txt:7 (find_package):
-#   By not providing "Findphmap.cmake" in CMAKE_MODULE_PATH this project has
-#   asked CMake to find a package configuration file provided by "phmap", but
-#   CMake did not find one.
-#
-#   Could not find a package configuration file provided by "phmap" with any of
-#   the following names:
-#
-#     phmapConfig.cmake
-#     phmap-config.cmake
-#
-#   Add the installation prefix of "phmap" to CMAKE_PREFIX_PATH or set
-#   "phmap_DIR" to a directory containing one of the above files.  If "phmap"
-#   provides a separate development package or SDK, be sure it has been
-#   installed.
-#
-#
-# -- Configuring incomplete, errors occurred!
+# CMake Error: install(EXPORT "libhictk-internal-targets" ...) includes target "hictk_internal_cooler" which requires target "phmap" that is not in any export set.
+# CMake Error: install(EXPORT "libhictk-internal-targets" ...) includes target "hictk_internal_expected_values_aggregator" which requires target "phmap" that is not in any export set.
+# CMake Error: install(EXPORT "libhictk-internal-targets" ...) includes target "hictk_internal_reference" which requires target "phmap" that is not in any export set.
+# CMake Error: install(EXPORT "libhictk-internal-targets" ...) includes target "hictk_internal_transformers" which requires target "phmap" that is not in any export set.
