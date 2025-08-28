@@ -42,7 +42,7 @@ dependencies = [
     ('LZO', '2.10'),
     ('nlohmann_json', '3.11.2'),
     ('opentelemetry-cpp', '1.22.0'),  # TODO ok?
-    # ('parallel-hashmap', '2.0.0'),  # TODO replaced by CMake fetch?
+    ('parallel-hashmap', '2.0.0'),  # TODO replaced by CMake fetch?
     ('pybind11', '2.11.1'),
     ('readerwriterqueue', '1.0.7'),
     ('span-lite', '0.11.0'),
@@ -59,23 +59,13 @@ configopts = '-DZSTD_LIB=$EBROOTZSTD/lib/libzstd.%s ' % SHLIB_EXT
 moduleclass = 'tools'
 
 # TODO
-# [  5%] Building CXX object test/units/reference/CMakeFiles/hictk_reference_tests.dir/reference_test.cpp.o
-# cd /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/easybuild_obj/test/units/reference && /tmp/vsc45304/eb-2qxc60yv/tmpi401nff4/rpath_wrappers/gxx_wrapper/g++ -DFMT_ENFORCE_COMPILE_STRING -DFMT_HEADER_ONLY -DFMT_HEADER_ONLY=1 -DFMT_
-# USE_FULL_CACHE_DRAGONBOX -DHICTK_ENABLE_TESTING -DHICTK_WITH_ARROW -DHICTK_WITH_EIGEN -DSPDLOG_FMT_EXTERNAL -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/test/units/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.
-# 4/foss-2023a/hictk-2.1.4/src/libhictk/reference/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/chromosome/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/c
-# ommon/hash/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/common/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/formatting/include -I/tmp/vsc45304/
-# easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/bin_table/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/genomic_interval/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-
-# 2023a/hictk-2.1.4/src/libhictk/numeric/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/type_traits/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/pi
-# xel/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/string/include -isystem /apps/gent/RHEL9/cascadelake-ib/software/fmt/10.1.0-GCCcore-12.3.0/include -isystem /scratch/gent/vo/001/gvo00117
-# /easybuild/RHEL9/cascadelake-ampere-ib/software/fast_float/8.0.2-GCCcore-12.3.0/include -O2 -ftree-vectorize -march=native -fno-math-errno -O3 -DNDEBUG -std=c++17 -flto=auto -fno-fat-lto-objects -fdiagnostics-color=always -Wall -Wextra
-# -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplica
-# ted-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -MD -MT test/units/reference/CMakeFiles/hictk_reference_tests.dir/reference_test.cpp.o -MF CMakeFiles/hictk_reference_tests.dir/reference_test.cpp.o.d -o CMakeFiles/hictk_refere
-# nce_tests.dir/reference_test.cpp.o -c /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/test/units/reference/reference_test.cpp
-# ESC[01mESC[K/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/test/units/binary_buffer/binary_buffer_test.cpp:7:10:ESC[mESC[K ESC[01;31mESC[Kfatal error: ESC[mESC[Kcatch2/catch_test_macros.hpp: No such file or directory
-#     7 | #include ESC[01;31mESC[K<catch2/catch_test_macros.hpp>ESC[mESC[K
-#       |          ESC[01;31mESC[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ESC[mESC[K
-# compilation terminated.
-# make[2]: *** [test/units/binary_buffer/CMakeFiles/hictk_binary_buffer_tests.dir/build.make:79: test/units/binary_buffer/CMakeFiles/hictk_binary_buffer_tests.dir/binary_buffer_test.cpp.o] Error 1
-# make[2]: Leaving directory '/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/easybuild_obj'
-# make[1]: *** [CMakeFiles/Makefile2:2518: test/units/binary_buffer/CMakeFiles/hictk_binary_buffer_tests.dir/all] Error 2
-# make[1]: *** Waiting for unfinished jobs....
+# /apps/gent/RHEL9/cascadelake-ib/software/spdlog/1.11.0-GCCcore-12.3.0/include/spdlog/common.h:168:111: error: ‘basic_runtime’ is not a member of ‘fmt’
+#   168 |           std::is_convertible<T, fmt::basic_string_view<Char>>::value || std::is_same<remove_cvref_t<T>, fmt::basic_runtime<Char>>::value>
+#       |                                                                                                               ^~~~~~~~~~~~~
+# /apps/gent/RHEL9/cascadelake-ib/software/spdlog/1.11.0-GCCcore-12.3.0/include/spdlog/common.h:168:125: error: template argument 2 is invalid
+#   168 |           std::is_convertible<T, fmt::basic_string_view<Char>>::value || std::is_same<remove_cvref_t<T>, fmt::basic_runtime<Char>>::value>
+#       |                                                                                                                             ^~~~
+# /apps/gent/RHEL9/cascadelake-ib/software/spdlog/1.11.0-GCCcore-12.3.0/include/spdlog/common.h:168:138: error: expected ‘{’ before ‘>’ token
+#   168 |           std::is_convertible<T, fmt::basic_string_view<Char>>::value || std::is_same<remove_cvref_t<T>, fmt::basic_runtime<Char>>::value>
+#       |                                                                                                                                          ^
+#
