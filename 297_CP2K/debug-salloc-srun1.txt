@@ -157,10 +157,68 @@ salloc: Relinquishing job allocation 33844881
 --nodes=1 \
 --ntasks=1 \
 --cpus-per-task=8 \
---pty /bin/bash \
--i -l
+--pty /bin/bash -i -l
 >>> srun: Job step's --cpus-per-task value exceeds that of job (8 > 2). Job step may never run.
 
 Debug command:
 srun --mpi=pmi2 -n 4 --cpus-per-task=2 --cpu-bind=cores -l hostname
 > should return 4 lines
+
+7) lexming advice
+/usr/bin/salloc \
+--job-name=INTERACTIVE \
+--mail-type=NONE \
+--mem=26624M \
+--nodes=1 \
+--ntasks-per-node=8 \
+--ntasks=8 \
+--time=10:00:00
++
+/usr/bin/srun \
+--chdir=/user/gent/470/vsc47063 \
+--cpu-bind=none \
+--export=USER,HOME,TERM \
+--mem=0 \
+--mpi=none \
+--nodes=1 \
+--ntasks=8 \
+--cpus-per-task=1 \
+--pty /bin/bash -i -l
+>>> srun: error: node4305.litleo.os: tasks 1-7: Exited with exit code 1
+
+srun --mpi=none -n1 --cpus-per-task=8 --cpu-bind=cores bash -lc 'eb CP2K-2023.1-foss-2023a.eb --robot --rebuild'
+
+srun --mpi=pmi2 -n8 --cpus-per-task=1 --cpu-bind=cores bash -lc '
+  export EASYBUILD_PARALLEL=8 EASYBUILD_CPU_COUNT=8
+  eb CP2K-2023.1-foss-2023a.eb --robot --rebuild
+'
+
+srun -n1 --overlap --cpu-bind=none --pty /bin/bash -i -l
+/usr/bin/srun \
+--chdir=/user/gent/470/vsc47063 \
+--cpu-bind=none \
+--export=USER,HOME,TERM \
+--mem=0 \
+--mpi=none \
+--nodes=1 \
+--ntasks=1 \
+--overlap \
+--pty /bin/bash -i -l
+
+srun --mpi=none -n1 --cpus-per-task=8 --cpu-bind=cores --pty bash -lc '
+  export EASYBUILD_PARALLEL=8
+  export MPIRUN="srun --mpi=pmi2 -n"
+  export OMP_NUM_THREADS=1 OMP_PLACES=cores OMP_PROC_BIND=close
+  eb CP2K-2023.1-foss-2023a.eb --robot --rebuild
+'
+
+echo "STEP=${SLURM_STEP_ID:-none}"
+
+/usr/bin/srun \
+--chdir=/user/gent/470/vsc47063 \
+--cpu-bind=none \
+--export=USER,HOME,TERM \
+--ntasks=1 \
+--cpus-per-task=8 \
+--overlap \
+--pty /bin/bash -i -l

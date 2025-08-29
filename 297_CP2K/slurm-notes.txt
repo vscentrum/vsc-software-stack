@@ -1,0 +1,85 @@
+1) scontrol show config | egrep -i 'MpiDefault|SelectType|SelectTypeParameters|TaskPlugin|ProctrackType|DefMemPerCPU|DefMemPerNode'
+>>>
+DefMemPerNode           = UNLIMITED
+MpiDefault              = (null)
+ProctrackType           = proctrack/cgroup
+SelectType              = select/cons_tres
+SelectTypeParameters    = CR_CORE_MEMORY
+TaskPlugin              = task/cgroup,task/affinity
+TaskPluginParam         = (null type)
+
+2) srun --version
+>>> slurm 24.05.7
+
+3) srun --mpi=list
+>>> 
+MPI plugin types are...
+        none
+        pmi2
+        cray_shasta
+        pmix
+specific pmix plugin versions available: pmix_v4
+
+4) salloc -N1 -n8 --mem=26G -t 10:00:00
+echo STEP=${SLURM_STEP_ID:-none} >>> Step=none
+
+5) scontrol show job $SLURM_JOB_ID | egrep 'NumTasks=|CPUs/Task=|MinMemoryNode=|MemPerCPU'
+>>>
+   NumNodes=1 NumCPUs=8 NumTasks=8 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   MinCPUsNode=1 MinMemoryNode=26G MinTmpDiskNode=0
+
+6) srun --mpi=pmix -n2 -l hostname
+>>>
+0: node4303.litleo.os
+1: node4303.litleo.os
+
+7) export OMP_NUM_THREADS=2 + srun --mpi=pmix -n4 -c2 --cpu-bind=cores -l hostname
+>>>
+1: node4303.litleo.os
+0: node4303.litleo.os
+2: node4303.litleo.os
+3: node4303.litleo.os
+
+8) srun --mpi=none -n1 -c8 --cpu-bind=cores --mem=0 --pty bash -lc 'nproc; grep Cpus_allowed_list /proc/self/status'
+>>>
+2   -> this should be 8!!!
+Cpus_allowed_list:      36-43
+
+9) srun --mpi=none -n1 -c8 --cpu-bind=cores --mem=0 --pty bash -lc '
+  echo "SLURM_CPUS_PER_TASK=${SLURM_CPUS_PER_TASK:-unset}"
+  echo -n "_NPROCESSORS_ONLN="; getconf _NPROCESSORS_ONLN
+  echo -n "nproc="; nproc
+  echo -n "affinity: "; taskset -pc $$ 2>&1 | sed "s/^/  /"
+  grep Cpus_allowed_list /proc/self/status
+'
+>>>
+SLURM_CPUS_PER_TASK=8
+_NPROCESSORS_ONLN=48
+nproc=2
+affinity:   pid 2179471's current affinity list: 36-43
+Cpus_allowed_list:      36-43
+
+10) srun --mpi=none -n1 -c8 --cpu-bind=cores --mem=0 --pty bash -lc '
+  cg=$(awk -F: "/^0:/{print \$3}" /proc/self/cgroup)
+  echo "cpu.max ="; cat /sys/fs/cgroup"$cg"/cpu.max
+  echo "cpuset.cpus ="; cat /sys/fs/cgroup"$cg"/cpuset.cpus
+'
+>>>
+cpu.max =
+max 100000
+cpuset.cpus =
+
+11) srun --mpi=none -n1 -c8 --cpu-bind=cores --mem=0 --pty bash -lc '
+  cg=$(awk -F: "/^0:/{print \$3}" /proc/self/cgroup)
+  echo -n "cpuset.cpus.effective = "; cat /sys/fs/cgroup"$cg"/cpuset.cpus.effective
+'
+>>>
+cpuset.cpus.effective = 36-43
+
+12) srun --mpi=none -n1 -c8 --cpu-bind=cores --mem=0 --pty bash -lc 'type -a nproc; echo "---"; nproc; echo "---"; /usr/bin/nproc || true'
+>>>
+nproc is /usr/bin/nproc
+---
+2
+---
+2
