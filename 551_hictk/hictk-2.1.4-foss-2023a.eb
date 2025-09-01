@@ -9,6 +9,7 @@ hictk is a blazing fast toolkit to work with .hic and .cool files.
 """
 
 toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'cstd': 'c++20'}  # TODO didn't help'
 
 source_urls = ['https://github.com/paulsengroup/hictk/archive/']
 sources = ['v%(version)s.tar.gz']
@@ -41,7 +42,7 @@ dependencies = [
     ('lz4', '1.9.4'),
     ('LZO', '2.10'),
     ('nlohmann_json', '3.11.2'),
-    ('opentelemetry-cpp', '1.22.0'),  # TODO ok?
+    ('opentelemetry-cpp', '1.22.0'),
     ('parallel-hashmap', '2.0.0'),  # TODO replaced by CMake fetch?
     ('pybind11', '2.11.1'),
     ('readerwriterqueue', '1.0.7'),
@@ -53,19 +54,19 @@ dependencies = [
     ('zlib', '1.2.13'),
 ]
 
-
-configopts = '-DZSTD_LIB=$EBROOTZSTD/lib/libzstd.%s ' % SHLIB_EXT
+configopts = "-DZSTD_LIB=$EBROOTZSTD/lib/libzstd.%s " % SHLIB_EXT
+# fixes error: ‘basic_runtime’ is not a member of ‘fmt’
+configopts += "-DCMAKE_CXX_FLAGS='-DSPDLOG_USE_STD_FORMAT=1'"
 
 moduleclass = 'tools'
 
 # TODO
-# /apps/gent/RHEL9/cascadelake-ib/software/spdlog/1.11.0-GCCcore-12.3.0/include/spdlog/common.h:168:111: error: ‘basic_runtime’ is not a member of ‘fmt’
-#   168 |           std::is_convertible<T, fmt::basic_string_view<Char>>::value || std::is_same<remove_cvref_t<T>, fmt::basic_runtime<Char>>::value>
-#       |                                                                                                               ^~~~~~~~~~~~~
-# /apps/gent/RHEL9/cascadelake-ib/software/spdlog/1.11.0-GCCcore-12.3.0/include/spdlog/common.h:168:125: error: template argument 2 is invalid
-#   168 |           std::is_convertible<T, fmt::basic_string_view<Char>>::value || std::is_same<remove_cvref_t<T>, fmt::basic_runtime<Char>>::value>
-#       |                                                                                                                             ^~~~
-# /apps/gent/RHEL9/cascadelake-ib/software/spdlog/1.11.0-GCCcore-12.3.0/include/spdlog/common.h:168:138: error: expected ‘{’ before ‘>’ token
-#   168 |           std::is_convertible<T, fmt::basic_string_view<Char>>::value || std::is_same<remove_cvref_t<T>, fmt::basic_runtime<Char>>::value>
-#       |                                                                                                                                          ^
+# cd /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/easybuild_obj/test/units/reference && /tmp/vsc45304/eb-3bz5k5_u/tmp09wff4t0/rpath_wrappers/gxx_wrapper/g++ -DFMT_ENFORCE_COMPILE_STRING -DFMT_HEADER_ONLY -DFMT_HEADER_ONLY=1 -DFMT_CHE_DRAGONBOX -DHICTK_ENABLE_TESTING -DHICTK_WITH_ARROW -DHICTK_WITH_EIGEN -DSPDLOG_FMT_EXTERNAL -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/test/units/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.a/hictk-2.1.4/src/libhictk/reference/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/chromosome/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/cinclude -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/common/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/formatting/include -I/tmp/vsc45304/uild/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/bin_table/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/genomic_interval/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss--2.1.4/src/libhictk/numeric/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/type_traits/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/pi -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/string/include -isystem /apps/gent/RHEL9/cascadelake-ib/software/fmt/10.1.0-GCCcore-12.3.0/include -isystem /scratch/gent/vo/001/gvo00117RHEL9/cascadelake-ampere-ib/software/fast_float/8.0.2-GCCcore-12.3.0/include -isystem /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Catch2/3.10.0-GCCcore-12.3.0/include -DSPDLOG_USE_STD_FORMAT=1UG -std=c++17 -flto=auto -fno-fat-lto-objects -fdiagnostics-color=always -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wnull-d-Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -MD -MT test/units/reference/CMakeFiles/hictk_reference_tests.dir/reference_tes CMakeFiles/hictk_reference_tests.dir/reference_test.cpp.o.d -o CMakeFiles/hictk_reference_tests.dir/reference_test.cpp.o -c /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/test/units/reference/reference_test
 #
+# In file included from /apps/gent/RHEL9/cascadelake-ib/software/spdlog/1.11.0-GCCcore-12.3.0/include/spdlog/common.h:45,
+#                  from /apps/gent/RHEL9/cascadelake-ib/software/spdlog/1.11.0-GCCcore-12.3.0/include/spdlog/spdlog.h:12,
+#                  from /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/tmpdir/include/hictk/tmpdir.hpp:17,
+#                  from /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/test/units/include/hictk/test/testdir.hpp:9,
+#                  from /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/test/units/filestream/filestream_test.cpp:22:
+# /apps/gent/RHEL9/cascadelake-ib/software/spdlog/1.11.0-GCCcore-12.3.0/include/spdlog/fmt/fmt.h:14:14: fatal error: format: No such file or directory
+# make[1]: *** Waiting for unfinished jobs....
