@@ -28,10 +28,10 @@ builddependencies = [
 dependencies = [
     ('Python', '3.13.5'),
     ('SciPy-bundle', '2025.07'),
-    ('netCDF', '4.9.3'), # CREATED
+    ('netCDF', '4.9.3'),
     ('expat', '2.7.1'),
     ('GEOS', '3.13.1'),
-    ('SQLite', '3.50.1'), # UPDATED - E1
+    ('SQLite', '3.50.1'),
     ('libarchive', '3.8.1'),
     ('libxml2', '2.14.3'),
     ('libpng', '1.6.50'),
@@ -44,12 +44,12 @@ dependencies = [
     ('libgeotiff', '1.7.4'),
     ('HDF5', '1.14.6'),
     ('HDF', '4.3.1'),
-    ('Armadillo', '15.0.1'), # CREATED
+    ('Armadillo', '15.0.1'),
     ('CFITSIO', '4.6.2'),
     ('zstd', '1.5.7'),
     ('giflib', '5.2.2'),
     ('json-c', '0.18'),
-    ('Xerces-C++', '3.3.0'), #CREATED
+    ('Xerces-C++', '3.3.0'),
     ('PCRE2', '10.45'),
     ('OpenEXR', '3.3.4'),
     ('Brunsli', '0.1'),
@@ -77,13 +77,3 @@ sanity_check_paths = {
 sanity_check_commands = ["python -c 'import osgeo.%(namelower)s'"]
 
 moduleclass = 'data'
-
-# E1: OK
-    # -> add -DSQLITE_ENABLE_RTREE=1 to SQLite
-    # <- CMake error:
-    #  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/SQLite/3.50.1-GCCcore-14.3.0/lib/libsqlite3.so
-    #   lacks the RTree extension! GPKG will not behave properly.  Define the
-    #   ACCEPT_MISSING_SQLITE3_RTREE:BOOL=ON CMake variable if you want to build
-    #   despite this limitation.
-    # Call Stack (most recent call first):
-    #   ogr/ogrsf_frmts/gpkg/CMakeLists.txt:19 (check_sqlite3_rtree)

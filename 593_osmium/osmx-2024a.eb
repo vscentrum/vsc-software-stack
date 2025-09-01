@@ -9,22 +9,17 @@ It's designed as a low level building block specific to the OSM data model; comm
 lookups by ID, in-place minutely updates, and spatial queries are efficient and simple to
 manage in production applications."""
 
-toolchain = {'name': 'gfbf', 'version': '2025b'}
+toolchain = {'name': 'gfbf', 'version': '2024a'}
 
 # DEPS:
-# ok osmx 0.0.5 requires lmdb, which is not installed.
-# osmx 0.0.5 requires pycapnp, which is not installed.
-    # OK needs sources from github
-    # OK ModuleNotFoundError: No module named 'pkgconfig'
-    # ok ModuleNotFoundError: No module named 'Cython'
-        # ok needs cython v2 not v3!
-# Has packed binary, but this not provide python stuff only exec
 
 builddependencies = [
     ('pkgconfig', '1.5.5', '-python'),
+    ('Ninja', '1.12.1'),
+    # ('CMake', '4.0.3'),
 ]
 dependencies = [
-    ('Python', '3.13.5'),
+    ('Python', '3.12.3'),
     # ('Python-bundle-PyPI', '2025.04'),
     # ('SciPy-bundle', '2025.06'),
     # ('Fiona', '1.10.1'),
@@ -47,7 +42,6 @@ exts_list = [
         'checksums': ['d4a27b7af4fe38f3409d9fbfbf47b617b3d94dee98a00bc8c2a8336ccd3f9b15'],
     }),
     ('pycapnp', '2.0.0', {
-        'installopts': '-C force-bundled-libcapnp=True',
         'source_urls': ['https://github.com/capnproto/pycapnp/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['a9e3acc58d8d67a08dbe6c86513b6bbff734a608a7fceb102883a88877643059'],
