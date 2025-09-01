@@ -1,7 +1,7 @@
 easyblock = "CMakeMake"
 
 name = 'libosmium'
-version = '2.15.4'
+version = '2.22.0'
 
 homepage = "https://osmcode.org/libosmium/"
 description = """A fast and flexible C++ library for working with OpenStreetMap data.
@@ -20,7 +20,7 @@ sources = [{
     'download_filename': 'v%(version)s.tar.gz',
     'filename': SOURCE_TAR_GZ,
 }]
-checksums = ['402247f7764bc20c061fa7d9fad15fc85459b7ce4f420274de78c94d05ddf260']
+checksums = ['8f74e3f6ba295baa7325ae5606e8f74ad9056f1d6ab4555c50bff6aa8246f366']
 
 # DEPS:
     # OK cmake
@@ -52,14 +52,14 @@ dependencies = [
     ('PROJ', '9.6.2'),
 ]
 
-# configopts = "-DINSTALL_UTFCPP=ON"
+# fix cmake policy version - CMAKE v4 is not compatible with versions < v3.5
+configopts = '-DCMAKE_POLICY_VERSION_MINIMUM=3.5'
 
-# runtest = 'test'
 runtest = True
 
-# sanity_check_paths = {
-#     'files': ['include/osmium/osm.hpp'],
-#     'dirs': ['include/osmium'],
-# }
+sanity_check_paths = {
+    'files': ['include/osmium/osm.hpp'],
+    'dirs': ['include/osmium'],
+}
 
 moduleclass = "devel"

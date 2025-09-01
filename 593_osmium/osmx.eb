@@ -1,0 +1,39 @@
+easyblock = 'PythonBundle'
+
+name = 'osmx'
+version = '0.0.5'
+
+homepage = 'https://github.com/bdon/OSMExpress/'
+description = """OSM Express is a fast storage format for OpenStreetMap that powers SliceOSM.
+It's designed as a low level building block specific to the OSM data model; common access patterns such as random
+lookups by ID, in-place minutely updates, and spatial queries are efficient and simple to
+manage in production applications."""
+
+toolchain = {'name': 'gfbf', 'version': '2025b'}
+
+# builddependencies = [
+#     ('Cython', '3.1.1'),
+# ]
+dependencies = [
+    ('Python', '3.13.5'),
+    # ('Python-bundle-PyPI', '2025.04'),
+    # ('SciPy-bundle', '2025.06'),
+    # ('Fiona', '1.10.1'),
+    # ('GDAL', '3.11.1'),
+    # ('GEOS', '3.13.1'),
+    # ('matplotlib', '3.10.3'),
+    # ('pyproj', '3.7.1'),
+    # ('Shapely', '2.1.1'),
+    # ('lxml', '5.3.0'),
+    # ('Pillow', '11.3.0'),
+    # ('PROJ', '9.6.2'),
+    # ('PyYAML', '6.0.2'),
+]
+
+exts_list = [
+    (name, version, {
+        'checksums': ['19c546c852af6a076cdb649001564ff4d4d1cf51da3f70ea51dfa5998ecb11ea'],
+    }),
+]
+
+moduleclass = 'geo'

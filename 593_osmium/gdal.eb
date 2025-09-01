@@ -16,7 +16,7 @@ source_urls = ['https://download.osgeo.org/%(namelower)s/%(version)s/']
 sources = [SOURCELOWER_TAR_XZ]
 patches = ['%(name)s-3.6.2_fix-python-CC-CXX.patch']
 checksums = [
-    {'gdal-3.11.1.tar.xz': '21341b39a960295bd3194bcc5f119f773229b4701cd752499fbd850f3cc160fd'},
+    {'gdal-3.11.3.tar.xz': 'ba0807729fa681eed55bb6d5588bb9e4bde2b691c46e8d6d375ff5eaf789b16a'},
     {'GDAL-3.6.2_fix-python-CC-CXX.patch': '859b874b0c8ff7626a76d51f008bf05b7f89a35b325bdd1d126d2364154acc63'},
 ]
 
@@ -31,7 +31,7 @@ dependencies = [
     ('netCDF', '4.9.3'), # CREATED
     ('expat', '2.7.1'),
     ('GEOS', '3.13.1'),
-    ('SQLite', '3.50.1'),
+    ('SQLite', '3.50.1'), # UPDATED - E1
     ('libarchive', '3.8.1'),
     ('libxml2', '2.14.3'),
     ('libpng', '1.6.50'),
@@ -44,7 +44,7 @@ dependencies = [
     ('libgeotiff', '1.7.4'),
     ('HDF5', '1.14.6'),
     ('HDF', '4.3.1'),
-    ('Armadillo', '14.6.0'),
+    ('Armadillo', '15.0.1'), # CREATED
     ('CFITSIO', '4.6.2'),
     ('zstd', '1.5.7'),
     ('giflib', '5.2.2'),
@@ -77,3 +77,13 @@ sanity_check_paths = {
 sanity_check_commands = ["python -c 'import osgeo.%(namelower)s'"]
 
 moduleclass = 'data'
+
+# E1: OK
+    # -> add -DSQLITE_ENABLE_RTREE=1 to SQLite
+    # <- CMake error:
+    #  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/SQLite/3.50.1-GCCcore-14.3.0/lib/libsqlite3.so
+    #   lacks the RTree extension! GPKG will not behave properly.  Define the
+    #   ACCEPT_MISSING_SQLITE3_RTREE:BOOL=ON CMake variable if you want to build
+    #   despite this limitation.
+    # Call Stack (most recent call first):
+    #   ogr/ogrsf_frmts/gpkg/CMakeLists.txt:19 (check_sqlite3_rtree)

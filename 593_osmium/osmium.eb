@@ -17,8 +17,8 @@ checksums = ['5438f57043c9df05137ca4bd1b1e4a5fb1c9c8c49cb4bec43a5f1ef30ed68fb5']
 
 # DEPS:
     # OK You need a C++14 compliant compiler.
-    # OK Libosmium (>= 2.16.0) aka libosmium2 -> 25a: NO, 25b: NO -> CREATE
-    # OK Protozero (>= 1.6.3) aka libprotozero -> 25a: NO, 25b: NO -> CREATE
+    # OK Libosmium (>= 2.16.0) aka libosmium2 -> 25a: NO, 25b: NO -> CREATED
+    # OK Protozero (>= 1.6.3) aka libprotozero -> 25a: NO, 25b: NO -> CREATED
     # OK boost-program-options (>= 1.55) aka Boost -> 25a: Yes, 25b: Yes
     # OK bz2lib -> 25a: Yes, 25b: Yes
     # OK zlib -> 25a: Yes, 25b: Yes
@@ -33,7 +33,7 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('libosmium', '2.15.4'),
+    ('libosmium', '2.22.0'),
     ('protozero', '1.8.1'),
     ('Boost', '1.88.0'),
     ('bzip2', '1.0.8'),
@@ -42,17 +42,13 @@ dependencies = [
     ('lz4', '1.10.0'),
 ]
 
-# TEST
-# Call ctest in the build directory to run the tests after build.
 runtest = True
 
-# preconfigopts = "rm -rf %(installdir)s && "
+sanity_check_paths = {
+    'files': ['bin/osmium'],
+    'dirs': ['bin', 'share'],
+}
 
-# installopts = "install-prebuilds"
-
-# sanity_check_paths = {
-#     'files': ['bin/mustrun', 'bin/wrap.py', 'include/mustConfig.h', 'lib/libpnmpif.so', f'lib/libpnmpi.{SHLIB_EXT}'],
-#     'dirs': ['include/pnmpi', 'lib64/pnmpi-modules', 'modules', 'share', 'specifications', 'src'],
-# }
+sanity_check_commands = ["osmium --help"]
 
 moduleclass = 'tools'
