@@ -9,9 +9,7 @@ It's designed as a low level building block specific to the OSM data model; comm
 lookups by ID, in-place minutely updates, and spatial queries are efficient and simple to
 manage in production applications."""
 
-toolchain = {'name': 'gfbf', 'version': '2024a'}
-
-# DEPS:
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
 builddependencies = [
     ('pkgconfig', '1.5.5', '-python'),
@@ -19,29 +17,20 @@ builddependencies = [
     ('CMake', '3.29.3'),
 ]
 dependencies = [
+    ('binutils', '2.42'),
     ('Python', '3.12.3'),
-    # ('Python-bundle-PyPI', '2025.04'),
-    # ('SciPy-bundle', '2025.06'),
-    # ('Fiona', '1.10.1'),
-    # ('GDAL', '3.11.1'),
-    # ('GEOS', '3.13.1'),
-    # ('matplotlib', '3.10.3'),
-    # ('pyproj', '3.7.1'),
-    # ('Shapely', '2.1.1'),
-    # ('lxml', '5.3.0'),
-    # ('Pillow', '11.3.0'),
-    # ('PROJ', '9.6.2'),
-    # ('PyYAML', '6.0.2'),
 ]
 
 exts_list = [
+    # pycapnp needs cython < 3
     ('Cython', '0.29.37', {
         'checksums': ['f813d4a6dd94adee5d4ff266191d1d95bf6d4164a4facc535422c021b2504cfb'],
     }),
     ('lmdb', '1.4.1', {
-        'checksums': ['d4a27b7af4fe38f3409d9fbfbf47b617b3d94dee98a00bc8c2a8336ccd3f9b15'],
+        'checksums': ['1f4c76af24e907593487c904ef5eba1993beb38ed385af82adb25a858f2d658d'],
     }),
     ('pycapnp', '2.0.0', {
+        'modulename': 'capnp',
         'source_urls': ['https://github.com/capnproto/pycapnp/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['a9e3acc58d8d67a08dbe6c86513b6bbff734a608a7fceb102883a88877643059'],
