@@ -1,0 +1,270 @@
+easyblock = 'PythonBundle'
+
+name = 'devbio-napari'
+version = '0.11.0'
+
+homepage = 'https://github.com/haesleinhuepf/devbio-napari'
+description = """A bundle of napari plugins useful for 3D+t image
+ processing and analysis for studying developmental biology."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [
+    ('scikit-build-core', '0.5.0'),
+    ('Ninja', '1.11.1'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('napari', '0.4.18'),
+    ('jupyter-server', '2.7.2'),
+    ('JupyterLab', '4.0.5'),
+    ('Seaborn', '0.13.2'),
+    ('scikit-learn', '1.3.1'),
+    ('SimpleITK', '2.3.1'),
+    ('PyQtGraph', '0.13.7'),
+    ('Deprecated', '1.2.14'),
+    ('imagecodecs', '2024.1.1'),
+    ('HDBSCAN', '0.8.38.post1'),
+    ('umap-learn', '0.5.5'),
+    ('PyOpenCL', '2023.1.4'),
+    ('Mako', '1.2.4'),
+    ('autopep8', '2.2.0'),
+    ('Qt5', '5.15.10'),
+]
+
+exts_list = [
+    ('napari_tools_menu', '0.1.20', {
+        'checksums': ['83684fae87faa612fd19f53f70aa70f1374c769fda2297347c2b9d3722e7b0d2'],
+    }),
+    ('napari_assistant', '0.6.0', {
+        'checksums': ['8b05bd132e018657ec191fc12c999e6be43ad736f00d590493eeafba4ea00fa0'],
+    }),
+    ('napari-time-slicer', '0.5.0', {
+        'checksums': ['950d3b35d9f1657178201da73de56d038e9bf4e257cf120882081f2707f1e074'],
+    }),
+    ('napari_workflows', '0.2.11', {
+        'checksums': ['fb656279ee7eb101fe78e5e937e8ccc55b1b8ff326268d021b0ba04b69057dab'],
+    }),
+    ('pyclesperanto_prototype', '0.24.5', {
+        'checksums': ['aa38b346e9beaa716fafeb205c7999302aed1b20c07b9749f52d290c278359bc'],
+    }),
+    ('stackview', '0.18.0', {
+        'checksums': ['d82824c0863d9656a9a583c50faa8db0c595ff4ef59247dc0981387313fb2dfa'],
+    }),
+    ('reikna', '0.9.0', {
+        'checksums': ['bb322818290820d8263beaf4bc0ce68a14b5e065afe7281a90ccf7b4a206df30'],
+    }),
+    ('pystackreg', '0.2.8', {
+        'checksums': ['fb615e9fb791298a196f7468cf0d2db1d5a008cde58d74c71afc2acb6a092dfc'],
+    }),
+    ('loguru', '0.7.3', {
+        'checksums': ['19480589e77d47b8d85b2c827ad95d49bf31b0dcde16593892eb51dd18706eb6'],
+    }),
+    ('pyperclip', '1.9.0', {
+        'checksums': ['b7de0142ddc81bfc5c7507eea19da920b92252b548b96186caf94a5e2527d310'],
+    }),
+    ('czifile', '2019.7.2.1', {
+        'checksums': ['6169aa681dd8af0d25e8e731e83393140cb960097d2a641dd145e8349bd2e965'],
+    }),
+    # ('imageio-ffmpeg', '0.4.9', {
+    #     'checksums': ['39bcd1660118ef360fa4047456501071364661aa9d9021d3d26c58f1ee2081f5'],
+    # }),
+    ('apoc', '0.12.0', {
+        'checksums': ['c6e5264f2ac0420e5f8e2b23ad16927126d75280bb12f0341480ef9853973263'],
+    }),
+    # ('ipycanvas', '0.13.1', {
+    #     'checksums': ['f9c3940681bc38383390f8c46ea5d8445d6e11c6da6484c37d89df5ae1dac131'],
+    # }),
+    # ('ipyevents', '2.0.2', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['60c2a9e992bdc41e8577aa27e57b124efafa48a59a3bff886029fe5700d546b3'],
+    # }),
+    # ('funcsigs', '1.0.2', {
+    #     'checksums': ['a7bb0f2cf3a3fd1ab2732cb49eba4252c2af4240442415b4abce3b87022a8f50'],
+    # }),
+    # ('transforms3d', '0.4.1', {
+    #     'checksums': ['31c755266a0b0a222488b8d039f6f325cf486c52728c03e307ce047b2fad1179'],
+    # }),
+    # ('comm', '0.2.0', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['2da8d9ebb8dd7bfc247adaff99f24dce705638a8042b85cb995066793e391001'],
+    # }),
+    # # overwrites installed version
+    # ('debugpy', '1.8.0', {
+    #     'source_tmpl': SOURCE_ZIP,
+    #     'checksums': ['12af2c55b419521e33d5fb21bd022df0b5eb267c3e178f1d374a63a2a6bdccd0'],
+    # }),
+    # # overwrites installed version
+    # ('ipykernel', '6.27.1', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['dab88b47f112f9f7df62236511023c9bdeef67abc73af7c652e4ce4441601686'],
+    # }),
+    # # overwrites installed version
+    # ('platformdirs', '2.6.2', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['83c8f6d04389165de7c9b6f0c682439697887bca0aa2f1c87ef1826be3584490'],
+    # }),
+    # # overwrites installed version
+    # ('jupyter_core', '5.5.0', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['e11e02cd8ae0a9de5c6c44abf5727df9f2581055afe00b22183f621ba3585805'],
+    # }),
+    # # overwrites installed version
+    # ('traitlets', '5.14.0', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['f14949d23829023013c47df20b4a76ccd1a85effb786dc060f34de7948361b33'],
+    # }),
+    # ('jupyter_console', '6.6.3', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['309d33409fcc92ffdad25f0bcdf9a4a9daa61b6f341177570fdac03de5352485'],
+    # }),
+    ('jupyter', '1.1.1', {
+        'checksums': ['d55467bceabdea49d7e3624af7e33d59c37fff53ed3a350e1ac957bed731de7a'],
+    }),
+    # ('mdit_py_plugins', '0.4.0', {
+    #     'checksums': ['d8ab27e9aed6c38aa716819fedfde15ca275715955f8a185a8e1cf90fb1d2c1b'],
+    # }),
+    ('jupytext', '1.17.3', {
+        # fixes ValueError: Unknown classifier in field `project.classifiers`: Programming Language :: Python :: 3.13
+        'preinstallopts': 'sed -i "/3.13/d" pyproject.toml PKG-INFO && ',
+        'checksums': ['8b6dae76d63c95cad47b493c38f0d9c74491fb621dcd0980abfcac4c8f168679'],
+    }),
+    ('napari-accelerated-pixel-and-object-classification', '0.14.1', {
+        'checksums': ['2f626a9c2d671bf32cade62df74666eef328e6dc3f6d7f3ab6091a992131fb5c'],
+    }),
+    # ('napari_animation', '0.0.9', {
+    #     'checksums': ['ab3b0f7f1a48d5010403889e83ca7ff6d58cdd1ec16d4603418cb55421898410'],
+    # }),
+    ('napari_animation', '0.0.7', {  # TODO latest is 0.0.9 but requires newer `napari`
+        'preinstallopts': 'sed -i "s/__version__/version/g" napari_animation/animation.py && ',
+        'checksums': ['301cce1d4629b18e618b7e1f1ea8885058171388ee0248f58ee78bdb25e8d72c'],
+    }),
+    ('napari-blob-detection', '0.0.2', {
+        'checksums': ['a036c6f05e852ca0d332358249ec6c442c1ebdb83781e0609d9b146990e6f938'],
+    }),
+    ('napari-brightness-contrast', '0.1.8', {
+        'checksums': ['88e0db47817a487b0db2b426ccfea88a57cbbf0185bf3ee0770fba81ed205dda'],
+    }),
+    ('biaplotter', '0.4.2', {
+        # fixes configuration error: `project.classifiers[11]` must be trove-classifier
+        'preinstallopts': 'sed -i "/3.13/d" pyproject.toml PKG-INFO && ',
+        'checksums': ['ac8984243bc09dde8b6d792064a34637e4c2f0559bd250ba313cf331c8b17efa'],
+    }),
+    ('napari_clusters_plotter', '0.10.0', {
+        # fixes configuration error: `project.classifiers[11]` must be trove-classifier
+        'preinstallopts': 'sed -i "/3.13/d" pyproject.toml PKG-INFO && ',
+        'checksums': ['a6ffab8a2daf74ec8a37ce9f4bab5195730285588efbf1ba4c307308ef642004'],
+    }),
+    ('napari-crop', '0.1.9', {
+        'checksums': ['54949ae74ab2fe118d33309d31b8c7eb7368de65428f1008038b82232d8856bd'],
+    }),
+    ('napari-curtain', '0.1.1', {
+        'checksums': ['611bbabc2194ea749066bcd3cf6363174259c709dc3177142415400ba015f98c'],
+    }),
+    ('napari-czifile2', '0.2.7', {
+        'checksums': ['67ca9b3d72aac804aba4ee3b34083f59d21134ee426de95a797733573ac2ffab'],
+    }),
+    ('napari_folder_browser', '0.1.4', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['8e0e4b4b4ed1e5ba3943ab55476017347f9481b3a9e48e5ff4696c58ef1284d2'],
+    }),
+    ('napari-layer-details-display', '0.1.5', {
+        'checksums': ['cbee36e6bfa34415a2a102b60e5fb803e8f6b72d4ebc527b0cffc5dda10b2ae0'],
+    }),
+    ('napari-mouse-controls', '0.1.3', {
+        'checksums': ['0dd9ee41146a3cb73ff8cf9378e242331d2ea9b0c4088188b4bce1650a45c7e6'],
+    }),
+    ('napari-plot-profile', '0.2.2', {
+        'checksums': ['1a1f087b23eaa71a16f0ffde66e965fd7f6b69e5d52b3664c7db295f30fed501'],
+    }),
+    ('napari-plugin-search', '0.1.4', {
+        'checksums': ['6dcc0793d072777c8d0cfebff89281252e57e13f8e13a8e0458a9ba7d86a06a0'],
+    }),
+    ('pyclesperanto', '0.18.3', {
+        'checksums': ['636b9b76c808cfe558ae78202366faa20dfa2da5d21fb406f7e8e9067956f4e7'],
+    }),
+    ('napari_pyclesperanto_assistant', '0.25.0', {
+        # import napari_pyclesperanto_assistant fails without GUI  # TODO still?
+        # but it has been tested with GUI with following command:
+        # `unset SESSION_MANAGER && python -c "import napari_pyclesperanto_assistant"`
+        # the `SESSION_MANAGER` needs to be unset to avoid the following  message:
+        # `WARNING: Qt: Session management error: Authentication Rejected, reason : None of the
+        # authentication protocols specified are supported and host-based authentication failed`
+        'modulename': False,
+        'checksums': ['24ec1ac69abda8c6a6c0372b2ab900901256981e3a4294ec76f0f5279869c1b9'],
+    }),
+    ('napari_pystackreg', '0.1.4', {
+        'checksums': ['ea3fb0b3ecc7b90b64f44c1ced4a85a6cf8231b07e5985ad59a6c1c152cd4cb3'],
+    }),
+    ('napari-roi', '0.1.8', {
+        'checksums': ['0123238ee652931ed0bc90421ddf76d1d58c0d4c89790a8512c5649e88620729'],
+    }),
+    ('napari_segment_blobs_and_things_with_membranes', '0.3.12', {
+        'checksums': ['4514c6162bd85b98c8850ab83e75295bcda789b27fe322d0a07744e568984259'],
+    }),
+    ('napari_simpleitk_image_processing', '0.4.9', {
+        'checksums': ['1ecc4689ee3863da736babd90f1b202ee4cb8e17d788bcacb241fe3d1a227674'],
+    }),
+    ('napari-skimage-regionprops', '0.10.1', {
+        'checksums': ['a25f8a84ad78f5d09074a32d84996fb6ff900bf82369dfb50501872d23dc22bc'],
+    }),
+    ('napari-tabu', '0.1.5', {
+        'checksums': ['106be1897bb0670af06cb6dba90dc9a9faa3c5e7ba5017a8b216315749649ac7'],
+    }),
+    ('napari-workflow-inspector', '0.2.2', {
+        'checksums': ['c7f1709ab537fc3b7c51bf353da305b4fe0adb025ec066df2cbaa4764810ec4f'],
+    }),
+    ('napari-workflow-optimizer', '0.1.4', {
+        'checksums': ['e756ab013740cdc89fbb2626291386579ec8ce30ec30153a1b79517d7790f9c2'],
+    }),
+    ('PlatyMatch', '0.0.3', {
+        'checksums': ['8fc7c437c1565c51744320ef09a91de72366beebdaa44780eaac2598eb3d810b'],
+    }),
+    ('RedLionfish', '0.10', {
+        'modulename': 'RedLionfishDeconv',
+        'checksums': ['c45da5abf9243ea6dc37b2095b7a233f95d3241d7dbcdab1b896e364641c15da'],
+    }),
+    ('the-segmentation-game', '0.2.0', {
+        'checksums': ['4bbf4deadecb84efc893c6cea2d51e90374181589f2034050aa3cf8fa65872f3'],
+    }),
+    ('napari-stl-exporter', '0.1.5', {
+        'checksums': ['207b80d42aeadd14c26b12c0f4b47c965f540ac301a59c15cf00df28a1125d96'],
+    }),
+    (name, version, {
+        'checksums': ['e25d826ad222c78b6e48cda98f4544c9cdaa563e48910c97b16282ee07b1a164'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["python -c 'from devbio_napari._viewer import devbio_napari_viewer'"]
+
+moduleclass = 'vis'
+
+# TODO
+# python -c "import pyclesperanto_prototype": FAIL
+# python -c "import reikna": FAIL
+# python -c "import apoc": FAIL
+# python -c "import napari_accelerated_pixel_and_object_classification": FAIL
+# python -c "import biaplotter": FAIL
+# python -c "import napari_clusters_plotter": FAIL
+# python -c "import napari_stl_exporter"': FAIL
+
+# jupytext 1.17.3 requires mdit-py-plugins, which is not installed.
+# biaplotter 0.4.2 requires nap-plot-tools, which is not installed.
+# biaplotter 0.4.2 requires napari-matplotlib, which is not installed.
+# jupyter 1.1.1 requires jupyter-console, which is not installed.
+# napari-stl-exporter 0.1.5 requires vedo, which is not installed.
+# stackview 0.18.0 requires ipycanvas, which is not installed.
+# stackview 0.18.0 requires ipyevents, which is not installed.
+# stackview 0.18.0 requires ipympl, which is not installed.
+# stackview 0.18.0 requires wordcloud, which is not installed.
+# reikna 0.9.0 requires funcsigs, which is not installed.
+# napari-animation 0.0.7 requires imageio-ffmpeg, which is not installed.
+# pyclesperanto-prototype 0.24.5 requires transforms3d, which is not installed.
+# reikna 0.9.0 has requirement numpy>=2.0.0, but you have numpy 1.25.1.
+# napari-pyclesperanto-assistant 0.25.0 has requirement pyclesperanto==0.14.2, but you have pyclesperanto 0.18.3.
