@@ -19,16 +19,16 @@ checksums = [
 ]
 
 builddependencies = [
-    ('binutils', '2.40', '', SYSTEM),
+    ('binutils', '2.40'),
     ('Autotools', '20220317'),
 ]
 
 dependencies = [
-    ('cURL', '8.0.1'),
+    ('cURL', '8.0.1', '-RL9'),
     ('expat', '2.5.0'),
     ('gettext', '0.21.1'),
     ('Perl', '5.36.1'),
-    ('OpenSSL', '1.1', '', SYSTEM),
+    ('OpenSSL', '3', '', SYSTEM),
 ]
 
 preconfigopts = 'make configure && '
