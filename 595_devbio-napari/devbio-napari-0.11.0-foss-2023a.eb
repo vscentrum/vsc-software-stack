@@ -78,11 +78,13 @@ exts_list = [
         'checksums': ['c6e5264f2ac0420e5f8e2b23ad16927126d75280bb12f0341480ef9853973263'],
     }),
     ('ipycanvas', '0.14.1', {
-        'source_tmpl': SOURCE_WHL,  # TODO
+        # fixes ValueError: Aborting. Could not find cmd (yarn) in path.
+        'source_tmpl': SOURCE_WHL,
         'checksums': ['55962bd71bb8b51a58ea3986139e8d517e4d7afc0722f86829f549a9e5c979b6'],
     }),
     ('ipyevents', '2.0.2', {
-        'source_tmpl': SOURCE_PY3_WHL,  # TODO
+        # fixes ValueError: Extensions require a devDependency on @jupyterlab/builder@^4.0.5
+        'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['60c2a9e992bdc41e8577aa27e57b124efafa48a59a3bff886029fe5700d546b3'],
     }),
     ('funcsigs', '1.0.2', {
@@ -92,8 +94,7 @@ exts_list = [
         'checksums': ['e8b5df30eaedbee556e81c6938e55aab5365894e47d0a17615d7db7fd2393680'],
     }),
     ('jupyter_console', '6.6.3', {
-        'source_tmpl': SOURCE_PY3_WHL,  # TODO
-        'checksums': ['309d33409fcc92ffdad25f0bcdf9a4a9daa61b6f341177570fdac03de5352485'],
+        'checksums': ['566a4bf31c87adbfadf22cdf846e3069b59a71ed5da71d6ba4d8aaad14a53539'],
     }),
     ('jupyter', '1.1.1', {
         'checksums': ['d55467bceabdea49d7e3624af7e33d59c37fff53ed3a350e1ac957bed731de7a'],
@@ -110,7 +111,6 @@ exts_list = [
         'checksums': ['2f626a9c2d671bf32cade62df74666eef328e6dc3f6d7f3ab6091a992131fb5c'],
     }),
     ('napari_animation', '0.0.7', {  # latest is 0.0.9 but requires napari>=0.5
-        'preinstallopts': 'sed -i "s/__version__/version/g" napari_animation/animation.py && ',  # TODO comment
         'checksums': ['301cce1d4629b18e618b7e1f1ea8885058171388ee0248f58ee78bdb25e8d72c'],
     }),
     ('napari-blob-detection', '0.0.2', {
