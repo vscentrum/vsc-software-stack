@@ -78,11 +78,11 @@ exts_list = [
         'checksums': ['c6e5264f2ac0420e5f8e2b23ad16927126d75280bb12f0341480ef9853973263'],
     }),
     ('ipycanvas', '0.14.1', {
-        'source_tmpl': SOURCE_WHL,
+        'source_tmpl': SOURCE_WHL,  # TODO
         'checksums': ['55962bd71bb8b51a58ea3986139e8d517e4d7afc0722f86829f549a9e5c979b6'],
     }),
     ('ipyevents', '2.0.2', {
-        'source_tmpl': SOURCE_PY3_WHL,
+        'source_tmpl': SOURCE_PY3_WHL,  # TODO
         'checksums': ['60c2a9e992bdc41e8577aa27e57b124efafa48a59a3bff886029fe5700d546b3'],
     }),
     ('funcsigs', '1.0.2', {
@@ -91,37 +91,8 @@ exts_list = [
     ('transforms3d', '0.4.2', {
         'checksums': ['e8b5df30eaedbee556e81c6938e55aab5365894e47d0a17615d7db7fd2393680'],
     }),
-    # ('comm', '0.2.0', {
-    #     'source_tmpl': SOURCE_PY3_WHL,
-    #     'checksums': ['2da8d9ebb8dd7bfc247adaff99f24dce705638a8042b85cb995066793e391001'],
-    # }),
-    # # overwrites installed version
-    # ('debugpy', '1.8.0', {
-    #     'source_tmpl': SOURCE_ZIP,
-    #     'checksums': ['12af2c55b419521e33d5fb21bd022df0b5eb267c3e178f1d374a63a2a6bdccd0'],
-    # }),
-    # # overwrites installed version
-    # ('ipykernel', '6.27.1', {
-    #     'source_tmpl': SOURCE_PY3_WHL,
-    #     'checksums': ['dab88b47f112f9f7df62236511023c9bdeef67abc73af7c652e4ce4441601686'],
-    # }),
-    # # overwrites installed version
-    # ('platformdirs', '2.6.2', {
-    #     'source_tmpl': SOURCE_PY3_WHL,
-    #     'checksums': ['83c8f6d04389165de7c9b6f0c682439697887bca0aa2f1c87ef1826be3584490'],
-    # }),
-    # # overwrites installed version
-    # ('jupyter_core', '5.5.0', {
-    #     'source_tmpl': SOURCE_PY3_WHL,
-    #     'checksums': ['e11e02cd8ae0a9de5c6c44abf5727df9f2581055afe00b22183f621ba3585805'],
-    # }),
-    # # overwrites installed version
-    # ('traitlets', '5.14.0', {
-    #     'source_tmpl': SOURCE_PY3_WHL,
-    #     'checksums': ['f14949d23829023013c47df20b4a76ccd1a85effb786dc060f34de7948361b33'],
-    # }),
     ('jupyter_console', '6.6.3', {
-        'source_tmpl': SOURCE_PY3_WHL,
+        'source_tmpl': SOURCE_PY3_WHL,  # TODO
         'checksums': ['309d33409fcc92ffdad25f0bcdf9a4a9daa61b6f341177570fdac03de5352485'],
     }),
     ('jupyter', '1.1.1', {
@@ -138,10 +109,7 @@ exts_list = [
     ('napari-accelerated-pixel-and-object-classification', '0.14.1', {
         'checksums': ['2f626a9c2d671bf32cade62df74666eef328e6dc3f6d7f3ab6091a992131fb5c'],
     }),
-    # ('napari_animation', '0.0.9', {
-    #     'checksums': ['ab3b0f7f1a48d5010403889e83ca7ff6d58cdd1ec16d4603418cb55421898410'],
-    # }),
-    ('napari_animation', '0.0.7', {  # latest is 0.0.9 but requires newer `napari`
+    ('napari_animation', '0.0.7', {  # latest is 0.0.9 but requires napari>=0.5
         'preinstallopts': 'sed -i "s/__version__/version/g" napari_animation/animation.py && ',  # TODO comment
         'checksums': ['301cce1d4629b18e618b7e1f1ea8885058171388ee0248f58ee78bdb25e8d72c'],
     }),
@@ -152,9 +120,9 @@ exts_list = [
         'checksums': ['88e0db47817a487b0db2b426ccfea88a57cbbf0185bf3ee0770fba81ed205dda'],
     }),
     ('cmap', '0.6.2', {
-        # fixes ValueError: Unknown classifier in field `project.classifiers`: Programming Language :: Python :: 3.13
-        'preinstallopts': 'sed -i "/3.13/d" pyproject.toml PKG-INFO && ',
-        'checksums': ['a511cb0ab349d2ecb7c03f0bb050f5feff5e6fc18d1a503d930b01e3fd80459e'],
+        # fixes TypeError: Field `project.license-files` must be a table
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['785f4522d4aec935df93f453fa672da2850817212d1d066269f753a61595689d'],
     }),
     ('nap_plot_tools', '0.1.2', {
         'checksums': ['0429875d25c829ed37ef644fce965591fad8f2e617f8623c6ed78c9c2b3aa53a'],
@@ -197,8 +165,8 @@ exts_list = [
     ('napari-plugin-search', '0.1.4', {
         'checksums': ['6dcc0793d072777c8d0cfebff89281252e57e13f8e13a8e0458a9ba7d86a06a0'],
     }),
-    ('pyclesperanto', '0.18.3', {
-        'checksums': ['636b9b76c808cfe558ae78202366faa20dfa2da5d21fb406f7e8e9067956f4e7'],
+    ('pyclesperanto', '0.14.2', {  # latest is 0.18.3 but napari-pyclesperanto-assistant needs pyclesperanto==0.14.2
+        'checksums': ['879f48f1bb60297d4af654c510b791616cb6722fd0e5269014a0907d2e661edb'],
     }),
     ('napari_pyclesperanto_assistant', '0.25.0', {
         # import napari_pyclesperanto_assistant fails without GUI  # TODO still?
@@ -263,50 +231,3 @@ sanity_check_paths = {
 sanity_check_commands = ["python -c 'from devbio_napari._viewer import devbio_napari_viewer'"]
 
 moduleclass = 'vis'
-
-# TODO
-# python -c "import pyclesperanto_prototype": FAIL
-# python -c "import apoc": FAIL
-# python -c "import napari_accelerated_pixel_and_object_classification": FAIL
-# python -c "import napari_clusters_plotter": FAIL
-# python -c "import napari_stl_exporter"': FAIL
-
-# Processing /tmp/vsc45304/easybuild/build/devbionapari/0.11.0/foss-2023a/cmap/cmap-0.6.2
-#   Preparing metadata (pyproject.toml): started
-#   Preparing metadata (pyproject.toml): finished with status 'error'
-#   error: subprocess-exited-with-error
-#
-#   × Preparing metadata (pyproject.toml) did not run successfully.
-#   │ exit code: 1
-#   ╰─> [21 lines of output]
-#       Traceback (most recent call last):
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 353, in <module>
-#           main()
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 335, in main
-#           json_out['return_val'] = hook(**hook_input['kwargs'])
-#                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 152, in prepare_metadata_for_build_wheel
-#           whl_basename = backend.build_wheel(metadata_directory, config_settings)
-#                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/hatchling/1.18.0-GCCcore-12.3.0/lib/python3.11/site-packages/hatchling/build.py", line 56, in build_wheel
-#           return os.path.basename(next(builder.build(wheel_directory, ['standard'])))
-#                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/hatchling/1.18.0-GCCcore-12.3.0/lib/python3.11/site-packages/hatchling/builders/plugin/interface.py", line 93, in build
-#           self.metadata.validate_fields()
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/hatchling/1.18.0-GCCcore-12.3.0/lib/python3.11/site-packages/hatchling/metadata/core.py", line 244, in validate_fields
-#           self.core.validate_fields()
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/hatchling/1.18.0-GCCcore-12.3.0/lib/python3.11/site-packages/hatchling/metadata/core.py", line 1325, in validate_fields
-#           getattr(self, attribute)
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/hatchling/1.18.0-GCCcore-12.3.0/lib/python3.11/site-packages/hatchling/metadata/core.py", line 725, in license_files
-#           raise TypeError(message)
-#       TypeError: Field `project.license-files` must be a table
-#       [end of output]
-#
-#   note: This error originates from a subprocess, and is likely not a problem with pip.
-# error: metadata-generation-failed
-#
-# × Encountered error while generating package metadata.
-# ╰─> See above for output.
-#
-# note: This is an issue with the package mentioned above, not pip.
-# hint: See above for details.
