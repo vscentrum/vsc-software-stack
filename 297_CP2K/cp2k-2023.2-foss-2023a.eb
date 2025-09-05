@@ -2,7 +2,7 @@
 # Author:    Robert Mijakovic <robert.mijakovic@lxp.lu>
 ##
 name = 'CP2K'
-version = '2023.1'
+version = '2023.2'
 
 homepage = 'https://www.cp2k.org/'
 description = """CP2K is a freely available (GPL) program, written in Fortran 95, to perform atomistic and molecular
@@ -15,7 +15,7 @@ toolchainopts = {'pic': True, 'openmp': True}
 
 source_urls = ['https://github.com/cp2k/cp2k/releases/download/v%(version)s/']
 sources = [SOURCELOWER_TAR_BZ2]
-checksums = ['dff343b4a80c3a79363b805429bdb3320d3e1db48e0ff7d20a3dfd1c946a51ce']
+checksums = ['adbcc903c1a78cba98f49fe6905a62b49f12e3dfd7cedea00616d1a5f50550db']
 
 builddependencies = [
     ('flex', '2.6.4'),
@@ -42,7 +42,5 @@ type = 'psmp'
 # we're assuming those are OK to ignore...
 ignore_regtest_fails = True
 tests_maxtasks = 4
-# do not set more then 1 for this version and toolchain, there is problem with OpenMP
-omp_num_threads = 1
 
 moduleclass = 'chem'
