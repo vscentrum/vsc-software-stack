@@ -1,0 +1,53 @@
+easyblock = 'CMakeMake'
+
+name = 'OpenSim'
+version = '4.3'
+
+homepage = 'https://github.com/opensim-org/opensim-core'
+description = """OpenSim is software that lets users develop models of musculoskeletal structures and create dynamic simulations of movement"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/opensim-org/opensim-core/archive/']
+sources = ['%(version)s.tar.gz']
+checksums = ['e4e7f6d9af5f8691374b0e5529efec6ed7bbc604b5ef10423320277e426d291f']
+
+builddependencies = [
+    ('CMake', '3.29.3'),
+    ('SWIG', '4.1.1'),
+]
+
+dependencies = [
+    ('spdlog', '1.4.1'),
+    ('EZC3D', '1.4.3'),
+    ('MATLAB', '2024b-r5', '', SYSTEM),
+    ('Simbody', '20210317'),
+    ('CasADi-MATLAB', '20200618'),
+    ('ColPack', '20180108'),
+    ('Eigen', '3.4.0'),
+    ('ADOL-C', '2.7.2'),
+    ('Java', '1.8', '', SYSTEM),
+    ('docopt.cpp', '0.6.3')
+]
+
+# An old CMake module for MATLAB is included in the source which does not
+# handle recent MATLAB versions correctly. Remove it and realy on the CMake
+# module for MATLAB in the CMake installation instead.
+preconfigopts = 'rm ../opensim-core-4.3/cmake/FindMatlab.cmake && '
+
+configopts = ' -G"Unix Makefiles" -DOPENSIM_WITH_CASADI=on -DBUILD_JAVA_WRAPPING=on '
+configopts += '-DBUILD_PYTHON_WRAPPING=off -DOPENSIM_C3D_PARSER=ezc3d '
+configopts += '-DBUILD_TESTING=off -DOPENSIM_INSTALL_UNIX_FHS=off '
+configopts += '-DSWIG_DIR=${EBROOTSWIG} -DSIMBODY_HOME=${EBROOTSIMBODY} '
+configopts += '-DOPENSIM_WITH_TROPTER=off '
+
+sanity_check_paths = {
+    'files': ['bin/opensim-cmd'],
+    'dirs': ['sdk'],
+}
+
+modextrapaths = {
+    'CPATH': ['sdk/include', 'sdk/Simbody/include/simbody'],
+}
+
+moduleclass = 'tools'

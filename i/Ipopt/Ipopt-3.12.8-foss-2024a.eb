@@ -1,0 +1,30 @@
+easyblock = 'ConfigureMake'
+
+name = 'Ipopt'
+version = '3.12.8'
+
+homepage = 'https://projects.coin-or.org/Ipopt'
+description = """IPOPT (Interior Point Optimizer, pronounced Eye-Pea-Opt)
+is an open source software package for large-scale nonlinear optimization. 
+This installation also includes the coinhsl package."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/coin-or/Ipopt/archive/refs/tags/releases']
+sources = ['%(version)s.tar.gz']
+checksums = ['fa120112cd3722927f4c9ab3fb7eff9a25638ea28d467874854779a81c7cdde8']
+
+dependencies = [
+    ('COINMUMPS', '3.0.10', '-metis'),
+]
+
+configopts = '--with-mumps --with-mumps-cflags="-I$EBROOTCOINMUMPS/include" --with-mumps-lflags="-ldmumps -lmetis"'
+configopts += ' --with-lapack="$LIBLAPACK"'
+configopts += ' --with-blas-lib="-L${EBROOTOPENBLAS}/lib" --with-blas-inc="-I${EBROOTOPENBLAS}/inc"'
+
+sanity_check_paths = {
+    'files': ['lib/libipopt.%s' % SHLIB_EXT],
+    'dirs': ['lib/pkgconfig'],
+}
+
+moduleclass = 'math'

@@ -1,0 +1,31 @@
+easyblock = 'CMakeMake'
+
+name = 'SimbodyAD'
+version = '20220901'
+local_commit = '13fa3e10e7b9b5baa5f82448b9a4cc51766ab748'
+
+homepage = 'https://github.com/antoinefalisse/simbody/'
+description = """This is a simbody version that supports automatic differentiation"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/antoinefalisse/simbody/archive/']
+sources = [{'download_filename': '%s.zip' % local_commit, 'filename': 'simbody-AD-%(version)s.zip'}]
+checksums = ['ac3fba6ace51b9bb14841cd7aa4a7f1d828369f32d1fe4d637dcb8df8dffb8e0']
+
+builddependencies = [
+    ('binutils', '2.42'),
+    ('CMake', '3.29.3'),
+]
+
+dependencies = [
+]
+
+configopts = '-DBUILD_TESTING=off -DBUILD_EXAMPLES=off -DBUILD_RECORDER_LIBRARIES:BOOL=ON -DBUILD_VISUALIZER:BOOL=OFF'
+
+sanity_check_paths = {
+    'files': ['lib/libSimTKsimbody.%s' % SHLIB_EXT],
+    'dirs': ['include', 'share'],
+}
+
+moduleclass = 'tools'

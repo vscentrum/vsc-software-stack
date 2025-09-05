@@ -1,0 +1,40 @@
+easyblock = 'CMakeMake'
+
+name = 'OpenSimAD'
+version = '20230213'
+local_commit = '806a90504a893bee9cf57a6c5b2d8abe334db08b'
+
+homepage = 'https://github.com/antoinefalisse/opensim-core/'
+description = """OpenSim-based framework to solve trajectory optimization problems using direct collocation and algorithmic differentiation"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/antoinefalisse/opensim-core/archive/']
+sources = [{'download_filename': '%s.zip' % local_commit, 'filename': 'opensim-core-AD-%(version)s.zip'}]
+checksums = ['eab803b83bba524ebcc7085c8c0123405ead7d1d0d5d7d12bb2ce55628bad914']
+
+builddependencies = [
+    ('binutils', '2.42'),
+    ('CMake', '3.29.3'),
+]
+
+dependencies = [
+    ('SimbodyAD', '20220901'),
+    ('BTKcore', '20180508'),
+    ('docopt.cpp', '0.6.3')
+]
+
+
+configopts = '-G"Unix Makefiles" -DSIMBODY_HOME=${EBROOTSIMBODYMINUSAD} '
+configopts += '-DWITH_BTK:BOOL=ON -DBTK_INSTALL_PREFIX=${EBROOTBTKCORE} '
+configopts += '-DBUILD_TESTING=off -DBUILD_API_EXAMPLES=off '
+configopts += '-DBUILD_EXTERNAL_FUNCTIONS=off -DWITH_RECORDER=on '
+configopts += '-DBUILD_JAVA_WRAPPING=off -DBUILD_PYTHON_WRAPPING=off '
+configopts += '-DBUILD_EXTERNAL_FUNCTIONS=off'
+
+sanity_check_paths = {
+    'files': ['lib/libSimTKsimbody.%s' % SHLIB_EXT],
+    'dirs': ['include', 'share'],
+}
+
+moduleclass = 'tools'

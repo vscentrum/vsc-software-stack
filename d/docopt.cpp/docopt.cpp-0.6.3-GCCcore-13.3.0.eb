@@ -1,0 +1,25 @@
+easyblock = 'CMakeMake'
+
+name = 'docopt.cpp'
+version = '0.6.3'
+
+homepage = 'https://github.com/docopt/docopt.cpp'
+description = """docopt.cpp is a C++ port of docopt, which creates beautiful command-line interfaces"""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+source_urls = ['https://github.com/docopt/docopt.cpp/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['28af5a0c482c6d508d22b14d588a3b0bd9ff97135f99c2814a5aa3cbff1d6632']
+
+builddependencies = [
+    ('CMake', '3.29.3'),
+]
+
+dependencies = [
+]
+
+sanity_check_paths = {
+    'files': ['lib/libdocopt.%s' % SHLIB_EXT],
+    'dirs': ['include'],
+}

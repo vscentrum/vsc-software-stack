@@ -1,0 +1,39 @@
+easyblock = 'CMakeMake'
+
+name = 'BTKcore'
+version = '20180508'
+local_commit = '6d787d0be223851a8f454f2ee8c7d9e47b84cbbe'
+
+homepage = 'https://github.com/opensim-org/BTKCore'
+description = """Core of the project Biomechanical-ToolKit (BTK) which represent biomechanical data, file formats and data processing"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/opensim-org/BTKCore/archive/']
+sources = [{'download_filename': '%s.zip' % local_commit, 'filename': '%(name)s-%(version)s.zip'}]
+patches = ['BTKcore_use-cxx-11-standard.patch']
+checksums = [
+    {'BTKcore-20180508.zip': 'bb31f74b496b51ef1f55394d41265bd2d8e961e2c81dca731e5a5b9e0b85c35c'},
+    {'BTKcore_use-cxx-11-standard.patch': 'fa2541c6f2b7685663c15e141777d5b79b5692ee60c5bd0c43c8cb4f8c64b444'},
+]
+
+builddependencies = [
+    ('CMake', '3.29.3'),
+]
+
+dependencies = [
+]
+
+configopts = ' -G"Unix Makefiles" -DBUILD_SHARED_LIBS:BOOL=ON'
+
+sanity_check_paths = {
+    'files': ['lib/btk-0.4dev/libBTKCommon.%s' % SHLIB_EXT],
+    'dirs': ['include', 'lib'],
+}
+
+modextrapaths = {
+    'CPATH': 'include/btk-0.4dev',
+    'LD_LIBRARY_PATH': 'lib/btk-0.4dev',
+}
+
+moduleclass = 'tools'
