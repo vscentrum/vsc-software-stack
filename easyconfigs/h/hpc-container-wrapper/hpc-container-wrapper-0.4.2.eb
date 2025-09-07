@@ -2,7 +2,6 @@ easyblock = 'Binary'
 
 name = 'hpc-container-wrapper'
 version = '0.4.2'
-_config = 'config-%(version)s.yml'
 
 homepage = 'https://github.com/CSCfi/hpc-container-wrapper'
 
@@ -15,10 +14,10 @@ toolchain = SYSTEM
 
 source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
-patches = [(_config, 'configs')]
+patches = [('config-%(version)s.yaml', 'configs')]
 checksums = [
     {'v0.4.2.tar.gz': '72a51c2a678cc88c62e415418dab122fa155140014896dc7622cb5c3450d9a44'},
-    {'config-0.4.2.yml': '9144f4aeeb13705c6289e9f2ba2e34c01b34e637473e474be1a1eac7549e42b6'},
+    {'config-0.4.2.yaml': '9144f4aeeb13705c6289e9f2ba2e34c01b34e637473e474be1a1eac7549e42b6'},
 ]
 
 github_account = 'CSCfi'
@@ -51,9 +50,10 @@ extract_sources = 'True'
 
 buildininstalldir = 'True'
 
-install_cmd = 'bash install.sh local'
+# install pip in the custom python USER_BASE in case pip is installed in the default USER_BASE
+preinstallopts = r'sed -i "s/\(\$PIP install --user\)/python3 -m ensurepip --upgrade\n\1/g" install.sh && '
 
-postinstallcmds = [f'ln -sf %(installdir)s/configs/{_config} %(installdir)s/default_config/config.yaml']
+install_cmd = 'bash install.sh config-%(version)s'
 
 sanity_check_paths = {
     'files': ['bin/conda-containerize', 'bin/pip-containerize'],
