@@ -10,20 +10,29 @@ for wrapping a software environment in an Apptainer container."""
 
 docurls = ['https://docs.csc.fi/computing/containers/tykky/']
 
-toolchain = SYSTEM
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+github_account = 'CSCfi'
 
 source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
-patches = [('config-%(version)s.yaml', 'configs')]
+patches = [
+    ('config-%(version)s.yaml', 'configs'),
+    '%(name)s-%(version)s_no_pip_install.patch',
+]
 checksums = [
     {'v0.4.2.tar.gz': '72a51c2a678cc88c62e415418dab122fa155140014896dc7622cb5c3450d9a44'},
     {'config-0.4.2.yaml': '9144f4aeeb13705c6289e9f2ba2e34c01b34e637473e474be1a1eac7549e42b6'},
+    {'hpc-container-wrapper-0.4.2_no_pip_install.patch':
+     '38d56371fccc6220b22df4fa2200fed64670e87c273bc008a88945119df0ffe1'},
 ]
 
-github_account = 'CSCfi'
 unpack_options = '--strip-components=1 '
 
-osdependencies = ['python3', 'python3-pip']
+dependencies = [
+    ('Python', '3.12.3'),
+    ('PyYAML', '6.0.2'),
+]
 
 build_info_msg = """This easyconfig uses the 'local.yaml' file as default configuration.
 
@@ -49,9 +58,6 @@ To start your environment simply run the program from bin/ subdirectory of the i
 extract_sources = 'True'
 
 buildininstalldir = 'True'
-
-# install pip in the custom python USER_BASE in case pip is installed in the default USER_BASE
-preinstallopts = r'sed -i "s/\(\$PIP install --user\)/python3 -m ensurepip --upgrade\n\1/g" install.sh && '
 
 install_cmd = 'bash install.sh config-%(version)s'
 
