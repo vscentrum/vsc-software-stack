@@ -1,4 +1,4 @@
-easyblock = 'Bundle'
+easyblock = 'PythonPackage'
 
 name = 'ModPipe'
 version = '2.3.1'
@@ -13,22 +13,25 @@ a configuration file and produces one or more comparative models for that sequen
 
 toolchain = {'name': 'foss', 'version': '2025b'}
 # https://salilab.org/modpipe/modpipe-2.3.1.tar.gz
-# source_urls = ['https://salilab.org/modpipe/']
-# # sources = [SOURCELOWER_TAR_GZ]
-# sources = [
-#     {
-#         'download_filename': SOURCELOWER_TAR_GZ,
-#         'filename': '%(namelower)s-%(version)s.tar.gz',
-#     },
-#     {
-#         'source_urls': ['https://github.com/KarypisLab/METIS/archive'],
-#         'download_filename': 'v5.2.1.tar.gz',
-#         'filename': 'metis-5.2.1.tar.gz',
-#         'extract_cmd': "tar -C %(namelower)s-%(version)s/third_party/METIS --strip-components=1 -xf %s",
-#     },
-# ]
-# checksums = ['a006f436305d5f582f9ce461c73f8f02e1eb6fd416705276373697715209a4a6']
+source_urls = ['https://salilab.org/modpipe/']
+sources = [
+    # {
+    #     'download_filename': SOURCELOWER_TAR_GZ,
+    #     'filename': '%(namelower)s-%(version)s.tar.gz',
+    # },
+    SOURCELOWER_TAR_GZ,
+    {
+        'source_urls': ['https://salilab.org/modeller/10.7/'],
+        'filename': 'modeller-10.7.tar.gz',
+        # 'extract_cmd': "tar -C %(namelower)s-%(version)s/third_party/METIS --strip-components=1 -xf %s",
+    },
+]
+checksums = [
+    {'modpipe-2.3.1.tar.gz': 'a006f436305d5f582f9ce461c73f8f02e1eb6fd416705276373697715209a4a6'},
+    {'modeller-10.7.tar.gz': 'b81ffee26841ef96470341889fa4af560f968cf35ef990d95480c7eb7a5b5c8f'},
+]
 
+# sources = [SOURCELOWER_TAR_GZ]
 # DEPS:
     # MODELLER - this needs to be installed to $MODPIPE/ext/mod/ sources + 
         # Move the guess-arch.sh script from the ext directory to $MODPIPE/ext/mod/bin/ +
@@ -50,15 +53,20 @@ toolchain = {'name': 'foss', 'version': '2025b'}
         # --with-cd-hit=...
 
 
-# now I have in /tmp/vsc47063/easybuild/build/ModPipe/2.3.1/foss-2025b = start_dir = builddir
+# now I have /tmp/vsc47063/easybuild/build/ModPipe/2.3.1/foss-2025b-Linux_x86_64 = builddir
+    # /tmp/vsc47063/easybuild/build/ModPipe/2.3.1/foss-2025b-Linux_x86_64/modpipe-2.3.1 = start_dir
     # modeller-10.7/
         # bin  ChangeLog  doc  examples  Install  INSTALLATION  lib  modlib  README  src
     # modpipe-2.3.1/
         # bin  ChangeLog  COPYING  demo  doc  ext  int  lib  main  python  README  setup.py  src  tests  TODO
 
 # INSTALL:
+    # EXECUTABLE_TYPE = x86_64-intel8
     # 1: create mod dir in builddir/modpipe-2.3.1/ext -> builddir/modpipe-2.3.1/ext/mod
         # then run bash commands which replace Installer
+            # README INSTALLATION doc examples modlib src -> /mod
+            # bin/*.top bin/lib bin/mod10.7_${EXECUTABLE_TYPE} -> /mod/bin
+            # lib/${EXECUTABLE_TYPE} -> /mod/lib/
     # ?2: move guess-arch.sh to builddir/modpipe-2.3.1/ext/mod/bin
     # 3. Rename $MODPIPE/ext/mod/bin/modpy.sh to modpy.sh.in
     # 4. Edit first 2 lines of modpy.sh.in:
@@ -74,28 +82,13 @@ dependencies = [
     ('HH-suite', '3.3.0-2025-08-12'),
 ]
 
-local_modeller_cmds = "mkdir %(builddir)s/modpipe-2.3.1/ext/mod && "
-local_modeller_cmds += "ls -al"
+local_modeller_cmds = "mkdir -p %(builddir)s/modpipe-2.3.1/ext/mod/bin && mkdir -p %(builddir)s/modpipe-2.3.1/ext/mod/lib &&"
+local_modeller_cmds += "cd %(builddir)s/modeller-10.7 && cp -a README INSTALLATION doc examples modlib src %(builddir)s/modpipe-2.3.1/ext/mod &&"
+local_modeller_cmds += "cd %(builddir)s/modeller-10.7/bin && cp -a *.top lib mod10.7_x86_64-intel8 %(builddir)s/modpipe-2.3.1/ext/mod/bin &&"
+local_modeller_cmds += "cd %(builddir)s/modeller-10.7/lib && cp x86_64-intel8 %(builddir)s/modpipe-2.3.1/ext/mod/lib &&"
+local_modeller_cmds += "ls -al && pwd && "
 
-default_easyblock = 'CmdCp'
-components = [
-    ('Modeller', '10.7', {
-        'source_urls': ['https://salilab.org/modeller/10.7/'],
-        'sources': [SOURCELOWER_TAR_GZ],
-        # 'start_dir': '%(namelower)s-%(version)s',
-        # 'cmds_map': [('.*', local_modeller_cmds)],
-        'build_cmd': local_modeller_cmds,
-        # 'files_to_copy': [(['libm1qn3.a', 'libddot.a'], 'lib')],
-        'checksums': ['b81ffee26841ef96470341889fa4af560f968cf35ef990d95480c7eb7a5b5c8f'],
-    }),
-    (name, version, {
-        'source_urls': ['https://salilab.org/modpipe/'],
-        'sources': [SOURCELOWER_TAR_GZ],
-        'checksums': ['a006f436305d5f582f9ce461c73f8f02e1eb6fd416705276373697715209a4a6'],
-        # 'cmds_map': [('.*', "cp %(name)s-%(version)s%(versionsuffix)s tbl2asn")],
-        # 'files_to_copy': [(['tbl2asn'], 'bin')],
-    }),
-]
+preinstallopts = local_modeller_cmds
 
 fix_perl_shebang_for = ['*.pl']
 
@@ -115,3 +108,11 @@ sanity_check_paths = {
 # }
 
 moduleclass = 'tools'
+
+#   × python setup.py egg_info did not run successfully.
+#   │ exit code: 2
+#   ╰─> [3 lines of output]
+#       usage: setup.py [-h] [--version] [--with-cd-hit DIR] [--with-blast DIR] [--with-hhsuite DIR] [--with-spasm DIR]
+#                       [--with-jess DIR] [--with-ce DIR] [--with-seg DIR] [--with-tmalign DIR]
+#       setup.py: error: unrecognized arguments: egg_info --egg-base /tmp/vsc47063/eb-ws5h_m8p/pip-pip-egg-info-dk63vwhp
+#       [end of output]
