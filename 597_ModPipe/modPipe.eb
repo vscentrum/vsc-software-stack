@@ -25,10 +25,10 @@ checksums = ['a006f436305d5f582f9ce461c73f8f02e1eb6fd416705276373697715209a4a6']
         # https://salilab.org/modeller/10.7/modeller-10.7.tar.gz
         # DEPS:
             # glibc >= 2.3
-    # BLAST
+    # OK BLAST
         # ModPipe is tested with BLAST 2.2.13
         # add: setup.py --with-blast=$EBROOT...
-    # HH-suite
+    # OK HH-suite
         # ModPipe is tested with hhsuite-2.0.16-linux-x86_64.tar.gz
         # --with-hhsuite=$EBROOT...
     # CD-HIT (optional)
@@ -40,8 +40,10 @@ checksums = ['a006f436305d5f582f9ce461c73f8f02e1eb6fd416705276373697715209a4a6']
 dependencies = [
     ('Perl', '5.40.2'),
     ('Perl-bundle-CPAN', '5.40.2'),
-     ('Python', '3.13.5'),
-     ('GLib', '2.85.3'),
+    ('Python', '3.13.5'),
+    ('GLib', '2.85.3'),
+    ('BLAST', '2.2.26', '', SYSTEM),
+    ('HH-suite', '3.3.0-2025-08-12'),
 ]
 
 fix_perl_shebang_for = ['*.pl']
