@@ -51,6 +51,7 @@ checksums = [
     # CD-HIT (optional)
         # ModPipe is tested with CD-HIT 2007-0131
         # --with-cd-hit=...
+        # or disable with: --with-cd-hit=no
 
 
 # now I have /tmp/vsc47063/easybuild/build/ModPipe/2.3.1/foss-2025b-Linux_x86_64 = builddir
@@ -98,9 +99,10 @@ local_modeller_cmds += r'printf "install_dir = \'%(builddir)s/modpipe-2.3.1/ext/
 local_modeller_cmds += 'cp %(builddir)s/modpipe-2.3.1/ext/guess-arch.sh %(builddir)s/modpipe-2.3.1/ext/mod/bin/guess-arch.sh && '
 local_modeller_cmds += "cd %(start_dir)s && "
 
-preinstallopts = local_modeller_cmds
+# preinstallopts = local_modeller_cmds
+prebuildopts = local_modeller_cmds
 use_pip = False
-buildcmd = '--with-blast=$EBROOTBLAST --with-hhsuite=$EBROOTHHMINSUITE'
+buildcmd = '--with-blast=$EBROOTBLAST/bin --with-hhsuite=$EBROOTHHMINSUITE/bin'
 fix_perl_shebang_for = ['*.pl']
 fix_python_shebang_for = ['*.py']
 
