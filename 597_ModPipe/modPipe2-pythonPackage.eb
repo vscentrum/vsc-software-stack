@@ -12,18 +12,15 @@ a configuration file and produces one or more comparative models for that sequen
 """
 
 toolchain = {'name': 'foss', 'version': '2025b'}
-# https://salilab.org/modpipe/modpipe-2.3.1.tar.gz
+
 source_urls = ['https://salilab.org/modpipe/']
 sources = [
-    # {
-    #     'download_filename': SOURCELOWER_TAR_GZ,
-    #     'filename': '%(namelower)s-%(version)s.tar.gz',
-    # },
+    # ModePipe sources
     SOURCELOWER_TAR_GZ,
     {
+        # Modeller sources
         'source_urls': ['https://salilab.org/modeller/10.7/'],
         'filename': 'modeller-10.7.tar.gz',
-        # 'extract_cmd': "tar -C %(namelower)s-%(version)s/third_party/METIS --strip-components=1 -xf %s",
     },
 ]
 checksums = [
@@ -31,7 +28,6 @@ checksums = [
     {'modeller-10.7.tar.gz': 'b81ffee26841ef96470341889fa4af560f968cf35ef990d95480c7eb7a5b5c8f'},
 ]
 
-# sources = [SOURCELOWER_TAR_GZ]
 # DEPS:
     # MODELLER - this needs to be installed to $MODPIPE/ext/mod/ sources + 
         # Move the guess-arch.sh script from the ext directory to $MODPIPE/ext/mod/bin/ +
@@ -54,7 +50,8 @@ checksums = [
         # or disable with: --with-cd-hit=no
 
 
-# now I have /tmp/vsc47063/easybuild/build/ModPipe/2.3.1/foss-2025b-Linux_x86_64 = builddir
+# now I have:
+    # /tmp/vsc47063/easybuild/build/ModPipe/2.3.1/foss-2025b-Linux_x86_64 = builddir
     # /tmp/vsc47063/easybuild/build/ModPipe/2.3.1/foss-2025b-Linux_x86_64/modpipe-2.3.1 = start_dir
     # modeller-10.7/
         # bin  ChangeLog  doc  examples  Install  INSTALLATION  lib  modlib  README  src
@@ -68,7 +65,7 @@ checksums = [
             # README INSTALLATION doc examples modlib src -> /mod
             # bin/*.top bin/lib bin/mod10.7_${EXECUTABLE_TYPE} -> /mod/bin
             # lib/${EXECUTABLE_TYPE} -> /mod/lib/
-    # ?2: move guess-arch.sh to builddir/modpipe-2.3.1/ext/mod/bin
+    # ?2: move guess-arch.sh to builddir/modpipe-2.3.1/ext/mod/bin -> it is not probably used anymore, EXECUTABLE_TYPE10v7 is set
     # 3. Rename $MODPIPE/ext/mod/bin/modpy.sh to modpy.sh.in
     # 4. Edit first 2 lines of modpy.sh.in:
         # TOPDIR="@MODPIPEBASE@/ext/mod" -> /tmp/vsc47063/easybuild/build/ModPipe/2.3.1/foss-2025b/modpipe-2.3.1
@@ -83,39 +80,59 @@ dependencies = [
     ('HH-suite', '3.3.0-2025-08-12'),
 ]
 
-local_modeller_cmds = "mkdir -p %(builddir)s/modpipe-2.3.1/ext/mod/bin %(builddir)s/modpipe-2.3.1/ext/mod/lib && "
-local_modeller_cmds += "cd %(builddir)s/modeller-10.7 && cp -a README INSTALLATION doc examples modlib src %(builddir)s/modpipe-2.3.1/ext/mod && "
-local_modeller_cmds += "cd %(builddir)s/modeller-10.7/bin && cp -a *.top lib mod10.7_x86_64-intel8 %(builddir)s/modpipe-2.3.1/ext/mod/bin && "
-local_modeller_cmds += "cd %(builddir)s/modeller-10.7/lib && cp -a x86_64-intel8 %(builddir)s/modpipe-2.3.1/ext/mod/lib && "
-# local_modeller_cmds += r"sed -i -e 's/EXECUTABLE_TYPE10v7=xxx/EXECUTABLE_TYPE10v7=x86_64-intel8/' -e 's|MODINSTALL10v7=xxx|MODINSTALL10v7=\"%(builddir)s/modpipe-2.3.1/ext/mod\"|' "
-local_modeller_cmds += r"sed -e 's/EXECUTABLE_TYPE10v7=xxx/EXECUTABLE_TYPE10v7=x86_64-intel8/' -e 's|MODINSTALL10v7=xxx|MODINSTALL10v7=\"%(builddir)s/modpipe-2.3.1/ext/mod\"|' "
-local_modeller_cmds += '%(builddir)s/modeller-10.7/bin/modscript > %(builddir)s/modpipe-2.3.1/ext/mod/bin/mod10.7 && '
-# local_modeller_cmds += r"sed -i -e 's|@TOPDIR@|\"%(builddir)s/modpipe-2.3.1/ext/mod\"|' -e 's/@EXETYPE@/x86_64-intel8/' "
-local_modeller_cmds += r"sed -e 's|@TOPDIR@|\"%(builddir)s/modpipe-2.3.1/ext/mod\"|' -e 's/@EXETYPE@/x86_64-intel8/' "
-local_modeller_cmds += '%(builddir)s/modeller-10.7/bin/modpy.sh.in > %(builddir)s/modpipe-2.3.1/ext/mod/bin/modpy.sh && '
-local_modeller_cmds += 'chmod a+x %(builddir)s/modpipe-2.3.1/ext/mod/bin/mod10.7 %(builddir)s/modpipe-2.3.1/ext/mod/bin/modpy.sh && '
-local_modeller_cmds += "export MODELLER_KEY=MODELIRANJE && "
-local_modeller_cmds += r'printf "install_dir = \'%(builddir)s/modpipe-2.3.1/ext/mod\'\nlicense = \'${MODELLER_KEY}\'\n" > "%(builddir)s/modpipe-2.3.1/ext/mod/modlib/modeller/config.py" && '
-local_modeller_cmds += 'cp %(builddir)s/modpipe-2.3.1/ext/guess-arch.sh %(builddir)s/modpipe-2.3.1/ext/mod/bin/guess-arch.sh && '
-local_modeller_cmds += "cd %(start_dir)s && "
+# Install Modeller-10.7 into the builddir of ModPipe - replace interactive install script
+_modeller_installdir = '%(builddir)s/modpipe-%(version)s/ext/mod'
+_modeller_builddir = '%(builddir)s/modeller-10.7'
+local_modeller_cmds = (
+    f"mkdir -p {_modeller_installdir}/bin {_modeller_installdir}/lib && "
+    f"cd {_modeller_builddir} && cp -a README INSTALLATION doc examples modlib src {_modeller_installdir} && "
+    f"cd {_modeller_builddir}/bin && cp -a *.top lib mod10.7_x86_64-intel8 %(builddir)s/modpipe-2.3.1/ext/mod/bin && "
+    f"cd {_modeller_builddir}/lib && cp -a x86_64-intel8 {_modeller_installdir}/lib && "
+    "sed -e 's/EXECUTABLE_TYPE10v7=xxx/EXECUTABLE_TYPE10v7=x86_64-intel8/' "
+    rf"-e 's|MODINSTALL10v7=xxx|MODINSTALL10v7=\"{_modeller_installdir}\"|' "
+    f'{_modeller_builddir}/bin/modscript > {_modeller_installdir}/bin/mod10.7 && '
+    rf"sed -e 's|@TOPDIR@|\"{_modeller_installdir}\"|' -e 's/@EXETYPE@/x86_64-intel8/' "
+    f'{_modeller_builddir}/bin/modpy.sh.in > {_modeller_installdir}/bin/modpy.sh.in && '
+    f'chmod a+x {_modeller_installdir}/bin/mod10.7 {_modeller_installdir}/bin/modpy.sh.in && '
+    rf'printf "import os\ninstall_dir = \'{_modeller_installdir}\'\n'
+    rf'license = os.getenv(\'MODELLER_LICENSE_KEY\', \'set MODELLER_LICENSE_KEY with your license key.\')\n"'
+    rf' > "{_modeller_installdir}/modlib/modeller/config.py" && '
+    f'cp %(builddir)s/modpipe-2.3.1/ext/guess-arch.sh {_modeller_installdir}/bin/guess-arch.sh && '
+    "cd %(start_dir)s && "
+)
 
-# preinstallopts = local_modeller_cmds
-prebuildopts = local_modeller_cmds
+# install by 'python setup.py'
 use_pip = False
-buildcmd = '--with-blast=$EBROOTBLAST/bin --with-hhsuite=$EBROOTHHMINSUITE/bin'
+
+# do not use installstep - can not get rid of --prefix=
+# skipsteps = ['build']
+# preinstallopts = local_modeller_cmds
+# fix path of HHPaths.pm from HH-suite
+# preinstallopts += "sed -i 's|lib/hh/scripts/HHPaths.pm|scripts/HHPaths.pm|' %(builddir)s/modpipe-2.3.1/setup.py && "
+# install_target = '--with-blast=$EBROOTBLAST/bin --with-hhsuite=$EBROOTHHMINSUITE'
+
+skipsteps = ['install']
+prebuildopts = local_modeller_cmds
+# fix path of HHPaths.pm from HH-suite
+prebuildopts += "sed -i 's|lib/hh/scripts/HHPaths.pm|scripts/HHPaths.pm|' %(builddir)s/modpipe-2.3.1/setup.py && "
+buildcmd = '--with-blast=$EBROOTBLAST/bin --with-hhsuite=$EBROOTHHMINSUITE'
+
+postinstallcmds = ["cp -r %(builddir)s/modpipe/bin %(installdir)s/bin"]
+
 fix_perl_shebang_for = ['*.pl']
 fix_python_shebang_for = ['*.py']
 
-sanity_check_paths = {
-    'files': ['%(namelower)s.pl'],
-    'dirs': ['lib/perl5/site_perl'],
-}
+# sanity_check_paths = {
+#     'files': ['%(namelower)s.pl'],
+#     'dirs': ['lib/perl5/site_perl'],
+# }
 
 # sanity_check_commands = [
 #     "%(namelower)s.pl -v",
 #     "%(namelower)s.pl -h 2>&1 | grep 'pattern.*in.*output'",
 # ]
 
+# export HHLIB = $EBROOTHHMINSUITE -> already set in hh-suite ec
 # modextrapaths = {
 #     'PATH': '',
 #     'PERL5LIB': 'lib/perl5/site_perl',
@@ -123,10 +140,16 @@ sanity_check_paths = {
 
 moduleclass = 'tools'
 
-#   × python setup.py egg_info did not run successfully.
-#   │ exit code: 2
-#   ╰─> [3 lines of output]
-#       usage: setup.py [-h] [--version] [--with-cd-hit DIR] [--with-blast DIR] [--with-hhsuite DIR] [--with-spasm DIR]
-#                       [--with-jess DIR] [--with-ce DIR] [--with-seg DIR] [--with-tmalign DIR]
-#       setup.py: error: unrecognized arguments: egg_info --egg-base /tmp/vsc47063/eb-ws5h_m8p/pip-pip-egg-info-dk63vwhp
-#       [end of output]
+#E3 :
+    # ModuleNotFoundError: No module named 'modpipe'
+    # >> file 'modpipe.pl' found: FAILED
+    # >> (non-empty) directory 'lib/perl5/site_perl' found: FAILED
+
+#E2: OK
+    # -> return to build step instead of install step, the --prefix=%(prefix)s is hardcoded in SETUP_PY_INSTALL_CMD -> OK
+    # setup.py: error: unrecognized arguments: --prefix=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/ModPipe/2.3.1-foss-2025b-Linux_x86_64
+
+#E1: OK
+    # -> add links to hh-suite ec to postintsallcmds -> OK
+    # ** Could not find external HHSuite binary 'lib/hh/scripts/HHPaths.pm' in '/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HH-suite/3.3.0-2025-08-12-gompi-2025b'.
+    # -> it is in ./scripts/HHPaths.pm -> fix this

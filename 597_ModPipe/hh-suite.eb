@@ -45,6 +45,9 @@ dependencies = [
 # fix cmake policy version - CMAKE v4 is not compatible with versions < v3.5
 configopts = '-DCMAKE_POLICY_VERSION_MINIMUM=3.5'
 
+# ModPipe looking for scripts in lib/hh dir
+postinstallcmds = ["mkdir -p %(installdir)s/lib/hh && ln -s %(installdir)s/scripts %(installdir)s/lib/hh/scripts"]
+
 _binaries_help = [
     'cstranslate', 'cstranslate_mpi', 'hhalign', 'hhalign_mpi', 'hhalign_omp', 'hhconsensus',
     'hhfilter', 'hhmake'
@@ -75,7 +78,7 @@ sanity_check_paths = {
              ['bin/%s' % x for x in _binaries_v] +
              ['bin/%s' % x for x in _binaries_helpless] +
              ['scripts/%s' % y for y in _scriptfiles],
-    'dirs': ['data', 'scripts']
+    'dirs': ['data', 'scripts', 'lib/hh']
 }
 
 sanity_check_commands = ['%s --help' % x for x in _binaries_help]
