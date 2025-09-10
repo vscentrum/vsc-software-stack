@@ -9,7 +9,7 @@ hictk is a blazing fast toolkit to work with .hic and .cool files.
 """
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-toolchainopts = {'cstd': 'c++20'}  # TODO didn't help'
+# toolchainopts = {'cstd': 'c++20'}  # TODO didn't help'
 
 source_urls = ['https://github.com/paulsengroup/hictk/archive/']
 sources = ['v%(version)s.tar.gz']
@@ -35,7 +35,7 @@ dependencies = [
     ('fast_float', '8.0.2'),
     ('fmt', '10.1.0'),
     ('HDF5', '1.14.0'),
-    ('HighFive', '2.7.1'),
+    ('HighFive', '2.8.0'),
     ('libarchive', '3.6.2'),
     ('cURL', '8.0.1'),
     ('libdeflate', '1.18'),
@@ -43,11 +43,11 @@ dependencies = [
     ('LZO', '2.10'),
     ('nlohmann_json', '3.11.2'),
     ('opentelemetry-cpp', '1.22.0'),
-    ('parallel-hashmap', '2.0.0'),  # TODO replaced by CMake fetch?
+    # ('parallel-hashmap', '2.0.0'),  # TODO replaced by CMake fetch?
     ('pybind11', '2.11.1'),
     ('readerwriterqueue', '1.0.7'),
     ('span-lite', '0.11.0'),
-    ('spdlog', '1.11.0'),
+    ('spdlog', '1.12.0'),
     ('tomlplusplus', '3.4.0'),
     ('XZ', '5.4.2'),
     ('zstd', '1.5.5'),
@@ -56,7 +56,7 @@ dependencies = [
 
 configopts = "-DZSTD_LIB=$EBROOTZSTD/lib/libzstd.%s " % SHLIB_EXT
 # fixes error: ‘basic_runtime’ is not a member of ‘fmt’
-configopts += "-DCMAKE_CXX_FLAGS='-DSPDLOG_USE_STD_FORMAT=1'"
+# configopts += "-DCMAKE_CXX_FLAGS='-DSPDLOG_USE_STD_FORMAT=1' -DCMAKE_CXX_STANDARD=20"
 
 moduleclass = 'tools'
 
