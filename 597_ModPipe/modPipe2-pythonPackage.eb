@@ -3,6 +3,7 @@ easyblock = 'PythonPackage'
 name = 'ModPipe'
 version = '2.3.1'
 versionsuffix =  '-Linux_x86_64'
+_modeller_version = '10.7'
 
 homepage = 'https://salilab.org/modpipe'
 description = """
@@ -19,8 +20,8 @@ sources = [
     SOURCELOWER_TAR_GZ,
     {
         # Modeller sources
-        'source_urls': ['https://salilab.org/modeller/10.7/'],
-        'filename': 'modeller-10.7.tar.gz',
+        'source_urls': [f'https://salilab.org/modeller/{_modeller_version}/'],
+        'filename': f'modeller-{_modeller_version}.tar.gz',
     },
 ]
 checksums = [
@@ -78,31 +79,41 @@ dependencies = [
     ('GLib', '2.85.3'),
     ('BLAST', '2.2.26', '-Linux_x86_64', SYSTEM),
     ('HH-suite', '3.3.0-2025-08-12'),
+    ('PyYAML', '6.0.2'),
 ]
 
 # Install Modeller-10.7 into the builddir of ModPipe - replace interactive install script
+# export MODELLER_LICENSE_KEY=your license key or this will fail
+_modeller_exe_version = '10v7'
 _modeller_installdir = '%(builddir)s/modpipe-%(version)s/ext/mod'
-_modeller_builddir = '%(builddir)s/modeller-10.7'
+_modeller_builddir = f'%(builddir)s/modeller-{_modeller_version}'
+_cfg = f'{_modeller_installdir}/modlib/modeller/config.py'
 local_modeller_cmds = (
     f"mkdir -p {_modeller_installdir}/bin {_modeller_installdir}/lib && "
     f"cd {_modeller_builddir} && cp -a README INSTALLATION doc examples modlib src {_modeller_installdir} && "
-    f"cd {_modeller_builddir}/bin && cp -a *.top lib mod10.7_x86_64-intel8 %(builddir)s/modpipe-2.3.1/ext/mod/bin && "
+    f"cd {_modeller_builddir}/bin && "
+    f"cp -a *.top lib mod{_modeller_version}_x86_64-intel8 {_modeller_installdir }/bin && "
     f"cd {_modeller_builddir}/lib && cp -a x86_64-intel8 {_modeller_installdir}/lib && "
-    "sed -e 's/EXECUTABLE_TYPE10v7=xxx/EXECUTABLE_TYPE10v7=x86_64-intel8/' "
-    rf"-e 's|MODINSTALL10v7=xxx|MODINSTALL10v7=\"{_modeller_installdir}\"|' "
-    f'{_modeller_builddir}/bin/modscript > {_modeller_installdir}/bin/mod10.7 && '
+    f"sed -e 's/EXECUTABLE_TYPE{_modeller_exe_version}=xxx/EXECUTABLE_TYPE{_modeller_exe_version}=x86_64-intel8/' "
+    rf"-e 's|MODINSTALL{_modeller_exe_version}=xxx|MODINSTALL{_modeller_exe_version}=\"{_modeller_installdir}\"|' "
+    f'{_modeller_builddir}/bin/modscript > {_modeller_installdir}/bin/mod{_modeller_version} && '
     rf"sed -e 's|@TOPDIR@|\"{_modeller_installdir}\"|' -e 's/@EXETYPE@/x86_64-intel8/' "
-    f'{_modeller_builddir}/bin/modpy.sh.in > {_modeller_installdir}/bin/modpy.sh.in && '
-    f'chmod a+x {_modeller_installdir}/bin/mod10.7 {_modeller_installdir}/bin/modpy.sh.in && '
-    rf'printf "import os\ninstall_dir = \'{_modeller_installdir}\'\n'
-    rf'license = os.getenv(\'MODELLER_LICENSE_KEY\', \'set MODELLER_LICENSE_KEY with your license key.\')\n"'
-    rf' > "{_modeller_installdir}/modlib/modeller/config.py" && '
-    f'cp %(builddir)s/modpipe-2.3.1/ext/guess-arch.sh {_modeller_installdir}/bin/guess-arch.sh && '
+    f'{_modeller_builddir}/bin/modpy.sh.in > {_modeller_installdir}/bin/modpy.sh && '
+    f'chmod a+x {_modeller_installdir}/bin/mod{_modeller_version} {_modeller_installdir}/bin/modpy.sh && '
+    # f'printf "%s\\n" "import os" >> "{_modeller_installdir}/modlib/modeller/config.py" && '
+    f'printf "%s\n" "install_dir = \'{_modeller_installdir}\'" >> "{_cfg}" && '
+    # f'printf "%s\n" "license = __import__('os').getenv('MODELLER_LICENSE_KEY', 'set MODELLER_LICENSE_KEY with your license key.')" > "{_modeller_installdir}/modlib/modeller/config.py" && '
+    # f'printf "%s\n" "license = os.getenv(\'MODELLER_LICENSE_KEY\', \'set MODELLER_LICENSE_KEY with your license key.\')" >> "{_modeller_installdir}/modlib/modeller/config.py" && '
+    """printf "%s\n" "license = __import__('os').getenv('MODELLER_LICENSE_KEY', """
+    f"""'set MODELLER_LICENSE_KEY with your license key.')" > "{_cfg}" && """
+    f'cp %(builddir)s/modpipe-%(version)s/ext/guess-arch.sh {_modeller_installdir}/bin/guess-arch.sh && '
     "cd %(start_dir)s && "
 )
 
 # install by 'python setup.py'
 use_pip = False
+
+buildininstalldir = True
 
 # do not use installstep - can not get rid of --prefix=
 # skipsteps = ['build']
@@ -117,30 +128,31 @@ prebuildopts = local_modeller_cmds
 prebuildopts += "sed -i 's|lib/hh/scripts/HHPaths.pm|scripts/HHPaths.pm|' %(builddir)s/modpipe-2.3.1/setup.py && "
 buildcmd = '--with-blast=$EBROOTBLAST/bin --with-hhsuite=$EBROOTHHMINSUITE'
 
-postinstallcmds = ["cp -r %(builddir)s/modpipe/bin %(installdir)s/bin"]
+postinstallcmds = [f"rm -r %(builddir)s/modeller-{_modeller_version}"]
+
+runtest = "cd %(builddir)s/%(namelower)s-%(version)s/tests && make"
+testinstall = True
 
 fix_perl_shebang_for = ['*.pl']
 fix_python_shebang_for = ['*.py']
 
-# sanity_check_paths = {
-#     'files': ['%(namelower)s.pl'],
-#     'dirs': ['lib/perl5/site_perl'],
-# }
+sanity_check_paths = {
+    'files': ['%(namelower)s-%(version)s/bin/%(namelower)s'],
+    'dirs': ['%(namelower)s-%(version)s/bin', '%(namelower)s-%(version)s/lib'],
+}
 
-# sanity_check_commands = [
-#     "%(namelower)s.pl -v",
-#     "%(namelower)s.pl -h 2>&1 | grep 'pattern.*in.*output'",
-# ]
+sanity_check_commands = ['%(namelower)s --help']
 
 # export HHLIB = $EBROOTHHMINSUITE -> already set in hh-suite ec
-# modextrapaths = {
-#     'PATH': '',
-#     'PERL5LIB': 'lib/perl5/site_perl',
-# }
+modextrapaths = {
+    'PATH': '%(namelower)s-%(version)s',
+    'PERL5LIB': '%(namelower)s-%(version)s/lib/perl',
+    'PYTHONPATH': '%(namelower)s-%(version)s/lib/python'
+}
 
 moduleclass = 'tools'
 
-#E3 :
+#E3 : OK
     # ModuleNotFoundError: No module named 'modpipe'
     # >> file 'modpipe.pl' found: FAILED
     # >> (non-empty) directory 'lib/perl5/site_perl' found: FAILED
