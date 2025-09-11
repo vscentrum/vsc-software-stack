@@ -45,7 +45,7 @@ dependencies = [
 # fix cmake policy version - CMAKE v4 is not compatible with versions < v3.5
 configopts = '-DCMAKE_POLICY_VERSION_MINIMUM=3.5'
 
-# ModPipe looking for scripts in lib/hh dir
+# ModPipe is looking for scripts in lib/hh dir
 postinstallcmds = ["mkdir -p %(installdir)s/lib/hh && ln -s %(installdir)s/scripts %(installdir)s/lib/hh/scripts"]
 
 _binaries_help = [

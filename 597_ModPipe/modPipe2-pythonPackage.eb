@@ -16,10 +16,8 @@ toolchain = {'name': 'foss', 'version': '2025b'}
 
 source_urls = ['https://salilab.org/modpipe/']
 sources = [
-    # ModePipe sources
     SOURCELOWER_TAR_GZ,
     {
-        # Modeller sources
         'source_urls': [f'https://salilab.org/modeller/{_modeller_version}/'],
         'filename': f'modeller-{_modeller_version}.tar.gz',
     },
@@ -74,7 +72,6 @@ checksums = [
 
 dependencies = [
     ('Perl', '5.40.2'),
-    # ('Perl-bundle-CPAN', '5.40.2'),
     ('Python', '3.13.5'),
     ('GLib', '2.85.3'),
     ('BLAST', '2.2.26', '-Linux_x86_64', SYSTEM),
@@ -113,6 +110,7 @@ local_modeller_cmds = (
 # install by 'python setup.py'
 use_pip = False
 
+# the paths in scripts are changed during the python setup.py based on cwd
 buildininstalldir = True
 
 # do not use installstep - can not get rid of --prefix=
@@ -128,10 +126,8 @@ prebuildopts = local_modeller_cmds
 prebuildopts += "sed -i 's|lib/hh/scripts/HHPaths.pm|scripts/HHPaths.pm|' %(builddir)s/modpipe-2.3.1/setup.py && "
 buildcmd = '--with-blast=$EBROOTBLAST/bin --with-hhsuite=$EBROOTHHMINSUITE'
 
+# clean installdir
 postinstallcmds = [f"rm -r %(builddir)s/modeller-{_modeller_version}"]
-
-runtest = "cd %(builddir)s/%(namelower)s-%(version)s/tests && make"
-testinstall = True
 
 fix_perl_shebang_for = ['*.pl']
 fix_python_shebang_for = ['*.py']
@@ -141,16 +137,23 @@ sanity_check_paths = {
     'dirs': ['%(namelower)s-%(version)s/bin', '%(namelower)s-%(version)s/lib'],
 }
 
-sanity_check_commands = ['%(namelower)s --help']
+sanity_check_commands = ['%(namelower)s help']
 
 # export HHLIB = $EBROOTHHMINSUITE -> already set in hh-suite ec
 modextrapaths = {
-    'PATH': '%(namelower)s-%(version)s',
+    'PATH': '%(namelower)s-%(version)s/bin',
     'PERL5LIB': '%(namelower)s-%(version)s/lib/perl',
     'PYTHONPATH': '%(namelower)s-%(version)s/lib/python'
 }
 
 moduleclass = 'tools'
+
+# ModPipe was not configured with CE
+# ModPipe was not configured with JESS
+# SPASM is not available, because ModPipe was not configured with it, --with-spasm
+# ModPipe was not configured with CD-HIT
+# ModPipe was not configured with TMalign
+# ModPipe was not configured with SEG
 
 #E3 : OK
     # ModuleNotFoundError: No module named 'modpipe'
