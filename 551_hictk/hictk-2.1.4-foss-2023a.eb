@@ -15,7 +15,7 @@ sources = ['v%(version)s.tar.gz']
 patches = ['new.patch']  # TODO
 checksums = [
     '3a0030425176dacc25c20afc6fedb5dfbbc3c1a67f773be11ac77d7fa6b7efde',  # v2.1.4.tar.gz
-    'ff1d30e653c5e9519602f29442001d7201cd7c83fbbba3236801fb31981dbf24',  # new.patch  # TODO
+    '235a46d8bf7e526c91a5869b4b155dc6a23648ddbfea8e8c217ac5cc333a065f',  # new.patch  # TODO
 ]
 
 builddependencies = [
@@ -56,3 +56,38 @@ dependencies = [  # TODO bshoshany-thread-pool
 configopts = "-DZSTD_LIB=$EBROOTZSTD/lib/libzstd.%s " % SHLIB_EXT
 
 moduleclass = 'tools'
+
+# TODO
+# cd /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/easybuild_obj/src/hictk/convert && /tmp/vsc45304/eb-rcsqoyj2/tmp1sbuaecq/rpath_wrappers/gxx_wrapper/g++ -DBOOST_ALL_NO_LIB -DFMT_ENFORCE_COMPILE_STRING -DFMT_HEADER_ONLY -DFMT_HEAD
+# ER_ONLY=1 -DFMT_USE_FULL_CACHE_DRAGONBOX -DH5_USE_BOOST -DHICTK_ENABLE_TESTING -DHICTK_WITH_ARROW -DHICTK_WITH_EIGEN -DHIGHFIVE_HAS_CONCEPTS=0 -DMPI_NO_CPPBIND -DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_INFO -DSPDLOG_CLOCK_COARSE -DSPDLOG_DISAB
+# LE_DEFAULT_LOGGER -DSPDLOG_FMT_EXTERNAL -DSPDLOG_NO_THREAD_ID -Dspan_FEATURE_MAKE_SPAN=1 -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/hictk/convert/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a
+# /hictk-2.1.4/src/libhictk/balancing/include -I/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/common/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk
+# /common/default_delete_zstd/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/filestream/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/type_traits/in
+# clude -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/pixel/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/bin_table/include -I/tmp/vsc45304/easybuild/build/hictk/
+# 2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/chromosome/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/hash/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libh
+# ictk/genomic_interval/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/numeric/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/reference/include -I/tmp/vsc45
+# 304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/formatting/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/string/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/fos
+# s-2023a/hictk-2.1.4/src/libhictk/cooler/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/transformers/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/file/in
+# clude -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/hic/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/default_delete_libdeflate/include -I/tmp/vsc45304/e
+# asybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/binary_buffer/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/expected_values_aggregator/include -I/tmp/vsc45304/easybuild/build/hict
+# k/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/static_binary_buffer/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/tmpdir/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a
+# /easybuild_obj/src/libhictk/common/version/generated/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/common/type_pretty_printer/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk
+# -2.1.4/src/libhictk/variant/include -I/tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/hictk/config/include -isystem /apps/gent/RHEL9/cascadelake-ib/software/fmt/10.1.0-GCCcore-12.3.0/include -isystem /scratch/gent/v
+# o/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/readerwriterqueue/1.0.7-GCCcore-12.3.0/include/readerwriterqueue -isystem /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/spdlog/1.12.0-GCCcore-1
+# 2.3.0/include -isystem /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/span-lite/0.11.0-GCCcore-12.3.0/include -isystem /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/fast_float
+# /8.0.2-GCCcore-12.3.0/include -isystem /apps/gent/RHEL9/cascadelake-ib/software/HDF5/1.14.0-gompi-2023a/include -isystem /apps/gent/RHEL9/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/include -isystem /apps/gent/RHEL9/cascadelake-i
+# b/software/Szip/2.1.1-GCCcore-12.3.0/include -isystem /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HighFive/2.8.0-gompi-2023a/include -isystem /kyukon/home/apps/RHEL9/cascadelake-ib/software/OpenMPI/4.1.5
+# -GCC-12.3.0/include -isystem /apps/gent/RHEL9/cascadelake-ib/software/OpenMPI/4.1.5-GCC-12.3.0/include -isystem /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/concurrentqueue/1.0.4-GCCcore-12.3.0/include/co
+# ncurrentqueue -isystem /apps/gent/RHEL9/cascadelake-ib/software/libdeflate/1.18-GCCcore-12.3.0/include -isystem /apps/gent/RHEL9/cascadelake-ib/software/Eigen/3.4.0-GCCcore-12.3.0/include -isystem /apps/gent/RHEL9/cascadelake-ib/softwar
+# e/Arrow/14.0.1-gfbf-2023a/include -isystem /apps/gent/RHEL9/cascadelake-ib/software/bzip2/1.0.8-GCCcore-12.3.0/include -isystem /apps/gent/RHEL9/cascadelake-ib/software/lz4/1.9.4-GCCcore-12.3.0/include -isystem /apps/gent/RHEL9/cascadel
+# ake-ib/software/snappy/1.1.10-GCCcore-12.3.0/include -isystem /usr/local/include -isystem /apps/gent/RHEL9/cascadelake-ib/software/utf8proc/2.8.0-GCCcore-12.3.0/include -isystem /apps/gent/RHEL9/cascadelake-ib/software/RE2/2023-08-01-GC
+# Ccore-12.3.0/include -isystem /apps/gent/RHEL9/cascadelake-ib/software/Abseil/20230125.3-GCCcore-12.3.0/include -O2 -ftree-vectorize -march=native -fno-math-errno -O3 -DNDEBUG -std=c++17 -flto=auto -fno-fat-lto-objects -fdiagnostics-col
+# or=always -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleadi
+# ng-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -MD -MT src/hictk/convert/CMakeFiles/hictk_internal_tools_convert.dir/cool_to_hic.cpp.o -MF CMakeFiles/hictk_internal_tools_convert.dir/cool_to_hic.cpp.o
+# .d -o CMakeFiles/hictk_internal_tools_convert.dir/cool_to_hic.cpp.o -c /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/hictk/convert/cool_to_hic.cpp
+# In file included from /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/hictk/balance/./common.hpp:24,
+#                  from /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/hictk/balance/balance_ice.cpp:11:
+# /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/balancing/include/hictk/balancing/ice.hpp:7:10: fatal error: BS_thread_pool.hpp: No such file or directory
+#     7 | #include <BS_thread_pool.hpp>
+#       |          ^~~~~~~~~~~~~~~~~~~~
+# compilation terminated.

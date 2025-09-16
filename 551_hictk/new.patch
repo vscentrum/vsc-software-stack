@@ -1,6 +1,6 @@
 diff '--color=auto' -ru hictk-2.1.4.orig/cmake/hictkConfig.cmake.in hictk-2.1.4/cmake/hictkConfig.cmake.in
 --- hictk-2.1.4.orig/cmake/hictkConfig.cmake.in	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/cmake/hictkConfig.cmake.in	2025-09-15 14:26:14.500563126 +0200
++++ hictk-2.1.4/cmake/hictkConfig.cmake.in	2025-09-16 09:42:10.629847273 +0200
 @@ -13,7 +13,18 @@
      find_dependency(Arrow CONFIG QUIET REQUIRED)
  endif()
@@ -37,7 +37,7 @@ diff '--color=auto' -ru hictk-2.1.4.orig/cmake/hictkConfig.cmake.in hictk-2.1.4/
  include("${CMAKE_CURRENT_LIST_DIR}/hictkTargets.cmake")
 diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/cli/CMakeLists.txt hictk-2.1.4/src/hictk/cli/CMakeLists.txt
 --- hictk-2.1.4.orig/src/hictk/cli/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/hictk/cli/CMakeLists.txt	2025-09-15 14:30:07.700479223 +0200
++++ hictk-2.1.4/src/hictk/cli/CMakeLists.txt	2025-09-16 09:42:10.629847273 +0200
 @@ -4,7 +4,7 @@
  
  find_package(CLI11 REQUIRED QUIET)
@@ -66,7 +66,7 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/cli/CMakeLists.txt hictk-2.1.
      fmt::fmt-header-only
 diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/dump/CMakeLists.txt hictk-2.1.4/src/hictk/dump/CMakeLists.txt
 --- hictk-2.1.4.orig/src/hictk/dump/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/hictk/dump/CMakeLists.txt	2025-09-15 14:31:36.744120047 +0200
++++ hictk-2.1.4/src/hictk/dump/CMakeLists.txt	2025-09-16 09:42:10.629847273 +0200
 @@ -3,7 +3,7 @@
  # SPDX-License-Identifier: MIT
  
@@ -93,7 +93,7 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/dump/CMakeLists.txt hictk-2.1
  )
 diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/load/CMakeLists.txt hictk-2.1.4/src/hictk/load/CMakeLists.txt
 --- hictk-2.1.4.orig/src/hictk/load/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/hictk/load/CMakeLists.txt	2025-09-15 14:33:03.893704684 +0200
++++ hictk-2.1.4/src/hictk/load/CMakeLists.txt	2025-09-16 09:42:10.629847273 +0200
 @@ -2,9 +2,20 @@
  #
  # SPDX-License-Identifier: MIT
@@ -142,7 +142,7 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/load/CMakeLists.txt hictk-2.1
  )
 diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/metadata/CMakeLists.txt hictk-2.1.4/src/hictk/metadata/CMakeLists.txt
 --- hictk-2.1.4.orig/src/hictk/metadata/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/hictk/metadata/CMakeLists.txt	2025-09-15 14:33:51.897128355 +0200
++++ hictk-2.1.4/src/hictk/metadata/CMakeLists.txt	2025-09-16 09:42:10.629847273 +0200
 @@ -4,7 +4,7 @@
  
  find_package(fmt REQUIRED QUIET)
@@ -169,7 +169,7 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/metadata/CMakeLists.txt hictk
  )
 diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/rename_chromosomes/CMakeLists.txt hictk-2.1.4/src/hictk/rename_chromosomes/CMakeLists.txt
 --- hictk-2.1.4.orig/src/hictk/rename_chromosomes/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/hictk/rename_chromosomes/CMakeLists.txt	2025-09-15 14:34:25.872135971 +0200
++++ hictk-2.1.4/src/hictk/rename_chromosomes/CMakeLists.txt	2025-09-16 09:42:10.629847273 +0200
 @@ -3,7 +3,7 @@
  # SPDX-License-Identifier: MIT
  
@@ -196,7 +196,7 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/rename_chromosomes/CMakeLists
  )
 diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/telemetry/CMakeLists.txt hictk-2.1.4/src/hictk/telemetry/CMakeLists.txt
 --- hictk-2.1.4.orig/src/hictk/telemetry/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/hictk/telemetry/CMakeLists.txt	2025-09-15 14:35:44.100456022 +0200
++++ hictk-2.1.4/src/hictk/telemetry/CMakeLists.txt	2025-09-16 09:42:10.629847273 +0200
 @@ -12,9 +12,8 @@
  
  if(HICTK_ENABLE_TELEMETRY)
@@ -235,7 +235,7 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/telemetry/CMakeLists.txt hict
 +)
 diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/balancing/CMakeLists.txt hictk-2.1.4/src/libhictk/balancing/CMakeLists.txt
 --- hictk-2.1.4.orig/src/libhictk/balancing/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/libhictk/balancing/CMakeLists.txt	2025-09-15 14:37:27.076510011 +0200
++++ hictk-2.1.4/src/libhictk/balancing/CMakeLists.txt	2025-09-16 09:46:22.581253284 +0200
 @@ -2,10 +2,20 @@
  #
  # SPDX-License-Identifier: MIT
@@ -260,16 +260,15 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/balancing/CMakeLists.txt h
  
  add_library(hictk_internal_balancing INTERFACE)
  add_library(hictk::balancing ALIAS hictk_internal_balancing)
-@@ -35,6 +45,8 @@
+@@ -35,6 +45,7 @@
    INTERFACE
      "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
      "$<INSTALL_INTERFACE:include>"
-+  PUBLIC
 +    "$ENV{EBROOTPARALLELHASHMAP}/include"
  )
  target_link_libraries(
    hictk_internal_balancing
-@@ -48,10 +60,9 @@
+@@ -48,10 +59,9 @@
  target_link_system_libraries(
    hictk_internal_balancing
    INTERFACE
@@ -284,7 +283,7 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/balancing/CMakeLists.txt h
  target_compile_definitions(hictk_internal_balancing INTERFACE span_FEATURE_MAKE_SPAN=1)
 diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/common/default_delete_zstd/CMakeLists.txt hictk-2.1.4/src/libhictk/common/default_delete_zstd/CMakeLists.txt
 --- hictk-2.1.4.orig/src/libhictk/common/default_delete_zstd/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/libhictk/common/default_delete_zstd/CMakeLists.txt	2025-09-15 14:21:26.700027739 +0200
++++ hictk-2.1.4/src/libhictk/common/default_delete_zstd/CMakeLists.txt	2025-09-16 09:42:10.629847273 +0200
 @@ -2,7 +2,7 @@
  #
  # SPDX-License-Identifier: MIT
@@ -303,7 +302,7 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/common/default_delete_zstd
  )
 diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/cooler/CMakeLists.txt hictk-2.1.4/src/libhictk/cooler/CMakeLists.txt
 --- hictk-2.1.4.orig/src/libhictk/cooler/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/libhictk/cooler/CMakeLists.txt	2025-09-15 14:39:03.505369853 +0200
++++ hictk-2.1.4/src/libhictk/cooler/CMakeLists.txt	2025-09-16 09:49:27.704313443 +0200
 @@ -6,7 +6,7 @@
  find_package(fmt REQUIRED QUIET)
  find_package(HDF5 REQUIRED QUIET COMPONENTS C)
@@ -313,16 +312,15 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/cooler/CMakeLists.txt hict
  find_package(spdlog REQUIRED QUIET)
  
  add_library(hictk_internal_cooler INTERFACE)
-@@ -60,6 +60,8 @@
+@@ -60,6 +60,7 @@
    INTERFACE
      "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
      "$<INSTALL_INTERFACE:include>"
-+  PUBLIC
 +    "$ENV{EBROOTPARALLELHASHMAP}/include"
  )
  
  target_link_libraries(
-@@ -88,6 +90,5 @@
+@@ -88,6 +89,5 @@
      fmt::fmt-header-only
      HDF5::HDF5
      HighFive
@@ -331,7 +329,7 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/cooler/CMakeLists.txt hict
  )
 diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/expected_values_aggregator/CMakeLists.txt hictk-2.1.4/src/libhictk/expected_values_aggregator/CMakeLists.txt
 --- hictk-2.1.4.orig/src/libhictk/expected_values_aggregator/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/libhictk/expected_values_aggregator/CMakeLists.txt	2025-09-15 14:39:46.223636762 +0200
++++ hictk-2.1.4/src/libhictk/expected_values_aggregator/CMakeLists.txt	2025-09-16 09:49:22.160202618 +0200
 @@ -2,7 +2,6 @@
  #
  # SPDX-License-Identifier: MIT
@@ -340,16 +338,15 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/expected_values_aggregator
  find_package(spdlog REQUIRED QUIET)
  
  add_library(hictk_internal_expected_values_aggregator INTERFACE)
-@@ -23,6 +22,8 @@
+@@ -23,6 +22,7 @@
    INTERFACE
      "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
      "$<INSTALL_INTERFACE:include>"
-+  PUBLIC
 +    "$ENV{EBROOTPARALLELHASHMAP}/include"
  )
  target_link_libraries(
    hictk_internal_expected_values_aggregator
-@@ -37,6 +38,6 @@
+@@ -37,6 +37,6 @@
  target_link_system_libraries(
    hictk_internal_expected_values_aggregator
    INTERFACE
@@ -359,7 +356,7 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/expected_values_aggregator
  )
 diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/hic/CMakeLists.txt hictk-2.1.4/src/libhictk/hic/CMakeLists.txt
 --- hictk-2.1.4.orig/src/libhictk/hic/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/libhictk/hic/CMakeLists.txt	2025-09-15 14:40:44.396362029 +0200
++++ hictk-2.1.4/src/libhictk/hic/CMakeLists.txt	2025-09-16 09:49:16.768095726 +0200
 @@ -2,13 +2,24 @@
  #
  # SPDX-License-Identifier: MIT
@@ -388,16 +385,15 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/hic/CMakeLists.txt hictk-2
  
  set(HICTK_CXX_BYTE_ORDER "${CMAKE_CXX_BYTE_ORDER}" CACHE STRING "Specify the CPU architecture endianness")
  
-@@ -77,6 +88,8 @@
+@@ -77,6 +88,7 @@
    INTERFACE
      "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
      "$<INSTALL_INTERFACE:include>"
-+  PUBLIC
 +    "$ENV{EBROOTPARALLELHASHMAP}/include"
  )
  target_link_libraries(
    hictk_internal_hic
-@@ -101,11 +114,10 @@
+@@ -101,11 +113,10 @@
  target_link_system_libraries(
    hictk_internal_hic
    INTERFACE
@@ -413,7 +409,7 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/hic/CMakeLists.txt hictk-2
  )
 diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/reference/CMakeLists.txt hictk-2.1.4/src/libhictk/reference/CMakeLists.txt
 --- hictk-2.1.4.orig/src/libhictk/reference/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/libhictk/reference/CMakeLists.txt	2025-09-15 14:41:49.534293841 +0200
++++ hictk-2.1.4/src/libhictk/reference/CMakeLists.txt	2025-09-16 09:49:08.185927453 +0200
 @@ -2,8 +2,6 @@
  #
  # SPDX-License-Identifier: MIT
@@ -423,16 +419,15 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/reference/CMakeLists.txt h
  add_library(hictk_internal_reference INTERFACE)
  add_library(hictk::reference ALIAS hictk_internal_reference)
  
-@@ -22,6 +20,8 @@
+@@ -22,6 +20,7 @@
    INTERFACE
      "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
      "$<INSTALL_INTERFACE:include>"
-+  PUBLIC
 +    "$ENV{EBROOTPARALLELHASHMAP}/include"
  )
  target_link_libraries(
    hictk_internal_reference
-@@ -30,5 +30,3 @@
+@@ -30,5 +29,3 @@
      hictk::common
      hictk::format
  )
@@ -440,7 +435,7 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/reference/CMakeLists.txt h
 -target_link_system_libraries(hictk_internal_reference INTERFACE phmap)
 diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/transformers/CMakeLists.txt hictk-2.1.4/src/libhictk/transformers/CMakeLists.txt
 --- hictk-2.1.4.orig/src/libhictk/transformers/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/libhictk/transformers/CMakeLists.txt	2025-09-15 14:42:46.182973898 +0200
++++ hictk-2.1.4/src/libhictk/transformers/CMakeLists.txt	2025-09-16 09:49:03.689840233 +0200
 @@ -10,7 +10,6 @@
    find_package(Eigen3 REQUIRED QUIET)
  endif()
@@ -449,16 +444,15 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/transformers/CMakeLists.tx
  find_package(spdlog REQUIRED QUIET)
  
  add_library(hictk_internal_transformers INTERFACE)
-@@ -47,6 +46,8 @@
+@@ -47,6 +46,7 @@
    INTERFACE
      "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
      "$<INSTALL_INTERFACE:include>"
-+  PUBLIC
 +    "$ENV{EBROOTPARALLELHASHMAP}/include"
  )
  target_link_libraries(
    hictk_internal_transformers
-@@ -58,7 +59,7 @@
+@@ -58,7 +58,7 @@
      hictk::type_traits
  )
  
