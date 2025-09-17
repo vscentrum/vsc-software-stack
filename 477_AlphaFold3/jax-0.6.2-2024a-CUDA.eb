@@ -1,0 +1,152 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Denis Kristak
+# Updated by: Alex Domingo (Vrije Universiteit Brussel)
+# Updated by: Thomas Hoffmann (EMBL Heidelberg)
+# Updated by: Pavel Tománek (INUITS)
+easyblock = 'PythonBundle'
+
+name = 'jax'
+version = '0.6.2'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://jax.readthedocs.io/'
+description = """Composable transformations of Python+NumPy programs:
+differentiate, vectorize, JIT to GPU/TPU, and more"""
+
+toolchain = {'name': 'gfbf', 'version': '2024a'}
+# cuda_compute_capabilities = ["5.0", "6.0", "6.1", "7.0", "7.5", "8.0", "8.6", "9.0"]
+# cuda_compute_capabilities = ["9.0"]
+
+builddependencies = [
+    ('Bazel', '7.4.1', '-Java-21'),
+]
+
+dependencies = [
+    ('CUDA', '12.6.0', '', SYSTEM),
+    ('cuDNN', '9.5.0.50', versionsuffix, SYSTEM),
+    ('NCCL', '2.22.3', versionsuffix),
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('absl-py', '2.1.0'),
+    ('flatbuffers-python', '24.3.25'),
+    ('ml_dtypes', '0.5.0'),
+    ('hypothesis', '6.103.1'),
+    ('zlib', '1.3.1'),
+]
+
+# downloading xla  tarball to avoid that Bazel downloads it during the build
+# note: following commits *must* be the exact same onces used upstream
+# XLA_COMMIT from jax-jaxlib: third_party/xla/workspace.bzl
+_xla_commit = '3d5ece64321630dade7ff733ae1353fc3c83d9cc'
+
+# Use sources downloaded by EasyBuild
+_jaxlib_buildopts = '--bazel_options="--distdir=%(builddir)s/archives" '
+# create wheels for jaxlib and install it
+_jaxlib_buildopts += '--wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt '
+_jaxlib_buildopts += '--bazel_options=--repo_env=LOCAL_CUDA_PATH=$EBROOTCUDA '
+_jaxlib_buildopts += '--bazel_options=--repo_env=LOCAL_CUDNN_PATH=$EBROOTCUDNN '
+_jaxlib_buildopts += '--bazel_options=--repo_env=LOCAL_NCCL_PATH=$EBROOTNCCL '
+_jaxlib_buildopts += '--bazel_options="--copt=-no-canonical-prefixes" '
+_jaxlib_buildopts += '--bazel_options="--cxxopt=-no-canonical-prefixes" '
+_jaxlib_buildopts += '--bazel_options="--host_copt=-no-canonical-prefixes" '
+_jaxlib_buildopts += '--bazel_options="--host_cxxopt=-no-canonical-prefixes" '
+_jaxlib_buildopts += '--bazel_options="--action_env=CC=$CC" '
+_jaxlib_buildopts += '--bazel_options="--action_env=CXX=$CXX" '
+_jaxlib_buildopts += '--bazel_options="--action_env=GCC_HOST_COMPILER_PATH=$CXX" '
+_jaxlib_buildopts += '--bazel_options="--action_env=GCC_HOST_COMPILER_PREFIX=$EBROOTBINUTILS/bin" '
+_jaxlib_buildopts += '--bazel_options=--repo_env=CC=$CC '
+_jaxlib_buildopts += '--bazel_options=--repo_env=CXX=$CXX '
+_jaxlib_buildopts += '--bazel_options=--repo_env=GCC_HOST_COMPILER_PATH=$CXX '
+_jaxlib_buildopts += '--bazel_options=--repo_env=GCC_HOST_COMPILER_PREFIX=$EBROOTBINUTILS/bin '
+_jaxlib_buildopts += '--bazel_options="--action_env=TF_NVCC_CLANG=0" '
+_jaxlib_buildopts += '--bazel_options=--repo_env=TF_NVCC_CLANG=0 '
+_jaxlib_buildopts += '--bazel_options="--action_env=TF_CUDA_CLANG=0" '
+_jaxlib_buildopts += '--bazel_options=--repo_env=TF_CUDA_CLANG=0 '
+_jaxlib_buildopts += '--bazel_options=--repo_env=CUDACXX=$EBROOTCUDA/bin/nvcc '
+_jaxlib_buildopts += '--bazel_options="--action_env=CUDACXX=$EBROOTCUDA/bin/nvcc" '
+_jaxlib_buildopts += '--bazel_options="--action_env=NVCC_PREPEND_FLAGS=-ccbin=$EBROOTGCCCORE/bin/g++" '
+
+# use GCC instead of default Clang
+# The default behavior is to compile CUDA with NVCC.
+_jaxlib_buildopts += '--use_clang=false --gcc_path=$CXX '
+# _jaxlib_buildopts += '--use_clang=false '
+# fix jaxlib version
+_jaxlib_buildopts += '--bazel_options="--action_env=JAXLIB_RELEASE" '
+
+components = [
+    ('jaxlib', version, {
+        'sources': [
+            {
+                'source_urls': ['https://github.com/google/jax/archive/'],
+                'filename': 'jax-v%(version)s.tar.gz',
+            },
+            {
+                'source_urls': ['https://github.com/openxla/xla/archive'],
+                'download_filename': f'{_xla_commit}.tar.gz',
+                'filename': f'xla-{_xla_commit[:8]}.tar.gz',
+                'extract_cmd': 'mkdir -p %(builddir)s/archives && cp %s %(builddir)s/archives',
+            },
+        ],
+        'checksums': [
+            {'jax-v0.6.2.tar.gz':
+             'd46cb98795f2c1ccdf2b081e02d9d74b659063679a80beb001ad17d482a60e17'},
+            {'xla-3d5ece64.tar.gz':
+             'fbd20cf83bad78f66977fa7ff67a12e52964abae0b107ddd5486a0355643ec8a'},
+        ],
+        'start_dir': f'jax-jax-v{version}',
+        # fix jaxlib version - removes .dev suffix
+        'prebuildopts': 'export JAXLIB_RELEASE=%(version)s && ',
+        'buildopts': _jaxlib_buildopts,
+    }),
+]
+
+# BackendsTest is failing on systems with GPU detected when cpu version is built
+_failing_backend_test = 'tests/api_test.py::BackendsTest::test_no_backend_warning_on_cpu_if_platform_specified'
+# Failing after fix jaxlib version by JAXLIB_RELEASE
+_failing_version_tests = 'tests/version_test.py'
+_runtest_cmd1 = f"pytest -n %(parallel)s tests --deselect={_failing_backend_test} --deselect={_failing_version_tests}"
+# retry randomly failing tests
+_runtest_cmd = ' '.join([_runtest_cmd1, '||', _runtest_cmd1, '--last-failed'])
+
+exts_list = [
+    (name, version, {
+        'patches': ['jax-0.6.2_jax-version-fix.patch'],
+        'runtest': "pytest -n %(parallel)s tests --deselect=tests/api_test.py::BackendsTest::test_no_backend_warning_on_cpu_if_platform_specified --deselect=tests/version_test.py || pytest -n %(parallel)s tests --deselect=tests/api_test.py::BackendsTest::test_no_backend_warning_on_cpu_if_platform_specified --deselect=tests/version_test.py --last-failed",
+        'sources': [{'source_urls': ['https://github.com/google/jax/archive/'], 'filename': '%(name)s-v%(version)s.tar.gz'}],
+        'testinstall': True,
+        'checksums': [
+            {'jax-v0.6.2.tar.gz': 'd46cb98795f2c1ccdf2b081e02d9d74b659063679a80beb001ad17d482a60e17'},
+            {'jax-0.6.2_jax-version-fix.patch': 'e15615fd9f4e1698f7c5fd384f146d7b2dbfde3d4657b69bd2d044d75c9fb1d4'},
+        ],
+    }),
+]
+
+moduleclass = 'ai'
+
+# Error: -> problem with GCC full paths -> try Clang?
+    # # Configuration: 4a94d9e3985129b364bb522a44325afa684e3455d91d7ff2bb453d0fb14caa30
+    # # Execution platform: @@local_execution_config_platform//:platform
+    # ERROR: /tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/tmp5mw9b6om-bazel/e2566982ea8e2d50b88337fbf6eb7032/external/highwayhash/BUILD.bazel:45:11: Compiling highwayhash/arch_specific.cc failed: absolute path inclusion(s) found in rule '@@highwayhash//:arch_specific':
+    # the source file 'highwayhash/arch_specific.cc' includes the following non-builtin files with absolute paths (if these are builtin files, make sure these paths are in your toolchain):
+    #   '/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/include/c++/13.3.0/string'
+    #   '/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/include/c++/13.3.0/bits/requires_hosted.h'
+    #   '/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/include/c++/13.3.0/x86_64-pc-linux-gnu/bits/c++config.h'
+    #   '/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/include/c++/13.3.0/x86_64-pc-linux-gnu/bits/os_defines.h'
+    #   '/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/include/c++/13.3.0/x86_64-pc-linux-gnu/bits/cpu_defines.h'
+    #   '/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/include/c++/13.3.0/pstl/pstl_config.h'
+    # ...
+# jaxlib install cmd:
+    # export JAXLIB_RELEASE=0.6.2 &&  /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
+    # build/build.py build --target_cpu_features=default --enable_cuda
+    # --cuda_path=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/CUDA/12.6.0
+    # --cuda_compute_capabilities=7.0 --cuda_version=12.6
+    # --cudnn_path=/apps/gent/RHEL9/cascadelake-volta-ib/software/cuDNN/9.5.0.50-CUDA-12.6.0 --cudnn_version=9.5.0 
+    # --enable_nccl --disable_mkl_dnn
+    # --bazel_startup_options="--output_user_root=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/tmpls341uit-b
+    # azel" --bazel_options="--jobs=8" --bazel_options="--subcommands" --bazel_options="--action_env=PYTHONPATH"   
+    # --bazel_options="--action_env=EBPYTHONPREFIXES" --bazel_options="--copt=-O2" --bazel_options="--copt=-ftree-vectorize"
+    # --bazel_options="--copt=-march=native" --bazel_options="--copt=-fno-math-errno"
+    # --bazel_options="--distdir=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/archives"
+    # --wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt --bazel_options=--repo_env=LOCAL_CUDA_PATH=$EBROOTCUDA
+    # --bazel_options=--repo_env=LOCAL_CUDNN_PATH=$EBROOTCUDNN --bazel_options=--repo_env=LOCAL_NCCL_PATH=$EBROOTNCCL
+    # --use_clang=false --bazel_options="--action_env=JAXLIB_RELEASE"
