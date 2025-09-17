@@ -1,4 +1,4 @@
-easyblock = 'CmdCp'
+easyblock = 'Tarball'
 
 name = 'bshoshany-thread-pool'
 version = '5.0.0'
@@ -8,86 +8,24 @@ description = """
 BS::thread_pool: a fast, lightweight, modern, and easy-to-use C++17 / C++20 / C++23 thread pool library
 """
 
-toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+# toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+toolchain = SYSTEM
 
 source_urls = ['https://github.com/bshoshany/thread-pool/archive/']
 sources = ['v%(version)s.tar.gz']
 checksums = ['617a8fbc2c360577f498998f336777c73d581810831d4ce9c920f11ec680b07b']
 
-builddependencies = [
-    ('binutils', '2.40'),
-    ('CMake', '3.26.3'),
-    ('conan', '1.60.2'),
-]
+# builddependencies = [
+#     ('binutils', '2.40'),
+#     ('CMake', '3.26.3'),
+#     ('Python', '3.11.3'),
+# ]
 
-local_crate_conanfile_cmd = " echo '[requires]' > conanfile.txt && "
-local_crate_conanfile_cmd += "echo 'opentelemetry-cpp/1.18.0' >> conanfile.txt && "
-local_crate_conanfile_cmd += "echo '[generators]' >> conanfile.txt && "
-local_crate_conanfile_cmd += "echo 'CMakeDeps' >> conanfile.txt && "
-local_crate_conanfile_cmd += "echo 'CMakeToolchain' >> conanfile.txt && "
-local_crate_conanfile_cmd += "echo '[layout]' >> conanfile.txt && "
-local_crate_conanfile_cmd += "echo 'cmake_layout' >> conanfile.txt && "
-local_crate_conanfile_cmd += "export CONAN_USER_HOME=%(builddir)s/%(name)s-%(version)s && conan install ."
+sanity_check_paths = {
+    'files': ["include/BS_thread_pool.hpp"],
+    'dirs': []
+}
 
-cmds_map = [('.*', local_crate_conanfile_cmd)]
-
-files_to_copy = [
-    (['include'], 'include'),
-    (['lib'], 'lib'),
-]
+# sanity_check_commands = ['python test_all.py']
 
 moduleclass = 'lib'
-
-# TODO
-# Auto detecting your dev setup to initialize the default profile (/tmp/vsc45304/easybuild/build/bshoshanythreadpool/5.0.0/GCCcore-12.3.0/bshoshany-thread-pool-5.0.0/.conan/profiles/default)
-# CC and CXX: gcc, g++
-# Found gcc 12.3
-# gcc>=5, using the major as version
-#
-# ************************* WARNING: GCC OLD ABI COMPATIBILITY ***********************
-#
-# Conan detected a GCC version > 5 but has adjusted the 'compiler.libcxx' setting to
-# 'libstdc++' for backwards compatibility.
-# Your compiler is likely using the new CXX11 ABI by default (libstdc++11).
-#
-# If you want Conan to use the new ABI for the default profile, run:
-#
-#     $ conan profile update settings.compiler.libcxx=libstdc++11 default
-#
-# Or edit '/tmp/vsc45304/easybuild/build/bshoshanythreadpool/5.0.0/GCCcore-12.3.0/bshoshany-thread-pool-5.0.0/.conan/profiles/default' and set compiler.libcxx=libstdc++11
-#
-# ************************************************************************************
-#
-#
-#
-# Default settings
-#         os=Linux
-#         os_build=Linux
-#         arch=x86_64
-#         arch_build=x86_64
-#         compiler=gcc
-#         compiler.version=12
-#         compiler.libcxx=libstdc++
-#         build_type=Release
-# *** You can change them in /tmp/vsc45304/easybuild/build/bshoshanythreadpool/5.0.0/GCCcore-12.3.0/bshoshany-thread-pool-5.0.0/.conan/profiles/default ***
-# *** Or override with -s compiler='other' -s ...s***
-#
-#
-# WARN: Remotes registry file missing, creating default one in /tmp/vsc45304/easybuild/build/bshoshanythreadpool/5.0.0/GCCcore-12.3.0/bshoshany-thread-pool-5.0.0/.conan/remotes.json
-# Configuration:
-# [settings]
-# arch=x86_64
-# arch_build=x86_64
-# build_type=Release
-# compiler=gcc
-# compiler.libcxx=libstdc++
-# compiler.version=12
-# os=Linux
-# os_build=Linux
-# [options]
-# [build_requires]
-# [env]
-#
-# opentelemetry-cpp/1.18.0: Not found in local cache, looking in remotes...
-# opentelemetry-cpp/1.18.0: Trying with 'conancenter'...
-# ERROR: Unable to find 'opentelemetry-cpp/1.18.0' in remotes

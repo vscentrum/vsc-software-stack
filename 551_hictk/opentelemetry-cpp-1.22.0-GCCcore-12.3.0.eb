@@ -19,6 +19,13 @@ builddependencies = [
     ('CMake', '3.26.3'),
 ]
 
+dependencies = [
+    ('protobuf', '24.0'),
+]
+
+# configopts = '-DWITH_ZIPKIN=ON -DWITH_OTLP_GRPC=ON -DWITH_OTLP_HTTP=ON'  # TODO ? missing `gRPCConfig.cmake`
+configopts = '-DWITH_OTLP_HTTP=ON'
+
 test_cmd = 'ctest'
 
 sanity_check_paths = {
