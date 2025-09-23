@@ -1,0 +1,113 @@
+scine_autocas/interfaces/molcas/__init__.py
+--- scine_autocas/interfaces/molcas/__init__.py.orig	2025-06-06 12:17:35.031662000 +0200
++++ scine_autocas/interfaces/molcas/__init__.py	2025-06-06 12:18:21.299490000 +0200
+@@ -386,6 +386,15 @@
+         self.settings.active_orbitals = len(cas_occupation)
+         self.settings.active_electrons = int(sum(cas_occupation))
+         self.settings.spin_multiplicity = spin_mult
++    # DEBUG ADDITION START
++    def _debug_list_files(self, message=None):
++        if message:
++            print(message)
++        for root, dirs, files in os.walk(self.settings.work_dir):
++            print(f"DIR: {root}")
++            for f in files:
++                print(f"  - {f}")
++    # DEBUG ADDITION END
+ 
+     def run_molcas(self):
+         """Run molcas, from current state.
+@@ -418,6 +427,9 @@
+         calculation_process.communicate()
+         # go back to current location
+         os.chdir(current_dir)
++        # DEBUG ADDITION START
++        self._debug_list_files("DEBUG: After run_molcas, listing all files under work_dir:")
++        # DEBUG ADDITION END
+ 
+     def reorder_indices_from_symmetry(self, cas_indices: List[int]) -> List[int]:
+         """Reorder cas indices based on mo energies.
+@@ -597,13 +609,33 @@
+         except FileNotFoundError as exc:
+             raise FileNotFoundError("Calculation failed") from exc
+ 
++    def _print_log_tail(self, log_path, n_lines=30):
++        if os.path.isfile(log_path):
++            with open(log_path) as f:
++                lines = f.readlines()
++            print(f"\n==== Last {n_lines} lines of {log_path} ====")
++            print("".join(lines[-n_lines:]))
++            print("==== end log ====\n")
++        else:
++            print(f"(Log file {log_path} not found.)")
++                
+     def make_dmrg_measurements(self):
+         """Build all entropies from QCMaquis HDF5 file."""
++        self.s1_list = []
++        self.s2_list = []
++        self.mutual_information_list = []
+         if self.settings.n_excited_states > 0:
++            print(f"DDDD - N_EX_STATES: {self.settings.n_excited_states}")
++            print("Looking for:", self.settings.work_dir + "/" + self.project_name + ".results_state.0.h5")
++            print("Dir contents:", os.listdir(self.settings.work_dir))
+             s1_list = []
+             s2_list = []
+             mutual_information_list = []
+             if os.path.isfile(self.settings.work_dir + "/" + self.project_name + ".results_state.0.h5"):
++                print(f"EEEEE - RESULT EXISTS")
++                print("Current working dir:", os.getcwd())
++                print("Files in directory:", os.listdir(self.settings.work_dir))
++                print("Files in directory2:", os.listdir(self.settings.work_dir + "/" + self.project_name))
+                 for i in range(self.settings.n_excited_states):
+                     self.qc_maquis.read_hdf5(
+                         self.settings.work_dir
+@@ -614,28 +646,49 @@
+                         + ".h5"
+                     )
+                     self.qc_maquis.make_diagnostics()
++                    print("BBBBBB QC_MAQUIS_ENTROPY: ")
++                    print(f"ENTROPY1: {self.qc_maquis.s1_entropy}")
++                    type_s1_entropy = type(self.qc_maquis.s1_entropy)
++                    print(f"ENTROPY1_TYPE: {type_s1_entropy}")
++                    print(f"ENTROPY2: {self.qc_maquis.s2_entropy}")
++                    type_s2_entropy = type(self.qc_maquis.s2_entropy)
++                    print(f"ENTROPY2_TYPE: {type_s2_entropy}")
+                     s1_list.append(self.qc_maquis.s1_entropy)
+                     s2_list.append(self.qc_maquis.s2_entropy)
+                     mutual_information_list.append(self.qc_maquis.mutual_information)
++                print('CCCCCCC: ')
++                print(s1_list)
++                print(s2_list)
++                print(mutual_information_list)
+                 self.s1_list = s1_list
+                 self.s2_list = s2_list
+                 self.mutual_information_list = mutual_information_list
+             else:
+                 # no dmrg
++                result_path = self.settings.work_dir + "/" + self.project_name + ".results_state.0.h5"
++                print(f"WARNING: results_state.0.h5 NOT FOUND at {result_path}")
++                self._debug_list_files("DEBUG: Listing files under work_dir after missing results_state.0.h5:")
++                log_path = self.settings.work_dir + "/" + self.project_name + ".log"
++                self._print_log_tail(log_path)
+                 pass
+         else:
+             if os.path.isfile(self.settings.work_dir + "/" + self.project_name + ".results_state.0.h5"):
++                print("FFFFF")
+                 self.qc_maquis.read_hdf5(self.settings.work_dir + "/" + self.project_name + ".results_state.0.h5")
+                 self.qc_maquis.make_diagnostics()
+             else:
+                 # no dmrg
+                 pass
+         if os.path.isfile(self.settings.work_dir + "/" + self.project_name + ".dmrgscf.h5"):
++            print("GGGGGGG")
+             self.hdf5_utils.get_energy(self.settings.work_dir + "/" + self.project_name + ".dmrgscf.h5")
+         elif os.path.isfile(self.settings.work_dir + "/" + self.project_name + ".rasscf.h5"):
++            print("HHHHHHHHH")
+             self.hdf5_utils.get_energy(self.settings.work_dir + "/" + self.project_name + ".rasscf.h5")
+         else:
++            print("IIIIIIIIII")
+             pass
++        print("JJJJJJJJJJJJ")
+         self.get_caspt2_from_log(self.settings.work_dir + "/" + self.project_name + ".log")
+ 
+     def _convert_type_indices(self, type_indices):

@@ -1,0 +1,106 @@
+easyblock = 'CMakeMake'
+
+name = 'QCMaquis'
+version = '3.1.4'
+
+homepage = "https://github.com/qcscine/qcmaquis"
+description = """QCMaquis is written in C++ (C++14 standard) and parallelizes the computationally heavy steps of
+a DMRG simulation with shared-memory parallelism (OpenMP)."""
+
+toolchain = {'name': 'iomkl', 'version': '2023a'}
+# toolchainopts = {'usempi': True, 'optarch': False}
+
+source_urls = ['https://github.com/qcscine/qcmaquis/archive']
+sources = [{'download_filename': 'release-%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+checksums = ['98eaa0a057a8f056ebeab8427c8b59efaf2d71667a2d71491b900adbe0d29341']
+
+builddependencies = [('CMake', '3.26.3')]
+dependencies = [
+    ('HDF5', '1.14.0', '-serial'),
+    ('GSL', '2.7'),
+    ('Boost', '1.82.0'),
+    ('GlobalArrays', '5.8.2'),
+]
+
+start_dir = 'dmrg'
+
+# provide mafdecls.fh from GlobalArrays + preprocess fortran sources by -fpp
+preconfigopts = "export GA_INCLUDE_DIR=$EBROOTGLOBALARRAYS/include && "
+configopts = '-DBUILD_OPENMOLCAS_INTERFACE=ON -DCMAKE_Fortran_FLAGS="-fpp -D_MOLCAS_MPP_ -I${GA_INCLUDE_DIR}" -DQCMAQUIS_TESTS=ON'
+
+# fix build of test_wigner
+prebuildopts = "sed -i '14i#include <array>' %(start_dir)s/tests/test_wigner.cpp && "
+
+runtest = True
+
+moduleclass = 'chem'
+
+#E5: OK
+    # -> mafdecls.fh is in EBROOTGLOBALARRAYS/include -> needs: 
+        # export GA_INCLUDE_DIR=$EBROOTGLOBALARRAYS/include + -DCMAKE_Fortran_FLAGS="-fpp -D_MOLCAS_MPP_ -I${GA_INCLUDE_DIR}"
+    # -> problem to use it as dep for OpenMolcas -> openMolcas-parallel E04 -> add either -D_MOLCAS_MPP_ to CMAKE_Fortran_FLAGS -> error: -> log9.txt
+            # [ 12%] Building CXX object framework/dmrg/CMakeFiles/dmrg_utils.dir/utils/utils.cpp.o
+            # cd /tmp/vsc47063/easybuild/build/QCMaquis/3.1.4/iomkl-2023a/easybuild_obj/framework/dmrg && /tmp/vsc47063/eb-35f3yt9w/tmp6gia17tx/r
+            # path_wrappers/icpx_wrapper/icpx -DALPS_DISABLE_MATRIX_ELEMENT_ITERATOR_WARNING -DBIND_FORTRAN_INTEGER_8 -DDISABLE_MATRIX_ELEMENT_IT
+            # ERATOR_WARNING -DDMRG_NUMSYMM=6 -DHAVE_ALPS_HDF5 -DHAVE_SU2U1PG -DHAVE_TwoU1PG -DMAQUIS_OPENMP -I/tmp/vsc47063/easybuild/build/QCMa
+            # quis/3.1.4/iomkl-2023a/qcmaquis-release-3.1.4/dmrg/framework -I/tmp/vsc47063/easybuild/build/QCMaquis/3.1.4/iomkl-2023a/easybuild_o
+            # bj/framework -I/tmp/vsc47063/easybuild/build/QCMaquis/3.1.4/iomkl-2023a/qcmaquis-release-3.1.4/dmrg/lib/maquis_dmrg -I/tmp/vsc47063
+            # /easybuild/build/QCMaquis/3.1.4/iomkl-2023a/easybuild_obj/lib/maquis_dmrg -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadela
+            # ke-ampere-ib/software/Boost/1.82.0-intel-compilers-2023.1.0/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-amp
+            # ere-ib/software/HDF5/1.14.0-GCCcore-12.3.0-serial/include -I/apps/gent/RHEL9/cascadelake-ib/software/zlib/1.2.13-GCCcore-12.3.0/inc
+            # lude -I/apps/gent/RHEL9/cascadelake-ib/software/Szip/2.1.1-GCCcore-12.3.0/include -I/tmp/vsc47063/easybuild/build/HDF5/1.14.0/GCCco
+            # re-12.3.0-serial/hdf5-1.14.0/src/H5FDsubfiling -I/apps/gent/RHEL9/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/include -I/t
+            # mp/vsc47063/easybuild/build/QCMaquis/3.1.4/iomkl-2023a/qcmaquis-release-3.1.4/dmrg/alps/src -I/tmp/vsc47063/easybuild/build/QCMaqui
+            # s/3.1.4/iomkl-2023a/easybuild_obj/alps/src -O2 -march=core-avx2 -ftz -fp-speculation=safe -fp-model precise -fiopenmp -Wno-unknown-
+            # pragmas -O3 -DNDEBUG -std=gnu++14 -fPIC -MD -MT framework/dmrg/CMakeFiles/dmrg_utils.dir/utils/utils.cpp.o -MF CMakeFiles/dmrg_util
+            # s.dir/utils/utils.cpp.o.d -o CMakeFiles/dmrg_utils.dir/utils/utils.cpp.o -c /tmp/vsc47063/easybuild/build/QCMaquis/3.1.4/iomkl-2023
+            # a/qcmaquis-release-3.1.4/dmrg/framework/dmrg/utils/utils.cpp
+            # qcmaquis_interface_mpssi.f90(28): #error: can't find include file: mafdecls.fh
+            # make[2]: *** [lib/interfaces/openmolcas/CMakeFiles/qcmaquis-driver.dir/build.make:117: lib/interfaces/openmolcas/CMakeFiles/qcmaquis-driver.dir/qcmaquis_interface_mpssi.f90.o] Error 1
+            # make[2]: Leaving directory '/tmp/vsc47063/easybuild/build/QCMaquis/3.1.4/iomkl-2023a/easybuild_obj'
+            # make[1]: *** [CMakeFiles/Makefile2:331: lib/interfaces/openmolcas/CMakeFiles/qcmaquis-driver.dir/all] Error 2
+    # gemini: https://g.co/gemini/share/4579f0f07fdb
+#E4: OK
+    # problem with -DQCMAQUIS_TESTS=ON -> log7.txt -> fix in prebuildopts
+#E3: OK
+    # -> problem with .f90 - should be .F90? -> add flag CMAKE_Fortran_FLAGS="-fpp" -> added -DCMAKE_Fortran_FLAGS="-fpp" -> OK
+    # -> add -DBUILD_OPENMOLCAS_INTERFACE=ON -DQCMAQUIS_TESTS=ON -> error -> log6.txt
+    # <- from E03 in openmolcas-parallel
+#E2: OK
+    # -> preconfigopts = "sed  -i '32ifind_package(MPI)' %(start_dir)s/alps/CMakeLists.txt && " -> OK
+        # CMake Warning at alps/CMakeLists.txt:49 (MESSAGE):
+        # parallel(MPI) hdf5 is detected.  We will compile but ALPS does not use
+        # parallel HDF5.  The standard version is preferred.
+        # CMake Error at alps/CMakeLists.txt:51 (MESSAGE):
+        # parallel(MPI) hdf5 needs MPI.  Enable MPI or install serial HDF5 libraries.
+
+#E1: OK
+    # -> change to intel toolchain
+        # -- The C compiler identification is IntelLLVM 2023.1.0
+        # -- The CXX compiler identification is IntelLLVM 2023.1.0
+        # -- Detecting C compiler ABI info
+        # -- Detecting C compiler ABI info - done
+        # -- Check for working C compiler: /tmp/vsc47063/eb-xmaointb/tmpy7fj3lue/rpath_wrappers/icx_wrapper/icx - skipped
+        # -- Detecting C compile features
+        # -- Detecting C compile features - done
+        # -- Detecting CXX compiler ABI info
+        # -- Detecting CXX compiler ABI info - done
+        # -- Check for working CXX compiler: /tmp/vsc47063/eb-xmaointb/tmpy7fj3lue/rpath_wrappers/icpx_wrapper/icpx - skipped
+        # -- Detecting CXX compile features
+        # -- Detecting CXX compile features - done
+        # -- Looking for sgemm_
+        # -- Looking for sgemm_ - not found
+        # -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+        # -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+        # -- Found Threads: TRUE  
+        # CMake Error at /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+        # Could NOT find BLAS (missing: BLAS_LIBRARIES)
+        # Call Stack (most recent call first):
+        # /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
+        # /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindBLAS.cmake:1346 (find_package_handle_standard_args)
+        # config/BlasLapack.cmake:16 (find_package)
+        # CMakeLists.txt:118 (include)
+
+
+        # -- Configuring incomplete, errors occurred!
+

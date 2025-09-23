@@ -1,0 +1,43 @@
+easyblock = 'CMakeMake'
+
+name = 'HDF5'
+version = '1.14.0'
+versionsuffix = '-serial-CMake'
+
+homepage = 'https://portal.hdfgroup.org/display/support'
+description = """HDF5 is a data model, library, and file format for storing and managing data."""
+
+toolchain = {'name': 'intel-compilers', 'version': '2023.1.0'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-%(version_major_minor)s/hdf5-%(version)s/src']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['a571cc83efda62e1a51a0a912dd916d01895801c5025af91669484a1575a6ef4']
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+]
+
+dependencies = [
+    ('zlib', '1.2.13'),
+    ('Szip', '2.1.1'),
+]
+
+# CMake options: shared libs, serial (no MPI), C++ + HL libs, zlib & szip
+configopts = ' '.join([
+    '-DBUILD_SHARED_LIBS=ON',
+    '-DHDF5_ENABLE_PARALLEL=OFF',
+    '-DHDF5_BUILD_CXX=ON',
+    '-DHDF5_BUILD_CPP_LIB=ON',     # redundant with BUILD_CXX on some versions, harmless
+    '-DHDF5_BUILD_HL_LIB=ON',
+    '-DHDF5_BUILD_TOOLS=ON',
+    '-DHDF5_BUILD_FORTRAN=OFF',
+    '-DHDF5_BUILD_EXAMPLES=OFF',
+    '-DHDF5_ENABLE_Z_LIB_SUPPORT=ON',
+    '-DZLIB_ROOT=$EBROOTZLIB',
+    '-DHDF5_ENABLE_SZIP_SUPPORT=ON',
+    '-DSZIP_ROOT=$EBROOTSZIP',
+    '-DCMAKE_INSTALL_LIBDIR=lib'
+])
+
+moduleclass = 'data'

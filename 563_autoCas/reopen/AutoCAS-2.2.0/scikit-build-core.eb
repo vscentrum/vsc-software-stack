@@ -1,0 +1,31 @@
+easyblock = 'PythonBundle'
+
+name = 'scikit-build-core'
+version = '0.10.6'
+
+homepage = 'https://scikit-build.readthedocs.io/en/latest/'
+description = """Scikit-build-core is a complete ground-up rewrite of scikit-build on top of
+modern packaging APIs. It provides a bridge between CMake and the Python build
+system, allowing you to make Python modules with CMake."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+builddependencies = [
+    ('binutils', '2.40'),
+    ('hatchling', '1.18.0'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('CMake', '3.26.3'),
+]
+
+exts_list = [
+    ('scikit_build_core', version, {
+        'preinstallopts': "sed -i -e '/Python :: 3.13/d' -e '/Python :: 3.14/d' pyproject.toml && ",
+        'checksums': ['5397db8f09ee050d145406c11deed06538bb0b261df95f8d2d6aaf8699f0126d'],
+    }),
+]
+
+moduleclass = 'lib'

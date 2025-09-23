@@ -1,0 +1,83 @@
+easyblock = 'CMakeMake'
+
+name = 'QCMaquis'
+version = '3.1.4'
+
+homepage = "https://github.com/qcscine/qcmaquis"
+description = """QCMaquis is written in C++ (C++14 standard) and parallelizes the computationally heavy steps of
+a DMRG simulation with shared-memory parallelism (OpenMP)."""
+
+toolchain = {'name': 'intel', 'version': '2023a'}
+toolchainopts = {'usempi': True, 'optarch': False}
+
+source_urls = ['https://github.com/qcscine/qcmaquis/archive']
+sources = ["release-%(version)s.tar.gz"]
+checksums = ['98eaa0a057a8f056ebeab8427c8b59efaf2d71667a2d71491b900adbe0d29341']
+
+builddependencies = [('CMake', '3.26.3')]
+dependencies = [
+    ('HDF5', '1.14.0'),
+    ('GSL', '2.7'),
+    ('Boost', '1.82.0'),
+]
+
+start_dir = 'dmrg'
+
+# fix missing MPI find for ALPS CMakeLists.txt
+preconfigopts = "sed  -i '32ifind_package(MPI)' %(start_dir)s/alps/CMakeLists.txt && "
+
+configopts = '-DBUILD_OPENMOLCAS_INTERFACE=ON -DCMAKE_Fortran_FLAGS="-fpp" -DQCMAQUIS_TESTS=ON'
+
+# fix build of test
+prebuildopts = "sed -i '14i#include <array>' %(start_dir)s/tests/test_wigner.cpp && "
+
+runtest = True
+
+moduleclass = 'chem'
+
+#E5: 
+    # problem to use it as dep for OpenMolcas -> openMolcas-parallel E04
+#E4: OK
+    # problem with -DQCMAQUIS_TESTS=ON -> log7.txt -> fix in prebuildopts
+#E3: OK
+    # -> problem s .f90 - should be .F90, ot add flag CMAKE_Fortran_FLAGS="-fpp" -> added -DCMAKE_Fortran_FLAGS="-fpp" -> OK
+    # -> add -DBUILD_OPENMOLCAS_INTERFACE=ON -DQCMAQUIS_TESTS=ON -> error -> log6.txt
+    # <- from E03 in openmolcas-parallel
+#E2: OK
+    # -> preconfigopts = "sed  -i '32ifind_package(MPI)' %(start_dir)s/alps/CMakeLists.txt && " -> OK
+        # CMake Warning at alps/CMakeLists.txt:49 (MESSAGE):
+        # parallel(MPI) hdf5 is detected.  We will compile but ALPS does not use
+        # parallel HDF5.  The standard version is preferred.
+        # CMake Error at alps/CMakeLists.txt:51 (MESSAGE):
+        # parallel(MPI) hdf5 needs MPI.  Enable MPI or install serial HDF5 libraries.
+
+#E1: OK
+    # -> change to intel toolchain
+        # -- The C compiler identification is IntelLLVM 2023.1.0
+        # -- The CXX compiler identification is IntelLLVM 2023.1.0
+        # -- Detecting C compiler ABI info
+        # -- Detecting C compiler ABI info - done
+        # -- Check for working C compiler: /tmp/vsc47063/eb-xmaointb/tmpy7fj3lue/rpath_wrappers/icx_wrapper/icx - skipped
+        # -- Detecting C compile features
+        # -- Detecting C compile features - done
+        # -- Detecting CXX compiler ABI info
+        # -- Detecting CXX compiler ABI info - done
+        # -- Check for working CXX compiler: /tmp/vsc47063/eb-xmaointb/tmpy7fj3lue/rpath_wrappers/icpx_wrapper/icpx - skipped
+        # -- Detecting CXX compile features
+        # -- Detecting CXX compile features - done
+        # -- Looking for sgemm_
+        # -- Looking for sgemm_ - not found
+        # -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+        # -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+        # -- Found Threads: TRUE  
+        # CMake Error at /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+        # Could NOT find BLAS (missing: BLAS_LIBRARIES)
+        # Call Stack (most recent call first):
+        # /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
+        # /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.26.3-GCCcore-12.3.0/share/cmake-3.26/Modules/FindBLAS.cmake:1346 (find_package_handle_standard_args)
+        # config/BlasLapack.cmake:16 (find_package)
+        # CMakeLists.txt:118 (include)
+
+
+        # -- Configuring incomplete, errors occurred!
+

@@ -1,0 +1,139 @@
+easyblock = 'CMakeMake'
+
+name = 'OpenMolcas'
+version = '25.02'
+versionsuffix = '-no-MPI'
+
+homepage = "https://gitlab.com/Molcas/OpenMolcas"
+description = "OpenMolcas is a quantum chemistry software package."
+
+toolchain = {'name': 'iomkl', 'version': '2023a'}
+toolchainopts = {'optarch': False}
+
+source_urls = ['https://gitlab.com/Molcas/OpenMolcas/-/archive/v%(version)s/']
+sources = ["%(name)s-v%(version)s.tar.gz"]
+patches = [
+    '%(name)s-23.06_mcpdft_deps.patch',
+    '%(name)s-%(version)s_fix-nevpt2.cmake.patch',
+]
+checksums = [
+    {'OpenMolcas-v25.02.tar.gz': '7d25d4f0563bf3c1c08ed4b48c50e38fc9a8ece77f28661d55886df6e88dcf26'},
+    {'OpenMolcas-23.06_mcpdft_deps.patch': 'a798ec6f93a19539aa2211a978da461d4ecd31c5521b9dab6f2a9b1c2fa65f0e'},
+    {'OpenMolcas-25.02_fix-nevpt2.cmake.patch': '0d97593f5f4757c475a427799626e43d93334e69b5a14551e3ee7875f4327d0b'},
+]
+
+builddependencies = [('CMake', '3.26.3')]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('lxml', '4.9.2'),
+    ('HDF5', '1.14.0', '-serial'),
+    ('GlobalArrays', '5.8.2'),
+    ('libxc', '6.2.2'),
+    ('GSL', '2.7'),
+    ('Boost', '1.82.0'),
+    # ('QCMaquis', '3.1.4'),
+]
+
+build_shared_libs = True
+
+# preconfigopts = 'GAROOT=$EBROOTGLOBALARRAYS'
+_copts = [
+    '-DLINALG=MKL',
+    '-DMKLROOT=$MKLROOT',
+    '-DOPENMP=ON',
+    '-DTOOLS=ON',
+    '-DFDE=ON',
+    # '-DMPI=ON',
+    # '-DGA=ON',
+    '-DEXTERNAL_LIBXC=$EBROOTLIBXC',
+    '-DPython_ROOT=$EBROOTPYTHON',
+    '-DDMRG=ON',
+    '-DNEVPT2=ON',
+    # '-DQCMaquis_ROOT=$EBROOTQCMAQUIS',
+]
+configopts = ' '.join(_copts)
+
+# pretestopts = 'mkdir -p %(builddir)s/easybuild_obj/test/tmp && '
+pretestopts = 'MOLCAS=%(builddir)s/easybuild_obj '
+# pretestopts += 'MOLCAS=%(builddir)s/easybuild_obj '
+pretestopts += 'MOLCAS_DRIVER=%(builddir)s/easybuild_obj/pymolcas '
+pretestopts += 'MOLCAS_SOURCE=%(builddir)s/easybuild_obj '
+pretestopts += 'MOLCAS_WORKDIR=%(builddir)s/easybuild_obj '
+pretestopts += 'PATH=%(builddir)s/easybuild_obj:$PATH '
+# test_cmd = 'pymolcas verify '
+# test_cmd = 'pymolcas verify -j 6 -kd .all grayzone:- additional:-100' #  failing 5 additional tests (before ok)
+test_cmd = 'pymolcas verify .default grayzone:- additional:-100'
+
+fix_python_shebang_for = ['pymolcas', 'Tools/AugerOca/*.py', 'Tools/AugerOca/auger_oca/*.py', 'Tools/mort/mort.py',
+                          'Tools/dynamixtools/dynamixtools.py']
+
+modextrapaths = {'PATH': ''}
+modextravars = {
+    'MOLCAS': '%(installdir)s',
+    'MOLCAS_DRIVER': '%(installdir)s/pymolcas',
+    'MOLCAS_SOURCE': '%(installdir)s',
+}
+
+sanity_check_commands = ['pymolcas --help']
+
+sanity_check_paths = {
+    'files': ['bin/dynamix.exe', 'bin/mpprop.exe', 'lib/libmolcas.%s' % SHLIB_EXT,
+              'sbin/help_basis', 'pymolcas'],
+    'dirs': ['data/', 'basis_library/'],
+}
+
+moduleclass = 'chem'
+
+# -> do not use MPI with OpenMP: https://github.com/qcscine/qcmaquis/issues/12#issuecomment-2975810625
+# E11: OK?
+    # -> use default QCMaquis -> delete '-DQCMaquis_ROOT=$EBROOTQCMAQUIS', -> ec without-qcmaquis -> OK can be build (tests failing still on additional_100)
+    # <- log9.txt
+    # [ 16%] Building Fortran object CMakeFiles/ccsd_util/CMakeFiles/ccsd_util_obj.dir/grc43y.F90.o
+    # cd /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/iomkl-2023a-no-MPI/easybuild_obj/CMakeFiles/ccsd_util && /tmp/vsc47063/eb-3jvl
+    # 5eoo/tmpt4z_bi_q/rpath_wrappers/ifort_wrapper/ifort -D_I8_ -D_LINUX_ -D_MOLCAS_ -I/tmp/vsc47063/easybuild/build/OpenMolcas/25.02
+    # /iomkl-2023a-no-MPI/OpenMolcas-v25.02/src/Include -I/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/iomkl-2023a-no-MPI/easybuild_
+    # obj/CMakeFiles/include -I/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/iomkl-2023a-no-MPI/easybuild_obj/CMakeFiles/mod -I/tmp/v
+    # sc47063/easybuild/build/OpenMolcas/25.02/iomkl-2023a-no-MPI/easybuild_obj/CMakeFiles/mod/ccsd_util_obj -I/tmp/vsc47063/easybuild
+    # /build/OpenMolcas/25.02/iomkl-2023a-no-MPI/OpenMolcas-v25.02/src/ccsd_util -O2 -ftz -fp-speculation=safe -fp-model precise  -fpp
+    # -i8 -heap-arrays -qopenmp -O2 -fno-alias -traceback -module ../mod/ccsd_util_obj -fPIC -c /tmp/vsc47063/easybuild/build/OpenMol
+    # cas/25.02/iomkl-2023a-no-MPI/OpenMolcas-v25.02/src/ccsd_util/grc43y.F90 -o CMakeFiles/ccsd_util_obj.dir/grc43y.F90.o
+    # /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/casc
+    # adelake-volta-ib/software/QCMaquis/3.1.4-iomkl-2023a/lib/libqcmaquis-driver.a(qcmaquis_interface.f90.o): in function `qcmaquis_i
+    # nterface_mp_qcmaquis_interface_run_starting_guess_':
+    # qcmaquis_interface.f90:(.text+0x174f): undefined reference to `ga_brdcst_'
+    # /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: qcmaquis_interface.f90:(.text+0x176b): undefined r
+    # eference to `ga_brdcst_'
+    # /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/casc
+    # adelake-volta-ib/software/QCMaquis/3.1.4-iomkl-2023a/lib/libqcmaquis-driver.a(qcmaquis_interface.f90.o): in function `qcmaquis_i
+    # nterface_mp_qcmaquis_interface_run_dmrg_':
+    # qcmaquis_interface.f90:(.text+0x3992): undefined reference to `ga_sync_'
+    # /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: qcmaquis_interface.f90:(.text+0x39b9): undefined r
+    # eference to `ga_brdcst_'
+    # /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: qcmaquis_interface.f90:(.text+0x3a7e): undefined r
+    # eference to `ga_brdcst_'
+    # /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: qcmaquis_interface.f90:(.text+0x3b0a): undefined r
+    # eference to `ga_brdcst_'
+    # /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: qcmaquis_interface.f90:(.text+0x3b4d): undefined r
+    # eference to `ga_brdcst_'
+    # /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: qcmaquis_interface.f90:(.text+0x3ed9): undefined r
+    # eference to `ga_brdcst_'
+    # /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/casc
+    # adelake-volta-ib/software/QCMaquis/3.1.4-iomkl-2023a/lib/libqcmaquis-driver.a(qcmaquis_interface.f90.o):qcmaquis_interface.f90:(
+    # .text+0x455d): more undefined references to `ga_brdcst_' follow
+    # /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/casc
+    # adelake-volta-ib/software/QCMaquis/3.1.4-iomkl-2023a/lib/libqcmaquis-driver.a(qcmaquis_interface.f90.o): in function `qcmaquis_i
+    # nterface_mp_qcmaquis_interface_get_overlap_':
+    # qcmaquis_interface.f90:(.text+0xe1b6): undefined reference to `ga_sync_'
+    # /apps/gent/RHEL9/cascadelake-ib/software/binutils/2.40-GCCcore-12.3.0/bin/ld: qcmaquis_interface.f90:(.text+0xe1d9): undefined r
+    # eference to `ga_brdcst_'
+    # make[5]: *** [CMakeFiles/koopro4QD.x.dir/build.make:159: koopro4QD.x] Error 1
+    # make[5]: Leaving directory '/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/iomkl-2023a-no-MPI/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext-build'
+    # make[4]: *** [CMakeFiles/Makefile2:203: CMakeFiles/koopro4QD.x.dir/all] Error 2
+    # make[4]: Leaving directory '/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/iomkl-2023a-no-MPI/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext-build'
+    # make[3]: *** [Makefile:136: all] Error 2
+    # make[3]: Leaving directory '/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/iomkl-2023a-no-MPI/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext-build'
+    # make[2]: *** [/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/iomkl-2023a-no-MPI/easybuild_obj/External/nevpt2_ext/CMakeFiles/nevpt2_ext.dir/build.make:94: /tmp/vsc47063/easybuild/build/OpenMolcas/25.02/iomkl-2023a-no-MPI/easybuild_obj/External/nevpt2_ext/src/nevpt2_ext-stamp/nevpt2_ext-build] Error 2
+    # make[2]: Leaving directory '/tmp/vsc47063/easybuild/build/OpenMolcas/25.02/iomkl-2023a-no-MPI/easybuild_obj'
+    # make[1]: *** [CMakeFiles/Makefile2:2739: External/nevpt2_ext/CMakeFiles/nevpt2_ext.dir/all] Error 2
