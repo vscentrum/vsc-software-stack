@@ -1,0 +1,181 @@
+easyblock = 'PythonBundle'
+
+name = 'pyiron'
+version = '0.5.2-2025-9-21'
+local_commit = '7ed460'
+
+homepage = 'https://github.com/pyiron/pyiron'
+description = "An integrated development environment (IDE) for computational materials science."
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+builddependencies = [
+    ('poetry', '1.8.3'),
+    ('hatchling', '1.24.2'),
+]
+
+#DEPS pyrion_atomistics:
+    # ?OK "ase==3.25.0", we have it but nglview has 3.23.0
+    # ok  "atomistics==0.2.5",
+    # ok "defusedxml==0.7.1",
+    # ?OK "h5py==3.13.0", ->  h5py needs numpy >= 2? but it works for 3.12.1 which has the same numpy pin -> stay with 3.12.1 - it is dep of other deps (phonopy)
+    # ?OK "matplotlib==3.10.1", -> create new version, have 3.9.2, but also in pymatgen -> try stay with 3.9.2?
+    # ok "mendeleev==0.19.0",
+    # ?OK "mp-api==0.45.9", -> v0.45.7 in pymatgen
+        # it needs orjason -> needs ruff -> needs update to cargo.py from #3665
+    # OK "numpy==1.26.4",
+    # ?OK "pandas==2.3.2", have v2.2.2
+    # ?OK "phonopy==2.43.2", have 2.40.0 with h5py 3.12.1 -> go for this h5py
+    # OK "pint==0.24.4",
+    # ?ok "pyiron_base==0.14.3", -> try 0.15.1?
+    # ok "pyiron_lammps==0.4.6",
+    # ok "pyiron_snippets==0.2.0",
+    # ok "pyiron_vasp==0.2.12",
+    # ok "pylammpsmpi==0.3.0",
+    # ok "pyscal3==3.2.7",
+    # ?OK "scipy==1.15.2", have 1.13.1
+    # ?OK "scikit-learn==1.6.1", we have this version but in nglview there is v1.5.2
+    # ok "seekpath==2.1.0",
+    # ?OK"spglib==2.6.0", have 2.5.0
+    # ok "structuretoolkit==0.0.34",
+    # ok "sphinx-parser==0.1.0",
+#DEPS mp-api -> it is in pymatgen ec
+    #   OK "setuptools",
+    #   OK "msgpack", also in poetry
+    #   OK "maggma>=0.57.1", - in pymatgen
+    #   OK "pymatgen>=2022.3.7,!=2024.2.20", -> has mp-api in deps? should be other way?
+    #   "typing-extensions>=3.7.4.1",
+    #   "requests>=2.23.0",
+    #   "monty>=2024.12.10",
+    #   "emmet-core>=0.84.3rc6",
+    #   "smart_open",
+#DEPS Pyiron_base: deps are totally different from pyrion_atomistics... like numpy 2.3.2 vs 1.26.4
+    # "cloudpickle==3.1.1",
+    # "executorlib==1.7.1",
+    # "h5io_browser==0.2.1",
+    # "h5py==3.14.0",
+    # "numpy==2.3.2",
+    # "monty==2025.3.3",
+    # "pandas==2.3.2",
+    # "psutil==7.1.0",
+    # "pyfileindex==0.0.40",
+    # "pyiron_dataclasses==0.0.4",
+    # "pyiron_snippets==0.2.0",
+    # "pysqa==0.3.1",
+    # "sqlalchemy==2.0.43",
+    # "tables==3.10.2",
+    # "tqdm==4.67.1",
+    # "traitlets==5.14.3",
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('pymatgen', '2025.6.14'), # from PR 23445
+    ('ASE', '3.23.0'),  #  ? needs ase==3.25.0, we have it but nglview has 3.23.0
+    ('phonopy', '2.40.0'),
+    ('scikit-learn', '1.5.2'),
+    ('nglview', '3.1.4'),
+    ('h5py', '3.12.1'),
+    ('SQLAlchemy', '2.0.36'),
+    ('PyYAML', '6.0.2'),
+    ('tqdm', '4.66.5'),
+    ('GitPython', '3.1.43'),
+    ('Pint', '0.24.4'),
+    ('PyTables', '3.10.2'),
+    ('PyZMQ', '26.2.0'),
+    ('ruamel.yaml', '0.18.6'),
+    ('matplotlib', '3.9.2'),
+    ('spglib-python', '2.5.0'),
+]
+
+check_ldshared = True
+
+# _pyiron_atomistics_preinstallopts = (
+#     "sed -i "
+#     "-e 's/==3.22.1//g' "  # unpin ASE version
+#     "-e 's/,<=3.10.0//g' "  # unpin h5py version
+#     "-e 's/,<=0.23//g' "  # unpin Pint version
+#     "-e 's/,<=2.3.1//g' "  # unpin spglib version
+#     "pyproject.toml && "
+# )
+
+exts_list = [
+    ('sphinx_parser', '0.1.0', {
+        'checksums': ['19a0fb45671fc011e1b0b8f192b6691419a1e3b394bfdac2fb1aaa2a3cf5782f'],
+    }),
+    ('pyscal3', '3.2.7', {
+        'checksums': ['0f21f197255dcb940a2d9fb3e2618e30010f9c15fa49c63e61a190777208adcd'],
+    }),
+    ('msgpack', '1.1.1', {
+        'checksums': ['77b79ce34a2bdab2594f490c8e80dd62a02d650b91a75159a63ec413b8d104cd'],
+    }),
+    ('h5io', '0.2.4', {
+        'checksums': ['473efdf172f3fc9cddf19131ad281a5ff085c18579b3adce287ba873bbb12603'],
+    }),
+    ('h5io_browser', '0.1.5', {
+        'checksums': ['2ad592da0e9ff65364e4a4554c7ff45b1787b64dc22300364e8ff370ea0bcd5d'],
+    }),
+    ('monty', '2024.12.10', {
+        'checksums': ['802f9b03a07172d4841dea63c60c51389be45c20b5ce21ffb2f78f7b4b99daa0'],
+    }),
+    ('pysqa', '0.2.3', {
+        'checksums': ['ef7441281ef62fe9418c44a63f9a899a87b276d0183f9389afb3ff8cb9ddbcea'],
+    }),
+    ('pyfileindex', '0.0.32', {
+        'checksums': ['d2ade3c21761fd50395a9cf827618851d6b334cd8cffb19da7434d7c3d8018ac'],
+    }),
+    ('traitlets', '5.14.3', {
+        'checksums': ['9ed0579d3502c94b4b3732ac120375cda96f923114522847de4b3bb98b96b6b7'],
+    }),
+    ('seekpath', '2.1.0', {
+        'checksums': ['31cec579628262e6d4a4c3693fefa70d6ccae1ceeef7c9d10ea3cd48988452c4'],
+    }),
+    ('structuretoolkit', '0.0.34', {
+        'checksums': ['da9fa5f4e07fc9b4798feb622cff778312b9a2cb70ee671665f6a8afb63c66d4'],
+    }),
+    ('defusedxml', '0.7.1', {
+        'checksums': ['1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69'],
+    }),
+    ('atomistics', '0.2.5', {
+        'checksums': ['9d2e75151a53841e6402373126c59424089008ed4d1cf13bf8e0216bb10fcf53'],
+    }),
+    ('pyfiglet', '0.8.post1', {
+        'checksums': ['c6c2321755d09267b438ec7b936825a4910fec696292139e664ca8670e103639'],
+    }),
+    ('mendeleev', '0.19.0', {
+        'checksums': ['7d513a3be0c2b45369c3c041eb949a76bc92ee42d833b1dee0048a919d3f9a78'],
+    }),
+    ('pylammpsmpi', '0.3.0', {
+        'checksums': ['f2617f38715ac60f8d4fef982acdad41da38d9f2524555beaf0e68eb1dbc11d3'],
+    }),
+    ('pyiron_base', '0.15.1', {
+        'runtest': "pytest -vvvs tests",
+        'testinstall': True,
+        'checksums': ['62806100d8a70b82a34b4607dc85815a2c1d2a9e2d2eb34d3607040c0f48c6dc'],
+    }),
+    ('pyiron_dataclasses', '0.0.1', {
+        'checksums': ['23270dc5825b433da32d8716de49ca70514142b85fc1b2aaa93afd05bc4b7e91'],
+    }),
+    ('pyiron_snippets', '0.2.0', {
+        'checksums': ['c46532fe476c79d1182477709b7fa8a66c92e3ae6082c6ccfc0ebef1f69ed046'],
+    }),
+    ('pyiron_atomistics', '0.7.18', {
+        'runtest': "pytest -vvvs tests",
+        'testinstall': True,
+        'checksums': ['5d16a3e39abf4bff6be366c8c135a65323bfc648ed9d2cd98a8fe1d497f185fd'],
+    }),
+    ('pyiron_lammps', '0.4.6', {
+        'checksums': ['ecf36ec09c4c27ab099b234f064712867d14b4ff34760a1c6abd6cece2cfebe6'],
+    }),
+    ('pyiron_vasp', '0.2.12', {
+        'checksums': ['d6c73cd7cc5536a4d40d77bf9823af4fe979ea854f78f2c77a9356084246c495'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/pyiron/pyiron/archive'],
+        'sources': [{'download_filename': '7ed460.tar.gz', 'filename': '%(name)s-%(version)s-7ed460.tar.gz'}],
+        'checksums': ['ea732def33334126c3311d535f685fab134ef85f7b5444c09d533d577d58e16e'],
+    }),
+]
+
+moduleclass = 'tools'
