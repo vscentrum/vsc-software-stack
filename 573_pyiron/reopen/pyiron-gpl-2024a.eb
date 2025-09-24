@@ -1,50 +1,38 @@
 easyblock = 'PythonBundle'
 
 name = 'pyiron-gpl'
-version = '0.0.5'
+version = '0.0.5-20250512'
+local_commit = 'd2d8680'
+versionsuffix = '-mbocus'
 
-homepage = 'https://github.com/pyiron/pyiron_gpl'
+homepage = 'https://github.com/mbocus/pyiron_gpl'
 description = """Additional modules for the pyiron IDE licensed under GPLv3.
+Sources are from fork of pyiron-gpl by mbocus.
 """
 
 toolchain = {'name': 'foss', 'version': '2024a'}
-
-# DEPS
-        #OK 'molmod==1.4.8', -> UPDATED
-        #OK 'numpy==1.26.4',
-        # ok 'pyiron_atomistics==0.6.10',
-        # ok 'pyiron_snippets==0.1.3',
-        # 'quickff==2.2.4', -> UPDATE
-        # 'tamkin==1.2.6',
-        # 'yaff==1.6.0'
         
 dependencies = [
     ('Python', '3.12.3'),
     ('SciPy-bundle', '2024.05'),
-    ('molmod', '1.4.8'),
+    ('pyiron', '0.5.2-2025-9-21'),
+    ('iodata', '1.0.0a8'),
 ]
 
 exts_list = [
-    ('pyiron_atomistics', '0.6.10'),
-    ('pyiron_snippets', '0.1.3'),
     (name, version, {
-        'patches': ['patch2.0-tests.patch'],  # only to see if there are files from Molcas - ET1
-        # remove dependencies pin
-        'preinstallopts': "sed -i 's/==.*//g' requirements.txt &&",
-        'runtest': "mkdir -p %(builddir)s/scineautocas/autocas-2.3.1/scine_autocastests/dummy_dir/scratch && pytest -vvvs scine_autocas/tests",
-        # 'runtest': "pytest -vvvs scine_autocas/tests",
-        'source_urls': ['https://github.com/qcscine/autocas/archive/'],
-        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'testinstall': True,
-        'checksums': [
-            {'scine-autocas-2.3.1.tar.gz': '387db9ca42d9bc64322ea3e3d4d85aba289a82a8f08ae485ce1b2ca9dd052af5'},
-            {'patch2.0-tests.patch': 'b3c2d51f2d774f16f256a31abab2b767995e03f1154a353a34250806f81497ef'},
-        ],
+        'preinstallopts': rf"""sed -i -e "s/\('.*\)==[^']\+',/\1',/g" -e 's/versioneer.get_version(),/"{version}",/' setup.py && """,
+        'source_urls': ['https://github.com/mbocus/pyiron_gpl/archive/'],
+        'sources':  [{'download_filename': f'{local_commit}.tar.gz', 'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz'}],
     }),
 ]
 
-check_ldshared = True
+# fix __version__
+postinstallcmds = [
+    f"sed -i -e 's/0.1.1/{version}/' -e '/get_versions/d' "
+    "%(installdir)s/lib/python%(pyshortver)s/site-packages/pyiron_gpl/__init__.py"
+]
 
-sanity_check_commands = ["python3 -m scine_autocas -h"]
+check_ldshared = True
 
 moduleclass = 'chem'
