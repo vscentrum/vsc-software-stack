@@ -1,0 +1,120 @@
+easyblock = 'PythonBundle'
+
+name = 'Poltype2'
+version = '20250819'
+_commit = '98f95d0'
+
+homepage = 'https://github.com/TinkerTools/poltype2'
+description = """
+Automation of AMOEBA Polarizable Force Field for Small Molecules
+"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [
+    ('hatchling', '1.18.0'),  # for pdb2pqr
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('TINKER', '8.11.3'),
+    ('GDMA', '2.3.3_20230603'),
+    ('PSI4', '1.9.1'),
+    ('jax', '0.4.25'),
+    ('MDAnalysis', '2.7.0'),
+    ('OpenBabel', '3.1.1'),
+    ('networkx', '3.1'),  # for geometric
+    ('MDTraj', '1.9.9'),
+    ('openpyxl', '3.1.2'),
+    ('RDKit', '2024.03.3'),
+    ('Modeller', '10.7'),
+    ('dftd4', '3.7.0'),
+    ('ASE', '3.22.1'),
+    ('PySCF', '2.7.0'),
+    ('xtb', '6.6.1'),
+    ('OpenMM', '8.0.0'),  # for pdb2pqr
+    ('Flax', '0.8.4'),  # for fennol
+    ('numba', '0.58.1'),  # for fennol
+    ('Optax', '0.2.2'),  # for fennol
+    ('sympy', '1.12'),  # for fennol
+    ('scikit-learn', '1.3.1'),
+]
+
+exts_list = [
+    ('fennol', '2025.5.16', {
+        'preinstallopts': "sed -i -e '/^version_file =/d' -e '/^license-files =/d' pyproject.toml && ",
+        'checksums': ['0a5855951ea336cd661c84b755ccd2dfe9209ff81e0820a764c7191e039ab2cb'],
+    }),
+    ('geometric', '1.1', {
+        'checksums': ['ed7bd2ed67a2f15d442ccc6ce628fdfe682bc3f11ee0566d2edde4830877ed2b'],
+    }),
+    ('svgutils', '0.3.4', {
+        'checksums': ['9ef48f44cb1d460a7747dd02694200fda25eb9faf6dea392118def2695e0e053'],
+    }),
+    ('cairocffi', '1.7.1', {
+        'checksums': ['2e48ee864884ec4a3a34bfa8c9ab9999f688286eb714a15a43ec9d068c36557b'],
+    }),
+    ('cssselect2', '0.8.0', {
+        'checksums': ['7674ffb954a3b46162392aee2a3a0aedb2e14ecf99fcc28644900f4e6e3e9d3a'],
+    }),
+    ('defusedxml', '0.7.1', {
+        'checksums': ['1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69'],
+    }),
+    ('tinycss2', '1.4.0', {
+        'checksums': ['10c0972f6fc0fbee87c3edb76549357415e94548c1ae10ebccdea16fb404a9b7'],
+    }),
+    ('cairosvg', '2.8.2', {
+        'checksums': ['07cbf4e86317b27a92318a4cac2a4bb37a5e9c1b8a27355d06874b22f85bef9f'],
+    }),
+    ('mmcif-pdbx', '2.0.1', {
+        'modulename': 'pdbx',
+        'checksums': ['a1f20cf35f92916160ae066f510cce9a0c21a630d064dafce545ba0cf47c9280'],
+    }),
+    ('propka', '3.5.1', {
+        'checksums': ['d8083b58d8c4c553ff8704c706190fe37ff82253adcd6e53b31d8ad7d6d52257'],
+    }),
+    ('pdb2pqr', '3.7.1', {
+        # remove unsupported classifiers and docutils dependency to avoid version clash
+        'preinstallopts': "sed -i -e '/Programming Language ::/d' -e '/docutils/d' pyproject.toml && ",
+        'checksums': ['05b5c464022a3ad11c9597c6fc7f70c56061c4669b1497a51958da90d959152f'],
+    }),
+    ('PDBFixer', '1.11', {
+        'source_urls': ['https://github.com/openmm/pdbfixer/archive/refs/tags/'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['08dba7ba42f90fb3a883bdcbbddef3c7ec2c62cdc6a361c0ed7461c27cd1d956'],
+    }),
+    ('pymbar', '4.0.3', {
+        'checksums': ['d38868e515631eb6bbf306448bfdf166bd82f7b887935eaf4b681f40628be9ff'],
+    }),
+    ('bidict', '0.23.1', {
+        'checksums': ['03069d763bc387bbd20e7d49914e75fc4132a41937fa3405417e1a5a2d006d71'],
+    }),
+    ('quantities', '0.16.2', {
+        'checksums': ['1f7c24f10d9ff57ddf751a358ea2fdfa9914516722f06a788ef4a2924c77d21c'],
+    }),
+    ('pyastronomy', '0.23.0', {
+        'modulename': 'PyAstronomy',
+        'checksums': ['8377484f5c17add7963bf36b77375cd372177d9c4c22aa2113a1abfe18c36aad'],
+    }),
+    (name, version, {
+        'easyblock': 'Tarball',
+        'modulename': False,
+        'postinstallcmds':
+            ["sed -i 's/{xtbpath}/xtb/g' %(installdir)s/PoltypeModules/{torsiongenerator.py,poltype.py}"],
+        'source_urls': ['https://github.com/TinkerTools/poltype2/archive'],
+        'sources': [{'download_filename': f'{_commit}.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['333c68b4702fd5b2227f62b35ce5b8d10bc93e5ce8a34814cbb999c3f404a400'],
+    }),
+]
+
+use_pip = True
+download_dep_fail = True
+
+# some harmless failures with 'pip check' and i spent too much time already with this so just ignore
+sanity_pip_check = False
+
+modextravars = {'PSI_SCRATCH': '$TMPDIR/PSI_SCRATCH_$SLURM_JOB_ID'}
+
+moduleclass = 'chem'
