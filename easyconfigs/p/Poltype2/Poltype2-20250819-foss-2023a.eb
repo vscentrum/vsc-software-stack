@@ -122,6 +122,8 @@ download_dep_fail = True
 # some harmless failures with 'pip check' and i spent too much time already with this so just ignore
 sanity_pip_check = False
 
-modextravars = {'PSI_SCRATCH': '$TMPDIR/PSI_SCRATCH_$SLURM_JOB_ID'}
+modluafooter = """
+setenv("PSI_SCRATCH", "/tmp/PSI_SCRATCH")
+"""
 
 moduleclass = 'chem'
