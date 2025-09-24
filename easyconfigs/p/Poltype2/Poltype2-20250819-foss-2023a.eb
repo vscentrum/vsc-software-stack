@@ -2,7 +2,7 @@ easyblock = 'PythonBundle'
 
 name = 'Poltype2'
 version = '20250819'
-_commit = '98f95d0'
+_commit = '98f95d092637b6fa52639ada01f244cc8701bb68'
 
 homepage = 'https://github.com/TinkerTools/poltype2'
 description = """
@@ -101,13 +101,16 @@ exts_list = [
     (name, version, {
         'easyblock': 'Tarball',
         'modulename': False,
-        'postinstallcmds':
-            ["sed -i 's/{xtbpath}/xtb/g' %(installdir)s/PoltypeModules/{torsiongenerator.py,poltype.py}"],
+        # extract_cmd doesn’t work on EB4 for some reason
+        'preinstall_cmd': f'cp -r %(builddir)s/poltype2-{_commit}/* %(installdir)s',
+        'postinstallcmds': [
+            "sed -i 's/{xtbpath}/xtb/g' %(installdir)s/PoltypeModules/{torsiongenerator.py,poltype.py}"
+        ],
         'source_urls': ['https://github.com/TinkerTools/poltype2/archive'],
         'sources': [{
             'download_filename': f'{_commit}.tar.gz',
             'filename': '%(name)s-%(version)s.tar.gz',
-            'extract_cmd': 'tar -xzf %s --strip-components=1'
+            # 'extract_cmd': 'tar -xzf %s --strip-components=1',
         }],
         'checksums': ['333c68b4702fd5b2227f62b35ce5b8d10bc93e5ce8a34814cbb999c3f404a400'],
     }),
