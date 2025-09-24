@@ -104,7 +104,11 @@ exts_list = [
         'postinstallcmds':
             ["sed -i 's/{xtbpath}/xtb/g' %(installdir)s/PoltypeModules/{torsiongenerator.py,poltype.py}"],
         'source_urls': ['https://github.com/TinkerTools/poltype2/archive'],
-        'sources': [{'download_filename': f'{_commit}.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'sources': [{
+            'download_filename': f'{_commit}.tar.gz',
+            'filename': '%(name)s-%(version)s.tar.gz',
+            'extract_cmd': 'tar -xzf %s --strip-components=1'
+        }],
         'checksums': ['333c68b4702fd5b2227f62b35ce5b8d10bc93e5ce8a34814cbb999c3f404a400'],
     }),
 ]
