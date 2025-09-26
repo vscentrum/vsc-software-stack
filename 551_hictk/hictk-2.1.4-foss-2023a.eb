@@ -12,10 +12,10 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 source_urls = ['https://github.com/paulsengroup/hictk/archive/']
 sources = ['v%(version)s.tar.gz']
-patches = ['new.patch']  # TODO
+patches = ['hictk-2.1.4_CMake_deps.patch']
 checksums = [
     '3a0030425176dacc25c20afc6fedb5dfbbc3c1a67f773be11ac77d7fa6b7efde',  # v2.1.4.tar.gz
-    '235a46d8bf7e526c91a5869b4b155dc6a23648ddbfea8e8c217ac5cc333a065f',  # new.patch  # TODO
+    'b41fcac861fd577e4bfc20abf91b092f20e79f263eece7ea23452650f27d9ff8',  # hictk-2.1.4_CMake_deps.patch
 ]
 
 builddependencies = [
@@ -32,7 +32,7 @@ dependencies = [
     ('concurrentqueue', '1.0.4'),
     ('Eigen', '3.4.0'),
     ('fast_float', '8.0.2'),
-    ('fmt', '10.1.0'),
+    ('fmt', '11.2.0'),
     ('HDF5', '1.14.0'),
     ('HighFive', '2.8.0'),
     ('libarchive', '3.6.2'),
@@ -47,7 +47,7 @@ dependencies = [
     ('pybind11', '2.11.1'),
     ('readerwriterqueue', '1.0.7'),
     ('span-lite', '0.11.0'),
-    ('spdlog', '1.12.0'),
+    ('spdlog', '1.15.3'),
     ('tomlplusplus', '3.4.0'),
     ('XZ', '5.4.2'),
     ('zstd', '1.5.5'),
@@ -59,9 +59,12 @@ configopts = "-DZSTD_LIB=$EBROOTZSTD/lib/libzstd.%s " % SHLIB_EXT
 moduleclass = 'tools'
 
 # TODO
-# /apps/gent/RHEL9/cascadelake-ib/software/fmt/10.1.0-GCCcore-12.3.0/include/fmt/core.h:2905:20:   required from ‘void fmt::v10::println(FILE*, format_string<T ...>, T&& ...) [with T = {std::basic_string_
-# view<char, std::char_traits<char> >&}; FILE = FILE; format_string<T ...> = basic_format_string<char, std::basic_string_view<char, std::char_traits<char> >&>]’
-# /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/hictk/cli/include/hictk/tools/cli.hpp:288:17:   required from here
-# /apps/gent/RHEL9/cascadelake-ib/software/fmt/10.1.0-GCCcore-12.3.0/include/fmt/core.h:2653:39: error: static assertion failed: FMT_ENFORCE_COMPILE_STRING requires all format strings to use FMT_STRING.
-#  2653 |   static_assert(is_compile_string<S>::value,
-#       |                                       ^~~~~
+# /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/file/include/hictk/./impl/utils_merge_impl.hpp: In instantiation of ‘std::vector<hictk::File> hictk::utils::merge::internal::open_files(Str, Str,
+# uint32_t) [with Str = __gnu_cxx::__normal_iterator<const std::__cxx11::basic_string<char>*, std::vector<std::__cxx11::basic_string<char> > >; uint32_t = unsigned int]’:
+# /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/file/include/hictk/./impl/utils_merge_impl.hpp:137:51:   required from ‘void hictk::utils::merge_to_cool(Str, Str, std::stri
+# ng_view, uint32_t, bool, std::size_t, std::size_t, uint32_t) [with N = int; Str = __gnu_cxx::__normal_iterator<const std::__cxx11::basic_string<char>*, std::vector<std::__cxx11::basic_string<char> > >; std::string_view = std::basic_stri
+# ng_view<char>; uint32_t = unsigned int; std::size_t = long unsigned int]’
+# /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/hictk/merge/cool.cpp:24:39:   required from here
+# /tmp/vsc45304/easybuild/build/hictk/2.1.4/foss-2023a/hictk-2.1.4/src/libhictk/file/include/hictk/./impl/utils_merge_impl.hpp:107:9: internal compiler error: Segmentation fault
+#   107 |         throw std::runtime_error(
+#       |         ^~~~~
