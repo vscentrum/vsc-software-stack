@@ -29,6 +29,13 @@ configopts = '-DBUILD_OPENMOLCAS_INTERFACE=ON -DCMAKE_Fortran_FLAGS="$FFLAGS -fp
 
 runtest = True
 
+postinstallcmds = [
+    "sed -i -e "
+    "'1 a include(CMakeFindDependencyMacro)' -e "
+    "'1 a find_dependency(GSL REQUIRED)' "
+    "%(installdir)s/share/cmake/MAQUIS_DMRGConfig.cmake"
+]
+
 sanity_check_paths = {
     'files': ['bin/dmrg_meas', 'include/maquis_dmrg.h', 'lib/libmaquis_dmrg.%s' % SHLIB_EXT],
     'dirs': ['include', 'share/%(namelower)s'],

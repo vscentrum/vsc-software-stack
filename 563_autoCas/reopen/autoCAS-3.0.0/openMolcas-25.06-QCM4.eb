@@ -1,0 +1,120 @@
+easyblock = 'CMakeMake'
+
+name = 'OpenMolcas'
+version = '25.06'
+versionsuffix = '-DMRG-no-MPI'
+
+homepage = "https://gitlab.com/Molcas/OpenMolcas"
+description = "OpenMolcas is a quantum chemistry software package."
+
+toolchain = {'name': 'iomkl', 'version': '2023a'}
+# disabling optarch required to pass all tests
+# toolchainopts = {'openmp': True, 'optarch': False, 'strict': True}
+
+source_urls = ['https://gitlab.com/Molcas/OpenMolcas/-/archive/v%(version)s/']
+sources = ["%(name)s-v%(version)s.tar.gz"]
+patches = [
+    '%(name)s-23.06_mcpdft_deps.patch',
+    '%(name)s-%(version)s_fix-nevpt2.cmake.patch',
+]
+checksums = [
+    {'OpenMolcas-v25.06.tar.gz': 'df5262abd030d4fdfc66900140e608e53c71cf1d35acfdedcfaac147c02af94c'},
+    {'OpenMolcas-23.06_mcpdft_deps.patch': 'a798ec6f93a19539aa2211a978da461d4ecd31c5521b9dab6f2a9b1c2fa65f0e'},
+    {'OpenMolcas-25.06_fix-nevpt2.cmake.patch': '0d97593f5f4757c475a427799626e43d93334e69b5a14551e3ee7875f4327d0b'},
+]
+
+builddependencies = [('CMake', '3.26.3')]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('lxml', '4.9.2'),
+    ('HDF5', '1.14.0', '-serial'),
+    ('libxc', '6.2.2'),
+    ('GSL', '2.7'),
+    ('Boost', '1.82.0'),
+    ('QCMaquis', '4.0.0'),
+]
+
+build_shared_libs = True
+
+# find_package(GSL REQUIRED)
+# preconfigopts = "sed -i '379 a find_package(GSL REQUIRED)' %(start_dir)s/External/qcmaquis/CMakeLists.txt && "
+_copts = [
+    '-DLINALG=MKL',
+    '-DMKLROOT=$MKLROOT',
+    '-DOPENMP=ON',
+    '-DTOOLS=ON',
+    '-DFDE=ON',
+    # MPI + GlobalArrays disabled due to combination with QCMaquis (DMRG=ON),
+    # see https://github.com/qcscine/qcmaquis/issues/12#issuecomment-2955621474
+    '-DGA=OFF',
+    '-DMPI=OFF',
+    '-DEXTERNAL_LIBXC=$EBROOTLIBXC',
+    '-DPython_ROOT=$EBROOTPYTHON',
+    '-DDMRG=ON',
+    '-DNEVPT2=ON',
+    '-DQCMaquis_ROOT=$EBROOTQCMAQUIS',
+    '-DGSL_ROOT_DIR=$EBROOTGSL'
+]
+configopts = ' '.join(_copts)
+
+prebuildopts = (
+    r"FILE=External/qcmaquis/CMakeLists.txt; "
+    r"grep -q '\$\{MAQUIS_DMRG_LIBRARIES\} stdc\+\+' $FILE || "
+    r"sed -i -E "
+    r"'s|set *\(MAQUIS_DMRG_LIBRARIES[[:space:]]+qcmaquis-driver[[:space:]]+\$\{Boost_LIBRARIES\}[[:space:]]+\$\{GSL_LOCATION\}[[:space:]]+PARENT_SCOPE\)|set(MAQUIS_DMRG_LIBRARIES qcmaquis-driver ${MAQUIS_DMRG_LIBRARIES} stdc++ PARENT_SCOPE)|' "
+    r"$FILE; "
+)
+
+pretestopts = 'MOLCAS=%(builddir)s/easybuild_obj '
+pretestopts += 'MOLCAS_DRIVER=%(builddir)s/easybuild_obj/pymolcas '
+pretestopts += 'MOLCAS_SOURCE=%(builddir)s/easybuild_obj '
+pretestopts += 'MOLCAS_WORKDIR=%(builddir)s/easybuild_obj '
+pretestopts += 'PATH=%(builddir)s/easybuild_obj:$PATH '
+# omit failing tests from grayzone (can fail) + omit additional_100 test - failing with
+# E_SCF and DFT_ENERGY error values a little bit out of tolerance
+# test_cmd = 'pymolcas verify .default grayzone:- additional:-100'
+test_cmd = 'pymolcas verify .default'
+
+fix_python_shebang_for = ['pymolcas', 'Tools/AugerOca/*.py', 'Tools/AugerOca/auger_oca/*.py', 'Tools/mort/mort.py',
+                          'Tools/dynamixtools/dynamixtools.py']
+
+modextrapaths = {'PATH': ''}
+modextravars = {
+    'MOLCAS': '%(installdir)s',
+    'MOLCAS_DRIVER': '%(installdir)s/pymolcas',
+    'MOLCAS_SOURCE': '%(installdir)s',
+}
+
+sanity_check_commands = ['pymolcas --help']
+
+sanity_check_paths = {
+    'files': ['bin/dynamix.exe', 'bin/mpprop.exe', 'lib/libmolcas.%s' % SHLIB_EXT,
+              'sbin/help_basis', 'pymolcas'],
+    'dirs': ['data/', 'basis_library/'],
+}
+
+moduleclass = 'chem'
+
+#E2:
+    # -> 
+    # <- failed on makestep <- log2.txt
+
+#E1: OK
+    # -> add postinstallcmds to QCMaquis-4.0.0 -> OK
+    # -> add '-DGSL_ROOT_DIR=$EBROOTGSL' -> NO
+    # -> in External/qcmaquis/CMakeLists.txt
+        #  380 get_target_property(GSL_LOCATION GSL::gsl IMPORTED_LOCATION)
+    # <- failed on configure <- log1.txt
+        # Configuring QCMaquis DMRG support:
+        # -- External QCMaquis root specified at: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/QCMaquis/4.0.0-iomkl-2023a
+        # -- Loading QCMaquis configuration from /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/QCMaquis/4.0.0-iomkl-2023a/share/cmake/MAQUIS_DMRGConfig.cmake
+        # CMake Error at /tmp/vsc47063/easybuild/build/OpenMolcas/25.06/iomkl-2023a-DMRG-no-MPI/easybuild_obj/External/qcmaquis/CMakeLists.txt:380 (get_target_property):
+        #   get_target_property() called with non-existent target "GSL::gsl".
+    # QCMaquis lib/libmaquis_dmrg.so has GSL linked:
+        # libgsl.so.25 => /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/GSL/2.7-intel-compilers-2023.1.0/lib64/libgsl.so.25 (0x0000150f726b1000)
+        # libgslcblas.so.0 => /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/GSL/2.7-intel-compilers-2023.1.0/lib64/libgslcblas.so.0 (0x0000150f72650000)
+    # problem is in created share/cmake/MAQUIS_DMRGConfig.cmake:
+        # there is only: -lgsl
+        # needs find_dependency(GSL REQUIRED)
