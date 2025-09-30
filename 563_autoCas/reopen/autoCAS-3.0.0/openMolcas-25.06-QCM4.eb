@@ -8,8 +8,6 @@ homepage = "https://gitlab.com/Molcas/OpenMolcas"
 description = "OpenMolcas is a quantum chemistry software package."
 
 toolchain = {'name': 'iomkl', 'version': '2023a'}
-# disabling optarch required to pass all tests
-# toolchainopts = {'openmp': True, 'optarch': False, 'strict': True}
 
 source_urls = ['https://gitlab.com/Molcas/OpenMolcas/-/archive/v%(version)s/']
 sources = ["%(name)s-v%(version)s.tar.gz"]
@@ -38,8 +36,6 @@ dependencies = [
 
 build_shared_libs = True
 
-# find_package(GSL REQUIRED)
-# preconfigopts = "sed -i '379 a find_package(GSL REQUIRED)' %(start_dir)s/External/qcmaquis/CMakeLists.txt && "
 _copts = [
     '-DLINALG=MKL',
     '-DMKLROOT=$MKLROOT',
@@ -55,46 +51,8 @@ _copts = [
     '-DDMRG=ON',
     '-DNEVPT2=ON',
     '-DQCMaquis_ROOT=$EBROOTQCMAQUIS',
-    # '-DGSL_ROOT_DIR=$EBROOTGSL',
-    # '-DMAQUIS_DMRG_FOUND=ON -DMAQUIS_DMRG_DIR=$EBROOTQCMAQUIS/share/cmake'
 ]
 configopts = ' '.join(_copts)
-
-# prebuildopts = (
-#     r"FILE=%(builddir)s/easybuild_obj/External/qcmaquis/CMakeLists.txt; "
-#     r"grep -q '\$\{MAQUIS_DMRG_LIBRARIES\} stdc\+\+' $FILE || "
-#     r"sed -i -E "
-#     r"'s|set *\(MAQUIS_DMRG_LIBRARIES[[:space:]]+qcmaquis-driver[[:space:]]+\$\{Boost_LIBRARIES\}[[:space:]]+\$\{GSL_LOCATION\}[[:space:]]+PARENT_SCOPE\)|set(MAQUIS_DMRG_LIBRARIES qcmaquis-driver ${MAQUIS_DMRG_LIBRARIES} stdc++ PARENT_SCOPE)|' "
-#     r"$FILE; "
-# )
-
-# prebuildopts = (
-#     r'FILE=%(builddir)s/easybuild_obj/External/qcmaquis/CMakeLists.txt; '
-#     r'sed -i -E "s|set[[:space:]]*([[:space:]]*MAQUIS_DMRG_LIBRARIES[[:space:]]+qcmaquis-driver[[:space:]]+${'
-#     r'Boost_LIBRARIES}[[:space:]]+${GSL_LOCATION}[[:space:]]+PARENT_SCOPE[[:space:]]*)|set(MAQUIS_DMRG_LIBRARIES '
-#     r'qcmaquis-driver ${MAQUIS_DMRG_LIBRARIES} stdc++ PARENT_SCOPE)|" "$FILE"; '
-# )
-
-# _qsmaquis_builddir = '%(builddir)s/easybuild_obj/External/qcmaquis/CMakeLists.txt'
-# prebuildopts = (
-#     r'FILE=%(builddir)s/easybuild_obj/External/qcmaquis/CMakeLists.txt; '
-#     r'grep -q "set(MAQUIS_DMRG_LIBRARIES qcmaquis-driver \${MAQUIS_DMRG_LIBRARIES} stdc++ PARENT_SCOPE)" "$FILE" || '
-#     r'sed -i -E "s|set[[:space:]]*\([[:space:]]*MAQUIS_DMRG_LIBRARIES[[:space:]]+qcmaquis-driver[[:space:]]+\$\{'
-#     r'Boost_LIBRARIES\}[[:space:]]+\$\{GSL_LOCATION\}[[:space:]]+PARENT_SCOPE[[:space:]]*\)|set(MAQUIS_DMRG_LIBRARIES '
-#     r'qcmaquis-driver \${MAQUIS_DMRG_LIBRARIES} stdc++ PARENT_SCOPE)|" "$FILE"; '
-# )
-
-# prebuildopts = (
-#     "sed -i -e 's///' "
-# )
-
-# prebuildopts = r"sed -i 's|  set (MAQUIS_DMRG_LIBRARIES qcmaquis-driver \${Boost_LIBRARIES} \${GSL_LOCATION} PARENT_SCOPE)|  set(_MAQUIS_CORE_LIBS \${MAQUIS_DMRG_LIBRARIES})\n  if (TARGET qcmaquis-driver)\n    target_link_libraries(qcmaquis-driver INTERFACE \${_MAQUIS_CORE_LIBS} stdc++)\n  endif()\n  set(MAQUIS_DMRG_LIBRARIES qcmaquis-driver \${_MAQUIS_CORE_LIBS} stdc++ PARENT_SCOPE)|' %(builddir)s/easybuild_obj/External/qcmaquis/CMakeLists.txt && "
-
-# prebuildopts = (
-#     r'sed -i -E '
-#     r'"s|set[[:space:]]*\([[:space:]]*MAQUIS_DMRG_LIBRARIES[[:space:]]+qcmaquis-driver[[:space:]]+\$\{Boost_LIBRARIES\}[[:space:]]+\$\{GSL_LOCATION\}[[:space:]]+PARENT_SCOPE[[:space:]]*\)|set(MAQUIS_DMRG_LIBRARIES qcmaquis-driver \${MAQUIS_DMRG_LIBRARIES} stdc++ PARENT_SCOPE)|" '
-#     r'"%(builddir)s/OpenMolcas-v%(version)s/External/qcmaquis/CMakeLists.txt"; '
-# )
 
 pretestopts = 'MOLCAS=%(builddir)s/easybuild_obj '
 pretestopts += 'MOLCAS_DRIVER=%(builddir)s/easybuild_obj/pymolcas '
@@ -104,7 +62,6 @@ pretestopts += 'PATH=%(builddir)s/easybuild_obj:$PATH '
 # omit failing tests from grayzone (can fail) + omit additional_100 test - failing with
 # E_SCF and DFT_ENERGY error values a little bit out of tolerance
 test_cmd = 'pymolcas verify .default grayzone:- additional:-100'
-# test_cmd = 'pymolcas verify .default'
 
 fix_python_shebang_for = ['pymolcas', 'Tools/AugerOca/*.py', 'Tools/AugerOca/auger_oca/*.py', 'Tools/mort/mort.py',
                           'Tools/dynamixtools/dynamixtools.py']
@@ -125,36 +82,3 @@ sanity_check_paths = {
 }
 
 moduleclass = 'chem'
-
-#ET3:
-    # -> Same tests as before -> update tests command to not run them
-    # <- faling tests:
-        # /tmp/vsc47063/easybuild/build/OpenMolcas/25.06/iomkl-2023a-DMRG-no-MPI/OpenMolcas-v25.06/test/additional/100.input
-        # /tmp/vsc47063/easybuild/build/OpenMolcas/25.06/iomkl-2023a-DMRG-no-MPI/OpenMolcas-v25.06/test/grayzone/898.input
-#E2: OK
-    # -> fixed in QCMaquis postinstallcmds
-    # -> problem with fortran - C bridge and QCMaquis wrong .cmake file
-        # reported here: https://github.com/qcscine/qcmaquis/issues/34
-    # -> prebuildopts -> log3.txt
-        # 'FILE=/tmp/vsc47063/easybuild/build/OpenMolcas/25.06/iomkl-2023a-DMRG-no-MPI/easybuild_obj/External/qcmaquis/CMakeLists.txt; grep -q "set(MAQUIS_DMRG_LIBRARIES qcmaquis-driver \${MAQUIS_DMRG_LIBRARIES} stdc++ PARENT_SCOPE)" "$FILE" || sed -i -E "s|set[[:space:]]*\([[:space:]]*MAQUIS_DMRG_LIBRARIES[[:space:]]+qcmaquis-driver[[:space:]]+\$\{Boost_LIBRARIES\}[[:space:]]+\$\{GSL_LOCATION\}[[:space:]]+PARENT_SCOPE[[:space:]]*\)|set(MAQUIS_DMRG_LIBRARIES qcmaquis-driver \${MAQUIS_DMRG_LIBRARIES} stdc++ PARENT_SCOPE)|" "$FILE";  make  -j 8'
-    # <- failed on make step <- log2.txt
-
-#E1: OK
-    # -> add postinstallcmds to QCMaquis-4.0.0 -> OK
-    # -> add '-DGSL_ROOT_DIR=$EBROOTGSL' -> NO
-    # -> in External/qcmaquis/CMakeLists.txt
-        #  380 get_target_property(GSL_LOCATION GSL::gsl IMPORTED_LOCATION)
-    # <- failed on configure <- log1.txt
-        # Configuring QCMaquis DMRG support:
-        # -- External QCMaquis root specified at: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/QCMaquis/4.0.0-iomkl-2023a
-        # -- Loading QCMaquis configuration from /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/QCMaquis/4.0.0-iomkl-2023a/share/cmake/MAQUIS_DMRGConfig.cmake
-        # CMake Error at /tmp/vsc47063/easybuild/build/OpenMolcas/25.06/iomkl-2023a-DMRG-no-MPI/easybuild_obj/External/qcmaquis/CMakeLists.txt:380 (get_target_property):
-        #   get_target_property() called with non-existent target "GSL::gsl".
-    # QCMaquis lib/libmaquis_dmrg.so has GSL linked:
-        # libgsl.so.25 => /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/GSL/2.7-intel-compilers-2023.1.0/lib64/libgsl.so.25 (0x0000150f726b1000)
-        # libgslcblas.so.0 => /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/GSL/2.7-intel-compilers-2023.1.0/lib64/libgslcblas.so.0 (0x0000150f72650000)
-    # problem is in created share/cmake/MAQUIS_DMRGConfig.cmake:
-        # there is only: -lgsl
-        # needs find_dependency(GSL REQUIRED)
-    # reported here:
-        # https://github.com/qcscine/qcmaquis/issues/33
