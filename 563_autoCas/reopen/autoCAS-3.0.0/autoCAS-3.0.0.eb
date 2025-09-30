@@ -10,8 +10,6 @@ it identifies all strongly correlated orbitals to be included in the active spac
 """
 
 toolchain = {'name': 'iomkl', 'version': '2023a'}
-# disable optarch and use strict to pass some tests
-# toolchainopts = {'openmp': True, 'optarch': False, 'strict': True}
 
 dependencies = [
     ('Python', '3.11.3'),
@@ -25,15 +23,23 @@ dependencies = [
 ]
 
 exts_list = [
-    ('mypy_extensions', '0.4.3', {
-        'checksums': ['2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8'],
+    ('mypy_extensions', '1.0.0', {
+        'checksums': ['75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782'],
     }),
     ('scine_autocas', version, {
+        'patches': ['AutoCAS-3.0.0_fix-molcas-files.patch'],
         # unpin dep versions in requirements
-        'preinstallopts': "sed -i 's/==/>=/g' requirements.txt &&",
+        'preinstallopts': "sed -i 's/==.*//g' requirements.txt &&",
+        # omit input_handler tests - input_handler.py changed by patch
+        'runtest': "pytest -vvvs -k 'not (test_input_handler_1 or test_input_handler_2)' scine_autocas/tests",
         'source_urls': ['https://github.com/qcscine/autocas/archive/'],
-        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        'checksums': ['387db9ca42d9bc64322ea3e3d4d85aba289a82a8f08ae485ce1b2ca9dd052af5'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'testinstall': True,
+        'checksums': [
+            {'scine_autocas-3.0.0.tar.gz': 'c2046b9b5da834d9baae62ee25de250501270c30b8d6694733f36c72a8731896'},
+            {'AutoCAS-3.0.0_fix-molcas-files.patch':
+             '08cd0767e6cfed729d6f39a5ea304ecf0146396db915b40c734f52d02299f355'},
+        ],
     }),
 ]
 

@@ -1,0 +1,1159 @@
+===================================================== test session starts ======================================================
+platform linux -- Python 3.11.3, pytest-7.4.0, pluggy-1.2.0 -- /apps/gent/RHEL9/cascadelake-ib/software/Python/3.11.3-GCCcore-12.3.0/bin/python
+cachedir: .pytest_cache
+rootdir: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0
+plugins: xdist-3.3.1
+collecting ... collected 76 items
+
+scine_autocas/tests/actions/test_run.py::TestRunActions::test_conventional SKIPPED (PySCF not found)
+scine_autocas/tests/actions/test_run.py::TestRunActions::test_large_cas SKIPPED (PySCF not found)
+scine_autocas/tests/cas_selection/test_active_space.py::TestActiveSpace::test_init New active space:
+	orbital occuation:         [2, 2, 2, 2, 1, 1, 0, 0]
+	orbital indices (0-based): [2, 4, 9, 10, 11, 14, 16, 18]
+PASSED
+scine_autocas/tests/cas_selection/test_active_space.py::TestActiveSpace::test_s1 New active space:
+	orbital occuation:         [2, 2, 2, 2, 1, 1, 0, 0]
+	orbital indices (0-based): [2, 4, 9, 10, 11, 14, 16, 18]
+s1 in active space: [0.1 0.2 1.1 0.9 0.8 0.6 0.2 0.3]
+PASSED
+scine_autocas/tests/cas_selection/test_active_space_handler.py::TestActiveSpaceHandler::test_custom_valence_cas New active space:
+	orbital occuation:         [2, 2, 2, 2, 1, 1, 1, 0]
+	orbital indices (0-based): [1, 2, 3, 4, 5, 6, 7, 8]
+New cas [2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0] [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 17]
+New active space:
+	orbital occuation:         [2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0]
+	orbital indices (0-based): [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 17]
+PASSED
+scine_autocas/tests/cas_selection/test_active_space_handler.py::TestActiveSpaceHandler::test_exclude_orbitals New active space:
+	orbital occuation:         [2, 2, 2, 2, 1, 1, 1, 0]
+	orbital indices (0-based): [1, 2, 3, 4, 5, 6, 7, 8]
+New cas [2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0] [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 17]
+New active space:
+	orbital occuation:         [2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0]
+	orbital indices (0-based): [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 17]
+s1 in active space: [0.  0.1 0.1 0.6 0.7 0.9 0.8 0.7 0.4 1.1 0.  0.9 0.8 0.7]
+Before excluding Orbials: [2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 17]
+Excluded orbitals with:
+indices:    [0, 1, 2, 10]
+occupation: [0, 1, 2, 10]
+entropies:  [0, 1, 2, 10]
+Successfully excluded orbitals with low single orbital entropy
+New active space:
+	orbital occuation:         [2, 2, 1, 1, 1, 0, 0, 0, 0, 0]
+	orbital indices (0-based): [3, 4, 5, 6, 7, 8, 9, 12, 13, 17]
+s1 in active space: [0.6 0.7 0.9 0.8 0.7 0.4 1.1 0.9 0.8 0.7]
+New CAS: [2, 2, 1, 1, 1, 0, 0, 0, 0, 0], [3, 4, 5, 6, 7, 8, 9, 12, 13, 17]
+PASSED
+scine_autocas/tests/cas_selection/test_active_space_handler.py::TestActiveSpaceHandler::test_get_from_plateau New active space:
+	orbital occuation:         [2, 2, 2, 2, 2, 0, 0, 0]
+	orbital indices (0-based): [2, 3, 4, 5, 6, 7, 8, 9]
+New active space:
+	orbital occuation:         [2, 2, 2, 0, 0, 0]
+	orbital indices (0-based): [4, 5, 6, 7, 8, 9]
+PASSED
+scine_autocas/tests/cas_selection/test_active_space_handler.py::TestActiveSpaceHandler::test_getter New active space:
+	orbital occuation:         [2, 2, 2, 2, 1, 1, 1, 0]
+	orbital indices (0-based): [1, 2, 3, 4, 5, 6, 7, 8]
+New cas [2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0] [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 17]
+New active space:
+	orbital occuation:         [2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0]
+	orbital indices (0-based): [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 17]
+s1 in active space: [0.  0.1 0.1 0.6 0.7 0.9 0.8 0.7 0.4 1.1 0.  0.9 0.8 0.7]
+Before excluding Orbials: [2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 17]
+Excluded orbitals with:
+indices:    [0, 1, 2, 10]
+occupation: [0, 1, 2, 10]
+entropies:  [0, 1, 2, 10]
+Successfully excluded orbitals with low single orbital entropy
+New active space:
+	orbital occuation:         [2, 2, 1, 1, 1, 0, 0, 0, 0, 0]
+	orbital indices (0-based): [3, 4, 5, 6, 7, 8, 9, 12, 13, 17]
+s1 in active space: [0.6 0.7 0.9 0.8 0.7 0.4 1.1 0.9 0.8 0.7]
+New CAS: [2, 2, 1, 1, 1, 0, 0, 0, 0, 0], [3, 4, 5, 6, 7, 8, 9, 12, 13, 17]
+PASSED
+scine_autocas/tests/cas_selection/test_active_space_handler.py::TestActiveSpaceHandler::test_update_cas New active space:
+	orbital occuation:         [2, 2, 2, 2, 1, 1, 1, 0]
+	orbital indices (0-based): [1, 2, 3, 4, 5, 6, 7, 8]
+New cas [2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0] [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 17]
+New active space:
+	orbital occuation:         [2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0]
+	orbital indices (0-based): [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 17]
+s1 in active space: [0.  0.1 0.1 0.6 0.7 0.9 0.8 0.7 0.4 1.1 0.  0.9 0.8 0.7]
+New active space:
+	orbital occuation:         [2, 2, 1, 1, 1, 0, 0, 0, 0, 0]
+	orbital indices (0-based): [3, 4, 5, 6, 7, 8, 9, 12, 13, 17]
+s1 in active space: [0.6 0.7 0.9 0.8 0.7 0.4 1.1 0.9 0.8 0.7]
+PASSED
+scine_autocas/tests/cas_selection/test_active_space_handler.py::TestActiveSpaceHandler::test_valence_cas_closed_shell New active space:
+	orbital occuation:         [2, 2, 2, 2, 2, 0, 0, 0]
+	orbital indices (0-based): [2, 3, 4, 5, 6, 7, 8, 9]
+PASSED
+scine_autocas/tests/cas_selection/test_active_space_handler.py::TestActiveSpaceHandler::test_valence_cas_open_shell New active space:
+	orbital occuation:         [2, 2, 2, 2, 1, 1, 1, 0]
+	orbital indices (0-based): [1, 2, 3, 4, 5, 6, 7, 8]
+PASSED
+scine_autocas/tests/cas_selection/test_autocas.py::TestAutocas::test_get_cas_1 New active space:
+	orbital occuation:         [2, 2, 2, 2, 2, 0, 0, 0]
+	orbital indices (0-based): [2, 3, 4, 5, 6, 7, 8, 9]
+s1 in active space: [0.01 0.02 0.65 0.7  0.6  0.61 0.62 0.69]
+Start active space search for provided set of 8 orbitals and 10 electrons.
+Maximal single orbital entropy: 0.7
+New active space:
+	orbital occuation:         [2, 2, 2, 0, 0, 0]
+	orbital indices (0-based): [4, 5, 6, 7, 8, 9]
+Found plateau, including 6 orbitals.
+Found smaller active space.
+PASSED
+scine_autocas/tests/cas_selection/test_autocas.py::TestAutocas::test_get_cas_2 New active space:
+	orbital occuation:         [2, 2, 2, 2, 2, 0, 0, 0]
+	orbital indices (0-based): [2, 3, 4, 5, 6, 7, 8, 9]
+New active space:
+	orbital occuation:         [2, 2, 2, 2, 2, 2, 0, 0, 0]
+	orbital indices (0-based): [1, 2, 3, 8, 15, 16, 27, 38, 39]
+s1 in active space: [0.03 0.01 0.02 0.65 0.7  0.6  0.61 0.62 0.69]
+s1 in active space: [0.03 0.01 0.02 0.65 0.7  0.6  0.61 0.62 0.69]
+Start active space search for provided set of 9 orbitals and 12 electrons.
+Maximal single orbital entropy: 0.7
+New active space:
+	orbital occuation:         [2, 2, 2, 0, 0, 0]
+	orbital indices (0-based): [8, 15, 16, 27, 38, 39]
+Found plateau, including 6 orbitals.
+Found smaller active space.
+PASSED
+scine_autocas/tests/cas_selection/test_autocas.py::TestAutocas::test_get_cas_suggestion New active space:
+	orbital occuation:         [2, 2, 2, 2, 2, 0, 0, 0]
+	orbital indices (0-based): [2, 3, 4, 5, 6, 7, 8, 9]
+New active space:
+	orbital occuation:         [2, 2, 2, 2, 1, 1, 0, 0, 0]
+	orbital indices (0-based): [1, 2, 3, 8, 15, 16, 27, 38, 39]
+s1 in active space: [0.03 0.01 0.02 0.65 0.9  0.94 0.61 0.62 0.69]
+Start active space search for provided set of 9 orbitals and 10 electrons.
+Maximal single orbital entropy: 0.94
+Plateau vector: [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], plateau: [5 4 8 3 7 6 0 2 1]
+plateau: 6 orbitals: [5 4 8 3 7 6]
+plateau: 2 orbitals: [5 4]
+PASSED
+scine_autocas/tests/cas_selection/test_autocas.py::TestAutocas::test_init New active space:
+	orbital occuation:         [2, 2, 2, 2, 2, 0, 0, 0]
+	orbital indices (0-based): [2, 3, 4, 5, 6, 7, 8, 9]
+Make valence CAS
+PASSED
+scine_autocas/tests/cas_selection/test_cas_combination.py::TestCombineActiveSpaces::test_cas_combination PASSED
+scine_autocas/tests/cas_selection/test_diagnostics.py::TestDiagnostics::test_single_reference PASSED
+scine_autocas/tests/cas_selection/test_diagnostics.py::TestDiagnostics::test_zs1 PASSED
+scine_autocas/tests/cas_selection/test_large_active_spaces.py::TestLargeSpaces::test_generate_spaces PASSED
+scine_autocas/tests/cas_selection/test_large_active_spaces.py::TestLargeSpaces::test_generate_spaces_hard 
+    Max number of orbitals for large cas protocol is smaller than minimum number of singly
+    occupied orbitals. Please increase the size of the sub-CAS (large_cas_max_orbitals)
+    to at least
+        m singly occupied orbs + n occupied orbs + n virtual orbs
+    where n should be > 0 and m the number of unpaired electrons / singly occupied orbitals
+                                
+
+    Increasing max number of orbitals per sub-CAS to
+        1 singly occ. orbs + 2 occ. orbs + 2 virt. orbs
+                                
+Found singly occupied orbitals.
+                         Seeting max orbitals from 5
+                         to 4 and including singly occupied orbitals in every sub-CAS.
+                         The final size of the sub-CASs will be 5.
+                         
+PASSED
+scine_autocas/tests/cas_selection/test_large_active_spaces.py::TestLargeSpaces::test_generate_spaces_hard_2 Found singly occupied orbitals.
+                         Seeting max orbitals from 6
+                         to 5 and including singly occupied orbitals in every sub-CAS.
+                         The final size of the sub-CASs will be 6.
+                         
+PASSED
+scine_autocas/tests/cas_selection/test_large_active_spaces.py::TestLargeSpaces::test_get_spaces New active space:
+	orbital occuation:         [2, 2, 2, 2, 2, 0, 0, 0]
+	orbital indices (0-based): [2, 3, 4, 5, 6, 7, 8, 9]
+PASSED
+scine_autocas/tests/cas_selection/test_large_active_spaces.py::TestLargeSpaces::test_partition_space PASSED
+scine_autocas/tests/cas_selection/test_large_active_spaces.py::TestLargeSpaces::test_separate_spaces New active space:
+	orbital occuation:         [2, 2, 2, 2, 2, 0, 0, 0]
+	orbital indices (0-based): [2, 3, 4, 5, 6, 7, 8, 9]
+PASSED
+scine_autocas/tests/cas_selection/test_large_active_spaces.py::TestLargeSpaces::test_separate_spaces_hard New active space:
+	orbital occuation:         [2, 2, 2, 2, 1, 0, 0, 0]
+	orbital indices (0-based): [2, 3, 4, 5, 6, 7, 8, 9]
+Found singly occupied orbitals
+PASSED
+scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_analyze Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project
+SKIPPED (DISABLED)
+scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_charge Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+Preparing initial orbitals
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/scratch
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/initial
+Starting initial orbital calculation.
+
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas -b 1 -f
+MOLCAS_PROJECT:  test_charge
+MOLCAS_MEM:      12000
+WorkDir:         /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+MOLCAS_NPROCS:   
+OMP_NUM_THREADS: 
+QCMaquis_CPU:    
+Initial orbitals finished.
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+Preparing single orbitals entropies from initial CAS
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg
+
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas -b 1 -f
+MOLCAS_PROJECT:  test_charge
+MOLCAS_MEM:      12000
+WorkDir:         /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+MOLCAS_NPROCS:   
+OMP_NUM_THREADS: 
+QCMaquis_CPU:    
+[0.00211662 0.00265153 0.00423188 0.09447161 0.00215373 0.00243102
+ 0.04983053 0.09760308]
+PASSED
+scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_environment Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+PASSED
+scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_excited_states Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project
+SKIPPED (DISABLED)
+scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_fiedler Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+Preparing initial orbitals
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/scratch
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/initial
+Starting initial orbital calculation.
+
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas -b 1 -f
+MOLCAS_PROJECT:  test_for_fiedler_1_no_fiedler
+MOLCAS_MEM:      12000
+WorkDir:         /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+MOLCAS_NPROCS:   
+OMP_NUM_THREADS: 
+QCMaquis_CPU:    
+Initial orbitals finished.
+Preparing single orbitals entropies from initial CAS
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg
+
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas -b 1 -f
+MOLCAS_PROJECT:  test_for_fiedler_1_no_fiedler
+MOLCAS_MEM:      12000
+WorkDir:         /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+MOLCAS_NPROCS:   
+OMP_NUM_THREADS: 
+QCMaquis_CPU:    
+Molcas log:
+   This run of MOLCAS is using the pymolcas driver
+
+                             OPE
+                             OPE          NMOL  CASOP  ENMOLC A   SO
+                 OPE        NMOLC        AS  OP EN  MO LC     AS  OP
+                OPENM       OL CA        SO  PE NM  OL CA     SOP EN
+                OP EN      MO   LC       AS  OP ENMOL  CASO   PENMOL
+                OP  EN     MO   LC       AS  OP EN     MO     LC ASO
+               OP   E  NMOL  C  AS       OP  EN MO     LC     AS  OP
+               OP  E   NMO   LC AS        OPEN  MO     LCASOP EN   M
+               O  PEN   MO  LCA  SO
+            OPE   NMO   L   CAS    OP
+        OPENMOL  CASOP     ENMOL   CASOPE
+     OPENMOLCA   SOPENMOLCASOPEN   MOLCASOPE
+    OPENMOLCAS   OP           EN   MOL    CAS
+    OPENMOLCAS       OP  ENM        O     LCA
+    OPENMOLCAS    OPEN  MOLCASO     P  E  NMO
+    OPENMOLCAS     OP               E  N  MOL
+    OPENMOLCA   SO           PENM   O  L  CAS    OPEN    MO    LCAS
+    OPENMOLCA   SOP           ENM   O  L  CAS   OP  EN  MOLC  AS   O
+    OPENMOLCA   SOPE           NM      O  LCA   S      OP  EN MO
+    OPENMOLC                AS         O  PEN   M      OL  CA  SOPE
+    OPENMO        LCASOPE  NMOL        C  ASO   P      ENMOLC     AS
+    OPE     NMO      LCA  SO     P     E   NM   OL  CA SO  PE N   MO
+          OPENMOLCA            SOPE   NMO        LCAS  O    P  ENMO
+     OPENMOLCASOPENMOLCASOPENMOLCASOPENMOLCA
+        OPENMOLCASOPENMOLCASOPENMOLCASOPE
+            OPENMOLCASOPENMOLCASOPENM
+               OPENMOLCASOPENMOLCA        version: v25.06 ?
+                   OPENMOLCASO
+                       OPE                tag:
+
+ OpenMolcas is free software; you can redistribute it and/or modify it
+ under the terms of the GNU Lesser General Public License version 2.1.
+ OpenMolcas is distributed in the hope that it will be useful, but it
+ is provided "as is" and without any express or implied warranties.
+ For more details see the full text of the license in the file
+ LICENSE or in <http://www.gnu.org/licenses/>.
+
+                 Copyright (C) The OpenMolcas Authors
+           For the author list and the recommended citation,
+                   consult the file CONTRIBUTORS.md
+
+           *************************************************
+           * pymolcas version py2.29                       *
+           *   build 637753c454b0e8fef9459a9b878b37a5      *
+           *   (after the EMIL interpreter by V. Veryazov) *
+           *************************************************
+
+configuration info
+------------------
+Host name: node4002.donphan.os (Linux)
+C Compiler ID: IntelLLVM
+C flags: -O2 -march=core-avx2 -ftz -fp-speculation=safe -fp-model precise -std=gnu99 -qopenmp
+Fortran Compiler ID: Intel
+Fortran flags: -O2 -march=core-avx2 -ftz -fp-speculation=safe -fp-model precise  -fpp -i8 -heap-arrays -qopenmp
+Definitions: _MOLCAS_;_I8_;_LINUX_
+Parallel: OFF (GA=OFF)
+
+
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  |
+  |           Project: test_for_fiedler_1_no_fiedler
+  |    Submitted from: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg
+  |      Scratch area: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+  |   Save outputs to: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg
+  |            Molcas: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI
+  |
+  | Scratch area is NOT empty
+  |
+  |    MOLCAS_DRIVER = /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+  |    MOLCAS_NPROCS = 1
+  |    MOLCAS_SOURCE = /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI
+  | MOLCAS_STRUCTURE = 0
+  |   MOLCAS_THREADS = 1
+  |
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+++ ---------   Input file   ---------
+
+&DMRGSCF
+ActiveSpaceOptimizer = QCMaquis
+DMRGSettings
+  nsweeps = 5
+  max_bond_dimension = 250
+EndDMRGSettings
+OOptimizationSettings
+  SPIN    = 1
+  NACTEL  = 10
+  FILEORB = /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg/test_for_fiedler_1_no_fiedler.scf.h5_sel
+  TYPEINDEX
+  CIONLY
+EndOOptimizationSettings
+
+-- ----------------------------------
+
+*** symbolic link created: INPORB -> test_for_fiedler_1_no_fiedler.ScfOrb
+--- Start Module: dmrgscf at Tue Sep 30 11:04:49 2025 ---
+ 
+()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
+
+                                              &DMRGSCF
+
+                                   only a single process is used
+                        available to each process: 12 GB of memory, 1 thread
+                                            pid: 425516
+()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
+ 
+
+      DMRGSCF: active space solver is set to qcmaquis
+      -------                                --------
+
+ ###############################################################################
+ ###############################################################################
+ ###                                                                         ###
+ ###                                                                         ###
+ ###    WARNING: LUMORB input error.                                         ###
+ ###                                                                         ###
+ ###                                                                         ###
+ ###############################################################################
+ ###############################################################################
+  Keyword LUMORB used with file name StartOrbFile=
+ /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3
+ .0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg/test_for_fie
+ dler_1_no_fiedler.scf.                                                         
+                    
+  but that file cannot be used. Perhaps it does
+  not exist?
+ 
+ ********************* ERROR **********************
+ ###############################################################################
+ ###############################################################################
+ ###                                                                         ###
+ ###                                                                         ###
+ ###    ERROR: Too many active electrons.                                    ###
+ ###                                                                         ###
+ ###                                                                         ###
+ ###############################################################################
+ ###############################################################################
+ Too many active electrons NACTEL=    10
+ Cannot be more than 2*Nr of active orbitals=     0
+ **************************************************
+ 
+ ********************* ERROR **********************
+ ###############################################################################
+ ###############################################################################
+ ###                                                                         ###
+ ###                                                                         ###
+ ###    ERROR: Too many active electrons.                                    ###
+ ###                                                                         ###
+ ###                                                                         ###
+ ###############################################################################
+ ###############################################################################
+ Too many active electrons NACTEL=      10
+ (Incompatible with RAS restrictions).
+ **************************************************
+--- Stop Module: dmrgscf at Tue Sep 30 11:04:49 2025 /rc=_RC_INPUT_ERROR_ ---
+*** files: xmldump
+    saved to directory /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg
+
+.####################.
+.# User input error #.
+.####################.
+
+    Timing: Wall=0.12 User=0.07 System=0.04
+
+Molcas error log:
+[ process      0]: xquit (rc =    112): _INPUT_ERROR_
+
+FAILED
+scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_hdf5_utils_modify_hdf5 Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project
+PASSED
+scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_hdf5_utils_read_hdf5 Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project
+PASSED
+scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_input_handler_1 Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project
+
+
+
+
+
+
+
+PASSED
+scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_input_handler_2 Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project
+
+
+PASSED
+scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_molcas Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+Preparing initial orbitals
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/scratch
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/initial
+Starting initial orbital calculation.
+
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas -b 1 -f
+MOLCAS_PROJECT:  test123
+MOLCAS_MEM:      12000
+WorkDir:         /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+MOLCAS_NPROCS:   
+OMP_NUM_THREADS: 
+QCMaquis_CPU:    
+Initial orbitals finished.
+Preparing single orbitals entropies from initial CAS
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg
+
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas -b 1 -f
+MOLCAS_PROJECT:  test123
+MOLCAS_MEM:      12000
+WorkDir:         /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+MOLCAS_NPROCS:   
+OMP_NUM_THREADS: 
+QCMaquis_CPU:    
+PASSED
+scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_symmetry Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+Preparing initial orbitals
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/scratch
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/initial
+Starting initial orbital calculation.
+
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas -b 1 -f
+MOLCAS_PROJECT:  test_for_symmetry_1_no_sym
+MOLCAS_MEM:      12000
+WorkDir:         /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+MOLCAS_NPROCS:   
+OMP_NUM_THREADS: 
+QCMaquis_CPU:    
+Initial orbitals finished.
+Preparing single orbitals entropies from initial CAS
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg
+
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas -b 1 -f
+MOLCAS_PROJECT:  test_for_symmetry_1_no_sym
+MOLCAS_MEM:      12000
+WorkDir:         /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+MOLCAS_NPROCS:   
+OMP_NUM_THREADS: 
+QCMaquis_CPU:    
+Molcas log:
+   This run of MOLCAS is using the pymolcas driver
+
+                             OPE
+                             OPE          NMOL  CASOP  ENMOLC A   SO
+                 OPE        NMOLC        AS  OP EN  MO LC     AS  OP
+                OPENM       OL CA        SO  PE NM  OL CA     SOP EN
+                OP EN      MO   LC       AS  OP ENMOL  CASO   PENMOL
+                OP  EN     MO   LC       AS  OP EN     MO     LC ASO
+               OP   E  NMOL  C  AS       OP  EN MO     LC     AS  OP
+               OP  E   NMO   LC AS        OPEN  MO     LCASOP EN   M
+               O  PEN   MO  LCA  SO
+            OPE   NMO   L   CAS    OP
+        OPENMOL  CASOP     ENMOL   CASOPE
+     OPENMOLCA   SOPENMOLCASOPEN   MOLCASOPE
+    OPENMOLCAS   OP           EN   MOL    CAS
+    OPENMOLCAS       OP  ENM        O     LCA
+    OPENMOLCAS    OPEN  MOLCASO     P  E  NMO
+    OPENMOLCAS     OP               E  N  MOL
+    OPENMOLCA   SO           PENM   O  L  CAS    OPEN    MO    LCAS
+    OPENMOLCA   SOP           ENM   O  L  CAS   OP  EN  MOLC  AS   O
+    OPENMOLCA   SOPE           NM      O  LCA   S      OP  EN MO
+    OPENMOLC                AS         O  PEN   M      OL  CA  SOPE
+    OPENMO        LCASOPE  NMOL        C  ASO   P      ENMOLC     AS
+    OPE     NMO      LCA  SO     P     E   NM   OL  CA SO  PE N   MO
+          OPENMOLCA            SOPE   NMO        LCAS  O    P  ENMO
+     OPENMOLCASOPENMOLCASOPENMOLCASOPENMOLCA
+        OPENMOLCASOPENMOLCASOPENMOLCASOPE
+            OPENMOLCASOPENMOLCASOPENM
+               OPENMOLCASOPENMOLCA        version: v25.06 ?
+                   OPENMOLCASO
+                       OPE                tag:
+
+ OpenMolcas is free software; you can redistribute it and/or modify it
+ under the terms of the GNU Lesser General Public License version 2.1.
+ OpenMolcas is distributed in the hope that it will be useful, but it
+ is provided "as is" and without any express or implied warranties.
+ For more details see the full text of the license in the file
+ LICENSE or in <http://www.gnu.org/licenses/>.
+
+                 Copyright (C) The OpenMolcas Authors
+           For the author list and the recommended citation,
+                   consult the file CONTRIBUTORS.md
+
+           *************************************************
+           * pymolcas version py2.29                       *
+           *   build 637753c454b0e8fef9459a9b878b37a5      *
+           *   (after the EMIL interpreter by V. Veryazov) *
+           *************************************************
+
+configuration info
+------------------
+Host name: node4002.donphan.os (Linux)
+C Compiler ID: IntelLLVM
+C flags: -O2 -march=core-avx2 -ftz -fp-speculation=safe -fp-model precise -std=gnu99 -qopenmp
+Fortran Compiler ID: Intel
+Fortran flags: -O2 -march=core-avx2 -ftz -fp-speculation=safe -fp-model precise  -fpp -i8 -heap-arrays -qopenmp
+Definitions: _MOLCAS_;_I8_;_LINUX_
+Parallel: OFF (GA=OFF)
+
+
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  |
+  |           Project: test_for_symmetry_1_no_sym
+  |    Submitted from: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg
+  |      Scratch area: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+  |   Save outputs to: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg
+  |            Molcas: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI
+  |
+  | Scratch area is NOT empty
+  |
+  |    MOLCAS_DRIVER = /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+  |    MOLCAS_NPROCS = 1
+  |    MOLCAS_SOURCE = /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI
+  | MOLCAS_STRUCTURE = 0
+  |   MOLCAS_THREADS = 1
+  |
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+++ ---------   Input file   ---------
+
+&DMRGSCF
+ActiveSpaceOptimizer = QCMaquis
+DMRGSettings
+  nsweeps = 5
+  max_bond_dimension = 250
+EndDMRGSettings
+OOptimizationSettings
+  SPIN    = 1
+  NACTEL  = 10
+  FILEORB = /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg/test_for_symmetry_1_no_sym.scf.h5_sel
+  TYPEINDEX
+  CIONLY
+EndOOptimizationSettings
+
+-- ----------------------------------
+
+*** symbolic link created: INPORB -> test_for_symmetry_1_no_sym.ScfOrb
+--- Start Module: dmrgscf at Tue Sep 30 11:04:55 2025 ---
+ 
+()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
+
+                                              &DMRGSCF
+
+                                   only a single process is used
+                        available to each process: 12 GB of memory, 1 thread
+                                            pid: 425601
+()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
+ 
+
+      DMRGSCF: active space solver is set to qcmaquis
+      -------                                --------
+
+ ###############################################################################
+ ###############################################################################
+ ###                                                                         ###
+ ###                                                                         ###
+ ###    WARNING: LUMORB input error.                                         ###
+ ###                                                                         ###
+ ###                                                                         ###
+ ###############################################################################
+ ###############################################################################
+  Keyword LUMORB used with file name StartOrbFile=
+ /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3
+ .0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg/test_for_sym
+ metry_1_no_sym.scf.h5_                                                         
+                    
+  but that file cannot be used. Perhaps it does
+  not exist?
+ 
+ ********************* ERROR **********************
+ ###############################################################################
+ ###############################################################################
+ ###                                                                         ###
+ ###                                                                         ###
+ ###    ERROR: Too many active electrons.                                    ###
+ ###                                                                         ###
+ ###                                                                         ###
+ ###############################################################################
+ ###############################################################################
+ Too many active electrons NACTEL=    10
+ Cannot be more than 2*Nr of active orbitals=     0
+ **************************************************
+ 
+ ********************* ERROR **********************
+ ###############################################################################
+ ###############################################################################
+ ###                                                                         ###
+ ###                                                                         ###
+ ###    ERROR: Too many active electrons.                                    ###
+ ###                                                                         ###
+ ###                                                                         ###
+ ###############################################################################
+ ###############################################################################
+ Too many active electrons NACTEL=      10
+ (Incompatible with RAS restrictions).
+ **************************************************
+--- Stop Module: dmrgscf at Tue Sep 30 11:04:55 2025 /rc=_RC_INPUT_ERROR_ ---
+*** files: xmldump
+    saved to directory /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg
+
+.####################.
+.# User input error #.
+.####################.
+
+    Timing: Wall=0.11 User=0.06 System=0.04
+
+Molcas error log:
+[ process      0]: xquit (rc =    112): _INPUT_ERROR_
+
+FAILED
+scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_unrestricted Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project
+New active space:
+	orbital occuation:         [2, 2, 2, 2, 1, 1, 0, 0]
+	orbital indices (0-based): [2, 3, 4, 5, 6, 7, 8, 9]
+Make valence CAS
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+Preparing initial orbitals
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/scratch
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/initial
+Starting initial orbital calculation.
+
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas -b 1 -f
+MOLCAS_PROJECT:  test_for_uhf
+MOLCAS_MEM:      12000
+WorkDir:         /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+MOLCAS_NPROCS:   
+OMP_NUM_THREADS: 
+QCMaquis_CPU:    
+Initial orbitals finished.
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+Preparing single orbitals entropies from initial CAS
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg
+
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas -b 1 -f
+MOLCAS_PROJECT:  test_for_uhf
+MOLCAS_MEM:      12000
+WorkDir:         /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+MOLCAS_NPROCS:   
+OMP_NUM_THREADS: 
+QCMaquis_CPU:    
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+Preparing initial orbitals
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/initial
+Starting initial orbital calculation.
+
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas -b 1 -f
+MOLCAS_PROJECT:  test_for_uhf_2
+MOLCAS_MEM:      12000
+WorkDir:         /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+MOLCAS_NPROCS:   
+OMP_NUM_THREADS: 
+QCMaquis_CPU:    
+Initial orbitals finished.
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+Preparing single orbitals entropies from initial CAS
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg
+
+Found <pymolcas> binary in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/OpenMolcas/25.06-iomkl-2023a-DMRG-no-MPI/pymolcas -b 1 -f
+MOLCAS_PROJECT:  test_for_uhf_2
+MOLCAS_MEM:      12000
+WorkDir:         /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/scratch
+MOLCAS_NPROCS:   
+OMP_NUM_THREADS: 
+QCMaquis_CPU:    
+[2, 2, 2, 2, 1, 1, 0, 0]
+[2, 3, 4, 5, 6, 7, 8, 9]
+[0.01167299 0.01727371 0.97202253 1.13410679 1.10567462 1.1049404
+ 1.13405893 0.97572183]
+[0.01167299 0.01727371 0.97202253 1.13410679 1.10567462 1.1049404
+ 1.13405893 0.97572183]
+s1 in active space: [0.01167299 0.01727371 0.97202253 1.13410679 1.10567462 1.1049404
+ 1.13405893 0.97572183]
+Start active space search for provided set of 8 orbitals and 10 electrons.
+Maximal single orbital entropy: 1.1341067901589805
+New active space:
+	orbital occuation:         [2, 2, 1, 1, 0, 0]
+	orbital indices (0-based): [4, 5, 6, 7, 8, 9]
+Found plateau, including 6 orbitals.
+Found smaller active space.
+s1 in active space: [0.01167299 0.01727371 0.97202253 1.13410679 1.10567462 1.1049404
+ 1.13405893 0.97572183]
+Start active space search for provided set of 8 orbitals and 10 electrons.
+Maximal single orbital entropy: 1.1341067901589805
+New active space:
+	orbital occuation:         [2, 2, 1, 1, 0, 0]
+	orbital indices (0-based): [4, 5, 6, 7, 8, 9]
+Found plateau, including 6 orbitals.
+Found smaller active space.
+[2, 2, 1, 1, 0, 0]
+[2, 2, 1, 1, 0, 0]
+[4, 5, 6, 7, 8, 9]
+[4, 5, 6, 7, 8, 9]
+PASSED
+scine_autocas/tests/interfaces/test_pyscf_interface.py::TestPyscfInterface::test_cas SKIPPED (PySCF not found)
+scine_autocas/tests/interfaces/test_pyscf_interface.py::TestPyscfInterface::test_hartree_fock SKIPPED (PySCF not found)
+scine_autocas/tests/interfaces/test_pyscf_interface.py::TestPyscfInterface::test_molecule SKIPPED (PySCF not found)
+scine_autocas/tests/interfaces/test_qcmaquis_basics.py::TestQCMaquisBasics::test_single_sweep SKIPPED (pyscf not found)
+scine_autocas/tests/interfaces/test_qcmaquis_environment.py::TestQCMaquisEnvironment::test_getter PASSED
+scine_autocas/tests/interfaces/test_qcmaquis_environment.py::TestQCMaquisEnvironment::test_path_error Reading QCMaquis binary path from variable self.qcmaquis_binary_path as
+                random/path
+qcmaquis_binary_path variable is set to random/path
+PASSED
+scine_autocas/tests/interfaces/test_qcmaquis_utils.py::TestQcMquisClasses::test_hdf5_converter PASSED
+scine_autocas/tests/interfaces/test_qcmaquis_utils.py::TestQcMquisClasses::test_orbital_rdm_builder PASSED
+scine_autocas/tests/interfaces/test_qcmaquis_utils.py::TestQcMquisClasses::test_qcmaquis PASSED
+scine_autocas/tests/io/test_file_handler.py::TestFileHandler::test_changers Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project/scratch
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project/initial
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project/initial
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project/dmrg
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project/dmrg
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project/final
+PASSED
+scine_autocas/tests/io/test_file_handler.py::TestFileHandler::test_checkers Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project/scratch
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project/initial
+PASSED
+scine_autocas/tests/io/test_file_handler.py::TestFileHandler::test_make_custom_project_dir Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project
+PASSED
+scine_autocas/tests/io/test_file_handler.py::TestFileHandler::test_makers Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project/scratch
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project/initial
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project/dmrg
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/mock/autocas_project/final
+PASSED
+scine_autocas/tests/io/test_file_handler.py::TestFileHandler::test_setters Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/abc
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/abc/ghd
+Current directory: /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/abc/ghd
+Current directory: /abc/ghd
+PASSED
+scine_autocas/tests/io/test_input_handler.py::TestInputHandler::test_autocas_from_cli PASSED
+scine_autocas/tests/io/test_input_handler.py::TestInputHandler::test_cli_plus_yaml PASSED
+scine_autocas/tests/io/test_input_handler.py::TestInputHandler::test_interface_from_cli PASSED
+scine_autocas/tests/io/test_input_handler.py::TestInputHandler::test_molecule_from_cli PASSED
+scine_autocas/tests/io/test_input_handler.py::TestInputHandler::test_yaml_only PASSED
+scine_autocas/tests/plots/test_plots.py::TestPlots::test_entanglement_plot PASSED
+scine_autocas/tests/plots/test_plots.py::TestPlots::test_plot_in_plot PASSED
+scine_autocas/tests/plots/test_plots.py::TestPlots::test_threshold_plots PASSED
+scine_autocas/tests/utils/test_chemical_elements.py::TestMolecule::test_get PASSED
+scine_autocas/tests/utils/test_chemical_elements.py::TestMolecule::test_get_core_orb_labels PASSED
+scine_autocas/tests/utils/test_chemical_elements.py::TestMolecule::test_get_core_orbitals PASSED
+scine_autocas/tests/utils/test_chemical_elements.py::TestMolecule::test_get_electrons PASSED
+scine_autocas/tests/utils/test_chemical_elements.py::TestMolecule::test_get_valence_orbitals PASSED
+scine_autocas/tests/utils/test_chemical_elements.py::TestMolecule::test_valence_orb_labels PASSED
+scine_autocas/tests/utils/test_helper_functions.py::TestHelperFunctions::test_get_parameters PASSED
+scine_autocas/tests/utils/test_helper_functions.py::TestHelperFunctions::test_set_parameters PASSED
+scine_autocas/tests/utils/test_molecule.py::TestMolecule::test_initialize PASSED
+scine_autocas/tests/utils/test_molecule.py::TestMolecule::test_update PASSED
+scine_autocas/tests/workflows/test_conventional.py::TestConventionalWorkflow::test_n2 SKIPPED (PySCF not found)
+scine_autocas/tests/workflows/test_large_cas.py::TestLargeCasWorkflow::test_n2 SKIPPED (PySCF not found)
+scine_autocas/tests/workflows/consistent_active_space/test_configuration.py::TestConsistentActiveSpaceConfiguration::test_create_from_options PASSED
+scine_autocas/tests/workflows/consistent_active_space/test_configuration.py::TestConsistentActiveSpaceConfiguration::test_create_from_yaml PASSED
+scine_autocas/tests/workflows/consistent_active_space/test_configuration.py::TestConsistentActiveSpaceConfiguration::test_write_yaml PASSED
+scine_autocas/tests/workflows/consistent_active_space/test_protocol.py::TestConsistentActiveSpaceProtocol::test_n2_dissociation_from_hdf5 SKIPPED
+scine_autocas/tests/workflows/consistent_active_space/test_protocol.py::TestConsistentActiveSpaceProtocol::test_n2_dissociation_from_xyz SKIPPED
+
+=========================================================== FAILURES ===========================================================
+________________________________________________ TestMolcasClasses.test_fiedler ________________________________________________
+
+self = <scine_autocas.interfaces.molcas.molcas.Molcas object at 0x151138404c80>, cas_occupation = [2, 2, 2, 2, 2, 0, ...]
+cas_indices = [2, 3, 4, 5, 6, 7, ...]
+
+    def calculate(
+        self, cas_occupation: Optional[List[int]] = None, cas_indices: Optional[List[int]] = None
+    ) -> Tuple[List[float], np.ndarray, np.ndarray, np.ndarray]:
+        """
+    
+        Parameters
+        ----------
+        cas_occupations: List[int], optional
+            contains the occupation for each spatial orbital. 2: doubly occupied, 1: singly occupied, 0: virtual
+        cas_indices: List[int], optional
+            contains the indices of the orbitals for the CAS calculation
+    
+        Notes
+        -----
+        Either cas_occupations and cas_indices is provided and a CAS calculation is started,
+        or if none are provided a plain HF calculation is started.
+        This function must be implemented by the corresponding interface.
+        """
+    
+        self._check_interface_exists()
+    
+        # check input
+        cas_occupation, cas_indices = self._sanity_check(cas_occupation, cas_indices)
+    
+        # evaluate orbitals, or read orbitals from molden file
+        energy: List[float] = [0.0]
+        if not self._state_handler.initial_orbitals_prepared:
+            print("Preparing initial orbitals")
+            try:
+                self._dumper.read_initial_orbitals(self)
+            except DumperError:
+                energy = self._initial_orbitals_impl()
+            except NotImplementedError:
+                energy = self._initial_orbitals_impl()
+            self._state_handler.initial_orbitals_prepared = True
+    
+        if not cas_occupation and not cas_indices:
+            return energy, np.array([]), np.array([]), np.array([])
+    
+        # initial CAS calculation
+        if not self._state_handler.initial_cas_prepared and self._state_handler.initial_orbitals_prepared:
+            print("Preparing single orbitals entropies from initial CAS")
+            try:
+>               energy, s1, s2, mut_inf = self._dumper.read_initial_dmrg()
+
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/interfaces/interface.py:519: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <scine_autocas.interfaces.interface.Interface.InterfaceDumper object at 0x15113845c240>
+
+    def read_initial_dmrg(self):
+        """Read initial dmrg information from previous run"""
+        if not self.activated:
+            raise DumperError("Dumper not enabled")
+    
+        if os.path.exists(self.qcmaquis_result_name):
+            print(f"Found QCMaquis result file in {FileHandler.current_dir}")
+            print(f"Reading results from file: {self.qcmaquis_result_name}")
+    
+            qcmaquis_autocas = QcmaquisUtils()
+            qcmaquis_autocas.read_hdf5(self.qcmaquis_result_name)
+            qcmaquis_autocas.make_diagnostics()
+            energy = qcmaquis_autocas.energy
+            s1 = qcmaquis_autocas.s1_entropy
+            s2 = qcmaquis_autocas.s2_entropy
+            mut_inf = qcmaquis_autocas.mutual_information
+            return energy, s1, s2, mut_inf
+    
+>       raise DumperError("No QCMaquis result file found")
+E       scine_autocas.utils.exceptions.DumperError: No QCMaquis result file found
+
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/interfaces/interface.py:76: DumperError
+
+During handling of the above exception, another exception occurred:
+
+self = <scine_autocas.tests.interfaces.test_molcas_interface.TestMolcasClasses testMethod=test_fiedler>
+
+    def test_fiedler(self):
+        try:
+            os.environ["MOLCAS"]
+        except KeyError:
+            pytest.skip("Molcas not found")
+        molecule = Molecule(xyz_file=self.path + "/files/n2.xyz")
+        molcas = Molcas(molecule=molecule)
+        molcas.settings.fiedler = False
+        molcas.settings.dmrg_bond_dimension = 3000
+        molcas.settings.dmrg_sweeps = 20
+        molcas.project_name = "test_for_fiedler_1_no_fiedler"
+        molcas.settings.post_cas_method = None
+        molcas.set_cas_method("dmrgci")
+        # molcas.settings.xyz_file = self.path + "/files/n2.xyz"
+        molcas.environment.molcas_scratch_dir = self.dummy_project_dir + "/scratch"
+    
+        # fmt: off
+        n2_occ_initial = [2, 2, 2, 2, 2, 0, 0, 0]
+        n2_index_initial = [2, 3, 4, 5, 6, 7, 8, 9]
+        # fmt: on
+    
+        (
+            energy_init_no_sym,
+            s1_init_no_sym,
+            s2_init_no_sym,
+            mut_inf_init_no_sym,
+>       ) = molcas.calculate(n2_occ_initial, n2_index_initial)
+
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/test_molcas_interface.py:677: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/interfaces/interface.py:521: in calculate
+    energy, s1, s2, mut_inf = self._initial_cas_impl(cas_occupation, cas_indices)
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/interfaces/molcas/molcas.py:505: in _initial_cas_impl
+    self.run_molcas()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <scine_autocas.interfaces.molcas.molcas.Molcas object at 0x151138404c80>
+
+    def run_molcas(self):
+        """Run molcas, from current state.
+    
+        The function calls the molcas binary through a subprocess
+        """
+        # write input
+        input_file = self.project_name + ".input"
+    
+        self.input_handler.write_input(self.settings, input_file, self.orbital_file)
+        # setup environment
+        self.environment.project_name = self.project_name
+        environment = self.environment.make_environment()
+        # save current location
+        pymolcas_string = self.environment.molcas_binary + " " + self.environment.molcas_flags
+        print(self.environment.molcas_binary, self.environment.molcas_flags)
+        print(self.environment)
+        log_file = open("molcas.out", "w+")
+    
+        calculation_process = subprocess.Popen(
+            [
+                f"{pymolcas_string} {input_file} -nt {self.environment.get_nthreads()}"
+            ],
+            env=environment,
+            shell=True,
+            stdout=log_file,
+            stderr=subprocess.STDOUT,
+        )
+        calculation_process.communicate()
+    
+        molcas_internal_log_file = self.project_name + ".log"
+        success_string = "Happy landing!"
+        with open(molcas_internal_log_file, "r") as molcas_log:
+            success = success_string in molcas_log.read()
+        if not success:
+            full_path = os.path.join(os.getcwd(), molcas_internal_log_file)
+            err_file = molcas_internal_log_file.replace(".log", ".err")
+            try:
+                with open(molcas_internal_log_file, "r") as molcas_log:
+                    print(f"Molcas log:\n{molcas_log.read()}")
+                with open(err_file, "r") as err_log:
+                    print(f"Molcas error log:\n{err_log.read()}")
+            except FileNotFoundError:
+                pass
+>           raise RuntimeError(f"Molcas calculation failed. Please check the log file {full_path} for details.")
+E           RuntimeError: Molcas calculation failed. Please check the log file /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg/test_for_fiedler_1_no_fiedler.log for details.
+
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/interfaces/molcas/molcas.py:350: RuntimeError
+_______________________________________________ TestMolcasClasses.test_symmetry ________________________________________________
+
+self = <scine_autocas.interfaces.molcas.molcas.Molcas object at 0x15113837a5e0>, cas_occupation = [2, 2, 2, 2, 2, 0, ...]
+cas_indices = [2, 3, 4, 5, 6, 7, ...]
+
+    def calculate(
+        self, cas_occupation: Optional[List[int]] = None, cas_indices: Optional[List[int]] = None
+    ) -> Tuple[List[float], np.ndarray, np.ndarray, np.ndarray]:
+        """
+    
+        Parameters
+        ----------
+        cas_occupations: List[int], optional
+            contains the occupation for each spatial orbital. 2: doubly occupied, 1: singly occupied, 0: virtual
+        cas_indices: List[int], optional
+            contains the indices of the orbitals for the CAS calculation
+    
+        Notes
+        -----
+        Either cas_occupations and cas_indices is provided and a CAS calculation is started,
+        or if none are provided a plain HF calculation is started.
+        This function must be implemented by the corresponding interface.
+        """
+    
+        self._check_interface_exists()
+    
+        # check input
+        cas_occupation, cas_indices = self._sanity_check(cas_occupation, cas_indices)
+    
+        # evaluate orbitals, or read orbitals from molden file
+        energy: List[float] = [0.0]
+        if not self._state_handler.initial_orbitals_prepared:
+            print("Preparing initial orbitals")
+            try:
+                self._dumper.read_initial_orbitals(self)
+            except DumperError:
+                energy = self._initial_orbitals_impl()
+            except NotImplementedError:
+                energy = self._initial_orbitals_impl()
+            self._state_handler.initial_orbitals_prepared = True
+    
+        if not cas_occupation and not cas_indices:
+            return energy, np.array([]), np.array([]), np.array([])
+    
+        # initial CAS calculation
+        if not self._state_handler.initial_cas_prepared and self._state_handler.initial_orbitals_prepared:
+            print("Preparing single orbitals entropies from initial CAS")
+            try:
+>               energy, s1, s2, mut_inf = self._dumper.read_initial_dmrg()
+
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/interfaces/interface.py:519: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <scine_autocas.interfaces.interface.Interface.InterfaceDumper object at 0x15113869fe00>
+
+    def read_initial_dmrg(self):
+        """Read initial dmrg information from previous run"""
+        if not self.activated:
+            raise DumperError("Dumper not enabled")
+    
+        if os.path.exists(self.qcmaquis_result_name):
+            print(f"Found QCMaquis result file in {FileHandler.current_dir}")
+            print(f"Reading results from file: {self.qcmaquis_result_name}")
+    
+            qcmaquis_autocas = QcmaquisUtils()
+            qcmaquis_autocas.read_hdf5(self.qcmaquis_result_name)
+            qcmaquis_autocas.make_diagnostics()
+            energy = qcmaquis_autocas.energy
+            s1 = qcmaquis_autocas.s1_entropy
+            s2 = qcmaquis_autocas.s2_entropy
+            mut_inf = qcmaquis_autocas.mutual_information
+            return energy, s1, s2, mut_inf
+    
+>       raise DumperError("No QCMaquis result file found")
+E       scine_autocas.utils.exceptions.DumperError: No QCMaquis result file found
+
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/interfaces/interface.py:76: DumperError
+
+During handling of the above exception, another exception occurred:
+
+self = <scine_autocas.tests.interfaces.test_molcas_interface.TestMolcasClasses testMethod=test_symmetry>
+
+    def test_symmetry(self):
+        try:
+            os.environ["MOLCAS"]
+        except KeyError:
+            pytest.skip("Molcas not found")
+        molecule = Molecule(xyz_file=self.path + "/files/n2.xyz")
+        molcas = Molcas(molecule=molecule)
+    
+        # problem with cholesky together with symmetry
+        molcas.settings.cholesky = False
+        molcas.settings.fiedler = False  # fiedler reorders orbitals
+        molcas.project_name = "test_for_symmetry_1_no_sym"
+        molcas.settings.post_cas_method = None
+        molcas.set_cas_method("dmrgci")
+        # molcas.settings.xyz_file = self.path + "/files/n2.xyz"
+        molcas.environment.molcas_scratch_dir = self.dummy_project_dir + "/scratch"
+    
+        # fmt: off
+        n2_occ_initial = [2, 2, 2, 2, 2, 0, 0, 0]
+        n2_index_initial = [2, 3, 4, 5, 6, 7, 8, 9]
+        # fmt: on
+    
+        (
+            energy_init_no_sym,
+            s1_init_no_sym,
+            s2_init_no_sym,
+            mut_inf_init_no_sym,
+>       ) = molcas.calculate(n2_occ_initial, n2_index_initial)
+
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/test_molcas_interface.py:596: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/interfaces/interface.py:521: in calculate
+    energy, s1, s2, mut_inf = self._initial_cas_impl(cas_occupation, cas_indices)
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/interfaces/molcas/molcas.py:505: in _initial_cas_impl
+    self.run_molcas()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <scine_autocas.interfaces.molcas.molcas.Molcas object at 0x15113837a5e0>
+
+    def run_molcas(self):
+        """Run molcas, from current state.
+    
+        The function calls the molcas binary through a subprocess
+        """
+        # write input
+        input_file = self.project_name + ".input"
+    
+        self.input_handler.write_input(self.settings, input_file, self.orbital_file)
+        # setup environment
+        self.environment.project_name = self.project_name
+        environment = self.environment.make_environment()
+        # save current location
+        pymolcas_string = self.environment.molcas_binary + " " + self.environment.molcas_flags
+        print(self.environment.molcas_binary, self.environment.molcas_flags)
+        print(self.environment)
+        log_file = open("molcas.out", "w+")
+    
+        calculation_process = subprocess.Popen(
+            [
+                f"{pymolcas_string} {input_file} -nt {self.environment.get_nthreads()}"
+            ],
+            env=environment,
+            shell=True,
+            stdout=log_file,
+            stderr=subprocess.STDOUT,
+        )
+        calculation_process.communicate()
+    
+        molcas_internal_log_file = self.project_name + ".log"
+        success_string = "Happy landing!"
+        with open(molcas_internal_log_file, "r") as molcas_log:
+            success = success_string in molcas_log.read()
+        if not success:
+            full_path = os.path.join(os.getcwd(), molcas_internal_log_file)
+            err_file = molcas_internal_log_file.replace(".log", ".err")
+            try:
+                with open(molcas_internal_log_file, "r") as molcas_log:
+                    print(f"Molcas log:\n{molcas_log.read()}")
+                with open(err_file, "r") as err_log:
+                    print(f"Molcas error log:\n{err_log.read()}")
+            except FileNotFoundError:
+                pass
+>           raise RuntimeError(f"Molcas calculation failed. Please check the log file {full_path} for details.")
+E           RuntimeError: Molcas calculation failed. Please check the log file /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/tests/interfaces/dummy_dir/autocas_project/dmrg/test_for_symmetry_1_no_sym.log for details.
+
+/tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/interfaces/molcas/molcas.py:350: RuntimeError
+======================================================= warnings summary =======================================================
+scine_autocas/tests/plots/test_plots.py::TestPlots::test_threshold_plots
+  /tmp/vsc47063/easybuild/build/autoCAS/3.0.0/iomkl-2023a/scine_autocas/autocas-3.0.0/scine_autocas/plots/threshold_plot.py:111: UserWarning: The figure layout has changed to tight
+    plt.tight_layout()  # type: ignore
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=================================================== short test summary info ====================================================
+FAILED scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_fiedler - RuntimeError: Molcas calcul...
+FAILED scine_autocas/tests/interfaces/test_molcas_interface.py::TestMolcasClasses::test_symmetry - RuntimeError: Molcas calcu...
+================================ 2 failed, 62 passed, 12 skipped, 1 warning in 62.59s (0:01:02) ================================
