@@ -11,12 +11,6 @@ it identifies all strongly correlated orbitals to be included in the active spac
 
 toolchain = {'name': 'iomkl', 'version': '2023a'}
 
-# builddependencies = [
-#     ('pybind11', '2.11.1'),  # qcserenity builddep
-#     ('scikit-build-core', '0.10.6'),  # qcserenity builddep
-#     ('Eigen', '3.4.0'),  # qcserenity builddep
-#     ('Autotools', '20220317'),  # qcserenity builddep
-# ]
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
@@ -27,16 +21,12 @@ dependencies = [
     ('Boost', '1.82.0'),
     ('h5py', '3.9.0', '-serial'),
     ('OpenMolcas', '25.06', '-DMRG-no-MPI'),
-    ('GMP', '6.2.1'),  # qcserenity dep
-    ('ASE', '3.24.0'),  # qcserenity dep
-    ('py3Dmol', '2.1.0'), # qcserenity dep
-    ('jupyter-server', '2.7.2'),  # ipywidgets for qcserenity
+    # qcserenity deps:
+    ('GMP', '6.2.1'),
+    ('ASE', '3.24.0'),
+    ('py3Dmol', '2.1.0'),
+    ('jupyter-server', '2.7.2'),  # ipywidgets
 ]
-
-# ipywidgets 8.1.7 requires comm, which is not installed.
-# ipywidgets 8.1.7 requires jupyterlab-widgets, which is not installed.
-# ipywidgets 8.1.7 requires widgetsnbextension, which is not installed.
-
 
 exts_list = [
     ('mypy_extensions', '1.0.0', {
@@ -64,12 +54,9 @@ exts_list = [
 ]
 
 postinstallcmds = [
-    # unpin failing mkl dep
+    # unpin failing mkl dep of qcserenity
     "sed -i '/mkl==2024.2/d' "
     "%(installdir)s/lib/python%(pyshortver)s/site-packages/qcserenity-1.6.3.post2.dist-info/METADATA",
-    # "cd %(installdir)s/lib/python%(pyshortver)s/site-packages && "
-    # 'echo "import importlib, sys" > %(installdir)s/lib/python%(pyshortver)s/site-packages/sitecustomize.py && '
-    # r'echo "sys.modules.setdefault(\"serenipy\", importlib.import_module(\"qcserenity.serenipy\"))" >> %(installdir)s/lib/python%(pyshortver)s/site-packages/sitecustomize.py'
     # link serenity exec to /bin
     'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/bin/serenity %(installdir)s/bin/serenity',
 ]
