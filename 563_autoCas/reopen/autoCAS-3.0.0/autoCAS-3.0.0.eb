@@ -11,6 +11,12 @@ it identifies all strongly correlated orbitals to be included in the active spac
 
 toolchain = {'name': 'iomkl', 'version': '2023a'}
 
+# builddependencies = [
+#     ('pybind11', '2.11.1'),  # qcserenity builddep
+#     ('scikit-build-core', '0.10.6'),  # qcserenity builddep
+#     ('Eigen', '3.4.0'),  # qcserenity builddep
+#     ('Autotools', '20220317'),  # qcserenity builddep
+# ]
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
@@ -18,18 +24,32 @@ dependencies = [
     ('matplotlib', '3.7.2'),
     ('Pillow', '10.0.0'),
     ('PyYAML', '6.0'),
+    ('Boost', '1.82.0'),
     ('h5py', '3.9.0', '-serial'),
     ('OpenMolcas', '25.06', '-DMRG-no-MPI'),
+    ('GMP', '6.2.1'),  # qcserenity dep
+    ('ASE', '3.24.0'),  # qcserenity dep
+    ('py3Dmol', '2.1.0'), # qcserenity dep
+    ('jupyter-server', '2.7.2'),  # ipywidgets for qcserenity
 ]
+
+# ipywidgets 8.1.7 requires comm, which is not installed.
+# ipywidgets 8.1.7 requires jupyterlab-widgets, which is not installed.
+# ipywidgets 8.1.7 requires widgetsnbextension, which is not installed.
+
 
 exts_list = [
     ('mypy_extensions', '1.0.0', {
         'checksums': ['75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782'],
     }),
+    ('qcserenity', '1.6.3.post2', {
+        'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_28_x86_64.whl',
+        'checksums': ['b14a248e2a61434d9852b1c0e13ffd729687696eaa7050af04491a367ce22615'],
+    }),
     ('scine_autocas', version, {
         'patches': ['AutoCAS-3.0.0_fix-molcas-files.patch'],
         # unpin dep versions in requirements
-        'preinstallopts': "sed -i 's/==.*//g' requirements.txt &&",
+        'preinstallopts': "sed -i 's/==.*//g' requirements.txt && ",
         # omit input_handler tests - input_handler.py changed by patch
         'runtest': "pytest -vvvs -k 'not (test_input_handler_1 or test_input_handler_2)' scine_autocas/tests",
         'source_urls': ['https://github.com/qcscine/autocas/archive/'],
@@ -43,8 +63,27 @@ exts_list = [
     }),
 ]
 
+postinstallcmds = [
+    # unpin failing mkl dep
+    "sed -i '/mkl==2024.2/d' "
+    "%(installdir)s/lib/python%(pyshortver)s/site-packages/qcserenity-1.6.3.post2.dist-info/METADATA",
+    # "cd %(installdir)s/lib/python%(pyshortver)s/site-packages && "
+    # 'echo "import importlib, sys" > %(installdir)s/lib/python%(pyshortver)s/site-packages/sitecustomize.py && '
+    # r'echo "sys.modules.setdefault(\"serenipy\", importlib.import_module(\"qcserenity.serenipy\"))" >> %(installdir)s/lib/python%(pyshortver)s/site-packages/sitecustomize.py'
+    # link serenity exec to /bin
+    'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/bin/serenity %(installdir)s/bin/serenity',
+]
+
 check_ldshared = True
 
-sanity_check_commands = ["python3 -m scine_autocas -h"]
+sanity_check_commands = [
+    "python -m scine_autocas -h",
+    "python -c 'import qcserenity.serenipy'",
+]
+
+sanity_check_paths = {
+    'files': ['bin/scine_autocas', 'bin/serenity'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
 
 moduleclass = 'chem'

@@ -13,11 +13,11 @@ toolchain = {'name': 'iomkl', 'version': '2023a'}
 # disable optarch and use strict to pass some tests
 # toolchainopts = {'openmp': True}
 
-builddependencies = [
-    ('pybind11', '2.11.1'),  # qcserenity builddep
-    ('scikit-build-core', '0.10.6'),  # qcserenity builddep
-    ('Eigen', '3.4.0'),  # qcserenity builddep
-]
+# builddependencies = [  # probably not needed since serenity is installed from whl
+#     ('pybind11', '2.11.1'),  # qcserenity builddep
+#     ('scikit-build-core', '0.10.6'),  # qcserenity builddep
+#     ('Eigen', '3.4.0'),  # qcserenity builddep
+# ]
 dependencies = [
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
@@ -29,8 +29,7 @@ dependencies = [
     ('h5py', '3.9.0', '-serial-CMake'),
     # ('OpenMolcas', '25.02', '-DMRG-no-MPI'),
     ('OpenMolcas', '23.10'),
-    ('GMP', '6.2.1'),
-    ('Boost', '1.82.0'),
+    ('GMP', '6.2.1'),  # qcserenity
 ]
 
 exts_list = [
