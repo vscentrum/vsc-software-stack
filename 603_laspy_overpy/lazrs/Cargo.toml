@@ -1,0 +1,20 @@
+[package]
+name = "lazrs"
+version = "0.7.0"
+authors = ["tmontaigu <thomas.montaigu@laposte.net>"]
+edition = "2021"
+license = "MIT"
+description = "Python bindings for laz-rs"
+readme = "README.md"
+
+[lib]
+name = "lazrs"
+crate-type = ["cdylib"]
+
+[dependencies.laz]
+version = "0.10.0"
+features = ["parallel"]
+
+[dependencies.pyo3]
+version = "0.22.2"
+features = ["extension-module", "py-clone"]
