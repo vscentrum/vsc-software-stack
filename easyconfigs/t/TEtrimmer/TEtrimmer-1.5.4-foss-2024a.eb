@@ -17,10 +17,6 @@ easily.
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
-builddependencies = [
-    ('hatchling', '1.24.2'),  # for urllib3
-]
-
 dependencies = [
     ('Python', '3.12.3'),
     ('Perl', '5.38.2'),
@@ -67,9 +63,6 @@ exts_list = [
         'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
         'checksums': ['d16e4205cfee272fbdc0568b68d82be796540b1537508cef59388f839c191928'],
     }),
-    ('urllib3', '1.26.16', {
-        'checksums': ['8f135f6502756bde6b2a9b28989df5fbe87c9970cecaa69041edcce7f0589b14'],
-    }),
 ]
 
 postinstallcmds = [
@@ -90,7 +83,7 @@ sanity_check_commands = ['TEtrimmer --help']
 
 _pfam_db_dir = "/databases/bio/Pfam-37.4"
 modloadmsg = """
-Pfam database dir is located at %s
+Pfam database dir is located at %s. Use TEtrimmer with option -pd.
 """ % _pfam_db_dir
 
 moduleclass = 'bio'
