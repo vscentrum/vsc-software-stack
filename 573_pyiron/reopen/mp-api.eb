@@ -1,4 +1,3 @@
-# from PR 23445
 easyblock = 'PythonBundle'
 
 name = 'mp-api'
@@ -13,8 +12,6 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 
 builddependencies = [
     ('hatchling', '1.24.2'),
-    # ('hypothesis', '6.103.1'),  # required for tests
-    # ('poetry', '1.8.3'),
     ('Cython', '3.0.10'),
     ('PDM', '2.18.2'),
 ]
@@ -24,39 +21,12 @@ dependencies = [
     ('pymatgen', '2025.6.14'),
     ('PyYAML', '6.0.2'),
     ('PyZMQ', '26.2.0'),
-    # ('bcrypt', '4.3.0'),
     ('boto3', '1.35.36'),
-    # ('Flask', '3.0.3'),
     ('paramiko', '3.5.1'),
     ('pydantic', '2.9.1'),
     ('wrapt', '1.16.0'),
     ('typing-extensions', '4.11.0'),
 ]
-
-# OK smart-open 7.3.0.post1 requires wrapt, which is not installed.
-# ok emmet-core 0.84.8 requires pybtex, which is not installed.
-# ok emmet-core 0.84.8 requires pydantic, which is not installed.
-# ok emmet-core 0.84.8 requires pydantic-settings, which is not installed.
-# ok maggma 0.71.5 requires aioitertools, which is not installed.
-# ok maggma 0.71.5 requires dnspython, which is not installed.
-# ok maggma 0.71.5 requires jsonlines, which is not installed.
-# ok maggma 0.71.5 requires mongomock, which is not installed.
-# OK maggma 0.71.5 requires pydantic, which is not installed.
-# ok maggma 0.71.5 requires pydantic-settings, which is not installed.
-# ok maggma 0.71.5 requires pydash, which is not installed.
-# ok maggma 0.71.5 requires pymongo, which is not installed.
-# OK maggma 0.71.5 requires pyzmq, which is not installed.
-# ok maggma 0.71.5 requires sshtunnel, which is not installed.
-# ok pydantic-settings 2.10.1 requires python-dotenv, which is not installed.
-# ok pydantic-settings 2.10.1 requires typing-inspection, which is not installed.
-# ok pybtex 0.25.1 requires latexcodec, which is not installed.
-# OK pybtex 0.25.1 requires pyyaml, which is not installed.
-# OK sshtunnel 0.4.0 requires paramiko, which is not installed.
-# ok mongomock 4.3.0 requires sentinels, which is not installed.
-# ok typing-inspection 0.4.1 has requirement typing-extensions>=4.12.0, but you have typing-extensions 4.11.0.
-    # use older maggma (maggma>=0.57.1) -> older pydantic-settings -> no need for typing_inspection
-# ok - in emmet-core 0.84.10 there is missing emmet.core.mpid.AlphaID
-    # wrong deps -> use v0.84.10
 
 exts_list = [
     ('latexcodec', '3.0.1', {
@@ -82,13 +52,6 @@ exts_list = [
         'modulename': 'dotenv',
         'checksums': ['a8a6399716257f45be6a007360200409fce5cda2661e3dec71d23dc15f6189ab'],
     }),
-    # ('typing_extensions', '4.12.0', {
-    #     'checksums': ['8cbcdc8606ebcb0d95453ad7dc5065e6237b6aa230a31e81d0f440c30fed5fd8'],
-    # }),
-    # ('typing_inspection', '0.4.1', {
-    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-    #     'checksums': ['389055682238f53b04f7badcb49b989835495a96700ced5dab2d8feae4b26f51'],
-    # }),
     ('pydantic_settings', '2.0.3', {
         'checksums': ['962dc3672495aad6ae96a4390fac7e593591e144625e5112d359f8f67fb75945'],
     }),
@@ -115,6 +78,8 @@ exts_list = [
         'checksums': ['ce6a3d9bc1afbf6234ad13c010b77f8cd36d24636811e3c52c3b5160f5214d1e'],
     }),
     ('pymatgen_io_validation', '0.1.2', {
+        'modulename': 'pymatgen.io.validation',
+        'preinstallopts': "sed -i 's/0.1.0rc/%(version)s/' setup.py && ",
         'checksums': ['76632878ab2269356092dab5bae08c8f42418c3e15d4610f4eb304f0102e7f24'],
     }),
     (name, version, {
@@ -122,12 +87,5 @@ exts_list = [
         'checksums': ['e48944eb672ea5d073bf7457dfe9499ee9fb2a66174aeec1823eaf1493f6627f'],
     }),
 ]
-
-# sanity_check_paths = {
-#     'files': ['bin/pmg'],
-#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
-# }
-
-# sanity_check_commands = ["pmg --help"]
 
 moduleclass = 'chem'

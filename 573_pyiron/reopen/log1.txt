@@ -1,0 +1,162 @@
+[1m===================================================== test session starts ======================================================[0m
+platform linux -- Python 3.12.3, pytest-8.2.2, pluggy-1.5.0 -- /apps/gent/RHEL9/zen4-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
+cachedir: .pytest_cache
+rootdir: /tmp/vsc47063/easybuild/build/pymatgen/2025.6.14/foss-2024a/pymatgen/pymatgen-2025.6.14
+configfile: pyproject.toml
+plugins: anyio-4.4.0, xdist-3.6.1
+[1mcollecting ... [0mcollected 2879 items / 18 errors / 14 skipped
+
+============================================================ ERRORS ============================================================
+[31m[1m____________________________ ERROR collecting tests/analysis/ferroelectricity/test_polarization.py _____________________________[0m
+[1m[31mtests/analysis/ferroelectricity/test_polarization.py[0m:23: in <module>
+    [0mstructures = [Structure.from_file([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mTEST_DIR[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mfolder[33m}[39;49;00m[33m/POSCAR[39;49;00m[33m"[39;49;00m) [94mfor[39;49;00m folder [95min[39;49;00m bto_folders][90m[39;49;00m
+[1m[31m/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/pymatgen/core/structure.py[0m:3199: in from_file
+    [0m[94mwith[39;49;00m zopen(filename, mode=[33m"[39;49;00m[33mrt[39;49;00m[33m"[39;49;00m, errors=[33m"[39;49;00m[33mreplace[39;49;00m[33m"[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m file:[90m[39;49;00m
+[1m[31m/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/pymatgen/2025.6.14-foss-2024a/lib/python3.12/site-packages/monty/io.py[0m:116: in zopen
+    [0m[94mreturn[39;49;00m [96mopen[39;49;00m(filename, mode, **kwargs)[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/vasp/fixtures/BTO_221_99_polarization/nonpolar_polarization/POSCAR'[0m
+[31m[1m______________________________________ ERROR collecting tests/analysis/test_prototypes.py ______________________________________[0m
+[1m[31mtests/analysis/test_prototypes.py[0m:133: in <module>
+    [0mStructure.from_file([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mTEST_DIR[33m}[39;49;00m[33m/ABC6D2_mC40_15_e_e_3f_f.cif[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+[1m[31m/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/pymatgen/core/structure.py[0m:3199: in from_file
+    [0m[94mwith[39;49;00m zopen(filename, mode=[33m"[39;49;00m[33mrt[39;49;00m[33m"[39;49;00m, errors=[33m"[39;49;00m[33mreplace[39;49;00m[33m"[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m file:[90m[39;49;00m
+[1m[31m/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/pymatgen/2025.6.14-foss-2024a/lib/python3.12/site-packages/monty/io.py[0m:116: in zopen
+    [0m[94mreturn[39;49;00m [96mopen[39;49;00m(filename, mode, **kwargs)[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/analysis/prototypes/ABC6D2_mC40_15_e_e_3f_f.cif'[0m
+[31m[1m_____________________________________ ERROR collecting tests/analysis/xas/test_spectrum.py _____________________________________[0m
+[1m[31mtests/analysis/xas/test_spectrum.py[0m:17: in <module>
+    [0m[94mwith[39;49;00m [96mopen[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mTEST_DIR[33m}[39;49;00m[33m/LiCoO2_k_xanes.json[39;49;00m[33m"[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m file:[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/analysis/spectrum_test/LiCoO2_k_xanes.json'[0m
+[31m[1m___________________________________ ERROR collecting tests/entries/test_computed_entries.py ____________________________________[0m
+[1m[31mtests/entries/test_computed_entries.py[0m:28: in <module>
+    [0mvasp_run = Vasprun([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mVASP_OUT_DIR[33m}[39;49;00m[33m/vasprun.xml.gz[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+[1m[31m/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/pymatgen/io/vasp/outputs.py[0m:335: in __init__
+    [0m[94mwith[39;49;00m zopen(filename, mode=[33m"[39;49;00m[33mrt[39;49;00m[33m"[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m file:[90m[39;49;00m
+[1m[31m/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/pymatgen/2025.6.14-foss-2024a/lib/python3.12/site-packages/monty/io.py[0m:102: in zopen
+    [0m[94mreturn[39;49;00m gzip.open(filename, mode, **kwargs)[90m[39;49;00m
+[1m[31m/apps/gent/RHEL9/zen4-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/gzip.py[0m:61: in open
+    [0mbinary_file = GzipFile(filename, gz_mode, compresslevel)[90m[39;49;00m
+[1m[31m/apps/gent/RHEL9/zen4-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/gzip.py[0m:192: in __init__
+    [0mfileobj = [96mself[39;49;00m.myfileobj = builtins.open(filename, mode [95mor[39;49;00m [33m'[39;49;00m[33mrb[39;49;00m[33m'[39;49;00m)[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/vasp/outputs/vasprun.xml.gz'[0m
+[31m[1m________________________________________ ERROR collecting tests/io/feff/test_outputs.py ________________________________________[0m
+[1m[31mtests/io/feff/test_outputs.py[0m:11: in <module>
+    [0m[94mclass[39;49;00m [04m[92mTestFeffLdos[39;49;00m:[90m[39;49;00m
+[1m[31mtests/io/feff/test_outputs.py[0m:14: in TestFeffLdos
+    [0mldos = LDos.from_file(filepath1, filepath2)[90m[39;49;00m
+[1m[31m/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/pymatgen/io/feff/outputs.py[0m:59: in from_file
+    [0mheader_str = Header.header_string_from_file(feff_inp_file)[90m[39;49;00m
+[1m[31m/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/pymatgen/io/feff/inputs.py[0m:249: in header_string_from_file
+    [0m[94mwith[39;49;00m zopen(filename, mode=[33m"[39;49;00m[33mrt[39;49;00m[33m"[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m file:[90m[39;49;00m
+[1m[31m/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/pymatgen/2025.6.14-foss-2024a/lib/python3.12/site-packages/monty/io.py[0m:116: in zopen
+    [0m[94mreturn[39;49;00m [96mopen[39;49;00m(filename, mode, **kwargs)[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/feff/feff.inp'[0m
+[31m[1m_____________________________________ ERROR collecting tests/io/jdftx/test_jdftxoutfile.py _____________________________________[0m
+[1m[31mtests/io/jdftx/test_jdftxoutfile.py[0m:11: in <module>
+    [0m[94mfrom[39;49;00m [04m[96m.[39;49;00m[04m[96moutputs_test_utils[39;49;00m [94mimport[39;49;00m ([90m[39;49;00m
+[1m[31mtests/io/jdftx/outputs_test_utils.py[0m:324: in <module>
+    [0m[94mwith[39;49;00m [96mopen[39;49;00m(ex_outfileslice1_fname) [94mas[39;49;00m f:[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/jdftx/test_jdftx_out_file_sections/ex_out_slice_latmin'[0m
+[31m[1m__________________________________ ERROR collecting tests/io/jdftx/test_jdftxoutfileslice.py ___________________________________[0m
+[1m[31mtests/io/jdftx/test_jdftxoutfileslice.py[0m:12: in <module>
+    [0m[94mfrom[39;49;00m [04m[96m.[39;49;00m[04m[96moutputs_test_utils[39;49;00m [94mimport[39;49;00m ex_outfileslice1 [94mas[39;49;00m ex_slice1[90m[39;49;00m
+[1m[31mtests/io/jdftx/outputs_test_utils.py[0m:324: in <module>
+    [0m[94mwith[39;49;00m [96mopen[39;49;00m(ex_outfileslice1_fname) [94mas[39;49;00m f:[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/jdftx/test_jdftx_out_file_sections/ex_out_slice_latmin'[0m
+[31m[1m_____________________________________ ERROR collecting tests/io/jdftx/test_jdftxoutput.py ______________________________________[0m
+[1m[31mtests/io/jdftx/test_jdftxoutput.py[0m:9: in <module>
+    [0m[94mfrom[39;49;00m [04m[96m.[39;49;00m[04m[96moutputs_test_utils[39;49;00m [94mimport[39;49;00m ([90m[39;49;00m
+[1m[31mtests/io/jdftx/outputs_test_utils.py[0m:324: in <module>
+    [0m[94mwith[39;49;00m [96mopen[39;49;00m(ex_outfileslice1_fname) [94mas[39;49;00m f:[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/jdftx/test_jdftx_out_file_sections/ex_out_slice_latmin'[0m
+[31m[1m_______________________________________ ERROR collecting tests/io/jdftx/test_jelsteps.py _______________________________________[0m
+[1m[31mtests/io/jdftx/test_jelsteps.py[0m:10: in <module>
+    [0m[94mfrom[39;49;00m [04m[96m.[39;49;00m[04m[96moutputs_test_utils[39;49;00m [94mimport[39;49;00m ([90m[39;49;00m
+[1m[31mtests/io/jdftx/outputs_test_utils.py[0m:324: in <module>
+    [0m[94mwith[39;49;00m [96mopen[39;49;00m(ex_outfileslice1_fname) [94mas[39;49;00m f:[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/jdftx/test_jdftx_out_file_sections/ex_out_slice_latmin'[0m
+[31m[1m____________________________________ ERROR collecting tests/io/jdftx/test_joutstructure.py _____________________________________[0m
+[1m[31mtests/io/jdftx/test_joutstructure.py[0m:14: in <module>
+    [0m[94mfrom[39;49;00m [04m[96m.[39;49;00m[04m[96moutputs_test_utils[39;49;00m [94mimport[39;49;00m ex_jstruc_slice1 [94mas[39;49;00m ex_slice1[90m[39;49;00m
+[1m[31mtests/io/jdftx/outputs_test_utils.py[0m:324: in <module>
+    [0m[94mwith[39;49;00m [96mopen[39;49;00m(ex_outfileslice1_fname) [94mas[39;49;00m f:[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/jdftx/test_jdftx_out_file_sections/ex_out_slice_latmin'[0m
+[31m[1m____________________________________ ERROR collecting tests/io/jdftx/test_joutstructures.py ____________________________________[0m
+[1m[31mtests/io/jdftx/test_joutstructures.py[0m:10: in <module>
+    [0m[94mfrom[39;49;00m [04m[96m.[39;49;00m[04m[96moutputs_test_utils[39;49;00m [94mimport[39;49;00m ex_outfileslice1 [94mas[39;49;00m ex_outslice1[90m[39;49;00m
+[1m[31mtests/io/jdftx/outputs_test_utils.py[0m:324: in <module>
+    [0m[94mwith[39;49;00m [96mopen[39;49;00m(ex_outfileslice1_fname) [94mas[39;49;00m f:[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/jdftx/test_jdftx_out_file_sections/ex_out_slice_latmin'[0m
+[31m[1m_____________________________________ ERROR collecting tests/io/jdftx/test_output_utils.py _____________________________________[0m
+[1m[31mtests/io/jdftx/test_output_utils.py[0m:13: in <module>
+    [0m[94mfrom[39;49;00m [04m[96m.[39;49;00m[04m[96moutputs_test_utils[39;49;00m [94mimport[39;49;00m noeigstats_outfile_path[90m[39;49;00m
+[1m[31mtests/io/jdftx/outputs_test_utils.py[0m:324: in <module>
+    [0m[94mwith[39;49;00m [96mopen[39;49;00m(ex_outfileslice1_fname) [94mas[39;49;00m f:[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/jdftx/test_jdftx_out_file_sections/ex_out_slice_latmin'[0m
+[31m[1m_______________________________________ ERROR collecting tests/io/jdftx/test_repr_out.py _______________________________________[0m
+[1m[31mtests/io/jdftx/test_repr_out.py[0m:18: in <module>
+    [0m[94mfrom[39;49;00m [04m[96m.[39;49;00m[04m[96moutputs_test_utils[39;49;00m [94mimport[39;49;00m ([90m[39;49;00m
+[1m[31mtests/io/jdftx/outputs_test_utils.py[0m:324: in <module>
+    [0m[94mwith[39;49;00m [96mopen[39;49;00m(ex_outfileslice1_fname) [94mas[39;49;00m f:[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/jdftx/test_jdftx_out_file_sections/ex_out_slice_latmin'[0m
+[31m[1m_______________________________________ ERROR collecting tests/io/qchem/test_outputs.py ________________________________________[0m
+[1m[31mtests/io/qchem/test_outputs.py[0m:37: in <module>
+    [0mSINGLE_JOB_DICT = loadfn([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mTEST_DIR[33m}[39;49;00m[33m/single_job.json[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+[1m[31m/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/pymatgen/2025.6.14-foss-2024a/lib/python3.12/site-packages/monty/serialization.py[0m:74: in loadfn
+    [0m[94mwith[39;49;00m zopen(fn, mode=[33m"[39;49;00m[33mrt[39;49;00m[33m"[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m fp:[90m[39;49;00m
+[1m[31m/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/pymatgen/2025.6.14-foss-2024a/lib/python3.12/site-packages/monty/io.py[0m:116: in zopen
+    [0m[94mreturn[39;49;00m [96mopen[39;49;00m(filename, mode, **kwargs)[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/qchem/single_job.json'[0m
+[31m[1m__________________________________________ ERROR collecting tests/io/test_optimade.py __________________________________________[0m
+[1m[31mtests/io/test_optimade.py[0m:10: in <module>
+    [0mSTRUCTURE = Structure.from_file([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mVASP_IN_DIR[33m}[39;49;00m[33m/POSCAR[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+[1m[31m/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/pymatgen/core/structure.py[0m:3199: in from_file
+    [0m[94mwith[39;49;00m zopen(filename, mode=[33m"[39;49;00m[33mrt[39;49;00m[33m"[39;49;00m, errors=[33m"[39;49;00m[33mreplace[39;49;00m[33m"[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m file:[90m[39;49;00m
+[1m[31m/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/pymatgen/2025.6.14-foss-2024a/lib/python3.12/site-packages/monty/io.py[0m:116: in zopen
+    [0m[94mreturn[39;49;00m [96mopen[39;49;00m(filename, mode, **kwargs)[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/vasp/inputs/POSCAR'[0m
+[31m[1m____________________________________________ ERROR collecting tests/io/test_res.py _____________________________________________[0m
+[1m[31mtests/io/test_res.py[0m:15: in <module>
+    [0m[37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mprovider[39;49;00m[33m"[39;49;00m, [AirssProvider.from_file(res_coc, [33m"[39;49;00m[33mstrict[39;49;00m[33m"[39;49;00m)])[90m[39;49;00m
+[1m[31m/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/pymatgen/io/res.py[0m:433: in from_file
+    [0m[94mreturn[39;49;00m [96mcls[39;49;00m(ResParser._parse_file(filename), parse_rems)[90m[39;49;00m
+[1m[31m/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/pymatgen/io/res.py[0m:252: in _parse_file
+    [0m[94mwith[39;49;00m zopen(filename, mode=[33m"[39;49;00m[33mrt[39;49;00m[33m"[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m file:[90m[39;49;00m
+[1m[31m/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/pymatgen/2025.6.14-foss-2024a/lib/python3.12/site-packages/monty/io.py[0m:116: in zopen
+    [0m[94mreturn[39;49;00m [96mopen[39;49;00m(filename, mode, **kwargs)[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/io/res/coc-115925-9326-14.res'[0m
+[31m[1m___________________________ ERROR collecting tests/transformations/test_advanced_transformations.py ____________________________[0m
+[1m[31mtests/transformations/test_advanced_transformations.py[0m:652: in <module>
+    [0m[94mclass[39;49;00m [04m[92mTestSQSTransformationIcet[39;49;00m(MatSciTest):[90m[39;49;00m
+[1m[31mtests/transformations/test_advanced_transformations.py[0m:653: in TestSQSTransformationIcet
+    [0mstored_run: [96mdict[39;49;00m = loadfn([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mTEST_FILES_DIR[33m}[39;49;00m[33m/transformations/icet-sqs-fcc-Mg_75-Al_25-scaling_8.json.gz[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+[1m[31m/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/pymatgen/2025.6.14-foss-2024a/lib/python3.12/site-packages/monty/serialization.py[0m:74: in loadfn
+    [0m[94mwith[39;49;00m zopen(fn, mode=[33m"[39;49;00m[33mrt[39;49;00m[33m"[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m fp:[90m[39;49;00m
+[1m[31m/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/pymatgen/2025.6.14-foss-2024a/lib/python3.12/site-packages/monty/io.py[0m:102: in zopen
+    [0m[94mreturn[39;49;00m gzip.open(filename, mode, **kwargs)[90m[39;49;00m
+[1m[31m/apps/gent/RHEL9/zen4-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/gzip.py[0m:61: in open
+    [0mbinary_file = GzipFile(filename, gz_mode, compresslevel)[90m[39;49;00m
+[1m[31m/apps/gent/RHEL9/zen4-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/gzip.py[0m:192: in __init__
+    [0mfileobj = [96mself[39;49;00m.myfileobj = builtins.open(filename, mode [95mor[39;49;00m [33m'[39;49;00m[33mrb[39;49;00m[33m'[39;49;00m)[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/transformations/icet-sqs-fcc-Mg_75-Al_25-scaling_8.json.gz'[0m
+[31m[1m_________________________________________ ERROR collecting tests/vis/test_plotters.py __________________________________________[0m
+[1m[31mtests/vis/test_plotters.py[0m:14: in <module>
+    [0m[94mwith[39;49;00m [96mopen[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mTEST_FILES_DIR[33m}[39;49;00m[33m/analysis/spectrum_test/LiCoO2_k_xanes.json[39;49;00m[33m"[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m file:[90m[39;49;00m
+[1m[31mE   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/vsc47063/eb-tl097859/tmp5g6k0a6c/lib/python3.12/site-packages/../tests/files/analysis/spectrum_test/LiCoO2_k_xanes.json'[0m
+[36m[1m=================================================== short test summary info ====================================================[0m
+[33mSKIPPED[0m [1] tests/analysis/test_functional_groups.py:15: could not import 'openbabel': No module named 'openbabel'
+[33mSKIPPED[0m [1] tests/command_line/test_gulp_caller.py:38: GULP not available
+[33mSKIPPED[0m [1] tests/electronic_structure/test_boltztrap2.py:25: No boltztrap2
+[33mSKIPPED[0m [1] tests/ext/test_cod.py:24: www.crystallography.net is down
+[33mSKIPPED[0m [1] tests/ext/test_matproj.py:24: MP API is down
+[33mSKIPPED[0m [1] tests/io/test_ase.py:16: ase not installed
+[33mSKIPPED[0m [1] tests/io/test_babel.py:16: could not import 'openbabel.pybel': No module named 'openbabel'
+[33mSKIPPED[0m [1] tests/io/test_openff.py:25: could not import 'openff.toolkit': No module named 'openff'
+[33mSKIPPED[0m [1] tests/io/test_packmol.py:24: packmol executable not present
+[33mSKIPPED[0m [1] tests/io/test_shengbte.py:10: could not import 'f90nml': No module named 'f90nml'
+[33mSKIPPED[0m [1] tests/io/test_zeopp.py:25: neither zeo nor pyzeo is installed
+[33mSKIPPED[0m [1] tests/io/vasp/test_help.py:11: could not import 'bs4': No module named 'bs4'
+[33mSKIPPED[0m [1] tests/performance/test_import_time.py:32: ref time only comparable in CI runner
+[33mSKIPPED[0m [1] tests/symmetry/test_kpath_hin.py:11: seekpath not installed
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 18 errors during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+[31m=============================================== [33m14 skipped[0m, [31m[1m18 errors[0m[31m in 58.21s[0m[31m ================================================[0m
