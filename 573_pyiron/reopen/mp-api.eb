@@ -1,0 +1,133 @@
+# from PR 23445
+easyblock = 'PythonBundle'
+
+name = 'mp-api'
+version = '0.45.11'
+
+homepage = 'https://github.com/materialsproject/api'
+description = """The Materials Project API defines a standardized manner in which the
+Materials Project database can be accessed by its users. The API is typically used by scientific
+researchers who need to retrieve large amounts of data to support their research."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+builddependencies = [
+    ('hatchling', '1.24.2'),
+    # ('hypothesis', '6.103.1'),  # required for tests
+    # ('poetry', '1.8.3'),
+    ('Cython', '3.0.10'),
+    ('PDM', '2.18.2'),
+]
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('pymatgen', '2025.6.14'),
+    ('PyYAML', '6.0.2'),
+    ('PyZMQ', '26.2.0'),
+    # ('bcrypt', '4.3.0'),
+    ('boto3', '1.35.36'),
+    # ('Flask', '3.0.3'),
+    ('paramiko', '3.5.1'),
+    ('pydantic', '2.9.1'),
+    ('wrapt', '1.16.0'),
+    ('typing-extensions', '4.11.0'),
+]
+
+# OK smart-open 7.3.0.post1 requires wrapt, which is not installed.
+# ok emmet-core 0.84.8 requires pybtex, which is not installed.
+# ok emmet-core 0.84.8 requires pydantic, which is not installed.
+# ok emmet-core 0.84.8 requires pydantic-settings, which is not installed.
+# ok maggma 0.71.5 requires aioitertools, which is not installed.
+# ok maggma 0.71.5 requires dnspython, which is not installed.
+# ok maggma 0.71.5 requires jsonlines, which is not installed.
+# ok maggma 0.71.5 requires mongomock, which is not installed.
+# OK maggma 0.71.5 requires pydantic, which is not installed.
+# ok maggma 0.71.5 requires pydantic-settings, which is not installed.
+# ok maggma 0.71.5 requires pydash, which is not installed.
+# ok maggma 0.71.5 requires pymongo, which is not installed.
+# OK maggma 0.71.5 requires pyzmq, which is not installed.
+# ok maggma 0.71.5 requires sshtunnel, which is not installed.
+# ok pydantic-settings 2.10.1 requires python-dotenv, which is not installed.
+# ok pydantic-settings 2.10.1 requires typing-inspection, which is not installed.
+# ok pybtex 0.25.1 requires latexcodec, which is not installed.
+# OK pybtex 0.25.1 requires pyyaml, which is not installed.
+# OK sshtunnel 0.4.0 requires paramiko, which is not installed.
+# ok mongomock 4.3.0 requires sentinels, which is not installed.
+# ok typing-inspection 0.4.1 has requirement typing-extensions>=4.12.0, but you have typing-extensions 4.11.0.
+    # use older maggma (maggma>=0.57.1) -> older pydantic-settings -> no need for typing_inspection
+# ok - in emmet-core 0.84.10 there is missing emmet.core.mpid.AlphaID
+    # wrong deps -> use v0.84.10
+
+exts_list = [
+    ('latexcodec', '3.0.1', {
+        'checksums': ['e78a6911cd72f9dec35031c6ec23584de6842bfbc4610a9678868d14cdfb0357'],
+    }),
+    ('pybtex', '0.25.1', {
+        'checksums': ['9eaf90267c7e83e225af89fea65c370afbf65f458220d3946a9e3049e1eca491'],
+    }),
+    ('sshtunnel', '0.4.0', {
+        'checksums': ['e7cb0ea774db81bf91844db22de72a40aae8f7b0f9bb9ba0f666d474ef6bf9fc'],
+    }),
+    ('dnspython', '2.7.0', {
+        'modulename': False,
+        'checksums': ['ce9c432eda0dc91cf618a5cedf1a4e142651196bbcd2c80e89ed5a907e5cfaf1'],
+    }),
+    ('pymongo', '4.10.1', {
+        'checksums': ['a9de02be53b6bb98efe0b9eda84ffa1ec027fcb23a2de62c4f941d9a2f2f3330'],
+    }),
+    ('pydash', '8.0.5', {
+        'checksums': ['7cc44ebfe5d362f4f5f06c74c8684143c5ac481376b059ff02570705523f9e2e'],
+    }),
+    ('python_dotenv', '1.1.1', {
+        'modulename': 'dotenv',
+        'checksums': ['a8a6399716257f45be6a007360200409fce5cda2661e3dec71d23dc15f6189ab'],
+    }),
+    # ('typing_extensions', '4.12.0', {
+    #     'checksums': ['8cbcdc8606ebcb0d95453ad7dc5065e6237b6aa230a31e81d0f440c30fed5fd8'],
+    # }),
+    # ('typing_inspection', '0.4.1', {
+    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+    #     'checksums': ['389055682238f53b04f7badcb49b989835495a96700ced5dab2d8feae4b26f51'],
+    # }),
+    ('pydantic_settings', '2.0.3', {
+        'checksums': ['962dc3672495aad6ae96a4390fac7e593591e144625e5112d359f8f67fb75945'],
+    }),
+    ('emmet_core', '0.84.10', {
+        'modulename': 'emmet',
+        'checksums': ['7da3ec4cd6aa6c9bdc5a1b6cd484c36284416311c29226776124fd2fb228fba7'],
+    }),
+    ('sentinels', '1.0.0', {
+        'checksums': ['7be0704d7fe1925e397e92d18669ace2f619c92b5d4eb21a89f31e026f9ff4b1'],
+    }),
+    ('mongomock', '4.3.0', {
+        'checksums': ['32667b79066fabc12d4f17f16a8fd7361b5f4435208b3ba32c226e52212a8c30'],
+    }),
+    ('aioitertools', '0.12.0', {
+        'checksums': ['c2a9055b4fbb7705f561b9d86053e8af5d10cc845d22c32008c43490b2d8dd6b'],
+    }),
+    ('jsonlines', '4.0.0', {
+        'checksums': ['0c6d2c09117550c089995247f605ae4cf77dd1533041d366351f6f298822ea74'],
+    }),
+    ('maggma', '0.69.4', {
+        'checksums': ['30ef179bab1efad62611effffc039033ef47f951e3ffc9f999e6a721ce0e2fa4'],
+    }),
+    ('smart_open', '7.3.0.post1', {
+        'checksums': ['ce6a3d9bc1afbf6234ad13c010b77f8cd36d24636811e3c52c3b5160f5214d1e'],
+    }),
+    ('pymatgen_io_validation', '0.1.2', {
+        'checksums': ['76632878ab2269356092dab5bae08c8f42418c3e15d4610f4eb304f0102e7f24'],
+    }),
+    (name, version, {
+        'sources': ['mp_api-%(version)s.tar.gz'],
+        'checksums': ['e48944eb672ea5d073bf7457dfe9499ee9fb2a66174aeec1823eaf1493f6627f'],
+    }),
+]
+
+# sanity_check_paths = {
+#     'files': ['bin/pmg'],
+#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
+# }
+
+# sanity_check_commands = ["pmg --help"]
+
+moduleclass = 'chem'
