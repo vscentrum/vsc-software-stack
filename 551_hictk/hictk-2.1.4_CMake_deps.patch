@@ -1,4 +1,4 @@
-Use our dependencies (bshoshany-thread-pool, parallel-hashmap, zstd)
+Use our dependencies (bshoshany-thread-pool, opentelemetry-cpp, parallel-hashmap, zstd)
 Author: Petr Král (INUITS)
 diff '--color=auto' -ru hictk-2.1.4.orig/cmake/hictkConfig.cmake.in hictk-2.1.4/cmake/hictkConfig.cmake.in
 --- hictk-2.1.4.orig/cmake/hictkConfig.cmake.in	2025-06-19 15:06:22.000000000 +0200
@@ -173,19 +173,19 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/rename_chromosomes/CMakeLists
  )
 diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/telemetry/CMakeLists.txt hictk-2.1.4/src/hictk/telemetry/CMakeLists.txt
 --- hictk-2.1.4.orig/src/hictk/telemetry/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
-+++ hictk-2.1.4/src/hictk/telemetry/CMakeLists.txt	2025-09-26 13:22:18.921732555 +0200
++++ hictk-2.1.4/src/hictk/telemetry/CMakeLists.txt	2025-10-02 12:49:39.474744027 +0200
 @@ -12,9 +12,8 @@
  
  if(HICTK_ENABLE_TELEMETRY)
    message(STATUS "Building CLI tools WITH telemetry support")
 -  find_package(opentelemetry-cpp REQUIRED QUIET)
-+  find_library(opentelemetry-cpp PATHS $ENV{EBROOTOPENTELEMETRYCPP}/lib64)
++  find_package(opentelemetry-cpp CONFIG REQUIRED)
    find_package(fmt REQUIRED QUIET)
 -  find_package(phmap REQUIRED QUIET)
    configure_file(
      "${CMAKE_CURRENT_SOURCE_DIR}/telemetry.hpp.in"
      "${HICTK_TELEMETRY_INCLUDE_DIR}/hictk/tools/telemetry.hpp"
-@@ -67,24 +66,12 @@
+@@ -67,24 +66,14 @@
    hictk_internal_tools_telemetry
    PRIVATE
      "$<$<BOOL:${HICTK_ENABLE_TELEMETRY}>:fmt::fmt-header-only>"
@@ -213,7 +213,9 @@ diff '--color=auto' -ru hictk-2.1.4.orig/src/hictk/telemetry/CMakeLists.txt hict
 +target_link_libraries(
 +  hictk_internal_tools_telemetry
 +  PUBLIC
-+    opentelemetry-cpp
++    opentelemetry-cpp::trace
++    opentelemetry-cpp::ostream_span_exporter
++    opentelemetry-cpp::otlp_http_exporter
 +)
 diff '--color=auto' -ru hictk-2.1.4.orig/src/libhictk/balancing/CMakeLists.txt hictk-2.1.4/src/libhictk/balancing/CMakeLists.txt
 --- hictk-2.1.4.orig/src/libhictk/balancing/CMakeLists.txt	2025-06-19 15:06:22.000000000 +0200
