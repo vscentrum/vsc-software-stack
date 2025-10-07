@@ -38,32 +38,10 @@ dependencies = [
 # note: following commits *must* be the exact same onces used upstream
 # XLA_COMMIT from jax-jaxlib: third_party/xla/workspace.bzl
 _xla_commit = '3d5ece64321630dade7ff733ae1353fc3c83d9cc'
-
 # Use sources downloaded by EasyBuild
 _jaxlib_buildopts = '--bazel_options="--distdir=%(builddir)s/archives" '
-# create wheels for jaxlib and install it
+# create wheels and install them
 _jaxlib_buildopts += '--wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt '
-# ? needed?
-_jaxlib_buildopts += '--bazel_options="--@local_config_cuda//cuda:include_cuda_libs=true" '
-
-# toolchain hints
-# _jaxlib_buildopts += '--bazel_options="--action_env=CC=$EBROOTGCCCORE/bin/gcc" '
-# _jaxlib_buildopts += '--bazel_options="--action_env=CXX=$EBROOTGCCCORE/bin/g++" '
-# _jaxlib_buildopts += '--bazel_options="--action_env=GCC_HOST_COMPILER_PATH=$EBROOTGCCCORE/bin/g++" '
-# _jaxlib_buildopts += '--bazel_options="--action_env=GCC_HOST_COMPILER_PREFIX=$EBROOTBINUTILS/bin" '
-# _jaxlib_buildopts += '--bazel_options="--repo_env=CC=$EBROOTGCCCORE/bin/gcc" '
-# _jaxlib_buildopts += '--bazel_options="--repo_env=CXX=$EBROOTGCCCORE/bin/g++" '
-# _jaxlib_buildopts += '--bazel_options="--repo_env=GCC_HOST_COMPILER_PATH=$EBROOTGCCCORE/bin/g++" '
-# _jaxlib_buildopts += '--bazel_options="--repo_env=GCC_HOST_COMPILER_PREFIX=$EBROOTBINUTILS/bin" '
-# prevent absolute include path errors
-# _jaxlib_buildopts += '--bazel_options="--action_env=CPATH=" --bazel_options="--action_env=C_INCLUDE_PATH=" '
-# _jaxlib_buildopts += '--bazel_options="--action_env=CPLUS_INCLUDE_PATH=" --bazel_options="--action_env=LIBRARY_PATH=" '
-# _jaxlib_buildopts += '--bazel_options="--repo_env=CPATH= --bazel_options=--repo_env=C_INCLUDE_PATH="" '
-# _jaxlib_buildopts += '--bazel_options="--repo_env=CPLUS_INCLUDE_PATH= --bazel_options=--repo_env=LIBRARY_PATH="" '
-# _jaxlib_buildopts += '--bazel_options="--copt=-no-canonical-prefixes" '
-# _jaxlib_buildopts += '--bazel_options="--cxxopt=-no-canonical-prefixes" '
-# _jaxlib_buildopts += '--bazel_options="--host_copt=-no-canonical-prefixes" '
-# _jaxlib_buildopts += '--bazel_options="--host_cxxopt=-no-canonical-prefixes" '
 # fix jaxlib version
 _jaxlib_buildopts += '--bazel_options="--action_env=JAXLIB_RELEASE" '
 
@@ -94,21 +72,33 @@ components = [
     }),
 ]
 
-# BackendsTest is failing on systems with GPU detected when cpu version is built
-# _failing_backend_test = 'tests/api_test.py::BackendsTest::test_no_backend_warning_on_cpu_if_platform_specified'
-# Failing after fix jaxlib version by JAXLIB_RELEASE
-_failing_version_tests = 'tests/version_test.py'
-# _runtest_cmd1 = f"pytest -n %(parallel)s tests "
-_runtest_cmd1 = "export XLA_PYTHON_CLIENT_PREALLOCATE=false && export JAX_PLATFORMS=cuda,cpu && "
-_runtest_cmd1 += 'export CUDA_VISIBLE_DEVICES=0 && export XLA_FLAGS="--xla_gpu_cuda_data_dir=$EBROOTCUDA" && export NVIDIA_TF32_OVERRIDE=0 && '
+# JAX otherwise preallocates ~75% of GPU memory per process; disabling avoids OOM/fragmentation.
+_runtest_cmd1 = "export XLA_PYTHON_CLIENT_PREALLOCATE=false && "
+# force CUDA backend to be considered first (avoid accidental ROCm/TPU plugins or CPU fallback)
+_runtest_cmd1 += "export JAX_PLATFORMS=cuda,cpu && "
+# pin tests to a single GPU to avoid multiple workers competing for the same VRAM
+_runtest_cmd1 += 'export CUDA_VISIBLE_DEVICES=0 && '
+# make libdevice (nvvm/libdevice/libdevice.10.bc) discoverable at runtime for MLIR→PTX lowering during compilation
+_runtest_cmd1 += 'export XLA_FLAGS="--xla_gpu_cuda_data_dir=$EBROOTCUDA" && '
+# keep matmul/conv accuracy comparable to strict FP32 (no TF32)
+_runtest_cmd1 += 'export NVIDIA_TF32_OVERRIDE=0 && '
+# keep -n 1 for gpu tests - more xdist workers just pile multiple JAX/XLA processes onto the same device
 _runtest_cmd1 += "pytest -n 1 tests "
-# _runtest_cmd1 += f"--deselect={_failing_backend_test} "
+# pallas GPU tests include kernels requiring >100 KiB shared memory per block
+# TPU tests are irrelevant here
 _runtest_cmd1 += '-k "not pallas and not tpu" '
+# expect the literal string "INFO" from Python logging; with PJRT CUDA the logs often come via absl/glog ("I ...")
+# or at DEBUG, so these are brittle and not a CUDA correctness check
 _runtest_cmd1 += "--deselect=tests/logging_test.py::LoggingTest::test_subprocess_stderr_debug_logging "
 _runtest_cmd1 += "--deselect=tests/logging_test.py::LoggingTest::test_subprocess_stderr_info_logging "
+# exercises cuDNN Graph/Runtime fusion for a small/odd shape; engine availability is GPU+cuDNN-version dependent
+# failing on sm_86
 _runtest_cmd1 += "--deselect=tests/cudnn_fusion_test.py::CudnnFusionTest::test_cudnn_fusion0 "
+# Checks a byte-for-byte serialized cuDNN RNN descriptor embedded in StableHLO;
+# this legitimately changes across cuDNN minors. Skip for external builds.
 _runtest_cmd1 += "--deselect=tests/experimental_rnn_test.py::RnnTest::test_struct_encoding_determinism "
-_runtest_cmd1 += f"--deselect={_failing_version_tests} "
+# failing after fix jaxlib version by JAXLIB_RELEASE
+_runtest_cmd1 += "--deselect=tests/version_test.py "
 # retry randomly failing tests
 _runtest_cmd = ' '.join([_runtest_cmd1, '||', _runtest_cmd1, '--last-failed'])
 
@@ -116,7 +106,10 @@ exts_list = [
     (name, version, {
         'patches': ['jax-0.6.2_jax-version-fix.patch'],
         'runtest': _runtest_cmd,
-        'sources': [{'source_urls': ['https://github.com/google/jax/archive/'], 'filename': '%(name)s-v%(version)s.tar.gz'}],
+        'sources': [{
+            'source_urls': ['https://github.com/google/jax/archive/'],
+            'filename': '%(name)s-v%(version)s.tar.gz'
+        }],
         'testinstall': True,
         'checksums': [
             {'jax-v0.6.2.tar.gz': 'd46cb98795f2c1ccdf2b081e02d9d74b659063679a80beb001ad17d482a60e17'},
@@ -126,215 +119,3 @@ exts_list = [
 ]
 
 moduleclass = 'ai'
-
-# final bazel build command for jaxlib:
-    # export JAXLIB_RELEASE=0.6.2 &&  /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
-    # build/build.py build --target_cpu_features=default --cuda_compute_capabilities=8.6 --cuda_version=12.6 --cudnn_version=9.5.0
-    # --use_clang=true
-    # --clang_path=/apps/gent/RHEL9/cascadelake-ampere-ib/software/Clang/18.1.8-GCCcore-13.3.0-CUDA-12.6.0/bin/clang++
-    # --bazel_startup_options="--output_user_root=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/tmpf6l5r946-bazel"
-    # --bazel_options="--jobs=8" --bazel_options="--subcommands" --bazel_options="--action_env=PYTHONPATH"
-    # --bazel_options="--action_env=EBPYTHONPREFIXES" --bazel_options="--copt=-O2" --bazel_options="--copt=-ftree-vectorize"
-    # --bazel_options="--copt=-march=native" --bazel_options="--copt=-fno-math-errno"
-    # --bazel_options="--repo_env=HERMETIC_CUDA_VERSION=12.6" --bazel_options="--repo_env=HERMETIC_CUDNN_VERSION=9.5.0"
-    # --bazel_options="--repo_env=LOCAL_CUDA_PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/CUDA/12
-    # .6.0" --bazel_options="--repo_env=LOCAL_CUDNN_PATH=/apps/gent/RHEL9/cascadelake-ampere-ib/software/cuDNN/9.5.0.50-CUDA-12.6.0"
-    # --bazel_options="--repo_env=HERMETIC_CUDA_COMPUTE_CAPABILITIES=sm_86"
-    # --bazel_options="--repo_env=LOCAL_NCCL_PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/NCCL/2.
-    # 22.3-GCCcore-13.3.0-CUDA-12.6.0" --bazel_options="--@local_config_cuda//:cuda_compiler=clang"
-    # --bazel_options="--distdir=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/archives"
-    # --wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt --bazel_options="--@local_config_cuda//cuda:include_cuda_libs=true"
-    # --bazel_options="--action_env=JAXLIB_RELEASE"
-
-# test4: OK!
-    # = pass without the test errors
-    # -> --deselect=tests/experimental_rnn_test.py::RnnTest::test_struct_encoding_determinism
-    # -> --deselect=tests/cudnn_fusion_test.py::CudnnFusionTest::test_cudnn_fusion0
-    # -> export NVIDIA_TF32_OVERRIDE=0 not export JAX_DEFAULT_MATMUL_PRECISION=highest
-# tests3:
-    # <- log3.txt <- 3 errors
-    # -> export CUDA_VISIBLE_DEVICES=0
-    # -> export JAX_DEFAULT_MATMUL_PRECISION=highest or export NVIDIA_TF32_OVERRIDE=0
-        # InterpretTest::test_matmul_example fails tolerance (tight atol=1e-4)
-        # On Ampere/Hopper, cuBLAS uses TF32 by default for FP32 matmul; TF32 trades a bit of accuracy for speed, and it’s exactly the kind of ~4e‑4 absolute error you’re seeing.
-    # -> pytest -n 1 -k "not pallas"
-        # Those pallas/ops_test.py::dot* configs request 128 KB shared memory
-        # on sm_86 GPUs the per‑block shared‑mem limit is ~99 KB (100 KB minus 1 KB reserved), so these kernels cannot run by design
-        # There is no flag that raises the 99 KB limit on sm_86; that limit is architectural. Build & run those tests on A100/H100 machines if you want to exercise them.
-    # -> export XLA_FLAGS="--xla_gpu_cuda_data_dir=$EBROOTCUDA"
-        # MLIR→PTX compilation needs libdevice (bitcode) and XLA can’t find it under hermetic CUDA unless you tell it where your CUDA toolkit lives.
-        # XLA looks for nvvm/libdevice/libdevice.10.bc under that tree
-# tests2:
-    # <- log2.txt
-    # on donphan 3/10
-    # _jaxlib_buildopts += '--bazel_options="--@local_config_cuda//cuda:include_cuda_libs=true" '
-    # export XLA_PYTHON_CLIENT_PREALLOCATE=false && export JAX_PLATFORMS=cuda,cpu && pytest
-    # without deselect 
-    # not parallel but pytest -n 2 tests
-    # maybe also add: export CUDA_VISIBLE_DEVICES=0 ?
-        # =============================================== short test summary info ================================================
-        # FAILED tests/api_test.py::AutodidaxTest::test_autodidax_smoketest - jaxlib._jax.XlaRuntimeError: INTERNAL: libdevice ...
-        # FAILED tests/logging_test.py::LoggingTest::test_subprocess_stderr_info_logging - AssertionError: 'INFO' not found in ...
-        # FAILED tests/logging_test.py::LoggingTest::test_subprocess_stderr_debug_logging - AssertionError: 'INFO' not found in...
-        # FAILED tests/pallas/ops_test.py::OpsTest::test_dot120 - jaxlib._jax.XlaRuntimeError: RESOURCE_EXHAUSTED: Shared memor...
-        # FAILED tests/pallas/ops_test.py::OpsTest::test_dot230 - jaxlib._jax.XlaRuntimeError: RESOURCE_EXHAUSTED: Shared memor...
-        # FAILED tests/pallas/ops_test.py::OpsTest::test_dot206 - jaxlib._jax.XlaRuntimeError: RESOURCE_EXHAUSTED: Shared memor...
-        # FAILED tests/pallas/ops_test.py::OpsTest::test_dot96 - jaxlib._jax.XlaRuntimeError: RESOURCE_EXHAUSTED: Shared memory...
-        # FAILED tests/pallas/tpu_pallas_interpret_test.py::InterpretTest::test_matmul_example - AssertionError: 
-        # ================================================== 8 failed in 43.37s ==================================================
-
-# remove most clang stuff from easyblock goes to command:
-    # export JAXLIB_RELEASE=0.6.2 &&  /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
-    # build/build.py build --target_cpu_features=default --cuda_compute_capabilities=8.6 --cuda_version=12.6 
-    # --cudnn_version=9.5.0 --use_clang=true 
-    # --clang_path=/apps/gent/RHEL9/cascadelake-ampere-ib/software/Clang/18.1.8-GCCcore-13.3.0-CUDA-12.6.0/bin/clang++ 
-    # --bazel_startup_options="--output_user_root=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/tmprspo29v2-b
-    # azel" --bazel_options="--jobs=8" --bazel_options="--subcommands" --bazel_options="--action_env=PYTHONPATH" 
-    # --bazel_options="--action_env=EBPYTHONPREFIXES" --bazel_options="--copt=-O2" --bazel_options="--copt=-ftree-vectorize" 
-    # --bazel_options="--copt=-march=native" --bazel_options="--copt=-fno-math-errno" 
-    # --bazel_options="--repo_env=HERMETIC_CUDA_VERSION=12.6" --bazel_options="--repo_env=HERMETIC_CUDNN_VERSION=9.5.0" 
-    # --bazel_options="--repo_env=LOCAL_CUDA_PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software
-    # /CUDA/12.6.0" 
-    # --bazel_options="--repo_env=LOCAL_CUDNN_PATH=/apps/gent/RHEL9/cascadelake-ampere-ib/software/cuDNN/9.5.0.50-CUDA-12.6.0"
-    # --bazel_options="--repo_env=LOCAL_NCCL_PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software
-    # /NCCL/2.22.3-GCCcore-13.3.0-CUDA-12.6.0" --bazel_options="--@local_config_cuda//:cuda_compiler=clang" 
-    # --bazel_options="--distdir=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/archives" 
-    # --wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt --bazel_options="--action_env=JAXLIB_RELEASE"
-
-# test minimal easyconfig command: OK
-    # export JAXLIB_RELEASE=0.6.2 &&  /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
-    # build/build.py build --target_cpu_features=default --cuda_compute_capabilities=8.6 --cuda_version=12.6 
-    # --cudnn_version=9.5.0 --use_clang=true 
-    # --clang_path=/apps/gent/RHEL9/cascadelake-ampere-ib/software/Clang/18.1.8-GCCcore-13.3.0-CUDA-12.6.0/bin/clang++ 
-    # --bazel_startup_options="--output_user_root=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/tmpvi8ivves-b
-    # azel" --bazel_options="--jobs=8" --bazel_options="--subcommands" --bazel_options="--action_env=PYTHONPATH" 
-    # --bazel_options="--action_env=EBPYTHONPREFIXES" --bazel_options="--copt=-O2" --bazel_options="--copt=-ftree-vectorize" 
-    # --bazel_options="--copt=-march=native" --bazel_options="--copt=-fno-math-errno" 
-    # --bazel_options="--repo_env=HERMETIC_CUDA_VERSION=12.6" --bazel_options="--repo_env=HERMETIC_CUDNN_VERSION=9.5.0" 
-    # --bazel_options="--repo_env=LOCAL_CUDA_PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software
-    # /CUDA/12.6.0" 
-    # --bazel_options="--repo_env=LOCAL_CUDNN_PATH=/apps/gent/RHEL9/cascadelake-ampere-ib/software/cuDNN/9.5.0.50-CUDA-12.6.0"
-    # --bazel_options="--repo_env=LOCAL_NCCL_PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software
-    # /NCCL/2.22.3-GCCcore-13.3.0-CUDA-12.6.0" --bazel_options="--@local_config_cuda//:cuda_compiler=clang" 
-    # --bazel_options="--repo_env=CLANG_COMPILER_PATH=/apps/gent/RHEL9/cascadelake-ampere-ib/software/Clang/18.1.8-GCCcore-13.
-    # 3.0-CUDA-12.6.0/bin/clang++" 
-    # --bazel_options="--repo_env=CLANG_CUDA_COMPILER_PATH=/apps/gent/RHEL9/cascadelake-ampere-ib/software/Clang/18.1.8-GCCcor
-    # e-13.3.0-CUDA-12.6.0/bin/clang++" --bazel_options="--action_env=PATH" 
-    # --bazel_options="--distdir=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/archives" 
-    # --wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt --bazel_options="--action_env=JAXLIB_RELEASE"
-
-# build command now: OK
-    # export JAXLIB_RELEASE=0.6.2 &&  /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
-    # build/build.py build --target_cpu_features=default --cuda_compute_capabilities=8.6 --cuda_version=12.6 
-    # --cudnn_version=9.5.0 
-    # --bazel_startup_options="--output_user_root=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/tmpr3shikoa-b
-    # azel" --bazel_options="--jobs=8" --bazel_options="--subcommands" --bazel_options="--action_env=PYTHONPATH" 
-    # --bazel_options="--action_env=EBPYTHONPREFIXES" --bazel_options="--copt=-O2" --bazel_options="--copt=-ftree-vectorize" 
-    # --bazel_options="--copt=-march=native" --bazel_options="--copt=-fno-math-errno" 
-    # --bazel_options="--repo_env=HERMETIC_CUDA_VERSION=12.6" --bazel_options="--repo_env=HERMETIC_CUDNN_VERSION=9.5.0" 
-    # --bazel_options="--repo_env=LOCAL_CUDA_PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software
-    # /CUDA/12.6.0" 
-    # --bazel_options="--repo_env=LOCAL_CUDNN_PATH=/apps/gent/RHEL9/cascadelake-ampere-ib/software/cuDNN/9.5.0.50-CUDA-12.6.0"
-    # --bazel_options="--repo_env=LOCAL_NCCL_PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software
-    # /NCCL/2.22.3-GCCcore-13.3.0-CUDA-12.6.0" --bazel_options="--@local_config_cuda//:cuda_compiler=clang" 
-    # --bazel_options="--repo_env=CLANG_COMPILER_PATH=/apps/gent/RHEL9/cascadelake-ampere-ib/software/Clang/18.1.8-GCCcore-13.
-    # 3.0-CUDA-12.6.0/bin/clang++" 
-    # --bazel_options="--repo_env=CLANG_CUDA_COMPILER_PATH=/apps/gent/RHEL9/cascadelake-ampere-ib/software/Clang/18.1.8-GCCcor
-    # e-13.3.0-CUDA-12.6.0/bin/clang++" 
-    # --bazel_options="--action_env=PATH=/apps/gent/RHEL9/cascadelake-ampere-ib/software/Clang/18.1.8-GCCcore-13.3.0-CUDA-12.6
-    # .0/bin:$PATH" 
-    # --bazel_options="--repo_env=PATH=/apps/gent/RHEL9/cascadelake-ampere-ib/software/Clang/18.1.8-GCCcore-13.3.0-CUDA-12.6.0
-    # /bin:$PATH" --bazel_options="--distdir=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/archives" 
-    # --wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt --bazel_options="--repo_env=CC=$EBROOTGCCCORE/bin/gcc" 
-    # --bazel_options="--repo_env=CXX=$EBROOTGCCCORE/bin/g++" --bazel_options="--action_env=JAXLIB_RELEASE"`
-
-# working build command:
-    # export JAXLIB_RELEASE=0.6.2 &&  /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
-    # build/build.py build --target_cpu_features=default --cuda_compute_capabilities=8.6 --cuda_version=12.6
-    # --cudnn_version=9.5.0
-    # --bazel_startup_options="--output_user_root=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/tmpi1swlijd-b
-    # azel" --bazel_options="--jobs=8" --bazel_options="--subcommands" --bazel_options="--action_env=PYTHONPATH"
-    # --bazel_options="--action_env=EBPYTHONPREFIXES" --bazel_options="--copt=-O2" --bazel_options="--copt=-ftree-vectorize"
-    # --bazel_options="--copt=-march=native" --bazel_options="--copt=-fno-math-errno"
-    # --bazel_options="--distdir=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/archives"
-    # --wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt --bazel_options=--repo_env=LOCAL_CUDA_PATH=$EBROOTCUDA
-    # --bazel_options=--repo_env=LOCAL_CUDNN_PATH=$EBROOTCUDNN --bazel_options=--repo_env=LOCAL_NCCL_PATH=$EBROOTNCCL
-    # --bazel_options="--copt=-no-canonical-prefixes" --bazel_options="--cxxopt=-no-canonical-prefixes"
-    # --bazel_options="--host_copt=-no-canonical-prefixes" --bazel_options="--host_cxxopt=-no-canonical-prefixes"
-    # --bazel_options="--action_env=CC=$EBROOTGCCCORE/bin/gcc" --bazel_options="--action_env=CXX=$EBROOTGCCCORE/bin/g++"
-    # --bazel_options="--action_env=GCC_HOST_COMPILER_PATH=$EBROOTGCCCORE/bin/g++"
-    # --bazel_options="--action_env=GCC_HOST_COMPILER_PREFIX=$EBROOTBINUTILS/bin"
-    # --bazel_options=--repo_env=CC=$EBROOTGCCCORE/bin/gcc --bazel_options=--repo_env=CXX=$EBROOTGCCCORE/bin/g++
-    # --bazel_options=--repo_env=GCC_HOST_COMPILER_PATH=$EBROOTGCCCORE/bin/g++
-    # --bazel_options=--repo_env=GCC_HOST_COMPILER_PREFIX=$EBROOTBINUTILS/bin --bazel_options="--action_env=CPATH="
-    # --bazel_options="--action_env=C_INCLUDE_PATH=" --bazel_options="--action_env=CPLUS_INCLUDE_PATH="
-    # --bazel_options="--action_env=LIBRARY_PATH=" --bazel_options=--repo_env=CPATH=
-    # --bazel_options=--repo_env=C_INCLUDE_PATH= --bazel_options=--repo_env=CPLUS_INCLUDE_PATH=
-    # --bazel_options=--repo_env=LIBRARY_PATH= --bazel_options=--repo_env=HERMETIC_CUDA_VERSION=12.6
-    # --bazel_options=--repo_env=HERMETIC_CUDNN_VERSION=9.5.0 --bazel_options=--repo_env=CUDA_HOME=$EBROOTCUDA
-    # --bazel_options=--@local_config_cuda//:cuda_compiler=clang --use_clang=true --clang_path=$EBROOTCLANG/bin/clang++ -> this is wrong
-    # --bazel_options=--repo_env=PATH=$EBROOTCLANG/bin:$EBROOTGCCCORE/bin:/usr/bin:/bin
-    # --bazel_options="--action_env=TF_CUDA_CLANG=1" --bazel_options=--repo_env=TF_CUDA_CLANG=1
-    # --bazel_options=--repo_env=CLANG_COMPILER_PATH=$EBROOTCLANG/bin/clang++
-    # --bazel_options=--repo_env=CLANG_CUDA_COMPILER_PATH=$EBROOTCLANG/bin/clang++
-    # --bazel_options="--action_env=JAXLIB_RELEASE"
-
-#E2: OK
-    # -> go with pure nvcc+gcc or clang -> split to separate ecs
-        # clang-18: error: unknown argument: '-Xcuda-fatbinary=--compress-all'
-        # clang-18: error: unknown argument: '-nvcc_options=expt-relaxed-constexpr'
-        # clang-18: warning: CUDA version is newer than the latest supported version 12.3 [-Wunknown-cuda-version]
-
-#E1: OK
-    # also update t: _jaxlib_buildopts += '--use_clang=true --clang_path=$EBROOTCLANG/bin/clang++ '
-    # -> CLang-CUDA added to deps -> OK
-    # -> must have Clang for CUDA build -> can not build Clang/18.1.8/GCCcore-13.3.0-CUDA-12.6.0 on joltik -> report on Slack eb_inuits
-        # issue: https://github.com/easybuilders/easybuild-easyconfigs/issues/23973
-        # Configuration: 76eaf8899a1a68bd7ae72b9a38f5aa3cec43d5a3c5c69b183e3296ae90d44182 
-        # # Execution platform: @@local_execution_config_platform//:platform gcc: error: unrecognized command-line option '--cuda-include-ptx=sm_70' 
-        # gcc: error: unrecognized command-line option '--cuda-gpu-arch=sm_70' 
-        # gcc: error: unrecognized command-line option '-Xcuda-fatbinary=--compress-all' 
-        # gcc: error: unrecognized command-line option '-nvcc_options=expt-relaxed-constexpr' 
-        # SUBCOMMAND: # @@xla//xla/stream_executor/gpu:gpu_semaphore 
-        # [action 'Compiling xla/stream_executor/gpu/gpu_semaphore.cc', configuration: 76eaf8899a1a68bd7ae72b9a38f5aa3cec43d5a3c5c69b183e3296ae90d44182, execution platform: @@local_execution_config_platform//:platform, mnemonic: CppCompile] 
-        # (cd /tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/tmp2c6i92gi-bazel/e2566982ea8e2d50b88337fbf6eb7032/execroot/__main__ && \ 
-        # exec env - \ 
-        # CC=/apps/gent/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/bin/gcc \ CPATH='' \ CPLUS_INCLUDE_PATH='' \ CUDACXX=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/CUDA/12.6.0/bin/nvcc \ CXX=/apps/gent/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/bin/g++ \ C_INCLUDE_PATH='' \ GCC_HOST_COMPILER_PATH=/apps/gent/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/bin/g++ \ GCC_HOST_COMPILER_PREFIX=/apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin \ JAXLIB_RELEASE=0.6.2 \ LD_LIBRARY_PATH=/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/numpy/core/lib:/apps/gent/RHEL9/cascadelake-ib/software/Boost/1.85.0-GCC-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/ICU/75.1-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/zstd/1.5.6-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/lz4/1.9.4-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/OpenSSL/3/lib:/apps/gent/RHEL9/cascadelake-ib/software/libffi/3.4.5-GCCcore-13.3.0/lib64:/apps/gent/RHEL9/cascadelake-ib/software/XZ/5.4.5-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/SQLite/3.45.3-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/Tcl/8.6.14-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/libreadline/8.2-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/ncurses/6.5-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/bzip2/1.0.8-GCCcore-13.3.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/NCCL/2.22.3-GCCcore-13.3.0-CUDA-12.6.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/GDRCopy/2.4.1-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/UCX/1.16.0-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/numactl/2.0.18-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-volta-ib/software/cuDNN/9.5.0.50-CUDA-12.6.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/CUDA/12.6.0/nvvm/lib64:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/CUDA/12.6.0/extras/CUPTI/lib64:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/CUDA/12.6.0/targets/x86_64-linux/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/Java/21.0.5/lib:/apps/gent/RHEL9/cascadelake-ib/software/FFTW/3.3.10-GCC-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/OpenBLAS/0.3.27-GCC-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/zlib/1.3.1-GCCcore-13.3.0/lib:/apps/gent/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/lib64 \ 
-        # LIBRARY_PATH='' \ NVCC_PREPEND_FLAGS='-ccbin=/apps/gent/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/bin/g++' \ 
-        # PATH=/tmp/vsc47063/eb-h194l9_g/tmp0a_wgeqq/rpath_wrappers/ld.bfd_wrapper:/tmp/vsc47063/eb-h194l9_g/tmp0a_wgeqq/rpath_wrappers/ld.gold_wrapper:/tmp/vsc47063/eb-h194l9_g/tmp0a_wgeqq/rpath_wrappers/ld_wrapper:/tmp/vsc47063/eb-h194l9_g/tmp0a_wgeqq/rpath_wrappers/gfortran_wrapper:/tmp/vsc47063/eb-h194l9_g/tmp0a_wgeqq/rpath_wrappers/gxx_wrapper:/tmp/vsc47063/eb-h194l9_g/tmp0a_wgeqq/rpath_wrappers/gcc_wrapper:/apps/gent/RHEL9/cascadelake-ib/software/hypothesis/6.103.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/bin:/apps/gent/RHEL9/cascadelake-ib/software/pybind11/2.12.0-GCC-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/ICU/75.1-GCCcore-13.3.0/sbin:/apps/gent/RHEL9/cascadelake-ib/software/ICU/75.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/zstd/1.5.6-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/lz4/1.9.4-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/gzip/1.13-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/virtualenv/20.26.2-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/OpenSSL/3/bin:/apps/gent/RHEL9/cascadelake-ib/software/XZ/5.4.5-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/SQLite/3.45.3-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Tcl/8.6.14-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/ncurses/6.5-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/bzip2/1.0.8-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/UCX/1.16.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/numactl/2.0.18-GCCcore-13.3.0/bin:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/CUDA/12.6.0/nvvm/bin:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/CUDA/12.6.0/bin:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/Bazel/7.4.1-GCCcore-13.3.0-Java-21/bin:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/Java/21.0.5:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/Java/21.0.5/bin:/apps/gent/RHEL9/cascadelake-ib/software/FFTW/3.3.10-GCC-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/bin:/user/gent/470/vsc47063/easybuild/easybuild-framework:/usr/libexec/jobcli:/usr/local/vsc/bin:/opt/VirtualGL/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/user/gent/470/vsc47063/.dotnet/tools \ 
-        # PWD=/proc/self/cwd \ PYTHONPATH=/apps/gent/RHEL9/cascadelake-ib/software/hypothesis/6.103.1-GCCcore-13.3.0/lib/python3.12/site-packages:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/ml_dtypes/0.5.0-gfbf-2024a/lib/python3.12/site-packages:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/flatbuffers-python/24.3.25-GCCcore-13.3.0/lib/python3.12/site-packages:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/absl-py/2.1.0-GCCcore-13.3.0/lib/python3.12/site-packages:/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages:/apps/gent/RHEL9/cascadelake-ib/software/pybind11/2.12.0-GCC-13.3.0/lib/python3.12/site-packages:/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages:/apps/gent/RHEL9/cascadelake-ib/software/virtualenv/20.26.2-GCCcore-13.3.0/lib/python3.12/site-packages:/apps/gent/RHEL9/cascadelake-ib/software/cryptography/42.0.8-GCCcore-13.3.0/lib/python3.12/site-packages:/apps/gent/RHEL9/cascadelake-ib/software/cffi/1.16.0-GCCcore-13.3.0/lib/python3.12/site-packages:/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/easybuild/python \ TF_CUDA_CLANG=0 \ TF_NVCC_CLANG=0 \ /kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/bin/gcc -MD -MF bazel-out/k8-opt/bin/external/xla/xla/stream_executor/gpu/_objs/gpu_semaphore/gpu_semaphore.pic.d '-frandom-seed=bazel-out/k8-opt/bin/external/xla/xla/stream_executor/gpu/_objs/gpu_semaphore/gpu_semaphore.pic.o' '-DEIGEN_MAX_ALIGN_BYTES=64' -DEIGEN_ALLOW_UNALIGNED_SCALARS '-DEIGEN_USE_AVX512_GEMM_KERNELS=0' -DHAVE_SYS_UIO_H -DTF_USE_SNAPPY -DTENSORFLOW_USE_NUMA -iquote external/xla -iquote bazel-out/k8-opt/bin/external/xla -iquote external/tsl -iquote bazel-out/k8-opt/bin/external/tsl -iquote external/eigen_archive -iquote bazel-out/k8-opt/bin/external/eigen_archive -iquote external/ml_dtypes_py -iquote bazel-out/k8-opt/bin/external/ml_dtypes_py -iquote external/com_google_absl -iquote bazel-out/k8-opt/bin/external/com_google_absl -iquote external/com_google_protobuf -iquote bazel-out/k8-opt/bin/external/com_google_protobuf -iquote external/zlib -iquote bazel-out/k8-opt/bin/external/zlib -iquote external/snappy -iquote bazel-out/k8-opt/bin/external/snappy -iquote external/hwloc -iquote bazel-out/k8-opt/bin/external/hwloc -iquote external/com_googlesource_code_re2 -iquote bazel-out/k8-opt/bin/external/com_googlesource_code_re2 -isystem external/eigen_archive -isystem bazel-out/k8-opt/bin/external/eigen_archive -isystem external/eigen_archive/mkl_include -isystem bazel-out/k8-opt/bin/external/eigen_archive/mkl_include -isystem external/com_google_protobuf/src -isystem bazel-out/k8-opt/bin/external/com_google_protobuf/src -isystem external/zlib -isystem bazel-out/k8-opt/bin/external/zlib -isystem external/hwloc/hwloc -isystem bazel-out/k8-opt/bin/external/hwloc/hwloc -isystem external/hwloc/include -isystem bazel-out/k8-opt/bin/external/hwloc/include -Wno-builtin-macro-redefined '-D__DATE__="redacted"' '-D__TIMESTAMP__="redacted"' '-D__TIME__="redacted"' -fPIC -U_FORTIFY_SOURCE '-D_FORTIFY_SOURCE=1' -fstack-protector -Wall -Wno-invalid-partial-specialization -fno-omit-frame-pointer -no-canonical-prefixes -DNDEBUG -g0 -O2 -ffunction-sections -fdata-sections '-fvisibility=hidden' -Wno-sign-compare -Wno-unknown-warning-option -Wno-stringop-truncation -Wno-array-parameter '-DMLIR_PYTHON_PACKAGE_PREFIX=jaxlib.mlir.' '-DNB_DOMAIN=jax' -O2 -ftree-vectorize '-march=native' -fno-math-errno -no-canonical-prefixes '-std=c++17' -no-canonical-prefixes -c external/xla/xla/stream_executor/gpu/gpu_semaphore.cc -o bazel-out/k8-opt/bin/external/xla/xla/stream_executor/gpu/_objs/gpu_semaphore/gpu_semaphore.pic.o) 
-        # # Configuration: 76eaf8899a1a68bd7ae72b9a38f5aa3cec43d5a3c5c69b183e3296ae90d44182 
-        # # Execution platform: @@local_execution_config_platform//:platform Target //jaxlib/tools:build_gpu_kernels_wheel failed to build 
-        # INFO: Elapsed time: 13.203s, Critical Path: 10.49s INFO: 117 processes: 48 internal, 69 local. 
-        # ERROR: Build did NOT complete successfully 
-        # ERROR: Build failed. Not running target Traceback (most recent call last): File "/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/jax-jax-v0.6.2/build/build.py", line 782, in <module> asyncio.run(main()) File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/asyncio/runners.py", line 194, in run return runner.run(main) ^^^^^^^^^^^^^^^^ File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/asyncio/runners.py", line 118, in run return self._loop.run_until_complete(task) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete return future.result() ^^^^^^^^^^^^^^^ File "/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/jax-jax-v0.6.2/build/build.py", line 727, in main raise RuntimeError(f"Command failed with return code {result.return_code}") 
-        # RuntimeError: Command failed with return code 1 (END)
-
-# Error: -> problem with GCC full paths 
-    # # Configuration: 4a94d9e3985129b364bb522a44325afa684e3455d91d7ff2bb453d0fb14caa30
-    # # Execution platform: @@local_execution_config_platform//:platform
-    # ERROR: /tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/tmp5mw9b6om-bazel/e2566982ea8e2d50b88337fbf6eb7032/external/highwayhash/BUILD.bazel:45:11: Compiling highwayhash/arch_specific.cc failed: absolute path inclusion(s) found in rule '@@highwayhash//:arch_specific':
-    # the source file 'highwayhash/arch_specific.cc' includes the following non-builtin files with absolute paths (if these are builtin files, make sure these paths are in your toolchain):
-    #   '/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/include/c++/13.3.0/string'
-    #   '/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/include/c++/13.3.0/bits/requires_hosted.h'
-    #   '/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/include/c++/13.3.0/x86_64-pc-linux-gnu/bits/c++config.h'
-    #   '/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/include/c++/13.3.0/x86_64-pc-linux-gnu/bits/os_defines.h'
-    #   '/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/include/c++/13.3.0/x86_64-pc-linux-gnu/bits/cpu_defines.h'
-    #   '/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/include/c++/13.3.0/pstl/pstl_config.h'
-    # ...
-
-# jaxlib install cmd:
-    # export JAXLIB_RELEASE=0.6.2 &&  /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
-    # build/build.py build --target_cpu_features=default --enable_cuda
-    # --cuda_path=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-volta-ib/software/CUDA/12.6.0
-    # --cuda_compute_capabilities=7.0 --cuda_version=12.6
-    # --cudnn_path=/apps/gent/RHEL9/cascadelake-volta-ib/software/cuDNN/9.5.0.50-CUDA-12.6.0 --cudnn_version=9.5.0 
-    # --enable_nccl --disable_mkl_dnn
-    # --bazel_startup_options="--output_user_root=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/tmpls341uit-b
-    # azel" --bazel_options="--jobs=8" --bazel_options="--subcommands" --bazel_options="--action_env=PYTHONPATH"   
-    # --bazel_options="--action_env=EBPYTHONPREFIXES" --bazel_options="--copt=-O2" --bazel_options="--copt=-ftree-vectorize"
-    # --bazel_options="--copt=-march=native" --bazel_options="--copt=-fno-math-errno"
-    # --bazel_options="--distdir=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/archives"
-    # --wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt --bazel_options=--repo_env=LOCAL_CUDA_PATH=$EBROOTCUDA
-    # --bazel_options=--repo_env=LOCAL_CUDNN_PATH=$EBROOTCUDNN --bazel_options=--repo_env=LOCAL_NCCL_PATH=$EBROOTNCCL
-    # --use_clang=false --bazel_options="--action_env=JAXLIB_RELEASE"
