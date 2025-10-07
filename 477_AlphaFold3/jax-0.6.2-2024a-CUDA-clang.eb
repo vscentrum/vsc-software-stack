@@ -127,6 +127,25 @@ exts_list = [
 
 moduleclass = 'ai'
 
+# final bazel build command for jaxlib:
+    # export JAXLIB_RELEASE=0.6.2 &&  /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
+    # build/build.py build --target_cpu_features=default --cuda_compute_capabilities=8.6 --cuda_version=12.6 --cudnn_version=9.5.0
+    # --use_clang=true
+    # --clang_path=/apps/gent/RHEL9/cascadelake-ampere-ib/software/Clang/18.1.8-GCCcore-13.3.0-CUDA-12.6.0/bin/clang++
+    # --bazel_startup_options="--output_user_root=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/tmpf6l5r946-bazel"
+    # --bazel_options="--jobs=8" --bazel_options="--subcommands" --bazel_options="--action_env=PYTHONPATH"
+    # --bazel_options="--action_env=EBPYTHONPREFIXES" --bazel_options="--copt=-O2" --bazel_options="--copt=-ftree-vectorize"
+    # --bazel_options="--copt=-march=native" --bazel_options="--copt=-fno-math-errno"
+    # --bazel_options="--repo_env=HERMETIC_CUDA_VERSION=12.6" --bazel_options="--repo_env=HERMETIC_CUDNN_VERSION=9.5.0"
+    # --bazel_options="--repo_env=LOCAL_CUDA_PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/CUDA/12
+    # .6.0" --bazel_options="--repo_env=LOCAL_CUDNN_PATH=/apps/gent/RHEL9/cascadelake-ampere-ib/software/cuDNN/9.5.0.50-CUDA-12.6.0"
+    # --bazel_options="--repo_env=HERMETIC_CUDA_COMPUTE_CAPABILITIES=sm_86"
+    # --bazel_options="--repo_env=LOCAL_NCCL_PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/NCCL/2.
+    # 22.3-GCCcore-13.3.0-CUDA-12.6.0" --bazel_options="--@local_config_cuda//:cuda_compiler=clang"
+    # --bazel_options="--distdir=/tmp/vsc47063/easybuild/build/jax/0.6.2/gfbf-2024a-CUDA-12.6.0/archives"
+    # --wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt --bazel_options="--@local_config_cuda//cuda:include_cuda_libs=true"
+    # --bazel_options="--action_env=JAXLIB_RELEASE"
+
 # test4: OK!
     # = pass without the test errors
     # -> --deselect=tests/experimental_rnn_test.py::RnnTest::test_struct_encoding_determinism
