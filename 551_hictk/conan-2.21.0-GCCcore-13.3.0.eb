@@ -1,0 +1,66 @@
+easyblock = 'PythonBundle'
+
+name = 'conan'
+version = '2.21.0'  # have to stick to an older version because catboost is not compatible with newer one
+
+homepage = 'https://conan.io'
+description = "Decentralized, open-source (MIT), C/C++ package manager."
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+builddependencies = [
+    ('binutils', '2.42'),
+]
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('PyYAML', '6.0.2'),
+    ('tqdm', '4.66.5'),
+    ('Python-bundle-PyPI', '2024.06'),
+]
+
+exts_list = [
+    ('bottle', '0.13.4', {
+        'checksums': ['787e78327e12b227938de02248333d788cfe45987edca735f8f88e03472c3f47'],
+    }),
+    ('distro', '1.8.0', {
+        'checksums': ['02e111d1dc6a50abb8eed6bf31c3e48ed8b0830d1ea2a1b78c61765c2513fdd8'],
+    }),
+    # ('fasteners', '0.20', {
+    #     'checksums': ['55dce8792a41b56f727ba6e123fcaee77fd87e638a6863cec00007bfea84c8d8'],
+    # }),
+    ('fasteners', '0.19', {
+        'checksums': ['b4f37c3ac52d8a445af3a66bce57b33b5e90b97c696b7b984f530cf8f0ded09c'],
+    }),
+    # ('node-semver', '0.9.0', {
+    #     'modulename': 'semver',
+    #     'checksums': ['04aa0b0016dbc06748d6378c42d8cf82a343415bd9fca6284f488041d08b33bb'],
+    # }),
+    ('patch-ng', '1.18.1', {
+        'checksums': ['52fd46ee46f6c8667692682c1fd7134edc65a2d2d084ebec1d295a6087fc0291'],
+    }),
+    ('pluginbase', '1.0.1', {
+        'checksums': ['ff6c33a98fce232e9c73841d787a643de574937069f0d18147028d70d7dee287'],
+    }),
+    ('pyjwt', '2.10.1', {
+        'modulename': 'jwt',
+        'checksums': ['3cc5772eb20009233caf06e9d8a0577824723b44e6648ee0a2aedb6cf9381953'],
+    }),
+    (name, version, {
+        'source_tmpl': '%(version)s.tar.gz',
+        'source_urls': ['https://github.com/conan-io/conan/archive/'],
+        'checksums': ['1c736f4188e6ea2e63555789d556e3d653301b6b0a9fac34898dcbd5a4386649'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/conan'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["conan --help"]
+
+moduleclass = 'devel'
+
+# TODO
+# conan 2.21.0 has requirement distro<=1.8.0,>=1.4.0; platform_system == "Linux" or platform_system == "FreeBSD", but you have distro 1.9.0.

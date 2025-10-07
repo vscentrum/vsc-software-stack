@@ -1,0 +1,45 @@
+easyblock = 'PythonBundle'
+
+name = 'hictkpy'
+version = '1.3.0'
+
+homepage = 'https://hictk.readthedocs.io/en/stable/'
+description = """
+Python bindings for hictk, a blazing fast toolkit to work with .hic and .cool files.
+"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+builddependencies = [
+    ('binutils', '2.42'),
+    ('scikit-build-core', '0.10.6'),
+    ('hatchling', '1.24.2'),
+    ('conan', '2.21.0'),
+]
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('hictk', '2.1.4'),
+]
+
+exts_list = [
+    # # fixes `CMake-Conan: Conan version must be 2.0.5 or later`
+    # ('conan', '2.15.1', {
+    #     'checksums': ['c4114e197f7908409766ad16cea758f088ebc926f8426212b2a6a62829f996a3'],
+    # }),
+    # fixes `AttributeError: module 'packaging.utils' has no attribute 'InvalidName'`
+    ('packaging', '25.0', {
+        'checksums': ['d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f'],
+    }),
+    # fixes `TypeError: Cannot instantiate typing.Union`
+    ('scikit_build_core', '0.11.1', {
+        # fixes `ValueError: Unknown classifier in field `project.classifiers`: Programming Language :: Python :: 3.13`
+        'preinstallopts': "sed -i '/Programming Language :: Python :: 3.13/d' pyproject.toml && ",
+        'checksums': ['4e5988df5cd33f0bdb9967b72663ca99f50383c9bc21d8b24fa40c0661ae72b7'],
+    }),
+    (name, version, {
+        'checksums': ['e2fc78285c833d8f6f96c06f5692748797c3e83b184b51387f03aedd058eeafb'],
+    }),
+]
+
+moduleclass = 'tools'
