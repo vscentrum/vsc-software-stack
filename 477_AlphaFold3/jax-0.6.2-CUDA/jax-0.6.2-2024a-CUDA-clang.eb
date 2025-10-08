@@ -82,6 +82,8 @@ _runtest_cmd1 += 'export CUDA_VISIBLE_DEVICES=0 && '
 _runtest_cmd1 += 'export XLA_FLAGS="--xla_gpu_cuda_data_dir=$EBROOTCUDA" && '
 # keep matmul/conv accuracy comparable to strict FP32 (no TF32)
 _runtest_cmd1 += 'export NVIDIA_TF32_OVERRIDE=0 && '
+# fix NCCL issue with H100 gpu
+_runtest_cmd1 += 'export NCCL_NVLS_ENABLE=0 && '
 # keep -n 1 for gpu tests - more xdist workers just pile multiple JAX/XLA processes onto the same device
 _runtest_cmd1 += "pytest -n 1 tests "
 # pallas GPU tests include kernels requiring >100 KiB shared memory per block
@@ -119,3 +121,9 @@ exts_list = [
 ]
 
 moduleclass = 'ai'
+
+#log5.txt
+    #failed on accelgor
+#log4.txt
+    # -> export export NCCL_NVLS_ENABLE=0
+    # failed on tests on litleo
