@@ -35,7 +35,8 @@ dependencies = [
     ('dm-tree', '0.1.9'),
     ('dm-haiku', '0.0.14', versionsuffix),
     ('RDKit', '2025.03.3'),
-    ('jax-triton', '0.3.0', versionsuffix),
+    # ('jax-triton', '0.3.0', versionsuffix),
+    ('jax-triton', '0.2.0', versionsuffix),
     ('jaxtyping', '0.2.38', versionsuffix),
     ('dssp', '4.4.10'),
     ('Abseil', '20240722.0'),
@@ -57,6 +58,7 @@ exts_list = [
         'postinstallcmds': [
             'cp run_alphafold.py %(installdir)s/bin',
             'cp run_alphafold_data_test.py %(installdir)s/lib/python%(pyshortver)s/site-packages/%(namelower)s',  # for tests without models/DBs
+            'cp run_alphafold_test.py %(installdir)s/bin',
             'chmod +x %(installdir)s/bin/run_alphafold.py',
             '%(installdir)s/bin/build_data',
         ],
@@ -120,3 +122,11 @@ modextrapaths = {'PYTHONPATH': 'bin'}  # to be able import run_alphafold (for ru
 # """
 
 moduleclass = 'bio'
+
+# tests with models:
+    # B) python run_alphafold_test.py --model_dir="$AF3_MODEL_DIR" --flash_attention_implementation=xla > /user/gent/470/vsc47063/WIP/477_AlphaFold3/log_testB 2>&1
+        # NO - still the same Triton errors
+    # A) python run_alphafold_test.py --model_dir="$AF3_MODEL_DIR" > /user/gent/470/vsc47063/WIP/477_AlphaFold3/log_testA 2>&1
+        # Triton version is too new -> add --flash_attention_implementation=xla -> testB -> NO
+        # OR use older Triton and jax-triton -> create new jax-triton and build af3 again -> jax-triton-0.2-Trition-3.1.0
+        # OR patch alphafold3/jax/attention/flash_attention.py -> sed -i 's/0xFFFFFFFF/-1/'
