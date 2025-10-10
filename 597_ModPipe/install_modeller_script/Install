@@ -1,0 +1,210 @@
+#!/bin/sh
+
+# Run this script to install MODELLER interactively.
+
+# # Function to guess Unix system architecture from 'uname' output
+# guess_arch () {
+#   U_M=`uname -m 2>/dev/null` || U_M=UNK
+#   U_S=`uname -s 2>/dev/null` || U_S=UNK
+#   U_P=`uname -p 2>/dev/null` || U_P=UNK
+
+#   MACHID=${U_M}:${U_S}:${U_P}
+
+#   DEFexectype=2
+#   case "${MACHID}" in
+#     i686:Linux:*)
+#       # Linux Pentium-class PC
+#       DEFexectype=1
+#       ;;
+#     x86_64:Linux:*)
+#       # Linux Opteron or EM64T (64-bit) PC
+#       DEFexectype=2
+#       ;;
+#     armv6l:Linux:*)
+#       # Linux on 32-bit ARM (e.g. Raspberry Pi)
+#       DEFexectype=4
+#       ;;
+#     aarch64:Linux:*)
+#       # Linux on 64-bit ARM (e.g. Raspberry Pi 3/4)
+#       DEFexectype=5
+#       ;;
+#     i386:*BSD:*)
+#       # Free/Net/Open BSD running on a PC - usually Linux-compatible
+#       DEFexectype=1
+#       ;;
+#   esac
+# }
+
+DEFexectype=2
+
+# set default values:
+VER="10.7"
+VERENV="10v7"
+MOD="MODELLER ${VER}"
+PROGRAM=mod${VER}
+# exectype1="i386-intel8"
+exectype2="x86_64-intel8"
+# exectype3="i386-absoft"
+# exectype4="armv6l-gnu"
+# exectype5="armv8-gnu"
+
+# Set DEFexectype by examining 'uname' output
+# guess_arch
+
+# DEFmodinstall=`(cd ; pwd)`/bin/modeller${VER}
+
+clear
+echo "Installation of $MOD"
+echo
+echo "This script will install $MOD into a specified directory"
+echo "for which you have read/write permissions."
+echo 
+echo "To accept the default answers indicated in [...], press <Enter> only."
+echo
+
+echo "------------------------------------------------------------------------"
+echo
+echo "The currently supported architectures are as follows:"
+echo
+# echo '   1) Linux x86 PC (e.g. RedHat, SuSe).'
+echo '   2) x86_64 (Opteron/EM64T) box (Linux).'
+# echo '   3) Alternative x86 Linux binary (e.g. for FreeBSD).'
+# echo '   4) Linux on 32-bit ARM (e.g. for Raspberry Pi).'
+# echo '   5) Linux on 64-bit ARM (e.g. for Raspberry Pi 3 or later).'
+echo
+# printf "Select the type of your computer from the list above [$DEFexectype]: "
+# read ans
+# if [ x$ans != x ] ; then
+#   exectype=$ans
+# else
+#   exectype=$DEFexectype
+# fi
+# if [ $exectype = 1 ] ; then EXECUTABLE_TYPE=$exectype1 ; fi
+# if [ $exectype = 2 ] ; then EXECUTABLE_TYPE=$exectype2 ; fi
+# if [ $exectype = 3 ] ; then EXECUTABLE_TYPE=$exectype3 ; fi
+# if [ $exectype = 4 ] ; then EXECUTABLE_TYPE=$exectype4 ; fi
+# if [ $exectype = 5 ] ; then EXECUTABLE_TYPE=$exectype5 ; fi
+
+EXECUTABLE_TYPE=$exectype2
+
+
+echo
+echo
+echo "Full directory name in which to install $MOD"
+# printf "[$DEFmodinstall]: "
+# read ans
+# if [ x$ans != x ] ; then 
+#    MODINSTALL=$ans
+# else
+#    MODINSTALL=$DEFmodinstall
+# fi
+if [ ! -d $MODINSTALL ] ; then
+  echo "There is no such directory; it will be created."
+fi
+
+
+echo 
+echo
+echo "License key, obtained from our academic license server at"
+printf "https://salilab.org/modeller/registration.html: "
+# read KEY_MODELLER
+
+
+echo
+echo "------------------------------------------------------------------------"
+echo
+echo "The following settings will be used: "
+echo
+echo "The type of this machine          : $EXECUTABLE_TYPE"
+echo "Destination installation directory: $MODINSTALL"
+echo "License key                       : $KEY_MODELLER"
+echo
+echo "If they are incorrect, abort installation (ctrl-c) and run Install again."
+echo
+printf "Press <Enter> to begin the installation: "
+read ans
+echo
+echo "------------------------------------------------------------------------"
+echo
+
+echo "Installing Modeller files ..."
+
+mkdir -p "${MODINSTALL}"
+cp -pR README INSTALLATION doc examples modlib src "${MODINSTALL}"
+mkdir -p "${MODINSTALL}/bin"
+cp -pR bin/*.top bin/lib bin/${PROGRAM}_${EXECUTABLE_TYPE} \
+    "${MODINSTALL}/bin"
+mkdir -p "${MODINSTALL}/lib"
+cp -pR lib/${EXECUTABLE_TYPE} "${MODINSTALL}/lib"
+
+echo
+echo "------------------------------------------------------------------------"
+echo
+
+echo "Creating Modeller startup scripts ..."
+
+sed -e "s;EXECUTABLE_TYPE${VERENV}=xxx;EXECUTABLE_TYPE${VERENV}=$EXECUTABLE_TYPE;" \
+    -e "s;MODINSTALL${VERENV}=xxx;MODINSTALL${VERENV}=\"$MODINSTALL\";" \
+    bin/modscript > "${MODINSTALL}/bin/${PROGRAM}"
+sed -e "s;@TOPDIR\@;\"$MODINSTALL\";" \
+    -e "s;@EXETYPE\@;$EXECUTABLE_TYPE;" \
+    bin/modpy.sh.in > "${MODINSTALL}/bin/modpy.sh"
+chmod a+x "${MODINSTALL}/bin/${PROGRAM}" "${MODINSTALL}/bin/modpy.sh"
+
+echo "Configuring install ..."
+config="${MODINSTALL}/modlib/modeller/config.py"
+echo "install_dir = r'${MODINSTALL}'" > ${config}
+echo "license = '${KEY_MODELLER}'" >> ${config}
+echo "Installation complete."
+# printf "Press <Enter> to continue: "
+# read ans
+
+echo
+echo "------------------------------------------------------------------------"
+echo "The best way to use Modeller is as a Python module, if you have Python"
+echo "installed (any version between 2.3 and 3.13). Do this using the script:"
+echo "${MODINSTALL}/bin/modpy.sh"
+echo "Simply add your regular Python command line after this script, e.g."
+echo "${MODINSTALL}/bin/modpy.sh python3 myscript.py"
+echo
+echo "Alternatively, you can skip the 'modpy.sh' prefix if you ensure that the"
+echo "following directories containing Python modules are in your Python path:"
+echo "${MODINSTALL}/modlib"
+echo "${MODINSTALL}/lib/${EXECUTABLE_TYPE} (for Python 2.3 or Python 2.4)"
+echo "${MODINSTALL}/lib/${EXECUTABLE_TYPE}/python2.5 (for Python 2.5 to 2.7)"
+echo "${MODINSTALL}/lib/${EXECUTABLE_TYPE}/python3.0 (for Python 3.0, 3.1)"
+echo "${MODINSTALL}/lib/${EXECUTABLE_TYPE}/python3.2 (for Python 3.2)"
+echo "${MODINSTALL}/lib/${EXECUTABLE_TYPE}/python3.3 (for Python 3.3 to 3.13)"
+echo "(e.g. by setting the PYTHONPATH environment variable) and that the"
+echo "following directory containing dynamic libraries is in your dynamic"
+echo "library search path:"
+echo "${MODINSTALL}/lib/${EXECUTABLE_TYPE}"
+echo "(e.g. by setting the LD_LIBRARY_PATH variable - LIBPATH on AIX systems)."
+echo "Ask your systems administrator for help if you wish to do this." 
+echo "------------------------------------------------------------------------"
+echo
+# printf "Press <Enter> to continue: "
+# read ans
+
+echo
+echo "------------------------------------------------------------------------"
+echo
+echo "If you don't have Python installed, you can also use the"
+echo "${MODINSTALL}/bin/${PROGRAM} script to run Modeller,"
+echo "although note that some advanced functionality, such as parallel job"
+echo "support, requires Python."
+echo
+echo "------------------------------------------------------------------------"
+echo
+echo "If you have problems with installation, please see the INSTALLATION file."
+echo
+echo "Documentation in HTML format can be found in the"
+echo "$MODINSTALL/doc directory."
+echo
+echo "A simple homology modeling test case is in examples/automodel/."
+echo 
+echo "------------------------------------------------------------------------"
+echo
+echo "Happy modeling!"
+echo "MODELLER Team, 2025/05/28, r13093"
+echo
