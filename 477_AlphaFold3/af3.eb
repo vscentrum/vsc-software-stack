@@ -35,13 +35,21 @@ dependencies = [
     ('dm-tree', '0.1.9'),
     ('dm-haiku', '0.0.14', versionsuffix),
     ('RDKit', '2025.03.3'),
-    # ('jax-triton', '0.3.0', versionsuffix),
-    ('jax-triton', '0.2.0', versionsuffix),
+    ('jax-triton', '0.3.0', versionsuffix),
+    # ('jax-triton', '0.2.0', versionsuffix),
     ('jaxtyping', '0.2.38', versionsuffix),
     ('dssp', '4.4.10'),
     ('Abseil', '20240722.0'),
     ('HMMER', '3.4'),
 ]
+
+# Triton 3.3.1 chokes on the literal 0xFFFFFFFF when the lhs is int32
+local_preinstallopts = (
+    # "sed -i 's/0xFFFFFFFF/-1/g' %(start_dir)s/src/%(namelower)s/jax/attention/flash_attention.py && "
+    "sed -i 's/qk.to(tl.uint32, bitcast=True) & 0xFFFFFFFF/(qk.to(tl.int32, bitcast=True) & (-1)).to(qk.dtype, bitcast=True)/g' "
+    "%(start_dir)s/src/%(namelower)s/jax/attention/flash_attention.py && "
+)
+
 exts_list = [
     ('zstandard', '0.23.0', {
         'checksums': ['b2d8c62d08e7255f68f7a740bae85b3c9b8e5466baa9cbf7f57f1cde0ac6bc09'],
@@ -50,10 +58,12 @@ exts_list = [
         'checksums': ['00edaa8da3a133674796cf5ea87d9f4b4c367d77476e185e80251cc13dfbb8c4'],
     }),
     (name, version, {
+        # 'preinstallopts': local_preinstallopts,
         'patches': [
             '%(name)s-3.0.0.20250109_relax_requirements.patch',
             '%(name)s-3.0.0_disable_fetch.patch',
             '%(name)s-3.0.0.20250109_data_path.patch',
+            'patch1.2.patch',
         ],
         'postinstallcmds': [
             'cp run_alphafold.py %(installdir)s/bin',
@@ -75,6 +85,7 @@ exts_list = [
              '041a35a09f783405f40e3ba47566ad6d063a10cfd98f0efd2e2a04c78e2c155e'},
             {'AlphaFold3-3.0.0.20250109_data_path.patch':
              'a06a971460df5e4cbe7a59042100512d2f96755d6dcdef01d4bc4e8c55122287'},
+            {'patch1.2.patch': 'f7670da22a4d18a5717f55507779c60e5afc851f206cfe40938889db800a6f88'},
         ],
     }),
 ]
@@ -124,9 +135,15 @@ modextrapaths = {'PYTHONPATH': 'bin'}  # to be able import run_alphafold (for ru
 moduleclass = 'bio'
 
 # tests with models:
+    # F) patch1.2 + python run_alphafold_test.py --model_dir="$AF3_MODEL_DIR" > /user/gent/470/vsc47063/WIP/477_AlphaFold3/log_testF 2>&1 
+    # E) patch1.1 + python run_alphafold_test.py --model_dir="$AF3_MODEL_DIR" > /user/gent/470/vsc47063/WIP/477_AlphaFold3/log_testE 2>&1 -> NO
+    # D) python run_alphafold_test.py --model_dir="$AF3_MODEL_DIR" > /user/gent/470/vsc47063/WIP/477_AlphaFold3/log_testD 2>&1
+        # with fixed alphafold3/jax/attention/flash_attention.py: sed -i 's/qk.to(tl.uint32, bitcast=True) & 0xFFFFFFFF/(qk.to(tl.int32, bitcast=True) & (-1)).to(qk.dtype, bitcast=True)/g' -> NO
+    # C) python run_alphafold_test.py --model_dir="$AF3_MODEL_DIR" > /user/gent/470/vsc47063/WIP/477_AlphaFold3/log_testC 2>&1
+        # with fixed alphafold3/jax/attention/flash_attention.py: sed -i 's/0xFFFFFFFF/-1/g' -> NO
     # B) python run_alphafold_test.py --model_dir="$AF3_MODEL_DIR" --flash_attention_implementation=xla > /user/gent/470/vsc47063/WIP/477_AlphaFold3/log_testB 2>&1
         # NO - still the same Triton errors
     # A) python run_alphafold_test.py --model_dir="$AF3_MODEL_DIR" > /user/gent/470/vsc47063/WIP/477_AlphaFold3/log_testA 2>&1
         # Triton version is too new -> add --flash_attention_implementation=xla -> testB -> NO
-        # OR use older Triton and jax-triton -> create new jax-triton and build af3 again -> jax-triton-0.2-Trition-3.1.0
+        # OR use older Triton and jax-triton -> create new jax-triton and build af3 again -> jax-triton-0.2-Trition-3.1.0 -> go first for patch flash_attention.py in Triton-3.3.1
         # OR patch alphafold3/jax/attention/flash_attention.py -> sed -i 's/0xFFFFFFFF/-1/'

@@ -20,7 +20,7 @@ dependencies = [
 
 exts_list = [
     ('jax_triton', version, {
-        'checksums': ['da7b9cd8f784de50b26d104a3f4c417c0afcdd894f98442bc815a822900033e6'],
+        'checksums': ['ed564a5ffb9e404557dc8d296e7eb30e501da5a4d7b03408acd0837c1c618c21'],
     }),
 ]
 
@@ -30,3 +30,7 @@ sanity_check_paths = {
 }
 
 moduleclass = 'ai'
+
+# jax-0.6 is not compatible withjax-triton-0.2.0
+    # AttributeError: jax.core.Primitive was removed in JAX v0.6.0. Use jax.extend.core.Primitive instead, and see 
+    # https://docs.jax.dev/en/latest/jax.extend.html for details.. Did you mean: 'CallPrimitive'?

@@ -1,0 +1,15 @@
+--- flash_attention.py.orig	2025-10-13 19:36:59.810699000 +0200
++++ flash_attention.py	2025-10-13 19:45:51.319077000 +0200
+@@ -83,8 +83,10 @@
+       # Prevent dot accumulating into the bias tensor. It appears that Triton
+       # doesn't pipeline the bias load as it does the `k` load, so the bias load
+       # blocks the matmul if the add is merged.
+-      qk = qk.to(tl.int32, bitcast=True) & 0xFFFFFFFF
+-      qk = qk.to(tl.float32, bitcast=True)
++      orig_dtype = qk.dtype
++      qk = (qk.to(tl.uint32, bitcast=True) & 0xFFFFFFFF).to(orig_dtype, bitcast=True)
++      if qk.dtype != tl.float32:
++        qk = qk.to(tl.float32)  # no bitcast
+       qk += bias
+ 
+     if use_attention_mask | use_k_start | use_k_end:

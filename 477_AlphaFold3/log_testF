@@ -1,0 +1,71 @@
+Running tests under Python 3.12.3: /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
+[ RUN      ] InferenceTest.test_inference_bucket_1024
+INFO:2025-10-13 21:12:17,553:jax._src.xla_bridge:752: Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+I1013 21:12:17.553348 23014213699392 xla_bridge.py:752] Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+I1013 21:12:22.464336 23014213699392 pipeline.py:82] Getting protein MSAs for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1013 21:12:22.544548 23010718045760 jackhmmer.py:78] Query sequence: SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1013 21:12:22.544977 23010718045760 subprocess_utils.py:68] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HMMER/3.4-gompi-2024a/bin/jackhmmer -o /dev/null -A /tmp/tmpbsgygckh/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 /tmp/tmpbsgygckh/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AlphaFold3/3.0.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/alphafold3/test_data/miniature_databases/uniref90__subsampled_1000.fasta"
+I1013 21:12:22.545232 23010715944512 jackhmmer.py:78] Query sequence: SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1013 21:12:22.546043 23010715944512 subprocess_utils.py:68] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HMMER/3.4-gompi-2024a/bin/jackhmmer -o /dev/null -A /tmp/tmpu_5131hi/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 /tmp/tmpu_5131hi/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AlphaFold3/3.0.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/alphafold3/test_data/miniature_databases/mgy_clusters__subsampled_1000.fa"
+I1013 21:12:22.546266 23010713843264 jackhmmer.py:78] Query sequence: SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1013 21:12:22.546464 23010713843264 subprocess_utils.py:68] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HMMER/3.4-gompi-2024a/bin/jackhmmer -o /dev/null -A /tmp/tmpmkrq9gc5/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 /tmp/tmpmkrq9gc5/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AlphaFold3/3.0.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/alphafold3/test_data/miniature_databases/bfd-first_non_consensus_sequences__subsampled_1000.fasta"
+I1013 21:12:22.546646 23010711742016 jackhmmer.py:78] Query sequence: SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1013 21:12:22.546820 23010711742016 subprocess_utils.py:68] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HMMER/3.4-gompi-2024a/bin/jackhmmer -o /dev/null -A /tmp/tmp858y9jdu/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 /tmp/tmp858y9jdu/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AlphaFold3/3.0.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/alphafold3/test_data/miniature_databases/uniprot_all__subsampled_1000.fasta"
+I1013 21:12:23.302789 23010715944512 subprocess_utils.py:97] Finished Jackhmmer in 0.757 seconds
+I1013 21:12:23.305089 23010713843264 subprocess_utils.py:97] Finished Jackhmmer in 0.759 seconds
+I1013 21:12:23.306109 23010718045760 subprocess_utils.py:97] Finished Jackhmmer in 0.761 seconds
+I1013 21:12:23.306282 23010711742016 subprocess_utils.py:97] Finished Jackhmmer in 0.759 seconds
+I1013 21:12:23.307592 23014213699392 pipeline.py:115] Getting protein MSAs took 0.84 seconds for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1013 21:12:23.307662 23014213699392 pipeline.py:121] Deduplicating MSAs for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1013 21:12:23.308208 23014213699392 pipeline.py:134] Deduplicating MSAs took 0.00 seconds for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN, found 1 unpaired sequences, 1 paired sequences
+I1013 21:12:23.308289 23014213699392 pipeline.py:40] Getting protein templates for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1013 21:12:23.309204 23014213699392 subprocess_utils.py:68] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HMMER/3.4-gompi-2024a/bin/hmmbuild --informat stockholm --hand --amino /tmp/tmp5q_iztj1/output.hmm /tmp/tmp5q_iztj1/query.msa"
+I1013 21:12:23.446970 23014213699392 subprocess_utils.py:97] Finished Hmmbuild in 0.138 seconds
+I1013 21:12:23.447318 23014213699392 subprocess_utils.py:68] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HMMER/3.4-gompi-2024a/bin/hmmsearch --noali --cpu 8 --F1 0.1 --F2 0.1 --F3 0.1 -E 100 --incE 100 --domE 100 --incdomE 100 -A /tmp/tmpbm0bmoag/output.sto /tmp/tmpbm0bmoag/query.hmm /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AlphaFold3/3.0.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/alphafold3/test_data/miniature_databases/pdb_seqres_2022_09_28__subsampled_1000.fasta"
+I1013 21:12:23.646279 23014213699392 subprocess_utils.py:97] Finished Hmmsearch in 0.199 seconds
+I1013 21:12:23.800120 23014213699392 pipeline.py:52] Getting 4 protein templates took 0.49 seconds for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1013 21:12:29.989057 23014213699392 pipeline.py:164] processing 5tgy, random_seed=1234
+I1013 21:12:30.008346 23014213699392 pipeline.py:257] Calculating bucket size for input with 150 tokens.
+I1013 21:12:30.008497 23014213699392 pipeline.py:263] Got bucket size 1024 for input with 150 tokens, resulting in 874 padded tokens.
+[21:12:31] UFFTYPER: Unrecognized charge state for atom: 48
+[21:12:31] UFFTYPER: Unrecognized atom type: Zn4+2 (48)
+[21:12:32] UFFTYPER: Unrecognized charge state for atom: 48
+[21:12:32] UFFTYPER: Unrecognized atom type: Zn4+2 (48)
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/jax/0.6.2-gfbf-2024a-CUDA-12.6.0/lib/python3.12/site-packages/jax/_src/pjit.py:415: DeprecationWarning: backend and device argument on jit is deprecated. You can use `jax.device_put(..., jax.local_devices(backend="cpu")[0])` on the inputs to the jitted function to get the same behavior.
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Optax/0.2.4-gfbf-2024a-CUDA-12.6.0/lib/python3.12/site-packages/chex/_src/dataclass.py:302: DeprecationWarning: unzip2 was deprecated in JAX v0.6.0 and will be removed in JAX v0.7.0.
+  flatten = lambda d: jax.util.unzip2(sorted(d.__dict__.items()))[::-1]
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AlphaFold3/3.0.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/alphafold3/model/components/mapping.py:124: DeprecationWarning: wraps was deprecated in JAX v0.6.0 and will be removed in JAX v0.7.0.
+  @jax.util.wraps(fun, docstr=docstr)
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
