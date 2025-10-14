@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/user/gent/470/vsc47063/WIP/477_AlphaFold3/attn_compare.py", line 39, in <module>
+    scores = jnp.einsum("bThd,bthd->bTHt", q.astype(jnp.float32), k.astype(jnp.float32)) * scale
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/jax/0.6.2-gfbf-2024a-CUDA-12.6.0/lib/python3.12/site-packages/jax/_src/numpy/einsum.py", line 307, in einsum
+    operands, contractions = contract_path(
+                             ^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/ml_dtypes/0.5.0-gfbf-2024a/lib/python3.12/site-packages/opt_einsum/contract.py", line 294, in contract_path
+    input_subscripts, output_subscript, operands_prepped = parser.parse_einsum_input(operands_, shapes=shapes)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/ml_dtypes/0.5.0-gfbf-2024a/lib/python3.12/site-packages/opt_einsum/parser.py", line 406, in parse_einsum_input
+    raise ValueError(f"Output character '{char}' did not appear in the input")
+ValueError: Output character 'H' did not appear in the input

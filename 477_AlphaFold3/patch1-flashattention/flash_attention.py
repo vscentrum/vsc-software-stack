@@ -57,8 +57,7 @@ def _fwd_kernel_inner(
     dot_fn_qk: tl.constexpr,
     dot_fn_kv: tl.constexpr,
 ):
-  """Triton MHA forward kernel's inner loop."""
-
+  # FlashAttention inner loop
   for start_k in range(start_loop, end_loop, block_k):
     start_k = tl.multiple_of(start_k, block_k)
     span_k = start_k + tl.arange(0, block_k)
@@ -74,60 +73,63 @@ def _fwd_kernel_inner(
         padding_option="zero" if len(v_boundary_check.value) else "",
     )
 
-    qk = dot_fn_qk(q.to(k.dtype), k)  # [block_q, block_k]
-    qk = qk.to(tl.float32)  
+    # Matmul -> logits in f32
+    qk = dot_fn_qk(q.to(k.dtype), k)
+    qk = qk.to(tl.float32)
 
     if use_bias:
-      bias = tl.load(bias_block_ptr)
-      qk += bias
+      b = tl.load(bias_block_ptr).to(tl.float32)
+      # Scheduling barrier (perf only; numerically a no-op in f32)
+      qk = (qk.to(tl.uint32, bitcast=True) & 0xFFFFFFFF).to(tl.float32, bitcast=True)
+      qk += b
 
-    if use_attention_mask | use_k_start | use_k_end:
-      mask_value = float("-inf")
+    mask_value = float(jnp.finfo(jnp.float32).min)
 
     if use_attention_mask:
-      mask = tl.load(mask_block_ptr)
-      qk = tl.where(mask, qk, mask_value)
+        mask = tl.load(mask_block_ptr).to(tl.int1)  # force boolean
+        qk = tl.where(mask, qk, mask_value)
 
     if use_k_start:
-      # This check is there to work around a triton compiler bug, but it
-      # shouldn't be strictly needed.
       if tl.sum(k_start) != 0:
         qk = tl.where(k_start[:, None] <= span_k[None, :], qk, mask_value)
+
     if is_causal:
-      qk = tl.where(span_q[:, None] >= span_k[None, :], qk, float("-inf"))
+      qk = tl.where(span_q[:, None] >= span_k[None, :], qk, mask_value)
     elif use_k_end:
-      # When called with k_end and is_causal=True, the causal mask gets folded
-      # into k_end and is_causal is set to False.
       qk = tl.where(k_end[:, None] > span_k[None, :], qk, mask_value)
 
     if use_mask_k:
-      qk = tl.where((span_k < seq_len_k)[None, :], qk, float("-inf"))
+      qk = tl.where((span_k < seq_len_k)[None, :], qk, mask_value)
 
-    m_ij = tl.maximum(m_i, tl.max(qk, axis=1))  # Shape [block_q].
-    p = tl.exp(qk - m_ij[:, None])  # Shape [block_q, block_k].
-    alpha = tl.exp(m_i - m_ij)
-    m_i = m_ij
+    # Stable softmax-with-accumulation, safe on fully-masked rows
+    row_max   = tl.max(qk, axis=1)
+    all_masked = row_max == mask_value
+    m_ij      = tl.maximum(m_i, row_max)
+
+    safe_m_ij = tl.where(all_masked, 0.0, m_ij)
+    safe_m_i  = tl.where(all_masked, 0.0, m_i)
+
+    p     = tl.exp(qk - safe_m_ij[:, None])
+    p     = tl.where(all_masked[:, None], 0.0, p)
+    alpha = tl.exp(safe_m_i - safe_m_ij)
+
+    m_i = tl.where(all_masked, m_i, m_ij)
     acc *= alpha[:, None]
     l_i *= alpha
     l_i += tl.sum(p, axis=1)
 
-    # Add the new block of attention weights.
-    acc += dot_fn_kv(p.to(v.dtype), v)
+    p_f32 = p.to(tl.float32)
+    v_f32 = v.to(tl.float32)
+    acc += dot_fn_kv(p_f32, v_f32)
+    # acc += dot_fn_kv(p.to(v.dtype), v)
 
-    k_block_ptr = tl.advance(k_block_ptr, (0, block_k))
-    v_block_ptr = tl.advance(v_block_ptr, (block_k, 0))
+    k_block_ptr   = tl.advance(k_block_ptr,   (0, block_k))
+    v_block_ptr   = tl.advance(v_block_ptr,   (block_k, 0))
     bias_block_ptr = tl.advance(bias_block_ptr, bias_advance.value)
     mask_block_ptr = tl.advance(mask_block_ptr, mask_advance.value)
 
-  return (
-      k_block_ptr,
-      v_block_ptr,
-      bias_block_ptr,
-      mask_block_ptr,
-      acc,
-      m_i,
-      l_i,
-  )
+  return (k_block_ptr, v_block_ptr, bias_block_ptr, mask_block_ptr, acc, m_i, l_i)
+
 
 
 # Based on Algorithm 1 of https://arxiv.org/abs/2205.14135.
@@ -466,7 +468,6 @@ def _fwd(
     if x is None:
       x = jnp.array([], dtype=dtype)
       return array_view.ArrayView(x, shape=(0, 0, 0, 0), strides=(0, 0, 0, 0))
-
     shape = orig_q_shape[:-3] + (num_heads_q, seq_len_q, seq_len_k)
     return (
         array_view.ArrayView(x)
@@ -474,14 +475,26 @@ def _fwd(
         .collapse(0, -3, allow_copy=True)
     )
 
-  bias = get_bias_mask_view(bias, dtype=q.dtype)
-  mask = get_bias_mask_view(mask, dtype=jnp.bool_)
+  # Prepare views (NOTE: bias in float32 so it matches logits precision)
+  bias_view = get_bias_mask_view(bias, dtype=jnp.float32)
+  mask_view = get_bias_mask_view(mask, dtype=jnp.bool_)
 
+  # Fold mask -> bias and disable mask path
+  if mask_view.size != 0:
+    minus_inf = jnp.array(jnp.finfo(jnp.float32).min, jnp.float32)
+    mask_bias = jnp.where(mask_view.array, 0.0, minus_inf).astype(jnp.float32)
+    if bias_view.size != 0:
+      bias_view = array_view.ArrayView(bias_view.array + mask_bias)
+    else:
+      bias_view = array_view.ArrayView(mask_bias)
+    # after folding, pass an empty mask to kernel
+    mask_view = get_bias_mask_view(None, dtype=jnp.bool_)
+
+  # Range helpers
   def get_range_view(x, seq_len):
     if x is None:
       x = jnp.array([], dtype=jnp.int32)
       return array_view.ArrayView(x, shape=(0, 0, 0), strides=(0, 0, 0))
-
     shape = orig_q_shape[:-3] + (num_heads_q, seq_len)
     return (
         array_view.ArrayView(x)
@@ -499,8 +512,8 @@ def _fwd(
       q.base,
       k.base,
       v.base,
-      bias.base,
-      mask.base,
+      bias_view.base,           # folded (and float32) bias
+      mask_view.base,           # now empty
       k_start.base,
       k_end.base,
       q.offset,
@@ -509,8 +522,8 @@ def _fwd(
       *q.strides,
       *k.strides,
       *v.strides,
-      *bias.strides,
-      *mask.strides,
+      *bias_view.strides,
+      *mask_view.strides,
       k_start.strides,
       k_end.strides,
       *jt.utils.strides_from_shape(q.shape),  # out strides.
@@ -525,22 +538,21 @@ def _fwd(
       num_stages=2,
       num_warps=4,
       is_causal=is_causal,
-      use_attention_mask=(mask.size != 0),
+      use_attention_mask=(mask_view.size != 0),   # now False if folded
       use_k_start=(k_start.size != 0),
       use_k_end=(k_end.size != 0),
-      use_bias=(bias.size != 0),
+      use_bias=(bias_view.size != 0),
       sm_scale=logits_scale,
       block_q=block_q,
       block_k=block_k,
       head_dim=head_dim,
       use_mask_q=(seq_len_q % block_q != 0),
       use_mask_k=(seq_len_k % block_k != 0),
-      bias_bcast_sq=(bias.strides[-2] == 0),
-      mask_bcast_sq=(mask.strides[-2] == 0),
+      bias_bcast_sq=(bias_view.strides[-2] == 0),
+      mask_bcast_sq=(mask_view.strides[-2] == 0),
       dot_fn_qk=triton_utils.get_tl_dot_fn(q_k_dot_precision),
       dot_fn_kv=triton_utils.get_tl_dot_fn(weights_v_dot_precision),
   ).reshape(orig_q_shape)
-
 
 def _as_batched_array_view(x, axis_size):
   batched_shape = (axis_size,) + x.shape
