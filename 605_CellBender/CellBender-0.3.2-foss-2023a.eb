@@ -39,9 +39,9 @@ exts_list = [
     ('jupyter', '1.1.1', {
         'checksums': ['d55467bceabdea49d7e3624af7e33d59c37fff53ed3a350e1ac957bed731de7a'],
     }),
-    ('notebook', '7.4.7', {
-        'preinstallopts': 'sed -i "/3.13/d" pyproject.toml PKG-INFO && ',
-        'checksums': ['3f0a04027dfcee8a876de48fba13ab77ec8c12f72f848a222ed7f5081b9e342a'],
+    ('notebook', '6.5.7', {
+        # 'preinstallopts': 'sed -i "/3.13/d" pyproject.toml PKG-INFO && ',  # TODO?
+        'checksums': ['04eb9011dfac634fbd4442adaf0a8c27cd26beef831fe1d19faf930c327768e4'],
     }),
     ('mistune', '3.1.4', {
         'preinstallopts': 'sed -i "/3.13/d" pyproject.toml PKG-INFO && ',
@@ -72,8 +72,5 @@ sanity_check_commands = [
 moduleclass = 'bio'
 
 # TODO
-# notebook 7.4.7 has requirement jupyterlab<4.5,>=4.4.9, but you have jupyterlab 4.0.5.
-# notebook 7.4.7 has requirement jupyterlab-server<3,>=2.27.1, but you have jupyterlab-server 2.24.0.
 # cellbender 0.3.2 has requirement nbconvert<7.0.0, but you have nbconvert 7.16.6.
-# cellbender 0.3.2 has requirement notebook<7.0.0, but you have notebook 7.4.7.
 # aiohttp 3.8.5 has requirement async-timeout<5.0,>=4.0.0a3, but you have async-timeout 5.0.1.
