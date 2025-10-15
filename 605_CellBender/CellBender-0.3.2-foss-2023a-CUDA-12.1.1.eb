@@ -2,6 +2,7 @@ easyblock = 'PythonBundle'
 
 name = 'CellBender'
 version = '0.3.2'
+versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'http://github.com/broadinstitute/CellBender'
 description = """
@@ -12,6 +13,7 @@ high-throughput single-cell RNA sequencing (scRNA-seq) data.
 toolchain = {'name': 'foss', 'version': '2023a'}
 
 dependencies = [
+    ('CUDA', '12.1.1', '', SYSTEM),
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
     ('matplotlib', '3.7.2'),
