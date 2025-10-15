@@ -1,0 +1,11 @@
+--- tests/catch.hpp.orig	2025-09-05 14:09:21.073093000 +0200
++++ tests/catch.hpp	2025-09-05 14:10:23.292451000 +0200
+@@ -9038,7 +9038,7 @@
+ 
+     // 32kb for the alternate stack seems to be sufficient. However, this value
+     // is experimentally determined, so that's not guaranteed.
+-    constexpr static std::size_t sigStackSize = 32768 >= MINSIGSTKSZ ? 32768 : MINSIGSTKSZ;
++    constexpr static std::size_t sigStackSize = 32768;
+ 
+     static SignalDefs signalDefs[] = {
+         { SIGINT,  "SIGINT - Terminal interrupt signal" },

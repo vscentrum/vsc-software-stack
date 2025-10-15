@@ -1,0 +1,40 @@
+easyblock = "CMakePythonPackage"
+
+name = 'EZC3D'
+version = '1.4.3'
+
+homepage = 'https://pyomeca.github.io/Documentation/ezc3d/index.html'
+description = """EZC3D is an easy to use reader, modifier and writer for C3D format files. It is
+written en C++ with proper binders for Python and MATLAB/Octave scripting
+languages."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+github_account = 'pyomeca'
+source_urls = [GITHUB_LOWER_SOURCE]
+sources = ['Release_%(version)s.tar.gz']
+checksums = ['cec06a730eca0c239a64e9afaac6246813e8602ba02f32975ed8e1ce58977ec7']
+
+builddependencies = {
+    ('binutils', '2.42'),
+    ('CMake', '3.29.3'),
+#    ('SWIG', '4.2.1'),
+    ('SWIG', '20180415', '-with-matlab'),
+}
+
+dependencies = {
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+}
+
+# enable Python bindings
+_py_install_dir = "%(installdir)s/lib/python%(pyshortver)s/site-packages/%(namelower)s"
+configopts = "-DBINDER_PYTHON3=ON "
+configopts += "-DPYTHON_INSTALL_PREFIX=%s" % _py_install_dir
+
+sanity_check_paths = {
+    'files': ['lib/ezc3d/libezc3d.%s' % SHLIB_EXT],
+    'dirs': ['include/ezc3d', _py_install_dir],
+}
+
+moduleclass = 'lib'

@@ -1,0 +1,39 @@
+easyblock = 'CMakeMake'
+
+name = 'spdlog'
+version = '1.4.1'
+
+homepage = 'https://github.com/gabime/spdlog'
+description = "Very fast, header-only/compiled, C++ logging library."
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+source_urls = ['https://github.com/gabime/%(name)s/archive/refs/tags/']
+sources = ['v%(version)s.tar.gz']
+patches = [
+    'spdlog-1.4.1_include-array.patch',
+    'spdlog-1.4.1_fix-missing-MINSIGSTKSZ.patch',
+]
+checksums = [
+    {'v1.4.1.tar.gz': '3291958eb54ed942d1bd3aef1b4f8ccf70566cbc04d34296ec61eb96ceb73cff'},
+    {'spdlog-1.4.1_include-array.patch': '805f48dc66dc67f429cd14b44738453fcd9c0179c484a62461eb80505aa07f77'},
+    {'spdlog-1.4.1_fix-missing-MINSIGSTKSZ.patch': '2b240b42128af91aaecd915f1182873bdacd2dbd2b99a5eaed7a641f7aa331a1'},
+]
+
+builddependencies = [
+    ('binutils', '2.42'),
+    ('CMake', '3.29.3'),
+]
+
+configopts = "-DSPDLOG_BUILD_SHARED=ON "
+
+modextrapaths = {
+    'LD_LIBRARY_PATH': 'lib/spdlog',
+}
+
+sanity_check_paths = {
+    'files': ['include/%(name)s/%(name)s.h'],
+    'dirs': ['lib/spdlog/cmake', 'lib/pkgconfig'],
+}
+
+moduleclass = 'lib'

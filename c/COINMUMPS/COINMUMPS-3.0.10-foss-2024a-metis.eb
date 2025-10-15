@@ -1,0 +1,33 @@
+easyblock = 'ConfigureMake'
+
+name = 'COINMUMPS'
+version = '3.0.10'
+versionsuffix = '-metis'
+
+homepage = 'https://github.com/coin-or-tools/ThirdParty-Mumps'
+description = "This is an autotools-based build system to build and install MUltifrontal Massively Parallel sparse direct Solver (MUMPS). This installation of MUMPS is used by some other COIN-OR projects."
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+toolchainopts = {'pic': True, 'usempi': True}
+
+source_urls = ['https://github.com/coin-or-tools/ThirdParty-Mumps/archive/releases']
+sources = ['%(version)s.tar.gz']
+checksums = ['a93d19dac80dc1620fa7e3ca4621a5cb1e97c4d200aca7731f7ecc0b3548d514']
+
+dependencies = [
+    ('SCOTCH', '7.0.6'),
+    ('METIS', '5.1.0'),
+]
+
+maxparallel = 1
+
+# fix 'Type mismatch between actual argument' errors with GCC 10.x
+preconfigopts = './get.Mumps && export FCFLAGS="$FCFLAGS -fallow-argument-mismatch" && '
+configopts = '--with-lapack-lflags="-lscalapack -lflexiblas -lgfortran -lm"'
+
+sanity_check_paths = {
+    'files': ['lib/libcoinmumps.%s' % SHLIB_EXT],
+    'dirs': ['include'],
+}
+
+moduleclass = 'math'
