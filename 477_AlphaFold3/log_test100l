@@ -1,0 +1,279 @@
+Running tests under Python 3.12.3: /apps/gent/RHEL9/zen4-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
+[ RUN      ] InferenceTest.test_inference_bucket_1024
+INFO:2025-10-15 16:46:27,494:jax._src.xla_bridge:752: Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+I1015 16:46:27.494407 22639257058176 xla_bridge.py:752] Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+I1015 16:46:27.685281 22639257058176 pipeline.py:82] Getting protein MSAs for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1015 16:46:28.270109 22627169060416 jackhmmer.py:85] Query sequence: SEFEKLRQTGDELVQA... (len 109)
+I1015 16:46:28.271122 22627169060416 subprocess_utils.py:82] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/HMMER/3.4-gompi-2024a/bin/jackhmmer -o /dev/null -A /tmp/tmpzl6heddh/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 /tmp/tmpzl6heddh/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/AlphaFold3/3.0.1-20250908-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/alphafold3/test_data/miniature_databases/uniprot_all__subsampled_1000.fasta"
+I1015 16:46:28.273868 22627171161664 jackhmmer.py:85] Query sequence: SEFEKLRQTGDELVQA... (len 109)
+I1015 16:46:28.274173 22627171161664 subprocess_utils.py:82] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/HMMER/3.4-gompi-2024a/bin/jackhmmer -o /dev/null -A /tmp/tmp4zkh6tnd/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 /tmp/tmp4zkh6tnd/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/AlphaFold3/3.0.1-20250908-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/alphafold3/test_data/miniature_databases/bfd-first_non_consensus_sequences__subsampled_1000.fasta"
+I1015 16:46:28.276638 22627175364160 jackhmmer.py:85] Query sequence: SEFEKLRQTGDELVQA... (len 109)
+I1015 16:46:28.277129 22627175364160 subprocess_utils.py:82] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/HMMER/3.4-gompi-2024a/bin/jackhmmer -o /dev/null -A /tmp/tmp0egtzt8j/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 /tmp/tmp0egtzt8j/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/AlphaFold3/3.0.1-20250908-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/alphafold3/test_data/miniature_databases/uniref90__subsampled_1000.fasta"
+I1015 16:46:28.279637 22627173262912 jackhmmer.py:85] Query sequence: SEFEKLRQTGDELVQA... (len 109)
+I1015 16:46:28.280114 22627173262912 subprocess_utils.py:82] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/HMMER/3.4-gompi-2024a/bin/jackhmmer -o /dev/null -A /tmp/tmp6fxojjg8/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 /tmp/tmp6fxojjg8/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/AlphaFold3/3.0.1-20250908-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/alphafold3/test_data/miniature_databases/mgy_clusters__subsampled_1000.fa"
+I1015 16:46:28.522405 22627173262912 subprocess_utils.py:111] Finished Jackhmmer (mgy_clusters__subsampled_1000.fa) in 0.242 seconds
+I1015 16:46:28.526532 22627175364160 subprocess_utils.py:111] Finished Jackhmmer (uniref90__subsampled_1000.fasta) in 0.249 seconds
+I1015 16:46:28.533363 22627171161664 subprocess_utils.py:111] Finished Jackhmmer (bfd-first_non_consensus_sequences__subsampled_1000.fasta) in 0.259 seconds
+I1015 16:46:28.540289 22627169060416 subprocess_utils.py:111] Finished Jackhmmer (uniprot_all__subsampled_1000.fasta) in 0.269 seconds
+I1015 16:46:28.541741 22639257058176 pipeline.py:115] Getting protein MSAs took 0.86 seconds for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1015 16:46:28.541828 22639257058176 pipeline.py:121] Deduplicating MSAs for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1015 16:46:28.542351 22639257058176 pipeline.py:134] Deduplicating MSAs took 0.00 seconds for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN, found 1 unpaired sequences, 1 paired sequences
+I1015 16:46:28.542438 22639257058176 pipeline.py:40] Getting protein templates for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1015 16:46:28.543061 22639257058176 subprocess_utils.py:82] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/HMMER/3.4-gompi-2024a/bin/hmmbuild --informat stockholm --hand --amino /tmp/tmpf1x99amy/output.hmm /tmp/tmpf1x99amy/query.msa"
+I1015 16:46:28.679928 22639257058176 subprocess_utils.py:111] Finished Hmmbuild in 0.137 seconds
+I1015 16:46:28.680502 22639257058176 subprocess_utils.py:82] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/HMMER/3.4-gompi-2024a/bin/hmmsearch --noali --cpu 8 --F1 0.1 --F2 0.1 --F3 0.1 -E 100 --incE 100 --domE 100 --incdomE 100 -A /tmp/tmp98dtxvwf/output.sto /tmp/tmp98dtxvwf/query.hmm /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/AlphaFold3/3.0.1-20250908-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/alphafold3/test_data/miniature_databases/pdb_seqres_2022_09_28__subsampled_1000.fasta"
+I1015 16:46:28.831315 22639257058176 subprocess_utils.py:111] Finished Hmmsearch (pdb_seqres_2022_09_28__subsampled_1000.fasta) in 0.151 seconds
+I1015 16:46:28.871046 22639257058176 pipeline.py:52] Getting 4 protein templates took 0.33 seconds for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1015 16:46:33.911426 22639257058176 pipeline.py:173] processing 5tgy, random_seed=42
+I1015 16:46:34.057835 22639257058176 pipeline.py:266] Calculating bucket size for input with 150 tokens.
+I1015 16:46:34.058066 22639257058176 pipeline.py:272] Got bucket size 1024 for input with 150 tokens, resulting in 874 padded tokens.
+[16:46:34] UFFTYPER: Unrecognized charge state for atom: 48
+[16:46:34] UFFTYPER: Unrecognized atom type: Zn4+2 (48)
+[16:46:35] UFFTYPER: Unrecognized charge state for atom: 48
+[16:46:35] UFFTYPER: Unrecognized atom type: Zn4+2 (48)
+E1015 16:46:35.710558 1810137 ptx_compiler_helpers.cc:88] *** WARNING *** Invoking ptxas with version 12.6.20, which corresponds to a CUDA version <=12.6.2. CUDA versions 12.x.y up to and including 12.6.2 miscompile certain edge cases around clamping.
+Please upgrade to CUDA 12.6.3 or newer.
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/jax/0.6.2-gfbf-2024a-CUDA-12.6.0/lib/python3.12/site-packages/jax/_src/pjit.py:415: DeprecationWarning: backend and device argument on jit is deprecated. You can use `jax.device_put(..., jax.local_devices(backend="cpu")[0])` on the inputs to the jitted function to get the same behavior.
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1760539682.374588 1810137 ptx_compiler_helpers.cc:88] *** WARNING *** Invoking ptxas with version 12.6.20, which corresponds to a CUDA version <=12.6.2. CUDA versions 12.x.y up to and including 12.6.2 miscompile certain edge cases around clamping.
+Please upgrade to CUDA 12.6.3 or newer.
+I1015 16:48:41.549061 22639257058176 run_alphafold_test.py:219] finished get_inference_result
+I1015 16:48:41.636435 22639257058176 run_alphafold_test.py:357] Comparing inference results with expected values.
+[       OK ] InferenceTest.test_inference_bucket_1024
+[ RUN      ] InferenceTest.test_inference_default_bucket
+I1015 16:48:41.986809 22639257058176 pipeline.py:173] processing 5tgy, random_seed=1
+I1015 16:48:41.999551 22639257058176 pipeline.py:266] Calculating bucket size for input with 150 tokens.
+I1015 16:48:41.999692 22639257058176 pipeline.py:272] Got bucket size 150 for input with 150 tokens, resulting in 0 padded tokens.
+[16:48:42] UFFTYPER: Unrecognized charge state for atom: 48
+[16:48:42] UFFTYPER: Unrecognized atom type: Zn4+2 (48)
+[16:48:43] UFFTYPER: Unrecognized charge state for atom: 48
+[16:48:43] UFFTYPER: Unrecognized atom type: Zn4+2 (48)
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/jax/0.6.2-gfbf-2024a-CUDA-12.6.0/lib/python3.12/site-packages/jax/_src/pjit.py:415: DeprecationWarning: backend and device argument on jit is deprecated. You can use `jax.device_put(..., jax.local_devices(backend="cpu")[0])` on the inputs to the jitted function to get the same behavior.
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+I1015 16:50:07.556874 22639257058176 run_alphafold_test.py:219] finished get_inference_result
+I1015 16:50:07.635410 22639257058176 run_alphafold_test.py:357] Comparing inference results with expected values.
+[       OK ] InferenceTest.test_inference_default_bucket
+[ RUN      ] InferenceTest.test_model_inference
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/jax/0.6.2-gfbf-2024a-CUDA-12.6.0/lib/python3.12/site-packages/jax/_src/pjit.py:415: DeprecationWarning: backend and device argument on jit is deprecated. You can use `jax.device_put(..., jax.local_devices(backend="cpu")[0])` on the inputs to the jitted function to get the same behavior.
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/Triton/3.3.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/triton/language/semantic.py:1687: UserWarning: tl.where with a non-boolean condition is deprecated and will error out in a future triton release. Got int8
+  warnings.warn(
+[       OK ] InferenceTest.test_model_inference
+[ RUN      ] InferenceTest.test_process_fold_input_runs_only_inference
+[       OK ] InferenceTest.test_process_fold_input_runs_only_inference
+----------------------------------------------------------------------
+Ran 4 tests in 304.980s
+
+OK
+
+Running fold job 5tgy...
+Output will be written in /tmp/absl_testing/InferenceTest/test_inference_bucket_1024/tmpt4rn9ko2
+Running data pipeline...
+Running data pipeline for chain P...
+Running data pipeline for chain P took 1.21 seconds
+Running data pipeline for chain LL...
+Running data pipeline for chain LL took 0.00 seconds
+Writing model input JSON to /tmp/absl_testing/InferenceTest/test_inference_bucket_1024/tmpt4rn9ko2/5tgy_data.json
+Predicting 3D structure for 5tgy with 1 seed(s)...
+Featurising data with 1 seed(s)...
+Featurising data with seed 42.
+Featurising data with seed 42 took 1.56 seconds.
+Featurising data with 1 seed(s) took 6.57 seconds.
+Running model inference and extracting output structure samples with 1 seed(s)...
+Running model inference with seed 42...
+Running model inference with seed 42 took 124.97 seconds.
+Extracting inference results with seed 42...
+Extracting 5 inference samples with seed 42 took 0.13 seconds.
+Running model inference and extracting output structures with 1 seed(s) took 125.11 seconds.
+Writing outputs with 1 seed(s)...
+Fold job 5tgy done, output written to /tmp/absl_testing/InferenceTest/test_inference_bucket_1024/tmpt4rn9ko2
+
+
+Running fold job 5tgy...
+Output will be written in /tmp/absl_testing/InferenceTest/test_inference_default_bucket/tmpzqhprxrq
+Running data pipeline...
+Running data pipeline for chain P...
+Running data pipeline for chain P took 0.03 seconds
+Running data pipeline for chain LL...
+Running data pipeline for chain LL took 0.00 seconds
+Writing model input JSON to /tmp/absl_testing/InferenceTest/test_inference_default_bucket/tmpzqhprxrq/5tgy_data.json
+Predicting 3D structure for 5tgy with 1 seed(s)...
+Featurising data with 1 seed(s)...
+Featurising data with seed 1.
+Featurising data with seed 1 took 1.35 seconds.
+Featurising data with 1 seed(s) took 1.35 seconds.
+Running model inference and extracting output structure samples with 1 seed(s)...
+Running model inference with seed 1...
+Running model inference with seed 1 took 83.14 seconds.
+Extracting inference results with seed 1...
+Extracting 5 inference samples with seed 1 took 0.12 seconds.
+Running model inference and extracting output structures with 1 seed(s) took 83.26 seconds.
+Writing outputs with 1 seed(s)...
+Fold job 5tgy done, output written to /tmp/absl_testing/InferenceTest/test_inference_default_bucket/tmpzqhprxrq
+
+
+Running fold job 5tgy...
+Output will be written in /tmp/absl_testing/InferenceTest/test_process_fold_input_runs_only_inference/tmpdpcjud3g
+Skipping data pipeline...
+Writing model input JSON to /tmp/absl_testing/InferenceTest/test_process_fold_input_runs_only_inference/tmpdpcjud3g/5tgy_data.json
+Predicting 3D structure for 5tgy with 1 seed(s)...
+Featurising data with 1 seed(s)...
