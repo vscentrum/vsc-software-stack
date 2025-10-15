@@ -44,12 +44,8 @@ dependencies = [
     ('HMMER', '3.4'),
 ]
 
-# Triton 3.3.1 chokes on the literal 0xFFFFFFFF when the lhs is int32
-local_preinstallopts = (
-    # "sed -i 's/0xFFFFFFFF/-1/g' %(start_dir)s/src/%(namelower)s/jax/attention/flash_attention.py && "
-    "sed -i 's/qk.to(tl.uint32, bitcast=True) & 0xFFFFFFFF/(qk.to(tl.int32, bitcast=True) & (-1)).to(qk.dtype, bitcast=True)/g' "
-    "%(start_dir)s/src/%(namelower)s/jax/attention/flash_attention.py && "
-)
+# unpin deps versions
+local_preinstallopts = "sed -i 's/==.*/\",/g' %(start_dir)s/pyproject.toml && "
 
 exts_list = [
     ('zstandard', '0.23.0', {
@@ -59,9 +55,9 @@ exts_list = [
         'checksums': ['00edaa8da3a133674796cf5ea87d9f4b4c367d77476e185e80251cc13dfbb8c4'],
     }),
     (name, version, {
-        # 'preinstallopts': local_preinstallopts,
+        'preinstallopts': local_preinstallopts,
         'patches': [
-            '%(name)s-3.0.0.20250109_relax_requirements.patch',
+            # '%(name)s-3.0.0.20250109_relax_requirements.patch',
             '%(name)s-3.0.0_disable_fetch.patch',
             '%(name)s-3.0.0.20250109_data_path.patch',
             # 'patch1.5.patch',
@@ -79,9 +75,9 @@ exts_list = [
         'sources': [{'download_filename': f'{local_commit}.tar.gz', 'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz'}],
         # 'testinstall': True,
         'checksums': [
-            {'AlphaFold3-3.0.1-a8ecdb2.tar.gz': '77cc1ee5e9d111bafd4cd6af01d43eee01059cb3f7fd2d19fd6c38d81082246d'},
-            {'AlphaFold3-3.0.0.20250109_relax_requirements.patch':
-             '5a60638e63f7b44f30447d306f0c196bd2505860e93c6670f646cd8967ea999b'},
+            {'AlphaFold3-3.0.1-v2-a8ecdb2.tar.gz': '77cc1ee5e9d111bafd4cd6af01d43eee01059cb3f7fd2d19fd6c38d81082246d'},
+            # {'AlphaFold3-3.0.0.20250109_relax_requirements.patch':
+            #  '5a60638e63f7b44f30447d306f0c196bd2505860e93c6670f646cd8967ea999b'},
             {'AlphaFold3-3.0.0_disable_fetch.patch':
              '041a35a09f783405f40e3ba47566ad6d063a10cfd98f0efd2e2a04c78e2c155e'},
             {'AlphaFold3-3.0.0.20250109_data_path.patch':

@@ -455,42 +455,44 @@ def _fwd(
 ) -> Float[Array, "*B T H D"]:
   """Forward pass of Triton FlashAttention."""
 
+  # Collapse Q to (B, T, H, D)
   orig_q_shape = q.shape
   q = q.collapse(0, -3, allow_copy=True)
   batch_size, seq_len_q, num_heads_q, head_dim = q.shape
+
+  # K/V: maybe broadcast heads, then collapse to (B, t, h, D)
   *_, seq_len_k, num_heads_kv, _ = k.shape
-  # Maybe broadcast `k`/`v` heads dimension.
   kv_shape = (batch_size, seq_len_k, num_heads_kv, head_dim)
   k = k.collapse(0, -3, allow_copy=True).broadcast_to(kv_shape)
   v = v.collapse(0, -3, allow_copy=True).broadcast_to(kv_shape)
 
+  # --- Fold boolean mask into bias as -inf on raw JAX arrays ---
+  if mask is not None:
+    # target broadcasted shape: (*B, H, T, t)
+    target_shape = orig_q_shape[:-3] + (num_heads_q, seq_len_q, seq_len_k)
+    mask_b = jnp.broadcast_to(mask, target_shape)
+    minus_inf = jnp.array(jnp.finfo(jnp.float32).min, jnp.float32)
+    mask_bias = jnp.where(mask_b, 0.0, minus_inf).astype(jnp.float32)
+    if bias is None:
+      bias = mask_bias
+    else:
+      # ensure bias is broadcasted and in f32 before adding
+      bias = jnp.broadcast_to(bias, target_shape).astype(jnp.float32) + mask_bias
+    # after folding, disable kernel's mask path
+    mask = None
+
+  # Helpers to create ArrayView(s) after folding.
   def get_bias_mask_view(x, dtype):
     if x is None:
       x = jnp.array([], dtype=dtype)
       return array_view.ArrayView(x, shape=(0, 0, 0, 0), strides=(0, 0, 0, 0))
     shape = orig_q_shape[:-3] + (num_heads_q, seq_len_q, seq_len_k)
     return (
-        array_view.ArrayView(x)
+        array_view.ArrayView(x.astype(dtype))
         .broadcast_to(shape)
         .collapse(0, -3, allow_copy=True)
     )
 
-  # Prepare views (NOTE: bias in float32 so it matches logits precision)
-  bias_view = get_bias_mask_view(bias, dtype=jnp.float32)
-  mask_view = get_bias_mask_view(mask, dtype=jnp.bool_)
-
-  # Fold mask -> bias and disable mask path
-  if mask_view.size != 0:
-    minus_inf = jnp.array(jnp.finfo(jnp.float32).min, jnp.float32)
-    mask_bias = jnp.where(mask_view.array, 0.0, minus_inf).astype(jnp.float32)
-    if bias_view.size != 0:
-      bias_view = array_view.ArrayView(bias_view.array + mask_bias)
-    else:
-      bias_view = array_view.ArrayView(mask_bias)
-    # after folding, pass an empty mask to kernel
-    mask_view = get_bias_mask_view(None, dtype=jnp.bool_)
-
-  # Range helpers
   def get_range_view(x, seq_len):
     if x is None:
       x = jnp.array([], dtype=jnp.int32)
@@ -502,20 +504,25 @@ def _fwd(
         .collapse(0, -2, allow_copy=True)
     )
 
-  k_start = get_range_view(k_start, seq_len_q)
-  k_end = get_range_view(k_end, seq_len_q)
+  # Build views now (bias in f32; mask empty view if None)
+  bias_view = get_bias_mask_view(bias, dtype=jnp.float32)
+  mask_view = get_bias_mask_view(mask, dtype=jnp.bool_)
+  k_start_view = get_range_view(k_start, seq_len_q)
+  k_end_view = get_range_view(k_end, seq_len_q)
 
+  # Kernel tiling
   block_q = 64
   block_k = 64
 
-  return jt.triton_call(
+  # Triton launch
+  out = jt.triton_call(
       q.base,
       k.base,
       v.base,
-      bias_view.base,           # folded (and float32) bias
-      mask_view.base,           # now empty
-      k_start.base,
-      k_end.base,
+      bias_view.base,
+      mask_view.base,
+      k_start_view.base,
+      k_end_view.base,
       q.offset,
       k.offset,
       v.offset,
@@ -524,9 +531,9 @@ def _fwd(
       *v.strides,
       *bias_view.strides,
       *mask_view.strides,
-      k_start.strides,
-      k_end.strides,
-      *jt.utils.strides_from_shape(q.shape),  # out strides.
+      k_start_view.strides,
+      k_end_view.strides,
+      *jt.utils.strides_from_shape(q.shape),  # out strides
       num_heads_q,
       num_heads_kv,
       seq_len_q,
@@ -538,9 +545,9 @@ def _fwd(
       num_stages=2,
       num_warps=4,
       is_causal=is_causal,
-      use_attention_mask=(mask_view.size != 0),   # now False if folded
-      use_k_start=(k_start.size != 0),
-      use_k_end=(k_end.size != 0),
+      use_attention_mask=(mask_view.size != 0),
+      use_k_start=(k_start_view.size != 0),
+      use_k_end=(k_end_view.size != 0),
       use_bias=(bias_view.size != 0),
       sm_scale=logits_scale,
       block_q=block_q,
@@ -548,11 +555,14 @@ def _fwd(
       head_dim=head_dim,
       use_mask_q=(seq_len_q % block_q != 0),
       use_mask_k=(seq_len_k % block_k != 0),
-      bias_bcast_sq=(bias_view.strides[-2] == 0),
-      mask_bcast_sq=(mask_view.strides[-2] == 0),
+      bias_bcast_sq=(bias_view.strides[-2] == 0 if bias_view.size != 0 else False),
+      mask_bcast_sq=(mask_view.strides[-2] == 0 if mask_view.size != 0 else False),
       dot_fn_qk=triton_utils.get_tl_dot_fn(q_k_dot_precision),
       dot_fn_kv=triton_utils.get_tl_dot_fn(weights_v_dot_precision),
-  ).reshape(orig_q_shape)
+  )
+
+  return out.reshape(orig_q_shape)
+
 
 def _as_batched_array_view(x, axis_size):
   batched_shape = (axis_size,) + x.shape
