@@ -26,6 +26,8 @@ toolchain = {'name': 'foss', 'version': '2025a'}
     # ok "mellon>=1.6.1",
     # OK "ml_dtypes>=0.5.0",
     # OK "igraph>=0.11.8",
+    # OK mellon 1.6.1 requires jax, which is not installed.
+    # ok mellon 1.6.1 requires jaxopt, which is not installed.
 
 dependencies = [
     ('Python', '3.13.1'),
@@ -37,12 +39,20 @@ dependencies = [
     ('anndata', '0.12.3'),
     ('scanpy', '1.11.4'),
     ('ml_dtypes', '0.5.1'),
-    ('igraph', '0.11.9'),
+    ('python-igraph', '0.11.9'),
+    ('jax', '0.7.0'),
 ]
 
 exts_list = [
-    ('mellon', '1.6.1'),
-    ('%(namelower)s', version),
+    ('jaxopt', '0.8.5', {
+        'checksums': ['2790bd68ef132b216c083a8bc7a2704eceb35a92c0fc0a1e652e79dfb1e9e9ab'],
+    }),
+    ('mellon', '1.6.1', {
+        'checksums': ['0870ed10fd145c2b6b518cab7390de7f532cad127918d988f8febf81cfe069aa'],
+    }),
+    ('palantir', version, {
+        'checksums': ['ea54acc48b6e28b84187cb2b4416582eab3e4f75b434b0a191fc737e8f92e3ed'],
+    }),
 ]
 
 moduleclass = 'bio'
