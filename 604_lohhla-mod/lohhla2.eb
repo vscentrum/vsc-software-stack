@@ -1,0 +1,80 @@
+easyblock = 'CmdCp'
+
+name = 'lohhla-mod'
+version = '20240902'
+local_commit = '63ec5f3'
+
+homepage = 'https://github.com/svm-zhang/lohhla-mod'
+description = "Modernized HLALOH, a HLA loss of heterozygosity detection algorithm."
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+# builddependencies = [('pkgconf', '2.2.0')]
+
+# github_account = 'bnprks'
+source_urls = ['https://github.com/svm-zhang/lohhla-mod/archive/']
+sources = [{'download_filename': f'{local_commit}.tar.gz', 'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz'}]
+checksums = ['324e847713e7a2b448fbf04ae5ff6965c0074b71197d0fae8c15d5578b28ffcd']
+
+# preinstallopts = "( cd %(builddir)s/BPCells-0.3.0 && mv r/* . ) && "
+
+dependencies = [
+    ('R', '4.4.2'),
+    ('R-bundle-CRAN', '2024.11'),
+    ('R-bundle-Bioconductor', '3.20', '-R-%(rver)s'),
+    ('SAMtools', '1.21'),
+]
+
+# cmds_map = [('.*',
+#     'mkdir -p %(installdir)s/{R,simulation,lohhla_example_og,bin} && '
+#     # 'cp -a R simulation lohhla_example_og README.md INSTALL.md %(installdir)s/ && '
+#     # CLI: lohhlamod
+#     'printf "#!/usr/bin/env bash\\nexec Rscript %(installdir)s/R/lohhlamod.R \\"$@\\"\\n" > %(installdir)s/bin/lohhlamod && '
+#     'chmod +x %(installdir)s/bin/lohhlamod && '
+#     # CLI: lohhlaplot
+#     'printf "#!/usr/bin/env bash\\nexec Rscript %(installdir)s/R/lohhlaplot.R \\"$@\\"\\n" > %(installdir)s/bin/lohhlaplot && '
+#     'chmod +x %(installdir)s/bin/lohhlaplot',
+# )]
+
+# cmds_map = []
+# ]
+
+files_to_copy = [
+    # CLI entry scripts land in bin (temporarily with .R names)
+    (['R/lohhlamod.R'], 'bin'),
+    (['R/lohhlaplot.R'], 'bin'),
+    # Helper R modules live under an R library-like path
+    (['R/bamer.R', 'R/cli.R', 'R/loh.R', 'R/pairwise_aln.R', 'R/pathio.R'], 'lib/R/library/lohhlamod'),
+    # Docs/examples (optional but useful)
+    (['README.md', 'INSTALL.md'], '.'),
+    (['lohhla_example_og'], '.'),
+    (['simulation'], '.'),
+]
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/bin',
+    # use copies to create extension-less names; swap to symlinks if you prefer
+    'cp -f %(installdir)s/bin/lohhlamod.R %(installdir)s/bin/lohhlamod',
+    'cp -f %(installdir)s/bin/lohhlaplot.R %(installdir)s/bin/lohhlaplot',
+    'chmod +x %(installdir)s/bin/lohhlamod.R %(installdir)s/bin/lohhlaplot.R %(installdir)s/bin/lohhlamod %(installdir)s/bin/lohhlaplot',
+]
+
+# files_to_copy = ['*']
+
+# postinstallcmds = [
+#     'mkdir -p %(installdir)s/bin',
+#     # Thin wrappers; use Rscript to run the repo’s scripts
+#     r'printf "#!/usr/bin/env bash\\nexec Rscript %(installdir)s/R/lohhlamod.R \\"$@\\"\\n" > %(installdir)s/bin/lohhlamod',
+#     'chmod +x %(installdir)s/bin/lohhlamod',
+#     r'printf "#!/usr/bin/env bash\\nexec Rscript %(installdir)s/R/lohhlaplot.R \\"$@\\"\\n" > %(installdir)s/bin/lohhlaplot',
+#     'chmod +x %(installdir)s/bin/lohhlaplot',
+# ]
+
+# start_dir = 'R'
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
+
+moduleclass = 'bio'
