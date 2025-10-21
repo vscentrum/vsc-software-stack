@@ -20,16 +20,13 @@ sources = [{
     },
     'filename': SOURCE_TAR_XZ,
 }]
-
 patches = [
     '%(name)s-1.0.0_dont_install_external_libraries.patch',
 ]
-
 checksums = [
-    {'dorado-1.0.2.tar.xz':
-     '6c07feb001de20f4d6bfc5b6199ecde159c836f67ac9e11002c89833a9d10bd6'},
+    {'dorado-1.1.1.tar.xz': 'e3aad85ab5076bae19a679332b71215c3b10faa745e3b46b7a35fc8fdb14fed6'},
     {'dorado-1.0.0_dont_install_external_libraries.patch':
-     'feaaf0144e4e1c4fc2b6eff55254491b0d0da83833a8e72451b91a7df142f2dd'},
+     '71bc987fcbd48c534fb91027a711aa26de750554dc02d9946933b6c68930e034'},
 ]
 
 builddependencies = [
@@ -66,6 +63,19 @@ preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/CMakeLists.txt && "
 preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/secondary/CMakeLists.txt && "
 preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/utils/CMakeLists.txt && "
 preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/torch_utils/CMakeLists.txt && "
+preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/hts_utils/CMakeLists.txt && "
+preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/hts_writer/CMakeLists.txt && "
+# replace literal library name everywhere in Dorado's cmake and CMakeLists
+# preconfigopts += "grep -Rl --exclude-dir=.git -w htslib ../dorado | xargs -r sed -i 's/\\bhtslib\\b/hts/g' && "
+# preconfigopts += "find ../dorado -type f \\( -name CMakeLists.txt -o -name '*.cmake' \\) -print0 | xargs -0 sed -i -E 's/\\<htslib\\>/hts/g' && "
+# preconfigopts += "grep -Rl --exclude-dir=.git 'find_package(\\s*hts\\b' ../dorado | xargs -r sed -i 's/find_package(\\s*hts\\b/find_package(htslib)/' && "
+preconfigopts += "find ../dorado -type f \\( -name CMakeLists.txt -o -name '*.cmake' \\) -not -path '../dorado/dorado/3rdparty/kadayashi/cmake/*' -print0 | xargs -0 sed -i -E 's/\\<htslib\\>/hts/g' && "
+# make the third-party finder hand back -lhts
+# preconfigopts += "sed -i 's/\\bset(HTSLIB_LIBRARIES htslib)\\b/set(HTSLIB_LIBRARIES hts)/' ../dorado/dorado/3rdparty/kadayashi/cmake/Findhtslib.cmake && "
+# preconfigopts += "sed -i 's/\\bset(HTSLIB_LIBRARIES htslib::hts)\\b/set(HTSLIB_LIBRARIES hts)/' ../dorado/dorado/3rdparty/kadayashi/cmake/Findhtslib.cmake && "
+preconfigopts += "sed -i -E 's/find_package\\(\\s*hts\\b/find_package(htslib/' ../dorado/dorado/3rdparty/kadayashi/CMakeLists.txt && "
+preconfigopts += "sed -i -E 's/\\bset\\(HTSLIB_LIBRARIES\\s+htslib(::hts)?\\)/set(HTSLIB_LIBRARIES hts)/' ../dorado/dorado/3rdparty/kadayashi/cmake/Findhtslib.cmake && "
+# preconfigopts += "sed -i 's/find_package(\\s*hts\\b/find_package(htslib/' ../dorado/dorado/3rdparty/kadayashi/CMakeLists.txt && "
 
 # disable treating warnings like errors by stripping out -Werror
 # cfr. https://github.com/nanoporetech/dorado/issues/779
@@ -87,7 +97,13 @@ _copts = [
     "-DDORADO_LIBTORCH_DIR=$EBROOTPYTORCH/lib",
     # add -pthread flag (in addition to -lpthread) to avoid linking error:
     # in function `_GLOBAL__sub_I_mutex.cc': mutex.cc:(.text.startup+0x17): undefined reference to `pthread_atfork'
-    '-DCMAKE_C_FLAGS="$CFLAGS -pthread -lcublas"',
+    # '-DCMAKE_C_FLAGS="$CFLAGS -pthread -lcublas"',
+    '-DCMAKE_C_FLAGS="$CFLAGS -pthread"',
+    '-DCMAKE_CXX_FLAGS="$CXXFLAGS -pthread"',
+    "-DHTSLIB_INCLUDE_DIR=$EBROOTHTSLIB/include",
+    "-DHTSLIB_LIBRARIES=$EBROOTHTSLIB/lib/libhts.so",
+    '-DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS -lcublas"',
+    '-DCMAKE_SHARED_LINKER_FLAGS="$LDFLAGS -lcublas"',
 ]
 
 configopts = ' '.join(_copts) + ' '
