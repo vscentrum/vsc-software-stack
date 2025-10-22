@@ -58,24 +58,15 @@ preconfigopts += "rm -r ../dorado/dorado/3rdparty/htslib/ && "
 preconfigopts += "sed -i '/add_dependencies.*htslib_project/d' ../dorado/CMakeLists.txt && "
 preconfigopts += "sed -i '/add_dependencies.*htslib_project/d' ../dorado/dorado/utils/CMakeLists.txt && "
 preconfigopts += "sed -i '/Htslib.cmake/d' ../dorado/CMakeLists.txt && "
-# link with -lhts, not -lhtslib
-preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/CMakeLists.txt && "
-preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/secondary/CMakeLists.txt && "
-preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/utils/CMakeLists.txt && "
-preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/torch_utils/CMakeLists.txt && "
-preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/hts_utils/CMakeLists.txt && "
-preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/hts_writer/CMakeLists.txt && "
-# replace literal library name everywhere in Dorado's cmake and CMakeLists
-# preconfigopts += "grep -Rl --exclude-dir=.git -w htslib ../dorado | xargs -r sed -i 's/\\bhtslib\\b/hts/g' && "
-# preconfigopts += "find ../dorado -type f \\( -name CMakeLists.txt -o -name '*.cmake' \\) -print0 | xargs -0 sed -i -E 's/\\<htslib\\>/hts/g' && "
-# preconfigopts += "grep -Rl --exclude-dir=.git 'find_package(\\s*hts\\b' ../dorado | xargs -r sed -i 's/find_package(\\s*hts\\b/find_package(htslib)/' && "
-preconfigopts += "find ../dorado -type f \\( -name CMakeLists.txt -o -name '*.cmake' \\) -not -path '../dorado/dorado/3rdparty/kadayashi/cmake/*' -print0 | xargs -0 sed -i -E 's/\\<htslib\\>/hts/g' && "
-# make the third-party finder hand back -lhts
-# preconfigopts += "sed -i 's/\\bset(HTSLIB_LIBRARIES htslib)\\b/set(HTSLIB_LIBRARIES hts)/' ../dorado/dorado/3rdparty/kadayashi/cmake/Findhtslib.cmake && "
-# preconfigopts += "sed -i 's/\\bset(HTSLIB_LIBRARIES htslib::hts)\\b/set(HTSLIB_LIBRARIES hts)/' ../dorado/dorado/3rdparty/kadayashi/cmake/Findhtslib.cmake && "
-preconfigopts += "sed -i -E 's/find_package\\(\\s*hts\\b/find_package(htslib/' ../dorado/dorado/3rdparty/kadayashi/CMakeLists.txt && "
-preconfigopts += "sed -i -E 's/\\bset\\(HTSLIB_LIBRARIES\\s+htslib(::hts)?\\)/set(HTSLIB_LIBRARIES hts)/' ../dorado/dorado/3rdparty/kadayashi/cmake/Findhtslib.cmake && "
-# preconfigopts += "sed -i 's/find_package(\\s*hts\\b/find_package(htslib/' ../dorado/dorado/3rdparty/kadayashi/CMakeLists.txt && "
+# rename link target 'htslib' -> 'hts' only in CMake files, excluding kadayashi's cmake dir
+preconfigopts += "find ../dorado -type f \\( -name CMakeLists.txt -o -name '*.cmake' \\) "
+preconfigopts += "-not -path '../dorado/dorado/3rdparty/kadayashi/cmake/*' -print0 | "
+preconfigopts += "xargs -0 sed -i -E 's/\\<htslib\\>/hts/g' && "
+# keep kadayashi's find_package on 'htslib' and make it return -lhts via its finder
+preconfigopts += "sed -i -E 's/find_package\\(\\s*hts\\b/find_package(htslib/' "
+preconfigopts += "../dorado/dorado/3rdparty/kadayashi/CMakeLists.txt && "
+preconfigopts += "sed -i -E 's/\\bset\\(HTSLIB_LIBRARIES\\s+htslib(::hts)?\\)/set(HTSLIB_LIBRARIES hts)/' "
+preconfigopts += "../dorado/dorado/3rdparty/kadayashi/cmake/Findhtslib.cmake && "
 
 # disable treating warnings like errors by stripping out -Werror
 # cfr. https://github.com/nanoporetech/dorado/issues/779
@@ -97,7 +88,6 @@ _copts = [
     "-DDORADO_LIBTORCH_DIR=$EBROOTPYTORCH/lib",
     # add -pthread flag (in addition to -lpthread) to avoid linking error:
     # in function `_GLOBAL__sub_I_mutex.cc': mutex.cc:(.text.startup+0x17): undefined reference to `pthread_atfork'
-    # '-DCMAKE_C_FLAGS="$CFLAGS -pthread -lcublas"',
     '-DCMAKE_C_FLAGS="$CFLAGS -pthread"',
     '-DCMAKE_CXX_FLAGS="$CXXFLAGS -pthread"',
     "-DHTSLIB_INCLUDE_DIR=$EBROOTHTSLIB/include",
