@@ -1,0 +1,110 @@
+eb cp2k-CUDA.eb --rebuild --robot --cuda-compute-capabilities=8.6
+== Temporary log file in case of crash /tmp/vsc47063/eb-ol0z1iqn/easybuild-62zvcq0i.log
+== resolving dependencies ...
+== processing EasyBuild easyconfig /kyukon/data/gent/470/vsc47063/vsc-software-stack/297_CP2K/cp2k-CUDA.eb
+== building and installing CP2K/2025.2-foss-2025a...
+  >> installation prefix: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/CP2K/2025.2-foss-2025a
+== fetching files and verifying checksums...
+  >> sources:
+  >> /data/gent/vo/001/gvo00117/easybuild/sources/c/CP2K/cp2k-2025.2.tar.bz2 [SHA256:
+c8392a4e123304644ec8d241443796277c6ed7ae977452317e779f3c387c2e19]
+== ... (took < 1 sec)
+== creating build dir, resetting environment...
+  >> build dir: /tmp/vsc47063/easybuild/build/CP2K/2025.2/foss-2025a
+== ... (took < 1 sec)
+== unpacking...
+  >> running shell command:
+        tar xjf /data/gent/vo/001/gvo00117/easybuild/sources/c/CP2K/cp2k-2025.2.tar.bz2
+        [started at: 2025-10-22 18:31:03]
+        [working dir: /tmp/vsc47063/easybuild/build/CP2K/2025.2/foss-2025a]
+        [output and state saved to /tmp/vsc47063/eb-ol0z1iqn/run-shell-cmd-output/tar-7tnafum_]
+  >> command completed: exit 0, ran in 00h00m10s
+== ... (took 10 secs)
+== patching...
+== ... (took < 1 sec)
+== preparing...
+  >> loading toolchain module: foss/2025a
+  >> loading modules for build dependencies:
+  >>  * flex/2.6.4-GCCcore-14.2.0  
+  >>  * Bison/3.8.2-GCCcore-14.2.0 
+  >> loading modules for (runtime) dependencies:
+  >>  * CUDA/12.8.0
+  >>  * Libint/2.11.1-GCC-14.2.0-lmax-6-cp2k
+  >>  * libxc/7.0.0-GCC-14.2.0
+  >>  * libvori/220621-GCCcore-14.2.0
+  >>  * FFTW/3.3.10-GCC-14.2.0
+  >>  * HDF5/1.14.6-gompi-2025a
+  >>  * PLUMED/2.9.4-foss-2025a
+  >>  * SIRIUS/7.8.0-foss-2025a
+  >>  * libxsmm/1.17-GCC-14.2.0
+  >> defining build environment for foss/2025a toolchain
+== ... (took 22 secs)
+== configuring...
+== ... (took < 1 sec)
+== building...
+  >> running shell command:
+        make  MAKE="make -j 8"  ARCH=Linux-x86-64-foss-cuda VERSION=psmp  clean
+        [started at: 2025-10-22 18:31:36]
+        [working dir: /tmp/vsc47063/easybuild/build/CP2K/2025.2/foss-2025a/cp2k-2025.2]
+        [output and state saved to /tmp/vsc47063/eb-ol0z1iqn/run-shell-cmd-output/make-vtbq0crg]
+  >> command completed: exit 0, ran in < 1s
+  >> running shell command:
+        make  MAKE="make -j 8"  ARCH=Linux-x86-64-foss-cuda VERSION=psmp  all
+        [started at: 2025-10-22 18:31:37]
+        [working dir: /tmp/vsc47063/easybuild/build/CP2K/2025.2/foss-2025a/cp2k-2025.2]
+[output and state saved to /tmp/vsc47063/eb-ol0z1iqn/run-shell-cmd-output/make-1nl4ik8h]
+  >> command completed: exit 0, ran in 00h11m18s
+== ... (took 11 mins 19 secs)
+== testing...
+  >> running shell command:
+        /tmp/vsc47063/easybuild/build/CP2K/2025.2/foss-2025a/cp2k-2025.2/tests/do_regtest.py --maxtasks 8 --maxerrors 10000
+--timeout 10000 --debug /tmp/vsc47063/easybuild/build/CP2K/2025.2/foss-2025a/cp2k-2025.2/exe/Linux-x86-64-foss-cuda psmp
+        [started at: 2025-10-22 18:42:56]
+        [working dir: /tmp/vsc47063/easybuild/build/CP2K/2025.2/foss-2025a]
+        [output and state saved to /tmp/vsc47063/eb-ol0z1iqn/run-shell-cmd-output/do_regtestpy-bl7opgni]
+  >> command completed: exit 0, ran in 02h57m16s
+== ... (took 2 hours 57 mins 16 secs)
+== installing...
+== ... (took 22 secs)
+== taking care of extensions...
+== ... (took < 1 sec)
+== restore after iterating...
+== ... (took < 1 sec)
+== postprocessing...
+== ... (took < 1 sec)
+== sanity checking...
+  >> file 'bin/cp2k.psmp' found: OK
+  >> (non-empty) directory 'data' found: OK
+  >> (non-empty) directory 'tests' found: OK
+  >> loading modules: CP2K/2025.2-foss-2025a...
+  >> CUDA sanity check summary report:
+  >> Number of CUDA files checked: 9
+  >> Number of files missing one or more CUDA Compute Capabilities: 3
+  >> (not running with --cuda-sanity-check-error-on-failed-checks, so not considered failures)
+  >> Number of files with device code for more CUDA Compute Capabilities than requested: 9
+  >> (not running with --cuda-sanity-check-error-on-failed-checks, so not considered failures)
+  >> Number of files missing PTX code for the highest configured CUDA Compute Capability: 3
+  >> (not running with --cuda-sanity-check-error-on-failed-checks, so not considered failures)
+  >> You may consider rerunning with --cuda-sanity-check-accept-ptx-as-devcode to accept suitable PTX code instead of device
+code.
+  >> You may consider running with --cuda-sanity-check-accept-missing-ptx to accept binaries missing PTX code for the highest
+configured CUDA Compute Capability.
+  >> See build log for detailed lists of files not passing the CUDA Sanity Check
+== ... (took 15 secs)
+== cleaning up...
+== ... (took < 1 sec)
+== creating module...
+  >> generating module file @
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/modules/all/CP2K/2025.2-foss-2025a.lua
+== ... (took 5 secs)
+== permissions...
+== ... (took 15 secs)
+== packaging...
+== ... (took < 1 sec)
+== COMPLETED: Installation ended successfully (took 3 hours 10 mins 17 secs)
+== Results of the build can be found in the log file(s)
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/CP2K/2025.2-foss-2025a/easybuild/easybuild-CP2K-202
+5.2-20251022.214120.log
+== Build succeeded for 1 out of 1  
+== Summary:
+   * [SUCCESS] CP2K/2025.2-foss-2025a
