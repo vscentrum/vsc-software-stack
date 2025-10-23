@@ -1,5 +1,6 @@
 name = 'CP2K'
 version = '2025.2'
+versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://www.cp2k.org/'
 description = """CP2K is a freely available (GPL) program, written in Fortran 95, to perform atomistic and molecular
@@ -30,7 +31,7 @@ dependencies = [
     ('SIRIUS', '7.8.0'),
 ]
 
-gpuver = 'A40' # donphan
+# gpuver = 'A40' # donphan
 
 if ARCH == 'x86_64':
     # LIBXSMM is not supported supported on ARM with GCC 12.2.0 and 12.3.0
@@ -49,4 +50,3 @@ sanity_check_paths = {
 }
 
 moduleclass = 'chem'
-
