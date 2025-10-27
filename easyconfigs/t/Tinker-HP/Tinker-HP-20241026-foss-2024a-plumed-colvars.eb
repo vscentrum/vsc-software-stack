@@ -49,6 +49,7 @@ configopts = '--with-blaslib=mkl --enable-fft-mkl --enable-plumed --enable-colva
 
 postinstallcmds = [
     'cp -r bin params plumed/Gnu/* %(installdir)s',
+    'chmod a+x %(installdir)s/bin/tinkerhp',
     'mv tinkerhp.wrapper %(installdir)s/bin/tinkerhp',
 ]
 
