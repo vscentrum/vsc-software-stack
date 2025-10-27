@@ -48,7 +48,7 @@ configure_without_installdir = True
 configopts = '--with-blaslib=mkl --enable-fft-mkl --enable-plumed --enable-colvars'
 
 postinstallcmds = [
-    'cp -a bin params plumed/Gnu/* %(installdir)s',
+    'cp -r bin params plumed/Gnu/* %(installdir)s',
     'mv tinkerhp.wrapper %(installdir)s/bin/tinkerhp',
 ]
 
