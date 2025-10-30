@@ -1,0 +1,66 @@
+easyblock = 'CMakeMake'
+
+name = 'OpenSim'
+version = '4.5.2'
+versionsuffix = '-with-matlab'
+
+homepage = 'https://github.com/opensim-org/opensim-core'
+description = """OpenSim is software that lets users develop models of musculoskeletal structures and create dynamic simulations of movement"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/opensim-org/opensim-core/archive/']
+sources = ['%(version)s.tar.gz']
+checksums = ['53c7c477aeef334109d7ea991251c1f680777d42e59d878fef808ad6d28a98f2']
+patches = [
+    'OpenSim-%(version)s_fix-docopt-includes-link.patch',
+    'OpenSim-%(version)s_CMake-grab-correct-libraries.patch',
+]
+
+builddependencies = [
+    ('CMake', '3.29.3'),
+    ('pkgconf', '2.2.0'),
+    ('Doxygen', '1.11.0'),
+    ('git', '2.45.1'),
+    ('spdlog', '1.4.1'),  # OpenSim needs this very old version
+    ('Catch2', '3.8.0'),
+    ('SWIG', '4.2.1'),
+]
+
+dependencies = [
+    ('EZC3D', '1.6.0'),
+    ('MATLAB', '2024a-r6', '', SYSTEM),
+    ('Simbody', '3.8'),
+    ('CasADi', '3.7.0', '-with-matlab'),
+    ('ColPack', '20180108'),
+    ('Eigen', '3.4.0'),
+    ('ADOL-C', '2.7.2'),
+    ('Java', '8', '', SYSTEM), # version used by MATLAB
+    ('docopt.cpp', '0.6.3-400e6dd'),
+]
+
+
+# An old CMake module for MATLAB is included in the source which does not
+# handle recent MATLAB versions correctly. Remove it and realy on the CMake
+# module for MATLAB in the CMake installation instead.
+preconfigopts = 'rm ../opensim-core-%(version)s/cmake/FindMatlab.cmake && '
+
+# In newer versions of CasADi the target casadi has been replaced with casadi::casadi
+preconfigopts += "sed -i 's/get_target_property(CASADI_LIBRARY_LOCATION casadi LOCATION)/set(CASADI_LIBRARY_LOCATION casadi::casadi)/' ../opensim-core-%(version)s/cmake/CMakeLists.txt && "
+
+configopts = ' -G"Unix Makefiles" -DOPENSIM_WITH_CASADI=on -DBUILD_JAVA_WRAPPING=on '
+configopts += '-DBUILD_PYTHON_WRAPPING=off -DOPENSIM_C3D_PARSER=ezc3d '
+configopts += '-DBUILD_TESTING=off -DOPENSIM_INSTALL_UNIX_FHS=off ' # Turn off unix FHS, otherwise default directories are used to store files
+configopts += '-DSWIG_DIR=${EBROOTSWIG} -DSIMBODY_HOME=${EBROOTSIMBODY} '
+configopts += '-DOPENSIM_WITH_TROPTER=off '
+
+sanity_check_paths = {
+    'files': ['bin/opensim-cmd'],
+    'dirs': ['sdk'],
+}
+
+modextrapaths = {
+    'CPATH': ['sdk/include', 'sdk/Simbody/include/simbody'],
+}
+
+moduleclass = 'tools'
