@@ -1,7 +1,7 @@
 name = 'MATLAB'
 version = '2025a'
-#_update = '1'
-#versionsuffix = '-r%s' % _update
+_update = '1'
+versionsuffix = '-r%s' % _update
 
 homepage = 'https://www.mathworks.com/products/matlab'
 description = """MATLAB is a high-level language and interactive environment
@@ -10,9 +10,8 @@ description = """MATLAB is a high-level language and interactive environment
 
 toolchain = SYSTEM
 
-#sources = ['R%s_Update_%s_Linux.iso' % (version, _update)]
-sources = ['R%s_Linux.iso' % (version)]
-checksums = ['7212d3aa853639131b7dc1a9da128ed1cd90a11e22ed05fb9322e41146fe9969']
+sources = ['R%s_Update_%s_Linux.iso' % (version, _update)]
+checksums = ['fa2de4c800b1a3c7fbb6c2c1efbe410f13e044d8196bc9cc31bf514fdefabe8b']
 download_instructions = 'Download %s from mathworks.com' % sources[0]
 
 java_options = '-Xmx2048m'
@@ -21,7 +20,7 @@ osdependencies = [
     ('p7zip-plugins', 'p7zip-full'),   # for extracting iso-files
     ('at-spi2-atk', 'libatk-bridge2.0-0t64'),
 ]
-dependencies = [('MathWorksServiceHost', '2025.5.1.1')]
+dependencies = [('MathWorksServiceHost', '2025.9.0.2')]
 
 # Use EB_MATLAB_KEY environment variable or uncomment and modify license key
 # key = '00000-00000-00000-00000-00000-00000-00000-00000-00000-00000-00000-00000'
