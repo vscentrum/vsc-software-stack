@@ -1,0 +1,71 @@
+easyblock = 'Binary'
+
+name = 'juicer'
+version = '1.6'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/aidenlab/juicer'
+description = """Juicer is a platform for analyzing kilobase resolution Hi-C data.
+In this distribution, we include the pipeline for generating Hi-C maps from fastq raw data files
+and command line tools for feature annotation on the Hi-C maps."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/aidenlab/juicer/archive/']
+sources = [
+    {
+        'download_filename': '%(version)s.tar.gz',
+        'filename': '%(name)s-%(version)s.tar.gz',
+        # 'extract_cmd': 'tar xzf %s', # not working
+    },
+    # https://github.com/aidenlab/JuicerTools/releases/download/v3.0.0/juicer_tools.3.0.0.jar
+    {
+        'source_urls': ['https://github.com/aidenlab/JuicerTools/releases/download/v3.0.0/'],
+        'filename': 'juicer_tools.3.0.0.jar',
+        'extract_cmd': '',
+    },
+]
+checksums = [
+    {'juicer-1.6.tar.gz': 'cef7783a2ddfbacbf4b229f6a4e236c534780b6bb4ec7f84fe8497cd6e57d3b0'},
+    {'juicer_tools.3.0.0.jar': 'fa5ad7f76681de79b010901c545a0307cf3fd951d7d30af22a51800e0bafe792'},
+]
+
+extract_sources = True
+
+dependencies = [
+    ('CUDA', '12.6.0', '', SYSTEM),
+    ('Java', '17', '', SYSTEM),
+    ('BWA', '0.7.18'),
+    ('SAMtools', '1.21'),
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+]
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/bin',
+    'ln -s %(installdir)s/SLURM/scripts/juicer.sh %(installdir)s/bin/juicer && chmod +x %(installdir)s/bin/juicer',
+    "ln -s %(installdir)s/SLURM/scripts/juicer_arrowhead.sh %(installdir)s/bin/juicer_arrowhead",
+    "ln -s %(installdir)s/SLURM/scripts/juicer_hiccups.sh %(installdir)s/bin/juicer_hiccups",
+    "ln -s %(installdir)s/SLURM/scripts/juicer_tools %(installdir)s/bin/juicer_tools",    
+]
+
+# sanity_check_paths = {
+#     'files': ['bin/lohhlamod', 'bin/lohhlaplot'],
+#     'dirs': ['lib/R/library/lohhlamod'],
+# }
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['SLURM'],
+}
+
+# sanity_check_commands = [
+#     'lohhlamod --help',
+#     'lohhlaplot --help',
+# ]
+
+# modextrapaths = {'R_LIBS_SITE': 'lib/R/library'}
+
+moduleclass = 'tools'
+
+# latest native JCuda is for 12.6.0 -> go for foss/2024a
