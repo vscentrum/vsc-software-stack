@@ -31,8 +31,6 @@ dependencies = [
     ('SIRIUS', '7.8.0'),
 ]
 
-# gpuver = 'A40' # donphan
-
 if ARCH == 'x86_64':
     # LIBXSMM is not supported supported on ARM with GCC 12.2.0 and 12.3.0
     # see https://www.cp2k.org/dev:compiler_support
@@ -41,8 +39,6 @@ if ARCH == 'x86_64':
     ]
 
 type = 'psmp'
-
-# ignore_regtest_fails = True
 
 sanity_check_paths = {
     'files': ['bin/%(namelower)s.psmp'],
