@@ -1,0 +1,57 @@
+Fix wrong test:
+/tmp/vsc47063/easybuild/build/CP2K/2025.2/foss-2025a-CUDA-12.8.0/cp2k-2025.2/exe/Linux-x86-64-foss-cuda/TEST-2025-11-04_19-46-25/QS/regtest-ri-rpa-exchange/RPA_AXK_H2O_hfx.inp.out
+Spec: {'matcher': 'M011', 'tol': 4e-07, 'ref': -17.12200174834252}
+Could not parse result as float: '**************************'.
+--- a/tests/QS/regtest-ri-rpa-exchange/RPA_AXK_H2O_hfx.inp
++++ b/tests/QS/regtest-ri-rpa-exchange/RPA_AXK_H2O_hfx.inp
+@@ -1,7 +1,7 @@
+ &GLOBAL
+   PREFERRED_FFT_LIBRARY FFTSG
+-  PRINT_LEVEL MEDIUM
++  PRINT_LEVEL LOW
+   PROJECT RPA_AXK_H2O
+   RUN_TYPE ENERGY
+   &TIMINGS
+@@ -30,6 +30,10 @@
+     &XC
+       &WF_CORRELATION
+         MEMORY 200.
++        &PRINT
++          &PROGRAM_RUN_INFO OFF
++        &END PRINT
++
+         NUMBER_PROC 1
+         &INTEGRALS
+           ERI_METHOD GPW
+@@ -43,6 +47,14 @@
+         &RI_RPA
+           RPA_NUM_QUAD_POINTS 1
++          &PRINT
++            &PROGRAM_RUN_INFO OFF
++          &END PRINT
++
++          &HF
++            &PRINT
++              &PROGRAM_RUN_INFO OFF
++            &END PRINT
++          &END HF
+           &EXCHANGE_CORRECTION AXK
+             USE_HFX_IMPLEMENTATION T
+           &END EXCHANGE_CORRECTION
+-          &HF
+-            FRACTION 1.0000000
+-            &SCREENING
+-              EPS_SCHWARZ 1.0E-6
+-              SCREEN_ON_INITIAL_P FALSE
+-            &END SCREENING
+-          &END HF
++          &HF
++            FRACTION 1.0000000
++            &SCREENING
++              EPS_SCHWARZ 1.0E-6
++              SCREEN_ON_INITIAL_P FALSE
++            &END SCREENING
++          &END HF
+         &END RI_RPA
+       &END WF_CORRELATION
+       &XC_FUNCTIONAL PBE
