@@ -22,7 +22,7 @@ sources = [
     {
         'source_urls': ['https://github.com/aidenlab/JuicerTools/releases/download/v3.0.0/'],
         'filename': 'juicer_tools.3.0.0.jar',
-        'extract_cmd': 'mv %s %(builddir)s',
+        'extract_cmd': 'cp %s %(builddir)s/%(name)s-%(version)s/SLURM/scripts',
     },
 ]
 checksums = [
@@ -55,7 +55,7 @@ postinstallcmds = [
 # }
 
 sanity_check_paths = {
-    'files': [],
+    'files': ['SLURM/scripts/juicer_tools.3.0.0.jar'],
     'dirs': ['SLURM'],
 }
 
