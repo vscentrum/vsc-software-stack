@@ -1,0 +1,72 @@
+# Author: Ine Arts (Universiteit Antwerpen)
+
+easyblock = 'MakeCp'
+
+name = 'VASP'
+version = '6.5.1'
+
+homepage = 'http://www.vasp.at'
+description = """
+The Vienna Ab initio Simulation Package (VASP) is a computer program for atomic scale
+materials modelling, e.g. electronic structure calculations and quantum-mechanical molecular dynamics,
+from first principles.
+
+This is a GPU-enabled build.
+"""
+
+toolchain = {'name': 'NVHPC', 'version': '24.9-CUDA-12.6.0'}
+toolchainopts = {'openmp': True, 'pic': True}
+
+# Vasp is proprietary software, see http://www.vasp.at/index.php/faqs on how to get access to the code
+sources = ['%(namelower)s.%(version)s.tgz']
+patches = [('VASP-6.5.1-NVHPC-24.9-CUDA-12.6.0_enable_cusolvermp_hdf5_vaspml.patch', 1)]
+checksums = [
+    'a53fd9dd2a66472a4aa30074dbda44634fc663ea2628377fc01d870e37136f61',  # vasp.6.5.1.tgz
+    '5cce4e8d988156b0ea389a831b091e7391ed5e8539213185b51d8275b7760eb0'   # VASP-6.5.1-NVHPC-24.9-CUDA-12.6.0_enable_cusolvermp_hdf5_vaspml.patch 
+]
+
+dependencies = [
+    ('HDF5', '1.14.5' , '-serial'),
+    ('NCCL', '2.22.3', '', {'name': 'GCCcore', 'version': '13.3.0-CUDA-12.6.0'}),
+    ('OpenMPI', '5.0.3'),
+    ('imkl', '2024.2.0', '', SYSTEM),
+]
+
+prebuildopts = 'cp -v arch/makefile.include.nvhpc_ompi_mkl_omp_acc ./makefile.include && '
+
+# Makefile uses LIBS as a list of folders
+prebuildopts += 'unset LIBS && '
+
+_targets = ['std', 'gam', 'ncl']
+
+# https://www.vasp.at/wiki/index.php/Validation_tests
+pretestopts = 'export OMP_STACKSIZE=512m && '
+pretestopts += 'export LD_LIBRARY_PATH=$EBROOTNVHPC/Linux_x86_64/$EBVERSIONNVHPC/compilers/extras/qd/lib:$LD_LIBRARY_PATH && '
+
+pretestopts += 'export VASP_TESTSUITE_EXE_STD="mpirun -np 2 %(builddir)s/%(namelower)s.%(version)s/bin/vasp_std" && '
+pretestopts += 'export VASP_TESTSUITE_EXE_GAM="mpirun -np 2 %(builddir)s/%(namelower)s.%(version)s/bin/vasp_gam" && '
+pretestopts += 'export VASP_TESTSUITE_EXE_NCL="mpirun -np 2 %(builddir)s/%(namelower)s.%(version)s/bin/vasp_ncl" && '
+pretestopts += 'export VASP_TESTSUITE_CUDA=Y && export VASP_TESTSUITE_SKIP_NOCUDA=Y && '
+runtest = 'test'
+
+buildopts = 'DEPS=1 '  # required for VASP parallel builds
+
+files_to_copy = [
+    (['bin/vasp_' + x for x in _targets], 'bin'),
+    (['testsuite'], ''),
+]
+
+sanity_check_paths = {
+    'files': ['bin/vasp_' + x for x in _targets],
+    'dirs': []
+}
+
+modextravars = {
+    'OMP_STACKSIZE': "512m"
+}
+
+modextrapaths = {
+    'LD_LIBRARY_PATH': '$EBROOTNVHPC/Linux_x86_64/$EBVERSIONNVHPC/compilers/extras/qd/lib'
+}
+
+moduleclass = 'phys'

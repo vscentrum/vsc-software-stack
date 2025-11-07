@@ -1,0 +1,99 @@
+Use a combination of NVIDIA-HPC SDK and Intel MKL
+Enable cusolvermp, HDF5 and vaspml
+Author: Ine Arts (Universiteit Antwerpen)
+
+--- vasp.6.5.1_orig/arch/makefile.include.nvhpc_ompi_mkl_omp_acc	2024-12-16 16:35:35.000000000 +0100
++++ vasp.6.5.1/arch/makefile.include.nvhpc_ompi_mkl_omp_acc		2025-01-08 01:34:02.392286129 +0100
+@@ -9,6 +9,7 @@
+               -Dqd_emulate \
+               -Dfock_dblbuf \
+               -D_OPENMP \
++              -D_LONGCHAR \
+               -DACC_OFFLOAD \
+               -DNVCUDA \
+               -DUSENCCL
+@@ -16,10 +17,14 @@
+ CPP         = nvfortran -Mpreprocess -Mfree -Mextend -E $(CPP_OPTIONS) $*$(FUFFIX)  > $*$(SUFFIX)
+ 
+ # N.B.: you might need to change the cuda-version here
+-#       to one that comes with your NVIDIA-HPC SDK
+-CC          = mpicc  -acc -gpu=cc60,cc70,cc80,cuda11.8 -mp
+-FC          = mpif90 -acc -gpu=cc60,cc70,cc80,cuda11.8 -mp
+-FCL         = mpif90 -acc -gpu=cc60,cc70,cc80,cuda11.8 -mp -c++libs
++#       to one that comes with your NVIDIA-HPC SDK, and
++#       the compute capabilities to the ones applicable
++#       to the hardware you are targeting
++GPU        ?= -gpu=cc60,cc61,cc80,cuda12.6
++
++CC          = mpicc  -mp -acc $(GPU)
++FC          = mpif90 -mp -acc $(GPU)
++FCL         = mpif90 -mp -acc $(GPU) -c++libs
+ 
+ FREE        = -Mfree
+ 
+@@ -68,18 +73,19 @@
+ #NVROOT      = $(NVHPC)/Linux_x86_64/$(NVVERSION)
+ 
+ ## Improves performance when using NV HPC-SDK >=21.11 and CUDA >11.2
+-#OFLAG_IN   = -fast -Mwarperf
+-#SOURCE_IN  := nonlr.o
++OFLAG_IN   = -fast -Mwarperf
++SOURCE_IN  := nonlr.o
+ 
+ # Software emulation of quadruple precsion (mandatory)
+-QD         ?= $(NVROOT)/compilers/extras/qd
++#QD         ?= $(NVROOT)/compilers/extras/qd
++QD         ?= $(EBROOTNVHPC)/Linux_x86_64/$(EBVERSIONNVHPC)/compilers/extras/qd
+ LLIBS      += -L$(QD)/lib -lqdmod -lqd
+ INCS       += -I$(QD)/include/qd
+ 
+ # Intel MKL for FFTW, BLAS, LAPACK, and scaLAPACK
+-MKLROOT    ?= /path/to/your/mkl/installation
+-#MKLLIBS     = -Mmkl
+-MKLLIBS     = -lmkl_intel_lp64 -lmkl_pgi_thread -lmkl_core -pgf90libs -mp -lpthread -lm -ldl
++MKLROOT    ?= $(EBROOTIMKL)/mkl/2024.2
++MKLLIBS     = -Mmkl
++#MKLLIBS     = -lmkl_intel_lp64 -lmkl_pgi_thread -lmkl_core -pgf90libs -mp -lpthread -lm -ldl
+ 
+ # If you want to use scaLAPACK from MKL
+ LLIBS_MKL   = -L$(MKLROOT)/lib -lmkl_scalapack_lp64 -lmkl_blacs_openmpi_lp64 $(MKLLIBS)
+@@ -95,14 +101,14 @@
+ 
+ # Use cusolvermp (optional)
+ # supported as of NVHPC-SDK 24.1 (and needs CUDA-11.8)
+-#CPP_OPTIONS+= -DCUSOLVERMP -DCUBLASMP
+-#LLIBS      += -cudalib=cusolvermp,cublasmp -lnvhpcwrapcal
++CPP_OPTIONS+= -DCUSOLVERMP -DCUBLASMP
++LLIBS      += -cudalib=cusolvermp,cublasmp -lnvhpcwrapcal
+ 
+ # HDF5-support (optional but strongly recommended, and mandatory for some features)
+-#CPP_OPTIONS+= -DVASP_HDF5
+-#HDF5_ROOT  ?= /path/to/your/hdf5/installation
+-#LLIBS      += -L$(HDF5_ROOT)/lib -lhdf5_fortran
+-#INCS       += -I$(HDF5_ROOT)/include
++CPP_OPTIONS+= -DVASP_HDF5
++HDF5_ROOT  ?= $(EBROOTHDF5)
++LLIBS      += -L$(HDF5_ROOT)/lib -lhdf5_fortran
++INCS       += -I$(HDF5_ROOT)/include
+ 
+ # For the VASP-2-Wannier90 interface (optional)
+ #CPP_OPTIONS    += -DVASP2WANNIER90
+@@ -118,12 +124,13 @@
+ #LLIBS      += -ldl
+ 
+ # For machine learning library vaspml (experimental)
+-#CPP_OPTIONS += -Dlibvaspml
+-#CPP_OPTIONS += -DVASPML_USE_CBLAS
++CPP_OPTIONS += -Dlibvaspml
++CPP_OPTIONS += -DVASPML_USE_CBLAS
++CPP_OPTIONS += -DVASPML_USE_MKL
+ #CPP_OPTIONS += -DVASPML_DEBUG_LEVEL=3
+-#CXX_ML      = mpic++ -mp
+-#CXXFLAGS_ML = -O3 -std=c++17 -Wall -Wextra
+-#INCLUDE_ML  =
++CXX_ML      = mpic++ -mp
++CXXFLAGS_ML = -O3 -std=c++17 -Wall -Wextra
++INCLUDE_ML  =
+ 
+ # Add -gpu=tripcount:host to compiler commands for NV HPC-SDK > 25.1
+ NVFORTRAN_VERSION := $(shell nvfortran --version | sed -n '2s/^nvfortran \([0-9.]*\).*/\1/p')
