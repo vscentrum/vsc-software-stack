@@ -67,6 +67,10 @@ exts_list = [
     }),
 ]
 
-sanity_check_commands = ["pytest -vv --disable-pytest-warnings --pyargs MDAnalysisTests"]
+sanity_check_commands = [
+    "export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 && "
+    f"pytest --disable-pytest-warnings --numprocesses %(parallel)s "
+    "--pyargs MDAnalysisTests -p no:warnings --dist=loadscope"
+]
 
 moduleclass = 'bio'
