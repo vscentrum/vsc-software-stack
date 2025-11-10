@@ -15,22 +15,28 @@ toolchain = {'name': 'foss', 'version': '2025b'}
     # OK "h5py==3.14.0",
     # ? "matplotlib==3.10.6", have v3.10.5
     # ok "mendeleev==1.1.0",
+        # OK deprecated
+        # OK wrapt
+        # OK pydantic
+        # OK SQLAlchemy
+        # ok pyfiglet
+        # OK numpy, pandas
     # "mp-api==0.45.11",
-    # "pandas==2.3.3",
+    # ? "pandas==2.3.3", have v2.3.1
     # OK "phonopy==2.43.2",
-    # "pint==0.25",
+    # OK "pint==0.25",
     # "pyiron_base==0.15.4",
     # "pyiron_lammps==0.4.8",
     # "pyiron_snippets==1.0.1",
     # "pyiron_vasp==0.2.14",
     # "pylammpsmpi==0.3.3",
-    # "pyscal3==3.3.0",
-    # "scipy==1.16.2",
+    # ok "pyscal3==3.3.0",
+    # ? "scipy==1.16.2", have v1.16.1
     # ? "scikit-learn==1.7.2", have 1.7.1
-    # "seekpath==2.1.0",
-    # "spglib==2.6.0",
-    # "structuretoolkit==0.0.35",
-    # "sphinx-parser==0.1.2",
+    # ok "seekpath==2.1.0",
+    # OK "spglib==2.6.0",
+    # ok "structuretoolkit==0.0.35",
+    # ok "sphinx-parser==0.1.2",
 ## atomistics deps:
     # OK "ase==3.26.0",
     # ? "numpy==2.3.3", have v2.3.2
@@ -104,14 +110,14 @@ exts_list = [
     # ('executorlib', '1.7.1', {
     #     'checksums': ['fe0e9665aa4179d25acd2be7232bf806bbe19069266c49a795143f224c383fd8'],
     # }),
-    # ('sphinx_parser', '0.1.0', {
-    #     'checksums': ['19a0fb45671fc011e1b0b8f192b6691419a1e3b394bfdac2fb1aaa2a3cf5782f'],
-    # }),
-    # ('pyscal3', '3.2.7', {
-    #     'source_urls': ['https://github.com/pyscal/pyscal3/archive'],
-    #     'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-    #     'checksums': ['a5e86e61abe7a0a37aada16ffeb56cbd0d8761c80acb248dd089ca0be2e9cc1f'],
-    # }),
+    ('sphinx_parser', '0.1.2', {
+        'checksums': ['19a0fb45671fc011e1b0b8f192b6691419a1e3b394bfdac2fb1aaa2a3cf5782f'],
+    }),
+    ('pyscal3', '3.3.0', {
+        'source_urls': ['https://github.com/pyscal/pyscal3/archive'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['a5e86e61abe7a0a37aada16ffeb56cbd0d8761c80acb248dd089ca0be2e9cc1f'],
+    }),
     # ('msgpack', '1.1.1', {
     #     'checksums': ['77b79ce34a2bdab2594f490c8e80dd62a02d650b91a75159a63ec413b8d104cd'],
     # }),

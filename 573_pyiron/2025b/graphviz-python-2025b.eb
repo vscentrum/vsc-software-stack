@@ -1,4 +1,4 @@
-easyblock = 'PythonPackage'
+easyblock = 'PythonBundle'
 
 name = 'graphviz-python'
 version = '0.21'
@@ -8,19 +8,17 @@ description = """Simple Python interface for Graphviz"""
 
 toolchain = {'name': 'GCCcore', 'version': '14.3.0'}
 
-source_urls = ['https://pypi.python.org/packages/source/g/graphviz']
-sources = ['graphviz-%(version)s.zip']
-checksums = ['8c58f14adaa3b947daf26c19bc1e98c4e0702cdc31cf99153e6f06904d492bf8']
-
-builddependencies = [
-    ('binutils', '2.40'),
-]
+builddependencies = [('binutils', '2.44')]
 
 dependencies = [
     ('Python', '3.13.5'),
-    ('Graphviz', '13.1.2', '-minimal'),
+    ('Graphviz', '13.1.2'),
 ]
 
-options = {'modulename': 'graphviz'}
+exts_list = [
+    ('graphviz', version, {
+        'checksums': ['20743e7183be82aaaa8ad6c93f8893c923bd6658a04c32ee115edb3c8a835f78'],
+    }),
+]
 
 moduleclass = 'vis'
