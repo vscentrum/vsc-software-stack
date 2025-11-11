@@ -1,0 +1,54 @@
+easyblock = 'Binary'
+
+name = 'Slicer'
+version = '5.8.1'
+versionsuffix = '-linux-amd64'
+
+homepage = 'https://www.slicer.org/'
+description = """3D Slicer is a free, open source software for visualization,
+processing, segmentation, registration, and analysis of medical, biomedical,
+and other 3D images and meshes; and planning and navigating image-guided
+procedures."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://download.slicer.org/']
+sources = [{
+    'download_filename': 'download?os=linux&stability=release&version=%(version)s',
+    'filename': '%(name)s-%(version)s.tar.gz'
+}]
+patches = [
+    ('install_nninteractive.py', './'),
+    ('libpulse-mainloop-glib.so.0', 'lib/'),  # TODO: remove once the osdep is installed
+]
+checksums = [
+    {'Slicer-5.8.1.tar.gz': 'b16273f9724bdcdd0f289e410e36496adc3512ed6b2220b1d9fd48fa86468347'},
+    {'install_nninteractive.py': '659b5ac807d5fa4966a84bc394032e8c03303e1df2a3e8b9da2ec25b81935c91'},
+    {'libpulse-mainloop-glib.so.0': '5c4b65b13a8b0f3708da11158cf997f827250062eb84cdf21412ef9b699edb97'},
+]
+
+builddependencies = [
+    ('Xvfb', '21.1.14', '', ('GCCcore', '13.3.0')),  # required for installing extensions on a headless node
+]
+
+# osdependencies = [('pulseaudio-libs-glib2', 'libpulse-mainloop-glib0')]  # TODO: uncomment once the osdep is installed
+
+extract_sources = True
+
+postinstallcmds = [
+    # install NNInteractive extension
+    'xvfb-run %(installdir)s/Slicer --no-main-window --no-splash --exit-after-startup --python-script'
+    ' install_nninteractive.py',
+]
+
+sanity_check_paths = {
+    'files': ['Slicer', 'bin/PythonSlicer'],
+    'dirs': ['lib', 'include', 'share', 'resources', 'libexec'],
+}
+
+sanity_check_commands = [
+    # requires a headful node or prefixing with xvfb-run
+    # "Slicer --version",
+]
+
+moduleclass = 'vis'
