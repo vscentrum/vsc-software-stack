@@ -9,66 +9,6 @@ description = "An integrated development environment (IDE) for computational mat
 
 toolchain = {'name': 'foss', 'version': '2025b'}
 
-## pyiron-atomistics deps:
-    # ok "atomistics==0.3.0",
-    # ok "defusedxml==0.7.1",
-    # OK "h5py==3.14.0",
-    # ? "matplotlib==3.10.6", have v3.10.5
-    # ok "mendeleev==1.1.0",
-        # OK deprecated
-        # OK wrapt
-        # OK pydantic
-        # OK SQLAlchemy
-        # ok pyfiglet
-        # OK numpy, pandas
-    # OK "mp-api==0.45.11", in pymatgen
-    # ? "pandas==2.3.3", have v2.3.1
-    # OK "phonopy==2.43.2",
-    # OK "pint==0.25",
-    # ok "pyiron_base==0.15.4",
-    # ok "pyiron_lammps==0.4.8",
-    # ok "pyiron_snippets==1.0.1",
-    # ok "pyiron_vasp==0.2.14",
-    # ok "pylammpsmpi==0.3.3",
-    # ok "pyscal3==3.3.0",
-    # ? "scipy==1.16.2", have v1.16.1
-    # ? "scikit-learn==1.7.2", have 1.7.1
-    # ok "seekpath==2.1.0",
-    # OK "spglib==2.6.0",
-    # ok "structuretoolkit==0.0.35",
-    # ok "sphinx-parser==0.1.2",
-## atomistics deps:
-    # OK "ase==3.26.0",
-    # ? "numpy==2.3.3", have v2.3.2
-    # ? "scipy==1.15.2", have v1.16.1
-    # OK "spglib==2.6.0",
-    # OK "phonopy==2.43.2",
-    # ok "seekpath==2.1.0",
-    # ok "structuretoolkit==0.0.35",
-## other:
-    # ok pyscal3 needs pybind11
-    # ok Package 'atomistics-0.3.0' requires a different Python: 3.13.5 not in '<3.13,>=3.9' -> go for 0.3.1
-    # ok pyiron-base 0.15.4 requires executorlib, which is not installed.
-    # ok pyiron-base 0.15.4 requires h5io-browser, which is not installed.
-    # ok pyiron-base 0.15.4 requires pyfileindex, which is not installed.
-    # ok pyiron-base 0.15.4 requires pyiron-dataclasses, which is not installed.
-    # ok pyiron-base 0.15.4 requires pysqa, which is not installed.
-    # ok sphinx-parser 0.1.2 requires semantikon, which is not installed.
-    # ok pylammpsmpi 0.3.3 requires executorlib, which is not installed.
-    # ok pyiron-atomistics 0.8.1 has requirement atomistics==0.3.0, but you have atomistics 0.3.1.
-    # ok pyiron-atomistics 0.8.1 has requirement mp-api<=0.45.11,>=0.37.0, but you have mp-api 0.45.12.
-    # ok pyiron-atomistics 0.8.1 has requirement structuretoolkit==0.0.35, but you have structuretoolkit 0.0.37.
-    # ok mendeleev 1.1.0 has requirement pyfiglet<0.9,>=0.8.post1, but you have pyfiglet 1.0.4.
-    # ok httpcore 1.0.9 has requirement h11>=0.16, but you have h11 0.14.0. - in JupyterLab is httpcore-1.0.9 - in pymatgen is h11 - fixed in pymatgen
-    # ok semantikon 0.0.26 requires owlrl, which is not installed.
-    # ok semantikon 0.0.26 requires pyshacl, which is not installed.
-    # ok semantikon 0.0.26 requires rdflib, which is not installed.
-    # ok semantikon 0.0.26 requires typeguard, which is not installed.
-    # ok pyiron-atomistics 0.8.1 has requirement mp-api<=0.45.11,>=0.37.0, but you have mp-api 0.45.12.
-    # ok semantikon 0.0.26 has requirement networkx<3.5.0,>=3.4.2, but you have networkx 3.5.
-    # ok sphinx-parser 0.1.2 has requirement semantikon<=0.0.22,>=0.0.17, but you have semantikon 0.0.26.
-    # ok pyshacl 0.30.1 requires prettytable, which is not installed.
-
 builddependencies = [
     ('poetry', '2.1.3'),
     ('hatchling', '1.27.0'),
@@ -99,8 +39,6 @@ dependencies = [
     ('scikit-learn', '1.7.1'),
     ('SQLAlchemy', '2.0.41'),
     ('tqdm', '4.67.1'),
-    # ('setuptools', '80.9.0'),
-    # ('flit-core', '3.12.0'),
 ]
 
 exts_list = [
@@ -121,6 +59,7 @@ exts_list = [
         'checksums': ['d7e0c21b25e948bb643dbc5db6258da64a90a8ac89055c1fe562b469031072aa'],
     }),
     ('semantikon', '0.0.22', {
+        # unpin networkx version
         'preinstallopts': """sed -i 's/>=3.4.2,</==/' pyproject.toml && """,
         'checksums': ['c9dbb844619c20159dc8407c51a45eab779b1b2b705887a7e2717cbe21c4dfe2'],
     }),
@@ -135,8 +74,10 @@ exts_list = [
     ('seekpath', '2.1.0', {
         'checksums': ['31cec579628262e6d4a4c3693fefa70d6ccae1ceeef7c9d10ea3cd48988452c4'],
     }),
-    ('structuretoolkit', '0.0.37', {
-        'checksums': ['51694be0059212bc1a7768a43f34da03e343b37986b517acdf0b527f6e3be4e4'],
+    ('structuretoolkit', '0.0.35', {
+        # unpin python version
+        'preinstallopts': """sed -i 's/, <3.13//' pyproject.toml && """,
+        'checksums': ['ef19cc705ac5065f87c26a4399bad176fcf369aa2d6b29bc553f7758458befdd'],
     }),
     ('defusedxml', '0.7.1', {
         'checksums': ['1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69'],
@@ -168,22 +109,23 @@ exts_list = [
     ('pylammpsmpi', '0.3.3', {
         'checksums': ['c1189a61b2468ab8deb37a6cacf6226cb6ca8f7d0d8a7bb97754e8039b2d9852'],
     }),
-    ('pyiron_dataclasses', '0.0.4', {
+    ('%(name)s_dataclasses', '0.0.4', {
         'checksums': ['4d0889f159dcecdd35353d7ab2fd9eb68c196c73d1bbb6723648a73336a2cd55'],
     }),
-    ('pyiron_base', '0.15.4', {
+    ('%(name)s_base', '0.15.4', {
         'checksums': ['511a5257b475284e086ff6b4f688cac05199f472c1faeb035b79e3699689c18c'],
     }),
-    ('pyiron_lammps', '0.4.8', {
+    ('%(name)s_lammps', '0.4.8', {
         'checksums': ['113fbd7c6fcddd73125eb4fbf42a63679c1d5b36318dd168d98345c4ca6c0010'],
     }),
-    ('pyiron_snippets', '1.0.1', {
+    ('%(name)s_snippets', '1.0.1', {
         'checksums': ['540f8d6f1e63115f20b91a6edde6d78a205d25880577a54f724a258d65e4e2c2'],
     }),
-    ('pyiron_vasp', '0.2.14', {
+    ('%(name)s_vasp', '0.2.14', {
         'checksums': ['94652416a51644decc61b559e485df9dc669525efa841354fc7b9ee8e92cf8f1'],
     }),
-    ('pyiron_atomistics', '0.8.1', {
+    ('%(name)s_atomistics', '0.8.1', {
+        # unpin dependencies version
         'preinstallopts': """sed -i -e '25,49 s/==.*/",/' -e '25,49 s/mp-api.*/mp-api",/' pyproject.toml && """,
         'checksums': ['2bed95078996ecc03695984fea22dd1582444396b5dd7e7d57d104c9decd5680'],
     }),
@@ -193,123 +135,22 @@ exts_list = [
             'download_filename': f'{local_commit}.tar.gz',
             'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz'
         }],
+        # fix pyiron version
+        'preinstallopts ': [
+            "sed -i -e "
+            "'/import versioneer/d' -e "
+            """'s/versioneer.get_version()/"%(version)s"/' """
+            "setup.py && "
+        ],
         'checksums': ['418cb645c13e6b43779fbd8136984ce1c30808d244ef9f807c2ebb2449000c6e'],
     }),
 ]
 
-## OLD EXTS
-# exts_list = [
-#     ('packaging', '25.0', {
-#         'checksums': ['d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f'],
-#     }),
-#     ('typing_extensions', '4.14.0', {
-#         'checksums': ['8676b788e32f02ab42d9e7c61324048ae4c6d844a399eebace3d4979d75ceef4'],
-#     }),
-#     ('isodate', '0.7.2', {
-#         'checksums': ['4cd1aa0f43ca76f4a6c6c0292a85f40b35ec2e43e315b59f06e6d32171a953e6'],
-#     }),
-#     ('rdflib', '7.1.4', {
-#         'checksums': ['fed46e24f26a788e2ab8e445f7077f00edcf95abb73bcef4b86cefa8b62dd174'],
-#     }),
-#     ('prettytable', '3.7.0', {
-#         'checksums': ['ef8334ee40b7ec721651fc4d37ecc7bb2ef55fde5098d994438f0dfdaa385c0c'],
-#     }),
-#     ('typeguard', '4.4.4', {
-#         'checksums': ['3a7fd2dffb705d4d0efaed4306a704c89b9dee850b688f060a8b1615a79e5f74'],
-#     }),
-#     ('owlrl', '7.1.3', {
-#         'checksums': ['c9acf66135821ed7a6c4e002387bdb60a5804c86bf0210310df7d5a5da5d2eb1'],
-#     }),
-#     ('pyshacl', '0.30.1', {
-#         'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-#         'checksums': ['d7e0c21b25e948bb643dbc5db6258da64a90a8ac89055c1fe562b469031072aa'],
-#     }),
-#     ('semantikon', '0.0.20', {
-#         'checksums': ['ebd6c2790be5d57955cecb5a670010b1cefb3d32c8f57bb946c8be678b9f5d5d'],
-#     }),
-#     ('executorlib', '1.7.1', {
-#         'checksums': ['fe0e9665aa4179d25acd2be7232bf806bbe19069266c49a795143f224c383fd8'],
-#     }),
-#     ('sphinx_parser', '0.1.2', {
-#         'checksums': ['19a0fb45671fc011e1b0b8f192b6691419a1e3b394bfdac2fb1aaa2a3cf5782f'],
-#     }),
-#     ('pyscal3', '3.3.0', {
-#         'source_urls': ['https://github.com/pyscal/pyscal3/archive'],
-#         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-#         'checksums': ['a5e86e61abe7a0a37aada16ffeb56cbd0d8761c80acb248dd089ca0be2e9cc1f'],
-#     }),
-#     ('msgpack', '1.1.1', {
-#         'checksums': ['77b79ce34a2bdab2594f490c8e80dd62a02d650b91a75159a63ec413b8d104cd'],
-#     }),
-#     ('h5io', '0.2.4', {
-#         'checksums': ['473efdf172f3fc9cddf19131ad281a5ff085c18579b3adce287ba873bbb12603'],
-#     }),
-#     ('h5io_browser', '0.1.5', {
-#         'checksums': ['2ad592da0e9ff65364e4a4554c7ff45b1787b64dc22300364e8ff370ea0bcd5d'],
-#     }),
-#     ('pysqa', '0.2.3', {
-#         'checksums': ['ef7441281ef62fe9418c44a63f9a899a87b276d0183f9389afb3ff8cb9ddbcea'],
-#     }),
-#     ('pyfileindex', '0.0.32', {
-#         'checksums': ['d2ade3c21761fd50395a9cf827618851d6b334cd8cffb19da7434d7c3d8018ac'],
-#     }),
-#     ('traitlets', '5.14.3', {
-#         'checksums': ['9ed0579d3502c94b4b3732ac120375cda96f923114522847de4b3bb98b96b6b7'],
-#     }),
-#     ('seekpath', '2.1.0', {
-#         'checksums': ['31cec579628262e6d4a4c3693fefa70d6ccae1ceeef7c9d10ea3cd48988452c4'],
-#     }),
-#     ('structuretoolkit', '0.0.35', {
-#         'checksums': ['da9fa5f4e07fc9b4798feb622cff778312b9a2cb70ee671665f6a8afb63c66d4'],
-#     }),
-#     ('defusedxml', '0.7.1', {
-#         'checksums': ['1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69'],
-#     }),
-#     ('atomistics', '0.3.0', {
-#         'checksums': ['9d2e75151a53841e6402373126c59424089008ed4d1cf13bf8e0216bb10fcf53'],
-#     }),
-#     ('pyfiglet', '1.0.4', {
-#         'checksums': ['c6c2321755d09267b438ec7b936825a4910fec696292139e664ca8670e103639'],
-#     }),
-#     ('mendeleev', '1.1.0', {
-#         'checksums': ['7d513a3be0c2b45369c3c041eb949a76bc92ee42d833b1dee0048a919d3f9a78'],
-#     }),
-#     ('pylammpsmpi', '0.3.0', {
-#         'checksums': ['f2617f38715ac60f8d4fef982acdad41da38d9f2524555beaf0e68eb1dbc11d3'],
-#     }),
-#     ('pyiron_base', '0.15.1', {
-#         'checksums': ['62806100d8a70b82a34b4607dc85815a2c1d2a9e2d2eb34d3607040c0f48c6dc'],
-#     }),
-#     ('pyiron_dataclasses', '0.0.4', {
-#         'checksums': ['4d0889f159dcecdd35353d7ab2fd9eb68c196c73d1bbb6723648a73336a2cd55'],
-#     }),
-#     ('pyiron_snippets', '0.2.0', {
-#         'checksums': ['c46532fe476c79d1182477709b7fa8a66c92e3ae6082c6ccfc0ebef1f69ed046'],
-#     }),
-#     ('pyiron_atomistics', '0.7.18', {
-#         'patches': ['pyiron_atomistics-0.7.18_unpin-dep-versions.patch'],
-#         'checksums': [
-#             {'pyiron_atomistics-0.7.18.tar.gz': '5d16a3e39abf4bff6be366c8c135a65323bfc648ed9d2cd98a8fe1d497f185fd'},
-#             {'pyiron_atomistics-0.7.18_unpin-dep-versions.patch':
-#              '6ac9369191dfef4a85b59fc0d3035489d53ad89cc19cb39fa59577843ff9edf6'},
-#         ],
-#     }),
-#     ('pyiron_lammps', '0.4.6', {
-#         'checksums': ['ecf36ec09c4c27ab099b234f064712867d14b4ff34760a1c6abd6cece2cfebe6'],
-#     }),
-#     ('pyiron_vasp', '0.2.12', {
-#         'checksums': ['d6c73cd7cc5536a4d40d77bf9823af4fe979ea854f78f2c77a9356084246c495'],
-#     }),
-#     (name, version, {
-#         'source_urls': ['https://github.com/pyiron/pyiron/archive'],
-#         'sources': [{
-#             'download_filename': f'{local_commit}.tar.gz',
-#             'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz'
-#         }],
-#         'checksums': ['4792bff6c13f7a07a2835bc5b7963400ea6f08392b0ad4ece1e31f6f42e09075'],
-#     }),
-# ]
+sanity_check_paths = {
+    'files': ['bin/%(name)s'],
+    'dirs': ['lib', 'bin', 'include'],
+}
 
-check_ldshared = True
+sanity_check_commands = ["%(name)s -h"]
 
 moduleclass = 'tools'
