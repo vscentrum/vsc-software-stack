@@ -11,6 +11,7 @@ An extremely fast Python linter and code formatter, written in Rust.
 toolchain = {'name': 'GCCcore', 'version': '14.3.0'}
 
 sources = [SOURCE_TAR_GZ]
+
 checksums = [
     {'ruff-0.14.3.tar.gz': '4ff876d2ab2b161b6de0aa1f5bd714e8e9b4033dc122ee006925fbacc4f62153'},
     {'adler2-2.0.1.tar.gz': '320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa'},
@@ -488,9 +489,6 @@ checksums = [
     {'zstd-sys-2.0.16+zstd.1.5.7.tar.gz': '91e19ebc2adc8f83e43039e79776e3fda8ca919132d68a1fed6a5faca2683748'},
 ]
 
-# it needs fetch git for all salsa sources
-offline = False
-
 builddependencies = [
     ('binutils', '2.44'),
     ('maturin', '1.9.1'),
@@ -804,7 +802,11 @@ crates = [
     ('rustversion', '1.0.22'),
     ('ryu', '1.0.20'),
     ('salsa', '0.24.0', 'https://github.com/salsa-rs/salsa.git', 'cdd0b85516a52c18b8a6d17a2279a96ed6c3e198'),
-    ('salsa-macro-rules', '0.24.0', 'https://github.com/salsa-rs/salsa.git', 'cdd0b85516a52c18b8a6d17a2279a96ed6c3e198'),
+    (
+        'salsa-macro-rules', '0.24.0',
+        'https://github.com/salsa-rs/salsa.git',
+        'cdd0b85516a52c18b8a6d17a2279a96ed6c3e198',
+    ),
     ('salsa-macros', '0.24.0', 'https://github.com/salsa-rs/salsa.git', 'cdd0b85516a52c18b8a6d17a2279a96ed6c3e198'),
     ('same-file', '1.0.6'),
     ('schemars', '1.0.4'),
