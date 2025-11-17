@@ -53,7 +53,7 @@ while read -r site_file; do
         difftxt=$(diff -u "$site_file" "$eb_file")
         if [ -z "$difftxt" ]; then
             echo "    > Files are equal"
-            remove site copy of the file
+            # remove site copy of the file
             if git_repo_remove "$site_file" 1>/dev/null; then
                 echo "    > Removed from local site repo"
             else
@@ -62,6 +62,23 @@ while read -r site_file; do
         else
             echo "    > Files differ"
             echo "$difftxt"
+            echo ""
+            read -p "    > Remove anyway? [y,n] " removeit < /dev/tty
+            case $removeit in
+                y|Y)
+                    if git_repo_remove "$site_file" 1>/dev/null; then
+                        echo "    > Removed from local site repo"
+                    else
+                        fail "Failed to remove file from site repo: $site_file"
+                    fi
+                    ;; 
+                n|N)
+                    echo "    > Differing file stays"
+                    ;;
+                *)
+                    fail "Unknown option"
+                    ;;
+            esac
         fi
     fi
 done < <(find "$SITE_EASYCONFIGS" -type f -print)
