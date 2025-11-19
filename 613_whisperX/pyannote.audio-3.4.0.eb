@@ -32,6 +32,7 @@ toolchain = {'name': 'foss', 'version': '2024a'}
     # OK in pytorch-lightning - torchmetrics >= 0.11.0
     # ok "julius>=0.2.3,<0.3"
     # ok "torch-pitch-shift>=1.2.2"
+    # AttributeError: module 'configparser' has no attribute 'SafeConfigParser'. Did you mean: 'RawConfigParser'?
 
 builddependencies = [
     ('PDM', '2.18.2'),
@@ -56,6 +57,11 @@ dependencies = [
     ('tqdm', '4.66.5'),
     ('PyYAML', '6.0.2'),
 ]
+
+# fix versioneer.py for python 3.12
+local_preinstallopts_versioneer = (
+    "sed -i -e 's/SafeConfigParser/ConfigParser/g' -e 's/readfp/read_file/g' versioneer.py && "
+)
 
 exts_list = [
     ('torch_pitch_shift', '1.2.5', {
@@ -91,15 +97,18 @@ exts_list = [
         'checksums': ['fc8159476d1b3b5978d5e66746fc34be168170800ff4c5e356433d8c9c57cbea'],
     }),
     ('pyannote.core', '5.0.0', {
+        'preinstallopts': local_preinstallopts_versioneer,
         'checksums': ['1a55bcc8bd680ba6be5fa53efa3b6f3d2cdd67144c07b6b4d8d66d5cb0d2096f'],
     }),
     ('pyannote.database', '5.1.3', {
         'checksums': ['0eaf64c1cc506718de60d2d702f1359b1ae7ff252ee3e4799f1c5e378cd52c31'],
     }),
     ('pyannote.metrics', '3.2.1', {
+        'preinstallopts': local_preinstallopts_versioneer,
         'checksums': ['08024255a3550e96a8e9da4f5f4af326886548480de891414567c8900920ee5c'],
     }),
     ('pyannote.pipeline', '3.0.1', {
+        'preinstallopts': local_preinstallopts_versioneer,
         'checksums': ['021794e26a2cf5d8fb5bb1835951e71f5fac33eb14e23dfb7468e16b1b805151'],
     }),
     (name, version, {
