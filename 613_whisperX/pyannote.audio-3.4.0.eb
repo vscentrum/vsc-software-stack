@@ -32,7 +32,13 @@ toolchain = {'name': 'foss', 'version': '2024a'}
     # OK in pytorch-lightning - torchmetrics >= 0.11.0
     # ok "julius>=0.2.3,<0.3"
     # ok "torch-pitch-shift>=1.2.2"
-    # AttributeError: module 'configparser' has no attribute 'SafeConfigParser'. Did you mean: 'RawConfigParser'?
+    # ok AttributeError: module 'configparser' has no attribute 'SafeConfigParser'. Did you mean: 'RawConfigParser'?
+    # ok speechbrain 1.0.3 requires hyperpyyaml, which is not installed.
+    # OK speechbrain 1.0.3 requires sentencepiece, which is not installed.
+    # ok pyannote-database 5.1.3 requires typer, which is not installed.
+    # OK pyannote-pipeline 3.0.1 requires optuna, which is not installed.
+    # ok torch-pitch-shift 1.2.5 requires primepy, which is not installed.
+    # hyperpyyaml 1.2.2 requires ruamel-yaml, which is not installed.
 
 builddependencies = [
     ('PDM', '2.18.2'),
@@ -46,16 +52,18 @@ dependencies = [
     ('Lightning', '2.5.6', versionsuffix),
     ('SciPy-bundle', '2024.05'),
     ('tensorboardX', '2.6.4'),
-    # ('Optuna', '3.5.0'),
+    ('Optuna', '4.1.0'),
     ('einops', '0.8.1'),
     # ('matplotlib', '3.7.2'),
-    # ('ruamel.yaml', '0.17.32'),
+    ('ruamel.yaml', '0.18.6'),
     # ('cffi', '1.15.1'),
     # ('libsndfile', '1.2.2'),
     ('huggingface_hub', '0.34.4'),
-    ('scikit-learn', '1.6.1'),
+    # ('scikit-learn', '1.6.1'),
+    ('scikit-learn', '1.5.2'),
     ('tqdm', '4.66.5'),
     ('PyYAML', '6.0.2'),
+    ('SentencePiece', '0.2.1'),
 ]
 
 # fix versioneer.py for python 3.12
@@ -64,6 +72,13 @@ local_preinstallopts_versioneer = (
 )
 
 exts_list = [
+    ('primePy', '1.3', {
+        'modulename': 'primePy',
+        'checksums': ['25fd7e25344b0789a5984c75d89f054fcf1f180bef20c998e4befbac92de4669'],
+    }),
+    ('typer', '0.20.0', {
+        'checksums': ['1aaf6494031793e4876fb0bacfa6a912b551cf43c1e63c800df8b1a866720c37'],
+    }),
     ('torch_pitch_shift', '1.2.5', {
         'checksums': ['6e1c7531f08d0f407a4c55e5ff8385a41355c5c5d27ab7fa08632e51defbd0ed'],
     }),
@@ -72,6 +87,9 @@ exts_list = [
     }),
     ('torch_audiomentations', '0.12.0', {
         'checksums': ['b02d4c5eb86376986a53eb405cca5e34f370ea9284411237508e720c529f7888'],
+    }),
+    ('HyperPyYAML', '1.2.2', {
+        'checksums': ['bdb734210d18770a262f500fe5755c7a44a5d3b91521b06e24f7a00a36ee0f87'],
     }),
     ('speechbrain', '1.0.3', {
         'checksums': ['fcab3c6e90012cecb1eed40ea235733b550137e73da6bfa2340ba191ec714052'],
@@ -112,24 +130,15 @@ exts_list = [
         'checksums': ['021794e26a2cf5d8fb5bb1835951e71f5fac33eb14e23dfb7468e16b1b805151'],
     }),
     (name, version, {
-        'source_tmpl': 'pyannote_audio-%(version)s.tar.gz',
-        'checksums': ['d523d883cb8d37cb6daf99f3ba83f9138bb193646ad71e6eae7deb89d8ddd642'],
+        # 'source_tmpl': 'pyannote_audio-%(version)s.tar.gz', PYPI sources without requirements.txt
+        'source_urls': ['https://github.com/pyannote/pyannote-audio/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['9fc8b4c96457733945d399559c328e07237a037ab7151443a81fe8473ea104ab'],
     }),
 ]
-
-    # ('HyperPyYAML', '1.2.2', {
-    #     'checksums': ['bdb734210d18770a262f500fe5755c7a44a5d3b91521b06e24f7a00a36ee0f87'],
-    # }),
     # ('antlr4-python3-runtime', '4.9.3', {
     #     'modulename': 'antlr4',
     #     'checksums': ['f224469b4168294902bb1efa80a8bf7855f24c99aef99cbefc1bcd3cce77881b'],
-    # }),
-    # ('primePy', '1.3', {
-    #     'modulename': 'primePy',
-    #     'checksums': ['25fd7e25344b0789a5984c75d89f054fcf1f180bef20c998e4befbac92de4669'],
-    # }),
-    # ('typer', '0.9.4', {
-    #     'checksums': ['f714c2d90afae3a7929fcd72a3abb08df305e1ff61719381384211c4070af57f'],
     # }),
 
 moduleclass = 'tools'
