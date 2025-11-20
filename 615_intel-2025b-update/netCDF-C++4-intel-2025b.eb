@@ -17,6 +17,12 @@ checksums = ['e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc']
 
 dependencies = [('netCDF', '4.9.3')]
 
+# disable nc_set_log_level as it is not supported in netCDF-4.9.3
+# https://github.com/Unidata/netcdf-cxx4/issues/166
+prebuildopts = "sed -i '74d;106d' examples/pres_temp_4D_plugin_wr.cpp && "
+
+runtest = 'check'
+
 sanity_check_paths = {
     'files': ['include/netcdf', 'lib/libnetcdf_c++4.a', 'lib/libnetcdf_c++4.%s' % SHLIB_EXT],
     'dirs': [],
