@@ -1,0 +1,104 @@
+easyblock = 'Bundle'
+
+name = 'fortranGIS'
+version = '3.0-1'
+
+homepage = 'https://github.com/ARPA-SIMC/fortrangis'
+description = """FortranGIS project includes a collection of Fortran interfaces to some common
+Open Source GIS (Geographic Information System) software libraries, plus some more Fortran-specific tools."""
+
+toolchain = {'name': 'intel', 'version': '2025b'}
+# toolchainopts = {'usempi': True}
+toolchainopts = {'pic': True}
+
+# source_urls = ['https://github.com/ARPA-SIMC/fortrangis/archive/']
+# sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+# checksums = ['c452f2cbaf870627aefef36d872cb5c2a1f13d6fe1c31e2e7fa754fcdaa98fa3']
+
+# patches = ['%(name)s-3.6.2_fix-python-CC-CXX.patch']
+
+builddependencies = [
+    ('CMake', '3.31.8'),
+    # PROJ
+    ('pkgconf', '2.4.3'),
+    ('googletest', '1.17.0'),
+    # ('pkgconf', '2.4.3'),
+    # ('Bison', '3.8.2'),
+]
+dependencies = [
+    ('XZ', '5.8.1'),
+    ('SQLite', '3.50.1'),
+    ('LibTIFF', '4.7.0'),
+    ('cURL', '8.14.1'),
+    ('GDAL', '3.11.3'),
+    # ('nlohmann_json', '3.12.0'),
+]
+
+
+default_easyblock = 'CMakeMake'
+
+components = [
+    ('PROJ', '7.2.1', {
+        'source_urls': ['https://download.osgeo.org/proj/'],
+        'sources': [SOURCELOWER_TAR_GZ],
+        'start_dir': '%(namelower)s-%(version)s',
+        'checksums': ['b384f42e5fb9c6d01fe5fa4d31da2e91329668863a684f97be5d4760dbbf0a14'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/ARPA-SIMC/fortrangis/archive/'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'configopts': '-DBUILD_SHAPELIB=OFF -DCMAKE_Fortran_FLAGS="$FFLAGS -I/%(start_dir)s/include"',
+        'checksums': ['c452f2cbaf870627aefef36d872cb5c2a1f13d6fe1c31e2e7fa754fcdaa98fa3'],
+    })
+]
+
+# configopts = '-DBUILD_SHAPELIB=OFF -DCMAKE_Fortran_FLAGS="$FFLAGS -I/%(start_dir)s/include"'
+
+# prebuildopts = "sed -i '22 a include_directories(${PROJECT_SOURCE_DIR}/include)' CMakeLists.txt && "
+
+# # iterative build for both static and shared libraries
+# local_configopts_common = "-DGDAL_USE_INTERNAL_LIBS=OFF -DGDAL_USE_MYSQL=OFF -DGDAL_USE_POPPLER=OFF "
+# local_configopts_common += "-DGEOTIFF_INCLUDE_DIR=$EBROOTLIBGEOTIFF/include -DPython_ROOT=$EBROOTPYTHON "
+
+# configopts = [
+#     local_configopts_common + "-DBUILD_SHARED_LIBS=OFF",
+#     local_configopts_common
+# ]
+
+
+# sanity_check_paths = {
+#     'files': ['lib/libgdal.a', f'lib/libgdal.{SHLIB_EXT}'],
+#     'dirs': ['bin', 'include', 'lib/python%(pyshortver)s/site-packages'],
+# }
+
+# sanity_check_commands = ["python -c 'import osgeo.%(namelower)s'"]
+
+moduleclass = 'geo'
+
+# E2:
+    # -> need old PROJ < 8 -> go for v7.2.1 -> add as component
+    # cmake failed on linking
+        # scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: CMakeFiles/proj_test.dir/proj_test.F90.o: in function `MAIN__':
+        # ifxbHkOcl.i90:(.text+0x1c9): undefined reference to `pj_init_plus'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: ifxbHkOcl.i90:(.text+0x2bb): undefined reference to `pj_is_latlong'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: ifxbHkOcl.i90:(.text+0x335): undefined reference to `pj_latlong_from_proj'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: ifxbHkOcl.i90:(.text+0x424): undefined reference to `pj_is_latlong'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: ifxbHkOcl.i90:(.text+0x45e): undefined reference to `pj_get_def'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: ifxbHkOcl.i90:(.text+0x582): undefined reference to `pj_fwd'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: ifxbHkOcl.i90:(.text+0x59e): undefined reference to `pj_inv'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: ifxbHkOcl.i90:(.text+0x128b): undefined reference to `pj_free'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: ifxbHkOcl.i90:(.text+0x1297): undefined reference to `pj_free'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: libfortranGIS.a(proj.F90.o): in function `proj_mp_pj_transform_f_':
+        # ifxBnkats.i90:(.text+0x7f): undefined reference to `pj_transform'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: ifxBnkats.i90:(.text+0xa1): undefined reference to `pj_transform'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: libfortranGIS.a(proj.F90.o): in function `proj_mp_pj_datum_transform_f_':
+        # ifxBnkats.i90:(.text+0x64f): undefined reference to `pj_datum_transform'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: ifxBnkats.i90:(.text+0xa44): undefined reference to `pj_datum_transform'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: libfortranGIS.a(proj.F90.o): in function `proj_mp_pj_geocentric_to_geodetic_f_':
+        # ifxBnkats.i90:(.text+0x17d2): undefined reference to `pj_geocentric_to_geodetic'
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/binutils/2.44-GCCcore-14.3.0/bin/ld: libfortranGIS.a(proj.F90.o): in function `proj_mp_pj_geodetic_to_geocentric_f_':
+        # ifxBnkats.i90:(.text+0x2252): undefined reference to `pj_geodetic_to_geocentric'
+
+# E1: OK
+    # -> add -DCMAKE_Fortran_FLAGS="$FFLAGS -I/%(start_dir)s/include"
+    # error: can't find include file: gdalproto_doxy.f90
