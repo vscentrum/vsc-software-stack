@@ -5,10 +5,9 @@ homepage = 'https://www.ncl.ucar.edu'
 description = "NCL is an interpreted language designed specifically for scientific data analysis and visualization."
 
 toolchain = {'name': 'intel', 'version': '2025b'}
-# toolchainopts = {
-#     'cstd': 'c99', 'openmp': True, 'pic': True,
-#     'extra_fflags': '-fallow-invalid-boz -fallow-argument-mismatch',
-# }
+# toolchainopts = {'cstd': 'c99', 'openmp': True, 'pic': True, 'oneapi': False}
+# toolchainopts = {'cstd': 'c99', 'openmp': True, 'pic': True}
+toolchainopts = {'openmp': True, 'pic': True}
 
 source_urls = ['https://github.com/NCAR/ncl/archive/']
 sources = ['%(version)s.tar.gz']
@@ -51,4 +50,11 @@ dependencies = [
     ('libjpeg-turbo', '3.1.1'),
 ]
 
+# installopts = '>&  make-output'
+
 moduleclass = 'data'
+
+#   >> file 'bin/ncl' found: FAILED
+#   >> file 'lib/libncl.a' found: FAILED
+
+# /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/intel-compilers/2025.2.0/compiler/2025.2/bin/ifx
