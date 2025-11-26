@@ -1,0 +1,13 @@
+Update TextItem.c to be compatible with icx - int to pointer error
+Author: Pavel Tomanek (Inuits)
+--- ni/src/lib/hlu/TextItem.c.orig	2025-11-26 14:22:08.380801000 +0100
++++ ni/src/lib/hlu/TextItem.c	2025-11-26 14:22:52.913093000 +0100
+@@ -63,7 +63,7 @@
+ 		NhlTProcedure,_NhlUSET((NhlPointer)_NhlResUnset),0,NULL },
+ 	{ NhlNtxFont, NhlCFont, NhlTFont, sizeof(NhlFont),
+ 		NhlOffset(NhlTextItemLayerRec, text.font),
+-		NhlTImmediate,_NhlUSET(21),0,NULL },
++		NhlTImmediate,_NhlUSET((NhlPointer)21),0,NULL },
+ 	{ "no.res", "No.res", NhlTBoolean, sizeof(NhlBoolean),
+ 		NhlOffset(NhlTextItemLayerRec,text.just_set),
+ 		NhlTImmediate,_NhlUSET((NhlPointer)True),_NhlRES_PRIVATE,NULL},

@@ -7,7 +7,7 @@ description = "NCL is an interpreted language designed specifically for scientif
 toolchain = {'name': 'intel', 'version': '2025b'}
 # toolchainopts = {'cstd': 'c99', 'openmp': True, 'pic': True, 'oneapi': False}
 # toolchainopts = {'cstd': 'c99', 'openmp': True, 'pic': True}
-toolchainopts = {'openmp': True, 'pic': True}
+toolchainopts = {'cstd': 'gnu89', 'openmp': True, 'pic': True}
 
 source_urls = ['https://github.com/NCAR/ncl/archive/']
 sources = ['%(version)s.tar.gz']
@@ -15,12 +15,16 @@ patches = [
     'NCL-6.4.0_fix-types.patch',
     'NCL-6.6.2_header_and_operands.patch',
     'NCL-6.6.2_multiple_definitions.patch',
+    'patch1.patch',
+    'patch2.patch',
 ]
 checksums = [
     {'6.6.2.tar.gz': 'cad4ee47fbb744269146e64298f9efa206bc03e7b86671e9729d8986bb4bc30e'},
     {'NCL-6.4.0_fix-types.patch': 'f6dfaf95e5de9045745e122cb44f9c035f81fab92f5892991ddfe93945891c8f'},
     {'NCL-6.6.2_header_and_operands.patch': '5cb62d9a37de8af485b94487692f7e739ca5eb103a6b447e0290a68a6c094808'},
     {'NCL-6.6.2_multiple_definitions.patch': 'e21503dc46fe6fd360ba7ca4897aa93bf9ec2961bc48634ca46de582710448f7'},
+    {'patch1.patch': '002399aacf7e02d1f53723c66bf655e1562c950a1636ef09cd13161376701faf'},
+    {'patch2.patch': '360d6e838c5088ac1ff31bcb7377728e1399778cb6d74ac582b05370bca2e4cf'},
 ]
 
 builddependencies = [
@@ -50,11 +54,4 @@ dependencies = [
     ('libjpeg-turbo', '3.1.1'),
 ]
 
-# installopts = '>&  make-output'
-
 moduleclass = 'data'
-
-#   >> file 'bin/ncl' found: FAILED
-#   >> file 'lib/libncl.a' found: FAILED
-
-# /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/intel-compilers/2025.2.0/compiler/2025.2/bin/ifx
