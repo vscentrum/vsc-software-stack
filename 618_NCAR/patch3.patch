@@ -1,0 +1,13 @@
+Explicitly cast the literal so the initializer matches the pointer type
+Author: Pavel Tomanek (Inuits)
+--- ni/src/lib/hlu/SubStyles.c.orig	2025-11-27 13:58:16.310957000 +0100
++++ ni/src/lib/hlu/SubStyles.c	2025-11-27 13:58:45.770992000 +0100
+@@ -752,7 +752,7 @@
+ 		NhlTString,_NhlUSET("0.0"),0,NULL },
+ 	{NhlNgsFont, NhlCFont, NhlTFont, sizeof(NhlFont),
+ 		Oset(font),
+-		NhlTImmediate,_NhlUSET(21),0,NULL },
++		NhlTImmediate,_NhlUSET((NhlPointer)(intptr_t)21),0,NULL },
+ 	{NhlNgsTextJustification, NhlCTextJustification,
+ 		 NhlTJustification, sizeof(int),Oset(just),
+ 		NhlTImmediate,_NhlUSET((NhlPointer)NhlCENTERCENTER),0,NULL},
