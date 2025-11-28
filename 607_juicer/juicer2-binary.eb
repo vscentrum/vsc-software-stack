@@ -22,7 +22,7 @@ sources = [
     {
         'source_urls': ['https://github.com/aidenlab/JuicerTools/releases/download/v3.0.0/'],
         'filename': 'juicer_tools.3.0.0.jar',
-        'extract_cmd': 'cp %s %(builddir)s/%(name)s-%(version)s/SLURM/scripts',
+        'extract_cmd': 'cp %s %(builddir)s/%(name)s-%(version)s/SLURM/scripts/juicer_tools.jar',
     },
 ]
 checksums = [
@@ -34,6 +34,7 @@ extract_sources = True
 
 dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
+    ('JCuda', '12.6.0', versionsuffix, SYSTEM),
     ('Java', '17', '', SYSTEM),
     ('BWA', '0.7.18'),
     ('SAMtools', '1.21'),
