@@ -7,7 +7,15 @@ description = "NCL is an interpreted language designed specifically for scientif
 toolchain = {'name': 'intel', 'version': '2025b'}
 # toolchainopts = {'cstd': 'c99', 'openmp': True, 'pic': True, 'oneapi': False}
 # toolchainopts = {'cstd': 'c99', 'openmp': True, 'pic': True}
-toolchainopts = {'cstd': 'gnu89', 'openmp': True, 'pic': True}
+# toolchainopts = {'cstd': 'gnu89', 'openmp': True, 'pic': True}
+# toolchainopts = {'cstd': 'gnu89', 'openmp': True, 'pic': True, 'noopt': True}
+toolchainopts = {
+    'cstd': 'gnu99',
+    'openmp': True,
+    'pic': True,
+    'extra_cflags': '-Wno-error -Wno-implicit-function-declaration -Wno-incompatible-function-pointer-types -Wno-int-conversion -Wno-format -Wno-return-type',
+    'extra_fflags': '-std=legacy',
+}
 
 source_urls = ['https://github.com/NCAR/ncl/archive/']
 sources = ['%(version)s.tar.gz']
@@ -61,5 +69,7 @@ dependencies = [
     ('libpng', '1.6.50'),
     ('libjpeg-turbo', '3.1.1'),
 ]
+
+prebuildopts = "sed -i 's/#include <ncarg\/hlu\/NresDB.h>/#include <ncarg\/hlu\/NresDB.h>\\n#include <stdint.h>/' ni/src/lib/hlu/SubStyles.c && "
 
 moduleclass = 'data'
