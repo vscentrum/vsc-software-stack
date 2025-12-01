@@ -27,14 +27,6 @@ dependencies = [
     ('Java', '17', '', SYSTEM),
 ]
 
-# skipsteps = ['configure', 'build']
-
-# postinstallcmds = [
-#     'install -d %(installdir)s/share/java',
-#     'install -m 0644 %(builddir)s/jcuda-%(version)s.jar %(installdir)s/share/java/',
-#     'install -m 0644 %(builddir)s/jcuda-natives-%(version)s-linux-x86_64.jar %(installdir)s/share/java/',
-# ]
-
 install_cmd = 'install -d %(installdir)s/share/java && '
 install_cmd += 'install -m 0644 %(builddir)s/jcuda-%(version)s.jar %(installdir)s/share/java/ && '
 install_cmd += 'install -m 0644 %(builddir)s/jcuda-natives-%(version)s-linux-x86_64.jar %(installdir)s/share/java/'

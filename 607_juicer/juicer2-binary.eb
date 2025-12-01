@@ -44,28 +44,28 @@ dependencies = [
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/bin',
-    'ln -s %(installdir)s/SLURM/scripts/juicer.sh %(installdir)s/bin/juicer && chmod +x %(installdir)s/bin/juicer',
+    # 'ln -s %(installdir)s/SLURM/scripts/juicer.sh %(installdir)s/bin/juicer && chmod +x %(installdir)s/bin/juicer',
     "ln -s %(installdir)s/SLURM/scripts/juicer_arrowhead.sh %(installdir)s/bin/juicer_arrowhead",
     "ln -s %(installdir)s/SLURM/scripts/juicer_hiccups.sh %(installdir)s/bin/juicer_hiccups",
-    "ln -s %(installdir)s/SLURM/scripts/juicer_tools %(installdir)s/bin/juicer_tools",    
+    # "ln -s %(installdir)s/SLURM/scripts/juicer_tools %(installdir)s/bin/juicer_tools",
+    """bash -lc 'cat > %(installdir)s/bin/juicer_tools << "EOF"\n#!/bin/bash\nexec "%(installdir)s/SLURM/scripts/juicer_tools" "$@"\nEOF\nchmod +x %(installdir)s/bin/juicer_tools\'""",
+    "ln -sfn %(installdir)s/SLURM/scripts %(installdir)s/scripts",
+    """bash -lc 'cat > %(installdir)s/bin/juicer_hiccups_gpu << "EOF"\n#!/bin/bash\nset -euo pipefail\nJAR="%(installdir)s/scripts/juicer_tools.jar"\n: "${JCUDA_CLASSPATH:?Load JCuda module first}"\nJAVA_OPTS="${JUICER_JAVA_OPTS:- -Xmx48g}"\nexec java $JAVA_OPTS -cp "$JAR:$JCUDA_CLASSPATH" juicebox.HiCTools hiccups "$@"\nEOF\nchmod +x %(installdir)s/bin/juicer_hiccups_gpu'""",
+    """bash -lc 'cat > %(installdir)s/bin/juicer_hiccups_slurm_gpu << "EOF"\n#!/bin/bash\nset -euo pipefail\nexec "%(installdir)s/SLURM/scripts/juicer_hiccups.sh" -j "%(installdir)s/bin/juicer_hiccups_gpu" "$@"\nEOF\nchmod +x %(installdir)s/bin/juicer_hiccups_slurm_gpu'""",
+    # wrapper that sets up a per-user runtime dir and points -D there
+    """bash -lc 'cat > %(installdir)s/bin/juicer << "EOF"\n#!/bin/bash\nset -euo pipefail\nRUNTIME_DIR="${JUICER_RUNTIME:-$HOME/.juicer}"\nmkdir -p "$RUNTIME_DIR/references" "$RUNTIME_DIR/restriction_sites"\nif [[ ! -e \"$RUNTIME_DIR/scripts\" ]]; then ln -s "%(installdir)s/scripts" "$RUNTIME_DIR/scripts"; fi\nexec "%(installdir)s/SLURM/scripts/juicer.sh" -D "$RUNTIME_DIR" "$@"\nEOF\nchmod +x %(installdir)s/bin/juicer'""",
 ]
 
-# sanity_check_paths = {
-#     'files': ['bin/lohhlamod', 'bin/lohhlaplot'],
-#     'dirs': ['lib/R/library/lohhlamod'],
-# }
-
 sanity_check_paths = {
-    'files': ['SLURM/scripts/juicer_tools.3.0.0.jar'],
+    'files': ['scripts/juicer.sh', 'scripts/juicer_tools', 'scripts/juicer_tools.jar'],
     'dirs': ['SLURM'],
 }
 
-# sanity_check_commands = [
-#     'lohhlamod --help',
-#     'lohhlaplot --help',
-# ]
-
-# modextrapaths = {'R_LIBS_SITE': 'lib/R/library'}
+modextravars = {
+    'JUICER_HOME': '%(installdir)s',
+    'JUICERTOOLS_JAR': '%(installdir)s/scripts/juicer_tools.jar',
+    'JUICER_RUNTIME': '$HOME/.juicer',
+}
 
 moduleclass = 'tools'
 
