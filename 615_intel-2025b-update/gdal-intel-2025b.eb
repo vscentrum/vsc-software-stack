@@ -11,7 +11,8 @@ description = """GDAL is a translator library for raster geospatial data formats
 
 toolchain = {'name': 'intel', 'version': '2025b'}
 # toolchainopts = {'usempi': True, 'pic': True, 'optarch': '-march=x86-64-v3'}
-toolchainopts = {'usempi': True, 'pic': True, 'unroll': True}
+# toolchainopts = {'usempi': True, 'pic': True, 'unroll': True}
+toolchainopts = {'usempi': True, 'pic': True, 'precise': True}
 
 source_urls = ['https://download.osgeo.org/%(namelower)s/%(version)s/']
 sources = [SOURCELOWER_TAR_XZ]
@@ -64,8 +65,15 @@ dependencies = [
 local_configopts_common = "-DGDAL_USE_INTERNAL_LIBS=OFF -DGDAL_USE_MYSQL=OFF -DGDAL_USE_POPPLER=OFF "
 local_configopts_common += "-DGEOTIFF_INCLUDE_DIR=$EBROOTLIBGEOTIFF/include -DPython_ROOT=$EBROOTPYTHON "
 
-preconfigopts = 'export CFLAGS="$(echo \" $CFLAGS \" | sed \'s/ -fp-speculation=safe / /g\' | xargs)" && '
-prebuildopts = 'export CFLAGS="$(echo \" $CFLAGS \" | sed \'s/ -fp-speculation=safe / /g\' | xargs)" && '
+# preconfigopts = 'export CFLAGS="$(echo \" $CFLAGS \" | sed \'s/ -fp-speculation=safe / /g\' | xargs)" && '
+# preconfigopts += 'export CXXFLAGS=$CFLAGS && '
+# preconfigopts += 'export CXXFLAGS="$(echo \" $CFLAGS \" | sed \'s/ -fp-speculation=safe / /g\' | xargs)" && '
+
+# prebuildopts = 'export CFLAGS="$(echo \" $CFLAGS \" | sed \'s/ -fp-speculation=safe / /g\' | xargs)" && '
+# prebuildopts += 'export CXXFLAGS=$CFLAGS && '
+
+# prebuildopts = preconfigopts
+# prebuildopts += 'export CXXFLAGS="$(echo \" $CFLAGS \" | sed \'s/ -fp-speculation=safe / /g\' | xargs)" && '
 
 configopts = [
     local_configopts_common + "-DBUILD_SHARED_LIBS=OFF",
