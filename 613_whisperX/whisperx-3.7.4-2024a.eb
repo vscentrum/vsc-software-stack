@@ -11,8 +11,8 @@ description = "Automatic Speech Recognition with Word-level Timestamps (& Diariz
 toolchain = {'name': 'foss', 'version': '2024a'}
 
 ## DEPS:
-    # "ctranslate2>=4.5.0",
-    # "faster-whisper>=1.1.1",
+    # ok "ctranslate2>=4.5.0",
+    # ok "faster-whisper>=1.1.1",
     # "nltk>=3.9.1",
     # # Restrict numpy, onnxruntime, pandas, av to be compatible with Python 3.9
     # "numpy>=2.0.2,<2.1.0; python_version <'3.13'",
@@ -21,10 +21,10 @@ toolchain = {'name': 'foss', 'version': '2024a'}
     # "av<16.0.0",
     # "numpy>=2.1.0,<2.3.0; python_version >='3.13'",
     # "pyannote-audio>=3.3.2,<4.0.0",
-    # "torch~=2.7.1",
-    # "torchaudio~=2.7.1",
+    # "torch~=2.8.0",
+    # "torchaudio~=2.8.0",
     # "transformers>=4.48.0",
-    # "triton>=3.3.0
+    # "triton>=3.3.0; sys_platform == 'linux' and platform_machine == 'x86_64'" # only install triton on x86_64 Linux
 
 dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
@@ -40,7 +40,7 @@ dependencies = [
 ]
 
 exts_list = [
-    ('faster-whisper', '1.1.0', {
+    ('faster-whisper', '1.2.1', {
         'checksums': ['cea4bba5d4527173fdbacafa56f2ffb17dd322688f6c3fdf5fd7b6b6c193ce17'],
     }),
     ('ctranslate2', '4.4.0', {
