@@ -1,0 +1,80 @@
+--- ni/src/lib/nfp/eemd.c.orig	2025-12-02 14:50:53.817940000 +0100
++++ ni/src/lib/nfp/eemd.c	2025-12-02 14:50:27.186285000 +0100
+@@ -44,27 +44,27 @@
+ }
+ 
+ inline static void array_add(double const* src, size_t n, double* dest) {
+-	for (size_t i=0; i<n; i++)
++	size_t i; for (i=0; i<n; i++)
+ 		dest[i] += src[i];
+ }
+ 
+ inline static void array_add_to(double const* src1, double const* src2, size_t n, double* dest) {
+-	for (size_t i=0; i<n; i++)
++	size_t i; for (i=0; i<n; i++)
+ 		dest[i] = src1[i] + src2[i];
+ }
+ 
+ inline static void array_addmul_to(double const* src1, double const* src2, double val, size_t n, double* dest) {
+-	for (size_t i=0; i<n; i++)
++	size_t i; for (i=0; i<n; i++)
+ 		dest[i] = src1[i] + val*src2[i];
+ }
+ 
+ inline static void array_sub(double const* src, size_t n, double* dest) {
+-	for (size_t i=0; i<n; i++)
++	size_t i; for (i=0; i<n; i++)
+ 		dest[i] -= src[i];
+ }
+ 
+ inline static void array_mult(double* dest, size_t n, double val) {
+-	for (size_t i=0; i<n; i++)
++	size_t i; for (i=0; i<n; i++)
+ 		dest[i] *= val;
+ }
+ 
+@@ -255,7 +255,7 @@
+ 		{
+ 			ws = malloc(num_threads*sizeof(eemd_workspace*));
+ 			locks = malloc(M*sizeof(lock*));
+-			for (size_t i=0; i<M; i++) {
++			size_t i; for (i=0; i<M; i++) {
+ 				locks[i] = malloc(sizeof(lock));
+ 				init_lock(locks[i]);
+ 			}
+@@ -281,7 +281,7 @@
+ 				// set rng seed based on ensemble member to ensure
+ 				// reproducibility even in a multithreaded case
+ 				set_rng_seed(w, rng_seed+en_i);
+-				for (size_t i=0; i<N; i++) {
++				size_t i; for (i=0; i<N; i++) {
+ 					w->x[i] = input[i] + gsl_ran_gaussian(w->r, noise_sigma);
+ 				}
+ 			}
+@@ -299,7 +299,7 @@
+ 		#pragma omp single
+ 		{
+ 			free(ws); ws = NULL;
+-			for (size_t i=0; i<M; i++) {
++			size_t i; for (i=0; i<M; i++) {
+ 				destroy_lock(locks[i]);
+ 				free(locks[i]);
+ 			}
+@@ -563,7 +563,7 @@
+ 			return min_errcode;
+ 		}
+ 		// Subtract envelope mean from the data
+-		for (size_t i=0; i<N; i++) {
++		size_t i; for (i=0; i<N; i++) {
+ 			input[i] -= 0.5*(w->maxspline[i] + w->minspline[i]);
+ 		}
+ 	}
+@@ -654,7 +654,7 @@
+ 	enum slope previous_slope = NONE;
+ 	enum sign previous_sign = (x[0] < -0)? NEG : ((x[0] > 0)? POS : ZERO);
+ 	int flat_counter = 0;
+-	for (size_t i=0; i<N-1; i++) {
++	size_t i; for (i=0; i<N-1; i++) {
+ 		if (x[i+1] > x[i]) { // Going up
+ 			if (previous_slope == DOWN) {
+ 				// Was going down before -> local minimum found

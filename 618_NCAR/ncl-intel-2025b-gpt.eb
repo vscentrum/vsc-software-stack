@@ -9,15 +9,15 @@ toolchain = {'name': 'intel', 'version': '2025b'}
 # toolchainopts = {'cstd': 'c99', 'openmp': True, 'pic': True}
 # toolchainopts = {'cstd': 'gnu89', 'openmp': True, 'pic': True}
 
-# toolchainopts = {'cstd': 'gnu89', 'openmp': True, 'pic': True, 'noopt': True}
+toolchainopts = {'cstd': 'gnu89', 'openmp': True, 'pic': True, 'noopt': True}
 
-toolchainopts = {
-    'cstd': 'gnu99',
-    'openmp': True,
-    'pic': True,
-    'extra_cflags': '-Wno-error -Wno-implicit-function-declaration -Wno-incompatible-function-pointer-types -Wno-int-conversion -Wno-format -Wno-return-type',
-    'extra_fflags': '-std=legacy',
-}
+# toolchainopts = {
+#     'cstd': 'gnu99',
+#     'openmp': True,
+#     'pic': True,
+#     'extra_cflags': '-Wno-error -Wno-implicit-function-declaration -Wno-incompatible-function-pointer-types -Wno-int-conversion -Wno-format -Wno-return-type',
+#     'extra_fflags': '-std=legacy',
+# }
 
 source_urls = ['https://github.com/NCAR/ncl/archive/']
 sources = ['%(version)s.tar.gz']
@@ -31,6 +31,8 @@ patches = [
     'patch2.patch',
     'patch3.patch',
     'patch4.4.patch',
+    'patch5.2.patch',
+    'patch6.1.patch',
 ]
 checksums = [
     {'6.6.2.tar.gz': 'cad4ee47fbb744269146e64298f9efa206bc03e7b86671e9729d8986bb4bc30e'},
@@ -43,11 +45,14 @@ checksums = [
     {'patch2.patch': '360d6e838c5088ac1ff31bcb7377728e1399778cb6d74ac582b05370bca2e4cf'},
     {'patch3.patch': '6ac056ceba8d8a44794ba6f7c29e1f8ada78551524c653ec28a675a86ddb06f6'},
     {'patch4.4.patch': '0f5b21fd784f97e231b3717c8e025e917a4c419c5a675cf59ece25a31ee64903'},
+    {'patch5.2.patch': '767f9138c9cd797d0afbd28f7a25f9784b76ff2418d79a255913a774e5e8a5ef'},
+    {'patch6.1.patch': '2e4ea9dc3d38773d80bbf0ee924e5b99c2d8df5b6ff68fd52c297a7778eea399'},
 ]
 
 builddependencies = [
     ('makedepend', '1.0.9'),
-    ('Bison', '3.8.2'),
+    # ('Bison', '3.8.2'),
+    ('byacc', '2.0.20241231'),
     ('flex', '2.6.4'),
 ]
 dependencies = [
@@ -72,6 +77,11 @@ dependencies = [
     ('libjpeg-turbo', '3.1.1'),
 ]
 
-prebuildopts = "sed -i 's/#include <ncarg\/hlu\/NresDB.h>/#include <ncarg\/hlu\/NresDB.h>\\n#include <stdint.h>/' ni/src/lib/hlu/SubStyles.c && "
+# preconfigopts = 'YACC=byacc '
+
+# prebuildopts = "sed -i -e 's/#include <ncarg\/hlu\/NresDB.h>/#include <ncarg\/hlu\/NresDB.h>\\n#include <stdint.h>/' -e 's/NhlNumber(textresources)/NhlNumber(13)/' ni/src/lib/hlu/SubStyles.c && "
+# prebuildopts += 'cd ncarview/src/bin/ictrans && touch Copyright && cd - && '
+
+# buildopts = 'YACC=byacc '
 
 moduleclass = 'data'

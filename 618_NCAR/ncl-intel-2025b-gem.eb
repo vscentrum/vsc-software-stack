@@ -11,12 +11,19 @@ toolchain = {'name': 'intel', 'version': '2025b'}
 
 # toolchainopts = {'cstd': 'gnu89', 'openmp': True, 'pic': True, 'noopt': True}
 
+# toolchainopts = {
+#     'cstd': 'gnu99',
+#     'openmp': True,
+#     'pic': True,
+#     'extra_cflags': '-Wno-error -Wno-implicit-function-declaration -Wno-incompatible-function-pointer-types -Wno-int-conversion -Wno-format -Wno-return-type -Wno-implicit-int',
+#     # 'extra_fflags': '-std=legacy',
+# }
+
 toolchainopts = {
-    'cstd': 'gnu99',
+    'cstd': 'gnu89',
     'openmp': True,
     'pic': True,
-    'extra_cflags': '-Wno-error -Wno-implicit-function-declaration -Wno-incompatible-function-pointer-types -Wno-int-conversion -Wno-format -Wno-return-type',
-    'extra_fflags': '-std=legacy',
+    'extra_cflags': '-Wno-error -Wno-implicit-function-declaration -Wno-incompatible-function-pointer-types -Wno-int-conversion -Wno-format -Wno-return-type -Wno-implicit-int -Drestrict=__restrict__',
 }
 
 source_urls = ['https://github.com/NCAR/ncl/archive/']
@@ -31,6 +38,8 @@ patches = [
     'patch2.patch',
     'patch3.patch',
     'patch4.4.patch',
+    'patch5.2.patch',
+    'patch6.1.patch',
 ]
 checksums = [
     {'6.6.2.tar.gz': 'cad4ee47fbb744269146e64298f9efa206bc03e7b86671e9729d8986bb4bc30e'},
@@ -43,6 +52,8 @@ checksums = [
     {'patch2.patch': '360d6e838c5088ac1ff31bcb7377728e1399778cb6d74ac582b05370bca2e4cf'},
     {'patch3.patch': '6ac056ceba8d8a44794ba6f7c29e1f8ada78551524c653ec28a675a86ddb06f6'},
     {'patch4.4.patch': '0f5b21fd784f97e231b3717c8e025e917a4c419c5a675cf59ece25a31ee64903'},
+    {'patch5.1.patch': 'be13e45292e78fd5e395257d65b5192617859ba6f7f97f7d3dc1a5017b17112a'},
+    {'patch6.1.patch': '2e4ea9dc3d38773d80bbf0ee924e5b99c2d8df5b6ff68fd52c297a7778eea399'},
 ]
 
 builddependencies = [
