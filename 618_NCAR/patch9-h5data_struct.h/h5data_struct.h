@@ -263,8 +263,8 @@ typedef struct string_queue_t
     string_list_t *tail;
 } string_queue_t;
 
-herr_t _NclHDF5search_obj(char *name, H5O_info_t *oinfo, void *_NclHDF5obj, char *already_seen);
-herr_t _NclHDF5search_link(char *name, H5O_info_t *oinfo, void *_NclHDF5link);
+herr_t _NclHDF5search_obj(const char *name, const H5O_info_t *oinfo, void *_NclHDF5obj, char *already_seen);
+herr_t _NclHDF5search_link(char *name, const H5L_info_t *linfo, void *_NclHDF5link);
 
 /* Typedefs for serach functions */
 typedef herr_t (*_NclHDF5search_obj_func_t) (char *path_name, H5O_info_t *oinfo, void *udata, char *already_seen);
@@ -310,8 +310,7 @@ char *_NclHDF5_addr_visited(NclHDF5_addr_t *visited, haddr_t addr);
 
 NclHDF5datatype_t *_NclHDF5get_typename(hid_t type, int ind);
 
-herr_t _NclHDF5check_attr(hid_t obj_id, char *attr_name, const H5A_info_t *ainfo,
-                          void *attr_data);
+herr_t _NclHDF5check_attr(hid_t obj_id, const char *attr_name, const H5A_info_t *ainfo, void *attr_data);
 
 void _NclHDF5print_group(NclHDF5group_node_t *HDF5group);
 void _NclHDF5free_group(NclHDF5group_node_t *HDF5group);
