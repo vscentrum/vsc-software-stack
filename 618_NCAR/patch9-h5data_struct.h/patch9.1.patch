@@ -1,0 +1,11 @@
+--- ni/src/ncl/h5data_struct.h.orig	2025-12-03 12:15:42.069056000 +0100
++++ ni/src/ncl/h5data_struct.h	2025-12-03 12:15:56.219997000 +0100
+@@ -301,7 +301,7 @@
+ 
+ herr_t _NclHDF5dataset_info(hid_t dset, char *name, NclHDF5dataset_node_t *dataset_node);
+ herr_t _NclHDF5dataset_attr(hid_t dset, char *name, NclHDF5dataset_node_t *dataset_node);
+-herr_t _NclHDF5search_by_name(hid_t loc_id, char *path, H5L_info_t *linfo, void *_udata);
++herr_t _NclHDF5search_by_name(hid_t loc_id, const char *path, const H5L_info_t *linfo, void *_udata);
+ 
+ void _NclHDF5_addr_add(NclHDF5_addr_t *visited, haddr_t addr, char *path);
+ void setHDF5endian(hid_t type, hsize_t size, NclHDF5datatype_t *NclHDF5datatype);

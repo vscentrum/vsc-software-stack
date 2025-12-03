@@ -1,0 +1,17 @@
+--- ni/src/ncl/h5reader.c.orig	2025-12-03 12:10:27.097671000 +0100
++++ ni/src/ncl/h5reader.c	2025-12-03 12:12:05.196737000 +0100
+@@ -2443,11 +2443,11 @@
+  ***********************************************************************
+  */
+ 
+-herr_t _NclHDF5search_by_name(hid_t loc_id, char *path, H5L_info_t *linfo,
+-                              void *_udata)
++herr_t _NclHDF5search_by_name(hid_t loc_id, const char *path,
++                              const H5L_info_t *linfo, void *_udata)
+ {
+     NclHDF5_ud_traverse_t *udata = (NclHDF5_ud_traverse_t *)_udata;     /* User data */
+-    char *new_name = NULL;
++    const char *new_name = NULL;
+     char *full_name = NULL;
+     char *already_visited = NULL; /* Whether the link/object was already visited */
+ 
