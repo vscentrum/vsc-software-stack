@@ -1,8 +1,15 @@
-Explicitly cast the literal so the initializer matches the pointer type
-Author: Pavel Tomanek (Inuits)
 --- ni/src/lib/hlu/SubStyles.c.orig	2025-11-27 13:58:16.310957000 +0100
 +++ ni/src/lib/hlu/SubStyles.c	2025-11-27 13:58:45.770992000 +0100
-@@ -752,7 +752,7 @@
+@@ -24,6 +24,8 @@
+ #include <math.h>
+ #include <ncarg/hlu/FortranP.h>
+ #include <ncarg/hlu/SubStylesP.h>
++#include <inttypes.h>
++#include <stdint.h>
+ 
+ #define Oset(field)     NhlOffset(NhlLineStyleLayerRec,linestyle.ls.field)
+ static NhlResource lineresources[] = {
+@@ -752,7 +754,7 @@
  		NhlTString,_NhlUSET("0.0"),0,NULL },
  	{NhlNgsFont, NhlCFont, NhlTFont, sizeof(NhlFont),
  		Oset(font),

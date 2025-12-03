@@ -24,6 +24,8 @@
 #include <math.h>
 #include <ncarg/hlu/FortranP.h>
 #include <ncarg/hlu/SubStylesP.h>
+#include <inttypes.h>
+#include <stdint.h>
 
 #define Oset(field)     NhlOffset(NhlLineStyleLayerRec,linestyle.ls.field)
 static NhlResource lineresources[] = {

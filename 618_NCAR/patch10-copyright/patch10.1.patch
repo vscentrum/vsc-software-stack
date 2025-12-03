@@ -4,8 +4,8 @@
  DependTarget($(SRCS))
  
  all-local::
--	-@if test -f Copyright; then $(CAT) Copyright; fi
-+	@$(CAT) Copyright
+-	@$(CAT) Copyright
++	-@if test -f Copyright; then $(CAT) Copyright; fi
  
  lint: $(HDR) $(SRCS)
  	lint $(CDEFINES) $(LINTLIBS) $(SRCS)  1> lint.out 2>&1
