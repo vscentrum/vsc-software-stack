@@ -11,28 +11,25 @@ description = "Automatic Speech Recognition with Word-level Timestamps (& Diariz
 toolchain = {'name': 'foss', 'version': '2024a'}
 
 ## DEPS:
-    # ok "ctranslate2>=4.5.0",
+    # OK "ctranslate2>=4.5.0",
     # ok "faster-whisper>=1.1.1",
-    # "nltk>=3.9.1",
-    # # Restrict numpy, onnxruntime, pandas, av to be compatible with Python 3.9
-    # "numpy>=2.0.2,<2.1.0; python_version <'3.13'",
-    # "onnxruntime>=1.19,<1.20.0; python_version <'3.10'",
-    # "pandas>=2.2.3,<2.3.0",
-    # "av<16.0.0",
-    # "numpy>=2.1.0,<2.3.0; python_version >='3.13'",
-    # "pyannote-audio>=3.3.2,<4.0.0",
-    # "torch~=2.8.0",
-    # "torchaudio~=2.8.0",
-    # "transformers>=4.48.0",
-    # "triton>=3.3.0; sys_platform == 'linux' and platform_machine == 'x86_64'" # only install triton on x86_64 Linux
+    # OK "nltk>=3.9.1",
+    # ok "pandas>=2.2.3,<2.3.0",
+    # ok "av<16.0.0",
+    # OK "pyannote-audio>=3.3.2,<4.0.0",
+    # OK "torch~=2.8.0",
+    # OK "torchaudio~=2.8.0",
+    # OK "transformers>=4.48.0",
+    # OK "triton>=3.3.0; sys_platform == 'linux' and platform_machine == 'x86_64'" # only install triton on x86_64 Linux
 
 dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
     ('Python', '3.12.3'),
     ('PyTorch', '2.7.1', versionsuffix),
     ('SciPy-bundle', '2024.05'),
-    # ('NLTK', '3.8.1'),
-    # ('Transformers', '4.39.3'),
+    ('CTranslate2', '4.5.0', versionsuffix),
+    ('NLTK', '3.9.1'),
+    ('Transformers', '4.55.0'),
     # ('FFmpeg', '6.0'),
     # ('PyAV', '11.0.0'),
     # ('ONNX-Runtime', '1.19.2', versionsuffix),
@@ -40,17 +37,16 @@ dependencies = [
 ]
 
 exts_list = [
-    ('faster-whisper', '1.2.1', {
-        'checksums': ['cea4bba5d4527173fdbacafa56f2ffb17dd322688f6c3fdf5fd7b6b6c193ce17'],
+    ('faster-whisper', '1.2.0', {
+        'checksums': ['56b20d616a575049a79f33b04f02db0868ce38c5d057a0b816d36ca59a6d2598'],
     }),
-    ('ctranslate2', '4.4.0', {
-        'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
-        'checksums': ['7653f1f22da29bbb0ba5704ac27b1a3fbde1f34b2b65a703dd20f7e2331eb03c'],
+    ('av', '15.1.0', {
+        'checksums': ['39cda2dc810e11c1938f8cb5759c41d6b630550236b3365790e67a313660ec85'],
     }),
     (name, version, {
         'source_urls': ['https://github.com/m-bain/whisperX/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        'checksums': ['37136d07f991d684744129a98096ca0f300a5098a1a387aa0b6c7e5eb815a2aa'],
+        'checksums': ['ffe9ce94d8895e7ba6030f3cc35a357788a458462051422dda6428d2f95324a7'],
     }),
 ]
 
