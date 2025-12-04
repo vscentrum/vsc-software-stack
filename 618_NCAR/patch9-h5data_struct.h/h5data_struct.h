@@ -263,12 +263,24 @@ typedef struct string_queue_t
     string_list_t *tail;
 } string_queue_t;
 
-herr_t _NclHDF5search_obj(const char *name, const H5O_info_t *oinfo, void *_NclHDF5obj, char *already_seen);
-herr_t _NclHDF5search_link(char *name, const H5L_info_t *linfo, void *_NclHDF5link);
+herr_t _NclHDF5search_obj(const char *name,
+                          const H5O_info_t *oinfo,
+                          void *_NclHDF5obj,
+                          char *already_seen);
+
+herr_t _NclHDF5search_link(char *name,
+                           const H5L_info_t *linfo,
+                           void *_NclHDF5link);
 
 /* Typedefs for serach functions */
-typedef herr_t (*_NclHDF5search_obj_func_t) (char *path_name, H5O_info_t *oinfo, void *udata, char *already_seen);
-typedef herr_t (*_NclHDF5search_link_func_t) (char *path_name, H5L_info_t *linfo, void *udata);
+typedef herr_t (*_NclHDF5search_obj_func_t)(const char *name,
+                                            const H5O_info_t *oinfo,
+                                            void *_NclHDF5obj,
+                                            char *already_seen);
+
+typedef herr_t (*_NclHDF5search_link_func_t)(char *name,
+                                             const H5L_info_t *linfo,
+                                             void *_NclHDF5link);
 
 typedef struct
 {

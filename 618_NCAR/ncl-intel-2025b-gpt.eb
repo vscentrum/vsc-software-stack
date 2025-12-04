@@ -9,7 +9,14 @@ toolchain = {'name': 'intel', 'version': '2025b'}
 # toolchainopts = {'cstd': 'c99', 'openmp': True, 'pic': True}
 # toolchainopts = {'cstd': 'gnu89', 'openmp': True, 'pic': True}
 
-toolchainopts = {'cstd': 'gnu89', 'openmp': True, 'pic': True, 'noopt': True}
+toolchainopts = {
+    'cstd': 'gnu89',
+    # 'cstd': 'c99',
+    'openmp': True,
+    'pic': True,
+    'noopt': True,
+    'extra_cflags': '-Drestrict=__restrict__',
+}
 
 source_urls = ['https://github.com/NCAR/ncl/archive/']
 sources = ['%(version)s.tar.gz']
@@ -24,11 +31,13 @@ patches = [
     'patch3.1.patch',
     'patch4.4.patch',
     # 'patch5.2.patch',
-    'patch6.1.patch',
-    'patch7.1.patch',
+    # 'patch6.1.patch',
+    # 'patch7.1.patch',
     'patch8.4.patch',
-    'patch9.2.patch',
+    'patch9.3.patch',
     'patch10.1.patch',
+    'patch11.1.patch',
+    'patch12.1.patch',
 ]
 checksums = [
     {'6.6.2.tar.gz': 'cad4ee47fbb744269146e64298f9efa206bc03e7b86671e9729d8986bb4bc30e'},
@@ -41,11 +50,11 @@ checksums = [
     {'patch2.patch': '360d6e838c5088ac1ff31bcb7377728e1399778cb6d74ac582b05370bca2e4cf'},
     {'patch3.1.patch': '2b179319c6220c000c50ed3fd2d61dae79cb064e3b873b5351bc13c8a9800ce6'},
     {'patch4.4.patch': '0f5b21fd784f97e231b3717c8e025e917a4c419c5a675cf59ece25a31ee64903'},
-    {'patch6.1.patch': '2e4ea9dc3d38773d80bbf0ee924e5b99c2d8df5b6ff68fd52c297a7778eea399'},
-    {'patch7.1.patch': '0ccfc427e917ec48f084a6ba35bdbcfba562c16c51ab14bb05e27aefe6283081'},
     {'patch8.4.patch': 'f3a73d958e96a4b1e53cf974d0f077d62effe5435b021c69c63e8b853c238b82'},
-    {'patch9.2.patch': 'a0afd75fbb52deaee90d34747a206562b3bc6acbee83dba08b49238117b228a0'},
+    {'patch9.3.patch': 'ba3afa8a231788eb528f2cd373ade09dc990f69e93e7556543905d5e56f5dedf'},
     {'patch10.1.patch': 'eb23d48acafdf376b14d73ff1d25b5d09bddc5c298e4f6ce5d1e76b2ed3af2fd'},
+    {'patch11.1.patch': 'f99161efa04d8db493541aa744759441204436be2ef7f94e6a91f457ab6c12c0'},
+    {'patch12.1.patch': '7f8e506e4d782b13d31d411a048650404a2a13b86576e21d78e31b5619b44b4a'},
 ]
 
 builddependencies = [
