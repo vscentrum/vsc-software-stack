@@ -21,7 +21,14 @@ toolchain = {'name': 'foss', 'version': '2024a'}
     # OK "torchaudio~=2.8.0",
     # OK "transformers>=4.48.0",
     # OK "triton>=3.3.0; sys_platform == 'linux' and platform_machine == 'x86_64'" # only install triton on x86_64 Linux
+    # faster-whisper 1.2.0 requires onnxruntime, which is not installed.
+        # onnxruntime>=1.14,<2
+    # whisperx 3.7.4 has requirement numpy<2.1.0,>=2.0.2; python_version < "3.13", but you have numpy 1.26.4.
+    # whisperx 3.7.4 has requirement pandas<2.3.0,>=2.2.3, but you have pandas 2.2.2.
+    # whisperx 3.7.4 has requirement torch~=2.8.0, but you have torch 2.7.1.
+    # whisperx 3.7.4 has requirement torchaudio~=2.8.0, but you have torchaudio 2.7.1a0.
 
+builddependencies = [('Cython', '3.0.10')]
 dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
     ('Python', '3.12.3'),
@@ -30,7 +37,7 @@ dependencies = [
     ('CTranslate2', '4.5.0', versionsuffix),
     ('NLTK', '3.9.1'),
     ('Transformers', '4.55.0'),
-    # ('FFmpeg', '6.0'),
+    ('FFmpeg', '7.0.2'),
     # ('PyAV', '11.0.0'),
     # ('ONNX-Runtime', '1.19.2', versionsuffix),
     ('pyannote.audio', '3.4.0', versionsuffix),
@@ -40,8 +47,8 @@ exts_list = [
     ('faster-whisper', '1.2.0', {
         'checksums': ['56b20d616a575049a79f33b04f02db0868ce38c5d057a0b816d36ca59a6d2598'],
     }),
-    ('av', '15.1.0', {
-        'checksums': ['39cda2dc810e11c1938f8cb5759c41d6b630550236b3365790e67a313660ec85'],
+    ('av', '14.0.1', {
+        'checksums': ['2b0a17301af469ddaea46b5c1c982df1b7b5de8bc6c94cdc98cad4a67178c82a'],
     }),
     (name, version, {
         'source_urls': ['https://github.com/m-bain/whisperX/archive/'],
