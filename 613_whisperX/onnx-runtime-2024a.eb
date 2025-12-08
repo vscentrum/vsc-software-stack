@@ -15,10 +15,9 @@ and transforms."""
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
-_Abseil_version = '20240722.0'
-
 builddependencies = [
     ('CMake', '3.31.8'),
+    ('Ninja', '1.12.1'),
 ]
 dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
@@ -28,16 +27,16 @@ dependencies = [
     ('ONNX', '1.20.0'),
     ('flatbuffers-python', '24.3.25'),
     ('sympy', '1.13.3'),
-    ('Abseil', _Abseil_version),
+    ('Abseil', '20240722.0'),
 ]
 
 # CUSTOM BUILD
-_onnx_buildcmd = str()
+local_onnx_buildcmd = ""
 # do not fetch and install Abseil - use installed one from the module
 # https://github.com/microsoft/onnxruntime/blob/v1.23.2/cmake/external/abseil-cpp.cmake#L39
-_onnx_buildcmd += f"sed -i 's/20250512/{_Abseil_version}/g' %(start_dir)s/cmake/external/abseil-cpp.cmake && "
+local_onnx_buildcmd += "sed -i 's/20250512/20240722/g' %(start_dir)s/cmake/external/abseil-cpp.cmake && "
 # the build command for onnx-runtime
-_onnx_buildcmd += """
+local_onnx_buildcmd += """
 ./build.sh \
 --config Release \
 --update --build --parallel \
@@ -48,8 +47,13 @@ _onnx_buildcmd += """
 --skip_tests \
 --build_shared_lib \
 --build_wheel \
---skip_submodule_sync
+--skip_submodule_sync \
+--cmake_generator Ninja \
+--cmake_extra_defines \
+absl_DIR=$EBROOTABSEIL/lib/cmake/absl \
+"CMAKE_CUDA_ARCHITECTURES=%(cuda_cc_cmake)s"
 """
+# whl should be in /build/Linux/Release/dist
 
 exts_list = [
     ('humanfriendly', '10.0', {
@@ -61,7 +65,7 @@ exts_list = [
     (name, version, {
         'modulename': 'onnxruntime',
         # 'preinstallopts': _onnx_preinstallopts,
-        'buildcmd': _onnx_buildcmd,
+        'buildcmd': local_onnx_buildcmd,
         # 'install_target': '',
         # 'install_src': '',
         'source_urls': ['https://github.com/microsoft/onnxruntime/archive/'],
@@ -87,11 +91,11 @@ exts_list = [
 
 # _py_sitepkgs_dirs = ['onnxruntime', 'onnxruntime-%(version)s.dist-info', 'onnxruntime_gpu-%(version)s.dist-info']
 
+sanity_check_commands = ["python -c 'import onnxruntime; print(onnxruntime.get_available_providers())'"]
+
 # sanity_check_paths = {
 #     'files': [],
 #     'dirs': ['lib/python%%(pyshortver)s/site-packages/%s' % x for x in _py_sitepkgs_dirs],
 # }
-
-# options = {'modulename': 'onnxruntime'}
 
 moduleclass = 'devel'

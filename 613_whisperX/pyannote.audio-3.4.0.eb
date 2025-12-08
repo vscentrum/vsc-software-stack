@@ -109,9 +109,9 @@ exts_list = [
     ('omegaconf', '2.3.0', {
         'checksums': ['d5d4b6d29955cc50ad50c46dc269bcd92c6e00f5f90d23ab5fee7bfca4ba4cc7'],
     }),
-    ('torchaudio', '2.7.1', {
+    ('torchaudio', local_pytorch_version, {
         'source_urls': ['https://github.com/pytorch/audio/archive'],
-        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'checksums': ['fc8159476d1b3b5978d5e66746fc34be168170800ff4c5e356433d8c9c57cbea'],
     }),
     ('pyannote.core', '5.0.0', {
