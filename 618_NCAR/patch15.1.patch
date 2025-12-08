@@ -1,0 +1,61 @@
+diff --git a/ni/src/ncl/NclNetCDF4.c b/ni/src/ncl/NclNetCDF4.c
+index b8384633e..e299b2c1e 100644
+--- a/ni/src/ncl/NclNetCDF4.c
++++ b/ni/src/ncl/NclNetCDF4.c
+@@ -408,8 +408,9 @@ static void *NC4InitializeFileRec(NclFileFormat *format)
+         first = False;
+     }
+ 
+-    /*nc_set_log_level(3);*/
++#ifdef HAVE_NC_SET_LOG_LEVEL
+     nc_set_log_level(3);
++#endif
+ 
+     ChunkSizeHint = 2 * blksize;
+ 
+diff --git a/ni/src/ncl/NclNetCdf.c b/ni/src/ncl/NclNetCdf.c
+index bbcf77fb8..a26b6e2ca 100644
+--- a/ni/src/ncl/NclNetCdf.c
++++ b/ni/src/ncl/NclNetCdf.c
+@@ -613,8 +613,9 @@ NclFileFormat *format;
+ 		first = False;
+ 	}
+ 
+-        /*nc_set_log_level(3);*/
+-        nc_set_log_level(3);
++#ifdef HAVE_NC_SET_LOG_LEVEL
++	nc_set_log_level(3);
++#endif
+ 
+ 	ChunkSizeHint = 64 * blksize;
+ 	therec = (NetCdfFileRecord*)NclCalloc(1, sizeof(NetCdfFileRecord));
+diff --git a/ni/src/ncl/NclNewHDF5.c b/ni/src/ncl/NclNewHDF5.c
+index f246324eb..5ecdfe3c3 100644
+--- a/ni/src/ncl/NclNewHDF5.c
++++ b/ni/src/ncl/NclNewHDF5.c
+@@ -3833,8 +3833,9 @@ static void *H5InitializeFileRec(NclFileFormat *format)
+         first = False;
+     }
+ 
+-    /*nc_set_log_level(3);*/
++#ifdef HAVE_NC_SET_LOG_LEVEL
+     nc_set_log_level(3);
++#endif
+ 
+     grpnode = (NclFileGrpNode *)NclCalloc(1, sizeof(NclFileGrpNode));
+     assert(grpnode);
+diff --git a/ni/src/ncl/NclNewHDFEOS5.c b/ni/src/ncl/NclNewHDFEOS5.c
+index 130e68a40..af7fa08b8 100644
+--- a/ni/src/ncl/NclNewHDFEOS5.c
++++ b/ni/src/ncl/NclNewHDFEOS5.c
+@@ -529,8 +529,9 @@ NclFileFormat *format;
+         first = 0;
+     }
+ 
+-    /*nc_set_log_level(3);*/
++#ifdef HAVE_NC_SET_LOG_LEVEL
+     nc_set_log_level(3);
++#endif
+ 
+     grpnode = (NclFileGrpNode *)NclCalloc(1, sizeof(NclFileGrpNode));
+     assert(grpnode);
