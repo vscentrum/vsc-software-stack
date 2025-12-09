@@ -1,0 +1,25 @@
+name = 'COMSOL'
+version = '6.4.0.293'
+
+homepage = 'https://www.comsol.com'
+description = """
+COMSOL Multiphysics is a general-purpose software platform, based on
+advanced numerical methods, for modeling and simulating physics-based
+problems.
+"""
+
+toolchain = SYSTEM
+
+# Note: sources from COMSOL are often named poorly. You can view the exact version in the "ver" file inside the iso:
+# 7z x COMSOL-*.iso ver; cat ver
+sources = ['COMSOL-%(version)s.iso']
+checksums = ['2cc878188a993f9be324111939312dc1dbf542648f9dd5c7e34e41e88167b458']
+
+download_instructions = 'Obtain from comsol.com'
+
+osdependencies = [('p7zip-plugins', 'p7zip-full'), 'csh']  # for extracting iso-files
+
+# license_file = 'license.dat'  # or EB_COMSOL_LICENSE_FILE or LMCOMSOL_LICENSE_FILE or LM_LICENSE_FILE
+license_file = '/apps/brussel/licenses/comsol/License.dat'
+
+moduleclass = 'phys'
