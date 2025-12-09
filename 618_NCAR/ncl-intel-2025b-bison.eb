@@ -1,0 +1,97 @@
+name = 'NCL'
+version = '6.6.2'
+versionsuffix = '-Bison'
+
+homepage = 'https://www.ncl.ucar.edu'
+description = "NCL is an interpreted language designed specifically for scientific data analysis and visualization."
+
+toolchain = {'name': 'intel', 'version': '2025b'}
+# toolchainopts = {'cstd': 'c99', 'openmp': True, 'pic': True, 'oneapi': False}
+# toolchainopts = {'cstd': 'c99', 'openmp': True, 'pic': True}
+# toolchainopts = {'cstd': 'gnu89', 'openmp': True, 'pic': True}
+
+toolchainopts = {
+    'cstd': 'gnu89',
+    # 'cstd': 'c99',
+    'openmp': True,
+    'pic': True,
+    'noopt': True,
+    'extra_cflags': '-Drestrict=__restrict__',
+}
+
+source_urls = ['https://github.com/NCAR/ncl/archive/']
+sources = ['%(version)s.tar.gz']
+patches = [
+    'NCL-6.4.0_fix-types.patch',
+    'NCL-6.6.2_header_and_operands.patch',
+    'NCL-6.6.2_multiple_definitions.patch',
+    'NCL-6.6.2_HDF5-110-API.patch',
+    'NCL-6.6.2_g2clib-link.patch',
+    'patch1.patch',
+    'patch2.patch',
+    'patch3.1.patch',
+    'patch4.4.patch',
+    # 'patch5.2.patch',
+    # 'patch6.1.patch',
+    # 'patch7.1.patch',
+    'patch8.4.patch',
+    'patch9.3.patch',
+    'patch10.1.patch',
+    'patch11.1.patch',
+    'patch12.1.patch',
+    'patch13.1.patch',
+    'patch14.1.patch',
+    'patch15.1.patch',
+    'patch16.1.patch',
+]
+checksums = [
+    {'6.6.2.tar.gz': 'cad4ee47fbb744269146e64298f9efa206bc03e7b86671e9729d8986bb4bc30e'},
+    {'NCL-6.4.0_fix-types.patch': 'f6dfaf95e5de9045745e122cb44f9c035f81fab92f5892991ddfe93945891c8f'},
+    {'NCL-6.6.2_header_and_operands.patch': '5cb62d9a37de8af485b94487692f7e739ca5eb103a6b447e0290a68a6c094808'},
+    {'NCL-6.6.2_multiple_definitions.patch': 'e21503dc46fe6fd360ba7ca4897aa93bf9ec2961bc48634ca46de582710448f7'},
+    {'NCL-6.6.2_HDF5-110-API.patch': '1bc5049a44746d9c0d39d88cb11e6440972d923aacfce53946ec1504768801c8'},
+    {'NCL-6.6.2_g2clib-link.patch': '1e3e564c3c95ee64e73e79e3eb0261e66c6219e8e7d2b501310ff46504e327de'},
+    {'patch1.patch': '002399aacf7e02d1f53723c66bf655e1562c950a1636ef09cd13161376701faf'},
+    {'patch2.patch': '360d6e838c5088ac1ff31bcb7377728e1399778cb6d74ac582b05370bca2e4cf'},
+    {'patch3.1.patch': '2b179319c6220c000c50ed3fd2d61dae79cb064e3b873b5351bc13c8a9800ce6'},
+    {'patch4.4.patch': '0f5b21fd784f97e231b3717c8e025e917a4c419c5a675cf59ece25a31ee64903'},
+    {'patch8.4.patch': 'f3a73d958e96a4b1e53cf974d0f077d62effe5435b021c69c63e8b853c238b82'},
+    {'patch9.3.patch': 'ba3afa8a231788eb528f2cd373ade09dc990f69e93e7556543905d5e56f5dedf'},
+    {'patch10.1.patch': 'eb23d48acafdf376b14d73ff1d25b5d09bddc5c298e4f6ce5d1e76b2ed3af2fd'},
+    {'patch11.1.patch': 'f99161efa04d8db493541aa744759441204436be2ef7f94e6a91f457ab6c12c0'},
+    {'patch12.1.patch': '7f8e506e4d782b13d31d411a048650404a2a13b86576e21d78e31b5619b44b4a'},
+    {'patch13.1.patch': '36e9c78a2190f33ea2f07ea0a7f3952bd0f7ed5521d806b287150ea987dc518f'},
+    {'patch14.1.patch': '4befc4a2e3970c59f9105b375cd42755bbe89d4ee37312d69b7d5f5a6b9681a0'},
+    {'patch15.1.patch': '2d94d0ce8ec632f3e3745fef22a4374f0d774b188943b26bba86dc0570c018df'},
+    {'patch16.1.patch': '7d7abf6449deced83caa2a22b3b4602ca72471f1716ed0b1590e185d1916746d'},
+]
+
+builddependencies = [
+    ('makedepend', '1.0.9'),
+    ('Bison', '3.8.2'),
+    # ('byacc', '2.0.20241231'),
+    ('flex', '2.6.4'),
+]
+dependencies = [
+    ('cURL', '8.14.1'),
+    ('JasPer', '4.2.8'),
+    ('g2lib', '4.0.0'),
+    ('HDF5', '1.14.6'),
+    ('HDF', '4.3.1'),
+    ('netCDF', '4.9.3'),
+    ('netCDF-Fortran', '4.6.2'),
+    ('Szip', '2.1.1'),
+    ('freetype', '2.13.3'),
+    ('zlib', '1.3.1'),
+    ('GDAL', '3.11.3'),
+    ('UDUNITS', '2.2.28'),
+    ('ESMF', '8.9.0'),
+    ('bzip2', '1.0.8'),
+    ('cairo', '1.18.4'),
+    ('libiconv', '1.18'),
+    ('GSL', '2.8'),
+    ('libpng', '1.6.50'),
+    ('libjpeg-turbo', '3.1.1'),
+]
+
+moduleclass = 'data'
