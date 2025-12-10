@@ -1,6 +1,6 @@
 name = 'NCL'
 version = '6.6.2'
-versionsuffix = '-Bison'
+versionsuffix = '-lowopt'
 
 homepage = 'https://www.ncl.ucar.edu'
 description = "NCL is an interpreted language designed specifically for scientific data analysis and visualization."
@@ -15,7 +15,12 @@ toolchainopts = {
     # 'cstd': 'c99',
     'openmp': True,
     'pic': True,
+    # noopt -> The IFTRAN binary itself is being miscompiled at -O2 by ifx/icx,
+    # and then mis-parses its own IFTRAN input files, producing all those bogus “invalid END IF” / “string-evaluation error” messages.
+        # -> log-opt1
+        # -> try lowopt
     # 'noopt': True,
+    'lowopt': True,
     # Fixes compilation problems in eemd.c with cstd=gnu89
     'extra_cflags': '-Drestrict=__restrict__',
 }
