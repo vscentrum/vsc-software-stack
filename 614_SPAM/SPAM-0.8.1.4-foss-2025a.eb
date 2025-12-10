@@ -30,7 +30,14 @@ dependencies = [
     ('scikit-image', '0.25.2'),
     ('emcee', '3.1.6'),
     ('SimpleITK', '2.5.3'),
+    ('CGAL', '6.0.1'),
 ]
+
+# fixes ValueError: invalid pyproject.toml config: `project.license`.
+local_spambind_preinstallopts = """sed -i '/license .*/d;"""
+local_spambind_preinstallopts += """s/license-.*/license={file="LICENSE.md"}/g' pyproject.toml && """
+# fixes CGAL/config.h:154:2: error: #error "CGAL requires C++ 17"
+local_spambind_preinstallopts += """sed -i 's/c++14/c++17/g' setup.py && """
 
 exts_list = [
     ('extension-helpers', '1.4.0', {
@@ -58,22 +65,17 @@ exts_list = [
     ('progressbar', '2.5', {
         'checksums': ['5d81cb529da2e223b53962afd6c8ca0f05c6670e40309a7219eacc36af9b6c63'],
     }),
-    # TODO
-#           ValueError: invalid pyproject.toml config: `project.license`.
-#       configuration error: `project.license` must be valid exactly by one definition (2 matches found):
-#
-#           - keys:
-#               'file': {type: string}
-#             required: ['file']
-#           - keys:
-#               'text': {type: string}
-#             required: ['text']
-#
-#       [end of output]
-    # ('spambind', '0.8.2', {
-    #     'source_urls': ['https://gitlab.com/spam-project/spambind/-/archive/version-0.8.2/'],
+    ('spambind', '0.8.2', {
+        'source_urls': ['https://gitlab.com/spam-project/spambind/-/archive/version-0.8.2/'],
+        'source_tmpl': '%(name)s-version-%(version)s.tar.gz',
+        'preinstallopts': local_spambind_preinstallopts,
+        'checksums': ['15f0deb3cf747c6ece8be498a06b606ca7350478b6b3755ececd46f17b1d1ea1'],
+    }),
+    # ('spambind', '0.8.1', {
+    #     'source_urls': ['https://gitlab.com/spam-project/spambind/-/archive/version-%(version)s/'],
     #     'source_tmpl': '%(name)s-version-%(version)s.tar.gz',
-    #     'checksums': ['15f0deb3cf747c6ece8be498a06b606ca7350478b6b3755ececd46f17b1d1ea1'],
+    #     'preinstallopts': local_spambind_preinstallopts,
+    #     'checksums': ['ee2f4ea7d53966594ea752b7148e9cb66d706f243e63ce56661b5e213fad4631'],
     # }),
     ('tifffile', '2025.10.16', {
         'checksums': ['425179ec7837ac0e07bc95d2ea5bea9b179ce854967c12ba07fc3f093e58efc1'],
@@ -87,4 +89,28 @@ exts_list = [
 moduleclass = 'vis'
 
 # TODO
-# spam 0.8.1.4 requires spambind, which is not installed.
+# g++ -O2 -ftree-vectorize -march=native -fno-math-errno -I/apps/gent/RHEL9/zen4-ib/software/FFTW.MPI/3.3.10-gompi-2025a/include -I/apps/gent/RHEL9/zen4-ib/software/FFTW/3.3.10-GCC-14.2.0/include -I/apps/gent/RHEL9/zen4-ib/software/FlexiBLAS/3.4.5-GCC-14.2.0/include/flexiblas -I/apps/gent/RHEL9/zen4-ib/software/FlexiBLAS/3.4.5-GCC-14.2.0/include -I/apps/gent/RHEL9/zen4-ib/software/OpenMPI/5.0.7-GCC-14.2.0/include -I/apps/gent/RHEL9/zen4-ib/software/CGAL/6.0.1-GCCcore-14.2.0/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/SimpleITK/2.5.3-foss-2025a/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/gmsh/4.15.0-foss-2025a/include -I/apps/gent/RHEL9/zen4-ib/software/Python/3.13.1-GCCcore-14.2.0/include -I/apps/gent/RHEL9/zen4-ib/software/binutils/2.42-GCCcore-14.2.0/include -I/apps/gent/RHEL9/zen4-ib/software/GCCcore/14.2.0/include -fPIC -Isrc/spambind/mesh/include/ -INone -I/usr/include/eigen3/ -I/usr/local/include/eigen3 -I/usr/include/eigen3 -I/usr/local/include -I/usr/include -I/opt/homebrew/Cellar/eigen/3.4.0_1/include/eigen3 -I/opt/homebrew/include -I/apps/gent/RHEL9/zen4-ib/software/pybind11/2.13.6-GCC-14.2.0/lib/python3.13/site-packages/pybind11/include -I/apps/gent/RHEL9/zen4-ib/software/pybind11/2.13.6-GCC-14.2.0/lib/python3.13/site-packages/pybind11/include -I/apps/gent/RHEL9/zen4-ib/software/pybind11/2.13.6-GCC-14.2.0/lib/python3.13/site-packages/pybind11/include -I/apps/gent/RHEL9/zen4-ib/software/Python/3.13.1-GCCcore-14.2.0/include/python3.13 -c src/spambind/mesh/src/meshToolkit.cpp -o build/temp.linux-x86_64-cpython-313/src/spambind/mesh/src/meshToolkit.o -fvisibility=hidden -g0 -fvisibility=hidden -g0 -fvisibility=hidden -g0 -fvisibility=hidden -g0 -fvisibility=hidden -g0 -fvisibility=hidden -g0 -std=c++17 -O3 -lgmp -fopenmp
+#       In file included from /apps/gent/RHEL9/zen4-ib/software/CGAL/6.0.1-GCCcore-14.2.0/include/CGAL/iterator.h:24,
+#                        from /apps/gent/RHEL9/zen4-ib/software/CGAL/6.0.1-GCCcore-14.2.0/include/CGAL/Compact_container.h:32,
+#                        from /apps/gent/RHEL9/zen4-ib/software/CGAL/6.0.1-GCCcore-14.2.0/include/CGAL/Alpha_shape_vertex_base_3.h:20,
+#                        from src/spambind/mesh/src/connectivityMatrix.cpp:5:
+#       src/spambind/mesh/src/connectivityMatrix.cpp: In function ‘void triangulateCGAL(pybind11::array_t<float>, pybind11::array_t<float>, pybind11::array_t<unsigned int>, pybind11::array_t<float>)’:
+#       src/spambind/mesh/src/connectivityMatrix.cpp:201:67: error: ‘numTetrahedra_numVertices’ was not declared in this scope
+#         201 |                         CGAL_assertion(as.number_of_vertices() == numTetrahedra_numVertices);
+#             |                                                                   ^~~~~~~~~~~~~~~~~~~~~~~~~
+#       /apps/gent/RHEL9/zen4-ib/software/CGAL/6.0.1-GCCcore-14.2.0/include/CGAL/assertions.h:117:52: note: in definition of macro ‘CGAL_assertion’
+#         117 |    ((!CGAL::get_use_assertions() || CGAL::possibly(EX))?(static_cast<void>(0)): ::CGAL::assertion_fail( # EX , __FILE__, __LINE__))
+#             |                                                    ^~
+#       src/spambind/mesh/src/connectivityMatrix.cpp:215:66: error: ‘numTetrahedra_numVertices’ was not declared in this scope
+#         215 |                         CGAL_assertion(T.number_of_vertices() == numTetrahedra_numVertices);
+#             |                                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~
+#       /apps/gent/RHEL9/zen4-ib/software/CGAL/6.0.1-GCCcore-14.2.0/include/CGAL/assertions.h:117:52: note: in definition of macro ‘CGAL_assertion’
+#         117 |    ((!CGAL::get_use_assertions() || CGAL::possibly(EX))?(static_cast<void>(0)): ::CGAL::assertion_fail( # EX , __FILE__, __LINE__))
+#             |                                                    ^~
+#       error: command '/tmp/vsc45304/eb-nhaoiro9/tmpq165kx47/rpath_wrappers/gxx_wrapper/g++' failed with exit code 1
+#       [end of output]
+#
+#   note: This error originates from a subprocess, and is likely not a problem with pip.
+#   ERROR: Failed building wheel for spambind
+# Failed to build spambind
+# ERROR: ERROR: Failed to build installable wheels for some pyproject.toml based projects (spambind)
