@@ -5,18 +5,16 @@ homepage = 'https://www.ncl.ucar.edu'
 description = "NCL is an interpreted language designed specifically for scientific data analysis and visualization."
 
 toolchain = {'name': 'intel', 'version': '2025b'}
-# toolchainopts = {'cstd': 'c99', 'openmp': True, 'pic': True, 'oneapi': False}
-# toolchainopts = {'cstd': 'c99', 'openmp': True, 'pic': True}
-# toolchainopts = {'cstd': 'gnu89', 'openmp': True, 'pic': True}
-
-# toolchainopts = {'cstd': 'gnu89', 'openmp': True, 'pic': True, 'noopt': True}
-
 toolchainopts = {
-    'cstd': 'gnu99',
+    'cstd': 'gnu89',
     'openmp': True,
     'pic': True,
-    'extra_cflags': '-Wno-error -Wno-implicit-function-declaration -Wno-incompatible-function-pointer-types -Wno-int-conversion -Wno-format -Wno-return-type',
-    'extra_fflags': '-std=legacy',
+    # The IFTRAN binary itself is being miscompiled at -O2 by ifx/icx, and then mis-parses its own IFTRAN input files,
+    # producing bogus “invalid END IF” / “string-evaluation error” messages you can find in this log:
+    # https://github.com/vscentrum/vsc-software-stack/blob/c0a6bdf853dda368e180698ff03c12fdb4162285/618_NCAR/log-opt1
+    'lowopt': True,
+    # Fixes compilation problems in eemd.c with cstd=gnu89
+    'extra_cflags': '-Drestrict=__restrict__',
 }
 
 source_urls = ['https://github.com/NCAR/ncl/archive/']
@@ -27,22 +25,26 @@ patches = [
     'NCL-6.6.2_multiple_definitions.patch',
     'NCL-6.6.2_HDF5-110-API.patch',
     'NCL-6.6.2_g2clib-link.patch',
-    'patch1.patch',
-    'patch2.patch',
-    'patch3.patch',
-    'patch4.4.patch',
+    'NCL-6.6.2_fix-missing-Copyright.patch',
+    'NCL-6.6.2_eemd-compatibility-gnu89.patch',
+    'NCL-6.6.2_fix-NetCDF4-log-level.patch',
+    'NCL-6.6.2_PROJ-compatibility.patch',
+    'NCL-6.6.2_oneAPI-comp-fix.patch',
+    'NCL-6.6.2_hdf5-fix.patch',
 ]
 checksums = [
     {'6.6.2.tar.gz': 'cad4ee47fbb744269146e64298f9efa206bc03e7b86671e9729d8986bb4bc30e'},
     {'NCL-6.4.0_fix-types.patch': 'f6dfaf95e5de9045745e122cb44f9c035f81fab92f5892991ddfe93945891c8f'},
     {'NCL-6.6.2_header_and_operands.patch': '5cb62d9a37de8af485b94487692f7e739ca5eb103a6b447e0290a68a6c094808'},
     {'NCL-6.6.2_multiple_definitions.patch': 'e21503dc46fe6fd360ba7ca4897aa93bf9ec2961bc48634ca46de582710448f7'},
-    {'NCL-6.6.2_HDF5-110-API.patch': '1bc5049a44746d9c0d39d88cb11e6440972d923aacfce53946ec1504768801c8'},
-    {'NCL-6.6.2_g2clib-link.patch': '1e3e564c3c95ee64e73e79e3eb0261e66c6219e8e7d2b501310ff46504e327de'},
-    {'patch1.patch': '002399aacf7e02d1f53723c66bf655e1562c950a1636ef09cd13161376701faf'},
-    {'patch2.patch': '360d6e838c5088ac1ff31bcb7377728e1399778cb6d74ac582b05370bca2e4cf'},
-    {'patch3.patch': '6ac056ceba8d8a44794ba6f7c29e1f8ada78551524c653ec28a675a86ddb06f6'},
-    {'patch4.4.patch': '0f5b21fd784f97e231b3717c8e025e917a4c419c5a675cf59ece25a31ee64903'},
+    {'NCL-6.6.2_HDF5-110-API.patch': 'aaa3086411d40594db04f6c1800b89372d22e7bce0fb9bc1b8414f035158fe17'},
+    {'NCL-6.6.2_g2clib-link.patch': '9eb7ee9ea314721e0ced93470b26cf7114cca2b3557d02fd1c34f8a9474a0d68'},
+    {'NCL-6.6.2_fix-missing-Copyright.patch': 'e125f3af1a9a78388127215078538551b52153e564e2d316f815c6debf257248'},
+    {'NCL-6.6.2_eemd-compatibility-gnu89.patch': 'f13ee79fb979467fc9f43ebe2c345b914b8fb5c0145c666bc4b0576ca77524c8'},
+    {'NCL-6.6.2_fix-NetCDF4-log-level.patch': '6bfbfcc9898730f66b6a22f44112a210aef72ba091af4fa222675cd8d1af8e8a'},
+    {'NCL-6.6.2_PROJ-compatibility.patch': '5ce206e5b9edab082a8e192f081faa82e4812ca2ba5ff065b72624be04bb5b83'},
+    {'NCL-6.6.2_oneAPI-comp-fix.patch': '812f9056523777fa6d2f57c2f6d9d46a09269e7bded4ad0decbbbe0382184685'},
+    {'NCL-6.6.2_hdf5-fix.patch': '63fcfb938a345edd5b23cf1e0b026fc095394d63a5818a194b52df9abeaddb69'},
 ]
 
 builddependencies = [
@@ -71,7 +73,5 @@ dependencies = [
     ('libpng', '1.6.50'),
     ('libjpeg-turbo', '3.1.1'),
 ]
-
-prebuildopts = "sed -i 's/#include <ncarg\/hlu\/NresDB.h>/#include <ncarg\/hlu\/NresDB.h>\\n#include <stdint.h>/' ni/src/lib/hlu/SubStyles.c && "
 
 moduleclass = 'data'

@@ -1,0 +1,28 @@
+--- h5data_struct.h.orig	2025-12-11 17:02:28.026215000 +0100
++++ h5data_struct.h	2025-12-11 17:22:35.357057000 +0100
+@@ -263,12 +263,12 @@
+     string_list_t *tail;
+ } string_queue_t;
+ 
+-herr_t _NclHDF5search_obj(char *name, H5O_info_t *oinfo, void *_NclHDF5obj, char *already_seen);
+-herr_t _NclHDF5search_link(char *name, H5O_info_t *oinfo, void *_NclHDF5link);
++herr_t _NclHDF5search_obj(const char *name, const H5O_info_t *oinfo, void *_NclHDF5obj, char *already_seen);
++herr_t _NclHDF5search_link(const char *name, const H5L_info_t *linfo, void *_NclHDF5link);
+ 
+ /* Typedefs for serach functions */
+-typedef herr_t (*_NclHDF5search_obj_func_t) (char *path_name, H5O_info_t *oinfo, void *udata, char *already_seen);
+-typedef herr_t (*_NclHDF5search_link_func_t) (char *path_name, H5L_info_t *linfo, void *udata);
++typedef herr_t (*_NclHDF5search_obj_func_t) (const char *path_name, const H5O_info_t *oinfo, void *udata, char *already_seen);
++typedef herr_t (*_NclHDF5search_link_func_t) (const char *path_name, const H5L_info_t *linfo, void *udata);
+ 
+ typedef struct
+ {
+@@ -310,7 +310,7 @@
+ 
+ NclHDF5datatype_t *_NclHDF5get_typename(hid_t type, int ind);
+ 
+-herr_t _NclHDF5check_attr(hid_t obj_id, char *attr_name, const H5A_info_t *ainfo,
++herr_t _NclHDF5check_attr(hid_t obj_id, const char *attr_name, const H5A_info_t *ainfo,
+                           void *attr_data);
+ 
+ void _NclHDF5print_group(NclHDF5group_node_t *HDF5group);
