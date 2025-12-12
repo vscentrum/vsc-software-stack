@@ -18,6 +18,7 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 builddependencies = [
     ('CMake', '3.31.8'),
     ('Ninja', '1.12.1'),
+    ('Eigen', '3.4.0'),
 ]
 dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
@@ -39,16 +40,18 @@ local_onnx_buildcmd += "sed -i 's/20250512/20240722/g' %(start_dir)s/cmake/exter
 local_onnx_buildcmd += """
 ./build.sh \
 --config Release \
---update --build --parallel \
+--update --build \
+--parallel %(parallel)s \
 --use_cuda \
 --cuda_home="$EBROOTCUDA" \
 --cudnn_home="$EBROOTCUDNN" \
---cuda_version=12.6 \
+--cuda_version=%(cudashortver)s \
 --skip_tests \
 --build_shared_lib \
 --build_wheel \
 --skip_submodule_sync \
 --cmake_generator Ninja \
+--compile_no_warning_as_error \
 --cmake_extra_defines \
 absl_DIR=$EBROOTABSEIL/lib/cmake/absl \
 "CMAKE_CUDA_ARCHITECTURES=%(cuda_cc_cmake)s"
