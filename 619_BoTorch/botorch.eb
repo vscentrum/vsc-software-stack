@@ -1,0 +1,68 @@
+easyblock = 'PythonBundle'
+
+name = 'BoTorch'
+version = '0.16.1'
+versionsuffix = '-CUDA-%(cudaver)s'
+local_pytorch_version = '2.7.1'
+
+homepage = 'https://botorch.org'
+description = "BoTorch is a library for Bayesian Optimization built on PyTorch."
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+## DEPS:
+    # OK "typing_extensions", - in python
+    # ok "pyre_extensions",
+    # OK "gpytorch>=1.14.2",
+    # OK in gpytorch "linear_operator>=0.6",
+    # OK "torch>=2.0.1",
+    # OK "pyro-ppl>=1.8.4",
+    # OK "scipy",
+    # ok "multipledispatch",
+    # OK in pypi "threadpoolctl",
+    # Optional:
+        # ok pymoo
+    # pymoo 0.6.1.6 requires alive-progress, which is not installed.
+    # pymoo 0.6.1.6 requires autograd, which is not installed.
+    # pymoo 0.6.1.6 requires cma, which is not installed.
+    # pymoo 0.6.1.6 requires deprecated, which is not installed.
+    # pymoo 0.6.1.6 requires matplotlib, which is not installed.
+    # pymoo 0.6.1.6 requires moocore, which is not installed.
+    # pyre-extensions 0.0.32 requires typing-inspect, which is not installed.
+
+builddependencies = [('Cython', '3.0.10')]
+dependencies = [
+    ('CUDA', '12.6.0', '', SYSTEM),
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('PyTorch', '2.7.1', versionsuffix),
+    ('GPyTorch', '1.14.3', versionsuffix),
+    ('pyro-ppl', '1.9.1', versionsuffix),
+    ('setuptools', '80.9.0'),
+]
+
+exts_list = [
+    ('multipledispatch', '1.0.0', {
+        'checksums': ['5c839915465c68206c3e9c473357908216c28383b425361e5d144594bf85a7e0'],
+    }),
+    ('pyre_extensions', '0.0.32', {
+        'checksums': ['5396715f14ea56c4d5fd0a88c57ca7e44faa468f905909edd7de4ad90ed85e55'],
+    }),
+    ('pymoo', '0.6.1.6', {
+        'source_urls': ['https://github.com/anyoptimization/pymoo/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['33ef39c916da70373a3d597be0742a1bb391b6a9138ce6b5e5ba9d462acdf529'],
+    }),
+    ('botorch', version, {
+        'checksums': ['2a9ec7e43f1acddcf0c170ba084443e128696bc02f0ef9a48cc720f13f71713b'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["%(namelower)s -h"]
+
+moduleclass = 'ai'
