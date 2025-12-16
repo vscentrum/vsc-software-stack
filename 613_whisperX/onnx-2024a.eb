@@ -27,29 +27,10 @@ dependencies = [
     ('protobuf-python', '5.28.0'),
     ('ml_dtypes', '0.5.0'),
     ('setuptools', '80.9.0'),
-    # ('typing-extensions', '4.10.0'),
 ]
-
-# hardcode version in pyproject.toml rather than determining it dynamically
-# preinstallopts = """sed -i 's/"version",//g' pyproject.toml && """
-# preinstallopts += """sed -i 's/readme = .*/version = "%(version)s"/g' pyproject.toml && """
-
-# fix for: undefined symbol: _ZN6google8protobuf8internal15ThreadSafeArena13thread_cache_E
-# see also https://bugs.archlinux.org/task/75242
-# author: Kenneth Hoste (HPC-UGent)
-# preinstallopts += "sed -i '50 s/if(MSVC)/#if(MSVC)/' CMakeLists.txt && "
-# preinstallopts += "sed -i '53 s/endif()/#endif()/' CMakeLists.txt && "
-
-# specify C++17 standard and link to protobuf shared library (also requires patch to use -DPROTOBUF_USE_DLLS);
-# required to fix "error: 'string_view' in namespace 'std' does not name a type",
-# see also https://github.com/onnx/onnx/issues/5430
-# preinstallopts += "export CMAKE_ARGS='-DCMAKE_CXX_STANDARD=17 -DONNX_USE_PROTOBUF_SHARED_LIBS=ON' && "
 
 preinstallopts = "export CMAKE_ARGS='-DONNX_USE_PROTOBUF_SHARED_LIBS=ON' && "
 preinstallopts += 'env MAX_JOBS="%(parallel)s"'
-
-# TESTS
-    # add ONNX_BUILD_TESTS=ON to preinstallopts to CMAKE_ARGS
 
 sanity_check_paths = {
     'files': ['bin/check-model', 'bin/check-node', 'bin/backend-test-tools'],
@@ -63,5 +44,3 @@ sanity_check_commands = [
 ]
 
 moduleclass = 'devel'
-
-# onnx 1.20.0 requires ml-dtypes, which is not installed.
