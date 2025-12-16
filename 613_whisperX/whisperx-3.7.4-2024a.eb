@@ -39,18 +39,26 @@ dependencies = [
     ('Transformers', '4.55.0'),
     ('FFmpeg', '7.0.2'),
     # ('PyAV', '11.0.0'),
-    # ('ONNX-Runtime', '1.19.2', versionsuffix),
+    ('ONNX-Runtime', '1.23.2', versionsuffix),
     ('pyannote.audio', '3.4.0', versionsuffix),
 ]
 
+# unpin dependencies versions + fix onnxruntime-gpu check
+local_whisperx_preinstallopts = (
+"sed -E -i "
+r"""-e '/^[[:space:]]*dependencies[[:space:]]*=[[:space:]]*[[]/,/^[[:space:]]*]/{s/"([^"<>!=~;[:space:]]+)[^"]*"/"\1"/g}' """
+"-e 's/onnxruntime/onnxruntime-gpu/' pyproject.toml && "
+)
 exts_list = [
     ('faster-whisper', '1.2.0', {
+        'preinstallopts': """sed -i 's/onnxruntime/onnxruntime-gpu/' requirements.txt && """,
         'checksums': ['56b20d616a575049a79f33b04f02db0868ce38c5d057a0b816d36ca59a6d2598'],
     }),
     ('av', '14.0.1', {
         'checksums': ['2b0a17301af469ddaea46b5c1c982df1b7b5de8bc6c94cdc98cad4a67178c82a'],
     }),
     (name, version, {
+        'preinstallopts': local_whisperx_preinstallopts,
         'source_urls': ['https://github.com/m-bain/whisperX/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'checksums': ['ffe9ce94d8895e7ba6030f3cc35a357788a458462051422dda6428d2f95324a7'],
