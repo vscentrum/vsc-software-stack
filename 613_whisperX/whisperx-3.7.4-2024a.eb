@@ -24,17 +24,16 @@ dependencies = [
     ('pyannote.audio', '3.4.0', versionsuffix),
 ]
 
-# unpin dependencies versions + fix onnxruntime-gpu check
+# unpin versions of dependencies in WhisperX
 local_whisperx_preinstallopts = (
     "sed -E -i "
-    r"""-e '/^[[:space:]]*dependencies[[:space:]]*=[[:space:]]*[[]/"""
+    r""" '/^[[:space:]]*dependencies[[:space:]]*=[[:space:]]*[[]/"""
     r""",/^[[:space:]]*]/{s/"([^"<>!=~;[:space:]]+)[^"]*"/"\1"/g}' """
-    "-e 's/onnxruntime/onnxruntime-gpu/' pyproject.toml && "
+    "pyproject.toml && "
 )
 
 exts_list = [
     ('faster-whisper', '1.2.0', {
-        'preinstallopts': """sed -i 's/onnxruntime/onnxruntime-gpu/' requirements.txt && """,
         'checksums': ['56b20d616a575049a79f33b04f02db0868ce38c5d057a0b816d36ca59a6d2598'],
     }),
     ('av', '14.0.1', {
