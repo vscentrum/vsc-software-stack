@@ -97,7 +97,16 @@ exts_list = [
         'testinstall': True,
         # 'runtest': 'pytest -v test',
         # test_community
-        'runtest': "pytest -v test_community --ignore-glob='*pfn*' --ignore-glob='*PFN*'",
+        # 'runtest': "pytest -v test_community --ignore-glob='*pfn*' --ignore-glob='*PFN*'",
+        # --ignore=test_community/models/test_prior_fitted_network.py
+        'runtest': (
+            'pytest -v test_community --ignore=test_community/models/test_prior_fitted_network.py || '
+            # create all tensors on cpu only to fix:
+            # RuntimeError: Expected all tensors to be on the same device, but found at least two devices,
+            # cpu and cuda:0! (when checking argument for argument mat2 in method wrapper_CUDA_mm)
+            'CUDA_VISIBLE_DEVICES="" '
+            'pytest -v test_community --ignore=test_community/models/test_prior_fitted_network.py --last-failed'
+        ),
         'checksums': ['2a9ec7e43f1acddcf0c170ba084443e128696bc02f0ef9a48cc720f13f71713b'],
     }),
 ]
