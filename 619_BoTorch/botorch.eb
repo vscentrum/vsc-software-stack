@@ -10,32 +10,6 @@ description = "BoTorch is a library for Bayesian Optimization built on PyTorch."
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
-## DEPS:
-    # OK "typing_extensions", - in python
-    # ok "pyre_extensions",
-    # OK "gpytorch>=1.14.2",
-    # OK in gpytorch "linear_operator>=0.6",
-    # OK "torch>=2.0.1",
-    # OK "pyro-ppl>=1.8.4",
-    # OK "scipy",
-    # ok "multipledispatch",
-    # OK in pypi "threadpoolctl",
-    # Optional:
-        # ok pymoo
-    # ok pymoo 0.6.1.6 requires alive-progress, which is not installed.
-    # ok pymoo 0.6.1.6 requires autograd, which is not installed.
-    # ok pymoo 0.6.1.6 requires cma, which is not installed.
-    # OK pymoo 0.6.1.6 requires deprecated, which is not installed.
-    # OK pymoo 0.6.1.6 requires matplotlib, which is not installed.
-    # ok pymoo 0.6.1.6 requires moocore, which is not installed.
-    # ok pyre-extensions 0.0.32 requires typing-inspect, which is not installed.
-    # ok typing-inspect 0.9.0 requires mypy-extensions, which is not installed.
-    # ok alive-progress 3.3.0 requires about-time, which is not installed.
-    # ok alive-progress 3.3.0 requires graphemeu, which is not installed.
-    # ok moocore 0.1.10 has requirement cffi>=1.17.1, but you have cffi 1.16.0.
-    # alive-progress 3.3.0 has requirement about_time==4.2.1, but you have about-time 4.2.2.
-    # alive-progress 3.3.0 has requirement graphemeu==0.7.2, but you have graphemeu 0.9.0.
-
 builddependencies = [
     ('Cython', '3.0.10'),
     ('hatchling', '1.27.0'),
@@ -95,10 +69,6 @@ exts_list = [
     }),
     ('botorch', version, {
         'testinstall': True,
-        # 'runtest': 'pytest -v test',
-        # test_community
-        # 'runtest': "pytest -v test_community --ignore-glob='*pfn*' --ignore-glob='*PFN*'",
-        # --ignore=test_community/models/test_prior_fitted_network.py
         'runtest': (
             'pytest -v test_community --ignore=test_community/models/test_prior_fitted_network.py || '
             # create all tensors on cpu only to fix:
