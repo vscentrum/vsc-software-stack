@@ -35,11 +35,11 @@ Setup of the EESSI environment on HPC
 Missing dependencies and build test on top of EESSI
 ---------------------------------------------------
 
-1. Find out whether the easyconfig already is in `5.1.x` (or newer version) or only in the `develop` brach of `easybuilders/easybuild-easyconfigs`
+1. Find out whether the easyconfig already is in `main` or only in the `develop` brach of `easybuilders/easybuild-easyconfigs`
     - for example `Bandage-0.9.0-GCCcore-14.2.0.eb` only is in `develop`
         - https://github.com/easybuilders/easybuild-easyconfigs/blob/develop/easybuild/easyconfigs/b/Bandage/Bandage-0.9.0-GCCcore-14.2.0.eb
             - It is in the `develop` branch
-        - https://github.com/easybuilders/easybuild-easyconfigs/blob/5.1.x/easybuild/easyconfigs/b/Bandage/Bandage-0.9.0-GCCcore-14.2.0.eb
+        - https://github.com/easybuilders/easybuild-easyconfigs/blob/main/easybuild/easyconfigs/b/Bandage/Bandage-0.9.0-GCCcore-14.2.0.eb
             - 404 - page not found
     - If it is in develop only, we have to find it's `PR`.
         - top right click at `commit` and then click `PR`.
@@ -50,7 +50,7 @@ Missing dependencies and build test on top of EESSI
         ```bash
         eb --from-pr 24461 --missing Bandage-0.9.0-GCCcore-14.2.0.eb
         ```
-    - for easyconfigs, which already are in the `5.1.x` branch of `easybuilders/easybuild-easyconfigs`
+    - for easyconfigs, which already are in the `main` branch of `easybuilders/easybuild-easyconfigs`
         ```bash
         eb --missing Bandage-0.9.0-GCCcore-14.2.0.eb
         ```
@@ -88,7 +88,7 @@ Creating the PR
         - `5.1.2` (currently latest out of the files in the directory)
         - `2024a` (`13.3.0` corresponds to `2024a`)
     - Add the file name at the end of the file
-        - If the easyconfig is in `5.1.x` (or newer) branch of `easybuilders/easybuild-easyconfigs`
+        - If the easyconfig is in the `main` branch of `easybuilders/easybuild-easyconfigs`
             ```yaml
               - Bandage-0.9.0-GCCcore-14.2.0.eb
             ```
