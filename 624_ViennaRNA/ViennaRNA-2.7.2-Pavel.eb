@@ -3,23 +3,20 @@
 easyblock = 'ConfigureMake'
 
 name = 'ViennaRNA'
-version = '2.7.1'
+version = '2.7.2'
 
 homepage = 'https://www.tbi.univie.ac.at/RNA/'
 description = """The Vienna RNA Package consists of a C code library and several
 stand-alone programs for the prediction and comparison of RNA secondary structures."""
 
 toolchain = {'name': 'gfbf', 'version': '2025b'}
-# workaround for:
-# plex_functions.c:432:63: error: passing argument 4 of 'vrna_probs_window' from incompatible pointer type
-# see also https://github.com/ViennaRNA/ViennaRNA/issues/280
-toolchainopts = {'pic': True, 'extra_cflags': "-Wno-error=incompatible-pointer-types"}
+toolchainopts = {'pic': True}
 
 source_urls = ['https://www.tbi.univie.ac.at/RNA/download/sourcecode/%(version_major)s_%(version_minor)s_x/']
 sources = [SOURCE_TAR_GZ]
 patches = ['ViennaRNA-2.7.0-flexiblas-for-RNAxplorer.patch']
 checksums = [
-    {'ViennaRNA-2.7.1.tar.gz': 'f8bc6bf07886a0015f9ba7379b4ae9dcfc272ecd16cb69243067b07088e841de'},
+    {'ViennaRNA-2.7.2.tar.gz': '1ab5f4a4f76fc85a2243546088e45f5d85f2d7a56cc656e969b005cce9bfab5f'},
     {'ViennaRNA-2.7.0-flexiblas-for-RNAxplorer.patch':
      'a5c71e67193d489b9c4f2be6467da5d760f15ad562bb29c5c57f5ae38b3c51b3'},
 ]
@@ -42,17 +39,11 @@ dependencies = [
     ('X11', '20250608'),
 ]
 
-# Fixes aclocal errors in 2.7.0
-#preconfigopts = "autoreconf -f -i && "
-# VRNA_NR_SAMPLING_HASH (--enable-NRhash) is broken, don't enable it
 configopts = ' '.join([
     '--with-python3',
     '--with-cluster',
     '--with-kinwalker',
-    # '--enable-floatpf', this is the problem according too: https://github.com/ViennaRNA/ViennaRNA/issues/280
 ])
-# Uncomment this if you compile on pre SSE4.1 CPU
-# configopts += " --enable-sse "
 
 buildopts = "V=1"
 
