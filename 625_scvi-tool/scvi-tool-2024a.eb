@@ -1,0 +1,71 @@
+easyblock = 'PythonBundle'
+
+name = 'scvi-tools'
+version = '1.4.1'
+
+homepage = 'https://github.com/scverse/scvi-tools'
+description = """scvi-tools (single-cell variational inference tools) is a package for probabilistic modeling and
+analysis of single-cell omics data, built on top of PyTorch and AnnData."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+## DEPS:
+    # ! "anndata>=0.11",
+    # ok "docrep>=0.3.2",
+    # OK "lightning>=2.0",
+    # OK "ml-collections",
+    # ok "mudata",
+    # OK "numba>=0.60.0",
+    # OK "numpy",
+    # OK "pandas",
+    # OK "pyro-ppl",
+    # OK "scanpy[skmisc]>=1.10",
+    # OK "scikit-learn",
+    # OK "scipy",
+    # ok "sparse>=0.14.0",
+    # OK "tensorboard",
+    # OK "torch",
+    # OK "torchmetrics", - in PyTorch-Light.
+    # OK "tqdm",
+    # OK "xarray",
+
+builddependencies = [('hatchling', '1.24.2')]
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('PyTorch', '2.6.0'),
+    ('PyTorch-Lightning', '2.5.2'),
+    ('Lightning', '2.5.2'),
+    ('anndata', '0.11.4'),
+    ('matplotlib', '3.9.2'),
+    ('scikit-learn', '1.5.2'),
+    ('tqdm', '4.66.5'),
+    # ('jax', '0.6.2'),
+    ('h5py', '3.12.1'),
+    ('pyro-ppl', '1.9.1'),
+    ('ml-collections', '1.1.0'),
+    # ('Flax', '0.8.4'),
+    ('numba', '0.60.0'),
+    ('scanpy', '1.10.4'),
+    ('tensorboard', '2.18.0'),
+    ('xarray', '2024.11.0'),
+]
+
+exts_list = [
+    ('mudata', '0.3.2', {
+        'checksums': ['c9b24f2429f369512f38e48599e341e7684abcf769df277e473700d4f1212740'],
+    }),
+    ('sparse', '0.17.0', {
+        'checksums': ['6b1ad51a810c5be40b6f95e28513ec810fe1c785923bd83b2e4839a751df4bf7'],
+    }),
+    ('docrep', '0.3.2', {
+        'checksums': ['ed8a17e201abd829ef8da78a0b6f4d51fb99a4cbd0554adbed3309297f964314'],
+    }),
+    (name, version, {
+        'modulename': 'scvi',
+        'sources': ['scvi_tools-%(version)s.tar.gz'],
+        'checksums': ['ee75eaac665618b9ee6fa466f6353ef68eb33cd3d7e2c77069e743471ca2103a'],
+    }),
+]
+
+moduleclass = 'bio'
