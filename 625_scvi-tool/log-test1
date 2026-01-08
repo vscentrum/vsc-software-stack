@@ -1,0 +1,229 @@
+========================================== test session starts ==========================================
+platform linux -- Python 3.12.3, pytest-8.2.2, pluggy-1.5.0 -- /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
+cachedir: .pytest_cache
+rootdir: /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1
+configfile: pyproject.toml
+plugins: pretty-1.3.0, hydra-core-1.3.2, xdist-3.6.1
+collecting ... collected 604 items / 6 errors
+
+================================================ ERRORS =================================================
+__________________ ERROR collecting tests/external/mrvi_jax/test_jaxmrvi_components.py __________________
+ImportError while importing test module '/tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/external/mrvi_jax/test_jaxmrvi_components.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/python.py:492: in importtestmodule
+    mod = import_path(
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/pathlib.py:591: in import_path
+    importlib.import_module(module_name)
+/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:178: in exec_module
+    exec(co, module.__dict__)
+tests/external/mrvi_jax/test_jaxmrvi_components.py:1: in <module>
+    import flax.linen as nn
+E   ModuleNotFoundError: No module named 'flax'
+________________________ ERROR collecting tests/external/tangram/test_tangram.py ________________________
+ImportError while importing test module '/tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/external/tangram/test_tangram.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/python.py:492: in importtestmodule
+    mod = import_path(
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/pathlib.py:591: in import_path
+    importlib.import_module(module_name)
+/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:178: in exec_module
+    exec(co, module.__dict__)
+tests/external/tangram/test_tangram.py:6: in <module>
+    from scvi.external import Tangram
+/tmp/vsc47063/eb-1pt70ql4/tmpjt13siv0/lib/python3.12/site-packages/scvi/external/__init__.py:74: in __getattr__
+    error_on_missing_dependencies("flax", "jax", "jaxlib", "optax", "numpyro")
+/tmp/vsc47063/eb-1pt70ql4/tmpjt13siv0/lib/python3.12/site-packages/scvi/utils/_dependencies.py:14: in error_on_missing_dependencies
+    raise ModuleNotFoundError(f"Please install {missing_modules} to use this functionality.")
+E   ModuleNotFoundError: Please install ['flax', 'jax', 'jaxlib', 'optax', 'numpyro'] to use this functionality.
+____________________________ ERROR collecting tests/hub/test_hub_metadata.py ____________________________
+ImportError while importing test module '/tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/hub/test_hub_metadata.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/python.py:492: in importtestmodule
+    mod = import_path(
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/pathlib.py:591: in import_path
+    importlib.import_module(module_name)
+/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:178: in exec_module
+    exec(co, module.__dict__)
+tests/hub/test_hub_metadata.py:7: in <module>
+    from scvi.hub import HubMetadata, HubModelCardHelper
+/tmp/vsc47063/eb-1pt70ql4/tmpjt13siv0/lib/python3.12/site-packages/scvi/hub/__init__.py:3: in <module>
+    error_on_missing_dependencies("huggingface_hub")
+/tmp/vsc47063/eb-1pt70ql4/tmpjt13siv0/lib/python3.12/site-packages/scvi/utils/_dependencies.py:14: in error_on_missing_dependencies
+    raise ModuleNotFoundError(f"Please install {missing_modules} to use this functionality.")
+E   ModuleNotFoundError: Please install ['huggingface_hub'] to use this functionality.
+_____________________________ ERROR collecting tests/hub/test_hub_model.py ______________________________
+ImportError while importing test module '/tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/hub/test_hub_model.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/python.py:492: in importtestmodule
+    mod = import_path(
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/pathlib.py:591: in import_path
+    importlib.import_module(module_name)
+/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:178: in exec_module
+    exec(co, module.__dict__)
+tests/hub/test_hub_model.py:13: in <module>
+    from scvi.hub import HubMetadata, HubModel, HubModelCardHelper
+/tmp/vsc47063/eb-1pt70ql4/tmpjt13siv0/lib/python3.12/site-packages/scvi/hub/__init__.py:3: in <module>
+    error_on_missing_dependencies("huggingface_hub")
+/tmp/vsc47063/eb-1pt70ql4/tmpjt13siv0/lib/python3.12/site-packages/scvi/utils/_dependencies.py:14: in error_on_missing_dependencies
+    raise ModuleNotFoundError(f"Please install {missing_modules} to use this functionality.")
+E   ModuleNotFoundError: Please install ['huggingface_hub'] to use this functionality.
+________________________________ ERROR collecting tests/hub/test_url.py _________________________________
+ImportError while importing test module '/tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/hub/test_url.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/python.py:492: in importtestmodule
+    mod = import_path(
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/pathlib.py:591: in import_path
+    importlib.import_module(module_name)
+/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:178: in exec_module
+    exec(co, module.__dict__)
+tests/hub/test_url.py:6: in <module>
+    from scvi.hub._url import validate_colab_notebook, validate_url
+/tmp/vsc47063/eb-1pt70ql4/tmpjt13siv0/lib/python3.12/site-packages/scvi/hub/__init__.py:3: in <module>
+    error_on_missing_dependencies("huggingface_hub")
+/tmp/vsc47063/eb-1pt70ql4/tmpjt13siv0/lib/python3.12/site-packages/scvi/utils/_dependencies.py:14: in error_on_missing_dependencies
+    raise ModuleNotFoundError(f"Please install {missing_modules} to use this functionality.")
+E   ModuleNotFoundError: Please install ['huggingface_hub'] to use this functionality.
+_____________________________ ERROR collecting tests/model/test_jaxscvi.py ______________________________
+ImportError while importing test module '/tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/model/test_jaxscvi.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/python.py:492: in importtestmodule
+    mod = import_path(
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/pathlib.py:591: in import_path
+    importlib.import_module(module_name)
+/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:178: in exec_module
+    exec(co, module.__dict__)
+tests/model/test_jaxscvi.py:7: in <module>
+    from scvi.model import JaxSCVI
+/tmp/vsc47063/eb-1pt70ql4/tmpjt13siv0/lib/python3.12/site-packages/scvi/model/__init__.py:45: in __getattr__
+    error_on_missing_dependencies("flax", "jax", "jaxlib", "optax", "numpyro")
+/tmp/vsc47063/eb-1pt70ql4/tmpjt13siv0/lib/python3.12/site-packages/scvi/utils/_dependencies.py:14: in error_on_missing_dependencies
+    raise ModuleNotFoundError(f"Please install {missing_modules} to use this functionality.")
+E   ModuleNotFoundError: Please install ['flax', 'jax', 'jaxlib', 'optax', 'numpyro'] to use this functionality.
+=========================================== warnings summary ============================================
+tests/dataloaders/test_custom_dataloader.py:24
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/dataloaders/test_custom_dataloader.py:24: PytestUnknownMarkWarning: Unknown pytest.mark.dataloader - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.dataloader
+
+tests/dataloaders/test_custom_dataloader.py:182
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/dataloaders/test_custom_dataloader.py:182: PytestUnknownMarkWarning: Unknown pytest.mark.dataloader - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.dataloader
+
+tests/dataloaders/test_custom_dataloader.py:385
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/dataloaders/test_custom_dataloader.py:385: PytestUnknownMarkWarning: Unknown pytest.mark.dataloader - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.dataloader
+
+tests/dataloaders/test_custom_dataloader.py:508
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/dataloaders/test_custom_dataloader.py:508: PytestUnknownMarkWarning: Unknown pytest.mark.dataloader - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.dataloader
+
+tests/dataloaders/test_custom_dataloader.py:616
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/dataloaders/test_custom_dataloader.py:616: PytestUnknownMarkWarning: Unknown pytest.mark.dataloader - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.dataloader
+
+tests/dataloaders/test_custom_dataloader.py:815
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/dataloaders/test_custom_dataloader.py:815: PytestUnknownMarkWarning: Unknown pytest.mark.dataloader - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.dataloader
+
+tests/dataloaders/test_custom_dataloader.py:1077
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/dataloaders/test_custom_dataloader.py:1077: PytestUnknownMarkWarning: Unknown pytest.mark.dataloader - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.dataloader
+
+tests/dataloaders/test_dataloaders.py:17
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/dataloaders/test_dataloaders.py:17: PytestCollectionWarning: cannot collect test class 'TestSemiSupervisedTrainingPlan' because it has a __init__ constructor (from: tests/dataloaders/test_dataloaders.py)
+    class TestSemiSupervisedTrainingPlan(scvi.train.SemiSupervisedTrainingPlan):
+
+tests/dataloaders/sparse_utils.py:67
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/dataloaders/sparse_utils.py:67: PytestCollectionWarning: cannot collect test class 'TestSparseModel' because it has a __init__ constructor (from: tests/dataloaders/test_datasplitter.py)
+    class TestSparseModel(scvi.model.base.BaseModelClass):
+
+tests/external/tangram/test_tangram.py:6
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/external/tangram/test_tangram.py:6: DeprecationWarning: In order to use the TANGRAM make sure to install scvi-tools[jax]
+    from scvi.external import Tangram
+
+tests/model/base/test_base_model.py:10
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/model/base/test_base_model.py:10: PytestCollectionWarning: cannot collect test class 'TestModelClass' because it has a __init__ constructor (from: tests/model/base/test_base_model.py)
+    class TestModelClass(BaseModelClass):
+
+tests/model/test_jaxscvi.py:7
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/model/test_jaxscvi.py:7: DeprecationWarning: In order to use the Jax version of SCVI make sure to install scvi-tools[jax]
+    from scvi.model import JaxSCVI
+
+tests/model/test_scvi.py:1478
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/model/test_scvi.py:1478: PytestUnknownMarkWarning: Unknown pytest.mark.dataloader - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.dataloader
+
+tests/model/test_scvi.py:1547
+  /tmp/vsc47063/easybuild/build/scvitools/1.4.1/foss-2024a/scvitools/scvi_tools-1.4.1/tests/model/test_scvi.py:1547: PytestUnknownMarkWarning: Unknown pytest.mark.mlflow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.mlflow
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 6 errors during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Results (4.56s):
+        14 warnings
+         6 errors
