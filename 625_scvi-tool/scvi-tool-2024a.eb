@@ -9,30 +9,6 @@ analysis of single-cell omics data, built on top of PyTorch and AnnData."""
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
-## DEPS:
-    # OK "anndata>=0.11", -> update to v0.11.4 OK
-    # ok "docrep>=0.3.2",
-    # OK "lightning>=2.0",
-    # OK "ml-collections",
-    # ok "mudata",
-    # OK "numba>=0.60.0",
-    # OK "numpy",
-    # OK "pandas",
-    # OK "pyro-ppl",
-    # OK "scanpy[skmisc]>=1.10",
-    # OK "scikit-learn",
-    # OK "scipy",
-    # ok "sparse>=0.14.0",
-    # OK "tensorboard",
-    # OK "torch",
-    # OK "torchmetrics", - in PyTorch-Light.
-    # OK "tqdm",
-    # OK "xarray",
-# TEST-DEPS:
-    # OK "pytest", 
-    # ok "pytest-pretty", 
-    # OK "coverage", 
-
 builddependencies = [
     ('hatchling', '1.27.0'),
     ('coverage', '7.9.2'),
@@ -58,7 +34,7 @@ dependencies = [
 ]
 
 # skip tests required optional dependencies
-local_pytest_options= (
+local_pytest_options = (
     '--ignore=tests/external/mrvi_jax '
     '--ignore=tests/external/tangram '
     '--ignore=tests/model/test_jaxscvi.py '
