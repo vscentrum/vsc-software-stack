@@ -9,7 +9,7 @@ It is based on density-functional theory, plane waves, and pseudopotentials
 '''
 
 # toolchain = {'name': 'foss', 'version': '2025b'}
-toolchain = {'name': 'NVHPC', 'version': '25.3'}
+toolchain = {'name': 'NVHPC', 'version': '25.3-CUDA-%(cudaver)s'}
 
 # toolchainopts = {
 #     'usempi': True,
@@ -86,7 +86,6 @@ builddependencies = [
 ]
 dependencies = [
     ('CUDA', '12.8.0', '', SYSTEM),
-    ('FFTW', '3.3.10'),
     # ('HDF5', '1.14.6'), # not for GCCcore
     # ('ELPA', '2025.06.001'), # not for GCCcore
     # ('libxc', '7.0.0'), # not for GCCcore
@@ -100,24 +99,10 @@ with_scalapack = False  #NVHPC has its own NVScaLAPACK (def True)
 with_gipaw = False #(def True)
 # with_d3q = True
 # with_qmcpack = True
-# with_cuda = True
+with_cuda = True
 
 test_suite_threshold = 0.90
 test_suite_max_failed = 55  # Allow for some flaky tests (failed due to strict thresholds)
 test_suite_allow_failures = []
 
 moduleclass = 'chem'
-
-# E1:
-    # -- Could NOT find VendorFFTW (missing: VendorFFTW_LIBRARIES VendorFFTW_INCLUDE_DIRS VendorFFTW_ID) 
-    # -- Found PkgConfig: /apps/gent/RHEL9/cascadelake-ib/software/pkgconf/2.3.0-GCCcore-14.2.0/bin/pkgconf (found version "2.3.0")
-    # -- Could NOT find FFTW3 (missing: FFTW3_LIBRARIES FFTW3_INCLUDE_DIRS) 
-    # -- CMake variable FFTW3_ROOT may be used to hint the root directory of FFTW3 installation.
-    # CMake Error at FFTXlib/CMakeLists.txt:41 (message):
-    # Failed to find an external FFTW library.  Alternatively,
-    # '-DQE_FFTW_VENDOR=Internal' may be used to enable reference FFTW at a
-    # performance loss compared to optimized libraries.
-
-
-    # -- Configuring incomplete, errors occurred!
-
