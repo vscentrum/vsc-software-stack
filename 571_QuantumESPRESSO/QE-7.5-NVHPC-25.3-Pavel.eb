@@ -85,14 +85,14 @@ builddependencies = [
     ('Python', '3.13.1', '', ('GCCcore', local_gccver)),  # required for tests
 ]
 dependencies = [
-    ('CUDA', '12.8.0', '', SYSTEM),
+    # ('CUDA', '12.8.0', '', SYSTEM),
     ('FFTW', '3.3.10'),
     # ('HDF5', '1.14.6'), # not for GCCcore
     # ('ELPA', '2025.06.001'), # not for GCCcore
     # ('libxc', '7.0.0'), # not for GCCcore
 ]
 
-# build_shared_libs = False -> not used anymore = up to v7.3.1
+build_shared_libs = False
 # with_scalapack = True
 with_scalapack = False  #NVHPC has its own NVScaLAPACK (def True)
 # with_fox = True
@@ -109,7 +109,7 @@ test_suite_allow_failures = []
 
 moduleclass = 'chem'
 
-# E1:
+# E1: OK
     # -- Could NOT find VendorFFTW (missing: VendorFFTW_LIBRARIES VendorFFTW_INCLUDE_DIRS VendorFFTW_ID) 
     # -- Found PkgConfig: /apps/gent/RHEL9/cascadelake-ib/software/pkgconf/2.3.0-GCCcore-14.2.0/bin/pkgconf (found version "2.3.0")
     # -- Could NOT find FFTW3 (missing: FFTW3_LIBRARIES FFTW3_INCLUDE_DIRS) 
