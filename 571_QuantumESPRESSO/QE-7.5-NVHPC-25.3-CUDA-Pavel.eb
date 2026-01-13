@@ -47,7 +47,7 @@ sources = [
 checksums = [
     {'q-e-qe-7.5.tar.gz': '7e1f7a9a21b63192f5135218bee20a5321b66582e4756536681b76e9c59b3cc8'},
     # {'lapack-12d82539.tar.xz': '88aea5bca5e730e99fda0a5b9d677d6036c7dd82874e0deaed5cccef1f880111'},
-    # {'mbd-89a3cc19.tar.xz': 'd026bf0e9334874670a23cd854f445baac003d4f099afa46bab667bc67abb450'},
+    {'mbd-89a3cc19.tar.xz': 'd026bf0e9334874670a23cd854f445baac003d4f099afa46bab667bc67abb450'},
     # {'devxlib-a6b89ef7.tar.xz': '0a9b7e5350f44017a2390c85176d1683c6ecec0e4b716a59d727f7650f16e807'},
     # {'d3q-fba772c1.tar.xz': '184e1e171c34e4f30952c082c39c3fdab2b7a25b2f7cd19e522b55f45ac1215b'},
     # {'fox-3453648e.tar.xz': 'c8c55cdf9eb2709aebac86a58f936480ee66438dffd3d65c6a35ca7771c031b3'},
@@ -58,13 +58,15 @@ checksums = [
 
 _github_repos = [
     # ('github', 'Reference-LAPACK', 'lapack', _lapack_hash, 'lapack'),
-    # ('github', 'libmbd', 'libmbd', _mbd_hash, 'mbd'),
-    # ('gitlab', 'max-centre/components', 'devicexlib', _devxlib_hash, 'devxlib'),
+    ('github', 'libmbd', 'libmbd', _mbd_hash, 'mbd'),
+    ('gitlab', 'max-centre/components', 'devicexlib', _devxlib_hash, 'devxlib'),
     # ('github', 'anharmonic', 'd3q', _d3q_hash, 'd3q'),
     # ('github', 'pietrodelugas', 'fox', _fox_hash, 'fox'),
     # ('github', 'dceresoli', 'qe-gipaw', _qe_gipaw_hash, 'qe-gipaw'),
     # ('github', 'QMCPACK', 'pw2qmcpack', _qmcpack_hash, 'pw2qmcpack'),
     ('github', 'wannier-developers', 'wannier90', _w90_hash, 'wannier90'),
+    # + MBD? https://github.com/libmbd/libmbd (89a3cc1) -> OK - libmbd
+    # + DeviceXlib? https://gitlab.com/max-centre/components/devicexlib -> OK - devxlib
 ]
 
 for _provider, _owner, _repo, _commit, _name in _github_repos:
