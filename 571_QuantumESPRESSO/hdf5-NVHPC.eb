@@ -12,7 +12,11 @@ toolchainopts = {'pic': True, 'usempi': True}
 
 source_urls = ['https://github.com/HDFGroup/hdf5/archive']
 sources = ['hdf5_%(version)s.tar.gz']
-checksums = ['c83996dc79080a34e7b5244a1d5ea076abfd642ec12d7c25388e2fdd81d26350']
+patches = ['patch1.1-m4-hdf5.patch']
+checksums = [
+    {'hdf5_1.14.5.tar.gz': 'c83996dc79080a34e7b5244a1d5ea076abfd642ec12d7c25388e2fdd81d26350'},
+    {'patch1.1-m4-hdf5.patch': 'ac6a634385528daf249aaa7183980d21f847f75697de4cf7098430e6b00af021'},
+]
 
 dependencies = [
     ('zlib', '1.3.1'),

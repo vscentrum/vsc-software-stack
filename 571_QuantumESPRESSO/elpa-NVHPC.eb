@@ -7,13 +7,15 @@
 # #
 
 name = 'ELPA'
-version = '2025.06.001'
+version = '2025.01.002'
 
 homepage = 'https://elpa.mpcdf.mpg.de/'
 description = "Eigenvalue SoLvers for Petaflop-Applications."
 
 toolchain = {'name': 'NVHPC', 'version': '25.3-CUDA-12.8.0'}
 toolchainopts = {'openmp': True, 'usempi': True}
+# toolchainopts = {'vectorize': False, 'usempi': True}
+# toolchainopts = {'usempi': True}
 
 source_urls = ['https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/release_%s/' % version]
 sources = ['elpa-release_%(version)s.tar.gz']
@@ -22,7 +24,7 @@ patches = [
     '%(name)s-2023.05.001_fix_AVX512_support.patch',
 ]
 checksums = [
-    {'elpa-new_release_2025.06.001.tar.gz': '3246df23c0e3320a9127da9eb55b604361532027d0b1a84111c4e0d05e687588'},
+    {'elpa-release_2025.01.002.tar.gz': '1a27af959d689a476fe1283fe0b86543d15dbdc4a9bd0778efcdc2b04a2967ca'},
     {'ELPA-2023.05.001_fix_hardcoded_perl_path.patch':
      '0548105065777a2ed07dde306636251c4f96e555a801647564de37d1ddd7b0b5'},
     {'ELPA-2023.05.001_fix_AVX512_support.patch': 'ecf08b64fe1da432a218040fa45d4ecfbb3269d58cb018b12da5a2d854bf96be'},
@@ -37,9 +39,28 @@ builddependencies = [
 preconfigopts = './autogen.sh && export LDFLAGS="-lm $LDFLAGS" && autoreconf && '
 
 # When building in parallel, the file test_setup_mpi.mod is sometimes
-# used before it is built, leading to an error.  This must be a bug in
+# used before it is built, leading to an error. This must be a bug in
 # the makefile affecting parallel builds.
 maxparallel = 1
 
 
 moduleclass = 'math'
+
+# E2
+    # eb-shell> echo $CFLAGS
+    # -O2 -tp=host -Mflushz False True
+    
+    # eb-shell> echo $CFLAGS
+    # -O2 -tp=host -Mflushz -fopenmp
+    
+# CONFIGOPTS: ['--disable-openmp  --enable-shared  --enable-generic  --enable-single-precision
+# --enable-avx  --enable-avx2  --enable-avx512  --disable-vsx  --enable-sse  --enable-sse-assembly
+# --with-mpi=yes  LIBS="$LIBSCALAPACK" ', '--enable-openmp  --enable-shared  --enable-generic
+# --enable-single-precision  --enable-avx  --enable-avx2  --enable-avx512  --disable-vsx  --enable-sse 
+# --enable-sse-assembly  --with-mpi=yes  LIBS="$LIBSCALAPACK" ']
+
+
+# E1 OK
+    # Installation ended unsuccessfully: ELPA EasyBlock does not know which C preprocessor to use for the current compiler 
+    # family (NVHPC). Please add the correct preprocessor for this compiler family to cpp_dict in the ELPA EasyBlock (took 9 secs)
+
