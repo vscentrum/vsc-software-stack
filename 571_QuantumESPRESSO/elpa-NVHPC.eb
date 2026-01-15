@@ -13,9 +13,7 @@ homepage = 'https://elpa.mpcdf.mpg.de/'
 description = "Eigenvalue SoLvers for Petaflop-Applications."
 
 toolchain = {'name': 'NVHPC', 'version': '25.3-CUDA-12.8.0'}
-toolchainopts = {'openmp': True, 'usempi': True}
-# toolchainopts = {'vectorize': False, 'usempi': True}
-# toolchainopts = {'usempi': True}
+toolchainopts = {'openmp': True, 'usempi': True, 'pic': True}
 
 source_urls = ['https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/release_%s/' % version]
 sources = ['elpa-release_%(version)s.tar.gz']
@@ -37,6 +35,7 @@ builddependencies = [
 ]
 
 preconfigopts = './autogen.sh && export LDFLAGS="-lm $LDFLAGS" && autoreconf && '
+configopts = '--without-threading-support-check-during-build --enable-allow-thread-limiting --enable-runtime-threading-support-checks'
 
 # When building in parallel, the file test_setup_mpi.mod is sometimes
 # used before it is built, leading to an error. This must be a bug in
@@ -46,7 +45,17 @@ maxparallel = 1
 
 moduleclass = 'math'
 
-# E2
+# E3
+    # 'include/elpa-2025.01.002/elpa/elpa.h' found: FAILED
+    # 'include/elpa-2025.01.002/modules/elpa.mod' found: FAILED
+    # 'lib/libelpa.a' found: FAILED
+    # 'lib/libelpa.so' found: FAILED
+    # have in lib: libelpa_openmp.a   libelpa_openmp.so     libelpa_openmp.so.19.4.0 libelpa_openmp.la  libelpa_openmp.so.19 
+    # have in include/elpa_openmp-2025.01.002/elpa: elpa.h
+    #  have in include/elpa_openmp-2025.01.002/modules: elpa.mod
+
+# E2: OK
+    # -> fixed in https://github.com/easybuilders/easybuild-framework/pull/5093
     # eb-shell> echo $CFLAGS
     # -O2 -tp=host -Mflushz False True
     
