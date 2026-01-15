@@ -1,0 +1,83 @@
+name = 'GROMACS'
+version = '2021.0'
+_date = '-20250409'
+local_commit = '28807b11'
+_cuda_suffix = '-CUDA-%(cudaver)s'
+versionsuffix = f'{_date}-constant-pH{_cuda_suffix}-PLUMED'
+# fork is from v2021.0-beta1, SOVERSION = 6.0.0
+
+homepage = 'https://gitlab.com/gromacs-constantph'
+description = """
+GROMACS constant pH
+
+GROMACS is a versatile package to perform molecular dynamics, i.e. simulate the
+Newtonian equations of motion for systems with hundreds to millions of
+particles.
+
+This is preliminary version of the GROMACS constant pH code.
+The modified force fields needed for constnat pH.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+# Currently, separate PME ranks are not supported with MPI
+toolchainopts = {'openmp': True, 'usempi': False}
+
+source_urls = ['https://gitlab.com/gromacs-constantph/constantph/-/archive/']
+sources = [{
+    'download_filename': '%s.tar.gz' % local_commit,
+    'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
+}]
+checksums = ['88548354e02c872052f2fa662eab5f111421706cb0ea264e94af19e7274d0f78']
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+    ('scikit-build', '0.17.6'),
+    ('Doxygen', '1.9.7'),
+]
+dependencies = [
+    ('CUDA', '11.8.0', '', SYSTEM),
+    # ('UCX-CUDA', '1.14.1', _cuda_suffix),
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('networkx', '3.1'),
+    # ('mpi4py', '3.1.4'),
+    ('PLUMED', '2.9.0'),
+]
+
+start_dir = 'gromacs-constantph'
+
+plumed = 'patch'
+ignore_plumed_version_check = True
+
+configopts = ' -DGMX_THREAD_MPI=OFF -DGMX_MPI=OFF -DGMX_GPU=CUDA '
+# configopts += ' -DCMAKE_CUDA_FLAGS=-allow-unsupported-compiler '
+# configopts += ' -DCMAKE_CUDA_HOST_COMPILER=$CXX '
+# configopts += ' -DCMAKE_CUDA_FLAGS_INIT=-allow-unsupported-compiler '
+configopts += ' -DCUDA_NVCC_FLAGS=-allow-unsupported-compiler '
+
+
+# this version does not support DOUBLE
+double_precision = False
+
+# Code is not sufficiently covered with tests and some standard GROMACS test might be broken.
+# Thus, make check might end up with errors
+runtest = False
+
+# exts_defaultclass = 'PythonPackage'
+
+# exts_default_options = {
+#     'source_urls': [PYPI_SOURCE],
+# }
+
+# exts_list = [
+#     ('gmxapi', '0.2.0b1', {
+#         'preinstallopts': 'export CMAKE_ARGS="-Dgmxapi_ROOT=%(installdir)s ' +
+#                         #  '-C %(installdir)s/share/cmake/gromacs_mpi/gromacs-hints_mpi.cmake" && ',
+#                             '-C %(installdir)s/share/cmake/gromacs/gromacs-hints.cmake" && ',
+#         'source_tmpl': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
+#         'start_dir': 'python_packaging/src/gmxapi',
+#         'checksums': ['4ec8f8d0c7af76b13f8fd16db8e2c120e749de439ae9554d9f653f812d78d1cb'],
+#     }),
+# ]
+
+moduleclass = 'bio'
