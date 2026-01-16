@@ -1,0 +1,34 @@
+name = 'MATLAB'
+version = '2025b'
+_update = '2'
+versionsuffix = f'-r{_update}'
+
+homepage = 'https://www.mathworks.com/products/matlab'
+description = """MATLAB is a high-level language and interactive environment
+ that enables you to perform computationally intensive tasks faster than with
+ traditional programming languages such as C, C++, and Fortran."""
+
+toolchain = SYSTEM
+
+sources = [f'R%(version)s_Update_{_update}_Linux.iso']
+checksums = ['99b6fe30737151c165b8d4d61092eebc61851de9a6c58759b636b0b8e3836e4f']
+
+download_instructions = f'Download {sources[0]} from mathworks.com'
+
+java_options = '-Xmx2048m'
+
+osdependencies = [
+    ('p7zip-plugins', 'p7zip-full'),   # for extracting iso-files
+    ('at-spi2-atk', 'libatk-bridge2.0-0t64'),
+]
+dependencies = [('MathWorksServiceHost', '2025.11.1.2')]
+
+# Use EB_MATLAB_KEY environment variable or uncomment and modify license key
+key = [
+    # MATLAB
+    '62497-26570-22266-00695-52907-04488-40735-59121-31385-58084-34744-29157-55064-24355-43601-13893-28424-41083-55691-43298-11199-28888-30124-00898-35588-34221',
+    # MATLAB Parallel Server
+    '29627-10861-44108-12509-24348-08753-63899-61988-14181-11717-10515-29749-63534-48218-00255-32520-17522-20168-10798-13123-61531-53676-46804-43744-06063-61204',
+]
+
+moduleclass = 'math'
