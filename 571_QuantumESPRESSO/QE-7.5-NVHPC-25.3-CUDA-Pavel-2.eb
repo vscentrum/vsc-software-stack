@@ -46,24 +46,24 @@ sources = [
 # ]
 checksums = [
     {'q-e-qe-7.5.tar.gz': '7e1f7a9a21b63192f5135218bee20a5321b66582e4756536681b76e9c59b3cc8'},
-    # {'lapack-12d82539.tar.xz': '88aea5bca5e730e99fda0a5b9d677d6036c7dd82874e0deaed5cccef1f880111'},
+    {'lapack-12d82539.tar.xz': '88aea5bca5e730e99fda0a5b9d677d6036c7dd82874e0deaed5cccef1f880111'},
     {'mbd-89a3cc19.tar.xz': 'd026bf0e9334874670a23cd854f445baac003d4f099afa46bab667bc67abb450'},
     {'devxlib-a6b89ef7.tar.xz': '0a9b7e5350f44017a2390c85176d1683c6ecec0e4b716a59d727f7650f16e807'},
-    # {'d3q-fba772c1.tar.xz': '184e1e171c34e4f30952c082c39c3fdab2b7a25b2f7cd19e522b55f45ac1215b'},
-    # {'fox-3453648e.tar.xz': 'c8c55cdf9eb2709aebac86a58f936480ee66438dffd3d65c6a35ca7771c031b3'},
-    # {'qe-gipaw-717e55c3.tar.xz': '10e1ec9cda0e5480f708c08ff65b216f7611b0378a225133116c5884b3424a33'},
-    # {'pw2qmcpack-f72ab25f.tar.xz': 'bc9513c4901ec2469d56b8a6b66f56878cb13e3bc7fbcdc5dba0ca6dad880ab9'},
+    {'d3q-fba772c1.tar.xz': '184e1e171c34e4f30952c082c39c3fdab2b7a25b2f7cd19e522b55f45ac1215b'},
+    {'fox-3453648e.tar.xz': 'c8c55cdf9eb2709aebac86a58f936480ee66438dffd3d65c6a35ca7771c031b3'},
+    {'qe-gipaw-717e55c3.tar.xz': '10e1ec9cda0e5480f708c08ff65b216f7611b0378a225133116c5884b3424a33'},
+    {'pw2qmcpack-f72ab25f.tar.xz': 'bc9513c4901ec2469d56b8a6b66f56878cb13e3bc7fbcdc5dba0ca6dad880ab9'},
     {'wannier90-1d6b1873.tar.xz': '351531aaf3434a9aac92d39ee40df5eb949aa27d14fcb93518bf08444478cd2a'},
 ]
 
 _github_repos = [
-    # ('github', 'Reference-LAPACK', 'lapack', _lapack_hash, 'lapack'),
+    ('github', 'Reference-LAPACK', 'lapack', _lapack_hash, 'lapack'),
     ('github', 'libmbd', 'libmbd', _mbd_hash, 'mbd'),
     ('gitlab', 'max-centre/components', 'devicexlib', _devxlib_hash, 'devxlib'),
-    # ('github', 'anharmonic', 'd3q', _d3q_hash, 'd3q'),
-    # ('github', 'pietrodelugas', 'fox', _fox_hash, 'fox'),
-    # ('github', 'dceresoli', 'qe-gipaw', _qe_gipaw_hash, 'qe-gipaw'),
-    # ('github', 'QMCPACK', 'pw2qmcpack', _qmcpack_hash, 'pw2qmcpack'),
+    ('github', 'anharmonic', 'd3q', _d3q_hash, 'd3q'),
+    ('github', 'pietrodelugas', 'fox', _fox_hash, 'fox'),
+    ('github', 'dceresoli', 'qe-gipaw', _qe_gipaw_hash, 'qe-gipaw'),
+    ('github', 'QMCPACK', 'pw2qmcpack', _qmcpack_hash, 'pw2qmcpack'),
     ('github', 'wannier-developers', 'wannier90', _w90_hash, 'wannier90'),
     # + MBD? https://github.com/libmbd/libmbd (89a3cc1) -> OK - libmbd
     # + DeviceXlib? https://gitlab.com/max-centre/components/devicexlib -> OK - devxlib
@@ -97,15 +97,14 @@ dependencies = [
 # Could NOT find VendorFFTW (missing: VendorFFTW_LIBRARIES VendorFFTW_INCLUDE_DIRS VendorFFTW_ID) (from cmake, but it has FFTW3)
 # libxc needed for this functional (from tests) -> created
 
+with_cuda = True
 build_shared_libs = False
 with_scalapack = True
-# with_scalapack = False  #NVHPC has its own NVScaLAPACK (def True)
-# with_fox = True
-# with_gipaw = True
-with_gipaw = False #(def True)
-# with_d3q = True
-# with_qmcpack = True
-with_cuda = True
+with_fox = True
+with_gipaw = True
+# with_gipaw = False #(def True)
+with_d3q = True
+with_qmcpack = True
 
 # QE test-step MPI binding check breaks with NVHPC/HPC-X (no EB OpenMPI version)
 test_mpi_socket_binding = False
@@ -114,9 +113,8 @@ pretestopts = (
     "export OMPI_MCA_rmaps_base_oversubscribe=1 && "
 )
 
-test_suite_threshold = 0.4
+test_suite_threshold = 0.9
 test_suite_max_failed = 5  # Allow for some flaky tests (failed due to strict thresholds)
 test_suite_allow_failures = []
-# 97% tests passed, 12 tests failed out of 376
 
 moduleclass = 'chem'
