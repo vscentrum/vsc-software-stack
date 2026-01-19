@@ -35,15 +35,7 @@ source_urls = [
 sources = [
     'q-e-qe-%(version)s.tar.gz',
 ]
-# checksums = ['7e1f7a9a21b63192f5135218bee20a5321b66582e4756536681b76e9c59b3cc8']
-
-# sources = [
-#     {
-#         'filename': 'q-e-qe-%(version)s.tar.gz',
-#         'extract_cmd': 'mkdir -p %(builddir)s/qe-%(version)s && tar xzvf %s --strip-components=1 -C $_',
-#         'source_urls': ['https://gitlab.com/QEF/q-e/-/archive/qe-%(version)s'],
-#     },
-# ]
+patches = [('patch1.1.patch', '..'),]
 checksums = [
     {'q-e-qe-7.5.tar.gz': '7e1f7a9a21b63192f5135218bee20a5321b66582e4756536681b76e9c59b3cc8'},
     {'lapack-12d82539.tar.xz': '88aea5bca5e730e99fda0a5b9d677d6036c7dd82874e0deaed5cccef1f880111'},
@@ -54,7 +46,18 @@ checksums = [
     {'qe-gipaw-717e55c3.tar.xz': '10e1ec9cda0e5480f708c08ff65b216f7611b0378a225133116c5884b3424a33'},
     {'pw2qmcpack-f72ab25f.tar.xz': 'bc9513c4901ec2469d56b8a6b66f56878cb13e3bc7fbcdc5dba0ca6dad880ab9'},
     {'wannier90-1d6b1873.tar.xz': '351531aaf3434a9aac92d39ee40df5eb949aa27d14fcb93518bf08444478cd2a'},
+    {'patch1.1.patch': 'b72cc0cdb8617ac79abd65fc6d8aaf3e4b25023240f0c5bdfd881d633f66f0d4'},
 ]
+
+# checksums = ['7e1f7a9a21b63192f5135218bee20a5321b66582e4756536681b76e9c59b3cc8']
+
+# sources = [
+#     {
+#         'filename': 'q-e-qe-%(version)s.tar.gz',
+#         'extract_cmd': 'mkdir -p %(builddir)s/qe-%(version)s && tar xzvf %s --strip-components=1 -C $_',
+#         'source_urls': ['https://gitlab.com/QEF/q-e/-/archive/qe-%(version)s'],
+#     },
+# ]
 
 _github_repos = [
     ('github', 'Reference-LAPACK', 'lapack', _lapack_hash, 'lapack'),
@@ -106,6 +109,9 @@ with_gipaw = True
 with_d3q = True
 with_qmcpack = True
 
+# enable CUDA-Fortran mode (for d3q)
+configopts = '-DCMAKE_Fortran_FLAGS="$FFLAGS -cuda -gpu=%(cuda_cc_nvhpc)s"'
+
 # QE test-step MPI binding check breaks with NVHPC/HPC-X (no EB OpenMPI version)
 test_mpi_socket_binding = False
 pretestopts = (
@@ -115,6 +121,22 @@ pretestopts = (
 
 test_suite_threshold = 0.9
 test_suite_max_failed = 5  # Allow for some flaky tests (failed due to strict thresholds)
-test_suite_allow_failures = []
+# test suite includes cases that are CPU-only / not GPU-ported
+test_suite_allow_failures = [
+    "system--cp_al_edft--Al",
+    "system--cp_al_edft--Al.uspp",
+    "system--cp_cluster--cluster4",
+    "system--cp_cluster--cluster6",
+    "system--cp_sio2--sio2-us-lda-cg",
+    "system--cp_sio2--sio2-us-pbe-cg",
+    "system--pw_plugins-correctness",
+    "system--pw_twochem--nscf_twochem",
+    "system--pw_twochem--relax_twochem",
+    "system--pw_twochem--scf_twochem",
+    "system--pw_twochem--vc-relax_twochem",
+]
 
 moduleclass = 'chem'
+# Questions:
+    # test_suite_nprocs = 1 in  https://github.com/easybuilders/easybuild-easyconfigs/pull/20364
+    # FFTW.MPI in https://github.com/easybuilders/easybuild-easyconfigs/pull/20364

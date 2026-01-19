@@ -1,0 +1,18 @@
+--- d3q/thermal2/fc3_interp.f90.orig	2026-01-19 16:29:47.325272000 +0100
++++ d3q/thermal2/fc3_interp.f90	2026-01-19 16:31:13.748358000 +0100
+@@ -699,6 +699,7 @@
+    SUBROUTINE sum_R2_sparse(fc, xq, nat3, Dqr)
+       USE constants, ONLY : tpi
+       IMPLICIT NONE
++      real(DP) :: dr3
+       !
+       CLASS(sparse), INTENT(IN)             :: fc
+       REAL(DP), INTENT(IN)                  :: xq(3)
+@@ -823,6 +824,7 @@
+    SUBROUTINE fftinterp_mat3_sparse_grad(fc, xq2,xq3, nat3, D, Dgrad)
+       USE constants, ONLY : tpi
+       IMPLICIT NONE
++      complex(DP) :: phase
+       !
+       INTEGER,INTENT(in)   :: nat3
+       CLASS(sparse),INTENT(in) :: fc
