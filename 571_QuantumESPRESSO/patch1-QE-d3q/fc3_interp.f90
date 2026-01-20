@@ -699,7 +699,7 @@ CONTAINS
    SUBROUTINE sum_R2_sparse(fc, xq, nat3, Dqr)
       USE constants, ONLY : tpi
       IMPLICIT NONE
-      real(DP) :: dr3
+      REAL(DP) :: dr3
       !
       CLASS(sparse), INTENT(IN)             :: fc
       REAL(DP), INTENT(IN)                  :: xq(3)
@@ -824,7 +824,7 @@ CONTAINS
    SUBROUTINE fftinterp_mat3_sparse_grad(fc, xq2,xq3, nat3, D, Dgrad)
       USE constants, ONLY : tpi
       IMPLICIT NONE
-      complex(DP) :: phase
+      COMPLEX(DP) :: phase
       !
       INTEGER,INTENT(in)   :: nat3
       CLASS(sparse),INTENT(in) :: fc
