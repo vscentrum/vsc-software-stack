@@ -28,8 +28,6 @@ sources = [{
     'filename': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
 }]
 patches = [
-    # 'patch1.1.patch',
-    # 'patch2.1.patch',
     'GROMACS-2021.0-20250409-constant-pH_enable-CUDA-12.1.1.patch',
 ]
 checksums = [
@@ -40,16 +38,10 @@ checksums = [
 
 builddependencies = [
     ('CMake', '3.26.3'),
-    # ('scikit-build', '0.17.6'),
     ('Doxygen', '1.9.7'),
 ]
 dependencies = [
     ('CUDA', '12.1.1', '', SYSTEM),
-    # ('UCX-CUDA', '1.14.1', _cuda_suffix),
-    # ('Python', '3.11.3'),
-    # ('SciPy-bundle', '2023.07'),
-    # ('networkx', '3.1'),
-    # ('mpi4py', '3.1.4'),
     ('PLUMED', '2.9.0'),
 ]
 
@@ -58,50 +50,11 @@ start_dir = 'gromacs-constantph'
 plumed = 'patch'
 ignore_plumed_version_check = True
 
+# Disable installing the Python gmxapi bindings - python 3.11 not supported
 python_pkg = False
-
-# configopts = ' -DGMX_THREAD_MPI=OFF -DGMX_MPI=OFF -DGMX_GPU=CUDA '
-
-# this version does not support DOUBLE
-# double_precision = False
 
 # Code is not sufficiently covered with tests and some standard GROMACS test might be broken.
 # Thus, make check might end up with errors
 runtest = False
 
-# exts_defaultclass = 'PythonPackage'
-
-# exts_default_options = {
-#     'source_urls': [PYPI_SOURCE],
-# }
-
-# exts_list = [
-#     ('gmxapi', '0.2.0b1', {
-#         'preinstallopts': 'export CMAKE_ARGS="-Dgmxapi_ROOT=%(installdir)s ' +
-#                         #  '-C %(installdir)s/share/cmake/gromacs_mpi/gromacs-hints_mpi.cmake" && ',
-#                             '-C %(installdir)s/share/cmake/gromacs/gromacs-hints.cmake" && ',
-#         'source_tmpl': '%%(name)s-%%(version)s-%s.tar.gz' % local_commit,
-#         'start_dir': 'python_packaging/src/gmxapi',
-#         'checksums': ['4ec8f8d0c7af76b13f8fd16db8e2c120e749de439ae9554d9f653f812d78d1cb'],
-#     }),
-# ]
-
 moduleclass = 'bio'
-
-# Fix in code:
-    # SEARCH:
-    # atomicAdd(float4*
-
-    # atomicAdd(float4
-
-    # atomicAdd(
-
-    # REPLACE
-    # atomicAdd(someFloat4Ptr, someFloat4Val);
-    # atomicAdd(someFloat4Ptr, someFloat3Val);
-
-    # TO
-    # gmxAtomicAddFloat4(ptrToFloat4, someFloat4Value);
-    # gmxAtomicAddFloat3To4(ptrToFloat4, someFloat3Value);
-
-# Since GROMACS-constant-pH fork is based on v2021 it does not support CUDA 12.1.1 -> change to CUDA 11.8.0 -> no - it does not support GCC 12 -> back to CUDA 12.1.1
