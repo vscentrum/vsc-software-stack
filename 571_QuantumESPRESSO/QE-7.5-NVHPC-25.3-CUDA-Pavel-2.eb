@@ -29,12 +29,6 @@ _qe_gipaw_hash = '717e55c36f28c512d232321adb10d5a66d3e1072'
 _qmcpack_hash = 'f72ab25fa4ea755c1b4b230ae8074b47d5509c70'
 _w90_hash = '1d6b187374a2d50b509e5e79e2cab01a79ff7ce1'
 
-# source_urls = [
-#     'https://gitlab.com/QEF/q-e/-/archive/qe-%(version)s/'
-# ]
-# sources = [
-#     'q-e-qe-%(version)s.tar.gz',
-# ]
 sources = [
     {
         'filename': 'q-e-qe-%(version)s.tar.gz',
@@ -56,10 +50,8 @@ checksums = [
     {'patch1.1.patch': '34a4654d68c7a52aaebe7d5178d54679ee5d5e533be518fb3020f33411146444'},
 ]
 
-# checksums = ['7e1f7a9a21b63192f5135218bee20a5321b66582e4756536681b76e9c59b3cc8']
-
 _github_repos = [
-    ('github', 'Reference-LAPACK', 'lapack', _lapack_hash, 'lapack'),
+    # ('github', 'Reference-LAPACK', 'lapack', _lapack_hash, 'lapack'),
     ('github', 'libmbd', 'libmbd', _mbd_hash, 'mbd'),
     ('gitlab', 'max-centre/components', 'devicexlib', _devxlib_hash, 'devxlib'),
     ('github', 'anharmonic', 'd3q', _d3q_hash, 'd3q'),
@@ -102,7 +94,6 @@ dependencies = [
 with_cuda = True
 build_shared_libs = False
 with_scalapack = True
-# with_scalapack = False
 with_fox = True
 with_gipaw = True
 # with_gipaw = False #(def True)
@@ -146,4 +137,4 @@ test_suite_allow_failures = [
 moduleclass = 'chem'
 # Questions:
     # test_suite_nprocs = 1 in  https://github.com/easybuilders/easybuild-easyconfigs/pull/20364
-    # FFTW.MPI in https://github.com/easybuilders/easybuild-easyconfigs/pull/20364
+    # FFTW.MPI in https://github.com/easybuilders/easybuild-easyconfigs/pull/20364 -> no FFTW has mpi lib in
