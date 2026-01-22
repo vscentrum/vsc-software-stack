@@ -7,8 +7,7 @@ homepage = 'https://libxc.gitlab.io'
 description = """Libxc is a library of exchange-correlation functionals for density-functional theory.
  The aim is to provide a portable, well tested and reliable set of exchange and correlation functionals."""
 
-# toolchain = {'name': 'GCC', 'version': '14.2.0'}
-toolchain = {'name': 'NVHPC', 'version': '25.3-CUDA-12.8.0'}
+toolchain = {'name': 'NVHPC', 'version': '25.3-CUDA-%(cudaver)s'}
 
 source_urls = ['https://gitlab.com/%(name)s/%(name)s/-/archive/%(version)s/']
 sources = [SOURCE_TAR_GZ]
@@ -18,6 +17,7 @@ builddependencies = [
     ('CMake', '3.31.3'),
     ('Perl', '5.40.0'),
 ]
+dependencies = [('CUDA', '12.8.0', '', SYSTEM)]
 
 local_common_configopts = "-DENABLE_FORTRAN=ON -DENABLE_XHOST=OFF "
 

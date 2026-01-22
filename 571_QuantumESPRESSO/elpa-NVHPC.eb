@@ -12,11 +12,11 @@ version = '2025.01.002'
 homepage = 'https://elpa.mpcdf.mpg.de/'
 description = "Eigenvalue SoLvers for Petaflop-Applications."
 
-toolchain = {'name': 'NVHPC', 'version': '25.3-CUDA-12.8.0'}
+toolchain = {'name': 'NVHPC', 'version': '25.3-CUDA-%(cudaver)s'}
 toolchainopts = {'openmp': True, 'usempi': True, 'pic': True}
 
 source_urls = ['https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/release_%s/' % version]
-sources = ['elpa-release_%(version)s.tar.gz']
+sources = [{'download_filename': 'elpa-release_%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
 patches = [
     '%(name)s-2023.05.001_fix_hardcoded_perl_path.patch',
     '%(name)s-2023.05.001_fix_AVX512_support.patch',
@@ -33,44 +33,15 @@ builddependencies = [
     ('Python', '3.13.1'),
     ('Perl', '5.40.0'),
 ]
+dependencies = [('CUDA', '12.8.0', '', SYSTEM)]
 
 preconfigopts = './autogen.sh && export LDFLAGS="-lm $LDFLAGS" && autoreconf && '
-configopts = '--without-threading-support-check-during-build --enable-allow-thread-limiting --enable-runtime-threading-support-checks'
+configopts = '--without-threading-support-check-during-build --enable-allow-thread-limiting '
+configopts += '--enable-runtime-threading-support-checks '
 
 # When building in parallel, the file test_setup_mpi.mod is sometimes
 # used before it is built, leading to an error. This must be a bug in
 # the makefile affecting parallel builds.
 maxparallel = 1
 
-
 moduleclass = 'math'
-
-# E3: OK
-    # needs both --disable-openmp --enable-openmp for config -> 2x iteration
-    # 'include/elpa-2025.01.002/elpa/elpa.h' found: FAILED
-    # 'include/elpa-2025.01.002/modules/elpa.mod' found: FAILED
-    # 'lib/libelpa.a' found: FAILED
-    # 'lib/libelpa.so' found: FAILED
-    # have in lib: libelpa_openmp.a   libelpa_openmp.so     libelpa_openmp.so.19.4.0 libelpa_openmp.la  libelpa_openmp.so.19 
-    # have in include/elpa_openmp-2025.01.002/elpa: elpa.h
-    #  have in include/elpa_openmp-2025.01.002/modules: elpa.mod
-
-# E2: OK
-    # -> fixed in https://github.com/easybuilders/easybuild-framework/pull/5093
-    # eb-shell> echo $CFLAGS
-    # -O2 -tp=host -Mflushz False True
-    
-    # eb-shell> echo $CFLAGS
-    # -O2 -tp=host -Mflushz -fopenmp
-    
-# CONFIGOPTS: ['--disable-openmp  --enable-shared  --enable-generic  --enable-single-precision
-# --enable-avx  --enable-avx2  --enable-avx512  --disable-vsx  --enable-sse  --enable-sse-assembly
-# --with-mpi=yes  LIBS="$LIBSCALAPACK" ', '--enable-openmp  --enable-shared  --enable-generic
-# --enable-single-precision  --enable-avx  --enable-avx2  --enable-avx512  --disable-vsx  --enable-sse 
-# --enable-sse-assembly  --with-mpi=yes  LIBS="$LIBSCALAPACK" ']
-
-
-# E1 OK
-    # Installation ended unsuccessfully: ELPA EasyBlock does not know which C preprocessor to use for the current compiler 
-    # family (NVHPC). Please add the correct preprocessor for this compiler family to cpp_dict in the ELPA EasyBlock (took 9 secs)
-
