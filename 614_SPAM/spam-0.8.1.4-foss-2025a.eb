@@ -44,6 +44,9 @@ local_spambind_preinstallopts = ''
 local_spambind_preinstallopts += """sed -i 's/c++14/c++17/g' setup.py && """
 
 exts_list = [
+    ('pytest_timeout', '2.4.0', {
+        'checksums': ['7e68e90b01f9eff71332b25001f85c75495fc4e3a836701876183c4bcfd0540a'],
+    }),
     ('extension_helpers', '1.4.0', {
         'checksums': ['78d04185f196e3e0bc5fd8418ce298b014c46f7ac609f6a8c10bf70e8c978324'],
     }),
@@ -71,7 +74,7 @@ exts_list = [
     }),
     ('spambind', '0.8.2', {
         'patches': ['SPAM-0.8.1.4_spambind_typo_fix.patch'],
-        'preinstallopts': local_spambind_preinstallopts,
+        'preinstallopts': "sed -i 's/c++14/c++17/g' setup.py && ",
         'source_urls': ['https://gitlab.com/spam-project/%(namelower)s/-/archive/version-%(version)s/'],
         'sources': [{'download_filename': '%(name)s-version-%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': [
@@ -81,10 +84,10 @@ exts_list = [
         ],
     }),
     ('spam', version, {
+        'runtest': 'pytest -v -n %(parallel)s --durations=20 --timeout=60 -m "not slow" tests',
         'source_urls': ['https://gitlab.com/spam-project/%(namelower)s/-/archive/version-%(version)s/'],
         'sources': [{'download_filename': '%(namelower)s-version-%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'testinstall': True,
-        'runtest': 'pytest -v tests',
         'checksums': ['d3977b51a1b32a44c144ce3ba395263e914548ef9ee6b1bb5715f37101216365'],
     }),
 ]
