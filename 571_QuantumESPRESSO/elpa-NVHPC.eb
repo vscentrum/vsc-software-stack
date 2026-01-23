@@ -7,37 +7,47 @@
 # #
 
 name = 'ELPA'
-version = '2025.01.002'
+version = '2025.06.002'
 
 homepage = 'https://elpa.mpcdf.mpg.de/'
 description = "Eigenvalue SoLvers for Petaflop-Applications."
 
 toolchain = {'name': 'NVHPC', 'version': '25.3-CUDA-%(cudaver)s'}
 toolchainopts = {'openmp': True, 'usempi': True, 'pic': True}
-
-source_urls = ['https://gitlab.mpcdf.mpg.de/elpa/elpa/-/archive/release_%s/' % version]
-sources = [{'download_filename': 'elpa-release_%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+# https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/2025.06.002/elpa-2025.06.002.tar.gz
+source_urls = ['https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%(version)s/']
+sources = [{'download_filename': 'elpa-%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
 patches = [
-    '%(name)s-2023.05.001_fix_hardcoded_perl_path.patch',
+    '%(name)s-2025.06.002_fix-hardcoded-perl-path.patch',
     '%(name)s-2023.05.001_fix_AVX512_support.patch',
 ]
 checksums = [
-    {'elpa-release_2025.01.002.tar.gz': '1a27af959d689a476fe1283fe0b86543d15dbdc4a9bd0778efcdc2b04a2967ca'},
-    {'ELPA-2023.05.001_fix_hardcoded_perl_path.patch':
-     '0548105065777a2ed07dde306636251c4f96e555a801647564de37d1ddd7b0b5'},
+    {'ELPA-2025.06.002.tar.gz': 'de3180c06e2b0dbb56939e84ad1a5fd1684465bd38ad2196792d0f4028937fda'},
+    {'ELPA-2025.06.002_fix-hardcoded-perl-path.patch':
+     '9a5b860a01934c8071ab9a20ba01696df2d4fd892d3c688293973f7926748412'},
     {'ELPA-2023.05.001_fix_AVX512_support.patch': 'ecf08b64fe1da432a218040fa45d4ecfbb3269d58cb018b12da5a2d854bf96be'},
 ]
 
+# checksums = [
+#     {'elpa-release_2025.01.002.tar.gz': '1a27af959d689a476fe1283fe0b86543d15dbdc4a9bd0778efcdc2b04a2967ca'},
+#     {'ELPA-2023.05.001_fix_hardcoded_perl_path.patch':
+#      '0548105065777a2ed07dde306636251c4f96e555a801647564de37d1ddd7b0b5'},
+#     {'ELPA-2023.05.001_fix_AVX512_support.patch': 'ecf08b64fe1da432a218040fa45d4ecfbb3269d58cb018b12da5a2d854bf96be'},
+# ]
+
 builddependencies = [
-    ('Autotools', '20240712'),
+    # ('Autotools', '20240712'),
     ('Python', '3.13.1'),
     ('Perl', '5.40.0'),
 ]
 dependencies = [('CUDA', '12.8.0', '', SYSTEM)]
 
-preconfigopts = './autogen.sh && export LDFLAGS="-lm $LDFLAGS" && autoreconf && '
+# preconfigopts = './autogen.sh && export LDFLAGS="-lm $LDFLAGS" && autoreconf && '
+preconfigopts = 'export LDFLAGS="-lm $LDFLAGS" && '
 configopts = '--without-threading-support-check-during-build --enable-allow-thread-limiting '
 configopts += '--enable-runtime-threading-support-checks '
+
+fix_perl_shebang_for = []
 
 # When building in parallel, the file test_setup_mpi.mod is sometimes
 # used before it is built, leading to an error. This must be a bug in
