@@ -1,0 +1,58 @@
+easyblock = 'CMakeMake'
+
+name = 'genesis'
+version = '0.30.0'
+
+homepage = 'https://github.com/lczech/genesis'
+description = """Genesis is a C++ library for working with phylogenetic and population genetic data"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'pic': True, 'usempi': True}
+
+github_account = 'lczech'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['63e7b8c45aeb72cb9503b0b0f5ae72d51715a42bf8ef970ae0ab1ec5dbd26e79']
+
+builddependencies = [
+    ('pkgconf', '1.9.5'),
+    ('CMake', '3.26.3'),
+    # ('Automake', '1.16.5'),
+]
+
+dependencies = [
+    ('zlib', '1.2.13'),
+    ('Cereal', '1.3.2'),
+    ('bzip2', '1.0.8'),
+    ('XZ', '5.4.2'),
+    ('HTSlib', '1.18'),
+    ('libdeflate', '1.18'),
+]
+
+# configopts = "-DGENESIS_USE_HTSLIB=ON -DGENESIS_USE_ZLIB=ON "
+# configopts += "-DGENESIS_BUILD_APPLICATIONS=ON "
+# configopts += "-DGENESIS_USE_HTSLIB=ON -DHTSLIB_ROOT=$EBROOTHTSLIB "
+# configopts += "-DHTSLIB_INCLUDE_DIR=$EBROOTHTSLIB/include "
+# configopts += "-DHTSLIB_LIBRARY=$EBROOTHTSLIB/lib/libhts.%s " % SHLIB_EXT
+# configopts += "-DCEREAL_INCLUDE_DIR=$EBROOTCEREAL/include "
+
+configopts = "-DGENESIS_USE_ZLIB=ON -DGENESIS_USE_HTSLIB=ON "
+# configopts += "-DHTSLIB_INCLUDE_DIR=$EBROOTHTSLIB/include "
+# configopts += "-DHTSLIB_LIBRARY=$EBROOTHTSLIB/lib/libhts.%s " % SHLIB_EXT
+configopts+= "-DHTSLIB_DIR=$EBROOTHTSLIB "
+# configopts += "-DGENESIS_BUILD_APPLICATIONS=ON -DGENESIS_UNITY_BUILD=FULL"
+
+skipsteps = ['install']
+
+# custom install step - original dirs are not right (libgenesis.so in bin etc.)
+postinstallcmds = [
+    "mkdir -p %(installdir)s/include && cp -r %(builddir)s/genesis-%(version)s/lib/genesis %(installdir)s/include/",
+    "mkdir -p %(installdir)s/lib && cp -r %(builddir)s/genesis-%(version)s/bin/* %(installdir)s/lib/",
+]
+
+sanity_check_paths = {
+    'files': ['lib/libgenesis.%s' % SHLIB_EXT, 'include/genesis/tree/tree.hpp'],
+    'dirs': ['include/genesis', 'lib', 'fake'],
+}
+
+moduleclass = 'bio'
