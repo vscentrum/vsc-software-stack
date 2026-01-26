@@ -14,7 +14,7 @@ description = "Eigenvalue SoLvers for Petaflop-Applications."
 
 toolchain = {'name': 'NVHPC', 'version': '25.3-CUDA-%(cudaver)s'}
 toolchainopts = {'openmp': True, 'usempi': True, 'pic': True}
-# https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/2025.06.002/elpa-2025.06.002.tar.gz
+
 source_urls = ['https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%(version)s/']
 sources = [{'download_filename': 'elpa-%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
 patches = [
@@ -28,21 +28,12 @@ checksums = [
     {'ELPA-2023.05.001_fix_AVX512_support.patch': 'ecf08b64fe1da432a218040fa45d4ecfbb3269d58cb018b12da5a2d854bf96be'},
 ]
 
-# checksums = [
-#     {'elpa-release_2025.01.002.tar.gz': '1a27af959d689a476fe1283fe0b86543d15dbdc4a9bd0778efcdc2b04a2967ca'},
-#     {'ELPA-2023.05.001_fix_hardcoded_perl_path.patch':
-#      '0548105065777a2ed07dde306636251c4f96e555a801647564de37d1ddd7b0b5'},
-#     {'ELPA-2023.05.001_fix_AVX512_support.patch': 'ecf08b64fe1da432a218040fa45d4ecfbb3269d58cb018b12da5a2d854bf96be'},
-# ]
-
 builddependencies = [
-    # ('Autotools', '20240712'),
     ('Python', '3.13.1'),
     ('Perl', '5.40.0'),
 ]
 dependencies = [('CUDA', '12.8.0', '', SYSTEM)]
 
-# preconfigopts = './autogen.sh && export LDFLAGS="-lm $LDFLAGS" && autoreconf && '
 preconfigopts = 'export LDFLAGS="-lm $LDFLAGS" && '
 configopts = '--without-threading-support-check-during-build --enable-allow-thread-limiting '
 configopts += '--enable-runtime-threading-support-checks '
