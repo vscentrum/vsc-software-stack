@@ -1,0 +1,108 @@
+======================================================== test session starts =========================================================
+platform linux -- Python 3.13.1, pytest-8.3.5, pluggy-1.5.0 -- /apps/gent/RHEL9/zen2-ib/software/Python/3.13.1-GCCcore-14.2.0/bin/python
+cachedir: .pytest_cache
+rootdir: /tmp/vsc47063/easybuild/build/CNVkit/0.9.12/foss-2025a-R-4.5.1/CNVkit/cnvkit-0.9.12
+configfile: pyproject.toml
+plugins: xdist-3.6.1
+collecting ... collected 10 items / 4 errors
+
+=============================================================== ERRORS ===============================================================
+________________________________________________ ERROR collecting test/test_cnvlib.py ________________________________________________
+ImportError while importing test module '/tmp/vsc47063/easybuild/build/CNVkit/0.9.12/foss-2025a-R-4.5.1/CNVkit/cnvkit-0.9.12/test/test_cnvlib.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/apps/gent/RHEL9/zen2-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+test/test_cnvlib.py:17: in <module>
+    import cnvlib
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/__init__.py:6: in <module>
+    from .commands import *
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/commands.py:38: in <module>
+    from . import (
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/batch.py:8: in <module>
+    from . import (
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/segmentation/__init__.py:15: in <module>
+    from . import cbs, flasso, haar, hmm, none
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/segmentation/hmm.py:7: in <module>
+    import pomegranate as pom
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/CNVkit/0.9.12-foss-2025a-R-4.5.1/lib/python3.13/site-packages/pomegranate/__init__.py:11: in <module>
+    from .base import *
+pomegranate/base.pyx:11: in init pomegranate.base
+    ???
+E   ModuleNotFoundError: No module named 'yaml'
+_______________________________________________ ERROR collecting test/test_commands.py _______________________________________________
+ImportError while importing test module '/tmp/vsc47063/easybuild/build/CNVkit/0.9.12/foss-2025a-R-4.5.1/CNVkit/cnvkit-0.9.12/test/test_commands.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/apps/gent/RHEL9/zen2-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+test/test_commands.py:21: in <module>
+    import cnvlib
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/__init__.py:6: in <module>
+    from .commands import *
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/commands.py:38: in <module>
+    from . import (
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/batch.py:8: in <module>
+    from . import (
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/segmentation/__init__.py:15: in <module>
+    from . import cbs, flasso, haar, hmm, none
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/segmentation/hmm.py:7: in <module>
+    import pomegranate as pom
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/CNVkit/0.9.12-foss-2025a-R-4.5.1/lib/python3.13/site-packages/pomegranate/__init__.py:11: in <module>
+    from .base import *
+pomegranate/base.pyx:11: in init pomegranate.base
+    ???
+E   ModuleNotFoundError: No module named 'yaml'
+________________________________________________ ERROR collecting test/test_genome.py ________________________________________________
+ImportError while importing test module '/tmp/vsc47063/easybuild/build/CNVkit/0.9.12/foss-2025a-R-4.5.1/CNVkit/cnvkit-0.9.12/test/test_genome.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/apps/gent/RHEL9/zen2-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+test/test_genome.py:15: in <module>
+    from cnvlib import read_ga
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/__init__.py:6: in <module>
+    from .commands import *
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/commands.py:38: in <module>
+    from . import (
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/batch.py:8: in <module>
+    from . import (
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/segmentation/__init__.py:15: in <module>
+    from . import cbs, flasso, haar, hmm, none
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/segmentation/hmm.py:7: in <module>
+    import pomegranate as pom
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/CNVkit/0.9.12-foss-2025a-R-4.5.1/lib/python3.13/site-packages/pomegranate/__init__.py:11: in <module>
+    from .base import *
+pomegranate/base.pyx:11: in init pomegranate.base
+    ???
+E   ModuleNotFoundError: No module named 'yaml'
+__________________________________________________ ERROR collecting test/test_r.py ___________________________________________________
+ImportError while importing test module '/tmp/vsc47063/easybuild/build/CNVkit/0.9.12/foss-2025a-R-4.5.1/CNVkit/cnvkit-0.9.12/test/test_r.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/apps/gent/RHEL9/zen2-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+test/test_r.py:14: in <module>
+    import cnvlib
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/__init__.py:6: in <module>
+    from .commands import *
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/commands.py:38: in <module>
+    from . import (
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/batch.py:8: in <module>
+    from . import (
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/segmentation/__init__.py:15: in <module>
+    from . import cbs, flasso, haar, hmm, none
+/tmp/vsc47063/eb-c75hu6ad/tmpv0t913iq/lib/python3.13/site-packages/cnvlib/segmentation/hmm.py:7: in <module>
+    import pomegranate as pom
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/CNVkit/0.9.12-foss-2025a-R-4.5.1/lib/python3.13/site-packages/pomegranate/__init__.py:11: in <module>
+    from .base import *
+pomegranate/base.pyx:11: in init pomegranate.base
+    ???
+E   ModuleNotFoundError: No module named 'yaml'
+====================================================== short test summary info =======================================================
+ERROR test/test_cnvlib.py
+ERROR test/test_commands.py
+ERROR test/test_genome.py
+ERROR test/test_r.py
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 4 errors during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+========================================================= 4 errors in 25.68s =========================================================

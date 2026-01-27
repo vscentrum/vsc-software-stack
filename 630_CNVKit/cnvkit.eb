@@ -11,6 +11,7 @@ description = """A command-line toolkit and Python library for detecting copy
 toolchain = {'name': 'foss', 'version': '2025a'}
 
 
+builddependencies = [('Cython', '3.1.1')]
 dependencies = [
     ('Python', '3.13.1'),
     ('SciPy-bundle', '2025.06'),
@@ -20,7 +21,7 @@ dependencies = [
     # ('networkx', '3.5'),
     # ('Pillow', '11.3.0'),
     ('Pysam', '0.23.3'),
-    # ('PyYAML', '6.0.2'),
+    ('PyYAML', '6.0.2'),
     ('pyfaidx', '0.9.0.3'),
     ('R', '4.5.1'),
     ('R-bundle-Bioconductor', '3.22', versionsuffix),
@@ -31,13 +32,15 @@ exts_list = [
         'checksums': ['7cf487764294ee791a4781f5a157bebce262a666ae4bbb87786760a9676c9378'],
     }),
     ('pomegranate', '0.15.0', {
+        'preinstallopts': "find . -name '*.c' -delete && ",
+        'installopts': "--config-settings=--global-option=build_ext --config-settings=--global-option=--inplace",
         'checksums': ['315207bc79375c2b98b782199a92dfcfca45234b750f8c9ccf8e3f03d37a2c10'],
     }),
     (name, version, {
         'modulename': 'cnvlib',
         # 'postinstallcmds': ['cp -a test %(installdir)s'],
         'testinstall': True,
-        # 'runtest': 'pytest -v -n %(parallel)s --durations=20 --timeout=60 -m "not slow" test',
+        # 'runtest': 'pytest -v -n %(parallel)s --durations=20 -m "not slow" test',
         'runtest': 'pytest -v test',
         'source_tmpl': 'v%(version)s.tar.gz',
         'source_urls': ['https://github.com/etal/cnvkit/archive/'],
@@ -52,6 +55,7 @@ sanity_check_paths = {
 
 sanity_check_commands = [
     'cnvkit.py --help',
+    "python -s -c 'from pomegranate import base; from pomegranate.distributions import NormalDistribution",
 ]
 
 moduleclass = 'bio'
