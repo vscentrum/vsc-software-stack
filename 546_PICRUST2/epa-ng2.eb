@@ -7,8 +7,8 @@ homepage = 'https://github.com/pierrebarbera/epa-ng'
 description = """EPA-ng - Fast, parallel, highly accurate Maximum Likelihood Phylogenetic
 Placement, by the team behind RAxML(-ng)"""
 
-toolchain = {'name': 'GCC', 'version': '12.3.0'}
-toolchainopts = {'pic': True, 'openmp': True}
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'pic': True, 'usempi': True, 'openmp': True}
 
 github_account = 'pierrebarbera'
 source_urls = [GITHUB_SOURCE]
@@ -23,12 +23,23 @@ sources = [{
 }]
 checksums = ['23b8f07743c0f4dbea17b67155b18bdbb98ff983782f4245f9b00e3e0a25a0ed']
 
-builddependencies = [('CMake', '3.26.3')]
+builddependencies = [
+    ('CMake', '3.26.3'),
+]
+
+dependencies = [
+    # ('Cereal', '1.3.2', '', SYSTEM),
+    # ('genesis', '0.29.0'),
+    # CLI11
+]
+
+preconfigopts = "export EPA_HYBRID=1 && "
 
 runtest = 'test'
 
 skipsteps = ['install']
 
+# postinstallcmds = ['cp -a ../epa-ng-%(version)s/bin %(installdir)s']
 postinstallcmds = ["cp -a %(start_dir)s/bin %(installdir)s"]
 
 sanity_check_paths = {
@@ -36,6 +47,8 @@ sanity_check_paths = {
     'dirs': [],
 }
 
-sanity_check_commands = ['epa-ng --help']
+# sanity_check_commands = ['epa-ng --help']
+# mpirun -np 1 epa-ng --help
+sanity_check_commands = ['mpirun -np 1 epa-ng --help']
 
 moduleclass = 'bio'
