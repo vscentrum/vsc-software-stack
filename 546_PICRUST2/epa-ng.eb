@@ -8,22 +8,51 @@ description = """EPA-ng - Fast, parallel, highly accurate Maximum Likelihood Phy
 Placement, by the team behind RAxML(-ng)"""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
-toolchainopts = {'pic': True, 'usempi': True}
+toolchainopts = {'pic': True, 'usempi': True, 'openmp': True}
 
 github_account = 'pierrebarbera'
 source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
-checksums = ['d1db23919f49cfad202b18623e5eb30c3d6cedcc1705b944221daea8131cbb74']
+checksums = [
+    {'v0.3.8.tar.gz': 'd1db23919f49cfad202b18623e5eb30c3d6cedcc1705b944221daea8131cbb74'},
+    {'CLI11-13becadd.tar.xz': '2d83784933698286629edf7c537b309013e028b381d2420ec427b24b6f57462f'},
+    {'genesis-27a8806a.tar.xz': '9ea22d27e3e090ec3f169383a9bdc49cc9f66537b98951ff3a97dcfa961dbd7b'},
+    {'cereal-51cbda5f.tar.xz': '843661783074ce0a1e886a6e99010bcbd7ce1ea7b3a3ccc6ce96134f1050a385'},
+    {'pll-modules-d46415e0.tar.xz': 'b6f9bdc780b34154b33af90145d9fac57cc477581ca294c5bac2bf2d01a95428'},
+    {'libpll-69411e4b.tar.xz': '4946fe32cb219b53484db0742aa79ffd3afc15b2366f912a77caecb8a16535a7'},
+]
+
+_github_repos = [
+  ('CLIUtils', 'CLI11',  '13becaddb657eacd090537719a669d66d393b8b2', 'CLI11'),
+  ('lczech',   'genesis','27a8806aff4dece0348bf7c86e4d0e4d748255f0', 'genesis'),
+  ('USCiLab',  'cereal', '51cbda5f30e56c801c07fe3d3aba5d7fb9e6cca4', 'cereal'),
+  ('ddarriba', 'pll-modules','d46415e07e7a2830ca0bda339263b5625ceae2ff','pll-modules'),
+  ('xflouris', 'libpll-2','69411e4b217a3de9940c96ffccc77916702bae92','libpll'),
+]
+
+for _owner, _repo, _commit, _name in _github_repos:
+    sources.append({
+        'filename': '%s-%s.tar.xz' % (_name, _commit[:8]),
+        'git_config': {
+            'url': f'https://github.com/{_owner}',
+            'repo_name': _repo,
+            'commit': _commit,
+            'clone_into': _name,
+        },
+        'extract_cmd': f'mkdir -p %(builddir)s/%(name)s-%(version)s/libs/{_name} && tar -xJf %s --strip-components=1 -C %(builddir)s/%(name)s-%(version)s/libs/{_name}',
+    })
 
 builddependencies = [
     ('CMake', '3.26.3'),
 ]
 
 dependencies = [
-    ('Cereal', '1.3.2', '', SYSTEM),
-    ('genesis', '0.29.0'),
+    # ('Cereal', '1.3.2', '', SYSTEM),
+    # ('genesis', '0.29.0'),
     # CLI11
 ]
+
+preconfigopts = "export EPA_HYBRID=1 && "
 
 runtest = 'test'
 
