@@ -12,8 +12,8 @@ version = '2025.06.002'
 homepage = 'https://elpa.mpcdf.mpg.de/'
 description = "Eigenvalue SoLvers for Petaflop-Applications."
 
-toolchain = {'name': 'NVHPC', 'version': '25.3-CUDA-%(cudaver)s'}
-toolchainopts = {'openmp': True, 'usempi': True, 'pic': True}
+toolchain = {'name': 'foss', 'version': '2025b'}
+toolchainopts = {'openmp': True, 'usempi': True}
 
 source_urls = ['https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%(version)s/']
 sources = [{'download_filename': 'elpa-%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
@@ -29,18 +29,16 @@ checksums = [
 ]
 
 builddependencies = [
-    ('Python', '3.13.1'),
-    ('Perl', '5.40.0'),
+    ('Python', '3.13.5'),
+    ('Perl', '5.40.2'),
 ]
-dependencies = [('CUDA', '12.8.0', '', SYSTEM)]
 
 preconfigopts = 'export LDFLAGS="-lm $LDFLAGS" && '
-configopts = '--without-threading-support-check-during-build --enable-allow-thread-limiting '
-configopts += '--enable-runtime-threading-support-checks '
 
 # When building in parallel, the file test_setup_mpi.mod is sometimes
-# used before it is built, leading to an error. This must be a bug in
+# used before it is built, leading to an error.  This must be a bug in
 # the makefile affecting parallel builds.
 maxparallel = 1
+
 
 moduleclass = 'math'
