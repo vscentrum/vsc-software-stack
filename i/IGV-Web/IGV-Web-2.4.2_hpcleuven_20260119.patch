@@ -1,0 +1,186 @@
+Enables reading input data from (remote) HPC storage
+Author: Maxime Van den Bossche (KU Leuven)
+diff -ruN igv-webapp-2.4.2_orig/igvwebConfig.js igv-webapp-2.4.2/igvwebConfig.js
+--- igv-webapp-2.4.2_orig/igvwebConfig.js	2025-12-18 05:15:34.000000000 +0100
++++ igv-webapp-2.4.2/igvwebConfig.js	2026-01-19 15:06:28.702018000 +0100
+@@ -26,7 +26,7 @@
+ 
+     enableCircularView: true,
+ 
+-    restoreLastGenome: true,
++    restoreLastGenome: false,  // ignore what's in the browser cache
+ 
+     igvConfig:
+         {
+diff -ruN igv-webapp-2.4.2_orig/js/shareHelper.js igv-webapp-2.4.2/js/shareHelper.js
+--- igv-webapp-2.4.2_orig/js/shareHelper.js	2025-12-18 05:15:34.000000000 +0100
++++ igv-webapp-2.4.2/js/shareHelper.js	2026-01-19 16:03:45.127302000 +0100
+@@ -23,6 +23,7 @@
+ import alertSingleton from "./widgets/alertSingleton.js"
+ import {bitlyShortener, tinyURLShortener} from "./urlShortener.js";
+ import Globals from "./globals.js";
++import {BGZip} from "../node_modules/igv-utils/src/index.js"
+ 
+ let urlShortener;
+ 
+@@ -61,10 +62,16 @@
+         path,
+         idx;
+ 
++    let pattern = window.location.origin.slice().replace('/', '\/')
++    pattern = pattern + '\/[a-z]+\/(.*?)\/[0-9]+'
++    pattern = new RegExp(pattern, 'g')
++    let line = JSON.stringify(Globals.browser).replace(pattern, '')
++    let session = BGZip.compressString(line)
++
+     path = window.location.href.slice();
+     idx = path.indexOf("?");
+ 
+-    surl = (idx > 0 ? path.substring(0, idx) : path) + "?sessionURL=blob:" + Globals.browser.compressedSession();
++    surl = (idx > 0 ? path.substring(0, idx) : path) + "?sessionURL=blob:" + session;
+ 
+     return surl;
+ }
+diff -ruN igv-webapp-2.4.2_orig/js/shareWidgets.js igv-webapp-2.4.2/js/shareWidgets.js
+--- igv-webapp-2.4.2_orig/js/shareWidgets.js	2025-12-18 05:15:34.000000000 +0100
++++ igv-webapp-2.4.2/js/shareWidgets.js	2026-01-19 18:46:28.930794000 +0100
+@@ -25,6 +25,7 @@
+ import alertSingleton from './widgets/alertSingleton.js'
+ import {QRCode} from './widgets/qrcode.js'
+ import {doShortenURL, setURLShortener, shortSessionURL} from './shareHelper.js'
++import {BGZip} from "../node_modules/igv-utils/src/index.js"
+ 
+ let href
+ let session
+@@ -66,7 +67,11 @@
+     modalElement.addEventListener('shown.bs.modal', async () => {
+         session = undefined
+         try {
+-            session = browser.compressedSession()
++            let pattern = window.location.origin.slice().replace('/', '\/')
++            pattern = pattern + '\/[a-z]+\/(.*?)\/[0-9]+'
++            pattern = new RegExp(pattern, 'g')
++            let line = JSON.stringify(browser).replace(pattern, '')
++            session = BGZip.compressString(line)
+         } catch (e) {
+             modal.hide()
+             alertSingleton.present(e.message)
+diff -ruN igv-webapp-2.4.2_orig/js/widgets/genomeFileLoad.js igv-webapp-2.4.2/js/widgets/genomeFileLoad.js
+--- igv-webapp-2.4.2_orig/js/widgets/genomeFileLoad.js	2025-12-18 05:15:34.000000000 +0100
++++ igv-webapp-2.4.2/js/widgets/genomeFileLoad.js	2026-01-19 20:17:20.677275000 +0100
+@@ -67,7 +67,13 @@
+             if (files.length === 1) {
+                 const {path, lower, ext} = files[0]
+                 if (ext === 'json') {
+-                    configuration = await igvxhr.loadJson(path)
++                    let hostpath = window.location.href.slice().replace(/\?*$/, '')
++                    let line = await JSON.stringify(igvxhr.loadJson(path))
++                    for (const label in ['URL', 'url']) {
++                        let pattern = new RegExp(label + '":\s"\/', 'g')
++                        line = line.replace(pattern, label + '": "' + hostpath)
++                    }
++                    configuration = JSON.parse(line)
+                 } else if (lower.endsWith('hub.txt')) {
+                     configuration = {url: path}
+                 } else if (ext === 'gbk') {
+@@ -123,4 +129,4 @@
+     }
+ }
+ 
+-export default GenomeFileLoad
+\ No newline at end of file
++export default GenomeFileLoad
+diff -ruN igv-webapp-2.4.2_orig/js/widgets/sessionWidgets.js igv-webapp-2.4.2/js/widgets/sessionWidgets.js
+--- igv-webapp-2.4.2_orig/js/widgets/sessionWidgets.js	2025-12-18 05:15:34.000000000 +0100
++++ igv-webapp-2.4.2/js/widgets/sessionWidgets.js	2026-01-19 18:46:41.856093000 +0100
+@@ -1,11 +1,11 @@
+-import {FileUtils, igvxhr} from '../../node_modules/igv-utils/src/index.js'
++import {FileUtils, igvxhr, StringUtils} from '../../node_modules/igv-utils/src/index.js'
+ import URLLoadWidget from './urlLoadWidget.js'
+ import SessionFileLoad from "./sessionFileLoad.js"
+ import {createURLModalElement} from './urlModal.js'
+ import * as Utils from './utils.js'
+ import alertSingleton from "./alertSingleton.js"
+ import * as DOMUtils from "./utils/dom-utils.js"
+-
++import igv from '../../node_modules/igv/dist/igv.esm.js'
+ 
+ 
+ let urlLoadWidget
+@@ -25,8 +25,40 @@
+     rootContainer.appendChild(urlModalElement)
+ 
+     const loadHandler = async config => {
++        let is_blob = config.url &&
++                      StringUtils.isString(config.url) &&
++                      config.url.includes('blob:')
++        let is_json = config.filename &&
++                      StringUtils.isString(config.filename) &&
++                      config.filename.endsWith('.json')
++        let conf
++
++        if (is_blob || is_json) {
++            let line
++            if (is_blob) {
++                let url = config.url.slice()
++                if (url.includes('?sessionURL=blob:')) {
++                    url = url.replace(/.*\?sessionURL=blob:/, 'blob:')
++                }
++                let json = igv.uncompressSession(url)
++                line = JSON.stringify(JSON.parse(json))
++            } else if (is_json) {
++                let json = await igvxhr.loadJson(config.url || config.file)
++                line = JSON.stringify(json)
++            }
++
++            let hostpath = window.location.href.slice().replace(/\?*$/, '')
++            for (const label of ['URL', 'url']) {
++                 let pattern = new RegExp(label + '":"\/', 'g')
++                 line = line.replace(pattern, label + '":"' + hostpath)
++            }
++            conf = JSON.parse(line)
++        } else {
++            conf = config
++        }
++
+         try {
+-            await browser.loadSession(config)
++            await browser.loadSession(conf)
+         } catch (e) {
+             console.error(e)
+             alertSingleton.present(e)
+@@ -61,7 +93,11 @@
+ 
+     const JSONProvider = () => {
+         try {
+-            return browser.toJSON()
++            let pattern = window.location.origin.slice().replace('/', '\/')
++            pattern = pattern + '\/[a-z]+\/(.*?)\/[0-9]+'
++            pattern = new RegExp(pattern, 'g')
++            let line = JSON.stringify(browser).replace(pattern, '')
++            return JSON.parse(line)
+         } catch (e) {
+             console.error(e)
+             alertSingleton.present(e)
+diff -ruN igv-webapp-2.4.2_orig/js/widgets/urlLoadWidget.js igv-webapp-2.4.2/js/widgets/urlLoadWidget.js
+--- igv-webapp-2.4.2_orig/js/widgets/urlLoadWidget.js	2025-12-18 05:15:34.000000000 +0100
++++ igv-webapp-2.4.2/js/widgets/urlLoadWidget.js	2026-01-18 20:49:42.788294000 +0100
+@@ -49,6 +49,18 @@
+             paths.push(this.inputIndex.value)
+         }
+ 
++        // Interpret URLs starting with / as paths on the
++        // (remote) storage where the IGV-Web app is running
++        // To let Open Ondemand pass the path to the IGV-Web app,
++        // we need to append the path to the current URL,
++        // after removing trailing /'s and ?'s from it
++        for (var i = 0; i < paths.length; i++) {
++            if (paths[i].startsWith('/')) {
++                let hostpath = window.location.href.slice().replace(/\/*\?*$/, '')
++                paths[i] = hostpath + paths[i]
++            }
++        }
++
+         // clear input elements
+         this.container.querySelectorAll('.igv-flw-input-row').forEach(div => {
+             div.querySelector('input').value = ''
