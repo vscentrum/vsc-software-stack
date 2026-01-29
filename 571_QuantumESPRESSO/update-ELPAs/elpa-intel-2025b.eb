@@ -13,7 +13,7 @@ homepage = 'https://elpa.mpcdf.mpg.de/'
 description = "Eigenvalue SoLvers for Petaflop-Applications."
 
 toolchain = {'name': 'intel', 'version': '2025b'}
-toolchainopts = {'openmp': True, 'usempi': True}
+toolchainopts = {'openmp': True, 'usempi': True, 'pic': True}
 
 source_urls = ['https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%(version)s/']
 sources = [{'download_filename': 'elpa-%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
@@ -43,6 +43,35 @@ maxparallel = 1
 
 moduleclass = 'math'
 
-# checking whether we can compile AVX512 gcc intrinsics in C... no
-# configure: error: Could not compile a test program with AVX512, adjust the C compiler or CFLAGS. Possibly (some of) the flags "  -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -maes -mavx -mfma -mavx2 -mavx512f -mavx512cd -mavx512vl -mavx512bw -mavx512dq " solve this issue
-# also for original ELPA-2025.06.001-intel-2025b.eb same error
+#E2:
+    # <- failing configuration on shinx
+        # checking for a BSD-compatible install... /usr/bin/install -c
+        # checking whether sleep supports fractional seconds... yes
+        # checking filesystem timestamp resolution... 0.01
+        # checking whether build environment is sane... yes
+        # checking for a race-free mkdir -p... /usr/bin/mkdir -p
+        # checking for gawk... gawk
+        # checking whether make sets $(MAKE)... yes
+        # checking whether make supports nested variables... yes
+        # checking xargs -n works... yes
+        # checking whether UID '2547063' is supported by ustar format... no
+        # checking whether GID '2547063' is supported by ustar format... no
+        # checking how to create a ustar tar archive... none
+        # checking for build time... 1769678213
+        # checking for GNU make... make
+        # checking whether in C interface the error argument should be optional... no
+        # checking for GNU make... make
+        # checking whether --enable-openmp is specified... no
+        # checking whether the C++ compiler works... yes
+        # checking for C++ compiler default output file name... a.out
+        # checking for suffix of executables... 
+        # checking whether we are cross compiling... configure: error: in '/tmp/vsc47063/easybuild/build/ELPA/2025.06.002/intel-2025b/elpa-2025.06.002':
+        # configure: error: cannot run C++ compiled programs.
+        # If you meant to cross compile, use '--host'.
+        # See 'config.log' for more details
+
+#E1:
+    # -> problem with export EASYBUILD_OPTARCH='Intel:-march=core-avx2' in bashrc -> should not be aplied for avx512 capable clusters -> updated in bashrc
+    # checking whether we can compile AVX512 gcc intrinsics in C... no
+    # configure: error: Could not compile a test program with AVX512, adjust the C compiler or CFLAGS. Possibly (some of) the flags "  -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -maes -mavx -mfma -mavx2 -mavx512f -mavx512cd -mavx512vl -mavx512bw -mavx512dq " solve this issue
+    # also for original ELPA-2025.06.001-intel-2025b.eb same error

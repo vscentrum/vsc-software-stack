@@ -13,7 +13,7 @@ homepage = 'https://elpa.mpcdf.mpg.de/'
 description = "Eigenvalue SoLvers for Petaflop-Applications."
 
 toolchain = {'name': 'lfoss', 'version': '2025b'}
-toolchainopts = {'openmp': True, 'usempi': True}
+toolchainopts = {'openmp': True, 'usempi': True, 'pic': True}
 
 source_urls = ['https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%(version)s/']
 sources = [{'download_filename': 'elpa-%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
@@ -33,10 +33,17 @@ builddependencies = [
     ('Perl', '5.40.2'),
 ]
 
-preconfigopts = 'export LDFLAGS="-lm $LDFLAGS" && '
+preconfigopts = 'LDFLAGS="-fuse-ld=lld -lm $LDFLAGS" '
+# preconfigopts += "lt_cv_prog_compiler_wl='-Wl,' lt_cv_prog_compiler_wl_FC='-Wl,' "
+# preconfigopts += 'LDFLAGS="-fuse-ld=lld $LDFLAGS" '
+
+# prebuildopts = "sed -i 's/--whole-archive/-Wl,--whole-archive/g' libtool && "
+# prebuildopts += "sed -i 's/--no-whole-archive/-Wl,--no-whole-archive/g' libtool && "
+# prebuildopts += "sed -i 's/-soname/-Wl,-soname/g' libtool && "
+prebuildopts = """sed -i "s/^wl=.*/wl='-Wl,'/" libtool && """
 
 # See https://github.com/marekandreas/elpa/blob/master/documentation/INSTALL.md?plain=1#L600
-prebuildopts = 'sed -i \'s:\\\\$wl:-Wl,:g\' libtool && '
+# prebuildopts = 'sed -i \'s:\\\\$wl:-Wl,:g\' libtool && '
 
 # When building in parallel, the file test_setup_mpi.mod is sometimes
 # used before it is built, leading to an error.  This must be a bug in
