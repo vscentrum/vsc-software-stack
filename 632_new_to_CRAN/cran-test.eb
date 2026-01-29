@@ -1,0 +1,127 @@
+easyblock = 'Bundle'
+
+name = 'R-bundle-CRAN'
+version = '2025.10'
+versionsuffix = '-632-extras'
+
+homepage = 'https://www.r-project.org/'
+description = "Bundle of R packages from CRAN"
+
+toolchain = {'name': 'foss', 'version': '2025a'}
+
+builddependencies = [
+    ('pkgconf', '2.3.0'),
+    ('Xvfb', '21.1.18'),
+    ('Autotools', '20240712'),
+    ('CMake', '3.31.3'),
+]
+
+dependencies = [
+    # ('R', '4.5.1'),
+    # ('libxml2', '2.13.4'),  # for XML
+    # ('GMP', '6.3.0'),  # for igraph
+    # ('NLopt', '2.10.0'),  # for nlopt
+    # ('FFTW', '3.3.10'),  # for fftw
+    # ('libsndfile', '1.2.2'),  # for seewave
+    # ('ICU', '76.1'),  # for rJava & gdsfmt
+    # ('HDF5', '1.14.6'),  # for hdf5r
+    # ('UDUNITS', '2.2.28'),  # for units
+    # ('GSL', '2.8'),  # for RcppGSL
+    # ('ImageMagick', '7.1.1-47'),
+    # ('GLPK', '5.0'),  # for Rglpk
+    # ('nodejs', '22.16.0'),  # for V8 (required by rstan)
+    # ('GDAL', '3.11.1'),  # for sf
+    # ('MPFR', '4.2.2'),  # for Rmpfr
+    # ('PostgreSQL', '17.5'),  # for RPostgreSQL
+    ('R-bundle-CRAN', '2025.10'),
+]
+
+# Some R extensions (mclust, quantreg, waveslim for example) require the math library (-lm) to avoid undefined symbols.
+# Adding it to FLIBS makes sure it is present when needed.
+preconfigopts = 'export FLIBS="$FLIBS -lm" && '
+
+configopts = "--with-pic --enable-threads --enable-R-shlib"
+# some recommended packages may fail in a parallel build (e.g. Matrix), and
+# we're installing them anyway below
+configopts += " --with-recommended-packages=no"
+
+exts_defaultclass = 'RPackage'
+
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# # check whether correct version is installed in extension filter
+# # (some versions in this bundle may be newer than the ones provided by R)
+# local_ext_version_check = "pkgver = packageVersion('%(ext_name)s'); if (pkgver != '%(ext_version)s') "
+# local_stop_msg = "stop('%(ext_name)s %(ext_version)s not installed, found ', pkgver, ' instead')"
+# exts_filter = ("R -q --no-save", "%s { %s }" % (local_ext_version_check, local_stop_msg))
+
+# # the dbarts extension needs an additional compiler flag on Arm systems to prevent "incompatible types" errors
+# # cfr. https://github.com/vdorie/dbarts/issues/66
+# if ARCH == 'aarch64':
+#     local_dbarts_preinstallopts = 'sed -i "s|-c partition_neon.c|-flax-vector-conversions -c partition_neon.c|"'
+#     local_dbarts_preinstallopts += ' src/misc/Makefile && '
+# else:
+#     local_dbarts_preinstallopts = ''
+
+# !! order of packages is important !!
+# packages updated on 27 Oct 2025
+exts_list = [
+    ('jsonlite', '2.0.0', {
+        'checksums': ['75eb910c82b350ec33f094779da0f87bff154c232e4ae39c9896a9b89f3ac82d'],
+    }),
+    ('concaveman', '1.2.0', {
+        'checksums': ['48653df177d5f1573dcfdf49438fb7d418e7668f1c66713b4fed153fa51ff2b2'],
+    }),
+    ('sftime', '0.3.1', {
+        'checksums': ['d1df6a2f611059e1949a3b2ef75ec5310e7cca4289dcf7af369197f4d5c68874'],
+    }),
+    ('intervals', '0.15.5', {
+        'checksums': ['11907be2c47ee4f6359055113dc0dab9ba2c35fbc743c2d52fd1ba1006c7ce5c'],
+    }),
+    ('spacetime', '1.3-3', {
+        'checksums': ['215ec4276e10c067e51221760e0d98d5e785bc39172e00ebdb0b269cefa581ae'],
+    }),
+    ('gstat', '2.1-4', {
+        'checksums': ['fafcbd6c480f4e996a904f54b8efa64af2fad8fef2ec0f706e058ada4618c630'],
+    }),
+    ('fastmatrix', '0.6-6', {
+        'checksums': ['4998e19d2ac48537d22058d5ca6a21c380f80f336f2807c28d791b0b154416f3'],
+    }),
+    ('SpatialPack', '0.4-1', {
+        'checksums': ['6ea970976bb4c0b1519e0482cf8342367b7fe297bc0ba09bf37634a17989e6b3'],
+    }),
+    ('GET', '1.0-7', {
+        'checksums': ['b9ce49c6940d62675c42a833ee2cd23037e4ac13cbb58aa154416db0b3642958'],
+    }),
+    ('splancs', '2.01-45', {
+        'checksums': ['8bccf1d61d7feaab52da07a9c95aa66bcd3986a6b214f13b232c1e2bea4b76d3'],
+    }),
+    ('geoR', '1.9-6', {
+        'checksums': ['9baaf9180b5d7fabc25ad09c7b2bd0d3e629b6f07f144a1c3198b24e6b2f66b2'],
+    }),
+    ('NTSS', '0.1.3', {
+        'checksums': ['ec2a448b1392a29a3e13a7e38369891bd5f3b399411f5980d540467352c147a2'],
+    }),
+    ('spatialreg', '1.4-2', {
+        'checksums': ['368d6d5fb67621248256e23603b752d35f5c15b625053e798ad9687aa5aad39f'],
+    }),
+    ('bispdep', '1.0-2', {
+        'checksums': ['9ca4d48adec1926b8cac9303132a6c4205db1ee525f28cd9a2ab68f8085714b5'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['bispdep'],
+}
+
+moduleclass = 'lang'
