@@ -29,18 +29,20 @@ checksums = [
 ]
 
 builddependencies = [
+    ('Autotools', '20250527'),
     ('Python', '3.13.5'),
     ('Perl', '5.40.2'),
 ]
 
-preconfigopts = 'LDFLAGS="-fuse-ld=lld -lm $LDFLAGS" '
+preconfigopts = 'autoreconf -fi && LDFLAGS="-fuse-ld=lld -lm $LDFLAGS" '
 # preconfigopts += "lt_cv_prog_compiler_wl='-Wl,' lt_cv_prog_compiler_wl_FC='-Wl,' "
 # preconfigopts += 'LDFLAGS="-fuse-ld=lld $LDFLAGS" '
 
 # prebuildopts = "sed -i 's/--whole-archive/-Wl,--whole-archive/g' libtool && "
 # prebuildopts += "sed -i 's/--no-whole-archive/-Wl,--no-whole-archive/g' libtool && "
 # prebuildopts += "sed -i 's/-soname/-Wl,-soname/g' libtool && "
-prebuildopts = """sed -i "s/^wl=.*/wl='-Wl,'/" libtool && """
+# prebuildopts = """sed -i "s/^wl=.*/wl='-Wl,'/" libtool && """
+prebuildopts = 'sed -i \'s:\\\\$wl:-Wl,:g\' libtool && '
 
 # See https://github.com/marekandreas/elpa/blob/master/documentation/INSTALL.md?plain=1#L600
 # prebuildopts = 'sed -i \'s:\\\\$wl:-Wl,:g\' libtool && '
