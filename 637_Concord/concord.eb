@@ -1,0 +1,126 @@
+easyblock = 'PythonBundle'
+
+name = 'Concord-sc'
+version = '1.0.13'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/Gartner-Lab/Concord'
+description = """Revealing the underlying cell-state landscape from single-cell data requires
+overcoming the critical obstacles of batch integration, denoising, and dimensionality reduction.
+We present CONCORD, a unified framework that simultaneously addresses these challenges within
+a single self-supervised model. At its core, CONCORD implements a unified probabilistic sampling
+strategy that corrects batch effects via dataset-aware sampling and enhances biological resolution
+through hard-negative sampling."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# DEPS:
+        # OK "anndata>=0.8",
+        # OK "numpy>=1.23",
+        # OK "h5py>=3.1",
+        # OK "tqdm",
+        # OK "umap-learn>=0.5.1",
+        # OK"matplotlib>=3.6",
+        # OK "pandas>=1.5",
+        # OK "plotly>=5.0.0",
+        # OK "scanpy>=1.1",
+        # OK "scikit-learn>=0.24",
+        # OK "scipy>=1.8",
+        # OK "seaborn>=0.13",
+        # OK "scikit-misc",
+        # ok "nbformat",
+        # OK "build"
+        # "optional":
+        #     ok "gseapy>=1.1.0",
+        #     OK "Pillow>=10.0.0",
+        #     ok "plottable>=0.1",
+        #     OK "requests>=2.0",
+        #     OK "rpy2>=3.5"
+        # OK PyTorch-CUDA
+        # OK Faiss-cuda
+        # OK VisCello
+        # ok nbformat 5.10.3 requires fastjsonschema, which is not installed.
+        # ok nbformat 5.10.3 requires jupyter-core, which is not installed.
+        # ok gseapy 0.10.8 requires bioservices, which is not installed.
+        
+builddependencies = [
+    # ('hatchling', '1.18.0'),
+    ('hatch-jupyter-builder', '0.9.1'),
+]
+
+dependencies = [
+    ('CUDA', '12.1.1', '', SYSTEM),
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('PyTorch-bundle', '2.1.2', versionsuffix),
+    ('Faiss', '1.7.4', versionsuffix),
+    ('anndata', '0.10.5.post1'),
+    ('tqdm', '4.66.1'),
+    ('h5py', '3.9.0'),
+    ('umap-learn', '0.5.5'),
+    ('matplotlib', '3.7.2'),
+    ('plotly.py', '5.16.0'),
+    ('scanpy', '1.9.8'),
+    ('scikit-learn', '1.3.1'),
+    ('Seaborn', '0.13.2'),
+    ('scikit-misc', '0.3.1'),
+    ('build', '1.0.3'),
+    ('Pillow', '10.0.0'),
+    ('rpy2', '3.5.15'),
+    ('VisCello', '1.0.0', '-R-4.3.2'),
+    # ('biom-format', '2.1.15'),
+    # ('ETE', '3.1.3'),  # required for picrust2.utils
+    # ('HMMER', '3.4'),  # required for hmmalign used by PICRUSt2
+    # ('FastTree', '2.1.11'),
+    # ('R', '4.3.2'),
+    # ('DendroPy', '4.6.1'),
+    # ('GLPK', '5.0'),
+    # ('SEPP', '4.5.5'),
+    # ('gappa', '0.9.0'),
+    # ('castor', '1.8.5'),
+    # ('EPA-ng', '0.3.8'),
+]
+
+exts_list = [
+    ('bioservices', '1.11.2', {
+        'checksums': ['31baaab4ab813b93f79995ba8cad431a16cbee99e1b0c6f9e419dd4be0c73a9e'],
+    }),
+    ('fastjsonschema', '2.19.1', {
+        'checksums': ['e3126a94bdc4623d3de4485f8d468a12f02a67921315ddc87836d6e456dc789d'],
+    }),
+    ('jupyter_core', '5.7.1', {
+        'checksums': ['de61a9d7fc71240f688b2fb5ab659fbb56979458dc66a71decd098e03c79e218'],
+    }),
+    ('nbformat', '5.10.3', {
+        'checksums': ['60ed5e910ef7c6264b87d644f276b1b49e24011930deef54605188ddeb211685'],
+    }),
+    ('gseapy', '0.10.8', {
+        'checksums': ['15be80bac73768501f5cecf6751aeb2e41416fd144bd6daa2ec453ad08a10ce0'],
+    }),
+    ('plottable', '0.1.5', {
+        'checksums': ['235d762a31c82129dc5bf74205c103a14b1e4393d0f921cc0231be5de884041d'],
+    }),
+    ('%(namelower)s', version, {
+        'modulename': 'concord',
+        'sources': [{'download_filename': 'concord_sc-%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['96f5386128fd8256e9952e0689b47fcc22c0bba1f18a172f47ebaa728aa9f8c5'],
+    }),
+]
+
+# postinstallcmds = [
+#     "cp -a %(start_dir)s/%(name)s/%(namelower)s-%(version)s/%(namelower)s/default_files"
+#     " %(installdir)s/lib/python%(pyshortver)s/site-packages/%(namelower)s/"
+# ]
+
+# sanity_check_commands = [
+#     "python -c 'from picrust2.default import default_tables_bac, default_tables_arc'",
+#     "python -c 'from picrust2.default_oldIMG import default_tables'",
+#     "python -c 'import picrust2.util'",
+# ]
+
+# sanity_check_paths = {
+#     'files': ['bin/picrust2_pipeline.py'],
+#     'dirs': ['lib/python%(pyshortver)s/site-packages/picrust2/default_files'],
+# }
+
+moduleclass = 'bio'
