@@ -34,6 +34,7 @@ builddependencies = [
     ('Perl', '5.40.2'),
 ]
 
+# need to autoreconf to avoid '-Wl' errors
 preconfigopts = 'autoreconf -fi && LDFLAGS="-fuse-ld=lld -lm $LDFLAGS" '
 
 # See https://github.com/marekandreas/elpa/blob/master/documentation/INSTALL.md?plain=1#L600
