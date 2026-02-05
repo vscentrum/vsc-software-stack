@@ -1,0 +1,22 @@
+import sys, platform, importlib
+import concord as ccd, torch
+print("python",sys.version.split()[0],"platform",platform.platform())
+print("concord",getattr(ccd,"__version__", "unknown"))
+print("torch",torch.__version__,"cuda",torch.cuda.is_available())
+if torch.cuda.is_available(): print("gpu",torch.cuda.get_device_name(0))
+try:
+    import faiss
+    print("faiss",getattr(faiss,"__version__", "unknown"))
+    if hasattr(faiss,"get_num_gpus"): print("faiss_gpus",faiss.get_num_gpus())
+except Exception as e:
+    print("faiss import failed",repr(e))
+mods=["anndata","scanpy","umap","skmisc","matplotlib","plotly","seaborn","rpy2","gseapy","plottable","nbformat","bioservices"]
+for m in mods:
+    try: importlib.import_module(m); print("import",m,"OK")
+    except Exception as e: print("import",m,"FAIL",repr(e))
+try:
+    import rpy2.robjects as ro
+    v=ro.r('as.character(utils::packageVersion("VisCello"))')
+    print("R VisCello",v[0])
+except Exception as e:
+    print("R/VisCello check failed",repr(e))
