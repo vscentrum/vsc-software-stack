@@ -1,0 +1,56 @@
+--- src/libtorio/ffmpeg/stream_writer/encode_process.cpp.orig	2026-02-10 16:33:07.970373000 +0100
++++ src/libtorio/ffmpeg/stream_writer/encode_process.cpp	2026-02-10 16:38:49.090073000 +0100
+@@ -227,24 +227,38 @@
+     const std::optional<std::string>& encoder_format,
+     const AVCodec* codec) {
+   if (encoder_format) {
+-    auto& enc_fmt_val = encoder_format.value();
+-    auto fmt = av_get_sample_fmt(enc_fmt_val.c_str());
+-    TORCH_CHECK(
+-        fmt != AV_SAMPLE_FMT_NONE, "Unknown sample format: ", enc_fmt_val);
+-    TORCH_CHECK(
+-        supported_sample_fmt(fmt, codec->sample_fmts),
+-        codec->name,
+-        " does not support ",
+-        encoder_format.value(),
+-        " format. Supported values are; ",
+-        get_supported_formats(codec->sample_fmts));
++    const auto& enc_fmt_val = encoder_format.value();
++    AVSampleFormat fmt = av_get_sample_fmt(enc_fmt_val.c_str());
++    TORCH_CHECK(fmt != AV_SAMPLE_FMT_NONE, "Unknown sample format: ", enc_fmt_val);
++
++    if (supported_sample_fmt(fmt, codec->sample_fmts)) {
++      return fmt;
++    }
++
++    if (codec->sample_fmts) {
++      TORCH_WARN_ONCE(
++          codec->name,
++          " does not support requested sample format ",
++          enc_fmt_val,
++          "; falling back to ",
++          av_get_sample_fmt_name(codec->sample_fmts[0]),
++          " and converting via filter graph.");
++      return codec->sample_fmts[0];
++    }
++
+     return fmt;
+   }
+-  if (codec->sample_fmts) {
+-    return codec->sample_fmts[0];
++
++  if (!codec->sample_fmts) {
++    return src_fmt;
+   }
+-  return src_fmt;
+-};
++
++  if (supported_sample_fmt(src_fmt, codec->sample_fmts)) {
++    return src_fmt;
++  }
++
++  return codec->sample_fmts[0];
++}
+ 
+ bool supported_sample_rate(const int sample_rate, const AVCodec* codec) {
+   if (!codec->supported_samplerates) {
