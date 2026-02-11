@@ -1,4 +1,4 @@
-Increase the atol and rtol for tests that fail with some elements exceeding default tolerances on GPU
+Increase the atol and rtol for tests that fail with some elements exceeding default tolerances on CPU
 Remove failing version check for librosa-0.10.2.post1
 Author: Samuel Moors (Vrije Universiteit Brussel)
 
@@ -50,24 +50,17 @@ diff -ur audio-2.6.0.orig/test/torchaudio_unittest/transforms/batch_consistency_
  
      def test_batch_PSD(self):
          waveform = common_utils.get_whitenoise(sample_rate=8000, duration=1, n_channels=6)
-diff -ur audio-2.6.0.orig/test/torchaudio_unittest/functional/functional_impl.py audio-2.6.0/test/torchaudio_unittest/functional/functional_impl.py
---- audio-2.6.0.orig/test/torchaudio_unittest/functional/functional_impl.py	2025-01-29 02:11:55.000000000 +0100
-+++ audio-2.6.0/test/torchaudio_unittest/functional/functional_impl.py	2025-12-05 17:35:01.410008278 +0100
-@@ -68,7 +68,7 @@
-         a_coeffs = torch.tensor([1, 0, 0, 0], dtype=self.dtype, device=self.device)
-         output_waveform = F.lfilter(waveform, a_coeffs, b_coeffs)
- 
--        self.assertEqual(output_waveform[:, 3:], waveform[:, 0:-3], atol=1e-5, rtol=1e-5)
-+        self.assertEqual(output_waveform[:, 3:], waveform[:, 0:-3], atol=1e-3, rtol=1e-3)
- 
-     def test_lfilter_clamp(self):
-         input_signal = torch.ones(1, 44100 * 1, dtype=self.dtype, device=self.device)
 
-diff --git a/test/torchaudio_unittest/backend/dispatcher/ffmpeg/save_test.py b/test/torchaudio_unittest/backend/dispatcher/ffmpeg/save_test.py
---- test/torchaudio_unittest/backend/dispatcher/ffmpeg/save_test.py.orig	2026-02-11 19:20:00.000000000 +0100
-+++ test/torchaudio_unittest/backend/dispatcher/ffmpeg/save_test.py	2026-02-11 19:25:00.000000000 +0100
-@@ -28,15 +28,49 @@
- )
+diff -ur a/test/torchaudio_unittest/backend/dispatcher/ffmpeg/save_test.py b/test/torchaudio_unittest/backend/dispatcher/ffmpeg/save_test.py
+--- a/test/torchaudio_unittest/backend/dispatcher/ffmpeg/save_test.py
++++ b/test/torchaudio_unittest/backend/dispatcher/ffmpeg/save_test.py
+@@ -1,6 +1,6 @@
+ import io
+ import os
+ import sys
+ import subprocess
+@@ -26,7 +26,7 @@
+     return muxer, encoder, sample_fmt
  
  
 -def _convert_audio_file(src_path, dst_path, muxer=None, encoder=None, sample_fmt=None):
@@ -86,36 +79,24 @@ diff --git a/test/torchaudio_unittest/backend/dispatcher/ffmpeg/save_test.py b/t
 -    subprocess.run(command, check=True)
 +    try:
 +        subprocess.run(command, check=True)
-+        return
 +    except subprocess.CalledProcessError:
 +        if not sample_fmt:
 +            raise
-+    # Some encoders (notably libvorbis) error out when "-sample_fmt s16" is forced.
-+    # Torchaudio's FFmpeg backend falls back to an encoder-supported format and
-+    # converts via filter graph, so do the closest equivalent here.
-+    sample_fmt_retry = None
-+    if muxer == "ogg" and encoder is None:
-+        sample_fmt_retry = "fltp"
-+    command_retry = ["ffmpeg", "-hide_banner", "-y", "-i", src_path, "-strict", "-2"]
-+    if muxer:
-+        command_retry += ["-f", muxer]
-+    if encoder:
-+        command_retry += ["-acodec", encoder]
-+    if qscale is not None:
-+        command_retry += ["-q:a", str(qscale)]
-+    if sample_fmt_retry:
-+        command_retry += ["-sample_fmt", sample_fmt_retry]
-+    command_retry += [dst_path]
-+    if sample_fmt_retry:
-+        print("Retrying with -sample_fmt", sample_fmt_retry + ":", " ".join(command_retry), file=sys.stderr)
-+    else:
++        # Some encoders (notably libvorbis) reject "-sample_fmt s16" even though
++        # ffmpeg can still produce a valid file by converting to an encoder-supported
++        # format internally. Retry without forcing the sample format.
++        command_retry = ["ffmpeg", "-hide_banner", "-y", "-i", src_path, "-strict", "-2"]
++        if muxer:
++            command_retry += ["-f", muxer]
++        if encoder:
++            command_retry += ["-acodec", encoder]
++        if qscale is not None:
++            command_retry += ["-q:a", str(qscale)]
++        command_retry += [dst_path]
 +        print("Retrying without -sample_fmt:", " ".join(command_retry), file=sys.stderr)
-+    subprocess.run(command_retry, check=True)
++        subprocess.run(command_retry, check=True)
  
- 
- class SaveTestBase(TempDirMixin, TorchaudioTestCase):
-@@ -124,7 +158,11 @@
- 
+@@ -168,8 +168,12 @@
          # 3.1. Convert the original wav to target format with ffmpeg
          muxer, encoder, sample_fmt = _parse_save_args(ext, format, encoding, bits_per_sample)
 -        _convert_audio_file(src_path, sox_path, muxer=muxer, encoder=encoder, sample_fmt=sample_fmt)
@@ -123,7 +104,7 @@ diff --git a/test/torchaudio_unittest/backend/dispatcher/ffmpeg/save_test.py b/t
 +        if compression is not None:
 +            qscale = getattr(compression, "qscale", None)
 +        _convert_audio_file(src_path, sox_path, muxer=muxer, encoder=encoder, sample_fmt=sample_fmt, qscale=qscale)
-+
          # 3.2. Convert the target format to wav with ffmpeg
          _convert_audio_file(sox_path, ref_path, encoder="pcm_f32le")
          # 3.3. Load with SciPy
+         expected = load_wav(ref_path, normalize=False)[0]
