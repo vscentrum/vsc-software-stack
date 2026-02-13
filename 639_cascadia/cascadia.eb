@@ -1,0 +1,86 @@
+easyblock = 'PythonBundle'
+
+name = 'cascadia'
+version = '0.0.7'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/Noble-Lab/cascadia'
+description = """Transformer deep learning model for de novo sequencing of
+data-independent acquisition mass spectrometry data."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+## DEPS:
+    # OK? "lightning>=2.0,<2.1",
+    # OK? "pytorch-lightning>=1.9,<2.0",
+    # OK ?"torch>=2.0,<2.1",
+    # ok "pyteomics>=4.6",
+    # OK "sqlalchemy>=2.0",
+    # OK "numpy<2.0",
+    # OK "numba>=0.48.0",
+    # OK "lxml>=4.9.1",
+    # OK "h5py>=3.7.0",
+    # OK "einops>=0.4.1",
+    # OK "tqdm>=4.65.0",
+    # ok "lark>=1.1.4",
+    # ok "selfies>=2.1.1",
+    # OK(pypi-b) "sortedcontainers>=2.4.0",
+    # OK "dill>=0.3.6",
+    # OK "rdkit>=2023.03.1",
+    # OK "pillow>=9.4.0",
+    # ok "spectrum-utils>=0.4.1",
+    # OK "tensorboard",
+    # OK spectrum-utils 0.5.0 requires fastobo, which is not installed.
+    # ok cascadia 0.0.7 has requirement lightning<2.1,>=2.0, but you have lightning 2.5.6.
+    # ok cascadia 0.0.7 has requirement pytorch-lightning<2.0,>=1.9, but you have pytorch-lightning 2.5.6.
+    # ok cascadia 0.0.7 has requirement torch<2.1,>=2.0, but you have torch 2.7.1.
+    # OK ModuleNotFoundError: No module named 'maturin' -> separate ec for fastobo
+
+# builddependencies = [
+#     ('hatch-jupyter-builder', '0.9.1'),
+#     ('poetry', '1.5.1'),
+# ]
+
+dependencies = [
+    ('CUDA', '12.6.0', '', SYSTEM),
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('PyTorch', '2.7.1', versionsuffix),
+    ('PyTorch-Lightning', '2.5.6', versionsuffix),
+    ('Lightning', '2.5.6', versionsuffix),
+    ('lxml', '5.3.0'),
+    ('einops', '0.8.1'),
+    ('dill', '0.3.9'),
+    ('RDKit', '2025.03.3'),
+    ('Pillow', '10.4.0'),
+    ('tqdm', '4.66.5'),
+    ('h5py', '3.12.1'),
+    ('numba', '0.60.0'),
+    ('tensorboard', '2.18.0'),
+    ('SQLAlchemy', '2.0.36'),
+    ('fastobo', '0.14.1'),
+]
+
+exts_list = [
+    ('pyteomics', '4.7.5', {
+        'checksums': ['382aeaa8b921bdd2a7e5b4aa9fe46c6184bb43701205a845b4b861ee3e88f46a'],
+    }),
+    ('spectrum_utils', '0.5.0', {
+        'checksums': ['150455c8a771499f1e5e17f98be7115c6c9263ad3404e562e962d364d2ced951'],
+    }),
+    ('selfies', '2.2.0', {
+        'checksums': ['68dc2a0d8ef507fc01919c4490d6b712c5e5edab8fb6b85c38223d55ac0c65e2'],
+    }),
+    ('lark', '1.3.1', {
+        'checksums': ['b426a7a6d6d53189d318f2b6236ab5d6429eaf09259f1ca33eb716eed10d2905'],
+    }),
+    (name, version, {
+        # 'preinstallopts': "sed -i 's/[<>=!~].*//' cascadia.egg-info/requires.txt && ",
+        'preinstallopts': """sed -i '16,34s/[<>=!~][^"]*//g' pyproject.toml && """,
+        'checksums': ['6e9fcc508f5adb4585841801f9da73dfcef716347054e0b517c7a546adeab347'],
+    }),
+]
+
+postinstallcmds = "fix the unimod_tables.xml downloading by pyteomics!" #TODO
+
+moduleclass = 'bio'
