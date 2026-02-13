@@ -1,6 +1,9 @@
 Increase the atol and rtol for tests that fail with some elements exceeding default tolerances on GPU
 Remove failing version check for librosa-0.10.2.post1
 Author: Samuel Moors (Vrije Universiteit Brussel)
+test/torchaudio_unittest/backend/dispatcher/ffmpeg/save_test.py patch introduce encoder fallback with libvorbis,
+adaptive quality scaling (qscale) and numerical tolerance tuning (atol, rtol).
+Author: Pavel Tomanek (Inuits/Ugent)
 
 diff -ur audio-2.6.0.orig/test/torchaudio_unittest/functional/librosa_compatibility_test_impl.py audio-2.6.0/test/torchaudio_unittest/functional/librosa_compatibility_test_impl.py
 --- audio-2.6.0.orig/test/torchaudio_unittest/functional/librosa_compatibility_test_impl.py	2025-01-29 02:11:55.000000000 +0100
