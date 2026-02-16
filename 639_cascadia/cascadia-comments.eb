@@ -10,6 +10,37 @@ data-independent acquisition mass spectrometry data."""
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
+## DEPS:
+    # OK? "lightning>=2.0,<2.1",
+    # OK? "pytorch-lightning>=1.9,<2.0",
+    # OK ?"torch>=2.0,<2.1",
+    # ok "pyteomics>=4.6",
+    # OK "sqlalchemy>=2.0",
+    # OK "numpy<2.0",
+    # OK "numba>=0.48.0",
+    # OK "lxml>=4.9.1",
+    # OK "h5py>=3.7.0",
+    # OK "einops>=0.4.1",
+    # OK "tqdm>=4.65.0",
+    # ok "lark>=1.1.4",
+    # ok "selfies>=2.1.1",
+    # OK(pypi-b) "sortedcontainers>=2.4.0",
+    # OK "dill>=0.3.6",
+    # OK "rdkit>=2023.03.1",
+    # OK "pillow>=9.4.0",
+    # ok "spectrum-utils>=0.4.1",
+    # OK "tensorboard",
+    # OK spectrum-utils 0.5.0 requires fastobo, which is not installed.
+    # ok cascadia 0.0.7 has requirement lightning<2.1,>=2.0, but you have lightning 2.5.6.
+    # ok cascadia 0.0.7 has requirement pytorch-lightning<2.0,>=1.9, but you have pytorch-lightning 2.5.6.
+    # ok cascadia 0.0.7 has requirement torch<2.1,>=2.0, but you have torch 2.7.1.
+    # OK ModuleNotFoundError: No module named 'maturin' -> separate ec for fastobo
+
+# builddependencies = [
+#     ('hatch-jupyter-builder', '0.9.1'),
+#     ('poetry', '1.5.1'),
+# ]
+
 dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
     ('Python', '3.12.3'),
@@ -36,7 +67,7 @@ exts_list = [
         'checksums': ['68dc2a0d8ef507fc01919c4490d6b712c5e5edab8fb6b85c38223d55ac0c65e2'],
     }),
     (name, version, {
-        # unpin torch and lighning upper version bound
+        # 'preinstallopts': "sed -i 's/[<>=!~].*//' cascadia.egg-info/requires.txt && ",
         'preinstallopts': """sed -i '16,34s/[<>=!~][^"]*//g' pyproject.toml && """,
         'checksums': ['6e9fcc508f5adb4585841801f9da73dfcef716347054e0b517c7a546adeab347'],
     }),
