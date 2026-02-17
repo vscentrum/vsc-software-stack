@@ -12,7 +12,7 @@ version = '2025.06.002'
 homepage = 'https://elpa.mpcdf.mpg.de/'
 description = "Eigenvalue SoLvers for Petaflop-Applications."
 
-toolchain = {'name': 'NVHPC', 'version': '25.3-CUDA-%(cudaver)s'}
+toolchain = {'name': 'NVHPC', 'version': '25.3-CUDA-12.8.0'}
 toolchainopts = {'openmp': True, 'usempi': True, 'pic': True}
 
 source_urls = ['https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%(version)s/']
@@ -32,7 +32,6 @@ builddependencies = [
     ('Python', '3.13.1'),
     ('Perl', '5.40.0'),
 ]
-dependencies = [('CUDA', '12.8.0', '', SYSTEM)]
 
 preconfigopts = 'export LDFLAGS="-lm $LDFLAGS" && '
 # do not check MPI during the configure
