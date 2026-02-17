@@ -1,25 +1,26 @@
 easyblock = 'PythonBundle'
 
 name = 'torchaudio'
-version = '2.6.0'
+version = '2.7.1'
+versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/pytorch/audio'
-description = """ Data manipulation and transformation for audio signal
-processing, powered by PyTorch """
+description = """Data manipulation and transformation for audio signal
+processing, powered by PyTorch."""
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
 builddependencies = [
-    ('CMake', '3.29.3'),
+    ('CMake', '3.31.8'),
     ('Ninja', '1.12.1'),
     ('parameterized', '0.9.0'),  # for tests
     ('scikit-learn', '1.5.2'),  # for tests
     ('librosa', '0.10.2.post1'),  # for tests
 ]
-
 dependencies = [
+    ('CUDA', '12.6.0', '', SYSTEM),
     ('Python', '3.12.3'),
-    ('PyTorch', version),
+    ('PyTorch', version, versionsuffix),
     ('FFmpeg', '7.0.2'),
     ('SoX', '14.4.2'),
 ]
@@ -27,7 +28,9 @@ dependencies = [
 local_preinstall_opts = ' '.join([
     'USE_SYSTEM_LIBS=1',
     'USE_OPENMP=1',
-    'USE_CUDA=0',
+    'USE_CUDA=1',
+    'USE_CUDNN=1',
+    'TORCH_CUDA_ARCH_LIST="%(cuda_cc_semicolon_sep)s"',
     'USE_FFMPEG=1', 'FFMPEG_ROOT="$EBROOTFFMPEG"',
     'CMAKE_BUILD_PARALLEL_LEVEL=%(parallel)s',
 ])
@@ -36,17 +39,19 @@ exts_list = [
     (name, version, {
         'installopts': '-v',
         'patches': [
-            'torchaudio-%(version)s_use_ffmpeg7.patch',
-            'torchaudio-%(version)s_fix_tests_cpu.patch',
-            'torchaudio-%(version)s_fix-encode-process.patch',
+            'torchaudio-2.6.0_use_ffmpeg7.patch',
+            'torchaudio-2.6.0_fix-encode-process.patch',
+            'torchaudio-2.6.0_fix_tests_gpu.patch',
         ],
         'preinstallopts': (
             'unset BUILD_VERSION && rm -r third_party/{sox,ffmpeg/multi}; '  # runs twice when testinstall
-            'BUILD_SOX=0 ') + local_preinstall_opts,
+            'BUILD_SOX=0 '
+        ) + local_preinstall_opts,
         'source_urls': ['https://github.com/pytorch/audio/archive'],
-        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'runtest': (
             'export OMP_NUM_THREADS=%(parallel)s && '
+            'export NVIDIA_TF32_OVERRIDE=0 && '
             'pytest test/torchaudio_unittest/'
             ' -k "not TestProcessPoolExecutor"'  # hang maybe related https://github.com/pytorch/audio/issues/1021
             '" and not FilterGraphWithCudaAccel"'  # requires FFmpeg with CUDA support
@@ -54,15 +59,16 @@ exts_list = [
             '" and not test_dup_hw_acel"'  # requires special render device permissions
             '" and not test_h264_cuvid"'  # requires special render device permissions
             '" and not test_hevc_cuvid"'  # requires special render device permissions
+            '" and not TestAutogradLfilterCUDA"'  # requires PyTorch’s nondeterministic algorithms mode
         ),
         'testinstall': True,
         'checksums': [
-            {'torchaudio-2.6.0.tar.gz': '3335d8fcf58c26acf3c628d751103b59226e01c91847ce56efb2a4e7ae8351ef'},
+            {'torchaudio-2.7.1.tar.gz': 'fc8159476d1b3b5978d5e66746fc34be168170800ff4c5e356433d8c9c57cbea'},
             {'torchaudio-2.6.0_use_ffmpeg7.patch': '1a2f7505efee9852ef393e6f4583cef209ad302db241171bf41be8d4a88920bd'},
-            {'torchaudio-2.6.0_fix_tests_cpu.patch':
-             '8fd92fd14130e9d385e00db87d743cd65c67189a1db8076e730f91f267e29e8e'},
             {'torchaudio-2.6.0_fix-encode-process.patch':
-             'f35258127c12f8938d5a5e59e285c435344a5b81be0d2831a59998327132e4ef'},
+             'afc41711bd5046894bc1477154f00c2b97ed2edbd640f6b7c3d2c6571e0f095b'},
+            {'torchaudio-2.6.0_fix_tests_gpu.patch':
+             '42368cef5e9953e5e4fbb84dac7012d5b2797b4e7bd1493a44f9a7144d001587'},
         ],
     }),
 ]
