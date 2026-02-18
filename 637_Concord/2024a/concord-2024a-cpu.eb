@@ -2,7 +2,6 @@ easyblock = 'PythonBundle'
 
 name = 'CONCORD'
 version = '1.0.13'
-versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/Gartner-Lab/Concord'
 description = """Revealing the underlying cell-state landscape from single-cell data requires
@@ -20,11 +19,10 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('CUDA', '12.6.0', '', SYSTEM),
     ('Python', '3.12.3'),
     ('SciPy-bundle', '2024.05'),
-    ('PyTorch', '2.7.1', versionsuffix),
-    ('Faiss', '1.13.2', versionsuffix),
+    ('PyTorch', '2.6.0'),
+    ('Faiss', '1.13.2'),
     ('tqdm', '4.66.5'),
     ('h5py', '3.12.1'),
     ('umap-learn', '0.5.7'),
