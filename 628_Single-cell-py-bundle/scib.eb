@@ -1,0 +1,40 @@
+# author: Denis Kristak (INUITS)
+# update: Pavel Tománek (INUITS)
+
+easyblock = 'PythonBundle'
+
+name = 'scib'
+version = '1.1.7'
+
+homepage = 'https://github.com/theislab/scib'
+description = "Benchmarking atlas-level data integration in single-cell genomics."
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('Seaborn', '0.13.2'),
+    ('matplotlib', '3.9.2'),
+    ('numba', '0.60.0'),
+    ('scanpy', '1.10.4'),
+    ('h5py', '3.12.1'),
+    ('scikit-learn', '1.5.2'),
+    ('scikit-misc', '0.5.1'),
+    # ('leidenalg', '0.10.2'),
+    # ('umap-learn', '0.5.5'),
+    # ('pydot', '2.0.0'),
+    # ('igraph', '0.10.10'),
+    # ('python-igraph', '0.11.4'),
+    # ('Deprecated', '1.2.14'),
+]
+
+exts_list = [
+    (name, version, {
+        'checksums': ['b7800f308cd6acc36db6e159a53b0432adb2f48e9b7b434240bc5d696df10bfb'],
+    }),
+]
+
+preinstallopts = "sed -i 's|pandas<2|pandas>=2|g' setup.cfg && "
+
+moduleclass = 'data'
