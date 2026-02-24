@@ -1,6 +1,7 @@
+easyblock = 'CMakeMake'
+
 name = 'FreeSurfer'
-version = '8.1.0'
-versionsuffix = '-rocky9_x86_64'
+version = '7.4.1'
 
 homepage = 'https://surfer.nmr.mgh.harvard.edu/'
 description = """FreeSurfer is a set of tools for analysis and visualization
@@ -8,25 +9,33 @@ of structural and functional brain imaging data.  FreeSurfer contains a fully
 automatic structural imaging stream for processing cross sectional and
 longitudinal data."""
 
-toolchain = SYSTEM
+toolchain = {'name': 'foss', 'version': '2023b'}
 
-source_urls = ['https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/%(version)s/']
-sources = ['%(namelower)s-linux%(versionsuffix)s-%(version)s.tar.gz']
-checksums = ['6158acc772fcbb5220c89e6405e8b56e4618701b13b6bbe6e8da77695f5e5546']
+source_urls = ['https://github.com/freesurfer/freesurfer/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['526852fe4ee979a051c017fe79851ccbd6a128ae7fad2f393bd767c36d8e0ca0']
 
-osdependencies = ['tcsh']
+builddependencies = [
+  # ('patchelf', '0.18.0'),
+  ('git-annex', '10.20240531'),
+  ('CMake', '3.27.6'),
+  ('xxd', '9.1.0307'),
+]
+dependencies = [
+  ('Python', '3.11.5'),
+  ('zlib', '1.2.13'),
+  ('MCR', 'R2019b.8', '', SYSTEM),
+  ('ITK', '5.4.0'),
+  ('VTK', '9.3.0'),
+  ('tcsh', '6.24.13'),  # fix shebang in the files TODO
+  ('FlexiBLAS', '3.3.1'),
+  ('JsonCpp', '1.9.5'),  # libjsoncpp.so.25
+  ('glew', '2.2.0', '-egl'),  # libGLEW.so.2.2
+]
 
-dependencies = [('MCR', 'R2019b.8')]
-
-postinstallcmds = ["ln -s $EBROOTMCR/v97 %(installdir)s/MCRv97"]
-
-license_text = """email@example.com
-00000
-g1bb3r1sh
-"""
-
-# Prepend system libs so FreeSurfer binaries pick up the system libstdc++.so.6 first.
-# This avoids GLIBCXX_* symbol errors caused by the older libstdc++ bundled with MCR.
-modextrapaths = {'LD_LIBRARY_PATH': ['/usr/lib64']}
+# license_text = """email@example.com
+# 00000
+# g1bb3r1sh
+# """
 
 moduleclass = 'bio'
