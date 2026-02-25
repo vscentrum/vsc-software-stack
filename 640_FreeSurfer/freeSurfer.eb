@@ -11,12 +11,23 @@ longitudinal data."""
 
 toolchain = {'name': 'foss', 'version': '2023b'}
 
-source_urls = ['https://github.com/freesurfer/freesurfer/archive/']
-sources = ['v%(version)s.tar.gz']
-checksums = ['526852fe4ee979a051c017fe79851ccbd6a128ae7fad2f393bd767c36d8e0ca0']
+# source_urls = ['https://github.com/freesurfer/freesurfer/archive/']
+# sources = ['v%(version)s.tar.gz']
+# checksums = ['526852fe4ee979a051c017fe79851ccbd6a128ae7fad2f393bd767c36d8e0ca0']
+
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.xz',
+    'git_config': {
+        'url': 'https://github.com/freesurfer',
+        'repo_name': 'freesurfer',
+        'tag': 'v%(version)s',
+        'keep_git_dir' : True,
+    }
+}]
 
 builddependencies = [
   # ('patchelf', '0.18.0'),
+  # https://github.com/datalad/git-annex/archive/refs/tags/10.20240531.tar.gz
   ('git-annex', '10.20240531'),
   ('CMake', '3.27.6'),
   ('xxd', '9.1.0307'),
@@ -28,10 +39,27 @@ dependencies = [
   ('ITK', '5.4.0'),
   ('VTK', '9.3.0'),
   ('tcsh', '6.24.13'),  # fix shebang in the files TODO
-  ('FlexiBLAS', '3.3.1'),
   ('JsonCpp', '1.9.5'),  # libjsoncpp.so.25
   ('glew', '2.2.0', '-egl'),  # libGLEW.so.2.2
 ]
+
+preconfigopts = (
+    "git remote add datasrc https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/repo/annex.git || true && "
+    "git fetch datasrc && "
+    "git-annex init || true && "
+    # smaller than 'git-annex get .', usually enough for building/installing:
+    "git-annex get --metadata fstags=makeinstall . && "
+) 
+
+configopts = (
+    "-DITK_DIR=$EBROOTITK/lib/cmake "
+    "-DVTK_DIR=$EBROOTVTK/lib/cmake "
+    "-DBUILD_GUIS=OFF "
+    "-DMARTINOS_BUILD=OFF "
+    "-DWARNING_AS_ERROR=OFF "
+    "-DINSTALL_PYTHON_DEPENDENCIES=OFF "
+    "-DDISTRIBUTE_FSPYTHON=OFF "
+)
 
 # license_text = """email@example.com
 # 00000
