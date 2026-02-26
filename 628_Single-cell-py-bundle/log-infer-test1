@@ -1,0 +1,558 @@
+======================================================== test session starts =========================================================
+platform linux -- Python 3.12.3, pytest-8.2.2, pluggy-1.5.0 -- /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
+cachedir: .pytest_cache
+benchmark: 5.2.3 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /tmp/vsc47063/easybuild/build/infercnvpy/0.6.1/foss-2024a/infercnvpy/infercnvpy-0.6.1
+configfile: pyproject.toml
+plugins: benchmark-5.2.3, xdist-3.6.1
+collecting ... collected 61 items
+
+tests/test_io.py::test_get_genomic_position_from_gtf[adata0-chr21_gencode.gtf-kwargs0-56] FAILED                               [  1%]
+tests/test_io.py::test_get_genomic_position_from_gtf[adata1-chr21_gencode.gtf-kwargs1-116] FAILED                              [  3%]
+tests/test_io.py::test_get_genomic_position_from_biomart[adata0-kwargs0] FAILED                                                [  4%]
+tests/test_io.py::test_get_genomic_position_from_biomart[adata1-kwargs1] FAILED                                                [  6%]
+tests/test_plotting.py::test_plot_chromosome_heatmap[array] PASSED                                                             [  8%]
+tests/test_plotting.py::test_plot_chromosome_heatmap[csr_matrix] PASSED                                                        [  9%]
+tests/test_plotting.py::test_plot_chromosome_heatmap[csc_matrix] PASSED                                                        [ 11%]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[array] PASSED                                                     [ 13%]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[csr_matrix] PASSED                                                [ 14%]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[csc_matrix] PASSED                                                [ 16%]
+tests/test_scores.py::test_ithgex[array] PASSED                                                                                [ 18%]
+tests/test_scores.py::test_ithgex[csr_matrix] PASSED                                                                           [ 19%]
+tests/test_scores.py::test_ithgex[csc_matrix] PASSED                                                                           [ 21%]
+tests/test_scores.py::test_ithcna[array] PASSED                                                                                [ 22%]
+tests/test_scores.py::test_ithcna[csr_matrix] PASSED                                                                           [ 24%]
+tests/test_scores.py::test_ithcna[csc_matrix] PASSED                                                                           [ 26%]
+tests/test_scores.py::test_cnv_score[array] PASSED                                                                             [ 27%]
+tests/test_scores.py::test_cnv_score[csr_matrix] PASSED                                                                        [ 29%]
+tests/test_scores.py::test_cnv_score[csc_matrix] PASSED                                                                        [ 31%]
+tests/test_tools.py::test_get_reference_key_and_cat[array] PASSED                                                              [ 32%]
+tests/test_tools.py::test_get_reference_key_and_cat[csr_matrix] PASSED                                                         [ 34%]
+tests/test_tools.py::test_get_reference_key_and_cat[csc_matrix] PASSED                                                         [ 36%]
+tests/test_tools.py::test_get_reference_no_reference[array] PASSED                                                             [ 37%]
+tests/test_tools.py::test_get_reference_no_reference[csr_matrix] PASSED                                                        [ 39%]
+tests/test_tools.py::test_get_reference_no_reference[csc_matrix] PASSED                                                        [ 40%]
+tests/test_tools.py::test_get_reference_given_reference[array] PASSED                                                          [ 42%]
+tests/test_tools.py::test_get_reference_given_reference[csr_matrix] PASSED                                                     [ 44%]
+tests/test_tools.py::test_get_reference_given_reference[csc_matrix] PASSED                                                     [ 45%]
+tests/test_tools.py::test_infercnv[array-None-None] PASSED                                                                     [ 47%]
+tests/test_tools.py::test_infercnv[array-cell_type-reference_cat1] PASSED                                                      [ 49%]
+tests/test_tools.py::test_infercnv[csr_matrix-None-None] PASSED                                                                [ 50%]
+tests/test_tools.py::test_infercnv[csr_matrix-cell_type-reference_cat1] PASSED                                                 [ 52%]
+tests/test_tools.py::test_infercnv[csc_matrix-None-None] PASSED                                                                [ 54%]
+tests/test_tools.py::test_infercnv[csc_matrix-cell_type-reference_cat1] PASSED                                                 [ 55%]
+tests/test_tools.py::test_infercnv_gene_values[array] PASSED                                                                   [ 57%]
+tests/test_tools.py::test_infercnv_gene_values[csr_matrix] PASSED                                                              [ 59%]
+tests/test_tools.py::test_infercnv_gene_values[csc_matrix] PASSED                                                              [ 60%]
+tests/test_tools.py::test_running_mean_n_less_than_genes PASSED                                                                [ 62%]
+tests/test_tools.py::test_running_mean_n_greater_than_genes PASSED                                                             [ 63%]
+tests/test_tools.py::test_calculate_gene_averages PASSED                                                                       [ 65%]
+tests/test_tools.py::test_infercnv_chunk_with_gene_values PASSED                                                               [ 67%]
+tests/test_tools.py::test_infercnv_chunk_default PASSED                                                                        [ 68%]
+tests/test_tools.py::test_infercnv_more_than_2_chunks PASSED                                                                   [ 70%]
+tests/test_tools.py::test_infercnv_manual_reference[array] PASSED                                                              [ 72%]
+tests/test_tools.py::test_infercnv_manual_reference[csr_matrix] PASSED                                                         [ 73%]
+tests/test_tools.py::test_infercnv_manual_reference[csc_matrix] PASSED                                                         [ 75%]
+tests/test_tools.py::test_copykat[array] SKIPPED (rpy2 segfaults on the CI. I don't know why and don't have the time for a...) [ 77%]
+tests/test_tools.py::test_copykat[csr_matrix] SKIPPED (rpy2 segfaults on the CI. I don't know why and don't have the time ...) [ 78%]
+tests/test_tools.py::test_copykat[csc_matrix] SKIPPED (rpy2 segfaults on the CI. I don't know why and don't have the time ...) [ 80%]
+tests/test_tools.py::test_workflow[array] PASSED                                                                               [ 81%]
+tests/test_tools.py::test_workflow[csr_matrix] PASSED                                                                          [ 83%]
+tests/test_tools.py::test_workflow[csc_matrix] PASSED                                                                          [ 85%]
+tests/test_tools.py::test_layer_parameter[array] PASSED                                                                        [ 86%]
+tests/test_tools.py::test_layer_parameter[csr_matrix] PASSED                                                                   [ 88%]
+tests/test_tools.py::test_layer_parameter[csc_matrix] PASSED                                                                   [ 90%]
+tests/test_tools.py::test_calculate_gene_values_speed[array] PASSED                                                            [ 91%]
+tests/test_tools.py::test_calculate_gene_values_speed[csr_matrix] PASSED                                                       [ 93%]
+tests/test_tools.py::test_calculate_gene_values_speed[csc_matrix] PASSED                                                       [ 95%]
+tests/test_tools.py::test_default_infercnv[array] PASSED                                                                       [ 96%]
+tests/test_tools.py::test_default_infercnv[csr_matrix] PASSED                                                                  [ 98%]
+tests/test_tools.py::test_default_infercnv[csc_matrix] PASSED                                                                  [100%]
+
+============================================================== FAILURES ==============================================================
+______________________________ test_get_genomic_position_from_gtf[adata0-chr21_gencode.gtf-kwargs0-56] _______________________________
+
+adata = AnnData object with n_obs × n_vars = 2700 × 32738
+    var: 'gene_ids', gtf = 'chr21_gencode.gtf', kwargs = {}
+testdata = PosixPath('/tmp/vsc47063/easybuild/build/infercnvpy/0.6.1/foss-2024a/infercnvpy/infercnvpy-0.6.1/tests/data')
+expected_genes = 56
+
+    @pytest.mark.parametrize(
+        "adata,gtf,kwargs,expected_genes",
+        [
+            # weird gtfparse issue
+            # [scanpy.datasets.pbmc3k(), "chr1_ensembl.gtf", {}, 42],
+            [scanpy.datasets.pbmc3k(), "chr21_gencode.gtf", {}, 56],
+            [scanpy.datasets.pbmc3k(), "chr21_gencode.gtf", {"adata_gene_id": "gene_ids", "gtf_gene_id": "gene_id"}, 116],
+        ],
+    )
+    def test_get_genomic_position_from_gtf(adata, gtf, kwargs, testdata, expected_genes):
+>       genomic_position_from_gtf(testdata / gtf, adata, **kwargs)
+
+tests/test_io.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+gtf_file = PosixPath('/tmp/vsc47063/easybuild/build/infercnvpy/0.6.1/foss-2024a/infercnvpy/infercnvpy-0.6.1/tests/data/chr21_gencode.gtf')
+adata = AnnData object with n_obs × n_vars = 2700 × 32738
+    var: 'gene_ids'
+
+    def genomic_position_from_gtf(
+        gtf_file: Path | str,
+        adata: AnnData | None = None,
+        *,
+        gtf_gene_id: Literal["gene_id", "gene_name"] = "gene_name",
+        adata_gene_id: str | None = None,
+        inplace: bool = True,
+    ) -> pd.DataFrame | None:
+        """
+        Get genomic gene positions from a GTF file.
+    
+        The GTF file needs to match the genome annotation used for your single cell dataset.
+    
+        .. warning::
+            Currently only tested with GENCODE GTFs.
+    
+        Parameters
+        ----------
+        gtf_file
+            Path to the GTF file
+        adata
+            Adds the genomic positions to `adata.var`. If adata is None, returns
+            a data frame with the genomic positions instead.
+        gtf_gene_id
+            Use this GTF column to match it to anndata
+        adata_gene_id
+            Match this column to the gene ids from the GTF file. Default: use
+            adata.var_names.
+        inplace
+            If True, add the annotations directly to adata, otherwise return a dataframe.
+        """
+        try:
+            import gtfparse
+        except ImportError:
+>           raise ImportError(
+                "genomic_position_from_gtf requires gtfparse as optional dependency. Please install it using `pip install gtfparse`."
+            ) from None
+E           ImportError: genomic_position_from_gtf requires gtfparse as optional dependency. Please install it using `pip install gtfparse`.
+
+/tmp/vsc47063/eb-w5r4fdp_/tmpg6q9pg92/lib/python3.12/site-packages/infercnvpy/io/_genepos.py:128: ImportError
+______________________________ test_get_genomic_position_from_gtf[adata1-chr21_gencode.gtf-kwargs1-116] ______________________________
+
+adata = AnnData object with n_obs × n_vars = 2700 × 32738
+    var: 'gene_ids', gtf = 'chr21_gencode.gtf'
+kwargs = {'adata_gene_id': 'gene_ids', 'gtf_gene_id': 'gene_id'}
+testdata = PosixPath('/tmp/vsc47063/easybuild/build/infercnvpy/0.6.1/foss-2024a/infercnvpy/infercnvpy-0.6.1/tests/data')
+expected_genes = 116
+
+    @pytest.mark.parametrize(
+        "adata,gtf,kwargs,expected_genes",
+        [
+            # weird gtfparse issue
+            # [scanpy.datasets.pbmc3k(), "chr1_ensembl.gtf", {}, 42],
+            [scanpy.datasets.pbmc3k(), "chr21_gencode.gtf", {}, 56],
+            [scanpy.datasets.pbmc3k(), "chr21_gencode.gtf", {"adata_gene_id": "gene_ids", "gtf_gene_id": "gene_id"}, 116],
+        ],
+    )
+    def test_get_genomic_position_from_gtf(adata, gtf, kwargs, testdata, expected_genes):
+>       genomic_position_from_gtf(testdata / gtf, adata, **kwargs)
+
+tests/test_io.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+gtf_file = PosixPath('/tmp/vsc47063/easybuild/build/infercnvpy/0.6.1/foss-2024a/infercnvpy/infercnvpy-0.6.1/tests/data/chr21_gencode.gtf')
+adata = AnnData object with n_obs × n_vars = 2700 × 32738
+    var: 'gene_ids'
+
+    def genomic_position_from_gtf(
+        gtf_file: Path | str,
+        adata: AnnData | None = None,
+        *,
+        gtf_gene_id: Literal["gene_id", "gene_name"] = "gene_name",
+        adata_gene_id: str | None = None,
+        inplace: bool = True,
+    ) -> pd.DataFrame | None:
+        """
+        Get genomic gene positions from a GTF file.
+    
+        The GTF file needs to match the genome annotation used for your single cell dataset.
+    
+        .. warning::
+            Currently only tested with GENCODE GTFs.
+    
+        Parameters
+        ----------
+        gtf_file
+            Path to the GTF file
+        adata
+            Adds the genomic positions to `adata.var`. If adata is None, returns
+            a data frame with the genomic positions instead.
+        gtf_gene_id
+            Use this GTF column to match it to anndata
+        adata_gene_id
+            Match this column to the gene ids from the GTF file. Default: use
+            adata.var_names.
+        inplace
+            If True, add the annotations directly to adata, otherwise return a dataframe.
+        """
+        try:
+            import gtfparse
+        except ImportError:
+>           raise ImportError(
+                "genomic_position_from_gtf requires gtfparse as optional dependency. Please install it using `pip install gtfparse`."
+            ) from None
+E           ImportError: genomic_position_from_gtf requires gtfparse as optional dependency. Please install it using `pip install gtfparse`.
+
+/tmp/vsc47063/eb-w5r4fdp_/tmpg6q9pg92/lib/python3.12/site-packages/infercnvpy/io/_genepos.py:128: ImportError
+_______________________________________ test_get_genomic_position_from_biomart[adata0-kwargs0] _______________________________________
+
+org = 'hsapiens', attrs = ['ensembl_gene_id', 'start_position', 'end_position', 'chromosome_name']
+
+    @_doc_params(doc_org=_doc_org, doc_host=_doc_host, doc_use_cache=_doc_use_cache)
+    def simple_query(
+        org: str,
+        attrs: Iterable[str] | str,
+        *,
+        filters: dict[str, Any] | None = None,
+        host: str = "www.ensembl.org",
+        use_cache: bool = False,
+    ) -> pd.DataFrame:
+        """\
+        A simple interface to biomart.
+    
+        Params
+        ------
+        {doc_org}
+        attrs
+            What you want returned.
+        filters
+            What you want to pick out.
+        {doc_host}
+        {doc_use_cache}
+        """
+        if isinstance(attrs, str):
+            attrs = [attrs]
+        elif isinstance(attrs, Iterable):
+            attrs = list(attrs)
+        else:
+            raise TypeError(f"attrs must be of type list or str, was {type(attrs)}.")
+        try:
+>           from pybiomart import Server
+
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scanpy/1.10.4-foss-2024a/lib/python3.12/site-packages/scanpy/queries/_queries.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/infercnvpy/0.6.1-foss-2024a/lib/python3.12/site-packages/pybiomart/__init__.py:3: in <module>
+    from .server import Server
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/infercnvpy/0.6.1-foss-2024a/lib/python3.12/site-packages/pybiomart/server.py:12: in <module>
+    from .base import ServerBase
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    from __future__ import absolute_import, division, print_function
+    
+    # pylint: disable=wildcard-import,redefined-builtin,unused-wildcard-import
+    from builtins import *
+    # pylint: enable=wildcard-import,redefined-builtin,unused-wildcard-import
+    
+    import requests
+>   import requests_cache
+E   ModuleNotFoundError: No module named 'requests_cache'
+
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/infercnvpy/0.6.1-foss-2024a/lib/python3.12/site-packages/pybiomart/base.py:8: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+adata = AnnData object with n_obs × n_vars = 2700 × 32738
+    var: 'gene_ids', kwargs = {'adata_gene_id': 'gene_ids'}
+
+    @pytest.mark.parametrize(
+        "adata,kwargs",
+        [
+            [scanpy.datasets.pbmc3k(), {"adata_gene_id": "gene_ids"}],
+            [scanpy.datasets.pbmc3k(), {"biomart_gene_id": "hgnc_symbol"}],
+        ],
+    )
+    def test_get_genomic_position_from_biomart(adata, kwargs):
+>       genomic_position_from_biomart(adata, use_cache=True, **kwargs)
+
+tests/test_io.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tmp/vsc47063/eb-w5r4fdp_/tmpg6q9pg92/lib/python3.12/site-packages/infercnvpy/io/_genepos.py:40: in genomic_position_from_biomart
+    scanpy.queries.biomart_annotations(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scanpy/1.10.4-foss-2024a/lib/python3.12/site-packages/scanpy/queries/_queries.py:114: in biomart_annotations
+    return simple_query(org=org, attrs=attrs, host=host, use_cache=use_cache)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+org = 'hsapiens', attrs = ['ensembl_gene_id', 'start_position', 'end_position', 'chromosome_name']
+
+    @_doc_params(doc_org=_doc_org, doc_host=_doc_host, doc_use_cache=_doc_use_cache)
+    def simple_query(
+        org: str,
+        attrs: Iterable[str] | str,
+        *,
+        filters: dict[str, Any] | None = None,
+        host: str = "www.ensembl.org",
+        use_cache: bool = False,
+    ) -> pd.DataFrame:
+        """\
+        A simple interface to biomart.
+    
+        Params
+        ------
+        {doc_org}
+        attrs
+            What you want returned.
+        filters
+            What you want to pick out.
+        {doc_host}
+        {doc_use_cache}
+        """
+        if isinstance(attrs, str):
+            attrs = [attrs]
+        elif isinstance(attrs, Iterable):
+            attrs = list(attrs)
+        else:
+            raise TypeError(f"attrs must be of type list or str, was {type(attrs)}.")
+        try:
+            from pybiomart import Server
+        except ImportError:
+>           raise ImportError(
+                "This method requires the `pybiomart` module to be installed."
+            )
+E           ImportError: This method requires the `pybiomart` module to be installed.
+
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scanpy/1.10.4-foss-2024a/lib/python3.12/site-packages/scanpy/queries/_queries.py:70: ImportError
+_______________________________________ test_get_genomic_position_from_biomart[adata1-kwargs1] _______________________________________
+
+org = 'hsapiens', attrs = ['hgnc_symbol', 'start_position', 'end_position', 'chromosome_name']
+
+    @_doc_params(doc_org=_doc_org, doc_host=_doc_host, doc_use_cache=_doc_use_cache)
+    def simple_query(
+        org: str,
+        attrs: Iterable[str] | str,
+        *,
+        filters: dict[str, Any] | None = None,
+        host: str = "www.ensembl.org",
+        use_cache: bool = False,
+    ) -> pd.DataFrame:
+        """\
+        A simple interface to biomart.
+    
+        Params
+        ------
+        {doc_org}
+        attrs
+            What you want returned.
+        filters
+            What you want to pick out.
+        {doc_host}
+        {doc_use_cache}
+        """
+        if isinstance(attrs, str):
+            attrs = [attrs]
+        elif isinstance(attrs, Iterable):
+            attrs = list(attrs)
+        else:
+            raise TypeError(f"attrs must be of type list or str, was {type(attrs)}.")
+        try:
+>           from pybiomart import Server
+
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scanpy/1.10.4-foss-2024a/lib/python3.12/site-packages/scanpy/queries/_queries.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/infercnvpy/0.6.1-foss-2024a/lib/python3.12/site-packages/pybiomart/__init__.py:3: in <module>
+    from .server import Server
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/infercnvpy/0.6.1-foss-2024a/lib/python3.12/site-packages/pybiomart/server.py:12: in <module>
+    from .base import ServerBase
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    from __future__ import absolute_import, division, print_function
+    
+    # pylint: disable=wildcard-import,redefined-builtin,unused-wildcard-import
+    from builtins import *
+    # pylint: enable=wildcard-import,redefined-builtin,unused-wildcard-import
+    
+    import requests
+>   import requests_cache
+E   ModuleNotFoundError: No module named 'requests_cache'
+
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/infercnvpy/0.6.1-foss-2024a/lib/python3.12/site-packages/pybiomart/base.py:8: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+adata = AnnData object with n_obs × n_vars = 2700 × 32738
+    var: 'gene_ids', kwargs = {'biomart_gene_id': 'hgnc_symbol'}
+
+    @pytest.mark.parametrize(
+        "adata,kwargs",
+        [
+            [scanpy.datasets.pbmc3k(), {"adata_gene_id": "gene_ids"}],
+            [scanpy.datasets.pbmc3k(), {"biomart_gene_id": "hgnc_symbol"}],
+        ],
+    )
+    def test_get_genomic_position_from_biomart(adata, kwargs):
+>       genomic_position_from_biomart(adata, use_cache=True, **kwargs)
+
+tests/test_io.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tmp/vsc47063/eb-w5r4fdp_/tmpg6q9pg92/lib/python3.12/site-packages/infercnvpy/io/_genepos.py:40: in genomic_position_from_biomart
+    scanpy.queries.biomart_annotations(
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scanpy/1.10.4-foss-2024a/lib/python3.12/site-packages/scanpy/queries/_queries.py:114: in biomart_annotations
+    return simple_query(org=org, attrs=attrs, host=host, use_cache=use_cache)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+org = 'hsapiens', attrs = ['hgnc_symbol', 'start_position', 'end_position', 'chromosome_name']
+
+    @_doc_params(doc_org=_doc_org, doc_host=_doc_host, doc_use_cache=_doc_use_cache)
+    def simple_query(
+        org: str,
+        attrs: Iterable[str] | str,
+        *,
+        filters: dict[str, Any] | None = None,
+        host: str = "www.ensembl.org",
+        use_cache: bool = False,
+    ) -> pd.DataFrame:
+        """\
+        A simple interface to biomart.
+    
+        Params
+        ------
+        {doc_org}
+        attrs
+            What you want returned.
+        filters
+            What you want to pick out.
+        {doc_host}
+        {doc_use_cache}
+        """
+        if isinstance(attrs, str):
+            attrs = [attrs]
+        elif isinstance(attrs, Iterable):
+            attrs = list(attrs)
+        else:
+            raise TypeError(f"attrs must be of type list or str, was {type(attrs)}.")
+        try:
+            from pybiomart import Server
+        except ImportError:
+>           raise ImportError(
+                "This method requires the `pybiomart` module to be installed."
+            )
+E           ImportError: This method requires the `pybiomart` module to be installed.
+
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scanpy/1.10.4-foss-2024a/lib/python3.12/site-packages/scanpy/queries/_queries.py:70: ImportError
+========================================================== warnings summary ==========================================================
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /tmp/vsc47063/eb-w5r4fdp_/tmpg6q9pg92/lib/python3.12/site-packages/infercnvpy/datasets/__init__.py:18: DeprecationWarning: path is deprecated. Use files() instead. Refer to https://importlib-resources.readthedocs.io/en/latest/using.html#migrating-from-legacy for migration advice.
+    with pkg_resources.path(data, "oligodendroglioma.h5ad") as p:
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/obs/__categories/cell_type' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/obs/cell_type' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/obs/cell_id' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/specs/registry.py:281: OldFormatWarning: Element '/uns' was written without encoding metadata.
+    return self.callback(read_func, elem.name, elem, iospec=iospec)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/specs/registry.py:281: OldFormatWarning: Element '/uns/cell_type_colors' was written without encoding metadata.
+    return self.callback(read_func, elem.name, elem, iospec=iospec)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/__categories/chromosome' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/chromosome' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/start' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/end' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/n_counts' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/n_cells' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/gene_symbol' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 216 warnings
+tests/test_tools.py: 2304 warnings
+  /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=3903808) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+tests/test_plotting.py::test_plot_chromosome_heatmap[array]
+tests/test_plotting.py::test_plot_chromosome_heatmap[csr_matrix]
+tests/test_plotting.py::test_plot_chromosome_heatmap[csc_matrix]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[array]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[csr_matrix]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[csc_matrix]
+tests/test_tools.py::test_workflow[array]
+tests/test_tools.py::test_workflow[csr_matrix]
+tests/test_tools.py::test_workflow[csc_matrix]
+  /tmp/vsc47063/eb-w5r4fdp_/tmpg6q9pg92/lib/python3.12/site-packages/infercnvpy/tl/__init__.py:24: FutureWarning: In the future, the default backend for leiden will be igraph instead of leidenalg.
+  
+   To achieve the future defaults please pass: flavor="igraph" and n_iterations=2.  directed must also be False to work with igraph's implementation.
+    return sc.tl.leiden(
+
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[csr_matrix]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[csc_matrix]
+tests/test_tools.py::test_workflow[array]
+tests/test_tools.py::test_workflow[csr_matrix]
+tests/test_tools.py::test_workflow[csc_matrix]
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_core/storage.py:39: ImplicitModificationWarning: X should not be a np.matrix, use np.ndarray instead.
+    warnings.warn(msg, ImplicitModificationWarning)
+
+tests/test_tools.py: 12 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_core/aligned_df.py:68: ImplicitModificationWarning: Transforming to str index.
+    warnings.warn("Transforming to str index.", ImplicitModificationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+
+------------------------------------------------------------------------------------------------------- benchmark: 6 tests -------------------------------------------------------------------------------------------------------
+Name (time in ms)                                        Min                    Max                   Mean             StdDev                 Median                 IQR            Outliers     OPS            Rounds  Iterations
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_default_infercnv[csc_matrix]                   902.4345 (1.0)         917.6110 (1.01)        911.8058 (1.00)      6.0741 (5.84)        911.3921 (1.00)       8.2899 (6.73)          1;0  1.0967 (1.00)          5           1
+test_default_infercnv[array]                        906.2716 (1.00)        910.6778 (1.0)         908.6488 (1.0)       1.6891 (1.62)        909.0281 (1.0)        2.4003 (1.95)          2;0  1.1005 (1.0)           5           1
+test_default_infercnv[csr_matrix]                   915.3674 (1.01)        918.1732 (1.01)        916.5712 (1.01)      1.0401 (1.0)         916.3642 (1.01)       1.2324 (1.0)           2;0  1.0910 (0.99)          5           1
+test_calculate_gene_values_speed[array]          18,486.1210 (20.48)    18,679.8173 (20.51)    18,592.2367 (20.46)    83.8865 (80.65)    18,632.2081 (20.50)    139.6003 (113.28)        2;0  0.0538 (0.05)          5           1
+test_calculate_gene_values_speed[csr_matrix]     18,503.0064 (20.50)    18,687.0238 (20.52)    18,589.0311 (20.46)    87.4220 (84.05)    18,575.2860 (20.43)    168.6796 (136.87)        1;0  0.0538 (0.05)          5           1
+test_calculate_gene_values_speed[csc_matrix]     18,522.2597 (20.52)    18,692.3501 (20.53)    18,609.8280 (20.48)    73.7879 (70.94)    18,614.6446 (20.48)    133.0044 (107.93)        2;0  0.0537 (0.05)          5           1
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+====================================================== short test summary info =======================================================
+FAILED tests/test_io.py::test_get_genomic_position_from_gtf[adata0-chr21_gencode.gtf-kwargs0-56] - ImportError: genomic_position_fr...
+FAILED tests/test_io.py::test_get_genomic_position_from_gtf[adata1-chr21_gencode.gtf-kwargs1-116] - ImportError: genomic_position_f...
+FAILED tests/test_io.py::test_get_genomic_position_from_biomart[adata0-kwargs0] - ImportError: This method requires the `pybiomart`...
+FAILED tests/test_io.py::test_get_genomic_position_from_biomart[adata1-kwargs1] - ImportError: This method requires the `pybiomart`...
+================================= 4 failed, 54 passed, 3 skipped, 2975 warnings in 510.25s (0:08:30) =================================

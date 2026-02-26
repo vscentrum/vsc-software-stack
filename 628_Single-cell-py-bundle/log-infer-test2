@@ -1,0 +1,433 @@
+======================================================== test session starts =========================================================
+platform linux -- Python 3.12.3, pytest-8.2.2, pluggy-1.5.0 -- /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
+cachedir: .pytest_cache
+benchmark: 5.2.3 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /tmp/vsc47063/easybuild/build/infercnvpy/0.6.1/foss-2024a/infercnvpy/infercnvpy-0.6.1
+configfile: pyproject.toml
+plugins: benchmark-5.2.3, xdist-3.6.1
+collecting ... collected 61 items
+
+tests/test_io.py::test_get_genomic_position_from_gtf[adata0-chr21_gencode.gtf-kwargs0-56] PASSED                               [  1%]
+tests/test_io.py::test_get_genomic_position_from_gtf[adata1-chr21_gencode.gtf-kwargs1-116] PASSED                              [  3%]
+tests/test_io.py::test_get_genomic_position_from_biomart[adata0-kwargs0] FAILED                                                [  4%]
+tests/test_io.py::test_get_genomic_position_from_biomart[adata1-kwargs1] FAILED                                                [  6%]
+tests/test_plotting.py::test_plot_chromosome_heatmap[array] PASSED                                                             [  8%]
+tests/test_plotting.py::test_plot_chromosome_heatmap[csr_matrix] PASSED                                                        [  9%]
+tests/test_plotting.py::test_plot_chromosome_heatmap[csc_matrix] PASSED                                                        [ 11%]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[array] PASSED                                                     [ 13%]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[csr_matrix] PASSED                                                [ 14%]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[csc_matrix] PASSED                                                [ 16%]
+tests/test_scores.py::test_ithgex[array] PASSED                                                                                [ 18%]
+tests/test_scores.py::test_ithgex[csr_matrix] PASSED                                                                           [ 19%]
+tests/test_scores.py::test_ithgex[csc_matrix] PASSED                                                                           [ 21%]
+tests/test_scores.py::test_ithcna[array] PASSED                                                                                [ 22%]
+tests/test_scores.py::test_ithcna[csr_matrix] PASSED                                                                           [ 24%]
+tests/test_scores.py::test_ithcna[csc_matrix] PASSED                                                                           [ 26%]
+tests/test_scores.py::test_cnv_score[array] PASSED                                                                             [ 27%]
+tests/test_scores.py::test_cnv_score[csr_matrix] PASSED                                                                        [ 29%]
+tests/test_scores.py::test_cnv_score[csc_matrix] PASSED                                                                        [ 31%]
+tests/test_tools.py::test_get_reference_key_and_cat[array] PASSED                                                              [ 32%]
+tests/test_tools.py::test_get_reference_key_and_cat[csr_matrix] PASSED                                                         [ 34%]
+tests/test_tools.py::test_get_reference_key_and_cat[csc_matrix] PASSED                                                         [ 36%]
+tests/test_tools.py::test_get_reference_no_reference[array] PASSED                                                             [ 37%]
+tests/test_tools.py::test_get_reference_no_reference[csr_matrix] PASSED                                                        [ 39%]
+tests/test_tools.py::test_get_reference_no_reference[csc_matrix] PASSED                                                        [ 40%]
+tests/test_tools.py::test_get_reference_given_reference[array] PASSED                                                          [ 42%]
+tests/test_tools.py::test_get_reference_given_reference[csr_matrix] PASSED                                                     [ 44%]
+tests/test_tools.py::test_get_reference_given_reference[csc_matrix] PASSED                                                     [ 45%]
+tests/test_tools.py::test_infercnv[array-None-None] PASSED                                                                     [ 47%]
+tests/test_tools.py::test_infercnv[array-cell_type-reference_cat1] PASSED                                                      [ 49%]
+tests/test_tools.py::test_infercnv[csr_matrix-None-None] PASSED                                                                [ 50%]
+tests/test_tools.py::test_infercnv[csr_matrix-cell_type-reference_cat1] PASSED                                                 [ 52%]
+tests/test_tools.py::test_infercnv[csc_matrix-None-None] PASSED                                                                [ 54%]
+tests/test_tools.py::test_infercnv[csc_matrix-cell_type-reference_cat1] PASSED                                                 [ 55%]
+tests/test_tools.py::test_infercnv_gene_values[array] PASSED                                                                   [ 57%]
+tests/test_tools.py::test_infercnv_gene_values[csr_matrix] PASSED                                                              [ 59%]
+tests/test_tools.py::test_infercnv_gene_values[csc_matrix] PASSED                                                              [ 60%]
+tests/test_tools.py::test_running_mean_n_less_than_genes PASSED                                                                [ 62%]
+tests/test_tools.py::test_running_mean_n_greater_than_genes PASSED                                                             [ 63%]
+tests/test_tools.py::test_calculate_gene_averages PASSED                                                                       [ 65%]
+tests/test_tools.py::test_infercnv_chunk_with_gene_values PASSED                                                               [ 67%]
+tests/test_tools.py::test_infercnv_chunk_default PASSED                                                                        [ 68%]
+tests/test_tools.py::test_infercnv_more_than_2_chunks PASSED                                                                   [ 70%]
+tests/test_tools.py::test_infercnv_manual_reference[array] PASSED                                                              [ 72%]
+tests/test_tools.py::test_infercnv_manual_reference[csr_matrix] PASSED                                                         [ 73%]
+tests/test_tools.py::test_infercnv_manual_reference[csc_matrix] PASSED                                                         [ 75%]
+tests/test_tools.py::test_copykat[array] SKIPPED (rpy2 segfaults on the CI. I don't know why and don't have the time for a...) [ 77%]
+tests/test_tools.py::test_copykat[csr_matrix] SKIPPED (rpy2 segfaults on the CI. I don't know why and don't have the time ...) [ 78%]
+tests/test_tools.py::test_copykat[csc_matrix] SKIPPED (rpy2 segfaults on the CI. I don't know why and don't have the time ...) [ 80%]
+tests/test_tools.py::test_workflow[array] PASSED                                                                               [ 81%]
+tests/test_tools.py::test_workflow[csr_matrix] PASSED                                                                          [ 83%]
+tests/test_tools.py::test_workflow[csc_matrix] PASSED                                                                          [ 85%]
+tests/test_tools.py::test_layer_parameter[array] PASSED                                                                        [ 86%]
+tests/test_tools.py::test_layer_parameter[csr_matrix] PASSED                                                                   [ 88%]
+tests/test_tools.py::test_layer_parameter[csc_matrix] PASSED                                                                   [ 90%]
+tests/test_tools.py::test_calculate_gene_values_speed[array] PASSED                                                            [ 91%]
+tests/test_tools.py::test_calculate_gene_values_speed[csr_matrix] PASSED                                                       [ 93%]
+tests/test_tools.py::test_calculate_gene_values_speed[csc_matrix] PASSED                                                       [ 95%]
+tests/test_tools.py::test_default_infercnv[array] PASSED                                                                       [ 96%]
+tests/test_tools.py::test_default_infercnv[csr_matrix] PASSED                                                                  [ 98%]
+tests/test_tools.py::test_default_infercnv[csc_matrix] PASSED                                                                  [100%]
+
+============================================================== FAILURES ==============================================================
+_______________________________________ test_get_genomic_position_from_biomart[adata0-kwargs0] _______________________________________
+
+self = Index(['<html>'], dtype='object'), key = 'chromosome'
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list('abc'))
+        >>> unique_index.get_loc('b')
+        1
+    
+        >>> monotonic_index = pd.Index(list('abbc'))
+        >>> monotonic_index.get_loc('b')
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list('abcb'))
+        >>> non_monotonic_index.get_loc('b')
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+>           return self._engine.get_loc(casted_key)
+
+/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/pandas/core/indexes/base.py:3805: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+index.pyx:167: in pandas._libs.index.IndexEngine.get_loc
+    ???
+index.pyx:196: in pandas._libs.index.IndexEngine.get_loc
+    ???
+pandas/_libs/hashtable_class_helper.pxi:7081: in pandas._libs.hashtable.PyObjectHashTable.get_item
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   KeyError: 'chromosome'
+
+pandas/_libs/hashtable_class_helper.pxi:7089: KeyError
+
+The above exception was the direct cause of the following exception:
+
+adata = AnnData object with n_obs × n_vars = 2700 × 32738
+    var: 'gene_ids', kwargs = {'adata_gene_id': 'gene_ids'}
+
+    @pytest.mark.parametrize(
+        "adata,kwargs",
+        [
+            [scanpy.datasets.pbmc3k(), {"adata_gene_id": "gene_ids"}],
+            [scanpy.datasets.pbmc3k(), {"biomart_gene_id": "hgnc_symbol"}],
+        ],
+    )
+    def test_get_genomic_position_from_biomart(adata, kwargs):
+>       genomic_position_from_biomart(adata, use_cache=True, **kwargs)
+
+tests/test_io.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tmp/vsc47063/eb-9hwki1sl/tmp9xn032o1/lib/python3.12/site-packages/infercnvpy/io/_genepos.py:58: in genomic_position_from_biomart
+    .assign(chromosome=lambda x: "chr" + x["chromosome"])
+/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/pandas/core/frame.py:5239: in assign
+    data[k] = com.apply_if_callable(v, data)
+/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/pandas/core/common.py:384: in apply_if_callable
+    return maybe_callable(obj, **kwargs)
+/tmp/vsc47063/eb-9hwki1sl/tmp9xn032o1/lib/python3.12/site-packages/infercnvpy/io/_genepos.py:58: in <lambda>
+    .assign(chromosome=lambda x: "chr" + x["chromosome"])
+/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/pandas/core/frame.py:4102: in __getitem__
+    indexer = self.columns.get_loc(key)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Index(['<html>'], dtype='object'), key = 'chromosome'
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list('abc'))
+        >>> unique_index.get_loc('b')
+        1
+    
+        >>> monotonic_index = pd.Index(list('abbc'))
+        >>> monotonic_index.get_loc('b')
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list('abcb'))
+        >>> non_monotonic_index.get_loc('b')
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+            return self._engine.get_loc(casted_key)
+        except KeyError as err:
+            if isinstance(casted_key, slice) or (
+                isinstance(casted_key, abc.Iterable)
+                and any(isinstance(x, slice) for x in casted_key)
+            ):
+                raise InvalidIndexError(key)
+>           raise KeyError(key) from err
+E           KeyError: 'chromosome'
+
+/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/pandas/core/indexes/base.py:3812: KeyError
+_______________________________________ test_get_genomic_position_from_biomart[adata1-kwargs1] _______________________________________
+
+self = Index(['<html>'], dtype='object'), key = 'chromosome'
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list('abc'))
+        >>> unique_index.get_loc('b')
+        1
+    
+        >>> monotonic_index = pd.Index(list('abbc'))
+        >>> monotonic_index.get_loc('b')
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list('abcb'))
+        >>> non_monotonic_index.get_loc('b')
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+>           return self._engine.get_loc(casted_key)
+
+/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/pandas/core/indexes/base.py:3805: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+index.pyx:167: in pandas._libs.index.IndexEngine.get_loc
+    ???
+index.pyx:196: in pandas._libs.index.IndexEngine.get_loc
+    ???
+pandas/_libs/hashtable_class_helper.pxi:7081: in pandas._libs.hashtable.PyObjectHashTable.get_item
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   KeyError: 'chromosome'
+
+pandas/_libs/hashtable_class_helper.pxi:7089: KeyError
+
+The above exception was the direct cause of the following exception:
+
+adata = AnnData object with n_obs × n_vars = 2700 × 32738
+    var: 'gene_ids', kwargs = {'biomart_gene_id': 'hgnc_symbol'}
+
+    @pytest.mark.parametrize(
+        "adata,kwargs",
+        [
+            [scanpy.datasets.pbmc3k(), {"adata_gene_id": "gene_ids"}],
+            [scanpy.datasets.pbmc3k(), {"biomart_gene_id": "hgnc_symbol"}],
+        ],
+    )
+    def test_get_genomic_position_from_biomart(adata, kwargs):
+>       genomic_position_from_biomart(adata, use_cache=True, **kwargs)
+
+tests/test_io.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tmp/vsc47063/eb-9hwki1sl/tmp9xn032o1/lib/python3.12/site-packages/infercnvpy/io/_genepos.py:58: in genomic_position_from_biomart
+    .assign(chromosome=lambda x: "chr" + x["chromosome"])
+/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/pandas/core/frame.py:5239: in assign
+    data[k] = com.apply_if_callable(v, data)
+/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/pandas/core/common.py:384: in apply_if_callable
+    return maybe_callable(obj, **kwargs)
+/tmp/vsc47063/eb-9hwki1sl/tmp9xn032o1/lib/python3.12/site-packages/infercnvpy/io/_genepos.py:58: in <lambda>
+    .assign(chromosome=lambda x: "chr" + x["chromosome"])
+/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/pandas/core/frame.py:4102: in __getitem__
+    indexer = self.columns.get_loc(key)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Index(['<html>'], dtype='object'), key = 'chromosome'
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list('abc'))
+        >>> unique_index.get_loc('b')
+        1
+    
+        >>> monotonic_index = pd.Index(list('abbc'))
+        >>> monotonic_index.get_loc('b')
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list('abcb'))
+        >>> non_monotonic_index.get_loc('b')
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+            return self._engine.get_loc(casted_key)
+        except KeyError as err:
+            if isinstance(casted_key, slice) or (
+                isinstance(casted_key, abc.Iterable)
+                and any(isinstance(x, slice) for x in casted_key)
+            ):
+                raise InvalidIndexError(key)
+>           raise KeyError(key) from err
+E           KeyError: 'chromosome'
+
+/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/pandas/core/indexes/base.py:3812: KeyError
+========================================================== warnings summary ==========================================================
+tests/test_io.py::test_get_genomic_position_from_gtf[adata0-chr21_gencode.gtf-kwargs0-56]
+tests/test_io.py::test_get_genomic_position_from_gtf[adata1-chr21_gencode.gtf-kwargs1-116]
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/infercnvpy/0.6.1-foss-2024a/lib/python3.12/site-packages/gtfparse/read_gtf.py:106: DeprecationWarning: The argument `dtypes` for `read_csv` is deprecated. It has been renamed to `schema_overrides`.
+    df = polars.read_csv(
+
+tests/test_io.py: 72 warnings
+tests/test_plotting.py: 216 warnings
+tests/test_tools.py: 2304 warnings
+  /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=3935529) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /tmp/vsc47063/eb-9hwki1sl/tmp9xn032o1/lib/python3.12/site-packages/infercnvpy/datasets/__init__.py:18: DeprecationWarning: path is deprecated. Use files() instead. Refer to https://importlib-resources.readthedocs.io/en/latest/using.html#migrating-from-legacy for migration advice.
+    with pkg_resources.path(data, "oligodendroglioma.h5ad") as p:
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/obs/__categories/cell_type' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/obs/cell_type' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/obs/cell_id' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/specs/registry.py:281: OldFormatWarning: Element '/uns' was written without encoding metadata.
+    return self.callback(read_func, elem.name, elem, iospec=iospec)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/specs/registry.py:281: OldFormatWarning: Element '/uns/cell_type_colors' was written without encoding metadata.
+    return self.callback(read_func, elem.name, elem, iospec=iospec)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/__categories/chromosome' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/chromosome' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/start' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/end' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/n_counts' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/n_cells' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py: 6 warnings
+tests/test_tools.py: 27 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_io/utils.py:215: OldFormatWarning: Element '/var/gene_symbol' was written without encoding metadata.
+    return func(*args, **kwargs)
+
+tests/test_plotting.py::test_plot_chromosome_heatmap[array]
+tests/test_plotting.py::test_plot_chromosome_heatmap[csr_matrix]
+tests/test_plotting.py::test_plot_chromosome_heatmap[csc_matrix]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[array]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[csr_matrix]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[csc_matrix]
+tests/test_tools.py::test_workflow[array]
+tests/test_tools.py::test_workflow[csr_matrix]
+tests/test_tools.py::test_workflow[csc_matrix]
+  /tmp/vsc47063/eb-9hwki1sl/tmp9xn032o1/lib/python3.12/site-packages/infercnvpy/tl/__init__.py:24: FutureWarning: In the future, the default backend for leiden will be igraph instead of leidenalg.
+  
+   To achieve the future defaults please pass: flavor="igraph" and n_iterations=2.  directed must also be False to work with igraph's implementation.
+    return sc.tl.leiden(
+
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[csr_matrix]
+tests/test_plotting.py::test_plot_chromosome_heatmap_summary[csc_matrix]
+tests/test_tools.py::test_workflow[array]
+tests/test_tools.py::test_workflow[csr_matrix]
+tests/test_tools.py::test_workflow[csc_matrix]
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_core/storage.py:39: ImplicitModificationWarning: X should not be a np.matrix, use np.ndarray instead.
+    warnings.warn(msg, ImplicitModificationWarning)
+
+tests/test_tools.py: 12 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages/anndata/_core/aligned_df.py:68: ImplicitModificationWarning: Transforming to str index.
+    warnings.warn("Transforming to str index.", ImplicitModificationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+
+---------------------------------------------------------------------------------------------- benchmark: 6 tests ---------------------------------------------------------------------------------------------
+Name (time in s)                                     Min                Max               Mean            StdDev             Median               IQR            Outliers     OPS            Rounds  Iterations
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_default_infercnv[array]                      1.0043 (1.0)       1.0130 (1.0)       1.0083 (1.0)      0.0032 (2.77)      1.0082 (1.0)      0.0039 (1.84)          2;0  0.9918 (1.0)           5           1
+test_default_infercnv[csc_matrix]                 1.0244 (1.02)      1.0291 (1.02)      1.0273 (1.02)     0.0018 (1.59)      1.0280 (1.02)     0.0022 (1.05)          1;0  0.9734 (0.98)          5           1
+test_default_infercnv[csr_matrix]                 1.0246 (1.02)      1.0271 (1.01)      1.0259 (1.02)     0.0011 (1.0)       1.0261 (1.02)     0.0021 (1.0)           2;0  0.9748 (0.98)          5           1
+test_calculate_gene_values_speed[csr_matrix]     19.0433 (18.96)    19.1794 (18.93)    19.1440 (18.99)    0.0571 (49.64)    19.1665 (19.01)    0.0498 (23.55)         1;1  0.0522 (0.05)          5           1
+test_calculate_gene_values_speed[array]          19.1104 (19.03)    19.1794 (18.93)    19.1497 (18.99)    0.0345 (29.98)    19.1690 (19.01)    0.0635 (29.99)         2;0  0.0522 (0.05)          5           1
+test_calculate_gene_values_speed[csc_matrix]     19.1909 (19.11)    19.2301 (18.98)    19.2154 (19.06)    0.0159 (13.86)    19.2198 (19.06)    0.0235 (11.12)         1;0  0.0520 (0.05)          5           1
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+====================================================== short test summary info =======================================================
+FAILED tests/test_io.py::test_get_genomic_position_from_biomart[adata0-kwargs0] - KeyError: 'chromosome'
+FAILED tests/test_io.py::test_get_genomic_position_from_biomart[adata1-kwargs1] - KeyError: 'chromosome'
+================================= 2 failed, 56 passed, 3 skipped, 3049 warnings in 614.41s (0:10:14) =================================
