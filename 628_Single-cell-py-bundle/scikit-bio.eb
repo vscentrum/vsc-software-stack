@@ -9,7 +9,7 @@ and educational resources for bioinformatics."""
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
-
+builddependencies = [('Cython', '3.0.10')]
 dependencies = [
     ('Python', '3.12.3'),
     ('Python-bundle-PyPI', '2024.06'),
@@ -20,11 +20,12 @@ dependencies = [
     ('h5py', '3.12.1'),
     ('biom-format', '2.1.16'),
     ('statsmodels', '0.14.4'),
-    ('Cython', '3.0.10'),
 ]
 
 exts_list = [
     ('hdmedians', '0.14.2', {
+        # removes cython from runtime dependencies
+        'preinstallopts': """sed -i "18s/, 'Cython>=0.23'//" setup.py && """,
         'checksums': ['b47aecb16771e1ba0736557255d80ae0240b09156bff434321de559b359ac2d6'],
     }),
     ('natsort', '8.4.0', {
@@ -32,14 +33,10 @@ exts_list = [
     }),
     (name, version, {
         'modulename': 'skbio',
-        # 'patches': ['scikit-bio-0.6.3_fix-test.patch'],
-        'checksums': [
-            {'scikit-bio-0.6.3.tar.gz': 'f06cc87a1823902906821819e66f7cd704563a9f8cdf6720296a42dcbc2fe1c2'},
-            # {'scikit-bio-0.6.3_fix-test.patch': '72d14191ec4b8c7b7f01c2590e250f674621dae0239a97cbd78d91da105c4d33'},
-        ],
+        'testinstall': True,
+        'runtest': 'cd /tmp && python -m skbio.test --pyargs skbio',
+        'checksums': ['f06cc87a1823902906821819e66f7cd704563a9f8cdf6720296a42dcbc2fe1c2'],
     }),
 ]
-
-sanity_check_commands = ['python -m skbio.test --pyargs skbio']
 
 moduleclass = 'bio'
