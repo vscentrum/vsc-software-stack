@@ -1,0 +1,276 @@
+Looking in indexes: https://pypi.org/simple, https://pypi.nvidia.com
+Processing /tmp/vsc47063/easybuild/build/rapidssinglecell/0.14.1/foss-2024a-CUDA-12.6.0/rapids_singlecell/rapids_singlecell-0.14.1
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: anndata>=0.10.0 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages (from rapids_singlecell==0.14.1) (0.11.4)
+Requirement already satisfied: docrep in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages (from rapids_singlecell==0.14.1) (0.3.2)
+Requirement already satisfied: matplotlib>=3.4 in /apps/gent/RHEL9/cascadelake-ib/software/matplotlib/3.9.2-gfbf-2024a/lib/python3.12/site-packages (from rapids_singlecell==0.14.1) (3.9.2)
+Requirement already satisfied: natsort in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages (from rapids_singlecell==0.14.1) (8.4.0)
+Requirement already satisfied: numpy>=1.17.0 in /apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages (from rapids_singlecell==0.14.1) (1.26.4)
+Requirement already satisfied: pandas in /apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages (from rapids_singlecell==0.14.1) (2.2.2)
+Requirement already satisfied: scanpy>=1.10.0 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scanpy/1.10.4-foss-2024a/lib/python3.12/site-packages (from rapids_singlecell==0.14.1) (1.10.4)
+Requirement already satisfied: scikit-image in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scikit-image/0.25.0-foss-2024a/lib/python3.12/site-packages (from rapids_singlecell==0.14.1) (0.25.0)
+Requirement already satisfied: scikit-learn in /apps/gent/RHEL9/cascadelake-ib/software/scikit-learn/1.5.2-gfbf-2024a/lib/python3.12/site-packages (from rapids_singlecell==0.14.1) (1.5.2)
+Requirement already satisfied: scikit-misc>=0.1.3 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scikit-misc/0.5.1-foss-2024a/lib/python3.12/site-packages (from rapids_singlecell==0.14.1) (0.5.1)
+Requirement already satisfied: scipy>=1.4 in /apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages (from rapids_singlecell==0.14.1) (1.13.1)
+Requirement already satisfied: statsmodels>=0.12.0 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/statsmodels/0.14.4-gfbf-2024a/lib/python3.12/site-packages (from rapids_singlecell==0.14.1) (0.14.4)
+Requirement already satisfied: tqdm in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/tqdm/4.66.5-GCCcore-13.3.0/lib/python3.12/site-packages (from rapids_singlecell==0.14.1) (4.66.5)
+Collecting cudf-cu12>=25.10 (from rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/cudf-cu12/cudf_cu12-26.2.1-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (2.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.7/2.7 MB 17.4 MB/s eta 0:00:00
+Collecting cugraph-cu12>=25.10 (from rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/cugraph-cu12/cugraph_cu12-26.2.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 110.1 MB/s eta 0:00:00
+Collecting cuml-cu12>=25.10 (from rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/cuml-cu12/cuml_cu12-26.2.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (6.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.7/6.7 MB 116.9 MB/s eta 0:00:00
+Collecting cupy-cuda12x (from rapids_singlecell==0.14.1)
+  Downloading cupy_cuda12x-14.0.1-cp312-cp312-manylinux2014_x86_64.whl.metadata (2.8 kB)
+Collecting cuvs-cu12>=25.10 (from rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/cuvs-cu12/cuvs_cu12-26.2.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (1.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 124.0 MB/s eta 0:00:00
+Requirement already satisfied: array-api-compat!=1.5,>1.4 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/anndata/0.11.4-foss-2024a/lib/python3.12/site-packages (from anndata>=0.10.0->rapids_singlecell==0.14.1) (1.12.0)
+Requirement already satisfied: h5py>=3.7 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/h5py/3.12.1-foss-2024a/lib/python3.12/site-packages (from anndata>=0.10.0->rapids_singlecell==0.14.1) (3.12.1)
+Requirement already satisfied: packaging>=24.2 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/setuptools/80.9.0-GCCcore-13.3.0/lib/python3.12/site-packages (from anndata>=0.10.0->rapids_singlecell==0.14.1) (25.0)
+Collecting cachetools (from cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading cachetools-7.0.1-py3-none-any.whl.metadata (5.6 kB)
+Collecting cuda-python<13.0,>=12.9.2 (from cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading cuda_python-12.9.5-py3-none-any.whl.metadata (4.7 kB)
+Collecting cuda-toolkit==12.* (from cuda-toolkit[nvcc,nvrtc]==12.*->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/cuda-toolkit/cuda_toolkit-12.9.1-py2.py3-none-any.whl (2.3 kB)
+Requirement already satisfied: fsspec>=0.6.0 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from cudf-cu12>=25.10->rapids_singlecell==0.14.1) (2024.6.0)
+Collecting libcudf-cu12==26.2.* (from cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/libcudf-cu12/libcudf_cu12-26.2.1-py3-none-manylinux_2_28_x86_64.whl (684.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 684.2/684.2 MB 47.5 MB/s eta 0:00:00
+Collecting numba-cuda<0.23.0,>=0.22.2 (from numba-cuda[cu12]<0.23.0,>=0.22.2->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading numba_cuda-0.22.2-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.7 kB)
+Requirement already satisfied: numba<0.62.0,>=0.60.0 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/numba/0.60.0-foss-2024a/lib/python3.12/site-packages (from cudf-cu12>=25.10->rapids_singlecell==0.14.1) (0.60.0)
+Collecting nvtx>=0.2.1 (from cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/nvtx/nvtx-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (737 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 737.7/737.7 kB 136.0 MB/s eta 0:00:00
+Collecting pyarrow>=15.0.0 (from cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading pyarrow-23.0.1-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (3.1 kB)
+Collecting pylibcudf-cu12==26.2.* (from cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/pylibcudf-cu12/pylibcudf_cu12-26.2.1-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (8.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.7/8.7 MB 116.4 MB/s eta 0:00:00
+Requirement already satisfied: rich in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from cudf-cu12>=25.10->rapids_singlecell==0.14.1) (13.7.1)
+Collecting rmm-cu12==26.2.* (from cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/rmm-cu12/rmm_cu12-26.2.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (1.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 126.5 MB/s eta 0:00:00
+Requirement already satisfied: typing_extensions>=4.0.0 in /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/site-packages (from cudf-cu12>=25.10->rapids_singlecell==0.14.1) (4.11.0)
+Collecting nvidia-cuda-nvcc-cu12==12.9.86.* (from cuda-toolkit[nvcc,nvrtc]==12.*->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/nvidia-cuda-nvcc-cu12/nvidia_cuda_nvcc_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (40.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.5/40.5 MB 109.1 MB/s eta 0:00:00
+Collecting nvidia-cuda-nvrtc-cu12==12.9.86.* (from cuda-toolkit[nvcc,nvrtc]==12.*->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/nvidia-cuda-nvrtc-cu12/nvidia_cuda_nvrtc_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (89.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.6/89.6 MB 96.1 MB/s eta 0:00:00
+Collecting libkvikio-cu12==26.2.* (from libcudf-cu12==26.2.*->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/libkvikio-cu12/libkvikio_cu12-26.2.0-py3-none-manylinux_2_28_x86_64.whl (2.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 82.7 MB/s eta 0:00:00
+Collecting librmm-cu12==26.2.* (from libcudf-cu12==26.2.*->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/librmm-cu12/librmm_cu12-26.2.0-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (3.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.9/3.9 MB 118.5 MB/s eta 0:00:00
+Collecting nvidia-libnvcomp-cu12==5.1.0.21 (from libcudf-cu12==26.2.*->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/nvidia-libnvcomp-cu12/nvidia_libnvcomp_cu12-5.1.0.21-py3-none-manylinux_2_28_x86_64.whl (29.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 29.0/29.0 MB 111.2 MB/s eta 0:00:00
+Collecting rapids-logger==0.2.* (from libcudf-cu12==26.2.*->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading rapids_logger-0.2.3-py3-none-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (5.1 kB)
+Collecting dask-cuda==26.2.* (from cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/dask-cuda/dask_cuda-26.2.0-py3-none-manylinux_2_28_aarch64.manylinux_2_28_x86_64.whl (160 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 160.2/160.2 kB 190.2 MB/s eta 0:00:00
+Collecting dask-cudf-cu12==26.2.* (from cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/dask-cudf-cu12/dask_cudf_cu12-26.2.1-py3-none-any.whl (51 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 51.4/51.4 kB 112.9 MB/s eta 0:00:00
+Collecting libcugraph-cu12==26.2.* (from cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/libcugraph-cu12/libcugraph_cu12-26.2.0-py3-none-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (1690.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 GB 34.2 MB/s eta 0:00:00
+Collecting pylibcugraph-cu12==26.2.* (from cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/pylibcugraph-cu12/pylibcugraph_cu12-26.2.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (2.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 121.2 MB/s eta 0:00:00
+Collecting pylibraft-cu12==26.2.* (from cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/pylibraft-cu12/pylibraft_cu12-26.2.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (901 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 901.3/901.3 kB 128.8 MB/s eta 0:00:00
+Collecting raft-dask-cu12==26.2.* (from cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/raft-dask-cu12/raft_dask_cu12-26.2.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (1.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 126.6 MB/s eta 0:00:00
+Collecting rapids-dask-dependency==26.2.* (from cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/rapids-dask-dependency/rapids_dask_dependency-26.2.0-py3-none-any.whl (10 kB)
+Collecting ucxx-cu12==0.48.* (from cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/ucxx-cu12/ucxx_cu12-0.48.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (518 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 518.4/518.4 kB 141.2 MB/s eta 0:00:00
+Requirement already satisfied: click>=8.1 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from dask-cuda==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (8.1.7)
+Collecting cuda-core==0.3.* (from dask-cuda==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading cuda_core-0.3.2-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.6 kB)
+Collecting nvidia-ml-py>=12 (from dask-cuda==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading nvidia_ml_py-13.590.48-py3-none-any.whl.metadata (9.8 kB)
+Requirement already satisfied: zict>=2.0.0 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/dask/2024.9.1-gfbf-2024a/lib/python3.12/site-packages (from dask-cuda==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (3.0.0)
+Collecting libraft-cu12==26.2.* (from libcugraph-cu12==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/libraft-cu12/libraft_cu12-26.2.0-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (19.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 19.7/19.7 MB 113.2 MB/s eta 0:00:00
+Collecting distributed-ucxx-cu12==0.48.* (from raft-dask-cu12==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/distributed-ucxx-cu12/distributed_ucxx_cu12-0.48.0-py3-none-manylinux_2_28_aarch64.manylinux_2_28_x86_64.whl (31 kB)
+Collecting nvidia-nccl-cu12>=2.19 (from raft-dask-cu12==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/nvidia-nccl-cu12/nvidia_nccl_cu12-2.29.3-py3-none-manylinux_2_18_x86_64.whl (289.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 289.8/289.8 MB 71.1 MB/s eta 0:00:00
+Collecting dask==2026.1.1 (from rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading dask-2026.1.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting distributed==2026.1.1 (from rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading distributed-2026.1.1-py3-none-any.whl.metadata (3.4 kB)
+Collecting libucxx-cu12==0.48.* (from ucxx-cu12==0.48.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/libucxx-cu12/libucxx_cu12-0.48.0-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (536 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.4/536.4 kB 142.8 MB/s eta 0:00:00
+Requirement already satisfied: cloudpickle>=3.0.0 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from dask==2026.1.1->rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (3.0.0)
+Requirement already satisfied: partd>=1.4.0 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/dask/2024.9.1-gfbf-2024a/lib/python3.12/site-packages (from dask==2026.1.1->rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (1.4.2)
+Requirement already satisfied: pyyaml>=5.3.1 in /apps/gent/RHEL9/cascadelake-ib/software/PyYAML/6.0.2-GCCcore-13.3.0/lib/python3.12/site-packages (from dask==2026.1.1->rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (6.0.2)
+Requirement already satisfied: toolz>=0.12.0 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/dask/2024.9.1-gfbf-2024a/lib/python3.12/site-packages (from dask==2026.1.1->rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (0.12.1)
+Requirement already satisfied: jinja2>=2.10.3 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from distributed==2026.1.1->rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (3.1.4)
+Requirement already satisfied: locket>=1.0.0 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/dask/2024.9.1-gfbf-2024a/lib/python3.12/site-packages (from distributed==2026.1.1->rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (1.0.0)
+Requirement already satisfied: msgpack>=1.0.2 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from distributed==2026.1.1->rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (1.0.8)
+Requirement already satisfied: psutil>=5.8.0 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from distributed==2026.1.1->rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (5.9.8)
+Requirement already satisfied: sortedcontainers>=2.0.5 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from distributed==2026.1.1->rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (2.4.0)
+Requirement already satisfied: tblib!=3.2.0,!=3.2.1,>=1.6.0 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/dask/2024.9.1-gfbf-2024a/lib/python3.12/site-packages (from distributed==2026.1.1->rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (3.0.0)
+Requirement already satisfied: tornado>=6.2.0 in /apps/gent/RHEL9/cascadelake-ib/software/tornado/6.4.1-GCCcore-13.3.0/lib/python3.12/site-packages (from distributed==2026.1.1->rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (6.4.1)
+Requirement already satisfied: urllib3>=1.26.5 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from distributed==2026.1.1->rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (2.2.1)
+Collecting libucx-cu12<1.20,>=1.18.0 (from libucxx-cu12==0.48.*->ucxx-cu12==0.48.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/libucx-cu12/libucx_cu12-1.19.0-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (27.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 27.9/27.9 MB 94.9 MB/s eta 0:00:00
+Collecting nvidia-cublas-cu12==12.9.1.4.* (from cuda-toolkit==12.*->cuda-toolkit[nvcc,nvrtc]==12.*->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/nvidia-cublas-cu12/nvidia_cublas_cu12-12.9.1.4-py3-none-manylinux_2_27_x86_64.whl (581.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 581.2/581.2 MB 56.3 MB/s eta 0:00:00
+Collecting nvidia-curand-cu12==10.3.10.19.* (from cuda-toolkit==12.*->cuda-toolkit[nvcc,nvrtc]==12.*->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/nvidia-curand-cu12/nvidia_curand_cu12-10.3.10.19-py3-none-manylinux_2_27_x86_64.whl (68.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 68.3/68.3 MB 102.8 MB/s eta 0:00:00
+Collecting nvidia-cusolver-cu12==11.7.5.82.* (from cuda-toolkit==12.*->cuda-toolkit[nvcc,nvrtc]==12.*->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/nvidia-cusolver-cu12/nvidia_cusolver_cu12-11.7.5.82-py3-none-manylinux_2_27_x86_64.whl (338.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 338.1/338.1 MB 73.1 MB/s eta 0:00:00
+Collecting nvidia-cusparse-cu12==12.5.10.65.* (from cuda-toolkit==12.*->cuda-toolkit[nvcc,nvrtc]==12.*->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/nvidia-cusparse-cu12/nvidia_cusparse_cu12-12.5.10.65-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (366.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 366.5/366.5 MB 72.9 MB/s eta 0:00:00
+Collecting nvidia-nvjitlink-cu12 (from nvidia-cusolver-cu12==11.7.5.82.*->cuda-toolkit==12.*->cuda-toolkit[nvcc,nvrtc]==12.*->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/nvidia-nvjitlink-cu12/nvidia_nvjitlink_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (39.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 39.7/39.7 MB 107.2 MB/s eta 0:00:00
+Requirement already satisfied: joblib>=0.11 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from cuml-cu12>=25.10->rapids_singlecell==0.14.1) (1.4.2)
+Collecting libcuml-cu12==26.2.* (from cuml-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/libcuml-cu12/libcuml_cu12-26.2.0-py3-none-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (464.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 464.9/464.9 MB 64.6 MB/s eta 0:00:00
+Collecting treelite<5.0.0,>=4.6.1 (from cuml-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading treelite-4.6.1-py3-none-manylinux2014_x86_64.whl.metadata (1.5 kB)
+Collecting nvidia-cufft-cu12==11.4.1.4.* (from cuda-toolkit==12.*->cuda-toolkit[nvcc,nvrtc]==12.*->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/nvidia-cufft-cu12/nvidia_cufft_cu12-11.4.1.4-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (200.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 200.9/200.9 MB 87.0 MB/s eta 0:00:00
+Collecting numpy>=1.17.0 (from rapids_singlecell==0.14.1)
+  Downloading numpy-2.4.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Collecting cuda-pathfinder==1.*,>=1.3.3 (from cupy-cuda12x->rapids_singlecell==0.14.1)
+  Downloading cuda_pathfinder-1.4.0-py3-none-any.whl.metadata (1.9 kB)
+Collecting libcuvs-cu12==26.2.* (from cuvs-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/libcuvs-cu12/libcuvs_cu12-26.2.0-py3-none-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (802.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 802.5/802.5 MB 44.0 MB/s eta 0:00:00
+Requirement already satisfied: contourpy>=1.0.1 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/bokeh/3.6.0-gfbf-2024a/lib/python3.12/site-packages (from matplotlib>=3.4->rapids_singlecell==0.14.1) (1.2.1)
+Requirement already satisfied: cycler>=0.10 in /apps/gent/RHEL9/cascadelake-ib/software/matplotlib/3.9.2-gfbf-2024a/lib/python3.12/site-packages (from matplotlib>=3.4->rapids_singlecell==0.14.1) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in /apps/gent/RHEL9/cascadelake-ib/software/matplotlib/3.9.2-gfbf-2024a/lib/python3.12/site-packages (from matplotlib>=3.4->rapids_singlecell==0.14.1) (4.53.1)
+Requirement already satisfied: kiwisolver>=1.3.1 in /apps/gent/RHEL9/cascadelake-ib/software/matplotlib/3.9.2-gfbf-2024a/lib/python3.12/site-packages (from matplotlib>=3.4->rapids_singlecell==0.14.1) (1.4.4)
+Requirement already satisfied: pillow>=8 in /apps/gent/RHEL9/cascadelake-ib/software/Pillow/10.4.0-GCCcore-13.3.0/lib/python3.12/site-packages (from matplotlib>=3.4->rapids_singlecell==0.14.1) (10.4.0)
+Requirement already satisfied: pyparsing>=2.3.1 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from matplotlib>=3.4->rapids_singlecell==0.14.1) (3.1.2)
+Requirement already satisfied: python-dateutil>=2.7 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from matplotlib>=3.4->rapids_singlecell==0.14.1) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from pandas->rapids_singlecell==0.14.1) (2024.1)
+Requirement already satisfied: tzdata>=2022.7 in /apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages (from pandas->rapids_singlecell==0.14.1) (2024.1)
+Requirement already satisfied: legacy-api-wrap>=1.4 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scanpy/1.10.4-foss-2024a/lib/python3.12/site-packages (from scanpy>=1.10.0->rapids_singlecell==0.14.1) (1.4.1)
+Requirement already satisfied: networkx>=2.7 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/networkx/3.4.2-gfbf-2024a/lib/python3.12/site-packages (from scanpy>=1.10.0->rapids_singlecell==0.14.1) (3.4.2)
+Requirement already satisfied: patsy!=1.0.0 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/statsmodels/0.14.4-gfbf-2024a/lib/python3.12/site-packages (from scanpy>=1.10.0->rapids_singlecell==0.14.1) (0.5.6)
+Requirement already satisfied: pynndescent>=0.5 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/umap-learn/0.5.7-foss-2024a/lib/python3.12/site-packages (from scanpy>=1.10.0->rapids_singlecell==0.14.1) (0.5.13)
+Requirement already satisfied: seaborn>=0.13 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Seaborn/0.13.2-gfbf-2024a/lib/python3.12/site-packages (from scanpy>=1.10.0->rapids_singlecell==0.14.1) (0.13.2)
+Requirement already satisfied: session-info in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scanpy/1.10.4-foss-2024a/lib/python3.12/site-packages (from scanpy>=1.10.0->rapids_singlecell==0.14.1) (1.0.0)
+Requirement already satisfied: umap-learn!=0.5.0,>=0.5 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/umap-learn/0.5.7-foss-2024a/lib/python3.12/site-packages (from scanpy>=1.10.0->rapids_singlecell==0.14.1) (0.5.7)
+Requirement already satisfied: threadpoolctl>=3.1.0 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from scikit-learn->rapids_singlecell==0.14.1) (3.5.0)
+Collecting numpy>=1.17.0 (from rapids_singlecell==0.14.1)
+  Downloading numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.0/62.0 kB 6.5 MB/s eta 0:00:00
+Requirement already satisfied: six in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from docrep->rapids_singlecell==0.14.1) (1.16.0)
+Requirement already satisfied: imageio!=2.35.0,>=2.33 in /apps/gent/RHEL9/cascadelake-ib/software/imageio/2.36.1-gfbf-2024a/lib/python3.12/site-packages (from scikit-image->rapids_singlecell==0.14.1) (2.36.1)
+Requirement already satisfied: tifffile>=2022.8.12 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scikit-image/0.25.0-foss-2024a/lib/python3.12/site-packages (from scikit-image->rapids_singlecell==0.14.1) (2024.12.12)
+Requirement already satisfied: lazy-loader>=0.4 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scikit-image/0.25.0-foss-2024a/lib/python3.12/site-packages (from scikit-image->rapids_singlecell==0.14.1) (0.4)
+Collecting cuda-bindings~=12.9.5 (from cuda-python<13.0,>=12.9.2->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading cuda_bindings-12.9.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (2.6 kB)
+Collecting aiohttp!=4.0.0a0,!=4.0.0a1 (from fsspec[http]>=0.6.0->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading aiohttp-3.13.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.1 kB)
+Requirement already satisfied: mpi4py>=3.1.1 in /apps/gent/RHEL9/cascadelake-ib/software/mpi4py/4.0.1-gompi-2024a/lib/python3.12/site-packages (from h5py>=3.7->anndata>=0.10.0->rapids_singlecell==0.14.1) (4.0.1)
+Requirement already satisfied: llvmlite<0.44,>=0.43.0dev0 in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/numba/0.60.0-foss-2024a/lib/python3.12/site-packages (from numba<0.62.0,>=0.60.0->cudf-cu12>=25.10->rapids_singlecell==0.14.1) (0.43.0)
+Collecting numpy>=1.17.0 (from rapids_singlecell==0.14.1)
+  Downloading numpy-2.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (60 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.9/60.9 kB 38.9 MB/s eta 0:00:00
+Collecting nvidia-cuda-runtime-cu12 (from numba-cuda[cu12]<0.23.0,>=0.22.2->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/nvidia-cuda-runtime-cu12/nvidia_cuda_runtime_cu12-12.9.79-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.5/3.5 MB 118.3 MB/s eta 0:00:00
+Collecting nvidia-cuda-cccl-cu12 (from numba-cuda[cu12]<0.23.0,>=0.22.2->cudf-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading https://pypi.nvidia.com/nvidia-cuda-cccl-cu12/nvidia_cuda_cccl_cu12-12.9.27-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 119.3 MB/s eta 0:00:00
+Requirement already satisfied: markdown-it-py>=2.2.0 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from rich->cudf-cu12>=25.10->rapids_singlecell==0.14.1) (3.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from rich->cudf-cu12>=25.10->rapids_singlecell==0.14.1) (2.18.0)
+Requirement already satisfied: stdlib_list in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scanpy/1.10.4-foss-2024a/lib/python3.12/site-packages (from session-info->scanpy>=1.10.0->rapids_singlecell==0.14.1) (0.11.0)
+Collecting aiohappyeyeballs>=2.5.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=0.6.0->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading aiohappyeyeballs-2.6.1-py3-none-any.whl.metadata (5.9 kB)
+Collecting aiosignal>=1.4.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=0.6.0->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Requirement already satisfied: attrs>=17.3.0 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=0.6.0->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (23.2.0)
+Collecting frozenlist>=1.1.1 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=0.6.0->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+Collecting multidict<7.0,>=4.5 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=0.6.0->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading multidict-6.7.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.3 kB)
+Collecting propcache>=0.2.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=0.6.0->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading propcache-0.4.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (13 kB)
+Collecting yarl<2.0,>=1.17.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=0.6.0->cugraph-cu12>=25.10->rapids_singlecell==0.14.1)
+  Downloading yarl-1.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (79 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 79.6/79.6 kB 49.3 MB/s eta 0:00:00
+Requirement already satisfied: mdurl~=0.1 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from markdown-it-py>=2.2.0->rich->cudf-cu12>=25.10->rapids_singlecell==0.14.1) (0.1.2)
+Requirement already satisfied: MarkupSafe>=2.0 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from jinja2>=2.10.3->distributed==2026.1.1->rapids-dask-dependency==26.2.*->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (2.1.5)
+Requirement already satisfied: idna>=2.0 in /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages (from yarl<2.0,>=1.17.0->aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=0.6.0->cugraph-cu12>=25.10->rapids_singlecell==0.14.1) (3.7)
+Downloading rapids_logger-0.2.3-py3-none-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (202 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 202.0/202.0 kB 28.9 MB/s eta 0:00:00
+Downloading cuda_core-0.3.2-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (3.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.1/3.1 MB 27.5 MB/s eta 0:00:00
+Downloading dask-2026.1.1-py3-none-any.whl (1.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 100.4 MB/s eta 0:00:00
+Downloading distributed-2026.1.1-py3-none-any.whl (1.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.0/1.0 MB 99.1 MB/s eta 0:00:00
+Downloading cupy_cuda12x-14.0.1-cp312-cp312-manylinux2014_x86_64.whl (134.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.6/134.6 MB 38.8 MB/s eta 0:00:00
+Downloading cuda_pathfinder-1.4.0-py3-none-any.whl (38 kB)
+Downloading cuda_python-12.9.5-py3-none-any.whl (7.6 kB)
+Downloading numpy-2.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (19.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 19.2/19.2 MB 92.2 MB/s eta 0:00:00
+Downloading numba_cuda-0.22.2-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (1.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 104.4 MB/s eta 0:00:00
+Downloading pyarrow-23.0.1-cp312-cp312-manylinux_2_28_x86_64.whl (47.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 47.6/47.6 MB 67.1 MB/s eta 0:00:00
+Downloading treelite-4.6.1-py3-none-manylinux2014_x86_64.whl (939 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 939.3/939.3 kB 104.7 MB/s eta 0:00:00
+Downloading cachetools-7.0.1-py3-none-any.whl (13 kB)
+Downloading aiohttp-3.13.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 73.9 MB/s eta 0:00:00
+Downloading cuda_bindings-12.9.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (15.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15.9/15.9 MB 96.8 MB/s eta 0:00:00
+Downloading nvidia_ml_py-13.590.48-py3-none-any.whl (50 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50.7/50.7 kB 34.0 MB/s eta 0:00:00
+Downloading aiohappyeyeballs-2.6.1-py3-none-any.whl (15 kB)
+Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Downloading frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (242 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 242.4/242.4 kB 100.3 MB/s eta 0:00:00
+Downloading multidict-6.7.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (256 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 256.3/256.3 kB 99.3 MB/s eta 0:00:00
+Downloading propcache-0.4.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (221 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 221.6/221.6 kB 101.3 MB/s eta 0:00:00
+Downloading yarl-1.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (100 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.1/100.1 kB 66.2 MB/s eta 0:00:00
+Building wheels for collected packages: rapids_singlecell
+  Building wheel for rapids_singlecell (pyproject.toml): started 
+  Building wheel for rapids_singlecell (pyproject.toml): finished with status 'done'
+  Created wheel for rapids_singlecell: filename=rapids_singlecell-0.14.1-py3-none-any.whl size=246520 sha256=da5edbaca8b97b4e2a4438344d25f31cc67545ce5ad891a6aeaf45bc04d0dc8e
+  Stored in directory: /tmp/vsc47063/eb-fm4ulmf2/xdg-cache-home/pip/wheels/07/f7/db/fbe494ce64f1de985086415888c2d0f26e24f0d1a868ca4721
+Successfully built rapids_singlecell
+Installing collected packages: nvtx, nvidia-ml-py, nvidia-libnvcomp-cu12, libkvikio-cu12, cuda-toolkit, rapids-logger, pyarrow, propcache, nvidia-nvjitlink-cu12, nvidia-nccl-cu12, nvidia-curand-cu12, nvidia-cuda-runtime-cu12, nvidia-cuda-nvrtc-cu12, nvidia-cuda-nvcc-cu12, nvidia-cuda-cccl-cu12, nvidia-cublas-cu12, numpy, multidict, libucx-cu12, frozenlist, cuda-pathfinder, cachetools, aiohappyeyeballs, yarl, nvidia-cusparse-cu12, nvidia-cufft-cu12, librmm-cu12, dask, cupy-cuda12x, cuda-core, cuda-bindings, aiosignal, treelite, nvidia-cusolver-cu12, numba-cuda, libucxx-cu12, libcudf-cu12, distributed, cuda-python, aiohttp, rmm-cu12, rapids-dask-dependency, ucxx-cu12, pylibcudf-cu12, libraft-cu12, dask-cuda, pylibraft-cu12, libcuvs-cu12, libcuml-cu12, libcugraph-cu12, distributed-ucxx-cu12, cudf-cu12, rapids_singlecell, raft-dask-cu12, pylibcugraph-cu12, dask-cudf-cu12, cuvs-cu12, cuml-cu12, cugraph-cu12
+  Attempting uninstall: numpy
+    Found existing installation: numpy 1.26.4
+    Uninstalling numpy-1.26.4:
+ERROR: Could not install packages due to an OSError: [Errno 13] Permission denied: '/kyukon/home/apps/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/bin/f2py'
+Consider using the `--user` option or check the permissions.
+
