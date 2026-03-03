@@ -1,0 +1,96 @@
+#FROM PR 24667
+easyblock = 'PythonBundle'
+
+name = 'CUDA-Python'
+# Warning: major versions of CUDA and CUDA-Python are tied (not minor) - pick latest v12.x.x
+version = '12.9.2'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://nvidia.github.io/cuda-python/'
+description = "Python bindings for CUDA"
+github_account = 'NVIDIA'
+
+toolchain = {'name': 'gfbf', 'version': '2024a'}
+
+builddependencies = [
+    ('Cython', '3.0.10'),
+]
+dependencies = [
+    ('CUDA', '12.6.0', '', SYSTEM),
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('setuptools', '80.9.0'),
+]
+
+local_cuda_python_sources = [{'download_filename': f'v{version}.tar.gz', 'filename': f'{name}-{version}.tar.gz'}]
+local_cuda_python_source_urls = ['https://github.com/%(github_account)s/cuda-python/archive']
+
+exts_list = [
+    ('pyclibrary', '0.3.0', {
+        'checksums': ['8a3eaa9ab728c11b077644275af4e05ca24ddcad491f47eb45b75db6be52c654'],
+    }),
+    ('cuda-bindings', version, {
+        'modulename': 'cuda.bindings',
+        'source_urls': local_cuda_python_source_urls,
+        'sources': local_cuda_python_sources,
+        'start_dir': 'cuda_bindings',
+        'checksums': ['14ed346e848f796929516ebce1e3b33567c4f285abf44aa767ec8e9542ca6a68'],
+    }),
+    ('cuda-core', '0.3.1', {
+        'modulename': 'cuda.core',
+        'source_urls': local_cuda_python_source_urls,
+        'sources': local_cuda_python_sources,
+        'start_dir': 'cuda_core',
+        'checksums': ['14ed346e848f796929516ebce1e3b33567c4f285abf44aa767ec8e9542ca6a68'],
+    }),
+    ('cuda-pathfinder', '1.1.0', {
+        'modulename': 'cuda.pathfinder',
+        'source_urls': local_cuda_python_source_urls,
+        'sources': local_cuda_python_sources,
+        'start_dir': 'cuda_pathfinder',
+        'checksums': ['14ed346e848f796929516ebce1e3b33567c4f285abf44aa767ec8e9542ca6a68'],
+    }),
+    ('cuda-python', version, {
+        # this is only metapackage
+        'modulename': False,
+        'source_urls': local_cuda_python_source_urls,
+        'sources':local_cuda_python_sources,
+        'start_dir': 'cuda_python',
+        'checksums': ['14ed346e848f796929516ebce1e3b33567c4f285abf44aa767ec8e9542ca6a68'],
+    }),
+]
+
+sanity_check_commands = [
+    "python -sc 'from cuda import cuda, nvrtc'",
+    "python -sc 'from cuda.bindings import driver, nvrtc'",
+]
+
+moduleclass = 'lib'
+
+# E1:
+    # -> v12.9.2 needs newer CUDA to build bindings from source -> use whl -> new ec
+#       building 'cuda.bindings._lib.cyruntime.utils' extension
+#       g++ -O2 -ftree-vectorize -march=native -fno-math-errno -I/apps/gent/RHEL9/cascadelake-ib/software/FFTW/3.3.10-GCC-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/include/flexiblas -I/apps/gent/RHEL9/cascadelake-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/numpy/core/include -I/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/CUDA/12.6.0/nvvm/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/CUDA/12.6.0/extras/CUPTI/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/CUDA/12.6.0/targets/x86_64-linux/include -fPIC -I./cuda/bindings -I/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/CUDA/12.6.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/include/python3.12 -c cuda/bindings/_lib/cyruntime/utils.cpp -o build/temp.linux-x86_64-cpython-312/cuda/bindings/_lib/cyruntime/utils.o -std=c++14 -fpermissive -Wno-deprecated-declarations "-D _GLIBCXX_ASSERTIONS" -fno-var-tracking-assignments -O3
+#       cuda/bindings/_lib/cyruntime/utils.cpp: In function ‘cudaError_t __pyx_f_4cuda_8bindings_4_lib_9cyruntime_5utils_getDescInfo(const cudaChannelFormatDesc*, int*, CUarray_format*)’:
+#       cuda/bindings/_lib/cyruntime/utils.cpp:5514:29: error: ‘cudaChannelFormatKindUnsignedNormalized1010102’ was not declared in this scope; did you mean ‘cudaChannelFormatKindUnsignedNormalized16X2’?
+#        5514 |   __pyx_t_3 = (__pyx_t_1 == cudaChannelFormatKindUnsignedNormalized1010102);
+#             |                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#             |                             cudaChannelFormatKindUnsignedNormalized16X2
+#       cuda/bindings/_lib/cyruntime/utils.cpp:7553:27: error: ‘CU_AD_FORMAT_UNORM_INT_101010_2’ was not declared in this scope; did you mean ‘CU_AD_FORMAT_UNORM_INT16X2’?
+#        7553 |     (__pyx_v_format[0]) = CU_AD_FORMAT_UNORM_INT_101010_2;
+#             |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#             |                           CU_AD_FORMAT_UNORM_INT16X2
+#       cuda/bindings/_lib/cyruntime/utils.cpp: In function ‘cudaError_t __pyx_f_4cuda_8bindings_4_lib_9cyruntime_5utils_getChannelFormatDescFromDriverDesc(cudaChannelFormatDesc*, size_t*, size_t*, size_t*, const CUDA_ARRAY3D_DESCRIPTOR_v2*)’:
+#       cuda/bindings/_lib/cyruntime/utils.cpp:9099:51: error: ‘CU_AD_FORMAT_UNORM_INT_101010_2’ was not declared in this scope; did you mean ‘CU_AD_FORMAT_UNORM_INT16X2’?
+#        9099 |   __pyx_t_1 = ((__pyx_v_pDriverDesc[0]).Format == CU_AD_FORMAT_UNORM_INT_101010_2);
+#             |                                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#             |                                                   CU_AD_FORMAT_UNORM_INT16X2
+#       cuda/bindings/_lib/cyruntime/utils.cpp:9109:35: error: ‘cudaChannelFormatKindUnsignedNormalized1010102’ was not declared in this scope; did you mean ‘cudaChannelFormatKindUnsignedNormalized16X2’?
+#        9109 |     (__pyx_v_pRuntimeDesc[0]).f = cudaChannelFormatKindUnsignedNormalized1010102;
+#             |                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#             |                                   cudaChannelFormatKindUnsignedNormalized16X2
+#       error: command '/tmp/vsc47063/eb-_4lydlsh/tmpx3b93svj/rpath_wrappers/gxx_wrapper/g++' failed with exit code 1
+#       [end of output]
+  
+#   note: This error originates from a subprocess, and is likely not a problem with pip.
+#   ERROR: Failed building wheel for cuda-bindings

@@ -62,6 +62,25 @@ toolchain = {'name': 'foss', 'version': '2024a'}
     # OK cuvs-cu12 26.2.0 requires cuda-python, which is not installed.
     # cuvs-cu12 26.2.0 requires libcuvs-cu12, which is not installed.
     # cuvs-cu12 26.2.0 requires pylibraft-cu12, which is not installed.
+# DEPS_ALL:
+    # pyarrow>=15 (cuDF)
+    # nvtx>=0.2.1 (cuDF)
+    # cachetools (cuDF)
+    # nvidia-ml-py>=12 (dask-cuda / dask-cudf / ucxx)
+    # cuda-python = 12.9.2, newer needs newer Cython
+    # cuda-core==0.3.2 (dask-cuda requirement)
+    # numba-cuda==0.22.2 (fits RAPIDS constraints and supplies cuda.core)
+    # rapids-dask-dependency==26.2.0 → dask==2026.1.1, distributed==2026.1.1
+    # dask-cuda==26.2.0
+    # dask-cudf-cu12==26.2.1
+    # ucxx-cu12==0.48.0
+    # distributed-ucxx-cu12==0.48.0
+    # libucxx-cu12==0.48.0 (and it requires libucx-cu12>=1.18,<1.20)
+    # cudf-cu12==26.2.1
+    # cuml-cu12==26.2.0
+    # cugraph-cu12==26.2.
+    # cuvs-cu12==26.2.0
+    # cupy-cuda12x==13.6.0
     
 builddependencies = [
     ('hatchling', '1.24.2'),
@@ -71,7 +90,7 @@ dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
     ('CuPy', '13.6.0', versionsuffix),
     ('CUDA-Python', '12.6.2.post1', versionsuffix),
-    ('numba-cuda', '0.20.0', versionsuffix),
+    ('numba-cuda', '0.20.0', versionsuffix),  # needs PR 24667
     ('Python', '3.12.3'),
     ('SciPy-bundle', '2024.05'),
     ('anndata', '0.11.4'),
