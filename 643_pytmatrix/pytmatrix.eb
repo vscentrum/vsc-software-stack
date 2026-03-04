@@ -1,7 +1,6 @@
 easyblock = 'PythonBundle'
 
 name = 'pytmatrix'
-
 version = '0.3.3'
 
 homepage = 'https://github.com/jleinonen/pytmatrix'
@@ -16,7 +15,10 @@ dependencies = [
 
 exts_list = [
     (name, version, {
-        'checksums': ['34a1962a89c0f123ff815a05318abd09ad247613d3a2684747119a4cd67b9e5a'],
+        # pypi sources are broken: error: 'pytmatrix/fortran_tm/pytmatrixmodule.c' missing
+        'source_urls': ['https://github.com/jleinonen/pytmatrix/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['2c06d16ce0bb43413988f183d38bc358ffeef039c1bc44c5d92d9bc9fd875c72'],
     }),
 ]
 

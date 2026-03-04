@@ -1,0 +1,36 @@
+Processing /tmp/vsc47063/easybuild/build/pytmatrix/0.3.3/gfbf-2023a/pytmatrix/pytmatrix-0.3.3
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × python setup.py egg_info did not run successfully.
+  │ exit code: 1
+  ╰─> [19 lines of output]
+      /tmp/vsc47063/easybuild/build/pytmatrix/0.3.3/gfbf-2023a/pytmatrix/pytmatrix-0.3.3/setup.py:71: DeprecationWarning:
+      
+        `numpy.distutils` is deprecated since NumPy 1.23.0, as a result
+        of the deprecation of `distutils` itself. It will be removed for
+        Python >= 3.12. For older Python versions it will remain present.
+        It is recommended to use `setuptools < 60.0` for those Python versions.
+        For more details, see:
+          https://numpy.org/devdocs/reference/distutils_status_migration.html
+      
+      
+        from numpy.distutils.core import setup
+      non-existing path in '': 'pytmatrix/fortran_tm/pytmatrix.pyf'
+      running egg_info
+      running build_src
+      INFO: build_src
+      INFO: building extension "pytmatrix.fortran_tm.pytmatrix" sources
+      WARN:   target build/src.linux-x86_64-3.11/pytmatrix/fortran_tm/pytmatrixmodule.c does not exist:
+         Assuming pytmatrixmodule.c was generated with "build_src --inplace" command.
+      error: 'pytmatrix/fortran_tm/pytmatrixmodule.c' missing
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
