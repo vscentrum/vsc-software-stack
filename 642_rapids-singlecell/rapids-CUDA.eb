@@ -29,68 +29,96 @@ toolchain = {'name': 'foss', 'version': '2024a'}
     #  No module named 'cuml' -> extension ion RAPIDS
     # OK RAPIDS - cudf, cuml, cugraph, cuvs
     # OK CuPy
-    # OK cuml-cu12 26.2.0 requires cuda-python, which is not installed.
-    # ok cuml-cu12 26.2.0 requires cuda-toolkit, which is not installed.
-    # ok cuml-cu12 26.2.0 requires cupy-cuda12x, which is not installed.
-    # ok cuml-cu12 26.2.0 requires libcuml-cu12, which is not installed.
-    # cuml-cu12 26.2.0 requires numba-cuda, which is not installed.
-    # cuml-cu12 26.2.0 requires pylibraft-cu12, which is not installed.
-    # cuml-cu12 26.2.0 requires rmm-cu12, which is not installed.
-    # cuml-cu12 26.2.0 requires treelite, which is not installed.
-    # cudf-cu12 26.2.1 requires cachetools, which is not installed.
-    # OK cudf-cu12 26.2.1 requires cuda-python, which is not installed.
-    # ok cudf-cu12 26.2.1 requires cuda-toolkit, which is not installed.
-    # ok cudf-cu12 26.2.1 requires cupy-cuda12x, which is not installed.
-    # cudf-cu12 26.2.1 requires libcudf-cu12, which is not installed.
-    # cudf-cu12 26.2.1 requires numba-cuda, which is not installed.
-    # cudf-cu12 26.2.1 requires nvtx, which is not installed.
-    # cudf-cu12 26.2.1 requires pyarrow, which is not installed.
-    # cudf-cu12 26.2.1 requires pylibcudf-cu12, which is not installed.
-    # cudf-cu12 26.2.1 requires rmm-cu12, which is not installed.
-    # OK cugraph-cu12 26.2.0 requires cuda-python, which is not installed.
-    # ok cugraph-cu12 26.2.0 requires cupy-cuda12x, which is not installed.
-    # cugraph-cu12 26.2.0 requires dask-cuda, which is not installed.
-    # cugraph-cu12 26.2.0 requires dask-cudf-cu12, which is not installed.
-    # cugraph-cu12 26.2.0 requires libcugraph-cu12, which is not installed.
-    # cugraph-cu12 26.2.0 requires pylibcudf-cu12, which is not installed.
-    # cugraph-cu12 26.2.0 requires pylibcugraph-cu12, which is not installed.
-    # cugraph-cu12 26.2.0 requires pylibraft-cu12, which is not installed.
-    # cugraph-cu12 26.2.0 requires raft-dask-cu12, which is not installed.
-    # cugraph-cu12 26.2.0 requires rapids-dask-dependency, which is not installed.
-    # cugraph-cu12 26.2.0 requires rmm-cu12, which is not installed.
-    # cugraph-cu12 26.2.0 requires ucxx-cu12, which is not installed.
-    # OK cuvs-cu12 26.2.0 requires cuda-python, which is not installed.
-    # cuvs-cu12 26.2.0 requires libcuvs-cu12, which is not installed.
-    # cuvs-cu12 26.2.0 requires pylibraft-cu12, which is not installed.
 # DEPS_ALL:
-    # pyarrow>=15 (cuDF)
-    # nvtx>=0.2.1 (cuDF)
-    # cachetools (cuDF)
+    # OK pyarrow>=15 (cuDF)
+    # ok? nvtx>=0.2.1 (cuDF)
+    # ok cachetools (cuDF)
     # nvidia-ml-py>=12 (dask-cuda / dask-cudf / ucxx)
-    # cuda-python = 12.9.2, newer needs newer Cython
-    # cuda-core==0.3.2 (dask-cuda requirement)
-    # numba-cuda==0.22.2 (fits RAPIDS constraints and supplies cuda.core)
-    # rapids-dask-dependency==26.2.0 → dask==2026.1.1, distributed==2026.1.1
-    # dask-cuda==26.2.0
-    # dask-cudf-cu12==26.2.1
-    # ucxx-cu12==0.48.0
+    # ok cuda-python = 12.9.2, newer needs newer Cython
+    # ok cuda-core==0.3.2 (dask-cuda requirement)
+    # ok numba-cuda==0.22.2 (fits RAPIDS constraints and supplies cuda.core)
+    # ok rapids-dask-dependency==26.2.0
+        # ok dask==2026.1.1
+        # ok distributed==2026.1.1
+    # ok dask-cuda==26.2.0
+    # ok dask-cudf-cu12==26.2.1
+    # ok ucxx-cu12==0.48.0
     # distributed-ucxx-cu12==0.48.0
     # libucxx-cu12==0.48.0 (and it requires libucx-cu12>=1.18,<1.20)
-    # cudf-cu12==26.2.1
-    # cuml-cu12==26.2.0
-    # cugraph-cu12==26.2.
-    # cuvs-cu12==26.2.0
-    # cupy-cuda12x==13.6.0
-    
+    # ok cudf-cu12==26.2.1
+    # ok cuml-cu12==26.2.0
+    # ok cugraph-cu12==26.2.
+    # ok cuvs-cu12==26.2.0
+    # ??? cupy-cuda12x==13.6.0
+    # ok libkvikio-cu12 ?
+    # ok nvidia-libnvcomp-cu12 ?
+# MISSING:
+    # OK import cuda_toolkit"': FAIL
+    # import cudf"': FAIL
+    # import cuml"': FAIL
+    # import cugraph"': FAIL
+    # import rapids_singlecell"': FAIL
+    # ok cuml-cu12 26.2.0 requires pylibraft-cu12, which is not installed.
+    # ok cuml-cu12 26.2.0 requires rmm-cu12, which is not installed.
+    # ok cuml-cu12 26.2.0 requires treelite, which is not installed.
+    # ok cudf-cu12 26.2.1 requires cachetools, which is not installed.
+    # ok cudf-cu12 26.2.1 requires libcudf-cu12, which is not installed.
+    # ok cudf-cu12 26.2.1 requires nvtx, which is not installed.
+    # OK cudf-cu12 26.2.1 requires pyarrow, which is not installed.
+    # ok cudf-cu12 26.2.1 requires pylibcudf-cu12, which is not installed.
+    # ok cudf-cu12 26.2.1 requires rmm-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires dask-cuda, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires dask-cudf-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires libcugraph-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires pylibcudf-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires pylibcugraph-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires pylibraft-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires raft-dask-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires rapids-dask-dependency, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires rmm-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires ucxx-cu12, which is not installed.
+    # ok libcuml-cu12 26.2.0 requires libraft-cu12, which is not installed.
+    # ok libcuml-cu12 26.2.0 requires rapids-logger, which is not installed.
+    # ok cuvs-cu12 26.2.0 requires libcuvs-cu12, which is not installed.
+    # ok cuvs-cu12 26.2.0 requires pylibraft-cu12, which is not installed.
+    # ok libcudf-cu12 26.2.1 requires libkvikio-cu12, which is not installed.
+    # ok libcudf-cu12 26.2.1 requires nvidia-libnvcomp-cu12, which is not installed.
+    # ok libcuvs-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires dask-cuda, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires dask-cudf-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires libcugraph-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires pylibcugraph-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires raft-dask-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires rapids-dask-dependency, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires ucxx-cu12, which is not installed.
+    # ok libraft-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
+    # OK cupy-cuda12x 13.6.0 requires fastrlock, which is not installed.
+    # cuml-cu12 26.2.0 requires cupy-cuda12x, which is not installed.
+    # raft-dask-cu12 26.2.0 requires distributed-ucxx-cu12, which is not installed.
+    # raft-dask-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
+    # dask-cudf-cu12 26.2.1 requires cupy-cuda12x, which is not installed.
+    # dask-cudf-cu12 26.2.1 requires nvidia-ml-py, which is not installed.
+    # cudf-cu12 26.2.1 requires cupy-cuda12x, which is not installed.
+    # libcuvs-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
+    # cugraph-cu12 26.2.0 requires cupy-cuda12x, which is not installed.
+    # dask-cuda 26.2.0 requires nvidia-ml-py, which is not installed.
+    # ucxx-cu12 0.48.0 requires libucxx-cu12, which is not installed.
+    # ucxx-cu12 0.48.0 requires nvidia-ml-py, which is not installed.
+    # pylibcugraph-cu12 26.2.0 requires cupy-cuda12x, which is not installed.
+    # libraft-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
+
 builddependencies = [
     ('hatchling', '1.24.2'),
+    ('Cython', '3.0.10'),  # nvtx
+    ('CMake', '3.31.8'),  # treelite
 ]
 
 dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
     ('CuPy', '13.6.0', versionsuffix),
-    ('CUDA-Python', '12.6.2.post1', versionsuffix),
-    ('numba-cuda', '0.20.0', versionsuffix),  # needs PR 24667
+    # ('CUDA-Python', '12.6.2.post1', versionsuffix),
+    # ('numba-cuda', '0.20.0', versionsuffix),  # needs PR 24667
+    ('NCCL', '2.22.3', versionsuffix),
     ('Python', '3.12.3'),
     ('SciPy-bundle', '2024.05'),
     ('anndata', '0.11.4'),
@@ -101,6 +129,8 @@ dependencies = [
     ('tqdm', '4.66.5'),
     ('statsmodels', '0.14.4'),
     ('scikit-image', '0.25.0'),
+    ('numba', '0.60.0'),
+    ('Arrow', '17.0.0'),
 ]
 
 exts_default_options = {'source_urls': [PYPI_SOURCE, 'https://pypi.nvidia.com/%(name)s-cu%(cudamajver)s']}
@@ -110,25 +140,153 @@ _rapids_whl_linux = '-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl'
 _rapids_tmpl = _rapids_whl_name + _rapids_whl_cp_version + _rapids_whl_linux
 
 exts_list = [
+    ('cachetools', '5.5.0', {
+        'checksums': ['2cc24fb4cbe39633fb7badd9db9ca6295d766d9c2995f245725a46715d050f2a'],
+    }),
     ('natsort', '8.4.0', {
         'checksums': ['45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581'],
     }),
     ('docrep', '0.3.2', {
         'checksums': ['ed8a17e201abd829ef8da78a0b6f4d51fb99a4cbd0554adbed3309297f964314'],
     }),
+    ('treelite', '4.6.1', {
+        'checksums': ['dbd4ea594a868150e2cf816aaf89987c95eaf6cc74391287d1d0a8c38d4fe51d'],
+    }),
     ('cuda_toolkit', '12.6.0', {
+        'modulename': False,
         'source_tmpl': 'cuda_toolkit-12.6.0-py2.py3-none-any.whl',
         'checksums': ['cb4c1fc0020ea7c02114be1258769d16ca3b478a9b7dd86171097a84883bf4ef'],
     }),
-     ('cupy-cuda12x', '13.6.0', {
-        'modulename': 'cupy',
-        'source_tmpl': 'cupy_cuda12x-13.6.0-cp312-cp312-manylinux2014_x86_64.whl',
-        'checksums': ['79b0cacb5e8b190ef409f9e03f06ac8de1b021b0c0dda47674d446f5557e0eb1'],
-     }),
+    ('pyclibrary', '0.3.0', {
+        'checksums': ['8a3eaa9ab728c11b077644275af4e05ca24ddcad491f47eb45b75db6be52c654'],
+    }),
+    ('cuda_core', '0.3.2', {
+        'modulename': 'cuda.core',
+        'source_tmpl': '%(name)s-%(version)s-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['1338ab324d29b3afcde623c4a12571cd6e74e76fa0d5533db1e36df978899e4e'],
+    }),
+    ('cuda_pathfinder', '1.1.0', {
+        'modulename': 'cuda.pathfinder',
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['3e66fe0af8ead20eca25e077d2e0cb2dcc027d4297d550a74f99a0211e610799'],
+    }),
+    ('cuda_bindings', '12.9.2', {
+        'modulename': 'cuda.bindings',
+        'source_tmpl': '%(name)s-%(version)s-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['d9eaed7ac98e4e1ba616176b291f3f309f20af6a6a79a34da7739aa9dbe060a7'],
+    }),
+    ('cuda_python', '12.9.2', {
+        'modulename': False,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['b504d773d6f1589486143e0e4984680f78f46ba6726ce2a957ac32897305264a'],
+    }),
+    ('numba_cuda',  '0.22.2', {
+        'modulename': 'numba.cuda',
+        'source_tmpl': '%(name)s-%(version)s-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['8d34d95cd5a352c1d9564503aecb49d940274e6ffb5dae44b78e4e4e47b8a9f5'],
+    }),
+    # ('cupy-cuda12x', '13.6.0', {
+    #     'modulename': 'cupy',
+    #     'source_tmpl': 'cupy_cuda12x-13.6.0-cp312-cp312-manylinux2014_x86_64.whl',
+    #     'checksums': ['79b0cacb5e8b190ef409f9e03f06ac8de1b021b0c0dda47674d446f5557e0eb1'],
+    # }),
+    ('nvtx', '0.2.10', {
+        'checksums': ['58b89cd69079fda1ceef8441eec5c5c189d6a1ff94c090a3afe03aedd0bbd140'],
+    }),
+    ('nvidia_libnvcomp_cu12', '5.1.0.21', {
+        'modulename': False,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-manylinux_2_28_x86_64.whl',
+        'checksums': ['68de61183edb9a870c9a608273a2b5da97dea18e3552096c61fafd9bb2689db0'],
+    }),
+    ('libkvikio_cu12', '26.2.0', {
+        'modulename': False,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-manylinux_2_28_x86_64.whl',
+        'checksums': ['3baf372dbd6b4b91e27d1634e486108de43d2c9465f8adcfc2d6eef6e194d157'],
+    }),
+    ('ucxx_cu12', '0.48.0', {
+        'modulename': False,
+        'source_tmpl': '%(name)s-%(version)s-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['8b8cb638aa416a5a0912e72ca56d2dcf4f7b893771a62f5132d3641e8abedcce'],
+    }),
+    ('rapids_logger', '0.2.3', {
+        'modulename': False,
+        'source_tmpl': 'rapids_logger-%(version)s-py3-none-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['7fe67ef4049c5d8ba6154746325dcf7cc0f327f0efa8f2611fc8f64e67510f60'],
+    }),
+    ('libraft_cu12', '26.2.0', {
+        'modulename': False,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['76e618580932447496ec5bb301068debd862c798f339be3b5c7a0ff56539276a'],
+    }),
+    ('pylibraft_cu12', '26.2.0', {
+        'modulename': 'pylibraft',
+        'source_tmpl': '%(name)s-%(version)s-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['8b8388e759227b70cc0b46f58b49241f12af7d2955a18670fa64e670cbc2c9ce'],
+    }),
+    ('librmm_cu12', '26.2.0', {
+        'modulename': False,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['d4ed1aa3554e90562ad7cf276c61d56fa99be486a7fc158beea332750d20a0e7'],
+    }),
+    ('rmm_cu12', '26.2.0', {
+        'modulename': 'rmm',
+        'source_tmpl': '%(name)s-%(version)s-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['067cabd6d2b3be3f84c2bfa9ae5d843ebb491198ffbb871ceb70944421b1251c'],
+    }),
+    ('dask', '2026.1.1', {
+        'checksums': ['12b1dbb0d6e92f287feb4076871600b2fba3a843d35ff214776ada5e9e7a1529'],
+    }),
+    ('distributed', '2026.1.1', {
+        'checksums': ['3d2709a43912797df3c345af3bb333bbf1a386ec1e9e6a134e5f050521373dbd'],
+    }),
+    ('dask_cuda', '26.2.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-manylinux_2_28_aarch64.manylinux_2_28_x86_64.whl',
+        'checksums': ['0dc0c642a94fd6a0616890e14bc7c55844a92bd741dc78a9311b807821767f01'],
+    }),
+    ('dask-cudf', '26.2.1', {
+        'modulename': False,
+        'source_tmpl': 'dask_cudf_cu12-26.2.1-py3-none-any.whl',
+        'checksums': ['e8b005cdaa7f1051e22d91185342509a3a28d4afa002b30cc5eb796acabcb909'],
+    }),
+    ('raft_dask_cu12', '26.2.0', {
+        'modulename': False,
+        'source_tmpl': '%(name)s-%(version)s-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['58cc413003449e3b178c806cf89310b72e465b3960bc68064c2fae0112e5e8f9'],
+    }),
+    ('rapids_dask_dependency', '26.2.0', {
+        'modulename': False,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['3ba85f7b0ad3754e1d94cd6f6a4ca3cc5695529cf03ea7dc110a74b042403e00'],
+    }),
      ('libcuml-cu12', '26.2.0', {
-        'modulename': 'libcuml',
+        'modulename': False,
         'source_tmpl': 'libcuml_cu12-26.2.0-py3-none-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl',
         'checksums': ['1da7d5f0a5d48280b722873f2aee4bcf91c9b1d14c1ae731d0df6ad922299c12'],
+    }),
+    ('libcudf_cu12', '26.2.1', {
+        'modulename': False,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-manylinux_2_28_x86_64.whl',
+        'checksums': ['4cd642211a9f15a5cd61afd013afbae3fff0a78b5b4c30c905b4e12dc0dba4a1'],
+    }),
+    ('pylibcudf_cu12', '26.2.1', {
+        'modulename': 'pylibcudf',
+        'source_tmpl': '%(name)s-%(version)s-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['b0860720206a4fd62398deb72720b55f06cdfd0187972c75832de8fefd7b070e'],
+    }),
+    ('libcuvs', '26.2.0', {
+        'modulename': False,
+        'source_tmpl': '%(name)s_cu12-%(version)s-py3-none-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['fed84aa31430b6121e94e1ab92afd63671b48415dc8426fb42d590a5c79ed1e0'],
+    }),
+    ('libcugraph', '26.2.0', {
+        'modulename': False,
+        'source_tmpl': '%(name)s_cu12-%(version)s-py3-none-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['90ff175c55a406df3d16a153ed6f2476bc603478150211f5661d602a48f2b760'],
+    }),
+    ('pylibcugraph', '26.2.0', {
+        'modulename': 'pylibcugraph',
+        'source_tmpl': '%(name)s_cu12-%(version)s-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['003f52c0e42aa34f866efc8be953388eef450735e9db0c892a1568383f3406e3'],
     }),
     ('cudf', '26.2.1', {
         'source_tmpl': _rapids_tmpl,
@@ -149,6 +307,12 @@ exts_list = [
     ('rapids_singlecell', version, {
         'checksums': ['47db036f07a47ba688e94a360271c4a0c8b680e57b691afdec4033b1d969621b'],
     }),
+]
+
+sanity_check_commands = [
+    "python -sc 'from cuda import cuda, nvrtc'",
+    "python -sc 'from cuda.bindings import driver, nvrtc'",
+    "python -c 'from numba import cuda; print(cuda.__file__)' | grep %(installdir)s",
 ]
 
 moduleclass = 'bio'
