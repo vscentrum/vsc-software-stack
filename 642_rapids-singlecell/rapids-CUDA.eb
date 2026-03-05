@@ -33,7 +33,7 @@ toolchain = {'name': 'foss', 'version': '2024a'}
     # OK pyarrow>=15 (cuDF)
     # ok? nvtx>=0.2.1 (cuDF)
     # ok cachetools (cuDF)
-    # nvidia-ml-py>=12 (dask-cuda / dask-cudf / ucxx)
+    # ok nvidia-ml-py>=12 (dask-cuda / dask-cudf / ucxx)
     # ok cuda-python = 12.9.2, newer needs newer Cython
     # ok cuda-core==0.3.2 (dask-cuda requirement)
     # ok numba-cuda==0.22.2 (fits RAPIDS constraints and supplies cuda.core)
@@ -43,13 +43,13 @@ toolchain = {'name': 'foss', 'version': '2024a'}
     # ok dask-cuda==26.2.0
     # ok dask-cudf-cu12==26.2.1
     # ok ucxx-cu12==0.48.0
-    # distributed-ucxx-cu12==0.48.0
-    # libucxx-cu12==0.48.0 (and it requires libucx-cu12>=1.18,<1.20)
+    # ok distributed-ucxx-cu12==0.48.0
+    # ok libucxx-c12==0.48.0 (and it requires libucx-cu12>=1.18,<1.20)
     # ok cudf-cu12==26.2.1
     # ok cuml-cu12==26.2.0
     # ok cugraph-cu12==26.2.
     # ok cuvs-cu12==26.2.0
-    # ??? cupy-cuda12x==13.6.0
+    # ok cupy-cuda12x==13.6.0
     # ok libkvikio-cu12 ?
     # ok nvidia-libnvcomp-cu12 ?
 # MISSING:
@@ -93,19 +93,35 @@ toolchain = {'name': 'foss', 'version': '2024a'}
     # ok cugraph-cu12 26.2.0 requires ucxx-cu12, which is not installed.
     # ok libraft-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
     # OK cupy-cuda12x 13.6.0 requires fastrlock, which is not installed.
-    # cuml-cu12 26.2.0 requires cupy-cuda12x, which is not installed.
-    # raft-dask-cu12 26.2.0 requires distributed-ucxx-cu12, which is not installed.
-    # raft-dask-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
-    # dask-cudf-cu12 26.2.1 requires cupy-cuda12x, which is not installed.
-    # dask-cudf-cu12 26.2.1 requires nvidia-ml-py, which is not installed.
-    # cudf-cu12 26.2.1 requires cupy-cuda12x, which is not installed.
-    # libcuvs-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
-    # cugraph-cu12 26.2.0 requires cupy-cuda12x, which is not installed.
-    # dask-cuda 26.2.0 requires nvidia-ml-py, which is not installed.
-    # ucxx-cu12 0.48.0 requires libucxx-cu12, which is not installed.
-    # ucxx-cu12 0.48.0 requires nvidia-ml-py, which is not installed.
-    # pylibcugraph-cu12 26.2.0 requires cupy-cuda12x, which is not installed.
-    # libraft-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
+    # ok cuml-cu12 26.2.0 requires cupy-cuda12x, which is not installed.
+    # ok raft-dask-cu12 26.2.0 requires distributed-ucxx-cu12, which is not installed.
+    # OK raft-dask-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
+    # ok dask-cudf-cu12 26.2.1 requires cupy-cuda12x, which is not installed.
+    # ok dask-cudf-cu12 26.2.1 requires nvidia-ml-py, which is not installed.
+    # ok cudf-cu12 26.2.1 requires cupy-cuda12x, which is not installed.
+    # OK libcuvs-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
+    # ok cugraph-cu12 26.2.0 requires cupy-cuda12x, which is not installed.
+    # ok dask-cuda 26.2.0 requires nvidia-ml-py, which is not installed.
+    # ok ucxx-cu12 0.48.0 requires libucxx-cu12, which is not installed.
+    # ok ucxx-cu12 0.48.0 requires nvidia-ml-py, which is not installed.
+    # ok pylibcugraph-cu12 26.2.0 requires cupy-cuda12x, which is not installed.
+    # ok libraft-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
+    # ok libucxx-cu12 0.48.0 requires libucx-cu12, which is not installed.
+    # ok cupy-cuda12x 13.6.0 requires fastrlock, which is not installed.
+    # nvtx from whl: 0.2.10 from source failing with AttributeError: module 'nvtx.nvtx' has no attribute
+## TEST_DEPS:
+    # ok "pytest",
+    # ok "pytest-cov",
+    # ok "pytest-timeout",
+    # ok "pytest-rerunfailures",
+    # ok "anyio",
+    # "pooch",
+    # "profimp",
+    # "scanpy>=1.10.0",
+    # "bbknn",
+    # "decoupler",
+    # "fast-array-utils",
+    # "igraph",
 
 builddependencies = [
     ('hatchling', '1.24.2'),
@@ -115,10 +131,11 @@ builddependencies = [
 
 dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
-    ('CuPy', '13.6.0', versionsuffix),
-    # ('CUDA-Python', '12.6.2.post1', versionsuffix),
-    # ('numba-cuda', '0.20.0', versionsuffix),  # needs PR 24667
-    ('NCCL', '2.22.3', versionsuffix),
+    # ('CuPy', '13.6.0', versionsuffix), -> ~in dummy bundle~ -> NO it has wrong NCCL and cuSPARSELt version
+    # ('CUDA-Python', '12.6.2.post1', versionsuffix), -> need newer version
+    # ('numba-cuda', '0.20.0', versionsuffix),  -> need newer version
+    # ('NCCL', '2.26.2', versionsuffix), -> in dummy bundle
+    ('CUDA-wheel-bundle', '%(cudaver)s', versionsuffix),  # provides nvidia-nccl-cu12 v2.26.2.post1
     ('Python', '3.12.3'),
     ('SciPy-bundle', '2024.05'),
     ('anndata', '0.11.4'),
@@ -140,6 +157,20 @@ _rapids_whl_linux = '-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl'
 _rapids_tmpl = _rapids_whl_name + _rapids_whl_cp_version + _rapids_whl_linux
 
 exts_list = [
+    # test extensions
+    ('pytest_cov', '7.0.0', {
+        'checksums': ['33c97eda2e049a0c5298e91f519302a1334c26ac65c1a483d6206fd458361af1'],
+    }),
+    ('pytest_timeout', '2.4.0', {
+        'checksums': ['7e68e90b01f9eff71332b25001f85c75495fc4e3a836701876183c4bcfd0540a'],
+    }),
+    ('pytest_rerunfailures', '16.1', {
+        'checksums': ['c38b266db8a808953ebd71ac25c381cb1981a78ff9340a14bcb9f1b9bff1899e'],
+    }),
+    ('anyio', '4.12.1', {
+        'checksums': ['41cfcc3a4c85d3f05c932da7c26d0201ac36f72abd4435ba90d0464a3ffed703'],
+    }),
+    # runtime extensions
     ('cachetools', '5.5.0', {
         'checksums': ['2cc24fb4cbe39633fb7badd9db9ca6295d766d9c2995f245725a46715d050f2a'],
     }),
@@ -151,6 +182,9 @@ exts_list = [
     }),
     ('treelite', '4.6.1', {
         'checksums': ['dbd4ea594a868150e2cf816aaf89987c95eaf6cc74391287d1d0a8c38d4fe51d'],
+    }),
+    ('fastrlock', '0.8.3', {
+        'checksums': ['4af6734d92eaa3ab4373e6c9a1dd0d5ad1304e172b1521733c6c3b3d73c8fa5d'],
     }),
     ('cuda_toolkit', '12.6.0', {
         'modulename': False,
@@ -185,13 +219,33 @@ exts_list = [
         'source_tmpl': '%(name)s-%(version)s-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
         'checksums': ['8d34d95cd5a352c1d9564503aecb49d940274e6ffb5dae44b78e4e4e47b8a9f5'],
     }),
-    # ('cupy-cuda12x', '13.6.0', {
-    #     'modulename': 'cupy',
-    #     'source_tmpl': 'cupy_cuda12x-13.6.0-cp312-cp312-manylinux2014_x86_64.whl',
-    #     'checksums': ['79b0cacb5e8b190ef409f9e03f06ac8de1b021b0c0dda47674d446f5557e0eb1'],
-    # }),
-    ('nvtx', '0.2.10', {
-        'checksums': ['58b89cd69079fda1ceef8441eec5c5c189d6a1ff94c090a3afe03aedd0bbd140'],
+    ('cupy-cuda12x', '13.6.0', {
+        'modulename': 'cupy',
+        'source_tmpl': 'cupy_cuda12x-13.6.0-cp312-cp312-manylinux2014_x86_64.whl',
+        'checksums': ['79b0cacb5e8b190ef409f9e03f06ac8de1b021b0c0dda47674d446f5557e0eb1'],
+    }),
+    ('nvtx', '0.2.14', {
+        'source_tmpl': '%(name)s-%(version)s-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['17efe5d903996bceb0c8a12cae80fa9b66bee7ee895923bd9d8ec2a5af1aabd8'],
+    }),
+    ('nvidia_ml_py', '13.590.48', {
+        'modulename': 'pynvml',
+        'checksums': ['8184d1be52914ac7f0991cd1c0d946c65dc88a840c754cd12c274b77b88760dd'],
+    }),
+    ('libucx_cu12', '1.19.0', {
+        'modulename': False,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['64b9448f23c7bb29be30d21bac5742f7297845d0f0c159e6302670b35e71251f'],
+    }),
+    ('libucxx_cu12', '0.48.0', {
+        'modulename': False,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['2175bd1861d48753fa4355ff68bf5c0705ee3eef3c3ee6da00dd1cc1f6fca045'],
+    }),
+    ('distributed_ucxx_cu12', '0.48.0', {
+        'modulename': False,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-manylinux_2_28_aarch64.manylinux_2_28_x86_64.whl',
+        'checksums': ['9ffa8aab8bf277ecaba10a20b2c5d3600113f0f84a58e59eb7a1bb1e82823000'],
     }),
     ('nvidia_libnvcomp_cu12', '5.1.0.21', {
         'modulename': False,
@@ -305,7 +359,11 @@ exts_list = [
         'checksums': ['ef83970c7b44de89247676b231a56888b57370a6f13b0afd19e962247db6647e'],
     }),
     ('rapids_singlecell', version, {
-        'checksums': ['47db036f07a47ba688e94a360271c4a0c8b680e57b691afdec4033b1d969621b'],
+        'testinstall': True,
+        'runtest': 'pytest -v tests',
+        'source_urls': ['https://github.com/scverse/rapids_singlecell/archive/'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['271f405c008bdb7e46ec7962aad633d76d5e161916c99a0bd5d53c349e093b71'],
     }),
 ]
 
@@ -313,6 +371,8 @@ sanity_check_commands = [
     "python -sc 'from cuda import cuda, nvrtc'",
     "python -sc 'from cuda.bindings import driver, nvrtc'",
     "python -c 'from numba import cuda; print(cuda.__file__)' | grep %(installdir)s",
+    "python -c 'import importlib.util as u; s=u.find_spec('numba.cuda'); print('numba.cuda:', bool(s))' | grep True",
+    "python -c 'import cupy as cp; x=cp.arange(10); print(int(x.sum()))' | grep 45",
 ]
 
 moduleclass = 'bio'
