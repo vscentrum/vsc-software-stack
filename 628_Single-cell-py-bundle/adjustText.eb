@@ -1,23 +1,23 @@
 easyblock = 'PythonBundle'
 
 name = 'adjustText'
-# version = '1.1.1'
+version = '1.3.0'
 
 homepage = 'https://github.com/Phlya/adjustText'
 description = "A small library for automatically adjustment of text position in matplotlib plots to minimize overlaps."
 
-toolchain = {'name': 'foss', 'version': '2024a'}
+toolchain = {'name': 'gfbf', 'version': '2024a'}
 
 dependencies = [
-    # ('Python', '3.11.3'),
-    # ('matplotlib', '3.7.2'),
-    # ('SciPy-bundle', '2023.07'),
+    ('Python', '3.12.3'),
+    ('matplotlib', '3.9.2'),
+    ('SciPy-bundle', '2024.05'),
 ]
 
 exts_list = [
-    (name, version, {
-        'modulename': 'adjustText',
-        'checksums': ['e2c0975ef2c642478e60f4c03c5e9afbdeda7764336907ef69a9205bfa2d9896'],
+    ('%(namelower)s', version, {
+        'modulename': name,
+        'checksums': ['4ab75cd4453af4828876ac3e964f2c49be642ea834f0c1f7449558d5f12cbca1'],
     }),
 ]
 
