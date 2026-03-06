@@ -1,0 +1,24 @@
+======================================================== test session starts =========================================================
+platform linux -- Python 3.12.3, pytest-8.3.3, pluggy-1.5.0 -- /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default' -> database=DirectoryBasedExampleDatabase(PosixPath('/tmp/vsc47063/easybuild/build/rapidssinglecell/0.14.1/foss-2024a-CUDA-12.6.0/rapids_singlecell/rapids_singlecell-0.14.1/.hypothesis/examples'))
+rootdir: /tmp/vsc47063/easybuild/build/rapidssinglecell/0.14.1/foss-2024a-CUDA-12.6.0/rapids_singlecell/rapids_singlecell-0.14.1
+configfile: pyproject.toml
+plugins: cov-6.3.0, timeout-2.4.0, fast-array-utils-1.2.3, rerunfailures-16.1, anyio-4.12.1, hypothesis-6.103.1, xdist-3.6.1
+timeout: 120.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 865 items / 1 error
+
+=============================================================== ERRORS ===============================================================
+______________________________________________ ERROR collecting tests/test_neighbors.py ______________________________________________
+ImportError while importing test module '/tmp/vsc47063/easybuild/build/rapidssinglecell/0.14.1/foss-2024a-CUDA-12.6.0/rapids_singlecell/rapids_singlecell-0.14.1/tests/test_neighbors.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+tests/test_neighbors.py:13: in <module>
+    from scanpy.neighbors._connectivity import jaccard as scanpy_jaccard
+E   ImportError: cannot import name 'jaccard' from 'scanpy.neighbors._connectivity' (/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scanpy/1.10.4-foss-2024a/lib/python3.12/site-packages/scanpy/neighbors/_connectivity.py)
+====================================================== short test summary info =======================================================
+ERROR tests/test_neighbors.py
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+========================================================= 1 error in 55.08s ==========================================================
