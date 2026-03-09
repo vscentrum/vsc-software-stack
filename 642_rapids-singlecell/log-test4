@@ -1,0 +1,101 @@
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/pytest/8.3.3-GCCcore-13.3.0/bin/pytest", line 8, in <module>
+    sys.exit(console_main())
+             ^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/pytest/8.3.3-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/config/__init__.py", line 201, in console_main
+    code = main()
+           ^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/pytest/8.3.3-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/config/__init__.py", line 156, in main
+    config = _prepareconfig(args, plugins)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/pytest/8.3.3-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/config/__init__.py", line 341, in _prepareconfig
+    config = pluginmanager.hook.pytest_cmdline_parse(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/pluggy/_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+    raise exception.with_traceback(exception.__traceback__)
+  File "/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/pluggy/_callers.py", line 122, in _multicall
+    teardown.throw(exception)  # type: ignore[union-attr]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/pytest/8.3.3-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/helpconfig.py", line 105, in pytest_cmdline_parse
+    config = yield
+             ^^^^^
+  File "/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/pluggy/_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/pytest/8.3.3-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/config/__init__.py", line 1140, in pytest_cmdline_parse
+    self.parse(args)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/pytest/8.3.3-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/config/__init__.py", line 1494, in parse
+    self._preparse(args, addopts=addopts)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/pytest/8.3.3-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/config/__init__.py", line 1381, in _preparse
+    self.pluginmanager.load_setuptools_entrypoints("pytest11")
+  File "/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/pluggy/_manager.py", line 421, in load_setuptools_entrypoints
+    plugin = ep.load()
+             ^^^^^^^^^
+  File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/importlib/metadata/__init__.py", line 205, in load
+    module = import_module(match.group('module'))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1310, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/testing/fast_array_utils/__init__.py", line 11, in <module>
+    from ._array_type import ArrayType, ConversionContext, Flags, random_mat
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/testing/fast_array_utils/_array_type.py", line 15, in <module>
+    from fast_array_utils import types
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/pytest/8.3.3-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/assertion/rewrite.py", line 184, in exec_module
+    exec(co, module.__dict__)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/fast_array_utils/__init__.py", line 18, in <module>
+    from . import _plugins, conv, stats, types
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/pytest/8.3.3-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/assertion/rewrite.py", line 184, in exec_module
+    exec(co, module.__dict__)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/fast_array_utils/conv/__init__.py", line 8, in <module>
+    from ..typing import CpuArray, DiskArray, GpuArray  # noqa: TC001
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/pytest/8.3.3-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/assertion/rewrite.py", line 184, in exec_module
+    exec(co, module.__dict__)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/fast_array_utils/typing.py", line 10, in <module>
+    from . import types
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/pytest/8.3.3-GCCcore-13.3.0/lib/python3.12/site-packages/_pytest/assertion/rewrite.py", line 184, in exec_module
+    exec(co, module.__dict__)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/fast_array_utils/types.py", line 86, in <module>
+    from dask.array import Array as DaskArray
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/rapids_dask_dependency/dask_loader.py", line 36, in create_module
+    return importlib.import_module(spec.name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/dask/__init__.py", line 3, in <module>
+    from dask import config, datasets
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/rapids_dask_dependency/dask_loader.py", line 36, in create_module
+    return importlib.import_module(spec.name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/dask/datasets.py", line 7, in <module>
+    from dask.utils import import_required
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/rapids_dask_dependency/dask_loader.py", line 36, in create_module
+    return importlib.import_module(spec.name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/rapids-singlecell/0.14.1-foss-2024a-CUDA-12.6.0/lib/python3.12/site-packages/dask/utils.py", line 28, in <module>
+    import tlz as toolz
+ModuleNotFoundError: No module named 'tlz'
