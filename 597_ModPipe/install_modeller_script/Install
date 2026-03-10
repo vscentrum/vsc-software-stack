@@ -108,7 +108,10 @@ echo
 echo "License key, obtained from our academic license server at"
 printf "https://salilab.org/modeller/registration.html: "
 # read KEY_MODELLER
-
+if [ -z "${KEY_MODELLER}" ]; then
+    echo 'ERROR: $KEY_MODELLER environment variable not set, should provide Modeller license key' >&2
+    exit 1
+fi
 
 echo
 echo "------------------------------------------------------------------------"
