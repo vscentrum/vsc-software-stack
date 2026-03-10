@@ -1,0 +1,69 @@
+https://easybuild.slack.com/archives/C34UA1HT7/p1772641846510579
+
+I have hard time to install rapids-singlecell, there is problem with CuPy and NCCL:
+I have these two as dependencies, but I am still hitting:
+pylibcugraph-cu12 26.2.0 requires cupy-cuda12x, which is not installed.
+libraft-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
+cugraph-cu12 26.2.0 requires cupy-cuda12x, which is not installed.
+libcuvs-cu12 26.2.0 requires nvidia-nccl-cu12, which is not installed.
+and more like this.
+I can fix this only by add the cupy-cuda12x and nvidia-nccl-cu12 to the exts_list , but this does not seem as the right fix.
+Is there some hack for this please?
+
+28 replies:
+
+micketeer  [5:31 PM]
+smells like a patch to me
+Maxime Boissonneault  [5:31 PM]
+patch the stupid wheels that depend on non-python stuff
+[5:32 PM]we have a python script that we use to patch this sort of wheels… https://github.com/ComputeCanada/wheels_builder/blob/main/manipulate_wheels.py
+[5:32 PM]but then you have to host those wheels somewhere
+Pavel Tomanek  [5:33 PM]
+yes, the problem is that I can patch sources but not wheels.
+Jan André Reuter (JSC)  [5:33 PM]
+postinstallpatches
+Maxime Boissonneault  [5:34 PM]
+I know. We avoid this problem in our stack because we (mostly) don’t install Python stuff as modules. We just host the wheels, which we can patch.
+micketeer  [5:34 PM]
+is this installing a whl or it generates some crappy into into an output-whl?
+Pavel Tomanek  [5:35 PM]
+it is installing wheels:
+    ('pylibcugraph', '26.2.0', {
+        'modulename': 'pylibcugraph',
+        'source_tmpl': '%(name)s_cu12-%(version)s-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['003f52c0e42aa34f866efc8be953388eef450735e9db0c892a1568383f3406e3'],
+    }),for example
+[5:39 PM]the wip: https://github.com/vscentrum/vsc-software-stack/blob/wip/642_rapids-singlecell/rapids-CUDA.eb
+Flamefire  [5:44 PM]
+That's not portable (only works on x86). Why not use the sources?
+Pavel Tomanek  [5:47 PM]
+I believe there are no sources for this nvidia stuff.
+https://pypi.nvidia.com/
+[5:49 PM]and another problem is that sometimes it needs newer dependencies then we have for foss/2024a - I like to have latest rapids-singlecell  but I have to do it for foss/2024a because of PyTorch (edited) 
+Jasper  [5:50 PM]
+https://github.com/rapidsai/cugraph/blob/main/readme_pages/pylibcugraph.md
+Maxime Boissonneault  [5:52 PM]
+rapids is famously ill-designed to build from source…. (edited) 
+[5:55 PM]@Charles Coulombe knows a thing or two about doing it
+Charles Coulombe  [5:56 PM]
+Its has been since 2019 since I and nvidia are fixing their build from sources steps....
+[5:57 PM]But they made progress... it is now easier to build from source, when it works, but each version they add private (non avail) libraries, or break a previously working step
+Sam (smoors)  [8:00 PM]
+a solution is to create dummy installations for these cuda packages, as done by @lexming
+https://github.com/easybuilders/easybuild-easyconfigs/pull/25266
+lexming  [9:16 AM]
+@Pavel Tomanek indeed, my easyconfig on CUDA-wheel-bundle solves precisely this issue, you can bridge the requirements in those wheels to actual dependencies in EB
+Pavel Tomanek  [10:23 AM]
+nice, thank you :partying_face:
+Pavel Tomanek  [11:08 AM]
+So I should prepare CUDA-wheel-bundle but for CUDA-12.6.0 and add also CuPy?
+lexming  [11:09 AM]
+yes, I can give you a version we have out of tree as starting point, one sec...
+lexming  [11:31 AM]
+@Pavel Tomanek https://github.com/vscentrum/vsc-software-stack/blob/site-vub/easyconfigs/c/CUDA-wheel-bundle/CUDA-wheel-bundle-12.6.0-GCCcore-13.3.0-CUDA-12.6.0.eb
+Pavel Tomanek  [11:35 AM]
+thank you, @lexming. I see only one problem - I need it compatible with PyTorch-2.7.1 so I will update the NCCL, cuSPARSELt and cuDNN versions. Do you think I should also create ec for NVSHMEM and add it to the bundle?
+lexming  [11:36 AM]
+feel free to make any changes you need :slightly_smiling_face:
+[11:36 AM]we don't use this in prod, so I don't care of the versions set there
+[11:39 AM]also, keep in mind that you can have multiple versions of the same extension in that bundle. That can be useful if you have two different wheels with strict requirements on the same nvidia-xxxx-cu12 package
