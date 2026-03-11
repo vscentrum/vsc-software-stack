@@ -82,17 +82,26 @@ class EB_Amber(CMakeMake):
         self.with_cuda = False
         self.with_mpi = False
 
+        if '-pmemd' in self.cfg['versionsuffix']:
+            self.pmemd = True
+        else:
+            self.pmemd = False
+
     def extract_step(self):
         """Extract sources; strip off parent directory during unpack"""
         self.cfg.update('unpack_options', "--strip-components=1")
         super().extract_step()
 
     def patch_step(self, *args, **kwargs):
-        """Patch Amber using 'update_amber' tool, prior to applying listed patch files (if any)."""
+        """Patch Amber using update script, prior to applying listed patch files (if any)."""
+        if self.pmemd:
+            update_script = 'update_pmemd'
+        else:
+            update_script = 'update_amber'
 
-        # Use the update_amber script if patchlevels is defined - if not then the easyconfig should apply the patches
+        # Use update_script if patchlevels is defined - if not then the easyconfig should apply the patches
         if self.cfg['patchlevels']:
-            # figure out which Python command to use to run the update_amber script;
+            # figure out which Python command to use to run the update script;
             # by default it uses 'python', but this may not be available (on CentOS 8 for example);
             # note that the dependencies are not loaded yet at this point, so we're at the mercy of the OS here...
             python_cmd = None
@@ -102,10 +111,10 @@ class EB_Amber(CMakeMake):
                     break
 
             if python_cmd is None:
-                raise EasyBuildError("No suitable Python command found to run update_amber script!")
+                raise EasyBuildError(f"No suitable Python command found to run {update_script}!")
 
             if self.cfg['patchlevels'] == "latest":
-                cmd = "%s ./update_amber --update" % python_cmd
+                cmd = f"{python_cmd} ./{update_script} --update"
                 # Run as many times as specified. It is the responsibility
                 # of the easyconfig author to get this right, especially if
                 # he or she selects "latest". (Note: "latest" is not
@@ -113,10 +122,14 @@ class EB_Amber(CMakeMake):
                 for _ in range(self.cfg['patchruns']):
                     run_shell_cmd(cmd)
             else:
-                for (tree, patch_level) in zip(['AmberTools', 'Amber'], self.cfg['patchlevels']):
+                if isinstance(self.cfg['patchlevels'], int):
+                    patch_levels = [(self.name, self.cfg['patchlevels'])]
+                else:
+                    patch_levels = zip(['AmberTools', 'Amber'], self.cfg['patchlevels'])
+                for (tree, patch_level) in patch_levels:
                     if patch_level == 0:
                         continue
-                    cmd = "%s ./update_amber --update-to %s/%s" % (python_cmd, tree, patch_level)
+                    cmd = f"{python_cmd} ./{update_script} --update-to {tree}/{patch_level}"
                     # Run as many times as specified. It is the responsibility
                     # of the easyconfig author to get this right.
                     for _ in range(self.cfg['patchruns']):
@@ -162,7 +175,10 @@ class EB_Amber(CMakeMake):
             self.cfg.update('configopts', '-DCUDA=TRUE')
             if get_software_root('NCCL'):
                 self.cfg.update('configopts', '-DNCCL=TRUE')
-                external_libs_list.append('nccl')
+                if self.pmemd:
+                    self.cfg.update('configopts', '-Dnccl_ENABLED=TRUE')
+                else:
+                    external_libs_list.append('nccl')
 
         pythonroot = get_software_root('Python')
         if pythonroot:
@@ -185,18 +201,20 @@ class EB_Amber(CMakeMake):
             self.cfg.update('configopts', f'-DPYTHON_LIBRARY={python_library}')
             self.cfg.update('configopts', f'-DPYTHON_INCLUDE_DIR={python_incdir}')
 
-        if get_software_root('FFTW'):
-            external_libs_list.append('fftw')
         if get_software_root('netCDF'):
             external_libs_list.append('netcdf')
         if get_software_root('netCDF-Fortran'):
             external_libs_list.append('netcdf-fortran')
         if get_software_root('zlib'):
             external_libs_list.append('zlib')
-        if get_software_root('Boost'):
-            external_libs_list.append('boost')
-        if get_software_root('PnetCDF'):
-            external_libs_list.append('pnetcdf')
+
+        if not self.pmemd:
+            if get_software_root('FFTW'):
+                external_libs_list.append('fftw')
+            if get_software_root('Boost'):
+                external_libs_list.append('boost')
+            if get_software_root('PnetCDF'):
+                external_libs_list.append('pnetcdf')
 
         # Force libs for available deps (see cmake/3rdPartyTools.cmake in Amber source for list of 3rd party libs)
         # This provides an extra layer of checking but should already be handled by TRUST_SYSTEM_LIBS=TRUE
@@ -217,6 +235,9 @@ class EB_Amber(CMakeMake):
         self.cfg.update('configopts', '-DINSTALL_TESTS=FALSE')
 
         self.cfg.update('configopts', '-DCOMPILER=AUTO')
+
+        if self.pmemd:
+            self.cfg.update('configopts', '-DPMEMD_ONLY=TRUE')
 
         # configure using cmake
         super().configure_step()
@@ -368,10 +389,14 @@ class EB_Amber(CMakeMake):
                 fail_on_error = True
 
             # serial tests
-            if LooseVersion(self.version) >= LooseVersion('24'):
-                run_shell_cmd("%s && make test" % pretestcommands, fail_on_error=fail_on_error)
+            if self.pmemd:
+                pre = 'ln -sr config.h ../ && '
             else:
-                run_shell_cmd("%s && make test.serial" % pretestcommands, fail_on_error=fail_on_error)
+                pre = ''
+            if LooseVersion(self.version) >= LooseVersion('24'):
+                run_shell_cmd(f"{pre}{pretestcommands} && make test", fail_on_error=fail_on_error)
+            else:
+                run_shell_cmd(f"{pre}{pretestcommands} && make test.serial", fail_on_error=fail_on_error)
             if self.with_cuda:
                 res = run_shell_cmd(f"{pretestcommands} && make {testname_cs}", fail_on_error=fail_on_error)
                 if res.exit_code > 0:
@@ -394,7 +419,11 @@ class EB_Amber(CMakeMake):
 
     def sanity_check_step(self):
         """Custom sanity check for Amber."""
-        binaries = ['sander', 'tleap']
+        binaries = []
+
+        if not self.pmemd:
+            binaries.extend(['sander', 'tleap'])
+
         if self.name == 'Amber':
             binaries.append('pmemd')
             if self.with_cuda:
@@ -404,15 +433,17 @@ class EB_Amber(CMakeMake):
                         binaries.append('pmemd.cuda.MPI')
                     else:
                         binaries.append('pmemd.cuda_DPFP.MPI')
+
         if self.name == 'AmberTools':
             binaries.append('gem.pmemd')
 
         if self.with_mpi:
-            binaries.extend(['sander.MPI'])
             if self.name == 'Amber':
                 binaries.append('pmemd.MPI')
             if self.name == 'AmberTools':
                 binaries.append('gem.pmemd.MPI')
+            if not self.pmemd:
+                binaries.append('sander.MPI')
 
         custom_paths = {
             'files': [os.path.join(self.installdir, 'bin', binary) for binary in binaries],
