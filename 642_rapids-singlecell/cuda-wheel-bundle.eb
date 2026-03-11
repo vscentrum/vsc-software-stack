@@ -13,6 +13,7 @@ dependencies = [
     ('CUDA', version, '', SYSTEM),
     ('cuDNN', '9.5.1.17', versionsuffix, SYSTEM),
     ('cuSPARSELt', '0.6.3.2', versionsuffix, SYSTEM),
+    ('UCX-CUDA', '1.16.0', versionsuffix),
     ('NCCL', '2.26.2', versionsuffix),
     ('Python', '3.12.3'),
 ]
@@ -38,8 +39,8 @@ exts_list = [
     ('nvidia-cusparselt-cu12', '0.6.3'),
     # provided by NCCL
     ('nvidia-nccl-cu12', '2.26.2.post1'),
-    # # provided by CuPy
-    # ('cupy-cuda12x', '13.6.0'),
+    # provided by UCX-CUDA
+    ('libucx-cu12', '1.16.0.post2'),
 ]
 
 moduleclass = 'lib'

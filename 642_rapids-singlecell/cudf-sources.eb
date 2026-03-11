@@ -19,15 +19,20 @@ checksums = ['daa270c1e9223f098823491606bad2d9b10577d4bea8e543ae80265f1cecc0ed']
 builddependencies = [
     ('CMake', '3.31.8'),
     ('Cython', '3.0.10'),
+    ('git', '2.45.1'),
 ]
 
 dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
+    ('CUDA-Python', '12.6.2.post1', '-CUDA-%(cudaver)s'),
     ('Python', '3.12.3'),
     ('SciPy-bundle', '2024.05'),
     ('Arrow', '17.0.0'),
     ('numba', '0.60.0'),
-    ('CUDA-Python', '12.6.2.post1', '-CUDA-%(cudaver)s'),
+    ('fmt', '11.0.2'),
+    ('spdlog', '1.15.3'),  # should be v1.14.1
+    ('flatbuffers', '24.3.25')
+    ('DLPack', '1.2'),  # should be v0.8
 ]
 
 
