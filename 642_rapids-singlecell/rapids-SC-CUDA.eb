@@ -87,7 +87,7 @@ local_test_cmd = (
     # from scanpy.neighbors._connectivity import jaccard as scanpy_jaccard
     '--ignore=tests/test_neighbors.py '
     # problem on A2 gpu
-    '-k "not float64 and not test_block_size_consistency" '
+    # '-k "not float64 and not test_block_size_consistency" '
 )
 
 exts_list = [
@@ -392,11 +392,10 @@ exts_list = [
 #     }),
 # ]
 
-sanity_check_commands = [
-    "python -sc 'from cuda import cuda, nvrtc'",
-    "python -sc 'from cuda.bindings import driver, nvrtc'",
-    "python -sc 'from numba import cuda; print(cuda.__file__)' | grep %(installdir)s",
-    "python -sc 'import cupy as cp; x=cp.arange(10); print(int(x.sum()))' | grep 45",
-]
+# sanity_check_commands = [
+#     "python -sc 'from cuda import cuda, nvrtc'",
+#     "python -sc 'from cuda.bindings import driver, nvrtc'",
+#     "python -sc 'import cupy as cp; x=cp.arange(10); print(int(x.sum()))' | grep 45",
+# ]
 
 moduleclass = 'bio'

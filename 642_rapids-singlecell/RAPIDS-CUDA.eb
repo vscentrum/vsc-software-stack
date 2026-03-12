@@ -249,4 +249,9 @@ modextravars = {
     'NUMBA_CUDA_USE_NVIDIA_BINDING': '1',
 }
 
+sanity_check_commands = [
+    "python -sc 'from numba import cuda; print(cuda.__file__)' | grep %(installdir)s",
+    "python -sc 'import cupy as cp; x=cp.arange(10); print(int(x.sum()))' | grep 45",
+]
+
 moduleclass = 'ai'
