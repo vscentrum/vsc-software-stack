@@ -17,6 +17,53 @@ builddependencies = [
     ('CMake', '3.31.8'),
 ]
 
+## DEPS:
+    # ok cudf-cu12==24.10.1
+    # ok cuml-cu12==24.10.0
+    # ok cugraph-cu12==24.10.0
+    # ok cupy-cuda12x
+    # ok libcudf-cu12==24.10.1
+    # ok pylibcudf-cu12==24.10.1
+    # ok rmm-cu12==24.10.0
+    # ok cuvs-cu12==24.10.0
+    # ok pylibraft-cu12==24.10.0
+    # ok raft-dask-cu12==24.10.0
+    # ok dask-cuda==24.10.0
+    # ok dask-cudf-cu12==24.10.1
+    # ok rapids-dask-dependency==24.10.0
+    # ok pylibcugraph-cu12==24.10.0
+    # ok ucx-py-cu12==0.40.*
+    # ok distributed-ucxx-cu12==0.40.*
+    # ok treelite==4.3.0
+    # ok cachetools
+    # ok nvtx>=0.2.1
+    # ok pynvjitlink-cu12
+    # ok pynvml>=11.4.1, <11.5
+    # ok zict>=2.0.0
+    # ok ucx_py_cu12: ModuleNotFoundError: No module named 'nvidia_stub'
+    # ok nctx need newer cython -> use wheel
+    # ok pynvjitlink_cu12: ModuleNotFoundError: No module named 'wheel_stub'
+    # OK rapids-dask-dependency 24.10.0 requires dask, which is not installed.
+    # ok rapids-dask-dependency 24.10.0 requires dask-expr, which is not installed.
+    # OK rapids-dask-dependency 24.10.0 requires distributed, which is not installed.
+    # !!OK?? ucx-py-cu12 0.40.0 requires libucx-cu12<1.18,>=1.15.0, which is not installed. -> add to the CUDA-wheel-bundle (UCX is dep of NCCL)
+    # ok distributed-ucxx-cu12 0.40.0 requires ucxx-cu12==0.40.*, which is not installed.
+    # ok ucxx-cu12 0.40.0 requires libucxx-cu12, which is not installed.
+    # ok dask-expr 1.1.14 has requirement dask==2024.9.0, but you have dask 2024.9.1.
+    # USE whl or sources from github - on PYPI tar-gz - stubs to nvidia wheels
+        # OK ucx_py_cu12 -> separate module from source -> add ucx_py_cu12 to cuda-wheel-bundle
+        # ok ucxx_cu12 -> build from source? -> whl for now
+        # ok distributed_ucxx_cu12 -> in ucxx installation from source -> whl for now
+        # ok pylibraft_cu12 -> could be build from source -> whl for now
+        # ok pylibcugraph_cu12 -> could be build from source -> whl for now
+        # ok cuvs_cu12 -> could be build from source -> whl for now
+        # ok rmm_cu12
+        # ok pynvjitlink_cu12
+        # ok dask_cudf_cu12
+        # ok raft_dask_cu12
+        # ok rapids_dask_dependency
+        # ok dask_cuda
+
 dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
     ('Python', '3.12.3'),
@@ -27,11 +74,14 @@ dependencies = [
     ('Arrow', '17.0.0'),
     ('numba', '0.60.0'),
     ('dask', '2024.9.1'),
+    # ('ucx-py', '0.40.00'), -> in CUDA-wheel-bundle - needs
 ]
 
 exts_default_options = {'source_urls': [PYPI_SOURCE, 'https://pypi.nvidia.com/%(name)s-cu%(cudamajver)s']}
 _rapids_whl_name = '%(name)s_cu%(cudamajver)s-%(version)s-'
 _rapids_whl_cp_version = 'cp%(pymajver)s%(pyminver)s-cp%(pymajver)s%(pyminver)s'
+# _rapids_whl_linux = '-manylinux_2_24_%(arch)s.manylinux_2_28_%(arch)s.whl'
+# _rapids_tmpl = _rapids_whl_name + _rapids_whl_cp_version + _rapids_whl_linux
 _rapids_tmpl = _rapids_whl_name + _rapids_whl_cp_version
 
 # fix treelite sources
@@ -54,11 +104,29 @@ exts_list = [
     ('fastrlock', '0.8.3', {
         'checksums': ['4af6734d92eaa3ab4373e6c9a1dd0d5ad1304e172b1521733c6c3b3d73c8fa5d'],
     }),
+    # ('pynvml', '11.4.1', {
+    #     'preinstallopts': (
+    #         "sed -i -e 's/SafeConfigParser()/ConfigParser()/' -e 's/readfp(/read_file(/' versioneer.py && "
+    #     ),
+    #     'checksums': ['b2e4a33b80569d093b513f5804db0c7f40cfc86f15a013ae7a8e99c5e175d5dd'],
+    # }),
     ('cupy_cuda12x', '13.6.0', {
         'modulename': 'cupy',
         'source_tmpl': f'%(name)s-%(version)s-{_rapids_whl_cp_version}-manylinux2014_%(arch)s.whl',
         'checksums': ['79b0cacb5e8b190ef409f9e03f06ac8de1b021b0c0dda47674d446f5557e0eb1'],
     }),
+    # ('nvidia_stub', '0.1.8', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['856985ec537aeb6be6f92365e9fc0c1397b1a4455b551f32daf29fc214acb5d5'],
+    # }),
+    # ('libucx_cu12', '1.17.0.post1', {
+    #     'source_tmpl': '%(name)s-%(version)s-py3-none-manylinux_2_28_%(arch)s.whl',
+    #     'checksums': ['3e4a68a2df02ad0efe6135819a879078a904effb0d9c563a2104cb9b71aa5b59'],
+    # }),
+    # ('ucx_py_cu12', '0.40.0', {
+    #     'modulename': 'ucp',
+    #     'checksums': ['6a6a077fda5f84800e83e609a2a126dc3c0f5cca50ae12d9c0afcc5a151ec09f'],
+    # }),
     ('libucxx', '0.40.0', {
         'modulename': False,
         'source_tmpl': f'{_rapids_whl_name}py3-none-manylinux_2_24_%(arch)s.manylinux_2_28_%(arch)s.whl',
@@ -80,6 +148,10 @@ exts_list = [
         ),
         'checksums': ['17efe5d903996bceb0c8a12cae80fa9b66bee7ee895923bd9d8ec2a5af1aabd8'],
     }),
+    # ('wheel_stub', '0.5.0', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['debb507277eb5793dcfa8e92f1f41ba4b93f7db05035725b5780cb6bcb444f3f'],
+    # }),
     ('pynvjitlink_cu12', '0.4.0', {
         'source_tmpl': (
             f'%(name)s-%(version)s-{_rapids_whl_cp_version}-manylinux_2_27_%(arch)s.manylinux_2_28_%(arch)s.whl'
@@ -123,11 +195,13 @@ exts_list = [
     ('libcudf', '24.10.1', {
         'modulename': False,
         'source_tmpl': f'{_rapids_whl_name}py3-none-manylinux_2_28_%(arch)s.whl',
+        # 'source_urls': ['https://pypi.nvidia.com/libcudf-cu12'],
         'checksums': ['59eaabf315efb7da8e3d6add14806d4f41b4fd664a9d636d72c1638c9574882a'],
     }),
     ('pylibcudf', '24.10.1', {
         'modulename': 'pylibcudf',
         'source_tmpl': f'{_rapids_tmpl}-manylinux_2_24_%(arch)s.manylinux_2_28_%(arch)s.whl',
+        # 'source_urls': ['https://pypi.nvidia.com/pylibcudf-cu12'],
         'checksums': ['717987c16cc8774c8326fc3c94bd2ad1c58acf41e52586052e38dd00ba1bc7e4'],
     }),
     ('pylibcugraph', version, {
@@ -142,24 +216,34 @@ exts_list = [
     }),
     ('cudf', '24.10.1', {
         'source_tmpl': f'{_rapids_tmpl}-manylinux_2_24_%(arch)s.manylinux_2_28_%(arch)s.whl',
+        # 'source_urls': ['https://pypi.nvidia.com/%(name)s-cu12'],
         'checksums': ['fb1934d908e33b61a4ded6c33f8305b78947d01149ed5c37b07e0c581ebbc136'],
     }),
     ('cuml', version, {
         'source_tmpl': f'{_rapids_tmpl}-manylinux_2_28_%(arch)s.whl',
+        # 'source_urls': ['https://pypi.nvidia.com/%(name)s-cu12'],
         'checksums': ['47647af4bc997cb2bc8f5713b2c4187f7b427c5d2bc745468697711544c26e76'],
     }),
     ('cugraph', version, {
         'source_tmpl': f'{_rapids_tmpl}-manylinux_2_28_%(arch)s.whl',
+        # 'source_urls': ['https://pypi.nvidia.com/%(name)s-cu12'],
         'checksums': ['64f7c683d186066726ebdd5e061fcc7e6cb739c6d3dce1accdda46265d7b92c7'],
     }),
 ]
 
 # update dask and distributed pinned version in rapids-dask-dependency dist METADATA
 postinstallcmds = [
+    # "find %(installdir)s/lib/python%(pyshortver)s/site-packages "
+    # "-path '*/METADATA' -type f -exec "
+    # "sed -i "
+    # "-e '/^Requires-Dist: nvidia-nccl-cu12\\b/d' "
+    # "-e '/^Requires-Dist: libucx-cu12\\b/d' "
+    # "{} +",
     "sed -i 's/2024.9.0/2024.9.1/' "
     "%(installdir)s/lib/python%(pyshortver)s/site-packages/rapids_dask_dependency-%(version)s.dist-info/METADATA",
 ]
 
+# NUMBA_CUDA_USE_NVIDIA_BINDING=1
 modextravars = {
     'RAPIDS_LIBUCX_PREFER_SYSTEM_LIBRARY': 'true',
     'NUMBA_CUDA_USE_NVIDIA_BINDING': '1',
