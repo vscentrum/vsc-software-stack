@@ -48,16 +48,33 @@ builddependencies = [
     # OK rapids-dask-dependency 24.10.0 requires distributed, which is not installed.
     # !!OK?? ucx-py-cu12 0.40.0 requires libucx-cu12<1.18,>=1.15.0, which is not installed. -> add to the CUDA-wheel-bundle (UCX is dep of NCCL)
     # ok distributed-ucxx-cu12 0.40.0 requires ucxx-cu12==0.40.*, which is not installed.
+    # ok ucxx-cu12 0.40.0 requires libucxx-cu12, which is not installed.
+    # ok dask-expr 1.1.14 has requirement dask==2024.9.0, but you have dask 2024.9.1.
+    # USE whl or sources from github - on PYPI tar-gz - stubs to nvidia wheels
+        # OK ucx_py_cu12 -> separate module from source -> add ucx_py_cu12 to cuda-wheel-bundle
+        # ok ucxx_cu12 -> build from source? -> whl for now
+        # ok distributed_ucxx_cu12 -> in ucxx installation from source -> whl for now
+        # ok pylibraft_cu12 -> could be build from source -> whl for now
+        # ok pylibcugraph_cu12 -> could be build from source -> whl for now
+        # ok cuvs_cu12 -> could be build from source -> whl for now
+        # ok rmm_cu12
+        # ok pynvjitlink_cu12
+        # ok dask_cudf_cu12
+        # ok raft_dask_cu12
+        # ok rapids_dask_dependency
+        # ok dask_cuda
 
 dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
     ('Python', '3.12.3'),
     ('CUDA-Python', '12.6.2.post1', versionsuffix),
-    ('CUDA-wheel-bundle', '%(cudaver)s', versionsuffix),  # provides nvidia-nccl-cu12-2.26.2.post1, libucx-cu12, nvidia-cublas-cu12,...
+    # provides nvidia-nccl-cu12-2.26.2.post1, libucx-cu12, ucx-py-cu12, nvidia-cublas-cu12,...
+    ('CUDA-wheel-bundle', '%(cudaver)s', versionsuffix),
     ('SciPy-bundle', '2024.05'),
     ('Arrow', '17.0.0'),
     ('numba', '0.60.0'),
     ('dask', '2024.9.1'),
+    # ('ucx-py', '0.40.00'), -> in CUDA-wheel-bundle - needs
 ]
 
 exts_default_options = {'source_urls': [PYPI_SOURCE, 'https://pypi.nvidia.com/%(name)s-cu%(cudamajver)s']}
@@ -87,36 +104,43 @@ exts_list = [
     ('fastrlock', '0.8.3', {
         'checksums': ['4af6734d92eaa3ab4373e6c9a1dd0d5ad1304e172b1521733c6c3b3d73c8fa5d'],
     }),
-    ('pynvml', '11.4.1', {
-        'preinstallopts': (
-            "sed -i -e 's/SafeConfigParser()/ConfigParser()/' -e 's/readfp(/read_file(/' versioneer.py && "
-        ),
-        'checksums': ['b2e4a33b80569d093b513f5804db0c7f40cfc86f15a013ae7a8e99c5e175d5dd'],
-    }),
+    # ('pynvml', '11.4.1', {
+    #     'preinstallopts': (
+    #         "sed -i -e 's/SafeConfigParser()/ConfigParser()/' -e 's/readfp(/read_file(/' versioneer.py && "
+    #     ),
+    #     'checksums': ['b2e4a33b80569d093b513f5804db0c7f40cfc86f15a013ae7a8e99c5e175d5dd'],
+    # }),
     ('cupy_cuda12x', '13.6.0', {
         'modulename': 'cupy',
         'source_tmpl': f'%(name)s-%(version)s-{_rapids_whl_cp_version}-manylinux2014_%(arch)s.whl',
         'checksums': ['79b0cacb5e8b190ef409f9e03f06ac8de1b021b0c0dda47674d446f5557e0eb1'],
     }),
-    ('nvidia_stub', '0.1.8', {
-        'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['856985ec537aeb6be6f92365e9fc0c1397b1a4455b551f32daf29fc214acb5d5'],
-    }),
+    # ('nvidia_stub', '0.1.8', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['856985ec537aeb6be6f92365e9fc0c1397b1a4455b551f32daf29fc214acb5d5'],
+    # }),
     # ('libucx_cu12', '1.17.0.post1', {
     #     'source_tmpl': '%(name)s-%(version)s-py3-none-manylinux_2_28_%(arch)s.whl',
     #     'checksums': ['3e4a68a2df02ad0efe6135819a879078a904effb0d9c563a2104cb9b71aa5b59'],
     # }),
-    ('ucx_py_cu12', '0.40.0', {
-        'modulename': 'ucp',
-        'checksums': ['6a6a077fda5f84800e83e609a2a126dc3c0f5cca50ae12d9c0afcc5a151ec09f'],
-    }),
-    ('ucxx_cu12', '0.40.0', {
-        'modulename': 'ucxx',
-        'checksums': ['714b14b0358ed2f6dfd77a49a7eebdfb12dc563f1b8e4d884a6ceb067de7350f'],
-    }),
-    ('distributed_ucxx_cu12', '0.40.0', {
+    # ('ucx_py_cu12', '0.40.0', {
+    #     'modulename': 'ucp',
+    #     'checksums': ['6a6a077fda5f84800e83e609a2a126dc3c0f5cca50ae12d9c0afcc5a151ec09f'],
+    # }),
+    ('libucxx', '0.40.0', {
         'modulename': False,
-        'checksums': ['24b83f706eba001016aa82df0d7bea8ff1ef5d5e8eb089ea1673869c19e54072'],
+        'source_tmpl': f'{_rapids_whl_name}py3-none-manylinux_2_24_%(arch)s.manylinux_2_28_%(arch)s.whl',
+        'checksums': ['eb00c16bea61814456a92307f36e7b8b6746c4a04b31a3f28d89bbb4025bc120'],
+    }),
+    ('ucxx', '0.40.0', {
+        'source_tmpl': f'{_rapids_tmpl}-manylinux_2_27_%(arch)s.manylinux_2_28_%(arch)s.whl',
+        'modulename': 'ucxx',
+        'checksums': ['8d12a50952027e609a952f12153e794cd4cb636b7cbde211047ad5f3e8eff801'],
+    }),
+    ('distributed-ucxx', '0.40.0', {
+        'modulename': False,
+        'source_tmpl': 'distributed_ucxx_cu%(cudamajver)s-%(version)s-py3-none-any.whl',
+        'checksums': ['07d05b85e8449840e157c35b25131f6b7678ff33c5294d2cafbf7fc9968750be'],
     }),
     ('nvtx', '0.2.14', {
         'source_tmpl': (
@@ -124,39 +148,49 @@ exts_list = [
         ),
         'checksums': ['17efe5d903996bceb0c8a12cae80fa9b66bee7ee895923bd9d8ec2a5af1aabd8'],
     }),
-    ('wheel_stub', '0.5.0', {
-        'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['debb507277eb5793dcfa8e92f1f41ba4b93f7db05035725b5780cb6bcb444f3f'],
-    }),
+    # ('wheel_stub', '0.5.0', {
+    #     'source_tmpl': SOURCE_PY3_WHL,
+    #     'checksums': ['debb507277eb5793dcfa8e92f1f41ba4b93f7db05035725b5780cb6bcb444f3f'],
+    # }),
     ('pynvjitlink_cu12', '0.4.0', {
+        'source_tmpl': (
+            f'%(name)s-%(version)s-{_rapids_whl_cp_version}-manylinux_2_27_%(arch)s.manylinux_2_28_%(arch)s.whl'
+        ),
         'modulename': 'pynvjitlink',
-        'checksums': ['7df95ff134f7bf48d31944d3579b65b390bd2e4b937d1ebddbea191a9d0b23de'],
+        'checksums': ['8f6834d84e0fba15b8c0ee39d8c4397e631708f97a8196c2f7b3082f2f35f465'],
     }),
-    ('rmm_cu12', version, {
+    ('rmm', version, {
+        'source_tmpl': f'{_rapids_tmpl}-manylinux_2_24_%(arch)s.manylinux_2_28_%(arch)s.whl',
         'modulename': 'rmm',
-        'checksums': ['bfcd896707a385fed5e64d71b1a14f3027de26678f589f8aa5b30d8bd01bd755'],
+        'checksums': ['e6141f0356afdd2a422da4b8e48a44c929928c78f7e005c648df02d6ef9c7740'],
     }),
     ('dask_cuda', version, {
-        'checksums': ['503946e95736081bf88afc8e2faa3b2cc8a63cd757528c45ac4cdac822a77560'],
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['3666ba38169c6c4448c698c0fe05d3fe5bb9b1c13b6de86030c7e6ad3e2dc2be'],
     }),
-    ('dask_cudf_cu12', '24.10.1', {
+    ('dask-cudf', '24.10.1', {
+        'source_tmpl': 'dask_cudf_cu%(cudamajver)s-%(version)s-py3-none-any.whl',
         'modulename': False,
-        'checksums': ['75c47358d90feb19aac8dccd9ee9f79130a65fc15911dc281968c69960464305'],
+        'checksums': ['9f04be126ffc5921298c51d2888572ac0e31ac77a9dd67920ecec1a1b40978e8'],
     }),
     ('dask_expr', '1.1.14', {
+        'preinstallopts': "sed -i 's/2024.9.0/2024.9.1/' pyproject.toml && ",
         'checksums': ['c67c0c190d933e253f85674da71615f23ed8ba08f3abcc0cd160080643feb40a'],
     }),
     ('rapids_dask_dependency', version, {
+        'source_tmpl': SOURCE_PY3_WHL,
         'modulename': False,
-        'checksums': ['a024bb9d4e91e61e98befaf6324c44a308b25a9a28a2bc7eaa58a35d4f8baf78'],
+        'checksums': ['25242e0b1264e18e97d53b3fa96256d1e75f13865b84ea989f730b54c86d9023'],
     }),
-    ('raft_dask_cu12', version, {
+    ('raft-dask', version, {
+        'source_tmpl': f'raft_dask_cu%(cudamajver)s-%(version)s-{_rapids_whl_cp_version}-manylinux_2_28_%(arch)s.whl',
         'modulename': False,
-        'checksums': ['ac1c47c90fabb573dccc1aed40db6f0cf5dfb978f85acee97f633905c1ff6154'],
+        'checksums': ['bdc1fecf821b6b77e2692b2504bad0c9a3b4d75596732c53d454345941927779'],
     }),
-    ('pylibraft_cu12', version, {
+    ('pylibraft', version, {
+        'source_tmpl': f'{_rapids_tmpl}-manylinux_2_28_%(arch)s.whl',
         'modulename': 'pylibraft',
-        'checksums': ['18d931b46c57d6c5003c020a6ec5795561f9451e989cc3fb09fb8105487900d2'],
+        'checksums': ['88014c4ad7cf49b8ae5979051b571f838621954460c7898c4ef49488d446fffc'],
     }),
     ('libcudf', '24.10.1', {
         'modulename': False,
@@ -170,13 +204,15 @@ exts_list = [
         # 'source_urls': ['https://pypi.nvidia.com/pylibcudf-cu12'],
         'checksums': ['717987c16cc8774c8326fc3c94bd2ad1c58acf41e52586052e38dd00ba1bc7e4'],
     }),
-    ('pylibcugraph_cu12', version, {
+    ('pylibcugraph', version, {
+        'source_tmpl': f'{_rapids_tmpl}-manylinux_2_28_%(arch)s.whl',
         'modulename': 'pylibcugraph',
-        'checksums': ['3212163e40368ef7f311a8dc65b66ccf997b9ed9c77b8028926be09100b55345'],
+        'checksums': ['fa2b2c2b03322afa21bf9160ac0ed185ca258486f39a6a20d7714041ba3b4cc8'],
     }),
-    ('cuvs_cu12', version, {
+    ('cuvs', version, {
         'modulename': 'cuvs',
-        'checksums': ['7fa7349b6b74557fd6adc8cb6ae912d3bc6f0570e2c85e66484d7c2242d8331c'],
+        'source_tmpl': f'{_rapids_tmpl}-manylinux_2_28_%(arch)s.whl',
+        'checksums': ['730fe5c9fc8ea9b3a985101ccab51707c94ddd2e4358f6e9178c01c728f09eea'],
     }),
     ('cudf', '24.10.1', {
         'source_tmpl': f'{_rapids_tmpl}-manylinux_2_24_%(arch)s.manylinux_2_28_%(arch)s.whl',
@@ -207,6 +243,10 @@ postinstallcmds =[
     "%(installdir)s/lib/python%(pyshortver)s/site-packages/rapids_dask_dependency-%(version)s.dist-info/METADATA",
 ]
 
-modextravars = {'RAPIDS_LIBUCX_PREFER_SYSTEM_LIBRARY': 'true'}
+# NUMBA_CUDA_USE_NVIDIA_BINDING=1
+modextravars = {
+    'RAPIDS_LIBUCX_PREFER_SYSTEM_LIBRARY': 'true',
+    'NUMBA_CUDA_USE_NVIDIA_BINDING': '1',
+}
 
 moduleclass = 'ai'

@@ -7,7 +7,7 @@ versionsuffix = '-CUDA-%(cudaver)s'
 homepage = 'https://developer.nvidia.com/cuda'
 description = "Repackaging of NVIDIA CUDA libraries as Python packages"
 
-toolchain = {'name': 'gompi', 'version': '2024a'}
+toolchain = {'name': 'gfbf', 'version': '2024a'}
 
 dependencies = [
     ('CUDA', version, '', SYSTEM),
@@ -15,6 +15,7 @@ dependencies = [
     ('cuSPARSELt', '0.6.3.2', versionsuffix, SYSTEM),
     ('UCX-CUDA', '1.16.0', versionsuffix),
     ('NCCL', '2.26.2', versionsuffix),
+    ('ucx-py', '0.40.00'),
     ('Python', '3.12.3'),
 ]
 
@@ -41,6 +42,8 @@ exts_list = [
     ('nvidia-nccl-cu12', '2.26.2.post1'),
     # provided by UCX-CUDA
     ('libucx-cu12', '1.16.0.post2'),
+    # provided by ucp-py
+    ('ucx-py-cu12', '0.40.0')
 ]
 
 moduleclass = 'lib'

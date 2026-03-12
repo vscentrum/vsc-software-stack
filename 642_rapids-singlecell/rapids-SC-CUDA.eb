@@ -29,7 +29,7 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 
 
 builddependencies = [
-    # ('hatchling', '1.24.2'),
+    ('hatchling', '1.24.2'),
     # ('Cython', '3.0.10'),  # bbknn
     # ('CMake', '3.31.8'),  # treelite
     # ('meson-python', '0.16.0'),  # skimage
@@ -39,7 +39,7 @@ dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
     ('Python', '3.12.3'),
     ('CUDA-Python', '12.6.2.post1', versionsuffix),
-    ('RAPIDS', '24.10', versionsuffix),
+    ('RAPIDS', '24.10.0', versionsuffix),
     # ('NCCL', '2.26.2', versionsuffix), -> in dummy bundle
     # ('CuPy', '13.6.0', versionsuffix), -> ~in dummy bundle~ -> NO it has wrong NCCL and cuSPARSELt version -> cupy-cuda12x in exts
     ('SciPy-bundle', '2024.05'),
@@ -69,32 +69,47 @@ dependencies = [
     # ('coverage', '7.6.12'),
 ]
 
-exts_default_options = {'source_urls': [PYPI_SOURCE, 'https://pypi.nvidia.com/%(name)s-cu%(cudamajver)s']}
-_rapids_whl_name = '%(name)s_cu%(cudamajver)s-%(version)s'
-_rapids_whl_cp_version = '-cp%(pymajver)s%(pyminver)s-cp%(pymajver)s%(pyminver)s'
-_rapids_whl_linux = '-manylinux_2_24_%(arch)s.manylinux_2_28_%(arch)s.whl'
-_rapids_tmpl = _rapids_whl_name + _rapids_whl_cp_version + _rapids_whl_linux
+# exts_default_options = {'source_urls': [PYPI_SOURCE, 'https://pypi.nvidia.com/%(name)s-cu%(cudamajver)s']}
+# _rapids_whl_name = '%(name)s_cu%(cudamajver)s-%(version)s'
+# _rapids_whl_cp_version = '-cp%(pymajver)s%(pyminver)s-cp%(pymajver)s%(pyminver)s'
+# _rapids_whl_linux = '-manylinux_2_24_%(arch)s.manylinux_2_28_%(arch)s.whl'
+# _rapids_tmpl = _rapids_whl_name + _rapids_whl_cp_version + _rapids_whl_linux
 
-# local_test_cmd = (
-#     'pytest -v tests '
-#     # Dask tests spawn processes and open TCP ports
-#     '--ignore=tests/dask '
-#     # Multi-GPU neighbor tests
-#     '--ignore=tests/test_mg_neighbors.py '
-#     # Harmony tests download data at runtime
-#     '--ignore=tests/test_harmony.py '
-#     # Wrong API calls to scanpy from test_neighbors
-#     # from scanpy.neighbors._connectivity import jaccard as scanpy_jaccard
-#     '--ignore=tests/test_neighbors.py '
-#     # problem on A2 gpu
-#     '-k "not float64 and not test_block_size_consistency" '
-# )
+local_test_cmd = (
+    'pytest -v tests '
+    # Dask tests spawn processes and open TCP ports
+    '--ignore=tests/dask '
+    # Multi-GPU neighbor tests
+    '--ignore=tests/test_mg_neighbors.py '
+    # Harmony tests download data at runtime
+    '--ignore=tests/test_harmony.py '
+    # Wrong API calls to scanpy from test_neighbors
+    # from scanpy.neighbors._connectivity import jaccard as scanpy_jaccard
+    '--ignore=tests/test_neighbors.py '
+    # problem on A2 gpu
+    '-k "not float64 and not test_block_size_consistency" '
+)
 
 exts_list = [
     ('natsort', '8.4.0', {
         'checksums': ['45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581'],
     }),
-    ('rapids_singlecell', version),
+    ('rapids_singlecell', version, {
+        'testinstall': True,
+        'runtest': local_test_cmd,
+        # needs to have .git dir
+        'sources': [{
+            'git_config': {
+                'url': 'https://github.com/scverse',
+                'repo_name': '%(name)s',
+                'tag': 'v%(version)s',
+                # 'clone_into': '%(name)s-%(version)s',
+                'keep_git_dir': True,
+            },
+            'filename': SOURCE_TAR_XZ,
+        }],
+        'checksums': ['c7d63fcd780ada30ad9569158bbd2f1452bc6b5d071124d1b25794d8a71cf28c'],
+    }),
 ]
 
 # exts_list = [
