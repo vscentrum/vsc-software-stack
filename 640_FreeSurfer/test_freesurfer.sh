@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-mod="${1:-FreeSurfer/8.1.0-rocky9_x86_64}"
-
 echo
 echo "== Basic env =="
 for v in FREESURFER_HOME FREESURFER SUBJECTS_DIR MNI_DIR FSFAST_HOME FMRI_ANALYSIS_DIR; do
