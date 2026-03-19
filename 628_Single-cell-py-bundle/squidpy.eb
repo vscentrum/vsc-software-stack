@@ -30,7 +30,7 @@ toolchain = {'name': 'foss', 'version': '2024a'}
     # OK "scikit-image>=0.25",
     # due to https://github.com/scikit-image/scikit-image/issues/6850 breaks rescale ufunc
     # OK "scikit-learn>=0.24",
-    # ok "spatialdata>=0.2.5",
+    # ok "spatialdata>=0.2.5", -> 0.4.0
     # ok "spatialdata-plot",
     # OK "statsmodels>=0.12",
     # https://github.com/scverse/squidpy/issues/526
@@ -41,14 +41,17 @@ toolchain = {'name': 'foss', 'version': '2024a'}
     # OK "zarr>=2.6.1",
     # ok multiscale-spatial-image 2.0.3 has requirement xarray>=2025.1.2, but you have xarray 2024.11.0. -> go for v2.0.2
     # ok xarray-dataclass 3.0.0 has requirement numpy>=2.0.0, but you have numpy 1.26.4. -> go for v1.9.1
-    # import xarray_spatial"': FAIL
-    # import xarray_dataclass"': FAIL
-    # import spatial_image"': FAIL
-    # import multiscale_spatial_image"': FAIL
-    # import spatialdata"': FAIL
-    # mport spatialdata_plot"': FAIL
-    # spatial-image 1.2.3 requires xarray-dataclass, which is not installed.
-    # spatialdata 0.5.0 has requirement multiscale-spatial-image>=2.0.3, but you have multiscale-spatial-image 2.0.2.
+    # ok spatial-image 1.2.3 requires xarray-dataclass, which is not installed. -> v1.1.0
+        # OK "numpy",
+        # OK "xarray >=2024.10.0",
+        # NO "xarray-dataclass >=3.0.0",
+            # !!! NO "numpy >=2.0.0",
+            # OK xarray >=2022.3",
+            # OK "typing-extensions >=4.10.0"
+    # OK spatialdata 0.5.0 has requirement multiscale-spatial-image>=2.0.3, but you have multiscale-spatial-image 2.0.2.
+        # ok spatialdata 0.4.0 has multiscale_spatial_image>=2.0.2
+    # ok "import xarray_spatial"': FAIL -> xrspatial
+    # ok import PIMS"': FAIL
 
 
 builddependencies = [
@@ -84,8 +87,21 @@ dependencies = [
 ]
 
 local_preinstallopts = "sed -i 's/imagecodecs>=2025.8.2,<2026/imagecodecs/' pyproject.toml && "
+local_test_cmd = (
+    'pytest -v -n %(parallel)s '
+    'tests/read/test_visium.py '
+    'tests/utils/test_parallelize.py '
+    'tests/graph/test_spatial_neighbors.py '
+    'tests/graph/test_nhood.py'
+)
 
 exts_list = [
+    ('pytest_timeout', '2.4.0', {
+        'checksums': ['7e68e90b01f9eff71332b25001f85c75495fc4e3a836701876183c4bcfd0540a'],
+    }),
+    ('pytest_mock', '3.15.1', {
+        'checksums': ['1849a238f6f396da19762269de72cb1814ab44416fa73a8686deac10b0d87a0f'],
+    }),
     # ('fast_array_utils', '1.2.3', {
     #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
     #     'checksums': ['639c35e79a4800d28284c63693888be1bc607314dd367e1d7e6f182f574aff28'],
@@ -128,7 +144,7 @@ exts_list = [
         'checksums': ['faf19801c3742ed5a05a8ce388e0d8fe1a07f8d095c82201eb904f5d27ad571f'],
     }),
     ('pims', '0.7', {
-        'modulename': 'PIMS',
+        # 'modulename': 'PIMS',
         'checksums': ['55907a4c301256086d2aa4e34a5361b9109f24e375c2071e1117b9491e82946b'],
     }),
     ('ome-zarr', '0.9.0', {
@@ -145,25 +161,23 @@ exts_list = [
     #     'checksums': ['a9ab14495f3e28c216a5cb74f918542710ac82e22bb04db57af233bbbf536da8'],
     # }),
     ('xarray_spatial', '0.9.2', {
+        'modulename': 'xrspatial',
         'checksums': ['3bcad0b7d469552cb86a955da76fb8f349a74283d288c4c63e319d92b88b8d3b'],
     }),
     ('xarray-schema', '0.0.3', {
         'checksums': ['9c6c760489c0690a70394b2ad1368b32f8fa1333911c361b4adf249384212920'],
     }),
-    ('xarray-dataclass', '1.9.1', {
-        # https://github.com/xarray-contrib/xarray-dataclass/archive/refs/tags/v1.9.1.tar.gz
-        'source_urls': ['https://github.com/xarray-contrib/xarray-dataclass/archive'],
-        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'checksums': ['51db055795e70021e88eedc5d09a22f4dbf2ec773f4dadaa7917804d5b3231ef'],
+    ('xarray_dataclasses', '1.9.1', {
+        'checksums': ['e5e88e10622b2bcb4db6087d636327f6e0311ae66fa10e94ea571805ed6937ad'],
     }),
-    ('spatial_image', '1.2.3', {
-        'checksums': ['b0bb8ed84c9c11de00b3bbed7041375048327e0ffcb233f61aca7a24dcd75537'],
+    ('spatial_image', '1.1.0', {
+        'checksums': ['e7fb185644093e96cac510c4184f2777b965b5a7ca25688f379e9acb48e3e07d'],
     }),
     ('multiscale_spatial_image', '2.0.2', {
         'checksums': ['3b0ef86559fd9369ca384b657a740edfaf567b308021ac51281a3efdb6ccdcfc'],
     }),
-    ('spatialdata', '0.5.0', {
-        'checksums': ['3c316cdebe7306e887f9383c360993a1db0a7bd1b00b5673d831d23769acf63b'],
+    ('spatialdata', '0.4.0', {
+        'checksums': ['6c7d1abf366fd5e61e9c9b489d04ad644a9609489588fa3436e59f4c96b67846'],
     }),
     ('spatialdata_plot', '0.2.14', {
         'checksums': ['31a186b1222660aeeaab7a14934b6016fe110277d0428712c00c98271d3dac79'],
@@ -179,8 +193,51 @@ exts_list = [
     }),
     ('squidpy', version, {
         'preinstallopts': local_preinstallopts,
+        'testinstall': True,
+        'runtest': local_test_cmd,
         'checksums': ['09aeda3112e4baa7998c515062288e2ac6b77a5bbbac0f8f3531e07e5cc5371b'],
     }),
 ]
 
 moduleclass = 'bio'
+
+# DEPS_E1
+    # spatialdata-0.5.0 -> spatial_image>=1.2.3 -> xarray-dataclass >=3.0.0 -> numpy >=2.0.0  ->
+    # -> Go for older spatialdata -> v0.4.0 -> spatial_image>=1.1.0 -> xarray-dataclasses>=1.1.0 !!! different from xarray-dataclass !!!! -> xarray-dataclasses-1.9.1 looks ok:
+        # python = ">=3.8, <3.14"
+        # numpy = [
+        #     { version = ">=1.22, <1.25", python = ">=3.8, <3.9" },
+        #     { version = ">=1.22, <3.0", python = ">=3.9, <3.14" },
+        # ]
+        # typing-extensions = "^4.0"
+        # xarray = [
+        #     { version = ">=2022.3, <2023.2", python = ">=3.8, <3.9" },
+        #     { version = ">=2022.3, <2025.0", python = ">=3.9, <3.14" },
+        # ]
+    # Deps spatialdata-0.5.0:
+        # "anndata>=0.9.1",
+        # "click",
+        # "dask-image",
+        # "dask>=2024.4.1,<=2024.11.2",
+        # "datashader",
+        # "fsspec",
+        # "geopandas>=0.14",
+        # "multiscale_spatial_image>=2.0.3",
+        # "networkx",
+        # "numba>=0.55.0",
+        # "numpy",
+        # "ome_zarr>=0.8.4",
+        # "pandas",
+        # "pooch",
+        # "pyarrow",
+        # "rich",
+        # "setuptools",
+        # "shapely>=2.0.1",
+        # "spatial_image>=1.2.3",
+        # "scikit-image",
+        # "scipy",
+        # "typing_extensions>=4.8.0",
+        # "xarray>=2024.10.0",
+        # "xarray-schema",
+        # "xarray-spatial>=0.3.5",
+        # "zarr<3",
