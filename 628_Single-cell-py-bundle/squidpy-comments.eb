@@ -8,7 +8,57 @@ description = "Squidpy is a tool for the analysis and visualization of spatial m
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
-builddependencies = [('poetry', '1.8.3')]
+## DEPS
+    # OK hatchling
+    # OK "aiohttp>=3.8.1",
+    # OK "anndata>=0.9",
+    # OK "cycler>=0.11", - matplotlib
+    # OK "dask[array]>=2021.2,<=2024.11.2",
+    # ok "dask-image>=0.5",
+    # OK "docrep>=0.3.1",
+    # OK "fsspec>=2021.11",
+    # OK? "imagecodecs>=2025.8.2,<2026", -> UNPIN
+    # OK "matplotlib>=3.3",
+    # ok "matplotlib-scalebar>=0.8",
+    # OK "networkx>=2.6",
+    # OK "numba>=0.56.4",
+    # OK "numpy>=1.23",
+    # ok "omnipath>=1.0.7",
+    # OK "pandas>=2.1",
+    # OK "pillow>=8",
+    # OK "scanpy>=1.9.3",
+    # OK "scikit-image>=0.25",
+    # due to https://github.com/scikit-image/scikit-image/issues/6850 breaks rescale ufunc
+    # OK "scikit-learn>=0.24",
+    # ok "spatialdata>=0.2.5", -> 0.4.0
+    # ok "spatialdata-plot",
+    # OK "statsmodels>=0.12",
+    # https://github.com/scverse/squidpy/issues/526
+    # OK "tifffile!=2022.4.22", - skimage
+    # OK "tqdm>=4.50.2",
+    # ok "validators>=0.18.2",
+    # OK "xarray>=2024.10",
+    # OK "zarr>=2.6.1",
+    # ok multiscale-spatial-image 2.0.3 has requirement xarray>=2025.1.2, but you have xarray 2024.11.0. -> go for v2.0.2
+    # ok xarray-dataclass 3.0.0 has requirement numpy>=2.0.0, but you have numpy 1.26.4. -> go for v1.9.1
+    # ok spatial-image 1.2.3 requires xarray-dataclass, which is not installed. -> v1.1.0
+        # OK "numpy",
+        # OK "xarray >=2024.10.0",
+        # NO "xarray-dataclass >=3.0.0",
+            # !!! NO "numpy >=2.0.0",
+            # OK xarray >=2022.3",
+            # OK "typing-extensions >=4.10.0"
+    # OK spatialdata 0.5.0 has requirement multiscale-spatial-image>=2.0.3, but you have multiscale-spatial-image 2.0.2.
+        # ok spatialdata 0.4.0 has multiscale_spatial_image>=2.0.2
+    # ok "import xarray_spatial"': FAIL -> xrspatial
+    # ok import PIMS"': FAIL
+
+
+builddependencies = [
+    # ('hatchling', '1.27.0'),
+    ('poetry', '1.8.3'),
+]
+
 dependencies = [
     ('Python', '3.12.3'),
     ('SciPy-bundle', '2024.05'),
@@ -23,6 +73,7 @@ dependencies = [
     ('Pillow', '10.4.0'),
     ('scikit-image', '0.25.0'),
     ('imagecodecs', '2024.12.30'),
+    # ('PyYAML', '6.0.2'),
     ('tqdm', '4.66.5'),
     ('zarr', '2.18.4'),
     ('geopandas', '1.0.1'),
@@ -54,6 +105,10 @@ exts_list = [
     ('pytest_mock', '3.15.1', {
         'checksums': ['1849a238f6f396da19762269de72cb1814ab44416fa73a8686deac10b0d87a0f'],
     }),
+    # ('fast_array_utils', '1.2.3', {
+    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+    #     'checksums': ['639c35e79a4800d28284c63693888be1bc607314dd367e1d7e6f182f574aff28'],
+    # }),
     ('packaging', '25.0', {
         'checksums': ['d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f'],
     }),
@@ -92,11 +147,22 @@ exts_list = [
         'checksums': ['faf19801c3742ed5a05a8ce388e0d8fe1a07f8d095c82201eb904f5d27ad571f'],
     }),
     ('pims', '0.7', {
+        # 'modulename': 'PIMS',
         'checksums': ['55907a4c301256086d2aa4e34a5361b9109f24e375c2071e1117b9491e82946b'],
     }),
     ('ome-zarr', '0.9.0', {
         'checksums': ['01392f1d1fc54d6b819a0125c99550c14ab89a24e1fccdfd58f09a2c4f2326dc'],
     }),
+    # ('universal_pathlib', '0.2.6', {
+    #     'modulename': 'upath',
+    #     'checksums': ['50817aaeaa9f4163cb1e76f5bdf84207fa05ce728b23fd779479b3462e5430ac'],
+    # }),
+    # ('narwhals', '2.18.0', {
+    #     'checksums': ['1de5cee338bc17c338c6278df2c38c0dd4290499fcf70d75e0a51d5f22a6e960'],
+    # }),
+    # ('annsel', '0.1.2', {
+    #     'checksums': ['a9ab14495f3e28c216a5cb74f918542710ac82e22bb04db57af233bbbf536da8'],
+    # }),
     ('xarray_spatial', '0.9.2', {
         'modulename': 'xrspatial',
         'checksums': ['3bcad0b7d469552cb86a955da76fb8f349a74283d288c4c63e319d92b88b8d3b'],
@@ -137,3 +203,52 @@ exts_list = [
 ]
 
 moduleclass = 'bio'
+
+# ET1
+    # test cmd: pytest -v -n 8 tests/read/test_visium.py tests/utils/test_parallelize.py tests/graph/test_spatial_neighbors.py tests/graph/test_nhood.py
+        # stuck for 15h -> no output
+        # pytest -v -n 8 tests/read/test_visium.py -> OK
+        # pytest -v -n 8 tests/utils/test_parallelize.py -> FAILED 6/12 - timeouts -> do not run this it is buggy
+        # pytest -v -n 8 tests/graph/test_spatial_neighbors.py -> OK
+        # pytest -v -n 8 tests/graph/test_nhood.py -> Failed 5/13 -> ImportError: Please install the igraph package -> add python-igraph
+
+# DEPS_E1 OK
+    # spatialdata-0.5.0 -> spatial_image>=1.2.3 -> xarray-dataclass >=3.0.0 -> numpy >=2.0.0  ->
+    # -> Go for older spatialdata -> v0.4.0 -> spatial_image>=1.1.0 -> xarray-dataclasses>=1.1.0 !!! different from xarray-dataclass !!!! -> xarray-dataclasses-1.9.1 looks ok:
+        # python = ">=3.8, <3.14"
+        # numpy = [
+        #     { version = ">=1.22, <1.25", python = ">=3.8, <3.9" },
+        #     { version = ">=1.22, <3.0", python = ">=3.9, <3.14" },
+        # ]
+        # typing-extensions = "^4.0"
+        # xarray = [
+        #     { version = ">=2022.3, <2023.2", python = ">=3.8, <3.9" },
+        #     { version = ">=2022.3, <2025.0", python = ">=3.9, <3.14" },
+        # ]
+    # Deps spatialdata-0.5.0:
+        # "anndata>=0.9.1",
+        # "click",
+        # "dask-image",
+        # "dask>=2024.4.1,<=2024.11.2",
+        # "datashader",
+        # "fsspec",
+        # "geopandas>=0.14",
+        # "multiscale_spatial_image>=2.0.3",
+        # "networkx",
+        # "numba>=0.55.0",
+        # "numpy",
+        # "ome_zarr>=0.8.4",
+        # "pandas",
+        # "pooch",
+        # "pyarrow",
+        # "rich",
+        # "setuptools",
+        # "shapely>=2.0.1",
+        # "spatial_image>=1.2.3",
+        # "scikit-image",
+        # "scipy",
+        # "typing_extensions>=4.8.0",
+        # "xarray>=2024.10.0",
+        # "xarray-schema",
+        # "xarray-spatial>=0.3.5",
+        # "zarr<3",
