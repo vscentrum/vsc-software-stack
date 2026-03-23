@@ -1,0 +1,61 @@
+Processing /tmp/vsc47063/easybuild/build/GADOPT/4.1.0-2026-3-12/foss-2025b/gadopt/g-adopt-a781c12a05d57395b5c53a7899b102eea71028ad
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × Preparing metadata (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [43 lines of output]
+      Traceback (most recent call last):
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 389, in <module>
+          main()
+          ~~~~^^
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 373, in main
+          json_out["return_val"] = hook(**hook_input["kwargs"])
+                                   ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 175, in prepare_metadata_for_build_wheel
+          return hook(metadata_directory, config_settings)
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/setuptools/80.10.1-GCCcore-14.3.0/lib/python3.13/site-packages/setuptools/build_meta.py", line 378, in prepare_metadata_for_build_wheel
+          self.run_setup()
+          ~~~~~~~~~~~~~~^^
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/setuptools/80.10.1-GCCcore-14.3.0/lib/python3.13/site-packages/setuptools/build_meta.py", line 317, in run_setup
+          exec(code, locals())
+          ~~~~^^^^^^^^^^^^^^^^
+        File "<string>", line 1, in <module>
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/setuptools/80.10.1-GCCcore-14.3.0/lib/python3.13/site-packages/setuptools/__init__.py", line 117, in setup
+          return distutils.core.setup(**attrs)  # type: ignore[return-value]
+                 ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/setuptools/80.10.1-GCCcore-14.3.0/lib/python3.13/site-packages/setuptools/_distutils/core.py", line 148, in setup
+          _setup_distribution = dist = klass(attrs)
+                                       ~~~~~^^^^^^^
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/setuptools/80.10.1-GCCcore-14.3.0/lib/python3.13/site-packages/setuptools/dist.py", line 321, in __init__
+          _Distribution.__init__(self, dist_attrs)
+          ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/setuptools/80.10.1-GCCcore-14.3.0/lib/python3.13/site-packages/setuptools/_distutils/dist.py", line 309, in __init__
+          self.finalize_options()
+          ~~~~~~~~~~~~~~~~~~~~~^^
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/setuptools/80.10.1-GCCcore-14.3.0/lib/python3.13/site-packages/setuptools/dist.py", line 790, in finalize_options
+          ep(self)
+          ~~^^^^^^
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/site-packages/setuptools_scm/_integration/setuptools.py", line 119, in infer_version
+          config = _config.Configuration.from_file(dist_name=dist_name)
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/site-packages/setuptools_scm/_config.py", line 133, in from_file
+          return cls.from_data(relative_to=relative_to, data=args)
+                 ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL9/zen4-ib/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/site-packages/setuptools_scm/_config.py", line 147, in from_data
+          return cls(
+              relative_to=relative_to,
+          ...<2 lines>...
+              **data,
+          )
+      TypeError: Configuration.__init__() got an unexpected keyword argument 'scm'
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.

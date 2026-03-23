@@ -48,6 +48,9 @@ local_preinstallopts = 'export CMAKE_ARGS="-DTPL_BLAS_LIBRARIES=$EBROOTFLEXIBLAS
 local_preinstallopts += '-DTPL_LAPACK_LIBRARIES=$EBROOTFLEXIBLAS/lib/libflexiblas.so"; '
 
 exts_list = [
+    ('setuptools_scm', '9.2.2', {
+        'checksums': ['1c674ab4665686a0887d7e24c03ab25f24201c213e82ea689d2f3e169ef7ef57'],
+    }),
     ('pyroltrilinos', '0.5.6', {
         'modulename': 'ROL',
         'preinstallopts': local_preinstallopts,
@@ -61,7 +64,7 @@ exts_list = [
         }],
         # 'testinstall': True,
         # 'runtest': 'pytest -v tests',
-        'checksums': ['989183871b8ea3c05deb25d4774b810b873da9c4c259bca7f4c80320d03ef7eb'],
+        'checksums': ['78e8e140be4875f2588c3da162a606134538e6d99f36e79a658c3552d7ee0631'],
     }),
 ]
 

@@ -9,6 +9,26 @@ description = """Single-cell architecture surgery (scArches) is a package for re
  data."""
 
 toolchain = {'name': 'foss', 'version': '2024a'}
+## DEPS:
+    # "scanpy>=1.6.0",
+    # "anndata>=0.7.4",
+    # "scHPL>=1.0.0",
+    # "h5py>=2.10.0",
+    # "torch>=1.8.0",
+    # "numpy>=1.19.2",
+    # "scipy>=1.5.2",
+    # "scikit-learn>=0.23.2",
+    # "matplotlib>=3.3.1",
+    # "pandas>=1.1.2",
+    # "scvi-tools>=0.12.1",
+    # "tqdm>=4.56.0",
+    # "requests",
+    # "gdown",
+    # "leidenalg",  # TODO: set version criteria
+    # "muon",
+    # ok gdown 5.1.0 requires beautifulsoup4, which is not installed.
+    # ok? schpl 1.0.5 has requirement newick~=1.0.0, but you have newick 1.9.0.
+    # ok? schpl 1.0.5 has requirement pandas<2,>=1.1.2, but you have pandas 2.2.2.
 
 builddependencies = [('hatchling', '1.24.2')]
 dependencies = [
@@ -44,7 +64,7 @@ exts_list = [
         'checksums': ['3eb62b2e65b1faba04b7bcb86f7bf6967a6301866a605551211b8f14fd27eced'],
     }),
     (name, version, {
-        'runtest': 'pytest -v tests',
+        'runtest': "pytest -v tests",
         'testinstall': True,
         'checksums': ['187463c25781d5c5586c129ad137d96327a9f8604d530a696d5f568a9225d77c'],
     }),
