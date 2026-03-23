@@ -1,49 +1,48 @@
 easyblock = 'PythonBundle'
 
 name = 'scib-metrics'
-# version = '0.5.1'
+version = '0.5.9'
 
 homepage = 'https://scib-metrics.readthedocs.io'
 description = "Accelerated and Python-only metrics for benchmarking single-cell integration outputs"
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
-builddependencies = [
-    # ('hatchling', '1.18.0'),
-    # ('poetry', '1.5.1'),
-]
+builddependencies = [('hatchling', '1.24.2')]
 dependencies = [
-    # ('Python', '3.11.3'),
-    # ('SciPy-bundle', '2023.07'),
-    # ('anndata', '0.10.5.post1'),
-    # ('jax', '0.4.25'),
-    # ('scikit-learn', '1.3.1'),
-    # ('scanpy', '1.9.8'),
-    # ('python-igraph', '0.11.4'),
-    # ('matplotlib', '3.7.2'),
-    # ('tqdm', '4.66.1'),
-    # ('umap-learn', '0.5.5'),
+    ('Python', '3.12.3'),
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('matplotlib', '3.9.2'),
+    ('anndata', '0.11.4'),
+    ('jax', '0.6.2'),
+    ('scikit-learn', '1.5.2'),
+    ('scanpy', '1.10.4'),
+    ('python-igraph', '0.11.9'),
+    ('tqdm', '4.66.5'),
+    ('umap-learn', '0.5.7'),
+    ('scib', '1.1.7'),
+    ('coverage', '7.6.12'),
 ]
 
 exts_list = [
-    # ('toolz', '0.12.1', {
-    #     'checksums': ['ecca342664893f177a13dac0e6b41cbd8ac25a358e5f215316d43e2100224f4d'],
-    # }),
-    # ('plottable', '0.1.5', {
-    #     'checksums': ['235d762a31c82129dc5bf74205c103a14b1e4393d0f921cc0231be5de884041d'],
-    # }),
-    # ('pynndescent', '0.5.11', {
-    #     'checksums': ['6f44ced9d5a9da2c87d9b2fff30bb5308540c0657605e4d5cde7ed3275bbad50'],
-    # }),
-    # ('rich', '13.7.1', {
-    #     'checksums': ['9be308cb1fe2f1f57d67ce99e95af38a1e2bc71ad9813b0e247cf7ffbcc3a432'],
-    # }),
-    # ('chex', '0.1.86', {
-    #     'checksums': ['e8b0f96330eba4144659e1617c0f7a57b161e8cbb021e55c6d5056c7378091d1'],
-    # }),
+    ('harmonypy', '0.1.0', {
+        'checksums': ['fed68f5f6a1e370f87078ba7e7e297ac37971338eee4efa85c12614defe6b12c'],
+    }),
+    ('toolz', '1.0.0', {
+        'checksums': ['2c86e3d9a04798ac556793bced838816296a2f085017664e4995cb40a1047a02'],
+    }),
+    ('plottable', '0.1.5', {
+        'checksums': ['235d762a31c82129dc5bf74205c103a14b1e4393d0f921cc0231be5de884041d'],
+    }),
+    ('chex', '0.1.90', {
+        'checksums': ['d3c375aeb6154b08f1cccd2bee4ed83659ee2198a6acf1160d2fe2e4a6c87b5c'],
+    }),
     (name, version, {
+        'runtest': "JAX_ENABLE_X64=True pytest -v tests",
+        'testinstall': True,
         'sources': ['scib_metrics-%(version)s.tar.gz'],
-        'checksums': ['74d10251acf1c11402b994faf063e55317881d7950fb78f6cef011d232a1e266'],
+        'checksums': ['60458403fac9b09b1f678d19b1663df118867d9d8a28bf31f657b604811f2591'],
     }),
 ]
 

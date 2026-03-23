@@ -1,0 +1,382 @@
+======================================================== test session starts =========================================================
+platform linux -- Python 3.12.3, pytest-8.2.2, pluggy-1.5.0 -- /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default' -> database=DirectoryBasedExampleDatabase(PosixPath('/tmp/vsc47063/easybuild/build/scibmetrics/0.5.9/foss-2024a-CUDA-12.6.0/scibmetrics/scib_metrics-0.5.9/.hypothesis/examples'))
+rootdir: /tmp/vsc47063/easybuild/build/scibmetrics/0.5.9/foss-2024a-CUDA-12.6.0/scibmetrics/scib_metrics-0.5.9
+configfile: pyproject.toml
+plugins: hypothesis-6.103.1, xdist-3.6.1
+collecting ... collected 69 items
+
+tests/test_BRAS_metric.py::test_silhouette_samples_cosine PASSED                                                               [  1%]
+tests/test_BRAS_metric.py::test_silhouette_samples_nearest PASSED                                                              [  2%]
+tests/test_BRAS_metric.py::test_silhouette_samples_mean_other PASSED                                                           [  4%]
+tests/test_BRAS_metric.py::test_silhouette_samples_furthest PASSED                                                             [  5%]
+tests/test_BRAS_metric.py::test_silhouette_label PASSED                                                                        [  7%]
+tests/test_BRAS_metric.py::test_silhouette_label_cosine PASSED                                                                 [  8%]
+tests/test_BRAS_metric.py::test_bras PASSED                                                                                    [ 10%]
+tests/test_BRAS_metric.py::test_silhouette_batch_default PASSED                                                                [ 11%]
+tests/test_BRAS_metric.py::test_silhouette_batch_cosine PASSED                                                                 [ 13%]
+tests/test_BRAS_metric.py::test_silhouette_batch_nearest PASSED                                                                [ 14%]
+tests/test_BRAS_metric.py::test_silhouette_batch_cosine_nearest PASSED                                                         [ 15%]
+tests/test_BRAS_metric.py::test_silhouette_batch_furthest PASSED                                                               [ 17%]
+tests/test_BRAS_metric.py::test_silhouette_batch_cosine_furthest PASSED                                                        [ 18%]
+tests/test_BRAS_metric.py::test_silhouette_batch_mean_other PASSED                                                             [ 20%]
+tests/test_BRAS_metric.py::test_silhouette_batch_cosine_mean_other PASSED                                                      [ 21%]
+tests/test_benchmarker.py::test_benchmarker PASSED                                                                             [ 23%]
+tests/test_benchmarker.py::test_benchmarker_default PASSED                                                                     [ 24%]
+tests/test_benchmarker.py::test_benchmarker_custom_metric_booleans PASSED                                                      [ 26%]
+tests/test_benchmarker.py::test_benchmarker_custom_metric_callable PASSED                                                      [ 27%]
+tests/test_benchmarker.py::test_benchmarker_custom_near_neighs PASSED                                                          [ 28%]
+tests/test_benchmarker.py::test_benchmarker_different_solvers[arpack] PASSED                                                   [ 30%]
+tests/test_benchmarker.py::test_benchmarker_different_solvers[randomized] PASSED                                               [ 31%]
+tests/test_metrics.py::test_package_has_version PASSED                                                                         [ 33%]
+tests/test_metrics.py::test_cdist PASSED                                                                                       [ 34%]
+tests/test_metrics.py::test_cdist_cosine PASSED                                                                                [ 36%]
+tests/test_metrics.py::test_pdist PASSED                                                                                       [ 37%]
+tests/test_metrics.py::test_silhouette_samples PASSED                                                                          [ 39%]
+tests/test_metrics.py::test_silhouette_label PASSED                                                                            [ 40%]
+tests/test_metrics.py::test_silhouette_batch PASSED                                                                            [ 42%]
+tests/test_metrics.py::test_compute_simpson_index PASSED                                                                       [ 43%]
+tests/test_metrics.py::test_lisi_knn[30] PASSED                                                                                [ 44%]
+tests/test_metrics.py::test_lisi_knn[60] PASSED                                                                                [ 46%]
+tests/test_metrics.py::test_lisi_knn[72] PASSED                                                                                [ 47%]
+tests/test_metrics.py::test_ilisi_clisi_knn PASSED                                                                             [ 49%]
+tests/test_metrics.py::test_nmi_ari_cluster_labels_kmeans PASSED                                                               [ 50%]
+tests/test_metrics.py::test_nmi_ari_cluster_labels_leiden_parallel PASSED                                                      [ 52%]
+tests/test_metrics.py::test_nmi_ari_cluster_labels_leiden_single_resolution PASSED                                             [ 53%]
+tests/test_metrics.py::test_nmi_ari_cluster_labels_leiden_reproducibility PASSED                                               [ 55%]
+tests/test_metrics.py::test_leiden_graph_construction PASSED                                                                   [ 56%]
+tests/test_metrics.py::test_isolated_labels PASSED                                                                             [ 57%]
+tests/test_metrics.py::test_kmeans PASSED                                                                                      [ 59%]
+tests/test_metrics.py::test_kbet PASSED                                                                                        [ 60%]
+tests/test_metrics.py::test_kbet_per_label PASSED                                                                              [ 62%]
+tests/test_metrics.py::test_graph_connectivity PASSED                                                                          [ 63%]
+tests/test_neighbors.py::test_jax_neighbors PASSED                                                                             [ 65%]
+tests/test_neighbors.py::test_neighbors_results[5] PASSED                                                                      [ 66%]
+tests/test_neighbors.py::test_neighbors_results[10] PASSED                                                                     [ 68%]
+tests/test_neighbors.py::test_neighbors_results[20] PASSED                                                                     [ 69%]
+tests/test_neighbors.py::test_neighbors_results[21] PASSED                                                                     [ 71%]
+tests/test_pcr_comparison.py::test_pcr_comparison[100-100-False] PASSED                                                        [ 72%]
+tests/test_pcr_comparison.py::test_pcr_comparison[100-100-True] PASSED                                                         [ 73%]
+tests/utils/test_pca.py::test_pca[10-10] PASSED                                                                                [ 75%]
+tests/utils/test_pca.py::test_pca[10-100] PASSED                                                                               [ 76%]
+tests/utils/test_pca.py::test_pca[10-1000] PASSED                                                                              [ 78%]
+tests/utils/test_pca.py::test_pca[100-10] PASSED                                                                               [ 79%]
+tests/utils/test_pca.py::test_pca[100-100] PASSED                                                                              [ 81%]
+tests/utils/test_pca.py::test_pca[100-1000] FAILED                                                                             [ 82%]
+tests/utils/test_pca.py::test_pca[1000-10] PASSED                                                                              [ 84%]
+tests/utils/test_pca.py::test_pca[1000-100] FAILED                                                                             [ 85%]
+tests/utils/test_pca.py::test_pca[1000-1000] FAILED                                                                            [ 86%]
+tests/utils/test_pcr.py::test_pcr[10-10-False] PASSED                                                                          [ 88%]
+tests/utils/test_pcr.py::test_pcr[10-100-False] PASSED                                                                         [ 89%]
+tests/utils/test_pcr.py::test_pcr[10-1000-False] PASSED                                                                        [ 91%]
+tests/utils/test_pcr.py::test_pcr[100-10-False] PASSED                                                                         [ 92%]
+tests/utils/test_pcr.py::test_pcr[100-100-False] PASSED                                                                        [ 94%]
+tests/utils/test_pcr.py::test_pcr[100-1000-False] PASSED                                                                       [ 95%]
+tests/utils/test_pcr.py::test_pcr[1000-10-False] PASSED                                                                        [ 97%]
+tests/utils/test_pcr.py::test_pcr[1000-100-False] PASSED                                                                       [ 98%]
+tests/utils/test_pcr.py::test_pcr[1000-1000-False] PASSED                                                                      [100%]
+
+============================================================== FAILURES ==============================================================
+_________________________________________________________ test_pca[100-1000] _________________________________________________________
+
+n_obs = 100, n_vars = 1000
+
+    @pytest.mark.parametrize("n_obs, n_vars", PCA_PARAMS)
+    def test_pca(n_obs: int, n_vars: int):
+        def _test_pca(n_obs: int, n_vars: int, n_components: int, eps: float = 1e-4):
+            X = poisson_sample(n_obs, n_vars)
+            max_components = min(X.shape)
+            pca = scib_metrics.utils.pca(X, n_components=n_components, return_svd=True)
+    
+            # SANITY CHECKS
+            assert pca.coordinates.shape == (X.shape[0], n_components)
+            assert pca.components.shape == (n_components, X.shape[1])
+            assert pca.variance.shape == (n_components,)
+            assert pca.variance_ratio.shape == (n_components,)
+            # SVD should not be truncated to n_components
+            assert pca.svd is not None
+            assert pca.svd.u.shape == (X.shape[0], max_components)
+            assert pca.svd.s.shape == (max_components,)
+            assert pca.svd.v.shape == (max_components, X.shape[1])
+    
+            # VALUE CHECKS
+            # TODO(martinkim0): Currently not checking coordinates and components,
+            # TODO(martinkim0): implementations differ very slightly and not sure why.
+            pca_true = PCA(n_components=n_components, svd_solver="full").fit(X)
+            # assert np.allclose(pca_true.transform(X), pca.coordinates, atol=eps)
+            # assert np.allclose(pca_true.components_, pca.components, atol=eps)
+            assert np.allclose(pca_true.singular_values_, pca.svd.s[:n_components], atol=eps)
+            assert np.allclose(pca_true.explained_variance_, pca.variance, atol=eps)
+            assert np.allclose(pca_true.explained_variance_ratio_, pca.variance_ratio, atol=eps)
+            # Use arpack iff n_components < max_components
+            if n_components < max_components:
+                pca_true = PCA(n_components=n_components, svd_solver="arpack").fit(X)
+                # assert jnp.allclose(pca_true.transform(X), pca.coordinates, atol=eps)
+                # assert jnp.allclose(pca_true.components_, pca.components, atol=eps)
+                assert jnp.allclose(pca_true.singular_values_, pca.svd.s[:n_components], atol=eps)
+                assert jnp.allclose(pca_true.explained_variance_, pca.variance, atol=eps)
+                assert jnp.allclose(pca_true.explained_variance_ratio_, pca.variance_ratio, atol=eps)
+    
+        max_components = min(n_obs, n_vars)
+>       _test_pca(n_obs, n_vars, n_components=max_components)
+
+tests/utils/test_pca.py:51: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+n_obs = 100, n_vars = 1000, n_components = 100, eps = 0.0001
+
+    def _test_pca(n_obs: int, n_vars: int, n_components: int, eps: float = 1e-4):
+        X = poisson_sample(n_obs, n_vars)
+        max_components = min(X.shape)
+        pca = scib_metrics.utils.pca(X, n_components=n_components, return_svd=True)
+    
+        # SANITY CHECKS
+        assert pca.coordinates.shape == (X.shape[0], n_components)
+        assert pca.components.shape == (n_components, X.shape[1])
+        assert pca.variance.shape == (n_components,)
+        assert pca.variance_ratio.shape == (n_components,)
+        # SVD should not be truncated to n_components
+        assert pca.svd is not None
+        assert pca.svd.u.shape == (X.shape[0], max_components)
+        assert pca.svd.s.shape == (max_components,)
+        assert pca.svd.v.shape == (max_components, X.shape[1])
+    
+        # VALUE CHECKS
+        # TODO(martinkim0): Currently not checking coordinates and components,
+        # TODO(martinkim0): implementations differ very slightly and not sure why.
+        pca_true = PCA(n_components=n_components, svd_solver="full").fit(X)
+        # assert np.allclose(pca_true.transform(X), pca.coordinates, atol=eps)
+        # assert np.allclose(pca_true.components_, pca.components, atol=eps)
+        assert np.allclose(pca_true.singular_values_, pca.svd.s[:n_components], atol=eps)
+>       assert np.allclose(pca_true.explained_variance_, pca.variance, atol=eps)
+E       AssertionError: assert False
+E        +  where False = <function allclose at 0x150bc8a5c930>(array([1.71415455e+01, 1.66532937e+01, 1.63987380e+01, 1.61055110e+01,\n       1.59740716e+01, 1.52895329e+01, 1.52031440e+01, 1.51510667e+01,\n       1.49048284e+01, 1.47179655e+01, 1.44392101e+01, 1.44059909e+01,\n       1.43391820e+01, 1.40571507e+01, 1.39965353e+01, 1.35929895e+01,\n       1.34617097e+01, 1.34372846e+01, 1.33024067e+01, 1.32253680e+01,\n       1.31462289e+01, 1.29338221e+01, 1.28520107e+01, 1.28146979e+01,\n       1.27227469e+01, 1.25623932e+01, 1.24304714e+01, 1.21318039e+01,\n       1.20912139e+01, 1.19125627e+01, 1.18041825e+01, 1.16851564e+01,\n       1.15040977e+01, 1.13806627e+01, 1.12199187e+01, 1.10498389e+01,\n       1.10071699e+01, 1.08292134e+01, 1.07428554e+01, 1.06810267e+01,\n       1.05875591e+01, 1.05052758e+01, 1.04136038e+01, 1.02845217e+01,\n       1.01741794e+01, 1.01062781e+01, 9.85187950e+00, 9.78873321e+00,\n       9.65462523e+00, 9.62903006e+00, 9.49363973e+00, 9.39653178e+00,\n       9.29125385e+00, 9.21176987e+00, 9.14164097e+00, 9.01344035e+00,\n       8.92932392e+00, 8.78447233e+00, 8.72780763e+00, 8.67544825e+00,\n       8.60437477e+00, 8.54576222e+00, 8.43067242e+00, 8.32823420e+00,\n       8.26875296e+00, 8.24648260e+00, 8.08120367e+00, 8.05955678e+00,\n       7.95821625e+00, 7.88587793e+00, 7.70850905e+00, 7.60564647e+00,\n       7.49584410e+00, 7.45927615e+00, 7.40582192e+00, 7.28734852e+00,\n       7.22117277e+00, 7.17863347e+00, 6.99096402e+00, 6.88025947e+00,\n       6.83607701e+00, 6.73625774e+00, 6.67880629e+00, 6.65523396e+00,\n       6.57087666e+00, 6.47799161e+00, 6.25167758e+00, 6.11858766e+00,\n       6.05625912e+00, 5.89230006e+00, 5.79864482e+00, 5.78034904e+00,\n       5.57865173e+00, 5.50776400e+00, 5.45738971e+00, 5.43656170e+00,\n       5.20093012e+00, 5.07968392e+00, 4.77283512e+00, 3.63083617e-30]), array([1.71418552e+01, 1.66535339e+01, 1.63991108e+01, 1.61056938e+01,\n       1.59743919e+01, 1.52896690e+01, 1.52030916e+01, 1.51510248e+01,\n       1.49049501e+01, 1.47181072e+01, 1.44394484e+01, 1.44062452e+01,\n       1.43392448e+01, 1.40573635e+01, 1.39967136e+01, 1.35932150e+01,\n       1.34618587e+01, 1.34373703e+01, 1.33025789e+01, 1.32254753e+01,\n       1.31464844e+01, 1.29339972e+01, 1.28521147e+01, 1.28148966e+01,\n       1.27229710e+01, 1.25625544e+01, 1.24306583e+01, 1.21319714e+01,\n       1.20913086e+01, 1.19127226e+01, 1.18041983e+01, 1.16853371e+01,\n       1.15041552e+01, 1.13808088e+01, 1.12201080e+01, 1.10499735e+01,\n       1.10072870e+01, 1.08293638e+01, 1.07429571e+01, 1.06812124e+01,\n       1.05878010e+01, 1.05054760e+01, 1.04137287e+01, 1.02846708e+01,\n       1.01743174e+01, 1.01064968e+01, 9.85202885e+00, 9.78892136e+00,\n       9.65475178e+00, 9.62923336e+00, 9.49370766e+00, 9.39666176e+00,\n       9.29145908e+00, 9.21196175e+00, 9.14184189e+00, 9.01352596e+00,\n       8.92942905e+00, 8.78460598e+00, 8.72788715e+00, 8.67557335e+00,\n       8.60443115e+00, 8.54590416e+00, 8.43079948e+00, 8.32835388e+00,\n       8.26887894e+00, 8.24658680e+00, 8.08132458e+00, 8.05971432e+00,\n       7.95834923e+00, 7.88599253e+00, 7.70854425e+00, 7.60578585e+00,\n       7.49598885e+00, 7.45929956e+00, 7.40591669e+00, 7.28740788e+00,\n       7.22120047e+00, 7.17866707e+00, 6.99109173e+00, 6.88029766e+00,\n       6.83617735e+00, 6.73642349e+00, 6.67890215e+00, 6.65533590e+00,\n       6.57097149e+00, 6.47809505e+00, 6.25178528e+00, 6.11871767e+00,\n       6.05627489e+00, 5.89244604e+00, 5.79879379e+00, 5.78044462e+00,\n       5.57873678e+00, 5.50784063e+00, 5.45747375e+00, 5.43670654e+00,\n       5.20104504e+00, 5.07978153e+00, 4.77295732e+00, 1.45458060e-12],\n      dtype=float32), atol=0.0001)
+E        +    where <function allclose at 0x150bc8a5c930> = np.allclose
+E        +    and   array([1.71415455e+01, 1.66532937e+01, 1.63987380e+01, 1.61055110e+01,\n       1.59740716e+01, 1.52895329e+01, 1.52031440e+01, 1.51510667e+01,\n       1.49048284e+01, 1.47179655e+01, 1.44392101e+01, 1.44059909e+01,\n       1.43391820e+01, 1.40571507e+01, 1.39965353e+01, 1.35929895e+01,\n       1.34617097e+01, 1.34372846e+01, 1.33024067e+01, 1.32253680e+01,\n       1.31462289e+01, 1.29338221e+01, 1.28520107e+01, 1.28146979e+01,\n       1.27227469e+01, 1.25623932e+01, 1.24304714e+01, 1.21318039e+01,\n       1.20912139e+01, 1.19125627e+01, 1.18041825e+01, 1.16851564e+01,\n       1.15040977e+01, 1.13806627e+01, 1.12199187e+01, 1.10498389e+01,\n       1.10071699e+01, 1.08292134e+01, 1.07428554e+01, 1.06810267e+01,\n       1.05875591e+01, 1.05052758e+01, 1.04136038e+01, 1.02845217e+01,\n       1.01741794e+01, 1.01062781e+01, 9.85187950e+00, 9.78873321e+00,\n       9.65462523e+00, 9.62903006e+00, 9.49363973e+00, 9.39653178e+00,\n       9.29125385e+00, 9.21176987e+00, 9.14164097e+00, 9.01344035e+00,\n       8.92932392e+00, 8.78447233e+00, 8.72780763e+00, 8.67544825e+00,\n       8.60437477e+00, 8.54576222e+00, 8.43067242e+00, 8.32823420e+00,\n       8.26875296e+00, 8.24648260e+00, 8.08120367e+00, 8.05955678e+00,\n       7.95821625e+00, 7.88587793e+00, 7.70850905e+00, 7.60564647e+00,\n       7.49584410e+00, 7.45927615e+00, 7.40582192e+00, 7.28734852e+00,\n       7.22117277e+00, 7.17863347e+00, 6.99096402e+00, 6.88025947e+00,\n       6.83607701e+00, 6.73625774e+00, 6.67880629e+00, 6.65523396e+00,\n       6.57087666e+00, 6.47799161e+00, 6.25167758e+00, 6.11858766e+00,\n       6.05625912e+00, 5.89230006e+00, 5.79864482e+00, 5.78034904e+00,\n       5.57865173e+00, 5.50776400e+00, 5.45738971e+00, 5.43656170e+00,\n       5.20093012e+00, 5.07968392e+00, 4.77283512e+00, 3.63083617e-30]) = PCA(n_components=100, svd_solver='full').explained_variance_
+E        +    and   array([1.71418552e+01, 1.66535339e+01, 1.63991108e+01, 1.61056938e+01,\n       1.59743919e+01, 1.52896690e+01, 1.52030916e+01, 1.51510248e+01,\n       1.49049501e+01, 1.47181072e+01, 1.44394484e+01, 1.44062452e+01,\n       1.43392448e+01, 1.40573635e+01, 1.39967136e+01, 1.35932150e+01,\n       1.34618587e+01, 1.34373703e+01, 1.33025789e+01, 1.32254753e+01,\n       1.31464844e+01, 1.29339972e+01, 1.28521147e+01, 1.28148966e+01,\n       1.27229710e+01, 1.25625544e+01, 1.24306583e+01, 1.21319714e+01,\n       1.20913086e+01, 1.19127226e+01, 1.18041983e+01, 1.16853371e+01,\n       1.15041552e+01, 1.13808088e+01, 1.12201080e+01, 1.10499735e+01,\n       1.10072870e+01, 1.08293638e+01, 1.07429571e+01, 1.06812124e+01,\n       1.05878010e+01, 1.05054760e+01, 1.04137287e+01, 1.02846708e+01,\n       1.01743174e+01, 1.01064968e+01, 9.85202885e+00, 9.78892136e+00,\n       9.65475178e+00, 9.62923336e+00, 9.49370766e+00, 9.39666176e+00,\n       9.29145908e+00, 9.21196175e+00, 9.14184189e+00, 9.01352596e+00,\n       8.92942905e+00, 8.78460598e+00, 8.72788715e+00, 8.67557335e+00,\n       8.60443115e+00, 8.54590416e+00, 8.43079948e+00, 8.32835388e+00,\n       8.26887894e+00, 8.24658680e+00, 8.08132458e+00, 8.05971432e+00,\n       7.95834923e+00, 7.88599253e+00, 7.70854425e+00, 7.60578585e+00,\n       7.49598885e+00, 7.45929956e+00, 7.40591669e+00, 7.28740788e+00,\n       7.22120047e+00, 7.17866707e+00, 6.99109173e+00, 6.88029766e+00,\n       6.83617735e+00, 6.73642349e+00, 6.67890215e+00, 6.65533590e+00,\n       6.57097149e+00, 6.47809505e+00, 6.25178528e+00, 6.11871767e+00,\n       6.05627489e+00, 5.89244604e+00, 5.79879379e+00, 5.78044462e+00,\n       5.57873678e+00, 5.50784063e+00, 5.45747375e+00, 5.43670654e+00,\n       5.20104504e+00, 5.07978153e+00, 4.77295732e+00, 1.45458060e-12],\n      dtype=float32) = _PCAResult(coordinates=array([[-1.4369415e+00, -3.6764414e+00, -2.1124952e+00, ...,\n         4.5501405e-01, -4.3664280e-01,  1.2000237e-06],\n       [-9.4095230e+00,  2.5013781e-01,  2.2635951e+00, ...,\n        -4.3337300e-01, -7.6524563e-02,  1.2000244e-06],\n       [-4.3452144e+00,  1.5209491e+00,  1.9929565e+00, ...,\n        -1.3812317e+00, -8.6743349e-01,  1.2000235e-06],\n       ...,\n       [-3.6582067e+00,  1.1866070e+00,  3.2951508e+00, ...,\n         7.8886366e-01,  1.2941601e+00,  1.2000229e-06],\n       [ 2.9672420e-01, -8.1876526e+00, -2.9757352e+00, ...,\n        -2.6450503e+00, -1.9235256e+00,  1.2000236e-06],\n       [-4.4283509e+00, -2.6711535e+00,  2.5138915e+00, ...,\n         3.5438471e+00,  4.3061671e+00,  1.2000232e-06]], dtype=float32), components=array([[ 0.03379381,  0.02527985, -0.03142063, ..., -0.02860895,\n        -0.03340242, -0.03545036],\n       [ 0.00889728,  0.00299481,  0.02515736, ..., -0.01575529,\n         0.04111363,  0.0293207 ],\n       [ 0.01762275, -0.02119357,  0.02160063, ...,  0.03900312,\n        -0.0267104 , -0.0380432 ],\n       ...,\n       [-0.00819718,  0.03483632, -0.01745509, ..., -0.01622654,\n         0.01477412,  0.05974581],\n       [-0.0001...332e+01,\n       2.8069139e+01, 2.7941246e+01, 2.7625095e+01, 2.7440350e+01,\n       2.7241566e+01, 2.7174816e+01, 2.7077402e+01, 2.6859884e+01,\n       2.6737593e+01, 2.6658733e+01, 2.6308138e+01, 2.6098841e+01,\n       2.6015026e+01, 2.5824522e+01, 2.5714029e+01, 2.5668623e+01,\n       2.5505415e+01, 2.5324522e+01, 2.4878239e+01, 2.4612051e+01,\n       2.4486143e+01, 2.4152685e+01, 2.3959978e+01, 2.3922041e+01,\n       2.3500956e+01, 2.3351151e+01, 2.3244137e+01, 2.3199869e+01,\n       2.2691484e+01, 2.2425396e+01, 2.1737589e+01, 1.2000145e-05],\n      dtype=float32), v=array([[ 0.03379381,  0.02527985, -0.03142063, ..., -0.02860895,\n        -0.03340242, -0.03545036],\n       [ 0.00889728,  0.00299481,  0.02515736, ..., -0.01575529,\n         0.04111363,  0.0293207 ],\n       [ 0.01762275, -0.02119357,  0.02160063, ...,  0.03900312,\n        -0.0267104 , -0.0380432 ],\n       ...,\n       [-0.00819718,  0.03483632, -0.01745509, ..., -0.01622654,\n         0.01477412,  0.05974581],\n       [-0.00010991, -0.0843171 ,  0.01946463, ..., -0.02106882,\n        -0.01533006, -0.01254532],\n       [ 0.01881195,  0.03872452,  0.02301779, ..., -0.00630077,\n         0.02258326,  0.03174095]], dtype=float32))).variance
+
+tests/utils/test_pca.py:39: AssertionError
+_________________________________________________________ test_pca[1000-100] _________________________________________________________
+
+n_obs = 1000, n_vars = 100
+
+    @pytest.mark.parametrize("n_obs, n_vars", PCA_PARAMS)
+    def test_pca(n_obs: int, n_vars: int):
+        def _test_pca(n_obs: int, n_vars: int, n_components: int, eps: float = 1e-4):
+            X = poisson_sample(n_obs, n_vars)
+            max_components = min(X.shape)
+            pca = scib_metrics.utils.pca(X, n_components=n_components, return_svd=True)
+    
+            # SANITY CHECKS
+            assert pca.coordinates.shape == (X.shape[0], n_components)
+            assert pca.components.shape == (n_components, X.shape[1])
+            assert pca.variance.shape == (n_components,)
+            assert pca.variance_ratio.shape == (n_components,)
+            # SVD should not be truncated to n_components
+            assert pca.svd is not None
+            assert pca.svd.u.shape == (X.shape[0], max_components)
+            assert pca.svd.s.shape == (max_components,)
+            assert pca.svd.v.shape == (max_components, X.shape[1])
+    
+            # VALUE CHECKS
+            # TODO(martinkim0): Currently not checking coordinates and components,
+            # TODO(martinkim0): implementations differ very slightly and not sure why.
+            pca_true = PCA(n_components=n_components, svd_solver="full").fit(X)
+            # assert np.allclose(pca_true.transform(X), pca.coordinates, atol=eps)
+            # assert np.allclose(pca_true.components_, pca.components, atol=eps)
+            assert np.allclose(pca_true.singular_values_, pca.svd.s[:n_components], atol=eps)
+            assert np.allclose(pca_true.explained_variance_, pca.variance, atol=eps)
+            assert np.allclose(pca_true.explained_variance_ratio_, pca.variance_ratio, atol=eps)
+            # Use arpack iff n_components < max_components
+            if n_components < max_components:
+                pca_true = PCA(n_components=n_components, svd_solver="arpack").fit(X)
+                # assert jnp.allclose(pca_true.transform(X), pca.coordinates, atol=eps)
+                # assert jnp.allclose(pca_true.components_, pca.components, atol=eps)
+                assert jnp.allclose(pca_true.singular_values_, pca.svd.s[:n_components], atol=eps)
+                assert jnp.allclose(pca_true.explained_variance_, pca.variance, atol=eps)
+                assert jnp.allclose(pca_true.explained_variance_ratio_, pca.variance_ratio, atol=eps)
+    
+        max_components = min(n_obs, n_vars)
+>       _test_pca(n_obs, n_vars, n_components=max_components)
+
+tests/utils/test_pca.py:51: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+n_obs = 1000, n_vars = 100, n_components = 100, eps = 0.0001
+
+    def _test_pca(n_obs: int, n_vars: int, n_components: int, eps: float = 1e-4):
+        X = poisson_sample(n_obs, n_vars)
+        max_components = min(X.shape)
+        pca = scib_metrics.utils.pca(X, n_components=n_components, return_svd=True)
+    
+        # SANITY CHECKS
+        assert pca.coordinates.shape == (X.shape[0], n_components)
+        assert pca.components.shape == (n_components, X.shape[1])
+        assert pca.variance.shape == (n_components,)
+        assert pca.variance_ratio.shape == (n_components,)
+        # SVD should not be truncated to n_components
+        assert pca.svd is not None
+        assert pca.svd.u.shape == (X.shape[0], max_components)
+        assert pca.svd.s.shape == (max_components,)
+        assert pca.svd.v.shape == (max_components, X.shape[1])
+    
+        # VALUE CHECKS
+        # TODO(martinkim0): Currently not checking coordinates and components,
+        # TODO(martinkim0): implementations differ very slightly and not sure why.
+        pca_true = PCA(n_components=n_components, svd_solver="full").fit(X)
+        # assert np.allclose(pca_true.transform(X), pca.coordinates, atol=eps)
+        # assert np.allclose(pca_true.components_, pca.components, atol=eps)
+>       assert np.allclose(pca_true.singular_values_, pca.svd.s[:n_components], atol=eps)
+E       AssertionError: assert False
+E        +  where False = <function allclose at 0x150bc8a5c930>(array([40.78778969, 40.60881509, 40.15094301, 39.90053409, 39.75704972,\n       39.46151946, 39.19088343, 38.48215462, 38.31784149, 37.96631187,\n       37.91176732, 37.66008025, 37.42312714, 37.32158659, 37.22633819,\n       36.84525378, 36.73172526, 36.48774606, 36.38033465, 36.23134274,\n       35.99226743, 35.63333812, 35.42104673, 35.27101677, 35.17150814,\n       34.88615167, 34.73304786, 34.62015547, 34.46359933, 34.24864413,\n       33.98564325, 33.91569699, 33.62925956, 33.48552753, 33.28402369,\n       33.15749471, 33.11087856, 32.83421569, 32.61955437, 32.51091621,\n       32.37801232, 32.21320609, 32.13689228, 32.07284959, 31.91962736,\n       31.71925224, 31.66050897, 31.36447102, 31.34040628, 31.14031152,\n       31.03463673, 30.95093602, 30.70705595, 30.58603302, 30.43765871,\n       30.28986189, 29.9597877 , 29.79366614, 29.59263719, 29.52664838,\n       29.43445451, 29.37006941, 29.201119  , 29.12154114, 28.7077357 ,\n       28.45962807, 28.33986674, 28.14149167, 28.08393407, 28.02185902,\n       27.80446113, 27.62372953, 27.49621244, 27.41542336, 27.17194857,\n       27.06341068, 26.81313948, 26.63038448, 26.52926901, 26.15653407,\n       26.15393461, 25.90531344, 25.79950189, 25.5569559 , 25.38188639,\n       25.12977953, 25.10224484, 24.94700958, 24.90080443, 24.46543807,\n       24.20724502, 24.0685034 , 23.87661696, 23.67308929, 23.31155291,\n       22.9738431 , 22.83717071, 22.74330002, 22.20250749, 21.65345699]), array([40.78796 , 40.609337, 40.151264, 39.90076 , 39.757317, 39.46199 ,\n       39.19098 , 38.48221 , 38.318043, 37.966415, 37.911877, 37.660244,\n       37.423206, 37.321968, 37.226746, 36.845493, 36.731968, 36.488026,\n       36.380756, 36.23146 , 35.99217 , 35.633625, 35.421345, 35.271168,\n       35.171864, 34.88639 , 34.733288, 34.620422, 34.46367 , 34.248554,\n       33.985924, 33.916008, 33.629665, 33.48586 , 33.2841  , 33.15772 ,\n       33.111195, 32.834476, 32.619907, 32.511253, 32.378326, 32.21344 ,\n       32.13721 , 32.073013, 31.919662, 31.71944 , 31.660774, 31.364502,\n       31.340641, 31.140543, 31.034927, 30.95111 , 30.707258, 30.586422,\n       30.43781 , 30.290194, 29.960003, 29.793768, 29.59287 , 29.526875,\n       29.434662, 29.370289, 29.201216, 29.121588, 28.70796 , 28.459864,\n       28.340065, 28.141792, 28.08414 , 28.02216 , 27.804697, 27.623964,\n       27.49651 , 27.415709, 27.172123, 27.063671, 26.813398, 26.630577,\n       26.529419, 26.156752, 26.154215, 25.905546, 25.799725, 25.557234,\n       25.382027, 25.130045, 25.102476, 24.947283, 24.900978, 24.465576,\n       24.20739 , 24.068687, 23.876791, 23.673288, 23.311646, 22.974077,\n       22.837454, 22.74354 , 22.202723, 21.653635], dtype=float32), atol=0.0001)
+E        +    where <function allclose at 0x150bc8a5c930> = np.allclose
+E        +    and   array([40.78778969, 40.60881509, 40.15094301, 39.90053409, 39.75704972,\n       39.46151946, 39.19088343, 38.48215462, 38.31784149, 37.96631187,\n       37.91176732, 37.66008025, 37.42312714, 37.32158659, 37.22633819,\n       36.84525378, 36.73172526, 36.48774606, 36.38033465, 36.23134274,\n       35.99226743, 35.63333812, 35.42104673, 35.27101677, 35.17150814,\n       34.88615167, 34.73304786, 34.62015547, 34.46359933, 34.24864413,\n       33.98564325, 33.91569699, 33.62925956, 33.48552753, 33.28402369,\n       33.15749471, 33.11087856, 32.83421569, 32.61955437, 32.51091621,\n       32.37801232, 32.21320609, 32.13689228, 32.07284959, 31.91962736,\n       31.71925224, 31.66050897, 31.36447102, 31.34040628, 31.14031152,\n       31.03463673, 30.95093602, 30.70705595, 30.58603302, 30.43765871,\n       30.28986189, 29.9597877 , 29.79366614, 29.59263719, 29.52664838,\n       29.43445451, 29.37006941, 29.201119  , 29.12154114, 28.7077357 ,\n       28.45962807, 28.33986674, 28.14149167, 28.08393407, 28.02185902,\n       27.80446113, 27.62372953, 27.49621244, 27.41542336, 27.17194857,\n       27.06341068, 26.81313948, 26.63038448, 26.52926901, 26.15653407,\n       26.15393461, 25.90531344, 25.79950189, 25.5569559 , 25.38188639,\n       25.12977953, 25.10224484, 24.94700958, 24.90080443, 24.46543807,\n       24.20724502, 24.0685034 , 23.87661696, 23.67308929, 23.31155291,\n       22.9738431 , 22.83717071, 22.74330002, 22.20250749, 21.65345699]) = PCA(n_components=100, svd_solver='full').singular_values_
+
+tests/utils/test_pca.py:38: AssertionError
+________________________________________________________ test_pca[1000-1000] _________________________________________________________
+
+n_obs = 1000, n_vars = 1000
+
+    @pytest.mark.parametrize("n_obs, n_vars", PCA_PARAMS)
+    def test_pca(n_obs: int, n_vars: int):
+        def _test_pca(n_obs: int, n_vars: int, n_components: int, eps: float = 1e-4):
+            X = poisson_sample(n_obs, n_vars)
+            max_components = min(X.shape)
+            pca = scib_metrics.utils.pca(X, n_components=n_components, return_svd=True)
+    
+            # SANITY CHECKS
+            assert pca.coordinates.shape == (X.shape[0], n_components)
+            assert pca.components.shape == (n_components, X.shape[1])
+            assert pca.variance.shape == (n_components,)
+            assert pca.variance_ratio.shape == (n_components,)
+            # SVD should not be truncated to n_components
+            assert pca.svd is not None
+            assert pca.svd.u.shape == (X.shape[0], max_components)
+            assert pca.svd.s.shape == (max_components,)
+            assert pca.svd.v.shape == (max_components, X.shape[1])
+    
+            # VALUE CHECKS
+            # TODO(martinkim0): Currently not checking coordinates and components,
+            # TODO(martinkim0): implementations differ very slightly and not sure why.
+            pca_true = PCA(n_components=n_components, svd_solver="full").fit(X)
+            # assert np.allclose(pca_true.transform(X), pca.coordinates, atol=eps)
+            # assert np.allclose(pca_true.components_, pca.components, atol=eps)
+            assert np.allclose(pca_true.singular_values_, pca.svd.s[:n_components], atol=eps)
+            assert np.allclose(pca_true.explained_variance_, pca.variance, atol=eps)
+            assert np.allclose(pca_true.explained_variance_ratio_, pca.variance_ratio, atol=eps)
+            # Use arpack iff n_components < max_components
+            if n_components < max_components:
+                pca_true = PCA(n_components=n_components, svd_solver="arpack").fit(X)
+                # assert jnp.allclose(pca_true.transform(X), pca.coordinates, atol=eps)
+                # assert jnp.allclose(pca_true.components_, pca.components, atol=eps)
+                assert jnp.allclose(pca_true.singular_values_, pca.svd.s[:n_components], atol=eps)
+                assert jnp.allclose(pca_true.explained_variance_, pca.variance, atol=eps)
+                assert jnp.allclose(pca_true.explained_variance_ratio_, pca.variance_ratio, atol=eps)
+    
+        max_components = min(n_obs, n_vars)
+>       _test_pca(n_obs, n_vars, n_components=max_components)
+
+tests/utils/test_pca.py:51: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+n_obs = 1000, n_vars = 1000, n_components = 1000, eps = 0.0001
+
+    def _test_pca(n_obs: int, n_vars: int, n_components: int, eps: float = 1e-4):
+        X = poisson_sample(n_obs, n_vars)
+        max_components = min(X.shape)
+        pca = scib_metrics.utils.pca(X, n_components=n_components, return_svd=True)
+    
+        # SANITY CHECKS
+        assert pca.coordinates.shape == (X.shape[0], n_components)
+        assert pca.components.shape == (n_components, X.shape[1])
+        assert pca.variance.shape == (n_components,)
+        assert pca.variance_ratio.shape == (n_components,)
+        # SVD should not be truncated to n_components
+        assert pca.svd is not None
+        assert pca.svd.u.shape == (X.shape[0], max_components)
+        assert pca.svd.s.shape == (max_components,)
+        assert pca.svd.v.shape == (max_components, X.shape[1])
+    
+        # VALUE CHECKS
+        # TODO(martinkim0): Currently not checking coordinates and components,
+        # TODO(martinkim0): implementations differ very slightly and not sure why.
+        pca_true = PCA(n_components=n_components, svd_solver="full").fit(X)
+        # assert np.allclose(pca_true.transform(X), pca.coordinates, atol=eps)
+        # assert np.allclose(pca_true.components_, pca.components, atol=eps)
+>       assert np.allclose(pca_true.singular_values_, pca.svd.s[:n_components], atol=eps)
+E       AssertionError: assert False
+E        +  where False = <function allclose at 0x150bc8a5c930>(array([6.35611648e+01, 6.28786291e+01, 6.23446315e+01, 6.20710593e+01,\n       6.18359291e+01, 6.14572309e+01, 6.13951670e+01, 6.12161266e+01,\n       6.09718935e+01, 6.05982367e+01, 6.03832440e+01, 6.01169926e+01,\n       6.00593155e+01, 6.00441656e+01, 5.98535301e+01, 5.98199423e+01,\n       5.94715321e+01, 5.93497647e+01, 5.91668344e+01, 5.89995840e+01,\n       5.88884817e+01, 5.88342562e+01, 5.86689250e+01, 5.85770913e+01,\n       5.85080427e+01, 5.84479727e+01, 5.83249563e+01, 5.81201154e+01,\n       5.79210213e+01, 5.78320957e+01, 5.77087862e+01, 5.76975899e+01,\n       5.74945868e+01, 5.74082509e+01, 5.73349474e+01, 5.70779639e+01,\n       5.70098177e+01, 5.68798832e+01, 5.67739989e+01, 5.66692670e+01,\n       5.65546446e+01, 5.64857587e+01, 5.64359990e+01, 5.62824500e+01,\n       5.61920727e+01, 5.61597387e+01, 5.60463565e+01, 5.58328164e+01,\n       5.57593014e+01, 5.55353346e+01, 5.54559091e+01, 5.52939289e+01,\n       5.51911052e+01, 5.50885219e+01, 5.49355230e+01, 5.49120369e+01,\n       5.48450543e+01, 5.46540821e+01, 5.45910707e+01, 5.45483210e+01,\n       5.44285977e+01, 5.43275272e+01, 5.41992109e+01, 5.41370714e+01,\n       5.39354030e+01, 5.38593828e+01, 5.38032583e+01, 5.36897....33036262e+00, 3.25915167e+00, 3.23215470e+00, 3.18472799e+00,\n       3.16833713e+00, 3.10444984e+00, 3.07632630e+00, 3.01418229e+00,\n       2.92105905e+00, 2.88377979e+00, 2.78969645e+00, 2.75795779e+00,\n       2.68508413e+00, 2.60895460e+00, 2.58743659e+00, 2.56160032e+00,\n       2.51076221e+00, 2.46209915e+00, 2.34859400e+00, 2.30885449e+00,\n       2.24894415e+00, 2.21174333e+00, 2.16778553e+00, 2.11425920e+00,\n       2.08837626e+00, 2.04851917e+00, 2.02553236e+00, 2.01040794e+00,\n       1.92681696e+00, 1.82140227e+00, 1.80197674e+00, 1.79101324e+00,\n       1.73821883e+00, 1.70085696e+00, 1.57460478e+00, 1.52813831e+00,\n       1.51470478e+00, 1.45283701e+00, 1.41155867e+00, 1.38752628e+00,\n       1.32191098e+00, 1.29134334e+00, 1.23296851e+00, 1.19597415e+00,\n       1.09060521e+00, 1.05598567e+00, 1.00323295e+00, 9.49374550e-01,\n       9.39981420e-01, 8.42614674e-01, 8.29404859e-01, 7.94234665e-01,\n       7.40561455e-01, 6.74065271e-01, 6.52051445e-01, 5.86275538e-01,\n       5.05931083e-01, 4.56895122e-01, 3.97087410e-01, 3.69939990e-01,\n       3.15917596e-01, 3.08518431e-01, 2.42061968e-01, 1.80841293e-01,\n       1.46785617e-01, 1.18735293e-01, 7.89261571e-02, 2.79803900e-14]), array([6.35696487e+01, 6.28863602e+01, 6.23428612e+01, 6.20742416e+01,\n       6.18371773e+01, 6.14608574e+01, 6.13976479e+01, 6.12191429e+01,\n       6.09750862e+01, 6.06016426e+01, 6.03869591e+01, 6.01234169e+01,\n       6.00646324e+01, 6.00511513e+01, 5.98583260e+01, 5.98241882e+01,\n       5.94787331e+01, 5.93562088e+01, 5.91723404e+01, 5.90056305e+01,\n       5.88959503e+01, 5.88414192e+01, 5.86739159e+01, 5.85820618e+01,\n       5.85131493e+01, 5.84546204e+01, 5.83314972e+01, 5.81250992e+01,\n       5.79246597e+01, 5.78377686e+01, 5.77149544e+01, 5.77040787e+01,\n       5.75014534e+01, 5.74160881e+01, 5.73405190e+01, 5.70840378e+01,\n       5.70158272e+01, 5.68853798e+01, 5.67798309e+01, 5.66775246e+01,\n       5.65623817e+01, 5.64924507e+01, 5.64438286e+01, 5.62893372e+01,\n       5.61973534e+01, 5.61674690e+01, 5.60515633e+01, 5.58377228e+01,\n       5.57637558e+01, 5.55386810e+01, 5.54604645e+01, 5.52975807e+01,\n       5.51962471e+01, 5.50944099e+01, 5.49423485e+01, 5.49167480e+01,\n       5.48507385e+01, 5.46582565e+01, 5.45983353e+01, 5.45557175e+01,\n       5.44334145e+01, 5.43295937e+01, 5.42013245e+01, 5.41391792e+01,\n       5.39378166e+01, 5.38629723e+01, 5.38068199e+01, 5.36946...1222e+00, 3.23273206e+00, 3.18527055e+00,\n       3.16880393e+00, 3.10501552e+00, 3.07683921e+00, 3.01453662e+00,\n       2.92153692e+00, 2.88421202e+00, 2.79006457e+00, 2.75828552e+00,\n       2.68552375e+00, 2.60939288e+00, 2.58783460e+00, 2.56193018e+00,\n       2.51115823e+00, 2.46251059e+00, 2.34905910e+00, 2.30924797e+00,\n       2.24934459e+00, 2.21216512e+00, 2.16815233e+00, 2.11459422e+00,\n       2.08874178e+00, 2.04890108e+00, 2.02592349e+00, 2.01079154e+00,\n       1.92704499e+00, 1.82158875e+00, 1.80225039e+00, 1.79126108e+00,\n       1.73846495e+00, 1.70107353e+00, 1.57485819e+00, 1.52839839e+00,\n       1.51490104e+00, 1.45309496e+00, 1.41176748e+00, 1.38777542e+00,\n       1.32213843e+00, 1.29157960e+00, 1.23315811e+00, 1.19613576e+00,\n       1.09081578e+00, 1.05619144e+00, 1.00338829e+00, 9.49520946e-01,\n       9.40090656e-01, 8.42642963e-01, 8.29524219e-01, 7.94297755e-01,\n       7.40632176e-01, 6.74166441e-01, 6.52154088e-01, 5.86374938e-01,\n       5.06010711e-01, 4.56927061e-01, 3.97136986e-01, 3.69977504e-01,\n       3.15953970e-01, 3.08564305e-01, 2.42087364e-01, 1.80866748e-01,\n       1.46805972e-01, 1.18753508e-01, 7.89359212e-02, 6.74717796e-07],\n      dtype=float32), atol=0.0001)
+E        +    where <function allclose at 0x150bc8a5c930> = np.allclose
+E        +    and   array([6.35611648e+01, 6.28786291e+01, 6.23446315e+01, 6.20710593e+01,\n       6.18359291e+01, 6.14572309e+01, 6.13951670e+01, 6.12161266e+01,\n       6.09718935e+01, 6.05982367e+01, 6.03832440e+01, 6.01169926e+01,\n       6.00593155e+01, 6.00441656e+01, 5.98535301e+01, 5.98199423e+01,\n       5.94715321e+01, 5.93497647e+01, 5.91668344e+01, 5.89995840e+01,\n       5.88884817e+01, 5.88342562e+01, 5.86689250e+01, 5.85770913e+01,\n       5.85080427e+01, 5.84479727e+01, 5.83249563e+01, 5.81201154e+01,\n       5.79210213e+01, 5.78320957e+01, 5.77087862e+01, 5.76975899e+01,\n       5.74945868e+01, 5.74082509e+01, 5.73349474e+01, 5.70779639e+01,\n       5.70098177e+01, 5.68798832e+01, 5.67739989e+01, 5.66692670e+01,\n       5.65546446e+01, 5.64857587e+01, 5.64359990e+01, 5.62824500e+01,\n       5.61920727e+01, 5.61597387e+01, 5.60463565e+01, 5.58328164e+01,\n       5.57593014e+01, 5.55353346e+01, 5.54559091e+01, 5.52939289e+01,\n       5.51911052e+01, 5.50885219e+01, 5.49355230e+01, 5.49120369e+01,\n       5.48450543e+01, 5.46540821e+01, 5.45910707e+01, 5.45483210e+01,\n       5.44285977e+01, 5.43275272e+01, 5.41992109e+01, 5.41370714e+01,\n       5.39354030e+01, 5.38593828e+01, 5.38032583e+01, 5.36897....33036262e+00, 3.25915167e+00, 3.23215470e+00, 3.18472799e+00,\n       3.16833713e+00, 3.10444984e+00, 3.07632630e+00, 3.01418229e+00,\n       2.92105905e+00, 2.88377979e+00, 2.78969645e+00, 2.75795779e+00,\n       2.68508413e+00, 2.60895460e+00, 2.58743659e+00, 2.56160032e+00,\n       2.51076221e+00, 2.46209915e+00, 2.34859400e+00, 2.30885449e+00,\n       2.24894415e+00, 2.21174333e+00, 2.16778553e+00, 2.11425920e+00,\n       2.08837626e+00, 2.04851917e+00, 2.02553236e+00, 2.01040794e+00,\n       1.92681696e+00, 1.82140227e+00, 1.80197674e+00, 1.79101324e+00,\n       1.73821883e+00, 1.70085696e+00, 1.57460478e+00, 1.52813831e+00,\n       1.51470478e+00, 1.45283701e+00, 1.41155867e+00, 1.38752628e+00,\n       1.32191098e+00, 1.29134334e+00, 1.23296851e+00, 1.19597415e+00,\n       1.09060521e+00, 1.05598567e+00, 1.00323295e+00, 9.49374550e-01,\n       9.39981420e-01, 8.42614674e-01, 8.29404859e-01, 7.94234665e-01,\n       7.40561455e-01, 6.74065271e-01, 6.52051445e-01, 5.86275538e-01,\n       5.05931083e-01, 4.56895122e-01, 3.97087410e-01, 3.69939990e-01,\n       3.15917596e-01, 3.08518431e-01, 2.42061968e-01, 1.80841293e-01,\n       1.46785617e-01, 1.18735293e-01, 7.89261571e-02, 2.79803900e-14]) = PCA(n_components=1000, svd_solver='full').singular_values_
+
+tests/utils/test_pca.py:38: AssertionError
+========================================================== warnings summary ==========================================================
+tests/test_BRAS_metric.py: 36 warnings
+  /tmp/vsc47063/easybuild/build/scibmetrics/0.5.9/foss-2024a-CUDA-12.6.0/scibmetrics/scib_metrics-0.5.9/tests/test_BRAS_metric.py:141: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+    same_cluster = cluster_labels == cluster_labels[i]
+
+tests/test_BRAS_metric.py: 36 warnings
+  /tmp/vsc47063/easybuild/build/scibmetrics/0.5.9/foss-2024a-CUDA-12.6.0/scibmetrics/scib_metrics-0.5.9/tests/test_BRAS_metric.py:142: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+    other_clusters = cluster_labels != cluster_labels[i]
+
+tests/test_BRAS_metric.py: 36 warnings
+  /tmp/vsc47063/easybuild/build/scibmetrics/0.5.9/foss-2024a-CUDA-12.6.0/scibmetrics/scib_metrics-0.5.9/tests/test_BRAS_metric.py:144: FutureWarning: Series.__setitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To set a value by position, use `ser.iloc[pos] = value`
+    same_cluster[i] = False
+
+tests/test_BRAS_metric.py: 16 warnings
+  /tmp/vsc47063/easybuild/build/scibmetrics/0.5.9/foss-2024a-CUDA-12.6.0/scibmetrics/scib_metrics-0.5.9/tests/test_BRAS_metric.py:173: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+    if label != cluster_labels[i]
+
+tests/test_BRAS_metric.py::test_silhouette_batch_furthest
+tests/test_BRAS_metric.py::test_silhouette_batch_furthest
+tests/test_BRAS_metric.py::test_silhouette_batch_furthest
+tests/test_BRAS_metric.py::test_silhouette_batch_furthest
+tests/test_BRAS_metric.py::test_silhouette_batch_cosine_furthest
+tests/test_BRAS_metric.py::test_silhouette_batch_cosine_furthest
+tests/test_BRAS_metric.py::test_silhouette_batch_cosine_furthest
+tests/test_BRAS_metric.py::test_silhouette_batch_cosine_furthest
+  /tmp/vsc47063/easybuild/build/scibmetrics/0.5.9/foss-2024a-CUDA-12.6.0/scibmetrics/scib_metrics-0.5.9/tests/test_BRAS_metric.py:159: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+    if label != cluster_labels[i]
+
+tests/test_benchmarker.py: 7 warnings
+tests/utils/test_pcr.py: 36 warnings
+  /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/scanpy/1.10.4-foss-2024a/lib/python3.12/site-packages/scanpy/preprocessing/_pca.py:374: FutureWarning: Argument `use_highly_variable` is deprecated, consider using the mask argument. Use_highly_variable=True can be called through mask_var="highly_variable". Use_highly_variable=False can be called through mask_var=None
+    warn(msg, FutureWarning)
+
+tests/test_benchmarker.py: 30 warnings
+tests/test_metrics.py: 1 warning
+  /tmp/vsc47063/eb-8_66z49m/tmpxrcfp707/lib/python3.12/site-packages/scib_metrics/metrics/_graph_connectivity.py:32: FutureWarning: pandas.value_counts is deprecated and will be removed in a future version. Use pd.Series(obj).value_counts() instead.
+    tab = pd.value_counts(comps)
+
+tests/test_benchmarker.py: 35 warnings
+  /tmp/vsc47063/eb-8_66z49m/tmpxrcfp707/lib/python3.12/site-packages/scib_metrics/metrics/_pcr_comparison.py:49: UserWarning: PCR comparison score is negative, meaning variance contribution increased after integration. Setting to 0.
+    warnings.warn(
+
+tests/test_metrics.py::test_ilisi_clisi_knn
+tests/test_metrics.py::test_nmi_ari_cluster_labels_leiden_parallel
+tests/test_metrics.py::test_nmi_ari_cluster_labels_leiden_single_resolution
+tests/test_metrics.py::test_nmi_ari_cluster_labels_leiden_reproducibility
+tests/test_metrics.py::test_leiden_graph_construction
+tests/test_metrics.py::test_kbet
+tests/test_metrics.py::test_kbet_per_label
+tests/test_metrics.py::test_graph_connectivity
+  /apps/gent/RHEL9/cascadelake-ib/software/scikit-learn/1.5.2-gfbf-2024a/lib/python3.12/site-packages/sklearn/neighbors/_base.py:246: EfficiencyWarning: Precomputed sparse input was not sorted by row values. Use the function sklearn.neighbors.sort_graph_by_row_values to sort the input by row values, with warn_when_not_sorted=False to remove this warning.
+    warnings.warn(
+
+tests/test_metrics.py::test_nmi_ari_cluster_labels_leiden_parallel
+  /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/joblib/externals/loky/backend/fork_exec.py:38: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+    pid = os.fork()
+
+tests/test_metrics.py::test_nmi_ari_cluster_labels_leiden_parallel
+tests/test_metrics.py::test_nmi_ari_cluster_labels_leiden_parallel
+tests/test_metrics.py::test_nmi_ari_cluster_labels_leiden_parallel
+  /apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/joblib/externals/loky/backend/fork_exec.py:38: DeprecationWarning: This process (pid=354035) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    pid = os.fork()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+====================================================== short test summary info =======================================================
+FAILED tests/utils/test_pca.py::test_pca[100-1000] - AssertionError: assert False
+FAILED tests/utils/test_pca.py::test_pca[1000-100] - AssertionError: assert False
+FAILED tests/utils/test_pca.py::test_pca[1000-1000] - AssertionError: assert False
+======================================= 3 failed, 66 passed, 253 warnings in 359.99s (0:05:59) =======================================
