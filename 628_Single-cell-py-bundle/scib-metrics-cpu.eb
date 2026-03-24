@@ -8,7 +8,11 @@ description = "Accelerated and Python-only metrics for benchmarking single-cell 
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
-builddependencies = [('hatchling', '1.24.2')]
+builddependencies = [
+    ('hatchling', '1.24.2'),
+    ('scib', '1.1.7'),
+    ('coverage', '7.6.12'),
+]
 dependencies = [
     ('Python', '3.12.3'),
     ('Python', '3.12.3'),
@@ -21,9 +25,25 @@ dependencies = [
     ('python-igraph', '0.11.9'),
     ('tqdm', '4.66.5'),
     ('umap-learn', '0.5.7'),
-    ('scib', '1.1.7'),
-    ('coverage', '7.6.12'),
 ]
+
+# some PCA tests failing on precision without JAX float64
+_float64_tests_types = ['100-1000', '1000-100', '1000-1000']
+_float64_tests_list = [
+    f'tests/utils/test_pca.py::test_pca[{x}]'
+    for x in _float64_tests_types
+]
+_float64_tests = ' '.join(x for x in _float64_tests_list)
+_deselected_tests = ' '.join(
+    f'--deselect {x}'
+    for x in _float64_tests_list
+)
+local_test_cmd = (
+    'pytest -v tests '
+    f'{_deselected_tests} && '
+    'JAX_ENABLE_X64=1 pytest -v '
+    f'{_float64_tests}'
+)
 
 exts_list = [
     ('harmonypy', '0.1.0', {
@@ -39,7 +59,7 @@ exts_list = [
         'checksums': ['d3c375aeb6154b08f1cccd2bee4ed83659ee2198a6acf1160d2fe2e4a6c87b5c'],
     }),
     (name, version, {
-        'runtest': "JAX_ENABLE_X64=True pytest -v tests",
+        'runtest': local_test_cmd,
         'testinstall': True,
         'sources': ['scib_metrics-%(version)s.tar.gz'],
         'checksums': ['60458403fac9b09b1f678d19b1663df118867d9d8a28bf31f657b604811f2591'],

@@ -9,8 +9,31 @@ description = "Accelerated and Python-only metrics for benchmarking single-cell 
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
+## DEPS:
+    # OK "anndata",
+    # OK "chex",
+    # OK "jax",
+    # OK "jaxlib",
+    # OK "numpy",
+    # OK "pandas",
+    # OK "scipy",
+    # OK "scikit-learn",
+    # OK "scanpy>=1.9",
+    # OK "rich",
+    # OK "pynndescent", in umap-learn
+    # OK "igraph>0.9.0",
+    # OK "matplotlib",
+    # ok "plottable",
+    # OK "tqdm",
+    # OK "umap-learn>=0.5.0",
+    ## Tests:
+        # OK scib
+        # OK coverage
+        # ok harmonypy
+
 builddependencies = [
     ('hatchling', '1.24.2'),
+    # tests:
     ('scib', '1.1.7'),
     ('coverage', '7.6.12'),
 ]
@@ -31,8 +54,8 @@ dependencies = [
 # some PCA tests failing on precision without JAX float64
 _float64_tests_types = ['100-1000', '1000-100', '1000-1000']
 _float64_tests_list = [
-    f'tests/utils/test_pca.py::test_pca[{x}]'
-    for x in _float64_tests_types
+     f'tests/utils/test_pca.py::test_pca[{x}]'
+     for x in _float64_tests_types
 ]
 _float64_tests = ' '.join(x for x in _float64_tests_list)
 _deselected_tests = ' '.join(
