@@ -3,22 +3,26 @@ easyblock = 'PythonBundle'
 name = 'tangram-sc'
 version = '1.0.4'
 
-homepage = 'https://github.com/Phlya/adjustText'
-description = "A small library for automatically adjustment of text position in matplotlib plots to minimize overlaps."
+homepage = 'https://github.com/broadinstitute/Tangram'
+description = "Mapping single-cell (or single-nucleus) gene expression data onto spatial gene expression data."
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
 dependencies = [
-    # ('Python', '3.11.3'),
-    # ('matplotlib', '3.7.2'),
-    # ('SciPy-bundle', '2023.07'),
-    #pytorch
-    #scanpy
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('matplotlib', '3.9.2'),
+    ('PyTorch', '2.6.0'),
+    ('scanpy', '1.10.4'),
+    ('Seaborn', '0.13.2'),
+    ('scikit-learn', '1.5.2'),
+    ('tqdm', '4.66.5'),
 ]
 
 exts_list = [
     (name, version, {
-        'checksums': ['e2c0975ef2c642478e60f4c03c5e9afbdeda7764336907ef69a9205bfa2d9896'],
+        'modulename': 'tangram',
+        'checksums': ['6ced24573e288fa01a8070e3c7600058de51296bac1702515db87c310da6ac13'],
     }),
 ]
 
