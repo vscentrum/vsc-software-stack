@@ -1,0 +1,37 @@
+easyblock = 'PythonBundle'
+
+name = 'ipympl'
+version = '0.10.0'
+_jupyterlabver = '4.5.6'
+versionsuffix = f'-JupyterLab-{_jupyterlabver}'
+
+homepage = 'https://matplotlib.org/ipympl'
+description = """Leveraging the Jupyter interactive widgets framework, ipympl enables the
+interactive features of matplotlib in the Jupyter notebook and in JupyterLab.
+Besides, the figure canvas element is a proper Jupyter interactive widget which
+can be positioned in interactive widget layouts.
+"""
+
+toolchain = {'name': 'gfbf', 'version': '2025a'}
+
+builddependencies = [
+    ('hatch-jupyter-builder', '0.9.1'),
+    ('nodejs', '22.16.0'),
+]
+
+dependencies = [
+    ('Python', '3.13.1'),
+    ('JupyterLab', _jupyterlabver),
+    ('matplotlib', '3.10.3'),
+    ('Pillow', '11.3.0'),
+]
+
+exts_list = [
+    (name, version, {
+        'checksums': ['eda69602a010af2a42e8ebd069b0ee0dbe8df7fc69d7c1e8b99fece0a2fe613f'],
+    }),
+]
+
+modextrapaths = {'EB_ENV_JUPYTER_ROOT': ''}
+
+moduleclass = 'tools'
