@@ -1,0 +1,55 @@
+easyblock = 'Binary'
+
+name = 'BAMQuery'
+version = '1.0-2023-11-3'
+local_commit = '430414f'
+# versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/lemieux-lab/BamQuery'
+description = """BamQuery provides RNA-seq quantification for a given peptide (from 8 to 11 residues)
+in chosen RNA-seq samples (single or bulk)."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+# builddependencies = [('hatchling', '1.24.2')]
+dependencies = [
+    # ('CUDA', '12.6.0', '', SYSTEM),
+    ('Python', '3.12.3'),
+    # ('CUDA-Python', '12.6.2.post1', versionsuffix),
+    # ('RAPIDS', '24.10.0', versionsuffix),
+    # ('SciPy-bundle', '2024.05'),
+    # ('anndata', '0.11.4'),
+    # ('scanpy', '1.10.4'),
+    # ('scikit-misc', '0.5.1'),
+    # ('matplotlib', '3.9.2'),
+    # ('tqdm', '4.66.5'),
+    # ('statsmodels', '0.14.4'),
+    # ('scikit-image', '0.25.0'),
+]
+
+# local_test_cmd = (
+#     'pytest -v tests '
+#     # Dask tests spawn processes and open TCP ports
+#     '--ignore=tests/dask '
+#     # Multi-GPU neighbor tests
+#     '--ignore=tests/test_mg_neighbors.py '
+#     # Harmony tests download data at runtime
+#     '--ignore=tests/test_harmony.py '
+#     # Wrong API calls to scanpy from test_neighbors
+#     # from scanpy.neighbors._connectivity import jaccard as scanpy_jaccard
+#     '--ignore=tests/test_neighbors.py '
+#     # problem on A2 gpu
+#     # '-k "not float64 and not test_block_size_consistency" '
+# )
+
+exts_list = [
+    (name, version, {
+        'source_urls': ['https://github.com/lemieux-lab/BamQuery/archive'],
+        'sources': [{
+            'download_filename': f'{local_commit}.tar.gz',
+            'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz'
+        }],
+    }),
+]
+
+moduleclass = 'bio'
