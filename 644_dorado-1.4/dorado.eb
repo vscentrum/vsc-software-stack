@@ -53,42 +53,12 @@ preconfigopts = "sed -i '/OPENSSL_USE_STATIC_LIBS TRUE/d' ../dorado/cmake/OpenSS
 # link in the ssl and crypto libs, to fix:
 # undefined reference to symbol 'SSL_get_peer_certificate@@OPENSSL_1_1_0'
 preconfigopts += r"sed -i 's/OpenSSL::SSL/ssl\n    crypto/g' ../dorado/dorado/utils/CMakeLists.txt && "
-
 # replace dont_install_external_libraries.patch by sed cmd - use system CUDA
 preconfigopts += "sed -i '/install(FILES ${NATIVE_CUDA_LIBS} DESTINATION lib COMPONENT redist_libs)/d' "
 preconfigopts += "../dorado/cmake/InstallRedistLibs.cmake && "
-
 # disable treating warnings like errors by stripping out -Werror
 # cfr. https://github.com/nanoporetech/dorado/issues/779
 preconfigopts += "sed -i 's/-Werror//g' ../dorado/cmake/Warnings.cmake && "
-
-# preconfigopts += r"""cat > ../dorado/cmake/Htslib.cmake <<'EOF'
-# if(NOT TARGET htslib)
-#   find_package(htslib QUIET NO_MODULE)
-#   if(htslib_FOUND AND TARGET htslib::hts)
-#     add_library(htslib INTERFACE IMPORTED)
-#     target_link_libraries(htslib INTERFACE htslib::hts)
-#     message(STATUS "Using system htslib via config package")
-#   else()
-#     find_package(PkgConfig REQUIRED)
-#     pkg_check_modules(HTSLIB REQUIRED IMPORTED_TARGET htslib)
-#     add_library(htslib INTERFACE IMPORTED)
-#     target_link_libraries(htslib INTERFACE PkgConfig::HTSLIB)
-#     message(STATUS "Using system htslib via pkg-config")
-#   endif()
-# endif()
-# EOF
-# """
-
-# prebuildopts = (
-#     "sed -i "
-#     "'s/const auto gpu = GENERATE(true, false);/const auto gpu = GENERATE(false);/' "
-#     "../dorado/tests/NodeSmokeTest.cpp && "
-# )
-
-# prebuildopts = (
-#     r"sed -i -E 's/deleted = std::filesystem::remove_all(m_path);/deleted = 0;/' ../dorado/tests/TestUtils.h && "
-# )
 
 local_torch_root_py = 'import torch, pathlib; print(pathlib.Path(torch.__file__).resolve().parent)'
 configopts = ' '.join([
