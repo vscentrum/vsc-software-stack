@@ -1,0 +1,66 @@
+Test project /tmp/vsc47063/easybuild/build/dorado/1.4.0/foss-2025a-CUDA-12.8.0/easybuild_obj
+    Start 1: dorado_tests
+1/2 Test #1: dorado_tests .....................***Exception: SegFault 15.86 sec
+Randomness seeded to: 1177176015
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+dorado_tests is a Catch2 v3.8.0 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+HtsWriterTest: Write BAM
+-------------------------------------------------------------------------------
+/tmp/vsc47063/easybuild/build/dorado/1.4.0/foss-2025a-CUDA-12.8.0/dorado/tests/BamWriterTest.cpp:105
+...............................................................................
+
+/tmp/vsc47063/easybuild/build/dorado/1.4.0/foss-2025a-CUDA-12.8.0/dorado/tests/BamWriterTest.cpp:111: FAILED:
+  {Unknown expression after the reported line}
+due to a fatal error condition:
+  SIGSEGV - Segmentation violation signal
+
+===============================================================================
+test cases:   54 |   53 passed | 1 failed
+assertions: 1021 | 1020 passed | 1 failed
+
+
+    Start 2: dorado_smoke_tests
+2/2 Test #2: dorado_smoke_tests ...............***Exception: SegFault 11.86 sec
+Randomness seeded to: 3563089830
+[2026-03-27 12:27:44.229] [warning] Unknown certs location for current distribution. If you hit download issues, use the envvar `SSL_CERT_FILE` to specify the location manually.
+[2026-03-27 12:27:44.230] [info]  - downloading dna_r10.4.1_e8.2_400bps_fast@v4.2.0 with httplib
+[2026-03-27 12:27:46.317] [info] cuda:0 using chunk size 9996, batch size 128
+[2026-03-27 12:27:49.672] [info] cuda:0 using chunk size 4998, batch size 128
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+dorado_smoke_tests is a Catch2 v3.8.0 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+SmokeTest: BasecallerNode
+-------------------------------------------------------------------------------
+/tmp/vsc47063/easybuild/build/dorado/1.4.0/foss-2025a-CUDA-12.8.0/dorado/tests/NodeSmokeTest.cpp:175
+...............................................................................
+
+/tmp/vsc47063/easybuild/build/dorado/1.4.0/foss-2025a-CUDA-12.8.0/dorado/tests/NodeSmokeTest.cpp:181: FAILED:
+  {Unknown expression after the reported line}
+due to a fatal error condition:
+  gpu := true
+  pipeline_restart := false
+  model_name := "dna_r10.4.1_e8.2_400bps_fast@v4.2.0"
+  variable_chunk_sizes := false
+  SIGSEGV - Segmentation violation signal
+
+===============================================================================
+test cases:    2 |    1 passed | 1 failed
+assertions: 1008 | 1007 passed | 1 failed
+
+
+
+0% tests passed, 2 tests failed out of 2
+
+Total Test time (real) =  27.88 sec
+
+The following tests FAILED:
+	  1 - dorado_tests (SEGFAULT)
+	  2 - dorado_smoke_tests (SEGFAULT)
+Errors while running CTest
