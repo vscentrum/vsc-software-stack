@@ -29,25 +29,19 @@ dependencies = [
 components = [
     (name, version, {
         'easyblock': 'Tarball',
-        'sources': [
-            {
-                'source_urls': ['https://github.com/lemieux-lab/BamQuery/archive'],
-                'download_filename': f'{local_commit}.tar.gz',
-                'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz',
-                'extract_cmd': 'mkdir -p %(builddir)s/BamQuery && tar -xzf %s --strip-components=1 -C %(builddir)s/BamQuery',
-            },
-            # {
-            #     # https://bamquery.iric.ca/download/lib_essentials.tar.gz
-            #     'source_urls': ['https://bamquery.iric.ca/download/'],
-            #     'filename': 'lib_essentials.tar.gz',
-            #     'extract_cmd': 'mkdir -p %(installdir)s/lib && tar -xzf %s -C %(installdir)s/lib',
-            # },
-        ],
-        'patches': ['patch1.2.patch'],
+        'sources': [{
+            'source_urls': ['https://github.com/lemieux-lab/BamQuery/archive'],
+            'download_filename': f'{local_commit}.tar.gz',
+            'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz',
+            'extract_cmd': (
+                'mkdir -p %(builddir)s/%(name)s && tar -xzf %s --strip-components=1 -C %(builddir)s/%(name)s'
+            )
+        }],
+        'patches': ['BamQuery-1.0_fix-lib-path.patch'],
         'checksums': [
             {'BamQuery-1.0-2023-11-3-430414f.tar.gz':
              '02eff4c8a6ba80316282724f6f1658db331a5eeb24e527e7fe82d4ba16fbd240'},
-            {'patch1.2.patch': '035cb5c7357bba1330f8c9189c970ea428b2f6ffc5df0c5e82ce92edf9433b2b'},
+            {'BamQuery-1.0_fix-lib-path.patch': '035cb5c7357bba1330f8c9189c970ea428b2f6ffc5df0c5e82ce92edf9433b2b'},
         ],
     }),
 ]
@@ -67,27 +61,24 @@ exts_list = [
     }),
 ]
 
-# postinstallpatches = ['patch1.1.patch']
 postinstallcmds = [
-    # 'cp -r %(builddir)s/BamQuery/BamQuery* %(installdir)s/BamQuery',
+    # create bamquery executable from BamQuery.py script
     'mkdir -p %(installdir)s/bin',
     'echo "#!/usr/bin/env bash" > %(installdir)s/bin/bamquery',
     """echo 'exec python "$EBROOTBAMQUERY/BamQuery/BamQuery.py" "$@"' >> %(installdir)s/bin/bamquery""",
     'chmod 755 %(installdir)s/bin/bamquery',
+    # create lib dir structure in user's $HOME
     "mkdir -p $HOME/BamQuery/lib/genome_versions",
     "mkdir -p $HOME/BamQuery/lib/snps",
 ]
 
 sanity_check_paths = {
     'files': ['bin/bamquery'],
-    'dirs': ['lib/python%(pyshortver)s/site-packages', 'BamQuery'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages', '%(name)s'],
 }
 
-sanity_check_commands = [
-    'bamquery --help',
-]
+sanity_check_commands = ['bamquery --help']
 
-# BAMQUERY_LIB = $HOME/BamQuery/lib
 modextravars = {'BAMQUERY_LIB': '$HOME/BamQuery/lib'}
 
 modloadmsg = """

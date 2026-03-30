@@ -24,28 +24,28 @@ dependencies = [
     ('Biopython', '1.83'),
     ('dill', '0.3.7'),
     ('multiprocess', '0.70.15'),
+    ('openpyxl', '3.1.2'),
 ]
 
-# components = [
-#     (name, version, {
-#         'easyblock': 'Tarball',
-#         'sources': [
-#             {
-#                 'source_urls': ['https://github.com/lemieux-lab/BamQuery/archive'],
-#                 'download_filename': f'{local_commit}.tar.gz',
-#                 'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz',
-#                 'extract_cmd': 'mkdir -p %(installdir)s/BamQuery && tar -xzf %s --strip-components=1 -C %(installdir)s/BamQuery',
-#             },
-#             # {
-#             #     # https://bamquery.iric.ca/download/lib_essentials.tar.gz
-#             #     'source_urls': ['https://bamquery.iric.ca/download/'],
-#             #     'filename': 'lib_essentials.tar.gz',
-#             #     'extract_cmd': 'mkdir -p %(installdir)s/lib && tar -xzf %s -C %(installdir)s/lib',
-#             # },
-#         ],
-#         'checksums': ['02eff4c8a6ba80316282724f6f1658db331a5eeb24e527e7fe82d4ba16fbd240'],
-#     }),
-# ]
+components = [
+    (name, version, {
+        'easyblock': 'Tarball',
+        'sources': [{
+            'source_urls': ['https://github.com/lemieux-lab/BamQuery/archive'],
+            'download_filename': f'{local_commit}.tar.gz',
+            'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz',
+            'extract_cmd': (
+                'mkdir -p %(builddir)s/%(name)s && tar -xzf %s --strip-components=1 -C %(builddir)s/%(name)s'
+            )
+        }],
+        'patches': ['BamQuery-1.0_fix-lib-path.patch'],
+        'checksums': [
+            {'BamQuery-1.0-2023-11-3-430414f.tar.gz':
+             '02eff4c8a6ba80316282724f6f1658db331a5eeb24e527e7fe82d4ba16fbd240'},
+            {'BamQuery-1.0_fix-lib-path.patch': '035cb5c7357bba1330f8c9189c970ea428b2f6ffc5df0c5e82ce92edf9433b2b'},
+        ],
+    }),
+]
 
 exts_list = [
     ('ppft', '1.7.6.9', {
@@ -60,48 +60,58 @@ exts_list = [
     ('pathos', '0.3.1', {
         'checksums': ['c9a088021493c5cb627d4459bba6c0533c684199e271a5dc297d62be23d74019'],
     }),
-    (name, version, {
-        'modulename': False,
-        'use_pip': False,
-        'skipsteps': ['build', 'install'],
-        'source_urls': ['https://github.com/lemieux-lab/BamQuery/archive'],
-        'sources': [
-            {
-                'download_filename': f'{local_commit}.tar.gz',
-                'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz',
-                # 'extract_cmd': 'mkdir -p %(installdir)s/BamQuery && tar -xzf %s --strip-components=1 -C %(installdir)s/BamQuery',
-            },
-            # {
-            #     # https://bamquery.iric.ca/download/lib_essentials.tar.gz
-            #     'source_urls': ['https://bamquery.iric.ca/download/'],
-            #     'filename': 'lib_essentials.tar.gz',
-            #     'extract_cmd': 'mkdir -p %(installdir)s/lib && tar -xzf %s -C %(installdir)s/lib',
-            # },
-        ],
-        'patches': ['patch1.1.patch'],
-        'checksums': [
-            {'BamQuery-1.0-2023-11-3-430414f.tar.gz':
-             '02eff4c8a6ba80316282724f6f1658db331a5eeb24e527e7fe82d4ba16fbd240'},
-            {'patch1.1.patch': '9768ea81d1d06011775ac9f1fc57aedd233299149ecffece1cd5bd9e14581120'},
-        ],
-    }),
 ]
-# postinstallpatches = ['patch1.1.patch']
+
 postinstallcmds = [
-    'cp -r %(builddir)s/BamQuery/BamQuery* %(installdir)s/BamQuery',
+    # create bamquery executable from BamQuery.py script
     'mkdir -p %(installdir)s/bin',
     'echo "#!/usr/bin/env bash" > %(installdir)s/bin/bamquery',
     """echo 'exec python "$EBROOTBAMQUERY/BamQuery/BamQuery.py" "$@"' >> %(installdir)s/bin/bamquery""",
     'chmod 755 %(installdir)s/bin/bamquery',
+    # create lib dir structure in user's $HOME
+    "mkdir -p $HOME/BamQuery/lib/genome_versions",
+    "mkdir -p $HOME/BamQuery/lib/snps",
 ]
 
 sanity_check_paths = {
     'files': ['bin/bamquery'],
-    'dirs': ['lib/python%(pyshortver)s/site-packages', 'BamQuery'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages', '%(name)s'],
 }
 
-sanity_check_commands = [
-    'bamquery --help',
-]
+sanity_check_commands = ['bamquery --help']
+
+modextravars = {'BAMQUERY_LIB': '$HOME/BamQuery/lib'}
+
+modloadmsg = """
+Run BamQuery via:
+  bamquery
+rather than:
+  python BamQuery.py
+Launch the analysis:
+  bamquery path_to_input_folder name_exp genome_version
+
+BamQuery needs external library data after module load.
+
+Default location:
+  $HOME/BamQuery/lib
+This module sets:
+  BAMQUERY_LIB=$HOME/BamQuery/lib
+
+Download and extract the main library bundle:
+  wget https://bamquery.iric.ca/download/lib_essentials.tar.gz
+  tar -xzf lib_essentials.tar.gz --strip-components=1 -C $HOME/BamQuery/lib
+
+Download any additional genome/dbSNP archives from:
+  https://bamquery.iric.ca/download/
+
+Place them in:
+  $BAMQUERY_LIB/genome_versions/
+  $BAMQUERY_LIB/snps/
+
+You may override the location with:
+  export BAMQUERY_LIB=/path/to/BamQuery/lib
+
+The directory structure under BAMQUERY_LIB must remain compatible with the standard BamQuery lib layout.
+"""
 
 moduleclass = 'bio'
