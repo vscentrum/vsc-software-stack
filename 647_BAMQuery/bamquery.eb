@@ -40,21 +40,10 @@ exts_list = [
     (name, version, {
         'modulename': False,
         'use_pip': False,
-        # 'skipsteps': ['install'],
-        # with 'skipsteps': ['install'] and no buildcmd:
-            # python setup.py build
-        # with 'skipsteps': ['install'] and buildcmd: neco:
-            # python setup.py neco
-        # 'buildcmd': 'neco',
-        # 'skipsteps': ['build'],
-        # with 'skipsteps': ['build']:
-            # python setup.py install --prefix=
         'skipsteps': ['build', 'install'],
-        # with 'skipsteps': ['build', 'install']:
-            # it skips all the steps -> put other cmds to postinstallcmds
-        'source_urls': ['https://github.com/lemieux-lab/BamQuery/archive'],
         'sources': [
             {
+                'source_urls': ['https://github.com/lemieux-lab/BamQuery/archive'],
                 'download_filename': f'{local_commit}.tar.gz',
                 'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz',
                 'extract_cmd': 'mkdir -p %(installdir)s/BamQuery && tar -xzf %s --strip-components=1 -C %(installdir)s/BamQuery',
