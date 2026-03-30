@@ -28,7 +28,6 @@ dependencies = [
     ('Qtconsole', '5.6.0'),
     ('scikit-learn', '1.5.2'),
 ]
-
 local_runtest = 'pytest -v ' + ' '.join(
     f'cellbender/remove_background/tests/{x}'
     for x in [
@@ -43,6 +42,8 @@ local_runtest = 'pytest -v ' + ' '.join(
         'test_train.py',
     ]
 )
+# missing ckpt.tar.gz for test_integration.py::test_full_run[cpu]
+local_runtest += ' --deselect cellbender/remove_background/tests/test_integration.py::test_full_run[cpu]'
 
 exts_list = [
     ('traitlets', '5.14.3', {
