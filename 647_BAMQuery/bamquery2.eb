@@ -26,47 +26,12 @@ dependencies = [
     ('multiprocess', '0.70.15'),
 ]
 
-# components = [
-#     (name, version, {
-#         'easyblock': 'Tarball',
-#         'sources': [
-#             {
-#                 'source_urls': ['https://github.com/lemieux-lab/BamQuery/archive'],
-#                 'download_filename': f'{local_commit}.tar.gz',
-#                 'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz',
-#                 'extract_cmd': 'mkdir -p %(installdir)s/BamQuery && tar -xzf %s --strip-components=1 -C %(installdir)s/BamQuery',
-#             },
-#             # {
-#             #     # https://bamquery.iric.ca/download/lib_essentials.tar.gz
-#             #     'source_urls': ['https://bamquery.iric.ca/download/'],
-#             #     'filename': 'lib_essentials.tar.gz',
-#             #     'extract_cmd': 'mkdir -p %(installdir)s/lib && tar -xzf %s -C %(installdir)s/lib',
-#             # },
-#         ],
-#         'checksums': ['02eff4c8a6ba80316282724f6f1658db331a5eeb24e527e7fe82d4ba16fbd240'],
-#     }),
-# ]
-
-exts_list = [
-    ('ppft', '1.7.6.9', {
-        'checksums': ['73161c67474ea9d81d04bcdad166d399cff3f084d5d2dc21ebdd46c075bbc265'],
-    }),
-    ('pox', '0.3.5', {
-        'checksums': ['8120ee4c94e950e6e0483e050a4f0e56076e590ba0a9add19524c254bd23c2d1'],
-    }),
-    ('billiard', '4.2.0', {
-        'checksums': ['9a3c3184cb275aa17a732f93f65b20c525d3d9f253722d26a82194803ade5a2c'],
-    }),
-    ('pathos', '0.3.1', {
-        'checksums': ['c9a088021493c5cb627d4459bba6c0533c684199e271a5dc297d62be23d74019'],
-    }),
+components = [
     (name, version, {
-        'modulename': False,
-        'use_pip': False,
-        'skipsteps': ['build', 'install'],
-        'source_urls': ['https://github.com/lemieux-lab/BamQuery/archive'],
+        'easyblock': 'Tarball',
         'sources': [
             {
+                'source_urls': ['https://github.com/lemieux-lab/BamQuery/archive'],
                 'download_filename': f'{local_commit}.tar.gz',
                 'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz',
                 # 'extract_cmd': 'mkdir -p %(installdir)s/BamQuery && tar -xzf %s --strip-components=1 -C %(installdir)s/BamQuery',
@@ -85,6 +50,46 @@ exts_list = [
             {'patch1.1.patch': '9768ea81d1d06011775ac9f1fc57aedd233299149ecffece1cd5bd9e14581120'},
         ],
     }),
+]
+
+exts_list = [
+    ('ppft', '1.7.6.9', {
+        'checksums': ['73161c67474ea9d81d04bcdad166d399cff3f084d5d2dc21ebdd46c075bbc265'],
+    }),
+    ('pox', '0.3.5', {
+        'checksums': ['8120ee4c94e950e6e0483e050a4f0e56076e590ba0a9add19524c254bd23c2d1'],
+    }),
+    ('billiard', '4.2.0', {
+        'checksums': ['9a3c3184cb275aa17a732f93f65b20c525d3d9f253722d26a82194803ade5a2c'],
+    }),
+    ('pathos', '0.3.1', {
+        'checksums': ['c9a088021493c5cb627d4459bba6c0533c684199e271a5dc297d62be23d74019'],
+    }),
+    # (name, version, {
+    #     'modulename': False,
+    #     'use_pip': False,
+    #     'skipsteps': ['build', 'install'],
+    #     'source_urls': ['https://github.com/lemieux-lab/BamQuery/archive'],
+    #     'sources': [
+    #         {
+    #             'download_filename': f'{local_commit}.tar.gz',
+    #             'filename': f'%(name)s-%(version)s-{local_commit}.tar.gz',
+    #             # 'extract_cmd': 'mkdir -p %(installdir)s/BamQuery && tar -xzf %s --strip-components=1 -C %(installdir)s/BamQuery',
+    #         },
+    #         # {
+    #         #     # https://bamquery.iric.ca/download/lib_essentials.tar.gz
+    #         #     'source_urls': ['https://bamquery.iric.ca/download/'],
+    #         #     'filename': 'lib_essentials.tar.gz',
+    #         #     'extract_cmd': 'mkdir -p %(installdir)s/lib && tar -xzf %s -C %(installdir)s/lib',
+    #         # },
+    #     ],
+    #     'patches': ['patch1.1.patch'],
+    #     'checksums': [
+    #         {'BamQuery-1.0-2023-11-3-430414f.tar.gz':
+    #          '02eff4c8a6ba80316282724f6f1658db331a5eeb24e527e7fe82d4ba16fbd240'},
+    #         {'patch1.1.patch': '9768ea81d1d06011775ac9f1fc57aedd233299149ecffece1cd5bd9e14581120'},
+    #     ],
+    # }),
 ]
 # postinstallpatches = ['patch1.1.patch']
 postinstallcmds = [
