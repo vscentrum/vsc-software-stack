@@ -3,6 +3,8 @@ easyblock = 'Binary'
 name = 'Slicer'
 version = '5.8.1'
 versionsuffix = '-linux-amd64'
+_commit_fastnn = '7907fc0'
+_commitdate_fastnn = '20260312'
 
 homepage = 'https://www.slicer.org/'
 description = """3D Slicer is a free, open source software for visualization,
@@ -13,30 +15,42 @@ procedures."""
 toolchain = SYSTEM
 
 source_urls = ['https://download.slicer.org/']
-sources = [{
-    'download_filename': 'download?os=linux&stability=release&version=%(version)s',
-    'filename': '%(name)s-%(version)s.tar.gz'
-}]
+sources = [
+    {
+        'source_urls': ['https://download.slicer.org/'],
+        'download_filename': 'download?os=linux&stability=release&version=%(version)s',
+        'filename': '%(name)s-%(version)s.tar.gz',
+    }, {
+        'source_urls': ['https://github.com/jwutsetro/SlicerNNInteractive/archive'],
+        'download_filename': f'{_commit_fastnn}.tar.gz',
+        'filename': f'fast_nninteractive-{_commitdate_fastnn}.tar.gz',
+        'extract_cmd': "cd Slicer* && mkdir fastnn && tar -xzf %s -C fastnn --strip-components 1",
+    },
+]
 patches = [
     ('install_nninteractive.py', './'),
+    ('install_fast_nninteractive.py', './'),
 ]
 checksums = [
     {'Slicer-5.8.1.tar.gz': 'b16273f9724bdcdd0f289e410e36496adc3512ed6b2220b1d9fd48fa86468347'},
+    {'fast_nninteractive-20260312.tar.gz': '8078e4ba5f375853f82e47e38ca4bd583bd6cf0e375828fc5d40cadec5bfb1b1'},
     {'install_nninteractive.py': '659b5ac807d5fa4966a84bc394032e8c03303e1df2a3e8b9da2ec25b81935c91'},
+    {'install_fast_nninteractive.py': '94d0216df2cf64b578fd0581e92ca325f21ec6505a97fda4fa250a3b22231e3e'},
 ]
 
 builddependencies = [
-    ('Xvfb', '21.1.14', '', ('GCCcore', '13.3.0')),  # required for installing extensions on a headless node
+    ('Xvfb', '21.1.18', '', ('GCCcore', '14.2.0')),  # required for installing extensions on a headless node
 ]
 
 osdependencies = [('pulseaudio-libs-glib2', 'libpulse-mainloop-glib0')]
 
 extract_sources = True
 
+_prefix = 'cd %(installdir)s && xvfb-run ./Slicer --no-main-window --no-splash --exit-after-startup --python-script'
 postinstallcmds = [
-    # install NNInteractive extension
-    'xvfb-run %(installdir)s/Slicer --no-main-window --no-splash --exit-after-startup --python-script'
-    ' install_nninteractive.py',
+    # install NNInteractive and fast_NNInteractive extensions
+    f'{_prefix} install_nninteractive.py',
+    f'{_prefix} install_fast_nninteractive.py',
 ]
 
 sanity_check_paths = {
