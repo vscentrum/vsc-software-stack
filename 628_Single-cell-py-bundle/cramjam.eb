@@ -7,28 +7,18 @@ homepage = "https://github.com/milesgranger/cramjam/"
 description = """Your go-to for easy access to a plethora of compression algorithms,
 all neatly bundled in one simple installation."""
 
-toolchain = {'name': 'gfbf', 'version': '2024a'}
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
 sources = [SOURCE_TAR_GZ]
-
-# patches = ['%(name)s-%(version)s_cramjam-shared.patch']
 
 builddependencies = [
     ('maturin', '1.6.0'),
     ('Rust', '1.86.0'),
-    # ('CMake', '3.26.3'),
-    # ('libtool', '2.4.7'),
-    # ('Autotools', '20220317'),
-    # ('binutils', '2.42'),
-    # ('NASM', '2.16.01'),
+    ('binutils', '2.42'),
     ('pytest', '8.3.3'),
 ]
-
 dependencies = [
     ('Python', '3.12.3'),
-    ('SciPy-bundle', '2024.05'),
-    # ('ISA-L', '2.30.0'),
-    # ('Blosc2', '2.8.0'),  # Blosc 2.15.1 required for use-system-blosc2 feature
 ]
 
 # Other crates (no source in Cargo.lock): [('cramjam', '0.1.0'), ('cramjam-python', '2.11.0')]
@@ -151,7 +141,8 @@ crates = [
 ]
 
 testinstall = True
-runtest = 'pytest -v tests'
+# run only tests without numpy dep
+runtest = 'pytest -v tests/test_buffer_view.py tests/test_rust_io.py'
 
 checksums = [
     {'cramjam-2.11.0.tar.gz': '5c82500ed91605c2d9781380b378397012e25127e89d64f460fea6aeac4389b4'},
@@ -273,15 +264,3 @@ checksums = [
 ]
 
 moduleclass = 'tools'
-
-# E1:
-# ImportError while importing test module '/tmp/vsc47063/easybuild/build/cramjam/2.11.0/GCCcore-13.3.0/cramjam-2.11.0/tests/test_integration.py'.
-# Hint: make sure your test modules/packages have valid Python names.
-# Traceback:
-# /apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/importlib/__init__.py:90: in import_module
-#     return _bootstrap._gcd_import(name[level:], package, level)
-# tests/test_integration.py:13: in <module>
-#     from hypothesis.extra import numpy as st_np
-# /apps/gent/RHEL9/cascadelake-ib/software/hypothesis/6.103.1-GCCcore-13.3.0/lib/python3.12/site-packages/hypothesis/extra/numpy.py:28: in <module>
-#     import numpy as np
-# E   ModuleNotFoundError: No module named 'numpy'
