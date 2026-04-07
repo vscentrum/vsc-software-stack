@@ -1,3 +1,4 @@
+# easyconfig adapted from https://github.com/vscentrum/vsc-software-stack/blob/site-kul
 easyblock = 'CmdCp'
 
 name = 'NONMEM'
@@ -15,18 +16,14 @@ local_majminver = '%(version_major)s%(version_minor)s'
 local_nmbin = 'nmfe%s' % local_majminver
 
 # You'll need to download the (password-protected) NONMEMXXX.zip file first from
-# https://nonmem.iconplc.com/#/nonmemXXX (which, for v7.6.0, should have the
-# 4d1c1509fbce5606139588932631391aefb233c839d9d97954b0531599484ceb checksum)
-# and then recompress
-sources = [SOURCE_TAR_GZ] # data/gent/vo/001/gvo00117/easybuild/sources/n/NONMEM
+# https://nonmem.iconplc.com/#/nonmemXXX and then recompress to tar.gz
+sources = [SOURCE_TAR_GZ]
 
-patches = [
-    'NONMEM-7.6.0-std-legacy-gfortran.patch',
-]
+patches = ['NONMEM-7.6.0-std-legacy-gfortran.patch']
 
 checksums = [
     None,
-    'acf37dedd22bf85db1792731b88aa9b4105db20dc6e948f4d87fbd1f18ab4012',  # NONMEM-7.6.0-std-legacy-gfortran.patch
+    '80c62d6df55ac97d9558a1fa492db7e983a1f16a224ed0fd0b8fedecdd4009f5',  # NONMEM-7.6.0-std-legacy-gfortran.patch
 ]
 
 dependencies = [
@@ -84,6 +81,8 @@ sanity_check_commands = [
     '%s | grep Usage' % local_nmbin,
 ]
 
-# After installation, a license file needs to be copied to ${EBROOTNONMEM}/license/nonmem.lic
+modloadmsg = """
+A license file needs to be copied to ${EBROOTNONMEM}/license/nonmem.lic
+"""
 
 moduleclass = 'bio'
