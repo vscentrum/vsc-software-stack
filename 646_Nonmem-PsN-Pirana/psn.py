@@ -47,8 +47,11 @@ class EB_PsN(PerlModule):
         # }
         
         print(f'### BINDIR: {bindir}')
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/bin
         print(f'### PERLBIN: {perlbin}')
+        # /apps/gent/RHEL9/cascadelake-ib/software/Perl/5.38.2-GCCcore-13.3.0/bin/perl
         print(f'### LIBDIR: {libdir}')
+        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2
         
         qanda = {
             re.escape('PsN Utilities installation directory [/usr/local/bin]:'): bindir,
