@@ -1,0 +1,133 @@
+easyblock = 'PythonBundle'
+
+name = 'SimNIBS'
+version = '4.6.0'
+
+homepage = 'https://simnibs.github.io/simnibs'
+description = "SimNIBS is a free and open source software package for the Simulation of Non-invasive Brain Stimulation"
+
+toolchain = {'name': 'foss', 'version': '2025a'}
+
+## DEPS:
+    # build:
+        # ?OK .cgal-cpp = 5.5 have 5.6.1
+        # OK tbb-devel
+        # OK 'setuptools>=68',
+        # OK 'wheel',
+        # OK 'build',
+        # OK 'numpy>=2'
+        # OK 'cython',
+        # OK 'setuptools-scm>=8',
+    # OK .numpy = 2.3 - has v2.3.1
+    # OK .libwebp, 
+    # OK .freeglut
+    # ok .python-mumps
+        # build:
+            # NO meson >= 1.8.0 -> go for python-mumps 0.0.3
+            # OK "meson >= 1.1.0",
+            # OK "meson-python >= 0.15.0",
+            # OK cython >= 3.0.2
+        # OK scipy>=1.8
+        # OK mpi4py
+    # OK .mpfr 
+    # OK gmp
+    # ."brainnet>=0.2", -> github.com/simnibs/brainnet
+    # ."cortech== 0.1", -> github.com/simnibs/cortech
+    # ."fmm3dpy==1.0.4", -> CREATE
+    # OK ."h5py",
+    # OK ."jsonschema", in pypi bundle
+    # OK ."matplotlib",
+    # OK ."nibabel",
+    # OK ."numba",
+    # ?OK."petsc4py == 3.22.2", have 3.23.5
+    # OK."pillow",
+    # NO ."pygpc>=0.4.1", -> noooo
+        # OK scipy>=1.10.0
+        # !!! numpy>=1.24.1,<2.0.0
+        # scikit-learn>=1.2.0
+        # h5py>=3.7.0
+        # tqdm>=4.64.1
+        # pandas>=1.5.2
+        # fastmat>=0.2.2.post0
+        # matplotlib>=3.6.3
+        # seaborn>=0.12.2
+        # julia>=0.6.0
+    # ."PyQt5", -> create? have PyQt6 -> go for 2024a and v4.5.0
+    # OK ."requests",
+    # ?."samseg",
+    # OK ."scipy",
+    # ."gmsh = 4.14
+    # .jupyterlab
+    # .mkl = 2024
+    # .pyopengl = 3.1.7 NOT NEWER!!! - compatibility issues with gmsh package
+    # .zlib
+    # .torch cpu = 2.6.0
+    # .brainsynth
+
+builddependencies = [
+    # ('CMake', '3.26.3'),
+    # ('Eigen', '3.4.0'),
+    # # SimNIBS 4.0.1 requires old versions of Boost, CGAL, tbb
+    # ('Boost', '1.74.0'),
+    ('CGAL', '5.6.1'),
+    ('tbb', '2022.2.0'),
+    ('Cython', '3.1.1'),
+    ('meson-python', '0.18.0'),
+]
+dependencies = [
+    ('Python', '3.13.1'),
+    ('SciPy-bundle', '2025.06'),
+    ('matplotlib', '3.10.3'),
+    ('Pillow', '11.3.0'),
+    ('h5py', '3.14.0'),
+    ('freeglut', '3.6.0'),
+    ('libwebp', '1.5.0'),
+    ('NiBabel', '5.3.3'),
+    # ('PyQt5', '5.15.10'),
+    ('FMM3D', '1.0.4'),
+    # ('charm-gems', '1.3.3'),
+    ('MPFR', '4.2.2'),
+    ('GMP', '6.3.0'),
+    ('numba', '0.62.0'),
+    ('petsc4py', '3.23.5'),
+    # ('MUMPS', '8.8.1', '-metis'),  # python-mumps
+    # ('mpi4py', '4.1.0'),  # python-mumps
+]
+
+# fix new numpy syntax
+_fix_numpy = "sed -i 's/dtype=np.bool/bool/g' simnibs/segmentation/samseg/simnibs_segmentation_utils.py && "
+exts_list = [
+    ('gmsh', '4.14.1', {
+        'source_tmpl': ['gmsh-4.14.1-py2.py3-none-manylinux_2_24_x86_64.whl'],
+    }),
+    # ('python_mumps', '0.0.3', {
+    #     'checksums': ['bb10a6bb3fd1522ed5771b832f99ed0c590b2524d5ae672cbb1b7348634be550'],
+    # }),
+    (name, version, {
+        # 'patches': ['%(name)s-%(version)s_setup.py-fix.patch'],
+        # 'preinstallopts': _fix_numpy,
+        'source_urls': ['https://github.com/simnibs/simnibs/archive/'],
+        'sources': ['v%(version)s.tar.gz'],
+        'checksums': [
+            {'v4.0.1.tar.gz': 'c5455cd0e0240b3638fbc64125bdfaeae289a63ee94a3ecc3b4d10981890c8ff'},
+            {'SimNIBS-4.0.1_setup.py-fix.patch': '9e0a28233e2830cc90dca67e3e945094591f46ed646eba20a7ecf2396d126fe2'},
+        ],
+    }),
+]
+
+postinstallcmds = [
+    'cd %(installdir)s/bin && '
+    'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs/external/bin/linux/gmsh gmsh && '
+    'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs/external/bin/linux/meshfix meshfix && '
+    'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs/external/dwi2cond dwi2cond',
+]
+
+local_bin_list = ['dwi2cond', 'gmsh', 'meshfix', 'simnibs', 'simnibs_gui', 'charm']
+sanity_check_paths = {
+    'files': ['bin/%s' % f for f in local_bin_list],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["simnibs --help"]
+
+moduleclass = 'bio'
