@@ -53,6 +53,92 @@ class EB_PsN(PerlModule):
         print(f'### LIBDIR: {libdir}')
         # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2
         
+        # Questions:
+        # $ perl setup.pl
+                # This is the PsN installer. I will install PsN version 5.5.0.
+                # You need to answer a few questions. If a default value is presented
+                # you may accept it by pressing ENTER.
+
+                # Hi vsc47063, you don't look like root. Please note that you need root privileges to install PsN systemwide.
+                # PsN Utilities installation directory [/usr/local/bin]: -> bindir
+                
+                # Path to perl binary used to run Utilities [/apps/gent/RHEL9/cascadelake-ib/software/Perl/5.38.2-GCCcore-13.3.0/bin/perl]: -> perlbin
+                
+                # PsN Core and Toolkit installation directory [/apps/gent/RHEL9/cascadelake-ib/software/Perl/5.38.2-GCCcore-13.3.0/lib/perl5/site_perl/5.38.2]: -> libdir
+                
+                # The next step is to check Perl module dependencies.
+                # If a module is missing, you must install it, e.g. from CPAN,
+                # http://www.cpan.org/modules/index.html
+                # before PsN can be run.
+
+                # Would you like this script to check Perl modules [y/n]? -> y
+                
+                # Testing required modules:
+                # Module Statistics::Distributions ok
+                # Module File::Copy::Recursive ok
+                # Module File::HomeDir ok
+                # Module Math::SigFigs ok
+                # Module Capture::Tiny ok
+                # Module Math::Random::Free ok
+                # Module Math::MatrixReal ok
+                # Module Mouse ok
+                # Module MouseX::Params::Validate ok
+                # Module YAML ok
+
+                # Done testing required modules.
+
+                # Testing recommended but not required modules...
+                # Module Archive::Zip ok
+                # Tests done.
+
+                # Continue installing PsN (installing is possible even if modules are missing)[y/n]? -> y
+
+                # Directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_5_5_0 already exists.
+                # PsN 5.5.0 is already (partially) installed. Would you like to continue anyway [y/n] ? -> y
+                
+                # This version (5.5.0) looks like the same or an older installed
+                # version (5.5.0) of PsN. Would you like to make
+                # this version (5.5.0) the default? [y/n] -> y
+
+                # The R package PsNR and its dependencies are needed for the rplots functionality and the qa tool in PsN.
+                # The PsN installer can automatically install these using renv to make sure that all versions
+                # of R packages have been tested together. A separate R library will be created inside the PsN
+                # installation directory. You need to have R installed for this installation.
+
+
+                # Would you like to install the PsNR R package? [y/n] -> y
+                # -> now it starts downloading and installing exact deps version - already installed are not used -> log-install-psn1
+                
+                # The Python package 'pharmpy' is needed by PsN and you would need to have python installed on your system
+                # If you let the installer install pharmpy it will be installed in a virtual environment together with its dependencies inside the PsN installation
+                # You would need to have python installed for this installation
+
+                # Would you like to install the pharmpy python package? [y/n] -> y -> log-install-psn2
+                
+                # Would you like to install the PsN test library? [y/n] -> y
+                # PsN test library installation directory [/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2]: -> Enter                                
+                # PsN test library installed successfully in [/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_test_5_5_0].
+                # Please read the 'testing' chapter of the developers_guide.pdf for information on how to run the tests
+
+
+                # Now you must edit /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_5_5_0/psn.conf
+                # so that PsN can find your NONMEM installations.
+                # You can get help to create a bare-bones configuration file that will work
+                # when running PsN locally. If you are running PsN on a cluster and/or want
+                # to set personalized defaults and/or will run PsN with NMQual,
+                # you can manually add the relevant options to the file afterwards.
+                # Would you like help to create a configuration file? [y/n] -> n
+                # Please note that if you have a psn.conf file in your home directory,
+                # the settings in that file will override the settings in
+                # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_5_5_0/psn.conf
+
+                # Installation partially complete. You still have to add NONMEM settings to psn.conf before you can run PsN.
+                # A psn.conf to edit is found in
+                # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_5_5_0
+                # Detailed instructions are found in psn_configuration.pdf
+
+                # Press ENTER to exit the installation program.
+
         qanda = {
             re.escape('PsN Utilities installation directory [/usr/local/bin]:'): bindir,
             re.escape('Path to perl binary used to run Utilities [%s]:' % perlbin): '',

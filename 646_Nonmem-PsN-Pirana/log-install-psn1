@@ -1,0 +1,574 @@
+The R package PsNR and its dependencies are needed for the rplots functionality and the qa tool in PsN.
+The PsN installer can automatically install these using renv to make sure that all versions
+of R packages have been tested together. A separate R library will be created inside the PsN
+installation directory. You need to have R installed for this installation.
+
+
+Would you like to install the PsNR R package? [y/n] y
+trying URL 'https://cloud.r-project.org/src/contrib/renv_1.2.0.tar.gz'  
+Content type 'application/x-gzip' length 1349496 bytes (1.3 MB)
+==================================================
+downloaded 1.3 MB
+
+trying URL 'https://cloud.r-project.org/src/contrib/remotes_2.5.0.tar.gz'
+Content type 'application/x-gzip' length 164496 bytes (160 KB)
+==================================================
+downloaded 160 KB
+
+* installing *source* package ‘renv’ ...
+** package ‘renv’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** libs
+using C compiler: ‘gcc (GCC) 13.3.0’
+gcc -I"/apps/gent/RHEL9/cascadelake-ib/software/R/4.4.2-gfbf-2024a/lib64/R/include" -DNDEBUG   -I/apps/gent/RHEL9/cascadelake-ib/softw
+are/FriBidi/1.0.15-GCCcore-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/HarfBuzz/9.0.0-GCCcore-13.3.0/include -I/apps/gen
+t/RHEL9/cascadelake-ib/software/Tk/8.6.14-GCCcore-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/cURL/8.7.1-GCCcore-13.3.0/
+include -I/apps/gent/RHEL9/cascadelake-ib/software/OpenSSL/3/include -I/apps/gent/RHEL9/cascadelake-ib/software/libgit2/1.8.1-GCCcore-
+13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/Java/17.0.6/include -I/apps/gent/RHEL9/cascadelake-ib/software/LibTIFF/4.6.0
+-GCCcore-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/libjpeg-turbo/3.0.1-GCCcore-13.3.0/include -I/apps/gent/RHEL9/casca
+delake-ib/software/libpng/1.6.43-GCCcore-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/PCRE2/10.43-GCCcore-13.3.0/include 
+-I/apps/gent/RHEL9/cascadelake-ib/software/SQLite/3.45.3-GCCcore-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/zlib/1.3.1-
+GCCcore-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/XZ/5.4.5-GCCcore-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/so
+ftware/bzip2/1.0.8-GCCcore-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/ncurses/6.5-GCCcore-13.3.0/include -I/apps/gent/R
+HEL9/cascadelake-ib/software/libreadline/8.2-GCCcore-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/cairo/1.18.0-GCCcore-13
+.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/libGLU/9.0.3-GCCcore-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software
+/Mesa/24.1.3-GCCcore-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/X11/20240607-GCCcore-13.3.0/include -I/apps/gent/RHEL9/
+cascadelake-ib/software/pkgconf/2.2.0-GCCcore-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/FFTW/3.3.10-GCC-13.3.0/include
+ -I/apps/gent/RHEL9/cascadelake-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/include -I/apps/gent/RHEL9/cascadelake-ib/software/FlexiBLAS/3.
+4.4-GCC-13.3.0/include/flexiblas    -fpic  -O2 -ftree-vectorize -march=native -fno-math-errno  -c renv.c -o renv.o
+gcc -shared -L/apps/gent/RHEL9/cascadelake-ib/software/R/4.4.2-gfbf-2024a/lib64/R/lib -L/apps/gent/RHEL9/cascadelake-ib/software/FriBi
+di/1.0.15-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/FriBidi/1.0.15-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/cascade
+lake-ib/software/HarfBuzz/9.0.0-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/HarfBuzz/9.0.0-GCCcore-13.3.0/lib -L/a
+pps/gent/RHEL9/cascadelake-ib/software/Tk/8.6.14-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/Tk/8.6.14-GCCcore-13.
+3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/cURL/8.7.1-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/cURL/8.7
+.1-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/OpenSSL/3/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/OpenSSL/3/
+lib -L/apps/gent/RHEL9/cascadelake-ib/software/libgit2/1.8.1-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/libgit2/1
+.8.1-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/Java/17.0.6/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/Java/1
+7.0.6/lib -L/apps/gent/RHEL9/cascadelake-ib/software/LibTIFF/4.6.0-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/Lib
+TIFF/4.6.0-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/libjpeg-turbo/3.0.1-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/c
+ascadelake-ib/software/libjpeg-turbo/3.0.1-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/libpng/1.6.43-GCCcore-13.3.0/
+lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/libpng/1.6.43-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/PCRE2/10.
+43-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/PCRE2/10.43-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/so
+ftware/SQLite/3.45.3-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/SQLite/3.45.3-GCCcore-13.3.0/lib -L/apps/gent/RHE
+L9/cascadelake-ib/software/zlib/1.3.1-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/zlib/1.3.1-GCCcore-13.3.0/lib -L
+/apps/gent/RHEL9/cascadelake-ib/software/XZ/5.4.5-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/XZ/5.4.5-GCCcore-13.
+3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/bzip2/1.0.8-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/bzip2/1
+.0.8-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/ncurses/6.5-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/
+software/ncurses/6.5-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/libreadline/8.2-GCCcore-13.3.0/lib64 -L/apps/gent/R
+HEL9/cascadelake-ib/software/libreadline/8.2-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/cairo/1.18.0-GCCcore-13.3.0
+/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/cairo/1.18.0-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/libGLU/9.
+0.3-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/libGLU/9.0.3-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/
+software/Mesa/24.1.3-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/Mesa/24.1.3-GCCcore-13.3.0/lib -L/apps/gent/RHEL9
+/cascadelake-ib/software/X11/20240607-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/X11/20240607-GCCcore-13.3.0/lib 
+-L/apps/gent/RHEL9/cascadelake-ib/software/pkgconf/2.2.0-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software/pkgconf/2.2.0
+-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/FFTW/3.3.10-GCC-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake-ib/software
+/FFTW/3.3.10-GCC-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib64 -L/apps/gent/RHEL9/cascadelake
+-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib -L/apps/gent/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/lib64 -L/apps/gent/RHEL9/cascade
+lake-ib/software/GCCcore/13.3.0/lib -o renv.so renv.o -L/apps/gent/RHEL9/cascadelake-ib/software/R/4.4.2-gfbf-2024a/lib64/R/lib -lR
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location   
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (renv)
+* installing *source* package ‘remotes’ ...
+** package ‘remotes’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location   
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (remotes)
+
+The downloaded source packages are in
+        ‘/tmp/vsc47063/eb-essaj143/RtmpdPjzrm/downloaded_packages’
+The following package(s) will be updated:
+
+# CRAN -----------------------------------------------------------------------
+- askpass                [1.2.1 -> 1.1]
+- bslib                  [0.8.0 -> 0.4.2]
+- cachem                 [1.1.0 -> 1.0.6]
+- callr                  [3.7.6 -> 3.7.3]
+- cli                    [3.6.3 -> 3.6.0]
+- cpp11                  [0.5.0 -> 0.4.7]
+- crayon                 [1.5.3 -> 1.5.2]
+- curl                   [6.0.1 -> 5.2.3]
+- digest                 [0.6.37 -> 0.6.31]
+- evaluate               [1.0.1 -> 0.20]
+- fansi                  [1.0.6 -> 1.0.4]
+- fastmap                [1.2.0 -> 1.1.0]
+- fs                     [1.6.5 -> 1.6.0]
+- glue                   [1.8.0 -> 1.6.2]
+- highr                  [0.11 -> 0.10]
+- htmltools              [0.5.8.1 -> 0.5.4]
+- htmlwidgets            [1.6.4 -> 1.6.1]
+- httr                   [1.4.7 -> 1.4.4]
+- jsonlite               [1.8.9 -> 1.8.8]
+- knitr                  [1.49 -> 1.42]
+- lifecycle              [1.0.4 -> 1.0.3]
+- openssl                [2.2.2 -> 2.0.5]
+- pillar                 [1.9.0 -> 1.8.1]
+- prettyunits            [1.2.0 -> 1.1.1]
+- processx               [3.8.4 -> 3.8.0]
+- ps                     [1.8.1 -> 1.7.2]
+- purrr                  [1.0.2 -> 1.0.1]
+- Rcpp                   [1.0.13-1 -> 1.0.12]
+- remotes                [2.5.0 -> 2.4.2]
+- renv                   [1.2.0 -> 0.16.0]
+- rlang                  [1.1.4 -> 1.1.3]
+- rmarkdown              [2.29 -> 2.20]
+- rstudioapi             [0.17.1 -> 0.14]
+- stringi                [1.8.4 -> 1.7.12]
+- stringr                [1.5.1 -> 1.5.0]
+- sys                    [3.4.3 -> 3.4.1]
+- systemfonts            [1.1.0 -> 1.0.4]
+- tibble                 [3.2.1 -> 3.1.8]
+- tinytex                [0.54 -> 0.44]
+- utf8                   [1.2.4 -> 1.2.3]
+
+- withr                  [3.0.2 -> 2.5.0]
+- xfun                   [0.49 -> 0.37]
+- yaml                   [2.3.10 -> 2.3.8]
+- assertthat             [* -> 0.2.1]
+- backports              [* -> 1.4.1]
+- bit                    [* -> 4.0.5]
+- bit64                  [* -> 4.0.5]
+- bitops                 [* -> 1.0-7]
+- caTools                [* -> 1.18.2]
+- checkmate              [* -> 2.1.0]
+- class                  [* -> 7.3-21]
+- classInt               [* -> 0.4-8]
+- cluster                [* -> 2.1.4]
+- codetools              [* -> 0.2-19]
+- colorspace             [* -> 2.1-0]
+- data.table             [* -> 1.15.4]
+- deldir                 [* -> 1.0-6]
+- dplyr                  [* -> 1.1.0]
+- e1071                  [* -> 1.7-14]
+- expm                   [* -> 0.999-7]
+- farver                 [* -> 2.1.1]
+- forcats                [* -> 1.0.0]
+- foreach                [* -> 1.5.2]
+- foreign                [* -> 0.8-86]
+- formatR                [* -> 1.14]
+- Formula                [* -> 1.2-4]
+- gam                    [* -> 1.22-3]
+- generics               [* -> 0.1.3]
+- ggforce                [* -> 0.4.1]
+- ggplot2                [* -> 3.5.1]
+- ggthemes               [* -> 4.2.4]
+- gplots                 [* -> 3.1.3]
+- gridExtra              [* -> 2.3]
+- gtable                 [* -> 0.3.1]
+- gtools                 [* -> 3.9.4]
+- Hmisc                  [* -> 4.7-2]
+- hms                    [* -> 1.1.2]
+- htmlTable              [* -> 2.4.1]
+- interp                 [* -> 1.1-3]
+- isoband                [* -> 0.2.7]
+- iterators              [* -> 1.0.14]
+- jpeg                   [* -> 0.1-10]
+- KernSmooth             [* -> 2.23-20]
+- labeling               [* -> 0.4.2]
+- lattice                [* -> 0.20-45]
+- latticeExtra           [* -> 0.6-30]
+- lazyeval               [* -> 0.2.2]
+- MASS                   [* -> 7.3-58.2]
+- Matrix                 [* -> 1.5-3]
+- mgcv                   [* -> 1.8-41]
+- munsell                [* -> 0.5.0]
+- mvtnorm                [* -> 1.1-3]
+- nlme                   [* -> 3.1-162]
+- nnet                   [* -> 7.3-18]
+- PerformanceAnalytics   [* -> 2.0.4]
+- plyr                   [* -> 1.8.8]
+- png                    [* -> 0.1-8]
+- polyclip               [* -> 1.10-4]
+- progress               [* -> 1.2.3]
+- proxy                  [* -> 0.4-27]
+- quadprog               [* -> 1.5-8]
+- RColorBrewer           [* -> 1.1-3]
+- RcppEigen              [* -> 0.3.3.9.3]
+- readr                  [* -> 2.1.3]
+- rjson                  [* -> 0.2.21]
+- rpart                  [* -> 4.1.23]
+- rsvg                   [* -> 2.4.0]
+- rvest                  [* -> 1.0.3]
+- scales                 [* -> 1.2.1]
+- selectr                [* -> 0.4-2]
+- survival               [* -> 3.5-0]
+- svglite                [* -> 2.1.1]
+- tidyr                  [* -> 1.3.0]
+- tidyselect             [* -> 1.2.0]
+- tweenr                 [* -> 2.0.2]
+- tzdb                   [* -> 0.3.0]
+- vegawidget             [* -> 0.4.2]
+- viridis                [* -> 0.6.2]
+- viridisLite            [* -> 0.4.1]
+- vpc                    [* -> 1.2.2]
+- vroom                  [* -> 1.6.5]
+- webshot                [* -> 0.5.4]
+- xpose                  [* -> 0.4.14]
+- xpose4                 [* -> 4.7.2]
+- xts                    [* -> 0.12.2]
+- zoo                    [* -> 1.8-11]
+
+# GitHub ---------------------------------------------------------------------
+- kableExtra             [* -> kupietz/kableExtra]
+- vaplot                 [* -> rikardn/vaplot@digits]
+
+- Querying repositories for available source packages ... Done!
+- GitHub authentication credentials are not available.
+- Please set GITHUB_PAT, or ensure the 'gitcreds' package is installed. 
+- See https://usethis.r-lib.org/articles/git-credentials.html for more details.
+# Downloading packages -------------------------------------------------------
+- Querying repositories for available source packages ... Done!
+renv was unable to query available packages from the following repositories:
+- # https://cloud.r-project.org/src/contrib/src/contrib ------------------------
+error downloading 'https://cloud.r-project.org/src/contrib/src/contrib/PACKAGES.rds' [error code 22]
+error downloading 'https://cloud.r-project.org/src/contrib/src/contrib/PACKAGES.gz' [error code 22]
+error downloading 'https://cloud.r-project.org/src/contrib/src/contrib/PACKAGES' [error code 22]
+
+
+✔ progress 1.2.3                           [30 kB in 96s]
+✔ htmltools 0.5.9                          [135 kB in 97s]
+✔ vctrs 0.7.2                              [1.1 MB in 0.11s]
+✔ cpp11 0.5.4                              [303 kB in 30s]
+✔ RColorBrewer 1.1-3                       [12 kB in 0.15s]
+✔ askpass 1.1                              [6 kB in 0.16s]
+✔ fs 1.6.0                                 [1.2 MB in 0.23s]
+✔ Formula 1.2-4                            [164 kB in 0.13s]
+✔ sys 3.4.1                                [20 kB in 0.26s]
+✔ jsonlite 1.8.8                           [1.1 MB in 0.26s]
+✔ curl 5.2.3                               [717 kB in 0.26s]
+✔ tinytex 0.44                             [33 kB in 0.35s]
+✔ KernSmooth 2.23-20                       [26 kB in 0.23s]
+✔ cachem 1.0.6                             [25 kB in 0.17s]
+✔ rstudioapi 0.14                          [115 kB in 0.44s]
+✔ gam 1.22-3                               [218 kB in 0.18s]
+✔ farver 2.1.1                             [1.3 MB in 0.44s]
+✔ zoo 1.8-11                               [782 kB in 0.2s]
+✔ lifecycle 1.0.5                          [107 kB in 0.18s]
+✔ fastmap 1.2.0                            [47 kB in 13s]
+✔ xpose 0.4.14                             [3.7 MB in 0.45s]
+✔ plyr 1.8.8                               [401 kB in 0.23s]
+
+✔ forcats 1.0.0                            [294 kB in 0.46s]
+✔ webshot 0.5.4                            [160 kB in 0.46s]
+✔ iterators 1.0.14                         [300 kB in 39s]
+✔ rmarkdown 2.20                           [3.2 MB in 0.49s]
+✔ textshaping 1.0.5                        [77 kB in 51s]
+✔ htmlwidgets 1.6.1                        [868 kB in 0.39s]
+✔ selectr 0.4-2                            [41 kB in 0.17s]
+✔ proxy 0.4-27                             [75 kB in 0.15s]
+✔ digest 0.6.31                            [164 kB in 0.21s]
+✔ rsvg 2.4.0                               [259 kB in 0.21s]
+✔ httr 1.4.4                               [161 kB in 0.2s]
+✔ mgcv 1.8-41                              [1.1 MB in 0.17s]
+✔ colorspace 2.1-0                         [2.1 MB in 0.22s]
+✔ highr 0.12                               [14 kB in 10s]
+✔ labeling 0.4.2                           [10 kB in 0.22s]
+✔ Hmisc 4.7-2                              [794 kB in 0.23s]
+✔ Matrix 1.5-3                             [2.2 MB in 0.25s]
+✔ ps 1.7.2                                 [129 kB in 0.25s]
+✔ ggforce 0.5.0                            [907 kB in 28s]
+✔ polyclip 1.10-4                          [80 kB in 0.23s]
+✔ S7 0.2.1                                 [184 kB in 61s]
+✔ vaplot 0.0.0.9000                        [217 kB in 0.65s]
+✔ remotes 2.4.2                            [153 kB in 0.23s]
+✔ bit64 4.0.5                              [135 kB in 0.13s]
+✔ backports 1.4.1                          [26 kB in 0.15s]
+✔ rjson 0.2.21                             [117 kB in 0.16s]
+✔ fansi 1.0.4                              [482 kB in 0.42s]
+✔ withr 2.5.0                              [102 kB in 0.22s]
+✔ gtools 3.9.4                             [241 kB in 0.16s]
+✔ classInt 0.4-8                           [439 kB in 0.17s]
+✔ htmlTable 2.4.1                          [439 kB in 0.23s]
+✔ gplots 3.1.3                             [521 kB in 0.2s]
+✔ openssl 2.0.5                            [1.2 MB in 0.19s]
+✔ caTools 1.18.2                           [65 kB in 0.18s]
+✔ gtable 0.3.6                             [148 kB in 44s]
+✔ PerformanceAnalytics 2.0.4               [2.5 MB in 0.25s]
+✔ MASS 7.3-58.2                            [515 kB in 0.25s]
+✔ viridis 0.6.2                            [3.0 MB in 0.28s]
+✔ foreign 0.8-86                           [362 kB in 0.17s]
+✔ bslib 0.4.2                              [4.8 MB in 0.79s]
+✔ isoband 0.2.7                            [1.6 MB in 64s]
+✔ xml2 1.5.2                               [155 kB in 24s]
+✔ tidyr 1.3.2                              [809 kB in 30s]
+✔ foreach 1.5.2                            [90 kB in 33s]
+✔ glue 1.6.2                               [107 kB in 0.13s]
+✔ quadprog 1.5-8                           [36 kB in 0.13s]
+✔ nnet 7.3-18                              [29 kB in 0.17s]
+✔ callr 3.7.3                              [98 kB in 0.16s]
+✔ pillar 1.11.1                            [410 kB in 85s]
+✔ checkmate 2.1.0                          [170 kB in 0.18s]
+✔ cluster 2.1.4                            [352 kB in 0.18s]
+✔ stringr 1.6.0                            [196 kB in 57s]
+✔ vroom 1.7.1                              [620 kB in 59s]
+✔ class 7.3-21                             [21 kB in 0.13s]
+✔ tidyselect 1.2.1                         [104 kB in 62s]
+✔ hms 1.1.2                                [43 kB in 0.19s]
+✔ generics 0.1.3                           [172 kB in 0.25s]
+✔ tzdb 0.3.0                               [568 kB in 0.2s]
+✔ vpc 1.2.2                                [621 kB in 0.2s]
+✔ knitr 1.51                               [484 kB in 15s]
+✔ dplyr 1.2.1                              [924 kB in 84s]
+✔ renv 0.16.0                              [1.0 MB in 82s]
+✔ xfun 0.57                                [173 kB in 35s]
+
+✔ data.table 1.15.4                        [5.4 MB in 0.24s]
+✔ deldir 1.0-6                             [121 kB in 0.13s]
+✔ tweenr 2.0.2                             [584 kB in 0.14s]
+✔ bit 4.0.5                                [828 kB in 0.15s]
+✔ lattice 0.20-45                          [399 kB in 0.16s]
+✔ nlme 3.1-162                             [849 kB in 0.34s]
+✔ gridExtra 2.3                            [1.1 MB in 87s]
+✔ survival 3.5-0                           [6.3 MB in 0.21s]
+✔ lazyeval 0.2.2                           [83 kB in 0.14s]
+✔ expm 0.999-7                             [137 kB in 0.15s]
+✔ xpose4 4.7.2                             [620 kB in 0.15s]
+✔ tibble 3.3.1                             [557 kB in 78s]
+✔ cli 3.6.5                                [640 kB in 78s]
+✔ systemfonts 1.3.2                        [595 kB in 28s]
+✔ evaluate 0.20                            [27 kB in 0.13s]
+✔ codetools 0.2-19                         [38 kB in 0.14s]
+✔ readr 2.2.0                              [296 kB in 37s]
+✔ assertthat 0.2.1                         [13 kB in 35s]
+✔ RcppEigen 0.3.3.9.3                      [1.5 MB in 0.16s]
+✔ stringi 1.7.12                           [7.6 MB in 0.24s]
+✔ yaml 2.3.8                               [95 kB in 0.25s]
+✔ interp 1.1-3                             [686 kB in 0.19s]
+✔ rpart 4.1.23                             [618 kB in 0.17s]
+✔ processx 3.8.0                           [163 kB in 0.13s]
+✔ png 0.1-8                                [25 kB in 0.13s]
+✔ munsell 0.5.0                            [183 kB in 0.14s]
+✔ scales 1.4.0                             [329 kB in 54s]
+✔ utf8 1.2.3                               [241 kB in 0.5s]
+✔ prettyunits 1.1.1                        [10 kB in 0.13s]
+✔ purrr 1.2.1                              [278 kB in 33s]
+✔ Rcpp 1.0.12                              [3.4 MB in 0.2s]
+✔ latticeExtra 0.6-30                      [1.3 MB in 0.15s]
+✔ rlang 1.2.0                              [781 kB in 39s]
+✔ bitops 1.0-7                             [11 kB in 0.13s]
+✔ crayon 1.5.2                             [41 kB in 0.14s]
+✔ formatR 1.14                             [96 kB in 0.16s]
+✔ svglite 2.1.1                            [124 kB in 0.51s]
+✔ jpeg 0.1-10                              [19 kB in 0.36s]
+✔ mvtnorm 1.1-3                            [166 kB in 0.32s]
+✔ xts 0.12.2                               [439 kB in 0.26s]
+✔ ggthemes 4.2.4                           [445 kB in 0.32s]
+✔ viridisLite 0.4.1                        [1.3 MB in 0.33s]
+✔ vegawidget 0.4.2                         [1.3 MB in 0.27s]
+✔ ggplot2 4.0.2                            [6.4 MB in 0.43s]
+✔ e1071 1.7-14                             [326 kB in 0.33s]
+✔ rvest 1.0.3                              [95 kB in 0.61s]
+✔ kableExtra 1.3.4                         [6.7 MB in 0.92s]
+Successfully downloaded 132 packages in 3.5 seconds.
+
+# Installing packages --------------------------------------------------------
+✔ assertthat 0.2.1                         [built from source in 5.1s]  
+✔ bitops 1.0-7                             [built from source in 19s]   
+✔ backports 1.4.1                          [built from source in 20s]   
+✔ codetools 0.2-19                         [built from source in 5.6s]  
+✔ bit 4.0.5                                [built from source in 31s]   
+✔ cpp11 0.5.4                              [built from source in 5.2s]  
+✔ crayon 1.5.2                             [built from source in 5.4s]  
+✔ colorspace 2.1-0                         [built from source in 16s]   
+✔ cluster 2.1.4                            [built from source in 27s]   
+✔ cli 3.6.5                                [built from source in 49s]   
+✔ curl 5.2.3                               [built from source in 43s]   
+✔ deldir 1.0-6                             [built from source in 41s]   
+✔ evaluate 0.20                            [built from source in 5.3s] 
+✔ digest 0.6.31                            [built from source in 37s]   
+✔ fastmap 1.2.0                            [built from source in 18s]   
+✔ fansi 1.0.4                              [built from source in 32s]   
+✔ formatR 1.14                             [built from source in 5.2s]  
+✔ farver 2.1.1                             [built from source in 34s]   
+✔ data.table 1.15.4                        [built from source in 1.4m]  
+✔ Formula 1.2-4                            [built from source in 5.1s]  
+✔ generics 0.1.3                           [built from source in 5.3s]  
+✔ foreign 0.8-86                           [built from source in 28s]   
+✔ iterators 1.0.14                         [built from source in 5.6s]  
+✔ glue 1.6.2                               [built from source in 14s]   
+✔ gtools 3.9.4                             [built from source in 14s]   
+✔ jpeg 0.1-10                              [built from source in 14s]   
+✔ labeling 0.4.2                           [built from source in 5.3s]  
+✔ KernSmooth 2.23-20                       [built from source in 23s]   
+✔ MASS 7.3-58.2                            [built from source in 23s]   
+✔ mvtnorm 1.1-3                            [built from source in 14s]   
+✔ lattice 0.20-45                          [built from source in 52s]   
+✔ jsonlite 1.8.8                           [built from source in 1.2m]  
+✔ nnet 7.3-18                              [built from source in 12s]   
+✔ prettyunits 1.1.1                        [built from source in 5.1s]  
+✔ png 0.1-8                                [built from source in 14s]   
+✔ proxy 0.4-27                             [built from source in 17s]   
+✔ ps 1.7.2                                 [built from source in 28s]   
+✔ quadprog 1.5-8                           [built from source in 17s]   
+✔ RColorBrewer 1.1-3                       [built from source in 5.6s]  
+✔ remotes 2.4.2                            [built from source in 7.3s]  
+✔ polyclip 1.10-4                          [built from source in 53s]   
+✔ renv 0.16.0                              [built from source in 14s]   
+✔ rjson 0.2.21                             [built from source in 15s]   
+✔ rpart 4.1.23                             [built from source in 1.1m]  
+✔ Rcpp 1.0.12                              [built from source in 1.5m]  
+✔ rstudioapi 0.14                          [built from source in 5.7s]  
+✔ rlang 1.2.0                              [built from source in 1.2m]  
+✔ S7 0.2.1                                 [built from source in 14s]   
+✔ rsvg 2.4.0                               [built from source in 22s]   
+✔ sys 3.4.1                                [built from source in 12s]   
+✔ vaplot 0.0.0.9000                        [built from source in 8.4s]  
+✔ viridisLite 0.4.1                        [built from source in 5.2s]  
+✔ withr 2.5.0                              [built from source in 5.6s]  
+✔ utf8 1.2.3                               [built from source in 39s]   
+✔ xfun 0.57                                [built from source in 16s]   
+✔ caTools 1.18.2                           [built from source in 17s]   
+✔ yaml 2.3.8                               [built from source in 25s]   
+✔ bit64 4.0.5                              [built from source in 23s]   
+✔ checkmate 2.1.0                          [built from source in 29s]   
+✔ munsell 0.5.0                            [built from source in 5.5s]  
+✔ foreach 1.5.2                            [built from source in 5.6s]  
+✔ fs 1.6.0                                 [built from source in 5.9m]  
+✔ class 7.3-21                             [built from source in 11s]   
+✔ tzdb 0.3.0                               [built from source in 27s]   
+✔ zoo 1.8-11                               [built from source in 16s]   
+✔ nlme 3.1-162                             [built from source in 39s]   
+✔ processx 3.8.0                           [built from source in 40s]   
+✔ plyr 1.8.8                               [built from source in 24s]   
+✔ cachem 1.0.6                             [built from source in 12s]   
+✔ htmltools 0.5.9                          [built from source in 15s]   
+✔ RcppEigen 0.3.3.9.3                      [built from source in 53s]   
+✔ isoband 0.2.7                            [built from source in 21s]   
+✔ lifecycle 1.0.5                          [built from source in 5.8s]  
+✔ lazyeval 0.2.2                           [built from source in 17s]           ^[
+✔ askpass 1.1                              [built from source in 11s]   
+✔ highr 0.12                               [built from source in 5.9s] 
+✔ xml2 1.5.2                               [built from source in 32s]   
+✔ tinytex 0.44                             [built from source in 5.5s]  
+✔ gplots 3.1.3                             [built from source in 8.4s]  
+✔ e1071 1.7-14                             [built from source in 22s]   
+✔ gam 1.22-3                               [built from source in 34s]   
+✔ callr 3.7.3                              [built from source in 8.1s]  
+✔ xts 0.12.2                               [built from source in 1.3m]  
+✔ bslib 0.4.2                              [built from source in 8.5s]  
+✔ Matrix 1.5-3                             [built from source in 4.6m]  
+✔ gtable 0.3.6                             [built from source in 5.9s]  
+✔ scales 1.4.0                             [built from source in 9.2s]  
+✔ interp 1.1-3                             [built from source in 1.4m]  
+✔ systemfonts 1.3.2                        [built from source in 1.1m]  
+✔ openssl 2.0.5                            [built from source in 1.0m]  
+✔ knitr 1.51                               [built from source in 11s]   
+✔ classInt 0.4-8                           [built from source in 13s]   
+✔ webshot 0.5.4                            [built from source in 5.1s]  
+✔ PerformanceAnalytics 2.0.4               [built from source in 37s]   
+✔ expm 0.999-7                             [built from source in 38s]   
+✔ vctrs 0.7.2                              [built from source in 2.0m]  
+✔ gridExtra 2.3                            [built from source in 5.9s]  
+✔ latticeExtra 0.6-30                      [built from source in 8.8s]  
+✔ httr 1.4.4                               [built from source in 8.0s]  
+✔ rmarkdown 2.20                           [built from source in 11s]   
+✔ ggplot2 4.0.2                            [built from source in 27s]   
+✔ hms 1.1.2                                [built from source in 6.4s]  
+✔ mgcv 1.8-41                              [built from source in 1.4m]  
+✔ pillar 1.11.1                            [built from source in 7.7s]  
+✔ tidyselect 1.2.1                         [built from source in 6.2s]  
+✔ survival 3.5-0                           [built from source in 1.7m]  
+✔ htmlwidgets 1.6.1                        [built from source in 33s]   
+✔ purrr 1.2.1                              [built from source in 53s]   
+✔ tweenr 2.0.2                             [built from source in 48s]   
+✔ progress 1.2.3                           [built from source in 6.9s]  
+✔ viridis 0.6.2                            [built from source in 8.0s]  
+✔ vegawidget 0.4.2                         [built from source in 6.6s]  
+✔ tibble 3.3.1                             [built from source in 16s]   
+✔ forcats 1.0.0                            [built from source in 6.0s]  
+✔ dplyr 1.2.1                              [built from source in 32s]   
+✔ ggforce 0.5.0                            [built from source in 55s]   
+✔ vroom 1.7.1                              [built from source in 1.6m]  
+✔ readr 2.2.0                              [built from source in 57s]   
+✔ stringi 1.7.12                           [built from source in 15m]   
+✔ stringr 1.6.0                            [built from source in 5.4s]  
+✔ htmlTable 2.4.1                          [built from source in 8.1s]  
+✔ selectr 0.4-2                            [built from source in 11s]   
+✔ ggthemes 4.2.4                           [built from source in 17s]   
+✔ rvest 1.0.3                              [built from source in 6.9s]  
+✔ tidyr 1.3.2                              [built from source in 21s]   
+✔ textshaping 1.0.5                        [built from source in 45s]   
+✔ vpc 1.2.2                                [built from source in 32s]   
+✖ xpose 0.4.14
+✔ svglite 2.1.1                            [built from source in 30s]   
+✔ kableExtra 1.3.4                         [built from source in 10s]   
+✔ Hmisc 4.7-2                              [built from source in 1.6m]  
+✔ xpose4 4.7.2                             [built from source in 16s]   
+Successfully installed 131 packages in 1400 seconds.
+
+The following package(s) were not installed successfully:
+- [xpose]: install failed
+You may need to manually download and install these packages.
+
+# xpose ----------------------------------------------------------------------
+* installing *source* package ‘xpose’ ...
+** package ‘xpose’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+Error in get("print.ggplot", envir = asNamespace("ggplot2")) : 
+  object 'print.ggplot' not found
+Warning: namespace ‘xpose’ is not available and has been replaced
+by .GlobalEnv when processing object ‘xpdb_ex_pk’
+Error in get("print.ggplot", envir = asNamespace("ggplot2")) : 
+  object 'print.ggplot' not found
+Warning: namespace ‘xpose’ is not available and has been replaced
+by .GlobalEnv when processing object ‘xpdb_ex_pk’
+** inst
+** byte-compile and prepare package for lazy loading
+Error in get("print.ggplot", envir = asNamespace("ggplot2")) : 
+  object 'print.ggplot' not found
+Error: unable to load R code in package ‘xpose’
+Execution halted
+ERROR: lazy loading failed for package ‘xpose’
+* removing ‘/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_5_5_0/Rlib/.renv/2/xpose’
+
+Error: failed to install 'xpose'
+In addition: Warning messages:
+1: In value[[3L]](cond) : Could not find any credentials
+2: In value[[3L]](cond) : Could not find any credentials
+3: In value[[3L]](cond) : Could not find any credentials
+4: In value[[3L]](cond) : Could not find any credentials
+Traceback (most recent calls last):
+4: renv::restore(library = "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_5_5_0/Rlib", 
+       lockfile = "PsNR/renv.lock")
+3: renv_restore_run_actions(project, diff, current, lockfile, rebuild, 
+       strict)
+2: stopf("failed to install %s", paste(shQuote(failed), collapse = ", "))
+1: stop(sprintf(fmt, ...), call. = call.)
+Execution halted
+── R CMD build ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+✔  checking for file ‘/tmp/vsc47063/eb-essaj143/RtmpEBTSPS/file37338b4465313f/PsNR/DESCRIPTION’ (647ms)
+─  preparing ‘PsNR’:
+✔  checking DESCRIPTION meta-information ...
+─  checking for LF line-endings in source and make files and shell scripts (628ms)
+─  checking for empty or unneeded directories
+   Omitted ‘LazyData’ from DESCRIPTION
+─  building ‘PsNR_0.2.1.tar.gz’
+   Warning: invalid uid value replaced by that for user 'nobody'
+   Warning: invalid gid value replaced by that for user 'nobody'
+   
+ERROR: dependencies ‘xpose’, ‘vpc’, ‘PerformanceAnalytics’, ‘xpose4’, ‘vaplot’, ‘vegawidget’ are not available for package ‘PsNR’
+* removing ‘/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_5_5_0/Rlib/PsNR’
+Warning message:
+In i.p(...) :
+  installation of package ‘/tmp/vsc47063/eb-essaj143/RtmpEBTSPS/file37338b5f264190/PsNR_0.2.1.tar.gz’ had non-zero exit status
