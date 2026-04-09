@@ -1,10 +1,3 @@
-# readelf -d liftOver | egrep 'NEEDED|RPATH|RUNPATH' 
-# 0x0000000000000001 (NEEDED) Shared library: [libm.so.6] 
-# 0x0000000000000001 (NEEDED) Shared library: [libc.so.6] 
-# 0x0000000000000001 (NEEDED) Shared library: [ld-linux-x86-64.so.2] 
-# 0x0000000000000001 (NEEDED) Shared library: [libcurl.so.4] 
-# 0x0000000000000001 (NEEDED) Shared library: [libgcc_s.so.1]
-
 easyblock = 'Binary'
 
 name = 'liftOver'
@@ -21,10 +14,6 @@ sources = [{
     'filename': 'liftOver',
     'extract_cmd': 'cp -L %s .',
 }]
-
-# dependencies = [
-#     ('cURL', 'x.y.z'),
-# ]
 
 install_cmd = 'install -D -m 755 liftOver %(installdir)s/bin/liftOver'
 
