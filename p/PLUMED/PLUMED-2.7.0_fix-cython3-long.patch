@@ -1,0 +1,7 @@
+--- a/python/plumed.pyx
++++ b/python/plumed.pyx
+@@ -101,3 +101,3 @@ cdef class Plumed:
+          if val is None :
+             self.c_plumed.cmd( ckey, NULL )
+-         elif isinstance(val, (int,long) ):
++         elif isinstance(val, int):
