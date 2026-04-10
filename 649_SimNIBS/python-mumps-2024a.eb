@@ -1,0 +1,28 @@
+easyblock = 'PythonBundle'
+
+name = 'python-mumps'
+version = '0.0.2'
+
+homepage = 'https://gitlab.kwant-project.org/kwant/python-mumps'
+description = "Python bindings for the MUMPS: a parallel sparse direct solver."
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+builddependencies = [
+    ('meson-python', '0.16.0'),
+    ('Cython', '3.0.10'),
+]
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('MUMPS', '5.7.3', '-metis-seq'),
+]
+
+exts_list = [
+    ('python_mumps', version, {
+        'modulename': 'mumps',
+        'checksums': ['ae19e9242ca1827f10e7e57021a4be0207b8b9c563472752ca7a0edd7700b223'],
+    }),
+]
+
+moduleclass = 'math'

@@ -1,0 +1,48 @@
+easyblock = 'PythonBundle'
+
+name = 'samseg'
+version = '0.4a'
+
+homepage = 'https://github.com/freesurfer/samseg'
+description = """
+Sequence Adaptive Multimodal SEGmentation (SAMSEG) is a tool to robustly
+segment dozens of brain structures from head MRI scans without preprocessing.
+"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+builddependencies = [
+    # ('meson-python', '0.16.0'),
+    # ('Cython', '3.0.10'),
+    ('CMake', '3.29.3'),
+    ('pybind11', '2.13.6'),
+]
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('zlib', '1.3.1'),
+    ('ITK', '5.4.4'),
+]
+
+local_preinstallopts = (
+    r"sed -i 's/add_subdirectory(${pybind11_DIR} pybind11)/find_package(pybind11 CONFIG REQUIRED)/' CMakeLists.txt && "
+    'export ITK_DIR=$EBROOTITK/lib/cmake/ITK-5.4 && '
+    'export pybind11_DIR=$EBROOTPYBIND11//share/cmake/pybind11 && ' 
+    'export ZLIB_INCLUDE_DIR=$EBROOTZLIB/include && '
+    'export ZLIB_LIBRARY=$EBROOTZLIB/lib/libz.so && '
+)
+exts_list = [
+    ('surfa', '0.6.1', {  # for tests
+        'checksums': ['edb4293ca393ad5d68547d3522765b4ee24c76d47f11e646e8adbab93b7f5ebe'],
+    }),
+    (name, version, {
+        'preinstallopts': local_preinstallopts,
+        'testinstall': True,
+        'runtest': 'pytest -v samseg',
+        'source_urls': ['https://github.com/freesurfer/samseg/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['7d7b050344a17939f216669453873c73a117d2756ca9543e7720abb66b5e017b'],
+    }),
+]
+
+moduleclass = 'math'
