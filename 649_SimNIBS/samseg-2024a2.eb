@@ -21,28 +21,29 @@ dependencies = [
     ('Python', '3.12.3'),
     ('SciPy-bundle', '2024.05'),
     ('zlib', '1.3.1'),
-    ('ITK', '5.4.4'), # they have v5.3.0 https://github.com/InsightSoftwareConsortium/ITK/blob/1fc47c7bec4ee133318c1892b7b745763a17d411/CMake/itkVersion.cmake
+    # ('ITK', '5.4.4'), # they have v5.3.0 https://github.com/InsightSoftwareConsortium/ITK/blob/1fc47c7bec4ee133318c1892b7b745763a17d411/CMake/itkVersion.cmake
+    ('ITK', '5.3.0', '-minimal-cxx'),
 ]
 
 local_preinstallopts = (
     # use installed pybind11
     r"sed -i 's/add_subdirectory(${pybind11_DIR} pybind11)/find_package(pybind11 CONFIG REQUIRED)/' CMakeLists.txt && "
     # this envars needs to be set to pass to CMake
-    'export ITK_DIR=$EBROOTITK/lib/cmake/ITK-5.4 && '
+    'export ITK_DIR=$EBROOTITK/lib/cmake/ITK-5.3 && '
     'export pybind11_DIR=$EBROOTPYBIND11/share/cmake/pybind11 && ' 
     'export ZLIB_INCLUDE_DIR=$EBROOTZLIB/include && '
     'export ZLIB_LIBRARY=$EBROOTZLIB/lib/libz.so && '
     # fix for compatibility with ITK-5.4.4
-    "grep -RIl 'AtlasMesh::CellType::' gems | xargs sed -i "
-    "-e 's/AtlasMesh::CellType::VERTEX_CELL/itk::CellGeometryEnum::VERTEX_CELL/g' "
-    "-e 's/AtlasMesh::CellType::LINE_CELL/itk::CellGeometryEnum::LINE_CELL/g' "
-    "-e 's/AtlasMesh::CellType::TRIANGLE_CELL/itk::CellGeometryEnum::TRIANGLE_CELL/g' "
-    "-e 's/AtlasMesh::CellType::TETRAHEDRON_CELL/itk::CellGeometryEnum::TETRAHEDRON_CELL/g' "
-    "-e 's/AtlasMesh::CellType::QUADRILATERAL_CELL/itk::CellGeometryEnum::QUADRILATERAL_CELL/g' "
-    "-e 's/AtlasMesh::CellType::POLYGON_CELL/itk::CellGeometryEnum::POLYGON_CELL/g' "
-    "-e 's/AtlasMesh::CellType::HEXAHEDRON_CELL/itk::CellGeometryEnum::HEXAHEDRON_CELL/g' "
-    "-e 's/AtlasMesh::CellType::QUADRATIC_EDGE_CELL/itk::CellGeometryEnum::QUADRATIC_EDGE_CELL/g' "
-    "-e 's/AtlasMesh::CellType::QUADRATIC_TRIANGLE_CELL/itk::CellGeometryEnum::QUADRATIC_TRIANGLE_CELL/g' && "
+    # "grep -RIl 'AtlasMesh::CellType::' gems | xargs sed -i "
+    # "-e 's/AtlasMesh::CellType::VERTEX_CELL/itk::CellGeometryEnum::VERTEX_CELL/g' "
+    # "-e 's/AtlasMesh::CellType::LINE_CELL/itk::CellGeometryEnum::LINE_CELL/g' "
+    # "-e 's/AtlasMesh::CellType::TRIANGLE_CELL/itk::CellGeometryEnum::TRIANGLE_CELL/g' "
+    # "-e 's/AtlasMesh::CellType::TETRAHEDRON_CELL/itk::CellGeometryEnum::TETRAHEDRON_CELL/g' "
+    # "-e 's/AtlasMesh::CellType::QUADRILATERAL_CELL/itk::CellGeometryEnum::QUADRILATERAL_CELL/g' "
+    # "-e 's/AtlasMesh::CellType::POLYGON_CELL/itk::CellGeometryEnum::POLYGON_CELL/g' "
+    # "-e 's/AtlasMesh::CellType::HEXAHEDRON_CELL/itk::CellGeometryEnum::HEXAHEDRON_CELL/g' "
+    # "-e 's/AtlasMesh::CellType::QUADRATIC_EDGE_CELL/itk::CellGeometryEnum::QUADRATIC_EDGE_CELL/g' "
+    # "-e 's/AtlasMesh::CellType::QUADRATIC_TRIANGLE_CELL/itk::CellGeometryEnum::QUADRATIC_TRIANGLE_CELL/g' && "
     # "grep -q 'itkEventObject.h' gems/kvlAtlasMeshDeformationOptimizer.h || sed -i '/#include \"itkObject.h\"/i #include \"itkEventObject.h\"' gems/kvlAtlasMeshDeformationOptimizer.h && "
 )
 exts_list = [
@@ -55,10 +56,10 @@ exts_list = [
         'runtest': 'pytest -v samseg',
         'source_urls': ['https://github.com/freesurfer/samseg/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'patches': ['patch1.3.patch'],
+        # 'patches': ['patch1.3.patch'],
         'checksums': [
             {'samseg-0.4a.tar.gz': '7d7b050344a17939f216669453873c73a117d2756ca9543e7720abb66b5e017b'},
-            {'patch1.3.patch': '86c0e08e4f757fa614f4a4f1498bcfe5eea6b2ce8334252896c226eb6308e6ab'},
+            # {'patch1.3.patch': '86c0e08e4f757fa614f4a4f1498bcfe5eea6b2ce8334252896c226eb6308e6ab'},
         ],
     }),
 ]
