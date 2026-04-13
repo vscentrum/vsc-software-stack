@@ -1,0 +1,94 @@
+easyblock = 'Bundle'
+
+name = 'R-bundle-CRAN'
+version = '2023.12'
+versionsuffix = '-HOIFCar'
+
+homepage = 'https://www.r-project.org/'
+description = "Bundle of R packages from CRAN"
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [
+    ('pkgconf', '1.9.5'),
+    ('Xvfb', '21.1.8'),
+    ('Autotools', '20220317'),
+    ('CMake', '3.26.3'),
+]
+
+dependencies = [
+    ('R', '4.3.2'),
+    ('R-bundle-CRAN', '2023.12'),
+    # ('libxml2', '2.11.4'),  # for XML
+    # ('GMP', '6.2.1'),  # for igraph
+    # ('NLopt', '2.7.1'),  # for nlopt
+    # ('FFTW', '3.3.10'),  # for fftw
+    # ('libsndfile', '1.2.2'),  # for seewave
+    # ('ICU', '73.2'),  # for rJava & gdsfmt
+    # ('HDF5', '1.14.0'),  # for hdf5r
+    # ('UDUNITS', '2.2.28'),  # for units
+    # ('GSL', '2.7'),  # for RcppGSL
+    # ('ImageMagick', '7.1.1-15'),
+    # ('GLPK', '5.0'),  # for Rglpk
+    # ('nodejs', '18.17.1'),  # for V8 (required by rstan)
+    # ('GDAL', '3.7.1'),  # for sf
+    # ('MPFR', '4.2.0'),  # for Rmpfr
+    # ('PostgreSQL', '16.1'),  # for RPostgreSQL
+]
+
+# Some R extensions (mclust, quantreg, waveslim for example) require the math library (-lm) to avoid undefined symbols.
+# Adding it to FLIBS makes sure it is present when needed.
+# preconfigopts = 'export FLIBS="$FLIBS -lm" && '
+
+configopts = "--with-pic --enable-threads --enable-R-shlib"
+# some recommended packages may fail in a parallel build (e.g. Matrix), and
+# we're installing them anyway below
+configopts += " --with-recommended-packages=no"
+
+exts_defaultclass = 'RPackage'
+
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# check whether correct version is installed in extension filter
+# (some versions in this bundle may be newer than the ones provided by R)
+# local_ext_version_check = "pkgver = packageVersion('%(ext_name)s'); if (pkgver != '%(ext_version)s') "
+# local_stop_msg = "stop('%(ext_name)s %(ext_version)s not installed, found ', pkgver, ' instead')"
+# exts_filter = ("R -q --no-save", "%s { %s }" % (local_ext_version_check, local_stop_msg))
+
+# # the dbarts extension needs an additional compiler flag on Arm systems to prevent "incompatible types" errors
+# # cfr. https://github.com/vdorie/dbarts/issues/66
+# if ARCH == 'aarch64':
+#     local_dbarts_preinstallopts = 'sed -i "s|-c partition_neon.c|-flax-vector-conversions -c partition_neon.c|"'
+#     local_dbarts_preinstallopts += ' src/misc/Makefile && '
+# else:
+#     local_dbarts_preinstallopts = ''
+
+# !! order of packages is important !!
+# packages updated on 10th December 2023
+exts_list = [
+    ('enrichwith', '0.4.0', {
+        'checksums': ['5fbb9f4ed0da78f95c801c9ac13fb2054072a20108498cb3d6c09dab3a0c5e85'],
+    }),
+    ('brglm2', '1.0.1', {
+        'checksums': ['7de4eddd0d524dda4823e0cf44c10c60b452e5073b98c6669b53b4310aa4de82'],
+    }),
+    ('HOIFCar', '1.1.1', {
+        'checksums': ['1ad6a646f247366bff495bdbe9a23b95ebfc28f10352512061f0df18167c09e2'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+# sanity_check_paths = {
+#     'files': [],
+#     'dirs': ['abind', 'base64', 'calibrate'],
+# }
+
+moduleclass = 'lang'
