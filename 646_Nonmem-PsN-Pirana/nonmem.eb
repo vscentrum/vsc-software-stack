@@ -1,4 +1,3 @@
-# easyconfig adapted from https://github.com/vscentrum/vsc-software-stack/blob/site-kul
 easyblock = 'CmdCp'
 
 name = 'NONMEM'
@@ -15,8 +14,11 @@ toolchain = {'name': 'GCC', 'version': '13.3.0'}
 local_majminver = '%(version_major)s%(version_minor)s'
 local_nmbin = 'nmfe%s' % local_majminver
 
-# You'll need to download the (password-protected) NONMEMXXX.zip file first from
-# https://nonmem.iconplc.com/#/nonmemXXX and then recompress to tar.gz
+download_instructions = """
+You'll need to download the (password-protected) NONMEMXXX.zip file first from
+https://nonmem.iconplc.com/#/nonmemXXX and then recompress to
+%(name)s-%(version)s.tar.gz
+"""
 sources = [SOURCE_TAR_GZ]
 
 patches = ['NONMEM-7.6.0-std-legacy-gfortran.patch']
@@ -70,11 +72,7 @@ sanity_check_paths = {
         'run/%(namelower)s',
         'tr/NMTRAN.exe',
     ],
-    'dirs': [
-        'help',
-        'mpi',
-        'util',
-    ],
+    'dirs': ['help', 'mpi', 'util'],
 }
 
 sanity_check_commands = [
