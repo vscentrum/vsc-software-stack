@@ -10,7 +10,7 @@ toolchain = {'name': 'GCCcore', 'version': '15.2.0'}
 toolchainopts = {'pic': True}
 
 builddependencies = [
-    # ('binutils', '2.44'),
+    ('binutils', '2.45'),
     # ('UnZip', '6.0'),
     # ('pkgconf', '2.4.3'),
     # ('git', '2.50.1'),  # required for pbr
@@ -21,10 +21,11 @@ builddependencies = [
     # ('Rust', '1.88.0'),
     # ('setuptools-rust', '1.11.0'),  # required for dulwich
     # ('maturin', '1.9.1'),  # required for rpds-py
+    ('tibs', '0.6.0'),  # bitstring
 ]
 
 dependencies = [
-    # ('Python', '3.13.5'),
+    ('Python', '3.14.2'),
     # ('cryptography', '45.0.5'),
     # ('virtualenv', '20.32.0'),
 ]
@@ -71,176 +72,177 @@ crates = [
     # ('unindent', '0.2.3'),
     # ('unindent', '0.2.4'),
 ]
+# ok bitstring 4.4.0 requires tibs, which is not installed.
+    # OK tibs is rs = maturin + crates
 
 # order is important!
 # package versions updated 2025-07-30
 exts_list = [
-    # ('pbr', '6.1.1', {
-    #     'checksums': ['93ea72ce6989eb2eed99d0f75721474f69ad88128afdef5ac377eb797c4bf76b'],
-    # }),
-    # ('six', '1.17.0', {
-    #     'checksums': ['ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81'],
-    # }),
+    ('pbr', '7.0.3', {
+        'checksums': ['b46004ec30a5324672683ec848aed9e8fc500b0d261d40a3229c2d2bbfcedc29'],
+    }),
+    ('six', '1.17.0', {
+        'checksums': ['ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81'],
+    }),
     # ('toml', '0.10.2', { # OLD -> remove - replaced by tomlkit + tomli
     #     'checksums': ['b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f'],
     # }),
-    # ('python-dateutil', '2.9.0.post0', {
-    #     'modulename': 'dateutil',
-    #     'checksums': ['37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3'],
-    # }),
-    # ('decorator', '5.2.1', {
-    #     'checksums': ['65f266143752f734b0a7cc83c46f4618af75b8c5911b00ccb61d0ac9b6da0360'],
-    # }),
+    ('python-dateutil', '2.9.0.post0', {
+        'modulename': 'dateutil',
+        'checksums': ['37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3'],
+    }),
+    ('decorator', '5.2.1', {
+        'checksums': ['65f266143752f734b0a7cc83c46f4618af75b8c5911b00ccb61d0ac9b6da0360'],
+    }),
     # ('liac-arff', '2.5.0', { # OLD -> remove - replaced by scipy builtin supp
     #     'modulename': 'arff',
     #     'checksums': ['3220d0af6487c5aa71b47579be7ad1d94f3849ff1e224af3bf05ad49a0b5c4da'],
     # }),
-    # ('pycryptodome', '3.23.0', {
-    #     'modulename': 'Crypto.PublicKey.RSA',
-    #     'checksums': ['447700a657182d60338bab09fdb27518f8856aecd80ae4c6bdddb67ff5da44ef'],
-    # }),
-    # ('ecdsa', '0.19.1', {
-    #     'checksums': ['478cba7b62555866fcb3bb3fe985e06decbdb68ef55713c4e5ab98c57d508e61'],
-    # }),
+    ('pycryptodome', '3.23.0', {
+        'modulename': 'Crypto.PublicKey.RSA',
+        'checksums': ['447700a657182d60338bab09fdb27518f8856aecd80ae4c6bdddb67ff5da44ef'],
+    }),
+    ('ecdsa', '0.19.2', {
+        'checksums': ['62635b0ac1ca2e027f82122b5b81cb706edc38cd91c63dda28e4f3455a2bf930'],
+    }),
     # ('ipaddress', '1.0.23', { # OLD -> remove (for py<3.3)
     #     'checksums': ['b7f8e0369580bb4a24d5ba1d7cc29660a4a6987763faf1d8a8046830e020e7e2'],
     # }),
-    # ('asn1crypto', '1.5.1', {
+    # ('asn1crypto', '1.5.1', { -> old -> remove?
     #     'checksums': ['13ae38502be632115abf8a24cbe5f4da52e3b5231990aff31123c805306ccb9c'],
     # }),
-    # ('idna', '3.10', {
-    #     'checksums': ['12f65c9b470abda6dc35cf8e63cc574b1c52b11df2c86030af0ac09b01b13ea9'],
-    # }),
-    # ('pycparser', '2.22', {
-    #     'checksums': ['491c8be9c040f5390f5bf44a5b07752bd07f56edf992381b05c701439eec10f6'],
-    # }),
-    # ('cffi', '1.17.1', {
-    #     'checksums': ['1c39c6016c32bc48dd54561950ebd6836e1670f2ae46128f67cf49e789c52824'],
-    # }),
-    # ('semantic-version', '2.10.0', { # OLD -> remove - replaced by semver and packaging
-    #     'sources': ['semantic_version-%(version)s.tar.gz'],
-    #     'checksums': ['bdabb6d336998cbb378d4b9db3a4b56a1e3235701dc05ea2690d9a997ed5041c'],
-    # }),
-    # ('pyasn1', '0.6.1', {
-    #     'checksums': ['6f580d2bdd84365380830acf45550f2511469f673cb4a5ae3857a3170128b034'],
-    # }),
-    # ('PyNaCl', '1.5.0', {
-    #     'modulename': 'nacl',
-    #     'checksums': ['8ac7448f09ab85811607bdd21ec2464495ac8b7c66d146bf545b0f08fb9220ba'],
-    # }),
-    # ('pyparsing', '3.2.3', {
-    #     'checksums': ['b9c13f1ab8b3b542f72e28f634bad4de758ab3ce4546e4301970ad6fa77c38be'],
-    # }),
+    ('idna', '3.11', {
+        'checksums': ['795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902'],
+    }),
+    ('pycparser', '3.0', {
+        'checksums': ['600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29'],
+    }),
+    ('cffi', '2.0.0', {
+        'checksums': ['44d1b5909021139fe36001ae048dbdde8214afa20200eda0f64c068cac5d5529'],
+    }),
+    ('semantic-version', '2.10.0', {
+        'sources': ['semantic_version-%(version)s.tar.gz'],
+        'checksums': ['bdabb6d336998cbb378d4b9db3a4b56a1e3235701dc05ea2690d9a997ed5041c'],
+    }),
+    ('pyasn1', '0.6.3', {
+        'checksums': ['697a8ecd6d98891189184ca1fa05d1bb00e2f84b5977c481452050549c8a72cf'],
+    }),
+    ('pynacl', '1.6.2', {
+        'modulename': 'nacl',
+        'checksums': ['018494d6d696ae03c7e656e5e74cdfd8ea1326962cc401bcf018f1ed8436811c'],
+    }),
+    ('pyparsing', '3.3.2', {
+        'checksums': ['c777f4d763f140633dcb6d8a3eda953bf7a214dc4eff598413c070bcdc117cbc'],
+    }),
     # ('netifaces', '0.11.0', { # OLD -> remove
     #     'checksums': ['043a79146eb2907edf439899f262b3dfe41717d34124298ed281139a8b93ca32'],
     # }),
-    # ('netaddr', '1.3.0', {
-    #     'checksums': ['5c3c3d9895b551b763779ba7db7a03487dc1f8e3b385af819af341ae9ef6e48a'],
-    # }),
-    # ('mock', '5.2.0', {
-    #     'checksums': ['4e460e818629b4b173f32d08bf30d3af8123afbb8e04bb5707a1fd4799e503f0'],
-    # }),
-    # ('pytz', '2025.2', {
-    #     'checksums': ['360b9e3dbb49a209c21ad61809c7fb453643e048b38924c765813546746e81c3'],
-    # }),
-    # ('bitarray', '3.6.0', {
-    #     'checksums': ['20febc849a1f858e6a57a7d47b323fe9e727c579ddd526d317ad8831748a66a8'],
-    # }),
-    # ('bitstring', '4.3.1', {
-    #     'checksums': ['a08bc09d3857216d4c0f412a1611056f1cc2b64fd254fb1e8a0afba7cfa1a95a'],
-    # }),
+    ('netaddr', '1.3.0', {
+        'checksums': ['5c3c3d9895b551b763779ba7db7a03487dc1f8e3b385af819af341ae9ef6e48a'],
+    }),
+    ('mock', '5.2.0', {
+        'checksums': ['4e460e818629b4b173f32d08bf30d3af8123afbb8e04bb5707a1fd4799e503f0'],
+    }),
+    ('pytz', '2026.1.post1', {
+        'checksums': ['3378dde6a0c3d26719182142c56e60c7f9af7e968076f31aae569d72a0358ee1'],
+    }),
+    ('bitarray', '3.8.1', {
+        'checksums': ['f90bb3c680804ec9630bcf8c0965e54b4de84d33b17d7da57c87c30f0c64c6f5'],
+    }),
+    ('bitstring', '4.4.0', {
+        'checksums': ['e682ac522bb63e041d16cbc9d0ca86a4f00194db16d0847c7efe066f836b2e37'],
+    }),
     # ('appdirs', '1.4.4', { # OLD -> romove (replaced by platformdirs)
     #     'checksums': ['7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41'],
     # }),
-    # ('distlib', '0.4.0', {
-    #     'checksums': ['feec40075be03a04501a973d81f633735b4b69f98b05450592310c0f401a4e0d'],
-    # }),
-    # ('zipp', '3.23.0', {
-    #     'checksums': ['a07157588a12518c9d4034df3fbbee09c814741a33ff63c05fa29d26a2404166'],
-    # }),
-    # ('importlib-metadata', '8.7.0', {
-    #     'sources': ['importlib_metadata-%(version)s.tar.gz'],
-    #     'checksums': ['d13b81ad223b890aa16c5471f2ac3056cf76c5f10f82d6f9292f0b415f389000'],
-    # }),
-    # ('backports.entry-points-selectable', '1.3.0', {
+    ('distlib', '0.4.0', {
+        'checksums': ['feec40075be03a04501a973d81f633735b4b69f98b05450592310c0f401a4e0d'],
+    }),
+    ('zipp', '3.23.1', {
+        'checksums': ['32120e378d32cd9714ad503c1d024619063ec28aad2248dc6672ad13edfa5110'],
+    }),
+    ('importlib-metadata', '9.0.0', {
+        'sources': ['importlib_metadata-%(version)s.tar.gz'],
+        'checksums': ['a4f57ab599e6a2e3016d7595cfd72eb4661a5106e787a95bcc90c7105b831efc'],
+    }),
+    # ('backports.entry-points-selectable', '1.3.0', { not usefull anymore -> remove
     #     'sources': ['backports.entry_points_selectable-%(version)s.tar.gz'],
     #     'checksums': ['17a8b44ae700fba548686dd274ddc91c060371565cd63806c20a1d33911746e6'],
     # }),
-    # ('pathspec', '0.12.1', {
-    #     'checksums': ['a482d51503a1ab33b1c67a6c3813a26953dbdc71c31dacaef9a838c4e29f5712'],
-    # }),
-    # ('pluggy', '1.6.0', {
-    #     'checksums': ['7dcc130b76258d33b90f61b658791dede3486c3e6bfb003ee5c9bfb396dd22f3'],
-    # }),
-    # ('editables', '0.5', {
-    #     'checksums': ['309627d9b5c4adc0e668d8c6fa7bac1ba7c8c5d415c2d27f60f081f8e80d1de2'],
-    # }),
-    # ('filelock', '3.18.0', {
-    #     'checksums': ['adbc88eabb99d2fec8c9c1b229b171f18afa655400173ddc653d5d01501fb9f2'],
-    # }),
-    # ('platformdirs', '4.3.8', {
-    #     'checksums': ['3d512d96e16bcb959a814c9f348431070822a6496326a4be0911c40b5a74c2bc'],
-    # }),
+    ('pathspec', '1.0.4', {
+        'checksums': ['0210e2ae8a21a9137c0d470578cb0e595af87edaa6ebf12ff176f14a02e0e645'],
+    }),
+    ('pluggy', '1.6.0', {
+        'checksums': ['7dcc130b76258d33b90f61b658791dede3486c3e6bfb003ee5c9bfb396dd22f3'],
+    }),
+    ('editables', '0.6', {
+        'checksums': ['1163834902381c4613787951c5914800fdf155ae08848a373b8ea5006780977c'],
+    }),
+    ('filelock', '3.28.0', {
+        'checksums': ['4ed1010aae813c4ee8d9c660e4792475ee60c4a0ba76073ceaf862bd317e3ca6'],
+    }),
+    ('platformdirs', '4.9.6', {
+        'checksums': ['3bfa75b0ad0db84096ae777218481852c0ebc6c727b3168c1b9e0118e458cf0a'],
+    }),
     # ('scandir', '1.10.0', { # OLD -> remove - replaced by os.scandir()
     #     'checksums': ['4d4631f6062e658e9007ab3149a9b914f3548cb38bfb021c64f39a025ce578ae'],
     # }),
     # ('pathlib2', '2.3.7.post1', { # OLD -> remove - add pathlib3 instead?
     #     'checksums': ['9fe0edad898b83c0c3e199c842b27ed216645d2e177757b2dd67384d4113c641'],
     # }),
-    # ('importlib-resources', '6.5.2', {
-    #     'sources': ['importlib_resources-%(version)s.tar.gz'],
-    #     'checksums': ['185f87adef5bcc288449d98fb4fba07cea78bc036455dd44c5fc4a2fe78fed2c'],
-    # }),
+    ('importlib-resources', '7.1.0', {
+        'sources': ['importlib_resources-%(version)s.tar.gz'],
+        'checksums': ['0722d4c6212489c530f2a145a34c0a7a3b4721bc96a15fada5930e2a0b760708'],
+    }),
     # ('docopt', '0.6.2', {  # OLD -> replace by docopt-ng (https://github.com/jazzband/docopt-ng)
     #     'checksums': ['49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491'],
     # }),
-    # ('joblib', '1.5.1', {
-    #     'checksums': ['f4f86e351f39fe3d0d32a9f2c3d8af1ee4cec285aafcb27003dda5205576b444'],
-    # }),
-    # ('chardet', '5.2.0', {
-    #     'checksums': ['1b3b6ff479a8c414bc3fa2c0852995695c4a026dcd6d0633b2dd092ca39c1cf7'],
-    # }),
-    # ('certifi', '2025.7.14', {
-    #     'checksums': ['8ea99dbdfaaf2ba2f9bac77b9249ef62ec5218e7c2b2e903378ed5fccf765995'],
-    # }),
-    # ('urllib3', '2.5.0', {
-    #     'checksums': ['3fc47733c7e419d4bc3f6b3dc2b4f890bb743906a30d56ba4a5bfa4bbff92760'],
-    # }),
-    # ('charset-normalizer', '3.4.2', {
-    #     'sources': ['charset_normalizer-%(version)s.tar.gz'],
-    #     'checksums': ['5baececa9ecba31eff645232d59845c07aa030f0c81ee70184a90d35099a0e63'],
-    # }),
-    # ('requests', '2.32.4', {
-    #     'checksums': ['27d0316682c8a29834d3264820024b62a36942083d52caf2f14c0591336d3422'],
-    # }),
-    # ('xlrd', '2.0.2', {
-    #     'checksums': ['08b5e25de58f21ce71dc7db3b3b8106c1fa776f3024c54e45b45b374e89234c9'],
-    # }),
+    ('joblib', '1.5.3', {
+        'checksums': ['8561a3269e6801106863fd0d6d84bb737be9e7631e33aaed3fb9ce5953688da3'],
+    }),
+    ('chardet', '7.4.3', {
+        'checksums': ['cc1d4eb92a4ec1c2df3b490836ffa46922e599d34ce0bb75cf41fd2bf6303d56'],
+    }),
+    ('certifi', '2026.2.25', {
+        'checksums': ['e887ab5cee78ea814d3472169153c2d12cd43b14bd03329a39a9c6e2e80bfba7'],
+    }),
+    ('urllib3', '2.6.3', {
+        'checksums': ['1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed'],
+    }),
+    ('charset-normalizer', '3.4.7', {
+        'sources': ['charset_normalizer-%(version)s.tar.gz'],
+        'checksums': ['ae89db9e5f98a11a4bf50407d4363e7b09b31e55bc117b4f7d80aab97ba009e5'],
+    }),
+    ('requests', '2.33.1', {
+        'checksums': ['18817f8c57c6263968bc123d237e3b8b08ac046f5456bd1e307ee8f4250d3517'],
+    }),
+    ('xlrd', '2.0.2', {
+        'checksums': ['08b5e25de58f21ce71dc7db3b3b8106c1fa776f3024c54e45b45b374e89234c9'],
+    }),
     # ('py-expression-eval', '0.3.14', { # OLD -> remove - replaced by simpleeval
     #     'sources': ['py_expression_eval-%(version)s.tar.gz'],
     #     'checksums': ['ea60f9404a18346d5a63854db21c50666dfb4274ae111000165b31c6f8ab93f1'],
     # }),
-    # ('tabulate', '0.9.0', {
-    #     'checksums': ['0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c'],
-    # }),
-    # ('ujson', '5.10.0', {
-    #     'checksums': ['b3cd8f3c5d8c7738257f1018880444f7b7d9b66232c64649f562d7ba86ad4bc1'],
-    # }),
+    ('tabulate', '0.10.0', {
+        'checksums': ['e2cfde8f79420f6deeffdeda9aaec3b6bc5abce947655d17ac662b126e48a60d'],
+    }),
+    ('ujson', '5.12.0', {
+        'checksums': ['14b2e1eb528d77bc0f4c5bd1a7ebc05e02b5b41beefb7e8567c9675b8b13bcf4'],
+    }),
     # ('atomicwrites', '1.4.1', { # OLD -> remove - replaced by os.rename()
     #     'checksums': ['81b2c9071a49367a7f770170e5eec8cb66567cfbbc8c73d20ce5ca4a8d71cf11'],
     # }),
     # ('py', '1.11.0', { # OLD and Vulnerable -> remove
     #     'checksums': ['51c75c4126074b472f746a24399ad32f6053d1b34b68d2fa41e558e6f4a98719'],
     # }),
-    # ('more-itertools', '10.7.0', {
-    #     'sources': ['more_itertools-%(version)s.tar.gz'],
-    #     'checksums': ['9fddd5403be01a94b204faadcff459ec3568cf110265d3c54323e1e866ad29d3'],
-    # }),
-    # ('attrs', '25.3.0', {
-    #     'modulename': 'attr',
-    #     'checksums': ['75d7cefc7fb576747b2c81b4442d4d4a1ce0900973527c011d1030fd3bf4af1b'],
-    # }),
-    # ('backports.functools-lru-cache', '2.0.0', {
+    ('more-itertools', '11.0.2', {
+        'sources': ['more_itertools-%(version)s.tar.gz'],
+        'checksums': ['392a9e1e362cbc106a2457d37cabf9b36e5e12efd4ebff1654630e76597df804'],
+    }),
+    ('attrs', '26.1.0', {
+        'checksums': ['d03ceb89cb322a8fd706d4fb91940737b6642aa36998fe130a9bc96c985eff32'],
+    }),
+    # ('backports.functools-lru-cache', '2.0.0', { -> remove - in stdlib
     #     'sources': ['backports.functools_lru_cache-%(version)s.tar.gz'],
     #     'checksums': ['dcbfa5e0dae8a014168807c9e026d33eead71df5af76c1fb78fd248bf07f6f99'],
     # }),
