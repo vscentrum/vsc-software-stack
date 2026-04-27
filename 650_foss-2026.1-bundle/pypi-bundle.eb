@@ -21,13 +21,14 @@ builddependencies = [
     # ('Rust', '1.88.0'),
     # ('setuptools-rust', '1.11.0'),  # required for dulwich
     # ('maturin', '1.9.1'),  # required for rpds-py
-    ('tibs', '0.5.7'),  # bitstring
 ]
 
 dependencies = [
     ('Python', '3.14.2'),
     # ('cryptography', '45.0.5'),
     # ('virtualenv', '20.32.0'),
+    ('tibs', '0.5.7'),  # bitstring
+    ('Pygments', '2.20.0'),  # pytest
 ]
 
 # ADD EXTRA:
@@ -97,7 +98,7 @@ crates = [
     # OK tibs is rs = maturin + crates
 # OK filelock: Cannot import 'hatchling.build'
 # bitstring 4.4.0 has requirement tibs<0.6,>=0.5.6, but you have tibs 0.6.0.
-
+# pytest 9.0.3 requires pygments, which is not installed.
 
 # order is important!
 # package versions updated 2025-07-30
@@ -270,21 +271,21 @@ exts_list = [
     #     'sources': ['backports.functools_lru_cache-%(version)s.tar.gz'],
     #     'checksums': ['dcbfa5e0dae8a014168807c9e026d33eead71df5af76c1fb78fd248bf07f6f99'],
     # }),
-    # ('wcwidth', '0.2.13', {
-    #     'checksums': ['72ea0c06399eb286d978fdedb6923a9eb47e1c486ce63e9b4e64fc18303972b5'],
-    # }),
-    # ('iniconfig', '2.1.0', {
-    #     'checksums': ['3abbd2e30b36733fee78f9c7f7308f2d0050e88f0087fd25c2645f63c773e1c7'],
-    # }),
+    ('wcwidth', '0.6.0', {
+        'checksums': ['cdc4e4262d6ef9a1a57e018384cbeb1208d8abbc64176027e2c2455c81313159'],
+    }),
+    ('iniconfig', '2.3.0', {
+        'checksums': ['c76315c77db068650d49c5b56314774a7804df16fee4402c1f19d6d15d8c4730'],
+    }),
     # ('colorama', '0.4.6', { # OLD -> remove- replaced by rich
     #     'checksums': ['08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44'],
     # }),
-    # ('exceptiongroup', '1.3.0', {
-    #     'checksums': ['b241f5885f560bc56a59ee63ca4c6a8bfa46ae4ad651af316d4e81817bb9fd88'],
+    # ('exceptiongroup', '1.3.1', { -> remove - backport py3.11 -> not used in pytest anymore
+    #     'checksums': ['8b412432c6055b0b7d14c310000ae93352ed6754f70fa8f7c34141f91c4e3219'],
     # }),
-    # ('pytest', '8.4.1', {
-    #     'checksums': ['7c67fd69174877359ed9371ec3af8a3d2b04741818c51e5e99cc1742251fa93c'],
-    # }),
+    ('pytest', '9.0.3', {
+        'checksums': ['b86ada508af81d19edeb213c681b1d48246c1a91d304c6c81a427674c17eb91c'],
+    }),
     # ('MarkupSafe', '3.0.2', {
     #     'sources': ['markupsafe-%(version)s.tar.gz'],
     #     'checksums': ['ee55d3edf80167e48ea11a923c7386f4669df67d7994554387f84e7d8b0a2bf0'],
@@ -302,10 +303,6 @@ exts_list = [
     #     'modulename': 'sphinxcontrib.websupport',
     #     'sources': ['sphinxcontrib_websupport-%(version)s.tar.gz'],
     #     'checksums': ['0b7367d3bac6454b1f97e42aa8c4d4d4a1b756d525fc726ebbe5571e033e79cd'],
-    # }),
-    # ('Pygments', '2.19.2', {
-    #     'sources': ['pygments-%(version)s.tar.gz'],
-    #     'checksums': ['636cb2477cec7f8952536970bc533bc43743542f70392ae026374600add5b887'],
     # }),
     # ('imagesize', '1.4.1', {
     #     'checksums': ['69150444affb9cb0d5cc5a92b3676f0b2fb7cd9ae39e947a5e11a36b4497cd4a'],
@@ -555,6 +552,7 @@ exts_list = [
     #     'sources': ['pytest_xdist-%(version)s.tar.gz'],
     #     'checksums': ['7e578125ec9bc6050861aa93f2d59f1d8d085595d6551c2c90b6f4fad8d3a9f1'],
     # }),
+    # pytest-mock + other pytest stuff?
 ]
 
 moduleclass = 'lang'
