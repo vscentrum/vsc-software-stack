@@ -9,22 +9,9 @@ a modern, extensible Python project manager."""
 
 toolchain = {'name': 'GCCcore', 'version': '15.2.0'}
 
-builddependencies = [
-    ('binutils', '2.45'),
-]
+builddependencies = [('binutils', '2.45')]
+dependencies = [('Python', '3.14.2')]
 
-dependencies = [
-    ('Python', '3.14.2'),
-]
-
-#   OK "packaging>=24.2", - py ml
-#   ok "pathspec>=0.10.1",
-#   ok "pluggy>=1.0.0",
-#   X "tomli>=1.2.2; python_version < '3.11'",
-#   ok "trove-classifiers",
-# X hatch-min-requirements 0.2.0 requires tomlkit, which is not installed.
-    # X tomlkit needs poetry.core.masonry.api -> do not put hatch-min-requirements here
-  
 exts_list = [
     ('pathspec', '1.1.1', {
         'checksums': ['17db5ecd524104a120e173814c90367a96a98d07c45b2e10c2f3919fff91bf5a'],
