@@ -17,28 +17,29 @@ dependencies = [
     ('Python', '3.14.2'),
 ]
 
-#   "packaging>=24.2",
-#   "pathspec>=0.10.1",
-#   "pluggy>=1.0.0",
-#   "tomli>=1.2.2; python_version < '3.11'",
-#   "trove-classifiers",
+#   OK "packaging>=24.2", - py ml
+#   ok "pathspec>=0.10.1",
+#   ok "pluggy>=1.0.0",
+#   X "tomli>=1.2.2; python_version < '3.11'",
+#   ok "trove-classifiers",
+# X hatch-min-requirements 0.2.0 requires tomlkit, which is not installed.
+    # X tomlkit needs poetry.core.masonry.api -> do not put hatch-min-requirements here
   
 exts_list = [
-    ('pathspec', '0.12.1', {
-        'checksums': ['a482d51503a1ab33b1c67a6c3813a26953dbdc71c31dacaef9a838c4e29f5712'],
+    ('pathspec', '1.1.1', {
+        'checksums': ['17db5ecd524104a120e173814c90367a96a98d07c45b2e10c2f3919fff91bf5a'],
     }),
     ('pluggy', '1.6.0', {
         'checksums': ['7dcc130b76258d33b90f61b658791dede3486c3e6bfb003ee5c9bfb396dd22f3'],
     }),
-    ('editables', '0.5', {
-        'checksums': ['309627d9b5c4adc0e668d8c6fa7bac1ba7c8c5d415c2d27f60f081f8e80d1de2'],
+    ('calver', '2025.10.20', {
+        'checksums': ['c98b376c2424642224d456b2f70c51402343e008c63d204634665e1a2a2835f5'],
     }),
-    ('trove-classifiers', '2025.5.9.12', {
-        'sources': ['trove_classifiers-%(version)s-py3-none-any.whl'],
-        'checksums': ['e381c05537adac78881c8fa345fd0e9970159f4e4a04fcc42cfd3129cca640ce'],
+    ('trove-classifiers', '2026.1.14.14', {
+        'checksums': ['00492545a1402b09d4858605ba190ea33243d361e2b01c9c296ce06b5c3325f3'],
     }),
     (name, version, {
-        'checksums': ['971c296d9819abb3811112fc52c7a9751c8d381898f36533bb16f9791e941fd6'],
+        'checksums': ['793c31816d952cee405b83488ce001c719f325d9cda69f1fc4cd750527640ea6'],
     }),
     ('hatch-vcs', '0.5.0', {
         'sources': ['hatch_vcs-%(version)s.tar.gz'],
