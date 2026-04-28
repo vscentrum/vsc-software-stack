@@ -18,13 +18,8 @@ toolchain = {'name': 'GCCcore', 'version': '15.2.0'}
 sources = [SOURCELOWER_TAR_GZ]
 checksums = ['84226ecd313b233da27dc2eb3601b4f222b8209c3a7216d8733b031da1dc64e6']
 
-builddependencies = [
-    ('binutils', '2.45'),
-]
-
-dependencies = [
-   ('Python', '3.14.2'),
-]
+builddependencies = [('binutils', '2.45')]
+dependencies = [('Python', '3.14.2')]
 
 sanity_check_paths = {
     'files': ['bin/cygdb', 'bin/cython', 'bin/cythonize'],

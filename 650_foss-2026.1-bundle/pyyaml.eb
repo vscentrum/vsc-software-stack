@@ -17,12 +17,11 @@ builddependencies = [
 ]
 dependencies = [
    ('Python', '3.14.2'),
-    # ('libyaml', '0.2.5'),
-    # ('Python-bundle-PyPI', '2025.07'),
+    ('libyaml', '0.2.5'),
 ]
 
 options = {'modulename': 'yaml'}
 
-sanity_check_commands = ["python -c 'import yaml; yaml.CLoader'"]
+sanity_check_commands = ["python -s -c 'import yaml; yaml.CLoader'"]
 
 moduleclass = 'lib'

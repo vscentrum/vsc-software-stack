@@ -27,10 +27,12 @@ dependencies = [
     ('Python', '3.14.2'),
     # ('cryptography', '45.0.5'),
     # ('virtualenv', '20.32.0'),
+    ('psutil', '7.2.1'),
     ('tibs', '0.5.7'),  # bitstring
-    ('Pygments', '2.20.0'),  # pytest
+    ('Pygments', '2.20.0'),  # pytest, Sphinx
     ('watchfiles', '1.1.1'),  # sphinx-autobuild
     ('BeautifulSoup', '4.14.3'),  # sphinx-codeautolink
+    ('PyYAML', '6.0.3'),  # pybtex
 ]
 
 # ADD EXTRA:
@@ -113,8 +115,9 @@ crates = [
 # OK sphinx-codeautolink 0.18.0 requires beautifulsoup4, which is not installed.
 # ok uvicorn 0.46.0 requires click, which is not installed.
 # ok uvicorn 0.46.0 requires h11, which is not installed.
-# pybtex 0.26.1 requires latexcodec, which is not installed.
-# pybtex 0.26.1 requires pyyaml, which is not installed.
+# ok pybtex 0.26.1 requires latexcodec, which is not installed.
+# OK pybtex 0.26.1 requires pyyaml, which is not installed.
+# ModuleNotFoundError: No module named 'sphinxcontrib_bibtex'
 
 # order is important!
 # package versions updated 2025-07-30
@@ -403,6 +406,7 @@ exts_list = [
         'checksums': ['3a7ebdf92b593e00e8c1c538aa9a20bca5d92d84231124715acc964d51d93c6b'],
     }),
     ('sphinxcontrib-bibtex', '2.6.5', {
+        'modulename': 'sphinxcontrib.bibtex',
         'checksums': ['9b3224dd6fece9268ebd8c905dc0a83ff2f6c54148a9235fe70e9d1e9ff149c0'],
     }),
     ('sphinx-bootstrap-theme', '0.8.1', {
@@ -416,31 +420,28 @@ exts_list = [
             # {'sphinx-8.2.3_license_dict.patch': '639bdef574e47b3124be1d94253c1de923e20059e6bf079ea2ccacb9f4f7ba4d'},
         ],
     }),
-    # ('psutil', '7.0.0', {
-    #     'checksums': ['7be9c3eba38beccb6495ea33afd982a44074b78f28c434a1f51cc07fd315c456'],
-    # }),
-    # ('future', '1.0.0', {
+    # ('future', '1.0.0', { -> old -> remove - py2 compatibility
     #     'checksums': ['bd2968309307861edae1458a4f8a4f3598c03be43b97521076aebf5d94c07b05'],
     # }),
-    # ('sortedcontainers', '2.4.0', {
+    # ('sortedcontainers', '2.4.0', { # dep?
     #     'checksums': ['25caa5a06cc30b6b83d11423433f65d1f9d76c4c6a0c90e3379eaa43b9bfdb88'],
     # }),
-    # ('intervaltree', '3.1.0', {
-    #     'checksums': ['902b1b88936918f9b2a19e0e5eb7ccb430ae45cde4f39ea4b36932920d33952d'],
-    # }),
+    ('intervaltree', '3.2.1', {
+        'checksums': ['f3f7e8baeb7dd75b9f7a6d33cf3ec10025984a8e66e3016d537e52130c73cfe2'],
+    }),
     # ('pytoml', '0.1.21', { # OLD -> remove - replaced by tomli in Python.eb
     #     'checksums': ['8eecf7c8d0adcff3b375b09fe403407aa9b645c499e5ab8cac670ac4a35f61e7'],
     # }),
     # ('zipfile36', '0.1.3', { # OLD -> remove (backport from py3.6)
     #     'checksums': ['a78a8dddf4fa114f7fe73df76ffcce7538e23433b7a6a96c1c904023f122aead'],
     # }),
-    # ('tomli-w', '1.2.0', {
-    #     'sources': ['tomli_w-%(version)s.tar.gz'],
-    #     'checksums': ['2dd14fac5a47c27be9cd4c976af5a12d87fb1f0b4512f81d69cce3b35ae25021'],
-    # }),
-    # ('regex', '2025.7.31', {
-    #     'checksums': ['80a1af156ea8670ae63184e5c112b481326ece1879e09447f6fbb49d1b49330b'],
-    # }),
+    ('tomli-w', '1.2.0', {
+        'sources': ['tomli_w-%(version)s.tar.gz'],
+        'checksums': ['2dd14fac5a47c27be9cd4c976af5a12d87fb1f0b4512f81d69cce3b35ae25021'],
+    }),
+    ('regex', '2026.4.4', {
+        'checksums': ['e08270659717f6973523ce3afbafa53515c4dc5dcad637dc215b6fd50f689423'],
+    }),
     # ('intreehooks', '1.0', { # OLD -> remove - backend-path key was added to PEP 517 
     #     'checksums': ['87e600d3b16b97ed219c078681260639e77ef5a17c0e0dbdd5a302f99b4e34e1'],
     # }),
