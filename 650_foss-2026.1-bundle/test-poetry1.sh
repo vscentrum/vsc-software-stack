@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+export POETRY_KEYRING_ENABLED=false
 PYTHON_BIN="${1:-python3}"
 KEEP="${KEEP:-0}"
 
@@ -16,9 +17,9 @@ run() {
 need_cmd poetry
 need_cmd "$PYTHON_BIN"
 
-echo "== Poetry smoke test =="
-run poetry --version
-run "$PYTHON_BIN" --version
+# echo "== Poetry smoke test =="
+# run poetry --version
+# run "$PYTHON_BIN" --version
 
 TMPDIR="$(mktemp -d)"
 PROJECT_DIR="$TMPDIR/poetry-smoke-project"

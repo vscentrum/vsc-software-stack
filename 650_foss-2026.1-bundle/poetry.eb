@@ -9,55 +9,13 @@ description = """Python packaging and dependency management made easy. Poetry he
 
 toolchain = {'name': 'GCCcore', 'version': '15.2.0'}
 
-# DEPS:
-    # ok "poetry-core (==2.3.2)",
-    # OK "build (>=1.2.1,<2.0.0)",
-    # ok "cachecontrol[filecache] (>=0.14.0,<0.15.0)",
-        # ok filelock
-    # ok "cleo (>=2.1.0,<3.0.0)",
-    # OK "dulwich (>=0.25.0,<2)",
-    # ok "fastjsonschema (>=2.18.0,<3.0.0)",
-    # ok "installer (>=0.7.0,<0.8.0)",
-    # ok "keyring (>=25.1.0,<26.0.0)",
-        # ok 'SecretStorage>=3.2; sys_platform=="linux"',
-        # ok 'jeepney>=0.4.2; sys_platform=="linux"',
-        # ok "jaraco.classes",
-        # ok "jaraco.functools",
-        # ok "jaraco.context",
-    # OK "packaging (>=24.2)",  # PEP 639 support was added in 24.2
-    # ok "pkginfo (>=1.12,<2.0)",
-    # ok "platformdirs (>=3.0.0,<5)",
-    # ok "pyproject-hooks (>=1.0.0,<2.0.0)",
-    # ok "requests (>=2.26,<3.0)",
-    # ok "requests-toolbelt (>=1.0.0,<2.0.0)",
-    # ok "shellingham (>=1.5,<2.0)",
-    # ok "tomlkit (>=0.11.4,<1.0.0)",
-    # ok "trove-classifiers (>=2022.5.19)",
-    # OK "virtualenv (>=20.26.6)",
-    # ok "findpython (>=0.6.2,<0.8.0)",
-    # ok "pbs-installer[download,install] (>=2025.6.10)",
-    # ok jaraco-functools 4.4.0 requires more-itertools, which is not installed.
-    # ok jaraco-classes 3.4.0 requires more-itertools, which is not installed.
-    # OK secretstorage 3.5.0 requires cryptography, which is not installed.
-    # ok cleo 2.1.0 requires crashtest, which is not installed.
-    # ok cleo 2.1.0 requires rapidfuzz, which is not installed.
-    # ok requests 2.33.1 requires certifi, which is not installed.
-    # ok requests 2.33.1 requires charset-normalizer, which is not installed.
-    # ok requests 2.33.1 requires idna, which is not installed.
-
 builddependencies = [
     ('binutils', '2.45'),
     ('hatchling', '1.29.0'),
-    # ('pkgconf', '2.4.3'),
-    # ('scikit-build', '0.18.1'),
     ('scikit-build-core', '0.12.2'),  # rapidfuzz
-    # ('Rust', '1.88.0'),
-    # ('setuptools-rust', '1.11.0'),
-    # ('maturin', '1.9.1'),
 ]
 dependencies = [
     ('Python', '3.14.2'),
-    # ('hatchling', '1.27.0'),
     ('cryptography', '47.0.0'),
     ('virtualenv', '21.3.0'),
     ('dulwich', '1.2.0'),
@@ -103,7 +61,6 @@ exts_list = [
         'checksums': ['da21933b0417b89515562656547a77b4931f98176eb173644c0d35032a33d6bb'],
     }),
     ('keyring', '25.7.0', {
-        # 'modulename': False,
         'checksums': ['fe01bd85eb3f8fb3dd0405defdeac9a5b4f6f0439edbb3149577f244a2e8245b'],
     }),
     ('installer', '0.7.0', {
