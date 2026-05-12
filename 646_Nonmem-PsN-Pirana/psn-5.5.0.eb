@@ -1,7 +1,7 @@
 easyblock = 'Bundle'
 
 name = 'PsN'
-version = '5.6.0'
+version = '5.5.0'
 
 homepage = 'https://uupharmacometrics.github.io/PsN/'
 description = """Perl-speaks-NONMEM (PsN) is a collection of Perl modules and programs
@@ -161,7 +161,7 @@ moduleclass = 'bio'
     # -> update psn.py: quanda + re.escape
     # <- during install of PsN ext: re.error: bad character range e-1 at position 150
 # DEBUG1:
-#1: OK in psn.py - do not run cmd = 'R_LIBS_SITE=%s:${R_LIBS_SITE} perl setup.pl' % rlibdir
+#1: OK in psn.py - do not run cmd cmd = 'R_LIBS_SITE=%s:${R_LIBS_SITE} perl setup.pl' % rlibdir
     # module also adds '' to R_LIBS_SITE, which means $EBROOTPSN itself. That root directory is not an R library tree.
     # I would not add the install root to R_LIBS_SITE at all. I would keep the patch
     # -> changed to: cmd = 'perl setup.pl'
