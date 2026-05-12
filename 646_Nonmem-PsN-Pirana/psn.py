@@ -1,11 +1,35 @@
 ##
-# EasyBuild easyblock for PsN
+# Copyright 2009-2026 Ghent University
 #
-# This easyblock installs PsN without running upstream bin/setup.pl.
+# This file is part of EasyBuild,
+# originally created by the HPC team of Ghent University (http://ugent.be/hpc/en),
+# with support of Ghent University (http://ugent.be/hpc),
+# the Flemish Supercomputer Centre (VSC) (https://www.vscentrum.be),
+# Flemish Research Foundation (FWO) (http://www.fwo.be/en)
+# and the Department of Economy, Science and Innovation (EWI) (http://www.ewi-vlaanderen.be/en).
 #
-# It is intended to be used as the final extension in a Bundle where the
-# required CPAN modules are installed as PerlModule extensions first.
+# https://github.com/easybuilders/easybuild
+#
+# EasyBuild is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation v2.
+#
+# EasyBuild is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with EasyBuild.  If not, see <http://www.gnu.org/licenses/>.
 ##
+"""
+EasyBuild easyblock for PsN installation.
+This easyblock installs PsN without running upstream bin/setup.pl.
+It is intended to be used as the final extension in a Bundle where the
+required CPAN modules are installed as PerlModule extensions first.
+
+@author:Pavel Tomanek (Inuits/Ugent) with help of ChatGPT5.5
+"""
 
 import os
 import re

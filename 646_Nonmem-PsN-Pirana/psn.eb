@@ -14,39 +14,15 @@ local_perlver = '5.38.2'
 local_perlmajver = local_perlver.split('.')[0]
 local_libdir = 'lib/perl%s/site_perl/%s' % (local_perlmajver, local_perlver)
 
-# DEPS perl:
-    # ok Statistics::Distributions - not in cpan
-    # OK File::Copy::Recursive - in cpan
-    # OK File::HomeDir - in cpan
-    # ok Math::SigFigs - not in cpan
-    # OK Capture::Tiny - in cpan
-    # ok Math::Random::Free - not in cpan
-    # ok Math::MatrixReal - not in cpan
-    # OK Mouse - in cpan
-    # ok MouseX::Params::Validate - not in cpan
-    # OK YAML - in cpan
-    # Archive::Zip
-
 dependencies = [
     ('Perl', local_perlver),
     ('Perl-bundle-CPAN', local_perlver),
-    # ('Python', '3.12.3'),
     ('PsNR', '2025-05-08', f'-{name}-{version}'),
     ('NONMEM', '7.6.0', '-MPICH-4.2.2'),
 ]
 
 exts_defaultclass = 'PerlModule'
-
-# exts_classmap = {
-#     'Math::MatrixReal': 'PerlModule',
-#     'Math::Random::Free': 'PerlModule',
-#     'Math::SigFigs': 'PerlModule',
-#     'MouseX::Params::Validate': 'PerlModule',
-#     'Archive::Zip': 'PerlModule',
-#     'Devel::Caller': 'PerlModule',
-#     'Statistics::Distributions': 'PerlModule',
-#     name: 'PsN',
-# }
+exts_classmap = {name: 'PsN'}
 
 exts_list = [
     ('Math::MatrixReal', '2.13', {
@@ -85,15 +61,9 @@ exts_list = [
         'checksums': ['b679a2b18034b0b720de82c3708724c364b10a6ca164cbc67cdc3af283f3503f'],
     }),
     (name, version, {
-        'easyblock': 'EB_PsN',
-        # 'modulename': False,
         'source_urls': ['https://github.com/UUPharmacometrics/PsN/releases/download/v%(version)s/'],
         'sources': ['%(name)s-%(version)s.tar.gz'],
-        # 'patches': ['PsN-5.3.0-keep-Rlibs-site-env.patch'],
-        'checksums': [
-            {'PsN-5.6.0.tar.gz': '72a1e32ffda1a50c3752f9919b8f568b5e1f5c19352c1b3f8840fa9938f3ae37'},
-            # {'PsN-5.3.0-keep-Rlibs-site-env.patch': 'cda2f1813e414ed243e57e22f45a18edc2e02447fbd7bc0d5aa59ef918c82c93'},
-        ],
+        'checksums': ['72a1e32ffda1a50c3752f9919b8f568b5e1f5c19352c1b3f8840fa9938f3ae37'],
         'perllib': local_libdir,
         'nm_versions': ['default=nmfe76,7.6', 'nm760=nmfe76,7.6'],
     }),
