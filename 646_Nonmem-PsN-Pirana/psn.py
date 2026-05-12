@@ -1,174 +1,269 @@
-import os, re
+##
+# EasyBuild easyblock for PsN
+#
+# This easyblock installs PsN without running upstream bin/setup.pl.
+#
+# It is intended to be used as the final extension in a Bundle where the
+# required CPAN modules are installed as PerlModule extensions first.
+##
 
-from easybuild.framework.easyconfig import CUSTOM, MANDATORY
+import os
+import re
+import shutil
+
+from easybuild.framework.easyconfig import CUSTOM
 from easybuild.framework.extensioneasyblock import ExtensionEasyBlock
-from easybuild.easyblocks.generic.perlmodule import PerlModule
 from easybuild.tools.build_log import EasyBuildError
-from easybuild.tools.modules import get_software_root
-from easybuild.tools.run import run_shell_cmd
 
 
-class EB_PsN(PerlModule):
+class EB_PsN(ExtensionEasyBlock):
+    """Install PsN as an EasyBuild extension without running setup.pl."""
+
     @staticmethod
-    def extra_options():
-        """Easyconfig parameters specific to PsN modules."""
-        extra_vars = {
-            'perllib': [None, "PsN requires 'perllib' parameter", MANDATORY],
-            'nm_versions': [None, "Lines to add to [nm_versions] in psn.conf", CUSTOM],
-        }
-        return ExtensionEasyBlock.extra_options(extra_vars)
+    def extra_options(extra_vars=None):
+        """Define custom easyconfig parameters for PsN."""
+        extra_vars = ExtensionEasyBlock.extra_options(extra_vars)
+        extra_vars.update({
+            'perllib': [
+                None,
+                'Perl library subdirectory where PsN should be installed',
+                CUSTOM,
+            ],
+            'nm_versions': [
+                None,
+                'List of PsN nm_versions entries, e.g. default=nmfe76,7.6',
+                CUSTOM,
+            ],
+        })
+        return extra_vars
 
-    def install_perl_module(self):
-        # rlibdir = self.installdir
-        # cmd = 'R_LIBS_SITE=%s:${R_LIBS_SITE} perl setup.pl' % rlibdir
-        cmd = 'perl setup.pl'
+    def configure_step(self):
+        """No configure step for PsN."""
+        pass
+
+    def build_step(self):
+        """No build step for PsN."""
+        pass
+
+    def install_step(self):
+        """Install PsN when this easyblock is used as a stand-alone easyblock."""
+        self._install_psn(self._determine_srcdir())
+
+    def install_extension(self, unpack_src=True):
+        """Install PsN when used as an extension in a Bundle."""
+        super().install_extension(unpack_src=unpack_src)
+        self._install_psn(self._determine_srcdir())
+
+    def _determine_srcdir(self):
+        """Determine the unpacked PsN source directory."""
+        candidates = [
+            self.start_dir,
+            self.cfg.get('start_dir', None),
+            getattr(self, 'ext_dir', None),
+            os.getcwd(),
+        ]
+
+        for path in candidates:
+            if path and os.path.isdir(path):
+                if os.path.isdir(os.path.join(path, 'bin')) and os.path.isdir(os.path.join(path, 'lib')):
+                    return path
+
+        raise EasyBuildError(
+            "Could not determine PsN source directory; checked: %s",
+            ', '.join(str(x) for x in candidates if x)
+        )
+
+    def _install_psn(self, srcdir):
+        """Install PsN Perl library, scripts, symlinks, and config file."""
+        perllib = self.cfg['perllib']
+        nm_versions = self.cfg['nm_versions'] or []
+
+        if not perllib:
+            raise EasyBuildError("Missing required easyconfig parameter 'perllib'")
+
+        if not nm_versions:
+            raise EasyBuildError("Missing required easyconfig parameter 'nm_versions'")
+
+        perl = shutil.which('perl')
+        if not perl:
+            raise EasyBuildError("Could not find perl in PATH")
 
         bindir = os.path.join(self.installdir, 'bin')
-        libdir = os.path.join(self.installdir, self.cfg['perllib'])
+        libbase = os.path.join(self.installdir, perllib)
+        psn_ver = self.version.replace('.', '_')
+        psndir = os.path.join(libbase, 'PsN_%s' % psn_ver)
 
-        perlroot = get_software_root('Perl')
-        if perlroot is None:
-            raise EasyBuildError("Perl is a required dependency of PsN")
-        perlbin = os.path.join(perlroot, 'bin', 'perl')
-        perllib = os.path.join(perlroot, self.cfg['perllib'])
+        self.log.info("Installing PsN from source directory: %s", srcdir)
+        self.log.info("Installing PsN scripts into: %s", bindir)
+        self.log.info("Installing PsN Perl library into: %s", psndir)
 
-        # qanda = {
-        #     'PsN Utilities installation directory [/usr/local/bin]:': bindir,
-        #     'Path to perl binary used to run Utilities [%s]:' % perlbin: '',
-        #     'PsN Core and Toolkit installation directory [%s]:' % perllib: libdir,
-        #     'Would you like this script to check Perl modules [y/n]?': 'y',
-        #     'Continue installing PsN (installing is possible even if modules are missing)[y/n]?': 'y',
-        #     'Would you like to install the PsNR R package? [y/n]': 'y',
-        #     'Would you like to install the pharmpy python package? [y/n]': 'n',
-        #     'Would you like to install the PsN test library? [y/n]': 'y',
-        #     'PsN test library installation directory [%s]:' % libdir: '',
-        #     'Would you like help to create a configuration file? [y/n]': 'n',
-        #     'Press ENTER to exit the installation program.': '',
-        # }
-        
-        print(f'### BINDIR: {bindir}')
-        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/bin
-        print(f'### PERLBIN: {perlbin}')
-        # /apps/gent/RHEL9/cascadelake-ib/software/Perl/5.38.2-GCCcore-13.3.0/bin/perl
-        print(f'### LIBDIR: {libdir}')
-        # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2
-        
-        # Questions:
-        # $ perl setup.pl
-                # This is the PsN installer. I will install PsN version 5.5.0.
-                # You need to answer a few questions. If a default value is presented
-                # you may accept it by pressing ENTER.
+        os.makedirs(bindir, exist_ok=True)
+        os.makedirs(libbase, exist_ok=True)
 
-                # Hi vsc47063, you don't look like root. Please note that you need root privileges to install PsN systemwide.
-                # PsN Utilities installation directory [/usr/local/bin]: -> bindir
-                
-                # Path to perl binary used to run Utilities [/apps/gent/RHEL9/cascadelake-ib/software/Perl/5.38.2-GCCcore-13.3.0/bin/perl]: -> perlbin
-                
-                # PsN Core and Toolkit installation directory [/apps/gent/RHEL9/cascadelake-ib/software/Perl/5.38.2-GCCcore-13.3.0/lib/perl5/site_perl/5.38.2]: -> libdir
-                
-                # The next step is to check Perl module dependencies.
-                # If a module is missing, you must install it, e.g. from CPAN,
-                # http://www.cpan.org/modules/index.html
-                # before PsN can be run.
+        self._copy_psn_lib(srcdir, psndir)
+        self._install_utilities(srcdir, perl, psndir, bindir)
+        self._create_psn_conf(psndir, perl, nm_versions)
 
-                # Would you like this script to check Perl modules [y/n]? -> y
-                
-                # Testing required modules:
-                # Module Statistics::Distributions ok
-                # Module File::Copy::Recursive ok
-                # Module File::HomeDir ok
-                # Module Math::SigFigs ok
-                # Module Capture::Tiny ok
-                # Module Math::Random::Free ok
-                # Module Math::MatrixReal ok
-                # Module Mouse ok
-                # Module MouseX::Params::Validate ok
-                # Module YAML ok
+    def _copy_psn_lib(self, srcdir, psndir):
+        """Copy upstream lib/ into the versioned PsN Perl library directory."""
+        lib_src = os.path.join(srcdir, 'lib')
 
-                # Done testing required modules.
+        if not os.path.isdir(lib_src):
+            raise EasyBuildError("Could not find PsN lib directory: %s", lib_src)
 
-                # Testing recommended but not required modules...
-                # Module Archive::Zip ok
-                # Tests done.
+        if os.path.exists(psndir):
+            shutil.rmtree(psndir)
 
-                # Continue installing PsN (installing is possible even if modules are missing)[y/n]? -> y
+        shutil.copytree(lib_src, psndir)
 
-                # Directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_5_5_0 already exists.
-                # PsN 5.5.0 is already (partially) installed. Would you like to continue anyway [y/n] ? -> y
-                
-                # This version (5.5.0) looks like the same or an older installed
-                # version (5.5.0) of PsN. Would you like to make
-                # this version (5.5.0) the default? [y/n] -> y
+    def _install_utilities(self, srcdir, perl, psndir, bindir):
+        """Install PsN command-line utilities."""
+        utilities = [
+            'bootstrap',
+            'cdd',
+            'execute',
+            'llp',
+            'scm',
+            'sumo',
+            'sse',
+            'update_inits',
+            'update',
+            'npc',
+            'vpc',
+            'pind',
+            'nonpb',
+            'extended_grid',
+            'psn',
+            'psn_options',
+            'psn_clean',
+            'runrecord',
+            'mcmp',
+            'lasso',
+            'mimp',
+            'xv_scm',
+            'parallel_retries',
+            'boot_scm',
+            'gls',
+            'simeval',
+            'frem',
+            'randtest',
+            'linearize',
+            'crossval',
+            'pvar',
+            'nca',
+            'proseval',
+            'sir',
+            'rawresults',
+            'precond',
+            'covmat',
+            'nmoutput2so',
+            'benchmark',
+            'npfit',
+            'resmod',
+            'cddsimeval',
+            'qa',
+            'transform',
+            'boot_randtest',
+            'monitor',
+            'scmplus',
+            'scmreport',
+            'm1find',
+            'pack',
+        ]
 
-                # The R package PsNR and its dependencies are needed for the rplots functionality and the qa tool in PsN.
-                # The PsN installer can automatically install these using renv to make sure that all versions
-                # of R packages have been tested together. A separate R library will be created inside the PsN
-                # installation directory. You need to have R installed for this installation.
+        for util in utilities:
+            self._install_utility(srcdir, util, perl, psndir, bindir)
 
+    def _install_utility(self, srcdir, util, perl, psndir, bindir):
+        """Install one versioned PsN utility and create an unversioned symlink."""
+        src = os.path.join(srcdir, 'bin', util)
 
-                # Would you like to install the PsNR R package? [y/n] -> y
-                # -> now it starts downloading and installing exact deps version - already installed are not used -> log-install-psn1
-                
-                # The Python package 'pharmpy' is needed by PsN and you would need to have python installed on your system
-                # If you let the installer install pharmpy it will be installed in a virtual environment together with its dependencies inside the PsN installation
-                # You would need to have python installed for this installation
+        if not os.path.isfile(src):
+            raise EasyBuildError("Could not find PsN utility script: %s", src)
 
-                # Would you like to install the pharmpy python package? [y/n] -> y -> log-install-psn2
-                
-                # Would you like to install the PsN test library? [y/n] -> y
-                # PsN test library installation directory [/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2]: -> Enter                                
-                # PsN test library installed successfully in [/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_test_5_5_0].
-                # Please read the 'testing' chapter of the developers_guide.pdf for information on how to run the tests
+        versioned = os.path.join(bindir, '%s-%s' % (util, self.version))
+        unversioned = os.path.join(bindir, util)
 
+        with open(src, 'rb') as fh:
+            content = fh.read()
 
-                # Now you must edit /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_5_5_0/psn.conf
-                # so that PsN can find your NONMEM installations.
-                # You can get help to create a bare-bones configuration file that will work
-                # when running PsN locally. If you are running PsN on a cluster and/or want
-                # to set personalized defaults and/or will run PsN with NMQual,
-                # you can manually add the relevant options to the file afterwards.
-                # Would you like help to create a configuration file? [y/n] -> n
-                # Please note that if you have a psn.conf file in your home directory,
-                # the settings in that file will override the settings in
-                # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_5_5_0/psn.conf
+        marker = b'# Everything above this line will be replaced #'
 
-                # Installation partially complete. You still have to add NONMEM settings to psn.conf before you can run PsN.
-                # A psn.conf to edit is found in
-                # /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.5.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_5_5_0
-                # Detailed instructions are found in psn_configuration.pdf
+        if marker not in content:
+            raise EasyBuildError("Marker line not found in PsN utility script: %s", src)
 
-                # Press ENTER to exit the installation program.
+        body = content.split(marker, 1)[1]
 
-        qanda = {
-            re.escape('PsN Utilities installation directory [/usr/local/bin]:'): bindir,
-            re.escape('Path to perl binary used to run Utilities [%s]:' % perlbin): '',
-            re.escape('PsN Core and Toolkit installation directory [%s]:' % perllib): libdir,
-            re.escape('Would you like this script to check Perl modules [y/n]?'): 'y',
-            re.escape('Continue installing PsN (installing is possible even if modules are missing)[y/n]?'): 'y',
-            re.escape('Would you like to install the PsNR R package? [y/n]'): 'y',
-            re.escape('Would you like to install the pharmpy python package? [y/n]'): 'n',
-            re.escape('Would you like to install the PsN test library? [y/n]'): 'y',
-            re.escape('PsN test library installation directory [%s]:' % libdir): '',
-            re.escape('Would you like help to create a configuration file? [y/n]'): 'n',
-            re.escape('Press ENTER to exit the installation program.'): '',
-        }
+        header = '\n'.join([
+            '#!%s' % perl,
+            "use lib '%s';" % psndir,
+            '',
+            '# Everything above this line was entered by the EasyBuild PsN easyblock #',
+            '',
+        ]).encode('utf-8')
 
-        # maxhits = 4000  # to give enough time to pharmpy installation
+        with open(versioned, 'wb') as fh:
+            fh.write(header + body)
 
-        # qa_patterns = list(qanda.items())
+        os.chmod(versioned, 0o755)
 
-        run_shell_cmd(
-            cmd,
-            qa_patterns=list(qanda.items()),
-            qa_timeout=300,
-        )
-        # run_cmd_qa(cmd, qanda, maxhits=maxhits, log_all=True, simple=True)
-        # run_shell_cmd(cmd, qanda, maxhits=maxhits, log_all=True, simple=True)
+        if os.path.lexists(unversioned):
+            os.remove(unversioned)
 
-        # Add selected NONMEM versions to [nm_versions] section in PsN config file
-        if self.cfg['nm_versions'] is not None:
-            lines = r'\n'.join(self.cfg['nm_versions'])
-            PsN_X_Y_Z = '_'.join([self.name] + self.version.split('.'))
-            psnconf = os.path.join(libdir, PsN_X_Y_Z, 'psn.conf')
-            cmd = "sed -i '/\[nm_versions\]/a %s' %s" % (lines, psnconf)
-            run_shell_cmd(cmd)
+        os.symlink(os.path.basename(versioned), unversioned)
+
+    def _create_psn_conf(self, psndir, perl, nm_versions):
+        """Create psn.conf from psn.conf_template and inject EB-controlled values."""
+        template = os.path.join(psndir, 'psn.conf_template')
+        conf = os.path.join(psndir, 'psn.conf')
+
+        if not os.path.isfile(template):
+            raise EasyBuildError("Could not find PsN config template: %s", template)
+
+        with open(template, 'r') as fh:
+            txt = fh.read()
+
+        txt = self._set_global_key(txt, 'perl', perl)
+
+        rbin = shutil.which('R')
+        if rbin:
+            txt = self._set_global_key(txt, 'R', rbin)
+
+        nm_lines = []
+        for entry in nm_versions:
+            if '=' not in entry:
+                raise EasyBuildError(
+                    "Invalid nm_versions entry '%s'; expected format name=cmd,version",
+                    entry
+                )
+            nm_lines.append(entry)
+
+        txt = self._replace_section(txt, 'nm_versions', nm_lines)
+
+        with open(conf, 'w') as fh:
+            fh.write(txt)
+
+        self.log.info("Created PsN config file: %s", conf)
+
+    def _set_global_key(self, txt, key, value):
+        """Set or prepend a global Config::Tiny-style key."""
+        pattern = r'(?m)^%s\s*=.*$' % re.escape(key)
+        replacement = '%s=%s' % (key, value)
+
+        if re.search(pattern, txt):
+            return re.sub(pattern, replacement, txt, count=1)
+
+        return replacement + '\n' + txt
+
+    def _replace_section(self, txt, section, lines):
+        """Replace or append an INI-style section."""
+        replacement = '[%s]\n%s\n\n' % (section, '\n'.join(lines))
+        pattern = r'(?ms)^\[%s\]\s*\n.*?(?=^\[|\Z)' % re.escape(section)
+
+        if re.search(pattern, txt):
+            return re.sub(pattern, replacement, txt, count=1)
+
+        if not txt.endswith('\n'):
+            txt += '\n'
+
+        return txt + '\n' + replacement

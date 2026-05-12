@@ -1,0 +1,76 @@
+== PsN smoke test ==
+workdir: /tmp/psn-smoke.09vBBV
+
+== Environment ==
+PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.6.0-foss-2024a/bin:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/NONMEM/7.6.0-GCC-13.3.0-MPICH-4.2.2/run:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/MPICH/4.2.2-GCC-13.3.0/bin:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Pandoc/3.8.2.1/bin:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/librsvg/2.60.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/GObject-Introspection/1.80.1-GCCcore-13.3.0/bin:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Gdk-Pixbuf/2.42.11-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/PostgreSQL/16.4-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/GDAL/3.10.0-foss-2024a/bin:/apps/gent/RHEL9/cascadelake-ib/software/SWIG/4.2.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/OpenJPEG/2.5.2-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Qhull/2020.2-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Brunsli/0.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/OpenEXR/3.2.4-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Xerces-C++/3.2.5-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/giflib/5.2.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/CFITSIO/4.4.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/HDF/4.3.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/SciPy-bundle/2024.05-gfbf-2024a/bin:/apps/gent/RHEL9/cascadelake-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/virtualenv/20.26.2-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/libgeotiff/1.7.3-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/PROJ/9.4.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/PCRE/8.45-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/libarchive/3.7.4-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/GEOS/3.12.2-GCC-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/netCDF/4.9.2-gompi-2024a/bin:/apps/gent/RHEL9/cascadelake-ib/software/Python/3.12.3-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/nodejs/20.13.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/GLPK/5.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/ImageMagick/7.1.1-38-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Pango/1.54.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/LittleCMS/2.16-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/JasPer/4.2.4-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Ghostscript/10.03.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/GSL/2.8-GCC-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/UDUNITS/2.2.28-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/HDF5/1.14.5-gompi-2024a/bin:/apps/gent/RHEL9/cascadelake-ib/software/libsndfile/1.2.2-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/LAME/3.100-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/FLAC/1.4.3-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/R/4.4.2-gfbf-2024a/bin:/apps/gent/RHEL9/cascadelake-ib/software/FriBidi/1.0.15-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/HarfBuzz/9.0.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/ICU/75.1-GCCcore-13.3.0/sbin:/apps/gent/RHEL9/cascadelake-ib/software/ICU/75.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Tk/8.6.14-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/cURL/8.7.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/libgit2/1.8.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Java/17.0.15:/apps/gent/RHEL9/cascadelake-ib/software/Java/17.0.15/bin:/apps/gent/RHEL9/cascadelake-ib/software/LibTIFF/4.6.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/libdeflate/1.20-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/jbigkit/2.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/libjpeg-turbo/3.0.1-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/NASM/2.16.03-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/cairo/1.18.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/GLib/2.80.4-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/PCRE2/10.43-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/gettext/0.22.5-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/libiconv/1.17-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Wayland/1.23.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/LLVM/18.1.8-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/zstd/1.5.6-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/lz4/1.9.4-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/gzip/1.13-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/X11/20240607-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/fontconfig/2.15.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/util-linux/2.40-GCCcore-13.3.0/sbin:/apps/gent/RHEL9/cascadelake-ib/software/util-linux/2.40-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/SQLite/3.45.3-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Tcl/8.6.14-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/freetype/2.13.2-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Brotli/1.1.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/libpng/1.6.43-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/bzip2/1.0.8-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Perl-bundle-CPAN/5.38.2-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/ncurses/6.5-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/expat/2.6.2-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/Perl/5.38.2-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/FFTW/3.3.10-GCC-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/OpenMPI/5.0.3-GCC-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/UCC/1.3.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/PRRTE/3.0.5-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/PMIx/5.0.2-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/UCX/1.16.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/libevent/2.1.12-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/OpenSSL/3/bin:/apps/gent/RHEL9/cascadelake-ib/software/hwloc/2.10.0-GCCcore-13.3.0/sbin:/apps/gent/RHEL9/cascadelake-ib/software/hwloc/2.10.0-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/libxml2/2.12.7-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/XZ/5.4.5-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/numactl/2.0.18-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/binutils/2.42-GCCcore-13.3.0/bin:/apps/gent/RHEL9/cascadelake-ib/software/GCCcore/13.3.0/bin:/usr/libexec/jobcli:/user/gent/470/vsc47063/easybuild/easybuild-framework:/usr/local/vsc/bin:/opt/VirtualGL/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/user/gent/470/vsc47063/.dotnet/tools
+PERL5LIB=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.6.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_5_6_0:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.6.0-foss-2024a/lib/perl5/site_perl/5.38.2:/apps/gent/RHEL9/cascadelake-ib/software/Perl-bundle-CPAN/5.38.2-GCCcore-13.3.0/lib/perl5/site_perl/5.38.2
+R_LIBS_SITE=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsNR/2025-05-08-foss-2024a-PsN-5.6.0:/apps/gent/RHEL9/cascadelake-ib/software/R-bundle-Bioconductor/3.20-foss-2024a-R-4.4.2:/apps/gent/RHEL9/cascadelake-ib/software/arrow-R/17.0.0.1-foss-2024a-R-4.4.2:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/R-bundle-CRAN/2024.11-foss-2024a
+EBROOTPSN=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.6.0-foss-2024a
+EBROOTPSNR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsNR/2025-05-08-foss-2024a-PsN-5.6.0
+EBROOTNONMEM=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/NONMEM/7.6.0-GCC-13.3.0-MPICH-4.2.2
+
+== Required commands ==
+perl -> /apps/gent/RHEL9/cascadelake-ib/software/Perl/5.38.2-GCCcore-13.3.0/bin/perl
+Rscript -> /apps/gent/RHEL9/cascadelake-ib/software/R/4.4.2-gfbf-2024a/bin/Rscript
+execute -> /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.6.0-foss-2024a/bin/execute
+psn -> /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.6.0-foss-2024a/bin/psn
+qa -> /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.6.0-foss-2024a/bin/qa
+nmfe76 -> /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/NONMEM/7.6.0-GCC-13.3.0-MPICH-4.2.2/run/nmfe76
+
+== Basic CLI checks ==
+
+== PsNR check ==
+PsNR 0.2.1 OK
+
+== Perl module dependency check ==
+Perl dependencies OK
+
+== PsN installation layout ==
+psn.conf -> /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/PsN/5.6.0-foss-2024a/lib/perl5/site_perl/5.38.2/PsN_5_6_0/psn.conf
+
+== Creating tiny NONMEM/PsN test case ==
+test files:
+-rw-r--r-- 1 vsc47063 vsc47063  60 May 12 18:45 psn_smoke.csv
+-rw-r--r-- 1 vsc47063 vsc47063 249 May 12 18:45 psn_smoke.mod
+
+== Running PsN execute ==
+
+== PsN/NONMEM output files ==
+execute.stderr
+execute.stdout
+psn_execute/command.txt
+psn_execute/meta.yaml
+psn_execute/PsN_execute_plots.Rmd
+psn_execute/raw_results_psn_smoke.csv
+psn_execute/raw_results_structure
+psn_execute/.Rprofile
+psn_execute/version_and_option_info.txt
+psn_smoke.csv
+psn_smoke.ext
+psn_smoke.lst
+psn_smoke.mod
+sdtab
+lst file -> /tmp/psn-smoke.09vBBV/psn_smoke.lst
+
+== Checking for actual NONMEM failure markers ==
+
+sdtab -> /tmp/psn-smoke.09vBBV/sdtab
+TABLE NO.  1
+ ID          TIME        DV          IPRED
+  1.0000E+00  0.0000E+00  5.1902E+00  5.0000E+00
+  1.0000E+00  1.0000E+00  5.1805E+00  5.0000E+00
+  1.0000E+00  2.0000E+00  6.9311E+00  5.0000E+00
+  2.0000E+00  0.0000E+00  7.3139E+00  5.0000E+00
+  2.0000E+00  1.0000E+00  3.6415E+00  5.0000E+00
+  2.0000E+00  2.0000E+00  5.6955E+00  5.0000E+00
+
+raw results -> /tmp/psn-smoke.09vBBV/psn_execute/raw_results_psn_smoke.csv
+"model","problem","subproblem","covariance_step_run","minimization_successful","covariance_step_successful","covariance_step_warnings","estimate_near_boundary","rounding_errors","zero_gradients","final_zero_gradients","hessian_reset","s_matrix_singular","significant_digits","condition_number","est_methods","model_run_time","subprob_est_time","subprob_cov_time","ofv","THETA1","SIGMA(1,1)","seTHETA1","seSIGMA(1,1)","shrinkage_iwres(%)","EI1","EI2"
+1,1,1,0,0,0,0,0,0,NA,NA,NA,0,NA,NA,,0:00:04,0,0,NA,NA,NA,NA,NA,NA,NA,NA
+
+== Success ==
+PsN command wrappers OK
+PsNR runtime OK
+NONMEM executable visible OK
+PsN execute real model run OK
+workdir retained at: /tmp/psn-smoke.09vBBV
