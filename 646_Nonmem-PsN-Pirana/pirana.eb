@@ -29,38 +29,6 @@ dependencies = [
 
 exts_defaultclass = 'PerlModule'
 
-#DEPS:
-    # OK Log::Log4perl
-    # ok Log::Dispatch::FileRotate
-    # OK Config::Simple
-    # OK Text::Diff
-    # ok Text::Diff::HTML
-    # OK Text::Table
-    # ok Tk
-    # ok Tk::Splashscreen
-    # ok Tk::JComboBox
-    # ok Tk::PlotDataset
-    # ok Tk::HdrResizeButton
-    # ok Net::EmptyPort
-    # ok Crypt::CBC
-    # ok Crypt::Cipher::DES
-    # OK DBI
-    # OK DBD::SQLite
-    # ok Module::ScanDeps
-    # ok Image::Size
-    # ok XML::TreePP
-    # OK HTTP::Date
-    # ok Statistics::R
-    # ok Date::Parse
-    # OK List::MoreUtils
-    # OK Test::Most
-    # ok Test::Files
-    # ok Hash::Merge::Simple
-    # ok PAR::Packer
-    # ok URL::Encode
-    # OK LWP::Protocol::https
-    # OK Sys::Info
-
 exts_list = [
     ('File::chdir', '0.1011', {
         'source_tmpl': 'File-chdir-%(version)s.tar.gz',
@@ -223,15 +191,6 @@ cmds_map = [('.*', local_install_cmd)]
 files_to_copy = []
 skipsteps = ['install']
 
-modextrapaths = {
-    'PATH': 'bin',
-    'PERL5LIB': [local_libdir],
-}
-
-modextravars = {
-    'PIRANA_LOCALLIB': '%(installdir)s',
-}
-
 sanity_check_paths = {
     'files': [
         'bin/pirana',
@@ -247,9 +206,21 @@ sanity_check_paths = {
     ],
 }
 
-sanity_check_commands = [
-    'perl -c $EBROOTPIRANA/pirana/pirana.pl',
-    'perl -MLog::Log4perl -MLog::Dispatch::FileRotate -MConfig::Simple -MText::Diff -MText::Diff::HTML -MText::Table -MTk -MTk::ItemStyle -MTk::Pane -MTk::Splashscreen -MTk::JComboBox -MTk::PlotDataset -MTk::HdrResizeButton -MNet::EmptyPort -MCrypt::CBC -MCrypt::Cipher::DES -MDBI -MDBD::SQLite -MModule::ScanDeps -MImage::Size -MXML::TreePP -MHTTP::Date -MStatistics::R -MDate::Parse -MList::MoreUtils -MTest::Most -MTest::Files -MHash::Merge::Simple -MPAR::Packer -MURL::Encode -MLWP::Protocol::https -MSys::Info -e "print qq(Pirana Perl deps OK\\n)"',
-]
+sanity_check_commands = ['perl -c $EBROOTPIRANA/pirana/pirana.pl']
+
+modextrapaths = {
+    'PATH': 'bin',
+    'PERL5LIB': [local_libdir],
+}
+
+modextravars = {'PIRANA_LOCALLIB': '%(installdir)s'}
+
+modloadmsg = """
+Pirana is a graphical application. Use it from an interactive desktop/X11 session.
+Launch with either:
+  pirana
+or optionally:
+  pirana_start
+"""
 
 moduleclass = 'bio'

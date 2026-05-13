@@ -55,7 +55,8 @@ class EB_PsN(ExtensionEasyBlock):
             ],
             'nm_versions': [
                 None,
-                'List of PsN nm_versions entries, e.g. default=nmfe76,7.6',
+                'Optional list of PsN nm_versions entries, e.g. default=nmfe76,7.6. '
+                'If unset, entries are derived from the loaded NONMEM module.',
                 CUSTOM,
             ],
         })
@@ -97,16 +98,58 @@ class EB_PsN(ExtensionEasyBlock):
             ', '.join(str(x) for x in candidates if x)
         )
 
+    def _determine_nm_versions(self):
+        """Derive PsN nm_versions entries from the loaded NONMEM module."""
+        nonmem_version = os.environ.get('EBVERSIONNONMEM')
+        nonmem_root = os.environ.get('EBROOTNONMEM')
+
+        if not nonmem_version:
+            raise EasyBuildError(
+                "Could not determine NONMEM version: EBVERSIONNONMEM is not set. "
+                "Either add NONMEM as a dependency or specify 'nm_versions' explicitly."
+            )
+
+        parts = nonmem_version.split('.')
+        if len(parts) < 2:
+            raise EasyBuildError("Unexpected NONMEM version format: %s", nonmem_version)
+
+        major = parts[0]
+        minor = parts[1]
+        patch = parts[2] if len(parts) > 2 else '0'
+
+        psn_nm_version = '%s.%s' % (major, minor)
+        nmfe_cmd = 'nmfe%s%s' % (major, minor)
+        nm_alias = 'nm%s%s%s' % (major, minor, patch)
+
+        nmfe_path = shutil.which(nmfe_cmd)
+        if not nmfe_path and nonmem_root:
+            candidate = os.path.join(nonmem_root, 'run', nmfe_cmd)
+            if os.path.isfile(candidate) and os.access(candidate, os.X_OK):
+                nmfe_path = candidate
+
+        if not nmfe_path:
+            raise EasyBuildError(
+                "Could not find NONMEM executable '%s' in PATH or under EBROOTNONMEM/run",
+                nmfe_cmd
+            )
+
+        self.log.info("Detected NONMEM version: %s", nonmem_version)
+        self.log.info("Detected NONMEM executable for PsN: %s", nmfe_cmd)
+        self.log.info("Using PsN NONMEM version string: %s", psn_nm_version)
+        self.log.info("Using PsN NONMEM alias: %s", nm_alias)
+
+        return [
+            'default=%s,%s' % (nmfe_cmd, psn_nm_version),
+            '%s=%s,%s' % (nm_alias, nmfe_cmd, psn_nm_version),
+        ]
+
     def _install_psn(self, srcdir):
         """Install PsN Perl library, scripts, symlinks, and config file."""
         perllib = self.cfg['perllib']
-        nm_versions = self.cfg['nm_versions'] or []
-
         if not perllib:
             raise EasyBuildError("Missing required easyconfig parameter 'perllib'")
 
-        if not nm_versions:
-            raise EasyBuildError("Missing required easyconfig parameter 'nm_versions'")
+        nm_versions = self.cfg['nm_versions'] or self._determine_nm_versions()
 
         perl = shutil.which('perl')
         if not perl:
@@ -221,6 +264,7 @@ class EB_PsN(ExtensionEasyBlock):
         header = '\n'.join([
             '#!%s' % perl,
             "use lib '%s';" % psndir,
+            "use lib '%s';" % os.path.dirname(psndir),
             '',
             '# Everything above this line was entered by the EasyBuild PsN easyblock #',
             '',

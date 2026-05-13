@@ -54,7 +54,7 @@ exts_list = [
         'source_urls': ['https://github.com/rikardn/vaplot/archive/'],
         'sources': [{
             'download_filename': 'da3420d.tar.gz',
-            'filename': f'%(name)s-%(version)s-da3420d.tar.gz',
+            'filename': '%(name)s-%(version)s-da3420d.tar.gz',
         }],
         'checksums': ['9a030b44ff6841e219431ddcb0d6483bb659d6ec32cbb8f9fe756e13cddfd312'],
     }),
@@ -70,13 +70,11 @@ exts_list = [
     }),
 ]
 
-modextrapaths = {
-    'R_LIBS_SITE': '',
-}
-
 sanity_check_paths = {
     'files': [],
     'dirs': [name, 'vpc', 'xpose', 'xpose4', 'vegawidget', 'PerformanceAnalytics', 'vaplot'],
 }
+
+modextrapaths = {'R_LIBS_SITE': ''}
 
 moduleclass = 'bio'
