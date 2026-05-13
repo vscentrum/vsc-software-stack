@@ -10,13 +10,16 @@ aiding in the development of non-linear mixed effect models using NONMEM."""
 toolchain = {'name': 'foss', 'version': '2024a'}
 toolchainopts = {'openmp': False, 'pic': True}
 
-local_perlver = '5.38.2'
-local_perlmajver = local_perlver.split('.')[0]
-local_libdir = 'lib/perl%s/site_perl/%s' % (local_perlmajver, local_perlver)
+local_perl_ver = '5.38.2'
+local_perl_majver = local_perl_ver.split('.')[0]
+local_libdir = f'lib/perl{local_perl_majver}/site_perl/{local_perl_ver}'
+
+# local_nonmem_ver = '7.6.0'
+# local_nonomem_splitver = 
 
 dependencies = [
-    ('Perl', local_perlver),
-    ('Perl-bundle-CPAN', local_perlver),
+    ('Perl', local_perl_ver),
+    ('Perl-bundle-CPAN', local_perl_ver),
     ('PsNR', '2025-05-08', f'-{name}-{version}'),
     ('NONMEM', '7.6.0', '-MPICH-4.2.2'),
 ]
@@ -65,14 +68,16 @@ exts_list = [
         'sources': ['%(name)s-%(version)s.tar.gz'],
         'checksums': ['72a1e32ffda1a50c3752f9919b8f568b5e1f5c19352c1b3f8840fa9938f3ae37'],
         'perllib': local_libdir,
+        #NONMEM version -> move to the easyblock
         'nm_versions': ['default=nmfe76,7.6', 'nm760=nmfe76,7.6'],
     }),
 ]
 
-local_psndir = '%s/PsN_%s' % (local_libdir, version.replace('.', '_'))
-
 modextrapaths = {
-    'PERL5LIB': [local_libdir, local_psndir],
+    'PERL5LIB': [
+        local_libdir,
+        '%s/PsN_%s' % (local_libdir, version.replace('.', '_')),
+    ],
 }
 
 sanity_check_paths = {

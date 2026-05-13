@@ -10,7 +10,6 @@ description = """R package for pharmacometric utilities used by PsN.
 This package is needed for using the -rplots functionality in PsN."""
 
 toolchain = {'name': 'foss', 'version': '2024a'}
-# toolchainopts = {'openmp': False, 'pic': True}
 
 dependencies = [
     ('R', '4.4.2'),
@@ -32,47 +31,6 @@ exts_default_options = {
     'source_tmpl': '%(name)s_%(version)s.tar.gz',
 }
 
-# DEPS:
-    # sessioninfo - in R v1.2.2
-    # magrittr - in R v2.0.3
-    # kableExtra - R-cran v1.4.0
-    # ggthemes - in R-biocond v5.1.0
-    # methods - in R
-    # grid - in R
-    # stats4 - in R
-    # tools - in R
-    # MASS - R-cran v7.3-61
-    # dplyr - in cran v1.1.4
-    # tidyr - in cran v1.3.1
-    # purrr - in R v1.0.2
-    # yaml - in R v2.3.10
-    # rmarkdown - in R v2.29
-    # knitr - in R v1.49
-    # ggforce - in cran v0.4.2
-    # stringr - in R v1.5.1
-    # stringi - in R v1.8.4
-    # RColorBrewer - in cran v1.1-3
-    # scales - in cran v1.3.0
-    # forcats - in cran v1.0.0
-    # rlang - in R v1.1.4
-    # labeling - in cran v0.4.3
-    # expm - in cran v1.0-0
-    # mvtnorm - in cran v1.3-2
-    # gridExtra - in cran v2.3
-    # ggplot2 - in cran v3.5.1
-    # caTools - in cran v1.18.3
-    # formatR - in cran v1.14
-    # gplots - in cran v3.2.0
-    # plyr - in cran v1.8.9
-    # tibble - in R v3.2.1
-    # htmltools - in R v0.5.8.1
-    # glue - in R v1.8.0
-    # rjson - in cran v0.2.23
-
-# Installing from the extension's directory leads to R CMD INSTALL to use renv
-# which then fails because it is not finding packages included in the R installation
-# local_preinstall_fix = 'mkdir -p build && cd build && '
-
 exts_list = [
     ('vpc', '1.2.2', {
         'checksums': ['33c2e034e9ac944a6682482a8caa0b958b872d4465e34e52119b2b5ca1714997'],
@@ -90,6 +48,8 @@ exts_list = [
         'checksums': ['64e209808038e1037f01a6f4e1f9d6a6a852c886765c619d2b5a66c583675ec3'],
     }),
     ('vaplot', '0.0.0.9000', {
+        # Installing from the extension's directory leads to R CMD INSTALL to use renv
+        # which then fails because it is not finding packages included in the R installation
         'preinstallopts': 'mkdir -p build && cd build && ',
         'source_urls': ['https://github.com/rikardn/vaplot/archive/'],
         'sources': [{
@@ -99,6 +59,7 @@ exts_list = [
         'checksums': ['9a030b44ff6841e219431ddcb0d6483bb659d6ec32cbb8f9fe756e13cddfd312'],
     }),
     (name, version, {
+        # prevent to use renv for installation
         'preinstallopts': 'rm .Rprofile && ',
         'source_urls': ['https://github.com/UUPharmacometrics/PsNR/archive/'],
         'sources': [{
@@ -112,21 +73,10 @@ exts_list = [
 modextrapaths = {
     'R_LIBS_SITE': '',
 }
-# modextrapaths = {
-#     'PERL5LIB': local_libdir,
-#     'R_LIBS_SITE': ['%s/%s_%s/Rlib' % (local_libdir, name, version.replace('.', '_'))],
-# }
 
 sanity_check_paths = {
     'files': [],
     'dirs': [name, 'vpc', 'xpose', 'xpose4', 'vegawidget', 'PerformanceAnalytics', 'vaplot'],
 }
-
-# sanity_check_commands = [
-#     'execute -h',
-#     'psn -h',
-#     'qa -h',
-#     'Rscript -e "library(PsNR)"',
-# ]
 
 moduleclass = 'bio'
