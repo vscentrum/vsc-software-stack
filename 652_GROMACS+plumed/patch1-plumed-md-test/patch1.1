@@ -1,0 +1,11 @@
+--- plumed_md_test.cpp.orig	2026-05-11 16:19:14.452680000 +0200
++++ plumed_md_test.cpp	2026-05-11 16:19:37.868289000 +0200
+@@ -124,7 +124,7 @@
+     {
+         std::string plumed_string;
+ 
+-        plumed_string += "DUMPATOMS PRECISION=10  ATOMS=@mdatoms FILE=" + plumedxyz.string() + "\n";
++        plumed_string += "DUMPATOMS PRECISION=17  ATOMS=@mdatoms FILE=" + plumedxyz.string() + "\n";
+         plumed_string += "c: CELL\n";
+         plumed_string += "PRINT ARG=c.* FILE=" + cell_data.string() + "\n";
+         plumed_string += "t1: TIME\n";

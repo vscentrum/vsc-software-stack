@@ -1,7 +1,7 @@
 easyblock = 'Bundle'
 
 name = 'PsN'
-version = '5.5.0'
+version = '5.6.0'
 
 homepage = 'https://uupharmacometrics.github.io/PsN/'
 description = """Perl-speaks-NONMEM (PsN) is a collection of Perl modules and programs
@@ -10,79 +10,21 @@ aiding in the development of non-linear mixed effect models using NONMEM."""
 toolchain = {'name': 'foss', 'version': '2024a'}
 toolchainopts = {'openmp': False, 'pic': True}
 
-local_perlver = '5.38.2'
-local_perlmajver = local_perlver.split('.')[0]
-local_libdir = 'lib/perl%s/site_perl/%s' % (local_perlmajver, local_perlver)
+local_perl_ver = '5.38.2'
+local_perl_majver = local_perl_ver.split('.')[0]
+local_libdir = f'lib/perl{local_perl_majver}/site_perl/{local_perl_ver}'
 
 dependencies = [
-    ('Perl', local_perlver),
-    ('Perl-bundle-CPAN', local_perlver),
-    ('Python', '3.12.3'),
-    ('R', '4.4.2'),
-    ('R-bundle-CRAN', '2024.11'),
-    ('R-bundle-Bioconductor', '3.20', '-R-%(rver)s'),
-    ('GMP', '6.3.0'),
-    ('MPFR', '4.2.1'),
-    ('librsvg', '2.60.0'),
-    ('Pandoc', '3.8.2.1', '', SYSTEM)
+    ('Perl', local_perl_ver),
+    ('Perl-bundle-CPAN', local_perl_ver),
+    ('PsNR', '2025-05-08', f'-{name}-{version}'),
+    ('NONMEM', '7.6.0', '-MPICH-4.2.2'),
 ]
 
-exts_defaultclass = 'RPackage'
-exts_default_options = {
-    'source_urls': [
-        # PYPI_SOURCE,
-        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
-        'https://cran.r-project.org/src/contrib/',  # current version of packages
-        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
-    ],
-    'source_tmpl': '%(name)s_%(version)s.tar.gz',
-}
-exts_classmap = {
-    'Math::MatrixReal': 'PerlModule',
-    'Math::Random::Free': 'PerlModule',
-    'Math::SigFigs': 'PerlModule',
-    'MouseX::Params::Validate': 'PerlModule',
-    'Archive::Zip': 'PerlModule',
-    'Devel::Caller': 'PerlModule',
-    'Statistics::Distributions': 'PerlModule',
-    name: 'PsN',
-}
+exts_defaultclass = 'PerlModule'
+exts_classmap = {name: 'PsN'}
 
 exts_list = [
-    # ('systemfonts', '1.0.4', { in R?
-    #     'checksums': ['ef766c75b942f147d382664a00d6a4930f1bfe0cce9d88943f571682a85a84c0'],
-    # }),
-    ('vpc', '1.2.2', {
-        'checksums': ['33c2e034e9ac944a6682482a8caa0b958b872d4465e34e52119b2b5ca1714997'],
-    }),
-    ('xpose', '0.4.19', {
-        'checksums': ['450c2bd53a24cf577304e6da5bffa6e6f3df7dbf3082d2d507cec527d4167159'],
-    }),
-    ('xpose4', '4.7.3', {
-        'checksums': ['bfcbcbee73edc71e7e38418d5e16ec273b9f24ea976fdb1b934d5be4d303c770'],
-    }),
-    # ('ggthemes', '5.1.0', { in bioconductor
-    #     'checksums': ['074819acfe8bb2233426a0fef3bb448c5ce817bb14d517252fa05932e28bbd0e'],
-    # }),
-    ('vegawidget', '0.5.0', {
-        'checksums': ['04983e916ed350f8bc6ed563df27d63ab3ba80c27dcbafd8c6837f9e891259e5'],
-    }),
-    ('PerformanceAnalytics', '2.0.8', {
-        'checksums': ['64e209808038e1037f01a6f4e1f9d6a6a852c886765c619d2b5a66c583675ec3'],
-    }),
-    ('vaplot', '0.0.0.9000', {
-        'source_urls': ['https://github.com/rikardn/vaplot/archive/'],
-        'sources': [
-            {
-                'download_filename': 'da3420de63784f6766b455cb684a0d848fedec25.tar.gz',
-                'filename': SOURCE_TAR_GZ,
-            },
-        ],
-        'checksums': ['9a030b44ff6841e219431ddcb0d6483bb659d6ec32cbb8f9fe756e13cddfd312'],
-        # Installing from the extension's directory leads to R CMD INSTALL to use renv
-        # which then fails because it is not finding packages included in the R installation
-        'preinstallopts': 'mkdir -p build && cd build &&',
-    }),
     ('Math::MatrixReal', '2.13', {
         'source_tmpl': 'Math-MatrixReal-%(version)s.tar.gz',
         'source_urls': ['https://cpan.metacpan.org/authors/id/L/LE/LETO'],
@@ -119,22 +61,18 @@ exts_list = [
         'checksums': ['b679a2b18034b0b720de82c3708724c364b10a6ca164cbc67cdc3af283f3503f'],
     }),
     (name, version, {
-        'modulename': False,
         'source_urls': ['https://github.com/UUPharmacometrics/PsN/releases/download/v%(version)s/'],
         'sources': ['%(name)s-%(version)s.tar.gz'],
-        'patches': ['PsN-5.3.0-keep-Rlibs-site-env.patch'],
-        'checksums': [
-            '221597ffdfc88c12138fda6eecced4806f1a43e7c1226d37ee6a1df135e13cd9',  # PsN-5.5.0.tar.gz
-            'cda2f1813e414ed243e57e22f45a18edc2e02447fbd7bc0d5aa59ef918c82c93',  # PsN-5.3.0-keep-Rlibs-site-env.patch
-        ],
+        'checksums': ['72a1e32ffda1a50c3752f9919b8f568b5e1f5c19352c1b3f8840fa9938f3ae37'],
         'perllib': local_libdir,
-        'nm_versions': ['default=nmfe76,7.6', 'nm760=nmfe76,7.6'],
     }),
 ]
 
 modextrapaths = {
-    'PERL5LIB': local_libdir,
-    'R_LIBS_SITE': ['%s/%s_%s/Rlib' % (local_libdir, name, version.replace('.', '_'))],
+    'PERL5LIB': [
+        local_libdir,
+        '%s/PsN_%s' % (local_libdir, version.replace('.', '_')),
+    ],
 }
 
 sanity_check_paths = {
@@ -150,31 +88,3 @@ sanity_check_commands = [
 ]
 
 moduleclass = 'bio'
-
-#Q1: what about nonmem, should it be a dependency?
-    # -> no PsN runs nonmem jobs, but it is not runtime nor install dep, but module should be loaded to let psn run
-#E2: 
-    # hard to debug - cmd.sh - do not know the bindir, libdir,... -> prints
-    # seems there is other question then in quanda
-    # <- FAILED: Installation ended unsuccessfully: No matching questions found for current command output, giving up after 300 seconds!
-#E1: OK
-    # -> update psn.py: quanda + re.escape
-    # <- during install of PsN ext: re.error: bad character range e-1 at position 150
-# DEBUG1:
-#1: OK in psn.py - do not run cmd cmd = 'R_LIBS_SITE=%s:${R_LIBS_SITE} perl setup.pl' % rlibdir
-    # module also adds '' to R_LIBS_SITE, which means $EBROOTPSN itself. That root directory is not an R library tree.
-    # I would not add the install root to R_LIBS_SITE at all. I would keep the patch
-    # -> changed to: cmd = 'perl setup.pl'
-#2: in psn.py - do not install Pharmpy
-    # 'Would you like to install the pharmpy python package? [y/n]': 'y',
-    # may try to install Pharmpy on the fly, which usually means network access or an unmanaged pip install
-    # ? install Pharmpy from exts? which version?
-        # no - linux do not need it, 
-        # it installs pharmpy-core but no version specified
-        # -> changed to 'n' to not install Pharmpy
-#3:OK in psn.eb - add pandoc to deps
-    # for qa and -rplots, you need R plus pandoc and several system dependencies for the R packages.
-    # Your easyconfig pulls in R, GMP, MPFR, and librsvg, which is a good start, but there is no pandoc dependency.
-    # So qa -h may pass while actual QA report generation still fails at runtime.\
-    # If you want qa to be truly supported, I would add pandoc as a runtime dependency
-    # -> no version specified -> add latest
