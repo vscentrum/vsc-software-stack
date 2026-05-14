@@ -15,12 +15,13 @@ builddependencies = [
     # ('pkgconf', '2.4.3'),
     # ('git', '2.50.1'),  # required for pbr
     ('hatchling', '1.29.0'),
-    # ('poetry', '2.1.3'),
+    ('poetry', '2.3.4'),  # rich
     # ('scikit-build-core', '0.12.2'),  # rapidfuzz
     # ('flit', '3.12.0'),
     # ('Rust', '1.88.0'),
     # ('setuptools-rust', '1.11.0'),  # required for dulwich
     # ('maturin', '1.9.1'),  # required for rpds-py
+    ('scikit-build-core', '0.12.2'),  # rapidfuzz
 ]
 
 dependencies = [
@@ -29,11 +30,13 @@ dependencies = [
     ('virtualenv', '21.3.0'),
     ('psutil', '7.2.1'),
     ('cffi', '2.0.0'),
+    ('coverage', '7.13.5'),
     ('tibs', '0.5.7'),  # bitstring
     ('Pygments', '2.20.0'),  # pytest, Sphinx
     ('watchfiles', '1.1.1'),  # sphinx-autobuild
     ('BeautifulSoup', '4.14.3'),  # sphinx-codeautolink
     ('PyYAML', '6.0.3'),  # pybtex
+    ('rpds_py', '0.30.0'),  # jsonschema
 ]
 
 # ADD EXTRA:
@@ -132,9 +135,6 @@ exts_list = [
     ('six', '1.17.0', {
         'checksums': ['ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81'],
     }),
-    # ('toml', '0.10.2', { # OLD -> remove - replaced by tomlkit + tomli
-    #     'checksums': ['b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f'],
-    # }),
     ('python-dateutil', '2.9.0.post0', {
         'modulename': 'dateutil',
         'checksums': ['37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3'],
@@ -142,10 +142,6 @@ exts_list = [
     ('decorator', '5.2.1', {
         'checksums': ['65f266143752f734b0a7cc83c46f4618af75b8c5911b00ccb61d0ac9b6da0360'],
     }),
-    # ('liac-arff', '2.5.0', { # OLD -> remove - replaced by scipy builtin supp
-    #     'modulename': 'arff',
-    #     'checksums': ['3220d0af6487c5aa71b47579be7ad1d94f3849ff1e224af3bf05ad49a0b5c4da'],
-    # }),
     ('pycryptodome', '3.23.0', {
         'modulename': 'Crypto.PublicKey.RSA',
         'checksums': ['447700a657182d60338bab09fdb27518f8856aecd80ae4c6bdddb67ff5da44ef'],
@@ -153,12 +149,6 @@ exts_list = [
     ('ecdsa', '0.19.2', {
         'checksums': ['62635b0ac1ca2e027f82122b5b81cb706edc38cd91c63dda28e4f3455a2bf930'],
     }),
-    # ('ipaddress', '1.0.23', { # OLD -> remove (for py<3.3)
-    #     'checksums': ['b7f8e0369580bb4a24d5ba1d7cc29660a4a6987763faf1d8a8046830e020e7e2'],
-    # }),
-    # ('asn1crypto', '1.5.1', { -> old -> remove?
-    #     'checksums': ['13ae38502be632115abf8a24cbe5f4da52e3b5231990aff31123c805306ccb9c'],
-    # }),
     ('h11', '0.16.0', {
         'checksums': ['4e35b956cf45792e4caa5885e69fba00bdbc6ffafbfa020300e549b208ee5ff1'],
     }),
@@ -184,9 +174,6 @@ exts_list = [
     ('pyparsing', '3.3.2', {
         'checksums': ['c777f4d763f140633dcb6d8a3eda953bf7a214dc4eff598413c070bcdc117cbc'],
     }),
-    # ('netifaces', '0.11.0', { # OLD -> remove
-    #     'checksums': ['043a79146eb2907edf439899f262b3dfe41717d34124298ed281139a8b93ca32'],
-    # }),
     ('netaddr', '1.3.0', {
         'checksums': ['5c3c3d9895b551b763779ba7db7a03487dc1f8e3b385af819af341ae9ef6e48a'],
     }),
@@ -202,9 +189,6 @@ exts_list = [
     ('bitstring', '4.4.0', {
         'checksums': ['e682ac522bb63e041d16cbc9d0ca86a4f00194db16d0847c7efe066f836b2e37'],
     }),
-    # ('appdirs', '1.4.4', { # OLD -> romove (replaced by platformdirs)
-    #     'checksums': ['7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41'],
-    # }),
     ('distlib', '0.4.0', {
         'checksums': ['feec40075be03a04501a973d81f633735b4b69f98b05450592310c0f401a4e0d'],
     }),
@@ -214,12 +198,8 @@ exts_list = [
     ('importlib-metadata', '9.0.0', {
         'checksums': ['a4f57ab599e6a2e3016d7595cfd72eb4661a5106e787a95bcc90c7105b831efc'],
     }),
-    # ('backports.entry-points-selectable', '1.3.0', { not usefull anymore -> remove
-    #     'sources': ['backports.entry_points_selectable-%(version)s.tar.gz'],
-    #     'checksums': ['17a8b44ae700fba548686dd274ddc91c060371565cd63806c20a1d33911746e6'],
-    # }),
-    ('pathspec', '1.0.4', {
-        'checksums': ['0210e2ae8a21a9137c0d470578cb0e595af87edaa6ebf12ff176f14a02e0e645'],
+    ('pathspec', '1.1.1', {
+        'checksums': ['17db5ecd524104a120e173814c90367a96a98d07c45b2e10c2f3919fff91bf5a'],
     }),
     ('pluggy', '1.6.0', {
         'checksums': ['7dcc130b76258d33b90f61b658791dede3486c3e6bfb003ee5c9bfb396dd22f3'],
@@ -233,18 +213,9 @@ exts_list = [
     ('platformdirs', '4.9.6', {
         'checksums': ['3bfa75b0ad0db84096ae777218481852c0ebc6c727b3168c1b9e0118e458cf0a'],
     }),
-    # ('scandir', '1.10.0', { # OLD -> remove - replaced by os.scandir()
-    #     'checksums': ['4d4631f6062e658e9007ab3149a9b914f3548cb38bfb021c64f39a025ce578ae'],
-    # }),
-    # ('pathlib2', '2.3.7.post1', { # OLD -> remove - add pathlib3 instead?
-    #     'checksums': ['9fe0edad898b83c0c3e199c842b27ed216645d2e177757b2dd67384d4113c641'],
-    # }),
     ('importlib-resources', '7.1.0', {
         'checksums': ['0722d4c6212489c530f2a145a34c0a7a3b4721bc96a15fada5930e2a0b760708'],
     }),
-    # ('docopt', '0.6.2', {  # OLD -> replace by docopt-ng (https://github.com/jazzband/docopt-ng)
-    #     'checksums': ['49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491'],
-    # }),
     ('joblib', '1.5.3', {
         'checksums': ['8561a3269e6801106863fd0d6d84bb737be9e7631e33aaed3fb9ce5953688da3'],
     }),
@@ -266,22 +237,12 @@ exts_list = [
     ('xlrd', '2.0.2', {
         'checksums': ['08b5e25de58f21ce71dc7db3b3b8106c1fa776f3024c54e45b45b374e89234c9'],
     }),
-    # ('py-expression-eval', '0.3.14', { # OLD -> remove - replaced by simpleeval
-    #     'sources': ['py_expression_eval-%(version)s.tar.gz'],
-    #     'checksums': ['ea60f9404a18346d5a63854db21c50666dfb4274ae111000165b31c6f8ab93f1'],
-    # }),
     ('tabulate', '0.10.0', {
         'checksums': ['e2cfde8f79420f6deeffdeda9aaec3b6bc5abce947655d17ac662b126e48a60d'],
     }),
     ('ujson', '5.12.0', {
         'checksums': ['14b2e1eb528d77bc0f4c5bd1a7ebc05e02b5b41beefb7e8567c9675b8b13bcf4'],
     }),
-    # ('atomicwrites', '1.4.1', { # OLD -> remove - replaced by os.rename()
-    #     'checksums': ['81b2c9071a49367a7f770170e5eec8cb66567cfbbc8c73d20ce5ca4a8d71cf11'],
-    # }),
-    # ('py', '1.11.0', { # OLD and Vulnerable -> remove
-    #     'checksums': ['51c75c4126074b472f746a24399ad32f6053d1b34b68d2fa41e558e6f4a98719'],
-    # }),
     ('more-itertools', '11.0.2', {
         'sources': ['more_itertools-%(version)s.tar.gz'],
         'checksums': ['392a9e1e362cbc106a2457d37cabf9b36e5e12efd4ebff1654630e76597df804'],
@@ -289,10 +250,6 @@ exts_list = [
     ('attrs', '26.1.0', {
         'checksums': ['d03ceb89cb322a8fd706d4fb91940737b6642aa36998fe130a9bc96c985eff32'],
     }),
-    # ('backports.functools-lru-cache', '2.0.0', { -> remove - in stdlib
-    #     'sources': ['backports.functools_lru_cache-%(version)s.tar.gz'],
-    #     'checksums': ['dcbfa5e0dae8a014168807c9e026d33eead71df5af76c1fb78fd248bf07f6f99'],
-    # }),
     ('wcwidth', '0.6.0', {
         'checksums': ['cdc4e4262d6ef9a1a57e018384cbeb1208d8abbc64176027e2c2455c81313159'],
     }),
@@ -302,9 +259,6 @@ exts_list = [
     ('colorama', '0.4.6', {
         'checksums': ['08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44'],
     }),
-    # ('exceptiongroup', '1.3.1', { -> remove - backport py3.11 -> not used in pytest anymore
-    #     'checksums': ['8b412432c6055b0b7d14c310000ae93352ed6754f70fa8f7c34141f91c4e3219'],
-    # }),
     ('pytest', '9.0.3', {
         'checksums': ['b86ada508af81d19edeb213c681b1d48246c1a91d304c6c81a427674c17eb91c'],
     }),
@@ -320,12 +274,10 @@ exts_list = [
     }),
     ('sphinxcontrib-serializinghtml', '2.0.0', {
         'modulename': 'sphinxcontrib.serializinghtml',
-        # 'sources': ['sphinxcontrib_serializinghtml-%(version)s.tar.gz'],
         'checksums': ['e9d912827f872c029017a53f0ef2180b327c3f7fd23c87229f7a8e8b70031d4d'],
     }),
     ('sphinxcontrib-websupport', '2.0.0', {
         'modulename': 'sphinxcontrib.websupport',
-        # 'sources': ['sphinxcontrib_websupport-%(version)s.tar.gz'],
         'checksums': ['0b7367d3bac6454b1f97e42aa8c4d4d4a1b756d525fc726ebbe5571e033e79cd'],
     }),
     ('imagesize', '2.0.0', {
@@ -342,17 +294,14 @@ exts_list = [
     }),
     ('sphinxcontrib-applehelp', '2.0.0', {
         'modulename': 'sphinxcontrib.applehelp',
-        # 'sources': ['sphinxcontrib_applehelp-%(version)s.tar.gz'],
         'checksums': ['2f29ef331735ce958efa4734873f084941970894c6090408b079c61b2e1c06d1'],
     }),
     ('sphinxcontrib-devhelp', '2.0.0', {
         'modulename': 'sphinxcontrib.devhelp',
-        # 'sources': ['sphinxcontrib_devhelp-%(version)s.tar.gz'],
         'checksums': ['411f5d96d445d1d73bb5d52133377b4248ec79db5c793ce7dbe59e074b4dd1ad'],
     }),
     ('sphinxcontrib-htmlhelp', '2.1.0', {
         'modulename': 'sphinxcontrib.htmlhelp',
-        # 'sources': ['sphinxcontrib_htmlhelp-%(version)s.tar.gz'],
         'checksums': ['c9e2916ace8aad64cc13a0d233ee22317f2b9025b9cf3295249fa985cc7082e9'],
     }),
     ('sphinxcontrib-jsmath', '1.0.1', {
@@ -361,7 +310,6 @@ exts_list = [
     }),
     ('sphinxcontrib-qthelp', '2.0.0', {
         'modulename': 'sphinxcontrib.qthelp',
-        # 'sources': ['sphinxcontrib_qthelp-%(version)s.tar.gz'],
         'checksums': ['4fe7d0ac8fc171045be623aba3e2a8f613f8682731f9153bb2e40ece16b9bbab'],
     }),
     ('babel', '2.18.0', {
@@ -417,21 +365,12 @@ exts_list = [
             # {'sphinx-8.2.3_license_dict.patch': '639bdef574e47b3124be1d94253c1de923e20059e6bf079ea2ccacb9f4f7ba4d'},
         ],
     }),
-    # ('future', '1.0.0', { -> old -> remove - py2 compatibility
-    #     'checksums': ['bd2968309307861edae1458a4f8a4f3598c03be43b97521076aebf5d94c07b05'],
-    # }),
     ('sortedcontainers', '2.4.0', {
         'checksums': ['25caa5a06cc30b6b83d11423433f65d1f9d76c4c6a0c90e3379eaa43b9bfdb88'],
     }),
     ('intervaltree', '3.2.1', {
         'checksums': ['f3f7e8baeb7dd75b9f7a6d33cf3ec10025984a8e66e3016d537e52130c73cfe2'],
     }),
-    # ('pytoml', '0.1.21', { # OLD -> remove - replaced by tomli in Python.eb
-    #     'checksums': ['8eecf7c8d0adcff3b375b09fe403407aa9b645c499e5ab8cac670ac4a35f61e7'],
-    # }),
-    # ('zipfile36', '0.1.3', { # OLD -> remove (backport from py3.6)
-    #     'checksums': ['a78a8dddf4fa114f7fe73df76ffcce7538e23433b7a6a96c1c904023f122aead'],
-    # }),
     ('tomli-w', '1.2.0', {
         'sources': ['tomli_w-%(version)s.tar.gz'],
         'checksums': ['2dd14fac5a47c27be9cd4c976af5a12d87fb1f0b4512f81d69cce3b35ae25021'],
@@ -439,20 +378,10 @@ exts_list = [
     ('regex', '2026.4.4', {
         'checksums': ['e08270659717f6973523ce3afbafa53515c4dc5dcad637dc215b6fd50f689423'],
     }),
-    # ('intreehooks', '1.0', { # OLD -> remove - backend-path key was added to PEP 517 
-    #     'checksums': ['87e600d3b16b97ed219c078681260639e77ef5a17c0e0dbdd5a302f99b4e34e1'],
-    # }),
-    # ('pylev', '1.4.0', { # OLD -> remove - replaced by levenshtein
-    #     'checksums': ['9e77e941042ad3a4cc305dcdf2b2dec1aec2fbe3dd9015d2698ad02b173006d1'],
-    # }),
-    # ('pastel', '0.2.1', { # OLD -> remove - replaced by rich
-    #     'sources': ['%(name)s-%(version)s-py2.py3-none-any.whl'],
-    #     'checksums': ['4349225fcdf6c2bb34d483e523475de5bb04a5c10ef711263452cb37d7dd4364'],
-    # }),
-    # ('crashtest', '0.4.1', { # old -> remove?
-    #     'sources': ['%(name)s-%(version)s-py3-none-any.whl'],
-    #     'checksums': ['8d23eac5fa660409f57472e3851dab7ac18aba459a8d19cbbba86d3d5aecd2a5'],
-    # }),
+    ('crashtest', '0.4.1', {
+        'sources': ['%(name)s-%(version)s-py3-none-any.whl'],
+        'checksums': ['8d23eac5fa660409f57472e3851dab7ac18aba459a8d19cbbba86d3d5aecd2a5'],
+    }),
     ('jeepney', '0.9.0', {
         'checksums': ['cf0e9e845622b81e4a28df94c40345400256ec608d0e55bb8a3feaa9163f5732'],
     }),
@@ -471,7 +400,6 @@ exts_list = [
         'checksums': ['da21933b0417b89515562656547a77b4931f98176eb173644c0d35032a33d6bb'],
     }),
     ('keyring', '25.7.0', {
-        # 'modulename': False,
         'checksums': ['fe01bd85eb3f8fb3dd0405defdeac9a5b4f6f0439edbb3149577f244a2e8245b'],
     }),
     ('keyrings.alt', '5.0.2', {
@@ -489,111 +417,63 @@ exts_list = [
     ('requests-toolbelt', '1.0.0', {
         'checksums': ['7681a0a3d047012b5bdc0ee37d7f8f07ebe76ab08caeccfc3921ce23c88d5bc6'],
     }),
-    # ('pyrsistent', '0.20.0', { #NO, used to be dep of jsonschema, not now
-    #     'checksums': ['4c48f78f62ab596c679086084d0dd13254ae4f3d6c72a83ffdf5ebdef8f265a4'],
-    # }),
     ('pkginfo', '1.12.1.2', {
         'checksums': ['5cd957824ac36f140260964eba3c6be6442a8359b8c48f4adf90210f33a04b7b'],
     }),
-    # ('ptyprocess', '0.7.0', { #NO, dep of pexpect
-    #     'sources': ['%(name)s-%(version)s-py2.py3-none-any.whl'],
-    #     'checksums': ['4b41f3967fce3af57cc7e94b888626c18bf37a083e3651ca8feeb66d492fef35'],
-    # }),
-    # ('pexpect', '4.9.0', { #NO?
-    #     'checksums': ['ee7d41123f3c9911050ea2c2dac107568dc43b2d3b0c7557a33212c398ead30f'],
-    # }),
-    # ('jsonschema-specifications', '2025.4.1', {
-    #     'sources': ['jsonschema_specifications-%(version)s.tar.gz'],
-    #     'checksums': ['630159c9f4dbea161a6a2205c3011cc4f18ff381b189fff48bb39b9bf26ae608'],
-    # }),
-    # ('referencing', '0.36.2', {
-    #     'checksums': ['df2e89862cd09deabbdba16944cc3f10feb6b3e6f18e902f7cc25609a34775aa'],
-    # }),
-    # ('rpds-py', '0.26.0', {
-    #     'modulename': 'rpds',
-    #     'sources': ['rpds_py-%(version)s.tar.gz'],
-    #     'checksums': ['20dae58a859b0906f0685642e591056f1e787f3a8b39c8e8749a45dc7d26bdb0'],
-    # }),
-    # ('jsonschema', '4.25.0', {
-    #     'checksums': ['e63acf5c11762c0e6672ffb61482bdf57f0876684d8d249c0fe2d730d48bc55f'],
-    # }),
-    # ('simplejson', '3.20.1', {
-    #     'checksums': ['e64139b4ec4f1f24c142ff7dcafe55a22b811a74d86d66560c8815687143037d'],
-    # }),
-    # ('webencodings', '0.5.1', { # OLD -> remove
-    #     'checksums': ['b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923'],
-    # }),
-    # ('html5lib', '1.1', { # OLD -> remove - not compatible with py3.14
-    #     'checksums': ['b2e5b40261e20f354d198eae92afc10d750afb487ed5e50f9c4eaf07c184146f'],
-    # }),
-    # ('distro', '1.9.0', {
-    #     'checksums': ['2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed'],
-    # }),
-    # ('rapidfuzz', '3.13.0', {
-    #     'checksums': ['d2eaf3839e52cbcc0accbe9817a67b4b0fcf70aaeb229cfddc1c28061f9ce5d8'],
-    # }),
-    # ('cleo', '2.1.0', {
-    #     'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
-    #     'checksums': ['4a31bd4dd45695a64ee3c4758f583f134267c2bc518d8ae9a29cf237d009b07e'],
-    # }),
-    # ('cachy', '0.3.0', { # OLD -> 
-    #     'checksums': ['186581f4ceb42a0bbe040c407da73c14092379b1e4c0e327fdb72ae4a9b269b1'],
-    # }),
-    # ('msgpack', '1.1.1', {
-    #     'checksums': ['77b79ce34a2bdab2594f490c8e80dd62a02d650b91a75159a63ec413b8d104cd'],
-    # }),
-    # ('CacheControl', '0.14.3', {
-    #     'sources': ['cachecontrol-%(version)s.tar.gz'],
-    #     'checksums': ['73e7efec4b06b20d9267b441c1f733664f989fb8688391b670ca812d70795d11'],
-    # }),
-    # ('lockfile', '0.12.2', { # OLD -> remove (replaced by filelock)
-    #     'checksums': ['6aed02de03cba24efabcd600b30540140634fc06cfa603822d508d5361e9f799'],
-    # }),
-    # ('glob2', '0.7', { # OLD -> remove 
-    #     'checksums': ['85c3dbd07c8aa26d63d7aacee34fa86e9a91a3873bc30bf62ec46e531f92ab8c'],
-    # }),
-    # ('dulwich', '0.22.8', {
-    #     'checksums': ['701547310415de300269331abe29cb5717aa1ea377af826bf513d0adfb1c209b'],
-    # }),
-    # ('fsspec', '2025.7.0', {
-    #     'checksums': ['786120687ffa54b8283d942929540d8bc5ccfa820deb555a2b5d0ed2b737bf58'],
-    # }),
-    # ('threadpoolctl', '3.6.0', {
-    #     'checksums': ['8ab8b4aa3491d812b623328249fab5302a68d2d71745c8a4c719a2fcaba9f44e'],
-    # }),
-    # ('simplegeneric', '0.8.1', {  # OLD - remove?
-    #     'source_tmpl': 'simplegeneric-%(version)s.zip',
-    #     'checksums': ['dc972e06094b9af5b855b3df4a646395e43d1c9d0d39ed345b7393560d0b9173'],
-    # }),
-    # ('pooch', '1.8.2', {
-    #     'checksums': ['76561f0de68a01da4df6af38e9955c4c9d1a5c90da73f7e40276a5728ec83d10'],
-    # }),
-    # ('doit', '0.36.0', {
-    #     'checksums': ['71d07ccc9514cb22fe59d98999577665eaab57e16f644d04336ae0b4bae234bc'],
-    # }),
-    # ('cloudpickle', '3.1.1', {
-    #     'checksums': ['b216fa8ae4019d5482a8ac3c95d8f6346115d8835911fd4aefd1a445e4242c64'],
-    # }),
-    # ('pydevtool', '0.3.0', { # OLD -> romove
-    #     'checksums': ['25e3ba4f3d33ccac33ee2b9775995848d49e9b318b7a146477fb5d52f786fc8a'],
-    # }),
-    # ('mdurl', '0.1.2', {
-    #     'checksums': ['bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba'],
-    # }),
-    # ('markdown-it-py', '3.0.0', {
-    #     'modulename': 'markdown_it',
-    #     'checksums': ['e3f60a94fa066dc52ec76661e37c851cb232d92f9886b15cb560aaada2df8feb'],
-    # }),
-    # ('rich', '14.1.0', {
-    #     'checksums': ['e497a48b844b0320d45007cdebfeaeed8db2a4f4bcf49f15e455cfc4af11eaa8'],
-    # }),
-    # ('rich-click', '1.8.9', {
-    #     'sources': ['rich_click-%(version)s.tar.gz'],
-    #     'checksums': ['fd98c0ab9ddc1cf9c0b7463f68daf28b4d0033a74214ceb02f761b3ff2af3136'],
-    # }),
-    # ('commonmark', '0.9.1', { # OLD -> remove (replaced by markdown-it-py)
-    #     'checksums': ['452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60'],
-    # }),
+    ('referencing', '0.37.0', {
+        'checksums': ['44aefc3142c5b842538163acb373e24cce6632bd54bdb01b21ad5863489f50d8'],
+    }),
+    ('jsonschema-specifications', '2025.9.1', {
+        'checksums': ['b540987f239e745613c7a9176f3edb72b832a4ac465cf02712288397832b5e8d'],
+    }),
+    ('jsonschema', '4.26.0', {
+        'checksums': ['0c26707e2efad8aa1bfc5b7ce170f3fccc2e4918ff85989ba9ffa9facb2be326'],
+    }),
+    ('simplejson', '4.1.1', {
+        'checksums': ['c08eb9f7a90f77ae470e19a07472e9a79ebc0d1c2315d86a72767665bd5ba79f'],
+    }),
+    ('distro', '1.9.0', {
+        'checksums': ['2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed'],
+    }),
+    ('rapidfuzz', '3.14.5', {
+        'checksums': ['ba10ac57884ce82112f7ed910b67e7fb6072d8ef2c06e30dc63c0f604a112e0e'],
+    }),
+    ('msgpack', '1.1.2', {
+        'checksums': ['3b60763c1373dd60f398488069bcdc703cd08a711477b5d480eecc9f9626f47e'],
+    }),
+    ('CacheControl', '0.14.4', {
+        'sources': [SOURCELOWER_PY3_WHL],
+        'checksums': ['b7ac014ff72ee199b5f8af1de29d60239954f223e948196fa3d84adaffc71d2b'],
+    }),
+    ('fsspec', '2026.4.0', {
+        'checksums': ['301d8ac70ae90ef3ad05dcf94d6c3754a097f9b5fe4667d2787aa359ec7df7e4'],
+    }),
+    ('threadpoolctl', '3.6.0', {
+        'checksums': ['8ab8b4aa3491d812b623328249fab5302a68d2d71745c8a4c719a2fcaba9f44e'],
+    }),
+    ('pooch', '1.9.0', {
+        'checksums': ['de46729579b9857ffd3e741987a2f6d5e0e03219892c167c6578c0091fb511ed'],
+    }),
+    ('doit', '0.37.0', {
+        'checksums': ['d3c72e0e46a8fa1ddabea8f830762402dee090caf33c30c2295ac7010db8f09c'],
+    }),
+    ('cloudpickle', '3.1.2', {
+        'checksums': ['7fda9eb655c9c230dab534f1983763de5835249750e85fbcef43aaa30a9a2414'],
+    }),
+    ('mdurl', '0.1.2', {
+        'checksums': ['bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba'],
+    }),
+    ('markdown-it-py', '4.2.0', {
+        'modulename': 'markdown_it',
+        'checksums': ['04a21681d6fbb623de53f6f364d352309d4094dd4194040a10fd51833e418d49'],
+    }),
+    ('rich', '15.0.0', {
+        'checksums': ['edd07a4824c6b40189fb7ac9bc4c52536e9780fbbfbddf6f1e2502c31b068c36'],
+    }),
+    ('rich-click', '1.9.7', {
+        # 'sources': ['rich_click-%(version)s.tar.gz'],
+        'checksums': ['022997c1e30731995bdbc8ec2f82819340d42543237f033a003c7b1f843fc5dc'],
+    }),
     # ('execnet', '2.1.1', {
     #     'checksums': ['5189b52c6121c24feae288166ab41b32549c7e2348652736540b9e6e7d4e72e3'],
     # }),
