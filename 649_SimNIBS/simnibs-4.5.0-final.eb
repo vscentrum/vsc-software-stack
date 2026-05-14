@@ -96,7 +96,8 @@ dependencies = [
     ('PyQt5', '5.15.10'),
     ('scikit-learn', '1.4.0'),
     ('tqdm', '4.66.2'),
-    ('xxHash', '0.8.2'),
+    ('imkl', '2023.2.0'),
+    # ('xxHash', '0.8.2'),
     # ('petsc4py', '3.22.5'),
     # ('samseg', '0.4a'),
     # ('python-mumps', '0.0.2'),
@@ -104,33 +105,34 @@ dependencies = [
     # ('charm-gems', '1.3.3'),
 ]
 
+# sanity_pip_check = False
 # fix new numpy syntax
 # _fix_numpy = "sed -i 's/dtype=np.bool/bool/g' simnibs/segmentation/samseg/simnibs_segmentation_utils.py && "
 exts_list = [
     ('xxhash', '3.5.0', {
         'checksums': ['84f2caddf951c9cbf8dc2e22a89d4ccf5d86391ac6418fe81e3c67d0cf60b45f'],
     }),
-    ('tbb', '2021.13.0', {
-        'easyblock': 'PythonPackage',
-        'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux1_x86_64.whl',
-        'checksums': ['aaf667e92849adb012b8874d6393282afc318aca4407fc62f912ee30a22da46a'],
-    }),
+    # ('tbb', '2021.13.0', {
+    #     'easyblock': 'PythonPackage',
+    #     'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux1_x86_64.whl',
+    #     'checksums': ['aaf667e92849adb012b8874d6393282afc318aca4407fc62f912ee30a22da46a'],
+    # }),
     ('python-mumps', '0.0.2', {
         'modulename': 'mumps',
         'checksums': ['ae19e9242ca1827f10e7e57021a4be0207b8b9c563472752ca7a0edd7700b223'],
     }),
-    ('intel_cmplr_lib_ur', '2024.2.1', {
-        'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux1_x86_64.whl',
-        'checksums': ['8b78d58ab501d6e5a582967be80fdbf7b03b33279135a303da36dbf11f481ed7'],
-    }),
-    ('intel_openmp', '2024.2.1', {
-        'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux1_x86_64.whl',
-        'checksums': ['21892ea07a9c6e164707d2b44e6f396f9f2ab6cc7e108755011fad59b596182a'],
-    }),
-    ('mkl', '2024.2.2', {
-        'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux1_x86_64.whl',
-        'checksums': ['915e81274ac20964e60156ed940e0eeb29dab0c282b915ad2e231db0021b980d'],
-    }),
+    # ('intel_cmplr_lib_ur', '2024.2.1', {
+    #     'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux1_x86_64.whl',
+    #     'checksums': ['8b78d58ab501d6e5a582967be80fdbf7b03b33279135a303da36dbf11f481ed7'],
+    # }),
+    # ('intel_openmp', '2024.2.1', {
+    #     'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux1_x86_64.whl',
+    #     'checksums': ['21892ea07a9c6e164707d2b44e6f396f9f2ab6cc7e108755011fad59b596182a'],
+    # }),
+    # ('mkl', '2024.2.2', {
+    #     'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux1_x86_64.whl',
+    #     'checksums': ['915e81274ac20964e60156ed940e0eeb29dab0c282b915ad2e231db0021b980d'],
+    # }),
     ('fmm3dpy', '1.0.0', {
         # 'source_urls': ['https://github.com/simnibs/%(name)s/releases/download/v%(version)s/'],
         # 'sources': ['%(name)s-%(version)s-cp312-cp312-manylinux_2_28_x86_64.whl'],
@@ -167,6 +169,17 @@ exts_list = [
     }),
 ]
 
+# SimNIBS declares PyPI mkl/tbb dependencies on Linux. In this EB stack,
+# NumPy/SciPy are provided by SciPy-bundle, and runtime TBB is provided
+# by the EB tbb module. Installing PyPI mkl/intel-openmp/tbb pulls in native
+# Intel runtime wheels and causes import/RPATH sanity failures, so remove only
+# those wheel metadata requirements and keep targeted runtime checks.
+postinstallcmds = [
+    "sed -i -e '/^Requires-Dist: mkl[ ;]/d' "
+    "-e '/^Requires-Dist: tbb[ ;]/d' "
+    "%(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs-%(version)s.dist-info/METADATA",
+]
+
 # postinstallcmds = [
 #     'cd %(installdir)s/bin && '
 #     'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs/external/bin/linux/gmsh gmsh && '
@@ -180,6 +193,13 @@ exts_list = [
 #     'dirs': ['lib/python%(pyshortver)s/site-packages'],
 # }
 
-sanity_check_commands = ["simnibs --help"]
+# sanity_check_commands = ["simnibs --help"]
+
+sanity_check_commands = [
+    'simnibs --help',
+    'python -c "from petsc4py import PETSc"',
+    'python -c "import simnibs; from simnibs.mesh_tools import cgal"',
+    'python -c "import mumps, fmm3dpy, pygpc, samseg, surfa, xxhash"',
+]
 
 moduleclass = 'bio'
