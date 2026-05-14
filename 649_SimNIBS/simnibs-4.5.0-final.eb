@@ -8,76 +8,7 @@ description = "SimNIBS is a free and open source software package for the Simula
 
 toolchain = {'name': 'foss', 'version': '2023b'}
 
-## DEPS:
-#   OK - python=3.11.10
-#   OK - cgal-cpp=5.5.1
-#    ?- cython=3.0.11 in pypi-bundle is v3.0.4
-#   OK - freeglut=3.2.2 have v3.4.0
-#   Ok - h5py=3.11.0
-#    ? - jsonschema=4.23.0 have v4.17.3 in pypi bundle
-#   ? - libwebp=1.4.0 - have v1.3.2
-#   ? - matplotlib-base=3.9.2 - have v3.8.2
-#   ok - mkl=2024.2.2
-#   OK - mock=5.1.0 - pypi-bundle
-#    OK - nibabel=5.3.0
-#   OK - numba=0.60.0
-#   ? - numpy=1.26.4 - have v1.26.2
-#   ? - pillow=10.4.0 - have v10.2.0
-#    OK - pyopengl=3.1.6
-#   ? - pytest=8.3.3 - have v7.4.3
-#   OK - python-mumps=0.0.2 -> CREATE MUMPS-sequntial as dep
-#   OK - requests=2.32.3
-#    ? - scipy=1.14.1 have 1.11.4
-#   OK - setuptools-scm=8.1.0
-#   ok - tbb-devel=2021.13.0
-#   ? - zlib=1.3.1 - have v1.2.13
-#   OK mesa-libgl-cos6-x86_64 -> PyOpenGL for this
-#    ? - jupyterlab=4.3.0 - have v4.2.0
-#     OK pyqt5==5.15
-#     ?ok fmm3dpy==1.0.0 have v1.0.4 -> use wheel from the https://github.com/simnibs/fmm3dpy
-#     ok samseg==0.4a0 use whl
-#     ok pygpc==0.4.1
-#     ? petsc4py==3.21.5  !!! only whl for python3.11 on in the https://github.com/simnibs/petsc4py  -> use the wheels
-        # petsc4py from EB repo has dep on PETSc and other version of MUMPS
-# dependencies =[
-#     ?ok "fmm3dpy==1.0.0",
-#     OK "h5py",
-#     ?OK "jsonschema",
-#     ?OK # "matplotlib",
-#     ok "mkl ; sys_platform != 'darwin'",
-#     OK "nibabel",
-#     OK "numba",
-#     ?OK "numpy",
-#     ?ok "petsc4py",
-#     ?OK "pillow",
-#     ok "pygpc==0.4.1",
-#     OK "PyQt5",
-#     OK "requests",
-#     ok "samseg",
-#     ?OK "scipy",
-#     OK "tbb ; sys_platform != 'darwin'",
-#   ]
-# ok mkl 2024.2.2 requires intel-openmp, which is not installed.
-# OK mkl 2024.2.2 requires tbb, which is not installed.
-# OK simnibs 4.5.0 requires tbb, which is not installed.
-# OK pygpc 0.4.1 requires scikit-learn, which is not installed.
-# OK pygpc 0.4.1 requires tqdm, which is not installed.
-# OK samseg 0.4a0 requires scikit-learn, which is not installed.
-# ok samseg 0.4a0 requires surfa, which is not installed.
-# OK ImportError: libtbb.so.12: cannot open shared object file: No such file or directory -> move tbb to deps from builddeps
-# ok mkl 2024.2.2 requires tbb, which is not installed.
-# ok simnibs 4.5.0 requires tbb, which is not installed.
-# ok surfa 0.6.1 requires xxhash, which is not installed.
-# ok intel-openmp 2024.2.1 requires intel-cmplr-lib-ur, which is not installed.
-
-builddependencies = [
-    # ('CMake', '3.26.3'),
-    # ('Eigen', '3.4.0'),
-    # ('Boost', '1.74.0'),
-    # ('CGAL', '5.6.1'),
-    # ('Cython', '3.0.10'),
-    ('meson-python', '0.15.0'),
-]
+builddependencies = [('meson-python', '0.15.0')]
 dependencies = [
     ('Python', '3.11.5'),
     ('SciPy-bundle', '2023.11'),
@@ -97,46 +28,17 @@ dependencies = [
     ('scikit-learn', '1.4.0'),
     ('tqdm', '4.66.2'),
     ('imkl', '2023.2.0'),
-    # ('xxHash', '0.8.2'),
-    # ('petsc4py', '3.22.5'),
-    # ('samseg', '0.4a'),
-    # ('python-mumps', '0.0.2'),
-    # ('FMM3D', '1.0.4'),
-    # ('charm-gems', '1.3.3'),
 ]
 
-# sanity_pip_check = False
-# fix new numpy syntax
-# _fix_numpy = "sed -i 's/dtype=np.bool/bool/g' simnibs/segmentation/samseg/simnibs_segmentation_utils.py && "
 exts_list = [
     ('xxhash', '3.5.0', {
         'checksums': ['84f2caddf951c9cbf8dc2e22a89d4ccf5d86391ac6418fe81e3c67d0cf60b45f'],
     }),
-    # ('tbb', '2021.13.0', {
-    #     'easyblock': 'PythonPackage',
-    #     'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux1_x86_64.whl',
-    #     'checksums': ['aaf667e92849adb012b8874d6393282afc318aca4407fc62f912ee30a22da46a'],
-    # }),
     ('python-mumps', '0.0.2', {
         'modulename': 'mumps',
         'checksums': ['ae19e9242ca1827f10e7e57021a4be0207b8b9c563472752ca7a0edd7700b223'],
     }),
-    # ('intel_cmplr_lib_ur', '2024.2.1', {
-    #     'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux1_x86_64.whl',
-    #     'checksums': ['8b78d58ab501d6e5a582967be80fdbf7b03b33279135a303da36dbf11f481ed7'],
-    # }),
-    # ('intel_openmp', '2024.2.1', {
-    #     'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux1_x86_64.whl',
-    #     'checksums': ['21892ea07a9c6e164707d2b44e6f396f9f2ab6cc7e108755011fad59b596182a'],
-    # }),
-    # ('mkl', '2024.2.2', {
-    #     'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux1_x86_64.whl',
-    #     'checksums': ['915e81274ac20964e60156ed940e0eeb29dab0c282b915ad2e231db0021b980d'],
-    # }),
     ('fmm3dpy', '1.0.0', {
-        # 'source_urls': ['https://github.com/simnibs/%(name)s/releases/download/v%(version)s/'],
-        # 'sources': ['%(name)s-%(version)s-cp312-cp312-manylinux_2_28_x86_64.whl'],
-        # fmm3dpy-1.0.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
         'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
         'checksums': ['41f0341a44503d3a13fea3ee39a9ec6f7a1d3eaeea5db505566ef5b8ad2fddec'],
     }),
@@ -157,49 +59,23 @@ exts_list = [
         'checksums': ['b3a569ae6350a4116559600466137b76a10f9bd934d4a7affefbb0f9a707c910'],
     }),
     (name, version, {
-        # 'patches': ['%(name)s-%(version)s_setup.py-fix.patch'],
-        # 'preinstallopts': _fix_numpy,
-        # 'testinstall': True,
-        # 'runtest': 'pytest -v utils/tests',
-        # https://github.com/simnibs/simnibs/releases/download/v4.5.0/simnibs-4.5.0-cp311-cp311-linux_x86_64.whl
         'source_urls': ['https://github.com/simnibs/simnibs/releases/download/v4.5.0/'],
         'sources': ['%(namelower)s-%(version)s-cp311-cp311-linux_x86_64.whl'],
-        # 'checksums': ['49b24fff8c5b014a17dbc7919bfe8d4e99c0fcd833709eb811b7d1b3eeff68ff'],
         'checksums': ['513642dbd0091affc5c76c204ff18a23c5bd84cbe7a6089e3c6b1eaee2d99e65'],
     }),
 ]
 
-# SimNIBS declares PyPI mkl/tbb dependencies on Linux. In this EB stack,
-# NumPy/SciPy are provided by SciPy-bundle, and runtime TBB is provided
-# by the EB tbb module. Installing PyPI mkl/intel-openmp/tbb pulls in native
-# Intel runtime wheels and causes import/RPATH sanity failures, so remove only
-# those wheel metadata requirements and keep targeted runtime checks.
+# mkl is provided by imkl module and tbb also by tbb module
 postinstallcmds = [
     "sed -i -e '/^Requires-Dist: mkl[ ;]/d' "
     "-e '/^Requires-Dist: tbb[ ;]/d' "
     "%(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs-%(version)s.dist-info/METADATA",
 ]
 
-# postinstallcmds = [
-#     'cd %(installdir)s/bin && '
-#     'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs/external/bin/linux/gmsh gmsh && '
-#     'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs/external/bin/linux/meshfix meshfix && '
-#     'ln -s %(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs/external/dwi2cond dwi2cond',
-# ]
-
-# local_bin_list = ['dwi2cond', 'gmsh', 'meshfix', 'simnibs', 'simnibs_gui', 'charm']
-# sanity_check_paths = {
-#     'files': ['bin/%s' % f for f in local_bin_list],
-#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
-# }
-
-# sanity_check_commands = ["simnibs --help"]
-
 sanity_check_commands = [
     'simnibs --help',
     'python -c "from petsc4py import PETSc"',
     'python -c "import simnibs; from simnibs.mesh_tools import cgal"',
-    'python -c "import mumps, fmm3dpy, pygpc, samseg, surfa, xxhash"',
 ]
 
 moduleclass = 'bio'
