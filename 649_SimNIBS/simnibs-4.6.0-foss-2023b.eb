@@ -1,0 +1,170 @@
+easyblock = 'PythonBundle'
+
+name = 'SimNIBS'
+version = '4.6.0'
+
+homepage = 'https://simnibs.github.io/simnibs'
+description = "SimNIBS is a free and open source software package for the Simulation of Non-invasive Brain Stimulation"
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+toolchainopts = {'pic': True, 'lowopt': True}
+
+builddependencies = [
+    ('pkgconf', '2.0.3'),
+    ('Meson', '1.2.3'),
+    ('Ninja', '1.11.1'),
+    # ('meson-python', '0.15.0'),
+    # ('pybind11', '2.11.1'),
+    ('CMake', '3.27.6'),
+    ('Eigen', '3.4.0'),
+    ('Catch2', '2.13.9'),
+]
+dependencies = [
+    ('Python', '3.11.5'),
+    ('Python-bundle-PyPI', '2023.10'),
+    # ('SciPy-bundle', '2023.11'),
+    ('tbb', '2021.13.0'),
+    # ('matplotlib', '3.8.2'),
+    # ('Pillow', '10.2.0'),
+    # ('h5py', '3.11.0'),
+    # ('PyOpenGL', '3.1.9'),
+    ('freeglut', '3.4.0'),
+    ('libwebp', '1.3.2'),
+    # ('NiBabel', '5.3.2'),
+    # ('numba', '0.60.0'),
+    # ('MUMPS', '5.7.3', '-metis-seq'),
+    ('zlib', '1.2.13'),
+    # ('JupyterLab', '4.2.0'),
+    ('PyQt5', '5.15.10'),
+    # ('scikit-learn', '1.4.0'),
+    # ('tqdm', '4.66.2'),
+    ('imkl', '2023.2.0'),
+    ('Cython', '3.0.10'),
+    ('Boost', '1.83.0'),  # pybind11
+]
+
+exts_list = [
+    ('importlib-metadata', '8.7.0', {
+        'checksums': ['d13b81ad223b890aa16c5471f2ac3056cf76c5f10f82d6f9292f0b415f389000'],
+    }),
+    ('pyproject-metadata', '0.9.1', {
+        'checksums': ['b8b2253dd1b7062b78cf949a115f02ba7fa4114aabe63fa10528e9e1a954a816'],
+    }),
+    ('pybind11', '2.13.6', {
+        'patches': [{'name': 'pybind11-2.10.3_require-catch.patch', 'alt_location': 'pybind11'}],
+        'source_urls': ['https://github.com/pybind/pybind11/archive/'],
+        'sources': ['v%(version)s.tar.gz'],
+        'checksums': [
+            {'v2.13.6.tar.gz': 'e08cb87f4773da97fa7b5f035de8763abc656d87d5773e62f6da0587d1f0ec20'},
+            {'pybind11-2.10.3_require-catch.patch': '4a27ba3ef1d5c535d120d6178a6e876ae678e4899a07500aab37908357b0b60b'},
+        ],
+    }),
+    ('meson', '1.6.1', {
+        'modulename': 'mesonbuild',
+        'checksums': ['1eca49eb6c26d58bbee67fd3337d8ef557c0804e30a6d16bfdf269db997464de'],
+    }),
+    ('meson-python', '0.18.0', {
+        'modulename': 'mesonpy',
+        'checksums': ['c56a99ec9df669a40662fe46960321af6e4b14106c14db228709c1628e23848d'],
+    }),
+    ('spin', '0.14', {
+        'checksums': ['1a5f6ce53699ef58bf893970ecb9d7f8814a8ca08da5d26e1391fe2a9fa04bcc'],
+    }),
+    ('ply', '3.11', {
+        'checksums': ['00c7c1aaa88358b9c765b6d3000c6eec0ba42abca5351b095321aef446081da3'],
+    }),
+    ('gast', '0.6.0', {
+        'checksums': ['88fc5300d32c7ac6ca7b515310862f71e6fdf2c029bbec7c66c0f5dd47b6b1fb'],
+    }),
+    ('beniget', '0.4.2.post1', {
+        'checksums': ['a0258537e65e7e14ec33a86802f865a667f949bb6c73646d55e42f7c45a052ae'],
+    }),
+    ('pythran', '0.18.0', {
+        'checksums': ['5c003e8cbedf6dbb68c2869c49fc110ce8b5e8982993078a4a819f1dadc4fc6a'],
+    }),
+    ('versioneer', '0.29', {
+        'checksums': ['5ab283b9857211d61b53318b7c792cf68e798e765ee17c27ade9f6c924235731'],
+    }),
+    ('numpy', '2.3.1', {
+        'ignore_test_result': True,
+        'skipsteps': ['test'],
+        'patches': [
+            {'name': 'numpy-1.22.3_disable-broken-override-test.patch', 'alt_location': 'SciPy-bundle'},
+            {'name': 'numpy-2.3.1_fix_f2py_object_files.patch', 'alt_location': 'SciPy-bundle'},
+        ],
+        'checksums': [
+            {'numpy-2.3.1.tar.gz': '1ec9ae20a4226da374362cca3c62cd753faf2f951440b0e3b98e93c235441d2b'},
+            {'numpy-1.22.3_disable-broken-override-test.patch':
+             '9c589bb073b28b25ff45eb3c63c57966aa508dd8b318d0b885b6295271e4983c'},
+            {'numpy-2.3.1_fix_f2py_object_files.patch':
+             'b586083c384becc9ef7908af171c9034473514f8c8741d15b8bda23da503718f'},
+        ],
+    }),
+    ('scipy', '1.16.0', {
+        'enable_slow_tests': False,
+        'ignore_test_result': True,
+        'patches': [
+            {'name': 'scipy-1.11.1_disable-tests.patch', 'alt_location': 'SciPy-bundle'},
+            {'name': 'scipy-1.16.0_skip-tests-broken-grace.patch', 'alt_location': 'SciPy-bundle'},
+            {'name': 'scipy-1.16.0_relax-tests-broken-neoverse-v1.patch', 'alt_location': 'SciPy-bundle'},
+            {'name': 'scipy-1.16.0_remove-float16-differentiate-test.patch', 'alt_location': 'SciPy-bundle'},
+        ],
+        'checksums': [
+            {'scipy-1.16.0.tar.gz': 'b5ef54021e832869c8cfb03bc3bf20366cbcd426e02a58e8a58d7584dfbb8f62'},
+            {'scipy-1.11.1_disable-tests.patch': '906bfb03397d94882ccdc1b93bc2c8e854e0e060c2d107c83042992394e6a4af'},
+            {'scipy-1.16.0_skip-tests-broken-grace.patch':
+             '33885518a572f843a0edeb7a58aa938202aae70267f6de1ce60acef97f393126'},
+            {'scipy-1.16.0_relax-tests-broken-neoverse-v1.patch':
+             'a72d794b95dc437c03b323f86392b264c7ecfdbfa19e3bc01fba8d5d3ab2f21a'},
+            {'scipy-1.16.0_remove-float16-differentiate-test.patch':
+             'f857fc1e941c196285f2e871e803cf463fc59c040dd2955deda1dd277d4b00db'},
+        ],
+    }),
+    # ('xxhash', '3.5.0', {
+    #     'checksums': ['84f2caddf951c9cbf8dc2e22a89d4ccf5d86391ac6418fe81e3c67d0cf60b45f'],
+    # }),
+    # ('python-mumps', '0.0.2', {
+    #     'modulename': 'mumps',
+    #     'checksums': ['ae19e9242ca1827f10e7e57021a4be0207b8b9c563472752ca7a0edd7700b223'],
+    # }),
+    # ('fmm3dpy', '1.0.0', {
+    #     'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+    #     'checksums': ['41f0341a44503d3a13fea3ee39a9ec6f7a1d3eaeea5db505566ef5b8ad2fddec'],
+    # }),
+    # ('petsc4py', '3.21.5', {
+    #     'source_urls': ['https://github.com/simnibs/petsc4py/releases/download/v3.21.5/'],
+    #     'sources': ['petsc4py-3.21.5-cp311-cp311-manylinux_2_28_x86_64.whl'],
+    #     'checksums': ['66fadefd94dff9a46905119398c8e2f75e92465ce1950239cc9b0cb2307a6551'],
+    # }),
+    # ('pygpc', '0.4.1', {
+    #     'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+    #     'checksums': ['6eaae5b33b99d1cc176265f65ef0347b144def1961b9d62f878ca83035a14ee3'],
+    # }),
+    # ('surfa', '0.6.1', {
+    #     'checksums': ['edb4293ca393ad5d68547d3522765b4ee24c76d47f11e646e8adbab93b7f5ebe'],
+    # }),
+    # ('samseg', '0.4a0', {
+    #     'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_28_x86_64.whl',
+    #     'checksums': ['b3a569ae6350a4116559600466137b76a10f9bd934d4a7affefbb0f9a707c910'],
+    # }),
+    (name, version, {
+        'source_urls': ['https://github.com/simnibs/simnibs/releases/download/v4.6.0/'],
+        'sources': ['%(namelower)s-%(version)s-cp311-cp311-linux_x86_64.whl'],
+        'checksums': ['53440de4747128b3afec06731f4228242673faf6ac0834e0ac01939e016b6354'],
+    }),
+]
+
+# mkl is provided by imkl module and tbb also by tbb module
+postinstallcmds = [
+    "sed -i -e '/^Requires-Dist: mkl[ ;]/d' "
+    "-e '/^Requires-Dist: tbb[ ;]/d' "
+    "%(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs-%(version)s.dist-info/METADATA",
+]
+
+sanity_check_commands = [
+    'simnibs --help',
+    'python -c "from petsc4py import PETSc"',
+    'python -c "import simnibs; from simnibs.mesh_tools import cgal"',
+]
+
+moduleclass = 'bio'
