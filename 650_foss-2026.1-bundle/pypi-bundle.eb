@@ -40,25 +40,24 @@ dependencies = [
 ]
 
 # ADD EXTRA:
-    # cattrs
-    # cookiecutter 
+    # ok cattrs
+    # ok cookiecutter 
     # ok platformdirs 
-    # furo 
+    # ok furo 
     # ok intersphinx-registry 
-    # jupytext 
-    # myst-nb 
-    # myst-parser 
-    # numpydoc 
+    # ok jupytext 
+    # ok myst-nb 
+    # ok myst-parser 
+    # ok numpydoc 
     # ok sphinx-autobuild 
     # ok sphinx-codeautolink 
     # ok sphinx-copybutton 
     # ok sphinxcontrib-bibtex
-    # tinyff 
-    # tinydft 
-    # astropy 
-    # qc-gbasis 
-    # soapboxslide 
-    # stacie
+# pytest modules
+    # OK coverage - separate ec
+    # ok pytest-cov
+    # ok pytest-mock
+    # ok pytest-randomly
 
 crates = [
     # ('archery', '1.2.1'),
@@ -125,10 +124,30 @@ crates = [
 # ok intervaltree 3.2.1 requires sortedcontainers, which is not installed.
 # OK secretstorage 3.5.0 requires cryptography, which is not installed.
 # ok tomlkit needs poetry - and poetry need tomlkit -> use WHL for tomlkit
+# furo needs sphinx_theme_builder
+    # ok sphinx-basic-ng
+    # ok accessible-pygments
+    # ok nodeenv
+    # ok diagnostic
+    # ok pyproject-metadata
+# myst-nb 1.4.0 requires ipykernel, which is not installed.
+# myst-nb 1.4.0 requires ipython, which is not installed.
+# myst-nb 1.4.0 requires jupyter-cache, which is not installed.
+# myst-nb 1.4.0 requires nbclient, which is not installed.
+# myst-nb 1.4.0 requires nbformat, which is not installed.
+# jupytext 1.19.2 requires mdit-py-plugins, which is not installed.
+# jupytext 1.19.2 requires nbformat, which is not installed.
+# myst-parser 5.1.0 requires mdit-py-plugins, which is not installed.
+# cookiecutter 2.7.1 requires arrow, which is not installed.
+# cookiecutter 2.7.1 requires binaryornot, which is not installed.
+# cookiecutter 2.7.1 requires python-slugify, which is not installed.
 
 # order is important!
 # package versions updated 2025-07-30
 exts_list = [
+    ('pyproject-metadata', '0.11.0', {
+        'checksums': ['c72fa49418bb7c5a10f25e050c418009898d1c051721d19f98a6fb6da59a66cf'],
+    }),
     ('pbr', '7.0.3', {
         'checksums': ['b46004ec30a5324672683ec848aed9e8fc500b0d261d40a3229c2d2bbfcedc29'],
     }),
@@ -244,7 +263,6 @@ exts_list = [
         'checksums': ['14b2e1eb528d77bc0f4c5bd1a7ebc05e02b5b41beefb7e8567c9675b8b13bcf4'],
     }),
     ('more-itertools', '11.0.2', {
-        'sources': ['more_itertools-%(version)s.tar.gz'],
         'checksums': ['392a9e1e362cbc106a2457d37cabf9b36e5e12efd4ebff1654630e76597df804'],
     }),
     ('attrs', '26.1.0', {
@@ -263,12 +281,10 @@ exts_list = [
         'checksums': ['b86ada508af81d19edeb213c681b1d48246c1a91d304c6c81a427674c17eb91c'],
     }),
     ('MarkupSafe', '3.0.3', {
-        # 'sources': ['markupsafe-%(version)s.tar.gz'],
         'sources': [SOURCELOWER_TAR_GZ],
         'checksums': ['722695808f4b6457b320fdc131280796bdceb04ab50fe1795cd540799ebe1698'],
     }),
     ('Jinja2', '3.1.6', {
-        # 'sources': ['jinja2-%(version)s.tar.gz'],
         'sources': [SOURCELOWER_TAR_GZ],
         'checksums': ['0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d'],
     }),
@@ -357,13 +373,11 @@ exts_list = [
         'checksums': ['683e3b735448dadd0149f76edecf95ff4bd9157787e9e77e0d048ca6f1d680df'],
     }),
     ('Sphinx', '9.1.0', {
-        # 'patches': ['sphinx-%(version)s_license_dict.patch'],
-        # 'sources': ['sphinx-%(version)s.tar.gz'],
         'sources': [SOURCELOWER_TAR_GZ],
-        'checksums': [
-            {'sphinx-9.1.0.tar.gz': '7741722357dd75f8190766926071fed3bdc211c74dd2d7d4df5404da95930ddb'},
-            # {'sphinx-8.2.3_license_dict.patch': '639bdef574e47b3124be1d94253c1de923e20059e6bf079ea2ccacb9f4f7ba4d'},
-        ],
+        'checksums': ['7741722357dd75f8190766926071fed3bdc211c74dd2d7d4df5404da95930ddb'],
+    }),
+    ('sphinx-basic-ng', '1.0.0b2', {
+        'checksums': ['9ec55a47c90c8c002b5960c57492ec3021f5193cb26cebc2dc4ea226848651c9'],
     }),
     ('sortedcontainers', '2.4.0', {
         'checksums': ['25caa5a06cc30b6b83d11423433f65d1f9d76c4c6a0c90e3379eaa43b9bfdb88'],
@@ -372,14 +386,13 @@ exts_list = [
         'checksums': ['f3f7e8baeb7dd75b9f7a6d33cf3ec10025984a8e66e3016d537e52130c73cfe2'],
     }),
     ('tomli-w', '1.2.0', {
-        'sources': ['tomli_w-%(version)s.tar.gz'],
         'checksums': ['2dd14fac5a47c27be9cd4c976af5a12d87fb1f0b4512f81d69cce3b35ae25021'],
     }),
     ('regex', '2026.4.4', {
         'checksums': ['e08270659717f6973523ce3afbafa53515c4dc5dcad637dc215b6fd50f689423'],
     }),
     ('crashtest', '0.4.1', {
-        'sources': ['%(name)s-%(version)s-py3-none-any.whl'],
+        'sources': [SOURCE_PY3_WHL],
         'checksums': ['8d23eac5fa660409f57472e3851dab7ac18aba459a8d19cbbba86d3d5aecd2a5'],
     }),
     ('jeepney', '0.9.0', {
@@ -471,22 +484,57 @@ exts_list = [
         'checksums': ['edd07a4824c6b40189fb7ac9bc4c52536e9780fbbfbddf6f1e2502c31b068c36'],
     }),
     ('rich-click', '1.9.7', {
-        # 'sources': ['rich_click-%(version)s.tar.gz'],
         'checksums': ['022997c1e30731995bdbc8ec2f82819340d42543237f033a003c7b1f843fc5dc'],
     }),
-    # ('execnet', '2.1.1', {
-    #     'checksums': ['5189b52c6121c24feae288166ab41b32549c7e2348652736540b9e6e7d4e72e3'],
-    # }),
-    # ('pytest-xdist', '3.8.0', {
-    #     'modulename': 'xdist',
-    #     'sources': ['pytest_xdist-%(version)s.tar.gz'],
-    #     'checksums': ['7e578125ec9bc6050861aa93f2d59f1d8d085595d6551c2c90b6f4fad8d3a9f1'],
-    # }),
-    # pytest-mock + other pytest stuff?
-        # coverage - separate ec
-        # pytest-cov
-        # pytest-mock
-        # pytest-randomly
+    ('execnet', '2.1.2', {
+        'checksums': ['63d83bfdd9a23e35b9c6a3261412324f964c2ec8dcd8d3c6916ee9373e0befcd'],
+    }),
+    ('cattrs', '26.1.0', {
+        'checksums': ['fa239e0f0ec0715ba34852ce813986dfed1e12117e209b816ab87401271cdd40'],
+    }),
+    ('cookiecutter', '2.7.1', {
+        'checksums': ['ca7bb7bc8c6ff441fbf53921b5537668000e38d56e28d763a1b73975c66c6138'],
+    }),
+    ('nodeenv', '1.10.0', {
+        'checksums': ['996c191ad80897d076bdfba80a41994c2b47c68e224c542b48feba42ba00f8bb'],
+    }),
+    ('diagnostic', '3.0.0', {
+        'checksums': ['5c80d7f77706dca775cc85d7b0492e4e96385dade2103052cf06cf6ab105b855'],
+    }),
+    ('accessible-pygments', '0.0.5', {
+        'checksums': ['40918d3e6a2b619ad424cb91e556bd3bd8865443d9f22f1dcdf79e33c8046872'],
+    }),
+    ('sphinx-theme-builder', '0.3.2', {
+        'checksums': ['40b4bc2275b04d76781722c2e597770159e512f166986e1ceca1580a693f27bb'],
+    }),
+    ('furo', '2025.12.19', {
+        'checksums': ['188d1f942037d8b37cd3985b955839fea62baa1730087dc29d157677c857e2a7'],
+    }),
+    ('jupytext', '1.19.2', {
+        'checksums': ['da6198a42406a09142b6b26ebc46a3ec7077f525222a8f12b1811a0e289a2216'],
+    }),
+    ('myst-nb', '1.4.0', {
+        'checksums': ['c145598de62446a6fd009773dd071a40d3b76106ace780de1abdfc6961f614c2'],
+    }),
+    ('myst-parser', '5.1.0', {
+        'checksums': ['ab69322dc6719dcc7f296479dbb70181b66df6ed315064f92dbc85c0e1bf2f02'],
+    }),
+    ('numpydoc', '1.10.0', {
+        'checksums': ['3f7970f6eee30912260a6b31ac72bba2432830cd6722569ec17ee8d3ef5ffa01'],
+    }),
+    ('pytest-xdist', '3.8.0', {
+        'modulename': 'xdist',
+        'checksums': ['7e578125ec9bc6050861aa93f2d59f1d8d085595d6551c2c90b6f4fad8d3a9f1'],
+    }),
+    ('pytest-mock', '3.15.1', {
+        'checksums': ['1849a238f6f396da19762269de72cb1814ab44416fa73a8686deac10b0d87a0f'],
+    }),
+    ('pytest-cov', '7.1.0', {
+        'checksums': ['30674f2b5f6351aa09702a9c8c364f6a01c27aae0c1366ae8016160d1efc56b2'],
+    }),
+    ('pytest-randomly', '4.1.0', {
+        'checksums': ['47f1d9746c3bc3efabd53ae1ebfb8bb385cf3d4df4b505b6d58d9c97a3dfe70f'],
+    }),
 ]
 
 moduleclass = 'lang'
