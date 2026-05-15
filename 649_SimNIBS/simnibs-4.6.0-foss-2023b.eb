@@ -11,13 +11,13 @@ toolchainopts = {'pic': True, 'lowopt': True}
 
 builddependencies = [
     ('pkgconf', '2.0.3'),
-    ('Meson', '1.2.3'),
+    ('Meson', '1.2.3'),  # overrided by meson-1.6.1 from exts (here only for scipy check)
     ('Ninja', '1.11.1'),
     # ('meson-python', '0.15.0'),
     # ('pybind11', '2.11.1'),
-    ('CMake', '3.27.6'),
-    ('Eigen', '3.4.0'),
-    ('Catch2', '2.13.9'),
+    ('CMake', '3.27.6'),  # pybind11
+    ('Eigen', '3.4.0'),  # pybind11
+    ('Catch2', '2.13.9'),  # pybind11
 ]
 dependencies = [
     ('Python', '3.11.5'),
@@ -41,9 +41,39 @@ dependencies = [
     ('imkl', '2023.2.0'),
     ('Cython', '3.0.10'),
     ('Boost', '1.83.0'),  # pybind11
+    ('HDF5', '1.14.3'),  # h5py
+    ('mpi4py', '4.0.1'), # h5py
+    ('pydicom', '3.0.1'),  # nibabel
+    ('libjpeg-turbo', '3.0.1'),  # Pillow
+    ('libpng', '1.6.40'),  # Pillow
+    ('LibTIFF', '4.6.0'),  # Pillow
+    ('freetype', '2.13.2'),  # Pillow
+    ('OpenJPEG', '2.5.0'),  # Pillow
+    ('LittleCMS', '2.15'),  # Pillow
+    ('LLVM', '20.1.5'),  # llvmlite
 ]
 
+# ok simnibs 4.6.0 requires brainnet, which is not installed.
+# ok simnibs 4.6.0 requires cortech, which is not installed.
+# ok simnibs 4.6.0 requires fmm3dpy, which is not installed.
+# ?ok simnibs 4.6.0 requires gmsh, which is not installed.
+# ok simnibs 4.6.0 requires h5py, which is not installed.
+# ok simnibs 4.6.0 requires nibabel, which is not installed.
+# ok simnibs 4.6.0 requires numba, which is not installed.
+# ok simnibs 4.6.0 requires petsc4py, which is not installed.
+# ok simnibs 4.6.0 requires pillow, which is not installed.
+# ok simnibs 4.6.0 requires pygpc, which is not installed.
+# ok simnibs 4.6.0 requires samseg, which is not installed.
+# ok importlib-metadata 8.7.0 has requirement zipp>=3.20, but you have zipp 3.17.0.
+
+local_llvmlite_preinstallopts = "export LLVM_CONFIG=${EBROOTLLVM}/bin/llvm-config && "
+local_llvmlite_preinstallopts += "sed -i 's/llvm_config, \"--system-libs/llvm_config, \"--link-static --system-libs/' "
+local_llvmlite_preinstallopts += "ffi/build.py && "
+
 exts_list = [
+    ('zipp', '3.23.0', {
+        'checksums': ['a07157588a12518c9d4034df3fbbee09c814741a33ff63c05fa29d26a2404166'],
+    }),
     ('importlib-metadata', '8.7.0', {
         'checksums': ['d13b81ad223b890aa16c5471f2ac3056cf76c5f10f82d6f9292f0b415f389000'],
     }),
@@ -87,7 +117,7 @@ exts_list = [
     }),
     ('numpy', '2.3.1', {
         'ignore_test_result': True,
-        'skipsteps': ['test'],
+        # 'skipsteps': ['test'],
         'patches': [
             {'name': 'numpy-1.22.3_disable-broken-override-test.patch', 'alt_location': 'SciPy-bundle'},
             {'name': 'numpy-2.3.1_fix_f2py_object_files.patch', 'alt_location': 'SciPy-bundle'},
@@ -120,6 +150,27 @@ exts_list = [
              'f857fc1e941c196285f2e871e803cf463fc59c040dd2955deda1dd277d4b00db'},
         ],
     }),
+    ('h5py', '3.14.0', {
+        'checksums': ['2372116b2e0d5d3e5e705b7f663f7c8d96fa79a4052d250484ef91d24d6a08f4'],
+    }),
+    ('pillow', '11.3.0', {
+        'modulename': 'PIL',
+        'checksums': ['3828ee7586cd0b2091b6209e5ad53e20d0649bbe87164a459d0676e035e8f523'],
+    }),
+    ('nibabel', '5.3.2', {
+        'checksums': ['0bdca6503b1c784b446c745a4542367de7756cfba0d72143b91f9ffb78be569b'],
+    }),
+    ('gmsh', '4.14.0', {
+        'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux_2_24_x86_64.whl',
+        'checksums': ['aa39fe49bfea01cd753f5e30d679a5fbfa7315c9297e716393fc0fdc7977e609'],
+    }),
+    ('llvmlite', '0.44.0', {
+        'preinstallopts': local_llvmlite_preinstallopts,
+        'checksums': ['07667d66a5d150abed9157ab6c0b9393c9356f229784a4385c02f99e94fc94d4'],
+    }),
+    ('numba', '0.61.2', {
+        'checksums': ['8750ee147940a6637b80ecf7f95062185ad8726c8c28a2295b8ec1160a196f7d'],
+    }),
     # ('xxhash', '3.5.0', {
     #     'checksums': ['84f2caddf951c9cbf8dc2e22a89d4ccf5d86391ac6418fe81e3c67d0cf60b45f'],
     # }),
@@ -127,26 +178,57 @@ exts_list = [
     #     'modulename': 'mumps',
     #     'checksums': ['ae19e9242ca1827f10e7e57021a4be0207b8b9c563472752ca7a0edd7700b223'],
     # }),
-    # ('fmm3dpy', '1.0.0', {
-    #     'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
-    #     'checksums': ['41f0341a44503d3a13fea3ee39a9ec6f7a1d3eaeea5db505566ef5b8ad2fddec'],
-    # }),
-    # ('petsc4py', '3.21.5', {
-    #     'source_urls': ['https://github.com/simnibs/petsc4py/releases/download/v3.21.5/'],
-    #     'sources': ['petsc4py-3.21.5-cp311-cp311-manylinux_2_28_x86_64.whl'],
-    #     'checksums': ['66fadefd94dff9a46905119398c8e2f75e92465ce1950239cc9b0cb2307a6551'],
-    # }),
-    # ('pygpc', '0.4.1', {
-    #     'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
-    #     'checksums': ['6eaae5b33b99d1cc176265f65ef0347b144def1961b9d62f878ca83035a14ee3'],
-    # }),
+    ('fmm3dpy', '1.0.4', {
+        'source_urls': ['https://github.com/simnibs/fmm3dpy/releases/download/v%(version)s/'],
+        'sources': ['%(name)s-%(version)s-cp311-cp311-manylinux_2_28_x86_64.whl'],
+        'checksums': ['9b52bb4d5477e83155df8cf17d9d5fb36752318ef3e437d0d36a10f708cd52bb'],
+    }),
+    ('petsc4py', '3.22.2', {
+        'source_urls': ['https://github.com/simnibs/petsc4py/releases/download/v%(version)s/'],
+        'sources': ['%(name)s-%(version)s-cp311-cp311-manylinux_2_28_x86_64.whl'],
+        'checksums': ['090d97b198ced7ab98c9a9b471d17c140c245df4a56b9934275e006619ab0981'],
+    }),
+    ('pygpc', '0.4.1', {
+        'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['6eaae5b33b99d1cc176265f65ef0347b144def1961b9d62f878ca83035a14ee3'],
+    }),
     # ('surfa', '0.6.1', {
     #     'checksums': ['edb4293ca393ad5d68547d3522765b4ee24c76d47f11e646e8adbab93b7f5ebe'],
     # }),
-    # ('samseg', '0.4a0', {
-    #     'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_28_x86_64.whl',
-    #     'checksums': ['b3a569ae6350a4116559600466137b76a10f9bd934d4a7affefbb0f9a707c910'],
-    # }),
+    ('samseg', '0.5a0', {
+        'source_urls': ['https://github.com/oulap/samseg_wheels/releases/download/dev/'],
+        'sources': ['%(name)s-%(version)s-cp311-cp311-manylinux_2_28_x86_64.whl'],
+        'checksums': ['ce1abb7d437c702949b5cfb2f0c72c9724cff94ec9d18129a4074639600766d0'],
+    }),
+    ('cortech', '0.1', {
+        'source_urls': ['https://github.com/simnibs/cortech/releases/download/v%(version)s/'],
+        'sources': ['%(name)s-%(version)s-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl'],
+        'checksums': ['7f4260989f14c22b8f735172ab91f6c939991491a91796e6acefc6726bddb0f8'],
+    }),
+    ('brainsynth', '0.1', {
+        'source_urls': ['https://github.com/simnibs/brainsynth/releases/download/v%(version)s/'],
+        'sources': [SOURCE_PY3_WHL],
+        'checksums': ['d43f5c13d7939f8ded05f5624541b9220bef2a3e2343183f2b18ed5121ed41f9'],
+    }),
+    ('brainnet', '0.2', {
+        'source_urls': ['https://github.com/simnibs/brainnet/releases/download/v%(version)s/'],
+        'sources': [SOURCE_PY3_WHL],
+        'checksums': ['f8d5385ee3a54e1ed36797c2099c188fe5afe822f13de2e63e84344d1bce4a1b'],
+    }),
+    ('networkx', '3.4.2', {
+        'checksums': ['307c3669428c5362aab27c8a1260aa8f47c4e91d3891f48be0141738d8d053e1'],
+    }),
+    ('sympy', '1.13.3', {
+        'source_urls': ['https://download.pytorch.org/whl'],
+        'sources': [SOURCE_PY3_WHL],
+        'checksums': ['54612cf55a62755ee71824ce692986f23c88ffa77207b30c1368eda4a7060f73'],
+    }),
+    ('torch', '2.6.0', {
+        'source_urls': ['https://download.pytorch.org/whl/cpu/'],
+        'sources': ['torch-2.6.0%2Bcpu-cp311-cp311-linux_x86_64.whl'],
+        'modulename': 'torch',
+        'checksums': ['5b6ae523bfb67088a17ca7734d131548a2e60346c622621e4248ed09dd0790cc'],
+    }),
     (name, version, {
         'source_urls': ['https://github.com/simnibs/simnibs/releases/download/v4.6.0/'],
         'sources': ['%(namelower)s-%(version)s-cp311-cp311-linux_x86_64.whl'],
@@ -162,6 +244,7 @@ postinstallcmds = [
 ]
 
 sanity_check_commands = [
+    'numba --help',
     'simnibs --help',
     'python -c "from petsc4py import PETSc"',
     'python -c "import simnibs; from simnibs.mesh_tools import cgal"',
