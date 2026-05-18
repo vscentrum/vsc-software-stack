@@ -3,7 +3,7 @@ easyblock = 'PythonBundle'
 name = 'SMPL-X'
 version = '0.1.28'
 local_torch_version = '2.9.1'
-versionsuffix = '-PyTorch-' + local_torch_version + '-CUDA-%(cudaver)s'
+versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://smpl-x.is.tuebingen.mpg.de/'
 description = """
@@ -16,7 +16,7 @@ toolchain = {'name': 'foss', 'version': '2025a'}
 dependencies = [
     ('CUDA', '12.8.0', '', SYSTEM),
     ('Python', '3.13.1'),
-    ('PyTorch', local_torch_version, '-CUDA-%(cudaver)s'),
+    ('PyTorch', local_torch_version, f'{versionsuffix}'),
 ]
 
 exts_list = [
