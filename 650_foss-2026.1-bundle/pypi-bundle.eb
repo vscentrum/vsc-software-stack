@@ -45,8 +45,8 @@ dependencies = [
     # ok platformdirs 
     # ok furo 
     # ok intersphinx-registry 
-    # ok jupytext 
-    # ok myst-nb 
+    # X jupytext -> no belongs to jupyter
+    # X myst-nb -> no belongs to jupyter
     # ok myst-parser 
     # ok numpydoc 
     # ok sphinx-autobuild 
@@ -130,17 +130,17 @@ crates = [
     # ok nodeenv
     # ok diagnostic
     # ok pyproject-metadata
-# myst-nb 1.4.0 requires ipykernel, which is not installed.
-# myst-nb 1.4.0 requires ipython, which is not installed.
-# myst-nb 1.4.0 requires jupyter-cache, which is not installed.
-# myst-nb 1.4.0 requires nbclient, which is not installed.
-# myst-nb 1.4.0 requires nbformat, which is not installed.
-# jupytext 1.19.2 requires mdit-py-plugins, which is not installed.
-# jupytext 1.19.2 requires nbformat, which is not installed.
-# myst-parser 5.1.0 requires mdit-py-plugins, which is not installed.
-# cookiecutter 2.7.1 requires arrow, which is not installed.
-# cookiecutter 2.7.1 requires binaryornot, which is not installed.
-# cookiecutter 2.7.1 requires python-slugify, which is not installed.
+# X myst-nb 1.4.0 requires ipykernel, which is not installed.
+# X myst-nb 1.4.0 requires ipython, which is not installed.
+# X myst-nb 1.4.0 requires jupyter-cache, which is not installed.
+# X myst-nb 1.4.0 requires nbclient, which is not installed.
+# X myst-nb 1.4.0 requires nbformat, which is not installed.
+# X jupytext 1.19.2 requires mdit-py-plugins, which is not installed.
+# X jupytext 1.19.2 requires nbformat, which is not installed.
+# ok myst-parser 5.1.0 requires mdit-py-plugins, which is not installed.
+# ok cookiecutter 2.7.1 requires arrow, which is not installed.
+# ok cookiecutter 2.7.1 requires binaryornot, which is not installed.
+# ok cookiecutter 2.7.1 requires python-slugify, which is not installed.
 
 # order is important!
 # package versions updated 2025-07-30
@@ -492,6 +492,18 @@ exts_list = [
     ('cattrs', '26.1.0', {
         'checksums': ['fa239e0f0ec0715ba34852ce813986dfed1e12117e209b816ab87401271cdd40'],
     }),
+    ('arrow', '1.4.0', {
+        'checksums': ['ed0cc050e98001b8779e84d461b0098c4ac597e88704a655582b21d116e526d7'],
+    }),
+    ('binaryornot', '0.6.0', {
+        'checksums': ['cc8d57cfa71d74ff8c28a7726734d53a851d02fad9e3a5581fb807f989f702f0'],
+    }),
+    ('text-unidecode', '1.3', {
+        'checksums': ['bad6603bb14d279193107714b288be206cac565dfa49aa5b105294dd5c4aab93'],
+    }),
+    ('python-slugify', '8.0.4', {
+        'checksums': ['59202371d1d05b54a9e7720c5e038f928f45daaffe41dd10822f3907b937c856'],
+    }),
     ('cookiecutter', '2.7.1', {
         'checksums': ['ca7bb7bc8c6ff441fbf53921b5537668000e38d56e28d763a1b73975c66c6138'],
     }),
@@ -510,11 +522,8 @@ exts_list = [
     ('furo', '2025.12.19', {
         'checksums': ['188d1f942037d8b37cd3985b955839fea62baa1730087dc29d157677c857e2a7'],
     }),
-    ('jupytext', '1.19.2', {
-        'checksums': ['da6198a42406a09142b6b26ebc46a3ec7077f525222a8f12b1811a0e289a2216'],
-    }),
-    ('myst-nb', '1.4.0', {
-        'checksums': ['c145598de62446a6fd009773dd071a40d3b76106ace780de1abdfc6961f614c2'],
+    ('mdit-py-plugins', '0.6.1', {
+        'checksums': ['a2bca0f039f39dbd35fb74ae1b5f998608c437463371f0ff7f49a19a17a114d0'],
     }),
     ('myst-parser', '5.1.0', {
         'checksums': ['ab69322dc6719dcc7f296479dbb70181b66df6ed315064f92dbc85c0e1bf2f02'],
