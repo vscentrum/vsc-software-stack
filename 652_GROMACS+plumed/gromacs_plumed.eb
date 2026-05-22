@@ -18,7 +18,10 @@
 name = 'GROMACS'
 version = '2025.2'
 local_plumedver = '2.9.4'
-versionsuffix = '-PLUMED-%s' % local_plumedver
+# GROMACS 2025 has a native runtime PLUMED interface.
+# Do not use PLUMED's legacy source patching mechanism.
+plumed = 'native'
+versionsuffix = f'-PLUMED-{local_plumedver}-{plumed}'
 
 homepage = 'https://www.gromacs.org'
 description = """
@@ -69,10 +72,6 @@ dependencies = [
     ('mpi4py', '4.1.0'),
     ('PLUMED', local_plumedver),
 ]
-
-# GROMACS 2025 has a native runtime PLUMED interface.
-# Do not use PLUMED's legacy source patching mechanism.
-plumed = 'native'
 
 # be a bit more forgiving w.r.t. timeouts for GROMACS test suite,
 # see also https://gitlab.com/gromacs/gromacs/-/issues/5062
