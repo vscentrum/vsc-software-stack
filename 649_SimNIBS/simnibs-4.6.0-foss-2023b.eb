@@ -9,6 +9,22 @@ description = "SimNIBS is a free and open source software package for the Simula
 toolchain = {'name': 'foss', 'version': '2023b'}
 toolchainopts = {'pic': True, 'lowopt': True}
 
+modloadmsg = """
+WARNING: This SimNIBS module is a standalone compatibility build.
+
+Although the module is installed under the foss/2023b toolchain, it contains a
+customized Python/runtime stack for SimNIBS, including locally provided or
+overridden packages such as NumPy/SciPy, PyTorch, PETSc/petsc4py-related
+components, and selected binary wheels/runtime libraries.
+
+Do not combine this module with other Python foss/2023b modules
+such as SciPy-bundle, NumPy, SciPy, PyTorch, PETSc, petsc4py, h5py, numba,
+matplotlib, or similar packages, unless you know exactly what you are doing.
+
+Recommended usage: load SimNIBS as a standalone application module in a clean
+software environment.
+"""
+
 builddependencies = [
     ('pkgconf', '2.0.3'),
     ('Meson', '1.2.3'),  # overrided by meson-1.6.1 from exts (here only for scipy check)
@@ -18,6 +34,7 @@ builddependencies = [
     ('CMake', '3.27.6'),  # pybind11
     ('Eigen', '3.4.0'),  # pybind11
     ('Catch2', '2.13.9'),  # pybind11
+    ('hypothesis', '6.90.0'),  # numpy tests
 ]
 dependencies = [
     ('Python', '3.11.5'),
@@ -50,7 +67,8 @@ dependencies = [
     ('freetype', '2.13.2'),  # Pillow
     ('OpenJPEG', '2.5.0'),  # Pillow
     ('LittleCMS', '2.15'),  # Pillow
-    ('LLVM', '20.1.5'),  # llvmlite
+    # ('LLVM', '20.1.5'),  # llvmlite -> NO - freeglut has already LLVM-16.0.6
+    ('LLVM', '16.0.6'),  # llvmlite
 ]
 
 # ok simnibs 4.6.0 requires brainnet, which is not installed.
@@ -71,8 +89,13 @@ local_llvmlite_preinstallopts += "sed -i 's/llvm_config, \"--system-libs/llvm_co
 local_llvmlite_preinstallopts += "ffi/build.py && "
 
 exts_list = [
+    ('setuptools', '75.6.0', {
+        'checksums': ['8199222558df7c86216af4f84c30e9b34a61d8ba19366cc914424cdbd28252f6'],
+    }),
     ('zipp', '3.23.0', {
-        'checksums': ['a07157588a12518c9d4034df3fbbee09c814741a33ff63c05fa29d26a2404166'],
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['071652d6115ed432f5ce1d34c336c0adfd6a884660d1e9712a256d3d3bd4b14e'],
+        # 'checksums': ['a07157588a12518c9d4034df3fbbee09c814741a33ff63c05fa29d26a2404166'],
     }),
     ('importlib-metadata', '8.7.0', {
         'checksums': ['d13b81ad223b890aa16c5471f2ac3056cf76c5f10f82d6f9292f0b415f389000'],
@@ -151,11 +174,14 @@ exts_list = [
         ],
     }),
     ('h5py', '3.14.0', {
-        'checksums': ['2372116b2e0d5d3e5e705b7f663f7c8d96fa79a4052d250484ef91d24d6a08f4'],
+        'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['723a40ee6505bd354bfd26385f2dae7bbfa87655f4e61bab175a49d72ebfc06b'],
+        # 'checksums': ['2372116b2e0d5d3e5e705b7f663f7c8d96fa79a4052d250484ef91d24d6a08f4'],
     }),
     ('pillow', '11.3.0', {
         'modulename': 'PIL',
-        'checksums': ['3828ee7586cd0b2091b6209e5ad53e20d0649bbe87164a459d0676e035e8f523'],
+        'source_tmpl': '%(name)s-%(version)s-pp311-pypy311_pp73-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['504b6f59505f08ae014f724b6207ff6222662aab5cc9542577fb084ed0676ac7'],
     }),
     ('nibabel', '5.3.2', {
         'checksums': ['0bdca6503b1c784b446c745a4542367de7756cfba0d72143b91f9ffb78be569b'],
