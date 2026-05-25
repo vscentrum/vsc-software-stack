@@ -29,31 +29,24 @@ builddependencies = [
     ('pkgconf', '2.0.3'),
     ('Meson', '1.2.3'),  # overrided by meson-1.6.1 from exts (here only for scipy check)
     ('Ninja', '1.11.1'),
-    # ('meson-python', '0.15.0'),
-    # ('pybind11', '2.11.1'),
     ('CMake', '3.27.6'),  # pybind11
     ('Eigen', '3.4.0'),  # pybind11
     ('Catch2', '2.13.9'),  # pybind11
     ('hypothesis', '6.90.0'),  # numpy tests
+    ('hatchling', '1.18.0'),  # nibabel
 ]
 dependencies = [
     ('Python', '3.11.5'),
     ('Python-bundle-PyPI', '2023.10'),
-    # ('SciPy-bundle', '2023.11'),
     ('tbb', '2021.13.0'),
     # ('matplotlib', '3.8.2'),
-    # ('Pillow', '10.2.0'),
-    # ('h5py', '3.11.0'),
     # ('PyOpenGL', '3.1.9'),
     ('freeglut', '3.4.0'),
     ('libwebp', '1.3.2'),
-    # ('NiBabel', '5.3.2'),
-    # ('numba', '0.60.0'),
     # ('MUMPS', '5.7.3', '-metis-seq'),
     ('zlib', '1.2.13'),
     # ('JupyterLab', '4.2.0'),
     ('PyQt5', '5.15.10'),
-    # ('scikit-learn', '1.4.0'),
     # ('tqdm', '4.66.2'),
     ('imkl', '2023.2.0'),
     ('Cython', '3.0.10'),
@@ -68,7 +61,7 @@ dependencies = [
     ('OpenJPEG', '2.5.0'),  # Pillow
     ('LittleCMS', '2.15'),  # Pillow
     # ('LLVM', '20.1.5'),  # llvmlite -> NO - freeglut has already LLVM-16.0.6
-    ('LLVM', '16.0.6'),  # llvmlite
+    # ('LLVM', '16.0.6'),  # llvmlite
 ]
 
 # ok simnibs 4.6.0 requires brainnet, which is not installed.
@@ -83,12 +76,27 @@ dependencies = [
 # ok simnibs 4.6.0 requires pygpc, which is not installed.
 # ok simnibs 4.6.0 requires samseg, which is not installed.
 # ok importlib-metadata 8.7.0 has requirement zipp>=3.20, but you have zipp 3.17.0.
+# ok ModuleNotFoundError: No module named 'mpmath' -> add to exts
+# ok ImportError: Numba needs NumPy 2.2 or less. Got NumPy 2.3., from import cortech -> update numba + llvmlite
+# ok ImportError: cannot import name 'TypeIs' from 'typing_extensions' from import brainnet -> newer typing_extensions
+# ok ModuleNotFoundError: No module named 'surfa', from import samseg
+# ok ModuleNotFoundError: No module named 'sklearn' from import pygpc
+# ok llvmlite 0.45.x  -> LLVM 20.x -> use wheels for llvmlite
+# ModuleNotFoundError: No module named 'ignite' from import brainnet
+# ModuleNotFoundError: No module named 'xxhash' from import samseg/surfa
+# ModuleNotFoundError: No module named 'tqdm' from import pygpc
+# ModuleNotFoundError: No module named 'mumps' from import simnibs; from simnibs.mesh_tools import cgal and simnibs --help
 
 local_llvmlite_preinstallopts = "export LLVM_CONFIG=${EBROOTLLVM}/bin/llvm-config && "
 local_llvmlite_preinstallopts += "sed -i 's/llvm_config, \"--system-libs/llvm_config, \"--link-static --system-libs/' "
 local_llvmlite_preinstallopts += "ffi/build.py && "
 
 exts_list = [
+    ('typing_extensions', '4.12.2', {
+        # 'modulename': 'typing_extensions',
+        # 'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8'],
+    }),
     ('setuptools', '75.6.0', {
         'checksums': ['8199222558df7c86216af4f84c30e9b34a61d8ba19366cc914424cdbd28252f6'],
     }),
@@ -140,7 +148,11 @@ exts_list = [
     }),
     ('numpy', '2.3.1', {
         'ignore_test_result': True,
+        # only one test failed: numpy/tests/test_public_api.py::test_api_importable with:
+        #   AssertionError: Modules that are not really public but looked public and can not be imported: 
+        #       ['numpy.distutils.msvccompiler']
         # 'skipsteps': ['test'],
+        'testopts': '-- -k "not test_public_api"',
         'patches': [
             {'name': 'numpy-1.22.3_disable-broken-override-test.patch', 'alt_location': 'SciPy-bundle'},
             {'name': 'numpy-2.3.1_fix_f2py_object_files.patch', 'alt_location': 'SciPy-bundle'},
@@ -178,10 +190,14 @@ exts_list = [
         'checksums': ['723a40ee6505bd354bfd26385f2dae7bbfa87655f4e61bab175a49d72ebfc06b'],
         # 'checksums': ['2372116b2e0d5d3e5e705b7f663f7c8d96fa79a4052d250484ef91d24d6a08f4'],
     }),
-    ('pillow', '11.3.0', {
+    ('Pillow', '11.3.0', {
         'modulename': 'PIL',
-        'source_tmpl': '%(name)s-%(version)s-pp311-pypy311_pp73-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl',
-        'checksums': ['504b6f59505f08ae014f724b6207ff6222662aab5cc9542577fb084ed0676ac7'],
+        'sources': [SOURCELOWER_TAR_GZ],
+        'patches': [{'name': '%(name)s-%(version)s_old-license-syntax.patch', 'alt_location': 'Pillow'}],
+        'checksums': [
+            {'pillow-11.3.0.tar.gz': '3828ee7586cd0b2091b6209e5ad53e20d0649bbe87164a459d0676e035e8f523'},
+            {'Pillow-11.3.0_old-license-syntax.patch': 'ccdae6569850dc8959d68862ad81f1f84dcd82925d16b4da3606b31a6c8b56ba'},
+        ],
     }),
     ('nibabel', '5.3.2', {
         'checksums': ['0bdca6503b1c784b446c745a4542367de7756cfba0d72143b91f9ffb78be569b'],
@@ -190,12 +206,12 @@ exts_list = [
         'source_tmpl': '%(name)s-%(version)s-py2.py3-none-manylinux_2_24_x86_64.whl',
         'checksums': ['aa39fe49bfea01cd753f5e30d679a5fbfa7315c9297e716393fc0fdc7977e609'],
     }),
-    ('llvmlite', '0.44.0', {
-        'preinstallopts': local_llvmlite_preinstallopts,
-        'checksums': ['07667d66a5d150abed9157ab6c0b9393c9356f229784a4385c02f99e94fc94d4'],
+    ('llvmlite', '0.45.1', {
+        'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl',
+        'checksums': ['3adc2355694d6a6fbcc024d59bb756677e7de506037c878022d7b877e7613a36'],
     }),
-    ('numba', '0.61.2', {
-        'checksums': ['8750ee147940a6637b80ecf7f95062185ad8726c8c28a2295b8ec1160a196f7d'],
+    ('numba', '0.62.1', {
+        'checksums': ['7b774242aa890e34c21200a1fc62e5b5757d5286267e71103257f4e2af0d5161'],
     }),
     # ('xxhash', '3.5.0', {
     #     'checksums': ['84f2caddf951c9cbf8dc2e22a89d4ccf5d86391ac6418fe81e3c67d0cf60b45f'],
@@ -204,6 +220,16 @@ exts_list = [
     #     'modulename': 'mumps',
     #     'checksums': ['ae19e9242ca1827f10e7e57021a4be0207b8b9c563472752ca7a0edd7700b223'],
     # }),
+    ('scikit-learn', '1.7.0', {
+        'modulename': 'sklearn',
+        'checksums': ['c01e869b15aec88e2cdb73d27f15bdbe03bce8e2fb43afbe77c45d399e73a5a3'],
+    }),
+    ('sklearn', '0.0', {
+        'checksums': ['e23001573aa194b834122d2b9562459bf5ae494a2d59ca6b8aa22c85a44c0e31'],
+    }),
+    ('mpmath', '1.3.0', {
+        'checksums': ['7a28eb2a9774d00c7bc92411c19a89209d5da7c4c9a9e227be8330a23a25b91f'],
+    }),
     ('fmm3dpy', '1.0.4', {
         'source_urls': ['https://github.com/simnibs/fmm3dpy/releases/download/v%(version)s/'],
         'sources': ['%(name)s-%(version)s-cp311-cp311-manylinux_2_28_x86_64.whl'],
@@ -218,9 +244,9 @@ exts_list = [
         'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
         'checksums': ['6eaae5b33b99d1cc176265f65ef0347b144def1961b9d62f878ca83035a14ee3'],
     }),
-    # ('surfa', '0.6.1', {
-    #     'checksums': ['edb4293ca393ad5d68547d3522765b4ee24c76d47f11e646e8adbab93b7f5ebe'],
-    # }),
+    ('surfa', '0.6.3', {
+        'checksums': ['fbf687487bd7ea3a9fc924cd4bfc620960d6bf3e277d3680faf25e67bf6eca27'],
+    }),
     ('samseg', '0.5a0', {
         'source_urls': ['https://github.com/oulap/samseg_wheels/releases/download/dev/'],
         'sources': ['%(name)s-%(version)s-cp311-cp311-manylinux_2_28_x86_64.whl'],
