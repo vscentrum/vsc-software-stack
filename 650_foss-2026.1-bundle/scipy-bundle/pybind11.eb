@@ -9,25 +9,20 @@ toolchain = {'name': 'GCC', 'version': '15.2.0'}
 
 source_urls = ['https://github.com/pybind/pybind11/archive/']
 sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
-patches = [
-    'pybind11-2.10.3_require-catch.patch',
-    'pybind11-3.0.0_fix-nvcc-build-failure.patch',
-]
+patches = ['pybind11-2.10.3_require-catch.patch']
 checksums = [
-    {'v3.0.0.tar.gz': '453b1a3e2b266c3ae9da872411cadb6d693ac18063bd73226d96cfb7015a200c'},
+    {'pybind11-3.0.4.tar.gz': '74b6a2c2b4573a400cafb6ecbf60c98df300cd3d0041296b913d02b2cbbb2676'},
     {'pybind11-2.10.3_require-catch.patch': '4a27ba3ef1d5c535d120d6178a6e876ae678e4899a07500aab37908357b0b60b'},
-    {'pybind11-3.0.0_fix-nvcc-build-failure.patch': 'dc466f09c98a1d7a1fe69675c1205c68469b602c73503d4829c986d285da5278'},
 ]
 
 builddependencies = [
     ('CMake', '4.2.1'),
     # Test dependencies
     ('Eigen', '5.0.0'),
-    ('Catch2', '3.14.0'),
+    ('Catch2', '2.13.10'),
     ('Python-bundle-PyPI', '2026.04'),  # to provide pytest
     ('scikit-build-core', '0.12.2'),
 ]
-
 dependencies = [
     ('Boost', '1.90.0'),
     ('Python', '3.14.2'),
