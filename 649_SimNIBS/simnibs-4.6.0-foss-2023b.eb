@@ -34,6 +34,7 @@ builddependencies = [
     ('Catch2', '2.13.9'),  # pybind11
     ('hypothesis', '6.90.0'),  # numpy tests
     ('hatchling', '1.18.0'),  # nibabel
+    ('patchelf', '0.18.0'),
 ]
 dependencies = [
     ('Python', '3.11.5'),
@@ -43,11 +44,11 @@ dependencies = [
     # ('PyOpenGL', '3.1.9'),
     ('freeglut', '3.4.0'),
     ('libwebp', '1.3.2'),
-    # ('MUMPS', '5.7.3', '-metis-seq'),
+    ('MUMPS', '5.7.3', '-metis-seq'),
     ('zlib', '1.2.13'),
     # ('JupyterLab', '4.2.0'),
     ('PyQt5', '5.15.10'),
-    # ('tqdm', '4.66.2'),
+    ('tqdm', '4.66.2'),
     ('imkl', '2023.2.0'),
     ('Cython', '3.0.10'),
     ('Boost', '1.83.0'),  # pybind11
@@ -82,14 +83,14 @@ dependencies = [
 # ok ModuleNotFoundError: No module named 'surfa', from import samseg
 # ok ModuleNotFoundError: No module named 'sklearn' from import pygpc
 # ok llvmlite 0.45.x  -> LLVM 20.x -> use wheels for llvmlite
-# ModuleNotFoundError: No module named 'ignite' from import brainnet
-# ModuleNotFoundError: No module named 'xxhash' from import samseg/surfa
-# ModuleNotFoundError: No module named 'tqdm' from import pygpc
-# ModuleNotFoundError: No module named 'mumps' from import simnibs; from simnibs.mesh_tools import cgal and simnibs --help
+# ok ModuleNotFoundError: No module named 'ignite' from import brainnet -> add pytorch-ignite >= 0.4"
+# ok ModuleNotFoundError: No module named 'xxhash' from import samseg/surfa
+# OK ModuleNotFoundError: No module named 'tqdm' from import pygpc
+# ok ModuleNotFoundError: No module named 'mumps' from import simnibs; from simnibs.mesh_tools import cgal and simnibs --help
 
-local_llvmlite_preinstallopts = "export LLVM_CONFIG=${EBROOTLLVM}/bin/llvm-config && "
-local_llvmlite_preinstallopts += "sed -i 's/llvm_config, \"--system-libs/llvm_config, \"--link-static --system-libs/' "
-local_llvmlite_preinstallopts += "ffi/build.py && "
+# local_llvmlite_preinstallopts = "export LLVM_CONFIG=${EBROOTLLVM}/bin/llvm-config && "
+# local_llvmlite_preinstallopts += "sed -i 's/llvm_config, \"--system-libs/llvm_config, \"--link-static --system-libs/' "
+# local_llvmlite_preinstallopts += "ffi/build.py && "
 
 exts_list = [
     ('typing_extensions', '4.12.2', {
@@ -213,13 +214,13 @@ exts_list = [
     ('numba', '0.62.1', {
         'checksums': ['7b774242aa890e34c21200a1fc62e5b5757d5286267e71103257f4e2af0d5161'],
     }),
-    # ('xxhash', '3.5.0', {
-    #     'checksums': ['84f2caddf951c9cbf8dc2e22a89d4ccf5d86391ac6418fe81e3c67d0cf60b45f'],
-    # }),
-    # ('python-mumps', '0.0.2', {
-    #     'modulename': 'mumps',
-    #     'checksums': ['ae19e9242ca1827f10e7e57021a4be0207b8b9c563472752ca7a0edd7700b223'],
-    # }),
+    ('xxhash', '3.5.0', {
+        'checksums': ['84f2caddf951c9cbf8dc2e22a89d4ccf5d86391ac6418fe81e3c67d0cf60b45f'],
+    }),
+    ('python-mumps', '0.0.2', {
+        'modulename': 'mumps',
+        'checksums': ['ae19e9242ca1827f10e7e57021a4be0207b8b9c563472752ca7a0edd7700b223'],
+    }),
     ('scikit-learn', '1.7.0', {
         'modulename': 'sklearn',
         'checksums': ['c01e869b15aec88e2cdb73d27f15bdbe03bce8e2fb43afbe77c45d399e73a5a3'],
@@ -229,6 +230,24 @@ exts_list = [
     }),
     ('mpmath', '1.3.0', {
         'checksums': ['7a28eb2a9774d00c7bc92411c19a89209d5da7c4c9a9e227be8330a23a25b91f'],
+    }),
+    ('networkx', '3.4.2', {
+        'checksums': ['307c3669428c5362aab27c8a1260aa8f47c4e91d3891f48be0141738d8d053e1'],
+    }),
+    ('sympy', '1.13.3', {
+        'source_urls': ['https://download.pytorch.org/whl'],
+        'sources': [SOURCE_PY3_WHL],
+        'checksums': ['54612cf55a62755ee71824ce692986f23c88ffa77207b30c1368eda4a7060f73'],
+    }),
+    ('torch', '2.6.0', {
+        'source_urls': ['https://download.pytorch.org/whl/cpu/'],
+        'sources': ['torch-2.6.0%2Bcpu-cp311-cp311-linux_x86_64.whl'],
+        'modulename': 'torch',
+        'checksums': ['5b6ae523bfb67088a17ca7734d131548a2e60346c622621e4248ed09dd0790cc'],
+    }),
+    ('pytorch-ignite', '0.5.2', {
+        'modulename': 'ignite',
+        'checksums': ['63bdbafe3fb76bf243e4c7fa4b71c89a652fece6c4c2f6e3c5b448ac74447d98'],
     }),
     ('fmm3dpy', '1.0.4', {
         'source_urls': ['https://github.com/simnibs/fmm3dpy/releases/download/v%(version)s/'],
@@ -267,20 +286,6 @@ exts_list = [
         'sources': [SOURCE_PY3_WHL],
         'checksums': ['f8d5385ee3a54e1ed36797c2099c188fe5afe822f13de2e63e84344d1bce4a1b'],
     }),
-    ('networkx', '3.4.2', {
-        'checksums': ['307c3669428c5362aab27c8a1260aa8f47c4e91d3891f48be0141738d8d053e1'],
-    }),
-    ('sympy', '1.13.3', {
-        'source_urls': ['https://download.pytorch.org/whl'],
-        'sources': [SOURCE_PY3_WHL],
-        'checksums': ['54612cf55a62755ee71824ce692986f23c88ffa77207b30c1368eda4a7060f73'],
-    }),
-    ('torch', '2.6.0', {
-        'source_urls': ['https://download.pytorch.org/whl/cpu/'],
-        'sources': ['torch-2.6.0%2Bcpu-cp311-cp311-linux_x86_64.whl'],
-        'modulename': 'torch',
-        'checksums': ['5b6ae523bfb67088a17ca7734d131548a2e60346c622621e4248ed09dd0790cc'],
-    }),
     (name, version, {
         'source_urls': ['https://github.com/simnibs/simnibs/releases/download/v4.6.0/'],
         'sources': ['%(namelower)s-%(version)s-cp311-cp311-linux_x86_64.whl'],
@@ -293,6 +298,8 @@ postinstallcmds = [
     "sed -i -e '/^Requires-Dist: mkl[ ;]/d' "
     "-e '/^Requires-Dist: tbb[ ;]/d' "
     "%(installdir)s/lib/python%(pyshortver)s/site-packages/simnibs-%(version)s.dist-info/METADATA",
+    "patchelf --force-rpath --set-rpath '$ORIGIN:$ORIGIN/../lib' "
+    "%(installdir)s/lib/libgmsh.so.4.14",
 ]
 
 sanity_check_commands = [
