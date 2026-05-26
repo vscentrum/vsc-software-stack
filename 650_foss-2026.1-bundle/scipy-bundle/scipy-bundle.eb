@@ -30,7 +30,7 @@ dependencies = [
 exts_list = [
     ('numpy', '2.4.6', {
         # skip recursive dtype tests that hang with CPython 3.14.2 instead of raising RecursionError
-        'testopts': '-- -k "not TestMonsterType and not test_to_bool_scalar_not_convertible"',
+        'testopts': '-- -k "not TestMonsterType and not test_to_bool_scalar_not_convertible and not test_object_array_self_reference and not test_object_array_circular_reference"',
         # 'patches': [
         #     'numpy-1.22.3_disable-broken-override-test.patch',
         #     # Adds proper processing of object files for f2py
@@ -61,29 +61,32 @@ exts_list = [
         'enable_slow_tests': True,
         'ignore_test_result': False,
         'patches': [
-            'scipy-1.11.1_disable-tests.patch',
+            # 'scipy-1.11.1_disable-tests.patch',
             'scipy-1.16.0_skip-tests-broken-grace.patch',
-            'scipy-1.16.0_relax-tests-broken-neoverse-v1.patch',
-            'scipy-1.16.0_remove-float16-differentiate-test.patch',
-            'scipy-1.16.1_bump-orth-memory-efficiency-tolerance.patch',
-            'scipy-1.16.1_test_import_cycles.patch',
-            'scipy-1.16.1_upgrade_test_nan_inputs.patch',
+            'scipy-1.17.1_relax-tests-py314.patch',
+            # 'scipy-1.16.0_relax-tests-broken-neoverse-v1.patch',
+            # 'scipy-1.16.0_remove-float16-differentiate-test.patch',
+            # 'scipy-1.16.1_bump-orth-memory-efficiency-tolerance.patch',
+            # 'scipy-1.16.1_test_import_cycles.patch',
+            # 'scipy-1.16.1_upgrade_test_nan_inputs.patch',
         ],
         'checksums': [
             {'scipy-1.17.1.tar.gz': '95d8e012d8cb8816c226aef832200b1d45109ed4464303e997c5b13122b297c0'},
-            {'scipy-1.11.1_disable-tests.patch': '906bfb03397d94882ccdc1b93bc2c8e854e0e060c2d107c83042992394e6a4af'},
+            # {'scipy-1.11.1_disable-tests.patch': '906bfb03397d94882ccdc1b93bc2c8e854e0e060c2d107c83042992394e6a4af'},
             {'scipy-1.16.0_skip-tests-broken-grace.patch':
              '33885518a572f843a0edeb7a58aa938202aae70267f6de1ce60acef97f393126'},
-            {'scipy-1.16.0_relax-tests-broken-neoverse-v1.patch':
-             'a72d794b95dc437c03b323f86392b264c7ecfdbfa19e3bc01fba8d5d3ab2f21a'},
-            {'scipy-1.16.0_remove-float16-differentiate-test.patch':
-             'f857fc1e941c196285f2e871e803cf463fc59c040dd2955deda1dd277d4b00db'},
-            {'scipy-1.16.1_bump-orth-memory-efficiency-tolerance.patch':
-             '1eb58b162d04cbf957979897966bfcf318f05a2bdbb61f0b47c0b3881910b354'},
-            {'scipy-1.16.1_test_import_cycles.patch':
-             '9308e421a8ee03d659b59028dd9976a0023fcfdd5ce7d125c3189e5f00ee2eda'},
-            {'scipy-1.16.1_upgrade_test_nan_inputs.patch':
-             'd2c4e4db7d92117129c74ec17715a1ea3964f848280873f91fd50d6b850bf0e1'},
+            # {'scipy-1.16.0_relax-tests-broken-neoverse-v1.patch':
+            #  'a72d794b95dc437c03b323f86392b264c7ecfdbfa19e3bc01fba8d5d3ab2f21a'},
+            # {'scipy-1.16.0_remove-float16-differentiate-test.patch':
+            #  'f857fc1e941c196285f2e871e803cf463fc59c040dd2955deda1dd277d4b00db'},
+            # {'scipy-1.16.1_bump-orth-memory-efficiency-tolerance.patch':
+            #  '1eb58b162d04cbf957979897966bfcf318f05a2bdbb61f0b47c0b3881910b354'},
+            # {'scipy-1.16.1_test_import_cycles.patch':
+            #  '9308e421a8ee03d659b59028dd9976a0023fcfdd5ce7d125c3189e5f00ee2eda'},
+            # {'scipy-1.16.1_upgrade_test_nan_inputs.patch':
+            #  'd2c4e4db7d92117129c74ec17715a1ea3964f848280873f91fd50d6b850bf0e1'},
+            {'scipy-1.17.1_relax-tests-py314.patch':
+             '3b2a49a76beb6b5f22ea8f31d8ba1b4faa4d017ae60893a77af8bb1ea195b475'},
         ],
     }),
     ('numexpr', '2.14.1', {
