@@ -18,7 +18,7 @@
 name = 'GROMACS'
 version = '2024.4'
 local_plumedver = '2.9.4'
-versionsuffix = '-PLUMED-%s' % local_plumedver
+versionsuffix = f'-CUDA-%(cudaver)s-PLUMED-{local_plumedver}'
 
 homepage = 'https://www.gromacs.org'
 description = """
@@ -32,7 +32,7 @@ for both single and double precision.
 It also contains the gmxapi extension for the single precision MPI build.
 """
 
-toolchain = {'name': 'foss', 'version': '2024a'}
+toolchain = {'name': 'foss', 'version': '2025a'}
 toolchainopts = {'openmp': True, 'usempi': True}
 
 source_urls = [
@@ -57,16 +57,18 @@ checksums = [
 ]
 
 builddependencies = [
-    ('CMake', '3.29.3'),
+    ('CMake', '3.31.3'),
     ('scikit-build-core', '0.11.1'),
-    ('pybind11', '2.12.0'),
+    ('pybind11', '2.13.6'),
 ]
 
 dependencies = [
-    ('Python', '3.12.3'),
-    ('SciPy-bundle', '2024.05'),
-    ('networkx', '3.4.2'),
-    ('mpi4py', '4.0.1'),
+    ('CUDA', '12.8.0', '', SYSTEM),
+    ('UCX-CUDA', '1.18.0', '-CUDA-%(cudaver)s'),
+    ('Python', '3.13.1'),
+    ('SciPy-bundle', '2025.06'),
+    ('networkx', '3.5'),
+    ('mpi4py', '4.1.0'),
     ('PLUMED', local_plumedver),
 ]
 
