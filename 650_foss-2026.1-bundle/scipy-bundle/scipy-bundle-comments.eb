@@ -29,7 +29,33 @@ dependencies = [
 # order is important!
 exts_list = [
     ('numpy', '2.4.6', {
+        # skip recursive dtype tests that hang with CPython 3.14.2 instead of raising RecursionError
+        # The test may hang or segfault instead of raising RecursionError on some
+        # Python 3.14 builds. Upstream NumPy confirmed that skipping this test is
+        # acceptable as a hot-fix, since the underlying issue is likely related to
+        # CPython recursion handling rather than normal NumPy functionality.
+        # https://github.com/numpy/numpy/issues/31512
+        'testopts': (
+            '-- -k "not ('
+            'TestMonsterType or '
+            'test_to_bool_scalar_not_convertible or '
+            'test_object_array_self_reference or '
+            'test_object_array_circular_reference'
+            ')"'
+        ),
+        # 'testopts': '-- -k "not TestMonsterType"',
+        # 'patches': [
+        #     'patch-rec-problem1.patch',
+        #     # 'numpy-1.22.3_disable-broken-override-test.patch',
+        #     # # Adds proper processing of object files for f2py
+        #     # # Fixed in 2.4.0, see https://github.com/numpy/numpy/pull/29572
+        #     # 'numpy-2.3.1_fix_f2py_object_files.patch',
+        # ],
         'checksums': ['f3a3570c4a2a16746ac2c31a7c7c7b0c186b95ce902e33db6f28094ed7387dda'],
+        # 'checksums': [
+        #     {'numpy-2.4.6.tar.gz': 'f3a3570c4a2a16746ac2c31a7c7c7b0c186b95ce902e33db6f28094ed7387dda'},
+        #     {'patch-rec-problem1.patch': '144c2bd794f3c01cacd1755d31161178fdc3b7f44ed14b88251df1420958ed01'},
+        # ],
     }),
     ('ply', '3.11', {
         'checksums': ['00c7c1aaa88358b9c765b6d3000c6eec0ba42abca5351b095321aef446081da3'],
@@ -53,18 +79,37 @@ exts_list = [
         'enable_slow_tests': True,
         'ignore_test_result': False,
         'patches': [
+            # 'scipy-1.11.1_disable-tests.patch',
             'scipy-1.16.0_skip-tests-broken-grace.patch',
             'scipy-1.17.1_relax-tests-py314.patch',
+            # 'scipy-1.16.0_relax-tests-broken-neoverse-v1.patch',
+            # 'scipy-1.16.0_remove-float16-differentiate-test.patch',
+            # 'scipy-1.16.1_bump-orth-memory-efficiency-tolerance.patch',
+            # 'scipy-1.16.1_test_import_cycles.patch',
+            # 'scipy-1.16.1_upgrade_test_nan_inputs.patch',
         ],
         'checksums': [
             {'scipy-1.17.1.tar.gz': '95d8e012d8cb8816c226aef832200b1d45109ed4464303e997c5b13122b297c0'},
+            # {'scipy-1.11.1_disable-tests.patch': '906bfb03397d94882ccdc1b93bc2c8e854e0e060c2d107c83042992394e6a4af'},
             {'scipy-1.16.0_skip-tests-broken-grace.patch':
              '33885518a572f843a0edeb7a58aa938202aae70267f6de1ce60acef97f393126'},
+            # {'scipy-1.16.0_relax-tests-broken-neoverse-v1.patch':
+            #  'a72d794b95dc437c03b323f86392b264c7ecfdbfa19e3bc01fba8d5d3ab2f21a'},
+            # {'scipy-1.16.0_remove-float16-differentiate-test.patch':
+            #  'f857fc1e941c196285f2e871e803cf463fc59c040dd2955deda1dd277d4b00db'},
+            # {'scipy-1.16.1_bump-orth-memory-efficiency-tolerance.patch':
+            #  '1eb58b162d04cbf957979897966bfcf318f05a2bdbb61f0b47c0b3881910b354'},
+            # {'scipy-1.16.1_test_import_cycles.patch':
+            #  '9308e421a8ee03d659b59028dd9976a0023fcfdd5ce7d125c3189e5f00ee2eda'},
+            # {'scipy-1.16.1_upgrade_test_nan_inputs.patch':
+            #  'd2c4e4db7d92117129c74ec17715a1ea3964f848280873f91fd50d6b850bf0e1'},
             {'scipy-1.17.1_relax-tests-py314.patch':
              '4a54394854f14b3f1300629e00c19fbce1b7780fa38044e3a1f0b2b2cff6f988'},
         ],
     }),
     ('numexpr', '2.14.1', {
+        # workaround for: ValueError: invalid pyproject.toml config: project.license
+        # 'preinstallopts': "sed -i '/^license =/d' pyproject.toml && ",
         'checksums': ['4be00b1086c7b7a5c32e31558122b7b80243fe098579b170967da83f3152b48b'],
     }),
     ('bottleneck', '1.6.0', {
