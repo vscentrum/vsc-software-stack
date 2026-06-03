@@ -13,8 +13,9 @@ description = """HOMER (Hypergeometric Optimization of Motif EnRichment) is a su
 
 toolchain = {'name': 'foss', 'version': '2025a'}
 
+local_filename = 'configureHomer-%(version)s.pl'
 source_urls = ['http://homer.ucsd.edu/homer']
-sources = [{'download_filename': 'configureHomer.pl', 'filename': 'configureHomer-%(version)s.pl'}]
+sources = [{'download_filename': 'configureHomer.pl', 'filename': local_filename}]
 checksums = ['ccdaa3004a0e0df0882634671d4a1acc88364761e0e6c7ea329ebbf1eb729537']
 
 builddependencies = [
@@ -22,7 +23,6 @@ builddependencies = [
     ('Zip', '3.0'),
     ('UnZip', '6.0'),
 ]
-
 dependencies = [
     ('Perl', '5.40.0'),
     ('R', '4.5.1'),
@@ -30,11 +30,11 @@ dependencies = [
     ('R-bundle-Bioconductor', '3.22', versionsuffix)
 ]
 
-postinstallcmds = ["cd %(installdir)s && perl ./configureHomer.pl -install homer -version v%(version)s"]
+postinstallcmds = [f"cd %(installdir)s && perl ./{local_filename} -install homer -version v%(version)s"]
 
 sanity_check_paths = {
     'files': [
-        'bin/homer',
+        'bin/%(namelower)s',
         'bin/getGenomeTilingPeaks',
         'config.txt',
         'DoughnutDocumentation.pdf',
