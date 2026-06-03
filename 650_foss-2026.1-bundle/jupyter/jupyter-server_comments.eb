@@ -1,3 +1,4 @@
+# easyblock = 'CargoPythonBundle'
 easyblock = 'PythonBundle'
 
 name = 'jupyter-server'
@@ -10,15 +11,100 @@ Voila."""
 
 toolchain = {'name': 'GCCcore', 'version': '15.2.0'}
 
+# DEPS:
+    # OK build:
+        # OK hatch-jupyter-builder>=0.8.1
+    # OK "anyio>=3.1.0", in pypi
+    # ok "argon2-cffi>=21.1",
+    # OK "jinja2>=3.0.3", in pypi
+    # ok "jupyter_client>=7.4.4",
+        # ok "jupyter_core>=5.1",
+        # OK "python-dateutil>=2.8.2", in pypi
+        # OK "pyzmq>=25.0",
+        # OK "tornado>=6.4.1",
+        # ok "traitlets>=5.3",
+    # ok "jupyter_core>=4.12,!=5.0.*",
+    # ok "jupyter_server_terminals>=0.4.4",
+        # ok "terminado>=0.8.3",
+    # ok "nbconvert>=6.4.4",
+        # OK "beautifulsoup4",
+        # ok "bleach[css]!=5.0.0",
+            # ok tinycss2>=1.1.0,<1.5",
+            # ok webencodings
+        # ok "defusedxml",
+        # OK "jinja2>=3.0",
+        # ok "jupyter_core>=4.7",
+        # ok "jupyterlab_pygments",
+        # OK "MarkupSafe>=2.0", - in pypi
+        # ok "mistune>=2.0.3,<4",
+        # ok "nbclient>=0.5.0",
+            # ok "jupyter_client>=6.1.12",
+            # ok "jupyter_core>=4.12,!=5.0.*",
+            # ok "nbformat>=5.1.3",
+            # ok "traitlets>=5.4",
+        # ok "nbformat>=5.7",
+        # OK "packaging",
+        # ok "pandocfilters>=1.4.1",
+        # OK "pygments>=2.4.1",
+        # ok "traitlets>=5.1",
+    # ok "nbformat>=5.3.0",
+            # ok "fastjsonschema>=2.15",
+            # OK "jsonschema>=2.6", in pypi
+            # ok "jupyter_core>=4.12,!=5.0.*",
+            # ok "traitlets>=5.1"
+    # OK "packaging>=22.0",
+    # ok "prometheus_client>=0.9",
+    # OK "pyzmq>=24",
+    # ok "Send2Trash>=1.8.2",
+    # ok "terminado>=0.8.3",
+    # OK "tornado>=6.2.0",
+    # ok "traitlets>=5.6.0", - in IPython?
+    # ok "websocket-client>=1.7",
+    # ok "jupyter_events>=0.11.0",
+        # OKpypi "referencing",
+        # OKpypi "jsonschema[format-nongpl]>=4.18.0",
+        # ok "python-json-logger>=2.0.4",
+        # "pyyaml>=5.3",
+        # "traitlets>=5.3",
+        # "packaging",
+        # # The following are necessary to address an issue where pyproject.toml normalizes extra dependencies
+        # # such that 'format_nongpl' is normalized to 'format-nongpl' which prevents these two validators from
+        # # from being installed when jsonschema is <= 4.9 because jsonschema uses 'format_nongpl' in those releases.
+        # okX "rfc3339-validator",
+        # okX "rfc3986-validator>=0.1.1",
+# OTHER_DEPS:
+    # ipykernel
+        # ok "debugpy>=1.6.5",
+        # OK "ipython>=7.23.1",
+        # ok "comm>=0.1.1",
+        # OK "traitlets>=5.4.0",
+        # ok "jupyter_client>=8.8.0",
+        # ok "jupyter_core>=5.1,!=6.0.*",
+        # # For tk event loop support only.
+        # ok "nest_asyncio>=1.4",
+        # OK "tornado>=6.4.1",
+        # ok "matplotlib-inline>=0.1", in ipython
+        # OK "pyzmq>=25",
+        # OKpypi "psutil>=5.7",
+        # OKpy "packaging>=22",
+    # OK terminado 0.18.1 requires ptyprocess, which is not installed. - in ipython
+    # ok jupyter-events 0.12.1 requires python-json-logger, which is not installed.
+    # ok jupyter-events 0.12.1 requires rfc3339-validator, which is not installed.
+    # ok jupyter-events 0.12.1 requires rfc3986-validator, which is not installed.
+    # ok ModuleNotFoundError: No module named 'jupyter_packaging'
+    # ok jupyter-packaging 0.12.3 requires deprecation, which is not installed.
+
 builddependencies = [
     ('binutils', '2.45'),
-    ('hatchling', '1.29.0'),
+    # ('Rust', '1.94.1'),
+    # ('maturin', '1.13.1'),
     ('hatch-jupyter-builder', '0.9.1'),
 ]
 dependencies = [
     ('Python', '3.14.2'),
     ('Python-bundle-PyPI', '2026.04'),
     ('IPython', '9.14.0'),
+    # ('PyYAML', '6.0.2'),
     ('PyZMQ', '27.1.0'),
     ('tornado', '6.5.6'),
     ('BeautifulSoup', '4.14.3'),  # nbconvert
@@ -29,6 +115,9 @@ dependencies = [
 # use the versions published in a single release commit instead of blindly pushing to last available version,
 # see for instance https://github.com/jupyter-widgets/ipywidgets/commit/b728926f58ed3ffef08f716998ac6c226dafc1aa
 exts_list = [
+    # ('traitlets', '5.15.1', {
+    #     'checksums': ['7b1c07854fe25acb39e009bae49f11b79ff6cbb2f27999104e9110e7a6b53722'],
+    # }),
     ('websocket-client', '1.9.0', {
         'modulename': 'websocket',
         'checksums': ['9e813624b6eb619999a97dc7958469217c3176312b3a16a4bd1bc7e08a46ec98'],
@@ -42,11 +131,14 @@ exts_list = [
     ('prometheus-client', '0.25.0', {
         'checksums': ['5e373b75c31afb3c86f1a52fa1ad470c9aace18082d39ec0d2f918d11cc9ba28'],
     }),
+    # ('overrides', '7.7.0', {
+    #     'checksums': ['55158fa3d93b98cc75299b1e67078ad9003ca27945c76162c1c0766d6f91820a'],
+    # }),
     ('jupyter-core', '5.9.1', {
-        'patches': ['jupyter-core-5.9.1_fix-jupyter-path.patch'],
+        'patches': ['jupyter-core-5.9.1_fix_jupyter_path.patch'],
         'checksums': [
             {'jupyter-core-5.9.1.tar.gz': '4d09aaff303b9566c3ce657f580bd089ff5c91f5f89cf7d8846c3cdf465b5508'},
-            {'jupyter-core-5.9.1_fix-jupyter-path.patch':
+            {'jupyter-core-5.9.1_fix_jupyter_path.patch':
              '884c014075df4f3b0e18f4ceb1b8126b8700d58b12a1039f50ace667b2491bee'},
         ],
     }),
@@ -98,6 +190,13 @@ exts_list = [
     ('rfc3339_validator', '0.1.4', {
         'checksums': ['138a2abdf93304ad60530167e51d2dfb9549521a836871b88d7f4695d0022f6b'],
     }),
+    # ('rpds_py', '0.27.1', {
+    #     'modulename': 'rpds',
+    #     'checksums': ['26a1c73171d10b7acccbded82bf6a586ab8203601e565badc74bbbf8bc5a10f8'],
+    # }),
+    # ('referencing', '0.36.2', {
+    #     'checksums': ['df2e89862cd09deabbdba16944cc3f10feb6b3e6f18e902f7cc25609a34775aa'],
+    # }),
     ('python-json-logger', '4.1.0', {
         'modulename': 'pythonjsonlogger',
         'checksums': ['b396b9e3ed782b09ff9d6e4f1683d46c83ad0d35d2e407c09a9ebbf038f88195'],
@@ -113,6 +212,9 @@ exts_list = [
         'modulename': 'argon2',
         'checksums': ['694ae5cc8a42f4c4e2bf2ca0e64e51e23a040c6a517a85074683d3959e1346c1'],
     }),
+    # ('sniffio', '1.3.1', {
+    #     'checksums': ['f4324edc670a0f49750a81b895f35c3adb843cca46f0530f79fc1babb23789dc'],
+    # }),
     (name, version, {
         'checksums': ['1731236bc32b680223e1ceb9d68209a845203475012ef68773a81434b46a31a7'],
     }),
@@ -138,14 +240,15 @@ exts_list = [
         'checksums': ['6f172d5449aca15afd6c646851f4e31e02c598d553a667e38cafa997cfec55fe'],
     }),
     ('debugpy', '1.8.21', {
+        # 'source_tmpl': '%(name)s-%(version)s-py2.py3-none-any.whl',
         'checksums': ['a3c53278e84c94e11bd87c53970ec391d1a67396c8b22609fcac576520e611a6'],
     }),
     ('ipykernel', '7.2.0', {
         'checksums': ['18ed160b6dee2cbb16e5f3575858bc19d8f1fe6046a9a680c708494ce31d909e'],
     }),
-    ('jupytext', '1.19.3', {
-        'checksums': ['713c3ed4441afe0f31474d28ea2e6b61a268c04c40fd78e5ccfd7f7ac9e9f766'],
-    }),
+    # ('ipython_genutils', '0.2.0', {
+    #     'checksums': ['eb2e116e75ecef9d4d228fdc66af54269afa26ab4463042e33785b887c628ba8'],
+    # }),
 ]
 
 sanity_check_paths = {
