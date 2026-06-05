@@ -64,26 +64,14 @@ dependencies = [
 local_configopts_common = "-DGDAL_USE_INTERNAL_LIBS=OFF -DGDAL_USE_MYSQL=OFF -DGDAL_USE_POPPLER=OFF "
 local_configopts_common += "-DGEOTIFF_INCLUDE_DIR=$EBROOTLIBGEOTIFF/include -DPython_ROOT=$EBROOTPYTHON "
 
-# HDF4 provides a legacy netcdf.h compatibility header, so hide HDF4 include
-# paths from the global compiler environment and pass both libraries explicitly.
-local_configopts_common += "-DGDAL_USE_NETCDF=ON -DGDAL_USE_HDF4=ON "
-local_configopts_common += "-DNETCDF_INCLUDE_DIR=$EBROOTNETCDF/include "
-local_configopts_common += "-DNETCDF_LIBRARY=$EBROOTNETCDF/lib/libnetcdf.%s " % SHLIB_EXT
-local_configopts_common += "-DHDF4_INCLUDE_DIR=$EBROOTHDF/include/hdf "
-local_configopts_common += "-DHDF4_df_LIBRARY=$EBROOTHDF/lib/libdf.%s " % SHLIB_EXT
-local_configopts_common += "-DHDF4_mfhdf_LIBRARY=$EBROOTHDF/lib/libmfhdf.%s " % SHLIB_EXT
+# Target variables with correct case sensitivity
+# local_configopts_common += "-DNetCDF_INCLUDE_DIR=$EBROOTNETCDF/include "
+# local_configopts_common += "-DNetCDF_LIBRARY=$EBROOTNETCDF/lib/libnetcdf.%s " % SHLIB_EXT
 
-preconfigopts = (
-    'export CPATH="$(echo "$CPATH" | tr ":" "\\n" | '
-    'grep -v "^$EBROOTHDF/include/hdf$" | '
-    'grep -v "^$EBROOTHDF/include$" | paste -sd: -)" && '
-    'export CPPFLAGS="$(printf "%s\\n" $CPPFLAGS | '
-    'grep -v "^-I$EBROOTHDF/include/hdf$" | '
-    'grep -v "^-I$EBROOTHDF/include$" | paste -sd" " -)" && '
-)
-
-prebuildopts = preconfigopts
-
+# Avoid treating include directories from imported CMake targets as system
+# includes. This keeps the real netCDF include path before HDF4's legacy
+# netcdf.h compatibility header in the compiler search order.
+local_configopts_common += "-DCMAKE_NO_SYSTEM_FROM_IMPORTED=ON "
 
 configopts = [
     local_configopts_common + "-DBUILD_SHARED_LIBS=OFF",

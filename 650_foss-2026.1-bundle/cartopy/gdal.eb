@@ -42,8 +42,9 @@ dependencies = [
     ('PCRE', '8.45'),
     ('PROJ', '9.8.1'),
     ('libgeotiff', '1.7.4'),
+    ('netCDF', '4.10.0'),
     ('HDF5', '2.1.1'),
-    # ('HDF', '4.3.1'),
+    ('HDF', '4.3.1'),
     ('Armadillo', '15.2.7'),
     ('CFITSIO', '4.6.4'),
     ('zstd', '1.5.7'),
@@ -57,18 +58,21 @@ dependencies = [
     ('LERC', '4.1.0'),
     ('OpenJPEG', '2.5.4'),
     ('SWIG', '4.4.1'),
-    ('netCDF', '4.10.0'),
 ]
 
-# iterative build for both static and shared libraries
+# Iterative build for both static and shared libraries
 local_configopts_common = "-DGDAL_USE_INTERNAL_LIBS=OFF -DGDAL_USE_MYSQL=OFF -DGDAL_USE_POPPLER=OFF "
 local_configopts_common += "-DGEOTIFF_INCLUDE_DIR=$EBROOTLIBGEOTIFF/include -DPython_ROOT=$EBROOTPYTHON "
+
+# Avoid treating include directories from imported CMake targets as system
+# includes. This keeps the real netCDF include path before HDF4's legacy
+# netcdf.h compatibility header in the compiler search order.
+local_configopts_common += "-DCMAKE_NO_SYSTEM_FROM_IMPORTED=ON "
 
 configopts = [
     local_configopts_common + "-DBUILD_SHARED_LIBS=OFF",
     local_configopts_common
 ]
-
 
 sanity_check_paths = {
     'files': ['lib/libgdal.a', f'lib/libgdal.{SHLIB_EXT}'],
