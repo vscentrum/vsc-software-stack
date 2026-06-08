@@ -21,23 +21,25 @@ dependencies = [
 ]
 
 exts_list = [
-    # ('gsd', '4.2.0', {
-    #     'checksums': ['eb197abd735e98817bcdc1ee34e4968231d572da48c097b3ccf316be828cf86a'],
-    # }),
+    ('gsd', '5.0.1', {
+        'checksums': ['c072d1ee934864d618039f3e7448bc79f31fe1a0f1fabfdb9cd4143a7ab2376b'],
+    }),
     ('pytest_rerunfailures', '16.3', {
         'checksums': ['37c9b1231c8083e9f4e724f50f7a21241822f9516c15c700ebbf218d6452355c'],
     }),
     ('mdtraj', version, {
-        'patches': ['MDTraj-1.11.0_fix-tests-https.patch'],
+        # 'patches': ['MDTraj-1.11.0_fix-tests-https.patch'],
         'runtest': "cd tests && pytest -v --numprocesses %(parallel)s",
         'source_urls': ['https://github.com/mdtraj/mdtraj/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'testinstall': True,
         'checksums': [
-            {'mdtraj-1.11.0-github.tar.gz': 'fefca787f882d0716a7aeb01b4d8e30caddbd2be0b2893acfa7201c31d13c786'},
-            {'MDTraj-1.11.0_fix-tests-https.patch': 'bb4384205f67f3c65a5e003c97ef6e47d4fe3f545cc4a0f5017ee953a4a641e7'},
+            {'mdtraj-1.11.1.post1.tar.gz': '812cac5a178e1524d8a355b9cb87495d030c8e7ec75d53cd1c00095041dca295'},
+            # {'MDTraj-1.11.0_fix-tests-https.patch': 'bb4384205f67f3c65a5e003c97ef6e47d4fe3f545cc4a0f5017ee953a4a641e7'},
         ],
     }),
 ]
 
 moduleclass = 'chem'
+
+#TODO: failing tests -> check log-mdtraj-tests2

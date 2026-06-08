@@ -13,7 +13,8 @@ description = """PyTables is a package for managing hierarchical datasets and de
  such as relational or object oriented databases."""
 
 toolchain = {'name': 'foss', 'version': '2026.1'}
-toolchainopts = {'usempi': True}
+# Force gnu17 because bundled c-blosc is not compatible with GCC 15's default C23 mode
+toolchainopts = {'usempi': True, 'cstd': 'gnu17'}
 
 builddependencies = [
     ('CMake', '4.2.1'),
@@ -28,6 +29,8 @@ dependencies = [
     ('SciPy-bundle', '2026.05'),
     ('HDF5', '2.1.1'),
     ('LZO', '2.10'),
+    # Use the bundled c-blosc rather than external Blosc, since Blosc/1.21.6
+    # triggers a segfault with the default blosclz compressor in this toolchain
     # ('Blosc', '1.21.6'),
     ('Blosc2', '3.1.2'),
     ('py-cpuinfo', '9.0.0'),
