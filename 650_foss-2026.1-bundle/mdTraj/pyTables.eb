@@ -28,9 +28,11 @@ dependencies = [
     ('SciPy-bundle', '2026.05'),
     ('HDF5', '2.1.1'),
     ('LZO', '2.10'),
-    ('Blosc', '1.21.6'),
+    # ('Blosc', '1.21.6'),
     ('Blosc2', '3.1.2'),
     ('py-cpuinfo', '9.0.0'),
+    ('bzip2', '1.0.8'),
+    ('zlib', '2.3.2'),
 ]
 
 exts_list = [
@@ -48,6 +50,8 @@ exts_list = [
             'PyTables-3.8.0_fix-libs.patch',
             'PyTables-3.9.2_fix-find-blosc2-dep.patch',
         ],
+        # Fix compatibility with Blosc2 3.x, where BLOSC2_MAX_DIM was replaced by B2ND_MAX_DIM
+        'preinstallopts': "sed -i 's/BLOSC2_MAX_DIM/B2ND_MAX_DIM/g' hdf5-blosc2/src/blosc2_filter.c && ",
         'runtest': "cd .. && python -m tables.tests.test_all",
         'testinstall': True,
         'checksums': [
