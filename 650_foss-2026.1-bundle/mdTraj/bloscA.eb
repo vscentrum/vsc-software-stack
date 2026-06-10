@@ -4,15 +4,15 @@ name = 'Blosc'
 version = '1.21.6'
 
 homepage = 'https://www.blosc.org/'
-
 description = "Blosc, an extremely fast, multi-threaded, meta-compressor library"
 
 toolchain = {'name': 'GCCcore', 'version': '15.2.0'}
-toolchainopts = {'pic': True}
+toolchainopts = {'pic': True, 'cstd': 'c99'}
 
 source_urls = ['https://github.com/Blosc/c-blosc/archive/']
 sources = ['v%(version)s.tar.gz']
 patches = ['Blosc-1.21.6_fix_cmake_minimum_version.patch']
+
 checksums = [
     # v1.21.6.tar.gz
     '9fcd60301aae28f97f1301b735f966cc19e7c49b6b4321b839b4579a0c156f38',
@@ -25,11 +25,8 @@ builddependencies = [
     ('CMake', '4.2.1'),
 ]
 
-# Avoid c-blosc's default Release-mode -O3, which triggers test segfaults with GCC 15.2.0.
-configopts = '-DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS_RELEASE="-O2 -DNDEBUG" '
+preconfigopts = 'export CFLAGS="$CFLAGS -fno-strict-aliasing" && '
 
-# Avoid testing against a stale installed libblosc.so picked up via RPATH
-pretestopts = 'rm -rf %(installdir)s && '
 runtest = 'test'
 
 sanity_check_paths = {

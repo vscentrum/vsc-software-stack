@@ -7,7 +7,7 @@ homepage = 'https://www.blosc.org/'
 
 description = "Blosc, an extremely fast, multi-threaded, meta-compressor library"
 
-toolchain = {'name': 'GCCcore', 'version': '15.2.0'}
+toolchain = {'name': 'GCCcore', 'version': '14.3.0'}
 toolchainopts = {'pic': True}
 
 source_urls = ['https://github.com/Blosc/c-blosc/archive/']
@@ -21,15 +21,10 @@ checksums = [
 ]
 
 builddependencies = [
-    ('binutils', '2.45'),
-    ('CMake', '4.2.1'),
+    ('binutils', '2.44'),
+    ('CMake', '4.0.3'),
 ]
 
-# Avoid c-blosc's default Release-mode -O3, which triggers test segfaults with GCC 15.2.0.
-configopts = '-DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS_RELEASE="-O2 -DNDEBUG" '
-
-# Avoid testing against a stale installed libblosc.so picked up via RPATH
-pretestopts = 'rm -rf %(installdir)s && '
 runtest = 'test'
 
 sanity_check_paths = {
