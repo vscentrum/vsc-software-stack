@@ -2,7 +2,7 @@
 # Author: Denis Kristak
 # Updated by: Alex Domingo (Vrije Universiteit Brussel)
 # Updated by: Thomas Hoffmann (EMBL Heidelberg)
-# Updated by: Pavel Tománek (INUITS)
+# Updated by: Pavel Tománek (UGent/INUITS)
 
 easyblock = 'PythonBundle'
 
@@ -16,18 +16,19 @@ differentiate, vectorize, JIT to GPU/TPU, and more"""
 toolchain = {'name': 'gfbf', 'version': '2026.1'}
 
 builddependencies = [
-    # ('Bazel', '7.7.0', '-Java-21'),
+    ('Bazel', '7.7.0', '-Java-21'),
+    ('LLVM', '21.1.8'),
 ]
-
 dependencies = [
     ('Python', '3.14.2'),
     ('Python-bundle-PyPI', '2026.04'),
     ('SciPy-bundle', '2026.05'),
-    # ('absl-py', '2.3.1'),
-    # ('flatbuffers-python', '25.2.10'),
-    # ('ml_dtypes', '0.5.3'),
-    # ('hypothesis', '6.136.6'),
-    # ('zlib', '1.3.1'),
+    ('absl-py', '2.4.0'),
+    ('flatbuffers-python', '25.12.19'),
+    ('ml_dtypes', '0.5.4'),
+    ('hypothesis', '6.153.2'),
+    ('zlib', '2.3.2'),
+    ('opt-einsum', '3.4.0'),
 ]
 
 # downloading xla  tarball to avoid that Bazel downloads it during the build
@@ -36,7 +37,7 @@ dependencies = [
 _xla_commit = '9b635916ecc6df6efee62d8e4b0c7ef87ef84d69'
 
 # Use sources downloaded by EasyBuild
-_jaxlib_buildopts = '--bazel_options="--distdir=%(builddir)s/archives " '
+_jaxlib_buildopts = '--bazel_options="--distdir=%(builddir)s/archives" '
 
 if ARCH == 'aarch64':
     _jaxlib_buildopts += ' --bazel_options="--@compute_library//:arch=armv8.2-a+fp16" '
@@ -44,7 +45,9 @@ if ARCH == 'aarch64':
 # create wheels for jaxlib and install it
 _jaxlib_buildopts += '--wheels=jaxlib '
 # use GCC instead of default Clang
-_jaxlib_buildopts += '--use_clang=false --gcc_path=$EBROOTGCCCORE '
+#_jaxlib_buildopts += '--use_clang=false --gcc_path=$EBROOTGCCCORE '
+# use local Clang/LLVM for the JAX/XLA Bazel build
+_jaxlib_buildopts += '--clang_path=$EBROOTLLVM/bin/clang '
 # fix jaxlib version
 _jaxlib_buildopts += '--bazel_options="--action_env=JAXLIB_RELEASE" '
 _jaxlib_buildopts += '--bazel_options="--repo_env=ML_WHEEL_TYPE=release" '
@@ -66,8 +69,8 @@ components = [
             },
         ],
         'checksums': [
-            {'jax-v0.10.0.tar.gz':
-             '12ae17617d1346e2f98cfc48c1a000adc7389784eb119e8108a22dfd57cbb8c3'},
+            {'jax-v0.10.1.tar.gz':
+             '15983d01b0c858738b16b19b773459d22449992ce1ee97688cc532ea0047de9e'},
             {'xla-9b635916.tar.gz':
              '4ab4f271ca09fa9e431b9af5ded823fcf03932d94ad98f6957f13523f53ba070'},
         ],
@@ -84,7 +87,7 @@ _failing_backend_test = 'tests/api_test.py::BackendsTest::test_no_backend_warnin
 _failing_version_tests = 'tests/version_test.py'
 _runtest_cmd1 = f"pytest -n %(parallel)s tests --deselect={_failing_backend_test} --deselect={_failing_version_tests}"
 # retry randomly failing tests
-_runtest_cmd = ' '.join([_runtest_cmd1, '||', _runtest_cmd1, '--last-failed']),
+_runtest_cmd = ' '.join([_runtest_cmd1, '||', _runtest_cmd1, '--last-failed'])
 
 exts_list = [
     (name, version, {
@@ -95,12 +98,12 @@ exts_list = [
         # since PythonPackage runs `pip install .` at the install step.
         'preinstallopts': 'export JAX_RELEASE=%(version)s && ',
         'testinstall': True,
-        "runtest": _runtest_cmd,
+        'runtest': _runtest_cmd,
         'sources': [
             {'source_urls': ['https://github.com/google/jax/archive/'], 'filename': '%(name)s-v%(version)s.tar.gz'}
         ],
         'checksums': [
-            {'jax-v0.10.0.tar.gz': '12ae17617d1346e2f98cfc48c1a000adc7389784eb119e8108a22dfd57cbb8c3'},
+            {'jax-v0.10.1.tar.gz': '15983d01b0c858738b16b19b773459d22449992ce1ee97688cc532ea0047de9e'},
         ],
     }),
 ]
