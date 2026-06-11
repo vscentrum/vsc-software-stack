@@ -1,0 +1,23 @@
+Fix NetCDF iterload with libnetcdf >= 4.10.0: clamp frame slices so
+netCDF4-python does not request frames beyond the dataset bounds.
+Upstream issue: https://github.com/mdtraj/mdtraj/issues/2142
+Author: Pavel Tomanek (Inuits/Ugent) with help of ChatGPT5.5
+--- a/mdtraj/formats/netcdf.py
++++ b/mdtraj/formats/netcdf.py
+@@ -303,10 +303,14 @@ class NetCDFTrajectoryFile:
+                 # 'n_frames' frames should be read in total
+                 n_frames *= stride
+             total_n_frames = self.n_frames
++            stop_frame_index = self._frame_index + min(n_frames, total_n_frames)
++            stop_stride = 1 if stride is None else stride
++            # Guard against counting past the total number of frames.  With
++            # libnetcdf >= 4.10.0, netCDF4 raises IndexError for such slices.
+             frame_slice = slice(
+                 self._frame_index,
+-                self._frame_index + min(n_frames, total_n_frames),
++                stop_frame_index
++                if stop_frame_index <= (total_n_frames + stop_stride)
++                else total_n_frames,
+                 stride,
+             )
+             if self._frame_index >= total_n_frames:

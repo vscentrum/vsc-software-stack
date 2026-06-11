@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'MDTraj'
-version = '1.11.1.post1'
+version = '1.11.1'
 
 homepage = 'https://mdtraj.org'
 description = "Read, write and analyze MD trajectories with only a few lines of Python code."
@@ -28,18 +28,27 @@ exts_list = [
         'checksums': ['37c9b1231c8083e9f4e724f50f7a21241822f9516c15c700ebbf218d6452355c'],
     }),
     ('mdtraj', version, {
-        # 'patches': ['MDTraj-1.11.0_fix-tests-https.patch'],
-        'runtest': "cd tests && pytest -v --numprocesses %(parallel)s",
+        # 'runtest': "cd tests && pytest -v --numprocesses %(parallel)s",
+        'runtest': (
+            'cd tests && pytest -v --numprocesses %(parallel)s '
+            # Skip deprecated LH5 tests: MDTraj's LH5 writer passes pandas StringArray
+            # objects to PyTables, which PyTables 3.11 does not accept directly
+            '-k "not lh5" '
+            '--deselect=test_mdconvert.py::test_pairwise '
+            # '--deselect=test_trajectory.py::test_iterload[nc]'
+        ),
         'source_urls': ['https://github.com/mdtraj/mdtraj/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'patches': ['MDTraj-1.11.1_fix-netcdf4-iterload-libnetcdf.patch'],
         'testinstall': True,
         'checksums': [
-            {'mdtraj-1.11.1.post1.tar.gz': '812cac5a178e1524d8a355b9cb87495d030c8e7ec75d53cd1c00095041dca295'},
-            # {'MDTraj-1.11.0_fix-tests-https.patch': 'bb4384205f67f3c65a5e003c97ef6e47d4fe3f545cc4a0f5017ee953a4a641e7'},
+            {'mdtraj-1.11.1.tar.gz': 'e21ebb832199630fc102e793a268c226b305c9e0bf434ac4d7137941e94ea048'},
+            {'MDTraj-1.11.1_fix-netcdf4-iterload-libnetcdf.patch':
+             '2a6cb1c66d3fb2ba0cc6d8623d1e8ab26aef89c5324a5e62df1f2179056b6151'},
         ],
     }),
 ]
 
 moduleclass = 'chem'
 
-#TODO: failing tests -> check log-mdtraj-tests2
+# TODO: failing test_iterload - problem in netcdf4-python -> run tests in netcdf4-python
