@@ -28,15 +28,11 @@ exts_list = [
         'checksums': ['37c9b1231c8083e9f4e724f50f7a21241822f9516c15c700ebbf218d6452355c'],
     }),
     ('mdtraj', version, {
-        # 'runtest': "cd tests && pytest -v --numprocesses %(parallel)s",
         'runtest': (
             'cd tests && pytest -v --numprocesses %(parallel)s '
             # Skip deprecated LH5 + pairwise tests: MDTraj's LH5 writer passes pandas StringArray
             # objects to PyTables, which PyTables 3.11 does not accept directly
             '-k "not lh5 and not test_pairwise" '
-            # '-k "not lh5" '
-            # '--deselect=test_mdconvert.py::test_pairwise '
-            # '--deselect=test_trajectory.py::test_iterload[nc]'
         ),
         'source_urls': ['https://github.com/mdtraj/mdtraj/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
