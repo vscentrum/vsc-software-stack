@@ -38,7 +38,7 @@ local_default_search_engine = 'RMBlast'
 
 local_config_command = 'cd %(installdir)s && '
 # create symlinks to Dfam database files
-local_config_command += 'for x in $EBROOTDFAMMINDATABASE/*.h5; do ln -s $x Libraries/famdb/; done && '
+local_config_command += 'for x in $EBROOTDFAMMINDATABASE/*.h5; do ln -sf $x Libraries/famdb/; done && '
 local_config_command += './configure -perlbin "$EBROOTPERL/bin/perl" -trf_prgm "$EBROOTTRF/bin/trf" '
 local_config_command += '-hmmer_dir "$EBROOTHMMER/bin" -rmblast_dir "$EBROOTRMBLAST/bin" '
 local_config_command += '-default_search_engine %s' % local_default_search_engine.lower()
