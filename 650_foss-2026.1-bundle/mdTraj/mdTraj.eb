@@ -31,10 +31,11 @@ exts_list = [
         # 'runtest': "cd tests && pytest -v --numprocesses %(parallel)s",
         'runtest': (
             'cd tests && pytest -v --numprocesses %(parallel)s '
-            # Skip deprecated LH5 tests: MDTraj's LH5 writer passes pandas StringArray
+            # Skip deprecated LH5 + pairwise tests: MDTraj's LH5 writer passes pandas StringArray
             # objects to PyTables, which PyTables 3.11 does not accept directly
-            '-k "not lh5" '
-            '--deselect=test_mdconvert.py::test_pairwise '
+            '-k "not lh5 and not test_pairwise" '
+            # '-k "not lh5" '
+            # '--deselect=test_mdconvert.py::test_pairwise '
             # '--deselect=test_trajectory.py::test_iterload[nc]'
         ),
         'source_urls': ['https://github.com/mdtraj/mdtraj/archive/'],
@@ -44,11 +45,9 @@ exts_list = [
         'checksums': [
             {'mdtraj-1.11.1.tar.gz': 'e21ebb832199630fc102e793a268c226b305c9e0bf434ac4d7137941e94ea048'},
             {'MDTraj-1.11.1_fix-netcdf4-iterload-libnetcdf.patch':
-             '2a6cb1c66d3fb2ba0cc6d8623d1e8ab26aef89c5324a5e62df1f2179056b6151'},
+             'db502ec62867b5003bdbcfb738c29b5e8396b679682212b613cd32b5d1bb2749'},
         ],
     }),
 ]
 
 moduleclass = 'chem'
-
-# TODO: failing test_iterload - problem in netcdf4-python -> run tests in netcdf4-python

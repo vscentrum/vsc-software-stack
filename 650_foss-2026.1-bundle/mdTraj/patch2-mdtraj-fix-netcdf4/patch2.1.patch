@@ -1,9 +1,5 @@
-Fix NetCDF iterload with libnetcdf >= 4.10.0: clamp frame slices so
-netCDF4-python does not request frames beyond the dataset bounds.
-Upstream issue: https://github.com/mdtraj/mdtraj/issues/2142
-Author: Pavel Tomanek (Inuits/Ugent) with help of ChatGPT5.5
---- a/mdtraj/formats/netcdf.py
-+++ b/mdtraj/formats/netcdf.py
+--- netcdf.py.orig	2026-06-12 10:12:43.358448000 +0200
++++ netcdf.py	2026-06-12 10:34:06.231313000 +0200
 @@ -305,16 +305,24 @@
              n_frames *= stride
  
