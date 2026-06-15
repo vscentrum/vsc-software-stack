@@ -1,0 +1,79 @@
+easyblock = 'PythonBundle'
+
+name = 'nglview'
+version = '4.0.1'
+
+homepage = 'https://github.com/arose/nglview'
+description = "IPython widget to interactively view molecular structures and trajectories."
+
+toolchain = {'name': 'foss', 'version': '2026.1'}
+
+##DEPS:
+    #  OK jupyter_packaging>=0.12.2; python_version>='3.13'", - in Jupy-server
+    # OK - nodejs
+    # - yarn
+    # OK 'ipywidgets>=8', - in Jupy-server
+    # OK 'notebook>=7', -> needs JupyLab first
+    # OK 'jupyterlab>=3',
+    # OK 'jupyterlab_widgets', - in Jupy-server
+    # OK 'numpy',
+    # # Testing
+    # - coverage
+    # - nose
+    # - pytest
+    # - pytest-cov
+    # - coveralls
+    # # Scientific
+    # OK - numpy
+    # OK - pandas
+    # - ase
+    # - parmed
+    # - biopython
+    # - pymatgen
+    # - simpletraj
+    # - rdkit
+    # - mdanalysis
+    # OK - mdtraj
+    # # Movie making
+    # - matplotlib
+    # - moviepy
+    # - imageio
+    # - pillow
+
+builddependencies = [
+    ('nodejs', '24.16.0'),
+]
+dependencies = [
+    ('Python', '3.14.2'),
+    ('Python-bundle-PyPI', '2026.04'),
+    ('SciPy-bundle', '2026.05'),
+    ('JupyterLab', '4.5.8'),
+    ('JupyterNotebook', '7.5.7'),
+    # ('ASE', '3.26.0'),  # optional
+    # ('MDAnalysis', '2.10.0'),  # optional
+    ('MDTraj', '1.11.1'),  # optional
+]
+
+local_pytest_cmd = (
+    "pytest -v "
+    # "--deselect tests/test_show.py::test_show_schrodinger "
+    # "--deselect tests/test_widget.py::test_existing_js_files "
+    # "--deselect tests/test_movie_maker.py::test_movie_maker "
+    "tests"
+)
+
+exts_list = [
+    (name, version, {
+        # 'use_pip_extras': 'ase,MDAnalysis,mdtraj',
+        # unpin numpy - pinned due to ParmEd
+        # https://github.com/ParmEd/ParmEd/issues/1406
+        # 'preinstallopts': "sed -i 's/numpy<2.3/numpy/' setup.py && ",
+        'testinstall': True,
+        'runtest': local_pytest_cmd,
+        'checksums': ['1e15b819b9f8ada3e521e587d24cc3754573203cc99ee5d801cef28d992865a5'],
+    }),
+]
+
+modextrapaths = {'EB_ENV_JUPYTER_ROOT': ''}
+
+moduleclass = 'chem'
