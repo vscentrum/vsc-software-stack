@@ -18,39 +18,39 @@ toolchain = {'name': 'foss', 'version': '2026.1'}
     # OK 'jupyterlab_widgets', - in Jupy-server
     # OK 'numpy',
     # # Testing
-    # - coverage
+    # OK - coverage
     # - nose
-    # - pytest
-    # - pytest-cov
+    # OK - pytest
+    # OK - pytest-cov
     # - coveralls
     # # Scientific
     # OK - numpy
     # OK - pandas
-    # - ase
+    # OK - ase
     # - parmed
-    # - biopython
+    # OK - biopython
     # - pymatgen
     # - simpletraj
     # - rdkit
-    # - mdanalysis
+    #OK - mdanalysis
     # OK - mdtraj
-    # # Movie making
-    # - matplotlib
-    # - moviepy
-    # - imageio
-    # - pillow
+    # # Movie making -> NO
+    # x- matplotlib
+    # x- moviepy
+    # x- imageio
+    # x- pillow
 
-builddependencies = [
-    ('nodejs', '24.16.0'),
-]
+# builddependencies = [
+#     ('nodejs', '24.16.0'),
+# ]
 dependencies = [
     ('Python', '3.14.2'),
     ('Python-bundle-PyPI', '2026.04'),
     ('SciPy-bundle', '2026.05'),
     ('JupyterLab', '4.5.8'),
     ('JupyterNotebook', '7.5.7'),
-    # ('ASE', '3.26.0'),  # optional
-    # ('MDAnalysis', '2.10.0'),  # optional
+    ('ASE', '3.28.0'),  # optional
+    ('MDAnalysis', '2.10.0'),  # optional
     ('MDTraj', '1.11.1'),  # optional
 ]
 
