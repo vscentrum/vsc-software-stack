@@ -38,9 +38,15 @@ exts_list = [
         'runtest': (
             "cd Tests && "
             "python run_tests.py --offline "
+            # skip failing test_Align_bigbed.TestAlign_extended_bed.test_writing
+            # reported upstream: https://github.com/biopython/biopython/issues/5239
             "$(ls test_*.py | grep -v '^test_Align_bigbed.py$') "
             "doctest"
         ),
+        # 'runtest': (
+        #     "cd Tests && "
+        #     "python run_tests.py --offline "
+        # ),
         'testinstall': True,
         'checksums': ['8456c803459b679a9712422e5a7fd9809f2f089bf69bb085f3b077946ac9bdbf'],
     }),
