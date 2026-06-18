@@ -8,41 +8,6 @@ description = "IPython widget to interactively view molecular structures and tra
 
 toolchain = {'name': 'foss', 'version': '2026.1'}
 
-##DEPS:
-    #  OK jupyter_packaging>=0.12.2; python_version>='3.13'", - in Jupy-server
-    # OK - nodejs
-    # - yarn
-    # OK 'ipywidgets>=8', - in Jupy-server
-    # OK 'notebook>=7', -> needs JupyLab first
-    # OK 'jupyterlab>=3',
-    # OK 'jupyterlab_widgets', - in Jupy-server
-    # OK 'numpy',
-    # # Testing
-    # OK - coverage
-    # - nose
-    # OK - pytest
-    # OK - pytest-cov
-    # - coveralls
-    # # Scientific
-    # OK - numpy
-    # OK - pandas
-    # OK - ase
-    # - parmed
-    # OK - biopython
-    # - pymatgen
-    # - simpletraj
-    # - rdkit
-    #OK - mdanalysis
-    # OK - mdtraj
-    # # Movie making -> NO
-    # x- matplotlib
-    # x- moviepy
-    # x- imageio
-    # x- pillow
-
-# builddependencies = [
-#     ('nodejs', '24.16.0'),
-# ]
 dependencies = [
     ('Python', '3.14.2'),
     ('Python-bundle-PyPI', '2026.04'),
@@ -59,17 +24,11 @@ local_pytest_cmd = (
     "--deselect tests/test_show.py::test_show_schrodinger "
     "--deselect tests/test_widget.py::test_existing_js_files "
     "--deselect tests/test_movie_maker.py::test_movie_maker "
-    # wrong test: AssertionError: assert '3.1.5' == '4.0'
-    # "--deselect tests/test_version.py::test_make_sure_versions_matched "
     "tests"
 )
 
 exts_list = [
     (name, version, {
-        # 'use_pip_extras': 'ase,MDAnalysis,mdtraj',
-        # unpin numpy - pinned due to ParmEd
-        # https://github.com/ParmEd/ParmEd/issues/1406
-        # 'preinstallopts': "sed -i 's/numpy<2.3/numpy/' setup.py && ",
         # fix the version problem with nglview-js-widgets: https://github.com/nglviewer/nglview/issues/1172
         'preinstallopts': (
             """sed -i "s/__frontend_version__ = '4.0'/__frontend_version__ = '3.1.5'/" nglview/_frontend.py && """

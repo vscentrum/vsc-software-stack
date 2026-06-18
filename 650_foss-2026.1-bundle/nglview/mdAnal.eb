@@ -9,9 +9,6 @@ simulations in many popular formats."""
 
 toolchain = {'name': 'foss', 'version': '2026.1'}
 
-# OK mdanalysistests 2.10.0 requires hypothesis, which is not installed.
-# mdanalysis 2.10.0 has requirement GridDataFormats>=0.4.0, but you have griddataformats 0.0.0.
-
 builddependencies = [
     ('Cython', '3.2.4'),
 ]
@@ -63,16 +60,9 @@ exts_list = [
     }),
     ('mdanalysis', version, {
         'modulename': 'MDAnalysis',
-        # 'use_pip_extras': 'analysis',
         'checksums': ['5cef1f1eba4b25cbf9dd4045f08eeab293bb9577b970aa96132f14491312d877'],
     }),
 ]
-
-# sanity_check_commands = [
-#     "export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 && "
-#     "pytest --disable-pytest-warnings --numprocesses %(parallel)s "
-#     "--pyargs MDAnalysisTests -p no:warnings --dist=loadscope"
-# ]
 
 sanity_check_commands = [
     "export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 && "
