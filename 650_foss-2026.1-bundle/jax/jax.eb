@@ -31,14 +31,13 @@ dependencies = [
     ('opt-einsum', '3.4.0'),
 ]
 
+# downloading xla  tarball to avoid that Bazel downloads it during the build
 # note: following commits *must* be the exact same ones used upstream
 # XLA_COMMIT from jax-jaxlib: third_party/xla/revision.bzl
 _xla_commit = '9b635916ecc6df6efee62d8e4b0c7ef87ef84d69'
 
-# Use the XLA source extracted and patched by EasyBuild rather than the
-# archive_override in MODULE.bazel. This avoids repacking the XLA tarball and
-# avoids having to update Bazel's XLA archive integrity hash.
-_jaxlib_buildopts = f'--bazel_options="--override_repository=xla=%(builddir)s/xla-{_xla_commit}" '
+# Use sources downloaded by EasyBuild
+_jaxlib_buildopts = '--bazel_options="--distdir=%(builddir)s/archives" '
 
 if ARCH == 'aarch64':
     _jaxlib_buildopts += ' --bazel_options="--@compute_library//:arch=armv8.2-a+fp16" '
@@ -51,7 +50,6 @@ _jaxlib_buildopts += '--clang_path=$EBROOTLLVM/bin/clang '
 
 # fix jaxlib version
 _jaxlib_buildopts += '--bazel_options="--action_env=JAXLIB_RELEASE" '
-
 _jaxlib_buildopts += '--bazel_options="--repo_env=ML_WHEEL_TYPE=release" '
 
 _local_prebuildopts = 'export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1; '
@@ -67,20 +65,14 @@ components = [
                 'source_urls': ['https://github.com/openxla/xla/archive/'],
                 'download_filename': f'{_xla_commit}.tar.gz',
                 'filename': f'xla-{_xla_commit[:8]}.tar.gz',
+                'extract_cmd': 'mkdir -p %(builddir)s/archives && cp %s %(builddir)s/archives',
             },
-        ],
-        'patches': [
-            # Apply in the extracted XLA tree. This adds an LLVM patch to XLA's
-            # third_party/llvm/workspace.bzl patch_file list
-            ('jax-0.10.1_xla-clang21-bytecode.patch', f'../xla-{_xla_commit}'),
         ],
         'checksums': [
             {'jax-v0.10.1.tar.gz':
              '15983d01b0c858738b16b19b773459d22449992ce1ee97688cc532ea0047de9e'},
             {'xla-9b635916.tar.gz':
              '4ab4f271ca09fa9e431b9af5ded823fcf03932d94ad98f6957f13523f53ba070'},
-            {'jax-0.10.1_xla-clang21-bytecode.patch':
-             '190a9d61e1a1efe03214f7ad09930dfe021906b35a7d9614eb6e43c1e6051117'},
         ],
         'start_dir': f'jax-jax-v{version}',
         # fix jaxlib version - removes .dev suffix
