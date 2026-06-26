@@ -33,7 +33,7 @@ _fix_versioneer = "sed -i -e 's/SafeConfigParser()/ConfigParser()/' -e 's/readfp
 
 # fix version in OpenForceFields-Utilities
 _utilities_fix = (
-    r"""sed -i -e '/\"versioningit\"/d' -e 's/^dynamic = \[ ?"version" ?\]/version = "%(version)s"/' pyproject.toml && """
+    r"""sed -i -e '/"versioningit",/d' -e 's/^dynamic = \["version"\]/version = "%(version)s"/' pyproject.toml && """
 )
 
 # fix version in OpenForceFields-Units
@@ -46,13 +46,20 @@ _interchange_fix = r"""sed -i -E 's/^dynamic = \[ ?"version" ?\]/version = "%(ve
 # fix version and license in OpenForceFields-Toolkit
 _toolkit_fix = (
     "sed -i -e "
-    r"'s/, \"versioningit\"//' "
-    r"""'s/^dynamic = \[ ?"version" ?\]/version = "%(version)s"/' """
+    r"""'s/, "versioningit" //' -e """
+    r"""'s/^dynamic = \[ "version" \]/version = "%(version)s"/' """
     "pyproject.toml && "
 )
 # fix AmberTools version in GLOBAL_TOOLKIT_REGISTRY
 _fix_ambertools_version = (
     """sed -i 's/get_ambertools_version()/"%s"/' openff/toolkit/utils/ambertools_wrapper.py && """ % _ambertools_version
+)
+
+_fix_pyedr =  (
+    "sed -i -e "
+    r"'/versioningit/d' -e "
+    r"""'s/^dynamic = \["version"\]/version = "%(version)s"/' """
+    "pyproject.toml && "
 )
 
 ##DEPS:
@@ -113,6 +120,13 @@ _fix_ambertools_version = (
             # ok openff-toolkit                0.0.0
             # ok? openff-units                  0.0.0
             # ok openff-utilities              0.0.0
+        # openff-units 0.3.2 has requirement openff-utilities>=0.1.3, but you have openff-utilities 0.0.0.
+            # openff-amber-ff-ports         2025.9.0
+            # openff-interchange            0.5.3
+            # openff-packmol                0.1
+            # openff-toolkit                0.0.0
+            # openff-units                  0.3.2
+            # openff-utilities              0.0.0
     
 # exts_default_options = {'source_urls': [PYPI_SOURCE, 'https://github.com/openforcefield/%(name)s/archive/']}
 exts_list = [
@@ -150,8 +164,14 @@ exts_list = [
     ('xmltodict', '1.0.2', {
         'checksums': ['54306780b7c2175a3967cad1db92f218207e5bc1aba697d887807c0fb68b7649'],
     }),
+    ('mda-xdrlib', '0.2.0', {
+        'checksums': ['f26f7158a83c32b96d15b530fce2cbc1190c4b7024e41faa4ab3e3db74e272af'],
+    }),
     ('pyedr', '0.8.0', {
-        'checksums': ['2d119dc32cd0b0b2a14584626c2349b9dbad132a6bfed32723fe841ed5857fd0'],
+        # https://files.pythonhosted.org/packages/26/77/33237d2e9f19e32774704555f8efbd4c336d82b1bcf4dab712d5a8c2a9d5/pyedr-0.8.0-py3-none-any.whl
+        # 'preinstallopts': _fix_pyedr,
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['3e61705d4460bae9fd1f4245a11bdd433ac7fc6084ebd0ab8b8f5b6bcfeb5ad0'],
     }),
     # ('SMIRNOFF99Frosst', '1.1.0-20240911', {
     #     'source_urls': ['https://github.com/openforcefield/smirnoff99Frosst/archive/'],
@@ -171,17 +191,17 @@ exts_list = [
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['69e33df25ff4266a83dbb06de4dea6c8199e2e6e903823762ed77d85395bc53e'],
     }),
-    ('openff-forcefields', '2026.01.0', {
-        'modulename': 'openforcefields',
-        'source_urls': ['https://github.com/openforcefield/%(name)s/archive/'],
-        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+    ('openforcefields', '2026.1.0', {
+        # 'modulename': 'openforcefields',
+        'source_urls': ['https://github.com/openforcefield/openff-forcefields/archive/'],
+        'sources': [{'download_filename': '2026.01.0.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['5289bcfcd9371299152e3f8372447d4ca237d631d77326e85a1a814ebc8efdc5'],
     }),
-    ('openff-amber-ff-ports', '2025.09.0', {
+    ('openff-amber-ff-ports', '2025.9.0', {
         'modulename': 'openff.amber_ff_ports',
         # 'preinstallopts': _fix_versioneer,
         'source_urls': ['https://github.com/openforcefield/%(name)s/archive/'],
-        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'sources': [{'download_filename': '2025.09.0.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['17a9f1674c3529742e8fc10c8ccdde375ba152c583a75d6d7a38a22c64ab58f3'],
     }),
     ('openff-utilities', '0.1.16', {
@@ -238,3 +258,5 @@ sanity_check_commands = [
 ]
 
 moduleclass = 'bio'
+
+# TODO: add AmberTools -> waiting for SymPy

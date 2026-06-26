@@ -7,13 +7,10 @@ homepage = 'https://github.com/freesasa/freesasa-python'
 description = "The module provides Python bindings for the FreeSASA C Library."
 
 toolchain = {'name': 'gfbf', 'version': '2026.1'}
-# toolchainopts = {'pic': True}
 
 builddependencies = [('Cython', '3.2.4')]
 dependencies = [
     ('Python', '3.14.2'),
-    # ('Python-bundle-PyPI', '2026.04'),
-    # ('SciPy-bundle', '2026.05'),
     ('Biopython', '1.87'),
 ]
 
@@ -23,14 +20,5 @@ exts_list = [
         'checksums': ['5630e65d619cf6a062028d7c6297afe8c5b18c677c75f1c32a0938399f4f6850'],
     }),
 ]
-
-# fix_python_shebang_for = ['bin/*']
-
-# sanity_check_paths = {
-#     'files': ['bin/numba'],
-#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
-# }
-
-# sanity_check_commands = ['numba --help']
 
 moduleclass = 'bio'

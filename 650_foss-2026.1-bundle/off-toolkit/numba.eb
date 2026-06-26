@@ -27,6 +27,9 @@ local_llvmlite_preinstallopts = "export LLVM_CONFIG=${EBROOTLLVM}/bin/llvm-confi
 local_llvmlite_preinstallopts += "sed -i 's/llvm_config, \"--system-libs/llvm_config, \"--link-static --system-libs/' "
 local_llvmlite_preinstallopts += "ffi/build.py && "
 
+# Limit numba.runtests worker processes to avoid multiprocessing/forkserver hangs
+local_test_workers = '$(( %(parallel)s > 8 ? 4 : (%(parallel)s + 1) / 2 ))'
+
 exts_list = [
     ('llvmlite', '0.47.0', {
         'preinstallopts': local_llvmlite_preinstallopts,
@@ -39,8 +42,8 @@ exts_list = [
         'testinstall': True,
         'runtest': (
             'cd %(builddir)s && '
-            # 'NUMBA_NUM_THREADS=2 python -m numba.runtests -m %(parallel)s'
-            'NUMBA_NUM_THREADS=2 python -m numba.runtests -m 2'
+            # NUMBA_NUM_THREADS=2 is needed for tests that call set_num_threads(2)
+            f'NUMBA_NUM_THREADS=2 python -m numba.runtests -m {local_test_workers}'
         ),
     }),
 ]
