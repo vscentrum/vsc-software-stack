@@ -55,12 +55,12 @@ _fix_ambertools_version = (
     """sed -i 's/get_ambertools_version()/"%s"/' openff/toolkit/utils/ambertools_wrapper.py && """ % _ambertools_version
 )
 
-_fix_pyedr =  (
-    "sed -i -e "
-    r"'/versioningit/d' -e "
-    r"""'s/^dynamic = \["version"\]/version = "%(version)s"/' """
-    "pyproject.toml && "
-)
+# _fix_pyedr =  (
+#     "sed -i -e "
+#     r"'/versioningit/d' -e "
+#     r"""'s/^dynamic = \["version"\]/version = "%(version)s"/' """
+#     "pyproject.toml && "
+# )
 
 ##DEPS:
 # Openff-toolkit

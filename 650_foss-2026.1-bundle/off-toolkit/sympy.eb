@@ -1,3 +1,5 @@
+easyblock = 'PythonPackage'
+
 name = 'sympy'
 version = '1.14.0'
 
@@ -22,4 +24,31 @@ dependencies = [
     ('gmpy2', '2.3.0'),
 ]
 
+testinstall = True
+runtest = 'pytest -ra --tb=short sympy'
+
 moduleclass = 'math'
+
+# run with updated easyblock from PR 4172
+    # add: testinstall = True -> now it works and miss hypothesis
+    # -> use generic PythonPackage to install SymPy?
+    # -> update eb - delete whole test part - will run PythonPAckage test step - hopefully with installation first
+        # added to ec: runtest = 'pytest -ra --tb=short sympy'
+        # <- still not run installstep and returns:
+            # ImportError while loading conftest '/tmp/vsc47063/easybuild/build/sympy/1.14.0/gfbf-2026.1/sympy-1.14.0/sympy/conftest.py'.
+            # sympy/conftest.py:18: in <module>
+            #     raise ImportError(
+            # E   ImportError: hypothesis is a required dependency to run the SymPy test suite. Install it with 'pip install hypothesis' or 'conda install -c conda-forge hypothesis'
+    # -> update easyblock - runtest: self.cfg['runtest'] = 'python -s bin/test sympy --tb=short'
+        # this should avoid docs and examples tests
+        # <- NO there is no bin/test - maybe it should first install and then test? Now the easyblock does not do this - log-sympy2
+    # log-sympy1 - log from failing tests
+    # PR eb: https://github.com/easybuilders/easybuild-easyblocks/pull/4172
+    # mpmath 1.3.0
+        # only on donphan with updated SciPy bundle from scipy-bundle-mpmath.eb
+
+# sympy-patch1.patch
+    # -> can not be applied
+        # use version from commit where the patch was marged? 
+            # https://github.com/sympy/sympy/tree/6285a5618b4e3ad1c8646ad22f95d5b82abbc953
+    # from https://patch-diff.githubusercontent.com/raw/sympy/sympy/pull/29250.patch
