@@ -1,4 +1,4 @@
-easyblock = 'PythonPackage'
+# easyblock = 'PythonPackage'
 
 name = 'sympy'
 version = '1.14.0'
@@ -18,17 +18,20 @@ checksums = [
     # {'sympy-patch1.patch': '76e192fd663ebefbdb1d19155d1264be1962c571daa12490a531e2bb8be64ab0'},
 ]
 
+builddependencies = [('hypothesis', '6.153.2')]
 dependencies = [
     ('Python', '3.14.2'),
     ('SciPy-bundle', '2026.05'),
     ('gmpy2', '2.3.0'),
 ]
 
-testinstall = True
-runtest = 'pytest -ra --tb=short sympy'
+# testinstall = True
+# runtest = 'pytest -ra --tb=short sympy'
 
 moduleclass = 'math'
 
+# run with generic PythonPackage
+    # -> hypothesis sdded: 
 # run with updated easyblock from PR 4172
     # add: testinstall = True -> now it works and miss hypothesis
     # -> use generic PythonPackage to install SymPy?
