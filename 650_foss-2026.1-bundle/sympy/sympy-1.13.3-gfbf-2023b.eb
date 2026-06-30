@@ -1,5 +1,5 @@
 name = 'sympy'
-version = '1.12'
+version = '1.13.3'
 
 homepage = 'https://sympy.org/'
 description = """SymPy is a Python library for symbolic mathematics. It aims to
@@ -7,14 +7,15 @@ description = """SymPy is a Python library for symbolic mathematics. It aims to
  simple as possible in order to be comprehensible and easily extensible. SymPy
  is written entirely in Python and does not require any external libraries."""
 
-toolchain = {'name': 'gfbf', 'version': '2023a'}
+toolchain = {'name': 'gfbf', 'version': '2023b'}
 
 sources = [SOURCE_TAR_GZ]
-checksums = ['ebf595c8dac3e0fdc4152c51878b498396ec7f30e7a914d6071e674d49420fb8']
+checksums = ['b27fd2c6530e0ab39e275fc9b683895367e51d5da91baa8d3d64db2565fec4d9']
 
+builddependencies = [('hypothesis', '6.90.0')]
 dependencies = [
-    ('Python', '3.11.3'),
-    ('SciPy-bundle', '2023.07'),
+    ('Python', '3.11.5'),
+    ('SciPy-bundle', '2023.11'),
     ('gmpy2', '2.1.5'),
 ]
 
