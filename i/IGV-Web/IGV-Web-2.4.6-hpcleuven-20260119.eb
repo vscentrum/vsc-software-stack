@@ -1,0 +1,47 @@
+easyblock = 'CmdCp'
+
+name = 'IGV-Web'
+version = '2.4.6'
+versionsuffix = '-hpcleuven-20260119'
+
+homepage = 'https://www.igv.org/'
+description = """IGV-Web is a web application for exploring genomic datasets.
+This is a slightly modified version to allow easy access to files on
+(Leuven Tier-2) HPC storage.
+"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/igvteam/igv-webapp/archive/refs/tags/']
+sources = ['v%(version)s.tar.gz']
+patches = ['IGV-Web-2.4.2_hpcleuven_20260119.patch']
+checksums = [
+    {'v2.4.6.tar.gz': 'cda6afca3554f8c3e01aab4cfa9c30f4d887d76f1a7b5cdb7d705e5d1cad7826'},
+    {'IGV-Web-2.4.2_hpcleuven_20260119.patch': 'd9c5114b2e8bb42e4a03d3982a0629b5ca3b2b6663441b593afe9a22c300a29a'},
+]
+
+builddependencies = [
+    ('nodejs', '22.17.1', '', ('GCCcore', '14.3.0')),
+]
+
+# Somehow the build does not take care of the 'fs-extra' dependency
+# (specified in igv-webapp-.../package.json) so we need to provide it
+cmds_map = [
+    ('.*', 'npm install --prefix ${PWD} fs-extra@8.1.0 && npm run build')
+]
+
+files_to_copy = [(['dist/*'], 'dist')]
+
+local_js_files = [
+    'dist/app_bundle-%(version)s.esm' + x
+    for x in ['.js', '.min.js', '.min.js.map']
+]
+
+sanity_check_paths = {
+    'files': ['dist/index.html'] + local_js_files,
+    'dirs': ['dist/' + x for x in ['css', 'img', 'resources']],
+}
+
+modextrapaths = {'PATH': ''}
+
+moduleclass = 'bio'
