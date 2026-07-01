@@ -29,19 +29,18 @@ dependencies = [
 ]
 
 # fix old syntax in versioneer.py
-_fix_versioneer = "sed -i -e 's/SafeConfigParser()/ConfigParser()/' -e 's/readfp(/read_file(/' versioneer.py && "
+# _fix_versioneer = "sed -i -e 's/SafeConfigParser()/ConfigParser()/' -e 's/readfp(/read_file(/' versioneer.py && "
 
 # fix version in OpenForceFields-Utilities
 _utilities_fix = (
-    r"""sed -i -e '/"versioningit",/d' -e 's/^dynamic = \["version"\]/version = "%(version)s"/' pyproject.toml && """
+    r"""sed -i -e '/"versioningit",/d' -e 's/^dynamic = ["version"]/version = "%(version)s"/' pyproject.toml && """
 )
 
 # fix version in OpenForceFields-Units
-_units_fix = r"sed -i -e '/\"versioningit\"/d' -e '/dynamic/d' -e '13 a version = \"%(version)s\"' pyproject.toml && "
+# _units_fix = r"sed -i -e '/\"versioningit\"/d' -e '/dynamic/d' -e '13 a version = \"%(version)s\"' pyproject.toml && "
 
 # fix version in OpenForceFields-Interchange
 # _interchange_fix = r"""sed -i -e 's/dynamic = [ "version" ]/version = "%(version)s"/' pyproject.toml && """
-_interchange_fix = r"""sed -i -E 's/^dynamic = \[ ?"version" ?\]/version = "%(version)s"/' pyproject.toml && """
 
 # fix version and license in OpenForceFields-Toolkit
 _toolkit_fix = (
@@ -52,7 +51,7 @@ _toolkit_fix = (
 )
 # fix AmberTools version in GLOBAL_TOOLKIT_REGISTRY
 _fix_ambertools_version = (
-    """sed -i 's/get_ambertools_version()/"%s"/' openff/toolkit/utils/ambertools_wrapper.py && """ % _ambertools_version
+    f"""sed -i 's/get_ambertools_version()/"{_ambertools_version}"/' openff/toolkit/utils/ambertools_wrapper.py && """
 )
 
 # _fix_pyedr =  (
@@ -240,8 +239,7 @@ exts_list = [
     # }),
     ('openff-toolkit', version, {
         'modulename': 'openff.toolkit',
-        # 'preinstallopts': f"{_toolkit_fix}{_fix_ambertools_version}",
-        'preinstallopts': _toolkit_fix,
+        'preinstallopts': f"{_toolkit_fix}{_fix_ambertools_version}",
         'source_urls': ['https://github.com/openforcefield/%(name)s/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['710ea5d508bf27492ae57d8506f167fba20738afdff0e91eb9923e5291e615a9'],
