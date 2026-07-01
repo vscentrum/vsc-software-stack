@@ -1,6 +1,18 @@
 Backport minimal mpmath 1.4.x compatibility fixes for SymPy 1.14.0.
 Relevant compatibility changes from upstream SymPy PR #29250.
+Relaxes the mpmath upper bound to allow mpmath 1.4.x.
 Author: Pavel Tomanek (Inuits/Ugent) with help of ChatGPT5.5
+--- sympy.orig/setup.py	2025-04-27 11:39:59.000000000 +0000
++++ sympy/setup.py
+@@ -321,7 +321,7 @@
+           },
+           # Set upper bound when making the release branch.
+           install_requires=[
+-              'mpmath >= 1.1.0, < 1.4',
++              'mpmath >= 1.1.0, < 1.5',
+           ],
+           py_modules=['isympy'],
+           packages=['sympy'] + modules + tests,
 diff -Naur sympy.orig/sympy/core/evalf.py sympy/sympy/core/evalf.py
 --- sympy.orig/sympy/core/evalf.py
 +++ sympy/sympy/core/evalf.py
