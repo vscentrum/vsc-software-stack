@@ -19,10 +19,10 @@ dependencies = [
     ('Python-bundle-PyPI', '2026.04'),
     ('IPython', '9.14.0'),
     ('bcrypt', '5.0.0'),
-    # ('configurable-http-proxy', '5.1.0'),
+    ('configurable-http-proxy', '5.2.0'),
     # ('OpenSSL', '3', '', SYSTEM),
     ('tornado', '6.5.6'),
-    # ('PycURL', '7.45.7'),  # optional, recommended with large number of users
+    ('PycURL', '7.46.0'),  # optional, recommended with large number of users
     ('SQLAlchemy', '2.0.51'),
     ('pydantic', '2.13.4'),
     # ('PyYAML', '6.0.2'),
@@ -44,9 +44,9 @@ dependencies = [
     # OK SQLAlchemy>=1.4.1
     # OK tornado>=5.1
     # OK traitlets>=4.3.2 - in IPython
-    # jupyter-events 0.12.1 requires python-json-logger, which is not installed.
-    # jupyter-events 0.12.1 requires rfc3339-validator, which is not installed.
-    # jupyter-events 0.12.1 requires rfc3986-validator, which is not installed.
+    # ok jupyter-events 0.12.1 requires python-json-logger, which is not installed.
+    # ok jupyter-events 0.12.1 requires rfc3339-validator, which is not installed.
+    # ok jupyter-events 0.12.1 requires rfc3986-validator, which is not installed.
 
 exts_list = [
     ('certipy', '0.2.3', {
@@ -73,11 +73,6 @@ exts_list = [
     #     'modulename': False,
     #     'checksums': ['803f5044b13602d58ea378576dd75aa759f52116a0232608e8fdada4da33752e'],
     # }),
-    # ('python-json-logger', '4.0.0', {
-    #     'modulename': 'pythonjsonlogger',
-    #     'source_tmpl': 'python_json_logger-%(version)s.tar.gz',
-    #     'checksums': ['f58e68eb46e1faed27e0f574a55a0455eecd7b8a5b88b85a784519ba3cff047f'],
-    # }),
     # ('jupyter-telemetry', '0.1.0', {
     #     'source_tmpl': 'jupyter_telemetry-%(version)s.tar.gz',
     #     'checksums': ['445c613ae3df70d255fe3de202f936bba8b77b4055c43207edf22468ac875314'],
@@ -85,14 +80,16 @@ exts_list = [
     ('prometheus-client', '0.25.0', {
         'checksums': ['5e373b75c31afb3c86f1a52fa1ad470c9aace18082d39ec0d2f918d11cc9ba28'],
     }),
-    # ('rfc3339-validator', '0.1.4', {
-    #     'source_tmpl': 'rfc3339_validator-%(version)s.tar.gz',
-    #     'checksums': ['138a2abdf93304ad60530167e51d2dfb9549521a836871b88d7f4695d0022f6b'],
-    # }),
-    # ('rfc3986-validator', '0.1.1', {
-    #     'source_tmpl': 'rfc3986_validator-%(version)s.tar.gz',
-    #     'checksums': ['3d44bde7921b3b9ec3ae4e3adca370438eccebc676456449b145d533b240d055'],
-    # }),
+    ('rfc3986_validator', '0.1.1', {
+        'checksums': ['3d44bde7921b3b9ec3ae4e3adca370438eccebc676456449b145d533b240d055'],
+    }),
+    ('rfc3339_validator', '0.1.4', {
+        'checksums': ['138a2abdf93304ad60530167e51d2dfb9549521a836871b88d7f4695d0022f6b'],
+    }),
+    ('python-json-logger', '4.1.0', {
+        'modulename': 'pythonjsonlogger',
+        'checksums': ['b396b9e3ed782b09ff9d6e4f1683d46c83ad0d35d2e407c09a9ebbf038f88195'],
+    }),
     ('jupyter-events', '0.12.1', {
         'checksums': ['faff25f77218335752f35f23c5fe6e4a392a7bd99a5939ccb9b8fbf594636cf3'],
     }),
