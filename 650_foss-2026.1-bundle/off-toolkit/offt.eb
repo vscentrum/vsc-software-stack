@@ -112,22 +112,8 @@ _fix_ambertools_version = (
         # OK rdkit = ">=2024"
         # ok - pyedr
         # ok ModuleNotFoundError: No module named 'torch', -> remove off-nagl
-        # eb-shell> pip list | grep openff
-            # ok openff-amber-ff-ports         2025.9.0
-            # ok? openff-interchange            0.0.0
-            # ok?openff-packmol                0.0.0
-            # ok openff-toolkit                0.0.0
-            # ok? openff-units                  0.0.0
-            # ok openff-utilities              0.0.0
-        # openff-units 0.3.2 has requirement openff-utilities>=0.1.3, but you have openff-utilities 0.0.0.
-            # openff-amber-ff-ports         2025.9.0
-            # openff-interchange            0.5.3
-            # openff-packmol                0.1
-            # openff-toolkit                0.0.0
-            # openff-units                  0.3.2
-            # openff-utilities              0.0.0
-    
-# exts_default_options = {'source_urls': [PYPI_SOURCE, 'https://github.com/openforcefield/%(name)s/archive/']}
+        # ok openff-units 0.3.2 has requirement openff-utilities>=0.1.3, but you have openff-utilities 0.0.0.
+
 exts_list = [
     # ('qcelemental', '0.29.0', {
     #     'checksums': ['bf634ee652e7d95e906e291989513224233b1d705c26afeac86e451f316b3c04'],
@@ -256,5 +242,3 @@ sanity_check_commands = [
 ]
 
 moduleclass = 'bio'
-
-# TODO: add AmberTools -> waiting for SymPy
