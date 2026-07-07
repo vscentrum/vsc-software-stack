@@ -1,0 +1,37 @@
+easyblock = 'PythonBundle'
+
+name = 'tinydft'
+version = '1.0.0'
+
+homepage = 'https://github.com/theochem/tinydft'
+description = """Tiny DFT is a minimalistic atomic Density Functional Theory (DFT) code, mainly for educational purposes."""
+
+toolchain = {'name': 'gfbf', 'version': '2026.1'}
+##DEPS:
+    # OK "numpy>=2.2.6",
+    # OK "scipy>=1.15.3",
+    # OK "matplotlib>=3.6.3",
+    # ok "autograd>=1.8.0",
+      # OK hatchling
+      # OK numpy < 3
+
+builddependencies = [('hatchling', '1.29.0')]
+dependencies = [
+    ('Python', '3.14.2'),
+    ('Python-bundle-PyPI', '2026.04'),
+    ('SciPy-bundle', '2026.05'),
+    ('matplotlib', '3.10.9'),
+]
+
+exts_list = [
+    ('autograd', '1.9.1', {
+        'checksums': ['7818c5c69ddf9efb7da74097bd741a4c7920133f41966f68537223a15ef798bc'],
+    }),
+    (name, version, {
+        'runtest': 'pytest -v',
+        'testinstall': True,
+        'checksums': ['eda69602a010af2a42e8ebd069b0ee0dbe8df7fc69d7c1e8b99fece0a2fe613f'],
+    }),
+]
+
+moduleclass = 'tools'
