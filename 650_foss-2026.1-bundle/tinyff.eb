@@ -1,0 +1,31 @@
+easyblock = 'PythonBundle'
+
+name = 'tinyff'
+version = '2.1.0'
+
+homepage = 'https://github.com/molmod/tinyff'
+description = """This is a minimalistic force-field engine written in pure Python, using vectorized NumPy code."""
+
+toolchain = {'name': 'gfbf', 'version': '2026.1'}
+##DEPS:
+  # OK "attrs>=25.3.0",
+  # ok "npy-append-array>=0.9.19",
+  # OK "numpy>=2.3.1",
+  # OK "scipy>=1.16.0",
+
+dependencies = [
+    ('Python', '3.14.2'),
+    ('Python-bundle-PyPI', '2026.04'),
+    ('SciPy-bundle', '2026.05'),
+]
+
+exts_list = [
+    ('npy-append-array', '0.9.19'),
+    (name, version, {
+        'runtest': 'pytest -v',
+        'testinstall': True,
+        'checksums': ['eda69602a010af2a42e8ebd069b0ee0dbe8df7fc69d7c1e8b99fece0a2fe613f'],
+    }),
+]
+
+moduleclass = 'tools'
