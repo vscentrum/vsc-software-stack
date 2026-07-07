@@ -1,0 +1,46 @@
+easyblock = 'PythonBundle'
+
+name = 'ipympl'
+version = '0.10.0'
+
+homepage = 'https://github.com/matplotlib/ipympl'
+description = """Leveraging the Jupyter interactive widgets framework, ipympl enables
+the interactive features of matplotlib in the Jupyter notebook and in JupyterLab."""
+
+toolchain = {'name': 'gfbf', 'version': '2026.1'}
+##DEPS:
+  # build:
+    # OK "hatchling",
+    # OK "jupyterlab==4.*",
+    # OK "hatch-nodejs-version>=0.3.2",
+  # OK "ipython<10",
+  # OK "ipywidgets>=7.6.0,<9",
+  # OK "matplotlib>=3.5.0,<4",
+  # OK "numpy",
+  # OK "pillow",
+  # OK "traitlets<6",
+
+builddependencies = [
+    ('hatchling', '1.29.0'),
+    ('hatch-jupyter-builder', '0.9.1'),  # hatch-nodejs-version
+    ('JupyterLab', '4.5.8'),
+]
+dependencies = [
+    ('Python', '3.14.2'),
+    ('Python-bundle-PyPI', '2026.04'),
+    ('SciPy-bundle', '2026.05'),
+    ('IPython', '9.14.0'),
+    ('jupyter-server', '2.19.0'),  # ipywidgets
+    ('matplotlib', '3.10.9'),
+    ('Pillow', '12.2.0'),
+]
+
+exts_list = [
+    (name, version, {
+        'runtest': 'pytest -v',
+        'testinstall': True,
+        'checksums': ['eda69602a010af2a42e8ebd069b0ee0dbe8df7fc69d7c1e8b99fece0a2fe613f'],
+    }),
+]
+
+moduleclass = 'tools'
