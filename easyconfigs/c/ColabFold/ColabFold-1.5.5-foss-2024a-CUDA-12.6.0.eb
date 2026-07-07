@@ -51,6 +51,7 @@ exts_list = [
     ('PDBFixer', '1.12', {
         'source_urls': ['https://github.com/openmm/pdbfixer/archive/refs/tags/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['a5c0b05dfaf2cdcad3b8ffc9ee1e6a955628aade0dda653da04d4a12ba4fe3ec'],
     }),
     ('alphafold-colabfold', '2.3.12', {
         'modulename': 'alphafold',
@@ -66,6 +67,10 @@ exts_list = [
         'testinstall': True,
         'runtest': 'pytest',
     }),
+]
+
+checksums = [
+    {'ColabFold-1.5.5_bioemu-mods.patch': '871c369110227e17b47d8fe1d917ae392dc6bbda394adc9e927eab10b4b2b81b'},
 ]
 
 postinstallpatches = [
