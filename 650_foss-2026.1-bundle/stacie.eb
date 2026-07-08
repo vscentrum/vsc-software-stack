@@ -1,0 +1,26 @@
+easyblock = 'PythonBundle'
+
+name = 'stacie'
+version = '1.2.1'
+
+homepage = 'https://github.com/molmod/stacie'
+description = """Algorithm that computes time integrals of autocorrelation functions. It is primarily designed for post-processing molecular dynamics simulations."""
+
+toolchain = {'name': 'gfbf', 'version': '2026.1'}
+
+dependencies = [
+    ('Python', '3.14.2'),
+    ('Python-bundle-PyPI', '2026.04'),
+    ('SciPy-bundle', '2026.05'),
+    ('matplotlib', '3.10.9'),
+]
+
+exts_list = [
+    (name, version, {
+        'runtest': 'pytest -vv tests',
+        'testinstall': True,
+        'checksums': ['eda69602a010af2a42e8ebd069b0ee0dbe8df7fc69d7c1e8b99fece0a2fe613f'],
+    }),
+]
+
+moduleclass = 'tools'
