@@ -9,13 +9,92 @@ description = "RDKit is a collection of cheminformatics and machine-learning sof
 
 toolchain = {'name': 'foss', 'version': '2026.1'}
 
+# source_urls = ['https://github.com/rdkit/rdkit/archive/']
+# sources = [f'Release_{_version}.tar.gz']
+# checksums = ['21e22e5e6b3a313527256fbde41c757f22d834b19caf2908e3c2dd11061e1fea']
+
+_src_dir = f'%(builddir)s/rdkit-Release_{_version}'
+
+_ext_inchi = f'{_src_dir}/External/INCHI-API'
+_ext_freesasa = f'{_src_dir}/External/FreeSASA'
+_ext_coordgen = f'{_src_dir}/External/CoordGen'
+_ext_rdl = f'{_src_dir}/External/RingFamilies'
+_ext_pubchem = f'{_src_dir}/External/pubchem_shape'
+_ext_chemdraw = f'{_src_dir}/External/ChemDraw'
+
 source_urls = ['https://github.com/rdkit/rdkit/archive/']
-sources = [f'Release_{_version}.tar.gz']
-checksums = ['21e22e5e6b3a313527256fbde41c757f22d834b19caf2908e3c2dd11061e1fea']
+sources = [
+    f'Release_{_version}.tar.gz',
+    {
+        'source_urls': ['https://github.com/IUPAC-InChI/InChI/releases/download/v1.07.3/'],
+        'filename': 'INCHI-1-SRC.zip',
+        'extract_cmd': (
+            f'rm -rf {_ext_inchi}/src {_ext_inchi}/INCHI-1-SRC && '
+            f'unzip -q %s -d {_ext_inchi} && '
+            f'cp -a {_ext_inchi}/INCHI-1-SRC {_ext_inchi}/src'
+        ),
+    },
+    {
+        'source_urls': ['https://github.com/mittinatten/freesasa/releases/download/2.0.3/'],
+        'filename': 'freesasa-2.0.3.tar.gz',
+        'extract_cmd': (
+            f'rm -rf {_ext_freesasa}/freesasa-2.0.3 && '
+            f'mkdir -p {_ext_freesasa}/freesasa-2.0.3 && '
+            f'tar -C {_ext_freesasa}/freesasa-2.0.3 --strip-components=1 -xzf %s && '
+            f'cp {_ext_freesasa}/freesasa2.c {_ext_freesasa}/freesasa-2.0.3/src/'
+        ),
+    },
+    # {
+    #     'source_urls': ['https://github.com/schrodinger/maeparser/archive/'],
+    #     'download_filename': 'v1.3.3.tar.gz',
+    #     'filename': 'maeparser-1.3.3.tar.gz',
+    #     'extract_cmd': (
+    #         f'rm -rf {_ext_coordgen}/maeparser && mkdir -p {_ext_coordgen}/maeparser && '
+    #         f'tar -C {_ext_coordgen}/maeparser --strip-components=1 -xzf %s'
+    #     ),
+    # },
+    # {
+    #     'source_urls': ['https://github.com/schrodinger/coordgenlibs/archive/'],
+    #     'download_filename': 'v3.0.2.tar.gz',
+    #     'filename': 'coordgenlibs-3.0.2.tar.gz',
+    #     'extract_cmd': (
+    #         f'rm -rf {_ext_coordgen}/coordgen && mkdir -p {_ext_coordgen}/coordgen && '
+    #         f'tar -C {_ext_coordgen}/coordgen --strip-components=1 -xzf %s'
+    #     ),
+    # },
+    {
+        'source_urls': ['https://github.com/rareylab/RingDecomposerLib/archive/'],
+        'download_filename': 'v1.1.3_rdkit.tar.gz',
+        'filename': 'RingDecomposerLib-1.1.3_rdkit.tar.gz',
+        'extract_cmd': (
+            f'rm -rf {_ext_rdl}/RingDecomposerLib && mkdir -p {_ext_rdl}/RingDecomposerLib && '
+            f'tar -C {_ext_rdl}/RingDecomposerLib --strip-components=1 -xzf %s'
+        ),
+    },
+    {
+        'source_urls': ['https://github.com/ncbi/pubchem-align3d/archive/'],
+        'download_filename': 'daefab3.tar.gz',
+        'filename': 'pubchem-align3d-daefab3.tar.gz',
+        'extract_cmd': (
+            f'rm -rf {_ext_pubchem}/pubchem-align3d && mkdir -p {_ext_pubchem}/pubchem-align3d && '
+            f'tar -C {_ext_pubchem}/pubchem-align3d --strip-components=1 -xzf %s'
+        ),
+    },
+    {
+        'source_urls': ['https://github.com/Glysade/chemdraw/archive/refs/tags/'],
+        'download_filename': 'v1.0.12.tar.gz',
+        'filename': 'chemdraw-1.0.12.tar.gz',
+        'extract_cmd': (
+            f'rm -rf {_ext_chemdraw}/chemdraw && mkdir -p {_ext_chemdraw}/chemdraw && '
+            f'tar -C {_ext_chemdraw}/chemdraw --strip-components=1 -xzf %s'
+        ),
+    },
+]
 
 builddependencies = [
     ('CMake', '4.2.1'),
-    ('Eigen', '5.0.0'),
+    # ('Eigen', '5.0.0'),
+    ('Eigen', '3.4.0'),
     ('pkgconf', '2.5.1'),
     ('Catch2', '3.14.0'),
 ]
@@ -28,6 +107,9 @@ dependencies = [
     ('Pillow', '12.2.0'),
     ('Boost.Python-NumPy', '1.90.0'),
     ('cairo', '1.18.4'),
+    # ('freesasa', '2.2.1'),
+    ('maeparser', '1.3.3'),
+    ('CoordgenLibs', '3.0.2'),
 ]
 
 _config_opts = [
@@ -38,10 +120,16 @@ _config_opts = [
     '-DRDK_BUILD_INCHI_SUPPORT=ON',
     '-DRDK_BUILD_CAIRO_SUPPORT=ON',
     '-DBOOST_ROOT="$EBROOTBOOST"',
+    # '-DCOORDGEN_FORCE_BUILD=ON',
+    # '-DMAEPARSER_FORCE_BUILD=ON',
+    '-DEIGEN3_INCLUDE_DIR="$EBROOTEIGEN/include"',
+    '-DRDK_INSTALL_COMIC_FONTS=OFF',
+    '-Dmaeparser_DIR="$EBROOTMAEPARSER/lib/cmake"',
+    '-Dcoordgen_DIR="$EBROOTCOORDGENLIBS/lib/cmake"',
 ]
 configopts = ' '.join(_config_opts)
 
-_src_dir = f'%(builddir)s/rdkit-Release_{_version}'
+# _src_dir = f'%(builddir)s/rdkit-Release_{_version}'
 
 # merge source directory into build directory in order to run the tests
 buildopts = '&& cp -RT %(builddir)s/%(namelower)s-*/ ./'
@@ -55,9 +143,10 @@ runtest = True
 
 testopts = (
     "-j %(parallel)s -E "
-    "'pythonSourceTests|distGeomHelpersCatch|"  # skip tests with known issues
+    # "'pythonSourceTests|distGeomHelpersCatch|"  # skip tests with known issues
+    "'pythonSourceTests|"  # skip tests with known issues
     "testGaussianShape|"  # shows platform-sensitive numerical differences in the "Fragment Mode" Catch2 test
-    "testCIPLabeler|"  # can fail intermittently with interrupted CIP label calculation
+    # "testCIPLabeler|"  # can fail intermittently with interrupted CIP label calculation
     "moldraw2DTestCatch'"  # strict MolDraw2D SVG/PNG rendering-regression checks that are sensitive to font/rendering
 )
 
@@ -70,14 +159,14 @@ postinstallcmds = [
     f'echo "Version: %(version)s" >> {_distinfodir}/METADATA',
 ]
 
-_libs = ['Alignment', 'Catalogs', 'ChemicalFeatures', 'ChemReactions', 'ChemTransforms', 'coordgen', 'DataStructs',
+_libs = ['Alignment', 'Catalogs', 'ChemicalFeatures', 'ChemReactions', 'ChemTransforms', 'DataStructs',
          'Depictor', 'Descriptors', 'DistGeometry', 'DistGeomHelpers', 'EigenSolvers', 'FileParsers', 'FilterCatalog',
          'Fingerprints', 'FMCS', 'ForceFieldHelpers', 'ForceField', 'FragCatalog', 'FreeSASALib', 'GraphMol',
-         'hc', 'InfoTheory', 'maeparser', 'MMPA', 'MolAlign', 'MolCatalog', 'MolChemicalFeatures', 'MolDraw2D',
+         'hc', 'InfoTheory', 'MMPA', 'MolAlign', 'MolCatalog', 'MolChemicalFeatures', 'MolDraw2D',
          'MolHash', 'MolInterchange', 'MolStandardize', 'MolTransforms', 'Optimizer', 'PartialCharges', 'RDBoost',
          'RDGeneral', 'RDGeometryLib', 'RDStreams', 'ReducedGraphs', 'RGroupDecomposition', 'RingDecomposerLib',
          'ScaffoldNetwork', 'ShapeHelpers', 'SimDivPickers', 'SLNParse', 'SmilesParse', 'Subgraphs',
-         'SubstructLibrary', 'SubstructMatch', 'Trajectory']
+         'SubstructLibrary', 'SubstructMatch', 'Trajectory', 'RDInchiLib',]
 
 sanity_check_paths = {
     'files': [f'lib/libRDKit{lib}.{SHLIB_EXT}' for lib in _libs],
@@ -107,6 +196,11 @@ sanity_check_commands = [
     "python -s -c 'from rdkit import Chem; from rdkit.Chem import rdCIPLabeler; "
     "m=Chem.MolFromSmiles(\"C[C@H](O)C(=O)O\"); rdCIPLabeler.AssignCIPLabels(m); "
     "assert m.GetAtomWithIdx(1).GetProp(\"_CIPCode\") == \"S\"'",
+    # check external CoordgenLibs and maeparser
+    "python -s -c 'from rdkit import Chem; from rdkit.Chem import rdCoordGen; "
+    "m=Chem.MolFromSmiles(\"CCO\"); rdCoordGen.AddCoords(m); assert m.GetNumConformers() == 1'",
+    "python -s -c 'from rdkit import Chem; from rdkit.Chem import rdDepictor; "
+    "m=Chem.MolFromSmiles(\"c1ccccc1\"); rdDepictor.Compute2DCoords(m); assert m.GetNumConformers() == 1'",
 ]
 
 moduleclass = 'chem'
