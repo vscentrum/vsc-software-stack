@@ -14,11 +14,12 @@ toolchain = {'name': 'gfbf', 'version': '2026.1'}
 
 builddependencies = [
     ('Cython', '3.2.4'),
-    ('astropy-testing', '7.1.0'),  # Only needed for test step
+    ('astropy-testing', version),  # Only needed for test step
     ('hatchling', '1.29.0'),
 ]
 dependencies = [
     ('Python', '3.14.2'),
+    ('Python-bundle-PyPI', '2026.04'),
     ('SciPy-bundle', '2026.05'),
     ('PyYAML', '6.0.3'),
     ('matplotlib', '3.10.9'),
@@ -37,8 +38,8 @@ local_pytest_args += " and not test_imports"
 
 
 exts_list = [
-    ('colorlog', '6.9.0', {
-        'checksums': ['bfba54a1b93b94f54e1f4fe48395725a3d92fd2a4af702f6bd70946bdc0c6ac2'],
+    ('colorlog', '6.10.1', {
+        'checksums': ['eb4ae5cb65fe7fec7773c2306061a8e63e02efc2c72eba9d27b0fa23c94f1321'],
     }),
     ('pyerfa', '2.0.1.5', {
         'modulename': 'erfa',
@@ -46,20 +47,13 @@ exts_list = [
     }),
     ('extension-helpers', '1.4.0', {
         'modulename': 'extension_helpers',
-        'source_tmpl': 'extension_helpers-%(version)s.tar.gz',
         'checksums': ['78d04185f196e3e0bc5fd8418ce298b014c46f7ac609f6a8c10bf70e8c978324'],
     }),
-    ('astropy-iers-data', '0.2025.10.6.0.35.25', {
-        'source_tmpl': 'astropy_iers_data-%(version)s.tar.gz',
-        'checksums': ['60a0a8ff69dcb2d3470071f444c58685b06299c48214349a1a0ce2d44e178f76'],
+    ('astropy-iers-data', '0.2026.7.13.0.54.2', {
+        'checksums': ['d86e32e95e98a86f83b5b073627442924a0f45cf61a7828da4f565a17d726c2f'],
     }),
     (name, version, {
-        'patches': ['astropy-7.0.0_test_quantities_fitting.patch'],
-        'checksums': [
-            {'astropy-7.1.0.tar.gz': 'c8f254322295b1b8cf24303d6f155bf7efdb6c1282882b966ce3040eff8c53c5'},
-            {'astropy-7.0.0_test_quantities_fitting.patch':
-             '2a55b32d8cf85f55343afc8011ea6329d1273a04e450d88414006e856f355563'},
-        ],
+        'checksums': ['45ca31d5b91fa294cd590a4791a32db94de7f9c8a343155f4d5877baa82351da'],
         # Create test installation, since Astropy tests cannot be run on the source / build dir since the import at
         # https://github.com/astropy/astropy/blob/465a7ffe0cc9c776bc668a6938d029ffb83b68de/astropy/__init__.py#L146
         # will fail
