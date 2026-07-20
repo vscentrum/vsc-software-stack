@@ -1,4 +1,3 @@
-# TODO: test this version with optarch-False and fixes + update AmberTools-25_skip-tests.patch
 easyblock = 'EB_Amber'
 
 name = 'AmberTools'
@@ -13,8 +12,7 @@ description = """AmberTools consists of several independently developed packages
  with either explicit water or generalized Born solvent models."""
 
 toolchain = {'name': 'foss', 'version': '2026.1'}
-toolchainopts = {'usempi': True, 'optarch': False}
-# toolchainopts = {'precise': True}
+toolchainopts = {'usempi': True, 'precise': True}
 
 # download requires registration
 local_download_credentials = '?Name=Easybuild&Institution=Easybuild&City=Internet&State=Other&Country=Belgium'
@@ -38,6 +36,7 @@ patches = [
     # 'AmberTools-25_skip-tests.patch',
     'AmberTools-25_fix-sander-numpy.patch',
     'AmberTools-26_recythonize-pytraj.patch',
+    'AmberTools-26_skip-tests.patch',
 ]
 checksums = [
     {'AmberTools26.tar.bz2': '5d46eef3c2bb7d5bf9e8c0c38add34406ea67e3f0e4097ac9d11d8a544538c9c'},
@@ -56,11 +55,10 @@ checksums = [
     {'AmberTools-21_fix_xray_fftpack_arg_mismatch.patch':
      '99c954e693659efc2a1d121f91510f56408006f0751d91595f45a34b03364e2f'},
     {'AmberTools-25_fix_test_missing_dirs.patch': '1c4c44cb012b625933781e9811f1657d5ddfd14cfbf4894bb1f767995eadc3b6'},
-    # {'AmberTools-25_parmed-update.patch': '2216c7883be026ce48aac7589f75749f2a42ec74f6e3ceba378d762403c50924'},
     {'AmberTools-25_fix-boost.patch': 'f4ccf7dedb5aa5b289ad5f69f3c1dc808c3fcc226d7118eaba40b108688e37cc'},
-    # {'AmberTools-25_skip-tests.patch': '3de155ba9eedcbe84eb44962e9a5e66fda9d9dfff9ad50a356750baa286f8e21'},
     {'AmberTools-25_fix-sander-numpy.patch': '82b875153927b8a0977022d608bbf51513ea936384f3059ecd41a37dfb004d5e'},
     {'AmberTools-26_recythonize-pytraj.patch': '688a9ecc22e1abd6b4bed441c78860d60fbb6e00b4505bb8bb54e554761f0005'},
+    {'AmberTools-26_skip-tests.patch': '1262368107a6ee7e712d782d3b019843b91d90f280d152220b9fefb6d958541f'},
 ]
 
 builddependencies = [
@@ -108,8 +106,8 @@ dependencies = [
 preconfigopts = "sed -i 's/Boost COMPONENTS thread system/Boost COMPONENTS thread/' "
 preconfigopts += "../cmake/3rdPartyTools.cmake "
 preconfigopts += "../AmberTools/src/quick/cmake/3rdPartyTools.cmake && "
-# preconfigopts += "sed -i 's/-O3/-O2/g' "
-# preconfigopts += "../cmake/CompilerFlags.cmake && "
+preconfigopts += "sed -i 's/-O3/-O2/g' "
+preconfigopts += "../cmake/CompilerFlags.cmake && "
 
 _fe_toolkit_path = "%(builddir)s/%(name)s/src/fe-toolkit/"
 _setup_path = "/src/python/setup.py"
@@ -137,9 +135,9 @@ for _pkg in _fe_toolkit_pkgs:
 prebuildopts += '&& '
 
 # fix pymemembed numba threads
-prebuildopts += (
-    "sed -i 's/threads=4/threads=1/' ../AmberTools/src/packmol_memgen/packmol_memgen/lib/pymemembed/optimizers.py && "
-)
+# prebuildopts += (
+#     "sed -i 's/threads=4/threads=1/' ../AmberTools/src/packmol_memgen/packmol_memgen/lib/pymemembed/optimizers.py && "
+# )
 # fix py3.14 compatibility -  ValueError: argument groups cannot be nested
 prebuildopts += (
     'sed -i '
