@@ -201,21 +201,38 @@ run_test()
 {
     label=$1
     input=$2
-    verify_dir="${workdir}/verify-${label}"
-    logfile="${workdir}/${label}.verify.log"
 
-    mkdir -p "${verify_dir}"
+    run_dir="${workdir}/run-${label}"
+    scratch_dir="${run_dir}/scratch"
+    logfile="${run_dir}/${label}.log"
+
+    mkdir -p "${run_dir}" "${scratch_dir}"
 
     echo
     echo "=== Running ${label} smoke test ==="
 
-    pymolcas verify \
-        --status \
-        --trap \
-        --fuzzy \
-        --path "${verify_dir}" \
-        "${input}" |
-        tee "${logfile}"
+    if ! (
+        cd "${run_dir}"
+
+        export Project="smoketest_${label}"
+        export WorkDir="${scratch_dir}"
+        export MOLCAS_OUTPUT=WORKDIR
+        export MOLCAS_TEST=CHECK
+        export MOLCAS_CHECK_FUZZY=YES
+        export MOLCAS_VALIDATE=YES
+        export MOLCAS_KEEP_WORKDIR=YES
+
+        pymolcas --ignore_environment "${input}"
+    ) >"${logfile}" 2>&1; then
+        cat "${logfile}"
+        echo
+        echo "ERROR: ${label} smoke test failed"
+        return 1
+    fi
+
+    cat "${logfile}"
+    echo
+    echo "${label} smoke test passed"
 }
 
 run_test libxc "${workdir}/libxc.input"
