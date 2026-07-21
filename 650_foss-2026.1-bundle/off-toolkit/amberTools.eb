@@ -12,7 +12,7 @@ description = """AmberTools consists of several independently developed packages
  with either explicit water or generalized Born solvent models."""
 
 toolchain = {'name': 'foss', 'version': '2026.1'}
-toolchainopts = {'usempi': True, 'precise': True}
+toolchainopts = {'usempi': True, 'precise': True, 'optarch': False}
 
 # download requires registration
 local_download_credentials = '?Name=Easybuild&Institution=Easybuild&City=Internet&State=Other&Country=Belgium'
@@ -36,7 +36,8 @@ patches = [
     # 'AmberTools-25_skip-tests.patch',
     'AmberTools-25_fix-sander-numpy.patch',
     'AmberTools-26_recythonize-pytraj.patch',
-    'AmberTools-26_skip-tests.patch',
+    'AmberTools-26_skip-tests2.patch',
+    'AmberTools-26_do-not-clean-QUICK-compiler-flags.patch',
 ]
 checksums = [
     {'AmberTools26.tar.bz2': '5d46eef3c2bb7d5bf9e8c0c38add34406ea67e3f0e4097ac9d11d8a544538c9c'},
@@ -58,11 +59,14 @@ checksums = [
     {'AmberTools-25_fix-boost.patch': 'f4ccf7dedb5aa5b289ad5f69f3c1dc808c3fcc226d7118eaba40b108688e37cc'},
     {'AmberTools-25_fix-sander-numpy.patch': '82b875153927b8a0977022d608bbf51513ea936384f3059ecd41a37dfb004d5e'},
     {'AmberTools-26_recythonize-pytraj.patch': '688a9ecc22e1abd6b4bed441c78860d60fbb6e00b4505bb8bb54e554761f0005'},
-    {'AmberTools-26_skip-tests.patch': '1262368107a6ee7e712d782d3b019843b91d90f280d152220b9fefb6d958541f'},
+    {'AmberTools-26_skip-tests2.patch': '81f574145499ba71ce5b6a8fe946330938c91882a7301c28ce28d0c9d8b14879'},
+    {'AmberTools-26_do-not-clean-QUICK-compiler-flags.patch':
+     'afda8643c28e730eeac26425252c9d134d1b227a21d4775d7c56f3a3a40bd875'},
 ]
 
 builddependencies = [
-    ('CMake', '4.2.1'),
+    ('CMake', '3.31.8'),
+    # ('CMake', '4.2.1'),
     ('pkgconf', '2.5.1'),
     ('Bison', '3.8.2'),
     ('flex', '2.6.4'),
@@ -145,9 +149,25 @@ prebuildopts += (
     '../AmberTools/src/mmpbsa_py/MMPBSA_mods/commandlineparser.py && '
 )
 
+# sanity_check_commands = [
+#     f"python -s -c 'import {', '.join(_fe_toolkit_pkgs)}'",
+#     "python -s -c 'import parmed'",
+# ]
+
 sanity_check_commands = [
-    f"python -s -c 'import {', '.join(_fe_toolkit_pkgs)}'",
-    "python -s -c 'import parmed'",
+    "sander --version",
+    "sander.MPI --version",
+    "cpptraj -h >/dev/null",
+    "tleap -h >/dev/null",
+    "antechamber -h >/dev/null",
+    "MMPBSA.py -h >/dev/null",
+    "packmol-memgen -h >/dev/null",
+    "parmed -h >/dev/null",
+    "pdb4amber -h >/dev/null",
+    "python -s -c 'import parmed, pdb4amber, pymsmt'",
+    "python -s -c 'import pytraj, sander'",
+    "python -s -c 'import edgembar, fetkutils, ndfes'",
+    "python -s -c 'import joblib, psutil, rich'",
 ]
 
 runtest = True
