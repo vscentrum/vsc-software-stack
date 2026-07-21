@@ -33,7 +33,7 @@ dependencies = [
 
 # fix version in OpenForceFields-Utilities
 _utilities_fix = (
-    r"""sed -i -e '/"versioningit",/d' -e 's/^dynamic = ["version"]/version = "%(version)s"/' pyproject.toml && """
+    r"""sed -i -e '/"versioningit",/d' -e 's/^dynamic = \["version"\]/version = "%(version)s"/' pyproject.toml && """
 )
 
 # fix version in OpenForceFields-Units
@@ -112,7 +112,7 @@ _fix_ambertools_version = (
         # OK rdkit = ">=2024"
         # ok - pyedr
         # ok ModuleNotFoundError: No module named 'torch', -> remove off-nagl
-        # ok openff-units 0.3.2 has requirement openff-utilities>=0.1.3, but you have openff-utilities 0.0.0.
+        # openff-units 0.3.2 has requirement openff-utilities>=0.1.3, but you have openff-utilities 0.0.0.
 
 exts_list = [
     # ('qcelemental', '0.29.0', {
