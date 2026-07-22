@@ -15,7 +15,7 @@ expected_versions = {
     "openff-toolkit": "0.18.1",
     "openff-interchange": "0.5.3",
     "openff-packmol": "0.1",
-    "openff-units": "0.3.2",
+    "openff-units": "0.4.0",
     "openff-utilities": "0.1.16",
     "openff-amber-ff-ports": "2025.9.0",
     "openforcefields": "2026.1.0",

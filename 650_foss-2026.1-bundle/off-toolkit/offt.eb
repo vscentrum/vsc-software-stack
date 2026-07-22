@@ -61,11 +61,16 @@ _fix_ambertools_version = (
 #     "pyproject.toml && "
 # )
 
+_bson_fix = (
+    "sed -i -e 's/import pkgutil/import importlib.util/' "
+    "-e 's/pkgutil[.]find_loader/importlib.util.find_spec/' setup.py && "
+)
+
 ##DEPS:
 # Openff-toolkit
     # X versioningit - build -> remove as before
     # OK numpy
-    #OK  - networkx >=2.5
+    # OK  - networkx >=2.5
     # ok - xmltodict <1.0.3
     # ok bson
     # ok cachetools
@@ -77,13 +82,13 @@ _fix_ambertools_version = (
         # ? qcportal >=0.50.0 - maybe use wheels?
         # OK pydantic <3.0.0a0
     # ? - {{ pin_subpackage('openff-toolkit-base', exact=True) }}
-    # ok - openff-nagl >=0.5.2-> DELETE
+    # NO! - openff-nagl >=0.5.2-> DELETE
         # OK - pydantic <3
-        # - pytorch >=2.6
-        # - pytorch-lightning
+        # NO - pytorch >=2.6
+        # NO - pytorch-lightning
         # OK - pyyaml
         # OK - rdkit
-        # -OK  rich
+        # OK - rich
         # OK - tqdm
     # ok - openff-forcefields
     # ok - openff-amber-ff-ports >=2025.09.0
@@ -97,11 +102,11 @@ _fix_ambertools_version = (
         # OK pydantic = "=2"
         # ok openff-toolkit-base = "0.18.*"
         # openff-interchange-base = "0.5.*"
-            #     OK - numpy <2.5
-            #     OK - openff-toolkit-base >=0.16.0,<0.19
-            #     ok - openff-units >=0.2.0,<0.4.0
+            #    OK - numpy <2.5
+            #    OK - openff-toolkit-base >=0.16.0,<0.19
+            #    ok - openff-units >=0.2.0,<0.4.0
             #    ok  - openff-utilities >=0.1.5
-            #     NO! - pydantic >=2,<2.12
+            #    OK - pydantic >=2,<2.12 -> fixed
             # run_constrained:
             #     - foyer =1
             #     - jax >=0.3
@@ -112,7 +117,7 @@ _fix_ambertools_version = (
         # OK rdkit = ">=2024"
         # ok - pyedr
         # ok ModuleNotFoundError: No module named 'torch', -> remove off-nagl
-        # openff-units 0.3.2 has requirement openff-utilities>=0.1.3, but you have openff-utilities 0.0.0.
+        # ok openff-units 0.3.2 has requirement openff-utilities>=0.1.3, but you have openff-utilities 0.0.0.
 
 exts_list = [
     # ('qcelemental', '0.29.0', {
@@ -143,9 +148,10 @@ exts_list = [
         'source_tmpl': '%(name)s-%(version)s.tar.bz2',
         'checksums': ['501d6f17afe0032dfc6ea6c0f8acc12e44f992733f00e8538961031ef27ccb8e'],
     }),
-    # ('bson', '0.5.10', {
-    #     'checksums': ['d6511b2ab051139a9123c184de1a04227262173ad593429d21e443d6462d6590'],
-    # }),
+    ('bson', '0.5.10', {
+        'preinstallopts': _bson_fix,
+        'checksums': ['d6511b2ab051139a9123c184de1a04227262173ad593429d21e443d6462d6590'],
+    }),
     ('xmltodict', '1.0.2', {
         'checksums': ['54306780b7c2175a3967cad1db92f218207e5bc1aba697d887807c0fb68b7649'],
     }),
@@ -196,13 +202,13 @@ exts_list = [
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['6036fd8efa1cc1aebe5e27b1b9ab5c80bfab770ad1d7bc78ee02c81697adfdae'],
     }),
-    ('openff-units', '0.3.2', {
+    ('openff-units', '0.4.0', {
         'modulename': 'openff.units',
         # 'preinstallopts': _units_fix,
         'preinstallopts': 'export SETUPTOOLS_SCM_PRETEND_VERSION=%(version)s && ',
         'source_urls': ['https://github.com/openforcefield/%(name)s/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'checksums': ['b39e217bd6fa186013cf09af02eb71b07249115c8f124031918dd66ba9184f15'],
+        'checksums': ['8df8ec4307769bc6473b87c0641a8eafb56eef4ff87cc10ba05eb6de362c26a6'],
     }),
     ('openff-interchange', '0.5.3', {
         'modulename': 'openff.interchange',
