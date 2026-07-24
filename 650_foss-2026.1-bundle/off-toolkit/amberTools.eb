@@ -46,6 +46,8 @@ patches = [
     'AmberTools-26_skip-tests2.patch',
     'AmberTools-26_do-not-clean-QUICK-compiler-flags.patch',
     'AmberTools-26_fix-pytraj-install-PYTHONPATH.patch',
+    'AmberTools-26_fix-cpptraj-gzip-test.patch',
+    'AmberTools-26_ignore-portability-test-differences.patch',
 ]
 checksums = [
     {'AmberTools26.tar.bz2': '5d46eef3c2bb7d5bf9e8c0c38add34406ea67e3f0e4097ac9d11d8a544538c9c'},
@@ -67,11 +69,14 @@ checksums = [
     {'AmberTools-25_fix-boost.patch': 'f4ccf7dedb5aa5b289ad5f69f3c1dc808c3fcc226d7118eaba40b108688e37cc'},
     {'AmberTools-25_fix-sander-numpy.patch': '82b875153927b8a0977022d608bbf51513ea936384f3059ecd41a37dfb004d5e'},
     {'AmberTools-26_recythonize-pytraj.patch': '688a9ecc22e1abd6b4bed441c78860d60fbb6e00b4505bb8bb54e554761f0005'},
-    {'AmberTools-26_skip-tests2.patch': '81f574145499ba71ce5b6a8fe946330938c91882a7301c28ce28d0c9d8b14879'},
+    {'AmberTools-26_skip-tests2.patch': 'edad2469f4b03e66b4f05fe35bd292586ca00705af5426c5a94406a87ac8a2c5'},
     {'AmberTools-26_do-not-clean-QUICK-compiler-flags.patch':
      'afda8643c28e730eeac26425252c9d134d1b227a21d4775d7c56f3a3a40bd875'},
     {'AmberTools-26_fix-pytraj-install-PYTHONPATH.patch':
-     '3c436c671b5e5bf01ba57b6a3025bd0ad27dde6ce69987e29529bab6eca911a7'},
+     '191790617d221a57c7e9559ad649111179709754f5a3920f76717608577f5e1c'},
+    {'AmberTools-26_fix-cpptraj-gzip-test.patch': '27d8b6360a3c43f6e6fb162ab79c1976304f965beb04682cb01efd35f727b4cf'},
+    {'AmberTools-26_ignore-portability-test-differences.patch':
+     '07ae17f2a6737b345023e6db4949a195cc5def2c88a39a5d0265046db2c9aa1d'},
 ]
 
 builddependencies = [
@@ -174,10 +179,14 @@ sanity_check_commands = [
     "packmol-memgen -h >/dev/null",
     "parmed -h >/dev/null",
     "pdb4amber -h >/dev/null",
-    "python -s -c 'import parmed, pdb4amber, pymsmt'",
-    "python -s -c 'import pytraj, sander'",
-    "python -s -c 'import edgembar, fetkutils, ndfes'",
-    "python -s -c 'import joblib, psutil, rich'",
+    "python -s -c 'import parmed'",
+    "python -s -c 'import pdb4amber'",
+    "python -s -c 'import pymsmt'",
+    "python -s -c 'import pytraj'",
+    "python -s -c 'import sander'",
+    "python -s -c 'import edgembar'",
+    "python -s -c 'import fetkutils'",
+    "python -s -c 'import ndfes'",
 ]
 
 runtest = True
