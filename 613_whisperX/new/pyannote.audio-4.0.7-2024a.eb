@@ -1,0 +1,144 @@
+easyblock = 'PythonBundle'
+
+name = 'pyannote.audio'
+version = '4.0.7'
+versionsuffix = '-CUDA-%(cudaver)s'
+local_pytorch_version = '2.7.1'
+
+homepage = 'https://github.com/pyannote'
+description = "pyannote is an open-source toolkit for speaker diarization."
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+## DEPS:
+    # ok "asteroid-filterbanks>=0.4.0",
+    # OK "einops>=0.8.1",
+    # OK "huggingface-hub>=0.28.1",
+    # OK "lightning>=2.4",
+    # ok "opentelemetry-api>=1.34.0",
+    # ok "opentelemetry-sdk>=1.34.0",
+    # ok "opentelemetry-exporter-otlp>=1.34.0",
+    # ok "pyannote-core>=6.0.1",
+        # "numpy>=2.0",
+        # "pandas>=2.2.3",
+        # "sortedcontainers>=2.4.0",
+    # "pyannote-database>=6.1.1",
+    # "pyannote-metrics>=4.0.0",
+    # "pyannote-pipeline>=4.0.0",
+    # "pytorch-metric-learning>=2.8.1",
+    # "rich>=13.9.4",
+    # "safetensors>=0.5.2",
+    # "torch-audiomentations>=0.12.0",
+    # "torch>=2.8.0",
+    # "torchaudio>=2.8.0",
+    # "torchcodec>=0.7.0",
+    # "torchmetrics>=1.6.1",
+    # "matplotlib>=3.10.0",
+    # "pyannoteai-sdk>=0.3.0",
+
+builddependencies = [
+    ('hatchling', '1.27.0'),
+    ('PDM', '2.18.2'),
+    ('Java', '21', '', SYSTEM),
+    ('CMake', '3.31.8'),
+]
+dependencies = [
+    ('CUDA', '12.6.0', '', SYSTEM),
+    ('Python', '3.12.3'),
+    ('PyTorch', local_pytorch_version, versionsuffix),
+    ('Lightning', '2.5.6', versionsuffix),
+    ('SciPy-bundle', '2024.05'),
+    ('tensorboardX', '2.6.4'),
+    ('Optuna', '4.1.0'),
+    ('einops', '0.8.1'),
+    # ('matplotlib', '3.7.2'),
+    ('ruamel.yaml', '0.18.6'),
+    # ('cffi', '1.15.1'),
+    ('libsndfile', '1.2.2'),
+    ('huggingface_hub', '0.34.4'),
+    # ('scikit-learn', '1.6.1'),
+    ('scikit-learn', '1.5.2'),
+    ('tqdm', '4.66.5'),
+    ('PyYAML', '6.0.2'),
+    ('SentencePiece', '0.2.1'),
+]
+
+exts_list = [
+    ('opentelemetry-sdk', '1.36.0', {
+        'modulename': 'opentelemetry.sdk',
+        'checksums': ['19fe048b42e98c5c1ffe85b569b7073576ad4ce0bcb6e9b4c6a39e890a6c45fb'],
+    }),
+    ('opentelemetry-api', '1.36.0', {
+        'modulename': 'opentelemetry',
+        'checksums': ['02f20bcacf666e1333b6b1f04e647dc1d5111f86b8e510238fcc56d7762cda8c'],
+    }),
+    ('opentelemetry-exporter-otlp', '1.36.0', {
+        'checksums': ['72f166ea5a8923ac42889337f903e93af57db8893de200369b07401e98e4e06b'],
+    }),
+    ('primePy', '1.3', {
+        'modulename': 'primePy',
+        'checksums': ['25fd7e25344b0789a5984c75d89f054fcf1f180bef20c998e4befbac92de4669'],
+    }),
+    ('typer', '0.20.0', {
+        'checksums': ['1aaf6494031793e4876fb0bacfa6a912b551cf43c1e63c800df8b1a866720c37'],
+    }),
+    ('torch_pitch_shift', '1.2.5', {
+        'checksums': ['6e1c7531f08d0f407a4c55e5ff8385a41355c5c5d27ab7fa08632e51defbd0ed'],
+    }),
+    ('julius', '0.2.7', {
+        'checksums': ['3c0f5f5306d7d6016fcc95196b274cae6f07e2c9596eed314e4e7641554fbb08'],
+    }),
+    ('torch_audiomentations', '0.12.0', {
+        'checksums': ['b02d4c5eb86376986a53eb405cca5e34f370ea9284411237508e720c529f7888'],
+    }),
+    ('HyperPyYAML', '1.2.2', {
+        'checksums': ['bdb734210d18770a262f500fe5755c7a44a5d3b91521b06e24f7a00a36ee0f87'],
+    }),
+    ('speechbrain', '1.0.3', {
+        'checksums': ['fcab3c6e90012cecb1eed40ea235733b550137e73da6bfa2340ba191ec714052'],
+    }),
+    ('soundfile', '0.13.1', {
+        'checksums': ['b2c68dab1e30297317080a5b43df57e302584c49e2942defdde0acccc53f0e5b'],
+    }),
+    ('semver', '3.0.4', {
+        'checksums': ['afc7d8c584a5ed0a11033af086e8af226a9c0b206f313e0301f8dd7b6b589602'],
+    }),
+    ('pytorch-metric-learning', '2.9.0', {
+        'checksums': ['27a626caf5e2876a0fd666605a78cb67ef7597e25d7a68c18053dd503830701f'],
+    }),
+    ('asteroid-filterbanks', '0.4.0', {
+        'checksums': ['415f89d1dcf2b13b35f03f7a9370968ac4e6fa6800633c522dac992b283409b9'],
+    }),
+    ('omegaconf', '2.3.0', {
+        'checksums': ['d5d4b6d29955cc50ad50c46dc269bcd92c6e00f5f90d23ab5fee7bfca4ba4cc7'],
+    }),
+    ('torchaudio', local_pytorch_version, {
+        'source_urls': ['https://github.com/pytorch/audio/archive'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['fc8159476d1b3b5978d5e66746fc34be168170800ff4c5e356433d8c9c57cbea'],
+    }),
+    ('pyannote-core', '6.0.1', {
+        'modulename': 'pyannote.core',
+        # 'preinstallopts': local_preinstallopts_versioneer,
+        'checksums': ['4b4ada3276f6df4e073fa79166636e3597d0dcb5a0fe26014a3477867cc033fb'],
+    }),
+    ('pyannote.database', '5.1.3', {
+        'checksums': ['0eaf64c1cc506718de60d2d702f1359b1ae7ff252ee3e4799f1c5e378cd52c31'],
+    }),
+    ('pyannote.metrics', '3.2.1', {
+        # 'preinstallopts': local_preinstallopts_versioneer,
+        'checksums': ['08024255a3550e96a8e9da4f5f4af326886548480de891414567c8900920ee5c'],
+    }),
+    ('pyannote.pipeline', '3.0.1', {
+        # 'preinstallopts': local_preinstallopts_versioneer,
+        'checksums': ['021794e26a2cf5d8fb5bb1835951e71f5fac33eb14e23dfb7468e16b1b805151'],
+    }),
+    (name, version, {
+        # 'source_tmpl': 'pyannote_audio-%(version)s.tar.gz', PYPI sources without requirements.txt
+        'source_urls': ['https://github.com/pyannote/pyannote-audio/archive/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['9fc8b4c96457733945d399559c328e07237a037ab7151443a81fe8473ea104ab'],
+    }),
+]
+
+moduleclass = 'tools'
