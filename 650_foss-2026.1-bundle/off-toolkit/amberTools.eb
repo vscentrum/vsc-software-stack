@@ -18,7 +18,7 @@ toolchainopts = {
     'usempi': True,
     'strict': True,
     'vectorize': False,
-    'optarch': False,
+    # 'optarch': False,
 }
 
 # download requires registration
@@ -43,11 +43,12 @@ patches = [
     # 'AmberTools-25_skip-tests.patch',
     'AmberTools-25_fix-sander-numpy.patch',
     'AmberTools-26_recythonize-pytraj.patch',
-    'AmberTools-26_skip-tests2.patch',
+    'AmberTools-26_skip-nonportable-tests.patch',
     'AmberTools-26_do-not-clean-QUICK-compiler-flags.patch',
     'AmberTools-26_fix-pytraj-install-PYTHONPATH.patch',
     'AmberTools-26_fix-cpptraj-gzip-test.patch',
     'AmberTools-26_ignore-portability-test-differences.patch',
+    'AmberTools-26_limit-pymemembed-test-threads.patch',
 ]
 checksums = [
     {'AmberTools26.tar.bz2': '5d46eef3c2bb7d5bf9e8c0c38add34406ea67e3f0e4097ac9d11d8a544538c9c'},
@@ -163,8 +164,6 @@ prebuildopts += (
     r"'s/group.add_argument_group(/parser.add_argument_group(/g' "
     '../AmberTools/src/mmpbsa_py/MMPBSA_mods/commandlineparser.py && '
 )
-
-preinstallopts = 'export AMBERHOME'
 
 # sanity_check_commands = [
 #     f"python -s -c 'import {', '.join(_fe_toolkit_pkgs)}'",

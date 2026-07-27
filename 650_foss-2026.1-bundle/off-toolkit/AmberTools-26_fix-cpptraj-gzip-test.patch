@@ -1,3 +1,16 @@
+Compare the decompressed contents in the cpptraj gzip regression test.
+
+The cpptraj general test compares the generated gzip file directly with
+a reference gzip file. Gzip streams may contain differing header
+metadata even when their decompressed payloads are identical, causing a
+false test failure from a byte-for-byte comparison.
+Decompress both gzip files and compare their contents using the existing
+cpptraj test comparison helper. This continues to verify that cpptraj
+creates a valid gzip file with the expected data without requiring the
+gzip container metadata to be reproducible.
+Add the temporary decompressed files to the test cleanup list.
+
+Author: Pavel Tomanek (Inuits/UGent) with help from ChatGPT5.6
 --- a/AmberTools/src/cpptraj/test/Test_General/RunTest.sh
 +++ b/AmberTools/src/cpptraj/test/Test_General/RunTest.sh
 @@ -5,7 +5,7 @@
