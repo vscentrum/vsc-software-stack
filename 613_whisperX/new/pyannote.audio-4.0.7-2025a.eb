@@ -30,8 +30,8 @@ toolchain = {'name': 'foss', 'version': '2025a'}
     # OK "safetensors>=0.5.2",
     # ok "torch-audiomentations>=0.12.0",
     # OK? "torch>=2.8.0",
-    # !  "torchaudio>=2.8.0",
-    # ok "torchcodec>=0.7.0",
+    # OK  "torchaudio>=2.8.0",
+    # OK in torchaudio "torchcodec>=0.7.0",
     # ok "torchmetrics>=1.6.1",
     # ok "matplotlib>=3.10.0",
     # ok "pyannoteai-sdk>=0.3.0",
@@ -49,6 +49,7 @@ dependencies = [
     ('Python', '3.13.1'),
     ('PyTorch', local_pytorch_version, versionsuffix),
     ('Lightning', '2.6.1', versionsuffix),
+    ('torchaudio', local_pytorch_version, versionsuffix),
     ('SciPy-bundle', '2025.06'),
     # ('tensorboardX', '2.6.4'),
     # ('Optuna', '4.1.0'),
@@ -64,7 +65,6 @@ dependencies = [
     # ('PyYAML', '6.0.2'),
     # ('SentencePiece', '0.2.1'),
     ('Safetensors', '0.7.0'),
-    ('FFmpeg', '7.1.1'),
 ]
 
 exts_list = [
@@ -119,20 +119,6 @@ exts_list = [
     ('torchmetrics', '1.8.2', {
         'checksums': ['cf64a901036bf107f17a524009eea7781c9c5315d130713aeca5747a686fe7a5'],
     }),
-    # ('torchcodec', '0.9.1', {
-    #     'source_urls': ['https://github.com/meta-pytorch/torchcodec/archive'],
-    #     'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-    #     'preinstallopts': (
-    #         'env ENABLE_CUDA=1 '
-    #         'I_CONFIRM_THIS_IS_NOT_A_LICENSE_VIOLATION=1 '
-    #     ),
-    #     'checksums': ['115e14811c01c49efe6d4a69224e73670961eddfdab7067b16122fa2352eb219'],
-    # }),
-    # ('torchaudio', '2.9.1', {
-    #     'source_urls': ['https://github.com/pytorch/audio/archive'],
-    #     'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-    #     'checksums': ['590492c90552959b3df6f601eb733135064bf2d9e53c516adcf6845a4e545662'],
-    # }),
     ('pyannoteai-sdk', '0.4.0', {
         'checksums': ['fbdade06eb54347374acf10698b8c9c0bcdb592f8339c90c5a16fa441ea8cf9d'],
     }),
@@ -167,45 +153,3 @@ exts_list = [
 # ]
 
 moduleclass = 'tools'
-
-# exit code: 1
-#   ╰─> [32 lines of output]
-#       Traceback (most recent call last):
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 353, in <module>
-#           main()
-#           ~~~~^^
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 335, in main
-#           json_out['return_val'] = hook(**hook_input['kwargs'])
-#                                    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 251, in build_wheel
-#           return _build_backend().build_wheel(wheel_directory, config_settings,
-#                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#                                               metadata_directory)
-#                                               ^^^^^^^^^^^^^^^^^^^
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/setuptools/build_meta.py", line 438, in build_wheel
-#           return _build(['bdist_wheel', '--dist-info-dir', str(metadata_directory)])
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/setuptools/build_meta.py", line 426, in _build
-#           return self._build_with_temp_dir(
-#                  ~~~~~~~~~~~~~~~~~~~~~~~~~^
-#               cmd,
-#               ^^^^
-#           ...<3 lines>...
-#               self._arbitrary_args(config_settings),
-#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#           )
-#           ^
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/setuptools/build_meta.py", line 407, in _build_with_temp_dir
-#           self.run_setup()
-#           ~~~~~~~~~~~~~~^^
-#         File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/setuptools/build_meta.py", line 320, in run_setup
-#           exec(code, locals())
-#           ~~~~^^^^^^^^^^^^^^^^
-#         File "<string>", line 185, in <module>
-#       ValueError: It looks like you're trying to build a wheel. You probably want to set BUILD_AGAINST_ALL_FFMPEG_FROM_S3. If you have a good reason *not* to, th
-# en set I_CONFIRM_THIS_IS_NOT_A_LICENSE_VIOLATION.
-#       [end of output]
-  
-#   note: This error originates from a subprocess, and is likely not a problem with pip.
-#   ERROR: Failed building wheel for torchcodec
-# Failed to build torchcodec
-# ERROR: ERROR: Failed to build installable wheels for some pyproject.toml based projects (torchcodec)
