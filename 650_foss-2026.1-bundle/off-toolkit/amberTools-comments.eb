@@ -40,7 +40,9 @@ patches = [
     'AmberTools-21_fix_rism_argument_mismatch.patch',
     'AmberTools-21_fix_xray_fftpack_arg_mismatch.patch',
     'AmberTools-25_fix_test_missing_dirs.patch',
+    # 'AmberTools-25_parmed-update.patch',
     'AmberTools-25_fix-boost.patch',
+    # 'AmberTools-25_skip-tests.patch',
     'AmberTools-25_fix-sander-numpy.patch',
     'AmberTools-26_recythonize-pytraj.patch',
     'AmberTools-26_skip-nonportable-tests.patch',
@@ -84,6 +86,7 @@ checksums = [
 
 builddependencies = [
     ('CMake', '3.31.8'),
+    # ('CMake', '4.2.1'),
     ('pkgconf', '2.5.1'),
     ('Bison', '3.8.2'),
     ('flex', '2.6.4'),
@@ -124,30 +127,54 @@ dependencies = [
     ('arpack-ng', '3.9.1'),
 ]
 
-# Avoid requiring the separate Boost.System library in the AmberTools and QUICK CMake configurations
+# Boost.System is header-only in Boost 1.90; only request the thread component in AmberTools and QUICK
 preconfigopts = "sed -i 's/Boost COMPONENTS thread system/Boost COMPONENTS thread/' "
 preconfigopts += "../cmake/3rdPartyTools.cmake "
 preconfigopts += "../AmberTools/src/quick/cmake/3rdPartyTools.cmake && "
-
 # Replace Amber's hard-coded -O3 with -O2 to match EasyBuild and improve numerical reproducibility
 preconfigopts += "sed -i 's/-O3/-O2/g' "
 preconfigopts += "../cmake/CompilerFlags.cmake && "
 
-# Remove the obsolete NumPy <2 upper bound from the FE-toolkit packages
 _fe_toolkit_path = "%(builddir)s/%(name)s/src/fe-toolkit/"
 _setup_path = "/src/python/setup.py"
 _fe_toolkit_pkgs = ['edgembar', 'fetkutils', 'ndfes']
-prebuildopts = """sed -i "/'numpy<2',/d" """
+prebuildopts = ''
+# recythonize pytraj files - python3.14 compability
+# prebuildopts = "cd %(builddir)s/%(name)s/src/pytraj && find . -name '*.cpp' -delete && python setup.py --cythonize && "
+# prebuildopts += "cd %(builddir)s/easybuild_obj && "
+
+# prebuildopts = "export AMBERHOME=%(builddir)s/%(name)s && "
+# prebuildopts += "cd $AMBERHOME/src/pytraj && "
+# prebuildopts += "find . -name '*.cpp' -delete && python setup.py --cythonize && "
+# prebuildopts += "cd %(builddir)s/easybuild_obj && "
+
+# prebuildopts = "export AMBERHOME=%(builddir)s/%(name)s && "
+# prebuildopts += "cd $AMBERHOME/src/pytraj && "
+# prebuildopts += "find . -name '*.cpp' -delete && "
+# prebuildopts += "python setup.py build_ext --cythonize && "
+# prebuildopts += "cd %(builddir)s/easybuild_obj && "
+
+# unpin numpy version restriction in fe-toolkit pkgs
+prebuildopts += """sed -i "/'numpy<2',/d" """
 for _pkg in _fe_toolkit_pkgs:
     prebuildopts += f"{_fe_toolkit_path}{_pkg}{_setup_path} "
 prebuildopts += '&& '
 
-# Fix py3.14 compatibility -  ValueError: argument groups cannot be nested
+# fix pymemembed numba threads
+# prebuildopts += (
+#     "sed -i 's/threads=4/threads=1/' ../AmberTools/src/packmol_memgen/packmol_memgen/lib/pymemembed/optimizers.py && "
+# )
+# fix py3.14 compatibility -  ValueError: argument groups cannot be nested
 prebuildopts += (
     'sed -i '
     r"'s/group.add_argument_group(/parser.add_argument_group(/g' "
     '../AmberTools/src/mmpbsa_py/MMPBSA_mods/commandlineparser.py && '
 )
+
+# sanity_check_commands = [
+#     f"python -s -c 'import {', '.join(_fe_toolkit_pkgs)}'",
+#     "python -s -c 'import parmed'",
+# ]
 
 sanity_check_commands = [
     "sander --version",
