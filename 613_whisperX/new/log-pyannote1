@@ -1,0 +1,49 @@
+Processing /tmp/vsc47063/easybuild/build/pyannoteaudio/4.0.7/foss-2025a-CUDA-12.8.0/pyannoteaudio/pyannote-audio-4.0.7
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × Preparing metadata (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [31 lines of output]
+      Traceback (most recent call last):
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 353, in <module>
+          main()
+          ~~~~^^
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 335, in main
+          json_out['return_val'] = hook(**hook_input['kwargs'])
+                                   ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 152, in prepare_metadata_for_build_wheel
+          whl_basename = backend.build_wheel(metadata_directory, config_settings)
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/hatchling/1.27.0-GCCcore-14.2.0/lib/python3.13/site-packages/hatchling/build.py", line 58, in build_wheel
+          return os.path.basename(next(builder.build(directory=wheel_directory, versions=['standard'])))
+                                  ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/hatchling/1.27.0-GCCcore-14.2.0/lib/python3.13/site-packages/hatchling/builders/plugin/interface.py", line 90, in build
+          self.metadata.validate_fields()
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/hatchling/1.27.0-GCCcore-14.2.0/lib/python3.13/site-packages/hatchling/metadata/core.py", line 265, in validate_fields
+          _ = self.version
+              ^^^^^^^^^^^^
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/hatchling/1.27.0-GCCcore-14.2.0/lib/python3.13/site-packages/hatchling/metadata/core.py", line 149, in version
+          self._version = self._get_version()
+                          ~~~~~~~~~~~~~~~~~^^
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/hatchling/1.27.0-GCCcore-14.2.0/lib/python3.13/site-packages/hatchling/metadata/core.py", line 248, in _get_version
+          version = self.hatch.version.cached
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/hatchling/1.27.0-GCCcore-14.2.0/lib/python3.13/site-packages/hatchling/metadata/core.py", line 1456, in cached
+          raise type(e)(message) from None
+      LookupError: Error getting the version from source `vcs`: setuptools-scm was unable to detect version for /tmp/vsc47063/easybuild/build/pyannoteaudio/4.0.7/foss-2025a-CUDA-12.8.0/pyannoteaudio/pyannote-audio-4.0.7.
+      
+      Make sure you're either building from a fully intact git repository or PyPI tarballs. Most other sources (such as GitHub's tarballs, a git checkout without the .git folder) don't contain the necessary metadata and will not work.
+      
+      For example, if you're using pip, instead of https://github.com/user/proj/archive/master.zip use git+https://github.com/user/proj.git#egg=proj
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.

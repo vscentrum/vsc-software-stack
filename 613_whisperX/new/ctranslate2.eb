@@ -81,13 +81,21 @@ exts_list = [
 ]
 
 sanity_check_paths = {
-    'files': ['bin/ct2-translator', 'lib/libctranslate2.%s' % SHLIB_EXT],
-    'dirs': ['include/ctranslate2', 'lib/python%(pyshortver)s/site-packages'],
+    'files': [
+        'bin/ct2-transformers-converter',
+        'include/ctranslate2/translator.h',
+        'lib/libctranslate2.so',
+    ],
+    'dirs': [
+        'lib/cmake/ctranslate2',
+        'lib/python%(pyshortver)s/site-packages/ctranslate2',
+    ],
 }
 
 sanity_check_commands = [
-    "python -s -c 'import ctranslate2'",
+    "python -s -c 'import ctranslate2",
     "python -m pip check",
+    "ldd %(installdir)s/lib/libctranslate2.so | grep -q 'libflexiblas\\.so'",
 ]
 
 moduleclass = 'ai'
