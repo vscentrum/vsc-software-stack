@@ -68,6 +68,9 @@ dependencies = [
 ]
 
 exts_list = [
+    ('papermill', '2.7.0', {
+        'checksums': ['ec10b37594a060662f57269e1ebd108c209d204450f00fdfeb70a1c7cfb7fbc8'],
+    }),
     ('opentelemetry-sdk', '1.44.0', {
         'modulename': 'opentelemetry.sdk',
         'checksums': ['cebe7f65dc12f26ead75c6064de12fd2a9052e5060c0272d402cfa203aae123b'],
@@ -142,6 +145,8 @@ exts_list = [
         'modulename': name,
         'source_urls': ['https://github.com/pyannote/%(name)s/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'runtest': 'pytest -v tests',
+        'testinstall': True,
         'checksums': ['d337796a0d81460b49acb200ba2792e73045b048b1cde43ac2c2e87b81dd429c'],
     }),
 ]

@@ -61,25 +61,18 @@ exts_list = [
         'preinstallopts': local_preinstall_opts,
         'source_urls': ['https://github.com/pytorch/audio/archive'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'patches': ['torchaudio-2.9.1_fix-TorchScript.patch'],
         'runtest': (
             'CUBLAS_WORKSPACE_CONFIG=:16:8 '
-            # 'export OMP_NUM_THREADS=%(parallel)s && '
-            # 'export NVIDIA_TF32_OVERRIDE=0 && '
-            'pytest test/torchaudio_unittest/'
-            # ' -k "not TestProcessPoolExecutor"'  # hang maybe related https://github.com/pytorch/audio/issues/1021
-            # '" and not FilterGraphWithCudaAccel"'  # requires FFmpeg with CUDA support
-            # '" and not kaldi_io_test"'  # requires kaldi_io
-            # '" and not test_dup_hw_acel"'  # requires special render device permissions
-            # '" and not test_h264_cuvid"'  # requires special render device permissions
-            # '" and not test_hevc_cuvid"'  # requires special render device permissions
-            # '" and not TestAutogradLfilterCUDA"'  # requires PyTorch’s nondeterministic algorithms mode
+            'pytest test/torchaudio_unittest/ '
+            # Match upstream CI: skip unsupported TorchScript tests and optional fairseq/Demucs integration tests.
+            # '-k "not torchscript and not fairseq and not demucs"'
         ),
         'testinstall': True,
         'checksums': [
             {'torchaudio-2.9.1.tar.gz': '590492c90552959b3df6f601eb733135064bf2d9e53c516adcf6845a4e545662'},
-            # {'torchaudio-2.6.0_use_ffmpeg7.patch': '9e52f964dd3fea61d9a13ffe91b85959029cfa1b6f97d5a02c8ecec3948837ea'},
-            # {'torchaudio-2.6.0_fix_tests_gpu.patch':
-            #  '42368cef5e9953e5e4fbb84dac7012d5b2797b4e7bd1493a44f9a7144d001587'},
+            {'torchaudio-2.9.1_fix-TorchScript.patch':
+             '5b00cffd756389e9ba9fdb094aa03c055ba8a9bd67c373bb8b67504b3f962cb7'},
         ],
     }),
 ]
