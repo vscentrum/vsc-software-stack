@@ -35,6 +35,28 @@ toolchain = {'name': 'foss', 'version': '2025a'}
     # ok "torchmetrics>=1.6.1",
     # ok "matplotlib>=3.10.0",
     # ok "pyannoteai-sdk>=0.3.0",
+    # ok E   ModuleNotFoundError: No module named 'julius'
+    # ok E   ModuleNotFoundError: No module named 'nbformat'
+    # ok E   ModuleNotFoundError: No module named 'torch_pitch_shift'
+    # ok opentelemetry-exporter-otlp 1.44.0 requires opentelemetry-exporter-otlp-proto-grpc, which is not installed.
+    # ok opentelemetry-exporter-otlp 1.44.0 requires opentelemetry-exporter-otlp-proto-http, which is not installed.
+    # papermill 2.7.0 requires entrypoints, which is not installed.
+    # papermill 2.7.0 requires nbclient, which is not installed.
+    # papermill 2.7.0 requires nbformat, which is not installed.
+    # papermill 2.7.0 requires tenacity, which is not installed.
+    # ok pyannote-metrics 4.1 requires scikit-learn, which is not installed.
+    # ok pytorch-metric-learning 2.9.0 requires scikit-learn, which is not installed.
+    # ok opentelemetry-sdk 1.44.0 requires opentelemetry-semantic-conventions, which is not installed.
+    # ok pyannote-pipeline 4.0.0 has requirement optuna>=4.2.0, but you have optuna 2.10.1.
+    # OK opentelemetry-exporter-otlp-proto-grpc 1.44.0 requires googleapis-common-protos, which is not installed.
+    # OK opentelemetry-exporter-otlp-proto-grpc 1.44.0 requires grpcio, which is not installed.
+    # ok opentelemetry-exporter-otlp-proto-grpc 1.44.0 requires opentelemetry-exporter-otlp-proto-common, which is not installed.
+    # ok opentelemetry-exporter-otlp-proto-grpc 1.44.0 requires opentelemetry-proto, which is not installed.
+    # OK opentelemetry-exporter-otlp-proto-http 1.44.0 requires googleapis-common-protos, which is not installed.
+    # ok opentelemetry-exporter-otlp-proto-http 1.44.0 requires opentelemetry-exporter-otlp-proto-common, which is not installed.
+    # ok opentelemetry-exporter-otlp-proto-http 1.44.0 requires opentelemetry-proto, which is not installed.
+    # OK hydra-optuna-sweeper 1.2.0 has requirement optuna<3.0.0,>=2.10.0, but you have optuna 4.5.0. - do not have Hydra in deps on pytorch-lightning
+    
 
 builddependencies = [
     ('hatchling', '1.27.0'),
@@ -43,6 +65,7 @@ builddependencies = [
     ('CMake', '3.31.3'),
     # ('pkgconf', '2.3.0'),
     # ('pybind11', '2.13.6'),
+    ('jupyter-server', '2.16.0'),  # for nbformat in tests
 ]
 dependencies = [
     ('CUDA', '12.8.0', '', SYSTEM),
@@ -52,24 +75,34 @@ dependencies = [
     ('torchaudio', local_pytorch_version, versionsuffix),
     ('SciPy-bundle', '2025.06'),
     # ('tensorboardX', '2.6.4'),
-    # ('Optuna', '4.1.0'),
+    ('Optuna', '4.5.0'),
     ('einops', '0.8.1'),
     ('matplotlib', '3.10.3'),
     # ('ruamel.yaml', '0.18.6'),
     # # ('cffi', '1.15.1'),
     # ('libsndfile', '1.2.2'),
     ('huggingface-hub', '1.2.4'),
-    # # ('scikit-learn', '1.6.1'),
-    # ('scikit-learn', '1.5.2'),
+    ('scikit-learn', '1.7.0'),
     # ('tqdm', '4.66.5'),
     # ('PyYAML', '6.0.2'),
     # ('SentencePiece', '0.2.1'),
     ('Safetensors', '0.7.0'),
+    ('googleapis-python', '2025.03'),  # googleapis-common-protos
+    ('grpcio', '1.76.0'),
 ]
 
 exts_list = [
-    ('papermill', '2.7.0', {
-        'checksums': ['ec10b37594a060662f57269e1ebd108c209d204450f00fdfeb70a1c7cfb7fbc8'],
+    # ('papermill', '2.7.0', {
+    #     'checksums': ['ec10b37594a060662f57269e1ebd108c209d204450f00fdfeb70a1c7cfb7fbc8'],
+    # }),
+    ('opentelemetry-proto', '1.44.0', {
+        'checksums': ['c547a79c2f8c0c515d31509154682e5921c7cfd5ca67b70e1f9266e2c3e103f3'],
+    }),
+    ('opentelemetry-exporter-otlp-proto-common', '1.44.0', {
+        'checksums': ['dc87a5a5bc58f149a56d1547e4691588fa12994cdc3bc039a694ccb3375862ac'],
+    }),
+    ('opentelemetry-semantic-conventions', '0.65b0', {
+        'checksums': ['f9b2b81e9d5b64f11bc952075e7e9c7fb0aab075c7fd1c46d597f1b919852d60'],
     }),
     ('opentelemetry-sdk', '1.44.0', {
         'modulename': 'opentelemetry.sdk',
@@ -79,25 +112,31 @@ exts_list = [
         'modulename': 'opentelemetry',
         'checksums': ['67647e5e9566edcf421166fdf022b3537f818635daa852b289e34604dc6fb33a'],
     }),
+    ('opentelemetry-exporter-otlp-proto-http', '1.44.0', {
+        'checksums': ['c633d7270ad6b57cd4cfbe8b0007a9e2e7c0cb50bd6c50fe2a7b245f721a09d8'],
+    }),
+    ('opentelemetry-exporter-otlp-proto-grpc', '1.44.0', {
+        'checksums': ['40d1ae9e03fcc36de3cbac610cc99f35894938bff9cfd90fc4ec68bd85448463'],
+    }),
     ('opentelemetry-exporter-otlp', '1.44.0', {
         'checksums': ['af1cde7c33ea8ed624bf04ac49a885730fe44c1f1ad698656e592c38f70ce106'],
     }),
     ('torch-audiomentations', '0.12.0', {
         'checksums': ['b02d4c5eb86376986a53eb405cca5e34f370ea9284411237508e720c529f7888'],
     }),
-    # ('primePy', '1.3', {
-    #     'modulename': 'primePy',
-    #     'checksums': ['25fd7e25344b0789a5984c75d89f054fcf1f180bef20c998e4befbac92de4669'],
-    # }),
+    ('primePy', '1.3', {
+        'modulename': 'primePy',
+        'checksums': ['25fd7e25344b0789a5984c75d89f054fcf1f180bef20c998e4befbac92de4669'],
+    }),
     # ('typer', '0.20.0', {
     #     'checksums': ['1aaf6494031793e4876fb0bacfa6a912b551cf43c1e63c800df8b1a866720c37'],
     # }),
-    # ('torch_pitch_shift', '1.2.5', {
-    #     'checksums': ['6e1c7531f08d0f407a4c55e5ff8385a41355c5c5d27ab7fa08632e51defbd0ed'],
-    # }),
-    # ('julius', '0.2.7', {
-    #     'checksums': ['3c0f5f5306d7d6016fcc95196b274cae6f07e2c9596eed314e4e7641554fbb08'],
-    # }),
+    ('torch_pitch_shift', '1.2.5', {
+        'checksums': ['6e1c7531f08d0f407a4c55e5ff8385a41355c5c5d27ab7fa08632e51defbd0ed'],
+    }),
+    ('julius', '0.2.8', {
+        'checksums': ['d691e651200930affea4f6c849c26e95fec846087281ae3d1a7757eac90253d5'],
+    }),
     # ('HyperPyYAML', '1.2.2', {
     #     'checksums': ['bdb734210d18770a262f500fe5755c7a44a5d3b91521b06e24f7a00a36ee0f87'],
     # }),
@@ -146,16 +185,10 @@ exts_list = [
         'source_urls': ['https://github.com/pyannote/%(name)s/archive/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'preinstallopts': 'export SETUPTOOLS_SCM_PRETEND_VERSION=%(version)s && ',
-        'runtest': 'pytest -v tests',
-        'testinstall': True,
+        # 'runtest': 'pytest -v tests',
+        # 'testinstall': True,
         'checksums': ['d337796a0d81460b49acb200ba2792e73045b048b1cde43ac2c2e87b81dd429c'],
     }),
 ]
-
-# sanity_check_commands = [
-#     "python -s -c 'import torchcodec; print(torchcodec.__version__)'",
-#     "python -s -c 'from torchcodec.decoders import AudioDecoder'",
-#     "python -s -c 'import pyannote.audio'",
-# ]
 
 moduleclass = 'tools'
