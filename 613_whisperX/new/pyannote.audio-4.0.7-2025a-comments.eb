@@ -10,10 +10,68 @@ description = "pyannote is an open-source toolkit for speaker diarization."
 
 toolchain = {'name': 'foss', 'version': '2025a'}
 
+## DEPS:
+    # ok "asteroid-filterbanks>=0.4.0",
+    #  OK "einops>=0.8.1",
+    #  OK "huggingface-hub>=0.28.1",
+    #  OK "lightning>=2.4",
+    #  ok "opentelemetry-api>=1.34.0",
+    # ok "opentelemetry-sdk>=1.34.0",
+    #  ok "opentelemetry-exporter-otlp>=1.34.0",
+    #  ok "pyannote-core>=6.0.1",
+        # OK "numpy>=2.0",
+        # OK "pandas>=2.2.3",
+        # OK "sortedcontainers>=2.4.0",
+    # ok "pyannote-database>=6.1.1",
+    # ok "pyannote-metrics>=4.0.0",
+    # ok "pyannote-pipeline>=4.0.0",
+    # ok "pytorch-metric-learning>=2.8.1",
+    # OK "rich>=13.9.4",
+    # OK "safetensors>=0.5.2",
+    # ok "torch-audiomentations>=0.12.0",
+    # OK? "torch>=2.8.0",
+    # OK  "torchaudio>=2.8.0",
+    # OK in torchaudio "torchcodec>=0.7.0",
+    # ok "torchmetrics>=1.6.1",
+    # ok "matplotlib>=3.10.0",
+    # ok "pyannoteai-sdk>=0.3.0",
+    # ok E   ModuleNotFoundError: No module named 'julius'
+    # ok E   ModuleNotFoundError: No module named 'nbformat'
+    # ok E   ModuleNotFoundError: No module named 'torch_pitch_shift'
+    # ok opentelemetry-exporter-otlp 1.44.0 requires opentelemetry-exporter-otlp-proto-grpc, which is not installed.
+    # ok opentelemetry-exporter-otlp 1.44.0 requires opentelemetry-exporter-otlp-proto-http, which is not installed.
+    # ok papermill 2.7.0 requires entrypoints, which is not installed.
+    # ok papermill 2.7.0 requires nbclient, which is not installed.
+    # ok papermill 2.7.0 requires nbformat, which is not installed.
+    # ok papermill 2.7.0 requires tenacity, which is not installed.
+    # ok pyannote-metrics 4.1 requires scikit-learn, which is not installed.
+    # ok pytorch-metric-learning 2.9.0 requires scikit-learn, which is not installed.
+    # ok opentelemetry-sdk 1.44.0 requires opentelemetry-semantic-conventions, which is not installed.
+    # ok pyannote-pipeline 4.0.0 has requirement optuna>=4.2.0, but you have optuna 2.10.1.
+    # OK opentelemetry-exporter-otlp-proto-grpc 1.44.0 requires googleapis-common-protos, which is not installed.
+    # OK opentelemetry-exporter-otlp-proto-grpc 1.44.0 requires grpcio, which is not installed.
+    # ok opentelemetry-exporter-otlp-proto-grpc 1.44.0 requires opentelemetry-exporter-otlp-proto-common, which is not installed.
+    # ok opentelemetry-exporter-otlp-proto-grpc 1.44.0 requires opentelemetry-proto, which is not installed.
+    # OK opentelemetry-exporter-otlp-proto-http 1.44.0 requires googleapis-common-protos, which is not installed.
+    # ok opentelemetry-exporter-otlp-proto-http 1.44.0 requires opentelemetry-exporter-otlp-proto-common, which is not installed.
+    # ok opentelemetry-exporter-otlp-proto-http 1.44.0 requires opentelemetry-proto, which is not installed.
+    # OK hydra-optuna-sweeper 1.2.0 has requirement optuna<3.0.0,>=2.10.0, but you have optuna 4.5.0. - do not have Hydra in deps on pytorch-lightning
+    # ok ModuleNotFoundError: No module named 'opentelemetry_proto',
+    # ok ModuleNotFoundError: No module named 'opentelemetry_exporter_otlp_proto_common',
+    # ok ModuleNotFoundError: No module named 'opentelemetry_semantic_conventions',
+    # ok ModuleNotFoundError: No module named 'opentelemetry_exporter_otlp_proto_http',
+    # ok ModuleNotFoundError: No module named 'opentelemetry_exporter_otlp_proto_grpc',
+    # ok ModuleNotFoundError: No module named 'opentelemetry_exporter_otlp'
+    # ok ModuleNotFoundError: No module named 'pyannoteai_sdk',
+
 builddependencies = [
     ('hatchling', '1.27.0'),
+    # ('PDM', '2.18.2'),
     ('Java', '21', '', SYSTEM),
     ('CMake', '3.31.3'),
+    # ('pkgconf', '2.3.0'),
+    # ('pybind11', '2.13.6'),
+    # ('jupyter-server', '2.16.0'),  # for nbformat in tests
 ]
 dependencies = [
     ('CUDA', '12.8.0', '', SYSTEM),
@@ -22,16 +80,23 @@ dependencies = [
     ('Lightning', '2.6.1', versionsuffix),
     ('torchaudio', local_pytorch_version, versionsuffix),
     ('SciPy-bundle', '2025.06'),
+    # ('tensorboardX', '2.6.4'),
     ('Optuna', '4.5.0'),
     ('einops', '0.8.1'),
     ('matplotlib', '3.10.3'),
+    # ('ruamel.yaml', '0.18.6'),
+    # # ('cffi', '1.15.1'),
+    # ('libsndfile', '1.2.2'),
     ('huggingface-hub', '1.2.4'),
     ('scikit-learn', '1.7.0'),
+    # ('tqdm', '4.66.5'),
+    # ('PyYAML', '6.0.2'),
+    # ('SentencePiece', '0.2.1'),
     ('Safetensors', '0.7.0'),
-    ('googleapis-python', '2025.03'),
+    ('googleapis-python', '2025.03'),  # googleapis-common-protos
     ('grpcio', '1.76.0'),
-    ('jupyter-server', '2.16.0'),
-    ('plotly.py', '6.3.1'),
+    ('jupyter-server', '2.16.0'),  # for papermill deps nbformat, nbclient
+    ('plotly.py', '6.3.1'),  # for papermill dep tenacity
 ]
 
 exts_list = [
@@ -80,18 +145,36 @@ exts_list = [
         'modulename': 'primePy',
         'checksums': ['25fd7e25344b0789a5984c75d89f054fcf1f180bef20c998e4befbac92de4669'],
     }),
+    # ('typer', '0.20.0', {
+    #     'checksums': ['1aaf6494031793e4876fb0bacfa6a912b551cf43c1e63c800df8b1a866720c37'],
+    # }),
     ('torch_pitch_shift', '1.2.5', {
         'checksums': ['6e1c7531f08d0f407a4c55e5ff8385a41355c5c5d27ab7fa08632e51defbd0ed'],
     }),
     ('julius', '0.2.8', {
         'checksums': ['d691e651200930affea4f6c849c26e95fec846087281ae3d1a7757eac90253d5'],
     }),
+    # ('HyperPyYAML', '1.2.2', {
+    #     'checksums': ['bdb734210d18770a262f500fe5755c7a44a5d3b91521b06e24f7a00a36ee0f87'],
+    # }),
+    # ('speechbrain', '1.0.3', {
+    #     'checksums': ['fcab3c6e90012cecb1eed40ea235733b550137e73da6bfa2340ba191ec714052'],
+    # }),
+    # ('soundfile', '0.13.1', {
+    #     'checksums': ['b2c68dab1e30297317080a5b43df57e302584c49e2942defdde0acccc53f0e5b'],
+    # }),
+    # ('semver', '3.0.4', {
+    #     'checksums': ['afc7d8c584a5ed0a11033af086e8af226a9c0b206f313e0301f8dd7b6b589602'],
+    # }),
     ('pytorch-metric-learning', '2.9.0', {
         'checksums': ['27a626caf5e2876a0fd666605a78cb67ef7597e25d7a68c18053dd503830701f'],
     }),
     ('asteroid-filterbanks', '0.4.0', {
         'checksums': ['415f89d1dcf2b13b35f03f7a9370968ac4e6fa6800633c522dac992b283409b9'],
     }),
+    # ('omegaconf', '2.3.0', {
+    #     'checksums': ['d5d4b6d29955cc50ad50c46dc269bcd92c6e00f5f90d23ab5fee7bfca4ba4cc7'],
+    # }),
     ('torchmetrics', '1.8.2', {
         'checksums': ['cf64a901036bf107f17a524009eea7781c9c5315d130713aeca5747a686fe7a5'],
     }),
