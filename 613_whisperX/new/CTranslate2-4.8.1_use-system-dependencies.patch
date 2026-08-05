@@ -32,7 +32,7 @@ Author: Pavel Tomanek (Inuits/UGent) with help from ChatGPT5.6
  endif()
  
  if(ENABLE_CPU_DISPATCH)
-@@ -551,20 +547,22 @@
+@@ -551,14 +547,14 @@
    message(STATUS "NVCC host compiler: ${CUDA_HOST_COMPILER}")
    message(STATUS "NVCC compilation flags: ${CUDA_NVCC_FLAGS}")
  
@@ -54,17 +54,6 @@ Author: Pavel Tomanek (Inuits/UGent) with help from ChatGPT5.6
 +  endif()
    cuda_include_directories(${THRUST_INCLUDE_DIRS})
    list(APPEND PRIVATE_INCLUDE_DIRECTORIES ${THRUST_INCLUDE_DIRS})
- 
--  set(CUTLASS_INCLUDE_DIRS
--    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/cutlass/include
--  )
-+  if(NOT CUTLASS_INCLUDE_DIRS)
-+    set(CUTLASS_INCLUDE_DIRS
-+      ${CMAKE_CURRENT_SOURCE_DIR}/third_party/cutlass/include
-+      )
-+  endif()
-   cuda_include_directories(${CUTLASS_INCLUDE_DIRS})
-   list(APPEND PRIVATE_INCLUDE_DIRECTORIES ${CUTLASS_INCLUDE_DIRS})
  
 --- orig/tests/CMakeLists.txt	2026-08-05 10:22:04.566719694 +0000
 +++ new/tests/CMakeLists.txt	2026-08-05 10:22:05.850365573 +0000
