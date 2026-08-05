@@ -1,0 +1,267 @@
+[==========] Running 360 tests from 25 test suites.
+[----------] Global test environment set-up.
+[----------] 3 tests from CrossAttentionTest
+[ RUN      ] CrossAttentionTest.MultiQueryAttention
+[       OK ] CrossAttentionTest.MultiQueryAttention (1 ms)
+[ RUN      ] CrossAttentionTest.GroupedQueryAttention
+[       OK ] CrossAttentionTest.GroupedQueryAttention (0 ms)
+[ RUN      ] CrossAttentionTest.StandardMultiHeadAttention
+[       OK ] CrossAttentionTest.StandardMultiHeadAttention (0 ms)
+[----------] 3 tests from CrossAttentionTest (1 ms total)
+
+[----------] 1 test from MergedAttentionTest
+[ RUN      ] MergedAttentionTest.ForwardMergedProducesOutput
+[       OK ] MergedAttentionTest.ForwardMergedProducesOutput (0 ms)
+[----------] 1 test from MergedAttentionTest (0 ms total)
+
+[----------] 6 tests from BatchingTest
+[ RUN      ] BatchingTest.RebatchInput
+[       OK ] BatchingTest.RebatchInput (0 ms)
+[ RUN      ] BatchingTest.BatchReaderGetNext_Examples
+[       OK ] BatchingTest.BatchReaderGetNext_Examples (0 ms)
+[ RUN      ] BatchingTest.BatchReaderGetNext_TokensFixed
+[       OK ] BatchingTest.BatchReaderGetNext_TokensFixed (0 ms)
+[ RUN      ] BatchingTest.BatchReaderGetNext_TokensDynamic
+[       OK ] BatchingTest.BatchReaderGetNext_TokensDynamic (0 ms)
+[ RUN      ] BatchingTest.BatchReaderGetNext_TokensFixed2
+[       OK ] BatchingTest.BatchReaderGetNext_TokensFixed2 (0 ms)
+[ RUN      ] BatchingTest.BatchReaderGetNext_TokensDynamic2
+[       OK ] BatchingTest.BatchReaderGetNext_TokensDynamic2 (0 ms)
+[----------] 6 tests from BatchingTest (0 ms total)
+
+[----------] 1 test from DecodingTest
+[ RUN      ] DecodingTest.DisableTokens
+[       OK ] DecodingTest.DisableTokens (0 ms)
+[----------] 1 test from DecodingTest (0 ms total)
+
+[----------] 7 tests from LayerTest
+[ RUN      ] LayerTest.MakeRelativePositions1D
+[       OK ] LayerTest.MakeRelativePositions1D (0 ms)
+[ RUN      ] LayerTest.MakeRelativePositions2D
+[       OK ] LayerTest.MakeRelativePositions2D (0 ms)
+[ RUN      ] LayerTest.MakeAsymmetricRelativePositions2D
+[       OK ] LayerTest.MakeAsymmetricRelativePositions2D (0 ms)
+[ RUN      ] LayerTest.Padder
+[       OK ] LayerTest.Padder (0 ms)
+[ RUN      ] LayerTest.PadderToMultiple
+[       OK ] LayerTest.PadderToMultiple (0 ms)
+[ RUN      ] LayerTest.PadderIgnore
+[       OK ] LayerTest.PadderIgnore (0 ms)
+[ RUN      ] LayerTest.PositionEncoderNoSharedState
+[       OK ] LayerTest.PositionEncoderNoSharedState (0 ms)
+[----------] 7 tests from LayerTest (0 ms total)
+
+[----------] 5 tests from ModelTest
+[ RUN      ] ModelTest.ContainsModel
+[       OK ] ModelTest.ContainsModel (0 ms)
+[ RUN      ] ModelTest.UpdateDecoderOutputLayer
+[       OK ] ModelTest.UpdateDecoderOutputLayer (2 ms)
+[ RUN      ] ModelTest.LayerExists
+[       OK ] ModelTest.LayerExists (0 ms)
+[ RUN      ] ModelTest.EncoderDecoderNoLength
+[       OK ] ModelTest.EncoderDecoderNoLength (6 ms)
+[ RUN      ] ModelTest.DecoderIterativeSequence
+[       OK ] ModelTest.DecoderIterativeSequence (3 ms)
+[----------] 5 tests from ModelTest (13 ms total)
+
+[----------] 4 tests from StorageViewTest
+[ RUN      ] StorageViewTest.ZeroDim
+[       OK ] StorageViewTest.ZeroDim (0 ms)
+[ RUN      ] StorageViewTest.BoolOperator
+[       OK ] StorageViewTest.BoolOperator (0 ms)
+[ RUN      ] StorageViewTest.Reshape
+[       OK ] StorageViewTest.Reshape (0 ms)
+[ RUN      ] StorageViewTest.ExpandDimsAndSqueeze
+[       OK ] StorageViewTest.ExpandDimsAndSqueeze (0 ms)
+[----------] 4 tests from StorageViewTest (0 ms total)
+
+[----------] 6 tests from OpTest
+[ RUN      ] OpTest.Transpose1D
+[       OK ] OpTest.Transpose1D (0 ms)
+[ RUN      ] OpTest.Squeeze
+[       OK ] OpTest.Squeeze (0 ms)
+[ RUN      ] OpTest.Unsqueeze
+[       OK ] OpTest.Unsqueeze (0 ms)
+[ RUN      ] OpTest.SplitNoCopyInvalidArgument
+[       OK ] OpTest.SplitNoCopyInvalidArgument (0 ms)
+[ RUN      ] OpTest.GemmInt16
+[       OK ] OpTest.GemmInt16 (0 ms)
+[ RUN      ] OpTest.QuantizeINT16
+[       OK ] OpTest.QuantizeINT16 (0 ms)
+[----------] 6 tests from OpTest (0 ms total)
+
+[----------] 7 tests from OpDeviceTest
+[ RUN      ] OpDeviceTest.SplitInvalidSize
+[       OK ] OpDeviceTest.SplitInvalidSize (0 ms)
+[ RUN      ] OpDeviceTest.SplitInvalidNumSplits
+[       OK ] OpDeviceTest.SplitInvalidNumSplits (0 ms)
+[ RUN      ] OpDeviceTest.SplitInvalidNumOutputs
+[       OK ] OpDeviceTest.SplitInvalidNumOutputs (0 ms)
+[ RUN      ] OpDeviceTest.GatherInPlaceStrictlyIncreasing
+[       OK ] OpDeviceTest.GatherInPlaceStrictlyIncreasing (0 ms)
+[ RUN      ] OpDeviceTest.GatherInPlaceIncreasing
+[       OK ] OpDeviceTest.GatherInPlaceIncreasing (0 ms)
+[ RUN      ] OpDeviceTest.GatherInPlaceDecreasing
+[       OK ] OpDeviceTest.GatherInPlaceDecreasing (0 ms)
+[ RUN      ] OpDeviceTest.GatherInPlaceLarger
+[       OK ] OpDeviceTest.GatherInPlaceLarger (0 ms)
+[----------] 7 tests from OpDeviceTest (0 ms total)
+
+[----------] 22 tests from TranslatorTest
+[ RUN      ] TranslatorTest.TranslateEmptyBatch
+[       OK ] TranslatorTest.TranslateEmptyBatch (1 ms)
+[ RUN      ] TranslatorTest.TranslateBatchWithEmptySource
+[       OK ] TranslatorTest.TranslateBatchWithEmptySource (8 ms)
+[ RUN      ] TranslatorTest.TranslateBatchWithOnlyEmptySource
+[       OK ] TranslatorTest.TranslateBatchWithOnlyEmptySource (1 ms)
+[ RUN      ] TranslatorTest.TranslateEmptySourceWithoutScore
+[       OK ] TranslatorTest.TranslateEmptySourceWithoutScore (1 ms)
+[ RUN      ] TranslatorTest.TranslateBatchWithHardPrefixAndEmpty
+[       OK ] TranslatorTest.TranslateBatchWithHardPrefixAndEmpty (9 ms)
+[ RUN      ] TranslatorTest.TranslateBatchWithStronglyBiasedPrefix
+[       OK ] TranslatorTest.TranslateBatchWithStronglyBiasedPrefix (9 ms)
+[ RUN      ] TranslatorTest.TranslateBatchWithWeaklyBiasedPrefix
+[       OK ] TranslatorTest.TranslateBatchWithWeaklyBiasedPrefix (9 ms)
+[ RUN      ] TranslatorTest.TranslatePrefixWithLargeBeam
+[       OK ] TranslatorTest.TranslatePrefixWithLargeBeam (8 ms)
+[ RUN      ] TranslatorTest.AlternativesFromPrefix
+[       OK ] TranslatorTest.AlternativesFromPrefix (10 ms)
+[ RUN      ] TranslatorTest.AlternativesFromPrefixMinExpansionProb
+[       OK ] TranslatorTest.AlternativesFromPrefixMinExpansionProb (9 ms)
+[ RUN      ] TranslatorTest.AlternativesFromPrefixBatch
+[       OK ] TranslatorTest.AlternativesFromPrefixBatch (13 ms)
+[ RUN      ] TranslatorTest.AlternativesFromScratch
+[       OK ] TranslatorTest.AlternativesFromScratch (11 ms)
+[ RUN      ] TranslatorTest.AlternativesFromScratchBatch
+[       OK ] TranslatorTest.AlternativesFromScratchBatch (14 ms)
+[ RUN      ] TranslatorTest.AlternativesFromFullTarget
+[       OK ] TranslatorTest.AlternativesFromFullTarget (7 ms)
+[ RUN      ] TranslatorTest.AlternativesMaxDecodingLength
+[       OK ] TranslatorTest.AlternativesMaxDecodingLength (8 ms)
+[ RUN      ] TranslatorTest.InvalidNumHypotheses
+[       OK ] TranslatorTest.InvalidNumHypotheses (6 ms)
+[ RUN      ] TranslatorTest.Patience
+[       OK ] TranslatorTest.Patience (8 ms)
+[ RUN      ] TranslatorTest.IgnoreScore
+[       OK ] TranslatorTest.IgnoreScore (7 ms)
+[ RUN      ] TranslatorTest.SameBeamAndGreedyScore
+[       OK ] TranslatorTest.SameBeamAndGreedyScore (9 ms)
+[ RUN      ] TranslatorTest.BeamSizeLargerThanVocabSize
+[       OK ] TranslatorTest.BeamSizeLargerThanVocabSize (11 ms)
+[ RUN      ] TranslatorTest.Scoring
+[       OK ] TranslatorTest.Scoring (7 ms)
+[ RUN      ] TranslatorTest.ScoringMaxInputLength
+[       OK ] TranslatorTest.ScoringMaxInputLength (6 ms)
+[----------] 22 tests from TranslatorTest (184 ms total)
+
+[----------] 1 test from BufferedTranslationWrapperTest
+[ RUN      ] BufferedTranslationWrapperTest.Basic
+[       OK ] BufferedTranslationWrapperTest.Basic (9 ms)
+[----------] 1 test from BufferedTranslationWrapperTest (9 ms total)
+
+[----------] 2 tests from CPU/LayerDeviceFPTest
+[ RUN      ] CPU/LayerDeviceFPTest.Alibi/float32
+[       OK ] CPU/LayerDeviceFPTest.Alibi/float32 (0 ms)
+[ RUN      ] CPU/LayerDeviceFPTest.RotaryEmbedding/float32
+[       OK ] CPU/LayerDeviceFPTest.RotaryEmbedding/float32 (0 ms)
+[----------] 2 tests from CPU/LayerDeviceFPTest (0 ms total)
+
+[----------] 6 tests from CUDA/LayerDeviceFPTest
+[ RUN      ] CUDA/LayerDeviceFPTest.Alibi/float32
+[       OK ] CUDA/LayerDeviceFPTest.Alibi/float32 (319 ms)
+[ RUN      ] CUDA/LayerDeviceFPTest.Alibi/float16
+[       OK ] CUDA/LayerDeviceFPTest.Alibi/float16 (0 ms)
+[ RUN      ] CUDA/LayerDeviceFPTest.Alibi/bfloat16
+[       OK ] CUDA/LayerDeviceFPTest.Alibi/bfloat16 (0 ms)
+[ RUN      ] CUDA/LayerDeviceFPTest.RotaryEmbedding/float32
+[       OK ] CUDA/LayerDeviceFPTest.RotaryEmbedding/float32 (635 ms)
+[ RUN      ] CUDA/LayerDeviceFPTest.RotaryEmbedding/float16
+[       OK ] CUDA/LayerDeviceFPTest.RotaryEmbedding/float16 (0 ms)
+[ RUN      ] CUDA/LayerDeviceFPTest.RotaryEmbedding/bfloat16
+[       OK ] CUDA/LayerDeviceFPTest.RotaryEmbedding/bfloat16 (0 ms)
+[----------] 6 tests from CUDA/LayerDeviceFPTest (955 ms total)
+
+[----------] 1 test from CPU/StorageViewDeviceTest
+[ RUN      ] CPU/StorageViewDeviceTest.HalfConversion/0
+[       OK ] CPU/StorageViewDeviceTest.HalfConversion/0 (0 ms)
+[----------] 1 test from CPU/StorageViewDeviceTest (0 ms total)
+
+[----------] 1 test from CUDA/StorageViewDeviceTest
+[ RUN      ] CUDA/StorageViewDeviceTest.HalfConversion/0
+[       OK ] CUDA/StorageViewDeviceTest.HalfConversion/0 (0 ms)
+[----------] 1 test from CUDA/StorageViewDeviceTest (0 ms total)
+
+[----------] 37 tests from CPU/OpDeviceFPTest
+[ RUN      ] CPU/OpDeviceFPTest.MedianFilter/float32
+[       OK ] CPU/OpDeviceFPTest.MedianFilter/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.MedianFilterShortAxis/float32
+[       OK ] CPU/OpDeviceFPTest.MedianFilterShortAxis/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Gemm/float32
+[       OK ] CPU/OpDeviceFPTest.Gemm/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.GemmBias/float32
+[       OK ] CPU/OpDeviceFPTest.GemmBias/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.GemmResidual/float32
+[       OK ] CPU/OpDeviceFPTest.GemmResidual/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.GemmGELU/float32
+[       OK ] CPU/OpDeviceFPTest.GemmGELU/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.TopK/float32
+[       OK ] CPU/OpDeviceFPTest.TopK/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.TopPMask/float32
+[       OK ] CPU/OpDeviceFPTest.TopPMask/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.SoftMax/float32
+[       OK ] CPU/OpDeviceFPTest.SoftMax/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.LogSoftMax/float32
+[       OK ] CPU/OpDeviceFPTest.LogSoftMax/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.MaskedSoftMax/float32
+[       OK ] CPU/OpDeviceFPTest.MaskedSoftMax/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.MaskedSoftMaxTriangular/float32
+[       OK ] CPU/OpDeviceFPTest.MaskedSoftMaxTriangular/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.LayerNorm/float32
+[       OK ] CPU/OpDeviceFPTest.LayerNorm/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.LayerNormAxis/float32
+[       OK ] CPU/OpDeviceFPTest.LayerNormAxis/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.RMSNorm/float32
+[       OK ] CPU/OpDeviceFPTest.RMSNorm/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Multinomial/float32
+[       OK ] CPU/OpDeviceFPTest.Multinomial/float32 (2 ms)
+[ RUN      ] CPU/OpDeviceFPTest.ReLU/float32
+[       OK ] CPU/OpDeviceFPTest.ReLU/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.GELU/float32
+[       OK ] CPU/OpDeviceFPTest.GELU/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.GELUTanh/float32
+[       OK ] CPU/OpDeviceFPTest.GELUTanh/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.GELUSigmoid/float32
+[       OK ] CPU/OpDeviceFPTest.GELUSigmoid/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Sigmoid/float32
+[       OK ] CPU/OpDeviceFPTest.Sigmoid/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Swish/float32
+[       OK ] CPU/OpDeviceFPTest.Swish/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Tanh/float32
+[       OK ] CPU/OpDeviceFPTest.Tanh/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Log/float32
+[       OK ] CPU/OpDeviceFPTest.Log/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.LogLimits/float32
+[       OK ] CPU/OpDeviceFPTest.LogLimits/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Conv1D/float32
+[       OK ] CPU/OpDeviceFPTest.Conv1D/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Conv1DNoBias/float32
+[       OK ] CPU/OpDeviceFPTest.Conv1DNoBias/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Conv1DPadding/float32
+[       OK ] CPU/OpDeviceFPTest.Conv1DPadding/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Conv1DStride/float32
+[       OK ] CPU/OpDeviceFPTest.Conv1DStride/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Conv1DPaddingAndStride/float32
+[       OK ] CPU/OpDeviceFPTest.Conv1DPaddingAndStride/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Conv1DDilation/float32
+/tmp/vsc47063/easybuild/build/CTranslate2/4.8.1/foss-2025a-CUDA-12.8.0/CTranslate2-4.8.1/tests/ops_test.cc:1279: Skipped
+Dilated convolution is not implemented for CPU.
+
+[  SKIPPED ] CPU/OpDeviceFPTest.Conv1DDilation/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Conv1DGELU/float32
+[       OK ] CPU/OpDeviceFPTest.Conv1DGELU/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Conv1DGroupNoBias/float32
+[       OK ] CPU/OpDeviceFPTest.Conv1DGroupNoBias/float32 (0 ms)
+[ RUN      ] CPU/OpDeviceFPTest.Conv1DGroupNoBiasQuantized/float32
+terminate called recursively
+terminate called recursively
+terminate called recursively

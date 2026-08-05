@@ -1,0 +1,134 @@
+easyblock = 'CMakeMake'
+
+name = 'CTranslate2'
+version = '4.8.1'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://opennmt.net/CTranslate2/'
+description = "Fast inference engine for Transformer models."
+
+toolchain = {'name': 'foss', 'version': '2025a'}
+
+source_urls = ['https://github.com/OpenNMT/CTranslate2/archive/']
+sources = [{
+    "download_filename": "v%(version)s.tar.gz",
+    "filename": SOURCE_TAR_GZ,
+}]
+patches = [
+    # 'CTranslate2-4.5.0_fix-third-party.patch',
+    # 'CTranslate2-4.5.0_fix-tests.patch',
+    # 'CTranslate2-4.5.0_replace-cxxopts.patch',
+    'CTranslate2-4.8.1_use-system-dependencies.patch',
+    'CTranslate2-4.8.1_fix-tests.patch',
+]
+checksums = [
+    {'CTranslate2-4.8.1.tar.gz': '05c4e8a42c8573d0c79782e8408037c16db143334b6f4ee1cef23aa3b08a4dfa'},
+    {'CTranslate2-4.8.1_use-system-dependencies.patch':
+     'b536eaaad8a2880e6c8eedb13d19b5f6c9985a7511dbe5b0a6f90a49dee0f171'},
+    {'CTranslate2-4.8.1_fix-tests.patch': 'b5b9c5997c7c00cb457752df74dc262b45e1b871ca9d89d48eecd213b68f9645'},
+]
+
+# sources = [
+#     {
+#         'download_filename': 'v%(version)s.tar.gz',
+#         'filename': SOURCE_TAR_GZ,
+#     },
+#     {
+#         'filename': 'pi_lm_step_5000.pt',
+#         'source_urls': ['https://opennmt-models.s3.amazonaws.com/'],
+#         'extract_cmd': (
+#             'cp %s '
+#             '%(builddir)s/CTranslate2-%(version)s/tests/data/models/'
+#         ),
+#     },
+#     {
+#         'filename': 'transliteration-aren-all.tar.gz',
+#         'source_urls': ['https://opennmt-models.s3.amazonaws.com/'],
+#         'extract_cmd': (
+#             'tar -xzf %s -C '
+#             '%(builddir)s/CTranslate2-%(version)s/tests/data/models'
+#         ),
+#     },
+# ]
+
+builddependencies = [
+    ('CMake', '3.31.3'),
+    ('pybind11', '2.13.6'),
+    # ('cxxopts', '3.0.0', '', SYSTEM),
+    ('spdlog', '1.15.3'),
+    ('cpu_features', '0.10.1'),
+    ('googletest', '1.17.0'),
+    ('CCCL', '2.7.0', versionsuffix),
+]
+dependencies = [
+    ('CUDA', '12.8.0', '', SYSTEM),
+    ('Python', '3.13.1'),
+    ('SciPy-bundle', '2025.06'),
+    ('PyYAML', '6.0.2'),
+]
+
+# make sure that CTranslate2 libraries are linked to FlexiBLAS, not OpenBLAS
+# preconfigopts = "export CMAKE_INCLUDE_PATH=$EBROOTFLEXIBLAS/include/flexiblas:${CMAKE_INCLUDE_PATH} && "
+# preconfigopts += "sed -i 's/openblas/flexiblas/g' %(start_dir)s/CMakeLists.txt && "
+
+# configopts = '-DOPENMP_RUNTIME=COMP -DWITH_CUDA=ON -DWITH_MKL=OFF '
+# configopts += '-DOPENBLAS_INCLUDE_DIR="$EBROOTFLEXIBLAS/include" -DWITH_OPENBLAS=ON '
+# # configopts += '-DWITH_CUDNN=ON '
+# configopts += '-DENABLE_CPU_DISPATCH=OFF '
+configopts = ' '.join([
+    '-DWITH_CUDA=ON',
+    # Since v4.6.3, CTranslate2 has a native CUDA Conv1d implementation
+    '-DWITH_CUDNN=OFF',
+    '-DWITH_MKL=OFF',
+    '-DWITH_OPENBLAS=ON',
+    '-DOPENBLAS_INCLUDE_DIR="$EBROOTFLEXIBLAS/include/flexiblas"',
+    '-DOPENBLAS_LIBRARY="$EBROOTFLEXIBLAS/lib/libflexiblas.so"',
+    '-DOPENMP_RUNTIME=COMP',
+    '-DENABLE_CPU_DISPATCH=OFF',
+    # ct2-translator not requiered
+    '-DBUILD_CLI=OFF',
+    '-DBUILD_TESTS=ON',
+    '-DCUDA_ARCH_LIST="%(cuda_cc_space_sep)s"',
+    '-DTHRUST_INCLUDE_DIRS="$EBROOTCCCL/include"',
+])
+
+# prebuildopts = 'export CT2_VERBOSE=3 && '
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    # 'source_urls': [PYPI_SOURCE],
+    'installopts': '',
+    'runtest': False,
+}
+
+exts_list = [
+    ('ctranslate2', version, {
+        'preinstallopts': "export CTRANSLATE2_ROOT=%(installdir)s && ",
+        'sources': ['CTranslate2-%(version)s.tar.gz'],
+        'start_dir': 'python',
+        'checksums': ['05c4e8a42c8573d0c79782e8408037c16db143334b6f4ee1cef23aa3b08a4dfa'],
+    }),
+]
+
+test_cmd = './tests/ctranslate2_test %(start_dir)s/tests/data'
+runtest = True
+
+sanity_check_paths = {
+    'files': [
+        'bin/ct2-transformers-converter',
+        'include/ctranslate2/translator.h',
+        'lib/libctranslate2.so',
+    ],
+    'dirs': [
+        'lib/cmake/ctranslate2',
+        'lib/python%(pyshortver)s/site-packages/ctranslate2',
+    ],
+}
+
+sanity_check_commands = [
+    "python -s -c 'import ctranslate2'",
+    "python -s -m pip check",
+    "ldd %(installdir)s/lib/libctranslate2.so | grep -q 'libflexiblas\\.so'",
+]
+
+moduleclass = 'ai'
