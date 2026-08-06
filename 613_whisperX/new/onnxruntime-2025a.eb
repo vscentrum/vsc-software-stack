@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'ONNX-Runtime'
-version = '1.23.2'
+version = '1.26.0'
 versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://onnxruntime.ai'
@@ -16,19 +16,19 @@ and transforms."""
 toolchain = {'name': 'foss', 'version': '2025a'}
 
 builddependencies = [
-    ('CMake', '3.31.8'),
+    ('CMake', '3.31.3'),
     ('Ninja', '1.12.1'),
     ('Eigen', '3.4.0'),
 ]
 dependencies = [
-    ('CUDA', '12.6.0', '', SYSTEM),
-    ('cuDNN', '9.5.1.17', versionsuffix, SYSTEM),
-    ('Python', '3.12.3'),
-    ('SciPy-bundle', '2024.05'),
-    ('ONNX', '1.20.0'),
-    ('flatbuffers-python', '24.3.25'),
-    ('sympy', '1.13.3'),
-    ('Abseil', '20240722.0'),
+    ('CUDA', '12.8.0', '', SYSTEM),
+    ('cuDNN', '9.10.1.4', versionsuffix, SYSTEM),
+    ('Python', '3.13.1'),
+    ('SciPy-bundle', '2025.06'),
+    ('ONNX', '1.21.0'),
+    ('flatbuffers-python', '25.2.10'),
+    ('sympy', '1.14.0'),
+    ('Abseil', '20250512.1'),
 ]
 
 # CUSTOM BUILD
