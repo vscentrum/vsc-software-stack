@@ -1,0 +1,314 @@
+2026-08-07 12:02:32,852 build [DEBUG] - Command line arguments:
+  --build_dir /tmp/vsc47063/easybuild/build/ONNXRuntime/1.26.0/foss-2025a-CUDA-12.8.0/ONNXRuntime/onnxruntime-1.26.0/build/Linux --config Release --update --build --parallel 8 --use_cuda --cuda_home=/apps/gent/RHEL9/cascadelake-ampere-ib/software/CUDA/12.8.0 --cudnn_home=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/cuDNN/9.10.1.4-CUDA-12.8.0 --cuda_version=12.8 --skip_tests --build_shared_lib --build_wheel --skip_submodule_sync --cmake_generator Ninja --compile_no_warning_as_error --cmake_extra_defines absl_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Abseil/20250512.1-GCCcore-14.2.0/lib/cmake/absl Protobuf_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/protobuf/31.1-GCCcore-14.2.0/lib/cmake/protobuf ONNX_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/ONNX/1.21.0-gfbf-2025a/lib/cmake/ONNX CMAKE_CUDA_ARCHITECTURES=86 ONNXRUNTIME_VERSION=1.26.0
+2026-08-07 12:02:32,858 build [INFO] - Build started
+2026-08-07 12:02:32,858 build [INFO] - Generating CMake build tree
+2026-08-07 12:02:32,958 build [INFO] - /apps/gent/RHEL9/cascadelake-ib/software/CMake/3.31.3-GCCcore-14.2.0/bin/cmake /tmp/vsc47063/easybuild/build/ONNXRuntime/1.26.0/foss-2025a-CUDA-12.8.0/ONNXRuntime/onnxruntime-1.26.0/cmake --compile-no-warning-as-error -Donnxruntime_ENABLE_EXTERNAL_CUSTOM_OP_SCHEMAS=OFF -Donnxruntime_RUN_ONNX_TESTS=OFF -Donnxruntime_GENERATE_TEST_REPORTS=ON -DPython_EXECUTABLE=/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/bin/python3 -Donnxruntime_USE_VCPKG=OFF -Donnxruntime_USE_MIMALLOC=OFF -Donnxruntime_ENABLE_PYTHON=ON -Donnxruntime_BUILD_CSHARP=OFF -Donnxruntime_BUILD_JAVA=OFF -Donnxruntime_BUILD_NODEJS=OFF -Donnxruntime_BUILD_OBJC=OFF -Donnxruntime_BUILD_SHARED_LIB=ON -Donnxruntime_BUILD_APPLE_FRAMEWORK=OFF -Donnxruntime_USE_DNNL=OFF -Donnxruntime_USE_NNAPI_BUILTIN=OFF -Donnxruntime_USE_VSINPU=OFF -Donnxruntime_USE_RKNPU=OFF -Donnxruntime_ENABLE_MICROSOFT_INTERNAL=OFF -Donnxruntime_USE_VITISAI=OFF -Donnxruntime_USE_TENSORRT=OFF -Donnxruntime_USE_NV=OFF -Donnxruntime_USE_TENSORRT_BUILTIN_PARSER=ON -Donnxruntime_USE_TENSORRT_INTERFACE=OFF -Donnxruntime_USE_CUDA_INTERFACE=OFF -Donnxruntime_USE_NV_INTERFACE=OFF -Donnxruntime_USE_OPENVINO_INTERFACE=OFF -Donnxruntime_USE_VITISAI_INTERFACE=OFF -Donnxruntime_USE_QNN_INTERFACE=OFF -Donnxruntime_USE_MIGRAPHX_INTERFACE=OFF -Donnxruntime_USE_MIGRAPHX=OFF -Donnxruntime_DISABLE_CONTRIB_OPS=OFF -Donnxruntime_DISABLE_ML_OPS=OFF -Donnxruntime_DISABLE_GENERATION_OPS=OFF -Donnxruntime_DISABLE_RTTI=OFF -Donnxruntime_DISABLE_EXCEPTIONS=OFF -Donnxruntime_MINIMAL_BUILD=OFF -Donnxruntime_EXTENDED_MINIMAL_BUILD=OFF -Donnxruntime_MINIMAL_BUILD_CUSTOM_OPS=OFF -Donnxruntime_REDUCED_OPS_BUILD=OFF -Donnxruntime_CLIENT_PACKAGE_BUILD=OFF -Donnxruntime_ENABLE_SESSION_THREADPOOL_CALLBACKS=OFF -Donnxruntime_BUILD_MS_EXPERIMENTAL_OPS=OFF -Donnxruntime_ENABLE_LTO=OFF -Donnxruntime_USE_ACL=OFF -Donnxruntime_USE_JSEP=OFF -Donnxruntime_USE_WEBGPU=OFF -Donnxruntime_USE_EXTERNAL_DAWN=OFF -Donnxruntime_WGSL_TEMPLATE=static -Donnxruntime_ENABLE_NVTX_PROFILE=OFF -Donnxruntime_ENABLE_TRAINING=OFF -Donnxruntime_ENABLE_TRAINING_OPS=OFF -Donnxruntime_ENABLE_TRAINING_APIS=OFF -Donnxruntime_ENABLE_CPU_FP16_OPS=OFF -Donnxruntime_USE_NCCL=OFF -Donnxruntime_BUILD_BENCHMARKS=OFF -Donnxruntime_GCOV_COVERAGE=OFF -Donnxruntime_ENABLE_MEMORY_PROFILE=OFF -Donnxruntime_ENABLE_CUDA_LINE_NUMBER_INFO=OFF -Donnxruntime_USE_CUDA_NHWC_OPS=ON -Donnxruntime_BUILD_WEBASSEMBLY_STATIC_LIB=OFF -Donnxruntime_ENABLE_WEBASSEMBLY_EXCEPTION_CATCHING=ON -Donnxruntime_ENABLE_WEBASSEMBLY_API_EXCEPTION_CATCHING=OFF -Donnxruntime_ENABLE_WEBASSEMBLY_EXCEPTION_THROWING=ON -Donnxruntime_WEBASSEMBLY_RUN_TESTS_IN_BROWSER=OFF -Donnxruntime_ENABLE_WEBASSEMBLY_JSPI=OFF -Donnxruntime_ENABLE_WEBASSEMBLY_THREADS=OFF -Donnxruntime_ENABLE_WEBASSEMBLY_DEBUG_INFO=OFF -Donnxruntime_ENABLE_WEBASSEMBLY_PROFILING=OFF -Donnxruntime_ENABLE_LAZY_TENSOR=OFF -Donnxruntime_ENABLE_CUDA_PROFILING=OFF -Donnxruntime_USE_XNNPACK=OFF -Donnxruntime_USE_WEBNN=OFF -Donnxruntime_USE_CANN=OFF -Donnxruntime_DISABLE_FLOAT8_TYPES=OFF -Donnxruntime_DISABLE_FLOAT4_TYPES=OFF -Donnxruntime_DISABLE_SPARSE_TENSORS=OFF -Donnxruntime_DISABLE_OPTIONAL_TYPE=OFF -Donnxruntime_DISABLE_STRING_TYPE=OFF -Donnxruntime_CUDA_MINIMAL=OFF -Donnxruntime_NVCC_THREADS=4 -DCMAKE_CUDA_COMPILER=/apps/gent/RHEL9/cascadelake-ampere-ib/software/CUDA/12.8.0/bin/nvcc -DCUDA_CUDA_LIBRARY=/apps/gent/RHEL9/cascadelake-ampere-ib/software/CUDA/12.8.0/lib64/stubs -Donnxruntime_USE_KLEIDIAI=ON -Donnxruntime_USE_SVE=ON -Dabsl_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Abseil/20250512.1-GCCcore-14.2.0/lib/cmake/absl -DProtobuf_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/protobuf/31.1-GCCcore-14.2.0/lib/cmake/protobuf -DONNX_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/ONNX/1.21.0-gfbf-2025a/lib/cmake/ONNX -DCMAKE_CUDA_ARCHITECTURES=86 -DONNXRUNTIME_VERSION=1.26.0 -Donnxruntime_USE_CUDA=ON -Donnxruntime_CUDA_VERSION=12.8 -Donnxruntime_CUDA_HOME=/apps/gent/RHEL9/cascadelake-ampere-ib/software/CUDA/12.8.0 -Donnxruntime_CUDNN_HOME=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/cuDNN/9.10.1.4-CUDA-12.8.0 -G Ninja -DCMAKE_BUILD_TYPE=Release
+CMake Deprecation Warning at CMakeLists.txt:9 (cmake_policy):
+  The OLD behavior for policy CMP0104 will be removed from a future version
+  of CMake.
+
+  The cmake-policies(7) manual explains that the OLD behaviors of all
+  policies are deprecated and that a policy should be set to OLD only under
+  specific short-term circumstances.  Projects should be ported to the NEW
+  behavior and not rely on setting a policy to OLD.
+
+Ignoring COMPILE_WARNING_AS_ERROR target property and CMAKE_COMPILE_WARNING_AS_ERROR variable.
+
+-- The C compiler identification is GNU 14.2.0
+-- The CXX compiler identification is GNU 14.2.0
+-- The ASM compiler identification is GNU
+-- Found assembler: /tmp/vsc47063/eb-tkvn2i96/tmphngtvn82/rpath_wrappers/gcc_wrapper/gcc
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /tmp/vsc47063/eb-tkvn2i96/tmphngtvn82/rpath_wrappers/gcc_wrapper/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /tmp/vsc47063/eb-tkvn2i96/tmphngtvn82/rpath_wrappers/gxx_wrapper/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Setting CMAKE_C_STANDARD to 99
+-- Setting CMAKE_CXX_STANDARD to 20
+-- onnxruntime_target_platform = x86_64
+-- Performing Test COMPILER_SUPPORT_MF16C
+-- Performing Test COMPILER_SUPPORT_MF16C - Success
+-- Performing Test COMPILER_SUPPORT_FMA
+-- Performing Test COMPILER_SUPPORT_FMA - Success
+-- Performing Test COMPILER_SUPPORT_AVX
+-- Performing Test COMPILER_SUPPORT_AVX - Success
+-- Performing Test onnxruntime_HAVE_BUILTIN_ATOMICS
+-- Performing Test onnxruntime_HAVE_BUILTIN_ATOMICS - Success
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test Iconv_IS_BUILT_IN
+-- Performing Test Iconv_IS_BUILT_IN - Failed
+-- Found Iconv: /apps/gent/RHEL9/cascadelake-ib/software/libiconv/1.18-GCCcore-14.2.0/lib/libiconv.so (found version "1.18")
+-- Found Patch: /usr/bin/patch
+Patch found: /usr/bin/patch
+-- Found Python: /apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/bin/python3 (found suitable version "3.13.1", minimum required is "3.10") found components: Interpreter Development.Module NumPy
+Numpy version: 2.3.1
+CMake Warning at CMakeLists.txt:546 (message):
+  onnxruntime_USE_SVE was set but it is not supported on this platform.  It
+  will be disabled.
+
+
+CMake Warning at CMakeLists.txt:557 (message):
+  KleidiAI is not supported on this platform.
+Call Stack (most recent call first):
+  CMakeLists.txt:573 (is_kleidiai_supported)
+
+
+CMake Warning at CMakeLists.txt:576 (message):
+  onnxruntime_USE_KLEIDIAI was set but it is not supported.  It will be
+  disabled.
+
+
+-- Loading Dependencies URLs ...
+-- Loading Dependencies ...
+-- Fetch abseil_cpp from https://github.com/abseil/abseil-cpp/archive/refs/tags/20250814.0.zip
+-- Abseil source dir:
+-- Abseil version:20250512
+-- Fetch re2 from https://github.com/google/re2/archive/refs/tags/2024-07-02.zip
+-- Fetch googletest from https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
+-- Fetch Protobuf from https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.12.zip
+-- Found ZLIB: /apps/gent/RHEL9/cascadelake-ib/software/zlib/1.3.1-GCCcore-14.2.0/lib/libz.so (found version "1.3.1")
+-- Using protobuf from find_package(or vcpkg). Protobuf version: 31.1.0
+-- Fetch date from https://github.com/HowardHinnant/date/archive/refs/tags/v3.0.1.zip
+CMake Deprecation Warning at /tmp/vsc47063/easybuild/build/ONNXRuntime/1.26.0/foss-2025a-CUDA-12.8.0/ONNXRuntime/onnxruntime-1.26.0/build/Linux/Release/_deps/date-src/CMakeLists.txt:18 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+# date: USE_SYSTEM_TZ_DB ON
+# date: MANUAL_TZ_DB OFF
+# date: USE_TZ_DB_IN_DOT OFF
+# date: BUILD_SHARED_LIBS OFF
+# date: ENABLE_DATE_TESTING OFF
+# date: DISABLE_STRING_VIEW OFF
+-- Fetch mp11 from https://github.com/boostorg/mp11/archive/refs/tags/boost-1.82.0.zip
+CMake Warning (dev) at /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.31.3-GCCcore-14.2.0/share/cmake-3.31/Modules/FetchContent.cmake:1953 (message):
+  Calling FetchContent_Populate(mp11) is deprecated, call
+  FetchContent_MakeAvailable(mp11) instead.  Policy CMP0169 can be set to OLD
+  to allow FetchContent_Populate(mp11) to be called directly for now, but the
+  ability to call it with declared details will be removed completely in a
+  future version.
+Call Stack (most recent call first):
+  external/onnxruntime_external_deps.cmake:295 (FetchContent_Populate)
+  CMakeLists.txt:588 (include)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Fetch nlohmann_json from https://github.com/nlohmann/json/archive/refs/tags/v3.11.3.zip
+-- Using the multi-header code from /tmp/vsc47063/easybuild/build/ONNXRuntime/1.26.0/foss-2025a-CUDA-12.8.0/ONNXRuntime/onnxruntime-1.26.0/build/Linux/Release/_deps/nlohmann_json-src/include/
+-- Applying sysfs fallback patch for cpuinfo on Linux
+-- Fetch pytorch_cpuinfo from https://github.com/pytorch/cpuinfo/archive/403d652dca4c1046e8145950b1c0997a9f748b57.zip
+-- Fetch GSL from https://github.com/microsoft/GSL/archive/refs/tags/v4.0.0.zip
+-- Fetch safeint from https://github.com/dcleblanc/SafeInt/archive/refs/tags/3.0.28.zip
+CMake Warning (dev) at /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.31.3-GCCcore-14.2.0/share/cmake-3.31/Modules/FetchContent.cmake:1953 (message):
+  Calling FetchContent_Populate(safeint) is deprecated, call
+  FetchContent_MakeAvailable(safeint) instead.  Policy CMP0169 can be set to
+  OLD to allow FetchContent_Populate(safeint) to be called directly for now,
+  but the ability to call it with declared details will be removed completely
+  in a future version.
+Call Stack (most recent call first):
+  external/onnxruntime_external_deps.cmake:448 (FetchContent_Populate)
+  CMakeLists.txt:588 (include)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Fetch flatbuffers from https://github.com/google/flatbuffers/archive/refs/tags/v23.5.26.zip
+-- Proceeding with version: 23.5.26.0
+-- Looking for strtof_l
+-- Looking for strtof_l - found
+-- Looking for strtoull_l
+-- Looking for strtoull_l - found
+-- Looking for realpath
+-- Looking for realpath - found
+-- CMAKE_CXX_FLAGS: -O2 -ftree-vectorize -march=native -fno-math-errno -ffunction-sections -fdata-sections
+-- Fetch pybind11_project from https://github.com/pybind/pybind11/archive/refs/tags/v3.0.2.zip
+-- pybind11 v3.0.2 
+-- Performing Test HAS_FLTO_AUTO
+-- Performing Test HAS_FLTO_AUTO - Success
+Setting pybind11_lib
+-- Fetch onnx from https://github.com/onnx/onnx/archive/refs/tags/v1.21.0.zip
+-- Aliasing ONNX::onnx to onnx
+-- Aliasing ONNX::onnx_proto to onnx_proto
+-- Fetch Eigen3 from https://github.com/eigen-mirror/eigen/archive/1d8b82b0740839c0de7f1242a3585e3390ff5f33/eigen-1d8b82b0740839c0de7f1242a3585e3390ff5f33.zip
+-- 
+-- Configured Eigen 3.4.90
+-- 
+-- dlpack is enabled.
+-- Fetch dlpack from https://github.com/dmlc/dlpack/archive/5c210da409e7f1e51ddf445134a4376fdbd70d7d.zip
+-- C++11 support has been enabled by default.
+-- Found CUDAToolkit: /apps/gent/RHEL9/cascadelake-ampere-ib/software/CUDA/12.8.0/targets/x86_64-linux/include (found version "12.8.61")
+-- cudnn found at /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/cuDNN/9.10.1.4-CUDA-12.8.0/lib/libcudnn.so.
+-- Found LIBRARY: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/cuDNN/9.10.1.4-CUDA-12.8.0/include
+-- cuDNN: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/cuDNN/9.10.1.4-CUDA-12.8.0/lib/libcudnn.so
+-- cuDNN: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/cuDNN/9.10.1.4-CUDA-12.8.0/include
+-- Finished fetching external dependencies
+-- Performing Test HAS_AMBIGUOUS_REVERSED_OPERATOR
+-- Performing Test HAS_AMBIGUOUS_REVERSED_OPERATOR - Failed
+-- Performing Test HAS_INTERFERENCE_SIZE
+-- Performing Test HAS_INTERFERENCE_SIZE - Success
+-- Performing Test HAS_ARRAY_BOUNDS
+-- Performing Test HAS_ARRAY_BOUNDS - Success
+-- Performing Test HAS_BITWISE_INSTEAD_OF_LOGICAL
+-- Performing Test HAS_BITWISE_INSTEAD_OF_LOGICAL - Failed
+-- Performing Test HAS_CAST_FUNCTION_TYPE
+-- Performing Test HAS_CAST_FUNCTION_TYPE - Success
+-- Performing Test HAS_CATCH_VALUE
+-- Performing Test HAS_CATCH_VALUE - Success
+-- Performing Test HAS_CLASS_MEMACCESS
+-- Performing Test HAS_CLASS_MEMACCESS - Success
+-- Performing Test HAS_CHARACTER_CONVERSION
+-- Performing Test HAS_CHARACTER_CONVERSION - Failed
+-- Performing Test HAS_DANGLING_REFERENCE
+-- Performing Test HAS_DANGLING_REFERENCE - Success
+-- Performing Test HAS_DEPRECATED_ANON_ENUM_ENUM_CONVERSION
+-- Performing Test HAS_DEPRECATED_ANON_ENUM_ENUM_CONVERSION - Failed
+-- Performing Test HAS_DEPRECATED_BUILTINS
+-- Performing Test HAS_DEPRECATED_BUILTINS - Failed
+-- Performing Test HAS_DEPRECATED_COPY
+-- Performing Test HAS_DEPRECATED_COPY - Success
+-- Performing Test HAS_DEPRECATED_DECLARATIONS
+-- Performing Test HAS_DEPRECATED_DECLARATIONS - Success
+-- Performing Test HAS_DEPRECATED_LITERAL_OPERATOR
+-- Performing Test HAS_DEPRECATED_LITERAL_OPERATOR - Failed
+-- Performing Test HAS_DEPRECATED_THIS_CAPTURE
+-- Performing Test HAS_DEPRECATED_THIS_CAPTURE - Failed
+-- Performing Test HAS_ENUM_CONSTEXPR_CONVERSION
+-- Performing Test HAS_ENUM_CONSTEXPR_CONVERSION - Failed
+-- Performing Test HAS_FORMAT_TRUNCATION
+-- Performing Test HAS_FORMAT_TRUNCATION - Success
+-- Performing Test HAS_IGNORED_ATTRIBUTES
+-- Performing Test HAS_IGNORED_ATTRIBUTES - Success
+-- Performing Test HAS_MAYBE_UNINITIALIZED
+-- Performing Test HAS_MAYBE_UNINITIALIZED - Success
+-- Performing Test HAS_MISSING_BRACES
+-- Performing Test HAS_MISSING_BRACES - Success
+-- Performing Test HAS_NONNULL_COMPARE
+-- Performing Test HAS_NONNULL_COMPARE - Success
+-- Performing Test HAS_PARENTHESES
+-- Performing Test HAS_PARENTHESES - Success
+-- Performing Test HAS_SHORTEN_64_TO_32
+-- Performing Test HAS_SHORTEN_64_TO_32 - Failed
+-- Performing Test HAS_STRICT_ALIASING
+-- Performing Test HAS_STRICT_ALIASING - Success
+-- Performing Test HAS_STRINGOP_OVERFLOW
+-- Performing Test HAS_STRINGOP_OVERFLOW - Success
+-- Performing Test HAS_TAUTOLOGICAL_POINTER_COMPARE
+-- Performing Test HAS_TAUTOLOGICAL_POINTER_COMPARE - Failed
+-- Performing Test HAS_UNDEFINED_VAR_TEMPLATE
+-- Performing Test HAS_UNDEFINED_VAR_TEMPLATE - Failed
+-- Performing Test HAS_UNUSED_BUT_SET_PARAMETER
+-- Performing Test HAS_UNUSED_BUT_SET_PARAMETER - Success
+-- Performing Test HAS_UNUSED_BUT_SET_VARIABLE
+-- Performing Test HAS_UNUSED_BUT_SET_VARIABLE - Success
+-- Performing Test HAS_UNUSED_VARIABLE
+-- Performing Test HAS_UNUSED_VARIABLE - Success
+-- Performing Test HAS_USELESS_CAST
+-- Performing Test HAS_USELESS_CAST - Success
+-- Looking for reallocarray
+-- Looking for reallocarray - found
+-- CUDA compiler: /apps/gent/RHEL9/cascadelake-ampere-ib/software/CUDA/12.8.0/bin/nvcc
+-- Original CMAKE_CUDA_ARCHITECTURES : 86
+-- GPU architectures: 86
+-- Excluding SM 80
+-- Excluding SM 89
+-- Excluding SM 90
+-- Excluding SM 100
+-- Excluding SM 110
+-- Excluding SM 120
+-- CMAKE_CUDA_ARCHITECTURES: 86-real
+-- The CUDA compiler identification is NVIDIA 12.8.61 with host compiler GNU 14.2.0
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /apps/gent/RHEL9/cascadelake-ampere-ib/software/CUDA/12.8.0/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- CMAKE_CUDA_COMPILER_VERSION: 12.8.61
+-- Enable flash attention for CUDA EP
+-- Enable memory efficient attention for CUDA EP
+-- Enable fp8 kv cache for CUDA EP
+-- Found Git: /usr/bin/git (found version "2.47.3")
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+-- CUDA Toolkit version is greater or equal than 11.8, enable -DENABLE_BF16 flag
+-- CUDA Toolkit version is greater or equal than 11.8, enable -DENABLE_FP8 flag
+-- CUDA Toolkit version is greater or equal than 12.8, enable -DENABLE_FP4 flag
+-- Looking for clock_gettime in rt
+-- Looking for clock_gettime in rt - found
+-- Python Build is enabled
+-- CMAKE_CXX_COMPILER_ID: GNU
+-- CMAKE_CXX_COMPILER_VERSION: 14.2.0
+-- Using -mavx2 -mfma -mavxvnni flags
+-- Fetch cudnn_frontend from https://github.com/NVIDIA/cudnn-frontend/archive/refs/tags/v1.12.0.zip
+-- Fetch cutlass from https://github.com/NVIDIA/cutlass/archive/refs/tags/v4.4.2.zip
+CMake Warning (dev) at /kyukon/home/apps/RHEL9/cascadelake-ib/software/CMake/3.31.3-GCCcore-14.2.0/share/cmake-3.31/Modules/FetchContent.cmake:1953 (message):
+  Calling FetchContent_Populate(cutlass) is deprecated, call
+  FetchContent_MakeAvailable(cutlass) instead.  Policy CMP0169 can be set to
+  OLD to allow FetchContent_Populate(cutlass) to be called directly for now,
+  but the ability to call it with declared details will be removed completely
+  in a future version.
+Call Stack (most recent call first):
+  external/cutlass.cmake:12 (FetchContent_Populate)
+  onnxruntime_providers_cuda.cmake:317 (include)
+  onnxruntime_providers_cuda.cmake:401 (config_cuda_provider_shared_module)
+  onnxruntime_providers.cmake:118 (include)
+  CMakeLists.txt:1775 (include)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Performing Test LINKER_SUPPORT_RPATH
+-- Performing Test LINKER_SUPPORT_RPATH - Success
+-- Python_EXECUTABLE: /apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/bin/python3
+CMake Error at onnxruntime_unittests.cmake:1193 (find_path):
+  Could not find onnx_SOURCE_DIR using the following files:
+  onnx/onnx-ml.proto3, onnx/onnx-ml.proto
+Call Stack (most recent call first):
+  CMakeLists.txt:1775 (include)
+
+
+-- Configuring incomplete, errors occurred!
+Namespace(build_dir='/tmp/vsc47063/easybuild/build/ONNXRuntime/1.26.0/foss-2025a-CUDA-12.8.0/ONNXRuntime/onnxruntime-1.26.0/build/Linux', config=['Release'], update=True, build=True, clean=False, parallel=8, targets=None, compile_no_warning_as_error=True, build_shared_lib=True, build_apple_framework=False, enable_lto=False, use_cache=False, use_binskim_compliant_compile_flags=False, cmake_extra_defines=['absl_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Abseil/20250512.1-GCCcore-14.2.0/lib/cmake/absl', 'Protobuf_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/protobuf/31.1-GCCcore-14.2.0/lib/cmake/protobuf', 'ONNX_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/ONNX/1.21.0-gfbf-2025a/lib/cmake/ONNX', 'CMAKE_CUDA_ARCHITECTURES=86', 'ONNXRUNTIME_VERSION=1.26.0'], cmake_path='cmake', cmake_generator='Ninja', use_vcpkg=False, use_vcpkg_ms_internal_asset_cache=False, skip_submodule_sync=True, skip_pip_install=False, test=False, skip_tests=True, ctest_path='ctest', enable_onnx_tests=False, path_to_protoc_exe=None, cmake_deps_mirror_dir=None, fuzz_testing=False, enable_symbolic_shape_infer_tests=False, skip_onnx_tests=False, skip_winml_tests=False, skip_nodejs_tests=False, ctest_timeout='10800', enable_transformers_tool_test=False, build_micro_benchmarks=False, code_coverage=False, enable_training=False, enable_training_apis=False, enable_training_ops=False, enable_nccl=False, nccl_home=None, enable_memory_profile=False, enable_address_sanitizer=False, gen_doc=None, rv64=False, riscv_toolchain_root='', riscv_qemu_path='', android=False, android_abi='arm64-v8a', android_api=27, android_sdk_path='', android_ndk_path='', android_cpp_shared=False, android_run_emulator=False, build_wasm=False, build_wasm_static_lib=False, emsdk_version='4.0.23', enable_wasm_jspi=False, enable_wasm_simd=False, enable_wasm_relaxed_simd=False, enable_wasm_threads=False, disable_wasm_exception_catching=False, enable_wasm_api_exception_catching=False, enable_wasm_exception_throwing_override=True, wasm_run_tests_in_browser=False, enable_wasm_profiling=False, enable_wasm_debug_info=False, wasm_malloc=None, emscripten_settings=[], use_full_protobuf=False, use_mimalloc=False, external_graph_transformer_path=None, use_extensions=False, extensions_overridden_path=None, minimal_build=None, include_ops_by_config=None, enable_reduced_operator_type_support=False, disable_contrib_ops=False, disable_ml_ops=False, disable_generation_ops=False, disable_rtti=False, disable_types=[], disable_exceptions=False, client_package_build=False, enable_session_threadpool_callbacks=False, enable_pybind=False, build_wheel=True, wheel_name_suffix=None, skip_keras_test=False, build_csharp=False, build_nuget=False, msbuild_extra_options=[], build_java=False, build_nodejs=False, build_objc=False, use_cuda=True, cuda_version='12.8', cuda_home='/apps/gent/RHEL9/cascadelake-ampere-ib/software/CUDA/12.8.0', cudnn_home='/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/cuDNN/9.10.1.4-CUDA-12.8.0', enable_cuda_line_info=False, enable_cuda_nhwc_ops=False, disable_cuda_nhwc_ops=False, enable_cuda_minimal_build=False, nvcc_threads=-1, enable_nvtx_profile=False, enable_cuda_profiling=False, no_sve=False, enable_arm_neon_nchwc=False, enable_rvv=False, use_dnnl=False, dnnl_gpu_runtime='', dnnl_opencl_root='', dnnl_aarch64_runtime='', dnnl_acl_root='', use_openvino=None, use_tensorrt=False, use_tensorrt_builtin_parser=True, use_tensorrt_oss_parser=False, tensorrt_home=None, tensorrt_rtx_home=None, use_nv_tensorrt_rtx=False, use_dml=False, dml_path='', dml_external_project=False, use_nnapi=False, nnapi_min_api=None, use_coreml=False, use_qnn=None, qnn_home=None, use_snpe=False, snpe_root=None, use_vitisai=False, use_acl=False, acl_home=None, acl_libs=None, no_kleidiai=False, use_qmx=False, use_rknpu=False, use_cann=False, cann_home=None, use_migraphx=False, migraphx_home=None, rocm_version=None, rocm_home=None, use_webnn=False, use_jsep=False, use_webgpu=None, use_external_dawn=False, wgsl_template='static', use_xnnpack=False, use_vsinpu=False, use_azure=False, enable_dx_interop=False, enable_lazy_tensor=False, ms_experimental=False, enable_msinternal=False, use_lock_free_queue=False, enable_generic_interface=False, allow_running_as_root=False, enable_external_custom_op_schemas=False)
+Traceback (most recent call last):
+  File "/tmp/vsc47063/easybuild/build/ONNXRuntime/1.26.0/foss-2025a-CUDA-12.8.0/ONNXRuntime/onnxruntime-1.26.0/tools/ci_build/build.py", line 2670, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/tmp/vsc47063/easybuild/build/ONNXRuntime/1.26.0/foss-2025a-CUDA-12.8.0/ONNXRuntime/onnxruntime-1.26.0/tools/ci_build/build.py", line 2541, in main
+    generate_build_tree(
+    ~~~~~~~~~~~~~~~~~~~^
+        cmake_path,
+        ^^^^^^^^^^^
+    ...<17 lines>...
+        cmake_extra_args,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/tmp/vsc47063/easybuild/build/ONNXRuntime/1.26.0/foss-2025a-CUDA-12.8.0/ONNXRuntime/onnxruntime-1.26.0/tools/ci_build/build.py", line 1318, in generate_build_tree
+    run_subprocess(
+    ~~~~~~~~~~~~~~^
+        [*temp_cmake_args, f"-DCMAKE_BUILD_TYPE={config}"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        env=env,
+        ^^^^^^^^
+    )
+    ^
+  File "/tmp/vsc47063/easybuild/build/ONNXRuntime/1.26.0/foss-2025a-CUDA-12.8.0/ONNXRuntime/onnxruntime-1.26.0/tools/ci_build/build.py", line 148, in run_subprocess
+    return run(*args, cwd=cwd, capture_stdout=capture_stdout, shell=shell, env=my_env)
+  File "/tmp/vsc47063/easybuild/build/ONNXRuntime/1.26.0/foss-2025a-CUDA-12.8.0/ONNXRuntime/onnxruntime-1.26.0/tools/python/util/run.py", line 50, in run
+    completed_process = subprocess.run(
+        cmd,
+    ...<6 lines>...
+        shell=shell,
+    )
+  File "/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/apps/gent/RHEL9/cascadelake-ib/software/CMake/3.31.3-GCCcore-14.2.0/bin/cmake', '/tmp/vsc47063/easybuild/build/ONNXRuntime/1.26.0/foss-2025a-CUDA-12.8.0/ONNXRuntime/onnxruntime-1.26.0/cmake', '--compile-no-warning-as-error', '-Donnxruntime_ENABLE_EXTERNAL_CUSTOM_OP_SCHEMAS=OFF', '-Donnxruntime_RUN_ONNX_TESTS=OFF', '-Donnxruntime_GENERATE_TEST_REPORTS=ON', '-DPython_EXECUTABLE=/apps/gent/RHEL9/cascadelake-ib/software/Python/3.13.1-GCCcore-14.2.0/bin/python3', '-Donnxruntime_USE_VCPKG=OFF', '-Donnxruntime_USE_MIMALLOC=OFF', '-Donnxruntime_ENABLE_PYTHON=ON', '-Donnxruntime_BUILD_CSHARP=OFF', '-Donnxruntime_BUILD_JAVA=OFF', '-Donnxruntime_BUILD_NODEJS=OFF', '-Donnxruntime_BUILD_OBJC=OFF', '-Donnxruntime_BUILD_SHARED_LIB=ON', '-Donnxruntime_BUILD_APPLE_FRAMEWORK=OFF', '-Donnxruntime_USE_DNNL=OFF', '-Donnxruntime_USE_NNAPI_BUILTIN=OFF', '-Donnxruntime_USE_VSINPU=OFF', '-Donnxruntime_USE_RKNPU=OFF', '-Donnxruntime_ENABLE_MICROSOFT_INTERNAL=OFF', '-Donnxruntime_USE_VITISAI=OFF', '-Donnxruntime_USE_TENSORRT=OFF', '-Donnxruntime_USE_NV=OFF', '-Donnxruntime_USE_TENSORRT_BUILTIN_PARSER=ON', '-Donnxruntime_USE_TENSORRT_INTERFACE=OFF', '-Donnxruntime_USE_CUDA_INTERFACE=OFF', '-Donnxruntime_USE_NV_INTERFACE=OFF', '-Donnxruntime_USE_OPENVINO_INTERFACE=OFF', '-Donnxruntime_USE_VITISAI_INTERFACE=OFF', '-Donnxruntime_USE_QNN_INTERFACE=OFF', '-Donnxruntime_USE_MIGRAPHX_INTERFACE=OFF', '-Donnxruntime_USE_MIGRAPHX=OFF', '-Donnxruntime_DISABLE_CONTRIB_OPS=OFF', '-Donnxruntime_DISABLE_ML_OPS=OFF', '-Donnxruntime_DISABLE_GENERATION_OPS=OFF', '-Donnxruntime_DISABLE_RTTI=OFF', '-Donnxruntime_DISABLE_EXCEPTIONS=OFF', '-Donnxruntime_MINIMAL_BUILD=OFF', '-Donnxruntime_EXTENDED_MINIMAL_BUILD=OFF', '-Donnxruntime_MINIMAL_BUILD_CUSTOM_OPS=OFF', '-Donnxruntime_REDUCED_OPS_BUILD=OFF', '-Donnxruntime_CLIENT_PACKAGE_BUILD=OFF', '-Donnxruntime_ENABLE_SESSION_THREADPOOL_CALLBACKS=OFF', '-Donnxruntime_BUILD_MS_EXPERIMENTAL_OPS=OFF', '-Donnxruntime_ENABLE_LTO=OFF', '-Donnxruntime_USE_ACL=OFF', '-Donnxruntime_USE_JSEP=OFF', '-Donnxruntime_USE_WEBGPU=OFF', '-Donnxruntime_USE_EXTERNAL_DAWN=OFF', '-Donnxruntime_WGSL_TEMPLATE=static', '-Donnxruntime_ENABLE_NVTX_PROFILE=OFF', '-Donnxruntime_ENABLE_TRAINING=OFF', '-Donnxruntime_ENABLE_TRAINING_OPS=OFF', '-Donnxruntime_ENABLE_TRAINING_APIS=OFF', '-Donnxruntime_ENABLE_CPU_FP16_OPS=OFF', '-Donnxruntime_USE_NCCL=OFF', '-Donnxruntime_BUILD_BENCHMARKS=OFF', '-Donnxruntime_GCOV_COVERAGE=OFF', '-Donnxruntime_ENABLE_MEMORY_PROFILE=OFF', '-Donnxruntime_ENABLE_CUDA_LINE_NUMBER_INFO=OFF', '-Donnxruntime_USE_CUDA_NHWC_OPS=ON', '-Donnxruntime_BUILD_WEBASSEMBLY_STATIC_LIB=OFF', '-Donnxruntime_ENABLE_WEBASSEMBLY_EXCEPTION_CATCHING=ON', '-Donnxruntime_ENABLE_WEBASSEMBLY_API_EXCEPTION_CATCHING=OFF', '-Donnxruntime_ENABLE_WEBASSEMBLY_EXCEPTION_THROWING=ON', '-Donnxruntime_WEBASSEMBLY_RUN_TESTS_IN_BROWSER=OFF', '-Donnxruntime_ENABLE_WEBASSEMBLY_JSPI=OFF', '-Donnxruntime_ENABLE_WEBASSEMBLY_THREADS=OFF', '-Donnxruntime_ENABLE_WEBASSEMBLY_DEBUG_INFO=OFF', '-Donnxruntime_ENABLE_WEBASSEMBLY_PROFILING=OFF', '-Donnxruntime_ENABLE_LAZY_TENSOR=OFF', '-Donnxruntime_ENABLE_CUDA_PROFILING=OFF', '-Donnxruntime_USE_XNNPACK=OFF', '-Donnxruntime_USE_WEBNN=OFF', '-Donnxruntime_USE_CANN=OFF', '-Donnxruntime_DISABLE_FLOAT8_TYPES=OFF', '-Donnxruntime_DISABLE_FLOAT4_TYPES=OFF', '-Donnxruntime_DISABLE_SPARSE_TENSORS=OFF', '-Donnxruntime_DISABLE_OPTIONAL_TYPE=OFF', '-Donnxruntime_DISABLE_STRING_TYPE=OFF', '-Donnxruntime_CUDA_MINIMAL=OFF', '-Donnxruntime_NVCC_THREADS=4', '-DCMAKE_CUDA_COMPILER=/apps/gent/RHEL9/cascadelake-ampere-ib/software/CUDA/12.8.0/bin/nvcc', '-DCUDA_CUDA_LIBRARY=/apps/gent/RHEL9/cascadelake-ampere-ib/software/CUDA/12.8.0/lib64/stubs', '-Donnxruntime_USE_KLEIDIAI=ON', '-Donnxruntime_USE_SVE=ON', '-Dabsl_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Abseil/20250512.1-GCCcore-14.2.0/lib/cmake/absl', '-DProtobuf_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/protobuf/31.1-GCCcore-14.2.0/lib/cmake/protobuf', '-DONNX_DIR=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/ONNX/1.21.0-gfbf-2025a/lib/cmake/ONNX', '-DCMAKE_CUDA_ARCHITECTURES=86', '-DONNXRUNTIME_VERSION=1.26.0', '-Donnxruntime_USE_CUDA=ON', '-Donnxruntime_CUDA_VERSION=12.8', '-Donnxruntime_CUDA_HOME=/apps/gent/RHEL9/cascadelake-ampere-ib/software/CUDA/12.8.0', '-Donnxruntime_CUDNN_HOME=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/cuDNN/9.10.1.4-CUDA-12.8.0', '-G', 'Ninja', '-DCMAKE_BUILD_TYPE=Release']' returned non-zero exit status 1.

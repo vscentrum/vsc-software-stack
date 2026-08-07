@@ -18,7 +18,7 @@ toolchain = {'name': 'foss', 'version': '2025a'}
 builddependencies = [
     ('CMake', '3.31.3'),
     ('Ninja', '1.12.1'),
-    ('Eigen', '3.4.0'),
+    # ('Eigen', '3.4.0'),
 ]
 dependencies = [
     ('CUDA', '12.8.0', '', SYSTEM),
@@ -26,19 +26,21 @@ dependencies = [
     ('Python', '3.13.1'),
     ('SciPy-bundle', '2025.06'),
     ('ONNX', '1.21.0'),
+    ('Abseil', '20250512.1'),
+    ('protobuf', '31.1'),
+    ('protobuf-python', '6.31.1'),
     ('flatbuffers-python', '25.2.10'),
     ('sympy', '1.14.0'),
-    ('Abseil', '20250512.1'),
 ]
 
 # CUSTOM BUILD
-local_onnx_buildcmd = ""
+# local_onnx_buildcmd = ""
 # do not fetch and install Abseil - use installed one from the module
 # https://github.com/microsoft/onnxruntime/blob/v1.23.2/cmake/external/abseil-cpp.cmake#L39
-local_onnx_buildcmd += "sed -i 's/20250512/20240722/g' %(start_dir)s/cmake/external/abseil-cpp.cmake && "
+# local_onnx_buildcmd += "sed -i 's/20250814/20250512/g' %(start_dir)s/cmake/external/abseil-cpp.cmake && "
 # the build command for onnx-runtime wheels
 # creates /build/Linux/Release/dist/onnxruntime-1.23.2-cp312-cp312-linux_x86_64.whl
-local_onnx_buildcmd += """
+local_onnx_buildcmd = """
 ./build.sh \
 --config Release \
 --update --build \
@@ -49,34 +51,41 @@ local_onnx_buildcmd += """
 --cuda_version=%(cudashortver)s \
 --skip_tests \
 --build_shared_lib \
---build_wheel \
 --skip_submodule_sync \
 --cmake_generator Ninja \
 --compile_no_warning_as_error \
 --cmake_extra_defines \
 absl_DIR=$EBROOTABSEIL/lib/cmake/absl \
+Protobuf_DIR=$EBROOTPROTOBUF/lib/cmake/protobuf \
+ONNX_DIR=$EBROOTONNX/lib/cmake/ONNX \
+onnxruntime_BUILD_UNIT_TESTS=OFF \
 "CMAKE_CUDA_ARCHITECTURES=%(cuda_cc_cmake)s" \
 ONNXRUNTIME_VERSION=%(version)s
 """
 
 exts_list = [
-    ('humanfriendly', '10.0', {
-        'checksums': ['6b0b831ce8f15f7300721aa49829fc4e83921a9a301cc7f606be6686a2288ddc'],
-    }),
-    ('coloredlogs', '15.0.1', {
-        'checksums': ['7c991aa71a4577af2f82600d8f8f3a89f936baeaf9b50a9c197da014e5bf16b0'],
-    }),
+    # ('humanfriendly', '10.0', {
+    #     'checksums': ['6b0b831ce8f15f7300721aa49829fc4e83921a9a301cc7f606be6686a2288ddc'],
+    # }),
+    # ('coloredlogs', '15.0.1', {
+    #     'checksums': ['7c991aa71a4577af2f82600d8f8f3a89f936baeaf9b50a9c197da014e5bf16b0'],
+    # }),
     (name, version, {
         'modulename': 'onnxruntime',
         'buildcmd': local_onnx_buildcmd,
         'install_src': '%(start_dir)s/build/Linux/Release/dist/*.whl',
         'source_urls': ['https://github.com/microsoft/onnxruntime/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        'patches': ['ONNX-Runtime-1.23.2_gpu-package-name.patch'],
+        'patches': [
+            'ONNX-Runtime-1.26.0_gpu-package-name.patch',
+            'ONNX-Runtime-1.26.0_use-Abseil-20250512.patch',
+        ],
         'checksums': [
-            {'ONNX-Runtime-1.23.2.tar.gz': '99bcf964ce4e869d823c99b2294562a9050cbfa8e76ec81c8683cb3c7e19c2b4'},
-            {'ONNX-Runtime-1.23.2_gpu-package-name.patch':
-             'f0b80ae45878be371a1c5ef2b917dc34095af9351dfb379450b7be798f6d43bd'},
+            {'ONNX-Runtime-1.26.0.tar.gz': '2a90eb9a306c1eeb29213f5b165a55008ac5cb7d27e0935c4458c51a49ef091d'},
+            {'ONNX-Runtime-1.26.0_gpu-package-name.patch':
+             '5832cd6785d769f7b42a0492a3abe224a082efbeffbbeaf8a0bee0040fc76503'},
+            {'ONNX-Runtime-1.26.0_use-Abseil-20250512.patch':
+             '9e8bbf3d967d24d9cfab4b8a6c294b66795c1268932ee5daf2c41c2614f77908'},
         ],
     }),
 ]
@@ -84,8 +93,13 @@ exts_list = [
 sanity_check_commands = ["python -s -c 'import onnxruntime; onnxruntime.get_available_providers()'"]
 
 sanity_check_paths = {
-    'files': ['bin/onnxruntime_test'],
-    'dirs': ['lib'],
+    'files': [
+        'lib/python%(pyshortver)s/site-packages/onnxruntime/capi/libonnxruntime_providers_cuda.so',
+        'lib/python%(pyshortver)s/site-packages/onnxruntime/capi/libonnxruntime_providers_shared.so',
+    ],
+    'dirs': [
+        'lib/python%(pyshortver)s/site-packages/onnxruntime',
+    ],
 }
 
 moduleclass = 'devel'

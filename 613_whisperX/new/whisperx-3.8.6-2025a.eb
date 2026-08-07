@@ -16,7 +16,7 @@ toolchain = {'name': 'foss', 'version': '2025a'}
         # OK ctranslate2>=4.0,<5
         # OK huggingface_hub>=0.21
         # OK tokenizers>=0.13,<1
-        # ! onnxruntime>=1.14,<2 
+        # OK onnxruntime>=1.14,<2 
         # ok av>=11
         # OK tqdm
     # ! "nltk>=3.9.1",
@@ -29,7 +29,7 @@ toolchain = {'name': 'foss', 'version': '2025a'}
     # OK "torchaudio~=2.8.0",
     # ! "torchvision~=0.23.0",
     # OK "torchcodec>=0.6.0,<0.8.0; (sys_platform == 'linux' and platform_machine == 'x86_64') or sys_platform == 'darwin' or sys_platform == 'win32'",
-    # "transformers>=4.48.0",
+    # OK "transformers>=4.48.0",
     # OK "triton>=3.3.0; sys_platform == 'linux' and platform_machine == 'x86_64'" # only install triton on x86_64 Linux
 
 builddependencies = [('Cython', '3.0.10')]
@@ -39,13 +39,14 @@ dependencies = [
     ('PyTorch', local_pytorch_version, versionsuffix),
     ('SciPy-bundle', '2025.06'),
     ('CTranslate2', '4.8.1', versionsuffix),
-    # ('NLTK', '3.9.1'),
-    # ('Transformers', '4.55.0'),
-    # ('ONNX-Runtime', '1.23.2', versionsuffix),
+    ('NLTK', '3.9.4'),
+    ('Transformers', '5.0.0'),
+    ('ONNX-Runtime', '1.26.0', versionsuffix),
     ('pyannote.audio', '4.0.7', versionsuffix),
     ('huggingface-hub', '1.2.4'),
     ('tokenizers', '0.22.2'),
     ('tqdm', '4.67.1'),
+    # torchvisio update of https://github.com/easybuilders/easybuild-easyconfigs/pull/25924
 ]
 
 # unpin versions of dependencies in WhisperX
@@ -68,7 +69,6 @@ exts_list = [
     ('omegaconf', '2.3.0', {
         'checksums': ['d5d4b6d29955cc50ad50c46dc269bcd92c6e00f5f90d23ab5fee7bfca4ba4cc7'],
     }),
-    ('torchvision', ''),  # copy from https://github.com/easybuilders/easybuild-easyconfigs/pull/25924
     (name, version, {
         # 'preinstallopts': local_whisperx_preinstallopts,
         'source_urls': ['https://github.com/m-bain/whisperX/archive/'],

@@ -33,6 +33,12 @@ dependencies = [
 preinstallopts = 'export CMAKE_ARGS="-DONNX_USE_PROTOBUF_SHARED_LIBS=ON" && '
 preinstallopts += 'env MAX_JOBS="%(parallel)s"'
 
+# also installs the C++/CMake artifacts from .setuptools-cmake-build
+postinstallcmds = [(
+    'cmake --install %(builddir)s/onnx-%(version)s/.setuptools-cmake-build '
+    '--prefix %(installdir)s'
+)]
+
 sanity_check_paths = {
     'files': ['bin/check-model', 'bin/check-node', 'bin/backend-test-tools'],
     'dirs': ['lib/python%(pyshortver)s/site-packages'],
