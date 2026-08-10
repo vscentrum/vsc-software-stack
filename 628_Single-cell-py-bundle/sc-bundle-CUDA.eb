@@ -55,12 +55,12 @@ dependencies = [
 ]
 
 exts_list = [
-    ('annoy', '1.17.3', {
-        'checksums': ['9cbfebefe0a5f843eba29c6be4c84d601f4f41ad4ded0486f1b88c3b07739c15'],
-    }),
-    ('pynndescent', '0.6.0', {
-        'checksums': ['7ffde0fb5b400741e055a9f7d377e3702e02250616834231f6c209e39aac24f5'],
-    }),
+    # ('annoy', '1.17.3', { # in scrublet
+    #     'checksums': ['9cbfebefe0a5f843eba29c6be4c84d601f4f41ad4ded0486f1b88c3b07739c15'],
+    # }),
+    # ('pynndescent', '0.6.0', {  # 0.5.13 in umap-learn
+    #     'checksums': ['7ffde0fb5b400741e055a9f7d377e3702e02250616834231f6c209e39aac24f5'],
+    # }),
     ('bbknn', '1.6.0', {
         'checksums': ['1c01a9d6df2fc52a527de8a403617897a4b672724863299a7026f2132f1b041b'],
     }),
@@ -99,21 +99,21 @@ exts_list = [
     ('questionary', '2.1.1', {
         'checksums': ['3d7e980292bb0107abaa79c68dd3eee3c561b83a0f89ae482860b181c8bd412d'],
     }),
-    ('sc_toolbox', '0.12.3', {
+    ('sc-toolbox', '0.12.3', {
         'checksums': ['6ca22a364c269a095114e620eb3c6da8aac1950d8f43f58ceea08005a09cc2cb'],
     }),
-    ('toolz', '1.0.0', {
-        'checksums': ['2c86e3d9a04798ac556793bced838816296a2f085017664e4995cb40a1047a02'],
-    }),
+    # ('toolz', '1.0.0', { # in scib-metrics and squidpy
+    #     'checksums': ['2c86e3d9a04798ac556793bced838816296a2f085017664e4995cb40a1047a02'],
+    # }),
     ('altair', '6.0.0', {
         'checksums': ['614bf5ecbe2337347b590afb111929aa9c16c9527c4887d96c9bc7f6640756b4'],
     }),
-    ('custom_inherit', '2.4.1', {
+    ('custom-inherit', '2.4.1', {
         'checksums': ['7052eb337bcce83551815264391cc4efc2bf70b295a3c52aba64f1ab57c3a8a2'],
     }),
-    ('multipledispatch', '1.0.0', {
-        'checksums': ['5c839915465c68206c3e9c473357908216c28383b425361e5d144594bf85a7e0'],
-    }),
+    # ('multipledispatch', '1.0.0', {  # in squidpy
+    #     'checksums': ['5c839915465c68206c3e9c473357908216c28383b425361e5d144594bf85a7e0'],
+    # }),
     ('pypng', '0.20220715.0', {
         'modulename': 'png',
         'checksums': ['739c433ba96f078315de54c0db975aee537cbc3e1d0ae4ed9aab0ca1e427e2c1'],
@@ -131,9 +131,9 @@ exts_list = [
         'preinstallopts': "sed -i '/tensorflow-probability>=0.16/d' setup.py && ",
         'checksums': ['8c12ddccb72c41c96c6a5abceb52e7a76f439a9ab94fb092aa86ee3c1292383a'],
     }),
-    ('harmonypy', '0.2.0', {
-        'checksums': ['9678a059f943723ba954f58d04e1a72e8a5c49ef4d95ba04fb33c9c1b5c67a77'],
-    }),
+    # ('harmonypy', '0.2.0', {
+    #     'checksums': ['9678a059f943723ba954f58d04e1a72e8a5c49ef4d95ba04fb33c9c1b5c67a77'],
+    # }),
     ('fbpca', '1.0', {
         'checksums': ['150677642479663f317fdbb5e06dab3f98721cf7031bb4a84113d7a631c472d1'],
     }),
@@ -172,9 +172,9 @@ exts_list = [
     ('cfgv', '3.5.0', {
         'checksums': ['d5b1034354820651caa73ede66a6294d6e95c1b00acc5e9b098e917404669132'],
     }),
-    ('muon', '0.1.7', {
-        'checksums': ['6bd7cb15e3bee700517ef1dec0197bc77590acb4ccef96c7d0939c6ca50f400a'],
-    }),
+    # ('muon', '0.1.7', { # v0.1.6 in scArches
+    #     'checksums': ['6bd7cb15e3bee700517ef1dec0197bc77590acb4ccef96c7d0939c6ca50f400a'],
+    # }),
     ('liana', '1.7.1', {
         'checksums': ['85cc3bf19e7562eb76d396e8318cf13ec884998b15188791aadfce9cadd598dd'],
     }),
@@ -201,9 +201,9 @@ exts_list = [
         'source_urls': ['https://github.com/dawe/schist/archive/'],
         'checksums': ['2f9121dad78f5c89f999555e74daa53c739bbab90a1e3ec30ce52775cfe6c6d1'],
     }),
-    ('typeguard', '4.4.4', {
-        'checksums': ['3a7fd2dffb705d4d0efaed4306a704c89b9dee850b688f060a8b1615a79e5f74'],
-    }),
+    # ('typeguard', '4.4.4', { # v4.4.2 in squidpy
+    #     'checksums': ['3a7fd2dffb705d4d0efaed4306a704c89b9dee850b688f060a8b1615a79e5f74'],
+    # }),
     ('jaxtyping', '0.3.3', {
         'checksums': ['8003cfd16ba2ad9b47fdda1d982a575299a81ddfc7997ad0e917c87a0897ea86'],
     }),
@@ -216,7 +216,7 @@ exts_list = [
     ('jaxopt', '0.8.5', {
         'checksums': ['2790bd68ef132b216c083a8bc7a2704eceb35a92c0fc0a1e652e79dfb1e9e9ab'],
     }),
-    ('ott_jax', '0.6.0', {
+    ('ott-jax', '0.6.0', {
         'modulename': 'ott',
         'checksums': ['86fda8aea68a6c29c989b1be2fc8bc7e5344e6353d3e486a3edbc36364b07483'],
     }),
