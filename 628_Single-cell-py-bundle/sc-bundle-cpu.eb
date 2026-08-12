@@ -9,10 +9,10 @@ description = """Bundle of tools for single-cell sequence analysis."""
 toolchain = {'name': 'foss', 'version': '2024a'}
 
 builddependencies = [
-    # ('poetry', '1.5.1'),
+    ('poetry', '1.8.3'),
     # ('CMake', '3.26.3'),
     # ('hatchling', '1.18.0'),
-    ('scikit-build-core', '0.10.6'),
+    ('scikit-build-core', '0.11.1'),
 ]
 
 dependencies = [
@@ -51,6 +51,7 @@ dependencies = [
     ('Pyomo', '6.9.2'),  # pertpy
     ('tensorflow-probability', '0.25.0'),  # tascCODA
     ('pre-commit', '4.3.0'),
+    # graph_tool for schist
 ]
 
 exts_list = [
@@ -108,6 +109,7 @@ exts_list = [
         'checksums': ['614bf5ecbe2337347b590afb111929aa9c16c9527c4887d96c9bc7f6640756b4'],
     }),
     ('custom-inherit', '2.4.1', {
+        'preinstallopts': "sed -i -e 's/SafeConfigParser/ConfigParser/g' -e 's/readfp/read_file/g' versioneer.py && ",
         'checksums': ['7052eb337bcce83551815264391cc4efc2bf70b295a3c52aba64f1ab57c3a8a2'],
     }),
     # ('multipledispatch', '1.0.0', {  # in squidpy
@@ -180,11 +182,11 @@ exts_list = [
     ('squarify', '0.4.4', {
         'checksums': ['b8a110c8dc5f1cd1402ca12d79764a081e90bfc445346cfa166df929753ecb46'],
     }),
-    ('awkward-cpp', '52', {
-        'checksums': ['ef141eb20544df261b973c986cfae57be329022061be86817506add676597275'],
+    ('awkward-cpp', '44', {
+        'checksums': ['8dc499288d6d16b2ea20b51a27d5047e51a247b6aacfcbcb3b302cad6d3c87d8'],
     }),
-    ('awkward', '2.9.0', {
-        'checksums': ['0ebe50ca872a8790d4148c0f6f0844fb0c345a6ff3840c1611065ef27e8b6e1b'],
+    ('awkward', '2.7.4', {
+        'checksums': ['e79b4bfd68b2030123b4bb67d5179f92c7e9bede1dadc5a1416fce0acb6cc975'],
     }),
     ('yamlordereddictloader', '0.4.2', {
         'checksums': ['36af2f6210fcff5da4fc4c12e1d815f973dceb41044e795e1f06115d634bca13'],
