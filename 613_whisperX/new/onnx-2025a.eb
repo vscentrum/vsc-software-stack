@@ -30,7 +30,9 @@ dependencies = [
     ('setuptools', '80.9.0'),
 ]
 
-preinstallopts = 'export CMAKE_ARGS="-DONNX_USE_PROTOBUF_SHARED_LIBS=ON" && '
+# use protobuf-lite to prevent duplicate registration of ONNX protobuf
+# descriptors when ONNX and ONNX Runtime are loaded in the same process
+preinstallopts = 'export CMAKE_ARGS="-DONNX_USE_LITE_PROTO=ON -DONNX_USE_PROTOBUF_SHARED_LIBS=ON" && '
 preinstallopts += 'env MAX_JOBS="%(parallel)s"'
 
 # also installs the C++/CMake artifacts from .setuptools-cmake-build

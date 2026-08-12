@@ -18,6 +18,7 @@ toolchain = {'name': 'foss', 'version': '2025a'}
 builddependencies = [
     ('CMake', '3.31.3'),
     ('Ninja', '1.12.1'),
+    # ('Eigen', '3.4.0'),
 ]
 dependencies = [
     ('CUDA', '12.8.0', '', SYSTEM),
@@ -32,7 +33,13 @@ dependencies = [
     ('sympy', '1.14.0'),
 ]
 
-# CUSTOM BUILD for onnx-runtime wheels
+# CUSTOM BUILD
+# local_onnx_buildcmd = ""
+# do not fetch and install Abseil - use installed one from the module
+# https://github.com/microsoft/onnxruntime/blob/v1.23.2/cmake/external/abseil-cpp.cmake#L39
+# local_onnx_buildcmd += "sed -i 's/20250814/20250512/g' %(start_dir)s/cmake/external/abseil-cpp.cmake && "
+# the build command for onnx-runtime wheels
+# creates /build/Linux/Release/dist/onnxruntime-1.23.2-cp312-cp312-linux_x86_64.whl
 local_onnx_buildcmd = """
 ./build.sh \
 --config Release \
@@ -58,6 +65,12 @@ ONNXRUNTIME_VERSION=%(version)s
 """
 
 exts_list = [
+    # ('humanfriendly', '10.0', {
+    #     'checksums': ['6b0b831ce8f15f7300721aa49829fc4e83921a9a301cc7f606be6686a2288ddc'],
+    # }),
+    # ('coloredlogs', '15.0.1', {
+    #     'checksums': ['7c991aa71a4577af2f82600d8f8f3a89f936baeaf9b50a9c197da014e5bf16b0'],
+    # }),
     (name, version, {
         'modulename': 'onnxruntime',
         'buildcmd': local_onnx_buildcmd,
