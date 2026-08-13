@@ -22,7 +22,12 @@ toolchainopts = {'cstd': 'c++17', 'openmp': True}
 
 source_urls = ['https://downloads.skewed.de/%(name)s/']
 sources = [SOURCE_TAR_BZ2]
-checksums = ['eef1948b937f5f043749eee75fe0c6d7e8f036551d945e9d55e37870b06cc527']
+patches = ['graph-tool-2.98_fix-circular-inference-draw-import.patch']
+checksums = [
+    {'graph-tool-2.98.tar.bz2': 'eef1948b937f5f043749eee75fe0c6d7e8f036551d945e9d55e37870b06cc527'},
+    {'graph-tool-2.98_fix-circular-inference-draw-import.patch':
+     'a3ef419080ca10791f6d25688a4e8afa7cad6667a8ad96594e49569d05f375f4'},
+]
 
 builddependencies = [
     ('gawk', '5.3.2'),
@@ -45,7 +50,6 @@ max_parallel = 2
 configopts = '--enable-openmp --with-cgal=$EBROOTCGAL --with-boost=$EBROOTBOOST --disable-cairo '
 configopts += '--with-boost-python=boost_python312  '
 configopts += '--with-python-module-path=%(installdir)s/lib/python%(pyshortver)s/site-packages '
-
 
 sanity_check_paths = {
     'files': ['lib/python%(pyshortver)s/site-packages/graph_tool/all.py'],

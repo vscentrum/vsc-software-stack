@@ -1,0 +1,19 @@
+--- base_states.py.orig	2026-08-13 11:38:13.210985000 +0200
++++ base_states.py	2026-08-13 11:39:01.132723000 +0200
+@@ -30,8 +30,6 @@
+ import math
+ import numpy
+ 
+-import graph_tool.draw
+-
+ __test__ = False
+ 
+ def set_test(test):
+@@ -794,6 +792,7 @@
+     def draw(self, **kwargs):
+         r"""Convenience wrapper to :func:`~graph_tool.draw.graph_draw` that
+         draws the state of the graph as colors on the vertices and edges."""
++        import graph_tool.draw
+         gradient = self.g.new_ep("double")
+         gradient = group_vector_property([gradient])
+         b = self.g.own_property(self.b)
