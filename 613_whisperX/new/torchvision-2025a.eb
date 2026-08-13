@@ -8,12 +8,8 @@ homepage = 'https://github.com/pytorch/vision'
 description = " Datasets, Transforms and Models specific to Computer Vision"
 
 toolchain = {'name': 'foss', 'version': '2025a'}
-# toolchainopts = {'cstd': 'c++17'}
 
-builddependencies = [
-    # ('CMake', '3.31.3'),
-    ('expecttest', '0.3.0'),  # tests
-]
+builddependencies = [('expecttest', '0.3.0')]  # tests
 dependencies = [
     ('CUDA', '12.8.0', '', SYSTEM),
     ('Python', '3.13.1'),
@@ -32,25 +28,15 @@ exts_list = [
     (name, version, {
         'source_urls': ['https://github.com/pytorch/vision/archive'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        # 'patches': [
-        #     'torchvision-0.17.0_quantized_tol.patch',
-        # ],
+        'patches': ['torchvision-0.24.1_fix-TestAffine.patch'],
         'preinstallopts': 'export FORCE_CUDA=1 && ',
         'installopts': '-v',
-        'runtest': (
-            'pytest'
-            ' -m "not xfail"'  # don't run tests that are expected that they might fail
-            # ' -k "not test_frame_reading_mem_vs_file"'  # this one hangs
-            # '" and not test_antialias_default_warning"'  # flaky test which is removed in later versions
-            # '" and not test_videoapi"'  # video support is unstable
-            # '" and not avif and not heic"'  # requires torchvision-extra-decoders, libavif PyTorch support, libheic
-            # '" and not test_pretrained_pos and not test_equivalent_behavior_weights"'  # tests out of date?
-        ),
+        'runtest': 'pytest -m "not xfail"',  # don't run tests that are expected that they might fail
         'testinstall': True,
         'checksums': [
             {'torchvision-0.24.1.tar.gz': '071da2078600bfec4886efab77358c9329abfedcf1488b05879b556cb9b84ba7'},
-            # {'torchvision-0.17.0_quantized_tol.patch':
-            #  '991b959f7d5e0fd418a163fa3ad828a2b60a64d0ce894cf579847138b13b62af'},
+            {'torchvision-0.24.1_fix-TestAffine.patch':
+             '5e7ae4a5ebc0fb432cc3ee1f424aaf5b86e0dcac2a8682567c82875549ac0a24'},
         ],
     }),
 ]

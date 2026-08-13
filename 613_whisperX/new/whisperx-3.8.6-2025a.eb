@@ -19,7 +19,7 @@ toolchain = {'name': 'foss', 'version': '2025a'}
         # OK onnxruntime>=1.14,<2 
         # ok av>=11
         # OK tqdm
-    # ! "nltk>=3.9.1",
+    # OK "nltk>=3.9.1",
     # OK "numpy>=2.1.0",
     # ok "omegaconf>=2.3.0",
     # OK "pandas>=2.2.3",
@@ -27,12 +27,12 @@ toolchain = {'name': 'foss', 'version': '2025a'}
     # OK "huggingface-hub<1.0.0",
     # OK? "torch~=2.8.0",
     # OK "torchaudio~=2.8.0",
-    # ! "torchvision~=0.23.0",
+    # OK "torchvision~=0.23.0",
     # OK "torchcodec>=0.6.0,<0.8.0; (sys_platform == 'linux' and platform_machine == 'x86_64') or sys_platform == 'darwin' or sys_platform == 'win32'",
     # OK "transformers>=4.48.0",
     # OK "triton>=3.3.0; sys_platform == 'linux' and platform_machine == 'x86_64'" # only install triton on x86_64 Linux
 
-builddependencies = [('Cython', '3.0.10')]
+builddependencies = [('Cython', '3.1.1')]
 dependencies = [
     ('CUDA', '12.8.0', '', SYSTEM),
     ('Python', '3.13.1'),
@@ -46,16 +46,16 @@ dependencies = [
     ('huggingface-hub', '1.2.4'),
     ('tokenizers', '0.22.2'),
     ('tqdm', '4.67.1'),
-    # torchvisio update of https://github.com/easybuilders/easybuild-easyconfigs/pull/25924
+    ('torchvision', '0.24.1', versionsuffix),
 ]
 
 # unpin versions of dependencies in WhisperX
-# local_whisperx_preinstallopts = (
-#     "sed -E -i "
-#     r""" '/^[[:space:]]*dependencies[[:space:]]*=[[:space:]]*[[]/"""
-#     r""",/^[[:space:]]*]/{s/"([^"<>!=~;[:space:]]+)[^"]*"/"\1"/g}' """
-#     "pyproject.toml && "
-# )
+local_whisperx_preinstallopts = (
+    "sed -E -i "
+    r""" '/^[[:space:]]*dependencies[[:space:]]*=[[:space:]]*[[]/"""
+    r""",/^[[:space:]]*]/{s/"([^"<>!=~;[:space:]]+)[^"]*"/"\1"/g}' """
+    "pyproject.toml && "
+)
 
 exts_list = [
     ('faster-whisper', '1.2.1', {
@@ -70,7 +70,7 @@ exts_list = [
         'checksums': ['d5d4b6d29955cc50ad50c46dc269bcd92c6e00f5f90d23ab5fee7bfca4ba4cc7'],
     }),
     (name, version, {
-        # 'preinstallopts': local_whisperx_preinstallopts,
+        'preinstallopts': local_whisperx_preinstallopts,
         'source_urls': ['https://github.com/m-bain/whisperX/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'checksums': ['fc0a7c2a72db1c0c280cf8bca75d266c25cd4ca9c44d4768f2f56a6b40d3d98b'],
