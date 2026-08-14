@@ -22,11 +22,16 @@ toolchainopts = {'cstd': 'c++17', 'openmp': True}
 
 source_urls = ['https://downloads.skewed.de/%(name)s/']
 sources = [SOURCE_TAR_BZ2]
-patches = ['graph-tool-2.98_fix-circular-inference-draw-import.patch']
+patches = [
+    'graph-tool-2.98_fix-circular-inference-draw-import.patch',
+    'graph-tool-2.98_fix-NameError-cairo-draw.patch',
+]
 checksums = [
     {'graph-tool-2.98.tar.bz2': 'eef1948b937f5f043749eee75fe0c6d7e8f036551d945e9d55e37870b06cc527'},
     {'graph-tool-2.98_fix-circular-inference-draw-import.patch':
      'a3ef419080ca10791f6d25688a4e8afa7cad6667a8ad96594e49569d05f375f4'},
+    {'graph-tool-2.98_fix-NameError-cairo-draw.patch':
+     'be5e63eb8ca3460f3660cce5579ff054b63900cd1f6bebc8ff6f145a1d69f6ff'},
 ]
 
 builddependencies = [
