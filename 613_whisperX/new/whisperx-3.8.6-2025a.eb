@@ -10,29 +10,6 @@ description = "Automatic Speech Recognition with Word-level Timestamps (& Diariz
 
 toolchain = {'name': 'foss', 'version': '2025a'}
 
-##DEPS:
-    # OK "ctranslate2>=4.5.0",
-    # ok "faster-whisper>=1.2.0",
-        # OK ctranslate2>=4.0,<5
-        # OK huggingface_hub>=0.21
-        # OK tokenizers>=0.13,<1
-        # OK onnxruntime>=1.14,<2 
-        # ok av>=11
-        # OK tqdm
-    # OK "nltk>=3.9.1",
-    # OK "numpy>=2.1.0",
-    # ok "omegaconf>=2.3.0",
-    # OK "pandas>=2.2.3",
-    # OK "pyannote-audio>=4.0.0",
-    # OK "huggingface-hub<1.0.0",
-    # OK? "torch~=2.8.0",
-    # OK "torchaudio~=2.8.0",
-    # OK "torchvision~=0.23.0",
-    # OK "torchcodec>=0.6.0,<0.8.0; (sys_platform == 'linux' and platform_machine == 'x86_64') or sys_platform == 'darwin' or sys_platform == 'win32'",
-    # OK "transformers>=4.48.0",
-    # OK "triton>=3.3.0; sys_platform == 'linux' and platform_machine == 'x86_64'" # only install triton on x86_64 Linux
-    # ok omegaconf 2.3.0 requires antlr4-python3-runtime, which is not installed.
-
 builddependencies = [('Cython', '3.1.1')]
 dependencies = [
     ('CUDA', '12.8.0', '', SYSTEM),
@@ -50,7 +27,7 @@ dependencies = [
     ('torchvision', '0.24.1', versionsuffix),
 ]
 
-# unpin versions of dependencies in WhisperX
+# unpin versions of dependencies in WhisperX to be compatible with PyTorch-2.9.1 stack
 local_whisperx_preinstallopts = (
     "sed -E -i "
     r""" '/^[[:space:]]*dependencies[[:space:]]*=[[:space:]]*[[]/"""
