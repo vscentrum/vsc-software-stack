@@ -31,6 +31,7 @@ toolchain = {'name': 'foss', 'version': '2025a'}
     # OK "torchcodec>=0.6.0,<0.8.0; (sys_platform == 'linux' and platform_machine == 'x86_64') or sys_platform == 'darwin' or sys_platform == 'win32'",
     # OK "transformers>=4.48.0",
     # OK "triton>=3.3.0; sys_platform == 'linux' and platform_machine == 'x86_64'" # only install triton on x86_64 Linux
+    # ok omegaconf 2.3.0 requires antlr4-python3-runtime, which is not installed.
 
 builddependencies = [('Cython', '3.1.1')]
 dependencies = [
@@ -66,6 +67,10 @@ exts_list = [
     ('av', '15.1.0', {
         'checksums': ['39cda2dc810e11c1938f8cb5759c41d6b630550236b3365790e67a313660ec85'],
     }),
+    ('antlr4-python3-runtime', '4.9', {
+        'modulename': 'antlr4',
+        'checksums': ['02d9afb720c13c52b336234286966cdf5aff704f230a513e635adb0d94de97ae'],
+    }),
     ('omegaconf', '2.3.0', {
         'checksums': ['d5d4b6d29955cc50ad50c46dc269bcd92c6e00f5f90d23ab5fee7bfca4ba4cc7'],
     }),
@@ -73,6 +78,8 @@ exts_list = [
         'preinstallopts': local_whisperx_preinstallopts,
         'source_urls': ['https://github.com/m-bain/whisperX/archive/'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'runtest': 'pytest -v tests',
+        'testinstall': True,
         'checksums': ['fc0a7c2a72db1c0c280cf8bca75d266c25cd4ca9c44d4768f2f56a6b40d3d98b'],
     }),
 ]
