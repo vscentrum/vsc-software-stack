@@ -27,7 +27,7 @@ dependencies = [
     ('infercnvpy', '0.6.1'),
     ('pySCENIC', '0.12.1-20250109'),
     ('CellRank', '2.0.7'),
-    ('Squidpy', '1.6.6'),
+    ('Squidpy', '1.6.6'), 
     ('Cassiopeia', '2.1.0-2025-10-9'),
     ('scvi-tools', '1.4.1'),
     ('scArches', '0.6.1'),
@@ -56,7 +56,37 @@ dependencies = [
     ('Biopython', '1.84'),  # pycirclize
 ]
 
+# ok pertpy 1.0.5 requires fast-array-utils, which is not installed.
+# OK pertpy 1.0.5 requires flax, which is not installed.
+# ok pertpy 1.0.5 requires funsor, which is not installed.
+# ok pertpy 1.0.5 requires numpyro, which is not installed.
+# ok decoupler 2.1.4 requires marsilea, which is not installed.
+# ok pydeseq2 0.5.4 requires formulaic, which is not installed.
+# ok pydeseq2 0.5.4 requires formulaic-contrasts, which is not installed.
+# ok jaxtyping 0.3.3 requires wadler-lindig, which is not installed.
+# ok scirpy 0.23.0 requires logomaker, which is not installed.
+# ok scirpy 0.23.0 requires python-levenshtein, which is not installed.
+# ok equinox 0.13.4 requires wadler-lindig, which is not installed.
+# ok altair 6.0.0 requires narwhals, which is not installed.
+# OK ott-jax 0.6.0 requires optax, which is not installed.
+# ok ktplotspy 0.3.5 requires pycirclize, which is not installed.
+# ok toytree 3.0.11 requires loguru, which is not installed.
+# ok plotnine 0.15.3 has requirement statsmodels>=0.14.6, but you have statsmodels 0.14.4.
+# ok pydeseq2 0.5.4 has requirement numpy>=2.0.0, but you have numpy 1.26.4.
+# ok scirpy 0.23.0 has requirement pandas>=2.3, but you have pandas 2.2.2.
+# ok altair 6.0.0 has requirement typing-extensions>=4.12.0; python_version < "3.15", but you have typing-extensions 4.11.0.
+# ok formulaic 1.1.1 requires interface-meta, which is not installed.
+# ok plotnine 0.15.2 has requirement statsmodels>=0.14.5, but you have statsmodels 0.14.4.
+# ok plotnine 0.14.6 has requirement mizani~=0.13.0, but you have mizani 0.14.4.
+# ok pertpy 1.0.5 needs scanpy >= 1.12 -> pertpy 1.0.4
+
 exts_list = [
+    # ('annoy', '1.17.3', { # in scrublet
+    #     'checksums': ['9cbfebefe0a5f843eba29c6be4c84d601f4f41ad4ded0486f1b88c3b07739c15'],
+    # }),
+    # ('pynndescent', '0.6.0', {  # 0.5.13 in umap-learn
+    #     'checksums': ['7ffde0fb5b400741e055a9f7d377e3702e02250616834231f6c209e39aac24f5'],
+    # }),
     ('interface-meta', '1.3.0', {
         'modulename': 'interface_meta',
         'checksums': ['8a4493f8bdb73fb9655dcd5115bc897e207319e36c8835f39c516a2d7e9d79a1'],
@@ -145,6 +175,9 @@ exts_list = [
     ('sc-toolbox', '0.12.3', {
         'checksums': ['6ca22a364c269a095114e620eb3c6da8aac1950d8f43f58ceea08005a09cc2cb'],
     }),
+    # ('toolz', '1.0.0', { # in scib-metrics and squidpy
+    #     'checksums': ['2c86e3d9a04798ac556793bced838816296a2f085017664e4995cb40a1047a02'],
+    # }),
     ('altair', '5.5.0', {
         'checksums': ['d960ebe6178c56de3855a68c47b516be38640b73fb3b5111c2a9ca90546dd73d'],
     }),
@@ -152,6 +185,9 @@ exts_list = [
         'preinstallopts': "sed -i -e 's/SafeConfigParser/ConfigParser/g' -e 's/readfp/read_file/g' versioneer.py && ",
         'checksums': ['7052eb337bcce83551815264391cc4efc2bf70b295a3c52aba64f1ab57c3a8a2'],
     }),
+    # ('multipledispatch', '1.0.0', {  # in squidpy
+    #     'checksums': ['5c839915465c68206c3e9c473357908216c28383b425361e5d144594bf85a7e0'],
+    # }),
     ('pypng', '0.20220715.0', {
         'modulename': 'png',
         'checksums': ['739c433ba96f078315de54c0db975aee537cbc3e1d0ae4ed9aab0ca1e427e2c1'],
@@ -169,6 +205,9 @@ exts_list = [
         'preinstallopts': "sed -i '/tensorflow-probability>=0.16/d' setup.py && ",
         'checksums': ['8c12ddccb72c41c96c6a5abceb52e7a76f439a9ab94fb092aa86ee3c1292383a'],
     }),
+    # ('harmonypy', '0.2.0', {
+    #     'checksums': ['9678a059f943723ba954f58d04e1a72e8a5c49ef4d95ba04fb33c9c1b5c67a77'],
+    # }),
     ('fbpca', '1.0', {
         'checksums': ['150677642479663f317fdbb5e06dab3f98721cf7031bb4a84113d7a631c472d1'],
     }),
@@ -207,6 +246,9 @@ exts_list = [
     ('cfgv', '3.5.0', {
         'checksums': ['d5b1034354820651caa73ede66a6294d6e95c1b00acc5e9b098e917404669132'],
     }),
+    # ('muon', '0.1.7', { # v0.1.6 in scArches
+    #     'checksums': ['6bd7cb15e3bee700517ef1dec0197bc77590acb4ccef96c7d0939c6ca50f400a'],
+    # }),
     ('liana', '1.7.1', {
         'checksums': ['85cc3bf19e7562eb76d396e8318cf13ec884998b15188791aadfce9cadd598dd'],
     }),
@@ -234,6 +276,9 @@ exts_list = [
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'checksums': ['2f9121dad78f5c89f999555e74daa53c739bbab90a1e3ec30ce52775cfe6c6d1'],
     }),
+    # ('typeguard', '4.4.4', { # v4.4.2 in squidpy
+    #     'checksums': ['3a7fd2dffb705d4d0efaed4306a704c89b9dee850b688f060a8b1615a79e5f74'],
+    # }),
     ('jaxtyping', '0.3.3', {
         'checksums': ['8003cfd16ba2ad9b47fdda1d982a575299a81ddfc7997ad0e917c87a0897ea86'],
     }),
