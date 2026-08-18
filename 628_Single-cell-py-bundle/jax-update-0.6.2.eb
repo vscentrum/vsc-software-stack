@@ -39,7 +39,6 @@ dependencies = [
 # XLA_COMMIT from jax-jaxlib: third_party/xla/workspace.bzl
 # also filename in /archives has to be {_xla_commit}.tar.gz
 _xla_commit = '3d5ece64321630dade7ff733ae1353fc3c83d9cc'
-_envoy_commit = 'c83ed7ea9eb5fb3b93d1ad52b59750f1958b8bde'
 # Use sources downloaded by EasyBuild
 _jaxlib_buildopts = '--bazel_options="--distdir=%(builddir)s/archives" '
 # create wheels and install them
@@ -64,19 +63,12 @@ components = [
                 'filename': f'{_xla_commit}.tar.gz',
                 'extract_cmd': 'mkdir -p %(builddir)s/archives && cp %s %(builddir)s/archives',
             },
-            {
-                'source_urls': ['https://github.com/envoyproxy/data-plane-api/archive'],
-                'filename': f'{_envoy_commit}.tar.gz',
-                'extract_cmd': 'cp %s %(builddir)s/archives',
-            },
         ],
         'checksums': [
             {'jax-v0.6.2.tar.gz':
              'd46cb98795f2c1ccdf2b081e02d9d74b659063679a80beb001ad17d482a60e17'},
             {'3d5ece64321630dade7ff733ae1353fc3c83d9cc.tar.gz':
              'fbd20cf83bad78f66977fa7ff67a12e52964abae0b107ddd5486a0355643ec8a'},
-            {'c83ed7ea9eb5fb3b93d1ad52b59750f1958b8bde.tar.gz':
-             '9e8cf42abce32c9b0e9e271b0cb62803084cbe5e5b49f5d5c2aef0766f9d69ca'},
         ],
         'start_dir': f'jax-jax-v{version}',
         # fix jaxlib version - removes .dev suffix
