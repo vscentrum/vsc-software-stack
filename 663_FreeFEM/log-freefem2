@@ -1,0 +1,376 @@
+autoreconf: export WARNINGS=
+autoreconf: Entering directory '.'
+autoreconf: configure.ac: not using Gettext
+autoreconf: running: aclocal --force 
+autoreconf: configure.ac: tracing
+autoreconf: configure.ac: not using Libtool
+autoreconf: configure.ac: not using Intltool
+autoreconf: configure.ac: not using Gtkdoc
+autoreconf: running: /apps/gent/RHEL9/zen5-ib/software/Autoconf/2.72-GCCcore-13.3.0/bin/autoconf --force
+configure.ac:464: warning: AC_PROG_LEX without either yywrap or noyywrap is obsolete
+./lib/autoconf/programs.m4:743: _AC_PROG_LEX is expanded from...
+./lib/autoconf/programs.m4:736: AC_PROG_LEX is expanded from...
+aclocal.m4:668: AM_PROG_LEX is expanded from...
+configure.ac:464: the top level
+configure.ac:1135: warning: file 'etc/config/m4/acmpi.m4' included several times
+configure.ac:1217: warning: file 'etc/config/m4/acmpi.m4' included several times
+configure.ac:1297: warning: AC_CHECK_HEADERS(${ff_cadna_dir}/cadnafree.h): you should use literals
+./lib/autoconf/headers.m4:217: AC_CHECK_HEADERS is expanded from...
+configure.ac:1297: the top level
+configure.ac:2004: warning: Update your code to rely only on HAVE_SYS_TIME_H,
+configure.ac:2004: then remove this warning and the obsolete code below it.
+configure.ac:2004: All current systems provide time.h; it need not be checked for.
+configure.ac:2004: Not all systems provide sys/time.h, but those that do, all allow
+configure.ac:2004: you to include it and time.h simultaneously.
+configure.ac:2215: warning: The macro 'AC_TRY_RUN' is obsolete.
+configure.ac:2215: You should run autoupdate.
+./lib/autoconf/general.m4:2995: AC_TRY_RUN is expanded from...
+etc/config/m4/ax_lib_gsl.m4:5: AX_PATH_GSL is expanded from...
+configure.ac:2215: the top level
+configure.ac:2215: warning: The macro 'AC_TRY_LINK' is obsolete.
+configure.ac:2215: You should run autoupdate.
+./lib/autoconf/general.m4:2918: AC_TRY_LINK is expanded from...
+etc/config/m4/ax_lib_gsl.m4:5: AX_PATH_GSL is expanded from...
+configure.ac:2215: the top level
+autoreconf: running: /apps/gent/RHEL9/zen5-ib/software/Autoconf/2.72-GCCcore-13.3.0/bin/autoheader --force
+autoreconf: running: automake --add-missing --copy --force-missing
+configure.ac:198: installing './compile'
+configure.ac:297: installing './config.guess'
+configure.ac:297: installing './config.sub'
+configure.ac:34: installing './install-sh'
+configure.ac:34: installing './missing'
+parallel-tests: installing './test-driver'
+plugin/seq/Makefile.am: installing './depcomp'
+autoreconf: './install-sh' is updated
+autoreconf: './config.sub' is updated
+autoreconf: './config.guess' is updated
+autoreconf: Leaving directory '.'
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a race-free mkdir -p... /usr/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether make sets $(MAKE)... (cached) yes
+checking for ranlib... ranlib
+checking whether to enable maintainer-specific portions of Makefiles... no
+checking for gcc... mpicc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether mpicc accepts -g... yes
+checking for mpicc option to enable C11 features... none needed
+checking whether mpicc understands -c and -o together... yes
+checking whether make supports the include directive... yes (GNU style)
+checking dependency style of mpicc... gcc3
+checking whether the compiler supports GNU C++... yes
+checking whether mpicxx accepts -g... yes
+checking for mpicxx option to enable C++11 features... none needed
+checking dependency style of mpicxx... gcc3
+checking for unzip... yes
+checking for m4... yes
+checking for bison... yes
+checking for flex... yes
+checking for cmake... no
+checking for patch... yes
+checking whether the compiler supports GNU Fortran... yes
+checking whether mpifort accepts -g... yes
+checking whether the compiler supports GNU Fortran 77... yes
+checking whether mpifort accepts -g... yes
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking how to get verbose linking output from mpifort... -v
+checking for Fortran 77 libraries of mpifort... -lgfortran
+checking  Size of fortran 77 integer ...            4
+checking for dummy main to link with Fortran 77 libraries... none
+checking for Fortran 77 name-mangling scheme... lower case, underscore, no extra underscore
+configure:     ++ add f77 : -lgfortran ;  -DAdd_   in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add fc : -lgfortran ;  -DAdd_   in  plugin/seq/WHERE_LIBRARY-config "
+checking for gcc... (cached) mpicc
+checking whether the compiler supports GNU C... (cached) yes
+checking whether mpicc accepts -g... (cached) yes
+checking for mpicc option to enable C11 features... (cached) none needed
+checking whether mpicc understands -c and -o together... (cached) yes
+checking dependency style of mpicc... (cached) gcc3
+checking for flex... flex
+checking for lex output file root... lex.yy
+checking for lex library... none needed
+checking for library containing yywrap... no
+checking whether yytext is a pointer... yes
+checking for bison... bison -y
+checking for deflate in -lz... yes
+checking for pthread_create in -lpthread... yes
+checking for omp_get_wtime in -liomp5... no
+checking for clock_gettime in -lrt... yes
+checking for stdio.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for strings.h... yes
+checking for sys/stat.h... yes
+checking for sys/types.h... yes
+checking for unistd.h... yes
+checking for sys/time.h... yes
+checking for zlib.h... yes
+configure:     ++ add pthread : -lpthread ;   in  plugin/seq/WHERE_LIBRARY-config "
+checking wether we are on a MacIntosh... no
+checking wether we are on  SunOS... no
+checking wether we are on Microsoft Windows... no
+checking prefix dir freefem++  ... /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/FreeFEM/4.14-foss-2024a/lib/ff++/4.14
+configure:     -----   CPU kind: x86_64 , intel/amd: yes 
+checking whether to generate debugging information... no
+checking whether the C compiler accepts -O3... yes
+checking whether the C++ compiler accepts -O3... yes
+checking whether the Fortran 77 compiler accepts -O3... yes
+checking whether the C compiler accepts -mmmx... yes
+checking whether the C++ compiler accepts -mmmx... yes
+checking whether the Fortran 77 compiler accepts -mmmx... yes
+checking whether the C compiler accepts -mavx2... yes
+checking whether the C++ compiler accepts -mavx2... yes
+checking whether the Fortran 77 compiler accepts -mavx2... yes
+checking whether the C compiler accepts -mavx... yes
+checking whether the C++ compiler accepts -mavx... yes
+checking whether the Fortran 77 compiler accepts -mavx... yes
+checking whether the C compiler accepts -msse4.2... yes
+checking whether the C++ compiler accepts -msse4.2... yes
+checking whether the Fortran 77 compiler accepts -msse4.2... yes
+checking whether the C compiler accepts -msse2... yes
+checking whether the C++ compiler accepts -msse2... yes
+checking whether the Fortran 77 compiler accepts -msse2... yes
+checking whether the C compiler accepts -msse... yes
+checking whether the C++ compiler accepts -msse... yes
+checking whether the Fortran 77 compiler accepts -msse... yes
+configure:      CXXFLAGS =    -ftree-vectorize -march=native -fno-math-errno -fPIC -DNDEBUG -O3 -mmmx -mavx2 -mavx -msse4.2 -msse2 -msse  
+checking whether the C++ compiler accepts -std=gnu++14... yes
+configure:     ++ add cxx11 : -std=gnu++14 ;  -std=gnu++14 in  plugin/seq/WHERE_LIBRARY-config "
+checking suffix to add to package name... none
+checking for OpenGL/gl.h... no
+checking for GL/gl.h... yes
+checking for GLUT/glut.h... no
+checking for GL/glut.h... yes
+checking add suffix  ... yes
+configure:  find real ( real )  petsc in /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/PETSc/3.23.5-foss-2024a/lib/petsc/conf/petscvariables
+configure:  choose MPI from petsc  : /apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/bin/mpiexec 
+checking for MPIRUN... /apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/bin/mpiexec
+checking for MPIRUN option: ... --oversubscribe
+checking for mpipath ... 
+yes
+checking MPI_DOUBLE_COMPLEX... yes
+configure:     ++ add mpifc : -L/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/lib -Wl,-rpath -Wl,/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/lib -Wl,--enable-new-dtags -lmpi_usempif08 -lmpi_usempi_ignore_tkr -lmpi_mpifh -lmpi  ;  -I/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/include  in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add mpif77 : -L/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/lib -Wl,-rpath -Wl,/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/lib -Wl,--enable-new-dtags -lmpi_usempif08 -lmpi_usempi_ignore_tkr -lmpi_mpifh -lmpi  ;  -I/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/include  in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add mpi : -L/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/lib -Wl,-rpath -Wl,/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/lib -Wl,--enable-new-dtags -lmpi  ;  -I/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/include  in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add petsc : -Wl,-rpath,/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/PETSc/3.23.5-foss-2024a/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/PETSc/3.23.5-foss-2024a/lib  -lpetsc  -Wl,-rpath,/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/Hypre/2.32.0-foss-2024a/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/Hypre/2.32.0-foss-2024a/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/lib -L/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/lib -Wl,-rpath,/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/SuperLU_DIST/9.1.0-foss-2024a/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/SuperLU_DIST/9.1.0-foss-2024a/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/MUMPS/5.7.2-foss-2024a-metis/lib -L/apps/gent/RHEL9/zen5-ib/software/MUMPS/5.7.2-foss-2024a-metis/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/ScaLAPACK/2.2.0-gompi-2024a-fb/lib -L/apps/gent/RHEL9/zen5-ib/software/ScaLAPACK/2.2.0-gompi-2024a-fb/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/FFTW.MPI/3.3.10-gompi-2024a/lib -L/apps/gent/RHEL9/zen5-ib/software/FFTW.MPI/3.3.10-gompi-2024a/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/SCOTCH/7.0.6-gompi-2024a/lib -L/apps/gent/RHEL9/zen5-ib/software/SCOTCH/7.0.6-gompi-2024a/lib -Wl,-rpath,/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/ParMETIS/4.0.3-gompi-2024a/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/ParMETIS/4.0.3-gompi-2024a/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/lib -Wl,-rpath,/kyukon/home/apps/RHEL9/zen5-ib/software/GCCcore/13.3.0/lib/gcc/x86_64-pc-linux-gnu/13.3.0 -L/kyukon/home/apps/RHEL9/zen5-ib/software/GCCcore/13.3.0/lib/gcc/x86_64-pc-linux-gnu/13.3.0 -Wl,-rpath,/kyukon/home/apps/RHEL9/zen5-ib/software/GCCcore/13.3.0/lib/gcc -L/kyukon/home/apps/RHEL9/zen5-ib/software/GCCcore/13.3.0/lib/gcc -Wl,-rpath,/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/SuperLU_DIST/9.1.0-foss-2024a/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/SuperLU_DIST/9.1.0-foss-2024a/lib64 -Wl,-rpath,/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/ParMETIS/4.0.3-gompi-2024a/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/ParMETIS/4.0.3-gompi-2024a/lib64 -Wl,-rpath,/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/Hypre/2.32.0-foss-2024a/lib64 -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/Hypre/2.32.0-foss-2024a/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/lib64 -L/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/MPFR/4.2.1-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/MPFR/4.2.1-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/GMP/6.3.0-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/GMP/6.3.0-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/MUMPS/5.7.2-foss-2024a-metis/lib64 -L/apps/gent/RHEL9/zen5-ib/software/MUMPS/5.7.2-foss-2024a-metis/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/SCOTCH/7.0.6-gompi-2024a/lib64 -L/apps/gent/RHEL9/zen5-ib/software/SCOTCH/7.0.6-gompi-2024a/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/Boost/1.85.0-GCC-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/Boost/1.85.0-GCC-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/ICU/75.1-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/ICU/75.1-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/Python/3.12.3-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/Python/3.12.3-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/libffi/3.4.5-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/libffi/3.4.5-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/SQLite/3.45.3-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/SQLite/3.45.3-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/Tcl/8.6.14-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/Tcl/8.6.14-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/libreadline/8.2-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/libreadline/8.2-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/libarchive/3.7.4-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/libarchive/3.7.4-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/zstd/1.5.6-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/zstd/1.5.6-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/lz4/1.9.4-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/lz4/1.9.4-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/cURL/8.7.1-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/cURL/8.7.1-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/bzip2/1.0.8-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/bzip2/1.0.8-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/ncurses/6.5-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/ncurses/6.5-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/ScaLAPACK/2.2.0-gompi-2024a-fb/lib64 -L/apps/gent/RHEL9/zen5-ib/software/ScaLAPACK/2.2.0-gompi-2024a-fb/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/FFTW.MPI/3.3.10-gompi-2024a/lib64 -L/apps/gent/RHEL9/zen5-ib/software/FFTW.MPI/3.3.10-gompi-2024a/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/FFTW/3.3.10-GCC-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/FFTW/3.3.10-GCC-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/OpenBLAS/0.3.27-GCC-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/OpenBLAS/0.3.27-GCC-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/UCC/1.3.0-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/UCC/1.3.0-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/PRRTE/3.0.5-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/PRRTE/3.0.5-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/PMIx/5.0.2-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/PMIx/5.0.2-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/UCX/1.16.0-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/UCX/1.16.0-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/libevent/2.1.12-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/libevent/2.1.12-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/OpenSSL/3/lib64 -L/apps/gent/RHEL9/zen5-ib/software/OpenSSL/3/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/hwloc/2.10.0-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/hwloc/2.10.0-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/libpciaccess/0.18.1-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/libpciaccess/0.18.1-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/libxml2/2.12.7-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/libxml2/2.12.7-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/XZ/5.4.5-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/XZ/5.4.5-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/numactl/2.0.18-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/numactl/2.0.18-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/binutils/2.42-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/binutils/2.42-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/zlib/1.3.1-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/zlib/1.3.1-GCCcore-13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/GCCcore/13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/GCCcore/13.3.0/lib64 -Wl,-rpath,/kyukon/home/apps/RHEL9/zen5-ib/software/GCCcore/13.3.0/lib64 -L/kyukon/home/apps/RHEL9/zen5-ib/software/GCCcore/13.3.0/lib64 -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/MPFR/4.2.1-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/MPFR/4.2.1-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/GMP/6.3.0-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/GMP/6.3.0-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/Boost/1.85.0-GCC-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/Boost/1.85.0-GCC-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/ICU/75.1-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/ICU/75.1-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/numpy/core/lib -L/apps/gent/RHEL9/zen5-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/numpy/core/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/Python/3.12.3-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/Python/3.12.3-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/libffi/3.4.5-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/libffi/3.4.5-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/SQLite/3.45.3-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/SQLite/3.45.3-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/Tcl/8.6.14-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/Tcl/8.6.14-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/libreadline/8.2-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/libreadline/8.2-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/libarchive/3.7.4-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/libarchive/3.7.4-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/zstd/1.5.6-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/zstd/1.5.6-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/lz4/1.9.4-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/lz4/1.9.4-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/cURL/8.7.1-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/cURL/8.7.1-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/bzip2/1.0.8-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/bzip2/1.0.8-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/ncurses/6.5-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/ncurses/6.5-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/FFTW/3.3.10-GCC-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/FFTW/3.3.10-GCC-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/OpenBLAS/0.3.27-GCC-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/OpenBLAS/0.3.27-GCC-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/UCC/1.3.0-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/UCC/1.3.0-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/PRRTE/3.0.5-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/PRRTE/3.0.5-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/PMIx/5.0.2-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/PMIx/5.0.2-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/UCX/1.16.0-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/UCX/1.16.0-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/libevent/2.1.12-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/libevent/2.1.12-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/hwloc/2.10.0-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/hwloc/2.10.0-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/libpciaccess/0.18.1-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/libpciaccess/0.18.1-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/libxml2/2.12.7-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/libxml2/2.12.7-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/XZ/5.4.5-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/XZ/5.4.5-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/numactl/2.0.18-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/numactl/2.0.18-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/binutils/2.42-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/binutils/2.42-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/zlib/1.3.1-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/zlib/1.3.1-GCCcore-13.3.0/lib -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/GCCcore/13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/GCCcore/13.3.0/lib -Wl,-rpath,/kyukon/home/apps/RHEL9/zen5-ib/software/GCCcore/13.3.0/lib -L/kyukon/home/apps/RHEL9/zen5-ib/software/GCCcore/13.3.0/lib -lHYPRE -lumfpack -lklu -lspqr -lcholmod -lbtf -lccolamd -lcolamd -lcxsparse -lldl -lrbio -lspex -lcamd -lamd -lsuperlu_dist -ldmumps -lmumps_common -lpord -lpthread -lscalapack -lflexiblas -lgfortran -lfftw3_mpi -lfftw3 -lflexiblas -lgfortran -lptesmumps -lptscotchparmetisv3 -lptscotch -lptscotcherr -lesmumps -lscotch -lscotcherr -lparmetis -lmetis -lgfortran -lm -lpthread -lrt -lmpi_usempif08 -lmpi_usempi_ignore_tkr -lmpi_mpifh -lmpi -lgfortran -lm -lgfortran -lgomp -lgcc_s -lquadmath -lstdc++ -lquadmath -lm -lpthread -lrt ;   -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/PETSc/3.23.5-foss-2024a/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/Hypre/2.32.0-foss-2024a/include -I/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/include -I/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/include/suitesparse -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/SuperLU_DIST/9.1.0-foss-2024a/include -I/apps/gent/RHEL9/zen5-ib/software/MUMPS/5.7.2-foss-2024a-metis/include -I/apps/gent/RHEL9/zen5-ib/software/FFTW.MPI/3.3.10-gompi-2024a/include -I/apps/gent/RHEL9/zen5-ib/software/SCOTCH/7.0.6-gompi-2024a/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/ParMETIS/4.0.3-gompi-2024a/include -I/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/include -I/apps/gent/RHEL9/zen5-ib/software/Boost/1.85.0-GCC-13.3.0/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add parmetis :  -Wl,-rpath,/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/ParMETIS/4.0.3-gompi-2024a/lib -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/ParMETIS/4.0.3-gompi-2024a/lib -lparmetis ;   -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/ParMETIS/4.0.3-gompi-2024a/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add metis :  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -lmetis ;   -I/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add ptscotch :  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/SCOTCH/7.0.6-gompi-2024a/lib -L/apps/gent/RHEL9/zen5-ib/software/SCOTCH/7.0.6-gompi-2024a/lib -lptesmumps -lptscotchparmetisv3 -lptscotch -lptscotcherr -lesmumps -lscotch -lscotcherr ;   -I/apps/gent/RHEL9/zen5-ib/software/SCOTCH/7.0.6-gompi-2024a/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add scotch : -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/SCOTCH/7.0.6-gompi-2024a/lib -L/apps/gent/RHEL9/zen5-ib/software/SCOTCH/7.0.6-gompi-2024a/lib     -lesmumps -lscotch -lscotcherr ;   -I/apps/gent/RHEL9/zen5-ib/software/SCOTCH/7.0.6-gompi-2024a/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add mumps :  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/MUMPS/5.7.2-foss-2024a-metis/lib -L/apps/gent/RHEL9/zen5-ib/software/MUMPS/5.7.2-foss-2024a-metis/lib -ldmumps -lmumps_common -lpord -lpthread ;   -I/apps/gent/RHEL9/zen5-ib/software/MUMPS/5.7.2-foss-2024a-metis/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add scalapack :  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/ScaLAPACK/2.2.0-gompi-2024a-fb/lib -L/apps/gent/RHEL9/zen5-ib/software/ScaLAPACK/2.2.0-gompi-2024a-fb/lib -lscalapack -lflexiblas -lgfortran ;    in  plugin/seq/WHERE_LIBRARY-config "
+ **** add  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -lmetis to ff_SUITESPARSE_LIB ******
+configure:     ++ add suitesparse :  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/lib -L/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/lib -lumfpack -lklu -lspqr -lcholmod -lbtf -lccolamd -lcolamd -lcxsparse -lldl -lrbio -lspex -lcamd -lamd  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -lmetis ;   -I/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/include -I/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/include/suitesparse in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add blaslapack :  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib -lflexiblas -lgfortran ;    in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add slepc : -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/SLEPc/3.23.2-foss-2024a/lib -lslepc ;  -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/SLEPc/3.23.2-foss-2024a/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:  with petsc  yes,  with slepc yes 
+configure:  without petsc complex ***** 
+checking for wget... yes
+configure:  without cadna ***** 
+checking for fftw_execute in -lfftw3... yes
+checking for fftw3.h... yes
+configure:     ++ add fftw3 : -lfftw3 ;   in  plugin/seq/WHERE_LIBRARY-config "
+ use BLAS/Lapack of petsc 
+configure:     ++ add lapack :  ;    in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add blas : -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib -lflexiblas -lgfortran ;    in  plugin/seq/WHERE_LIBRARY-config "
+configure:  BLAS and LAPACK  from  petsc ***** 
+checking for cblas.h... yes
+checking for Accelerate/cblas.h... no
+checking for atlas/cblas.h... no
+checking for cblas_zdotu_sub in -lcblas... no
+configure:     -- do not add blas : -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib -lflexiblas -lgfortran  in  plugin/seq/WHERE_LIBRARY-config "
+checking for lapack in -lrt -lm -lpthread -lgfortran, -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib -lflexiblas -lgfortran and -llapack ... yes
+checking for dsaupd_ in -larpack... no
+checking for libarpack with locate... no
+configure: -- NO ARPACK --  enable_download : no , wget: yes 
+configure:     -- do not add lapack : -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/lib -lflexiblas -lgfortran  in  plugin/seq/WHERE_LIBRARY-config "
+amd/umfpack/suitesparse  of petsc
+    lib:  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/lib -L/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/lib -lumfpack -lklu -lspqr -lcholmod -lbtf -lccolamd -lcolamd -lcxsparse -lldl -lrbio -lspex -lcamd -lamd  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -lmetis inc:  -I/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/include -I/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/include/suitesparse
+configure:     ++ add amd :  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/lib -L/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/lib -lumfpack -lklu -lspqr -lcholmod -lbtf -lccolamd -lcolamd -lcxsparse -lldl -lrbio -lspex -lcamd -lamd  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -lmetis ;   -I/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/include -I/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/include/suitesparse in  plugin/seq/WHERE_LIBRARY-config "
+configure:     ++ add umfpack :  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/lib -L/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/lib -lumfpack -lklu -lspqr -lcholmod -lbtf -lccolamd -lcolamd -lcxsparse -lldl -lrbio -lspex -lcamd -lamd  -Wl,-rpath,/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/lib -lmetis ;   -I/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/include -I/apps/gent/RHEL9/zen5-ib/software/SuiteSparse/7.10.1-foss-2024a/include/suitesparse in  plugin/seq/WHERE_LIBRARY-config "
+checking for times... yes
+checking for sysconf... yes
+checking for cstddef... yes
+checking for stddef.h... yes
+checking for semaphore.h... yes
+checking for sys/mman.h... yes
+checking for regex.h... yes
+checking for unistd.h... (cached) yes
+checking for malloc.h... yes
+checking for asinh... yes
+checking for acosh... yes
+checking for atanh... yes
+checking for getenv... yes
+checking for jn... yes
+checking for erfc... yes
+checking for tgamma... yes
+checking for gettimeofday... yes
+checking for mallinfo... yes
+checking for mstats... no
+checking for srandomdev... no
+checking for second_... no
+checking for libtool... yes
+checking for dlfcn.h... yes
+checking for sin in -lm... yes
+checking for dlinfo in -ldl... yes
+checking whether dlopen links ok... yes
+checking whether the C++ compiler accepts -rdynamic... yes
+checking whether the C++ compiler accepts -fPIC... yes
+checking whether the C compiler accepts -fPIC... yes
+checking whether the C compiler accepts -fPIC... yes
+checking whether the Fortran compiler accepts -fPIC... yes
+checking whether the Fortran compiler accepts -fPIC... yes
+checking whether the Fortran compiler accepts -fPIC... yes
+checking whether the Fortran compiler accepts -fPIC... yes
+checking for gsl-config... /apps/gent/RHEL9/zen5-ib/software/GSL/2.8-GCC-13.3.0/bin/gsl-config
+checking for GSL - version >= 1.15... yes
+configure:     ++ add gsl : -L/apps/gent/RHEL9/zen5-ib/software/GSL/2.8-GCC-13.3.0/lib -lgsl -lgslcblas -lm ;  -I/apps/gent/RHEL9/zen5-ib/software/GSL/2.8-GCC-13.3.0/include in  plugin/seq/WHERE_LIBRARY-config "
+checking check mumps_seq... no
+checking check libseq... no
+checking check mumps_ptscotch... no
+checking check mumps_scotch... no
+checking check superlu... yes
+checking check blacs... no
+checking check freeyams... no
+checking check mmg3d... yes
+checking check mmg... yes
+checking check zlib... yes
+checking check parmmg... yes
+checking check mshmet... no
+checking check tetgen... yes
+checking check ipopt... yes
+checking check nlopt... yes
+configure:     -- do not add tetgen :  -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/TetGen/1.6.0-GCCcore-13.3.0/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     -- do not add metis :  -I/apps/gent/RHEL9/zen5-ib/software/METIS/5.1.0-GCCcore-13.3.0/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     -- do not add parmetis :  -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/ParMETIS/4.0.3-gompi-2024a/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     -- do not add mmg3d :  -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/Mmg/5.8.0-foss-2024a/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     -- do not add mmg :  -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/Mmg/5.8.0-foss-2024a/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     -- do not add parmmg : -L/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/ParMmg/1.5.0-foss-2024a/lib -lparmmg -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/ParMmg/1.5.0-foss-2024a/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     -- do not add ipopt :  -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/Ipopt/3.14.17-foss-2024a/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     -- do not add scalapack :  -I/apps/gent/RHEL9/zen5-ib/software/ScaLAPACK/2.2.0-gompi-2024a-fb/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     -- do not add mumps :  -I/apps/gent/RHEL9/zen5-ib/software/MUMPS/5.7.2-foss-2024a-metis/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     -- do not add nlopt :  -I/apps/gent/RHEL9/zen5-ib/software/NLopt/2.7.1-GCCcore-13.3.0/include in  plugin/seq/WHERE_LIBRARY-config "
+configure:     -- do not add scotch :  -I/apps/gent/RHEL9/zen5-ib/software/SCOTCH/7.0.6-gompi-2024a/include in  plugin/seq/WHERE_LIBRARY-config "
+checking kernel version... 5.14.0
+checking libc version... 
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for h5cc... no
+checking for h5pcc... /apps/gent/RHEL9/zen5-ib/software/HDF5/1.14.5-gompi-2024a/bin/h5pcc
+checking for HDF5 type... parallel
+checking for HDF5 libraries... yes (version 1.14.5)
+checking for hdf5.h... yes
+checking for H5Fcreate in -lhdf5... yes
+checking for H5PTcreate in -lhdf5_hl... yes
+checking for matching HDF5 Fortran wrapper... /apps/gent/RHEL9/zen5-ib/software/HDF5/1.14.5-gompi-2024a/bin/h5pfc
+checking for H5Cpp.h... yes
+configure:     ++ add hdf5 :  -L/apps/gent/RHEL9/zen5-ib/software/HDF5/1.14.5-gompi-2024a/lib -L/apps/gent/RHEL9/zen5-ib/software/zlib/1.3.1-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/Szip/2.1.1-GCCcore-13.3.0/lib -L/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/GCCcore/13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/Szip/2.1.1-GCCcore-13.3.0/lib64 -L/apps/gent/RHEL9/zen5-ib/software/zlib/1.3.1-GCCcore-13.3.0/lib64  -lhdf5_hl -lhdf5  -lpthread -lsz -lz -ldl -lm ;  -I/apps/gent/RHEL9/zen5-ib/software/HDF5/1.14.5-gompi-2024a/include -I/apps/gent/RHEL9/zen5-ib/software/zlib/1.3.1-GCCcore-13.3.0/include -I/apps/gent/RHEL9/zen5-ib/software/Szip/2.1.1-GCCcore-13.3.0/include -I/apps/gent/RHEL9/zen5-ib/software/OpenMPI/5.0.3-GCC-13.3.0/include -I/tmp/vsc40003/easybuild/HDF5/1.14.5/gompi-2024a/hdf5-hdf5_1.14.5/src/H5FDsubfiling in  plugin/seq/WHERE_LIBRARY-config "
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating 3rdparty/Makefile
+config.status: creating 3rdparty/blas/Makefile
+config.status: creating 3rdparty/arpack/Makefile
+config.status: creating 3rdparty/umfpack/Makefile
+config.status: creating 3rdparty/fftw/Makefile
+config.status: creating src/Makefile
+config.status: creating src/bamglib/Makefile
+config.status: creating src/Graphics/Makefile
+config.status: creating src/femlib/Makefile
+config.status: creating src/Algo/Makefile
+config.status: creating src/lglib/Makefile
+config.status: creating src/ffgraphics/Makefile
+config.status: creating src/ffgraphics/server/Makefile
+config.status: creating src/ffgraphics/client/Makefile
+config.status: creating src/fflib/Makefile
+config.status: creating src/nw/Makefile
+config.status: creating src/mpi/Makefile
+config.status: creating src/bamg/Makefile
+config.status: creating src/libMesh/Makefile
+config.status: creating src/medit/Makefile
+config.status: creating src/bin-win32/Makefile
+config.status: creating plugin/Makefile
+config.status: creating plugin/seq/Makefile
+config.status: creating plugin/mpi/Makefile
+config.status: creating examples/Makefile
+config.status: creating examples/plugin/Makefile
+config.status: creating examples/tutorial/Makefile
+config.status: creating examples/misc/Makefile
+config.status: creating examples/mpi/Makefile
+config.status: creating examples/bem/Makefile
+config.status: creating examples/hpddm/Makefile
+config.status: creating examples/ffddm/Makefile
+config.status: creating examples/eigen/Makefile
+config.status: creating examples/examples/Makefile
+config.status: creating examples/bug/Makefile
+config.status: creating examples/3d/Makefile
+config.status: creating examples/3dSurf/Makefile
+config.status: creating examples/3dCurve/Makefile
+config.status: creating config.h
+config.status: executing depfiles commands
+configure:   FreeFEM used download: no 
+configure:   --  Dynamic load facility: yes 
+configure:   --  ARPACK (eigen value): no 
+configure:   --  UMFPACK (sparse solver): yes 
+configure:   --  BLAS: yes 
+configure:   --  with MPI:     yes
+configure:     --  with PETSc: yes / PETSc complex: no 
+configure:     --  with SLEPc: yes / SLEPc complex: no 
+configure:     --  with hpddm: yes 
+configure:     --  with htool: no 
+configure:     --  with bemtool: no (need boost: no and htool: no) 
+configure:   --  without libs:  mshmet gmm mumps_seq yams pipe MMAP NewSolver mkl bemtool 
+configure:   --  without plugins:  mshmet.so aniso.so ilut.so MUMPS_seq.so MUMPS.so freeyams.so pipe.so ff-mmap-semaphore.so NewSolver.so PARDISO.so bem.so RadiativeTransfer_htool.so 
+configure:     progs: FreeFem++-nw bamg cvmsh2  FreeFem++-mpi ffmedit ffglut 
+configure:  Activated libraries 
+configure:  - ARPACK: no
+configure:  - BLACS: no
+configure:  - BEMTOOL: no
+configure:  - BOOST: no
+configure:  - FFTW3: yes
+configure:  - FORTRAN: no
+configure:  - FREEYAMS: no
+configure:  - GMM: no
+configure:  - GSL: yes
+configure:  - HDF5: yes
+configure:  - HTOOL: no
+configure:  - HPDDM: yes
+configure:  - IPOPT: yes
+configure:  - LIBSEQ: no
+configure:  - METIS: yes
+configure:  - MKL: no
+configure:  - MMG3D: yes
+configure:  - MMG: yes
+configure:  - PARMMG: yes
+configure:  - MPI: yes
+configure:  - MSHMET: no
+configure:  - MUMPS: yes
+configure:  - MUMPS_ptscotch: no
+configure:  - MUMPS_scotch: no
+configure:  - MUMPS_seq: no
+configure:  - NLOPT: yes
+configure:  - PARMETIS: yes
+configure:  - PETSC: yes
+configure:  - PETSCCOMPLEX: no
+configure:  - PTHREAD: yes
+configure:  - PTSCOTCH: yes
+configure:  - SCALAPACK: yes
+configure:  - SCOTCH: yes
+configure:  - SLEPC: yes
+configure:  - SLEPCCOMPLEX: no
+configure:  - SUPERLU: yes
+configure:  - TETGEN: yes
+configure:  - UMFPACK: yes
+configure:  PETSc directories do not exist, to build do:
+configure: cd 3rdparty/ff-petsc && make
