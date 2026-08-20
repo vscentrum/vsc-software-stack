@@ -1,9 +1,6 @@
 name = 'SLEPc'
 version = '3.23.2'
 
-local_hpddm_commit = 'f940190ed791984e5ca501a58eb8e6d112ac231d'
-local_hpddm_src = f'hpddm-{local_hpddm_commit}.tar.gz'
-
 homepage = 'https://slepc.upv.es'
 description = """SLEPc (Scalable Library for Eigenvalue Problem Computations) is a software library for the solution
  of large scale sparse eigenvalue problems on parallel computers. It is an extension of PETSc and can be used for
@@ -12,6 +9,9 @@ description = """SLEPc (Scalable Library for Eigenvalue Problem Computations) is
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 toolchainopts = {'usempi': True, 'openmp': True}
+
+local_hpddm_commit = 'f940190ed791984e5ca501a58eb8e6d112ac231d'
+local_hpddm_src = f'hpddm-{local_hpddm_commit}.tar.gz'
 
 source_urls = ['https://slepc.upv.es/download/distrib']
 sources = [
@@ -31,11 +31,11 @@ checksums = [
     {'SLEPc-3.23.2_fix-HPDDM-install.patch': '95fa0427908503e54555a1eeeaa89032e55ac2c75cc1e20cbaaa69d321ad117d'},
 ]
 
-dependencies = [
-    ('PETSc', '3.23.5'),
-]
+dependencies = [('PETSc', '3.23.5')]
 
 configopts = f'--download-hpddm=%(builddir)s/{local_hpddm_src} '
+
+postinstallcmds = ["cd %(installdir)s/lib && ln -sfn libhpddm_petsc.so.0 libhpddm_petsc.so"]
 
 petsc_arch = 'installed-arch-linux2-c-opt'
 

@@ -1,9 +1,17 @@
-# The detection of dependencies is not always with EasyBuild conventions for
-# header locations. This patch intends to correct failures to pick up
-# dependencies in the configure script.
-# Author: steven.vandenbrande@kuleuven.be
---- configure.ac.orig	2026-04-11 15:07:41.881736000 +0200
-+++ configure.ac	2026-04-11 16:37:28.938445000 +0200
+Fix dependency header paths for external libraries.
+
+FreeFEM assumes header layouts that differ from those used by several
+EasyBuild dependencies. Update the SuperLU, MMG, ParMmg, and Ipopt header
+paths to match the installed external libraries.
+
+Ipopt 3.14 installs its public headers under include/coin-or rather than
+include/coin, so update both configure-time detection and the ff-Ipopt
+plugin source.
+
+Author: steven.vandenbrande@kuleuven.be
+Update: Pavel Tomanek (Inuits/UGent) with help from ChatGPT5.6
+--- configure.ac.orig
++++ configure.ac
 @@ -2224,7 +2224,7 @@
  	[[mumps_ptscotch],[-lpord_ptscotch -lmumps_common_ptscotch -ldmumps_ptscotch -lzmumps_ptscotch -lpord_ptscotch],[dmumps_c.h]],
  	[[mumps_scotch],[-lpord_scotch -lmumps_common_scotch -ldmumps_scotch -lzmumps_scotch -lpord_scotch],[dmumps_c.h]],
@@ -32,3 +40,13 @@
  	[[nlopt],[ -lnlopt],[nlopt.hpp],[]]
      ]
      )
+--- plugin/seq/ff-Ipopt.cpp.orig
++++ plugin/seq/ff-Ipopt.cpp
+@@ -30,5 +30,5 @@
+ #include "../../config.h"
+ #endif
+-#include "coin/IpTNLP.hpp"
+-#include "coin/IpIpoptApplication.hpp"
++#include "coin-or/IpTNLP.hpp"
++#include "coin-or/IpIpoptApplication.hpp"
+ #include "ff++.hpp"

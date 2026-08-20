@@ -5,6 +5,7 @@ set -euo pipefail
 export LC_ALL=C
 
 : "${EBROOTFREEFEM:?Load the FreeFEM module first}"
+: "${EBROOTSLEPC:?SLEPc dependency is not loaded}"
 
 version="4.14"
 root="$EBROOTFREEFEM"
@@ -58,6 +59,44 @@ for plugin in hpddm hpddm_substructuring PETSc function-PETSc SLEPc parmmg; do
         exit 1
     fi
 done
+
+echo
+echo "== SLEPc HPDDM support =="
+
+test -f "$EBROOTSLEPC/lib/libhpddm_petsc.so.0"
+test -e "$EBROOTSLEPC/lib/libhpddm_petsc.so"
+
+hpddm_target="$(readlink "$EBROOTSLEPC/lib/libhpddm_petsc.so")"
+
+if test "$hpddm_target" != "libhpddm_petsc.so.0"; then
+    echo "ERROR: unexpected libhpddm_petsc.so target: $hpddm_target" >&2
+    exit 1
+fi
+
+nm -D "$EBROOTSLEPC/lib/libhpddm_petsc.so.0" > "$workdir/hpddm-symbols.txt"
+
+if ! grep -q ' T PCHPDDMSetAuxiliaryMat$' "$workdir/hpddm-symbols.txt"; then
+    echo "ERROR: PCHPDDMSetAuxiliaryMat is missing from libhpddm_petsc.so.0" >&2
+    exit 1
+fi
+
+echo "OK: SLEPc HPDDM library and PCHPDDM symbol"
+
+echo
+echo "== PETSc plugin linkage =="
+
+ldd "$mpiplugindir/PETSc.so" | tee "$workdir/petsc.ldd"
+
+if grep -q 'not found' "$workdir/petsc.ldd"; then
+    echo "ERROR: unresolved PETSc plugin dependency" >&2
+    exit 1
+fi
+
+grep -q 'libhpddm_petsc.so.0' "$workdir/petsc.ldd"
+grep -q 'libslepc.so' "$workdir/petsc.ldd"
+grep -q 'libpetsc.so' "$workdir/petsc.ldd"
+
+echo "OK: PETSc plugin dependencies resolve"
 
 echo
 echo "== Basic serial solve =="

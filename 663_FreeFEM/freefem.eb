@@ -1,7 +1,7 @@
 # Authors: Ehsan Moravveji (VSC, KU Leuven)
 #          Steven Vandenbrande (VSC, KU Leuven)
 # Inspired by: https://github.com/easybuilders/easybuild-easyconfigs/pull/15537
-# Update: Pavel Tomenk (Ugent/Inuits)
+# Update: Pavel Tomanek (UGent/Inuits)
 easyblock = 'ConfigureMake'
 
 name = 'FreeFEM'
@@ -15,13 +15,14 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 toolchainopts = {'usempi': True, 'pic': True}
 
 local_hpddm_commit = '7113b9a6b77fceee3f52490cb27941a87b96542f'
+local_hpddm_src = f'hpddm-{local_hpddm_commit}.zip'
 
 source_urls = ['https://github.com/FreeFem/FreeFem-sources/archive/']
 sources = [
     'v%(version)s.tar.gz',
     {
         'source_urls': ['https://codeload.github.com/hpddm/hpddm/zip/'],
-        'filename': 'hpddm.zip',
+        'filename': local_hpddm_src,
         'download_filename': local_hpddm_commit,
         'extract_cmd': (
             "mkdir -p FreeFem-sources-%(version)s/3rdparty/{pkg,include} && "
@@ -40,10 +41,11 @@ patches = [
 ]
 checksums = [
     {'v4.14.tar.gz': '931cbfe9ef6f6530756c300c5ae47bfdaca21c560a5407cb33325a376a3b6af8'},
-    {'hpddm.zip': 'ded06f69368bc578965e595dca9b3a191d457a4b0eef6ce43c557c1a480ffa71'},
+    {'hpddm-7113b9a6b77fceee3f52490cb27941a87b96542f.zip':
+     'ded06f69368bc578965e595dca9b3a191d457a4b0eef6ce43c557c1a480ffa71'},
     {'FreeFEM-4.14_fix-header-paths-in-config.patch':
-     'a3ff4883b44382f916d399b353542b9ac65d23115896c25ddfc6897a82f31092'},
-    {'FreeFEM-4.14_skip-failing-tests.patch': '6e8a801c9686fd19496d1f4435f71908ab644c3dec135f698002ab9f08aebbe9'},
+     'd45d322774fa6a97302a85caec6668322422d04a8a9f2def22190ba106459a06'},
+    {'FreeFEM-4.14_skip-failing-tests.patch': 'd7ea1d003f5aaf4c552b2169aa3a39f175717b8c6bd3fcaa565e5027135c00a3'},
     {'FreeFEM-4.14_HPDDM-PETSc-3.23.patch': '141a3109b5d52e0b9d3d27eaf7fbb3942f3d87971fb01b21716282d2547fd28a'},
 ]
 
@@ -67,18 +69,16 @@ builddependencies = [
     ('Bison', '3.8.2'),
     ('make', '4.4.1'),
     ('git', '2.45.1'),
-    ('UnZip', '6.0'),
 ]
 
 dependencies = [
-    ('Boost', '1.85.0'),
     ('GSL', '2.8'),
     ('freeglut', '3.6.0'),
     ('arpack-ng', '3.9.1'),
     ('TetGen', '1.6.0'),
     ('HDF5', '1.14.5'),
-    ('ParMmg', '1.5.0'),
     # ('Mmg', '5.8.0'),
+    ('ParMmg', '1.5.0'),
     ('SCOTCH', '7.0.6'),
     ('SuiteSparse', '7.10.1'),
     ('PETSc', '3.23.5'),
@@ -108,7 +108,7 @@ configopts = ' '.join([
     '--with-petsc="$EBROOTPETSC/lib/petsc/conf/petscvariables"',
     '--without-petsc_complex',
     '--with-slepc-include="-I$EBROOTSLEPC/include"',
-    '--with-slepc-ldflags="-L$EBROOTSLEPC/lib -lslepc"',
+    '--with-slepc-ldflags="-L$EBROOTSLEPC/lib -lslepc -lhpddm_petsc"',
     '--without-cadna',
     '--with-blas="$EBROOTOPENBLAS/lib"',
     '--with-lapack="$EBROOTFLEXIBLAS/lib"',
