@@ -44,7 +44,7 @@ checksums = [
     {'hpddm-7113b9a6b77fceee3f52490cb27941a87b96542f.zip':
      'ded06f69368bc578965e595dca9b3a191d457a4b0eef6ce43c557c1a480ffa71'},
     {'FreeFEM-4.14_fix-header-paths-in-config.patch':
-     'd45d322774fa6a97302a85caec6668322422d04a8a9f2def22190ba106459a06'},
+     '12017a34fb8c108ed28d0060036c40bffcfda389599f88e2db337b6853d43696'},
     {'FreeFEM-4.14_skip-failing-tests.patch': 'd7ea1d003f5aaf4c552b2169aa3a39f175717b8c6bd3fcaa565e5027135c00a3'},
     {'FreeFEM-4.14_HPDDM-PETSc-3.23.patch': '141a3109b5d52e0b9d3d27eaf7fbb3942f3d87971fb01b21716282d2547fd28a'},
 ]
@@ -142,9 +142,15 @@ postinstallcmds = ['cp %(start_dir)s/bin/test-driver-ff %(installdir)s/bin']
 sanity_check_paths = {
     'files': ['bin/%s' % x for x in ['test-driver-ff', 'bamg', 'cvmsh2', 'ffglut', 'ffmedit', 'ffmaster']] +
              ['bin/ff-%s' % x for x in ['c++', 'get-dep', 'mpirun', 'pkg-download']] +
-             ['bin/FreeFem++%s' % x for x in ['', '-mpi', '-nw']],
+             ['bin/FreeFem++%s' % x for x in ['', '-mpi', '-nw']] +
+             ['lib/ff++/%%(version)s/lib/%s.so' % x for x in [
+                 'ff-Ipopt', 'ff-NLopt', 'gsl', 'iohdf5', 'metis', 'mmg', 'scotch', 'SuperLu', 'tetgen', 'UMFPACK64',
+             ]] +
+             ['lib/ff++/%%(version)s/lib/mpi/%s.so' % x for x in [
+                 'function-PETSc', 'hpddm', 'hpddm_substructuring', 'MUMPS_mpi', 'parmmg', 'PETSc', 'SLEPc',
+             ]],
     'dirs': ['share/FreeFEM/%(version)s/'] +
-            ['lib/ff++/%%(version)s/%s' % x for x in ['bin', 'etc', 'idp', 'include', 'lib']]
+            ['lib/ff++/%%(version)s/%s' % x for x in ['bin', 'etc', 'idp', 'include', 'lib']],
 }
 
 moduleclass = 'math'

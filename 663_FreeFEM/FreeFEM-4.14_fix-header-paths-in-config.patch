@@ -1,4 +1,4 @@
-Fix dependency header paths for external libraries.
+Fix dependency paths and Ipopt plugin dependencies for external libraries.
 
 FreeFEM assumes header layouts that differ from those used by several
 EasyBuild dependencies. Update the SuperLU, MMG, ParMmg, and Ipopt header
@@ -8,8 +8,14 @@ Ipopt 3.14 installs its public headers under include/coin-or rather than
 include/coin, so update both configure-time detection and the ff-Ipopt
 plugin source.
 
-Author: steven.vandenbrande@kuleuven.be
-Update: Pavel Tomanek (Inuits/UGent) with help from ChatGPT5.6
+The ff-Ipopt plugin also explicitly requires FreeFEM's legacy mumps_seq
+and libseq libraries. These are not provided by the external Ipopt stack,
+where Ipopt is already built with its MUMPS dependency. Drop these
+additional plugin requirements while keeping BLAS and Fortran support.
+
+Original author: steven.vandenbrande@kuleuven.be
+Author: Pavel Tomanek (Inuits/UGent) with help from ChatGPT5.6
+
 --- configure.ac.orig
 +++ configure.ac
 @@ -2224,7 +2224,7 @@
@@ -42,11 +48,11 @@ Update: Pavel Tomanek (Inuits/UGent) with help from ChatGPT5.6
      )
 --- plugin/seq/ff-Ipopt.cpp.orig
 +++ plugin/seq/ff-Ipopt.cpp
-@@ -30,5 +30,5 @@
- #include "../../config.h"
- #endif
+@@ -23 +23 @@
+-//ff-c++-LIBRARY-dep: ipopt mumps_seq blas libseq fc
++//ff-c++-LIBRARY-dep: ipopt blas fc
+@@ -33,2 +33,2 @@
 -#include "coin/IpTNLP.hpp"
 -#include "coin/IpIpoptApplication.hpp"
 +#include "coin-or/IpTNLP.hpp"
 +#include "coin-or/IpIpoptApplication.hpp"
- #include "ff++.hpp"
