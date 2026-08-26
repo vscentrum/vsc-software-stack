@@ -1,0 +1,56 @@
+easyblock = 'CMakeMake'
+
+name = 'Slicer'
+version = '5.12.3'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://www.slicer.org'
+description = "Slicer, or 3D Slicer, is a free, open source software package for visualization and image analysis."
+
+toolchain = {'name': 'foss', 'version': '2025b'}
+
+source_urls = ['https://github.com/Slicer/Slicer/archive/']
+sources = [{
+    'filename': SOURCE_TAR_XZ,
+    'git_config': {
+        'url': 'https://github.com/Slicer',
+        'repo_name': name,
+        'tag': 'v%(version)s',
+        'keep_git_dir': True,
+    },
+}]
+checksums = ['c2d36b592964a68f24caf567b16a417c32b31f8ddc030af3085dccd68da7aa7b']
+
+builddependencies = [
+    ('CMake', '3.31.8'),
+]
+dependencies = [
+    ('CUDA', '12.9.1', '', SYSTEM),
+    ('Python', '3.13.5'),
+    ('SciPy-bundle', '2025.07'),
+    ('Qt6', '6.9.3'),
+    # ('pydicom', '3.0.2'),
+    # ('Pillow', '11.3.0'),
+    ('Slicer-Python-deps', version),
+    ('Biomedisa', '26.7.3', versionsuffix),
+    # Slicer build its special patched VTK and ITK versions different from ones in EB repo
+]
+
+preconfigopts = "sed -i '/^[[:space:]]*nose[[:space:]]*$/d' "
+preconfigopts += "%(builddir)s/Slicer/SuperBuild/External_python-numpy.cmake && "
+
+configopts = '-DCMAKE_BUILD_TYPE=Release '
+configopts += '-DSlicer_RELEASE_TYPE=Stable '
+# configopts += '-DSlicer_FORCED_REVISION=34627 '
+configopts += '-DQt6_DIR=$EBROOTQT6/lib/cmake/Qt6 '
+configopts += '-DSlicer_USE_SYSTEM_QT=ON '
+configopts += '-DSlicer_USE_SYSTEM_python=ON '
+configopts += '-DSlicer_REQUIRED_PYTHON_VERSION=3.13.5 '
+# configopts += '-DSlicer_USE_SYSTEM_VTK=ON '
+# configopts += '-DSlicer_VTK_VERSION_MINOR=5 '
+# configopts += '-DSlicer_VTK_SMP_IMPLEMENTATION_TYPE=Sequential '
+# configopts += '-DSlicer_USE_SYSTEM_ITK=ON '
+configopts += '-DBUILD_TESTING=OFF '
+
+
+moduleclass = 'vis'
