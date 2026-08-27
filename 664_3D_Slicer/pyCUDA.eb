@@ -1,0 +1,31 @@
+easyblock = 'PythonBundle'
+
+name = 'PyCUDA'
+version = '2025.1.2'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://mathema.tician.de/software/pycuda'
+description = 'PyCUDA lets you access Nvidia’s CUDA parallel computation API from Python.'
+
+toolchain = {'name': 'gfbf', 'version': '2025b'}
+
+dependencies = [
+    ('CUDA', '12.9.1', '', SYSTEM),
+    ('Python', '3.13.5'),
+    ('SciPy-bundle', '2025.07'),
+    ('Mako', '1.3.10'),
+]
+
+exts_list = [
+    ('pytools', '2025.2.5', {
+        'checksums': ['a7f5350644d46d98ee9c7e67b4b41693308aa0f5e9b188d8f0694b27dc94e3a2'],
+    }),
+    ('%(namelower)s', version, {
+        'preinstallopts': './configure.py --cuda-root="$EBROOTCUDA" && ',
+        'checksums': ['0dd82911d72d8e03c63128ae44e99cfb7b4689094aba6cc5193d8e944717aafa'],
+    }),
+]
+
+sanity_check_commands = ['python -s -c "import pycuda; import pycuda.driver"']
+
+moduleclass = 'lang'
