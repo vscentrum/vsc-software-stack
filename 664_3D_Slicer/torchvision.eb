@@ -28,15 +28,16 @@ exts_list = [
     (name, version, {
         'source_urls': ['https://github.com/pytorch/vision/archive'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'patches': ['torchvision-0.24.1_fix-TestAffine.patch'],
+        'patches': [
+            'torchvision-0.24.1_fix-tests.patch',
+        ],
         'preinstallopts': 'export FORCE_CUDA=1 && ',
         'installopts': '-v',
         'runtest': 'pytest -m "not xfail"',  # don't run tests that are expected that they might fail
         'testinstall': True,
         'checksums': [
             {'torchvision-0.24.1.tar.gz': '071da2078600bfec4886efab77358c9329abfedcf1488b05879b556cb9b84ba7'},
-            {'torchvision-0.24.1_fix-TestAffine.patch':
-             '5e7ae4a5ebc0fb432cc3ee1f424aaf5b86e0dcac2a8682567c82875549ac0a24'},
+            {'torchvision-0.24.1_fix-tests.patch': '5b2c6b6cf2e224b38c3a586770247f2c7f6424df9c5bdb652e4e2e6bd4afcab1'},
         ],
     }),
 ]
