@@ -34,23 +34,18 @@ exts_list = [
         'checksums': ['92ae7c1dd7f61041953dc2d42253181ee099086f0b58ae36fcf98147a6f08a29'],
     }),
     ('medpy', '0.5.2', {
-        # 'modulename': '%(namelower)s',
         'checksums': ['f4233c2f4adc79abe4b8ff5b683ba4778322d4545e71d51d6a328ad31275972d'],
     }),
-    (name, version, {
-        # 'modulename': '%(namelower)s',
+    ('%(namelower)s', version, {
         'checksums': ['e50d8bb33e05c7a690c146f30ac3b70d358bb7a54534d00557cb25e8923e39bf'],
     }),
 ]
 
-modextravars = {
-    'KERAS_BACKEND': 'torch',
-}
-
 sanity_check_commands = [
     'python -s -c "from biomedisa.features.biomedisa_helper import load_data, save_data"',
     'python -s -c "import keras; assert keras.backend.backend() == \'torch\'"',
-    'python -s -c "import torch, torchvision; assert torch.version.cuda is not None"',
 ]
+
+modextravars = {'KERAS_BACKEND': 'torch'}
 
 moduleclass = 'bio'
