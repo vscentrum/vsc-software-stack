@@ -31,6 +31,8 @@ dependencies = [
     ('Qt6', '6.9.3'),
     ('Slicer-Python-deps', version),
     ('Biomedisa', '26.7.3', versionsuffix),
+    ('OpenSSL', '3', '', SYSTEM),
+    ('cURL', '8.14.1'),
     # Slicer build its special patched VTK and ITK versions different from ones in EB repo
 ]
 
@@ -49,6 +51,10 @@ configopts += '-DSlicer_REQUIRED_PYTHON_VERSION=3.13.5 '
 # configopts += '-DSlicer_VTK_SMP_IMPLEMENTATION_TYPE=Sequential '
 # configopts += '-DSlicer_USE_SYSTEM_ITK=ON '
 configopts += '-DBUILD_TESTING=OFF '
+configopts += '-DOPENSSL_ROOT_DIR=$EBROOTOPENSSL '
+configopts += '-DSlicer_USE_SYSTEM_curl=ON '
+configopts += '-DCURL_USE_STATIC_LIBS=OFF '
 
+install_cmd = 'cmake --install %(builddir)s/easybuild_obj/Slicer-build --prefix %(installdir)s'
 
 moduleclass = 'vis'
