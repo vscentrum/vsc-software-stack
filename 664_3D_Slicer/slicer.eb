@@ -19,7 +19,11 @@ sources = [{
         'keep_git_dir': True,
     },
 }]
-checksums = ['c2d36b592964a68f24caf567b16a417c32b31f8ddc030af3085dccd68da7aa7b']
+patches = ['Slicer-5.12.3_fix-Python-3.13.patch']
+checksums = [
+    {'Slicer-5.12.3.tar.xz': 'c2d36b592964a68f24caf567b16a417c32b31f8ddc030af3085dccd68da7aa7b'},
+    {'Slicer-5.12.3_fix-Python-3.13.patch': '388f957fc45d2dba51245b5dfc910a468365c71423a950da5e5d19092c4bb213'},
+]
 
 builddependencies = [
     ('CMake', '3.31.8'),
@@ -55,6 +59,9 @@ configopts += '-DOPENSSL_ROOT_DIR=$EBROOTOPENSSL '
 configopts += '-DSlicer_USE_SYSTEM_curl=ON '
 configopts += '-DCURL_USE_STATIC_LIBS=OFF '
 
-install_cmd = 'cmake --install %(builddir)s/easybuild_obj/Slicer-build --prefix %(installdir)s'
+# install_cmd = 'cmake --install %(builddir)s/easybuild_obj/Slicer-build --prefix %(installdir)s'
+install_cmd = "sed -i 's#%(builddir)s/Slicer/CMake/#%(builddir)s/easybuild_obj/vtkAddon/CMake/#g' "
+install_cmd += "%(builddir)s/easybuild_obj/Slicer-build/Libs/vtkAddon/cmake_install.cmake && "
+install_cmd += "cmake --install %(builddir)s/easybuild_obj/Slicer-build --prefix %(installdir)s"
 
 moduleclass = 'vis'
