@@ -1,0 +1,103 @@
+easyblock = 'PythonBundle'
+
+name = 'CellBender'
+version = '0.4.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'http://github.com/broadinstitute/CellBender'
+description = """
+CellBender is a software package for eliminating technical artifacts from
+high-throughput single-cell RNA sequencing (scRNA-seq) data.
+"""
+
+toolchain = {'name': 'foss', 'version': '2025b'}
+
+##DEPS:
+    # OK numpy
+    # OK scipy
+    # OK tables
+    # OK pandas
+    # OK pyro-ppl>=1.8.4 - CREATE
+    # OK torch
+    # OK matplotlib
+    # OK anndata>=0.9
+    # OK ipython
+    # OK ipykernel
+    # OK nbconvert
+    # ok lxml_html_clean
+        # OK lxml
+    # OK psutil
+    # OK dill>0.3.1
+
+builddependencies = [
+    ('hatchling', '1.27.0'),
+    ('scikit-learn', '1.7.1'),  # tests
+]
+dependencies = [
+    ('CUDA', '12.9.1', '', SYSTEM),
+    ('Python', '3.13.5'),
+    ('SciPy-bundle', '2025.07'),
+    ('PyTorch', '2.9.1', versionsuffix),
+    ('pyro-ppl', '1.9.1', versionsuffix),
+    ('matplotlib', '3.10.5'),
+    ('IPython', '9.4.0'),
+    ('anndata', '0.12.16'),
+    ('jupyter-server', '2.17.0'),
+    # ('loompy', '3.0.8'),
+    ('PyTables', '3.10.2'),
+    # ('Qtconsole', '5.6.0'),
+    ('dill', '0.4.0'),
+    ('lxml', '6.0.0'),
+]
+
+# local_runtest = 'pytest -v ' + ' '.join(
+#     f'cellbender/remove_background/tests/{x}'
+#     for x in [
+#         'test_dataprep.py',
+#         'test_downstream.py',
+#         'test_estimation.py',
+#         'test_integration.py',
+#         'test_io.py',
+#         'test_monitor.py',
+#         'test_posterior.py',
+#         'test_sparse_utils.py',
+#         'test_train.py',
+#     ]
+# )
+# # missing ckpt.tar.gz for test_integration.py::test_full_run[cpu]
+# local_runtest += ' --deselect cellbender/remove_background/tests/test_integration.py::test_full_run[cpu]'
+# local_runtest += ' --deselect cellbender/remove_background/tests/test_integration.py::test_full_run[cuda]'
+
+exts_list = [
+    # ('traitlets', '5.14.3', {
+    #     'checksums': ['9ed0579d3502c94b4b3732ac120375cda96f923114522847de4b3bb98b96b6b7'],
+    # }),
+    # ('jupyter_console', '6.6.3', {
+    #     'checksums': ['566a4bf31c87adbfadf22cdf846e3069b59a71ed5da71d6ba4d8aaad14a53539'],
+    # }),
+    # ('jupyter', '1.1.1', {
+    #     'checksums': ['d55467bceabdea49d7e3624af7e33d59c37fff53ed3a350e1ac957bed731de7a'],
+    # }),
+    ('lxml_html_clean', '0.4.4', {
+        'checksums': ['58f39a9d632711202ed1d6d0b9b47a904e306c85de5761543b90e3e3f736acfb'],
+    }),
+    ('cellbender', version, {
+        # 'runtest': local_runtest,
+        'runtest': 'pytest -v tests',
+        'testinstall': True,
+        'source_urls': ['https://github.com/broadinstitute/%(name)s/archive/'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'patches': ['CellBender-0.4.0_fix-version.patch'],
+        'checksums': [
+            {'cellbender-0.4.0.tar.gz': '4e25735f04047fffee68e7082c0471f89ffe0ac28a9f2a90481098503e07b40a'},
+            {'CellBender-0.4.0_fix-version.patch': 'd19ed8202ebcde6a17f6b57da544d81aad24133b92c319b99b9247fa1ce6fdbd'},
+        ],
+    }),
+]
+
+sanity_check_commands = [
+    "cellbender --help",
+    "cellbender remove-background --help",
+]
+
+moduleclass = 'bio'
