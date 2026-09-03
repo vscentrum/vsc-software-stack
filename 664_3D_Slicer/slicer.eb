@@ -60,8 +60,19 @@ configopts += '-DSlicer_USE_SYSTEM_curl=ON '
 configopts += '-DCURL_USE_STATIC_LIBS=OFF '
 
 # install_cmd = 'cmake --install %(builddir)s/easybuild_obj/Slicer-build --prefix %(installdir)s'
-install_cmd = "sed -i 's#%(builddir)s/Slicer/CMake/#%(builddir)s/easybuild_obj/vtkAddon/CMake/#g' "
-install_cmd += "%(builddir)s/easybuild_obj/Slicer-build/Libs/vtkAddon/cmake_install.cmake && "
-install_cmd += "cmake --install %(builddir)s/easybuild_obj/Slicer-build --prefix %(installdir)s"
+# install_cmd = "sed -i 's#%(builddir)s/Slicer/CMake/#%(builddir)s/easybuild_obj/vtkAddon/CMake/#g' "
+# install_cmd += "%(builddir)s/easybuild_obj/Slicer-build/Libs/vtkAddon/cmake_install.cmake && "
+# install_cmd += "cmake --install %(builddir)s/easybuild_obj/Slicer-build --prefix %(installdir)s"
+
+install_cmd = 'mkdir -p %(builddir)s/easybuild_obj/cpack-install && '
+install_cmd += 'cd %(builddir)s/easybuild_obj/Slicer-build && '
+install_cmd += 'cpack --config CPackConfig.cmake -G TGZ -B %(builddir)s/easybuild_obj/cpack-install && '
+install_cmd += 'tar -xzf %(builddir)s/easybuild_obj/cpack-install/Slicer-%(version)s-linux-amd64.tar.gz '
+install_cmd += '--strip-components=1 -C %(installdir)s && '
+install_cmd += 'cp -a %(builddir)s/easybuild_obj/tbb-install/lib/libtbb*.so* %(installdir)s/lib/'
+
+modextrapaths = {
+    'PATH': [''],
+}
 
 moduleclass = 'vis'
