@@ -89,17 +89,13 @@ install_cmd += "awk '!seen[$0]++' | paste -sd: -); "
 install_cmd += 'patchelf --force-rpath --set-rpath "$new" "$f"; '
 install_cmd += 'fi; done'
 
-# Slicer uses CTK AppLauncher to set the runtime library search paths before starting its executables.
-# As a result, some packaged binaries fail EasyBuild's generic readelf/ldd RPATH sanity check when inspected
-# directly, even though they resolve all required libraries correctly when launched through Slicer.
+# Slicer uses CTK AppLauncher to configure runtime library paths for its internal executables and libraries.
+# Restrict EasyBuild's generic linkage checks to the top-level launcher and lib directory, and skip the
+# readelf RPATH check because launcher-managed binaries are not intended to resolve correctly when inspected
+# directly outside the AppLauncher-provided environment.
 check_readelf_rpath = False
-# Slicer relies on CTK AppLauncher to set the runtime library search paths for executables in bin.
-# Limit EasyBuild's generic linkage checks to the top-level launcher and lib directory, which can be
-# validated directly without the AppLauncher-provided environment.
 bin_lib_subdirs = ['.', 'lib']
 
-modextrapaths = {
-    'PATH': [''],
-}
+modextrapaths = {'PATH': ''}
 
 moduleclass = 'vis'
