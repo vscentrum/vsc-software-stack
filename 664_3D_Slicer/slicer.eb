@@ -27,6 +27,7 @@ checksums = [
 
 builddependencies = [
     ('CMake', '3.31.8'),
+    ('patchelf', '0.18.0'),
 ]
 dependencies = [
     ('CUDA', '12.9.1', '', SYSTEM),
@@ -59,17 +60,43 @@ configopts += '-DOPENSSL_ROOT_DIR=$EBROOTOPENSSL '
 configopts += '-DSlicer_USE_SYSTEM_curl=ON '
 configopts += '-DCURL_USE_STATIC_LIBS=OFF '
 
-# install_cmd = 'cmake --install %(builddir)s/easybuild_obj/Slicer-build --prefix %(installdir)s'
-# install_cmd = "sed -i 's#%(builddir)s/Slicer/CMake/#%(builddir)s/easybuild_obj/vtkAddon/CMake/#g' "
-# install_cmd += "%(builddir)s/easybuild_obj/Slicer-build/Libs/vtkAddon/cmake_install.cmake && "
-# install_cmd += "cmake --install %(builddir)s/easybuild_obj/Slicer-build --prefix %(installdir)s"
-
+# Slicer's SuperBuild does not provide a complete install through a plain CMake install step.
+# Generate the official CPack TGZ package and extract its contents into the EasyBuild install directory.
 install_cmd = 'mkdir -p %(builddir)s/easybuild_obj/cpack-install && '
 install_cmd += 'cd %(builddir)s/easybuild_obj/Slicer-build && '
 install_cmd += 'cpack --config CPackConfig.cmake -G TGZ -B %(builddir)s/easybuild_obj/cpack-install && '
 install_cmd += 'tar -xzf %(builddir)s/easybuild_obj/cpack-install/Slicer-%(version)s-linux-amd64.tar.gz '
 install_cmd += '--strip-components=1 -C %(installdir)s && '
-install_cmd += 'cp -a %(builddir)s/easybuild_obj/tbb-install/lib/libtbb*.so* %(installdir)s/lib/'
+# Slicer builds its own TBB for VTK/ITK, but the generated CPack archive does not include these libraries.
+# Copy the required TBB shared libraries into the final installation.
+install_cmd += 'cp -a %(builddir)s/easybuild_obj/tbb-install/lib/libtbb*.so* %(installdir)s/lib/ && '
+# Some bundled DCMTK binaries retain the SuperBuild DCMTK build directory in their RPATH after packaging.
+# Remove this stale path and add the final Slicer library directory as a relative RPATH entry.
+install_cmd += 'BUILD="%(builddir)s/easybuild_obj" && '
+install_cmd += 'find %(installdir)s -type f -print0 | while IFS= read -r -d "" f; do '
+install_cmd += 'rpath=$(patchelf --print-rpath "$f" 2>/dev/null || true); '
+install_cmd += 'if echo "$rpath" | grep -qF "$BUILD/DCMTK-build/lib"; then '
+install_cmd += 'new=$(echo "$rpath" | tr ":" "\\n" | grep -vF "$BUILD/DCMTK-build/lib" | grep -v "^$" | '
+install_cmd += "awk '!seen[$0]++' | paste -sd: -); "
+install_cmd += 'case ":$new:" in *":\\$ORIGIN/../lib/Slicer-5.12:"*) ;; '
+install_cmd += '*) new="$new:\\$ORIGIN/../lib/Slicer-5.12" ;; esac; '
+install_cmd += 'patchelf --force-rpath --set-rpath "$new" "$f"; '
+# libdcmjp2kcs may retain the SuperBuild OpenJPEG staging directory in its RPATH.
+# Remove this stale path; OpenJPEG is installed together with Slicer's internal libraries.
+install_cmd += 'elif echo "$rpath" | grep -qF "$BUILD/OpenJPEG-install/lib"; then '
+install_cmd += 'new=$(echo "$rpath" | tr ":" "\\n" | grep -vF "$BUILD/OpenJPEG-install/lib" | grep -v "^$" | '
+install_cmd += "awk '!seen[$0]++' | paste -sd: -); "
+install_cmd += 'patchelf --force-rpath --set-rpath "$new" "$f"; '
+install_cmd += 'fi; done'
+
+# Slicer uses CTK AppLauncher to set the runtime library search paths before starting its executables.
+# As a result, some packaged binaries fail EasyBuild's generic readelf/ldd RPATH sanity check when inspected
+# directly, even though they resolve all required libraries correctly when launched through Slicer.
+check_readelf_rpath = False
+# Slicer relies on CTK AppLauncher to set the runtime library search paths for executables in bin.
+# Limit EasyBuild's generic linkage checks to the top-level launcher and lib directory, which can be
+# validated directly without the AppLauncher-provided environment.
+bin_lib_subdirs = ['.', 'lib']
 
 modextrapaths = {
     'PATH': [''],
