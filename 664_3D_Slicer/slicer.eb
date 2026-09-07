@@ -38,7 +38,7 @@ dependencies = [
     ('Biomedisa', '26.7.3', versionsuffix),
     ('OpenSSL', '3', '', SYSTEM),
     ('cURL', '8.14.1'),
-    # Slicer build its special patched VTK and ITK versions different from ones in EB repo
+    # Slicer builds its own specially patched VTK and ITK versions, which differ from those in the EasyBuild repository
 ]
 
 preconfigopts = "sed -i '/^[[:space:]]*nose[[:space:]]*$/d' "
@@ -81,9 +81,11 @@ install_cmd += "awk '!seen[$0]++' | paste -sd: -); "
 install_cmd += 'case ":$new:" in *":\\$ORIGIN/../lib/Slicer-5.12:"*) ;; '
 install_cmd += '*) new="$new:\\$ORIGIN/../lib/Slicer-5.12" ;; esac; '
 install_cmd += 'patchelf --force-rpath --set-rpath "$new" "$f"; '
+install_cmd += 'fi; '
 # libdcmjp2kcs may retain the SuperBuild OpenJPEG staging directory in its RPATH.
 # Remove this stale path; OpenJPEG is installed together with Slicer's internal libraries.
-install_cmd += 'elif echo "$rpath" | grep -qF "$BUILD/OpenJPEG-install/lib"; then '
+install_cmd += 'rpath=$(patchelf --print-rpath "$f" 2>/dev/null || true); '
+install_cmd += 'if echo "$rpath" | grep -qF "$BUILD/OpenJPEG-install/lib"; then '
 install_cmd += 'new=$(echo "$rpath" | tr ":" "\\n" | grep -vF "$BUILD/OpenJPEG-install/lib" | grep -v "^$" | '
 install_cmd += "awk '!seen[$0]++' | paste -sd: -); "
 install_cmd += 'patchelf --force-rpath --set-rpath "$new" "$f"; '
