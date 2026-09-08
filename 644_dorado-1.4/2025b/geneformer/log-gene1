@@ -1,0 +1,82 @@
+Processing /tmp/vsc47063/easybuild/build/Geneformer/0.1.0-20260526/foss-2024a-CUDA-12.6.0/accumulation_tree/accumulation_tree-0.6.4
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: accumulation_tree
+  Building wheel for accumulation_tree (pyproject.toml): started
+  Building wheel for accumulation_tree (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × Building wheel for accumulation_tree (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [65 lines of output]
+      /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/setuptools/80.9.0-GCCcore-13.3.0/lib/python3.12/site-packages/setuptools/config/_apply_pyprojecttoml.py:82: SetuptoolsDeprecationWarning: `project.license` as a TOML table is deprecated
+      !!
+      
+              ********************************************************************************
+              Please use a simple string containing a SPDX expression for `project.license`. You can also use `project.license-files`. (Both options available on setuptools>=77.0.0).
+      
+              This deprecation is overdue, please update your project and remove deprecated
+              calls to avoid build errors in the future.
+      
+              See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+              ********************************************************************************
+      
+      !!
+        corresp(dist, value, root_dir)
+      /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/setuptools/80.9.0-GCCcore-13.3.0/lib/python3.12/site-packages/setuptools/config/_apply_pyprojecttoml.py:61: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+      !!
+      
+              ********************************************************************************
+              Please consider removing the following classifiers in favor of a SPDX license expression:
+      
+              License :: OSI Approved :: MIT License
+      
+              See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+              ********************************************************************************
+      
+      !!
+        dist._finalize_license_expression()
+      /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/setuptools/80.9.0-GCCcore-13.3.0/lib/python3.12/site-packages/setuptools/dist.py:759: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+      !!
+      
+              ********************************************************************************
+              Please consider removing the following classifiers in favor of a SPDX license expression:
+      
+              License :: OSI Approved :: MIT License
+      
+              See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+              ********************************************************************************
+      
+      !!
+        self._finalize_license_expression()
+      running bdist_wheel
+      running build
+      running build_py
+      creating build/lib.linux-x86_64-cpython-312/accumulation_tree
+      copying accumulation_tree/__init__.py -> build/lib.linux-x86_64-cpython-312/accumulation_tree
+      copying accumulation_tree/abctree.py -> build/lib.linux-x86_64-cpython-312/accumulation_tree
+      copying accumulation_tree/treeslice.py -> build/lib.linux-x86_64-cpython-312/accumulation_tree
+      running egg_info
+      writing accumulation_tree.egg-info/PKG-INFO
+      writing dependency_links to accumulation_tree.egg-info/dependency_links.txt
+      writing top-level names to accumulation_tree.egg-info/top_level.txt
+      /apps/gent/RHEL9/zen4-ib/software/Python-bundle-PyPI/2024.06-GCCcore-13.3.0/lib/python3.12/site-packages/pbr/git.py:28: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+        import pkg_resources
+      [09/08/26 14:42:19] ERROR    listing git files failed - pretending there aren't any                                                                   git.py:26
+      reading manifest file 'accumulation_tree.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file 'accumulation_tree.egg-info/SOURCES.txt'
+      copying accumulation_tree/accumulation_tree.pyx -> build/lib.linux-x86_64-cpython-312/accumulation_tree
+      running build_ext
+      building 'accumulation_tree.accumulation_tree' extension
+      creating build/temp.linux-x86_64-cpython-312/accumulation_tree
+      gcc -O2 -ftree-vectorize -march=native -fno-math-errno -I/apps/gent/RHEL9/zen4-ib/software/FFTW.MPI/3.3.10-gompi-2024a/include -I/apps/gent/RHEL9/zen4-ib/software/FFTW/3.3.10-GCC-13.3.0/include -I/apps/gent/RHEL9/zen4-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/include -I/apps/gent/RHEL9/zen4-ib/software/OpenMPI/5.0.3-GCC-13.3.0/include -I/apps/gent/RHEL9/zen4-ib/software/Arrow/17.0.0-gfbf-2024a/include -I/apps/gent/RHEL9/zen4-ib/software/SciPy-bundle/2024.05-gfbf-2024a/lib/python3.12/site-packages/numpy/core/include -I/apps/gent/RHEL9/zen4-ib/software/Python/3.12.3-GCCcore-13.3.0/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/CUDA/12.6.0/nvvm/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/CUDA/12.6.0/extras/CUPTI/include -I/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-hopper-ib/software/CUDA/12.6.0/targets/x86_64-linux/include -I/apps/gent/RHEL9/zen4-ib/software/GCCcore/13.3.0/include -I/apps/gent/RHEL9/zen4-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/include -I/apps/gent/RHEL9/zen4-ib/software/FlexiBLAS/3.4.4-GCC-13.3.0/include/flexiblas -fPIC -I/apps/gent/RHEL9/zen4-ib/software/Python/3.12.3-GCCcore-13.3.0/include/python3.12 -c accumulation_tree/accumulation_tree.c -o build/temp.linux-x86_64-cpython-312/accumulation_tree/accumulation_tree.o
+      cc1: fatal error: accumulation_tree/accumulation_tree.c: No such file or directory
+      compilation terminated.
+      error: command '/tmp/vsc47063/eb-iyfnk7xp/tmpblezwlcg/rpath_wrappers/gcc_wrapper/gcc' failed with exit code 1
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for accumulation_tree
+Failed to build accumulation_tree
+ERROR: Could not build wheels for accumulation_tree, which is required to install pyproject.toml-based projects
