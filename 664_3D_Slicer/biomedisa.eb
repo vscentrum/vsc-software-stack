@@ -26,6 +26,9 @@ dependencies = [
     ('optree', '0.18.0'),
 ]
 
+# The Slicer extension is not included in the PyPI package, so fetch the matching GitHub revision separately
+local_biomedisa_commit = '4dbd6a'
+exts_classmap = {'Biomedisa-Slicer': 'Tarball'}
 exts_list = [
     ('namex', '0.1.0', {
         'checksums': ['117f03ccd302cc48e3f5c58a296838f6b89c83455ab8683a1e85f2a430aa4306'],
@@ -39,7 +42,40 @@ exts_list = [
     ('%(namelower)s', version, {
         'checksums': ['e50d8bb33e05c7a690c146f30ac3b70d358bb7a54534d00557cb25e8923e39bf'],
     }),
+    ('Biomedisa-Slicer', version, {
+        'sources': [{
+            'filename': SOURCE_TAR_XZ,
+            'git_config': {
+                'url': 'https://github.com/biomedisa',
+                'repo_name': 'biomedisa',
+                'commit': local_biomedisa_commit,
+            },
+        }],
+        'checksums': ['947963017c5332ac200c9f912e0d7bd966a4a732ea5e17e06807096190cccbe1'],
+        'install_type': 'subdir',
+        'exts_filter': None,
+    }),
 ]
+
+postinstallcmds = [
+    'mv %(installdir)s/biomedisa-slicer/biomedisa/biomedisa_slicer_extension %(installdir)s/',
+    'rm -rf %(installdir)s/biomedisa-slicer',
+]
+
+postinstallpatches = ['Biomedisa-26.7.3_fix-Slicer-PythonQt.patch']
+
+checksums = [
+    {'Biomedisa-26.7.3_fix-Slicer-PythonQt.patch': '9bc98dd7318fcd94f9d0576a81c5a3994b67cffde7bb9e324df61f873ca0fa6f'},
+]
+
+sanity_check_paths = {
+    'dirs': [
+        'biomedisa_slicer_extension/biomedisa_extension/SegmentEditorBiomedisa',
+        'biomedisa_slicer_extension/biomedisa_extension/SegmentEditorBiomedisaPrediction',
+        'biomedisa_slicer_extension/biomedisa_extension/SegmentEditorBiomedisaTraining',
+    ],
+    'files': [],
+}
 
 sanity_check_commands = [
     'python -s -c "from biomedisa.features.biomedisa_helper import load_data, save_data"',
