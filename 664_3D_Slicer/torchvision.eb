@@ -9,7 +9,7 @@ description = " Datasets, Transforms and Models specific to Computer Vision"
 
 toolchain = {'name': 'foss', 'version': '2025b'}
 
-builddependencies = [('expecttest', '0.3.0')]  # tests
+builddependencies = [('expecttest', '0.3.0')]
 dependencies = [
     ('CUDA', '12.9.1', '', SYSTEM),
     ('Python', '3.13.5'),
@@ -28,9 +28,7 @@ exts_list = [
     (name, version, {
         'source_urls': ['https://github.com/pytorch/vision/archive'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'patches': [
-            'torchvision-0.24.1_fix-tests.patch',
-        ],
+        'patches': ['torchvision-0.24.1_fix-tests.patch'],
         'preinstallopts': 'export FORCE_CUDA=1 && ',
         'installopts': '-v',
         'runtest': 'pytest -m "not xfail"',  # don't run tests that are expected that they might fail

@@ -26,8 +26,8 @@ dependencies = [
     ('optree', '0.18.0'),
 ]
 
-# The Slicer extension is not included in the PyPI package, so fetch the matching GitHub revision separately
-local_biomedisa_commit = '4dbd6a'
+# The Slicer extension is not included in the PyPI package, so fetch the matching GitHub revision separately.
+local_biomedisa_commit = '4dbd6a1ca83a98318e0304d6671c61cd9e7b4b95'
 exts_classmap = {'Biomedisa-Slicer': 'Tarball'}
 exts_list = [
     ('namex', '0.1.0', {
@@ -57,6 +57,7 @@ exts_list = [
     }),
 ]
 
+# also install Biomedisa Slicer extension to the right path
 postinstallcmds = [
     'mv %(installdir)s/biomedisa-slicer/biomedisa/biomedisa_slicer_extension %(installdir)s/',
     'rm -rf %(installdir)s/biomedisa-slicer',

@@ -59,7 +59,7 @@ configopts += '-DSlicer_USE_SYSTEM_curl=ON '
 configopts += '-DCURL_USE_STATIC_LIBS=OFF '
 configopts += '-DOPENSSL_ROOT_DIR=$EBROOTOPENSSL '
 
-# Slicer's custom installation procedure is implemented in the EB_Slicer easyblock.
+# Slicer's custom installation procedure is implemented in the EB_Slicer easyblock
 
 # Slicer uses CTK AppLauncher to configure runtime library paths for its internal executables and libraries.
 # Restrict EasyBuild's generic linkage checks to the top-level launcher and lib directory, and skip the
@@ -67,5 +67,7 @@ configopts += '-DOPENSSL_ROOT_DIR=$EBROOTOPENSSL '
 # directly outside the AppLauncher-provided environment.
 check_readelf_rpath = False
 bin_lib_subdirs = ['.', 'lib']
+
+# Slicer's custom sanity checks are implemented in the EB_Slicer easyblock
 
 moduleclass = 'vis'

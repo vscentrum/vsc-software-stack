@@ -4,7 +4,7 @@ name = 'Slicer-Python-deps'
 version = '5.12.3'
 
 homepage = 'https://www.slicer.org'
-description = "Python dependencies required by Slicer that are not provided by the standard Python stack."
+description = "Python dependencies required by 3D Slicer that are not provided by the standard EasyBuild Python stack."
 
 toolchain = {'name': 'gfbf', 'version': '2025b'}
 
@@ -18,6 +18,10 @@ dependencies = [
     ('Deprecated', '1.3.1'),
 ]
 
+# Prefer wheels for these Slicer runtime dependencies to avoid unnecessary source builds,
+# especially for packages with native extensions such as SimpleITK and pyjpegls.
+# Building SimpleITK from source would require its CMake/SuperBuild stack with ITK and SWIG,
+# while the official cp311-abi3 wheel is compatible with Python 3.13 through Python's stable ABI.
 exts_list = [
     ('SimpleITK', '2.5.5', {
         'modulename': 'SimpleITK',
