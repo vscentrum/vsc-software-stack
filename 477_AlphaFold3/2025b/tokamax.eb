@@ -1,0 +1,59 @@
+# 4936e75cb40bac9a746f0f10c4bb6887f4c217d8
+easyblock = 'PythonBundle'
+
+name = 'tokamax'
+version = '0.0.12'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/openxla/tokamax'
+description = """
+Tokamax is a library of custom accelerator kernels, supporting both NVIDIA GPUs and Google TPUs.
+Tokamax provides state-of-the-art custom kernel implementations built on top of JAX and Pallas.
+"""
+
+toolchain = {'name': 'gfbf', 'version': '2025b'}
+
+## DEPS:
+    # OK "absl-py>=2.3.0",
+    # ok "einshape",
+    # OK "jax>=0.9.2",
+    # OK "jaxlib>=0.9.2",
+    # OK "jaxtyping>=0.3",
+    # OK "pydantic>=2.11.0",
+    # ok "qwix>=0.1.2",
+    # OK "tqdm",
+    # OK "typing_extensions>=4.5.0",
+    # OK "typeguard==2.13.3",
+    # ok "immutabledict",
+    # OK "tensorboardx",
+
+dependencies = [
+    ('CUDA', '12.9.1', '', SYSTEM),
+    ('Python', '3.13.5'),
+    ('SciPy-bundle', '2025.07'),
+    ('jax', '0.10.2', versionsuffix),
+    # ('jaxtyping', '0.3.5', versionsuffix), CREATED
+    ('pydantic', '2.11.9'),
+    ('tqdm', '4.67.1'),
+    ('typing-extensions', '4.14.1'),
+    ('typeguard', '2.13.3'),
+    # ('tensorboardx', '2.6.5'), CREATED
+]
+
+exts_list = [
+    ('einshape', '1.0', {
+        'checksums': ['53538d75dd099f4ead4a4f786fafdcb0b729bb587e0b3afeca25ceef18c9ac14'],
+    }),
+    ('qwix', '0.1.6', {
+        'checksums': ['7ccd4968be320b19eb9349cd953e689a1fd6e97bbde4ac788d8a2280f0f24acc'],
+    })
+    ('immutabledict', '4.2.2', {
+        'checksums': ['cb6ed3090df593148f94cb407d218ca526fd2639694afdb553dc4f50ce6feeca'],
+    }),
+    (name, version, {
+        'modulename': 'haiku',
+        'checksums': ['1830b0ce63c5cef2fb3a63a13033c9d8f612ee7f896f2b0b25a6ba484f5fad28'],
+    }),
+]
+
+moduleclass = 'lib'

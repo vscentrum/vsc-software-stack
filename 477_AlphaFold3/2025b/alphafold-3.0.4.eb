@@ -1,0 +1,129 @@
+# Author: Thomas Hoffmann, EMBL Heidelberg, structures-it@embl.de, 2025/02
+# Update: Pavel Tomanek (Inuits)
+easyblock = 'PythonBundle'
+
+name = 'AlphaFold3'
+version = '3.0.4'
+versionsuffix = '-CUDA-%(cudaver)s'
+# local_commit = 'a8ecdb2'
+
+homepage = 'https://deepmind.google/technologies/alphafold'
+description = """This package provides an implementation of the inference pipeline of AlphaFold3.
+See below for how to access the model parameters. You may only use AlphaFold3
+model parameters if received directly from Google. Use is subject to these
+terms of use:
+https://github.com/google-deepmind/alphafold3/blob/main/WEIGHTS_TERMS_OF_USE.md"""
+
+toolchain = {'name': 'foss', 'version': '2025b'}
+
+github_account = 'google-deepmind'
+
+builddependencies = [
+    ('Ninja', '1.13.0'),
+    ('scikit-build-core', '0.11.5'),
+    ('pybind11', '3.0.0'),
+    ('pybind11_abseil', '202402.0'),
+]
+dependencies = [
+    ('CUDA', '12.9.1', '', SYSTEM),
+    ('Python', '3.13.5'),
+    ('SciPy-bundle', '2025.07'),
+    # ('jax', '0.10.2', versionsuffix), CREATED
+    # ('jaxtyping', '0.3.5', versionsuffix), CREATED
+    # ('dm-haiku', '0.0.16', versionsuffix), CREATED
+    ('RDKit', '2026.03.4'),
+    ('tqdm', '4.67.1'),
+    # ('dssp', '4.4.10'),  CREATE!
+    ('Abseil', '20250512.1'),
+    ('HMMER', '3.4'),
+    # ('zstandard', '0.25.0'),  CREATED
+    # ('typeguard', '2.13.3'),  CREATED
+    # tokamax CREATE
+    # OK absl-py - in jax
+    # etils[epath]  CREATED
+        # OK numpy
+        # OK einops
+        # OK typing_extensions
+]
+
+exts_list = [
+    (name, version, {
+        # unpin dependencies versions
+        'preinstallopts': """sed -i 's/==.*/",/g' %(start_dir)s/pyproject.toml && """,
+        'patches': [
+            '%(name)s-3.0.0_disable_fetch.patch',
+            '%(name)s-3.0.0.20250109_data_path.patch',
+        ],
+        'postinstallcmds': [
+            'cp run_alphafold.py %(installdir)s/bin',
+            'cp run_alphafold_data_test.py %(installdir)s/bin',
+            'cp run_alphafold_test.py %(installdir)s/bin',
+            'cp fetch_databases.sh %(installdir)s',
+            'chmod +x %(installdir)s/bin/run_alphafold.py',
+            '%(installdir)s/bin/build_data',
+        ],
+        'source_urls': ['https://github.com/%(github_account)s/%(namelower)s/archive'],
+        'sources': [{'download_filename': 'a8ecdb2.tar.gz', 'filename': '%(name)s-%(version)s-a8ecdb2.tar.gz'}],
+        'checksums': [
+            {'AlphaFold3-3.0.1-a8ecdb2.tar.gz':
+             '77cc1ee5e9d111bafd4cd6af01d43eee01059cb3f7fd2d19fd6c38d81082246d'},
+            {'AlphaFold3-3.0.0_disable_fetch.patch':
+             '041a35a09f783405f40e3ba47566ad6d063a10cfd98f0efd2e2a04c78e2c155e'},
+            {'AlphaFold3-3.0.0.20250109_data_path.patch':
+             'a06a971460df5e4cbe7a59042100512d2f96755d6dcdef01d4bc4e8c55122287'},
+        ],
+    }),
+]
+
+fix_python_shebang_for = ['bin/run_alphafold.py']
+
+sanity_check_paths = {
+    'files': ['bin/run_alphafold.py'],
+    'dirs': ['lib'],
+}
+sanity_check_commands = [
+    ('run_alphafold.py --help|grep "AlphaFold 3 structure prediction script"')
+]
+
+modextravars = {
+    # Compilation Time Workaround with XLA Flags
+    'XLA_FLAGS': '--xla_gpu_enable_triton_gemm=false ',
+    # Unified memory:
+    'XLA_PYTHON_CLIENT_PREALLOCATE': 'false',
+    'TF_FORCE_UNIFIED_MEMORY': 'true',
+    'XLA_CLIENT_MEM_FRACTION': '3.2',
+}
+
+modextrapaths = {'PYTHONPATH': 'bin'}  # to be able 'import run_alphafold'
+
+modloadmsg = """
+To let AF3 works properly you need to have Google models parameters (weights), then set:
+export AF3_MODEL_DIR="/path/to/the/dir/with/models"
+Also you should have databases dowloaded - use fetch_databases.sh to download them and set:
+export DB_DIR="/path/to/fetched/databases"
+You can test your installation by:
+1) python bin/run_alphafold_data_test.py (works without models)
+2) python bin/run_alphafold_test.py --model_dir="$AF3_MODEL_DIR" (only with models)
+"""
+
+moduleclass = 'bio'
+
+
+## DEPS:
+# Current EC            AlphaFold3 3.0.4        Recommendation for foss/2025b
+# Python 3.12.3	      >=3.12	                        3.13.5
+# CUDA 12.6.0	      CUDA 12	12.9.1, assuming your cluster drivers support it
+# jax 0.6.2	                0.10.2 exact	               0.10.2
+# jax-triton 0.3.0	    no longer used	           remove
+# —	                            tokamax 0.0.12	          add 0.0.12
+# jaxtyping 0.2.38	  In Tokamax	               0.3.5 if kept explicit
+# dm-haiku 0.0.14	 0.0.16 exact	               0.0.16
+# dm-tree 0.1.9	        no longer in AF3 dependency tree	remove
+# RDKit 2025.03.3	  2025.9.4 exact	         2025.09.4
+# tqdm 4.66.5	        unpinned	                  4.67.1
+# dssp 4.4.10	          uses 4.4.7	                 keep 4.4.10, rebuild for GCC 14.3
+# Abseil 20240722.0 20240116.2	                20250512.1
+# HMMER3.4	            still 3.4	                       keep 3.4
+# zstandard 0.23.0	  unpinned	                   0.25.0
+# typeguard 2.13.3	 in Tokamax                  keep 2.13.3 if explicit
+# —	                             etils[epath]	               add/provide etils 1.13.0

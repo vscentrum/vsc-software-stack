@@ -1,0 +1,40 @@
+# Thomas Hoffmann, EMBL Heidelberg, structures-it@embl.de, 2024/12
+
+easyblock = 'PythonBundle'
+
+name = 'jaxtyping'
+version = '0.3.5'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/patrick-kidger/jaxtyping'
+description = """Type annotations and runtime type-checking for:
+1. shape and dtype of JAX arrays;
+   (Now also supports PyTorch, NumPy, and TensorFlow!)
+2. PyTrees.  """
+toolchain = {'name': 'foss', 'version': '2025b'}
+
+builddependencies = [
+    ('hatchling', '1.27.0'),
+    # ('poetry', '1.8.3')
+]
+dependencies = [
+    ('CUDA', '12.9.1', '', SYSTEM),
+    ('Python', '3.13.5'),
+    ('jax', '0.10.2', versionsuffix),
+]
+
+exts_list = [
+    ('wadler_lindig', '0.1.7', {
+        'checksums': ['81d14d3fe77d441acf3ebd7f4aefac20c74128bf460e84b512806dccf7b2cd55'],
+    }),
+    (name, version, {
+        'checksums': ['8150ad5b72b62fa63f573d492a79e9e455f070abe3b260f7dc15270b3eb9bba6'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib'],
+}
+
+moduleclass = 'ai'
