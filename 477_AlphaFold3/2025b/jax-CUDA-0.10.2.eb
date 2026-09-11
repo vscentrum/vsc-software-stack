@@ -24,7 +24,8 @@ builddependencies = [
 dependencies = [
     ('CUDA', '12.9.1', '', SYSTEM),
     ('cuDNN', '9.15.0.57', versionsuffix, SYSTEM),
-    ('NCCL', '2.27.7', versionsuffix),
+    # ('NCCL', '2.27.7', versionsuffix),
+    # ('NCCL', '2.29.7', versionsuffix),
     ('Python', '3.13.5'),
     ('SciPy-bundle', '2025.07'),
     ('absl-py', '2.3.1'),
@@ -47,25 +48,19 @@ _xla_commit = '5a9e73cbd92530cac2ac36f4736a774b2412afe2'
 _jaxlib_buildopts = '--bazel_options="--distdir=%(builddir)s/archives" '
 
 if ARCH == 'aarch64':
-    _jaxlib_buildopts += ' --bazel_options="--@compute_library//:arch=armv8.2-a+fp16" '
+    _jaxlib_buildopts += '--bazel_options="--@compute_library//:arch=armv8.2-a+fp16" '
 
 # create wheels for jaxlib and CUDA plugins and install it
 _jaxlib_buildopts += '--wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt '
 # use local Clang/LLVM for the JAX/XLA Bazel build (GCC is no longer supported upstream)
 # without local Clang/LLVM it uses hermetic one
-_jaxlib_buildopts += '--clang_path=$EBROOTLLVM/bin/clang '
+# _jaxlib_buildopts += '--clang_path=$EBROOTLLVM/bin/clang '
+# Ensure Bazel-built helper tools can find the EasyBuild GCC runtime.
+_jaxlib_buildopts += '--bazel_options="--host_linkopt=-Wl,-rpath,$EBROOTGCCCORE/lib64" '
 # fix jaxlib version
 _jaxlib_buildopts += '--bazel_options="--action_env=JAXLIB_RELEASE" '
 _jaxlib_buildopts += '--bazel_options="--repo_env=ML_WHEEL_TYPE=release" '
-# Use EasyBuild-provided CUDA stack rather than hermetic NVIDIA downloads.
-_jaxlib_buildopts += '--bazel_options="--repo_env=LOCAL_CUDA_PATH=$EBROOTCUDA" '
-_jaxlib_buildopts += '--bazel_options="--repo_env=LOCAL_CUDNN_PATH=$EBROOTCUDNN" '
-_jaxlib_buildopts += '--bazel_options="--repo_env=LOCAL_NCCL_PATH=$EBROOTNCCL" '
-# Build only requested GPU architectures.
-_jaxlib_buildopts += '--cuda_compute_capabilities="%(cuda_sm_comma_sep)s" '
-_jaxlib_buildopts += '--cuda_version=12.9.1 '
-_jaxlib_buildopts += '--cudnn_version=9.15.0.57 '
-_jaxlib_buildopts += '--nccl_version=2.27.7 '
+_jaxlib_buildopts += '--disable_nccl '
 
 _prebuildopts = 'export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1; '
 
