@@ -53,8 +53,8 @@ if ARCH == 'aarch64':
 # create wheels for jaxlib and CUDA plugins and install it
 _jaxlib_buildopts += '--wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt '
 # use local Clang/LLVM for the JAX/XLA Bazel build (GCC is no longer supported upstream)
-# without local Clang/LLVM it uses hermetic one
-# _jaxlib_buildopts += '--clang_path=$EBROOTLLVM/bin/clang '
+# Explicitly compile CUDA code with Clang. JAX 0.10.2 otherwise defaults to NVCC.
+# _jaxlib_buildopts += '--build_cuda_with_clang '
 # Ensure Bazel-built helper tools can find the EasyBuild GCC runtime.
 _jaxlib_buildopts += '--bazel_options="--host_linkopt=-Wl,-rpath,$EBROOTGCCCORE/lib64" '
 # fix jaxlib version
