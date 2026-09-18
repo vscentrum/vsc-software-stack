@@ -18,7 +18,7 @@ toolchain = {'name': 'gfbf', 'version': '2025b'}
 
 builddependencies = [
     ('Bazel', '7.7.0', '-Java-21'),
-    ('LLVM', '20.1.8'),
+    # ('LLVM', '20.1.8'),  # it needs LLVM 18? - use hermetic version
 ]
 
 dependencies = [
@@ -141,3 +141,6 @@ exts_list = [
 ]
 
 moduleclass = 'ai'
+
+# TODO:
+    # debug failing tests from log-jax-ok1-lit - build ok, installed but some failed tests
