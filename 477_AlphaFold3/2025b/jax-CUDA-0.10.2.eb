@@ -102,19 +102,32 @@ _failing_tests = [
     'tests/logging_test.py::LoggingTest::test_subprocess_stderr_debug_logging',
     'tests/logging_test.py::LoggingTest::test_subprocess_stderr_info_logging',
     'tests/logging_test.py::LoggingTest::test_subprocess_toggling_logging_level',
+    # GPU collectives are unavailable because this build intentionally disables NCCL
+    'tests/pmap_test.py::PythonPmapTest::testCollectivePermuteGrad',
+]
+
+_ignored_tests = [
+    # Requires Mosaic GPU NVSHMEM support, which is not provided by this
+    # AF3-specific single-GPU build.
+    'tests/pallas/mgpu_collective_matmul_test.py',
 ]
 
 # Use at most 4 pytest-xdist workers. More workers were unstable for this
 # heavy JAX test suite, but avoid oversubscribing small jobs
 _jax_test_workers = '$(( %(parallel)s > 8 ? 4 : (%(parallel)s + 1) / 2 ))'
 
+_test_exclude_opts = ' '.join(
+    [f'--deselect={test}' for test in _failing_tests] +
+    [f'--ignore={test}' for test in _ignored_tests]
+)
+
 _runtest_cmd1 = (
     f'pytest -n {_jax_test_workers} '
     '-vv -ra --tb=short --durations=100 '
     '--max-worker-restart=0 '
     '--dist=loadscope '
-    + ' '.join(f'--deselect={test}' for test in _failing_tests)
-    + ' tests'
+    f'{_test_exclude_opts} '
+    'tests'
 )
 
 # retry randomly failing tests
@@ -122,7 +135,8 @@ _runtest_cmd = ' '.join([_runtest_cmd1, '||', _runtest_cmd1, '--last-failed'])
 
 exts_list = [
     (name, version, {
-        'pretestopts': _prebuildopts,
+        # avoid OOM errors with when multiple JAX processes run concurrently
+        'pretestopts': _prebuildopts + 'export XLA_PYTHON_CLIENT_PREALLOCATE=false; ',
         # JAX_RELEASE makes jax/version.py report the clean version
         # ("0.10.2") instead of "0.10.2.dev<date>", which would otherwise
         # fail downstream `jax>=0.10.2` pip checks. Must be in preinstallopts
@@ -134,13 +148,12 @@ exts_list = [
             'source_urls': ['https://github.com/google/jax/archive/'],
             'filename': '%(name)s-v%(version)s.tar.gz',
         }],
+        'patches': ['patch1-pallas.patch'],
         'checksums': [
             {'jax-v0.10.2.tar.gz': 'fa7214ab31ed1cd418b4305807e9c4f3f175c783eeea40c28e0f77c3f4c24bc7'},
+            {'patch1-pallas.patch': 'bc4dc819d9dda0f282e2ed8a70d959748b169940ab1160997304b436660542ca'},
         ],
     }),
 ]
 
 moduleclass = 'ai'
-
-# TODO:
-    # debug failing tests from log-jax-ok1-lit - build ok, installed but some failed tests
