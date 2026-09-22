@@ -12,7 +12,7 @@ toolchainopts = {'pic': True, 'usempi': True}
 local_download_suffix = 'download.php?submit=Download&version=v%(version_major_minor)s&type=source&os=all&downloadFile='
 source_urls = ['https://www.paraview.org/paraview-downloads/%s' % local_download_suffix]
 sources = ["%(name)s-v%(version)s.tar.gz"]
-checksums = ['4104a210677026923e47470cc0b3ff910de5252e73d7db2d934b85a11036b2d3']
+checksums = ['c57141ad9fbad6f8c8d67373806e5ded9d3604e0d59209eadefa54482c702de4']
 
 builddependencies = [
     ('CMake', '4.2.1'),
@@ -34,7 +34,7 @@ dependencies = [
     ('Szip', '2.1.1'),
     ('matplotlib', '3.10.9'),  # For rendering of latex-format labels
     ('libxslt', '1.1.45'),
-    ('ParaView-Catalyst', '2.0.0'),
+    ('ParaView-Catalyst', '2.1.0'),
 ]
 
 if ARCH == 'x86_64':
