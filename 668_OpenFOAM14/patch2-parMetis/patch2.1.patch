@@ -1,0 +1,38 @@
+--- parMetis.orig	2026-09-23 13:07:13.312520553 +0200
++++ parMetis	2026-09-23 13:08:17.544800207 +0200
+@@ -37,32 +37,9 @@
+ # Load functions
+ . $WM_PROJECT_DIR/etc/config.sh/functions
+ 
+-# Find the path to the parMetis installation
+-case "$PARMETIS_TYPE" in
+-none)
+-    ;;
+-system)
+-    export PARMETIS_VERSION=system
+-    export PARMETIS_ARCH_PATH=/usr
+-    ;;
+-OpenFOAM | ThirdParty)
+-    # Look for the source directory
+-    if [ -z "$PARMETIS_VERSION" ]
+-    then
+-        parMetisSrcDir=$(_foamMostRecentDir "$WM_THIRD_PARTY_DIR"/parmetis-*)
+-    else
+-        parMetisSrcDir=$WM_THIRD_PARTY_DIR/parmetis-$PARMETIS_VERSION
+-    fi
+-    # Set the version and the installation path
+-    if [ -d "$parMetisSrcDir" ]
+-    then
+-        export PARMETIS_VERSION=${parMetisSrcDir##*parmetis-}
+-        export PARMETIS_ARCH_PATH=$WM_THIRD_PARTY_DIR/platforms/$WM_ARCH$WM_COMPILER$WM_PRECISION_OPTION$WM_LABEL_OPTION/parmetis-$PARMETIS_VERSION
+-    fi
+-    # Clean up
+-    unset parMetisSrcDir
+-    ;;
+-esac
++# Use the ParMETIS installation provided by EasyBuild
++export PARMETIS_VERSION=parmetis-$EBVERSIONPARMETIS
++export PARMETIS_ARCH_PATH=$EBROOTPARMETIS
+ 
+ # Unload functions
+ . $WM_PROJECT_DIR/etc/config.sh/functions

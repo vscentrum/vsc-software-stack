@@ -1,0 +1,33 @@
+--- bashrc.orig	2026-09-23 13:01:05.415171000 +0200
++++ bashrc	2026-09-23 13:00:36.230546000 +0200
+@@ -44,12 +44,13 @@
+ #
+ [ "$BASH" ] && bashrcFile=${BASH_SOURCE}
+ [ "$ZSH_NAME" ] && bashrcFile=$0
+-if [ -n "$bashrcFile" ]
+-then
+-    export FOAM_INST_DIR=$(cd $(dirname $bashrcFile)/../.. && pwd -P)
+-else
+-    export FOAM_INST_DIR=$HOME/$WM_PROJECT
+-fi
++#if [ -n "$bashrcFile" ]
++#then
++#    export FOAM_INST_DIR=$(cd $(dirname $bashrcFile)/../.. && pwd -P)
++#else
++#    export FOAM_INST_DIR=$HOME/$WM_PROJECT
++#fi
++# For Easybuild: set by the module
+ unset bashrcFile
+ #
+ # Please set to the appropriate path if the above default is not correct. E.g.,
+@@ -104,8 +105,8 @@
+ #- Decomposition libraries:
+ #    <library>_TYPE = none | system | ThirdParty (OpenFOAM)
+ export SCOTCH_TYPE=ThirdParty
+-export METIS_TYPE=none
+-export PARMETIS_TYPE=none
++export METIS_TYPE=ThirdParty
++export PARMETIS_TYPE=ThirdParty
+ export ZOLTAN_TYPE=ThirdParty
+ 
+ #    ParaView_TYPE = none | system | paraviewopenfoam | ThirdParty (OpenFOAM)
