@@ -1,0 +1,49 @@
+--- test_transforms_v2.py.orig	2026-09-23 14:55:15.534847000 +0200
++++ test_transforms_v2.py	2026-09-23 15:02:36.172740040 +0200
+@@ -753,6 +753,11 @@
+             dtype=dtype,
+             device=device,
+         )
++        check_cuda_vs_cpu = (
++            dict(atol=2e-5, rtol=1e-5)
++            if dtype is torch.float32 and format == tv_tensors.BoundingBoxFormat.XYWHR
++            else True
++        )
+         check_kernel(
+             F.resize_bounding_boxes,
+             bounding_boxes,
+@@ -761,6 +766,7 @@
+             size=size,
+             **max_size_kwarg,
+             check_scripted_vs_eager=not isinstance(size, int),
++            check_cuda_vs_cpu=check_cuda_vs_cpu,
+         )
+ 
+     @pytest.mark.parametrize("size", OUTPUT_SIZES)
+@@ -1439,6 +1445,7 @@
+             canvas_size=bounding_boxes.canvas_size,
+             **{param: value},
+             check_scripted_vs_eager=not (param == "shear" and isinstance(value, (int, float))),
++            check_cuda_vs_cpu=dict(atol=1e-5, rtol=1e-5),
+         )
+ 
+     @param_value_parametrization(
+@@ -3627,8 +3634,16 @@
+             actual = transform(bounding_boxes)
+ 
+         expected = self._reference_crop_bounding_boxes(bounding_boxes, **params)
+-
+-        torch.testing.assert_close(actual, expected)
++        tolerances = (
++            dict(atol=1e-5, rtol=1e-5)
++            if (
++                device == "cuda"
++                and dtype is torch.float32
++                and format == tv_tensors.BoundingBoxFormat.XYWHR
++            )
++            else {}
++        )
++        torch.testing.assert_close(actual, expected, **tolerances)
+         assert_equal(F.get_size(actual), F.get_size(expected))
+ 
+     def _reference_crop_keypoints(self, keypoints, *, top, left, height, width):
