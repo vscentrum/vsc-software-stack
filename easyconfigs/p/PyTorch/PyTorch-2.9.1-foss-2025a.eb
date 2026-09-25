@@ -7,7 +7,7 @@ homepage = 'https://pytorch.org/'
 description = """PyTorch is an optimized tensor library for deep learning using GPUs and CPUs.
 Used for applications such as computer vision, deep learning research and
 natural language processing.
-This module provides the official binaries of PyTorch from pytorch.org"""
+This module provides the official wheels of PyTorch from pytorch.org"""
 
 toolchain = {'name': 'foss', 'version': '2025a'}
 
@@ -27,9 +27,10 @@ exts_list = [
     ('sympy', '1.14.0', {
         'source_urls': ['https://download.pytorch.org/whl'],
         'sources': [SOURCE_PY3_WHL],
-        'checsums': ['e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5'],
+        'checksums': ['e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5'],
+        'skipsteps': ['test'],  # wheel does not provide tests
     }),
-    ('torch', version, {
+    ('torch', '2.9.1+cpu', {
         'source_urls': ['https://download.pytorch.org/whl/cpu'],
         'sources': [_torch_wheel_source[ARCH]],
         'checksums': [{
@@ -40,5 +41,12 @@ exts_list = [
         }],
     }),
 ]
+
+_torch_site_packages = 'lib/python%(pyshortver)s/site-packages/torch'
+modextrapaths = {
+    'CMAKE_PREFIX_PATH': _torch_site_packages,
+    'LD_LIBRARY_PATH': f'{_torch_site_packages}/lib',
+    'LIBRARY_PATH': f'{_torch_site_packages}/lib',
+}
 
 moduleclass = 'ai'
