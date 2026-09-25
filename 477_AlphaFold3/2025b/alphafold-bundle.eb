@@ -41,7 +41,7 @@ dependencies = [
     # tokamax deps
     ('pydantic', '2.11.9'),
     ('typing-extensions', '4.14.1'),
-    ('tensorboardx', '2.6.5'),
+    ('tensorboardX', '2.6.5'),
     # AF3 deps
     ('RDKit', '2026.03.4'),
     ('tqdm', '4.67.1'),
@@ -83,7 +83,7 @@ _jaxlib_buildopts += '--disable_nccl '
 _jax_prebuildopts = 'export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1; '
 
 components = [
-    ('jaxlib', version, {
+    ('jaxlib', '0.10.2', {
         'sources': [
             {
                 'source_urls': ['https://github.com/google/jax/archive/'],
@@ -101,7 +101,7 @@ components = [
             {'5a9e73cbd92530cac2ac36f4736a774b2412afe2.tar.gz':
              '08a52210a04cd68d38f6201d56273d04ac0f8b4e0da9f72677c74a48cc637422'},
         ],
-        'start_dir': f'jax-jax-v{version}',
+        'start_dir': 'jax-jax-v%(version)s',
         # fix jaxlib version - removes .dev suffix
         'prebuildopts': ' '.join(['export JAXLIB_RELEASE=%(version)s && ', _jax_prebuildopts]),
         'buildopts': _jaxlib_buildopts,
@@ -198,16 +198,19 @@ exts_list = [
     }),
     ('qwix', '0.1.6', {
         'checksums': ['7ccd4968be320b19eb9349cd953e689a1fd6e97bbde4ac788d8a2280f0f24acc'],
-    })
+    }),
     ('immutabledict', '4.2.2', {
         'checksums': ['cb6ed3090df593148f94cb407d218ca526fd2639694afdb553dc4f50ce6feeca'],
     }),
     ('tokamax', '0.0.12', {
-        'checksums': ['1830b0ce63c5cef2fb3a63a13033c9d8f612ee7f896f2b0b25a6ba484f5fad28'],
+        'checksums': ['5c7f4d2f54caed15455c7be5a769e446f760f7b730d41a4a6b916dc9bb423f97'],
     }),
     (name, version, {
         # unpin dependencies versions
-        'preinstallopts': """sed -i 's/==.*/",/g' %(start_dir)s/pyproject.toml && """,
+        # 'preinstallopts': """sed -i 's/==.*/",/g' %(start_dir)s/pyproject.toml && """,
+        'preinstallopts': (
+            'export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_ALPHAFOLD3=%(version)s && '
+        ),
         'patches': [
             '%(name)s-3.0.0_disable_fetch.patch',
             '%(name)s-3.0.0.20250109_data_path.patch',
@@ -221,10 +224,9 @@ exts_list = [
             '%(installdir)s/bin/build_data',
         ],
         'source_urls': ['https://github.com/%(github_account)s/%(namelower)s/archive'],
-        'sources': [{'download_filename': 'a8ecdb2.tar.gz', 'filename': '%(name)s-%(version)s-a8ecdb2.tar.gz'}],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': [
-            {'AlphaFold3-3.0.1-a8ecdb2.tar.gz':
-             '77cc1ee5e9d111bafd4cd6af01d43eee01059cb3f7fd2d19fd6c38d81082246d'},
+            {'AlphaFold3-3.0.4.tar.gz': 'a12bfec74fe9670d5d6e1897450ccf968422e0b87743ffee82ff0cb4c76f1923'},
             {'AlphaFold3-3.0.0_disable_fetch.patch':
              '041a35a09f783405f40e3ba47566ad6d063a10cfd98f0efd2e2a04c78e2c155e'},
             {'AlphaFold3-3.0.0.20250109_data_path.patch':
