@@ -1,0 +1,276 @@
+== 2026-09-29 12:36:37,137 easyblock.py:392 INFO This is EasyBuild 5.4.1.dev0-r22191afe11ef1ed5448d13c07cf026e47da4c9d2 (framework: 5.4.1.dev0-r54b2588983be8cdd9133c223bb2e7ba372d0d4b3, easyblocks: 5.4.1.dev0-r22191afe11ef1ed5448d13c07cf026e47da4c9d2) on host node4007.donphan.os.
+== 2026-09-29 12:36:37,137 easyblock.py:398 INFO This is easyblock CMakeMake from module easybuild.easyblocks.generic.cmakemake (/scratch/gent/470/vsc47063/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/cmakemake.py)
+== 2026-09-29 12:36:37,137 easyblock.py:1228 INFO Build dir set to /tmp/vsc47063/easybuild/build/dorado/2.1.2/foss-2025b-CUDA-12.9.1
+== 2026-09-29 12:36:37,137 easyblock.py:1291 INFO Software install dir set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/dorado/2.1.2-foss-2025b-CUDA-12.9.1
+== 2026-09-29 12:36:37,137 easyblock.py:1296 INFO Module install dir set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/modules/all
+== 2026-09-29 12:36:37,138 easyblock.py:360 INFO Init completed for application name dorado version 2.1.2
+== 2026-09-29 12:36:37,138 easyblock.py:5380 INFO Obtained application instance for dorado (easyblock: CMakeMake)
+== 2026-09-29 12:36:37,138 easyconfig.py:1836 INFO Generating template values...
+== 2026-09-29 12:36:37,138 mpi.py:123 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2026-09-29 12:36:37,138 mpi.py:299 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2026-09-29 12:36:37,138 easyconfig.py:1855 INFO Template values: arch='x86_64', bitbucket_account='dorado', cuda_cc_cmake='70;80;86;90', cuda_cc_nvhpc='cc70,cc80,cc86,cc90', cuda_cc_semicolon_sep='7.0;8.0;8.6;9.0', cuda_cc_space_sep='7.0 8.0 8.6 9.0', cuda_cc_space_sep_no_period='70 80 86 90', cuda_compute_capabilities='7.0,8.0,8.6,9.0', cuda_int_comma_sep='70,80,86,90', cuda_int_semicolon_sep='70;80;86;90', cuda_int_space_sep='70 80 86 90', cuda_sm_comma_sep='sm_70,sm_80,sm_86,sm_90', cuda_sm_space_sep='sm_70 sm_80 sm_86 sm_90', cudamajver='12', cudaminver='9', cudashortver='12.9', cudaver='12.9.1', github_account='dorado', module_name='dorado/2.1.2-foss-2025b-CUDA-12.9.1', mpi_cmd_prefix='mpirun -n 1', name='dorado', nameletter='d', nameletterlower='d', namelower='dorado', pymajver='3', pyminver='13', pyshortver='3.13', pyver='3.13.5', rpath_enabled='true', software_commit='', sysroot='', toolchain_name='foss', toolchain_version='2025b', version='2.1.2', version_major='2', version_major_minor='2.1', version_major_minor_patch='2.1.2', version_minor='1', version_minor_patch='1.2', version_patch='2', versionprefix='', versionsuffix='-CUDA-12.9.1'
+== 2026-09-29 12:36:37,139 one.py:179 INFO Skipping reformatting value for parameter 'toolchain'
+== 2026-09-29 12:36:37,140 one.py:179 INFO Skipping reformatting value for parameter 'toolchainopts'
+== 2026-09-29 12:36:37,141 filetools.py:2076 INFO Creating directory /tmp/vsc47063/eb-7rnsfz90/reprod_20260929123637_3196444 (parents: True, set_gid: False, sticky: False)
+== 2026-09-29 12:36:37,141 easyblock.py:5661 INFO Dumped easyconfig instance to /tmp/vsc47063/eb-7rnsfz90/reprod_20260929123637_3196444/dorado-2.1.2-foss-2025b-CUDA-12.9.1.eb
+== 2026-09-29 12:36:37,143 filetools.py:2076 INFO Creating directory /tmp/vsc47063/eb-7rnsfz90/reprod_20260929123637_3196444/easyblocks (parents: True, set_gid: False, sticky: False)
+== 2026-09-29 12:36:37,156 filetools.py:2563 INFO /scratch/gent/470/vsc47063/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/cmakemake.py copied to /tmp/vsc47063/eb-7rnsfz90/reprod_20260929123637_3196444/easyblocks/cmakemake.py
+== 2026-09-29 12:36:37,156 easyblock.py:5641 INFO Dumped easyblock cmakemake.py required for reproduction to /tmp/vsc47063/eb-7rnsfz90/reprod_20260929123637_3196444/easyblocks
+== 2026-09-29 12:36:37,164 filetools.py:2563 INFO /scratch/gent/470/vsc47063/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/configuremake.py copied to /tmp/vsc47063/eb-7rnsfz90/reprod_20260929123637_3196444/easyblocks/configuremake.py
+== 2026-09-29 12:36:37,165 easyblock.py:5641 INFO Dumped easyblock configuremake.py required for reproduction to /tmp/vsc47063/eb-7rnsfz90/reprod_20260929123637_3196444/easyblocks
+== 2026-09-29 12:36:37,165 filetools.py:2076 INFO Creating directory /tmp/vsc47063/eb-7rnsfz90/reprod_20260929123637_3196444/hooks (parents: True, set_gid: False, sticky: False)
+== 2026-09-29 12:36:37,165 filetools.py:2563 INFO /user/gent/470/vsc47063/my_hooks.py copied to /tmp/vsc47063/eb-7rnsfz90/reprod_20260929123637_3196444/hooks/my_hooks.py
+== 2026-09-29 12:36:37,165 easyblock.py:5673 INFO Dumped hooks file /user/gent/470/vsc47063/my_hooks.py which is (potentially) required for reproduction to /tmp/vsc47063/eb-7rnsfz90/reprod_20260929123637_3196444/hooks/my_hooks.py
+== 2026-09-29 12:36:37,169 easyblock.py:2742 INFO Number of iterations to perform for central part of installation procedure: 1
+== 2026-09-29 12:36:37,170 build_log.py:330 INFO building and installing dorado/2.1.2-foss-2025b-CUDA-12.9.1...
+== 2026-09-29 12:36:37,173 easyblock.py:5207 INFO Ignoring locks...
+== 2026-09-29 12:36:37,177 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+== 2026-09-29 12:36:37,177 run.py:532 INFO Running shell command in /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b:
+	ulimit -u
+== 2026-09-29 12:36:37,181 run.py:651 INFO Shell command completed successfully
+Output (stdout + stderr):
+3088248
+
+== 2026-09-29 12:36:37,181 easyblock.py:2778 INFO Setting parallelism: 8
+== 2026-09-29 12:36:37,182 build_log.py:330 INFO fetching files and verifying checksums...
+== 2026-09-29 12:36:37,183 easyblock.py:5050 INFO Starting fetch step
+== 2026-09-29 12:36:37,184 easyconfig.py:1836 INFO Generating template values...
+== 2026-09-29 12:36:37,184 mpi.py:123 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2026-09-29 12:36:37,184 mpi.py:299 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2026-09-29 12:36:37,184 easyconfig.py:1855 INFO Template values: arch='x86_64', bitbucket_account='dorado', builddir='/tmp/vsc47063/easybuild/build/dorado/2.1.2/foss-2025b-CUDA-12.9.1', cuda_cc_cmake='70;80;86;90', cuda_cc_nvhpc='cc70,cc80,cc86,cc90', cuda_cc_semicolon_sep='7.0;8.0;8.6;9.0', cuda_cc_space_sep='7.0 8.0 8.6 9.0', cuda_cc_space_sep_no_period='70 80 86 90', cuda_compute_capabilities='7.0,8.0,8.6,9.0', cuda_int_comma_sep='70,80,86,90', cuda_int_semicolon_sep='70;80;86;90', cuda_int_space_sep='70 80 86 90', cuda_sm_comma_sep='sm_70,sm_80,sm_86,sm_90', cuda_sm_space_sep='sm_70 sm_80 sm_86 sm_90', cudamajver='12', cudaminver='9', cudashortver='12.9', cudaver='12.9.1', github_account='dorado', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/dorado/2.1.2-foss-2025b-CUDA-12.9.1', module_name='dorado/2.1.2-foss-2025b-CUDA-12.9.1', mpi_cmd_prefix='mpirun -n 1', name='dorado', nameletter='d', nameletterlower='d', namelower='dorado', parallel='8', pymajver='3', pyminver='13', pyshortver='3.13', pyver='3.13.5', rpath_enabled='true', software_commit='', start_dir='None', sysroot='', toolchain_name='foss', toolchain_version='2025b', version='2.1.2', version_major='2', version_major_minor='2.1', version_major_minor_patch='2.1.2', version_minor='1', version_minor_patch='1.2', version_patch='2', versionprefix='', versionsuffix='-CUDA-12.9.1'
+== 2026-09-29 12:36:37,184 easyblock.py:5061 INFO Running method fetch_step part of step fetch
+== 2026-09-29 12:36:37,184 easyblock.py:2879 WARNING Easyconfig does not specify an EasyBuild-version (key 'easybuild_version')! Assuming the latest version
+== 2026-09-29 12:36:37,185 environment.py:109 INFO Environment variable LMOD_QUIET set to 1 (previously undefined)
+== 2026-09-29 12:36:37,185 environment.py:109 INFO Environment variable LMOD_IGNORE_CACHE set to 1 (previously undefined)
+== 2026-09-29 12:36:37,185 environment.py:109 INFO Environment variable LMOD_REDIRECT set to no (previously undefined)
+== 2026-09-29 12:36:37,185 environment.py:109 INFO Environment variable LMOD_EXTENDED_DEFAULT set to no (previously undefined)
+== 2026-09-29 12:36:37,185 environment.py:109 INFO Environment variable LMOD_TERSE_DECORATIONS set to no (previously undefined)
+== 2026-09-29 12:36:37,185 modules.py:729 INFO Full path for Lmod command is /usr/share/lmod/lmod/libexec/lmod, so using it
+== 2026-09-29 12:36:37,188 modules.py:886 INFO Prepended list of module paths with path used by EasyBuild: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/modules/all
+== 2026-09-29 12:36:37,188 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+== 2026-09-29 12:36:37,188 run.py:532 INFO Running shell command in /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b:
+	type module
+== 2026-09-29 12:36:37,191 run.py:651 INFO Shell command completed successfully
+Output (stdout + stderr):
+module is a function
+module () 
+{ 
+    if [ -z "${LMOD_SH_DBG_ON+x}" ]; then
+        case "$-" in 
+            *v*x*)
+                __lmod_sh_dbg='vx'
+            ;;
+            *v*)
+                __lmod_sh_dbg='v'
+            ;;
+            *x*)
+                __lmod_sh_dbg='x'
+            ;;
+        esac;
+    fi;
+    if [ -n "${__lmod_sh_dbg:-}" ]; then
+        set +$__lmod_sh_dbg;
+        echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output" 1>&2;
+    fi;
+    __lmod_internal_module_cmd "$@";
+    __lmod_my_status=$?;
+    if [ -n "${__lmod_sh_dbg:-}" ]; then
+        echo "Shell debugging restarted" 1>&2;
+        set -$__lmod_sh_dbg;
+    fi;
+    unset __lmod_sh_dbg;
+    return $__lmod_my_status
+}
+
+== 2026-09-29 12:36:37,192 run.py:532 INFO Running command in /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b:
+	/usr/share/lmod/lmod/libexec/lmod python --version
+== 2026-09-29 12:36:37,225 run.py:651 INFO Command completed successfully
+== 2026-09-29 12:36:37,225 modules.py:683 INFO Found Lmod version 9.4.2
+== 2026-09-29 12:36:37,226 run.py:532 INFO Running command in /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b:
+	/usr/share/lmod/lmod/libexec/lmod python load git-lfs/3.7.1
+== 2026-09-29 12:36:41,737 run.py:651 INFO Command completed successfully
+== 2026-09-29 12:36:41,738 easyblock.py:971 INFO Considering directory in which easyconfig file is located when searching for dorado-2.1.2.tar.xz: /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b
+== 2026-09-29 12:36:41,738 tools.py:241 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /scratch/gent/470/vsc47063/easybuild/easybuild-framework/eb
+== 2026-09-29 12:36:41,739 tools.py:257 INFO Not considering /scratch/gent/470/vsc47063/easybuild (no easybuild/easyconfigs subdir found)
+== 2026-09-29 12:36:41,739 tools.py:265 INFO Also considering installation prefix /kyukon/scratch/gent/470/vsc47063/easybuild (via resolved path to 'eb')...
+== 2026-09-29 12:36:41,754 run.py:492 INFO run_shell_cmd: Script to start debug shell for shell command 'git ...'
+	will be saved to /tmp/vsc47063/eb-7rnsfz90/run-shell-cmd-output/git-fhdhtphh/cmd.sh
+	output will be logged to /tmp/vsc47063/eb-7rnsfz90/run-shell-cmd-output/git-fhdhtphh/out.txt
+== 2026-09-29 12:36:41,754 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+== 2026-09-29 12:36:41,754 run.py:532 INFO Running shell command in /tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij:
+	git clone --no-checkout https://github.com/nanoporetech/dorado.git
+== 2026-09-29 12:36:44,204 run.py:651 INFO Shell command completed successfully
+Output (stdout + stderr):
+Cloning into 'dorado'...
+
+== 2026-09-29 12:36:44,210 run.py:492 INFO run_shell_cmd: Script to start debug shell for shell command 'git ...'
+	will be saved to /tmp/vsc47063/eb-7rnsfz90/run-shell-cmd-output/git-lumcmjni/cmd.sh
+	output will be logged to /tmp/vsc47063/eb-7rnsfz90/run-shell-cmd-output/git-lumcmjni/out.txt
+== 2026-09-29 12:36:44,210 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+== 2026-09-29 12:36:44,210 run.py:532 INFO Running shell command in /tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado:
+	git lfs install --local --skip-repo
+== 2026-09-29 12:36:44,603 run.py:651 INFO Shell command completed successfully
+Output (stdout + stderr):
+Git LFS initialized.
+
+== 2026-09-29 12:36:44,608 run.py:492 INFO run_shell_cmd: Script to start debug shell for shell command 'git ...'
+	will be saved to /tmp/vsc47063/eb-7rnsfz90/run-shell-cmd-output/git-p6qkpkd2/cmd.sh
+	output will be logged to /tmp/vsc47063/eb-7rnsfz90/run-shell-cmd-output/git-p6qkpkd2/out.txt
+== 2026-09-29 12:36:44,608 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+== 2026-09-29 12:36:44,608 run.py:532 INFO Running shell command in /tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado:
+	git checkout refs/tags/v2.1.2
+== 2026-09-29 12:36:47,052 run.py:651 INFO Shell command completed successfully
+Output (stdout + stderr):
+Note: switching to 'refs/tags/v2.1.2'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 8b8fc5d36 Merge branch 'DOR-1799_v2.1.2_backports' into 'release-v2.1'
+
+== 2026-09-29 12:36:47,057 run.py:492 INFO run_shell_cmd: Script to start debug shell for shell command 'git ...'
+	will be saved to /tmp/vsc47063/eb-7rnsfz90/run-shell-cmd-output/git-d_8fy0qk/cmd.sh
+	output will be logged to /tmp/vsc47063/eb-7rnsfz90/run-shell-cmd-output/git-d_8fy0qk/out.txt
+== 2026-09-29 12:36:47,057 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+== 2026-09-29 12:36:47,058 run.py:532 INFO Running shell command in /tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado:
+	git lfs pull
+== 2026-09-29 12:36:47,092 run.py:651 INFO Shell command completed successfully
+Output (stdout + stderr):
+
+== 2026-09-29 12:36:47,098 run.py:492 INFO run_shell_cmd: Script to start debug shell for shell command 'git ...'
+	will be saved to /tmp/vsc47063/eb-7rnsfz90/run-shell-cmd-output/git-lljh4eyk/cmd.sh
+	output will be logged to /tmp/vsc47063/eb-7rnsfz90/run-shell-cmd-output/git-lljh4eyk/out.txt
+== 2026-09-29 12:36:47,098 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+== 2026-09-29 12:36:47,098 run.py:532 INFO Running shell command in /tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado:
+	git submodule update --init --recursive
+== 2026-09-29 12:37:31,930 run.py:651 INFO Shell command completed successfully
+Output (stdout + stderr):
+Submodule 'dorado/3rdparty/CxxUrl' (https://github.com/chmike/CxxUrl) registered for path 'dorado/3rdparty/CxxUrl'
+Submodule 'dorado/3rdparty/NVTX' (https://github.com/NVIDIA/NVTX.git) registered for path 'dorado/3rdparty/NVTX'
+Submodule 'dorado/3rdparty/argparse' (https://github.com/p-ranav/argparse.git) registered for path 'dorado/3rdparty/argparse'
+Submodule 'dorado/3rdparty/catch2' (https://github.com/catchorg/Catch2.git) registered for path 'dorado/3rdparty/catch2'
+Submodule 'dorado/3rdparty/cpp-httplib' (https://github.com/yhirose/cpp-httplib.git) registered for path 'dorado/3rdparty/cpp-httplib'
+Submodule 'dorado/3rdparty/cxxpool' (https://github.com/bloomen/cxxpool.git) registered for path 'dorado/3rdparty/cxxpool'
+Submodule 'dorado/3rdparty/date' (https://github.com/HowardHinnant/date.git) registered for path 'dorado/3rdparty/date'
+Submodule 'dorado/3rdparty/edlib' (https://github.com/martinsos/edlib) registered for path 'dorado/3rdparty/edlib'
+Submodule 'dorado/3rdparty/11Zip' (https://github.com/Sygmei/11Zip.git) registered for path 'dorado/3rdparty/elzip'
+Submodule 'dorado/3rdparty/htslib' (https://github.com/samtools/htslib.git) registered for path 'dorado/3rdparty/htslib'
+Submodule 'dorado/3rdparty/indicators' (https://github.com/p-ranav/indicators.git) registered for path 'dorado/3rdparty/indicators'
+Submodule 'dorado/3rdparty/ont-minimap2' (https://github.com/nanoporetech/ont-minimap2.git) registered for path 'dorado/3rdparty/ont-minimap2'
+Submodule 'dorado/3rdparty/spdlog' (https://github.com/gabime/spdlog) registered for path 'dorado/3rdparty/spdlog'
+Submodule 'dorado/3rdparty/toml11' (https://github.com/ToruNiina/toml11.git) registered for path 'dorado/3rdparty/toml11'
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/CxxUrl'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/NVTX'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/argparse'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/catch2'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/cpp-httplib'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/cxxpool'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/date'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/edlib'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/elzip'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/htslib'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/indicators'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/ont-minimap2'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/spdlog'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/toml11'...
+Submodule path 'dorado/3rdparty/CxxUrl': checked out 'eaf46c0207df24853a238d4499e7f4426d9d234c'
+Submodule path 'dorado/3rdparty/NVTX': checked out 'e170594ac7cf1dac584da473d4ca9301087090c1'
+Submodule path 'dorado/3rdparty/argparse': checked out '68fd0277eea5412aff9b91c0b70efc698359dae0'
+Submodule path 'dorado/3rdparty/catch2': checked out '914aeecfe23b1e16af6ea675a4fb5dbd5a5b8d0a'
+Submodule path 'dorado/3rdparty/cpp-httplib': checked out 'a7bc00e3307fecdb4d67545e93be7b88cfb1e186'
+Submodule path 'dorado/3rdparty/cxxpool': checked out '2cb1233b3e23ed01c3f338f2a863f5b39ea44f56'
+Submodule path 'dorado/3rdparty/date': checked out 'f94b8f36c6180be0021876c4a397a054fe50c6f2'
+Submodule path 'dorado/3rdparty/edlib': checked out '42aa8fa7051fb2aa1c4f144c5eda22a0e753f026'
+Submodule path 'dorado/3rdparty/elzip': checked out '516e161d5c96aa8f2603fb30b10b7770a87332c2'
+Submodule 'extlibs/minizip' (https://github.com/zlib-ng/minizip-ng.git) registered for path 'dorado/3rdparty/elzip/extlibs/minizip'
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/elzip/extlibs/minizip'...
+From https://github.com/zlib-ng/minizip-ng
+ * branch            cee6d8cbd4da70c48e9df1426607ff95b4f24fa6 -> FETCH_HEAD
+Submodule path 'dorado/3rdparty/elzip/extlibs/minizip': checked out 'cee6d8cbd4da70c48e9df1426607ff95b4f24fa6'
+Submodule path 'dorado/3rdparty/htslib': checked out 'c1f35d67dd5ff1e226d94abe7b850f28c60f5910'
+Submodule 'htscodecs' (https://github.com/samtools/htscodecs.git) registered for path 'dorado/3rdparty/htslib/htscodecs'
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/htslib/htscodecs'...
+Submodule path 'dorado/3rdparty/htslib/htscodecs': checked out 'de42211c744ac67d263bfa4200a7cf6af1192d8c'
+From https://github.com/p-ranav/indicators
+ * branch            88544847c51397004a31cf2817c334624c6350cf -> FETCH_HEAD
+Submodule path 'dorado/3rdparty/indicators': checked out '88544847c51397004a31cf2817c334624c6350cf'
+Submodule path 'dorado/3rdparty/ont-minimap2': checked out '3a7e4e229de46f4565ec7db727748e2122181d4f'
+Submodule 'minimap2' (https://github.com/lh3/minimap2.git) registered for path 'dorado/3rdparty/ont-minimap2/src/3rdparty/minimap2'
+Submodule 'pthread-win32' (https://github.com/GerHobbelt/pthread-win32.git) registered for path 'dorado/3rdparty/ont-minimap2/src/3rdparty/pthread-win32'
+Submodule 'zlib-ng' (https://github.com/zlib-ng/zlib-ng.git) registered for path 'dorado/3rdparty/ont-minimap2/src/3rdparty/zlib-ng'
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/ont-minimap2/src/3rdparty/minimap2'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/ont-minimap2/src/3rdparty/pthread-win32'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/ont-minimap2/src/3rdparty/zlib-ng'...
+Submodule path 'dorado/3rdparty/ont-minimap2/src/3rdparty/minimap2': checked out '3c28777e7e2dcc90f825de1b9f17a89cca7d4452'
+Submodule path 'dorado/3rdparty/ont-minimap2/src/3rdparty/pthread-win32': checked out 'a89bf2154a28113a7373e25fe2729dee4e004385'
+Submodule path 'dorado/3rdparty/ont-minimap2/src/3rdparty/zlib-ng': checked out '860e4cff7917d93f54f5d7f0bc1d0e8b1a3cb988'
+Submodule path 'dorado/3rdparty/spdlog': checked out '6fa36017cfd5731d617e1a934f0e5ea9c4445b13'
+Submodule path 'dorado/3rdparty/toml11': checked out 'be08ba2be2a964edcdb3d3e3ea8d100abc26f286'
+Submodule 'docs/themes/hugo-book' (https://github.com/alex-shpak/hugo-book.git) registered for path 'dorado/3rdparty/toml11/docs/themes/hugo-book'
+Submodule 'tests/extlib/doctest' (https://github.com/doctest/doctest.git) registered for path 'dorado/3rdparty/toml11/tests/extlib/doctest'
+Submodule 'tests/extlib/json' (https://github.com/nlohmann/json.git) registered for path 'dorado/3rdparty/toml11/tests/extlib/json'
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/toml11/docs/themes/hugo-book'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/toml11/tests/extlib/doctest'...
+Cloning into '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado/dorado/3rdparty/toml11/tests/extlib/json'...
+Submodule path 'dorado/3rdparty/toml11/docs/themes/hugo-book': checked out '2f64607bc9a4caa6ffc4ed7f614c8ad9a5b6611c'
+Submodule path 'dorado/3rdparty/toml11/tests/extlib/doctest': checked out 'ae7a13539fb71f270b87eb2e874fbac80bc8dda2'
+Submodule path 'dorado/3rdparty/toml11/tests/extlib/json': checked out '8c391e04fe4195d8be862c97f38cfe10e2a3472e'
+
+== 2026-09-29 12:37:31,930 filetools.py:3000 INFO Archiving '/tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij/dorado' into '/data/gent/vo/001/gvo00117/easybuild/sources/d/dorado/dorado-2.1.2.tar.xz'...
+== 2026-09-29 12:38:21,276 filetools.py:3017 INFO Archive 'dorado-2.1.2.tar.xz' created successfully
+== 2026-09-29 12:38:21,277 filetools.py:461 INFO Removing 1 files & directories
+== 2026-09-29 12:38:21,514 filetools.py:434 INFO Path /tmp/vsc47063/eb-7rnsfz90/tmpj5jgjgij successfully removed.
+== 2026-09-29 12:38:21,515 easyblock.py:602 INFO Added sources: [{'name': 'dorado-2.1.2.tar.xz', 'path': '/data/gent/vo/001/gvo00117/easybuild/sources/d/dorado/dorado-2.1.2.tar.xz', 'cmd': None, 'checksum': {'dorado-2.1.2.tar.xz': None}, 'finalpath': '/tmp/vsc47063/easybuild/build/dorado/2.1.2/foss-2025b-CUDA-12.9.1'}]
+== 2026-09-29 12:38:21,515 easyblock.py:971 INFO Considering directory in which easyconfig file is located when searching for dorado-1.4.0_fix-hts-cmake.patch: /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b
+== 2026-09-29 12:38:21,515 tools.py:241 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /scratch/gent/470/vsc47063/easybuild/easybuild-framework/eb
+== 2026-09-29 12:38:21,515 tools.py:257 INFO Not considering /scratch/gent/470/vsc47063/easybuild (no easybuild/easyconfigs subdir found)
+== 2026-09-29 12:38:21,516 tools.py:265 INFO Also considering installation prefix /kyukon/scratch/gent/470/vsc47063/easybuild (via resolved path to 'eb')...
+== 2026-09-29 12:38:21,517 easyblock.py:1013 INFO Found file dorado-1.4.0_fix-hts-cmake.patch at /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b/dorado-1.4.0_fix-hts-cmake.patch
+== 2026-09-29 12:38:21,517 easyblock.py:971 INFO Considering directory in which easyconfig file is located when searching for dorado-2.1.1_fix-TestUtils.cpp.patch: /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b
+== 2026-09-29 12:38:21,517 tools.py:241 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /scratch/gent/470/vsc47063/easybuild/easybuild-framework/eb
+== 2026-09-29 12:38:21,518 tools.py:257 INFO Not considering /scratch/gent/470/vsc47063/easybuild (no easybuild/easyconfigs subdir found)
+== 2026-09-29 12:38:21,518 tools.py:265 INFO Also considering installation prefix /kyukon/scratch/gent/470/vsc47063/easybuild (via resolved path to 'eb')...
+== 2026-09-29 12:38:21,518 easyblock.py:1013 INFO Found file dorado-2.1.1_fix-TestUtils.cpp.patch at /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b/dorado-2.1.1_fix-TestUtils.cpp.patch
+== 2026-09-29 12:38:21,518 easyblock.py:648 INFO Added patches: [{'name': 'dorado-1.4.0_fix-hts-cmake.patch', 'postinstall': False, 'path': '/kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b/dorado-1.4.0_fix-hts-cmake.patch', 'checksum': {'dorado-1.4.0_fix-hts-cmake.patch': 'b99f268086650462437cc252040bb8636dfe1e1bbb566e65590fd3401d63f2a0'}}, {'name': 'dorado-2.1.1_fix-TestUtils.cpp.patch', 'postinstall': False, 'path': '/kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b/dorado-2.1.1_fix-TestUtils.cpp.patch', 'checksum': {'dorado-2.1.1_fix-TestUtils.cpp.patch': '25415a52873732902641c476a0a54f3e34056227ee23848899133cbc237890ae'}}]
+== 2026-09-29 12:38:21,652 easyblock.py:2947 INFO sha256 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/d/dorado/dorado-2.1.2.tar.xz: e9964c82ccf9dceef56e592a2135d2b9a51e1ca0434bae9c6f5e2fd17078e4da
+== 2026-09-29 12:38:21,669 easyblock.py:2947 INFO sha256 checksum for /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b/dorado-1.4.0_fix-hts-cmake.patch: b99f268086650462437cc252040bb8636dfe1e1bbb566e65590fd3401d63f2a0
+== 2026-09-29 12:38:21,669 easyblock.py:2947 INFO sha256 checksum for /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b/dorado-2.1.1_fix-TestUtils.cpp.patch: 25415a52873732902641c476a0a54f3e34056227ee23848899133cbc237890ae
+== 2026-09-29 12:38:21,679 easyblock.py:2982 INFO Checking dirs that need to be created: ['/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/dorado/2.1.2-foss-2025b-CUDA-12.9.1', '/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/modules/all/dorado', '/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/modules/bio/dorado']
+== 2026-09-29 12:38:21,688 environment.py:109 INFO Environment variable _ModuleTable005_ set to ewpsbW9kID0gewpzdGlja3kgPSAxLAp9LAp9LApyZWZfY291bnQgPSAxLApzdGFja0RlcHRoID0gMSwKc3RhdHVzID0gImFjdGl2ZSIsCnVzZXJOYW1lID0gImVudi92c2MvZG9ucGhhbiIsCndWID0gIipkb25waGFuLip6ZmluYWwiLAp9LAp9LAptcGF0aEEgPSB7CiIvc2NyYXRjaC9nZW50L3ZvLzAwMS9ndm8wMDExNy9lYXN5YnVpbGQvUkhFTDkvY2FzY2FkZWxha2UtYW1wZXJlLWliL21vZHVsZXMvYWxsIiwgIi9hcHBzL2dlbnQvUkhFTDkvY2FzY2FkZWxha2UtYW1wZXJlLWliL21vZHVsZXMvYWxsIgosICIvYXBwcy9nZW50L1JIRUw5L2Nhc2NhZGVsYWtlLWliL21vZHVsZXMvYWxsIiwgIi9ldGMvbW9kdWxlZmlsZXMvdnNjIiwKfSwKc3lzdGVtQmFzZU1QQVRIID0gIi9l (previous value: 'ewpsbW9kID0gewpzdGlja3kgPSAxLAp9LAp9LApyZWZfY291bnQgPSAxLApzdGFja0RlcHRoID0gMSwKc3RhdHVzID0gImFjdGl2ZSIsCnVzZXJOYW1lID0gImVudi92c2MvZG9ucGhhbiIsCndWID0gIipkb25waGFuLip6ZmluYWwiLAp9LApbImdpdC1sZnMiXSA9IHsKZm4gPSAiL2FwcHMvZ2VudC9SSEVMOS9jYXNjYWRlbGFrZS1pYi9tb2R1bGVzL2FsbC9naXQtbGZzLzMuNy4xLmx1YSIsCmZ1bGxOYW1lID0gImdpdC1sZnMvMy43LjEiLApsb2FkT3JkZXIgPSA1LApwcm9wVCA9IHt9LApzdGFja0RlcHRoID0gMCwKc3RhdHVzID0gImFjdGl2ZSIsCnVzZXJOYW1lID0gImdpdC1sZnMvMy43LjEiLAp3ViA9ICIwMDAwMDAwMDMuMDAwMDAwMDA3LjAwMDAwMDAwMS4qemZpbmFs')
+== 2026-09-29 12:38:21,688 environment.py:109 INFO Environment variable __LMOD_REF_COUNT_PATH set to /usr/libexec/jobcli:1;/usr/local/vsc/bin:1;/opt/VirtualGL/bin:1;/usr/local/bin:1;/usr/bin:1;/usr/local/sbin:1;/usr/sbin:1;/user/gent/470/vsc47063/.dotnet/tools:1 (previous value: '/apps/gent/RHEL9/cascadelake-ib/software/git-lfs/3.7.1/bin:1;/scratch/gent/470/vsc47063/easybuild/easybuild-framework:1;/usr/libexec/jobcli:1;/usr/local/vsc/bin:1;/opt/VirtualGL/bin:1;/usr/local/bin:1;/usr/bin:1;/usr/local/sbin:1;/usr/sbin:1;/user/gent/470/vsc47063/.dotnet/tools:1')
+== 2026-09-29 12:38:21,688 environment.py:109 INFO Environment variable LOADEDMODULES set to env/vsc/donphan:env/slurm/donphan:env/software/donphan:cluster/donphan (previous value: 'env/vsc/donphan:env/slurm/donphan:env/software/donphan:cluster/donphan:git-lfs/3.7.1')
+== 2026-09-29 12:38:21,688 environment.py:109 INFO Environment variable _ModuleTable006_ set to dGMvbW9kdWxlZmlsZXMvdnNjIiwKfQo= (previous value: 'IiwKfSwKfSwKbXBhdGhBID0gewoiL3NjcmF0Y2gvZ2VudC92by8wMDEvZ3ZvMDAxMTcvZWFzeWJ1aWxkL1JIRUw5L2Nhc2NhZGVsYWtlLWFtcGVyZS1pYi9tb2R1bGVzL2FsbCIsICIvYXBwcy9nZW50L1JIRUw5L2Nhc2NhZGVsYWtlLWFtcGVyZS1pYi9tb2R1bGVzL2FsbCIKLCAiL2FwcHMvZ2VudC9SSEVMOS9jYXNjYWRlbGFrZS1pYi9tb2R1bGVzL2FsbCIsICIvZXRjL21vZHVsZWZpbGVzL3ZzYyIsCn0sCnN5c3RlbUJhc2VNUEFUSCA9ICIvZXRjL21vZHVsZWZpbGVzL3ZzYyIsCn0K')
+== 2026-09-29 12:38:21,688 environment.py:109 INFO Environment variable PATH set to /scratch/gent/470/vsc47063/easybuild/easybuild-framework:/usr/libexec/jobcli:/usr/local/vsc/bin:/opt/VirtualGL/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/user/gent/470/vsc47063/.dotnet/tools (previous value: '/apps/gent/RHEL9/cascadelake-ib/software/git-lfs/3.7.1/bin:/scratch/gent/470/vsc47063/easybuild/easybuild-framework:/usr/libexec/jobcli:/usr/local/vsc/bin:/opt/VirtualGL/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/user/gent/470/vsc47063/.dotnet/tools')
+== 2026-09-29 12:38:21,688 environment.py:109 INFO Environment variable _LMFILES_ set to /etc/modulefiles/vsc/env/vsc/donphan.lua:/etc/modulefiles/vsc/env/slurm/donphan.lua:/etc/modulefiles/vsc/env/software/donphan.lua:/etc/modulefiles/vsc/cluster/donphan.lua (previous value: '/etc/modulefiles/vsc/env/vsc/donphan.lua:/etc/modulefiles/vsc/env/slurm/donphan.lua:/etc/modulefiles/vsc/env/software/donphan.lua:/etc/modulefiles/vsc/cluster/donphan.lua:/apps/gent/RHEL9/cascadelake-ib/modules/all/git-lfs/3.7.1.lua')
+== 2026-09-29 12:38:21,700 configuremake.py:96 INFO config.guess version: 2023-08-22 (last updated: 2026-09-29T12:31:01.365881, SHA256 checksum: ec2577614252326f889df1de97b9a457c03a9a94811048563c211a44496d8ba3)
+== 2026-09-29 12:38:22,521 filetools.py:905 INFO File size for https://git.savannah.gnu.org/cgit/config.git/plain/config.guess?id=28ea239c53a2d5d8800c472bc2452eaa16e37af2: 50622
+== 2026-09-29 12:38:22,521 filetools.py:274 INFO Overwriting existing file /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v5.4.1.dev0/ConfigureMake/config.guess
+== 2026-09-29 12:38:22,523 filetools.py:2563 INFO /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v5.4.1.dev0/ConfigureMake/config.guess copied to /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v5.4.1.dev0/ConfigureMake/config.guess.bak_20260929123822_3196444
+== 2026-09-29 12:38:22,523 filetools.py:2301 INFO File /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v5.4.1.dev0/ConfigureMake/config.guess backed up in /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v5.4.1.dev0/ConfigureMake/config.guess.bak_20260929123822_3196444
+== 2026-09-29 12:38:22,523 filetools.py:280 INFO Existing file /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v5.4.1.dev0/ConfigureMake/config.guess backed up to /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v5.4.1.dev0/ConfigureMake/config.guess.bak_20260929123822_3196444
+== 2026-09-29 12:38:22,523 filetools.py:296 INFO Not showing progress bar for downloading small file (size 50622)
+== 2026-09-29 12:38:22,558 filetools.py:912 INFO Downloaded file config.guess from url https://git.savannah.gnu.org/cgit/config.git/plain/config.guess?id=28ea239c53a2d5d8800c472bc2452eaa16e37af2 to /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v5.4.1.dev0/ConfigureMake/config.guess
+== 2026-09-29 12:38:22,558 filetools.py:962 INFO Successful download of file config.guess from url https://git.savannah.gnu.org/cgit/config.git/plain/config.guess?id=28ea239c53a2d5d8800c472bc2452eaa16e37af2 to path /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v5.4.1.dev0/ConfigureMake/config.guess
+== 2026-09-29 12:38:22,560 configuremake.py:96 INFO config.guess version: 2023-08-22 (last updated: 2026-09-29T12:38:22.558219, SHA256 checksum: ec2577614252326f889df1de97b9a457c03a9a94811048563c211a44496d8ba3)
+== 2026-09-29 12:38:22,560 filetools.py:1927 INFO Adjusting permissions recursively for /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v5.4.1.dev0/ConfigureMake/config.guess
+== 2026-09-29 12:38:22,560 configuremake.py:166 INFO Verified config.guess at /data/gent/vo/001/gvo00117/easybuild/sources/generic/eb_v5.4.1.dev0/ConfigureMake/config.guess, using it if required
+== 2026-09-29 12:38:22,560 easyblock.py:5061 INFO Running method checksum_step part of step fetch
+== 2026-09-29 12:38:22,560 easyblock.py:3004 INFO Checksum verification for /data/gent/vo/001/gvo00117/easybuild/sources/d/dorado/dorado-2.1.2.tar.xz using {'dorado-2.1.2.tar.xz': None} passed.
+== 2026-09-29 12:38:22,560 easyblock.py:3004 INFO Checksum verification for /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b/dorado-1.4.0_fix-hts-cmake.patch using {'dorado-1.4.0_fix-hts-cmake.patch': 'b99f268086650462437cc252040bb8636dfe1e1bbb566e65590fd3401d63f2a0'} passed.
+== 2026-09-29 12:38:22,561 easyblock.py:3004 INFO Checksum verification for /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025b/dorado-2.1.1_fix-TestUtils.cpp.patch using {'dorado-2.1.1_fix-TestUtils.cpp.patch': '25415a52873732902641c476a0a54f3e34056227ee23848899133cbc237890ae'} passed.
+== 2026-09-29 12:38:22,561 easyblock.py:5083 INFO Stopping after fetch step.
+== 2026-09-29 12:38:22,561 build_log.py:330 INFO ... (took 1 min 45 secs)
+== 2026-09-29 12:38:22,563 tools.py:578 INFO Script to set up build environment for dorado-2.1.2-foss-2025b-CUDA-12.9.1.eb dumped to /tmp/vsc47063/eb-7rnsfz90/reprod_20260929123637_3196444/dorado-2.1.2-foss-2025b-CUDA-12.9.1.env
+== 2026-09-29 12:38:22,564 easyblock.py:410 INFO Closing log for application name dorado version 2.1.2
