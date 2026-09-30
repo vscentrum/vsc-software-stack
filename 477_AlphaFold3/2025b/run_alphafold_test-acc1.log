@@ -1,0 +1,400 @@
+Running tests under Python 3.13.5: /apps/gent/RHEL9/zen3-ampere-ib/software/Python/3.13.5-GCCcore-14.3.0/bin/python
+[ RUN      ] InferenceTest.test_examples0 ('barnase_barstar')
+I0930 17:05:45.804015 22519731967808 xla_bridge.py:849] Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+[  FAILED  ] InferenceTest.test_examples0 ('barnase_barstar')
+[ RUN      ] InferenceTest.test_examples1 ('calmodulin_4calcium')
+[  FAILED  ] InferenceTest.test_examples1 ('calmodulin_4calcium')
+[ RUN      ] InferenceTest.test_examples10 ('tetr_homodimer')
+[  FAILED  ] InferenceTest.test_examples10 ('tetr_homodimer')
+[ RUN      ] InferenceTest.test_examples11 ('u1a_rna_hairpin')
+[  FAILED  ] InferenceTest.test_examples11 ('u1a_rna_hairpin')
+[ RUN      ] InferenceTest.test_examples12 ('ubiquitin_monomer')
+[  FAILED  ] InferenceTest.test_examples12 ('ubiquitin_monomer')
+[ RUN      ] InferenceTest.test_examples2 ('erk2_phosphorylated')
+[  FAILED  ] InferenceTest.test_examples2 ('erk2_phosphorylated')
+[ RUN      ] InferenceTest.test_examples3 ('kras_g12c_sotorasib')
+[  FAILED  ] InferenceTest.test_examples3 ('kras_g12c_sotorasib')
+[ RUN      ] InferenceTest.test_examples4 ('methylated_dna')
+[  FAILED  ] InferenceTest.test_examples4 ('methylated_dna')
+[ RUN      ] InferenceTest.test_examples5 ('modified_rna')
+[  FAILED  ] InferenceTest.test_examples5 ('modified_rna')
+[ RUN      ] InferenceTest.test_examples6 ('rnaseb_glycosylated')
+[  FAILED  ] InferenceTest.test_examples6 ('rnaseb_glycosylated')
+[ RUN      ] InferenceTest.test_examples7 ('streptavidin_biotin_smiles')
+[  FAILED  ] InferenceTest.test_examples7 ('streptavidin_biotin_smiles')
+[ RUN      ] InferenceTest.test_examples8 ('tetr_dimer_dna')
+[  FAILED  ] InferenceTest.test_examples8 ('tetr_dimer_dna')
+[ RUN      ] InferenceTest.test_examples9 ('tetr_dimer_tetracycline')
+[  FAILED  ] InferenceTest.test_examples9 ('tetr_dimer_tetracycline')
+[ RUN      ] InferenceTest.test_inference_bucket_1024
+I0930 17:05:46.091312 22519731967808 pipeline.py:92] Getting protein MSAs for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I0930 17:05:46.600327 22508463781440 jackhmmer.py:186] Query sequence (non-sharded db): SEFEKLRQTGDELVQA... (len 109)
+I0930 17:05:46.600652 22508463781440 subprocess_utils.py:91] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/HMMER/3.4-gompi-2025b/bin/jackhmmer -o /dev/null -A /tmp/tmplw034p62/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 --seq_limit 5000 /tmp/tmplw034p62/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/test_data/miniature_databases/mgy_clusters__subsampled_1000.fa"
+I0930 17:05:46.601486 22508465882688 jackhmmer.py:186] Query sequence (non-sharded db): SEFEKLRQTGDELVQA... (len 109)
+I0930 17:05:46.601583 22508459578944 jackhmmer.py:186] Query sequence (non-sharded db): SEFEKLRQTGDELVQA... (len 109)
+I0930 17:05:46.601749 22508461680192 jackhmmer.py:186] Query sequence (non-sharded db): SEFEKLRQTGDELVQA... (len 109)
+I0930 17:05:46.602148 22508465882688 subprocess_utils.py:91] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/HMMER/3.4-gompi-2025b/bin/jackhmmer -o /dev/null -A /tmp/tmp2jevquqm/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 --seq_limit 10000 /tmp/tmp2jevquqm/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/test_data/miniature_databases/uniref90__subsampled_1000.fasta"
+I0930 17:05:46.603006 22508459578944 subprocess_utils.py:91] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/HMMER/3.4-gompi-2025b/bin/jackhmmer -o /dev/null -A /tmp/tmp4wjnu84x/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 --seq_limit 50000 /tmp/tmp4wjnu84x/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/test_data/miniature_databases/uniprot_all__subsampled_1000.fasta"
+I0930 17:05:46.603721 22508461680192 subprocess_utils.py:91] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/HMMER/3.4-gompi-2025b/bin/jackhmmer -o /dev/null -A /tmp/tmpaec7_jhx/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 --seq_limit 5000 /tmp/tmpaec7_jhx/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/test_data/miniature_databases/bfd-first_non_consensus_sequences__subsampled_1000.fasta"
+I0930 17:05:46.705940 22508463781440 subprocess_utils.py:120] Finished Jackhmmer (mgy_clusters__subsampled_1000.fa) in 0.105 seconds
+I0930 17:05:46.724332 22508459578944 subprocess_utils.py:120] Finished Jackhmmer (uniprot_all__subsampled_1000.fasta) in 0.121 seconds
+I0930 17:05:46.730208 22508461680192 subprocess_utils.py:120] Finished Jackhmmer (bfd-first_non_consensus_sequences__subsampled_1000.fasta) in 0.126 seconds
+I0930 17:05:46.730414 22508465882688 subprocess_utils.py:120] Finished Jackhmmer (uniref90__subsampled_1000.fasta) in 0.128 seconds
+I0930 17:05:46.731136 22519731967808 pipeline.py:125] Getting protein MSAs took 0.64 seconds for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I0930 17:05:46.731187 22519731967808 pipeline.py:131] Deduplicating MSAs for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I0930 17:05:46.731672 22519731967808 pipeline.py:144] Deduplicating MSAs took 0.00 seconds for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN, found 1 unpaired sequences, 1 paired sequences
+I0930 17:05:46.731744 22519731967808 pipeline.py:50] Getting protein templates for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I0930 17:05:46.732569 22519731967808 subprocess_utils.py:91] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/HMMER/3.4-gompi-2025b/bin/hmmbuild --informat stockholm --hand --amino /tmp/tmp1n6dqprz/output.hmm /tmp/tmp1n6dqprz/query.msa"
+I0930 17:05:46.858968 22519731967808 subprocess_utils.py:120] Finished Hmmbuild in 0.126 seconds
+I0930 17:05:46.859424 22519731967808 subprocess_utils.py:91] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/HMMER/3.4-gompi-2025b/bin/hmmsearch --noali --cpu 8 --F1 0.1 --F2 0.1 --F3 0.1 -E 100 --incE 100 --domE 100 --incdomE 100 -A /tmp/tmpanagfla3/output.sto /tmp/tmpanagfla3/query.hmm /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/test_data/miniature_databases/pdb_seqres_2022_09_28__subsampled_1000.fasta"
+I0930 17:05:47.000060 22519731967808 subprocess_utils.py:120] Finished Hmmsearch (pdb_seqres_2022_09_28__subsampled_1000.fasta) in 0.141 seconds
+I0930 17:05:47.051877 22519731967808 pipeline.py:62] Getting 4 protein templates took 0.32 seconds for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I0930 17:05:52.019368 22519731967808 pipeline.py:185] Processing 5tgy, random_seed=42
+I0930 17:05:52.029769 22519731967808 pipeline.py:265] Calculating bucket size for input with 150 tokens.
+I0930 17:05:52.029956 22519731967808 pipeline.py:271] Got bucket size 1024 for input with 150 tokens, resulting in 874 padded tokens.
+[17:05:52] Explicit valence for atom # 27 N, 3, is greater than permitted
+W0930 17:05:52.750752 22519731967808 features.py:1579] Failed to construct mol from ccd_cif for: 7BU
+[17:05:53] Explicit valence for atom # 27 N, 3, is greater than permitted
+W0930 17:05:53.300174 22519731967808 features.py:1579] Failed to construct mol from ccd_cif for: 7BU
+/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py:485: DeprecationWarning: backend and device argument on jit is deprecated. You can use `jax.device_put(..., jax.local_devices(backend="cpu")[0])` on the inputs to the jitted function to get the same behavior.
+  jax.jit(forward_fn.apply, device=self._device), self.model_params
+[  FAILED  ] InferenceTest.test_inference_bucket_1024
+[ RUN      ] InferenceTest.test_inference_default_bucket
+I0930 17:05:54.488694 22519731967808 pipeline.py:185] Processing 5tgy, random_seed=1
+I0930 17:05:54.499609 22519731967808 pipeline.py:265] Calculating bucket size for input with 150 tokens.
+I0930 17:05:54.499677 22519731967808 pipeline.py:271] Got bucket size 150 for input with 150 tokens, resulting in 0 padded tokens.
+[17:05:55] Explicit valence for atom # 27 N, 3, is greater than permitted
+W0930 17:05:55.951425 22519731967808 features.py:1579] Failed to construct mol from ccd_cif for: 7BU
+[17:05:56] Explicit valence for atom # 27 N, 3, is greater than permitted
+W0930 17:05:56.503301 22519731967808 features.py:1579] Failed to construct mol from ccd_cif for: 7BU
+[  FAILED  ] InferenceTest.test_inference_default_bucket
+[ RUN      ] InferenceTest.test_model_inference
+[  FAILED  ] InferenceTest.test_model_inference
+[ RUN      ] InferenceTest.test_process_fold_input_runs_only_inference
+[       OK ] InferenceTest.test_process_fold_input_runs_only_inference
+======================================================================
+ERROR: test_examples0 ('barnase_barstar') (__main__.InferenceTest)
+InferenceTest.test_examples0 ('barnase_barstar')
+test_examples('barnase_barstar')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 325, in bound_param_test
+    return test_method(self, testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 465, in test_examples
+    with open(json_path, 'rt') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/../../examples/barnase_barstar.json'
+
+======================================================================
+ERROR: test_examples1 ('calmodulin_4calcium') (__main__.InferenceTest)
+InferenceTest.test_examples1 ('calmodulin_4calcium')
+test_examples('calmodulin_4calcium')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 325, in bound_param_test
+    return test_method(self, testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 465, in test_examples
+    with open(json_path, 'rt') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/../../examples/calmodulin_4calcium.json'
+
+======================================================================
+ERROR: test_examples10 ('tetr_homodimer') (__main__.InferenceTest)
+InferenceTest.test_examples10 ('tetr_homodimer')
+test_examples('tetr_homodimer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 325, in bound_param_test
+    return test_method(self, testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 465, in test_examples
+    with open(json_path, 'rt') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/../../examples/tetr_homodimer.json'
+
+======================================================================
+ERROR: test_examples11 ('u1a_rna_hairpin') (__main__.InferenceTest)
+InferenceTest.test_examples11 ('u1a_rna_hairpin')
+test_examples('u1a_rna_hairpin')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 325, in bound_param_test
+    return test_method(self, testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 465, in test_examples
+    with open(json_path, 'rt') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/../../examples/u1a_rna_hairpin.json'
+
+======================================================================
+ERROR: test_examples12 ('ubiquitin_monomer') (__main__.InferenceTest)
+InferenceTest.test_examples12 ('ubiquitin_monomer')
+test_examples('ubiquitin_monomer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 325, in bound_param_test
+    return test_method(self, testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 465, in test_examples
+    with open(json_path, 'rt') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/../../examples/ubiquitin_monomer.json'
+
+======================================================================
+ERROR: test_examples2 ('erk2_phosphorylated') (__main__.InferenceTest)
+InferenceTest.test_examples2 ('erk2_phosphorylated')
+test_examples('erk2_phosphorylated')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 325, in bound_param_test
+    return test_method(self, testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 465, in test_examples
+    with open(json_path, 'rt') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/../../examples/erk2_phosphorylated.json'
+
+======================================================================
+ERROR: test_examples3 ('kras_g12c_sotorasib') (__main__.InferenceTest)
+InferenceTest.test_examples3 ('kras_g12c_sotorasib')
+test_examples('kras_g12c_sotorasib')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 325, in bound_param_test
+    return test_method(self, testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 465, in test_examples
+    with open(json_path, 'rt') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/../../examples/kras_g12c_sotorasib.json'
+
+======================================================================
+ERROR: test_examples4 ('methylated_dna') (__main__.InferenceTest)
+InferenceTest.test_examples4 ('methylated_dna')
+test_examples('methylated_dna')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 325, in bound_param_test
+    return test_method(self, testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 465, in test_examples
+    with open(json_path, 'rt') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/../../examples/methylated_dna.json'
+
+======================================================================
+ERROR: test_examples5 ('modified_rna') (__main__.InferenceTest)
+InferenceTest.test_examples5 ('modified_rna')
+test_examples('modified_rna')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 325, in bound_param_test
+    return test_method(self, testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 465, in test_examples
+    with open(json_path, 'rt') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/../../examples/modified_rna.json'
+
+======================================================================
+ERROR: test_examples6 ('rnaseb_glycosylated') (__main__.InferenceTest)
+InferenceTest.test_examples6 ('rnaseb_glycosylated')
+test_examples('rnaseb_glycosylated')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 325, in bound_param_test
+    return test_method(self, testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 465, in test_examples
+    with open(json_path, 'rt') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/../../examples/rnaseb_glycosylated.json'
+
+======================================================================
+ERROR: test_examples7 ('streptavidin_biotin_smiles') (__main__.InferenceTest)
+InferenceTest.test_examples7 ('streptavidin_biotin_smiles')
+test_examples('streptavidin_biotin_smiles')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 325, in bound_param_test
+    return test_method(self, testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 465, in test_examples
+    with open(json_path, 'rt') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/../../examples/streptavidin_biotin_smiles.json'
+
+======================================================================
+ERROR: test_examples8 ('tetr_dimer_dna') (__main__.InferenceTest)
+InferenceTest.test_examples8 ('tetr_dimer_dna')
+test_examples('tetr_dimer_dna')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 325, in bound_param_test
+    return test_method(self, testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 465, in test_examples
+    with open(json_path, 'rt') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/../../examples/tetr_dimer_dna.json'
+
+======================================================================
+ERROR: test_examples9 ('tetr_dimer_tetracycline') (__main__.InferenceTest)
+InferenceTest.test_examples9 ('tetr_dimer_tetracycline')
+test_examples('tetr_dimer_tetracycline')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 325, in bound_param_test
+    return test_method(self, testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 465, in test_examples
+    with open(json_path, 'rt') as f:
+         ~~~~^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/../../examples/tetr_dimer_tetracycline.json'
+
+======================================================================
+ERROR: test_inference_bucket_1024 (__main__.InferenceTest)
+InferenceTest.test_inference_bucket_1024
+test_inference_bucket_1024(bucket=1024, seed=42)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 321, in bound_param_test
+    return test_method(self, **testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 224, in test_inference
+    actual = run_alphafold.process_fold_input(
+        fold_input,
+    ...<8 lines>...
+        force_output_dir=True,
+    )
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py", line 883, in process_fold_input
+    all_inference_results = predict_structure(
+        fold_input=fold_input,
+    ...<5 lines>...
+        fix_standalone_glycans=fix_standalone_glycans,
+    )
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py", line 607, in predict_structure
+    result = model_runner.run_inference(example, rng_key)
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py", line 499, in run_inference
+    result = self._model(rng_key, featurised_example)
+             ^^^^^^^^^^^
+  File "/apps/gent/RHEL9/zen3-ampere-ib/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/functools.py", line 1026, in __get__
+    val = self.func(instance)
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py", line 485, in _model
+    jax.jit(forward_fn.apply, device=self._device), self.model_params
+                                                    ^^^^^^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/zen3-ampere-ib/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/functools.py", line 1026, in __get__
+    val = self.func(instance)
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py", line 472, in model_params
+    return params.get_model_haiku_params(model_dir=self._model_dir)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/model/params.py", line 227, in get_model_haiku_params
+    model_files, is_compressed = select_model_files(model_dir)
+                                 ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/model/params.py", line 221, in select_model_files
+    raise FileNotFoundError(f'No models matched in {model_dir}')
+FileNotFoundError: No models matched in .
+
+======================================================================
+ERROR: test_inference_default_bucket (__main__.InferenceTest)
+InferenceTest.test_inference_default_bucket
+test_inference_default_bucket(bucket=None, seed=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/absl-py/2.3.1-GCCcore-14.3.0/lib/python3.13/site-packages/absl/testing/parameterized.py", line 321, in bound_param_test
+    return test_method(self, **testcase_params)
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 224, in test_inference
+    actual = run_alphafold.process_fold_input(
+        fold_input,
+    ...<8 lines>...
+        force_output_dir=True,
+    )
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py", line 883, in process_fold_input
+    all_inference_results = predict_structure(
+        fold_input=fold_input,
+    ...<5 lines>...
+        fix_standalone_glycans=fix_standalone_glycans,
+    )
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py", line 607, in predict_structure
+    result = model_runner.run_inference(example, rng_key)
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py", line 499, in run_inference
+    result = self._model(rng_key, featurised_example)
+             ^^^^^^^^^^^
+  File "/apps/gent/RHEL9/zen3-ampere-ib/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/functools.py", line 1026, in __get__
+    val = self.func(instance)
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py", line 485, in _model
+    jax.jit(forward_fn.apply, device=self._device), self.model_params
+                                                    ^^^^^^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/zen3-ampere-ib/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/functools.py", line 1026, in __get__
+    val = self.func(instance)
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py", line 472, in model_params
+    return params.get_model_haiku_params(model_dir=self._model_dir)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/model/params.py", line 227, in get_model_haiku_params
+    model_files, is_compressed = select_model_files(model_dir)
+                                 ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/model/params.py", line 221, in select_model_files
+    raise FileNotFoundError(f'No models matched in {model_dir}')
+FileNotFoundError: No models matched in .
+
+======================================================================
+ERROR: test_model_inference (__main__.InferenceTest)
+InferenceTest.test_model_inference
+Run model inference and assert that output exists.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold_test.py", line 173, in test_model_inference
+    result = self._runner.run_inference(
+        featurised_example, jax.random.PRNGKey(0)
+    )
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py", line 499, in run_inference
+    result = self._model(rng_key, featurised_example)
+             ^^^^^^^^^^^
+  File "/apps/gent/RHEL9/zen3-ampere-ib/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/functools.py", line 1026, in __get__
+    val = self.func(instance)
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py", line 485, in _model
+    jax.jit(forward_fn.apply, device=self._device), self.model_params
+                                                    ^^^^^^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/zen3-ampere-ib/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/functools.py", line 1026, in __get__
+    val = self.func(instance)
+  File "/kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/bin/run_alphafold.py", line 472, in model_params
+    return params.get_model_haiku_params(model_dir=self._model_dir)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/model/params.py", line 227, in get_model_haiku_params
+    model_files, is_compressed = select_model_files(model_dir)
+                                 ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen3-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/model/params.py", line 221, in select_model_files
+    raise FileNotFoundError(f'No models matched in {model_dir}')
+FileNotFoundError: No models matched in .
+
+----------------------------------------------------------------------
+Ran 17 tests in 15.254s
+
+FAILED (errors=16)
+
+Running fold job 5tgy...
+Output will be written in /tmp/absl_testing/InferenceTest/test_inference_bucket_1024/tmpzwyg2pd7
+Running data pipeline...
+Running data pipeline for chain P...
+Running data pipeline for chain P took 0.98 seconds
+Running data pipeline for chain LL...
+Running data pipeline for chain LL took 0.00 seconds
+Writing model input JSON to /tmp/absl_testing/InferenceTest/test_inference_bucket_1024/tmpzwyg2pd7/5tgy_data.json
+Predicting 3D structure for 5tgy with 1 seed(s)...
+Featurising data with 1 seed(s)...
+Featurising data with seed 42.
+Featurising data with seed 42 took 1.32 seconds.
+Featurising data with 1 seed(s) took 6.26 seconds.
+Running model inference and extracting output structure samples with 1 seed(s)...
+Running model inference with seed 42...
+
+Running fold job 5tgy...
+Output will be written in /tmp/absl_testing/InferenceTest/test_inference_default_bucket/tmpofguv19t
+Running data pipeline...
+Running data pipeline for chain P...
+Running data pipeline for chain P took 0.02 seconds
+Running data pipeline for chain LL...
+Running data pipeline for chain LL took 0.00 seconds
+Writing model input JSON to /tmp/absl_testing/InferenceTest/test_inference_default_bucket/tmpofguv19t/5tgy_data.json
+Predicting 3D structure for 5tgy with 1 seed(s)...
+Featurising data with 1 seed(s)...
+Featurising data with seed 1.
+Featurising data with seed 1 took 2.03 seconds.
+Featurising data with 1 seed(s) took 2.03 seconds.
+Running model inference and extracting output structure samples with 1 seed(s)...
+Running model inference with seed 1...
+
+Running fold job 5tgy...
+Output will be written in /tmp/absl_testing/InferenceTest/test_process_fold_input_runs_only_inference/tmpxl3mtx2o
+Skipping data pipeline...
+Writing model input JSON to /tmp/absl_testing/InferenceTest/test_process_fold_input_runs_only_inference/tmpxl3mtx2o/5tgy_data.json
+Predicting 3D structure for 5tgy with 1 seed(s)...
+Featurising data with 1 seed(s)...
