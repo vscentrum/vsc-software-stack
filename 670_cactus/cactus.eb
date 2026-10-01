@@ -59,7 +59,9 @@ dependencies = [
     ('ruamel.yaml', '0.18.14'),
     ('PyYAML', '6.0.2'),
     ('prompt-toolkit', '3.0.52'),
-    ('boto3', '1.37.28'),
+    ('boto3', '1.38.27'),
+    # requires newer setuptools
+    ('setuptools', '80.9.0'),
 ]
 
 exts_list = [
@@ -134,6 +136,7 @@ exts_list = [
         # https://github.com/ComparativeGenomicsToolkit/cactus/releases/download/v3.3.0/cactus-v3.3.0.tar.gz
         'source_urls': ['https://github.com/ComparativeGenomicsToolkit/cactus/releases/download/v%(version)s'],
         'sources': [{'download_filename': '%(namelower)s-v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'preinstallopts': 'make -j %(parallel)s && ',
         'checksums': ['b3253a324ee96721f287262070454a8ef0d23444d7a1403aece98141eea014d1'],
     }),
 ]
