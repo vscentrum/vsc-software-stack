@@ -1,0 +1,65 @@
+Running tests under Python 3.13.5: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Python/3.13.5-GCCcore-14.3.0/bin/python
+[ RUN      ] DataPipelineTest.test_all_examples_are_valid
+[       OK ] DataPipelineTest.test_all_examples_are_valid
+[ RUN      ] DataPipelineTest.test_config
+[       OK ] DataPipelineTest.test_config
+[ RUN      ] DataPipelineTest.test_featurisation
+I1001 13:22:05.404765 22904678836032 pipeline.py:92] Getting protein MSAs for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1001 13:22:05.992726 22899305936448 jackhmmer.py:186] Query sequence (non-sharded db): SEFEKLRQTGDELVQA... (len 109)
+I1001 13:22:05.992894 22899308054080 jackhmmer.py:186] Query sequence (non-sharded db): SEFEKLRQTGDELVQA... (len 109)
+I1001 13:22:05.992959 22899301701184 jackhmmer.py:186] Query sequence (non-sharded db): SEFEKLRQTGDELVQA... (len 109)
+I1001 13:22:05.993088 22899303818816 jackhmmer.py:186] Query sequence (non-sharded db): SEFEKLRQTGDELVQA... (len 109)
+I1001 13:22:05.993759 22899305936448 subprocess_utils.py:91] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HMMER/3.4-gompi-2025b/bin/jackhmmer -o /dev/null -A /tmp/tmpnfomkzkd/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 --seq_limit 5000 /tmp/tmpnfomkzkd/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/test_data/miniature_databases/mgy_clusters__subsampled_1000.fa"
+I1001 13:22:05.993957 22899301701184 subprocess_utils.py:91] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HMMER/3.4-gompi-2025b/bin/jackhmmer -o /dev/null -A /tmp/tmpf9qvrv7e/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 --seq_limit 50000 /tmp/tmpf9qvrv7e/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/test_data/miniature_databases/uniprot_all__subsampled_1000.fasta"
+I1001 13:22:05.994577 22899308054080 subprocess_utils.py:91] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HMMER/3.4-gompi-2025b/bin/jackhmmer -o /dev/null -A /tmp/tmpi4c553qj/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 --seq_limit 10000 /tmp/tmpi4c553qj/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/test_data/miniature_databases/uniref90__subsampled_1000.fasta"
+I1001 13:22:06.000572 22899303818816 subprocess_utils.py:91] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HMMER/3.4-gompi-2025b/bin/jackhmmer -o /dev/null -A /tmp/tmp6tlmmm6_/output.sto --noali --F1 0.0005 --F2 5e-05 --F3 5e-07 --cpu 8 -N 1 -E 0.0001 --incE 0.0001 --seq_limit 5000 /tmp/tmp6tlmmm6_/query.fasta /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/test_data/miniature_databases/bfd-first_non_consensus_sequences__subsampled_1000.fasta"
+I1001 13:22:06.133523 22899301701184 subprocess_utils.py:120] Finished Jackhmmer (uniprot_all__subsampled_1000.fasta) in 0.139 seconds
+I1001 13:22:06.133944 22899308054080 subprocess_utils.py:120] Finished Jackhmmer (uniref90__subsampled_1000.fasta) in 0.139 seconds
+I1001 13:22:06.137927 22899305936448 subprocess_utils.py:120] Finished Jackhmmer (mgy_clusters__subsampled_1000.fa) in 0.144 seconds
+I1001 13:22:06.139845 22899303818816 subprocess_utils.py:120] Finished Jackhmmer (bfd-first_non_consensus_sequences__subsampled_1000.fasta) in 0.139 seconds
+I1001 13:22:06.140269 22904678836032 pipeline.py:125] Getting protein MSAs took 0.74 seconds for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1001 13:22:06.140328 22904678836032 pipeline.py:131] Deduplicating MSAs for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1001 13:22:06.140887 22904678836032 pipeline.py:144] Deduplicating MSAs took 0.00 seconds for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN, found 1 unpaired sequences, 1 paired sequences
+I1001 13:22:06.140952 22904678836032 pipeline.py:50] Getting protein templates for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1001 13:22:06.141726 22904678836032 subprocess_utils.py:91] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HMMER/3.4-gompi-2025b/bin/hmmbuild --informat stockholm --hand --amino /tmp/tmp1ujv1jcg/output.hmm /tmp/tmp1ujv1jcg/query.msa"
+I1001 13:22:06.280121 22904678836032 subprocess_utils.py:120] Finished Hmmbuild in 0.138 seconds
+I1001 13:22:06.280483 22904678836032 subprocess_utils.py:91] Launching subprocess "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/HMMER/3.4-gompi-2025b/bin/hmmsearch --noali --cpu 8 --F1 0.1 --F2 0.1 --F3 0.1 -E 100 --incE 100 --domE 100 --incdomE 100 -A /tmp/tmp0mn1cewn/output.sto /tmp/tmp0mn1cewn/query.hmm /kyukon/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/AlphaFold3/3.0.4-foss-2025b-CUDA-12.9.1/lib/python3.13/site-packages/alphafold3/test_data/miniature_databases/pdb_seqres_2022_09_28__subsampled_1000.fasta"
+I1001 13:22:06.449043 22904678836032 subprocess_utils.py:120] Finished Hmmsearch (pdb_seqres_2022_09_28__subsampled_1000.fasta) in 0.168 seconds
+I1001 13:22:06.521994 22904678836032 pipeline.py:62] Getting 4 protein templates took 0.38 seconds for sequence SEFEKLRQTGDELVQAFQRLREIFDKGDDDSLEQVLEEIEELIQKHRQLFDNRQEAADTEAAKQGDQWVQLFQRFREAIDKGDKDSLEQLLEELEQALQKIRELAEKKN
+I1001 13:22:13.026360 22904678836032 pipeline.py:185] Processing 5tgy, random_seed=1234
+I1001 13:22:13.040908 22904678836032 pipeline.py:265] Calculating bucket size for input with 150 tokens.
+I1001 13:22:13.041085 22904678836032 pipeline.py:271] Got bucket size 150 for input with 150 tokens, resulting in 0 padded tokens.
+[13:22:13] Explicit valence for atom # 27 N, 3, is greater than permitted
+W1001 13:22:13.963085 22904678836032 features.py:1579] Failed to construct mol from ccd_cif for: 7BU
+[13:22:14] Explicit valence for atom # 27 N, 3, is greater than permitted
+W1001 13:22:14.747673 22904678836032 features.py:1579] Failed to construct mol from ccd_cif for: 7BU
+[       OK ] DataPipelineTest.test_featurisation
+[ RUN      ] DataPipelineTest.test_process_fold_input_runs_only_data_pipeline
+[       OK ] DataPipelineTest.test_process_fold_input_runs_only_data_pipeline
+[ RUN      ] DataPipelineTest.test_replace_db_dir0 (num_db_dirs=1)
+[       OK ] DataPipelineTest.test_replace_db_dir0 (num_db_dirs=1)
+[ RUN      ] DataPipelineTest.test_replace_db_dir1 (num_db_dirs=2)
+[       OK ] DataPipelineTest.test_replace_db_dir1 (num_db_dirs=2)
+[ RUN      ] DataPipelineTest.test_write_input_json
+[       OK ] DataPipelineTest.test_write_input_json
+----------------------------------------------------------------------
+Ran 7 tests in 9.487s
+
+OK
+Running data pipeline for chain P...
+Running data pipeline for chain P took 1.15 seconds
+Running data pipeline for chain LL...
+Running data pipeline for chain LL took 0.00 seconds
+
+Running fold job 5tgy...
+Output will be written in /tmp/absl_testing/DataPipelineTest/test_process_fold_input_runs_only_data_pipeline/tmpwv0c66qy
+Running data pipeline...
+Running data pipeline for chain P...
+Running data pipeline for chain P took 0.03 seconds
+Running data pipeline for chain LL...
+Running data pipeline for chain LL took 0.00 seconds
+Writing model input JSON to /tmp/absl_testing/DataPipelineTest/test_process_fold_input_runs_only_data_pipeline/tmpwv0c66qy/5tgy_data.json
+Skipping model inference...
+Fold job 5tgy done, output written to /tmp/absl_testing/DataPipelineTest/test_process_fold_input_runs_only_data_pipeline/tmpwv0c66qy
+
+Writing model input JSON to /tmp/absl_testing/DataPipelineTest/test_write_input_json/tmp3qtullff/5tgy_data.json

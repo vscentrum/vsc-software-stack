@@ -54,10 +54,6 @@ dependencies = [
     ('HMMER', '3.4'),
     ('zstandard', '0.25.0'),
     ('etils', '1.14.0'),
-    # ('jax', '0.10.2', versionsuffix), CREATED
-    # ('jaxtyping', '0.3.5', versionsuffix), CREATED
-    # ('dm-haiku', '0.0.16', versionsuffix), CREATED
-    # ('tokamax', '0.0.12', versionsuffix), CREATED
 ]
 
 # downloading xla  tarball to avoid that Bazel downloads it during the build
@@ -74,9 +70,10 @@ if ARCH == 'aarch64':
 
 # create wheels for jaxlib and CUDA plugins and install it
 _jaxlib_buildopts += '--wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt '
-# use local Clang/LLVM for the JAX/XLA Bazel build (GCC is no longer supported upstream)
-# Explicitly compile CUDA code with Clang. JAX 0.10.2 otherwise defaults to NVCC.
-# _jaxlib_buildopts += '--build_cuda_with_clang '
+# JAX/XLA uses its Bazel-managed hermetic Clang toolchain for the host C/C++
+# compilation, so no separate LLVM/Clang EasyBuild dependency is required.
+# Keep the default NVCC path for CUDA compilation; do not use
+# --build_cuda_with_clang.
 # Ensure Bazel-built helper tools can find the EasyBuild GCC runtime.
 _jaxlib_buildopts += '--bazel_options="--host_linkopt=-Wl,-rpath,$EBROOTGCCCORE/lib64" '
 # fix jaxlib version
@@ -145,12 +142,10 @@ _jax_ignored_tests = [
 # Use at most 4 pytest-xdist workers. More workers were unstable for this
 # heavy JAX test suite, but avoid oversubscribing small jobs
 _jax_test_workers = '$(( %(parallel)s > 8 ? 4 : (%(parallel)s + 1) / 2 ))'
-
 _jax_test_exclude_opts = ' '.join(
     [f'--deselect={test}' for test in _jax_failing_tests] +
     [f'--ignore={test}' for test in _jax_ignored_tests]
 )
-
 _jax_runtest_cmd1 = (
     f'pytest -n {_jax_test_workers} '
     '-vv -ra --tb=short --durations=100 '
@@ -159,7 +154,6 @@ _jax_runtest_cmd1 = (
     f'{_jax_test_exclude_opts} '
     'tests'
 )
-
 # retry randomly failing tests
 _jax_runtest_cmd = ' '.join([_jax_runtest_cmd1, '||', _jax_runtest_cmd1, '--last-failed'])
 
@@ -204,16 +198,13 @@ exts_list = [
     ('einshape', '1.0', {
         'checksums': ['53538d75dd099f4ead4a4f786fafdcb0b729bb587e0b3afeca25ceef18c9ac14'],
     }),
-    ('etils', '1.14.0', {
-        'checksums': ['8136e7f4c4173cd0af0ca5481c4475152f0b8686192951eefa60ee8711e1ede4'],
-    }),
     ('nest_asyncio', '1.6.0', {
         'checksums': ['6f172d5449aca15afd6c646851f4e31e02c598d553a667e38cafa997cfec55fe'],
     }),
-    ('aiofiles', '25.1.0', {  # for orbax_checkpoint
+    ('aiofiles', '25.1.0', {
         'checksums': ['a8d728f0a29de45dc521f18f07297428d56992a742f0cd2701ba86e44d23d5b2'],
     }),
-    ('humanize', '4.16.0', {  # for orbax_checkpoint
+    ('humanize', '4.16.0', {
         'preinstallopts': "sed -i '/^license = /d' pyproject.toml && ",
         'checksums': ['7dc2244a2f84a4bfb1d36c37bac80cd78e35cdc5c119206d87b018e1445f3a3f'],
     }),
@@ -247,7 +238,6 @@ exts_list = [
         ),
         'patches': [
             '%(name)s-3.0.0_disable_fetch.patch',
-            # '%(name)s-3.0.0.20250109_data_path.patch',
             '%(name)s-3.0.4_env-data-paths.patch',
             '%(name)s-3.0.4_fix-RDKit-dependent-test.patch',
         ],
@@ -285,52 +275,65 @@ exts_list = [
 ]
 
 sanity_check_paths = {
-    'files': ['bin/run_alphafold.py'],
-    'dirs': ['lib'],
+    'files': [
+        'bin/run_alphafold.py',
+        'bin/run_alphafold_data_test.py',
+        'bin/run_alphafold_test.py',
+        'fetch_databases.sh',
+    ],
+    'dirs': ['examples', 'lib'],
 }
+
 sanity_check_commands = [
-    'run_alphafold.py --help|grep "AlphaFold 3 structure prediction script"'
+    'run_alphafold.py --help | grep "AlphaFold 3 structure prediction script"',
 ]
 
 modextravars = {
-    # Compilation Time Workaround with XLA Flags
-    'XLA_FLAGS': '--xla_gpu_enable_triton_gemm=false ',
-    # Unified memory:
-    'XLA_PYTHON_CLIENT_PREALLOCATE': 'false',
-    'TF_FORCE_UNIFIED_MEMORY': 'true',
-    'XLA_CLIENT_MEM_FRACTION': '3.2',
+    # Work around excessive XLA compilation times, as recommended upstream.
+    'XLA_FLAGS': '--xla_gpu_enable_triton_gemm=false',
+    # Upstream defaults for A100/H100 80 GB GPUs.
+    'XLA_PYTHON_CLIENT_PREALLOCATE': 'true',
+    'XLA_CLIENT_MEM_FRACTION': '0.95',
 }
 
 modextrapaths = {'PYTHONPATH': 'bin'}  # to be able 'import run_alphafold'
 
 modloadmsg = """
-To let AF3 works properly you need to have Google models parameters (weights), then set:
-export AF3_MODEL_DIR="/path/to/the/dir/with/models"
-Also you should have databases dowloaded - use $EBROOTALPHAFOLD3/fetch_databases.sh to download them and set:
-export DB_DIR="/path/to/fetched/databases"
-You can test your installation by:
-1) python bin/run_alphafold_data_test.py (works without models)
-2) python bin/run_alphafold_test.py --model_dir="$AF3_MODEL_DIR" (only with models)
+AlphaFold 3 requires model parameters obtained directly from Google and the
+AlphaFold 3 sequence databases.
+
+Model parameters:
+  export AF3_MODEL_DIR="/path/to/models"
+
+Databases:
+  export DB_DIR="/path/to/public_databases"
+  $EBROOTALPHAFOLD3/fetch_databases.sh "$DB_DIR"
+
+The database download requires substantial disk space. This installation uses
+AF3_MODEL_DIR and DB_DIR as the default model and database locations.
+
+Example prediction:
+  run_alphafold.py \\
+      --json_path="/path/to/fold_input.json" \\
+      --output_dir="/path/to/output"
+
+The locations can also be specified explicitly with:
+  --model_dir="$AF3_MODEL_DIR" --db_dir="$DB_DIR"
+
+Installation tests:
+  python "$EBROOTALPHAFOLD3/bin/run_alphafold_data_test.py"
+  python "$EBROOTALPHAFOLD3/bin/run_alphafold_test.py" --model_dir="$AF3_MODEL_DIR"
+
+For GPUs with less memory, or for inputs larger than 5120 tokens, upstream
+recommends enabling unified memory after loading this module:
+  export XLA_PYTHON_CLIENT_PREALLOCATE=false
+  export TF_FORCE_UNIFIED_MEMORY=true
+  export XLA_CLIENT_MEM_FRACTION=3.2
+
+For repeated inference runs, consider using --jax_compilation_cache_dir to
+avoid repeated JAX model compilation.
+
+Run `run_alphafold.py --help` for all available options.
 """
 
 moduleclass = 'bio'
-
-
-## DEPS:
-# Current EC            AlphaFold3 3.0.4        Recommendation for foss/2025b
-# Python 3.12.3	      >=3.12	                        3.13.5
-# CUDA 12.6.0	      CUDA 12	12.9.1, assuming your cluster drivers support it
-# jax 0.6.2	                0.10.2 exact	               0.10.2
-# jax-triton 0.3.0	    no longer used	           remove
-# —	                            tokamax 0.0.12	          add 0.0.12
-# jaxtyping 0.2.38	  In Tokamax	               0.3.5 if kept explicit
-# dm-haiku 0.0.14	 0.0.16 exact	               0.0.16
-# dm-tree 0.1.9	        no longer in AF3 dependency tree	remove
-# RDKit 2025.03.3	  2025.9.4 exact	         2025.09.4
-# tqdm 4.66.5	        unpinned	                  4.67.1
-# dssp 4.4.10	          uses 4.4.7	                 keep 4.4.10, rebuild for GCC 14.3
-# Abseil 20240722.0 20240116.2	                20250512.1
-# HMMER3.4	            still 3.4	                       keep 3.4
-# zstandard 0.23.0	  unpinned	                   0.25.0
-# typeguard 2.13.3	 in Tokamax                  keep 2.13.3 if explicit
-# —	                             etils[epath]	               add/provide etils 1.13.0
