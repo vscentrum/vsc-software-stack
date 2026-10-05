@@ -172,11 +172,18 @@ exts_list = [
         'sources': [{'download_filename': '%(namelower)s-v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         # 'preinstallopts': 'make -j %(parallel)s && ',
         'preinstallopts': (
+            # Cactus overwrites PYTHONPATH in its Makefile when running the test suite,
+            # which hides Python packages provided by loaded EasyBuild dependencies
+            # (including pytest). Preserve the existing PYTHONPATH while prepending the
+            # Cactus and bundled sonLib source directories.
             'make -j %(parallel)s && '
-            'CACTUS_BINARIES_MODE=local CACTUS_DOCKER_MODE=0 SONLIB_TEST_LENGTH=SHORT make test && '
+            'CACTUS_BINARIES_MODE=local CACTUS_DOCKER_MODE=0 SONLIB_TEST_LENGTH=SHORT '
+            'make PYTHONPATH="$PWD/submodules/sonLib/src:$PWD/submodules:$PWD/src:$PYTHONPATH" '
+            'test testErrOut= && '
             'mkdir -p %(installdir)s/bin %(installdir)s/lib && '
             'cp -a bin/. %(installdir)s/bin/ && '
             'cp -a lib/. %(installdir)s/lib/ && '
+            'chmod -R u+w %(installdir)s/bin %(installdir)s/lib && '
             'python -m pip install --prefix=%(installdir)s --no-deps --ignore-installed '
             '--no-build-isolation ./submodules/sonLib && '
         ),
@@ -186,7 +193,7 @@ exts_list = [
 
 sanity_check_paths = {
     'files': ['bin/cactus', 'bin/cactus_consolidated', 'bin/halStats', 'bin/halValidate', 'bin/lastz'],
-    'dirs': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
 }
 
 sanity_check_commands = [
