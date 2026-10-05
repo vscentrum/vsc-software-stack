@@ -45,29 +45,54 @@ toolchain = {'name': 'foss', 'version': '2025a'}
         # ok mypy-boto3-s3>=1.28.3.post2, <2
         # ok moto>=5.0.3, <6
         # ok ec2_metadata>=2.14.0,<4
+    # ok coloredlogs 15.0.1 requires humanfriendly, which is not installed.
+    # ok botocore-stubs 1.42.41 requires types-awscrt, which is not installed.
+    # ok moto 5.1.19 requires responses, which is not installed.
+    # ok moto 5.1.19 requires werkzeug, which is not installed.
+    # ok moto 5.1.19 requires xmltodict, which is not installed.
+    # OK cactus 3.3.0 requires sonlib, which is not installed.
+    # ok enlighten 1.14.1 requires blessed, which is not installed.
+    # ok enlighten 1.14.1 requires prefixed, which is not installed.
 
 builddependencies = [('hatchling', '1.27.0')]
 dependencies = [
     ('Python', '3.13.1'),
     ('SciPy-bundle', '2025.06'),
-    # ('networkx', '3.4.2'), ### no it needs old version
     ('Biopython', '1.85'),
     ('Pysam', '0.23.3'),
     ('matplotlib', '3.10.3'),
-    # toil deps
+    ('HDF5', '1.14.6'),
+    ('jemalloc', '5.3.0'),
     ('dill', '0.4.0'),
     ('ruamel.yaml', '0.18.14'),
     ('PyYAML', '6.0.2'),
     ('prompt-toolkit', '3.0.52'),
     ('boto3', '1.38.27'),
-    # requires newer setuptools
+    ('cryptography', '44.0.2'),
     ('setuptools', '80.9.0'),
 ]
 
 exts_list = [
+    # cactus depends on old networkx API - networkx>=2,<2.8.1
     ('networkx', '2.8', {
         'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['1a1e8fe052cc1b4e0339b998f6795099562a264a13a5af7a32cad45ab9d4e126'],
+    }),
+    ('blessed', '1.25.0', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['e52b9f778b9e10c30b3f17f6b5f5d2208d1e9b53b270f1d94fc61a243fc4708f'],
+    }),
+    ('prefixed', '0.9.0', {
+        'checksums': ['164403fa9ebc83280bbc4705f4b243a28837e164310b4e65c38ccab1ebafeeb3'],
+    }),
+    ('xmltodict', '0.14.2', {
+        'checksums': ['201e7c28bb210e374999d1dde6382923ab0ed1a8a5faeece48ab525b7810a553'],
+    }),
+    ('responses', '0.26.0', {
+        'checksums': ['c7f6923e6343ef3682816ba421c006626777893cb0d5e1434f674b649bac9eb4'],
+    }),
+    ('werkzeug', '3.1.3', {
+        'checksums': ['60723ce945c19328679790e3282cc758aa4a6040e4bb330f53d30fa546d44746'],
     }),
     ('docker', '7.2.0', {
         'checksums': ['cebb93773d334f778e023a7ee352a8d6e13ab1bd3b863a4d4a59dec897df43ac'],
@@ -84,6 +109,9 @@ exts_list = [
     }),
     ('configargparse', '1.7.1', {
         'checksums': ['79c2ddae836a1e5914b71d58e4b9adbd9f7779d4e6351a637b7d2d9b6c46d3d9'],
+    }),
+    ('humanfriendly', '10.0', {
+        'checksums': ['6b0b831ce8f15f7300721aa49829fc4e83921a9a301cc7f606be6686a2288ddc'],
     }),
     ('coloredlogs', '15.0.1', {
         'checksums': ['7c991aa71a4577af2f82600d8f8f3a89f936baeaf9b50a9c197da014e5bf16b0'],
@@ -112,6 +140,12 @@ exts_list = [
     ('mypy-boto3-iam', '1.42.3', {
         'checksums': ['1daef9145bf74267997ad46a5f80ad8d54efb6e4318887b9a216a8daa15827be'],
     }),
+    ('types_awscrt', '0.31.0', {
+        'modulename': 'awscrt_stubs',
+        'postinstallcmds': [('cd %(installdir)s/lib/python%(pyshortver)s/site-packages && '
+                             'ln -s awscrt-stubs awscrt_stubs')],
+        'checksums': ['aa8b42148af0847be14e2b8ea3637a3518ffab038f8d3be7083950f3ce87d3ff'],
+    }),
     ('botocore_stubs', '1.42.41', {
         'postinstallcmds': [('cd %(installdir)s/lib/python%(pyshortver)s/site-packages && '
                              'ln -s botocore-stubs botocore_stubs')],
@@ -136,9 +170,30 @@ exts_list = [
         # https://github.com/ComparativeGenomicsToolkit/cactus/releases/download/v3.3.0/cactus-v3.3.0.tar.gz
         'source_urls': ['https://github.com/ComparativeGenomicsToolkit/cactus/releases/download/v%(version)s'],
         'sources': [{'download_filename': '%(namelower)s-v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        'preinstallopts': 'make -j %(parallel)s && ',
+        # 'preinstallopts': 'make -j %(parallel)s && ',
+        'preinstallopts': (
+            'make -j %(parallel)s && '
+            'CACTUS_BINARIES_MODE=local CACTUS_DOCKER_MODE=0 SONLIB_TEST_LENGTH=SHORT make test && '
+            'mkdir -p %(installdir)s/bin %(installdir)s/lib && '
+            'cp -a bin/. %(installdir)s/bin/ && '
+            'cp -a lib/. %(installdir)s/lib/ && '
+            'python -m pip install --prefix=%(installdir)s --no-deps --ignore-installed '
+            '--no-build-isolation ./submodules/sonLib && '
+        ),
         'checksums': ['b3253a324ee96721f287262070454a8ef0d23444d7a1403aece98141eea014d1'],
     }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/cactus', 'bin/cactus_consolidated', 'bin/halStats', 'bin/halValidate', 'bin/lastz'],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    'cactus --help',
+    'command -v cactus_consolidated',
+    'command -v halStats',
+    'command -v lastz',
 ]
 
 moduleclass = 'bio'
