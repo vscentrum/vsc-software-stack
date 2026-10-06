@@ -1,0 +1,1279 @@
+Created the ./build/linux_intel64_gcc_cc14.2.0_libc2.34_kernel5.14.0_release directory
+make -C "./build/linux_intel64_gcc_cc14.2.0_libc2.34_kernel5.14.0_release"  -r -f ../../build/Makefile.tbb cfg=release
+make[1]: Entering directory '/tmp/vsc47063/easybuild/build/Cactus/3.3.0/foss-2025a-CUDA-12.8.0/oneTBB-2020.2/build/linux_intel64_gcc_cc14.2.0_libc2.34_kernel5.14.0_release'
+../../build/Makefile.tbb:28: CONFIG: cfg=release arch=intel64 compiler=gcc target=linux runtime=cc14.2.0_libc2.34_kernel5.14.0
+g++ -o concurrent_hash_map.o -c -MMD -O2 -g -DDO_ITT_NOTIFY -DUSE_PTHREAD -pthread -m64 -mrtm  -fPIC -flifetime-dse=1 -D__TBB_BUILD=1 -Wall -Wextra -Wno-parentheses -Wno-sized-deallocation -O2 -ftree-vectorize -march=native -fno-math-errno -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1   -I../../src -I../../src/rml/include -I../../include ../../src/tbb/concurrent_hash_map.cpp
+g++ -o concurrent_queue.o -c -MMD -O2 -g -DDO_ITT_NOTIFY -DUSE_PTHREAD -pthread -m64 -mrtm  -fPIC -flifetime-dse=1 -D__TBB_BUILD=1 -Wall -Wextra -Wno-parentheses -Wno-sized-deallocation -O2 -ftree-vectorize -march=native -fno-math-errno -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1   -I../../src -I../../src/rml/include -I../../include ../../src/tbb/concurrent_queue.cpp
+g++ -o concurrent_vector.o -c -MMD -O2 -g -DDO_ITT_NOTIFY -DUSE_PTHREAD -pthread -m64 -mrtm  -fPIC -flifetime-dse=1 -D__TBB_BUILD=1 -Wall -Wextra -Wno-parentheses -Wno-sized-deallocation -O2 -ftree-vectorize -march=native -fno-math-errno -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1   -I../../src -I../../src/rml/include -I../../include ../../src/tbb/concurrent_vector.cpp
+g++ -o dynamic_link.o -c -MMD -O2 -g -DDO_ITT_NOTIFY -DUSE_PTHREAD -pthread -m64 -mrtm  -fPIC -flifetime-dse=1 -D__TBB_BUILD=1 -Wall -Wextra -Wno-parentheses -Wno-sized-deallocation -O2 -ftree-vectorize -march=native -fno-math-errno -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1   -I../../src -I../../src/rml/include -I../../include ../../src/tbb/dynamic_link.cpp
+g++ -o itt_notify.o -c -MMD -O2 -g -DDO_ITT_NOTIFY -DUSE_PTHREAD -pthread -m64 -mrtm  -fPIC -flifetime-dse=1 -D__TBB_BUILD=1 -Wall -Wextra -Wno-parentheses -Wno-sized-deallocation -O2 -ftree-vectorize -march=native -fno-math-errno -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1   -I../../src -I../../src/rml/include -I../../include ../../src/tbb/itt_notify.cpp
+g++ -o cache_aligned_allocator.o -c -MMD -O2 -g -DDO_ITT_NOTIFY -DUSE_PTHREAD -pthread -m64 -mrtm  -fPIC -flifetime-dse=1 -D__TBB_BUILD=1 -Wall -Wextra -Wno-parentheses -Wno-sized-deallocation -O2 -ftree-vectorize -march=native -fno-math-errno -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1   -I../../src -I../../src/rml/include -I../../include ../../src/tbb/cache_aligned_allocator.cpp
+g++ -o pipeline.o -c -MMD -O2 -g -DDO_ITT_NOTIFY -DUSE_PTHREAD -pthread -m64 -mrtm  -fPIC -flifetime-dse=1 -D__TBB_BUILD=1 -Wall -Wextra -Wno-parentheses -Wno-sized-deallocation -O2 -ftree-vectorize -march=native -fno-math-errno -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1   -I../../src -I../../src/rml/include -I../../include ../../src/tbb/pipeline.cpp
+g++ -o queuing_mutex.o -c -MMD -O2 -g -DDO_ITT_NOTIFY -DUSE_PTHREAD -pthread -m64 -mrtm  -fPIC -flifetime-dse=1 -D__TBB_BUILD=1 -Wall -Wextra -Wno-parentheses -Wno-sized-deallocation -O2 -ftree-vectorize -march=native -fno-math-errno -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1   -I../../src -I../../src/rml/include -I../../include ../../src/tbb/queuing_mutex.cpp
+g++ -o queuing_rw_mutex.o -c -MMD -O2 -g -DDO_ITT_NOTIFY -DUSE_PTHREAD -pthread -m64 -mrtm  -fPIC -flifetime-dse=1 -D__TBB_BUILD=1 -Wall -Wextra -Wno-parentheses -Wno-sized-deallocation -O2 -ftree-vectorize -march=native -fno-math-errno -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1   -I../../src -I../../src/rml/include -I../../include ../../src/tbb/queuing_rw_mutex.cpp
+In file included from ../../include/tbb/pipeline.h:23,
+                 from ../../src/tbb/pipeline.cpp:17:
+../../include/tbb/atomic.h:422:24: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  422 |     constexpr atomic<T>(const atomic<T>& rhs): internal::atomic_impl<T>(rhs) {}
+      |                        ^
+../../include/tbb/atomic.h:422:24: note: remove the ‘< >’
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+In file included from ../../include/tbb/pipeline.h:24:
+../../include/tbb/task.h:300:20: error: declaration of ‘tbb::task& tbb::internal::task_prefix::task()’ changes meaning of ‘task’ [-Wchanges-meaning]
+  300 |         tbb::task& task() {return *reinterpret_cast<tbb::task*>(this+1);}
+      |                    ^~~~
+../../include/tbb/task.h:252:9: note: used here to mean ‘class tbb::task’
+  252 |         task* next_offloaded;
+      |         ^~~~
+../../include/tbb/task.h:43:7: note: declared here
+   43 | class task;
+      |       ^~~~
+In file included from ../../src/tbb/tbb_misc.h:22,
+                 from ../../src/tbb/dynamic_link.cpp:53:
+../../include/tbb/atomic.h:422:24: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  422 |     constexpr atomic<T>(const atomic<T>& rhs): internal::atomic_impl<T>(rhs) {}
+      |                        ^
+../../include/tbb/atomic.h:422:24: note: remove the ‘< >’
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+In file included from ../../include/tbb/queuing_mutex.h:24,
+                 from ../../src/tbb/queuing_mutex.cpp:17:
+../../include/tbb/atomic.h:422:24: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  422 |     constexpr atomic<T>(const atomic<T>& rhs): internal::atomic_impl<T>(rhs) {}
+      |                        ^
+../../include/tbb/atomic.h:422:24: note: remove the ‘< >’
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+In file included from ../../include/tbb/tbb_profiling.h:123,
+                 from ../../include/tbb/spin_rw_mutex.h:22,
+                 from ../../include/tbb/concurrent_hash_map.h:30,
+                 from ../../src/tbb/concurrent_hash_map.cpp:17:
+../../include/tbb/atomic.h:422:24: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  422 |     constexpr atomic<T>(const atomic<T>& rhs): internal::atomic_impl<T>(rhs) {}
+      |                        ^
+../../include/tbb/atomic.h:422:24: note: remove the ‘< >’
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/concurrent_hash_map.h: In constructor ‘tbb::interface5::internal::hash_map_base::hash_map_base()’:
+../../include/tbb/concurrent_hash_map.h:131:24: warning: ‘void* memset(void*, int, size_t)’ clearing an object of type ‘struct tbb::interface5::internal::hash_map_base::bucket’ with no trivial copy-assignment; use value-initialization instead [-Wclass-memaccess]
+  131 |             std::memset(my_embedded_segment, 0, sizeof(my_embedded_segment));
+      |             ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../include/tbb/concurrent_hash_map.h:93:16: note: ‘struct tbb::interface5::internal::hash_map_base::bucket’ declared here
+   93 |         struct bucket : tbb::internal::no_copy {
+      |                ^~~~~~
+../../include/tbb/concurrent_hash_map.h: At global scope:
+../../include/tbb/concurrent_hash_map.h:347:23: warning: ‘template<class _Category, class _Tp, class _Distance, class _Pointer, class _Reference> struct std::iterator’ is deprecated [-Wdeprecated-declarations]
+  347 |         : public std::iterator<std::forward_iterator_tag,Value>
+      |                       ^~~~~~~~
+In file included from /kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/14.2.0/include/c++/14.2.0/bits/stl_construct.h:61,
+                 from /kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/14.2.0/include/c++/14.2.0/bits/stl_tempbuf.h:61,
+                 from /kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/14.2.0/include/c++/14.2.0/memory:66,
+                 from ../../include/tbb/tbb_stddef.h:452,
+                 from ../../include/tbb/concurrent_hash_map.h:23:
+/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/14.2.0/include/c++/14.2.0/bits/stl_iterator_base_types.h:127:34: note: declared here
+  127 |     struct _GLIBCXX17_DEPRECATED iterator
+      |                                  ^~~~~~~~
+make[1]: *** [../../build/common_rules.inc:80: pipeline.o] Error 1
+make[1]: *** Waiting for unfinished jobs....
+In file included from ../../include/tbb/internal/_concurrent_queue_impl.h:26,
+                 from ../../src/tbb/concurrent_queue.cpp:22:
+../../include/tbb/internal/../atomic.h:422:24: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  422 |     constexpr atomic<T>(const atomic<T>& rhs): internal::atomic_impl<T>(rhs) {}
+      |                        ^
+../../include/tbb/internal/../atomic.h:422:24: note: remove the ‘< >’
+../../include/tbb/internal/../atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/../atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/internal/../atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h: In instantiation of ‘tbb::atomic<T>& tbb::internal::as_atomic(T&) [with T = tbb::interface5::internal::hash_map_base::bucket*]’:
+../../include/tbb/concurrent_hash_map.h:294:31:   required from here
+  294 |                   && as_atomic(my_table[new_seg]).compare_and_swap(is_allocating, NULL) == NULL )
+      |                      ~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:573:12: warning: casting ‘tbb::interface5::internal::hash_map_base::bucket*’ to ‘tbb::atomic<tbb::interface5::internal::hash_map_base::bucket*>&’ does not use ‘constexpr tbb::atomic<T*>::atomic(T*) [with T = tbb::interface5::internal::hash_map_base::bucket]’ [-Wcast-user-defined]
+  573 |     return (atomic<T>&)t;
+      |            ^~~~~~~~~~~~~
+In file included from ../../src/tbb/tbb_misc.h:22,
+                 from ../../src/tbb/cache_aligned_allocator.cpp:21:
+../../include/tbb/atomic.h:422:24: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  422 |     constexpr atomic<T>(const atomic<T>& rhs): internal::atomic_impl<T>(rhs) {}
+      |                        ^
+../../include/tbb/atomic.h:422:24: note: remove the ‘< >’
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/_concurrent_queue_impl.h:749:21: warning: ‘template<class _Category, class _Tp, class _Distance, class _Pointer, class _Reference> struct std::iterator’ is deprecated [-Wdeprecated-declarations]
+  749 |         public std::iterator<std::forward_iterator_tag,Value> {
+      |                     ^~~~~~~~
+In file included from /kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/14.2.0/include/c++/14.2.0/bits/stl_construct.h:61,
+                 from /kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/14.2.0/include/c++/14.2.0/bits/stl_tempbuf.h:61,
+                 from /kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/14.2.0/include/c++/14.2.0/memory:66,
+                 from ../../include/tbb/tbb_stddef.h:452,
+                 from ../../src/tbb/concurrent_queue.cpp:17:
+/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/14.2.0/include/c++/14.2.0/bits/stl_iterator_base_types.h:127:34: note: declared here
+  127 |     struct _GLIBCXX17_DEPRECATED iterator
+      |                                  ^~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/internal/_concurrent_queue_impl.h:1013:21: warning: ‘template<class _Category, class _Tp, class _Distance, class _Pointer, class _Reference> struct std::iterator’ is deprecated [-Wdeprecated-declarations]
+ 1013 |         public std::iterator<std::forward_iterator_tag,Value> {
+      |                     ^~~~~~~~
+/kyukon/home/apps/RHEL9/cascadelake-ib/software/GCCcore/14.2.0/include/c++/14.2.0/bits/stl_iterator_base_types.h:127:34: note: declared here
+  127 |     struct _GLIBCXX17_DEPRECATED iterator
+      |                                  ^~~~~~~~
+In file included from ../../include/tbb/concurrent_vector.h:25,
+                 from ../../src/tbb/concurrent_vector.cpp:23:
+../../include/tbb/atomic.h:422:24: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  422 |     constexpr atomic<T>(const atomic<T>& rhs): internal::atomic_impl<T>(rhs) {}
+      |                        ^
+../../include/tbb/atomic.h:422:24: note: remove the ‘< >’
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+In file included from ../../include/tbb/queuing_rw_mutex.h:24,
+                 from ../../src/tbb/queuing_rw_mutex.cpp:21:
+../../include/tbb/atomic.h:422:24: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  422 |     constexpr atomic<T>(const atomic<T>& rhs): internal::atomic_impl<T>(rhs) {}
+      |                        ^
+../../include/tbb/atomic.h:422:24: note: remove the ‘< >’
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:454:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  454 | __TBB_DECL_ATOMIC(__TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:455:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  455 | __TBB_DECL_ATOMIC(unsigned __TBB_LONG_LONG)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:459:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  459 | __TBB_DECL_ATOMIC(long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:460:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  460 | __TBB_DECL_ATOMIC(unsigned long)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:491:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  491 | __TBB_DECL_ATOMIC(unsigned)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:492:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  492 | __TBB_DECL_ATOMIC(int)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:495:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  495 | __TBB_DECL_ATOMIC(unsigned short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:496:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  496 | __TBB_DECL_ATOMIC(short)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:497:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  497 | __TBB_DECL_ATOMIC(char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:498:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  498 | __TBB_DECL_ATOMIC(signed char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:499:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  499 | __TBB_DECL_ATOMIC(unsigned char)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: warning: template-id not allowed for constructor in C++20 [-Wtemplate-id-cdtor]
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:437:32: note: remove the ‘< >’
+  437 |             constexpr atomic<T>(const atomic<T>& rhs):                                              \
+      |                                ^
+../../include/tbb/atomic.h:502:1: note: in expansion of macro ‘__TBB_DECL_ATOMIC’
+  502 | __TBB_DECL_ATOMIC(wchar_t)
+      | ^~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h: In instantiation of ‘tbb::atomic<T>& tbb::internal::as_atomic(T&) [with T = unsigned char]’:
+../../src/tbb/queuing_rw_mutex.cpp:52:21:   required from here
+   52 |     return as_atomic(my_internal_lock).compare_and_swap<tbb::acquire>(ACQUIRED,RELEASED) == RELEASED;
+      |            ~~~~~~~~~^~~~~~~~~~~~~~~~~~
+../../include/tbb/atomic.h:573:12: warning: casting ‘unsigned char’ to ‘tbb::atomic<unsigned char>&’ does not use ‘constexpr tbb::atomic<unsigned char>::atomic(unsigned char)’ [-Wcast-user-defined]
+  573 |     return (atomic<T>&)t;
+      |            ^~~~~~~~~~~~~
+make[1]: Leaving directory '/tmp/vsc47063/easybuild/build/Cactus/3.3.0/foss-2025a-CUDA-12.8.0/oneTBB-2020.2/build/linux_intel64_gcc_cc14.2.0_libc2.34_kernel5.14.0_release'
+make: *** [Makefile:29: tbb] Error 2
