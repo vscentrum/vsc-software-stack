@@ -9,52 +9,10 @@ as well as a pangenome graph construction toolkit."""
 
 toolchain = {'name': 'foss', 'version': '2025a'}
 
-## DEPS:
-    # OK 'decorator',
-    # ok 'networkx>=2,<2.8.1',
-    # OK 'pytest',
-    # OK 'biopython',
-    # OK 'pysam'
-    # ok toil[aws] @ git+https://github.com/DataBiosphere/toil.git@a8074291ba1c9b163ce5b8821e455c11ee55d71f
-        # OK dill>=0.3.2, <0.5
-        # OK requests<=2.33.1
-        # ok docker>=6.1.0, <8
-        # OK urllib3>=1.26.0,<3
-        # OK python-dateutil
-        # OK psutil >= 6.1.0, < 8
-        # ok PyPubSub >=4.0.3, <5
-        # ok addict>=2.2.1, <2.5
-        # ok enlighten>=1.5.2, <2
-        # ok configargparse>=1.7,<2
-        # OK ruamel.yaml>=0.15
-        # OK pyyaml>=6,<7
-        # OK typing-extensions>=4.6.2, <5
-        # ok coloredlogs>=15,<16
-        # OK prompt_toolkit>=3.0,<4
-        # ok boto3-stubs[s3,sdb,iam,sts,boto3,ec2,autoscaling]>=1.28.3.post2, <2
-            # ok "botocore-stubs",
-            # ok "types-s3transfer",
-            # ok "mypy-boto3-autoscaling>=1.42.0, <1.43.0",
-            # ok "mypy-boto3-ec2>=1.42.0, <1.43.0",
-            # ok "mypy-boto3-s3>=1.42.0, <1.43.0",
-            # ok "mypy-boto3-sdb>=1.42.0, <1.43.0",
-            # ok "mypy-boto3-sts>=1.42.0, <1.43.0",
-            # ok "mypy-boto3-iam>=1.42.0, <1.43.0",
-            # OK? "boto3==1.42.59"
-        # ok mypy-boto3-iam>=1.28.3.post2, <2 # Need to force .post1 to be replaced
-        # ok mypy-boto3-s3>=1.28.3.post2, <2
-        # ok moto>=5.0.3, <6
-        # ok ec2_metadata>=2.14.0,<4
-    # ok coloredlogs 15.0.1 requires humanfriendly, which is not installed.
-    # ok botocore-stubs 1.42.41 requires types-awscrt, which is not installed.
-    # ok moto 5.1.19 requires responses, which is not installed.
-    # ok moto 5.1.19 requires werkzeug, which is not installed.
-    # ok moto 5.1.19 requires xmltodict, which is not installed.
-    # OK cactus 3.3.0 requires sonlib, which is not installed.
-    # ok enlighten 1.14.1 requires blessed, which is not installed.
-    # ok enlighten 1.14.1 requires prefixed, which is not installed.
-
-builddependencies = [('hatchling', '1.27.0')]
+builddependencies = [
+    ('hatchling', '1.27.0'),
+    ('Autotools', '20240712'),
+]
 dependencies = [
     ('Python', '3.13.1'),
     ('SciPy-bundle', '2025.06'),
@@ -167,23 +125,32 @@ exts_list = [
         'checksums': ['dae9a12b0f277355170129be38406c831da47054758e64d6693e18d7e5b45d3f'],
     }),
     ('%(namelower)s', version, {
-        # https://github.com/ComparativeGenomicsToolkit/cactus/releases/download/v3.3.0/cactus-v3.3.0.tar.gz
         'source_urls': ['https://github.com/ComparativeGenomicsToolkit/cactus/releases/download/v%(version)s'],
         'sources': [{'download_filename': '%(namelower)s-v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        # 'preinstallopts': 'make -j %(parallel)s && ',
         'preinstallopts': (
-            # Cactus overwrites PYTHONPATH in its Makefile when running the test suite,
-            # which hides Python packages provided by loaded EasyBuild dependencies
-            # (including pytest). Preserve the existing PYTHONPATH while prepending the
-            # Cactus and bundled sonLib source directories.
+            # Build the native Cactus tools and bundled third-party components before installing the Python package
             'make -j %(parallel)s && '
+            # Cactus overwrites PYTHONPATH in its Makefile when running the test suite, which
+            # hides Python packages provided by loaded EasyBuild dependencies (including pytest).
+            # Preserve the existing PYTHONPATH while prepending the Cactus and bundled sonLib
+            # source directories. Force local binaries to avoid Docker during the test suite,
+            # and expose test output directly rather than redirecting it to per-test log files.
             'CACTUS_BINARIES_MODE=local CACTUS_DOCKER_MODE=0 SONLIB_TEST_LENGTH=SHORT '
             'make PYTHONPATH="$PWD/submodules/sonLib/src:$PWD/submodules:$PWD/src:$PYTHONPATH" '
             'test testErrOut= && '
+            # The Cactus build does not provide a conventional "make install": its Makefile
+            # assembles the native runtime executables and libraries in the source-tree bin/
+            # and lib/ directories. Copy these into the EasyBuild installation prefix.
             'mkdir -p %(installdir)s/bin %(installdir)s/lib && '
             'cp -a bin/. %(installdir)s/bin/ && '
             'cp -a lib/. %(installdir)s/lib/ && '
+            # Some bundled HAL scripts are deliberately made non-writable during the build.
+            # Restore owner write permission so EasyBuild can perform its installation post-processing.
             'chmod -R u+w %(installdir)s/bin %(installdir)s/lib && '
+            # Cactus declares sonLib as a local file dependency (submodules/sonLib). Since
+            # PythonBundle installs extensions with --no-deps, install the bundled sonLib
+            # explicitly so it is registered as a Python distribution and "pip check" can
+            # satisfy Cactus's sonlib requirement.
             'python -m pip install --prefix=%(installdir)s --no-deps --ignore-installed '
             '--no-build-isolation ./submodules/sonLib && '
         ),
