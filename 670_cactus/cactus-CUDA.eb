@@ -13,6 +13,7 @@ toolchain = {'name': 'foss', 'version': '2025a'}
 builddependencies = [
     ('hatchling', '1.27.0'),
     ('CMake', '3.31.3'),
+    ('Autotools', '20240712'),
 ]
 dependencies = [
     ('CUDA', '12.8.0', '', SYSTEM),
@@ -54,17 +55,17 @@ components = [
         'prebuildopts': (
             "sed -i 's/task[*] next_offloaded;/tbb::task* next_offloaded;/' include/tbb/task.h && "
         ),
-        # EB_tbb assumes a standalone TBB build and expects the legacy build tree
-        # below %(installdir)s/build and the CMake helper files below the main
-        # build directory. Stage both locations because TBB is embedded as a
-        # component of the Cactus bundle.
+        # KegAlign requires tbb_preview, which is enabled by tbb_cpf=1.
+        # EB_tbb assumes a standalone TBB build layout, so stage the build tree,
+        # headers, and CMake helper files where its install step expects them.
+        # The trailing ':' absorbs the compiler="gcc" argument appended by EB_tbb.
         'buildopts': (
             'tbb_cpf=1 compiler="gcc" && '
             'mkdir -p %(installdir)s/build %(installdir)s/include && '
             'cp -a build/. %(installdir)s/build/ && '
             'cp -a include/. %(installdir)s/include/ && '
-            'rm -rf ../cmake && '
-            'cp -a cmake ../ && '
+            'rm -rf %(builddir)s/cmake && '
+            'cp -a cmake %(builddir)s/ && '
             ':'
         ),
         'checksums': ['4804320e1e6cbe3a5421997b52199e3c1a3829b2ecb6489641da4b8e32faf500'],
@@ -94,7 +95,8 @@ components = [
             'install -m 755 kegalign %(installdir)s/bin/ && '
             'install -m 755 %(start_dir)s/scripts/run_kegalign %(installdir)s/bin/ && '
             'install -m 755 %(start_dir)s/scripts/diagonal_partition.py %(installdir)s/bin/ && '
-            'dos2unix %(installdir)s/bin/run_kegalign %(installdir)s/bin/diagonal_partition.py'
+            "sed -i 's/\\r$//' %(installdir)s/bin/run_kegalign %(installdir)s/bin/diagonal_partition.py && "
+            'rm -rf %(installdir)s/build'
         ),
         'checksums': ['28027939eea0fc566a2b00f86e3da5186cecbdf6094732372408c2127bb11de3'],
     }),
@@ -229,8 +231,12 @@ exts_list = [
 ]
 
 sanity_check_paths = {
-    'files': ['bin/cactus', 'bin/cactus_consolidated', 'bin/halStats', 'bin/halValidate', 'bin/lastz', 'bin/kegalign',
-                'bin/run_kegalign', 'bin/diagonal_partition.py'],
+    'files': [
+        'bin/cactus', 'bin/cactus_consolidated', 'bin/halStats', 'bin/halValidate',
+        'bin/lastz', 'bin/kegalign', 'bin/run_kegalign', 'bin/diagonal_partition.py',
+        'bin/mbuffer',
+        'lib/libtbbmalloc.so.2', 'lib/libtbbmalloc_proxy.so.2', 'lib/libtbb_preview.so.2',
+    ],
     'dirs': ['lib/python%(pyshortver)s/site-packages'],
 }
 

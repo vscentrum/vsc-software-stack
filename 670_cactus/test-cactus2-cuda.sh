@@ -138,10 +138,37 @@ for exe in faToTwoBit mbuffer; do
 done
 
 section "Embedded TBB libraries"
-for lib in libtbb.so.2 libtbbmalloc.so.2 libtbbmalloc_proxy.so.2 libtbb_preview.so.2; do
+
+for lib in \
+    libtbbmalloc.so.2 \
+    libtbbmalloc_proxy.so.2 \
+    libtbb_preview.so.2
+do
     [[ -e "${ROOT}/lib/${lib}" ]] || die "missing embedded TBB library: ${ROOT}/lib/${lib}"
     ok "${lib}"
 done
+
+section "KegAlign TBB linkage"
+
+KEGALIGN_REAL="$(readlink -f "$(command -v kegalign)")"
+TBB_LDD="$(ldd "${KEGALIGN_REAL}" | grep 'libtbb' || true)"
+
+[[ -n "${TBB_LDD}" ]] || die "kegalign does not appear to link against TBB"
+
+echo "${TBB_LDD}"
+
+grep -q 'not found' <<<"${TBB_LDD}" &&
+    die "kegalign has unresolved TBB libraries"
+
+while read -r path; do
+    path_real="$(readlink -f "${path}")"
+    case "${path_real}" in
+        "${ROOT_REAL}"/*) ;;
+        *) die "kegalign resolves TBB outside EBROOTCACTUS: ${path_real}" ;;
+    esac
+done < <(awk '/libtbb/ && /=>/ && $3 ~ /^\// {print $3}' <<<"${TBB_LDD}")
+
+ok "kegalign resolves all TBB libraries from EBROOTCACTUS"
 
 section "Native shared-library resolution"
 # Check only the native binaries that belong to this installation.
