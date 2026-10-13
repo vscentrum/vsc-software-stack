@@ -1,7 +1,8 @@
 easyblock = 'PythonBundle'
 
 name = 'BioEmu'
-version = '1.2.0'
+version = '1.4.0'
+versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/microsoft/bioemu'
 description = """
@@ -10,22 +11,45 @@ approximated equilibrium distribution of structures for a protein monomer,
 given its amino acid sequence.
 """
 
-toolchain = {'name': 'foss', 'version': '2024a'}
+toolchain = {'name': 'foss', 'version': '2025a'}
 
-builddependencies = [
-    ('PDM', '2.18.2'),
-    ('hatchling', '1.27.0'),
-]
+## DEPS:
+    #OK "mdtraj>=1.9.9",
+    # "torch_geometric>=2.6.1",
+    # "torch>=2.6.0",
+    # "modelcif>=0.7",
+    # "bio>=1.5.9",
+    # "fire>=0.7.0",
+    # "huggingface-hub",
+    # "hydra-core",
+    # OK "dm-tree",
+    # "stackprinter",
+    # "typer",
+    # "einops",
+    # "matplotlib>=3.10.7",
+    # "requests",
+    # "tqdm",
+    # "dm-haiku>=0.0.12",
+    # "ml-collections",
+    # "absl-py",
+    # "tensorflow-cpu>=2.12.0",
+    # "jax>=0.4.35,<0.11",
+
+# builddependencies = [
+#     # ('PDM', '2.18.2'),
+#     # ('hatchling', '1.27.0'),
+# ]
 
 dependencies = [
-    ('Python', '3.12.3'),
-    ('SciPy-bundle', '2024.05'),
-    ('PyTorch-Geometric', '2.6.1'),
-    ('ColabFold', '1.5.5'),
-    ('Biopython', '1.84'),
-    ('dm-tree', '0.1.9'),
-    ('MDTraj', '1.10.3'),
-    ('mygene', '3.2.2'),
+    ('CUDA', '12.8.0', '', SYSTEM),
+    ('Python', '3.13.1'),
+    ('SciPy-bundle', '2025.06'),
+    # ('PyTorch-Geometric', '2.6.1'),
+    ('ColabFold', '1.6.2'),
+    ('Biopython', '1.85'),
+    ('dm-tree', '0.1.10'),
+    ('MDTraj', '1.11.0'),
+    # ('mygene', '3.2.2'),
 ]
 
 exts_list = [
