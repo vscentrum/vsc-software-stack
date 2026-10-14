@@ -1,0 +1,679 @@
+== 2026-10-14 15:14:05,609 easyblock.py:392 INFO This is EasyBuild 5.4.1.dev0-re83c47eaaf1d6cb954d6f03e9f92d19a94475b94 (framework: 5.4.1.dev0-re83c47eaaf1d6cb954d6f03e9f92d19a94475b94, easyblocks: 5.4.1.dev0-r2354b9c864aa2444a6db523cfb90d171e2566c98) on host node4006.donphan.os.
+== 2026-10-14 15:14:05,609 easyblock.py:398 INFO This is easyblock PythonBundle from module easybuild.easyblocks.generic.pythonbundle (/scratch/gent/470/vsc47063/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/pythonbundle.py)
+== 2026-10-14 15:14:05,610 easyblock.py:1242 INFO Build dir set to /tmp/vsc47063/easybuild/build/Geneformer/0.1.0-20260526/foss-2024a
+== 2026-10-14 15:14:05,610 easyblock.py:1305 INFO Software install dir set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Geneformer/0.1.0-20260526-foss-2024a
+== 2026-10-14 15:14:05,610 easyblock.py:1310 INFO Module install dir set to /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/modules/all
+== 2026-10-14 15:14:05,610 easyblock.py:360 INFO Init completed for application name Geneformer version 0.1.0-20260526
+== 2026-10-14 15:14:05,610 easyconfig.py:669 INFO Creating new EasyConfig instance for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/Geneformer-0.1.0-20260526-foss-2024a.eb while copying
+== 2026-10-14 15:14:05,611 easyconfig.py:484 INFO Performing quick parse to check for valid easyconfig file...
+== 2026-10-14 15:14:05,612 environment.py:109 INFO Environment variable LMOD_QUIET set to 1 (previous value: '1')
+== 2026-10-14 15:14:05,613 environment.py:109 INFO Environment variable LMOD_IGNORE_CACHE set to 1 (previous value: '1')
+== 2026-10-14 15:14:05,613 environment.py:109 INFO Environment variable LMOD_REDIRECT set to no (previous value: 'no')
+== 2026-10-14 15:14:05,613 environment.py:109 INFO Environment variable LMOD_EXTENDED_DEFAULT set to no (previous value: 'no')
+== 2026-10-14 15:14:05,613 environment.py:109 INFO Environment variable LMOD_TERSE_DECORATIONS set to no (previous value: 'no')
+== 2026-10-14 15:14:05,613 modules.py:730 INFO Full path for Lmod command is /usr/share/lmod/lmod/libexec/lmod, so using it
+== 2026-10-14 15:14:05,613 modules.py:887 INFO Prepended list of module paths with path used by EasyBuild: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/modules/all
+== 2026-10-14 15:14:05,613 easyconfig.py:493 INFO Obtained list of valid module classes: ['base', 'ai', 'astro', 'bio', 'cae', 'chem', 'compiler', 'data', 'dataset', 'debugger', 'devel', 'geo', 'ide', 'lang', 'lib', 'math', 'mpi', 'numlib', 'perf', 'quantum', 'phys', 'system', 'toolchain', 'tools', 'vis']
+== 2026-10-14 15:14:05,614 easyconfig.py:2077 INFO Derived full easyblock module path for PythonBundle: easybuild.easyblocks.generic.pythonbundle
+== 2026-10-14 15:14:05,614 easyconfig.py:2133 INFO Successfully obtained class 'PythonBundle' for easyblock 'PythonBundle' (software name 'Geneformer')
+== 2026-10-14 15:14:05,614 easyconfig.py:767 INFO Parsing easyconfig file None with rawcontent: easyblock = 'PythonBundle'
+
+name = 'Geneformer'
+version = '0.1.0-20260526'
+local_commit = '04c2b2e'
+
+homepage = 'https://huggingface.co/ctheodoris/Geneformer'
+description = """Geneformer is a foundational transformer model pretrained on a large-scale
+corpus of single cell transcriptomes to enable context-aware predictions in settings
+with limited data in network biology."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_deps = [('git-lfs', '3.7.1', '', SYSTEM)]
+builddependencies = [('Cython', '3.0.10')]
+dependencies = [
+    ('Python', '3.12.3'),
+    ('PyTorch', '2.6.0'),
+    ('SciPy-bundle', '2024.05'),
+    ('bitsandbytes', '0.46.1'),
+    ('HF-Datasets', '4.0.0'),
+    ('loompy', '3.0.8'),
+    ('matplotlib', '3.9.2'),
+    ('Optuna', '4.1.0'),
+    ('Arrow', '17.0.0'),
+    ('Ray-project', '2.37.0'),
+    ('scanpy', '1.10.4'),
+    ('scikit-learn', '1.5.2'),
+    ('Seaborn', '0.13.2'),
+    ('statsmodels', '0.14.4'),
+    ('tensorboard', '2.18.0'),
+    ('tqdm', '4.66.5'),
+    ('Transformers', '4.57.1'),
+    ('accelerate', '1.10.0'),
+    ('anndata', '0.11.4'),
+]
+
+# Required Geneformer Git LFS data files; pretrained model checkpoints are excluded
+local_lfs_files = [
+    'geneformer/gene_median_dictionary_gc104M.pkl',
+    'geneformer/gene_name_id_dict_gc104M.pkl',
+    'geneformer/ensembl_mapping_dict_gc104M.pkl',
+    'geneformer/token_dictionary_gc104M.pkl',
+    'geneformer/gene_dictionaries_30m/gene_median_dictionary_gc30M.pkl',
+    'geneformer/gene_dictionaries_30m/gene_name_id_dict_gc30M.pkl',
+    'geneformer/gene_dictionaries_30m/ensembl_mapping_dict_gc30M.pkl',
+    'geneformer/gene_dictionaries_30m/token_dictionary_gc30M.pkl',
+]
+
+exts_list = [
+    ('optuna-integration', '4.1.0', {
+        'checksums': ['86201502fab9c3bba8aa6ffaac0f465b0bcdb75ec75fd157eda8b96352fb3cf3'],
+    }),
+    ('peft', '0.15.2', {
+        'checksums': ['7059029f4d42a092ded1aa117dd366a46084aef638bdd593f6ab0195d5427fcd'],
+    }),
+    ('accumulation_tree', '0.6.4', {
+        'checksums': ['5f907667e4106b5ba140b6b871e1902eb2a93d429b92f8a9f7ddb2bee7704334'],
+    }),
+    ('pyudorandom', '1.0.0', {
+        'checksums': ['f30a093a0170c15f9c7f87eb29f71f0f5fde995528b7c6dc4606d389e8c37755'],
+    }),
+    ('tdigest', '0.5.2.2', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['dd25f8d6e6be002192bba9e4b8c16491d36c10b389f50637818603d1f67c6fb2'],
+    }),
+    (name, '0.1.0', {
+        'sources': [{
+            'filename': '%(name)s-%(version)s.tar.xz',
+            'git_config': {
+                'url': 'https://huggingface.co/ctheodoris',
+                'repo_name': name,
+                'commit': local_commit,
+                'extra_config_params': [
+                    'lfs.fetchinclude=' + ','.join(local_lfs_files),
+                ],
+            },
+        }],
+        'patches': ['Geneformer-0.1.0-20260526_fix-Transformers-Trainer-API.patch'],
+        'checksums': [
+            # can't use proper checksum for this source tarball, because git-lfs is used when creating it
+            # which makes checksum not reproducible across systems...
+            {'Geneformer-0.1.0.tar.xz': None},
+            {'Geneformer-0.1.0-20260526_fix-Transformers-Trainer-API.patch':
+             '2a35ebebfce71615863ec8af598cff7bf319dfe828e94153f5b295feb75b7653'},
+        ],
+    }),
+]
+
+moduleclass = 'bio'
+
+== 2026-10-14 15:14:05,615 parser.py:197 INFO Type checking of easyconfig parameter values passed!
+== 2026-10-14 15:14:05,615 easyconfig.py:747 INFO setting easyconfig parameter builddependencies: value [('Cython', '3.0.10')] (type: <class 'list'>)
+== 2026-10-14 15:14:05,615 easyconfig.py:747 INFO setting easyconfig parameter dependencies: value [('Python', '3.12.3'), ('PyTorch', '2.6.0'), ('SciPy-bundle', '2024.05'), ('bitsandbytes', '0.46.1'), ('HF-Datasets', '4.0.0'), ('loompy', '3.0.8'), ('matplotlib', '3.9.2'), ('Optuna', '4.1.0'), ('Arrow', '17.0.0'), ('Ray-project', '2.37.0'), ('scanpy', '1.10.4'), ('scikit-learn', '1.5.2'), ('Seaborn', '0.13.2'), ('statsmodels', '0.14.4'), ('tensorboard', '2.18.0'), ('tqdm', '4.66.5'), ('Transformers', '4.57.1'), ('accelerate', '1.10.0'), ('anndata', '0.11.4')] (type: <class 'list'>)
+== 2026-10-14 15:14:05,615 easyconfig.py:747 INFO setting easyconfig parameter description: value Geneformer is a foundational transformer model pretrained on a large-scale
+corpus of single cell transcriptomes to enable context-aware predictions in settings
+with limited data in network biology. (type: <class 'str'>)
+== 2026-10-14 15:14:05,615 easyconfig.py:747 INFO setting easyconfig parameter easyblock: value PythonBundle (type: <class 'str'>)
+== 2026-10-14 15:14:05,615 easyconfig.py:747 INFO setting easyconfig parameter exts_list: value [('optuna-integration', '4.1.0', {'checksums': ['86201502fab9c3bba8aa6ffaac0f465b0bcdb75ec75fd157eda8b96352fb3cf3']}), ('peft', '0.15.2', {'checksums': ['7059029f4d42a092ded1aa117dd366a46084aef638bdd593f6ab0195d5427fcd']}), ('accumulation_tree', '0.6.4', {'checksums': ['5f907667e4106b5ba140b6b871e1902eb2a93d429b92f8a9f7ddb2bee7704334']}), ('pyudorandom', '1.0.0', {'checksums': ['f30a093a0170c15f9c7f87eb29f71f0f5fde995528b7c6dc4606d389e8c37755']}), ('tdigest', '0.5.2.2', {'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl', 'checksums': ['dd25f8d6e6be002192bba9e4b8c16491d36c10b389f50637818603d1f67c6fb2']}), ('Geneformer', '0.1.0', {'sources': [{'filename': '%(name)s-%(version)s.tar.xz', 'git_config': {'url': 'https://huggingface.co/ctheodoris', 'repo_name': 'Geneformer', 'commit': '04c2b2e', 'extra_config_params': ['lfs.fetchinclude=geneformer/gene_median_dictionary_gc104M.pkl,geneformer/gene_name_id_dict_gc104M.pkl,geneformer/ensembl_mapping_dict_gc104M.pkl,geneformer/token_dictionary_gc104M.pkl,geneformer/gene_dictionaries_30m/gene_median_dictionary_gc30M.pkl,geneformer/gene_dictionaries_30m/gene_name_id_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/ensembl_mapping_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/token_dictionary_gc30M.pkl']}}], 'patches': ['Geneformer-0.1.0-20260526_fix-Transformers-Trainer-API.patch'], 'checksums': [{'Geneformer-0.1.0.tar.xz': None}, {'Geneformer-0.1.0-20260526_fix-Transformers-Trainer-API.patch': '2a35ebebfce71615863ec8af598cff7bf319dfe828e94153f5b295feb75b7653'}]})] (type: <class 'list'>)
+== 2026-10-14 15:14:05,616 easyconfig.py:747 INFO setting easyconfig parameter homepage: value https://huggingface.co/ctheodoris/Geneformer (type: <class 'str'>)
+== 2026-10-14 15:14:05,616 easyconfig.py:747 INFO setting easyconfig parameter moduleclass: value bio (type: <class 'str'>)
+== 2026-10-14 15:14:05,616 easyconfig.py:747 INFO setting easyconfig parameter name: value Geneformer (type: <class 'str'>)
+== 2026-10-14 15:14:05,616 easyconfig.py:747 INFO setting easyconfig parameter source_deps: value [('git-lfs', '3.7.1', '', {'name': 'system', 'version': 'system'})] (type: <class 'list'>)
+== 2026-10-14 15:14:05,616 easyconfig.py:747 INFO setting easyconfig parameter toolchain: value {'name': 'foss', 'version': '2024a'} (type: <class 'dict'>)
+== 2026-10-14 15:14:05,616 easyconfig.py:747 INFO setting easyconfig parameter version: value 0.1.0-20260526 (type: <class 'str'>)
+== 2026-10-14 15:14:05,616 hooks.py:220 INFO Found parse_hook hook
+== 2026-10-14 15:14:05,616 hooks.py:251 INFO Running 'parse_hook' hook function (args: [<easybuild.framework.easyconfig.easyconfig.EasyConfig object at 0x1470b1cd32e0>], keyword args: {})...
+== 2026-10-14 15:14:05,616 easyconfig.py:815 INFO Parsing dependency specifications...
+== 2026-10-14 15:14:05,616 easyconfig.py:1840 INFO Generating template values...
+== 2026-10-14 15:14:05,617 mpi.py:123 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2026-10-14 15:14:05,617 mpi.py:299 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2026-10-14 15:14:05,617 easyconfig.py:1859 INFO Template values: arch='x86_64', bitbucket_account='geneformer', cuda_cc_cmake='70;80;86;90', cuda_cc_nvhpc='cc70,cc80,cc86,cc90', cuda_cc_semicolon_sep='7.0;8.0;8.6;9.0', cuda_cc_space_sep='7.0 8.0 8.6 9.0', cuda_cc_space_sep_no_period='70 80 86 90', cuda_compute_capabilities='7.0,8.0,8.6,9.0', cuda_int_comma_sep='70,80,86,90', cuda_int_semicolon_sep='70;80;86;90', cuda_int_space_sep='70 80 86 90', cuda_sm_comma_sep='sm_70,sm_80,sm_86,sm_90', cuda_sm_space_sep='sm_70 sm_80 sm_86 sm_90', github_account='geneformer', mpi_cmd_prefix='mpirun -n 1', name='Geneformer', nameletter='G', nameletterlower='g', namelower='geneformer', pymajver='3', pyminver='12', pyshortver='3.12', pyver='3.12.3', rpath_enabled='true', software_commit='', sysroot='', toolchain_name='foss', toolchain_version='2024a', version='0.1.0-20260526', version_major='0', version_major_minor='0.1', version_major_minor_patch='0.1.0-20260526', version_minor='1', version_minor_patch='1.0-20260526', version_patch='0-20260526', versionprefix='', versionsuffix=''
+== 2026-10-14 15:14:05,618 modules.py:1055 INFO Checking whether Cython/3.0.10-foss-2024a exists...
+== 2026-10-14 15:14:05,619 modules.py:1076 INFO Module Cython/3.0.10-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,619 modules.py:1083 INFO Result for existence check of Cython/3.0.10-foss-2024a module: False
+== 2026-10-14 15:14:05,619 modules.py:1055 INFO Checking whether Cython/3.0.10-gompi-2024a exists...
+== 2026-10-14 15:14:05,619 modules.py:1076 INFO Module Cython/3.0.10-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,619 modules.py:1083 INFO Result for existence check of Cython/3.0.10-gompi-2024a module: False
+== 2026-10-14 15:14:05,619 modules.py:1055 INFO Checking whether Cython/3.0.10-gfbf-2024a exists...
+== 2026-10-14 15:14:05,619 modules.py:1076 INFO Module Cython/3.0.10-gfbf-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,620 modules.py:1083 INFO Result for existence check of Cython/3.0.10-gfbf-2024a module: False
+== 2026-10-14 15:14:05,620 modules.py:1055 INFO Checking whether Cython/3.0.10-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,620 modules.py:1076 INFO Module Cython/3.0.10-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,620 modules.py:1083 INFO Result for existence check of Cython/3.0.10-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,620 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,620 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,620 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,620 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,620 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'Cython', 'version': '3.0.10', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': True, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'GCCcore', 'version': '13.3.0'}
+== 2026-10-14 15:14:05,621 modules.py:1055 INFO Checking whether Python/3.12.3-foss-2024a exists...
+== 2026-10-14 15:14:05,622 modules.py:1076 INFO Module Python/3.12.3-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,622 modules.py:1083 INFO Result for existence check of Python/3.12.3-foss-2024a module: False
+== 2026-10-14 15:14:05,622 modules.py:1055 INFO Checking whether Python/3.12.3-gompi-2024a exists...
+== 2026-10-14 15:14:05,622 modules.py:1076 INFO Module Python/3.12.3-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,622 modules.py:1083 INFO Result for existence check of Python/3.12.3-gompi-2024a module: False
+== 2026-10-14 15:14:05,622 modules.py:1055 INFO Checking whether Python/3.12.3-gfbf-2024a exists...
+== 2026-10-14 15:14:05,622 modules.py:1076 INFO Module Python/3.12.3-gfbf-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,622 modules.py:1083 INFO Result for existence check of Python/3.12.3-gfbf-2024a module: False
+== 2026-10-14 15:14:05,623 modules.py:1055 INFO Checking whether Python/3.12.3-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,623 modules.py:1076 INFO Module Python/3.12.3-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,623 modules.py:1083 INFO Result for existence check of Python/3.12.3-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,623 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,623 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,623 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,623 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,623 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'Python', 'version': '3.12.3', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'GCCcore', 'version': '13.3.0'}
+== 2026-10-14 15:14:05,624 modules.py:1055 INFO Checking whether PyTorch/2.6.0-gompi-2024a exists...
+== 2026-10-14 15:14:05,624 modules.py:1076 INFO Module PyTorch/2.6.0-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,624 modules.py:1083 INFO Result for existence check of PyTorch/2.6.0-gompi-2024a module: False
+== 2026-10-14 15:14:05,625 modules.py:1055 INFO Checking whether PyTorch/2.6.0-gfbf-2024a exists...
+== 2026-10-14 15:14:05,625 modules.py:1076 INFO Module PyTorch/2.6.0-gfbf-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,625 modules.py:1083 INFO Result for existence check of PyTorch/2.6.0-gfbf-2024a module: False
+== 2026-10-14 15:14:05,625 modules.py:1055 INFO Checking whether PyTorch/2.6.0-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,625 modules.py:1076 INFO Module PyTorch/2.6.0-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,625 modules.py:1083 INFO Result for existence check of PyTorch/2.6.0-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,625 modules.py:1055 INFO Checking whether PyTorch/2.6.0-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,625 modules.py:1076 INFO Module PyTorch/2.6.0-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,626 modules.py:1083 INFO Result for existence check of PyTorch/2.6.0-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,626 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'PyTorch', 'version': '2.6.0', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'foss', 'version': '2024a'}
+== 2026-10-14 15:14:05,626 modules.py:1055 INFO Checking whether SciPy-bundle/2024.05-foss-2024a exists...
+== 2026-10-14 15:14:05,627 modules.py:1076 INFO Module SciPy-bundle/2024.05-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,627 modules.py:1083 INFO Result for existence check of SciPy-bundle/2024.05-foss-2024a module: False
+== 2026-10-14 15:14:05,627 modules.py:1055 INFO Checking whether SciPy-bundle/2024.05-gompi-2024a exists...
+== 2026-10-14 15:14:05,627 modules.py:1076 INFO Module SciPy-bundle/2024.05-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,627 modules.py:1083 INFO Result for existence check of SciPy-bundle/2024.05-gompi-2024a module: False
+== 2026-10-14 15:14:05,627 modules.py:1055 INFO Checking whether SciPy-bundle/2024.05-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,627 modules.py:1076 INFO Module SciPy-bundle/2024.05-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,627 modules.py:1083 INFO Result for existence check of SciPy-bundle/2024.05-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,628 modules.py:1055 INFO Checking whether SciPy-bundle/2024.05-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,628 modules.py:1076 INFO Module SciPy-bundle/2024.05-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,628 modules.py:1083 INFO Result for existence check of SciPy-bundle/2024.05-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,628 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,628 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,628 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'SciPy-bundle', 'version': '2024.05', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'gfbf', 'version': '2024a'}
+== 2026-10-14 15:14:05,629 modules.py:1055 INFO Checking whether bitsandbytes/0.46.1-gompi-2024a exists...
+== 2026-10-14 15:14:05,629 modules.py:1076 INFO Module bitsandbytes/0.46.1-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,630 modules.py:1083 INFO Result for existence check of bitsandbytes/0.46.1-gompi-2024a module: False
+== 2026-10-14 15:14:05,630 modules.py:1055 INFO Checking whether bitsandbytes/0.46.1-gfbf-2024a exists...
+== 2026-10-14 15:14:05,630 modules.py:1076 INFO Module bitsandbytes/0.46.1-gfbf-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,631 modules.py:1083 INFO Result for existence check of bitsandbytes/0.46.1-gfbf-2024a module: False
+== 2026-10-14 15:14:05,631 modules.py:1055 INFO Checking whether bitsandbytes/0.46.1-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,631 modules.py:1076 INFO Module bitsandbytes/0.46.1-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,631 modules.py:1083 INFO Result for existence check of bitsandbytes/0.46.1-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,631 modules.py:1055 INFO Checking whether bitsandbytes/0.46.1-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,631 modules.py:1076 INFO Module bitsandbytes/0.46.1-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,631 modules.py:1083 INFO Result for existence check of bitsandbytes/0.46.1-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,631 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'bitsandbytes', 'version': '0.46.1', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'foss', 'version': '2024a'}
+== 2026-10-14 15:14:05,632 modules.py:1055 INFO Checking whether HF-Datasets/4.0.0-foss-2024a exists...
+== 2026-10-14 15:14:05,632 modules.py:1076 INFO Module HF-Datasets/4.0.0-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,633 modules.py:1083 INFO Result for existence check of HF-Datasets/4.0.0-foss-2024a module: False
+== 2026-10-14 15:14:05,633 modules.py:1055 INFO Checking whether HF-Datasets/4.0.0-gompi-2024a exists...
+== 2026-10-14 15:14:05,634 modules.py:1076 INFO Module HF-Datasets/4.0.0-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,634 modules.py:1083 INFO Result for existence check of HF-Datasets/4.0.0-gompi-2024a module: False
+== 2026-10-14 15:14:05,634 modules.py:1055 INFO Checking whether HF-Datasets/4.0.0-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,634 modules.py:1076 INFO Module HF-Datasets/4.0.0-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,634 modules.py:1083 INFO Result for existence check of HF-Datasets/4.0.0-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,634 modules.py:1055 INFO Checking whether HF-Datasets/4.0.0-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,634 modules.py:1076 INFO Module HF-Datasets/4.0.0-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,634 modules.py:1083 INFO Result for existence check of HF-Datasets/4.0.0-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,634 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,635 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,635 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'HF-Datasets', 'version': '4.0.0', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'gfbf', 'version': '2024a'}
+== 2026-10-14 15:14:05,636 modules.py:1055 INFO Checking whether loompy/3.0.8-gompi-2024a exists...
+== 2026-10-14 15:14:05,636 modules.py:1076 INFO Module loompy/3.0.8-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,637 modules.py:1083 INFO Result for existence check of loompy/3.0.8-gompi-2024a module: False
+== 2026-10-14 15:14:05,637 modules.py:1055 INFO Checking whether loompy/3.0.8-gfbf-2024a exists...
+== 2026-10-14 15:14:05,637 modules.py:1076 INFO Module loompy/3.0.8-gfbf-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,637 modules.py:1083 INFO Result for existence check of loompy/3.0.8-gfbf-2024a module: False
+== 2026-10-14 15:14:05,637 modules.py:1055 INFO Checking whether loompy/3.0.8-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,637 modules.py:1076 INFO Module loompy/3.0.8-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,637 modules.py:1083 INFO Result for existence check of loompy/3.0.8-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,638 modules.py:1055 INFO Checking whether loompy/3.0.8-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,638 modules.py:1076 INFO Module loompy/3.0.8-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,638 modules.py:1083 INFO Result for existence check of loompy/3.0.8-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,638 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'loompy', 'version': '3.0.8', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'foss', 'version': '2024a'}
+== 2026-10-14 15:14:05,639 modules.py:1055 INFO Checking whether matplotlib/3.9.2-foss-2024a exists...
+== 2026-10-14 15:14:05,639 modules.py:1076 INFO Module matplotlib/3.9.2-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,640 modules.py:1083 INFO Result for existence check of matplotlib/3.9.2-foss-2024a module: False
+== 2026-10-14 15:14:05,641 modules.py:1055 INFO Checking whether matplotlib/3.9.2-gompi-2024a exists...
+== 2026-10-14 15:14:05,641 modules.py:1076 INFO Module matplotlib/3.9.2-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,642 modules.py:1083 INFO Result for existence check of matplotlib/3.9.2-gompi-2024a module: False
+== 2026-10-14 15:14:05,642 modules.py:1055 INFO Checking whether matplotlib/3.9.2-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,642 modules.py:1076 INFO Module matplotlib/3.9.2-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,642 modules.py:1083 INFO Result for existence check of matplotlib/3.9.2-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,642 modules.py:1055 INFO Checking whether matplotlib/3.9.2-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,642 modules.py:1076 INFO Module matplotlib/3.9.2-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,642 modules.py:1083 INFO Result for existence check of matplotlib/3.9.2-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,642 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,643 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,643 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'matplotlib', 'version': '3.9.2', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'gfbf', 'version': '2024a'}
+== 2026-10-14 15:14:05,644 modules.py:1055 INFO Checking whether Optuna/4.1.0-gompi-2024a exists...
+== 2026-10-14 15:14:05,644 modules.py:1076 INFO Module Optuna/4.1.0-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,645 modules.py:1083 INFO Result for existence check of Optuna/4.1.0-gompi-2024a module: False
+== 2026-10-14 15:14:05,645 modules.py:1055 INFO Checking whether Optuna/4.1.0-gfbf-2024a exists...
+== 2026-10-14 15:14:05,645 modules.py:1076 INFO Module Optuna/4.1.0-gfbf-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,645 modules.py:1083 INFO Result for existence check of Optuna/4.1.0-gfbf-2024a module: False
+== 2026-10-14 15:14:05,645 modules.py:1055 INFO Checking whether Optuna/4.1.0-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,645 modules.py:1076 INFO Module Optuna/4.1.0-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,645 modules.py:1083 INFO Result for existence check of Optuna/4.1.0-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,646 modules.py:1055 INFO Checking whether Optuna/4.1.0-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,646 modules.py:1076 INFO Module Optuna/4.1.0-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,646 modules.py:1083 INFO Result for existence check of Optuna/4.1.0-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,646 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'Optuna', 'version': '4.1.0', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'foss', 'version': '2024a'}
+== 2026-10-14 15:14:05,647 modules.py:1055 INFO Checking whether Arrow/17.0.0-foss-2024a exists...
+== 2026-10-14 15:14:05,647 modules.py:1076 INFO Module Arrow/17.0.0-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,647 modules.py:1083 INFO Result for existence check of Arrow/17.0.0-foss-2024a module: False
+== 2026-10-14 15:14:05,647 modules.py:1055 INFO Checking whether Arrow/17.0.0-gompi-2024a exists...
+== 2026-10-14 15:14:05,647 modules.py:1076 INFO Module Arrow/17.0.0-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,647 modules.py:1083 INFO Result for existence check of Arrow/17.0.0-gompi-2024a module: False
+== 2026-10-14 15:14:05,648 modules.py:1055 INFO Checking whether Arrow/17.0.0-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,648 modules.py:1076 INFO Module Arrow/17.0.0-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,648 modules.py:1083 INFO Result for existence check of Arrow/17.0.0-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,648 modules.py:1055 INFO Checking whether Arrow/17.0.0-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,648 modules.py:1076 INFO Module Arrow/17.0.0-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,648 modules.py:1083 INFO Result for existence check of Arrow/17.0.0-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,648 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,649 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,649 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'Arrow', 'version': '17.0.0', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'gfbf', 'version': '2024a'}
+== 2026-10-14 15:14:05,650 modules.py:1055 INFO Checking whether Ray-project/2.37.0-foss-2024a exists...
+== 2026-10-14 15:14:05,650 modules.py:1076 INFO Module Ray-project/2.37.0-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,650 modules.py:1083 INFO Result for existence check of Ray-project/2.37.0-foss-2024a module: False
+== 2026-10-14 15:14:05,650 modules.py:1055 INFO Checking whether Ray-project/2.37.0-gompi-2024a exists...
+== 2026-10-14 15:14:05,650 modules.py:1076 INFO Module Ray-project/2.37.0-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,651 modules.py:1083 INFO Result for existence check of Ray-project/2.37.0-gompi-2024a module: False
+== 2026-10-14 15:14:05,651 modules.py:1055 INFO Checking whether Ray-project/2.37.0-gfbf-2024a exists...
+== 2026-10-14 15:14:05,651 modules.py:1076 INFO Module Ray-project/2.37.0-gfbf-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,651 modules.py:1083 INFO Result for existence check of Ray-project/2.37.0-gfbf-2024a module: False
+== 2026-10-14 15:14:05,651 modules.py:1055 INFO Checking whether Ray-project/2.37.0-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,651 modules.py:1076 INFO Module Ray-project/2.37.0-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,651 modules.py:1083 INFO Result for existence check of Ray-project/2.37.0-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,651 modules.py:1055 INFO Checking whether Ray-project/2.37.0-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,651 modules.py:1076 INFO Module Ray-project/2.37.0-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,652 modules.py:1083 INFO Result for existence check of Ray-project/2.37.0-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,652 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'Ray-project', 'version': '2.37.0', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'foss', 'version': '2024a'}
+== 2026-10-14 15:14:05,653 modules.py:1055 INFO Checking whether scanpy/1.10.4-gompi-2024a exists...
+== 2026-10-14 15:14:05,653 modules.py:1076 INFO Module scanpy/1.10.4-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,654 modules.py:1083 INFO Result for existence check of scanpy/1.10.4-gompi-2024a module: False
+== 2026-10-14 15:14:05,654 modules.py:1055 INFO Checking whether scanpy/1.10.4-gfbf-2024a exists...
+== 2026-10-14 15:14:05,654 modules.py:1076 INFO Module scanpy/1.10.4-gfbf-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,654 modules.py:1083 INFO Result for existence check of scanpy/1.10.4-gfbf-2024a module: False
+== 2026-10-14 15:14:05,654 modules.py:1055 INFO Checking whether scanpy/1.10.4-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,654 modules.py:1076 INFO Module scanpy/1.10.4-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,654 modules.py:1083 INFO Result for existence check of scanpy/1.10.4-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,654 modules.py:1055 INFO Checking whether scanpy/1.10.4-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,655 modules.py:1076 INFO Module scanpy/1.10.4-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,655 modules.py:1083 INFO Result for existence check of scanpy/1.10.4-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,655 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'scanpy', 'version': '1.10.4', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'foss', 'version': '2024a'}
+== 2026-10-14 15:14:05,656 modules.py:1055 INFO Checking whether scikit-learn/1.5.2-foss-2024a exists...
+== 2026-10-14 15:14:05,656 modules.py:1076 INFO Module scikit-learn/1.5.2-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,657 modules.py:1083 INFO Result for existence check of scikit-learn/1.5.2-foss-2024a module: False
+== 2026-10-14 15:14:05,657 modules.py:1055 INFO Checking whether scikit-learn/1.5.2-gompi-2024a exists...
+== 2026-10-14 15:14:05,657 modules.py:1076 INFO Module scikit-learn/1.5.2-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,657 modules.py:1083 INFO Result for existence check of scikit-learn/1.5.2-gompi-2024a module: False
+== 2026-10-14 15:14:05,657 modules.py:1055 INFO Checking whether scikit-learn/1.5.2-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,657 modules.py:1076 INFO Module scikit-learn/1.5.2-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,657 modules.py:1083 INFO Result for existence check of scikit-learn/1.5.2-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,658 modules.py:1055 INFO Checking whether scikit-learn/1.5.2-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,658 modules.py:1076 INFO Module scikit-learn/1.5.2-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,658 modules.py:1083 INFO Result for existence check of scikit-learn/1.5.2-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,658 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,658 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,658 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'scikit-learn', 'version': '1.5.2', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'gfbf', 'version': '2024a'}
+== 2026-10-14 15:14:05,659 modules.py:1055 INFO Checking whether Seaborn/0.13.2-foss-2024a exists...
+== 2026-10-14 15:14:05,659 modules.py:1076 INFO Module Seaborn/0.13.2-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,660 modules.py:1083 INFO Result for existence check of Seaborn/0.13.2-foss-2024a module: False
+== 2026-10-14 15:14:05,660 modules.py:1055 INFO Checking whether Seaborn/0.13.2-gompi-2024a exists...
+== 2026-10-14 15:14:05,660 modules.py:1076 INFO Module Seaborn/0.13.2-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,660 modules.py:1083 INFO Result for existence check of Seaborn/0.13.2-gompi-2024a module: False
+== 2026-10-14 15:14:05,661 modules.py:1055 INFO Checking whether Seaborn/0.13.2-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,661 modules.py:1076 INFO Module Seaborn/0.13.2-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,661 modules.py:1083 INFO Result for existence check of Seaborn/0.13.2-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,661 modules.py:1055 INFO Checking whether Seaborn/0.13.2-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,661 modules.py:1076 INFO Module Seaborn/0.13.2-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,661 modules.py:1083 INFO Result for existence check of Seaborn/0.13.2-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,661 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,662 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,662 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'Seaborn', 'version': '0.13.2', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'gfbf', 'version': '2024a'}
+== 2026-10-14 15:14:05,663 modules.py:1055 INFO Checking whether statsmodels/0.14.4-foss-2024a exists...
+== 2026-10-14 15:14:05,663 modules.py:1076 INFO Module statsmodels/0.14.4-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,663 modules.py:1083 INFO Result for existence check of statsmodels/0.14.4-foss-2024a module: False
+== 2026-10-14 15:14:05,664 modules.py:1055 INFO Checking whether statsmodels/0.14.4-gompi-2024a exists...
+== 2026-10-14 15:14:05,664 modules.py:1076 INFO Module statsmodels/0.14.4-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,664 modules.py:1083 INFO Result for existence check of statsmodels/0.14.4-gompi-2024a module: False
+== 2026-10-14 15:14:05,664 modules.py:1055 INFO Checking whether statsmodels/0.14.4-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,664 modules.py:1076 INFO Module statsmodels/0.14.4-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,664 modules.py:1083 INFO Result for existence check of statsmodels/0.14.4-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,664 modules.py:1055 INFO Checking whether statsmodels/0.14.4-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,664 modules.py:1076 INFO Module statsmodels/0.14.4-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,665 modules.py:1083 INFO Result for existence check of statsmodels/0.14.4-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,665 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,665 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,665 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'statsmodels', 'version': '0.14.4', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'gfbf', 'version': '2024a'}
+== 2026-10-14 15:14:05,666 modules.py:1055 INFO Checking whether tensorboard/2.18.0-foss-2024a exists...
+== 2026-10-14 15:14:05,666 modules.py:1076 INFO Module tensorboard/2.18.0-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,667 modules.py:1083 INFO Result for existence check of tensorboard/2.18.0-foss-2024a module: False
+== 2026-10-14 15:14:05,667 modules.py:1055 INFO Checking whether tensorboard/2.18.0-gompi-2024a exists...
+== 2026-10-14 15:14:05,667 modules.py:1076 INFO Module tensorboard/2.18.0-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,668 modules.py:1083 INFO Result for existence check of tensorboard/2.18.0-gompi-2024a module: False
+== 2026-10-14 15:14:05,668 modules.py:1055 INFO Checking whether tensorboard/2.18.0-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,668 modules.py:1076 INFO Module tensorboard/2.18.0-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,668 modules.py:1083 INFO Result for existence check of tensorboard/2.18.0-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,668 modules.py:1055 INFO Checking whether tensorboard/2.18.0-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,668 modules.py:1076 INFO Module tensorboard/2.18.0-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,668 modules.py:1083 INFO Result for existence check of tensorboard/2.18.0-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,668 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,669 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,670 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'tensorboard', 'version': '2.18.0', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'gfbf', 'version': '2024a'}
+== 2026-10-14 15:14:05,670 modules.py:1055 INFO Checking whether tqdm/4.66.5-foss-2024a exists...
+== 2026-10-14 15:14:05,671 modules.py:1076 INFO Module tqdm/4.66.5-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,671 modules.py:1083 INFO Result for existence check of tqdm/4.66.5-foss-2024a module: False
+== 2026-10-14 15:14:05,671 modules.py:1055 INFO Checking whether tqdm/4.66.5-gompi-2024a exists...
+== 2026-10-14 15:14:05,671 modules.py:1076 INFO Module tqdm/4.66.5-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,671 modules.py:1083 INFO Result for existence check of tqdm/4.66.5-gompi-2024a module: False
+== 2026-10-14 15:14:05,672 modules.py:1055 INFO Checking whether tqdm/4.66.5-gfbf-2024a exists...
+== 2026-10-14 15:14:05,672 modules.py:1076 INFO Module tqdm/4.66.5-gfbf-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,672 modules.py:1083 INFO Result for existence check of tqdm/4.66.5-gfbf-2024a module: False
+== 2026-10-14 15:14:05,672 modules.py:1055 INFO Checking whether tqdm/4.66.5-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,672 modules.py:1076 INFO Module tqdm/4.66.5-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,672 modules.py:1083 INFO Result for existence check of tqdm/4.66.5-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,672 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,673 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,673 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,673 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,673 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'tqdm', 'version': '4.66.5', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'GCCcore', 'version': '13.3.0'}
+== 2026-10-14 15:14:05,674 modules.py:1055 INFO Checking whether Transformers/4.57.1-foss-2024a exists...
+== 2026-10-14 15:14:05,674 modules.py:1076 INFO Module Transformers/4.57.1-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,675 modules.py:1083 INFO Result for existence check of Transformers/4.57.1-foss-2024a module: False
+== 2026-10-14 15:14:05,675 modules.py:1055 INFO Checking whether Transformers/4.57.1-gompi-2024a exists...
+== 2026-10-14 15:14:05,675 modules.py:1076 INFO Module Transformers/4.57.1-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,675 modules.py:1083 INFO Result for existence check of Transformers/4.57.1-gompi-2024a module: False
+== 2026-10-14 15:14:05,675 modules.py:1055 INFO Checking whether Transformers/4.57.1-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,675 modules.py:1076 INFO Module Transformers/4.57.1-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,675 modules.py:1083 INFO Result for existence check of Transformers/4.57.1-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,676 modules.py:1055 INFO Checking whether Transformers/4.57.1-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,676 modules.py:1076 INFO Module Transformers/4.57.1-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,676 modules.py:1083 INFO Result for existence check of Transformers/4.57.1-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,676 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,676 easyconfig.py:2440 INFO Found loaded index for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs
+== 2026-10-14 15:14:05,676 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'Transformers', 'version': '4.57.1', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'gfbf', 'version': '2024a'}
+== 2026-10-14 15:14:05,677 modules.py:1055 INFO Checking whether accelerate/1.10.0-foss-2024a exists...
+== 2026-10-14 15:14:05,677 modules.py:1076 INFO Module accelerate/1.10.0-foss-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,678 modules.py:1083 INFO Result for existence check of accelerate/1.10.0-foss-2024a module: False
+== 2026-10-14 15:14:05,678 modules.py:1055 INFO Checking whether accelerate/1.10.0-gompi-2024a exists...
+== 2026-10-14 15:14:05,678 modules.py:1076 INFO Module accelerate/1.10.0-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,678 modules.py:1083 INFO Result for existence check of accelerate/1.10.0-gompi-2024a module: False
+== 2026-10-14 15:14:05,678 modules.py:1055 INFO Checking whether accelerate/1.10.0-gfbf-2024a exists...
+== 2026-10-14 15:14:05,678 modules.py:1076 INFO Module accelerate/1.10.0-gfbf-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,678 modules.py:1083 INFO Result for existence check of accelerate/1.10.0-gfbf-2024a module: False
+== 2026-10-14 15:14:05,678 modules.py:1055 INFO Checking whether accelerate/1.10.0-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,678 modules.py:1076 INFO Module accelerate/1.10.0-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,679 modules.py:1083 INFO Result for existence check of accelerate/1.10.0-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,679 modules.py:1055 INFO Checking whether accelerate/1.10.0-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,679 modules.py:1076 INFO Module accelerate/1.10.0-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,679 modules.py:1083 INFO Result for existence check of accelerate/1.10.0-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,679 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'accelerate', 'version': '1.10.0', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'foss', 'version': '2024a'}
+== 2026-10-14 15:14:05,680 modules.py:1055 INFO Checking whether anndata/0.11.4-gompi-2024a exists...
+== 2026-10-14 15:14:05,680 modules.py:1076 INFO Module anndata/0.11.4-gompi-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,681 modules.py:1083 INFO Result for existence check of anndata/0.11.4-gompi-2024a module: False
+== 2026-10-14 15:14:05,682 modules.py:1055 INFO Checking whether anndata/0.11.4-gfbf-2024a exists...
+== 2026-10-14 15:14:05,682 modules.py:1076 INFO Module anndata/0.11.4-gfbf-2024a not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,682 modules.py:1083 INFO Result for existence check of anndata/0.11.4-gfbf-2024a module: False
+== 2026-10-14 15:14:05,682 modules.py:1055 INFO Checking whether anndata/0.11.4-GCC-13.3.0 exists...
+== 2026-10-14 15:14:05,682 modules.py:1076 INFO Module anndata/0.11.4-GCC-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,682 modules.py:1083 INFO Result for existence check of anndata/0.11.4-GCC-13.3.0 module: False
+== 2026-10-14 15:14:05,682 modules.py:1055 INFO Checking whether anndata/0.11.4-GCCcore-13.3.0 exists...
+== 2026-10-14 15:14:05,682 modules.py:1076 INFO Module anndata/0.11.4-GCCcore-13.3.0 not found via module avail/show, checking whether it is a wrapper
+== 2026-10-14 15:14:05,683 modules.py:1083 INFO Result for existence check of anndata/0.11.4-GCCcore-13.3.0 module: False
+== 2026-10-14 15:14:05,683 easyconfig.py:2616 INFO Minimally resolving dependency {'full_mod_name': None, 'short_mod_name': None, 'name': 'anndata', 'version': '0.11.4', 'versionsuffix': '', 'toolchain': {'name': 'foss', 'version': '2024a'}, 'toolchain_inherited': True, 'system': False, 'hidden': False, 'build_only': False, 'external_module': False, 'external_module_metadata': {}} using toolchain {'name': 'foss', 'version': '2024a'}
+== 2026-10-14 15:14:05,683 easyconfig.py:945 INFO Validating easyconfig
+== 2026-10-14 15:14:05,683 easyconfig.py:950 INFO Checking OS dependencies
+== 2026-10-14 15:14:05,683 easyconfig.py:1024 INFO OS dependencies ok: []
+== 2026-10-14 15:14:05,683 easyconfig.py:955 INFO Checking skipsteps
+== 2026-10-14 15:14:05,683 easyconfig.py:976 INFO Checking build option lists
+== 2026-10-14 15:14:05,683 easyconfig.py:979 INFO Checking licenses
+== 2026-10-14 15:14:05,685 pythonbundle.py:76 INFO exts_default_options: {'buildcmd': None, 'check_ldshared': None, 'click_autocomplete_bins': None, 'download_dep_fail': None, 'dummy_package': None, 'exts_formatter': <function partial_normalize_pip at 0x1470b2317310>, 'fix_python_shebang_for': ['bin/*'], 'install_src': None, 'install_target': 'install', 'pip_ignore_installed': True, 'pip_no_build_isolation': True, 'pip_no_index': None, 'pip_verbose': None, 'req_py_majver': None, 'req_py_minver': None, 'max_py_majver': None, 'max_py_minver': None, 'sanity_pip_check': True, 'sanity_check_pip_list': None, 'runtest': True, 'testinstall': False, 'ulimit': None, 'unpack_sources': None, 'unversioned_packages': [], 'use_pip': True, 'use_pip_editable': False, 'use_pip_extras': None, 'use_pip_for_deps': False, 'use_pip_requirement': False, 'zipped_egg': False, 'source_urls': ['https://pypi.python.org/packages/source/%(nameletter)s/%(name)s'], 'options': {}}
+== 2026-10-14 15:14:05,685 easyblock.py:5398 INFO Obtained application instance for Geneformer (easyblock: PythonBundle)
+== 2026-10-14 15:14:06,685 easyconfig.py:1840 INFO Generating template values...
+== 2026-10-14 15:14:06,685 mpi.py:123 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2026-10-14 15:14:06,685 mpi.py:299 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2026-10-14 15:14:06,686 easyconfig.py:1859 INFO Template values: arch='x86_64', bitbucket_account='geneformer', cuda_cc_cmake='70;80;86;90', cuda_cc_nvhpc='cc70,cc80,cc86,cc90', cuda_cc_semicolon_sep='7.0;8.0;8.6;9.0', cuda_cc_space_sep='7.0 8.0 8.6 9.0', cuda_cc_space_sep_no_period='70 80 86 90', cuda_compute_capabilities='7.0,8.0,8.6,9.0', cuda_int_comma_sep='70,80,86,90', cuda_int_semicolon_sep='70;80;86;90', cuda_int_space_sep='70 80 86 90', cuda_sm_comma_sep='sm_70,sm_80,sm_86,sm_90', cuda_sm_space_sep='sm_70 sm_80 sm_86 sm_90', github_account='geneformer', module_name='Geneformer/0.1.0-20260526-foss-2024a', mpi_cmd_prefix='mpirun -n 1', name='Geneformer', nameletter='G', nameletterlower='g', namelower='geneformer', pymajver='3', pyminver='12', pyshortver='3.12', pyver='3.12.3', rpath_enabled='true', software_commit='', sysroot='', toolchain_name='foss', toolchain_version='2024a', version='0.1.0-20260526', version_major='0', version_major_minor='0.1', version_major_minor_patch='0.1.0-20260526', version_minor='1', version_minor_patch='1.0-20260526', version_patch='0-20260526', versionprefix='', versionsuffix=''
+== 2026-10-14 15:14:06,687 one.py:179 INFO Skipping reformatting value for parameter 'toolchain'
+== 2026-10-14 15:14:06,688 filetools.py:2076 INFO Creating directory /tmp/vsc47063/eb-dasmr5te/reprod_20261014151406_896207 (parents: True, set_gid: False, sticky: False)
+== 2026-10-14 15:14:06,688 easyblock.py:5679 INFO Dumped easyconfig instance to /tmp/vsc47063/eb-dasmr5te/reprod_20261014151406_896207/Geneformer-0.1.0-20260526-foss-2024a.eb
+== 2026-10-14 15:14:06,689 filetools.py:2076 INFO Creating directory /tmp/vsc47063/eb-dasmr5te/reprod_20261014151406_896207/easyblocks (parents: True, set_gid: False, sticky: False)
+== 2026-10-14 15:14:06,689 filetools.py:2563 INFO /scratch/gent/470/vsc47063/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/pythonbundle.py copied to /tmp/vsc47063/eb-dasmr5te/reprod_20261014151406_896207/easyblocks/pythonbundle.py
+== 2026-10-14 15:14:06,689 easyblock.py:5659 INFO Dumped easyblock pythonbundle.py required for reproduction to /tmp/vsc47063/eb-dasmr5te/reprod_20261014151406_896207/easyblocks
+== 2026-10-14 15:14:06,689 filetools.py:2563 INFO /scratch/gent/470/vsc47063/easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/bundle.py copied to /tmp/vsc47063/eb-dasmr5te/reprod_20261014151406_896207/easyblocks/bundle.py
+== 2026-10-14 15:14:06,689 easyblock.py:5659 INFO Dumped easyblock bundle.py required for reproduction to /tmp/vsc47063/eb-dasmr5te/reprod_20261014151406_896207/easyblocks
+== 2026-10-14 15:14:06,690 filetools.py:2076 INFO Creating directory /tmp/vsc47063/eb-dasmr5te/reprod_20261014151406_896207/hooks (parents: True, set_gid: False, sticky: False)
+== 2026-10-14 15:14:06,690 filetools.py:2563 INFO /user/gent/470/vsc47063/my_hooks.py copied to /tmp/vsc47063/eb-dasmr5te/reprod_20261014151406_896207/hooks/my_hooks.py
+== 2026-10-14 15:14:06,690 easyblock.py:5691 INFO Dumped hooks file /user/gent/470/vsc47063/my_hooks.py which is (potentially) required for reproduction to /tmp/vsc47063/eb-dasmr5te/reprod_20261014151406_896207/hooks/my_hooks.py
+== 2026-10-14 15:14:06,690 easyblock.py:2756 INFO Number of iterations to perform for central part of installation procedure: 1
+== 2026-10-14 15:14:06,690 build_log.py:330 INFO building and installing Geneformer/0.1.0-20260526-foss-2024a...
+== 2026-10-14 15:14:06,694 filetools.py:2162 INFO Lock /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL9_cascadelake-ampere-ib_software_Geneformer_0.1.0-20260526-foss-2024a.lock does not exist
+== 2026-10-14 15:14:06,694 filetools.py:2119 INFO Creating lock at /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL9_cascadelake-ampere-ib_software_Geneformer_0.1.0-20260526-foss-2024a.lock...
+== 2026-10-14 15:14:06,694 filetools.py:2076 INFO Creating directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL9_cascadelake-ampere-ib_software_Geneformer_0.1.0-20260526-foss-2024a.lock (parents: True, set_gid: False, sticky: False)
+== 2026-10-14 15:14:06,695 filetools.py:2128 INFO Lock created: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL9_cascadelake-ampere-ib_software_Geneformer_0.1.0-20260526-foss-2024a.lock
+== 2026-10-14 15:14:06,695 easyblock.py:2792 INFO Setting parallelism: 8
+== 2026-10-14 15:14:06,695 build_log.py:330 INFO fetching files and verifying checksums...
+== 2026-10-14 15:14:06,697 easyblock.py:5068 INFO Starting fetch step
+== 2026-10-14 15:14:06,697 easyconfig.py:1840 INFO Generating template values...
+== 2026-10-14 15:14:06,697 mpi.py:123 INFO Using template MPI command 'mpirun -n %(nr_ranks)s %(cmd)s' for MPI family 'OpenMPI'
+== 2026-10-14 15:14:06,697 mpi.py:299 INFO Using MPI command template 'mpirun -n %(nr_ranks)s %(cmd)s' (params: {'nr_ranks': 1, 'cmd': 'xxx_command_xxx'})
+== 2026-10-14 15:14:06,697 easyconfig.py:1859 INFO Template values: arch='x86_64', bitbucket_account='geneformer', builddir='/tmp/vsc47063/easybuild/build/Geneformer/0.1.0-20260526/foss-2024a', cuda_cc_cmake='70;80;86;90', cuda_cc_nvhpc='cc70,cc80,cc86,cc90', cuda_cc_semicolon_sep='7.0;8.0;8.6;9.0', cuda_cc_space_sep='7.0 8.0 8.6 9.0', cuda_cc_space_sep_no_period='70 80 86 90', cuda_compute_capabilities='7.0,8.0,8.6,9.0', cuda_int_comma_sep='70,80,86,90', cuda_int_semicolon_sep='70;80;86;90', cuda_int_space_sep='70 80 86 90', cuda_sm_comma_sep='sm_70,sm_80,sm_86,sm_90', cuda_sm_space_sep='sm_70 sm_80 sm_86 sm_90', github_account='geneformer', installdir='/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Geneformer/0.1.0-20260526-foss-2024a', module_name='Geneformer/0.1.0-20260526-foss-2024a', mpi_cmd_prefix='mpirun -n 1', name='Geneformer', nameletter='G', nameletterlower='g', namelower='geneformer', parallel='8', pymajver='3', pyminver='12', pyshortver='3.12', pyver='3.12.3', rpath_enabled='true', software_commit='', start_dir='None', sysroot='', toolchain_name='foss', toolchain_version='2024a', version='0.1.0-20260526', version_major='0', version_major_minor='0.1', version_major_minor_patch='0.1.0-20260526', version_minor='1', version_minor_patch='1.0-20260526', version_patch='0-20260526', versionprefix='', versionsuffix=''
+== 2026-10-14 15:14:06,697 easyblock.py:5079 INFO Running method fetch_step part of step fetch
+== 2026-10-14 15:14:06,697 easyblock.py:2893 WARNING Easyconfig does not specify an EasyBuild-version (key 'easybuild_version')! Assuming the latest version
+== 2026-10-14 15:14:06,698 run.py:532 INFO Running command in /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025a/v2.1.2:
+	/usr/share/lmod/lmod/libexec/lmod python --terse --show-hidden avail git-lfs/3.7.1
+== 2026-10-14 15:14:10,817 run.py:650 INFO Command completed successfully
+== 2026-10-14 15:14:10,818 modules.py:1055 INFO Checking whether git-lfs/3.7.1 exists...
+== 2026-10-14 15:14:10,818 modules.py:1060 INFO Module git-lfs/3.7.1 exists (found in list of available modules)
+== 2026-10-14 15:14:10,818 modules.py:1083 INFO Result for existence check of git-lfs/3.7.1 module: True
+== 2026-10-14 15:14:10,818 run.py:532 INFO Running command in /kyukon/data/gent/470/vsc47063/vsc-software-stack/644_dorado-1.4/2025a/v2.1.2:
+	/usr/share/lmod/lmod/libexec/lmod python load git-lfs/3.7.1
+== 2026-10-14 15:14:14,393 run.py:650 INFO Command completed successfully
+== 2026-10-14 15:14:14,394 easyblock.py:2941 INFO no sources or data_sources provided
+== 2026-10-14 15:14:14,394 easyblock.py:2956 INFO no patches provided
+== 2026-10-14 15:14:14,394 easyblock.py:971 INFO Considering directory in which easyconfig file is located when searching for optuna-integration-4.1.0.tar.gz: /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer
+== 2026-10-14 15:14:14,394 tools.py:243 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /scratch/gent/470/vsc47063/easybuild/easybuild-framework/eb
+== 2026-10-14 15:14:14,394 tools.py:259 INFO Not considering /scratch/gent/470/vsc47063/easybuild (no easybuild/easyconfigs subdir found)
+== 2026-10-14 15:14:14,395 tools.py:267 INFO Also considering installation prefix /kyukon/scratch/gent/470/vsc47063/easybuild (via resolved path to 'eb')...
+== 2026-10-14 15:14:14,405 filetools.py:2076 INFO Creating directory /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer (parents: True, set_gid: False, sticky: False)
+== 2026-10-14 15:14:14,735 filetools.py:906 INFO File size for https://pypi.python.org/simple/optuna-integration: 15037
+== 2026-10-14 15:14:14,735 filetools.py:297 INFO Not showing progress bar for downloading small file (size 15037)
+== 2026-10-14 15:14:14,737 filetools.py:913 INFO Downloaded file optuna-integration_urls.html from url https://pypi.python.org/simple/optuna-integration to /tmp/vsc47063/eb-dasmr5te/tmpmr44se56/optuna-integration_urls.html
+== 2026-10-14 15:14:14,737 filetools.py:963 INFO Successful download of file optuna-integration_urls.html from url https://pypi.python.org/simple/optuna-integration to path %/tmp/vsc47063/eb-dasmr5te/tmpmr44se56/optuna-integration_urls.html
+== 2026-10-14 15:14:14,743 filetools.py:2076 INFO Creating directory /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/extensions (parents: True, set_gid: False, sticky: False)
+== 2026-10-14 15:14:15,118 filetools.py:922 WARNING URL https://pypi.python.org/packages/source/o/optuna-integration/optuna-integration-4.1.0.tar.gz was not found (HTTP response code 404), not trying again
+== 2026-10-14 15:14:15,119 filetools.py:968 WARNING Download of https://pypi.python.org/packages/source/o/optuna-integration/optuna-integration-4.1.0.tar.gz to /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/extensions/optuna-integration-4.1.0.tar.gz failed, done trying
+== 2026-10-14 15:14:15,528 filetools.py:922 WARNING URL https://pypi.python.org/simple/geneformer was not found (HTTP response code 404), not trying again
+== 2026-10-14 15:14:15,529 filetools.py:968 WARNING Download of https://pypi.python.org/simple/geneformer to /tmp/vsc47063/eb-dasmr5te/tmpf5oi6ime/Geneformer_urls.html failed, done trying
+== 2026-10-14 15:14:16,076 filetools.py:922 WARNING URL https://pypi.python.org/packages/source/G/Geneformer/optuna-integration-4.1.0.tar.gz was not found (HTTP response code 404), not trying again
+== 2026-10-14 15:14:16,077 filetools.py:968 WARNING Download of https://pypi.python.org/packages/source/G/Geneformer/optuna-integration-4.1.0.tar.gz to /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/extensions/optuna-integration-4.1.0.tar.gz failed, done trying
+== 2026-10-14 15:14:16,136 filetools.py:922 WARNING URL https://sources.easybuild.io/g/Geneformer/optuna-integration-4.1.0.tar.gz was not found (HTTP response code 404), not trying again
+== 2026-10-14 15:14:16,137 filetools.py:968 WARNING Download of https://sources.easybuild.io/g/Geneformer/optuna-integration-4.1.0.tar.gz to /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/extensions/optuna-integration-4.1.0.tar.gz failed, done trying
+== 2026-10-14 15:14:16,140 easyblock.py:1149 WARNING Couldn't find file optuna-integration-4.1.0.tar.gz anywhere, and downloading it didn't work either... Paths attempted (in order): /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/g/Geneformer/extensions/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/g/Geneformer/packages/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/g/Geneformer/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/Geneformer/extensions/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/Geneformer/packages/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/Geneformer/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/extensions/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/packages/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/extensions/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/packages/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/Geneformer/extensions/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/Geneformer/packages/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/Geneformer/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/extensions/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/packages/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/extensions/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/packages/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/Geneformer/extensions/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/Geneformer/packages/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/Geneformer/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/extensions/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/packages/optuna-integration-4.1.0.tar.gz, /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/optuna-integration-4.1.0.tar.gz, /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/extensions/optuna-integration-4.1.0.tar.gz, /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/packages/optuna-integration-4.1.0.tar.gz, /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/optuna-integration-4.1.0.tar.gz, /data/gent/vo/001/gvo00117/easybuild/sources/Geneformer/extensions/optuna-integration-4.1.0.tar.gz, /data/gent/vo/001/gvo00117/easybuild/sources/Geneformer/packages/optuna-integration-4.1.0.tar.gz, /data/gent/vo/001/gvo00117/easybuild/sources/Geneformer/optuna-integration-4.1.0.tar.gz, /data/gent/vo/001/gvo00117/easybuild/sources/extensions/optuna-integration-4.1.0.tar.gz, /data/gent/vo/001/gvo00117/easybuild/sources/packages/optuna-integration-4.1.0.tar.gz, /data/gent/vo/001/gvo00117/easybuild/sources/optuna-integration-4.1.0.tar.gz, /apps/gent/sources/g/Geneformer/extensions/optuna-integration-4.1.0.tar.gz, /apps/gent/sources/g/Geneformer/packages/optuna-integration-4.1.0.tar.gz, /apps/gent/sources/g/Geneformer/optuna-integration-4.1.0.tar.gz, /apps/gent/sources/Geneformer/extensions/optuna-integration-4.1.0.tar.gz, /apps/gent/sources/Geneformer/packages/optuna-integration-4.1.0.tar.gz, /apps/gent/sources/Geneformer/optuna-integration-4.1.0.tar.gz, /apps/gent/sources/extensions/optuna-integration-4.1.0.tar.gz, /apps/gent/sources/packages/optuna-integration-4.1.0.tar.gz, /apps/gent/sources/optuna-integration-4.1.0.tar.gz, https://pypi.python.org/packages/source/o/optuna-integration/optuna-integration-4.1.0.tar.gz, https://pypi.python.org/packages/source/G/Geneformer/optuna-integration-4.1.0.tar.gz, https://sources.easybuild.io/g/Geneformer/optuna-integration-4.1.0.tar.gz 
+== 2026-10-14 15:14:16,140 easyblock.py:971 INFO Considering directory in which easyconfig file is located when searching for optuna-integration-4.1.0.tar.gz: /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer
+== 2026-10-14 15:14:16,140 tools.py:243 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /scratch/gent/470/vsc47063/easybuild/easybuild-framework/eb
+== 2026-10-14 15:14:16,140 tools.py:259 INFO Not considering /scratch/gent/470/vsc47063/easybuild (no easybuild/easyconfigs subdir found)
+== 2026-10-14 15:14:16,140 tools.py:267 INFO Also considering installation prefix /kyukon/scratch/gent/470/vsc47063/easybuild (via resolved path to 'eb')...
+== 2026-10-14 15:14:16,236 filetools.py:906 INFO File size for https://pypi.python.org/simple/optuna-integration: 15037
+== 2026-10-14 15:14:16,236 filetools.py:297 INFO Not showing progress bar for downloading small file (size 15037)
+== 2026-10-14 15:14:16,237 filetools.py:913 INFO Downloaded file optuna-integration_urls.html from url https://pypi.python.org/simple/optuna-integration to /tmp/vsc47063/eb-dasmr5te/tmp0hicfd9i/optuna-integration_urls.html
+== 2026-10-14 15:14:16,237 filetools.py:963 INFO Successful download of file optuna-integration_urls.html from url https://pypi.python.org/simple/optuna-integration to path %/tmp/vsc47063/eb-dasmr5te/tmp0hicfd9i/optuna-integration_urls.html
+== 2026-10-14 15:14:16,776 filetools.py:906 INFO File size for https://pypi.python.org/packages/ab/4b/2290239d6f5c004872353c549d78ea2ee47496b087cc11004b89339e288e/optuna_integration-4.1.0.tar.gz: 85218
+== 2026-10-14 15:14:16,777 filetools.py:297 INFO Not showing progress bar for downloading small file (size 85218)
+== 2026-10-14 15:14:16,797 filetools.py:913 INFO Downloaded file optuna-integration-4.1.0.tar.gz from url https://pypi.python.org/packages/ab/4b/2290239d6f5c004872353c549d78ea2ee47496b087cc11004b89339e288e/optuna_integration-4.1.0.tar.gz to /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/extensions/optuna-integration-4.1.0.tar.gz
+== 2026-10-14 15:14:16,798 filetools.py:963 INFO Successful download of file optuna-integration-4.1.0.tar.gz from url https://pypi.python.org/packages/ab/4b/2290239d6f5c004872353c549d78ea2ee47496b087cc11004b89339e288e/optuna_integration-4.1.0.tar.gz to path %/data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/extensions/optuna-integration-4.1.0.tar.gz
+== 2026-10-14 15:14:16,800 easyblock.py:1122 INFO Successfully downloaded source file optuna-integration-4.1.0.tar.gz from https://pypi.python.org/packages/ab/4b/2290239d6f5c004872353c549d78ea2ee47496b087cc11004b89339e288e/optuna_integration-4.1.0.tar.gz
+== 2026-10-14 15:14:16,801 easyblock.py:809 INFO sha256 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/extensions/optuna-integration-4.1.0.tar.gz: 86201502fab9c3bba8aa6ffaac0f465b0bcdb75ec75fd157eda8b96352fb3cf3
+== 2026-10-14 15:14:16,801 easyblock.py:815 INFO Checksum for extension source optuna-integration-4.1.0.tar.gz verified
+== 2026-10-14 15:14:16,801 easyblock.py:645 INFO Fetched extension patches: []
+== 2026-10-14 15:14:16,801 easyblock.py:971 INFO Considering directory in which easyconfig file is located when searching for peft-0.15.2.tar.gz: /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer
+== 2026-10-14 15:14:16,802 tools.py:243 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /scratch/gent/470/vsc47063/easybuild/easybuild-framework/eb
+== 2026-10-14 15:14:16,802 tools.py:259 INFO Not considering /scratch/gent/470/vsc47063/easybuild (no easybuild/easyconfigs subdir found)
+== 2026-10-14 15:14:16,802 tools.py:267 INFO Also considering installation prefix /kyukon/scratch/gent/470/vsc47063/easybuild (via resolved path to 'eb')...
+== 2026-10-14 15:14:17,130 filetools.py:906 INFO File size for https://pypi.python.org/simple/peft: 29639
+== 2026-10-14 15:14:17,130 filetools.py:297 INFO Not showing progress bar for downloading small file (size 29639)
+== 2026-10-14 15:14:17,133 filetools.py:913 INFO Downloaded file peft_urls.html from url https://pypi.python.org/simple/peft to /tmp/vsc47063/eb-dasmr5te/tmpjlrgbjdr/peft_urls.html
+== 2026-10-14 15:14:17,133 filetools.py:963 INFO Successful download of file peft_urls.html from url https://pypi.python.org/simple/peft to path %/tmp/vsc47063/eb-dasmr5te/tmpjlrgbjdr/peft_urls.html
+== 2026-10-14 15:14:17,478 filetools.py:906 INFO File size for https://pypi.python.org/packages/33/65/faa18cd8ffbe0f742c3f2559770646cce2574b9cd28a2a05e8d36f64e968/peft-0.15.2.tar.gz: 472952
+== 2026-10-14 15:14:17,480 filetools.py:297 INFO Not showing progress bar for downloading small file (size 472952)
+== 2026-10-14 15:14:17,508 filetools.py:913 INFO Downloaded file peft-0.15.2.tar.gz from url https://pypi.python.org/packages/33/65/faa18cd8ffbe0f742c3f2559770646cce2574b9cd28a2a05e8d36f64e968/peft-0.15.2.tar.gz to /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/extensions/peft-0.15.2.tar.gz
+== 2026-10-14 15:14:17,508 filetools.py:963 INFO Successful download of file peft-0.15.2.tar.gz from url https://pypi.python.org/packages/33/65/faa18cd8ffbe0f742c3f2559770646cce2574b9cd28a2a05e8d36f64e968/peft-0.15.2.tar.gz to path %/data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/extensions/peft-0.15.2.tar.gz
+== 2026-10-14 15:14:17,511 easyblock.py:1122 INFO Successfully downloaded source file peft-0.15.2.tar.gz from https://pypi.python.org/packages/33/65/faa18cd8ffbe0f742c3f2559770646cce2574b9cd28a2a05e8d36f64e968/peft-0.15.2.tar.gz
+== 2026-10-14 15:14:17,512 easyblock.py:809 INFO sha256 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/extensions/peft-0.15.2.tar.gz: 7059029f4d42a092ded1aa117dd366a46084aef638bdd593f6ab0195d5427fcd
+== 2026-10-14 15:14:17,512 easyblock.py:815 INFO Checksum for extension source peft-0.15.2.tar.gz verified
+== 2026-10-14 15:14:17,512 easyblock.py:645 INFO Fetched extension patches: []
+== 2026-10-14 15:14:17,513 easyblock.py:971 INFO Considering directory in which easyconfig file is located when searching for accumulation_tree-0.6.4.tar.gz: /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer
+== 2026-10-14 15:14:17,513 tools.py:243 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /scratch/gent/470/vsc47063/easybuild/easybuild-framework/eb
+== 2026-10-14 15:14:17,513 tools.py:259 INFO Not considering /scratch/gent/470/vsc47063/easybuild (no easybuild/easyconfigs subdir found)
+== 2026-10-14 15:14:17,513 tools.py:267 INFO Also considering installation prefix /kyukon/scratch/gent/470/vsc47063/easybuild (via resolved path to 'eb')...
+== 2026-10-14 15:14:17,514 easyblock.py:1013 INFO Found file accumulation_tree-0.6.4.tar.gz at /apps/gent/sources/g/Geneformer/extensions/accumulation_tree-0.6.4.tar.gz
+== 2026-10-14 15:14:17,531 easyblock.py:809 INFO sha256 checksum for /apps/gent/sources/g/Geneformer/extensions/accumulation_tree-0.6.4.tar.gz: 5f907667e4106b5ba140b6b871e1902eb2a93d429b92f8a9f7ddb2bee7704334
+== 2026-10-14 15:14:17,532 easyblock.py:815 INFO Checksum for extension source accumulation_tree-0.6.4.tar.gz verified
+== 2026-10-14 15:14:17,532 easyblock.py:645 INFO Fetched extension patches: []
+== 2026-10-14 15:14:17,532 easyblock.py:971 INFO Considering directory in which easyconfig file is located when searching for pyudorandom-1.0.0.tar.gz: /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer
+== 2026-10-14 15:14:17,532 tools.py:243 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /scratch/gent/470/vsc47063/easybuild/easybuild-framework/eb
+== 2026-10-14 15:14:17,532 tools.py:259 INFO Not considering /scratch/gent/470/vsc47063/easybuild (no easybuild/easyconfigs subdir found)
+== 2026-10-14 15:14:17,532 tools.py:267 INFO Also considering installation prefix /kyukon/scratch/gent/470/vsc47063/easybuild (via resolved path to 'eb')...
+== 2026-10-14 15:14:17,533 easyblock.py:1013 INFO Found file pyudorandom-1.0.0.tar.gz at /apps/gent/sources/g/Geneformer/extensions/pyudorandom-1.0.0.tar.gz
+== 2026-10-14 15:14:17,533 easyblock.py:809 INFO sha256 checksum for /apps/gent/sources/g/Geneformer/extensions/pyudorandom-1.0.0.tar.gz: f30a093a0170c15f9c7f87eb29f71f0f5fde995528b7c6dc4606d389e8c37755
+== 2026-10-14 15:14:17,533 easyblock.py:815 INFO Checksum for extension source pyudorandom-1.0.0.tar.gz verified
+== 2026-10-14 15:14:17,534 easyblock.py:645 INFO Fetched extension patches: []
+== 2026-10-14 15:14:17,534 easyblock.py:971 INFO Considering directory in which easyconfig file is located when searching for tdigest-0.5.2.2-py3-none-any.whl: /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer
+== 2026-10-14 15:14:17,534 tools.py:243 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /scratch/gent/470/vsc47063/easybuild/easybuild-framework/eb
+== 2026-10-14 15:14:17,534 tools.py:259 INFO Not considering /scratch/gent/470/vsc47063/easybuild (no easybuild/easyconfigs subdir found)
+== 2026-10-14 15:14:17,534 tools.py:267 INFO Also considering installation prefix /kyukon/scratch/gent/470/vsc47063/easybuild (via resolved path to 'eb')...
+== 2026-10-14 15:14:17,535 easyblock.py:1013 INFO Found file tdigest-0.5.2.2-py3-none-any.whl at /apps/gent/sources/g/Geneformer/extensions/tdigest-0.5.2.2-py3-none-any.whl
+== 2026-10-14 15:14:17,561 easyblock.py:809 INFO sha256 checksum for /apps/gent/sources/g/Geneformer/extensions/tdigest-0.5.2.2-py3-none-any.whl: dd25f8d6e6be002192bba9e4b8c16491d36c10b389f50637818603d1f67c6fb2
+== 2026-10-14 15:14:17,561 easyblock.py:815 INFO Checksum for extension source tdigest-0.5.2.2-py3-none-any.whl verified
+== 2026-10-14 15:14:17,561 easyblock.py:645 INFO Fetched extension patches: []
+== 2026-10-14 15:14:17,561 easyblock.py:971 INFO Considering directory in which easyconfig file is located when searching for Geneformer-0.1.0.tar.xz: /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer
+== 2026-10-14 15:14:17,561 tools.py:243 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /scratch/gent/470/vsc47063/easybuild/easybuild-framework/eb
+== 2026-10-14 15:14:17,561 tools.py:259 INFO Not considering /scratch/gent/470/vsc47063/easybuild (no easybuild/easyconfigs subdir found)
+== 2026-10-14 15:14:17,562 tools.py:267 INFO Also considering installation prefix /kyukon/scratch/gent/470/vsc47063/easybuild (via resolved path to 'eb')...
+== 2026-10-14 15:14:17,568 run.py:492 INFO run_shell_cmd: Script to start debug shell for shell command 'git ...'
+	will be saved to /tmp/vsc47063/eb-dasmr5te/run-shell-cmd-output/git-o9y6lyqw/cmd.sh
+	output will be logged to /tmp/vsc47063/eb-dasmr5te/run-shell-cmd-output/git-o9y6lyqw/out.txt
+== 2026-10-14 15:14:17,568 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+== 2026-10-14 15:14:17,568 run.py:532 INFO Running shell command in /tmp/vsc47063/eb-dasmr5te/tmp5eg0m7iq:
+	git -c lfs.fetchinclude=geneformer/gene_median_dictionary_gc104M.pkl,geneformer/gene_name_id_dict_gc104M.pkl,geneformer/ensembl_mapping_dict_gc104M.pkl,geneformer/token_dictionary_gc104M.pkl,geneformer/gene_dictionaries_30m/gene_median_dictionary_gc30M.pkl,geneformer/gene_dictionaries_30m/gene_name_id_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/ensembl_mapping_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/token_dictionary_gc30M.pkl clone --no-checkout https://huggingface.co/ctheodoris/Geneformer.git
+== 2026-10-14 15:14:18,587 run.py:650 INFO Shell command completed successfully
+Output (stdout + stderr):
+Cloning into 'Geneformer'...
+
+== 2026-10-14 15:14:18,593 run.py:492 INFO run_shell_cmd: Script to start debug shell for shell command 'git ...'
+	will be saved to /tmp/vsc47063/eb-dasmr5te/run-shell-cmd-output/git-qp3zzyfs/cmd.sh
+	output will be logged to /tmp/vsc47063/eb-dasmr5te/run-shell-cmd-output/git-qp3zzyfs/out.txt
+== 2026-10-14 15:14:18,593 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+== 2026-10-14 15:14:18,593 run.py:532 INFO Running shell command in /tmp/vsc47063/eb-dasmr5te/tmp5eg0m7iq/Geneformer:
+	git -c lfs.fetchinclude=geneformer/gene_median_dictionary_gc104M.pkl,geneformer/gene_name_id_dict_gc104M.pkl,geneformer/ensembl_mapping_dict_gc104M.pkl,geneformer/token_dictionary_gc104M.pkl,geneformer/gene_dictionaries_30m/gene_median_dictionary_gc30M.pkl,geneformer/gene_dictionaries_30m/gene_name_id_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/ensembl_mapping_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/token_dictionary_gc30M.pkl -c filter.lfs.process= -c filter.lfs.smudge= -c filter.lfs.required=false checkout 04c2b2e
+== 2026-10-14 15:14:18,613 run.py:650 INFO Shell command completed successfully
+Output (stdout + stderr):
+Note: switching to '04c2b2e'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 04c2b2e Update README.md
+
+== 2026-10-14 15:14:18,619 run.py:492 INFO run_shell_cmd: Script to start debug shell for shell command 'git ...'
+	will be saved to /tmp/vsc47063/eb-dasmr5te/run-shell-cmd-output/git-_k7sha9p/cmd.sh
+	output will be logged to /tmp/vsc47063/eb-dasmr5te/run-shell-cmd-output/git-_k7sha9p/out.txt
+== 2026-10-14 15:14:18,619 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+== 2026-10-14 15:14:18,619 run.py:532 INFO Running shell command in /tmp/vsc47063/eb-dasmr5te/tmp5eg0m7iq/Geneformer:
+	git -c lfs.fetchinclude=geneformer/gene_median_dictionary_gc104M.pkl,geneformer/gene_name_id_dict_gc104M.pkl,geneformer/ensembl_mapping_dict_gc104M.pkl,geneformer/token_dictionary_gc104M.pkl,geneformer/gene_dictionaries_30m/gene_median_dictionary_gc30M.pkl,geneformer/gene_dictionaries_30m/gene_name_id_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/ensembl_mapping_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/token_dictionary_gc30M.pkl ls-files -z
+== 2026-10-14 15:14:18,624 run.py:650 INFO Shell command completed successfully
+== 2026-10-14 15:14:18,629 run.py:492 INFO run_shell_cmd: Script to start debug shell for shell command 'git ...'
+	will be saved to /tmp/vsc47063/eb-dasmr5te/run-shell-cmd-output/git-li_i38eg/cmd.sh
+	output will be logged to /tmp/vsc47063/eb-dasmr5te/run-shell-cmd-output/git-li_i38eg/out.txt
+== 2026-10-14 15:14:18,630 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+== 2026-10-14 15:14:18,630 run.py:532 INFO Running shell command in /tmp/vsc47063/eb-dasmr5te/tmp5eg0m7iq/Geneformer:
+	git -c lfs.fetchinclude=geneformer/gene_median_dictionary_gc104M.pkl,geneformer/gene_name_id_dict_gc104M.pkl,geneformer/ensembl_mapping_dict_gc104M.pkl,geneformer/token_dictionary_gc104M.pkl,geneformer/gene_dictionaries_30m/gene_median_dictionary_gc30M.pkl,geneformer/gene_dictionaries_30m/gene_name_id_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/ensembl_mapping_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/token_dictionary_gc30M.pkl check-attr --cached filter -- Geneformer-V1-10M/model.safetensors
+== 2026-10-14 15:14:18,635 run.py:650 INFO Shell command completed successfully
+Output (stdout + stderr):
+Geneformer-V1-10M/model.safetensors: filter: lfs
+
+== 2026-10-14 15:14:18,641 run.py:492 INFO run_shell_cmd: Script to start debug shell for shell command 'git ...'
+	will be saved to /tmp/vsc47063/eb-dasmr5te/run-shell-cmd-output/git-9hp1hwyb/cmd.sh
+	output will be logged to /tmp/vsc47063/eb-dasmr5te/run-shell-cmd-output/git-9hp1hwyb/out.txt
+== 2026-10-14 15:14:18,641 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+== 2026-10-14 15:14:18,641 run.py:532 INFO Running shell command in /tmp/vsc47063/eb-dasmr5te/tmp5eg0m7iq/Geneformer:
+	git -c lfs.fetchinclude=geneformer/gene_median_dictionary_gc104M.pkl,geneformer/gene_name_id_dict_gc104M.pkl,geneformer/ensembl_mapping_dict_gc104M.pkl,geneformer/token_dictionary_gc104M.pkl,geneformer/gene_dictionaries_30m/gene_median_dictionary_gc30M.pkl,geneformer/gene_dictionaries_30m/gene_name_id_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/ensembl_mapping_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/token_dictionary_gc30M.pkl lfs install --local --skip-repo
+== 2026-10-14 15:14:18,894 run.py:650 INFO Shell command completed successfully
+Output (stdout + stderr):
+Git LFS initialized.
+
+== 2026-10-14 15:14:18,900 run.py:492 INFO run_shell_cmd: Script to start debug shell for shell command 'git ...'
+	will be saved to /tmp/vsc47063/eb-dasmr5te/run-shell-cmd-output/git-mmrz11hb/cmd.sh
+	output will be logged to /tmp/vsc47063/eb-dasmr5te/run-shell-cmd-output/git-mmrz11hb/out.txt
+== 2026-10-14 15:14:18,901 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+== 2026-10-14 15:14:18,901 run.py:532 INFO Running shell command in /tmp/vsc47063/eb-dasmr5te/tmp5eg0m7iq/Geneformer:
+	git -c lfs.fetchinclude=geneformer/gene_median_dictionary_gc104M.pkl,geneformer/gene_name_id_dict_gc104M.pkl,geneformer/ensembl_mapping_dict_gc104M.pkl,geneformer/token_dictionary_gc104M.pkl,geneformer/gene_dictionaries_30m/gene_median_dictionary_gc30M.pkl,geneformer/gene_dictionaries_30m/gene_name_id_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/ensembl_mapping_dict_gc30M.pkl,geneformer/gene_dictionaries_30m/token_dictionary_gc30M.pkl lfs pull
+== 2026-10-14 15:14:19,610 run.py:650 INFO Shell command completed successfully
+Output (stdout + stderr):
+
+== 2026-10-14 15:14:19,611 filetools.py:3060 INFO Archiving '/tmp/vsc47063/eb-dasmr5te/tmp5eg0m7iq/Geneformer' into '/data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/Geneformer-0.1.0.tar.xz'...
+== 2026-10-14 15:14:24,388 filetools.py:3077 INFO Archive 'Geneformer-0.1.0.tar.xz' created successfully
+== 2026-10-14 15:14:24,388 filetools.py:462 INFO Removing 1 files & directories
+== 2026-10-14 15:14:24,396 filetools.py:435 INFO Path /tmp/vsc47063/eb-dasmr5te/tmp5eg0m7iq successfully removed.
+== 2026-10-14 15:14:24,404 easyblock.py:809 INFO sha256 checksum for /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/Geneformer-0.1.0.tar.xz: ca35414b87607a7e2a7ca8d49accac1c6eec813c66476b50acee9bcc8a9906cc
+== 2026-10-14 15:14:24,404 easyblock.py:815 INFO Checksum for extension source Geneformer-0.1.0.tar.xz verified
+== 2026-10-14 15:14:24,404 easyblock.py:971 INFO Considering directory in which easyconfig file is located when searching for Geneformer-0.1.0-20260526_fix-Transformers-Trainer-API.patch: /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer
+== 2026-10-14 15:14:24,405 tools.py:243 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /scratch/gent/470/vsc47063/easybuild/easybuild-framework/eb
+== 2026-10-14 15:14:24,405 tools.py:259 INFO Not considering /scratch/gent/470/vsc47063/easybuild (no easybuild/easyconfigs subdir found)
+== 2026-10-14 15:14:24,405 tools.py:267 INFO Also considering installation prefix /kyukon/scratch/gent/470/vsc47063/easybuild (via resolved path to 'eb')...
+== 2026-10-14 15:14:24,406 easyblock.py:1013 INFO Found file Geneformer-0.1.0-20260526_fix-Transformers-Trainer-API.patch at /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/Geneformer-0.1.0-20260526_fix-Transformers-Trainer-API.patch
+== 2026-10-14 15:14:24,406 easyblock.py:971 INFO Considering directory in which easyconfig file is located when searching for checksums.json: /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer
+== 2026-10-14 15:14:24,406 tools.py:243 INFO Found location to 'eb' script via $EB_SCRIPT_PATH: /scratch/gent/470/vsc47063/easybuild/easybuild-framework/eb
+== 2026-10-14 15:14:24,406 tools.py:259 INFO Not considering /scratch/gent/470/vsc47063/easybuild (no easybuild/easyconfigs subdir found)
+== 2026-10-14 15:14:24,406 tools.py:267 INFO Also considering installation prefix /kyukon/scratch/gent/470/vsc47063/easybuild (via resolved path to 'eb')...
+== 2026-10-14 15:14:24,407 easyblock.py:1046 WARNING Couldn't find file 'checksums.json' anywhere, and downloading it is disabled... Paths attempted (in order): 
+ * /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/g/Geneformer/checksums.json
+ * /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/Geneformer/checksums.json
+ * /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/checksums.json
+ * /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/checksums.json
+ * /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/Geneformer/checksums.json
+ * /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/checksums.json
+ * /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/checksums.json
+ * /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/Geneformer/checksums.json
+ * /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/checksums.json
+ * /data/gent/vo/001/gvo00117/easybuild/sources/g/Geneformer/checksums.json
+ * /data/gent/vo/001/gvo00117/easybuild/sources/Geneformer/checksums.json
+ * /data/gent/vo/001/gvo00117/easybuild/sources/checksums.json
+ * /apps/gent/sources/g/Geneformer/checksums.json
+ * /apps/gent/sources/Geneformer/checksums.json
+ * /apps/gent/sources/checksums.json
+== 2026-10-14 15:14:24,407 easyblock.py:645 INFO Fetched extension patches: [{'name': 'Geneformer-0.1.0-20260526_fix-Transformers-Trainer-API.patch', 'postinstall': False, 'path': '/scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/Geneformer-0.1.0-20260526_fix-Transformers-Trainer-API.patch', 'checksum': None}]
+== 2026-10-14 15:14:24,407 easyblock.py:847 INFO sha256 checksum for /scratch/gent/470/vsc47063/easybuild/easybuild-easyconfigs/easybuild/easyconfigs/g/Geneformer/Geneformer-0.1.0-20260526_fix-Transformers-Trainer-API.patch: 2a35ebebfce71615863ec8af598cff7bf319dfe828e94153f5b295feb75b7653
+== 2026-10-14 15:14:24,407 easyblock.py:857 INFO Checksum for extension patch Geneformer-0.1.0-20260526_fix-Transformers-Trainer-API.patch verified
+== 2026-10-14 15:14:24,408 easyblock.py:3000 INFO Checking dirs that need to be created: ['/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Geneformer/0.1.0-20260526-foss-2024a', '/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/modules/all/Geneformer', '/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/modules/bio/Geneformer']
+== 2026-10-14 15:14:24,411 filetools.py:2076 INFO Creating directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/Geneformer/0.1.0-20260526-foss-2024a (parents: True, set_gid: False, sticky: False)
+== 2026-10-14 15:14:24,413 filetools.py:2076 INFO Creating directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/modules/all/Geneformer (parents: True, set_gid: False, sticky: False)
+== 2026-10-14 15:14:24,415 filetools.py:2076 INFO Creating directory /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/modules/bio/Geneformer (parents: True, set_gid: False, sticky: False)
+== 2026-10-14 15:14:24,421 environment.py:109 INFO Environment variable _ModuleTable005_ set to ewpsbW9kID0gewpzdGlja3kgPSAxLAp9LAp9LApyZWZfY291bnQgPSAxLApzdGFja0RlcHRoID0gMSwKc3RhdHVzID0gImFjdGl2ZSIsCnVzZXJOYW1lID0gImVudi92c2MvZG9ucGhhbiIsCndWID0gIipkb25waGFuLip6ZmluYWwiLAp9LAp9LAptcGF0aEEgPSB7CiIvc2NyYXRjaC9nZW50L3ZvLzAwMS9ndm8wMDExNy9lYXN5YnVpbGQvUkhFTDkvY2FzY2FkZWxha2UtYW1wZXJlLWliL21vZHVsZXMvYWxsIiwgIi9hcHBzL2dlbnQvUkhFTDkvY2FzY2FkZWxha2UtYW1wZXJlLWliL21vZHVsZXMvYWxsIgosICIvYXBwcy9nZW50L1JIRUw5L2Nhc2NhZGVsYWtlLWliL21vZHVsZXMvYWxsIiwgIi9ldGMvbW9kdWxlZmlsZXMvdnNjIiwKfSwKc3lzdGVtQmFzZU1QQVRIID0gIi9l (previous value: 'ewpsbW9kID0gewpzdGlja3kgPSAxLAp9LAp9LApyZWZfY291bnQgPSAxLApzdGFja0RlcHRoID0gMSwKc3RhdHVzID0gImFjdGl2ZSIsCnVzZXJOYW1lID0gImVudi92c2MvZG9ucGhhbiIsCndWID0gIipkb25waGFuLip6ZmluYWwiLAp9LApbImdpdC1sZnMiXSA9IHsKZm4gPSAiL2FwcHMvZ2VudC9SSEVMOS9jYXNjYWRlbGFrZS1pYi9tb2R1bGVzL2FsbC9naXQtbGZzLzMuNy4xLmx1YSIsCmZ1bGxOYW1lID0gImdpdC1sZnMvMy43LjEiLApsb2FkT3JkZXIgPSA1LApwcm9wVCA9IHt9LApzdGFja0RlcHRoID0gMCwKc3RhdHVzID0gImFjdGl2ZSIsCnVzZXJOYW1lID0gImdpdC1sZnMvMy43LjEiLAp3ViA9ICIwMDAwMDAwMDMuMDAwMDAwMDA3LjAwMDAwMDAwMS4qemZpbmFs')
+== 2026-10-14 15:14:24,421 environment.py:109 INFO Environment variable __LMOD_REF_COUNT_PATH set to /usr/libexec/jobcli:1;/scratch/gent/470/vsc47063/easybuild/easybuild-framework:1;/usr/local/vsc/bin:1;/opt/VirtualGL/bin:1;/usr/local/bin:1;/usr/bin:1;/usr/local/sbin:1;/usr/sbin:1;/user/gent/470/vsc47063/.dotnet/tools:1 (previous value: '/apps/gent/RHEL9/cascadelake-ib/software/git-lfs/3.7.1/bin:1;/usr/libexec/jobcli:1;/scratch/gent/470/vsc47063/easybuild/easybuild-framework:1;/usr/local/vsc/bin:1;/opt/VirtualGL/bin:1;/usr/local/bin:1;/usr/bin:1;/usr/local/sbin:1;/usr/sbin:1;/user/gent/470/vsc47063/.dotnet/tools:1')
+== 2026-10-14 15:14:24,421 environment.py:109 INFO Environment variable LOADEDMODULES set to env/vsc/donphan:env/slurm/donphan:env/software/donphan:cluster/donphan (previous value: 'env/vsc/donphan:env/slurm/donphan:env/software/donphan:cluster/donphan:git-lfs/3.7.1')
+== 2026-10-14 15:14:24,421 environment.py:109 INFO Environment variable _ModuleTable006_ set to dGMvbW9kdWxlZmlsZXMvdnNjIiwKfQo= (previous value: 'IiwKfSwKfSwKbXBhdGhBID0gewoiL3NjcmF0Y2gvZ2VudC92by8wMDEvZ3ZvMDAxMTcvZWFzeWJ1aWxkL1JIRUw5L2Nhc2NhZGVsYWtlLWFtcGVyZS1pYi9tb2R1bGVzL2FsbCIsICIvYXBwcy9nZW50L1JIRUw5L2Nhc2NhZGVsYWtlLWFtcGVyZS1pYi9tb2R1bGVzL2FsbCIKLCAiL2FwcHMvZ2VudC9SSEVMOS9jYXNjYWRlbGFrZS1pYi9tb2R1bGVzL2FsbCIsICIvZXRjL21vZHVsZWZpbGVzL3ZzYyIsCn0sCnN5c3RlbUJhc2VNUEFUSCA9ICIvZXRjL21vZHVsZWZpbGVzL3ZzYyIsCn0K')
+== 2026-10-14 15:14:24,421 environment.py:109 INFO Environment variable PATH set to /usr/libexec/jobcli:/scratch/gent/470/vsc47063/easybuild/easybuild-framework:/usr/local/vsc/bin:/opt/VirtualGL/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/user/gent/470/vsc47063/.dotnet/tools (previous value: '/apps/gent/RHEL9/cascadelake-ib/software/git-lfs/3.7.1/bin:/usr/libexec/jobcli:/scratch/gent/470/vsc47063/easybuild/easybuild-framework:/usr/local/vsc/bin:/opt/VirtualGL/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/user/gent/470/vsc47063/.dotnet/tools')
+== 2026-10-14 15:14:24,422 environment.py:109 INFO Environment variable _LMFILES_ set to /etc/modulefiles/vsc/env/vsc/donphan.lua:/etc/modulefiles/vsc/env/slurm/donphan.lua:/etc/modulefiles/vsc/env/software/donphan.lua:/etc/modulefiles/vsc/cluster/donphan.lua (previous value: '/etc/modulefiles/vsc/env/vsc/donphan.lua:/etc/modulefiles/vsc/env/slurm/donphan.lua:/etc/modulefiles/vsc/env/software/donphan.lua:/etc/modulefiles/vsc/cluster/donphan.lua:/apps/gent/RHEL9/cascadelake-ib/modules/all/git-lfs/3.7.1.lua')
+== 2026-10-14 15:14:24,422 easyblock.py:5079 INFO Running method checksum_step part of step fetch
+== 2026-10-14 15:14:24,422 easyblock.py:5101 INFO Stopping after fetch step.
+== 2026-10-14 15:14:24,422 build_log.py:330 INFO ... (took 17 secs)
+== 2026-10-14 15:14:24,424 filetools.py:2170 INFO Removing lock /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL9_cascadelake-ampere-ib_software_Geneformer_0.1.0-20260526-foss-2024a.lock...
+== 2026-10-14 15:14:24,426 filetools.py:435 INFO Path /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL9_cascadelake-ampere-ib_software_Geneformer_0.1.0-20260526-foss-2024a.lock successfully removed.
+== 2026-10-14 15:14:24,426 filetools.py:2174 INFO Lock removed: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/cascadelake-ampere-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL9_cascadelake-ampere-ib_software_Geneformer_0.1.0-20260526-foss-2024a.lock
+== 2026-10-14 15:14:24,427 tools.py:580 INFO Script to set up build environment for Geneformer-0.1.0-20260526-foss-2024a.eb dumped to /tmp/vsc47063/eb-dasmr5te/reprod_20261014151406_896207/Geneformer-0.1.0-20260526-foss-2024a.env
+== 2026-10-14 15:14:24,428 easyblock.py:410 INFO Closing log for application name Geneformer version 0.1.0-20260526
