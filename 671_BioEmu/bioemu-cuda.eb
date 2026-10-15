@@ -56,7 +56,6 @@ dependencies = [
     ('jax', '0.7.0', versionsuffix),
     ('TensorFlow', '2.20.0'),
     ('matplotlib', '3.10.3'),
-    # ('ColabFold', '1.6.2'),
     ('Biopython', '1.85'),
     ('dm-tree', '0.1.10'),
     ('dm-haiku', '0.0.16'),
@@ -100,6 +99,8 @@ exts_list = [
     ('bioemu', version, {
         'source_urls': ['https://github.com/microsoft/bioemu/archive'],
         'sources': [{'download_filename': 'v.%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'testinstall': True,
+        'runtest': 'pytest -vv',
         'checksums': ['c9eee5bdaccaf11ad82d99e0f6af06cb1733186ccac7e9dc14ad43e88a472bb3'],
     }),
 ]
