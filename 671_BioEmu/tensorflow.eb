@@ -78,12 +78,21 @@ exts_list = [
     }),
     (name, version, {
         # Fix missing llvm::cast namespace qualifier in DTensor, which causes compilation failure
-        # already fixed on master branch of TF
+        # Fix missing MLIR namespace qualifiers in DTensor 
+        # (already fixed upstream).
         'prebuildopts': (
-            "sed -i 's/ExtractGlobalOutputShape(cast</ExtractGlobalOutputShape(llvm::cast</' "
+            "sed -i 's/ExtractGlobalOutputShape(cast</ExtractGlobalOutputShape(mlir::cast</' "
             "tensorflow/dtensor/mlir/shape_utils.cc && "
+            "sed -i "
+            "-e 's/ cast<mlir::BlockArgument>(resource)/ mlir::cast<mlir::BlockArgument>(resource)/' "
+            "-e 's/if (isa<mlir::TF::ResourceType>/if (mlir::isa<mlir::TF::ResourceType>/' "
+            "tensorflow/dtensor/mlir/spmd_expansion.cc && "
         ),
-        'buildopts': '--repo_env=ML_WHEEL_TYPE=release --nosubcommands',
+        # Work around missing OpenSSL link flags with TensorFlow's pywrap rules.
+        'buildopts': (
+            '--repo_env=ML_WHEEL_TYPE=release --nosubcommands '
+            '--linkopt=-lssl --linkopt=-lcrypto'
+        ),
         'patches': [
             'TensorFlow-2.13.0_add-missing-system-protobuf-targets.patch',
             'TensorFlow-2.15.1_fix-flatbuffer-license.patch',
