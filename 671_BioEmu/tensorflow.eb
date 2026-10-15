@@ -12,12 +12,12 @@ toolchainopts = {'pic': True}
 builddependencies = [
     ('hatchling', '1.27.0'),
     ('Bazel', '7.4.1', '-Java-21'),
-    # # git 2.x required, see also https://github.com/tensorflow/tensorflow/issues/29053
+    # git 2.x required, see also https://github.com/tensorflow/tensorflow/issues/29053
     ('git', '2.49.0'),
     # ('pybind11', '2.13.6'),
     ('UnZip', '6.0'),
     ('NASM', '2.16.03'),
-    # # Required to build some of the extensions
+    # Required to build some of the extensions
     ('poetry', '2.1.2'),
     ('Cython', '3.1.1'),
 ]
@@ -77,7 +77,13 @@ exts_list = [
         'checksums': ['93622790a0a29e04f0346458face1e144dc4d32f493714c6c3dff82a4adb77e6'],
     }),
     (name, version, {
-        'buildopts': '--repo_env=ML_WHEEL_TYPE=release',
+        # Fix missing llvm::cast namespace qualifier in DTensor, which causes compilation failure
+        # already fixed on master branch of TF
+        'prebuildopts': (
+            "sed -i 's/ExtractGlobalOutputShape(cast</ExtractGlobalOutputShape(llvm::cast</' "
+            "tensorflow/dtensor/mlir/shape_utils.cc && "
+        ),
+        'buildopts': '--repo_env=ML_WHEEL_TYPE=release --nosubcommands',
         'patches': [
             'TensorFlow-2.13.0_add-missing-system-protobuf-targets.patch',
             'TensorFlow-2.15.1_fix-flatbuffer-license.patch',

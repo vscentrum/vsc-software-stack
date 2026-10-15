@@ -1,0 +1,31 @@
+--- hash_tensor.py.orig	2026-10-15 17:10:17.411016000 +0200
++++ hash_tensor.py	2026-10-15 17:11:59.660555000 +0200
+@@ -542,20 +542,23 @@
+ 
+ 
+ @implements(aten._pin_memory.default)
+-def _pin_memory(tensor: HashTensor) -> HashTensor:
++def _pin_memory(
++    tensor: HashTensor,
++    device: Optional[torch.device] = None,
++) -> HashTensor:
+     _map = tensor._map
+     if isinstance(_map, Tensor):
+-        _map = aten._pin_memory.default(_map)
++        _map = aten._pin_memory.default(_map, device)
+ 
+     value = tensor._value
+     if value is not None:
+-        value = aten._pin_memory.default(value)
++        value = aten._pin_memory.default(value, device)
+ 
+     return tensor._from_data(
+         _map,
+         value,
+-        aten._pin_memory.default(tensor._min_key),
+-        aten._pin_memory.default(tensor._max_key),
++        aten._pin_memory.default(tensor._min_key, device),
++        aten._pin_memory.default(tensor._max_key, device),
+         num_keys=tensor.size(0),
+         dtype=tensor.dtype,
+     )

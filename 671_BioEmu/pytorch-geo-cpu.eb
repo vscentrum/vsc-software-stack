@@ -33,6 +33,7 @@ exts_list = [
     ('torch_geometric', version, {
         'source_urls': ['https://github.com/pyg-team/pytorch_geometric/archive/refs/tags/'],
         'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'patches': ['PyTorch-Geometric-2.8.0_fix-pin-memory.patch'],
         'runtest': (
             'pytest'
             ' --deselect=test/data/test_feature_store.py::test_feature_store'  # Python 3.13 dataclass equality
@@ -45,26 +46,13 @@ exts_list = [
             ' --deselect=test/transforms/test_add_metapaths.py::test_add_metapaths_max_sample'
             ' --deselect=test/transforms/test_add_metapaths.py::test_add_weighted_metapaths'
             ' --deselect=test/transforms/test_two_hop.py::test_two_hop'
-            # ' --ignore=test/test_edge_index.py'  # many tests require PyTorch with MKL
-            # ' --ignore=test/nn/models/test_graph_unet.py'  # requires PyTorch with MKL
-            # ' --ignore=test/nn/pool/test_asap.py'  # requires PyTorch with MKL
-            # ' --ignore=test/transforms/test_add_metapaths.py'  # requires PyTorch with MKL
-            # ' --ignore=test/transforms/test_two_hop.py'  # requires PyTorch with MKL
-            # ' --ignore=test/test_inspector.py'  # test failing due to typing change
-            # ' --ignore=test/nn/conv/test_hetero_conv.py'  # unknown jit compilation issue
-            # ' --ignore=test/nn/conv/test_sage_conv.py'  # unknown jit compilation issue
-            # ' --ignore=test/graphgym/test_graphgym.py'  # torch-lightning can fail on site specific Slurm environment
-            # ' -k "'
-            # # 'not test_multithreading_neighbor_loader '  # picky about number of cores in the environment
-            # # these tests feed all torch_geometric.datasets into a hydra config store
-            # # new datasets in v2.6.1 (OPF) have incompatible types with omegaconf
-            # # 'and not test_fill_config_store and not test_hydra_config_store '
-            # 'not (test_feature_store and not test_feature_store_override) '  # Python 3.13 dataclass equality
-            # 'and not test_summary_with_to_hetero_model '  # tabulate column alignment
-            # '"'
         ),
         'testinstall': True,
-        'checksums': ['369bcbed7e5835feb3eba0f78791d90dd1790ba523face79c78bbd093ef987a3'],
+        'checksums': [
+            {'torch_geometric-2.8.0.tar.gz': '369bcbed7e5835feb3eba0f78791d90dd1790ba523face79c78bbd093ef987a3'},
+            {'PyTorch-Geometric-2.8.0_fix-pin-memory.patch':
+             '350d9686ee2886b94acb3db4800c1606c06349bd296ad0da435a67313c819c51'},
+        ],
     }),
 ]
 
