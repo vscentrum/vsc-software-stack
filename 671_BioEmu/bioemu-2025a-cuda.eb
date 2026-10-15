@@ -36,23 +36,24 @@ toolchain = {'name': 'foss', 'version': '2025a'}
     # OK! "matplotlib>=3.10.7",
     # OK "requests",
     # OK "tqdm",
-    # OK "dm-haiku>=0.0.12",
+    # OK "dm-haiku>=0.0.12", -> CREATE
     # OK "ml-collections",
     # OK "absl-py",
     # "tensorflow-cpu>=2.12.0", -> CREATE
     # OK "jax>=0.4.35,<0.11",
 
 builddependencies = [
-    # ('PDM', '2.18.2'),
+    ('PDM', '2.25.5'),
     ('hatchling', '1.27.0'),
 ]
 
 dependencies = [
+    ('CUDA', '12.8.0', '', SYSTEM),
     ('Python', '3.13.1'),
     ('SciPy-bundle', '2025.06'),
-    ('PyTorch-Geometric', '2.8.0'),
-    ('PyTorch', '2.9.1'),
-    ('jax', '0.7.0'),
+    ('PyTorch-Geometric', '2.8.0', versionsuffix),
+    ('PyTorch', '2.9.1', versionsuffix),
+    ('jax', '0.7.0', versionsuffix),
     ('TensorFlow', '2.20.0'),
     ('matplotlib', '3.10.3'),
     ('Biopython', '1.85'),
@@ -78,9 +79,9 @@ exts_list = [
     ('fire', '0.7.1', {
         'checksums': ['3b208f05c736de98fb343310d090dcc4d8c78b2a89ea4f32b837c586270a9cbf'],
     }),
-    # ('ihm', '1.8', {
-    #     'checksums': ['6c19813642487a5af3603beb51a1854559e55ccaa8fddd10986c3026a11b948f'],
-    # }),
+    ('ihm', '2.8', {
+        'checksums': ['528a6efe9c6576ace3b33cfde531f177a17e791ff365039582620b6ad9fbe441'],
+    }),
     ('modelcif', '1.6', {
         'checksums': ['b1bf0751f0e2d1ea6da7a0a8a92efd2754428ae50bc3bfbff8e015183e978b19'],
     }),
@@ -97,9 +98,14 @@ exts_list = [
     }),
     ('bioemu', version, {
         'source_urls': ['https://github.com/microsoft/bioemu/archive'],
-        'sources': [{'download_filename': 'v.%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'preinstallopts': "sed -i 's/matplotlib>=3.10.7/matplotlib/' pyproject.toml && ",
         'testinstall': True,
-        'runtest': 'pytest -vv',
+        'runtest': (
+            'JAX_PLATFORMS=cpu pytest -vv tests/'
+            ' --ignore=tests/test_colabfold_inline/test_regression.py'
+            ' --ignore=tests/test_mdrelax.py'  # requires OpenMM
+        ),
         'checksums': ['c9eee5bdaccaf11ad82d99e0f6af06cb1733186ccac7e9dc14ad43e88a472bb3'],
     }),
 ]
