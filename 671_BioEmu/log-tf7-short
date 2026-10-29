@@ -1,0 +1,507 @@
+=== First failure with context ===
+14607-INFO: Found 1 target...
+14608-Target //tensorflow/tools/pip_package:wheel up-to-date:
+14609-  bazel-bin/tensorflow/tools/pip_package/wheel_house/tensorflow-2.20.0-cp313-cp313-linux_x86_64.whl
+14610-INFO: Elapsed time: 8463.726s, Critical Path: 278.90s
+14611-INFO: 23696 processes: 5030 internal, 18666 local.
+14612-INFO: Build completed successfully, 23696 total actions
+14613-
+14614-== 2026-10-29 14:22:03,257 build_log.py:330 INFO 	testing...
+14615-== 2026-10-29 14:22:03,259 tensorflow.py:1143 INFO Starting cpu test
+14616-== 2026-10-29 14:22:03,517 run.py:492 INFO run_shell_cmd: Script to start debug shell for shell command 'ulimit ...'
+14617-	will be saved to /tmp/vsc47063/eb-_4hcui0h/run-shell-cmd-output/ulimit-2x6p18un/cmd.sh
+14618-	output will be logged to /tmp/vsc47063/eb-_4hcui0h/run-shell-cmd-output/ulimit-2x6p18un/out.txt
+14619-== 2026-10-29 14:22:03,525 run.py:518 INFO Path to bash that will be used to run shell commands: /usr/bin/bash
+14620-== 2026-10-29 14:22:03,526 run.py:532 INFO Running shell command in /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/tensorflow-2.20.0:
+14621-	ulimit -s 8192 &&   ulimit -s 8192 &&   bazel --output_user_root=/tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/bazel-root --local_startup_timeout_secs=300 --batch --host_jvm_args=-Xms512m --host_jvm_args=-Xmx4096m test --config=nogcp --compilation_mode=opt --config=opt --subcommands --verbose_failures --jobs=8 --copt="-fPIC" --action_env=CPATH='/apps/gent/RHEL9/zen4-ib/software/OpenSSL/3/include' --host_action_env=CPATH='/apps/gent/RHEL9/zen4-ib/software/OpenSSL/3/include' --action_env=EBPYTHONPREFIXES --host_action_env=EBPYTHONPREFIXES --action_env=HOME='/tmp/vsc47063/eb-_4hcui0h/tmpy9jucity-tf-home' --host_action_env=HOME='/tmp/vsc47063/eb-_4hcui0h/tmpy9jucity-tf-home' --action_env=LIBRARY_PATH='/apps/gent/RHEL9/zen4-ib/software/OpenSSL/3/lib' --host_action_env=LIBRARY_PATH='/apps/gent/RHEL9/zen4-ib/software/OpenSSL/3/lib' --action_env=PIP_DISABLE_PIP_VERSION_CHECK='true' --host_action_env=PIP_DISABLE_PIP_VERSION_CHECK='true' --action_env=PIP_REQUIRE_VIRTUALENV='false' --host_action_env=PIP_REQUIRE_VIRTUALENV='false' --action_env=PYTHONNOUSERSITE='1' --host_action_env=PYTHONNOUSERSITE='1' --action_env=PYTHONPATH --host_action_env=PYTHONPATH --test_output=errors --build_tests_only --test_env=HOME='/tmp/vsc47063/eb-_4hcui0h/tmpy9jucity-tf-home' --test_timeout=3600 --local_test_jobs=8 --test_tag_filters='-gpu,-tpu,-no_cuda_on_cpu_tap,-no_pip,-no_oss,-oss_serial,-benchmark-test,-v1only' --build_tag_filters='-gpu,-tpu,-no_cuda_on_cpu_tap,-no_pip,-no_oss,-oss_serial,-benchmark-test,-v1only' --test_env=CUDA_VISIBLE_DEVICES='-1' --test_env=HOME=/tmp --test_timeout=3600 --test_size_filters=small  -- //tensorflow/core/... -//tensorflow/core:example_java_proto -//tensorflow/core/example:example_protos_closure //tensorflow/cc/... //tensorflow/c/... //tensorflow/python/... -//tensorflow/c/eager:c_api_test_gpu -//tensorflow/c/eager:c_api_distributed_test -//tensorflow/c/eager:c_api_distributed_test_gpu -//tensorflow/c/eager:c_api_cluster_test_gpu -//tensorflow/c/eager:c_api_remote_function_test_gpu -//tensorflow/c/eager:c_api_remote_test_gpu -//tensorflow/core/common_runtime:collective_param_resolver_local_test -//tensorflow/core/kernels/mkl:mkl_fused_ops_test -//tensorflow/core/kernels/mkl:mkl_fused_batch_norm_op_test -//tensorflow/core/ir/importexport/tests/roundtrip/...
+14622:== 2026-10-29 14:57:03,998 run.py:652 WARNING Shell command FAILED (exit code 1)
+14623-Output (stdout + stderr):
+14624-OpenJDK 64-Bit Server VM warning: Options -Xverify:none and -noverify were deprecated in JDK 13 and will likely be removed in a future release.
+14625-INFO: Options provided by the client:
+14626-  Inherited 'common' options: --isatty=0 --terminal_columns=161
+14627-INFO: Reading rc options for 'test' from /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/tensorflow-2.20.0/.bazelrc:
+14628-  Inherited 'common' options: --announce_rc --experimental_cc_shared_library --experimental_link_static_libraries_once=false --incompatible_enforce_config_setting_visibility --noenable_bzlmod --noincompatible_enable_cc_toolchain_resolution --noincompatible_enable_android_toolchain_resolution --experimental_repo_remote_exec --java_runtime_version=remotejdk_21
+14629-INFO: Reading rc options for 'test' from /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/tensorflow-2.20.0/.bazelrc:
+14630-  Inherited 'build' options: --repo_env=ML_WHEEL_TYPE=snapshot --repo_env=ML_WHEEL_BUILD_DATE= --repo_env=ML_WHEEL_VERSION_SUFFIX= --define framework_shared_object=true --define tsl_protobuf_header_only=true --define=allow_oversize_protos=true --spawn_strategy=standalone -c opt --repo_env=USE_PYWRAP_RULES=True --copt=-DGRPC_BAZEL_BUILD --host_copt=-DGRPC_BAZEL_BUILD --action_env=GRPC_BAZEL_RUNTIME=1 --repo_env=PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=upb --action_env=PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=upb --repo_env=RULES_PYTHON_ENABLE_PYSTAR=0 --define=grpc_no_ares=true --noincompatible_remove_legacy_whole_archive --features=-force_no_whole_archive --host_features=-force_no_whole_archive --enable_platform_specific_config --define=with_xla_support=true --config=short_logs --config=v2 --@rules_python//python/config_settings:precompile=force_disabled
+14631-INFO: Reading rc options for 'test' from /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/tensorflow-2.20.0/.tf_configure.bazelrc:
+14632-  Inherited 'build' options: --action_env PYTHON_BIN_PATH=/apps/gent/RHEL9/zen4-ib/software/Python/3.13.1-GCCcore-14.2.0/bin/python --action_env PYTHON_LIB_PATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/TensorFlow/2.20.0-foss-2025a/lib/python3.13/site-packages --python_path=/apps/gent/RHEL9/zen4-ib/software/Python/3.13.1-GCCcore-14.2.0/bin/python --action_env PYTHONPATH=/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/TensorFlow/2.20.0-foss-2025a/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/typing-extensions/4.14.0-GCCcore-14.2.0/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/optree/0.17.0-GCCcore-14.2.0/lib/python3.13/site-packages:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/tensorboard/2.20.0-gfbf-2025a/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/Pillow/11.3.0-GCCcore-14.2.0/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/absl-py/2.3.1-GCCcore-14.2.0/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/wrapt/1.17.2-GCCcore-14.2.0/lib/python3.13/site-packages:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/grpcio/1.76.0-GCCcore-14.2.0/lib/python3.13/site-packages:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/protobuf-python/6.31.1-GCCcore-14.2.0/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/ml_dtypes/0.5.1-gfbf-2025a/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/opt-einsum/3.4.0-GCCcore-14.2.0/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/flatbuffers-python/25.2.10-GCCcore-14.2.0/lib/python3.13/site-packages:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/dill/0.4.0-GCCcore-14.2.0/lib/python3.13/site-packages:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/h5py/3.14.0-foss-2025a/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/mpi4py/4.1.0-gompi-2025a/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/SciPy-bundle/2025.06-gfbf-2025a/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/Python-bundle-PyPI/2025.04-GCCcore-14.2.0/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/Cython/3.1.1-GCCcore-14.2.0/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/poetry/2.1.2-GCCcore-14.2.0/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/build/1.3.0-GCCcore-14.2.0/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/virtualenv/20.29.2-GCCcore-14.2.0/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/cryptography/44.0.2-GCCcore-14.2.0/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/cffi/1.17.1-GCCcore-14.2.0/lib/python3.13/site-packages:/apps/gent/RHEL9/zen4-ib/software/hatchling/1.27.0-GCCcore-14.2.0/lib/python3.13/site-packages --define=with_xla_support=true --action_env TF_SYSTEM_LIBS=astor_archive,astunparse_archive,boringssl,cython,dill_archive,functools32_archive,gast_archive,nasm,pasta,six_archive,tblib_archive,termcolor_archive,typing_extensions_archive,wrapt --repo_env TF_PYTHON_VERSION=3.13 --repo_env WHEEL_NAME=tensorflow
+14633-INFO: Reading rc options for 'test' from /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/tensorflow-2.20.0/.bazelrc:
+14634-  'test' options: --test_env=GTEST_INSTALL_FAILURE_SIGNAL_HANDLER=1
+14635-INFO: Reading rc options for 'test' from /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/tensorflow-2.20.0/.tf_configure.bazelrc:
+14636-  'test' options: --test_size_filters=small,medium
+14637-INFO: Found applicable config definition build:short_logs in file /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/tensorflow-2.20.0/.bazelrc: --output_filter=DONT_MATCH_ANYTHING
+14638-INFO: Found applicable config definition build:v2 in file /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/tensorflow-2.20.0/.bazelrc: --define=tf_api_version=2 --action_env=TF2_BEHAVIOR=1
+14639-INFO: Found applicable config definition test:v2 in file /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/tensorflow-2.20.0/.tf_configure.bazelrc: --test_tag_filters=-benchmark-test,-no_oss,-oss_excluded,-gpu,-oss_serial,-v1only --build_tag_filters=-benchmark-test,-no_oss,-oss_excluded,-gpu,-v1only
+14640-INFO: Found applicable config definition build:nogcp in file /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/tensorflow-2.20.0/.bazelrc: --define=no_gcp_support=true
+14641-INFO: Found applicable config definition build:opt in file /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/tensorflow-2.20.0/.tf_configure.bazelrc: --copt=-O2 --host_copt=-O2 --copt=-ftree-vectorize --host_copt=-ftree-vectorize --copt=-march=native --host_copt=-march=native --copt=-fno-math-errno --host_copt=-fno-math-errno --copt=-fPIC --host_copt=-fPIC
+14642-INFO: Found applicable config definition build:linux in file /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/tensorflow-2.20.0/.bazelrc: --host_copt=-w --copt=-Wno-all --copt=-Wno-extra --copt=-Wno-deprecated --copt=-Wno-deprecated-declarations --copt=-Wno-ignored-attributes --copt=-Wno-array-bounds --copt=-Wunused-result --copt=-Werror=unused-result --copt=-Wswitch --copt=-Werror=switch --define=PREFIX=/usr --define=PROTOBUF_INCLUDE_PATH=$(PREFIX)/include --cxxopt=-std=c++17 --host_cxxopt=-std=c++17 --config=dynamic_kernels --experimental_guard_against_concurrent_changes
+14643-INFO: Found applicable config definition build:dynamic_kernels in file /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/tensorflow-2.20.0/.bazelrc: --define=dynamic_loaded_kernels=true --copt=-DAUTOLOAD_DYNAMIC_KERNELS
+14644-Computing main repo mapping: 
+14645-DEBUG: /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/bazel-root/26464c76bdb0f893c79fee6c961ada5c/external/local_xla/third_party/py/python_repo.bzl:82:14: !!!Using pywrap rules instead of directly creating .so objects!!!
+14646-DEBUG: /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/bazel-root/26464c76bdb0f893c79fee6c961ada5c/external/local_xla/third_party/py/python_repo.bzl:87:10: 
+14647-=============================
+14648-Hermetic Python configuration:
+14649-Version: "3.13"
+14650-Kind: ""
+14651-Interpreter: "default" (provided by rules_python)
+14652-Requirements_lock label: "@python_version_repo//:requirements_lock_3_13.txt"
+14653-=====================================
+14654-Computing main repo mapping: 
+14655-Loading: 
+14656-Loading: 1 packages loaded
+14657-Loading: 390 packages loaded
+14658-    currently loading: tensorflow/core/transforms/remapper ... (4 packages)
+14659-Analyzing: 829 targets (394 packages loaded, 0 targets configured)
+14660-Analyzing: 829 targets (394 packages loaded, 0 targets configured)
+14661-
+14662-Analyzing: 829 targets (593 packages loaded, 6984 targets configured)
+14663-
+14664-Analyzing: 829 targets (833 packages loaded, 30346 targets configured)
+14665-
+14666-DEBUG: /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/bazel-root/26464c76bdb0f893c79fee6c961ada5c/external/com_google_protobuf/python/dist/system_python.bzl:225:14: WARNING: no system python available, builds against system python will fail
+14667-Analyzing: 829 targets (1036 packages loaded, 50906 targets configured)
+14668-
+14669-Analyzing: 829 targets (1051 packages loaded, 57392 targets configured)
+14670-
+14671-SUBCOMMAND: # @@com_google_absl//absl/base:log_severity [action 'Compiling absl/base/log_severity.h', configuration: e572e623dd910b26e0b1f9e3f45dab36249554ce9ae12878f1e470fcc1a56aee, execution platform: @@local_execution_config_platform//:platform, mnemonic: CppCompile]
+14672-(cd /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/bazel-root/26464c76bdb0f893c79fee6c961ada5c/execroot/org_tensorflow && \
+14673-  exec env - \
+14674-    CPATH=/apps/gent/RHEL9/zen4-ib/software/OpenSSL/3/include \
+14675-    EBPYTHONPREFIXES=/apps/gent/RHEL9/zen4-ib/software/absl-py/2.3.1-GCCcore-14.2.0:/apps/gent/RHEL9/zen4-ib/software/ml_dtypes/0.5.1-gfbf-2025a:/apps/gent/RHEL9/zen4-ib/software/flatbuffers-python/25.2.10-GCCcore-14.2.0:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/h5py/3.14.0-foss-2025a:/apps/gent/RHEL9/zen4-ib/software/Python-bundle-PyPI/2025.04-GCCcore-14.2.0 \
+14676-    GRPC_BAZEL_RUNTIME=1 \
+14677-    HOME=/tmp/vsc47063/eb-_4hcui0h/tmpy9jucity-tf-home \
+14678-    LD_LIBRARY_PATH=/apps/gent/RHEL9/zen4-ib/software/LittleCMS/2.17-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/OpenJPEG/2.5.3-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/libwebp/1.5.0-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/giflib/5.2.2-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/freetype/2.13.3-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/Brotli/1.1.0-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/LibTIFF/4.7.0-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/libdeflate/1.24-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/zstd/1.5.6-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/lz4/1.10.0-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/jbigkit/2.1-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/libpng/1.6.48-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/libjpeg-turbo/3.1.0-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/RE2/2024-07-02-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/ICU/76.1-GCCcore-14.2.0/lib:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/protobuf/31.1-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/Abseil/20250512.1-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/HDF5/1.14.6-gompi-2025a/lib:/apps/gent/RHEL9/zen4-ib/software/Szip/2.1.1-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/SciPy-bundle/2025.06-gfbf-2025a/lib/python3.13/site-packages/numpy/core/lib:/apps/gent/RHEL9/zen4-ib/software/ScaLAPACK/2.2.2-gompi-2025a-fb/lib:/apps/gent/RHEL9/zen4-ib/software/FFTW.MPI/3.3.10-gompi-2025a/lib:/apps/gent/RHEL9/zen4-ib/software/FFTW/3.3.10-GCC-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/FlexiBLAS/3.4.5-GCC-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/OpenBLAS/0.3.29-GCC-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/OpenMPI/5.0.7-GCC-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/UCC/1.3.0-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/PRRTE/3.0.8-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/PMIx/5.0.6-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/UCX/1.18.0-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/libevent/2.1.12-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/hwloc/2.11.2-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/libpciaccess/0.18.1-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/numactl/2.0.19-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/gettext/0.24-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/libxml2/2.13.4-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/expat/2.6.4-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/cURL/8.11.1-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/libpsl/0.21.5-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/libunistring/1.3-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/libiconv/1.18-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/libidn2/2.3.7-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/Java/21.0.8/lib:/apps/gent/RHEL9/zen4-ib/software/Python/3.13.1-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/OpenSSL/3/lib64:/apps/gent/RHEL9/zen4-ib/software/libffi/3.4.5-GCCcore-14.2.0/lib64:/apps/gent/RHEL9/zen4-ib/software/XZ/5.6.3-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/SQLite/3.47.2-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/Tcl/8.6.16-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/libreadline/8.2-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/ncurses/6.5-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/bzip2/1.0.8-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/binutils/2.42-GCCcore-14.2.0/lib64:/apps/gent/RHEL9/zen4-ib/software/binutils/2.42-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/zlib/1.3.1-GCCcore-14.2.0/lib:/apps/gent/RHEL9/zen4-ib/software/GCCcore/14.2.0/lib64 \
+14679-    LIBRARY_PATH=/apps/gent/RHEL9/zen4-ib/software/OpenSSL/3/lib \
+14680-    PATH=/tmp/vsc47063/eb-_4hcui0h/tmpaty5vfvu/rpath_wrappers/ld.bfd_wrapper:/tmp/vsc47063/eb-_4hcui0h/tmpaty5vfvu/rpath_wrappers/ld.gold_wrapper:/tmp/vsc47063/eb-_4hcui0h/tmpaty5vfvu/rpath_wrappers/ld_wrapper:/tmp/vsc47063/eb-_4hcui0h/tmpaty5vfvu/rpath_wrappers/gfortran_wrapper:/tmp/vsc47063/eb-_4hcui0h/tmpaty5vfvu/rpath_wrappers/gxx_wrapper:/tmp/vsc47063/eb-_4hcui0h/tmpaty5vfvu/rpath_wrappers/gcc_wrapper:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/tensorboard/2.20.0-gfbf-2025a/bin:/apps/gent/RHEL9/zen4-ib/software/LittleCMS/2.17-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/OpenJPEG/2.5.3-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/libwebp/1.5.0-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/giflib/5.2.2-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/freetype/2.13.3-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/Brotli/1.1.0-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/LibTIFF/4.7.0-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/libdeflate/1.24-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/zstd/1.5.6-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/lz4/1.10.0-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/gzip/1.13-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/jbigkit/2.1-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/libpng/1.6.48-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/libjpeg-turbo/3.1.0-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/ICU/76.1-GCCcore-14.2.0/sbin:/apps/gent/RHEL9/zen4-ib/software/ICU/76.1-GCCcore-14.2.0/bin:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/protobuf/31.1-GCCcore-14.2.0/bin:/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/dill/0.4.0-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/HDF5/1.14.6-gompi-2025a/bin:/apps/gent/RHEL9/zen4-ib/software/SciPy-bundle/2025.06-gfbf-2025a/bin:/apps/gent/RHEL9/zen4-ib/software/Python-bundle-PyPI/2025.04-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/FFTW/3.3.10-GCC-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/FlexiBLAS/3.4.5-GCC-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/OpenMPI/5.0.7-GCC-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/UCC/1.3.0-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/PRRTE/3.0.8-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/PMIx/5.0.6-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/UCX/1.18.0-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/libevent/2.1.12-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/hwloc/2.11.2-GCCcore-14.2.0/sbin:/apps/gent/RHEL9/zen4-ib/software/hwloc/2.11.2-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/numactl/2.0.19-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/Cython/3.1.1-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/poetry/2.1.2-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/build/1.3.0-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/virtualenv/20.29.2-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/NASM/2.16.03-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/UnZip/6.0-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/git/2.49.0-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/Perl/5.40.0-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/gettext/0.24-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/libxml2/2.13.4-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/expat/2.6.4-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/cURL/8.11.1-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/libpsl/0.21.5-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/libiconv/1.18-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/libidn2/2.3.7-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/Bazel/7.4.1-GCCcore-14.2.0-Java-21/bin:/apps/gent/RHEL9/zen4-ib/software/Java/21.0.8:/apps/gent/RHEL9/zen4-ib/software/Java/21.0.8/bin:/apps/gent/RHEL9/zen4-ib/software/hatchling/1.27.0-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/Python/3.13.1-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/OpenSSL/3/bin:/apps/gent/RHEL9/zen4-ib/software/XZ/5.6.3-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/SQLite/3.47.2-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/Tcl/8.6.16-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/ncurses/6.5-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/bzip2/1.0.8-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/binutils/2.42-GCCcore-14.2.0/bin:/apps/gent/RHEL9/zen4-ib/software/GCCcore/14.2.0/bin:/scratch/gent/470/vsc47063/easybuild/easybuild-framework:/usr/libexec/jobcli:/usr/local/vsc/bin:/opt/VirtualGL/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/user/gent/470/vsc47063/.dotnet/tools \
+14681-    PIP_DISABLE_PIP_VERSION_CHECK=true \
+14682-    PIP_REQUIRE_VIRTUALENV=false \
+=== Error and test failure summary ===
+14610:INFO: Elapsed time: 8463.726s, Critical Path: 278.90s
+14622:== 2026-10-29 14:57:03,998 run.py:652 WARNING Shell command FAILED (exit code 1)
+192041:    TEST_TIMEOUT=3600 \
+192179:    TEST_TIMEOUT=3600 \
+192229:    TEST_TIMEOUT=3600 \
+192302:    TEST_TIMEOUT=3600 \
+192375:    TEST_TIMEOUT=3600 \
+192448:    TEST_TIMEOUT=3600 \
+192520:    TEST_TIMEOUT=3600 \
+192570:    TEST_TIMEOUT=3600 \
+194090:ERROR: /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/bazel-root/26464c76bdb0f893c79fee6c961ada5c/external/com_github_grpc_grpc/src/python/grpcio/grpc/_cython/BUILD.bazel:25:12: Compiling external/com_github_grpc_grpc/src/python/grpcio/grpc/_cython/cygrpc.cpp failed: (Exit 1): gcc failed: error executing CppCompile command (from target @@com_github_grpc_grpc//src/python/grpcio/grpc/_cython:cygrpc.so) 
+194154:INFO: Elapsed time: 2098.175s, Critical Path: 109.02s
+194156:ERROR: Build did NOT complete successfully
+194980://tensorflow/python/debug/wrappers:dumping_wrapper_test         FAILED TO BUILD
+194987:Executed 5 out of 829 tests: 5 tests pass, 1 fails to build and 823 were skipped.
+372407:    TEST_TIMEOUT=3600 \
+372545:    TEST_TIMEOUT=3600 \
+372595:    TEST_TIMEOUT=3600 \
+372668:    TEST_TIMEOUT=3600 \
+372741:    TEST_TIMEOUT=3600 \
+372814:    TEST_TIMEOUT=3600 \
+372886:    TEST_TIMEOUT=3600 \
+372936:    TEST_TIMEOUT=3600 \
+374456:ERROR: /tmp/vsc47063/easybuild/build/TensorFlow/2.20.0/foss-2025a/TensorFlow/bazel-root/26464c76bdb0f893c79fee6c961ada5c/external/com_github_grpc_grpc/src/python/grpcio/grpc/_cython/BUILD.bazel:25:12: Compiling external/com_github_grpc_grpc/src/python/grpcio/grpc/_cython/cygrpc.cpp failed: (Exit 1): gcc failed: error executing CppCompile command (from target @@com_github_grpc_grpc//src/python/grpcio/grpc/_cython:cygrpc.so) 
+374520:INFO: Elapsed time: 2098.175s, Critical Path: 109.02s
+374522:ERROR: Build did NOT complete successfully
+375346://tensorflow/python/debug/wrappers:dumping_wrapper_test         FAILED TO BUILD
+375353:Executed 5 out of 829 tests: 5 tests pass, 1 fails to build and 823 were skipped.
+=== Last 400 lines ===
+//tensorflow/python/client:session_partial_run_test                   NO STATUS
+//tensorflow/python/client:timeline_test_cpu                          NO STATUS
+//tensorflow/python/client:virtual_gpu_test_cpu                       NO STATUS
+//tensorflow/python/compat:compat_test                                NO STATUS
+//tensorflow/python/compat:disable_v2_behavior_test                   NO STATUS
+//tensorflow/python/compiler/xla:jit_test_cpu                         NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:assert_cardinality_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:assert_next_test   NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:assert_prev_test   NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:compression_ops_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:copy_to_device_test_cpu NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:from_list_test     NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:group_by_reducer_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:iterator_model_ops_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:lookup_ops_test    NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:make_batched_features_dataset_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:make_csv_dataset_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:make_saveable_from_iterator_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:map_defun_op_test  NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:matching_files_dataset_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:model_dataset_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:non_serializable_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:prefetch_to_device_test_cpu NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:prefetch_with_slack_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:sleep_test         NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:variant_test       NO STATUS
+//tensorflow/python/data/experimental/kernel_tests:wrap_unwrap_test_cpu NO STATUS
+//tensorflow/python/data/experimental/kernel_tests/optimization:make_deterministic_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests/optimization:map_and_batch_fusion_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests/optimization:map_and_filter_fusion_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests/optimization:map_parallelization_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests/optimization:noop_elimination_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests/service:fault_tolerance_test NO STATUS
+//tensorflow/python/data/experimental/kernel_tests/service:multi_device_test NO STATUS
+//tensorflow/python/data/kernel_tests:as_numpy_iterator_test          NO STATUS
+//tensorflow/python/data/kernel_tests:bucket_by_sequence_length_test  NO STATUS
+//tensorflow/python/data/kernel_tests:cardinality_test                NO STATUS
+//tensorflow/python/data/kernel_tests:checkpoint_test                 NO STATUS
+//tensorflow/python/data/kernel_tests:choose_from_datasets_test       NO STATUS
+//tensorflow/python/data/kernel_tests:counter_test                    NO STATUS
+//tensorflow/python/data/kernel_tests:dataset_spec_test               NO STATUS
+//tensorflow/python/data/kernel_tests:enumerate_test                  NO STATUS
+//tensorflow/python/data/kernel_tests:filter_test                     NO STATUS
+//tensorflow/python/data/kernel_tests:fingerprint_test                NO STATUS
+//tensorflow/python/data/kernel_tests:from_generator_test             NO STATUS
+//tensorflow/python/data/kernel_tests:from_sparse_tensor_slices_test  NO STATUS
+//tensorflow/python/data/kernel_tests:get_single_element_test         NO STATUS
+//tensorflow/python/data/kernel_tests:ignore_errors_test              NO STATUS
+//tensorflow/python/data/kernel_tests:iterator_test_cpu               NO STATUS
+//tensorflow/python/data/kernel_tests:optional_test_cpu               NO STATUS
+//tensorflow/python/data/kernel_tests:options_test                    NO STATUS
+//tensorflow/python/data/kernel_tests:placement_test_cpu              NO STATUS
+//tensorflow/python/data/kernel_tests:ragged_batch_test               NO STATUS
+//tensorflow/python/data/kernel_tests:random_test                     NO STATUS
+//tensorflow/python/data/kernel_tests:take_while_test                 NO STATUS
+//tensorflow/python/data/kernel_tests:tf_record_dataset_test          NO STATUS
+//tensorflow/python/data/kernel_tests:zip_test                        NO STATUS
+//tensorflow/python/data/util:convert_test                            NO STATUS
+//tensorflow/python/data/util:nest_test                               NO STATUS
+//tensorflow/python/data/util:options_test                            NO STATUS
+//tensorflow/python/data/util:sparse_test                             NO STATUS
+//tensorflow/python/data/util:structure_test                          NO STATUS
+//tensorflow/python/data/util:traverse_test                           NO STATUS
+//tensorflow/python/debug/cli:analyzer_cli_test_cpu                   NO STATUS
+//tensorflow/python/debug/cli:cli_config_test                         NO STATUS
+//tensorflow/python/debug/cli:cli_shared_test                         NO STATUS
+//tensorflow/python/debug/cli:command_parser_test                     NO STATUS
+//tensorflow/python/debug/cli:debugger_cli_common_test                NO STATUS
+//tensorflow/python/debug/cli:evaluator_test                          NO STATUS
+//tensorflow/python/debug/cli:profile_analyzer_cli_test               NO STATUS
+//tensorflow/python/debug/cli:readline_ui_test                        NO STATUS
+//tensorflow/python/debug/cli:tensor_format_test                      NO STATUS
+//tensorflow/python/debug/lib:common_test                             NO STATUS
+//tensorflow/python/debug/lib:debug_data_test                         NO STATUS
+//tensorflow/python/debug/lib:debug_gradients_test_cpu                NO STATUS
+//tensorflow/python/debug/lib:debug_graph_reconstruction_test_cpu     NO STATUS
+//tensorflow/python/debug/lib:debug_graphs_test                       NO STATUS
+//tensorflow/python/debug/lib:debug_grappler_test_cpu                 NO STATUS
+//tensorflow/python/debug/lib:debug_utils_test                        NO STATUS
+//tensorflow/python/debug/lib:profiling_test                          NO STATUS
+//tensorflow/python/debug/lib:session_debug_file_test_cpu             NO STATUS
+//tensorflow/python/debug/lib:session_debug_multi_gpu_test_cpu        NO STATUS
+//tensorflow/python/debug/lib:source_utils_test                       NO STATUS
+//tensorflow/python/debug/wrappers:disk_usage_test                    NO STATUS
+//tensorflow/python/debug/wrappers:local_cli_wrapper_test             NO STATUS
+//tensorflow/python/distribute:distribute_lib_test                    NO STATUS
+//tensorflow/python/distribute:numpy_dataset_test                     NO STATUS
+//tensorflow/python/distribute:sharded_variable_test                  NO STATUS
+//tensorflow/python/distribute:template_mirrored_strategy_test_cpu    NO STATUS
+//tensorflow/python/distribute/cluster_resolver:gce_cluster_resolver_py_test NO STATUS
+//tensorflow/python/distribute/cluster_resolver:kubernetes_cluster_resolver_py_test NO STATUS
+//tensorflow/python/distribute/cluster_resolver:sagemaker_cluster_resolver_py_test NO STATUS
+//tensorflow/python/distribute/cluster_resolver:slurm_cluster_resolver_py_test NO STATUS
+//tensorflow/python/distribute/cluster_resolver:tfconfig_cluster_resolver_py_test NO STATUS
+//tensorflow/python/distribute/cluster_resolver/tpu:tpu_cluster_resolver_py_test NO STATUS
+//tensorflow/python/eager:cancellation_test_cpu                       NO STATUS
+//tensorflow/python/eager:context_test_cpu                            NO STATUS
+//tensorflow/python/eager:core_test_cpu                               NO STATUS
+//tensorflow/python/eager:device_placement_test_cpu                   NO STATUS
+//tensorflow/python/eager/polymorphic_function:concrete_function_test_cpu NO STATUS
+//tensorflow/python/framework:auto_control_deps_test                  NO STATUS
+//tensorflow/python/framework:c_api_util_test                         NO STATUS
+//tensorflow/python/framework:common_shapes_test                      NO STATUS
+//tensorflow/python/framework:constant_op_test                        NO STATUS
+//tensorflow/python/framework:device_spec_test                        NO STATUS
+//tensorflow/python/framework:device_test                             NO STATUS
+//tensorflow/python/framework:dtypes_test                             NO STATUS
+//tensorflow/python/framework:error_interpolation_test                NO STATUS
+//tensorflow/python/framework:errors_test                             NO STATUS
+//tensorflow/python/framework:extension_type_test                     NO STATUS
+//tensorflow/python/framework:graph_util_test                         NO STATUS
+//tensorflow/python/framework:immutable_dict_test                     NO STATUS
+//tensorflow/python/framework:importer_test                           NO STATUS
+//tensorflow/python/framework:kernels_test                            NO STATUS
+//tensorflow/python/framework:node_file_writer_test_cpu               NO STATUS
+//tensorflow/python/framework:op_def_library_test                     NO STATUS
+//tensorflow/python/framework:ops_enable_eager_test                   NO STATUS
+//tensorflow/python/framework:proto_test                              NO STATUS
+//tensorflow/python/framework:python_op_gen_annotation_test           NO STATUS
+//tensorflow/python/framework:random_seed_test                        NO STATUS
+//tensorflow/python/framework:registry_test                           NO STATUS
+//tensorflow/python/framework:smart_cond_test                         NO STATUS
+//tensorflow/python/framework:sparse_tensor_test                      NO STATUS
+//tensorflow/python/framework:subscribe_test                          NO STATUS
+//tensorflow/python/framework:tensor_shape_test                       NO STATUS
+//tensorflow/python/framework:tensor_test                             NO STATUS
+//tensorflow/python/framework:tensor_util_test                        NO STATUS
+//tensorflow/python/framework:traceable_stack_test                    NO STATUS
+//tensorflow/python/framework:type_spec_test                          NO STATUS
+//tensorflow/python/framework:versions_test                           NO STATUS
+//tensorflow/python/grappler:arithmetic_optimizer_test_cpu            NO STATUS
+//tensorflow/python/kernel_tests:benchmark_test_cpu                   NO STATUS
+//tensorflow/python/kernel_tests:check_ops_test_cpu                   NO STATUS
+//tensorflow/python/kernel_tests:composite_tensor_ops_test            NO STATUS
+//tensorflow/python/kernel_tests:garbage_collection_test              NO STATUS
+//tensorflow/python/kernel_tests:gradient_correctness_test_cpu        NO STATUS
+//tensorflow/python/kernel_tests:histogram_ops_test_cpu               NO STATUS
+//tensorflow/python/kernel_tests:numerics_test_cpu                    NO STATUS
+//tensorflow/python/kernel_tests:template_test                        NO STATUS
+//tensorflow/python/kernel_tests:trace_op_test_cpu                    NO STATUS
+//tensorflow/python/kernel_tests/array_ops:batchtospace_op_test_cpu   NO STATUS
+//tensorflow/python/kernel_tests/array_ops:bcast_ops_test             NO STATUS
+//tensorflow/python/kernel_tests/array_ops:bitcast_op_test_cpu        NO STATUS
+//tensorflow/python/kernel_tests/array_ops:cast_op_test_cpu           NO STATUS
+//tensorflow/python/kernel_tests/array_ops:constant_op_eager_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/array_ops:constant_op_test_cpu       NO STATUS
+//tensorflow/python/kernel_tests/array_ops:denormal_test_cpu          NO STATUS
+//tensorflow/python/kernel_tests/array_ops:edit_distance_op_test      NO STATUS
+//tensorflow/python/kernel_tests/array_ops:fingerprint_op_test        NO STATUS
+//tensorflow/python/kernel_tests/array_ops:gather_nd_op_test_cpu      NO STATUS
+//tensorflow/python/kernel_tests/array_ops:identity_n_op_py_test      NO STATUS
+//tensorflow/python/kernel_tests/array_ops:identity_op_py_test        NO STATUS
+//tensorflow/python/kernel_tests/array_ops:inplace_ops_test_cpu       NO STATUS
+//tensorflow/python/kernel_tests/array_ops:one_hot_op_test_cpu        NO STATUS
+//tensorflow/python/kernel_tests/array_ops:reshape_op_test_cpu        NO STATUS
+//tensorflow/python/kernel_tests/array_ops:reverse_sequence_op_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/array_ops:scalar_test_cpu            NO STATUS
+//tensorflow/python/kernel_tests/array_ops:spacetobatch_op_test_cpu   NO STATUS
+//tensorflow/python/kernel_tests/array_ops:unique_op_test_cpu         NO STATUS
+//tensorflow/python/kernel_tests/array_ops:unstack_op_test_cpu        NO STATUS
+//tensorflow/python/kernel_tests/array_ops:weights_broadcast_test     NO STATUS
+//tensorflow/python/kernel_tests/control_flow:control_flow_util_test  NO STATUS
+//tensorflow/python/kernel_tests/control_flow:control_flow_util_v2_test NO STATUS
+//tensorflow/python/kernel_tests/control_flow:map_fn_test_cpu         NO STATUS
+//tensorflow/python/kernel_tests/control_flow:py_func_test_cpu        NO STATUS
+//tensorflow/python/kernel_tests/data_structures:conditional_accumulator_test NO STATUS
+//tensorflow/python/kernel_tests/data_structures:dynamic_stitch_op_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/data_structures:fifo_queue_test      NO STATUS
+//tensorflow/python/kernel_tests/data_structures:list_ops_test_cpu    NO STATUS
+//tensorflow/python/kernel_tests/data_structures:listdiff_op_test     NO STATUS
+//tensorflow/python/kernel_tests/data_structures:lookup_ops_test      NO STATUS
+//tensorflow/python/kernel_tests/data_structures:map_ops_test         NO STATUS
+//tensorflow/python/kernel_tests/data_structures:padding_fifo_queue_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/data_structures:stack_ops_test_cpu   NO STATUS
+//tensorflow/python/kernel_tests/distributions:bijector_test_cpu      NO STATUS
+//tensorflow/python/kernel_tests/distributions:categorical_test_cpu   NO STATUS
+//tensorflow/python/kernel_tests/distributions:dirichlet_test_cpu     NO STATUS
+//tensorflow/python/kernel_tests/distributions:identity_bijector_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/distributions:kullback_leibler_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/distributions:uniform_test_cpu       NO STATUS
+//tensorflow/python/kernel_tests/image_ops:attention_ops_test         NO STATUS
+//tensorflow/python/kernel_tests/image_ops:decode_bmp_op_test         NO STATUS
+//tensorflow/python/kernel_tests/image_ops:decode_compressed_op_test  NO STATUS
+//tensorflow/python/kernel_tests/image_ops:decode_image_op_test       NO STATUS
+//tensorflow/python/kernel_tests/image_ops:decode_png_op_test         NO STATUS
+//tensorflow/python/kernel_tests/image_ops:decode_raw_op_test         NO STATUS
+//tensorflow/python/kernel_tests/image_ops:draw_bounding_box_op_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/image_ops:extract_image_patches_op_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/image_ops:extract_volume_patches_op_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/io_ops:decode_csv_op_test            NO STATUS
+//tensorflow/python/kernel_tests/io_ops:io_ops_test                   NO STATUS
+//tensorflow/python/kernel_tests/io_ops:parse_single_example_op_test  NO STATUS
+//tensorflow/python/kernel_tests/io_ops:reader_ops_test               NO STATUS
+//tensorflow/python/kernel_tests/io_ops:save_restore_ops_test         NO STATUS
+//tensorflow/python/kernel_tests/linalg:linear_operator_addition_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/linalg:linear_operator_test_cpu      NO STATUS
+//tensorflow/python/kernel_tests/linalg:lu_op_test_cpu                NO STATUS
+//tensorflow/python/kernel_tests/linalg:matrix_inverse_op_test_cpu    NO STATUS
+//tensorflow/python/kernel_tests/linalg:slicing_test_cpu              NO STATUS
+//tensorflow/python/kernel_tests/math_ops:aggregate_ops_test_cpu      NO STATUS
+//tensorflow/python/kernel_tests/math_ops:argmax_op_test_cpu          NO STATUS
+//tensorflow/python/kernel_tests/math_ops:banded_triangular_solve_op_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/math_ops:basic_gpu_test_cpu          NO STATUS
+//tensorflow/python/kernel_tests/math_ops:bincount_op_test_cpu        NO STATUS
+//tensorflow/python/kernel_tests/math_ops:clip_ops_test               NO STATUS
+//tensorflow/python/kernel_tests/math_ops:confusion_matrix_test       NO STATUS
+//tensorflow/python/kernel_tests/math_ops:cross_grad_test_cpu         NO STATUS
+//tensorflow/python/kernel_tests/math_ops:in_topk_op_test_cpu         NO STATUS
+//tensorflow/python/kernel_tests/math_ops:segment_reduction_ops_d9m_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:betainc_op_test_cpu           NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:conv1d_test_cpu               NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:conv1d_transpose_test_cpu     NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:conv2d_transpose_test_cpu     NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:conv3d_backprop_filter_v2_grad_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:ctc_decoder_ops_test          NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:cudnn_d9m_test_cpu            NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:cudnn_deterministic_ops_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:fractional_avg_pool_op_test   NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:fractional_max_pool_op_test   NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:morphological_ops_test_cpu    NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:nth_element_op_test_cpu       NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:relu_op_test_cpu              NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:softplus_op_test_cpu          NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:softsign_op_test_cpu          NO STATUS
+//tensorflow/python/kernel_tests/nn_ops:xent_op_test_cpu              NO STATUS
+//tensorflow/python/kernel_tests/quantization_ops:quantization_ops_test NO STATUS
+//tensorflow/python/kernel_tests/random:candidate_sampler_ops_test    NO STATUS
+//tensorflow/python/kernel_tests/random:multinomial_op_test_cpu       NO STATUS
+//tensorflow/python/kernel_tests/random:random_crop_test_cpu          NO STATUS
+//tensorflow/python/kernel_tests/random:random_grad_test_cpu          NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparse_add_op_test        NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparse_concat_op_test     NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparse_conditional_accumulator_test NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparse_cross_op_test      NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparse_reorder_op_test    NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparse_reshape_op_test    NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparse_serialization_ops_test NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparse_slice_op_test      NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparse_split_op_test_cpu  NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparse_tensor_dense_matmul_grad_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparse_tensors_map_ops_test NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparse_to_dense_op_py_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparse_xent_op_test_cpu   NO STATUS
+//tensorflow/python/kernel_tests/sparse_ops:sparsemask_op_test        NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:as_string_op_test        NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:base64_ops_test          NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:reduce_join_op_test_cpu  NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:regex_full_match_op_test NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:regex_replace_op_test    NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:string_bytes_split_op_test NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:string_format_op_test    NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:string_join_op_test      NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:string_length_op_test    NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:string_lower_op_test     NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:string_split_op_test     NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:string_strip_op_test     NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:string_to_hash_bucket_op_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:string_to_number_op_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:string_upper_op_test     NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:substr_op_test           NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:unicode_decode_op_test   NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:unicode_encode_op_test   NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:unicode_script_op_test   NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:unicode_transcode_op_test NO STATUS
+//tensorflow/python/kernel_tests/strings_ops:unsorted_segment_join_op_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/summary_ops:summary_v1_audio_op_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/summary_ops:summary_v1_image_op_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/summary_ops:summary_v1_ops_test      NO STATUS
+//tensorflow/python/kernel_tests/summary_ops:summary_v1_tensor_op_test NO STATUS
+//tensorflow/python/kernel_tests/v1_compat_tests:array_ops_test_cpu   NO STATUS
+//tensorflow/python/kernel_tests/v1_compat_tests:identity_op_py_test  NO STATUS
+//tensorflow/python/kernel_tests/v1_compat_tests:scatter_nd_ops_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/v1_compat_tests:session_ops_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/v1_compat_tests:stack_op_test_cpu    NO STATUS
+//tensorflow/python/kernel_tests/variables:dense_update_ops_no_tsan_test_cpu NO STATUS
+//tensorflow/python/kernel_tests/variables:dense_update_ops_test_cpu  NO STATUS
+//tensorflow/python/kernel_tests/variables:partitioned_variables_test NO STATUS
+//tensorflow/python/kernel_tests/variables:variable_ops_test_cpu      NO STATUS
+//tensorflow/python/kernel_tests/variables:variables_test             NO STATUS
+//tensorflow/python/lib/io:file_io_test                               NO STATUS
+//tensorflow/python/lib/io:tf_record_test                             NO STATUS
+//tensorflow/python/ops:bincount_ops_test_cpu                         NO STATUS
+//tensorflow/python/ops:clip_ops_test                                 NO STATUS
+//tensorflow/python/ops:collective_ops_gpu_test_cpu                   NO STATUS
+//tensorflow/python/ops:collective_ops_test                           NO STATUS
+//tensorflow/python/ops:compiled_collective_ops_gpu_test_cpu          NO STATUS
+//tensorflow/python/ops:control_flow_v2_enable_test                   NO STATUS
+//tensorflow/python/ops:control_flow_v2_toggles_test                  NO STATUS
+//tensorflow/python/ops:dequantize_op_test                            NO STATUS
+//tensorflow/python/ops:factory_ops_test_cpu                          NO STATUS
+//tensorflow/python/ops:init_ops_test_cpu                             NO STATUS
+//tensorflow/python/ops:nn_loss_scaling_utilities_test                NO STATUS
+//tensorflow/python/ops:quantized_conv_ops_test                       NO STATUS
+//tensorflow/python/ops:quantized_ops_test                            NO STATUS
+//tensorflow/python/ops:tensor_array_ops_test                         NO STATUS
+//tensorflow/python/ops:variable_spec_test                            NO STATUS
+//tensorflow/python/ops/losses:util_test                              NO STATUS
+//tensorflow/python/ops/ragged:ragged_bincount_ops_test_cpu           NO STATUS
+//tensorflow/python/ops/ragged:ragged_map_fn_op_test                  NO STATUS
+//tensorflow/python/ops/ragged:string_ngrams_op_test                  NO STATUS
+//tensorflow/python/profiler:tfprof_logger_test                       NO STATUS
+//tensorflow/python/saved_model:fingerprinting_test                   NO STATUS
+//tensorflow/python/saved_model:loader_test                           NO STATUS
+//tensorflow/python/saved_model:saved_model_test                      NO STATUS
+//tensorflow/python/saved_model:signature_def_utils_test              NO STATUS
+//tensorflow/python/saved_model:simple_save_test                      NO STATUS
+//tensorflow/python/saved_model:tracing_utils_test                    NO STATUS
+//tensorflow/python/saved_model:utils_test                            NO STATUS
+//tensorflow/python/summary:plugin_asset_test                         NO STATUS
+//tensorflow/python/summary:summary_iterator_test                     NO STATUS
+//tensorflow/python/summary:summary_test                              NO STATUS
+//tensorflow/python/summary:summary_v2_test                           NO STATUS
+//tensorflow/python/summary/writer:writer_test                        NO STATUS
+//tensorflow/python/tools:freeze_graph_test                           NO STATUS
+//tensorflow/python/tools:optimize_for_inference_test                 NO STATUS
+//tensorflow/python/tools:saved_model_utils_test                      NO STATUS
+//tensorflow/python/tools:strip_unused_test                           NO STATUS
+//tensorflow/python/tpu:bfloat16_test                                 NO STATUS
+//tensorflow/python/tpu:tpu_infeed_test                               NO STATUS
+//tensorflow/python/tpu:tpu_sharding_test                             NO STATUS
+//tensorflow/python/tpu/client:client_py_test                         NO STATUS
+//tensorflow/python/training:checkpoint_ops_test                      NO STATUS
+//tensorflow/python/training:checkpoint_utils_iterator_test           NO STATUS
+//tensorflow/python/training:moving_averages_test_cpu                 NO STATUS
+//tensorflow/python/training:server_lib_multiple_containers_test      NO STATUS
+//tensorflow/python/training:server_lib_same_variables_clear_container_test NO STATUS
+//tensorflow/python/training:server_lib_same_variables_clear_test     NO STATUS
+//tensorflow/python/training:server_lib_same_variables_no_clear_test  NO STATUS
+//tensorflow/python/training:server_lib_sparse_job_test               NO STATUS
+//tensorflow/python/training:server_lib_test                          NO STATUS
+//tensorflow/python/training:supervisor_test                          NO STATUS
+//tensorflow/python/training:training_util_test                       NO STATUS
+//tensorflow/python/training/experimental:loss_scale_optimizer_test   NO STATUS
+//tensorflow/python/training/experimental:mixed_precision_test_cpu    NO STATUS
+//tensorflow/python/util:example_parser_configuration_test            NO STATUS
+//tensorflow/python/util:lock_util_test                               NO STATUS
+//tensorflow/python/util:module_wrapper_test                          NO STATUS
+//tensorflow/python/util:nest_test                                    NO STATUS
+//tensorflow/python/util:object_identity_test                         NO STATUS
+//tensorflow/python/util:serialization_test                           NO STATUS
+//tensorflow/python/util:tf_contextlib_test                           NO STATUS
+//tensorflow/python/util:tf_decorator_test                            NO STATUS
+//tensorflow/python/util:tf_inspect_test                              NO STATUS
+//tensorflow/python/util:tf_should_use_test                           NO STATUS
+//tensorflow/python/util:traceback_utils_test                         NO STATUS
+//tensorflow/python/util:type_annotations_test                        NO STATUS
+//tensorflow/python/debug/wrappers:dumping_wrapper_test         FAILED TO BUILD
+//tensorflow/core/common_runtime/gpu:gpu_serving_device_selector_test    PASSED in 0.2s
+//tensorflow/core/kernels:portable_tensorflow_kernels_build_test         PASSED in 0.3s
+//tensorflow/core/kernels/image:android_tensorflow_image_op_build_test   PASSED in 0.4s
+//tensorflow/core/platform:env_test                                      PASSED in 2.4s
+//tensorflow/core/platform:platform_strings_test                         PASSED in 0.5s
+
+Executed 5 out of 829 tests: 5 tests pass, 1 fails to build and 823 were skipped.
+
+== 2026-10-29 14:57:05,796 build_log.py:233 ERROR EasyBuild encountered an error: At least 1 cpu tests failed:
+//tensorflow/python/debug/wrappers:dumping_wrapper_test (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:2829 in report_test_failure)
+Callstack:
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:2829 in report_test_failure
+	easybuild/easybuild-easyblocks/easybuild/easyblocks/t/tensorflow.py:1222 in test_step
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:3350 in _test_step
+	easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/pythonpackage.py:1221 in install_extension
+	easybuild/easybuild-framework/easybuild/framework/extension.py:332 in install_extension_substep
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:2340 in install_extensions_sequential
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:2209 in install_all_extensions
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:3504 in extensions_step
+	easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/pythonbundle.py:116 in extensions_step
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:5095 in run_step
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:5254 in run_all_steps
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:5442 in build_and_install_one
+	easybuild/easybuild-framework/easybuild/main.py:184 in build_and_install_software
+	easybuild/easybuild-framework/easybuild/main.py:630 in process_eb_args
+	easybuild/easybuild-framework/easybuild/main.py:814 in main
+	easybuild/easybuild-framework/easybuild/main.py:872 in main_with_hooks
+	easybuild/easybuild-framework/easybuild/main.py:891 in <module>
+== 2026-10-29 14:57:05,797 build_log.py:233 ERROR EasyBuild encountered an error: An error was raised during test step: At least 1 cpu tests failed:
+//tensorflow/python/debug/wrappers:dumping_wrapper_test (at easybuild/easybuild-framework/easybuild/framework/easyblock.py:2829 in report_test_failure)
+Callstack:
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:2829 in report_test_failure
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:3352 in _test_step
+	easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/pythonpackage.py:1221 in install_extension
+	easybuild/easybuild-framework/easybuild/framework/extension.py:332 in install_extension_substep
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:2340 in install_extensions_sequential
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:2209 in install_all_extensions
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:3504 in extensions_step
+	easybuild/easybuild-easyblocks/easybuild/easyblocks/generic/pythonbundle.py:116 in extensions_step
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:5095 in run_step
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:5254 in run_all_steps
+	easybuild/easybuild-framework/easybuild/framework/easyblock.py:5442 in build_and_install_one
+	easybuild/easybuild-framework/easybuild/main.py:184 in build_and_install_software
+	easybuild/easybuild-framework/easybuild/main.py:630 in process_eb_args
+	easybuild/easybuild-framework/easybuild/main.py:814 in main
+	easybuild/easybuild-framework/easybuild/main.py:872 in main_with_hooks
+	easybuild/easybuild-framework/easybuild/main.py:891 in <module>
+== 2026-10-29 14:57:05,797 build_log.py:330 INFO 	... (took 2 hours 56 mins 19 secs)
+== 2026-10-29 14:57:05,800 build_log.py:330 INFO ... (took 2 hours 57 mins 19 secs)
+== 2026-10-29 14:57:05,801 filetools.py:2170 INFO Removing lock /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL9_zen4-ib_software_TensorFlow_2.20.0-foss-2025a.lock...
+== 2026-10-29 14:57:05,810 filetools.py:435 INFO Path /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL9_zen4-ib_software_TensorFlow_2.20.0-foss-2025a.lock successfully removed.
+== 2026-10-29 14:57:05,810 filetools.py:2174 INFO Lock removed: /scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen4-ib/software/.locks/_scratch_gent_vo_001_gvo00117_easybuild_RHEL9_zen4-ib_software_TensorFlow_2.20.0-foss-2025a.lock
+== 2026-10-29 14:57:05,811 easyblock.py:410 INFO Closing log for application name TensorFlow version 2.20.0

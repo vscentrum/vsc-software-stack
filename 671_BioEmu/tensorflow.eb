@@ -132,7 +132,12 @@ exts_list = [
             '-//tensorflow/core/kernels/mkl:mkl_fused_batch_norm_op_test',
             '-//tensorflow/core/ir/importexport/tests/roundtrip/...',
         ],
-        'testopts': "--test_env=HOME=/tmp --test_timeout=3600 --test_size_filters=small ",
+        # Avoid treating an unchecked write() return in generated gRPC code as a fatal error.
+        'testopts': (
+            '--test_env=HOME=/tmp --test_timeout=3600 --test_size_filters=small '
+            '--per_file_copt=cygrpc[.]cpp@-Wno-error=unused-result '
+            '--linkopt=-lssl --linkopt=-lcrypto'
+        ),
         'testopts_gpu': (
             '--test_env=HOME=/tmp --test_timeout=3600 --test_size_filters=small '
             '--run_under=//tensorflow/tools/ci_build/gpu_build:parallel_gpu_execute '
