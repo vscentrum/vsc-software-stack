@@ -78,9 +78,10 @@ exts_list = [
     }),
     (name, version, {
         # Fix missing llvm::cast namespace qualifier in DTensor, which causes compilation failure
-        # Fix missing MLIR namespace qualifiers in DTensor 
-        # (already fixed upstream).
+        # Fix missing MLIR namespace qualifiers in DTensor (already fixed upstream).
+        # Remove libclang python dependency
         'prebuildopts': (
+            "sed -i '/libclang >= 13.0.0/d' tensorflow/tools/pip_package/setup.py.tpl && "
             "sed -i 's/ExtractGlobalOutputShape(cast</ExtractGlobalOutputShape(mlir::cast</' "
             "tensorflow/dtensor/mlir/shape_utils.cc && "
             "sed -i "

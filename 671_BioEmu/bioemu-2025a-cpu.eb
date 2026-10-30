@@ -2,7 +2,6 @@ easyblock = 'PythonBundle'
 
 name = 'BioEmu'
 version = '1.4.0'
-versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/microsoft/bioemu'
 description = """
@@ -39,7 +38,7 @@ toolchain = {'name': 'foss', 'version': '2025a'}
     # OK "dm-haiku>=0.0.12",
     # OK "ml-collections",
     # OK "absl-py",
-    # "tensorflow-cpu>=2.12.0", -> CREATE
+    # OK "tensorflow-cpu>=2.12.0", -> CREATE
     # OK "jax>=0.4.35,<0.11",
 
 builddependencies = [
@@ -98,7 +97,9 @@ exts_list = [
     ('bioemu', version, {
         'source_urls': ['https://github.com/microsoft/bioemu/archive'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        'preinstallopts': "sed -i 's/matplotlib>=3.10.7/matplotlib/' pyproject.toml && ",
+        'preinstallopts': (
+            "sed -i -e 's/matplotlib>=3.10.7/matplotlib/' -e 's/tensorflow-cpu/tensorflow/' pyproject.toml && "
+        ),
         'testinstall': True,
         'runtest': (
             'JAX_PLATFORMS=cpu pytest -vv tests/'
