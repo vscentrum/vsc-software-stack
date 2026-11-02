@@ -13,35 +13,6 @@ given its amino acid sequence.
 
 toolchain = {'name': 'foss', 'version': '2025a'}
 
-## DEPS:
-    #OK "mdtraj>=1.9.9",
-    # "torch_geometric>=2.6.1",
-    # OK "torch>=2.6.0",
-    # ok "modelcif>=0.7",
-    # ok "bio>=1.5.9",
-        # OK 'biopython >= 1.80',
-        # OK 'requests',
-        # OK 'tqdm',
-        # OK 'mygene',
-        # OK 'pandas',
-        # OK 'pooch',
-        # ok 'gprofiler-official'
-    # ok "fire>=0.7.0",
-    # OK "huggingface-hub",
-    # OK "hydra-core",
-    # OK "dm-tree",
-    # ok "stackprinter",
-    # ok "typer",
-    # OK "einops",
-    # OK! "matplotlib>=3.10.7",
-    # OK "requests",
-    # OK "tqdm",
-    # OK "dm-haiku>=0.0.12", -> CREATE
-    # OK "ml-collections",
-    # OK "absl-py",
-    # OK "tensorflow-cpu>=2.12.0", -> CREATE
-    # OK "jax>=0.4.35,<0.11",
-
 builddependencies = [
     ('PDM', '2.25.5'),
     ('hatchling', '1.27.0'),
@@ -54,11 +25,11 @@ dependencies = [
     ('PyTorch-Geometric', '2.8.0', versionsuffix),
     ('PyTorch', '2.9.1', versionsuffix),
     ('jax', '0.7.0', versionsuffix),
-    ('TensorFlow', '2.20.0'),
+    ('dm-haiku', '0.0.16', versionsuffix),
+    ('TensorFlow', '2.20.0'),  # BioEmu with CUDA support requires tensorflow-cpu version
     ('matplotlib', '3.10.3'),
     ('Biopython', '1.85'),
     ('dm-tree', '0.1.10'),
-    ('dm-haiku', '0.0.16'),
     ('MDTraj', '1.11.0'),
     ('mygene', '3.2.2'),
     ('tqdm', '4.67.1'),
@@ -73,9 +44,6 @@ exts_list = [
     ('typer', '0.20.0', {
         'checksums': ['1aaf6494031793e4876fb0bacfa6a912b551cf43c1e63c800df8b1a866720c37'],
     }),
-    # ('termcolor', '3.3.0', { # in TF
-    #     'checksums': ['348871ca648ec6a9a983a13ab626c0acce02f515b9e1983332b17af7979521c5'],
-    # }),
     ('fire', '0.7.1', {
         'checksums': ['3b208f05c736de98fb343310d090dcc4d8c78b2a89ea4f32b837c586270a9cbf'],
     }),
@@ -99,12 +67,22 @@ exts_list = [
     ('bioemu', version, {
         'source_urls': ['https://github.com/microsoft/bioemu/archive'],
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
-        'preinstallopts': "sed -i 's/matplotlib>=3.10.7/matplotlib/' pyproject.toml && ",
+        'preinstallopts': (
+            # unpin matplotlib version and fix tensorflow moduel name
+            "sed -i -e 's/matplotlib>=3.10.7/matplotlib/' "
+            "-e 's/tensorflow-cpu>=2.12.0/tensorflow>=2.12.0/' pyproject.toml && "
+            # https://github.com/microsoft/bioemu/issues/266
+            "sed -i 's/1.4.1/%(version)s/' src/bioemu/__init__.py && "
+        ),
         'testinstall': True,
         'runtest': (
-            'JAX_PLATFORMS=cpu pytest -vv tests/'
+            'mkdir -p .bioemu-test-home && '
+            'HOME="$PWD/.bioemu-test-home" JAX_PLATFORMS=cpu pytest -vv tests/'
             ' --ignore=tests/test_colabfold_inline/test_regression.py'
             ' --ignore=tests/test_mdrelax.py'  # requires OpenMM
+            # End-to-end tests require downloading large model weights
+            ' --ignore=tests/steering/test_chignolin_e2e.py'
+            ' --ignore=tests/test_integration.py'
         ),
         'checksums': ['c0743022b677af4d89780fdad27c612202d976350791f383af933489cfc7f20e'],
     }),

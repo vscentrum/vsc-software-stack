@@ -4,6 +4,7 @@ PyTorch forwards an optional device argument to aten._pin_memory, but the
 EdgeIndex, Index and HashTensor implementations accept only one argument.
 Accept the device and pass it through when pinning their backing tensors.
 
+Author: Pavel Tomanek (Inuits/UGent) with help from ChatGPT6.0
 --- a/torch_geometric/edge_index.py
 +++ b/torch_geometric/edge_index.py
 @@ -1367,8 +1367,11 @@

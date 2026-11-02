@@ -193,7 +193,7 @@ def main():
             "XDG_CACHE_HOME": str(home / ".cache"),
             "HF_HUB_OFFLINE": "1",
             "HF_DATASETS_OFFLINE": "1",
-            "JAX_PLATFORMS": "gpu" if args.cuda else "cpu",
+            "JAX_PLATFORMS": "cuda" if args.cuda else "cpu",
             "BIOEMU_SMOKE_DEVICE": "cuda" if args.cuda else "cpu",
             "TF_CPP_MIN_LOG_LEVEL": "2",
         })
