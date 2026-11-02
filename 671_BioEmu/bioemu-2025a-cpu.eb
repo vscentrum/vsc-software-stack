@@ -71,9 +71,6 @@ exts_list = [
     ('typer', '0.20.0', {
         'checksums': ['1aaf6494031793e4876fb0bacfa6a912b551cf43c1e63c800df8b1a866720c37'],
     }),
-    # ('termcolor', '3.3.0', { # in TF
-    #     'checksums': ['348871ca648ec6a9a983a13ab626c0acce02f515b9e1983332b17af7979521c5'],
-    # }),
     ('fire', '0.7.1', {
         'checksums': ['3b208f05c736de98fb343310d090dcc4d8c78b2a89ea4f32b837c586270a9cbf'],
     }),
@@ -128,9 +125,7 @@ sanity_check_paths = {
     'dirs': ['lib/python%(pyshortver)s/site-packages/', 'notebooks'],
 }
 
-sanity_check_commands = [
-    "python -m bioemu.sample --help",
-]
+sanity_check_commands = ["python -m bioemu.sample --help"]
 
 modloadmsg = """
 %(name)s notebooks are located in $EBROOTBIOEMU/notebooks

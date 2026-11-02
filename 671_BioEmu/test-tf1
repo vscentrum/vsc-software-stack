@@ -1,0 +1,146 @@
+
+#!/usr/bin/env python3
+import os
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
+os.environ.setdefault("TF_NUM_INTRAOP_THREADS", "2")
+os.environ.setdefault("TF_NUM_INTEROP_THREADS", "2")
+
+import argparse
+import sys
+import tempfile
+import traceback
+from pathlib import Path
+
+import numpy as np
+import tensorflow as tf
+
+
+def check_import():
+    assert tf.__version__ == "2.20.0", f"Expected TensorFlow 2.20.0, got {tf.__version__}"
+    assert tf.executing_eagerly(), "Eager execution is disabled"
+    cpus = tf.config.list_physical_devices("CPU")
+    assert cpus, "TensorFlow detected no CPU devices"
+    return f"TensorFlow {tf.__version__}, Python {sys.version.split()[0]}, CPU devices: {len(cpus)}"
+
+
+def check_tensor_operations():
+    a = tf.constant([[1.0, 2.0], [3.0, 4.0]], dtype=tf.float32)
+    b = tf.constant([[5.0, 6.0], [7.0, 8.0]], dtype=tf.float32)
+    np.testing.assert_allclose(tf.matmul(a, b).numpy(), [[19.0, 22.0], [43.0, 50.0]])
+    np.testing.assert_allclose(tf.reduce_sum(tf.square(a)).numpy(), 30.0)
+
+
+def check_autodiff():
+    x = tf.Variable(3.0)
+    with tf.GradientTape() as tape:
+        y = x * x + 2.0 * x
+    gradient = tape.gradient(y, x)
+    assert gradient is not None, "GradientTape returned None"
+    np.testing.assert_allclose(gradient.numpy(), 8.0)
+
+
+def check_tf_function():
+    @tf.function(input_signature=[tf.TensorSpec(shape=[None, 2], dtype=tf.float32)])
+    def graph(x):
+        weights = tf.constant([[2.0], [3.0]], dtype=tf.float32)
+        return tf.reduce_sum(tf.nn.relu(tf.matmul(x, weights)))
+
+    result = graph(tf.constant([[1.0, 2.0], [-1.0, 0.0]]))
+    np.testing.assert_allclose(result.numpy(), 8.0)
+
+
+def check_tf_data():
+    values = np.arange(10, dtype=np.int64)
+    dataset = tf.data.Dataset.from_tensor_slices(values)
+    dataset = dataset.map(lambda x: x * x).batch(4).prefetch(1)
+    options = tf.data.Options()
+    options.threading.private_threadpool_size = 2
+    dataset = dataset.with_options(options)
+    output = np.concatenate([batch.numpy() for batch in dataset])
+    np.testing.assert_array_equal(output, values * values)
+
+
+def check_keras():
+    x = np.array([[-2.0], [-1.0], [0.0], [1.0], [2.0]], dtype=np.float32)
+    y = 3.0 * x + 1.0
+    model = tf.keras.Sequential([
+        tf.keras.Input(shape=(1,)),
+        tf.keras.layers.Dense(1, kernel_initializer="zeros", bias_initializer="zeros"),
+    ])
+    model.compile(optimizer=tf.keras.optimizers.SGD(learning_rate=0.05), loss="mse")
+    before = float(tf.reduce_mean(tf.square(model(x, training=False) - y)).numpy())
+    for _ in range(12):
+        model.train_on_batch(x, y)
+    after = float(tf.reduce_mean(tf.square(model(x, training=False) - y)).numpy())
+    assert np.isfinite(after) and after < before * 0.1, (
+        f"Keras training did not converge: initial loss {before}, final loss {after}"
+    )
+    with tempfile.TemporaryDirectory(prefix="tf-keras-smoke-") as directory:
+        path = Path(directory) / "model.keras"
+        model.save(str(path))
+        restored = tf.keras.models.load_model(str(path))
+        np.testing.assert_allclose(
+            restored(x, training=False).numpy(),
+            model(x, training=False).numpy(),
+            rtol=1e-5,
+            atol=1e-5,
+        )
+    return f"loss {before:.4f} -> {after:.4f}; .keras save/load OK"
+
+
+def check_saved_model():
+    class Affine(tf.Module):
+        @tf.function(input_signature=[tf.TensorSpec(shape=[None], dtype=tf.float32)])
+        def __call__(self, x):
+            return 2.0 * x + 1.0
+
+    with tempfile.TemporaryDirectory(prefix="tf-savedmodel-smoke-") as directory:
+        tf.saved_model.save(Affine(), directory)
+        loaded = tf.saved_model.load(directory)
+        output = loaded(tf.constant([1.0, 2.0, 3.0]))
+        np.testing.assert_allclose(output.numpy(), [3.0, 5.0, 7.0])
+
+
+def check_xla():
+    @tf.function(jit_compile=True)
+    def compiled(x):
+        return tf.reduce_sum(tf.square(x))
+
+    result = compiled(tf.constant([1.0, 2.0, 3.0]))
+    np.testing.assert_allclose(result.numpy(), 14.0)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="TensorFlow 2.20.0 CPU smoke test")
+    parser.add_argument("--xla", action="store_true", help="Also test XLA JIT compilation on CPU")
+    args = parser.parse_args()
+    tests = [
+        ("TensorFlow import and CPU runtime", check_import),
+        ("Tensor operations and linear algebra", check_tensor_operations),
+        ("Automatic differentiation", check_autodiff),
+        ("tf.function graph execution", check_tf_function),
+        ("tf.data input pipeline", check_tf_data),
+        ("Keras training and .keras serialization", check_keras),
+        ("SavedModel export/import", check_saved_model),
+    ]
+    if args.xla:
+        tests.append(("XLA JIT compilation on CPU", check_xla))
+    failures = []
+    print("=== TensorFlow 2.20.0 / foss-2025a CPU functional smoke test ===", flush=True)
+    with tf.device("/CPU:0"):
+        for name, test in tests:
+            try:
+                details = test()
+                print(f"[PASS] {name}" + (f": {details}" if details else ""), flush=True)
+            except Exception:
+                print(f"[FAIL] {name}", flush=True)
+                traceback.print_exc()
+                failures.append(name)
+    print(f"\nResult: {len(tests) - len(failures)}/{len(tests)} tests passed", flush=True)
+    return 1 if failures else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
