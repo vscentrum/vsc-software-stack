@@ -1,0 +1,221 @@
+#!/usr/bin/env python3
+import argparse
+import os
+import signal
+import subprocess
+import sys
+import tempfile
+import textwrap
+from pathlib import Path
+
+
+TESTS = [
+    ("BioEmu installation and versions", r'''
+import os
+from importlib.metadata import version
+from pathlib import Path
+import bioemu
+assert version("bioemu") == "1.4.0", version("bioemu")
+assert bioemu.__version__ == "1.4.0", bioemu.__version__
+root = os.environ.get("EBROOTBIOEMU")
+if root:
+    assert Path(bioemu.__file__).resolve().is_relative_to(Path(root).resolve()), bioemu.__file__
+for package in ("bioemu", "torch", "torch-geometric", "jax", "tensorflow", "mdtraj"):
+    print(f"{package}: {version(package)}")
+print("BioEmu path:", bioemu.__file__)
+'''),
+    ("FASTA read/write and protein validation", r'''
+import tempfile
+from pathlib import Path
+from bioemu.seq_io import check_protein_valid, parse_sequence, read_fasta, write_fasta
+sequence = "GYDPETGTWG"
+check_protein_valid(sequence)
+with tempfile.TemporaryDirectory() as tmp:
+    fasta = Path(tmp) / "test.fasta"
+    write_fasta([sequence], fasta)
+    assert parse_sequence(fasta) == sequence
+    assert str(read_fasta(fasta)[0].seq) == sequence
+print("FASTA round-trip:", sequence)
+'''),
+    ("PyTorch and PyTorch-Geometric graph computation", r'''
+import os
+import torch
+from torch_geometric.nn import GCNConv
+device = torch.device(os.environ["BIOEMU_SMOKE_DEVICE"])
+if device.type == "cuda":
+    assert torch.cuda.is_available(), "CUDA requested but unavailable to PyTorch"
+x = torch.randn(3, 4, device=device, requires_grad=True)
+edges = torch.tensor([[0, 1, 2, 0], [1, 2, 0, 2]], device=device)
+conv = GCNConv(4, 2).to(device)
+y = conv(x, edges)
+assert y.shape == (3, 2) and torch.isfinite(y).all()
+y.square().mean().backward()
+assert x.grad is not None and torch.isfinite(x.grad).all()
+print(f"PyTorch {torch.__version__}, GCNConv forward/backward on {device}")
+'''),
+    ("BioEmu SDE, ChemGraph and SO(3) operations", r'''
+import torch
+from torch_geometric.data import Batch
+from bioemu.chemgraph import ChemGraph
+from bioemu.sde_lib import CosineVPSDE
+from bioemu.so3_sde import rotmat_to_rotvec, rotvec_to_rotmat
+x = torch.randn(6, 3)
+t = torch.full((6,), 0.4)
+sde = CosineVPSDE()
+mean, std = sde.marginal_prob(x, t)
+drift, diffusion = sde.sde(x, t)
+assert mean.shape == drift.shape == x.shape
+assert std.shape == diffusion.shape == (6, 1)
+assert all(torch.isfinite(z).all() for z in (mean, std, drift, diffusion))
+v = torch.tensor([[0.2, -0.1, 0.3], [-0.2, 0.1, 0.4]])
+assert torch.allclose(rotmat_to_rotvec(rotvec_to_rotmat(v)), v, atol=1e-5)
+graph = ChemGraph(pos=x, node_orientations=torch.eye(3).repeat(6, 1, 1))
+batched = Batch.from_data_list([graph, graph.replace(pos=x + 1)])
+assert batched.pos.shape == (12, 3)
+print("CosineVPSDE, SO(3) round-trip, ChemGraph batch: OK")
+'''),
+    ("BioEmu PDB/XTC export and MDTraj import", r'''
+import tempfile
+from pathlib import Path
+import mdtraj
+import torch
+from bioemu.convert_chemgraph import save_pdb_and_xtc
+sequence = "GYDPETGTWG"
+n = len(sequence)
+pos = torch.zeros((2, n, 3))
+pos[:, :, 0] = torch.arange(n) * 0.38
+pos[1, :, 1] = 0.01
+rot = torch.eye(3).repeat(2, n, 1, 1)
+with tempfile.TemporaryDirectory() as tmp:
+    pdb = Path(tmp) / "sample.pdb"
+    xtc = Path(tmp) / "sample.xtc"
+    save_pdb_and_xtc(pos, rot, sequence, pdb, xtc, filter_samples=False)
+    assert pdb.is_file() and xtc.is_file()
+    trajectory = mdtraj.load_xtc(str(xtc), top=str(pdb))
+    assert trajectory.n_frames == 2, trajectory.n_frames
+    assert trajectory.n_residues == n, trajectory.n_residues
+    assert trajectory.n_atoms >= n, trajectory.n_atoms
+    print(f"PDB/XTC round-trip: {trajectory.n_frames} frames, {trajectory.n_residues} residues, {trajectory.n_atoms} atoms")
+'''),
+    ("ColabFold feature construction without weights", r'''
+from bioemu.colabfold_inline.features import build_monomer_feature
+sequence = "GYDPETGTWG"
+features = build_monomer_feature(sequence, f">query\n{sequence}\n")
+assert features["aatype"].shape[0] == len(sequence)
+assert features["residue_index"].shape[0] == len(sequence)
+print("ColabFold/AlphaFold input features created locally")
+'''),
+    ("Hydra denoiser configuration", r'''
+from pathlib import Path
+import bioemu
+import hydra
+import yaml
+config_path = Path(bioemu.__file__).parent / "config" / "denoiser" / "dpm.yaml"
+assert config_path.is_file(), config_path
+with config_path.open() as handle:
+    config = yaml.safe_load(handle)
+denoiser = hydra.utils.instantiate(config)
+assert callable(denoiser)
+print("Hydra DPM denoiser config:", config_path)
+'''),
+    ("JAX and dm-haiku JIT", r'''
+import os
+import jax
+import jax.numpy as jnp
+import haiku as hk
+backend = "gpu" if os.environ["BIOEMU_SMOKE_DEVICE"] == "cuda" else "cpu"
+assert jax.default_backend() == backend, (jax.default_backend(), backend)
+def network(x):
+    return hk.Linear(2)(x)
+model = hk.without_apply_rng(hk.transform(network))
+x = jnp.ones((2, 3))
+params = model.init(jax.random.PRNGKey(0), x)
+y = jax.jit(model.apply)(params, x)
+assert y.shape == (2, 2) and bool(jnp.isfinite(y).all())
+print(f"JAX {jax.__version__}, Haiku JIT on {jax.default_backend()}, output shape={y.shape}")
+'''),
+    ("TensorFlow native import and computation", r'''
+import tensorflow as tf
+with tf.device("/CPU:0"):
+    result = tf.reduce_sum(tf.constant([1.0, 2.0, 3.0])).numpy()
+assert float(result) == 6.0, result
+print(f"TensorFlow {tf.__version__}, CPU computation: {result}")
+'''),
+    ("BioEmu vendored AlphaFold model imports", r'''
+import bioemu
+from alphafold.model import config, model, utils
+cfg = config.model_config("model_3")
+assert cfg is not None
+print("Vendored AlphaFold model/config/utils imported; model_3 configuration loaded")
+'''),
+]
+
+
+def run_test(name, code, env, timeout):
+    if code is None:
+        command = [sys.executable, "-X", "faulthandler", "-m", "bioemu.sample", "--help"]
+    else:
+        command = [sys.executable, "-X", "faulthandler", "-c", textwrap.dedent(code)]
+    try:
+        result = subprocess.run(command, env=env, capture_output=True, text=True, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        return False, f"Timed out after {timeout} seconds"
+    output = (result.stdout + result.stderr).strip()
+    if result.returncode == 0:
+        details = result.stdout.strip().splitlines()
+        return True, " | ".join(details[-2:]) if details else "OK"
+    if result.returncode < 0:
+        try:
+            reason = signal.Signals(-result.returncode).name
+        except ValueError:
+            reason = f"signal {-result.returncode}"
+        reason = f"Process terminated by {reason}"
+    else:
+        reason = f"Exit code {result.returncode}"
+    lines = output.splitlines()
+    if len(lines) > 45:
+        lines = lines[:18] + [f"... ({len(lines) - 36} lines omitted) ..."] + lines[-18:]
+    return False, reason + "\n" + "\n".join(line[:400] for line in lines)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Offline BioEmu 1.4.0 installation smoke test")
+    parser.add_argument("--cuda", action="store_true", help="Require PyTorch and JAX GPU execution")
+    parser.add_argument("--timeout", type=int, default=120, help="Per-check timeout in seconds")
+    args = parser.parse_args()
+    print(f"BioEmu smoke test: Python {sys.version.split()[0]} ({sys.executable})", flush=True)
+    with tempfile.TemporaryDirectory(prefix="bioemu-smoke-") as tmp:
+        home = Path(tmp) / "home"
+        home.mkdir()
+        env = os.environ.copy()
+        env.update({
+            "HOME": str(home),
+            "XDG_CACHE_HOME": str(home / ".cache"),
+            "HF_HUB_OFFLINE": "1",
+            "HF_DATASETS_OFFLINE": "1",
+            "JAX_PLATFORMS": "gpu" if args.cuda else "cpu",
+            "BIOEMU_SMOKE_DEVICE": "cuda" if args.cuda else "cpu",
+            "TF_CPP_MIN_LOG_LEVEL": "2",
+        })
+        results = []
+        for name, code in [("BioEmu CLI --help", None), *TESTS]:
+            success, details = run_test(name, code, env, args.timeout)
+            results.append((name, success))
+            print(f"[{'PASS' if success else 'FAIL'}] {name}", flush=True)
+            if success:
+                if details:
+                    print(f"       {details}", flush=True)
+            else:
+                for line in details.splitlines():
+                    print(f"       {line}", flush=True)
+    passed = sum(success for _, success in results)
+    print(f"\nResult: {passed}/{len(results)} checks passed")
+    if passed < len(results):
+        print("Note: failures are independent; a failed TensorFlow/AlphaFold import may prevent full sampling.")
+    else:
+        print("Core installation checks passed (pretrained-model sampling was not tested).")
+    return 0 if passed == len(results) else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
