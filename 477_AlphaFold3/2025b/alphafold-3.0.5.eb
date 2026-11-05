@@ -248,7 +248,7 @@ exts_list = [
             'cp run_alphafold_test.py %(installdir)s/bin',
             'cp fetch_databases.sh %(installdir)s',
             'cp -r examples %(installdir)s/',
-            'cp shard_databases.sh %(installdir)s/',
+            'cp src/alphafold3/scripts/shard_databases.sh %(installdir)s/',
             # Adapt examples path in the data-pipeline test.
             "sed -i \"s@resources.ROOT / '../../examples'@"
             "pathlib.Path(os.path.dirname(os.path.dirname(__file__))) / 'examples'@\" "
