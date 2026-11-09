@@ -95,8 +95,8 @@ exts_list = [
             'TensorFlow-2.18.1_fix-xnnpack.patch',
             'TensorFlow-2.18.1_fixedpoint.patch',
             'TensorFlow-2.20.0_fix-pybind11-symbol-visibility.patch',
-            # fix-system-hwloc from #26602?
-            # fix-system-lib-linking from #26602?
+            'TensorFlow-2.21.0_fix-system-hwloc.patch',
+            'TensorFlow-2.21.0_fix-system-lib-linking.patch',
         ],
         'source_tmpl': 'v%(version)s.tar.gz',
         'source_urls': ['https://github.com/tensorflow/tensorflow/archive/'],
@@ -140,7 +140,11 @@ exts_list = [
             {'TensorFlow-2.18.1_fix-xnnpack.patch': 'baf81d7b2b61b5a923cf1f171d5e2400df6b8bd9073d3afa7a356e3bbe11984c'},
             {'TensorFlow-2.18.1_fixedpoint.patch': '5ea1eb3b32e7df5f9ae711a71778b4cae544b3380f18882186eea035873fb640'},
             {'TensorFlow-2.20.0_fix-pybind11-symbol-visibility.patch':
-             '2b8991cd9886aa8ee0437667fc3e6774f6e56012734ffbe7e63b818338bf08de'},
+             'de1a749d3a24ea0c3309fe301d726ac6eb5ea0660e57e58c3b943ccb17ee4512'},
+            {'TensorFlow-2.21.0_fix-system-hwloc.patch':
+             '20b9b746a6a984668436ec7170507f295b8a3ac770677c94ccaa9ea0964ccc16'},
+            {'TensorFlow-2.21.0_fix-system-lib-linking.patch':
+             'dfb5d460419e7a0919d0131ba86baadf53c982e3c626b3747e2c5f187ef668aa'},
         ],
     }),
 ]
