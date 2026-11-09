@@ -1,0 +1,126 @@
+easyblock = 'Tarball'
+
+name = 'BindCraft2'
+version = '1.0.4'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/PacesaLab/BindCraft2'
+description = """BindCraft2 designs protein binders through AlphaFold2 backpropagation and ProteinMPNN
+sequence redesign, including miniprotein, peptide, antibody and fold-switching modalities."""
+
+toolchain = {'name': 'gfbf', 'version': '2025a'}
+
+source_urls = ['https://github.com/PacesaLab/BindCraft2/archive/refs/tags/']
+sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+checksums = ['8359b3a963434674075e2330bce0323dfc0b5557d4342c9493eff4d80f580b56']
+
+builddependencies = [
+    ('hatchling', '1.27.0'),  # for cuequivariance
+]
+
+dependencies = [
+    ('CUDA', '12.8.0', '', SYSTEM),
+    # with cuDNN < 9.10.2 jax 0.11 cannot use fused attention, so BindCraft2 falls back to 'chunked'
+    ('cuDNN', '9.10.1.4', versionsuffix, SYSTEM),
+    ('NCCL', '2.27.7', versionsuffix),
+    ('Python', '3.13.1'),
+    ('Python-bundle-PyPI', '2025.04'),
+    ('PyYAML', '6.0.2'),
+    ('absl-py', '2.3.1'),
+    ('opt-einsum', '3.4.0'),
+    ('einops', '0.8.1'),
+    ('tqdm', '4.67.1'),
+    ('pyNVML', '13.590.48'),
+    ('SciPy-bundle', '2025.06'),
+    ('ml_dtypes', '0.5.1'),
+    ('networkx', '3.5'),
+    ('sympy', '1.14.0'),
+    ('matplotlib', '3.10.3'),
+    ('Biotite', '1.4.0'),
+]
+
+exts_defaultclass = 'PythonPackage'
+
+# BindCraft2 requires jax >=0.11,<0.12, which has no easyconfig; these are the upstream wheels, x86_64 only
+exts_list = [
+    ('jaxlib', '0.11.2', {
+        'easyblock': 'PythonPackage',  # not EB_jaxlib, which is for building from source with Bazel
+        'source_tmpl': '%(name)s-%(version)s-cp313-cp313-manylinux_2_27_x86_64.whl',
+        'checksums': ['5f3cac8d7030c1f80a182025d7171ea3b1245162a710f6e58d25ee3fe1748aac'],
+    }),
+    ('jax', '0.11.2', {
+        'checksums': ['540dc0bed96bd5a0d8acca15cf16198fea98ef2fc151d40bdf1ace49eb76efd9'],
+    }),
+    ('jax-cuda12-pjrt', '0.11.2', {
+        'source_tmpl': 'jax_cuda12_pjrt-%(version)s-py3-none-manylinux_2_27_x86_64.whl',
+        'modulename': 'jax_plugins.xla_cuda12',
+        'checksums': ['2133b3afc63307c016ae4980f166b2b3de199759363ead74f7d550eaae953463'],
+    }),
+    ('jax-cuda12-plugin', '0.11.2', {
+        'source_tmpl': 'jax_cuda12_plugin-%(version)s-cp313-cp313-manylinux_2_27_x86_64.whl',
+        'modulename': 'jax_cuda12_plugin',
+        'checksums': ['55ed6dbdf4d6f57c6c7b0aadaeb8e337371a25249a0e3c1ef9efcb607b0bbc67'],
+    }),
+    ('jmp', '0.0.4', {
+        'checksums': ['5dfeb0fd7c7a9f72a70fff0aab9d0cbfae32a809c02f4037ff3485ceb33e1730'],
+    }),
+    ('dm-haiku', '0.0.17', {
+        'source_tmpl': 'dm_haiku-%(version)s.tar.gz',
+        'modulename': 'haiku',
+        'checksums': ['6daa56f3b54f43675713ef7525d1dec7327f2512b57cc2b12104f76f6d7cf581'],
+    }),
+    ('optax', '0.2.8', {
+        'checksums': ['5b225b35066fc3eebaa4d798f1b4173b4d57d1a480610908981f8343b50af0b0'],
+    }),
+    ('ml_collections', '1.1.0', {
+        'checksums': ['0ac1ac6511b9f1566863e0bb0afad0c64e906ea278ad3f4d2144a55322671f6f'],
+    }),
+    ('cuequivariance', '0.11.1', {
+        'checksums': ['86c754cfc301227945a3e33a56bc2dc4ecc96328dc5246d91bda4b087cb86278'],
+    }),
+    ('cuequivariance-jax', '0.11.1', {
+        'source_tmpl': 'cuequivariance_jax-%(version)s.tar.gz',
+        'modulename': 'cuequivariance_jax',
+        'checksums': ['8b6a635357556a2cc8ef9022f1762d1b0091a7b703ae60750498f3a80b9abcfb'],
+    }),
+    # metadata only, as CUDA-wheel-bundle does: cuBLAS itself comes from the CUDA module, but
+    # cuequivariance-ops-cu12 declares the wheel, and 'pip check' needs to see it
+    ('nvidia-cublas-cu12', '12.8.4.1', {
+        'dummy_package': True,
+        'nosource': True,
+    }),
+    ('cuequivariance-ops-cu12', '0.11.1', {
+        'source_tmpl': 'cuequivariance_ops_cu12-%(version)s-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl',
+        'modulename': 'cuequivariance_ops',
+        'checksums': ['dfb05a8a87ba657e5aa0019a27ceaccfd0152c69646ce5039bcc9eafc9fc0c33'],
+    }),
+]
+
+fix_python_shebang_for = ['bindcraft.py']
+
+postinstallcmds = [
+    'chmod a+x %(installdir)s/bindcraft.py',
+    'mkdir -p %(installdir)s/bin && ln -s ../bindcraft.py %(installdir)s/bin/bindcraft',
+]
+
+# workers run 'python -m bindcraft.cli', so the package at the install root must be importable
+modextrapaths = {'PYTHONPATH': ''}
+
+sanity_check_paths = {
+    'files': ['bin/bindcraft', 'bindcraft.py', 'pyproject.toml', 'settings/core/default.json'],
+    'dirs': ['bindcraft/weights/proteinmpnn/weights_negative', 'lib/python%(pyshortver)s/site-packages', 'scaffolds'],
+}
+
+sanity_check_commands = [
+    'bindcraft --help',
+    # checks every module BindCraft2 needs, plus the ProteinMPNN weights it ships with
+    'python -m bindcraft.selfcheck cuda12 --shipped-only',
+    # jnp.sin needs libdevice and ptxas, so this fails if XLA cannot find the CUDA toolkit
+    'python -c \'import jax, jax.numpy as jnp; assert jax.default_backend() == "gpu"; print(jnp.sin(jnp.ones(8)))\'',
+]
+
+modloadmsg = """Set $BINDCRAFT_AF2_PARAMS to a directory holding the AlphaFold2 params_<model>.npz files,
+otherwise BindCraft2 downloads them (5.3 GB) to ~/.cache/bindcraft on first use.
+"""
+
+moduleclass = 'bio'
