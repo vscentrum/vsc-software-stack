@@ -40,19 +40,20 @@ dependencies = [
 ]
 
 exts_defaultclass = 'PythonPackage'
+exts_default_options = {'source_urls': [PYPI_SOURCE]}
 
-# BindCraft2 requires jax >=0.11,<0.12, which has no easyconfig; these are the upstream wheels, x86_64 only
 exts_list = [
+    # BindCraft2 requires jax >=0.11,<0.12
     ('jaxlib', '0.11.2', {
-        'easyblock': 'PythonPackage',  # not EB_jaxlib, which is for building from source with Bazel
-        'source_tmpl': '%(name)s-%(version)s-cp313-cp313-manylinux_2_27_x86_64.whl',
+        'easyblock': 'PythonPackage',  # do not use EB_jaxlib, which is for building from source with Bazel
+        'source_tmpl': '%(name)s-%(version)s-cp313-cp313-manylinux_2_27_%(arch)s.whl',
         'checksums': ['5f3cac8d7030c1f80a182025d7171ea3b1245162a710f6e58d25ee3fe1748aac'],
     }),
     ('jax', '0.11.2', {
         'checksums': ['540dc0bed96bd5a0d8acca15cf16198fea98ef2fc151d40bdf1ace49eb76efd9'],
     }),
     ('jax-cuda12-pjrt', '0.11.2', {
-        'source_tmpl': 'jax_cuda12_pjrt-%(version)s-py3-none-manylinux_2_27_x86_64.whl',
+        'source_tmpl': 'jax_cuda12_pjrt-%(version)s-py3-none-manylinux_2_27_%(arch)s.whl',
         'modulename': 'jax_plugins.xla_cuda12',
         'checksums': ['2133b3afc63307c016ae4980f166b2b3de199759363ead74f7d550eaae953463'],
     }),
@@ -64,6 +65,7 @@ exts_list = [
     ('jmp', '0.0.4', {
         'checksums': ['5dfeb0fd7c7a9f72a70fff0aab9d0cbfae32a809c02f4037ff3485ceb33e1730'],
     }),
+    # JAX 0.11.2 needs dm-haiku >= 0.0.17
     ('dm-haiku', '0.0.17', {
         'source_tmpl': 'dm_haiku-%(version)s.tar.gz',
         'modulename': 'haiku',
@@ -103,7 +105,6 @@ postinstallcmds = [
     'mkdir -p %(installdir)s/bin && ln -s ../bindcraft.py %(installdir)s/bin/bindcraft',
 ]
 
-# workers run 'python -m bindcraft.cli', so the package at the install root must be importable
 modextrapaths = {'PYTHONPATH': ''}
 
 sanity_check_paths = {
