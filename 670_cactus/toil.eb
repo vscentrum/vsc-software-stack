@@ -21,6 +21,7 @@ dependencies = [
     ('boto3', '1.38.27'),
     ('cryptography', '44.0.2'),
     ('setuptools', '80.9.0'),
+    ('pytest', '9.1.1'),
 ]
 
 exts_list = [
@@ -115,7 +116,26 @@ exts_list = [
     (name, version, {
         'use_pip_extras': 'aws',
         'testinstall': True,
-        'runtest': 'TOIL_TEST_QUICK=True pytest -v src/toil/test/sort/sortTest.py::SortTest::testSort',
+        'pretestopts': (
+            "sed -i '/^from toil.test.cwl.cwlTest import TestCWLv12Conformance$/d; "
+            "/        test_class = TestCWLv12Conformance/i\\"
+            "        from toil.test.cwl.cwlTest import TestCWLv12Conformance' "
+            "src/toil/test/provisioners/clusterTest.py && "
+        ),
+        # 'runtest': 'TOIL_TEST_QUICK=True pytest -v src/toil/test/sort/sortTest.py::SortTest::testSort',
+        # 'runtest': (
+        #     'TOIL_SKIP_ONLINE=true TOIL_TEST_QUICK=true TOIL_SKIP_DOCKER=true '
+        #     'TOIL_HISTORY=0 pytest -v --durations=10 src/toil/test'
+        # ),
+        'runtest': (
+            'TOIL_SKIP_ONLINE=true TOIL_TEST_QUICK=true TOIL_SKIP_DOCKER=true '
+            'TOIL_HISTORY=0 pytest -v --durations=10 '
+            '--ignore=src/toil/test/cwl '
+            '--ignore=src/toil/test/wdl '
+            '--ignore=src/toil/test/jobStores/jobStoreTest.py '
+            '--ignore=src/toil/test/lib/test_url.py '
+            'src/toil/test'
+        ),
         'checksums': ['dae9a12b0f277355170129be38406c831da47054758e64d6693e18d7e5b45d3f'],
     }),
 ]
