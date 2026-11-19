@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'pytest'
-version = '9.1.1'
+version = '9.0.3'
 
 homepage = 'https://docs.pytest.org/en/latest/'
 description = """The pytest framework makes it easy to write small,
@@ -39,6 +39,11 @@ _skip_tests = [
 _ignore_tests = ' --ignore='.join(_skip_tests)
 
 exts_list = [
+    # pluggy-1.5.0 has known bug that results in 'RuntimeError: generator raised StopIteration'
+    #  https://github.com/pytest-dev/pluggy/issues/544
+    ('pluggy', '1.6.0', {
+        'checksums': ['7dcc130b76258d33b90f61b658791dede3486c3e6bfb003ee5c9bfb396dd22f3'],
+    }),
     ('elementpath', '5.0.1', {
         'checksums': ['d3e4807b7e38e190e382eefef93f35ce6f71adf63b33e3f01d0e11f22e5d5cc7'],
     }),
@@ -46,7 +51,7 @@ exts_list = [
         'checksums': ['b1f88c53493b2e75471977cbf218d939b872d0c7046bb63d48cc219fa7e241b9'],
     }),
     (name, version, {
-        'checksums': ['1088fbde8f2b49d95a549a195707afa7a76a3ce9bcadc26b6d71f0ffda5fe313'],
+        'checksums': ['b86ada508af81d19edeb213c681b1d48246c1a91d304c6c81a427674c17eb91c'],
     }),
 ]
 

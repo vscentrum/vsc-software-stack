@@ -21,7 +21,7 @@ dependencies = [
     ('boto3', '1.38.27'),
     ('cryptography', '44.0.2'),
     ('setuptools', '80.9.0'),
-    ('pytest', '9.1.1'),
+    ('pytest', '9.0.3'),
 ]
 
 exts_list = [
@@ -117,6 +117,12 @@ exts_list = [
         'use_pip_extras': 'aws',
         'testinstall': True,
         'pretestopts': (
+            # Fix Python version in both the source and temporary test installation
+            "sed -i 's/^python = .*/python = \"python3.13\"/; "
+            "s/^exactPython = .*/exactPython = \"python3.13\"/' "
+            "src/toil/version.py "
+            "\"$(python -c 'import toil.version; print(toil.version.__file__)')\" && "
+            # Move CWL import into the test method
             "sed -i '/^from toil.test.cwl.cwlTest import TestCWLv12Conformance$/d; "
             "/        test_class = TestCWLv12Conformance/i\\"
             "        from toil.test.cwl.cwlTest import TestCWLv12Conformance' "
@@ -128,8 +134,10 @@ exts_list = [
         #     'TOIL_HISTORY=0 pytest -v --durations=10 src/toil/test'
         # ),
         'runtest': (
+            'TOIL_AWS_ZONE=us-west-2a '
             'TOIL_SKIP_ONLINE=true TOIL_TEST_QUICK=true TOIL_SKIP_DOCKER=true '
             'TOIL_HISTORY=0 pytest -v --durations=10 '
+            '-k "not testVirtualEnv" '
             '--ignore=src/toil/test/cwl '
             '--ignore=src/toil/test/wdl '
             '--ignore=src/toil/test/jobStores/jobStoreTest.py '

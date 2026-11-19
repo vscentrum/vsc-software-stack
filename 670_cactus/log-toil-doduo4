@@ -1,0 +1,268 @@
+[1m====================================================================== test session starts ======================================================================[0m
+platform linux -- Python 3.13.1, pytest-9.0.3, pluggy-1.6.0 -- /apps/gent/RHEL9/zen2-ib/software/Python/3.13.1-GCCcore-14.2.0/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0
+configfile: setup.cfg
+plugins: timeout-2.4.0, hypothesis-6.133.2, xdist-3.6.1
+[1mcollecting ... [0mcollected 570 items / 12 errors
+
+============================================================================ ERRORS =============================================================================
+[31m[1m_______________________________________________ ERROR collecting src/toil/test/cactus/test_cactus_integration.py ________________________________________________[0m
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 353, in from_call
+    result: TResult | None = func()
+                             ~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 398, in collect
+    return list(collector.collect())
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 104, in collect
+    self.session._fixturemanager.parsefactories(self.newinstance(), self.nodeid)
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 89, in newinstance
+    return self.obj("runTest")
+           ~~~~~~~~^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/clusterTest.py", line 47, in __init__
+    self.zone is not None
+AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31m[1m_______________________________________________ ERROR collecting src/toil/test/cactus/test_cactus_integration.py ________________________________________________[0m
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 353, in from_call
+    result: TResult | None = func()
+                             ~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 398, in collect
+    return list(collector.collect())
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 104, in collect
+    self.session._fixturemanager.parsefactories(self.newinstance(), self.nodeid)
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 89, in newinstance
+    return self.obj("runTest")
+           ~~~~~~~~^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/cactus/test_cactus_integration.py", line 14, in __init__
+    super().__init__(methodName=methodName)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/clusterTest.py", line 47, in __init__
+    self.zone is not None
+AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31m[1m_____________________________________________ ERROR collecting src/toil/test/provisioners/aws/awsProvisionerTest.py _____________________________________________[0m
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 353, in from_call
+    result: TResult | None = func()
+                             ~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 398, in collect
+    return list(collector.collect())
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 104, in collect
+    self.session._fixturemanager.parsefactories(self.newinstance(), self.nodeid)
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 89, in newinstance
+    return self.obj("runTest")
+           ~~~~~~~~^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/clusterTest.py", line 47, in __init__
+    self.zone is not None
+AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31m[1m_____________________________________________ ERROR collecting src/toil/test/provisioners/aws/awsProvisionerTest.py _____________________________________________[0m
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 353, in from_call
+    result: TResult | None = func()
+                             ~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 398, in collect
+    return list(collector.collect())
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 104, in collect
+    self.session._fixturemanager.parsefactories(self.newinstance(), self.nodeid)
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 89, in newinstance
+    return self.obj("runTest")
+           ~~~~~~~~^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 162, in __init__
+    super().__init__(methodName=methodName)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/clusterTest.py", line 47, in __init__
+    self.zone is not None
+AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31m[1m_____________________________________________ ERROR collecting src/toil/test/provisioners/aws/awsProvisionerTest.py _____________________________________________[0m
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 353, in from_call
+    result: TResult | None = func()
+                             ~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 398, in collect
+    return list(collector.collect())
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 104, in collect
+    self.session._fixturemanager.parsefactories(self.newinstance(), self.nodeid)
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 89, in newinstance
+    return self.obj("runTest")
+           ~~~~~~~~^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 330, in __init__
+    super().__init__(name)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 162, in __init__
+    super().__init__(methodName=methodName)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/clusterTest.py", line 47, in __init__
+    self.zone is not None
+AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31m[1m_____________________________________________ ERROR collecting src/toil/test/provisioners/aws/awsProvisionerTest.py _____________________________________________[0m
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 353, in from_call
+    result: TResult | None = func()
+                             ~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 398, in collect
+    return list(collector.collect())
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 104, in collect
+    self.session._fixturemanager.parsefactories(self.newinstance(), self.nodeid)
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 89, in newinstance
+    return self.obj("runTest")
+           ~~~~~~~~^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 422, in __init__
+    super().__init__(name)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 330, in __init__
+    super().__init__(name)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 162, in __init__
+    super().__init__(methodName=methodName)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/clusterTest.py", line 47, in __init__
+    self.zone is not None
+AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31m[1m_____________________________________________ ERROR collecting src/toil/test/provisioners/aws/awsProvisionerTest.py _____________________________________________[0m
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 353, in from_call
+    result: TResult | None = func()
+                             ~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 398, in collect
+    return list(collector.collect())
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 104, in collect
+    self.session._fixturemanager.parsefactories(self.newinstance(), self.nodeid)
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 89, in newinstance
+    return self.obj("runTest")
+           ~~~~~~~~^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 510, in __init__
+    super().__init__(name)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 330, in __init__
+    super().__init__(name)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 162, in __init__
+    super().__init__(methodName=methodName)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/clusterTest.py", line 47, in __init__
+    self.zone is not None
+AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31m[1m_____________________________________________ ERROR collecting src/toil/test/provisioners/aws/awsProvisionerTest.py _____________________________________________[0m
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 353, in from_call
+    result: TResult | None = func()
+                             ~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 398, in collect
+    return list(collector.collect())
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 104, in collect
+    self.session._fixturemanager.parsefactories(self.newinstance(), self.nodeid)
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 89, in newinstance
+    return self.obj("runTest")
+           ~~~~~~~~^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 550, in __init__
+    super().__init__(name)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 162, in __init__
+    super().__init__(methodName=methodName)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/clusterTest.py", line 47, in __init__
+    self.zone is not None
+AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31m[1m_____________________________________________ ERROR collecting src/toil/test/provisioners/aws/awsProvisionerTest.py _____________________________________________[0m
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 353, in from_call
+    result: TResult | None = func()
+                             ~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 398, in collect
+    return list(collector.collect())
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 104, in collect
+    self.session._fixturemanager.parsefactories(self.newinstance(), self.nodeid)
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 89, in newinstance
+    return self.obj("runTest")
+           ~~~~~~~~^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 607, in __init__
+    super().__init__(name)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 162, in __init__
+    super().__init__(methodName=methodName)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/clusterTest.py", line 47, in __init__
+    self.zone is not None
+AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31m[1m_____________________________________________ ERROR collecting src/toil/test/provisioners/aws/awsProvisionerTest.py _____________________________________________[0m
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 353, in from_call
+    result: TResult | None = func()
+                             ~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 398, in collect
+    return list(collector.collect())
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 104, in collect
+    self.session._fixturemanager.parsefactories(self.newinstance(), self.nodeid)
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 89, in newinstance
+    return self.obj("runTest")
+           ~~~~~~~~^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 688, in __init__
+    super().__init__(name)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/aws/awsProvisionerTest.py", line 162, in __init__
+    super().__init__(methodName=methodName)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/clusterTest.py", line 47, in __init__
+    self.zone is not None
+AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31m[1m__________________________________________________ ERROR collecting src/toil/test/provisioners/clusterTest.py ___________________________________________________[0m
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 353, in from_call
+    result: TResult | None = func()
+                             ~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 398, in collect
+    return list(collector.collect())
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 104, in collect
+    self.session._fixturemanager.parsefactories(self.newinstance(), self.nodeid)
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 89, in newinstance
+    return self.obj("runTest")
+           ~~~~~~~~^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/clusterTest.py", line 47, in __init__
+    self.zone is not None
+AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31m[1m__________________________________________________ ERROR collecting src/toil/test/provisioners/clusterTest.py ___________________________________________________[0m
+Traceback (most recent call last):
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 353, in from_call
+    result: TResult | None = func()
+                             ~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/runner.py", line 398, in collect
+    return list(collector.collect())
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 104, in collect
+    self.session._fixturemanager.parsefactories(self.newinstance(), self.nodeid)
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py", line 89, in newinstance
+    return self.obj("runTest")
+           ~~~~~~~~^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/clusterTest.py", line 226, in __init__
+    super().__init__(methodName=methodName)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/provisioners/clusterTest.py", line 47, in __init__
+    self.zone is not None
+AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[36m[1m==================================================================== short test summary info ====================================================================[0m
+[31mERROR[0m src/toil/test/cactus/test_cactus_integration.py::[1mAbstractClusterTest[0m - AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31mERROR[0m src/toil/test/cactus/test_cactus_integration.py::[1mCactusIntegrationTest[0m - AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31mERROR[0m src/toil/test/provisioners/aws/awsProvisionerTest.py::[1mAbstractClusterTest[0m - AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31mERROR[0m src/toil/test/provisioners/aws/awsProvisionerTest.py::[1mAbstractAWSAutoscaleTest[0m - AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31mERROR[0m src/toil/test/provisioners/aws/awsProvisionerTest.py::[1mAWSAutoscaleTest[0m - AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31mERROR[0m src/toil/test/provisioners/aws/awsProvisionerTest.py::[1mAWSStaticAutoscaleTest[0m - AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31mERROR[0m src/toil/test/provisioners/aws/awsProvisionerTest.py::[1mAWSManagedAutoscaleTest[0m - AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31mERROR[0m src/toil/test/provisioners/aws/awsProvisionerTest.py::[1mAWSAutoscaleTestMultipleNodeTypes[0m - AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31mERROR[0m src/toil/test/provisioners/aws/awsProvisionerTest.py::[1mAWSRestartTest[0m - AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31mERROR[0m src/toil/test/provisioners/aws/awsProvisionerTest.py::[1mPreemptibleDeficitCompensationTest[0m - AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31mERROR[0m src/toil/test/provisioners/clusterTest.py::[1mAbstractClusterTest[0m - AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+[31mERROR[0m src/toil/test/provisioners/clusterTest.py::[1mCWLOnARMTest[0m - AssertionError: Could not determine AWS availability zone to test in; is TOIL_AWS_ZONE set?
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 12 errors during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+[31m================================================================= [31m[1m12 errors[0m[31m in 98.90s (0:01:38)[0m[31m =================================================================[0m

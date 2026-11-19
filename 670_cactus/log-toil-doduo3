@@ -1,0 +1,41 @@
+
+/apps/gent/RHEL9/zen2-ib/software/Python-bundle-PyPI/2025.04-GCCcore-14.2.0/lib/python3.13/site-packages/pluggy/_hooks.py:513: in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/apps/gent/RHEL9/zen2-ib/software/Python-bundle-PyPI/2025.04-GCCcore-14.2.0/lib/python3.13/site-packages/pluggy/_manager.py:120: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/apps/gent/RHEL9/zen2-ib/software/Python-bundle-PyPI/2025.04-GCCcore-14.2.0/lib/python3.13/site-packages/pluggy/_manager.py:480: in traced_hookexec
+    return outcome.get_result()   
+           ^^^^^^^^^^^^^^^^^^^^   
+/apps/gent/RHEL9/zen2-ib/software/Python-bundle-PyPI/2025.04-GCCcore-14.2.0/lib/python3.13/site-packages/pluggy/_manager.py:477: in <lambda>
+    lambda: oldcall(hook_name, hook_impls, caller_kwargs, firstresult)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/logging.py:850: in pytest_runtest
+_call
+    yield
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <CaptureManager _method='fd' _global_capturing=<MultiCapture out=<FDCapture 1 oldfd=16 _state='suspended' tmpfile=<Enc...xtIOWrapper name='/dev/null' mode
+='r' encoding='utf-8'>> _state='suspended' _in_suspended=False> _capture_fixture=None>
+item = <Function test_fail_call>  
+
+    @hookimpl(wrapper=True)
+    def pytest_runtest_call(self, item: Item) -> Generator[None]:
+        with self.item_capture("call", item):
+>           return (yield)
+                    ^^^^^
+E           RuntimeError: generator raised StopIteration
+
+/scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen2-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/capture.py:900: RuntimeError
+=========================== short test summary info ============================
+FAILED test_it.py::test_fail_call - RuntimeError: generator raised StopIteration
+ERROR test_it.py::test_fail_setup - RuntimeError: generator raised StopIteration
+ERROR test_it.py::test_fail_teardown - RuntimeError: generator raised StopIte...
+==================== 1 failed, 1 passed, 2 errors in 0.29s =====================
+============================================================================ XPASSES ============================================================================
+==================================================================== short test summary info ====================================================================
+FAILED testing/acceptance_test.py::test_stop_iteration_runtest_protocol - Failed: nomatch: '=* short test summary info =*'
+XPASS testing/_py/test_local.py::TestLocalPath::test_make_numbered_dir_multiprocess_safe - #11603
+========================================= 1 failed, 3419 passed, 52 skipped, 11 xfailed, 1 xpassed in 254.63s (0:04:14) =========================================
+)
