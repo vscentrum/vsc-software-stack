@@ -15,7 +15,9 @@ version = '20240715-R2'
 
 maxcpus = '1024'
 maxnodes = '1024'
-hyperthreading = False
+# hyperthreading = False
+# Preserve the 2 MPI ranks per compute process required by DDI
+hyperthreading = True
 
 homepage = 'https://www.msg.chem.iastate.edu/gamess/'
 description = """The General Atomic and Molecular Electronic Structure System (GAMESS)
@@ -40,6 +42,7 @@ patches = [
     'GAMESS-US-20240715-R2_use_external_libxc.patch',
     'GAMESS-US-20240715-R2_libxc_disable_deprecated_gga.patch',
     'GAMESS-US-20240715-R2_fix_rungms.patch',
+    'GAMESS-US-20240715-R2_skip_slurm_cleanup.patch',
 ]
 checksums = [
     {'gamess-20240715-R2.tar.gz': '99051edec3cb8766822e1f77b7b41cf9f2d42ce61e66713e4b5125f7357cdea9'},
@@ -48,6 +51,8 @@ checksums = [
     {'GAMESS-US-20240715-R2_libxc_disable_deprecated_gga.patch':
      'd117aa289f8ecbb74aefd8e836cbca8b4032f3a24df1f8f24be908aee53b9bff'},
     {'GAMESS-US-20240715-R2_fix_rungms.patch': '0ecddd39d7d5b4630ef6bed91d73533253e9d606a7a0941b2a17e9506c583e4e'},
+    {'GAMESS-US-20240715-R2_skip_slurm_cleanup.patch':
+     '0a3471623e194bfab6c3f6eceb60b7ac95508afa55d31647178508b3e21e44af'},
 ]
 
 # custom location of gamess workdir

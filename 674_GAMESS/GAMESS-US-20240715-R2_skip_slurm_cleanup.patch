@@ -1,0 +1,18 @@
+Prevent GAMESS rungms from hanging after successful calculations under Slurm.
+The final `srun rm -rf "$SCR"` starts another Slurm job step that can remain
+pending indefinitely even when GAMESS has terminated normally. Skip this step
+and leave scratch cleanup to the caller or site-specific job cleanup. This also
+preserves the temporary scratch directory used by EasyBuild regression tests.
+
+Author: Pavel Tomanek (Inuits/UGent) with help from ChatGPT6.0
+--- a/rungms-dev
++++ b/rungms-dev
+@@ -1756,7 +1756,7 @@
+      # Don't use srun for removing directories on a shared file system (e.g., Orion)
+      rm -rf "$SCR"
+   else
+-     srun rm -rf "$SCR"
++     echo "Skipping Slurm scratch cleanup"
+   endif
+ endif
+ #--use-with-care rm -v "$SCR/"*
