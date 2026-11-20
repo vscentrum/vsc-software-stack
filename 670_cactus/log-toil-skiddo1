@@ -1,0 +1,1045 @@
+[1m====================================================================== test session starts ======================================================================[0m
+platform linux -- Python 3.13.1, pytest-9.0.3, pluggy-1.6.0 -- /apps/gent/RHEL9/zen5-ib/software/Python/3.13.1-GCCcore-14.2.0/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0
+configfile: setup.cfg
+plugins: timeout-2.4.0, hypothesis-6.133.2, xdist-3.6.1
+[1mcollecting ... [0mcollected 584 items / 1 deselected / 583 selected
+
+src/toil/test/__init__.py::toil.test.make_tests [32mPASSED[0m[32m                                                                                                    [  0%][0m
+src/toil/test/__init__.py::toil.test.timeLimit [32mPASSED[0m[32m                                                                                                     [  0%][0m
+src/toil/test/batchSystems/batchSystemTest.py::BatchSystemPluginTest::test_add_batch_system_factory [32mPASSED[0m[32m                                                [  0%][0m
+src/toil/test/batchSystems/batchSystemTest.py::KubernetesBatchSystemTest::testCheckResourceRequest [33mSKIPPED[0m (Configure Kubernetes (~/.kube/config, $KU...)[32m [  0%][0m
+src/toil/test/batchSystems/batchSystemTest.py::KubernetesBatchSystemTest::testScalableBatchSystem [33mSKIPPED[0m (Configure Kubernetes (~/.kube/config, $KUB...)[32m [  0%][0m
+src/toil/test/batchSystems/batchSystemTest.py::KubernetesBatchSystemTest::test_available_cores [33mSKIPPED[0m (Configure Kubernetes (~/.kube/config, $KUBECO...)[32m [  1%][0m
+src/toil/test/batchSystems/batchSystemTest.py::KubernetesBatchSystemTest::test_run_jobs [33mSKIPPED[0m (Configure Kubernetes (~/.kube/config, $KUBECONFIG, o...)[32m [  1%][0m
+src/toil/test/batchSystems/batchSystemTest.py::KubernetesBatchSystemTest::test_set_env [33mSKIPPED[0m (Configure Kubernetes (~/.kube/config, $KUBECONFIG, or...)[32m [  1%][0m
+src/toil/test/batchSystems/batchSystemTest.py::KubernetesBatchSystemTest::test_set_job_env [33mSKIPPED[0m (Configure Kubernetes (~/.kube/config, $KUBECONFIG...)[32m [  1%][0m
+src/toil/test/batchSystems/batchSystemTest.py::KubernetesBatchSystemBenchTest::test_label_constraints [33mSKIPPED[0m (Install Toil with the 'kubernetes' ext...)[32m [  1%][0m
+src/toil/test/batchSystems/batchSystemTest.py::KubernetesBatchSystemBenchTest::test_preemptability_constraints [33mSKIPPED[0m (Install Toil with the 'kubern...)[32m [  1%][0m
+src/toil/test/batchSystems/batchSystemTest.py::AWSBatchBatchSystemTest::testCheckResourceRequest [33mSKIPPED[0m (Set TOIL_AWS_BATCH_JOB_ROLE_ARN to an IAM r...)[32m [  2%][0m
+src/toil/test/batchSystems/batchSystemTest.py::AWSBatchBatchSystemTest::testScalableBatchSystem [33mSKIPPED[0m (Set TOIL_AWS_BATCH_JOB_ROLE_ARN to an IAM ro...)[32m [  2%][0m
+src/toil/test/batchSystems/batchSystemTest.py::AWSBatchBatchSystemTest::test_available_cores [33mSKIPPED[0m (Set TOIL_AWS_BATCH_JOB_ROLE_ARN to an IAM role ...)[32m [  2%][0m
+src/toil/test/batchSystems/batchSystemTest.py::AWSBatchBatchSystemTest::test_run_jobs [33mSKIPPED[0m (Set TOIL_AWS_BATCH_JOB_ROLE_ARN to an IAM role ARN tha...)[32m [  2%][0m
+src/toil/test/batchSystems/batchSystemTest.py::AWSBatchBatchSystemTest::test_set_env [33mSKIPPED[0m (Set TOIL_AWS_BATCH_JOB_ROLE_ARN to an IAM role ARN that...)[32m [  2%][0m
+src/toil/test/batchSystems/batchSystemTest.py::AWSBatchBatchSystemTest::test_set_job_env [33mSKIPPED[0m (Set TOIL_AWS_BATCH_JOB_ROLE_ARN to an IAM role ARN ...)[32m [  2%][0m
+src/toil/test/batchSystems/batchSystemTest.py::MesosBatchSystemTest::testCheckResourceRequest [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m         [  3%][0m
+src/toil/test/batchSystems/batchSystemTest.py::MesosBatchSystemTest::testIgnoreNode [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                   [  3%][0m
+src/toil/test/batchSystems/batchSystemTest.py::MesosBatchSystemTest::testScalableBatchSystem [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m          [  3%][0m
+src/toil/test/batchSystems/batchSystemTest.py::MesosBatchSystemTest::test_available_cores [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m             [  3%][0m
+src/toil/test/batchSystems/batchSystemTest.py::MesosBatchSystemTest::test_run_jobs [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                    [  3%][0m
+src/toil/test/batchSystems/batchSystemTest.py::MesosBatchSystemTest::test_set_env [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                     [  3%][0m
+src/toil/test/batchSystems/batchSystemTest.py::MesosBatchSystemTest::test_set_job_env [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                 [  4%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SingleMachineBatchSystemTest::testCheckResourceRequest [32mPASSED[0m[32m                                              [  4%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SingleMachineBatchSystemTest::testHidingProcessEscape [32mPASSED[0m[32m                                               [  4%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SingleMachineBatchSystemTest::testProcessEscape [32mPASSED[0m[32m                                                     [  4%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SingleMachineBatchSystemTest::testScalableBatchSystem [32mPASSED[0m[32m                                               [  4%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SingleMachineBatchSystemTest::test_available_cores [32mPASSED[0m[32m                                                  [  4%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SingleMachineBatchSystemTest::test_run_jobs [32mPASSED[0m[32m                                                         [  5%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SingleMachineBatchSystemTest::test_set_env [32mPASSED[0m[32m                                                          [  5%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SingleMachineBatchSystemTest::test_set_job_env [32mPASSED[0m[32m                                                      [  5%][0m
+src/toil/test/batchSystems/batchSystemTest.py::MaxCoresSingleMachineBatchSystemTest::test [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m             [  5%][0m
+src/toil/test/batchSystems/batchSystemTest.py::MaxCoresSingleMachineBatchSystemTest::testServices [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m     [  5%][0m
+src/toil/test/batchSystems/batchSystemTest.py::GridEngineBatchSystemTest::testCheckResourceRequest [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m    [  6%][0m
+src/toil/test/batchSystems/batchSystemTest.py::GridEngineBatchSystemTest::testScalableBatchSystem [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m     [  6%][0m
+src/toil/test/batchSystems/batchSystemTest.py::GridEngineBatchSystemTest::test_available_cores [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m        [  6%][0m
+src/toil/test/batchSystems/batchSystemTest.py::GridEngineBatchSystemTest::test_run_jobs [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m               [  6%][0m
+src/toil/test/batchSystems/batchSystemTest.py::GridEngineBatchSystemTest::test_set_env [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                [  6%][0m
+src/toil/test/batchSystems/batchSystemTest.py::GridEngineBatchSystemTest::test_set_job_env [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m            [  6%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SlurmBatchSystemTest::testCheckResourceRequest [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m         [  7%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SlurmBatchSystemTest::testScalableBatchSystem [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m          [  7%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SlurmBatchSystemTest::test_available_cores [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m             [  7%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SlurmBatchSystemTest::test_run_jobs [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                    [  7%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SlurmBatchSystemTest::test_set_env [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                     [  7%][0m
+src/toil/test/batchSystems/batchSystemTest.py::SlurmBatchSystemTest::test_set_job_env [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                 [  7%][0m
+src/toil/test/batchSystems/batchSystemTest.py::LSFBatchSystemTest::testCheckResourceRequest [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m           [  8%][0m
+src/toil/test/batchSystems/batchSystemTest.py::LSFBatchSystemTest::testScalableBatchSystem [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m            [  8%][0m
+src/toil/test/batchSystems/batchSystemTest.py::LSFBatchSystemTest::test_available_cores [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m               [  8%][0m
+src/toil/test/batchSystems/batchSystemTest.py::LSFBatchSystemTest::test_run_jobs [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                      [  8%][0m
+src/toil/test/batchSystems/batchSystemTest.py::LSFBatchSystemTest::test_set_env [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                       [  8%][0m
+src/toil/test/batchSystems/batchSystemTest.py::LSFBatchSystemTest::test_set_job_env [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                   [  8%][0m
+src/toil/test/batchSystems/batchSystemTest.py::TorqueBatchSystemTest::testCheckResourceRequest [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m        [  9%][0m
+src/toil/test/batchSystems/batchSystemTest.py::TorqueBatchSystemTest::testScalableBatchSystem [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m         [  9%][0m
+src/toil/test/batchSystems/batchSystemTest.py::TorqueBatchSystemTest::test_available_cores [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m            [  9%][0m
+src/toil/test/batchSystems/batchSystemTest.py::TorqueBatchSystemTest::test_run_jobs [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                   [  9%][0m
+src/toil/test/batchSystems/batchSystemTest.py::TorqueBatchSystemTest::test_set_env [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                    [  9%][0m
+src/toil/test/batchSystems/batchSystemTest.py::TorqueBatchSystemTest::test_set_job_env [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                [  9%][0m
+src/toil/test/batchSystems/batchSystemTest.py::HTCondorBatchSystemTest::testCheckResourceRequest [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m      [ 10%][0m
+src/toil/test/batchSystems/batchSystemTest.py::HTCondorBatchSystemTest::testScalableBatchSystem [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m       [ 10%][0m
+src/toil/test/batchSystems/batchSystemTest.py::HTCondorBatchSystemTest::test_available_cores [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m          [ 10%][0m
+src/toil/test/batchSystems/batchSystemTest.py::HTCondorBatchSystemTest::test_run_jobs [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                 [ 10%][0m
+src/toil/test/batchSystems/batchSystemTest.py::HTCondorBatchSystemTest::test_set_env [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m                  [ 10%][0m
+src/toil/test/batchSystems/batchSystemTest.py::HTCondorBatchSystemTest::test_set_job_env [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m              [ 10%][0m
+src/toil/test/batchSystems/batchSystemTest.py::TestSingleMachineBatchSystemJob::testJobConcurrency [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m    [ 11%][0m
+src/toil/test/batchSystems/batchSystemTest.py::TestSingleMachineBatchSystemJob::test_omp_threads [32mPASSED[0m[32m                                                   [ 11%][0m
+src/toil/test/batchSystems/batchSystemTest.py::TestSingleMachineBatchSystemJob::testConcurrencyWithDisk [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "...)[32m [ 11%][0m
+src/toil/test/batchSystems/batchSystemTest.py::TestSingleMachineBatchSystemJob::testNestedResourcesDoNotBlock [33mSKIPPED[0m (Skipped because TOIL_TEST_QUIC...)[32m [ 11%][0m
+src/toil/test/batchSystems/batchSystemTest.py::TestMesosBatchSystemJob::testJobConcurrency [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[32m            [ 11%][0m
+src/toil/test/batchSystems/batchSystemTest.py::TestMesosBatchSystemJob::test_omp_threads [33mSKIPPED[0m (Install Mesos (and Toil with the 'mesos' extra) to ...)[32m [ 12%][0m
+src/toil/test/batchSystems/batch_system_plugin_test.py::BatchSystemPluginTest::test_batchsystem_plugin_installable [32mPASSED[0m[32m                                 [ 12%][0m
+src/toil/test/batchSystems/test_gridengine.py::GridEngineTest::test_coalesce_job_exit_codes_many_all_exist [32mPASSED[0m[32m                                         [ 12%][0m
+src/toil/test/batchSystems/test_gridengine.py::GridEngineTest::test_coalesce_job_exit_codes_one_exists [32mPASSED[0m[32m                                             [ 12%][0m
+src/toil/test/batchSystems/test_gridengine.py::GridEngineTest::test_coalesce_job_exit_codes_one_still_running [32mPASSED[0m[32m                                      [ 12%][0m
+src/toil/test/batchSystems/test_lsf_helper.py::LSFHelperTest::test_parse_mem_and_cmd_from_output [32mPASSED[0m[32m                                                   [ 12%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_PartitionSet_default_gpu_partition [32mPASSED[0m[32m                                                       [ 13%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_PartitionSet_get_partition [32mPASSED[0m[32m                                                               [ 13%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_any_option_detector [32mPASSED[0m[32m                                                                      [ 13%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_coalesce_job_exit_codes_many_all_exist [32mPASSED[0m[32m                                                   [ 13%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_coalesce_job_exit_codes_mix_sacct_scontrol [32mPASSED[0m[32m                                               [ 13%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_coalesce_job_exit_codes_one_exists [32mPASSED[0m[32m                                                       [ 13%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_coalesce_job_exit_codes_one_not_exists [32mPASSED[0m[32m                                                   [ 14%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_coalesce_job_exit_codes_sacct_raises_job_exists [32mPASSED[0m[32m                                          [ 14%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_coalesce_job_exit_codes_sacct_raises_job_not_exists [32mPASSED[0m[32m                                      [ 14%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_coalesce_job_exit_codes_some_exists [32mPASSED[0m[32m                                                      [ 14%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobDetailsFromSacct_argument_list_too_big [32mPASSED[0m[32m                                             [ 14%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobDetailsFromSacct_many_all_exist [32mPASSED[0m[32m                                                    [ 14%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobDetailsFromSacct_many_none_exist [32mPASSED[0m[32m                                                   [ 15%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobDetailsFromSacct_many_some_exist [32mPASSED[0m[32m                                                   [ 15%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobDetailsFromSacct_one_exists [32mPASSED[0m[32m                                                        [ 15%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobDetailsFromSacct_one_not_exists [32mPASSED[0m[32m                                                    [ 15%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobDetailsFromScontrol_many_all_exist [32mPASSED[0m[32m                                                 [ 15%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobDetailsFromScontrol_many_none_exist [32mPASSED[0m[32m                                                [ 15%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobDetailsFromScontrol_many_some_exist [32mPASSED[0m[32m                                                [ 16%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobDetailsFromScontrol_one_exists [32mPASSED[0m[32m                                                     [ 16%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobDetailsFromScontrol_one_not_exists [32mPASSED[0m[32m                                                 [ 16%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobExitCode_job_exists [32mPASSED[0m[32m                                                                [ 16%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobExitCode_job_not_exists [32mPASSED[0m[32m                                                            [ 16%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobExitCode_sacct_raises_job_exists [32mPASSED[0m[32m                                                   [ 16%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_getJobExitCode_sacct_raises_job_not_exists [32mPASSED[0m[32m                                               [ 17%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_option_detector [32mPASSED[0m[32m                                                                          [ 17%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_parse_slurm_option_value [32mPASSED[0m[32m                                                                 [ 17%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_parse_slurm_time_days_hours [32mPASSED[0m[32m                                                              [ 17%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_parse_slurm_time_days_hours_minutes [32mPASSED[0m[32m                                                      [ 17%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_parse_slurm_time_days_hours_minutes_seconds [32mPASSED[0m[32m                                              [ 18%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_parse_slurm_time_edge_cases [32mPASSED[0m[32m                                                              [ 18%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_parse_slurm_time_hours_minutes_seconds [32mPASSED[0m[32m                                                   [ 18%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_parse_slurm_time_minutes [32mPASSED[0m[32m                                                                 [ 18%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_parse_slurm_time_minutes_seconds [32mPASSED[0m[32m                                                         [ 18%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_prepareSbatch_export [32mPASSED[0m[32m                                                                     [ 18%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_prepareSbatch_partition [32mPASSED[0m[32m                                                                  [ 19%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_prepareSbatch_time [32mPASSED[0m[32m                                                                       [ 19%][0m
+src/toil/test/batchSystems/test_slurm.py::SlurmTest::test_sinfo_not_permitted [32mPASSED[0m[32m                                                                      [ 19%][0m
+src/toil/test/cactus/test_cactus_integration.py::CactusIntegrationTest::test_cactus_integration [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an AWS-stored SSH ke...)[32m [ 19%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testArguments [32mPASSED[0m[32m                                                                            [ 19%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testDocker [33mSKIPPED[0m (Skipping docker test.)[32m                                                      [ 19%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testDynamic [32mPASSED[0m[32m                                                                              [ 20%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testEncapsulation [32mPASSED[0m[32m                                                                        [ 20%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testEncapsulation2 [32mPASSED[0m[32m                                                                       [ 20%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testHelloworld [32mPASSED[0m[32m                                                                           [ 20%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testInvokeworkflow [32mPASSED[0m[32m                                                                       [ 20%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testInvokeworkflow2 [32mPASSED[0m[32m                                                                      [ 20%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testJobFunctions [32mPASSED[0m[32m                                                                         [ 21%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testManaging [32mPASSED[0m[32m                                                                             [ 21%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testManaging2 [32mPASSED[0m[32m                                                                            [ 21%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testMultiplejobs [31mFAILED[0m[31m                                                                         [ 21%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testMultiplejobs2 [31mFAILED[0m[31m                                                                        [ 21%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testMultiplejobs3 [31mFAILED[0m[31m                                                                        [ 21%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testPromises [32mPASSED[0m[31m                                                                             [ 22%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testPromises2 [32mPASSED[0m[31m                                                                            [ 22%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testQuickstart [32mPASSED[0m[31m                                                                           [ 22%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testRequirements [32mPASSED[0m[31m                                                                         [ 22%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testServices [32mPASSED[0m[31m                                                                             [ 22%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testStaging [32mPASSED[0m[31m                                                                              [ 22%][0m
+src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testStats [32mPASSED[0m[31m                                                                                [ 23%][0m
+src/toil/test/lib/aws/test_iam.py::IAMTest::test_create_delete_iam_role [33mSKIPPED[0m (Configure AWS credentials to include this test.)[31m                         [ 23%][0m
+src/toil/test/lib/aws/test_iam.py::IAMTest::test_get_policy_permissions [33mSKIPPED[0m (Configure AWS credentials to include this test.)[31m                         [ 23%][0m
+src/toil/test/lib/aws/test_iam.py::IAMTest::test_negative_permissions_iam [32mPASSED[0m[31m                                                                          [ 23%][0m
+src/toil/test/lib/aws/test_iam.py::IAMTest::test_permissions_iam [32mPASSED[0m[31m                                                                                   [ 23%][0m
+src/toil/test/lib/aws/test_iam.py::IAMTest::test_wildcard_handling [32mPASSED[0m[31m                                                                                 [ 24%][0m
+src/toil/test/lib/aws/test_s3.py::S3Test::test_create_bucket [33mSKIPPED[0m (Configure AWS credentials to include this test.)[31m                                    [ 24%][0m
+src/toil/test/lib/aws/test_s3.py::S3Test::test_get_bucket_location_public_bucket [33mSKIPPED[0m (Configure AWS credentials to include this test.)[31m                [ 24%][0m
+src/toil/test/lib/aws/test_utils.py::TagGenerationTest::test_build_tag [32mPASSED[0m[31m                                                                             [ 24%][0m
+src/toil/test/lib/aws/test_utils.py::TagGenerationTest::test_build_tag_with_tags [32mPASSED[0m[31m                                                                   [ 24%][0m
+src/toil/test/lib/aws/test_utils.py::TagGenerationTest::test_empty_aws_tags [32mPASSED[0m[31m                                                                        [ 24%][0m
+src/toil/test/lib/aws/test_utils.py::TagGenerationTest::test_incorrect_json_emoji [32mPASSED[0m[31m                                                                  [ 25%][0m
+src/toil/test/lib/aws/test_utils.py::TagGenerationTest::test_incorrect_json_object [32mPASSED[0m[31m                                                                 [ 25%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m                          [ 25%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_CRx_FORGO [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m                [ 25%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_CRx_STOP [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m                 [ 25%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_CRx_RM [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m                   [ 25%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_CRx_None [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                 [ 26%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_CxD_FORGO [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                [ 26%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_CxD_STOP [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                 [ 26%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_CxD_RM [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                   [ 26%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_CxD_None [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                 [ 26%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_Cxx_FORGO [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                [ 26%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_Cxx_STOP [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                 [ 27%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_Cxx_RM [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                   [ 27%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_Cxx_None [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                 [ 27%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_xRx_FORGO [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                [ 27%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_xRx_STOP [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                 [ 27%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_xRx_RM [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                   [ 27%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_xRx_None [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                 [ 28%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_xxD_FORGO [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                [ 28%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_xxD_STOP [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                 [ 28%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_xxD_RM [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                   [ 28%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_xxD_None [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                 [ 28%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_xxx_FORGO [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                [ 28%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_xxx_STOP [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                 [ 29%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_xxx_RM [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                   [ 29%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerClean_xxx_None [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                 [ 29%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerPipeChain [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m                      [ 29%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerPipeChainErrorDetection [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m        [ 29%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testNonCachingDockerChain [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m                [ 30%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testNonCachingDockerChainErrorDetection [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m  [ 30%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerLogs [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m                           [ 30%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerLogs_Stream [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m                    [ 30%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerLogs_Demux [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m                     [ 30%][0m
+src/toil/test/lib/dockerTest.py::TestDocker::testDockerLogs_Demux_Stream [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m              [ 30%][0m
+src/toil/test/lib/test_conversions.py::ConversionTest::test_convert [32mPASSED[0m[31m                                                                                [ 31%][0m
+src/toil/test/lib/test_conversions.py::ConversionTest::test_hms_duration_to_seconds [32mPASSED[0m[31m                                                                [ 31%][0m
+src/toil/test/lib/test_conversions.py::ConversionTest::test_human2bytes [32mPASSED[0m[31m                                                                            [ 31%][0m
+src/toil/test/lib/test_ec2.py::FlatcarFeedTest::test_parse_archive_feed [33mSKIPPED[0m (Skipping online test.)[31m                                                   [ 31%][0m
+src/toil/test/lib/test_ec2.py::FlatcarFeedTest::test_parse_beta_feed [33mSKIPPED[0m (Skipping online test.)[31m                                                      [ 31%][0m
+src/toil/test/lib/test_ec2.py::FlatcarFeedTest::test_parse_stable_feed [33mSKIPPED[0m (Skipping online test.)[31m                                                    [ 31%][0m
+src/toil/test/lib/test_ec2.py::AMITest::test_fetch_arm_flatcar [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.)[31m              [ 32%][0m
+src/toil/test/lib/test_ec2.py::AMITest::test_fetch_flatcar [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.)[31m                  [ 32%][0m
+src/toil/test/lib/test_history.py::TestHistory::test_history_submittable_detection [32mPASSED[0m[31m                                                                 [ 32%][0m
+src/toil/test/lib/test_history.py::TestHistory::test_history_deletion [32mPASSED[0m[31m                                                                              [ 32%][0m
+src/toil/test/lib/test_history.py::TestHistory::test_history_size_limit [32mPASSED[0m[31m                                                                            [ 32%][0m
+src/toil/test/lib/test_misc.py::UserNameAvailableTest::test_get_user_name [32mPASSED[0m[31m                                                                          [ 32%][0m
+src/toil/test/lib/test_misc.py::UserNameUnvailableTest::test_get_user_name [32mPASSED[0m[31m                                                                         [ 33%][0m
+src/toil/test/lib/test_misc.py::UserNameVeryBrokenTest::test_get_user_name [32mPASSED[0m[31m                                                                         [ 33%][0m
+src/toil/test/lib/test_trs.py::DockstoreLookupTest::test_get [33mSKIPPED[0m (Skipping online test.)[31m                                                              [ 33%][0m
+src/toil/test/lib/test_trs.py::DockstoreLookupTest::test_get_from_trs_cached [33mSKIPPED[0m (Skipping online test.)[31m                                              [ 33%][0m
+src/toil/test/lib/test_trs.py::DockstoreLookupTest::test_get_nonexistent_version [33mSKIPPED[0m (Skipping online test.)[31m                                          [ 33%][0m
+src/toil/test/lib/test_trs.py::DockstoreLookupTest::test_get_nonexistent_workflow [33mSKIPPED[0m (Skipping online test.)[31m                                         [ 33%][0m
+src/toil/test/lib/test_trs.py::DockstoreLookupTest::test_get_nonexistent_workflow_bad_format [33mSKIPPED[0m (Skipping online test.)[31m                              [ 34%][0m
+src/toil/test/lib/test_trs.py::DockstoreLookupTest::test_lookup_from_page_url [33mSKIPPED[0m (Skipping online test.)[31m                                             [ 34%][0m
+src/toil/test/lib/test_trs.py::DockstoreLookupTest::test_lookup_from_trs_no_version [33mSKIPPED[0m (Skipping online test.)[31m                                       [ 34%][0m
+src/toil/test/lib/test_trs.py::DockstoreLookupTest::test_lookup_from_trs_nonexistent_version [33mSKIPPED[0m (Skipping online test.)[31m                              [ 34%][0m
+src/toil/test/lib/test_trs.py::DockstoreLookupTest::test_lookup_from_trs_nonexistent_workflow [33mSKIPPED[0m (Skipping online test.)[31m                             [ 34%][0m
+src/toil/test/lib/test_trs.py::DockstoreLookupTest::test_lookup_from_trs_nonexistent_workflow_bad_format [33mSKIPPED[0m (Skipping online test.)[31m                  [ 34%][0m
+src/toil/test/lib/test_trs.py::DockstoreLookupTest::test_lookup_from_trs_with_version [33mSKIPPED[0m (Skipping online test.)[31m                                     [ 35%][0m
+src/toil/test/lib/url_plugin_test.py::TestURLAccess::test_get_is_directory [32mPASSED[0m[31m                                                                         [ 35%][0m
+src/toil/test/lib/url_plugin_test.py::TestURLAccess::test_get_size [32mPASSED[0m[31m                                                                                 [ 35%][0m
+src/toil/test/lib/url_plugin_test.py::TestURLAccess::test_list_url [32mPASSED[0m[31m                                                                                 [ 35%][0m
+src/toil/test/lib/url_plugin_test.py::TestURLAccess::test_open_url [32mPASSED[0m[31m                                                                                 [ 35%][0m
+src/toil/test/lib/url_plugin_test.py::TestURLAccess::test_read_from_url [32mPASSED[0m[31m                                                                            [ 36%][0m
+src/toil/test/lib/url_plugin_test.py::TestURLAccess::test_url_exists [32mPASSED[0m[31m                                                                               [ 36%][0m
+src/toil/test/mesos/MesosDataStructuresTest.py::DataStructuresTest::testJobQueue [32mPASSED[0m[31m                                                                   [ 36%][0m
+src/toil/test/options/options.py::OptionsTest::test_caching_option_priority [32mPASSED[0m[31m                                                                        [ 36%][0m
+src/toil/test/options/options.py::OptionsTest::test_default_caching_slurm [32mPASSED[0m[31m                                                                          [ 36%][0m
+src/toil/test/options/options.py::OptionsTest::test_worker_exits_with_sentinel_code_on_missing_job_store [32mPASSED[0m[31m                                           [ 36%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::TestAWSProvisionerBenchTest::test_AMI_finding [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an AWS-stored SS...)[31m [ 37%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::TestAWSProvisionerBenchTest::test_read_write_global_files [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an A...)[31m [ 37%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::TestAWSProvisionerBenchTest::test_get_spot_history [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an AWS-stor...)[31m [ 37%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::TestAWSProvisionerBenchTest::test_get_aws_zone_from_spot_market [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME t...)[31m [ 37%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::AWSAutoscaleTest::testAutoScale [33mSKIPPED[0m (Set TOIL_TEST_INTEGRATIVE=True to include this integra...)[31m [ 37%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::AWSAutoscaleTest::testSpotAutoScale [33mSKIPPED[0m (Set TOIL_TEST_INTEGRATIVE=True to include this int...)[31m [ 37%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::AWSAutoscaleTest::testSpotAutoScaleBalancingTypes [33mSKIPPED[0m (Set TOIL_TEST_INTEGRATIVE=True to in...)[31m [ 38%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::AWSStaticAutoscaleTest::testAutoScale [33mSKIPPED[0m (Set TOIL_TEST_INTEGRATIVE=True to include this i...)[31m [ 38%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::AWSStaticAutoscaleTest::testSpotAutoScale [33mSKIPPED[0m (Set TOIL_TEST_INTEGRATIVE=True to include th...)[31m [ 38%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::AWSStaticAutoscaleTest::testSpotAutoScaleBalancingTypes [33mSKIPPED[0m (Set TOIL_TEST_INTEGRATIVE=True...)[31m [ 38%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::AWSManagedAutoscaleTest::testAutoScale [33mSKIPPED[0m (Set TOIL_TEST_INTEGRATIVE=True to include this ...)[31m [ 38%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::AWSManagedAutoscaleTest::testSpotAutoScale [33mSKIPPED[0m (Set TOIL_TEST_INTEGRATIVE=True to include t...)[31m [ 38%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::AWSManagedAutoscaleTest::testSpotAutoScaleBalancingTypes [33mSKIPPED[0m (Set TOIL_TEST_INTEGRATIVE=Tru...)[31m [ 39%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::AWSAutoscaleTestMultipleNodeTypes::testAutoScale [33mSKIPPED[0m (Set TOIL_TEST_INTEGRATIVE=True to inc...)[31m [ 39%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::AWSRestartTest::testAutoScaledCluster [33mSKIPPED[0m (Set TOIL_TEST_INTEGRATIVE=True to include this i...)[31m [ 39%][0m
+src/toil/test/provisioners/aws/awsProvisionerTest.py::PreemptibleDeficitCompensationTest::test [33mSKIPPED[0m (Set TOIL_TEST_INTEGRATIVE=True to include thi...)[31m [ 39%][0m
+src/toil/test/provisioners/clusterScalerTest.py::BinPackingTest::testAddingInitialNode [32mPASSED[0m[31m                                                             [ 39%][0m
+src/toil/test/provisioners/clusterScalerTest.py::BinPackingTest::testHighTargetTime [32mPASSED[0m[31m                                                                [ 39%][0m
+src/toil/test/provisioners/clusterScalerTest.py::BinPackingTest::testJobTooLargeForAllNodes [32mPASSED[0m[31m                                                        [ 40%][0m
+src/toil/test/provisioners/clusterScalerTest.py::BinPackingTest::testLongRunningJobs [32mPASSED[0m[31m                                                               [ 40%][0m
+src/toil/test/provisioners/clusterScalerTest.py::BinPackingTest::testLowTargetTime [32mPASSED[0m[31m                                                                 [ 40%][0m
+src/toil/test/provisioners/clusterScalerTest.py::BinPackingTest::testPackingOneShape [32mPASSED[0m[31m                                                               [ 40%][0m
+src/toil/test/provisioners/clusterScalerTest.py::BinPackingTest::testPathologicalCase [32mPASSED[0m[31m                                                              [ 40%][0m
+src/toil/test/provisioners/clusterScalerTest.py::BinPackingTest::testSorting [32mPASSED[0m[31m                                                                       [ 40%][0m
+src/toil/test/provisioners/clusterScalerTest.py::BinPackingTest::testZeroResourceJobs [32mPASSED[0m[31m                                                              [ 41%][0m
+src/toil/test/provisioners/clusterScalerTest.py::ClusterScalerTest::testBetaInertia [32mPASSED[0m[31m                                                                [ 41%][0m
+src/toil/test/provisioners/clusterScalerTest.py::ClusterScalerTest::testMaxNodes [32mPASSED[0m[31m                                                                   [ 41%][0m
+src/toil/test/provisioners/clusterScalerTest.py::ClusterScalerTest::testMinNodes [32mPASSED[0m[31m                                                                   [ 41%][0m
+src/toil/test/provisioners/clusterScalerTest.py::ClusterScalerTest::testNoLaunchingIfDeltaAlreadyMet [32mPASSED[0m[31m                                               [ 41%][0m
+src/toil/test/provisioners/clusterScalerTest.py::ClusterScalerTest::testPreemptibleDeficitIsSet [32mPASSED[0m[31m                                                    [ 42%][0m
+src/toil/test/provisioners/clusterScalerTest.py::ClusterScalerTest::testPreemptibleDeficitResponse [32mPASSED[0m[31m                                                 [ 42%][0m
+src/toil/test/provisioners/clusterScalerTest.py::ClusterScalerTest::testRounding [32mPASSED[0m[31m                                                                   [ 42%][0m
+src/toil/test/provisioners/clusterScalerTest.py::ClusterScalerTest::test_overhead_accounting_large [32mPASSED[0m[31m                                                 [ 42%][0m
+src/toil/test/provisioners/clusterScalerTest.py::ClusterScalerTest::test_overhead_accounting_observed [32mPASSED[0m[31m                                              [ 42%][0m
+src/toil/test/provisioners/clusterScalerTest.py::ClusterScalerTest::test_overhead_accounting_small [32mPASSED[0m[31m                                                 [ 42%][0m
+src/toil/test/provisioners/clusterScalerTest.py::ScalerThreadTest::testClusterScaling [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                 [ 43%][0m
+src/toil/test/provisioners/clusterScalerTest.py::ScalerThreadTest::testClusterScalingMultipleNodeTypes [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "T...)[31m [ 43%][0m
+src/toil/test/provisioners/clusterScalerTest.py::ScalerThreadTest::testClusterScalingWithPreemptibleJobs [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is ...)[31m [ 43%][0m
+src/toil/test/provisioners/clusterTest.py::CWLOnARMTest::test_cwl_on_arm [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.)[31m    [ 43%][0m
+src/toil/test/provisioners/gceProvisionerTest.py::GCEAutoscaleTest::testAutoScale [33mSKIPPED[0m (Set TOIL_GOOGLE_PROJECTID to a Google project ID to includ...)[31m [ 43%][0m
+src/toil/test/provisioners/gceProvisionerTest.py::GCEAutoscaleTest::testSpotAutoScale [33mSKIPPED[0m (Set TOIL_GOOGLE_PROJECTID to a Google project ID to in...)[31m [ 43%][0m
+src/toil/test/provisioners/gceProvisionerTest.py::GCEStaticAutoscaleTest::testAutoScale [33mSKIPPED[0m (Set TOIL_GOOGLE_PROJECTID to a Google project ID to ...)[31m [ 44%][0m
+src/toil/test/provisioners/gceProvisionerTest.py::GCEStaticAutoscaleTest::testSpotAutoScale [33mSKIPPED[0m (Set TOIL_GOOGLE_PROJECTID to a Google project ID...)[31m [ 44%][0m
+src/toil/test/provisioners/gceProvisionerTest.py::GCEAutoscaleTestMultipleNodeTypes::testAutoScale [33mSKIPPED[0m (Set TOIL_GOOGLE_PROJECTID to a Google pro...)[31m [ 44%][0m
+src/toil/test/provisioners/gceProvisionerTest.py::GCERestartTest::testAutoScaledCluster [33mSKIPPED[0m (Set TOIL_GOOGLE_PROJECTID to a Google project ID to ...)[31m [ 44%][0m
+src/toil/test/provisioners/provisionerTest.py::ProvisionerTest::test_node_type_parsing [32mPASSED[0m[31m                                                             [ 44%][0m
+src/toil/test/server/safeFileTest.py::TestSafeFileInterleaving::test_reader_blocked_while_writer_holds_lock [32mPASSED[0m[31m                                        [ 44%][0m
+src/toil/test/server/safeFileTest.py::TestSafeFileInterleaving::test_writer_blocked_while_reader_holds_lock [32mPASSED[0m[31m                                        [ 45%][0m
+src/toil/test/server/safeFileTest.py::TestSafeFileInterleaving::test_multiple_readers_not_blocked [32mPASSED[0m[31m                                                  [ 45%][0m
+src/toil/test/server/safeFileTest.py::TestSafeFileInterleaving::test_writers_serialize [32mPASSED[0m[31m                                                             [ 45%][0m
+src/toil/test/server/safeFileTest.py::TestSafeFileInterleaving::test_reader_paused_mid_read_blocks_writer [32mPASSED[0m[31m                                          [ 45%][0m
+src/toil/test/server/safeFileTest.py::TestSafeFileInterleaving::test_writer_paused_mid_write_blocks_reader [32mPASSED[0m[31m                                         [ 45%][0m
+src/toil/test/server/serverTest.py::FileStateStoreTest::test_state_store [33mSKIPPED[0m (Install Toil with the 'server' extra to include this test.)[31m             [ 45%][0m
+src/toil/test/server/serverTest.py::FileStateStoreURLTest::test_state_store [33mSKIPPED[0m (Install Toil with the 'server' extra to include this test.)[31m          [ 46%][0m
+src/toil/test/server/serverTest.py::AWSStateStoreTest::test_state_store [33mSKIPPED[0m (Install Toil with the 'server' extra to include this test.)[31m              [ 46%][0m
+src/toil/test/server/serverTest.py::AWSStateStoreTest::test_state_store_paths [33mSKIPPED[0m (Install Toil with the 'server' extra to include this test.)[31m        [ 46%][0m
+src/toil/test/server/serverTest.py::ToilWESServerBenchTest::test_get_service_info [33mSKIPPED[0m (Install Toil with the 'server' extra to include this test.)[31m    [ 46%][0m
+src/toil/test/server/serverTest.py::ToilWESServerBenchTest::test_health [33mSKIPPED[0m (Install Toil with the 'server' extra to include this test.)[31m              [ 46%][0m
+src/toil/test/server/serverTest.py::ToilWESServerBenchTest::test_home [33mSKIPPED[0m (Install Toil with the 'server' extra to include this test.)[31m                [ 46%][0m
+src/toil/test/server/serverTest.py::ToilWESServerWorkflowTest::test_cancel_before_setup [33mSKIPPED[0m (Install Toil with the 'cwl' extra to include this test.)[31m [ 47%][0m
+src/toil/test/server/serverTest.py::ToilWESServerWorkflowTest::test_run_and_cancel_workflows [33mSKIPPED[0m (Install Toil with the 'cwl' extra to include th...)[31m [ 47%][0m
+src/toil/test/server/serverTest.py::ToilWESServerWorkflowTest::test_run_workflow_https_url [33mSKIPPED[0m (Install Toil with the 'cwl' extra to include this...)[31m [ 47%][0m
+src/toil/test/server/serverTest.py::ToilWESServerWorkflowTest::test_run_workflow_inputs_zip [33mSKIPPED[0m (Install Toil with the 'cwl' extra to include thi...)[31m [ 47%][0m
+src/toil/test/server/serverTest.py::ToilWESServerWorkflowTest::test_run_workflow_manifest_and_inputs_zip [33mSKIPPED[0m (Install Toil with the 'cwl' extra t...)[31m [ 47%][0m
+src/toil/test/server/serverTest.py::ToilWESServerWorkflowTest::test_run_workflow_manifest_zip [33mSKIPPED[0m (Install Toil with the 'cwl' extra to include t...)[31m [ 48%][0m
+src/toil/test/server/serverTest.py::ToilWESServerWorkflowTest::test_run_workflow_multi_file_zip [33mSKIPPED[0m (Install Toil with the 'cwl' extra to include...)[31m [ 48%][0m
+src/toil/test/server/serverTest.py::ToilWESServerWorkflowTest::test_run_workflow_no_params_zip [33mSKIPPED[0m (Install Toil with the 'cwl' extra to include ...)[31m [ 48%][0m
+src/toil/test/server/serverTest.py::ToilWESServerWorkflowTest::test_run_workflow_relative_url [33mSKIPPED[0m (Install Toil with the 'cwl' extra to include t...)[31m [ 48%][0m
+src/toil/test/server/serverTest.py::ToilWESServerWorkflowTest::test_run_workflow_relative_url_no_attachments_fails [33mSKIPPED[0m (Install Toil with the 'cw...)[31m [ 48%][0m
+src/toil/test/server/serverTest.py::ToilWESServerWorkflowTest::test_run_workflow_single_file_zip [33mSKIPPED[0m (Install Toil with the 'cwl' extra to includ...)[31m [ 48%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryWorkflowTest::test_cancel_before_setup [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL to a RabbitMQ...)[31m [ 49%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryWorkflowTest::test_run_and_cancel_workflows [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL to a Rab...)[31m [ 49%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryWorkflowTest::test_run_workflow_https_url [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL to a Rabbi...)[31m [ 49%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryWorkflowTest::test_run_workflow_inputs_zip [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL to a Rabb...)[31m [ 49%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryWorkflowTest::test_run_workflow_manifest_and_inputs_zip [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a ...)[31m [ 49%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryWorkflowTest::test_run_workflow_manifest_zip [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL to a Ra...)[31m [ 49%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryWorkflowTest::test_run_workflow_multi_file_zip [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL to a ...)[31m [ 50%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryWorkflowTest::test_run_workflow_no_params_zip [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL to a R...)[31m [ 50%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryWorkflowTest::test_run_workflow_relative_url [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL to a Ra...)[31m [ 50%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryWorkflowTest::test_run_workflow_relative_url_no_attachments_fails [33mSKIPPED[0m (Set TOIL_WES_BROKER...)[31m [ 50%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryWorkflowTest::test_run_workflow_single_file_zip [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL to a...)[31m [ 50%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryS3StateWorkflowTest::test_cancel_before_setup [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL to a R...)[31m [ 50%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryS3StateWorkflowTest::test_run_and_cancel_workflows [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL t...)[31m [ 51%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryS3StateWorkflowTest::test_run_workflow_https_url [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL to ...)[31m [ 51%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryS3StateWorkflowTest::test_run_workflow_inputs_zip [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL to...)[31m [ 51%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryS3StateWorkflowTest::test_run_workflow_manifest_and_inputs_zip [33mSKIPPED[0m (Set TOIL_WES_BROKER_UR...)[31m [ 51%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryS3StateWorkflowTest::test_run_workflow_manifest_zip [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL ...)[31m [ 51%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryS3StateWorkflowTest::test_run_workflow_multi_file_zip [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a UR...)[31m [ 51%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryS3StateWorkflowTest::test_run_workflow_no_params_zip [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL...)[31m [ 52%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryS3StateWorkflowTest::test_run_workflow_relative_url [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a URL ...)[31m [ 52%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryS3StateWorkflowTest::test_run_workflow_relative_url_no_attachments_fails [33mSKIPPED[0m (Set TOIL_WES...)[31m [ 52%][0m
+src/toil/test/server/serverTest.py::ToilWESServerCeleryS3StateWorkflowTest::test_run_workflow_single_file_zip [33mSKIPPED[0m (Set TOIL_WES_BROKER_URL to a U...)[31m [ 52%][0m
+src/toil/test/sort/sortTest.py::SortTest::testAwsMesos [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                                [ 52%][0m
+src/toil/test/sort/sortTest.py::SortTest::testAwsSingle [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                               [ 53%][0m
+src/toil/test/sort/sortTest.py::SortTest::testCopySubRangeOfFile [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                      [ 53%][0m
+src/toil/test/sort/sortTest.py::SortTest::testFileGridEngine [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                          [ 53%][0m
+src/toil/test/sort/sortTest.py::SortTest::testFileMesos [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                               [ 53%][0m
+src/toil/test/sort/sortTest.py::SortTest::testFileSingle [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                              [ 53%][0m
+src/toil/test/sort/sortTest.py::SortTest::testFileSingle10000 [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                         [ 53%][0m
+src/toil/test/sort/sortTest.py::SortTest::testFileSingleCheckpoints [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                   [ 54%][0m
+src/toil/test/sort/sortTest.py::SortTest::testFileSingleNonCaching [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                    [ 54%][0m
+src/toil/test/sort/sortTest.py::SortTest::testFileTorqueEngine [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                        [ 54%][0m
+src/toil/test/sort/sortTest.py::SortTest::testGetMidPoint [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                             [ 54%][0m
+src/toil/test/sort/sortTest.py::SortTest::testGoogleMesos [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                             [ 54%][0m
+src/toil/test/sort/sortTest.py::SortTest::testGoogleSingle [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                            [ 54%][0m
+src/toil/test/sort/sortTest.py::SortTest::testMerge [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                                   [ 55%][0m
+src/toil/test/sort/sortTest.py::SortTest::testSort [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                                    [ 55%][0m
+src/toil/test/src/autoDeploymentTest.py::AutoDeploymentTest::testDeferralWithConcurrentEncapsulation [33mSKIPPED[0m (Install Mesos (and Toil with the 'mesos...)[31m [ 55%][0m
+src/toil/test/src/autoDeploymentTest.py::AutoDeploymentTest::testDeferralWithFailureAndEncapsulation [33mSKIPPED[0m (Install Mesos (and Toil with the 'mesos...)[31m [ 55%][0m
+src/toil/test/src/autoDeploymentTest.py::AutoDeploymentTest::testRestart [33mSKIPPED[0m (Install Mesos (and Toil with the 'mesos' extra) to include this test.)[31m  [ 55%][0m
+src/toil/test/src/autoDeploymentTest.py::AutoDeploymentTest::testSplitRootPackages [33mSKIPPED[0m (Install Mesos (and Toil with the 'mesos' extra) to includ...)[31m [ 55%][0m
+src/toil/test/src/autoDeploymentTest.py::AutoDeploymentTest::testUserTypesInJobFunctionArgs [33mSKIPPED[0m (Install Mesos (and Toil with the 'mesos' extra) ...)[31m [ 56%][0m
+src/toil/test/src/busTest.py::TestMessageBus::test_enum_ints_in_file [32mPASSED[0m[31m                                                                               [ 56%][0m
+src/toil/test/src/busTest.py::TestMessageBus::test_cross_thread_messaging [32mPASSED[0m[31m                                                                          [ 56%][0m
+src/toil/test/src/busTest.py::TestMessageBus::test_restart_without_bus_path [32mPASSED[0m[31m                                                                        [ 56%][0m
+src/toil/test/src/checkpointTest.py::CheckpointTest::testCheckpointNotRetried [32mPASSED[0m[31m                                                                      [ 56%][0m
+src/toil/test/src/checkpointTest.py::CheckpointTest::testCheckpointRetriedOnce [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                        [ 56%][0m
+src/toil/test/src/checkpointTest.py::CheckpointTest::testCheckpointedRestartSucceeds [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                  [ 57%][0m
+src/toil/test/src/commonTests.py::TestConfig::test_check_configuration_consistency_disallows_bad_scaling_setup [32mPASSED[0m[31m                                     [ 57%][0m
+src/toil/test/src/deferredFunctionTest.py::TestDeferredFunction::testDeferredFunctionRunsWithMethod [32mPASSED[0m[31m                                                [ 57%][0m
+src/toil/test/src/deferredFunctionTest.py::TestDeferredFunction::testDeferredFunctionRunsWithClassMethod [32mPASSED[0m[31m                                           [ 57%][0m
+src/toil/test/src/deferredFunctionTest.py::TestDeferredFunction::testDeferredFunctionRunsWithLambda [32mPASSED[0m[31m                                                [ 57%][0m
+src/toil/test/src/deferredFunctionTest.py::TestDeferredFunction::testDeferredFunctionRunsWithFailures [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m [ 57%][0m
+src/toil/test/src/deferredFunctionTest.py::TestDeferredFunction::testNewJobsCanHandleOtherJobDeaths [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m   [ 58%][0m
+src/toil/test/src/deferredFunctionTest.py::TestDeferredFunction::testBatchSystemCleanupCanHandleWorkerDeaths [32mPASSED[0m[31m                                       [ 58%][0m
+src/toil/test/src/dockerCheckTest.py::DockerCheckTest::testApplianceParser [33mSKIPPED[0m (Skipping docker test.)[31m                                                [ 58%][0m
+src/toil/test/src/dockerCheckTest.py::DockerCheckTest::testBadGoogleRepo [33mSKIPPED[0m (Skipping docker test.)[31m                                                  [ 58%][0m
+src/toil/test/src/dockerCheckTest.py::DockerCheckTest::testBadQuayRepo [33mSKIPPED[0m (Skipping docker test.)[31m                                                    [ 58%][0m
+src/toil/test/src/dockerCheckTest.py::DockerCheckTest::testBadQuayRepoNTag [33mSKIPPED[0m (Skipping docker test.)[31m                                                [ 59%][0m
+src/toil/test/src/dockerCheckTest.py::DockerCheckTest::testBadQuayTag [33mSKIPPED[0m (Skipping docker test.)[31m                                                     [ 59%][0m
+src/toil/test/src/dockerCheckTest.py::DockerCheckTest::testBroadDockerRepo [33mSKIPPED[0m (Skipping docker test.)[31m                                                [ 59%][0m
+src/toil/test/src/dockerCheckTest.py::DockerCheckTest::testBroadDockerRepoBadTag [33mSKIPPED[0m (Skipping docker test.)[31m                                          [ 59%][0m
+src/toil/test/src/dockerCheckTest.py::DockerCheckTest::testGoogleRepo [33mSKIPPED[0m (Skipping docker test.)[31m                                                     [ 59%][0m
+src/toil/test/src/dockerCheckTest.py::DockerCheckTest::testNonexistentRepo [33mSKIPPED[0m (Skipping docker test.)[31m                                                [ 59%][0m
+src/toil/test/src/dockerCheckTest.py::DockerCheckTest::testOfficialUbuntuRepo [33mSKIPPED[0m (Skipping docker test.)[31m                                             [ 60%][0m
+src/toil/test/src/dockerCheckTest.py::DockerCheckTest::testToilQuayRepo [33mSKIPPED[0m (Skipping docker test.)[31m                                                   [ 60%][0m
+src/toil/test/src/environmentTest.py::EnvironmentTest::test_environment [32mPASSED[0m[31m                                                                            [ 60%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::testFileStoreLogging [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m     [ 60%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::testFileStoreOperations [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m  [ 60%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::testImportReadFileCompatibility 
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::testImportReadFileCompatibility [32mPASSED[0m[31m                                       [ 60%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::testReadWriteFileStreamTextMode [32mPASSED[0m[31m                                       [ 61%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::testToilIsNotBroken [32mPASSED[0m[31m                                                   [ 61%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::testWriteExportFileCompatibility [32mPASSED[0m[31m                                      [ 61%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::testWriteReadGlobalFilePermissions 
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::testWriteReadGlobalFilePermissions [32mPASSED[0m[31m                                    [ 61%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::test_write_file_to_job_store_with_hints [32mPASSED[0m[31m                               [ 61%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::test_write_global_file_stream_with_hints [32mPASSED[0m[31m                              [ 61%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testAsyncWriteWithCaching [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m   [ 62%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testCacheEvictionFailCase [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m   [ 62%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testCacheEvictionPartialEvict [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "...)[31m [ 62%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testCacheEvictionTotalEvict [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m [ 62%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testControlledFailedWorkerRetry [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is...)[31m [ 62%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testDeleteLocalFile [32mPASSED[0m[31m                                                      [ 62%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testExtremeCacheSetup [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m       [ 63%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testFileStoreExportFile [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m     [ 63%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testFileStoreLogging [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m        [ 63%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testFileStoreOperations [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m     [ 63%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testImportReadFileCompatibility 
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testImportReadFileCompatibility [32mPASSED[0m[31m                                          [ 63%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testMultipleJobsReadSameCacheHitGlobalFile [33mSKIPPED[0m (Skipped because TOIL_TE...)[31m [ 63%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testMultipleJobsReadSameCacheMissGlobalFile [33mSKIPPED[0m (Skipped because TOIL_T...)[31m [ 64%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testReadCachHitFileFromJobStore [32mPASSED[0m[31m                                          [ 64%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testReadCacheMissFileFromJobStoreWithCachingReadFile [32mPASSED[0m[31m                     [ 64%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testReadCacheMissFileFromJobStoreWithoutCachingReadFile [32mPASSED[0m[31m                  [ 64%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testReadWriteFileStreamTextMode [32mPASSED[0m[31m                                          [ 64%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testRemoveLocalImmutablyReadFile [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK i...)[31m [ 65%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testRemoveLocalMutablyReadFile [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is ...)[31m [ 65%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testReturnFileSizes [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m         [ 65%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testReturnFileSizesWithBadWorker [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK i...)[31m [ 65%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testSimultaneousReadsUncachedStream [32mPASSED[0m[31m                                      [ 65%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testToilIsNotBroken [32mPASSED[0m[31m                                                      [ 65%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testWriteExportFileCompatibility [32mPASSED[0m[31m                                         [ 66%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testWriteLocalFileToJobStore [32mPASSED[0m[31m                                             [ 66%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testWriteNonLocalFileToJobStore [32mPASSED[0m[31m                                          [ 66%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testWriteReadGlobalFilePermissions 
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testWriteReadGlobalFilePermissions [32mPASSED[0m[31m                                       [ 66%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::test_write_file_to_job_store_with_hints [32mPASSED[0m[31m                                  [ 66%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::test_write_global_file_stream_with_hints [32mPASSED[0m[31m                                 [ 66%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithAwsJobStore::testFileStoreLogging [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an AWS-stored SSH k...)[31m [ 67%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithAwsJobStore::testFileStoreOperations [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an AWS-stored SS...)[31m [ 67%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithAwsJobStore::testImportReadFileCompatibility [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an AWS-s...)[31m [ 67%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithAwsJobStore::testReadWriteFileStreamTextMode [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an AWS-s...)[31m [ 67%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithAwsJobStore::testToilIsNotBroken [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an AWS-stored SSH ke...)[31m [ 67%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithAwsJobStore::testWriteExportFileCompatibility [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an AWS-...)[31m [ 67%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithAwsJobStore::testWriteReadGlobalFilePermissions [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to an AW...)[31m [ 68%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithAwsJobStore::test_write_file_to_job_store_with_hints [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to ...)[31m [ 68%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithAwsJobStore::test_write_global_file_stream_with_hints [33mSKIPPED[0m (Set TOIL_AWS_KEYNAME to...)[31m [ 68%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testAsyncWriteWithCaching [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m    [ 68%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testCacheEvictionFailCase [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m    [ 68%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testCacheEvictionPartialEvict [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "T...)[31m [ 68%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testCacheEvictionTotalEvict [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m  [ 69%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testControlledFailedWorkerRetry [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is ...)[31m [ 69%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testDeleteLocalFile [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m          [ 69%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testExtremeCacheSetup [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m        [ 69%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testFileStoreExportFile [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m      [ 69%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testFileStoreLogging [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m         [ 69%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testFileStoreOperations [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m      [ 70%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testImportReadFileCompatibility [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is ...)[31m [ 70%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testMultipleJobsReadSameCacheHitGlobalFile [33mSKIPPED[0m (Skipped because TOIL_TES...)[31m [ 70%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testMultipleJobsReadSameCacheMissGlobalFile [33mSKIPPED[0m (Skipped because TOIL_TE...)[31m [ 70%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testReadCachHitFileFromJobStore [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is ...)[31m [ 70%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testReadCacheMissFileFromJobStoreWithCachingReadFile [33mSKIPPED[0m (Skipped becaus...)[31m [ 71%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testReadCacheMissFileFromJobStoreWithoutCachingReadFile [33mSKIPPED[0m (Skipped bec...)[31m [ 71%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testReadWriteFileStreamTextMode [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is ...)[31m [ 71%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testRemoveLocalImmutablyReadFile [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is...)[31m [ 71%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testRemoveLocalMutablyReadFile [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "...)[31m [ 71%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testReturnFileSizes [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m          [ 71%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testReturnFileSizesWithBadWorker [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is...)[31m [ 72%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testSimultaneousReadsUncachedStream [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK...)[31m [ 72%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testToilIsNotBroken [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m          [ 72%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testWriteExportFileCompatibility [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is...)[31m [ 72%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testWriteLocalFileToJobStore [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m [ 72%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testWriteNonLocalFileToJobStore [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is ...)[31m [ 72%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::testWriteReadGlobalFilePermissions [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK ...)[31m [ 73%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::test_write_file_to_job_store_with_hints [33mSKIPPED[0m (Google job store does not u...)[31m [ 73%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithAwsJobStore::test_write_global_file_stream_with_hints [33mSKIPPED[0m (Google job store does not ...)[31m [ 73%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithGoogleJobStore::testFileStoreLogging [33mSKIPPED[0m (Set TOIL_GOOGLE_PROJECTID to a Google pr...)[31m [ 73%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithGoogleJobStore::testFileStoreOperations [33mSKIPPED[0m (Set TOIL_GOOGLE_PROJECTID to a Google...)[31m [ 73%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithGoogleJobStore::testImportReadFileCompatibility [33mSKIPPED[0m (Set TOIL_GOOGLE_PROJECTID to ...)[31m [ 73%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithGoogleJobStore::testReadWriteFileStreamTextMode [33mSKIPPED[0m (Set TOIL_GOOGLE_PROJECTID to ...)[31m [ 74%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithGoogleJobStore::testToilIsNotBroken [33mSKIPPED[0m (Set TOIL_GOOGLE_PROJECTID to a Google pro...)[31m [ 74%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithGoogleJobStore::testWriteExportFileCompatibility [33mSKIPPED[0m (Set TOIL_GOOGLE_PROJECTID to...)[31m [ 74%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithGoogleJobStore::testWriteReadGlobalFilePermissions [33mSKIPPED[0m (Set TOIL_GOOGLE_PROJECTID ...)[31m [ 74%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithGoogleJobStore::test_write_file_to_job_store_with_hints [33mSKIPPED[0m (Google job store does...)[31m [ 74%][0m
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithGoogleJobStore::test_write_global_file_stream_with_hints [33mSKIPPED[0m (Google job store doe...)[31m [ 74%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testAsyncWriteWithCaching [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m [ 75%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testCacheEvictionFailCase [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m [ 75%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testCacheEvictionPartialEvict [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is...)[31m [ 75%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testCacheEvictionTotalEvict [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "...)[31m [ 75%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testControlledFailedWorkerRetry [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK ...)[31m [ 75%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testDeleteLocalFile [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m       [ 75%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testExtremeCacheSetup [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m     [ 76%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testFileStoreExportFile [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m   [ 76%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testFileStoreLogging [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m      [ 76%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testFileStoreOperations [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m   [ 76%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testImportReadFileCompatibility [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK ...)[31m [ 76%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testMultipleJobsReadSameCacheHitGlobalFile [33mSKIPPED[0m (Skipped because TOIL_...)[31m [ 77%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testMultipleJobsReadSameCacheMissGlobalFile [33mSKIPPED[0m (Skipped because TOIL...)[31m [ 77%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testReadCachHitFileFromJobStore [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK ...)[31m [ 77%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testReadCacheMissFileFromJobStoreWithCachingReadFile [33mSKIPPED[0m (Skipped bec...)[31m [ 77%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testReadCacheMissFileFromJobStoreWithoutCachingReadFile [33mSKIPPED[0m (Skipped ...)[31m [ 77%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testReadWriteFileStreamTextMode [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK ...)[31m [ 77%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testRemoveLocalImmutablyReadFile [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK...)[31m [ 78%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testRemoveLocalMutablyReadFile [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK i...)[31m [ 78%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testReturnFileSizes [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m       [ 78%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testReturnFileSizesWithBadWorker [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK...)[31m [ 78%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testSimultaneousReadsUncachedStream [33mSKIPPED[0m (Skipped because TOIL_TEST_QU...)[31m [ 78%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testToilIsNotBroken [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m       [ 78%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testWriteExportFileCompatibility [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK...)[31m [ 79%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testWriteLocalFileToJobStore [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is ...)[31m [ 79%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testWriteNonLocalFileToJobStore [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK ...)[31m [ 79%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::testWriteReadGlobalFilePermissions [33mSKIPPED[0m (Skipped because TOIL_TEST_QUI...)[31m [ 79%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::test_write_file_to_job_store_with_hints [33mSKIPPED[0m (Skipped because TOIL_TES...)[31m [ 79%][0m
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithGoogleJobStore::test_write_global_file_stream_with_hints [33mSKIPPED[0m (Skipped because TOIL_TE...)[31m [ 79%][0m
+src/toil/test/src/helloWorldTest.py::HelloWorldTest::testHelloWorld [32mPASSED[0m[31m                                                                                [ 80%][0m
+src/toil/test/src/importExportFileTest.py::TestImportExportFile::test_import_export_restart_true [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m      [ 80%][0m
+src/toil/test/src/importExportFileTest.py::TestImportExportFile::test_import_export_restart_false [32mPASSED[0m[31m                                                  [ 80%][0m
+src/toil/test/src/importExportFileTest.py::TestImportExportFile::test_basic_import_export [32mSUBPASSED[Testing permissions are preserved for local importFile/exportFile][0m[31m [ 80%][0m
+src/toil/test/src/importExportFileTest.py::TestImportExportFile::test_basic_import_export [32mSUBPASSED[Testing relative paths without the file:// schema.][0m[31m   [ 80%][0m
+src/toil/test/src/importExportFileTest.py::TestImportExportFile::test_basic_import_export [32mSUBPASSED[Test local importFile accepts a shared_file_name.][0m[31m    [ 80%][0m
+src/toil/test/src/importExportFileTest.py::TestImportExportFile::test_basic_import_export [32mPASSED[0m[31m                                                          [ 80%][0m
+src/toil/test/src/jobDescriptionTest.py::JobDescriptionTest::testJobDescription [32mPASSED[0m[31m                                                                    [ 80%][0m
+src/toil/test/src/jobDescriptionTest.py::JobDescriptionTest::testJobDescriptionSequencing [32mPASSED[0m[31m                                                          [ 80%][0m
+src/toil/test/src/jobEncapsulationTest.py::TestJobEncapsulation::testEncapsulation [32mPASSED[0m[31m                                                                 [ 81%][0m
+src/toil/test/src/jobEncapsulationTest.py::TestJobEncapsulation::testAddChildEncapsulate [32mPASSED[0m[31m                                                           [ 81%][0m
+src/toil/test/src/jobFileStoreTest.py::JobFileStoreTest::testCachingFileStore [32mPASSED[0m[31m                                                                      [ 81%][0m
+src/toil/test/src/jobFileStoreTest.py::JobFileStoreTest::testJobFileStore [32mPASSED[0m[31m                                                                          [ 81%][0m
+src/toil/test/src/jobFileStoreTest.py::JobFileStoreTest::testJobFileStoreWithBadWorker [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                [ 81%][0m
+src/toil/test/src/jobFileStoreTest.py::JobFileStoreTest::testNonCachingFileStore [32mPASSED[0m[31m                                                                   [ 81%][0m
+src/toil/test/src/jobServiceTest.py::TestJobService::testServiceSerialization [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                         [ 82%][0m
+src/toil/test/src/jobServiceTest.py::TestJobService::testService [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                      [ 82%][0m
+src/toil/test/src/jobServiceTest.py::TestJobService::testServiceDeadlock [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                              [ 82%][0m
+src/toil/test/src/jobServiceTest.py::TestJobService::testServiceWithCheckpoints [32mPASSED[0m[31m                                                                    [ 82%][0m
+src/toil/test/src/jobServiceTest.py::TestJobService::testServiceRecursive [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                             [ 82%][0m
+src/toil/test/src/jobServiceTest.py::TestJobService::testServiceParallelRecursive [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                     [ 83%][0m
+src/toil/test/src/jobServiceTest.py::TestPerfectServicet::testServiceSerialization [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                    [ 83%][0m
+src/toil/test/src/jobServiceTest.py::TestPerfectServicet::testService [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                 [ 83%][0m
+src/toil/test/src/jobServiceTest.py::TestPerfectServicet::testServiceDeadlock [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                         [ 83%][0m
+src/toil/test/src/jobServiceTest.py::TestPerfectServicet::testServiceWithCheckpoints [32mPASSED[0m[31m                                                               [ 83%][0m
+src/toil/test/src/jobServiceTest.py::TestPerfectServicet::testServiceRecursive [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                        [ 83%][0m
+src/toil/test/src/jobServiceTest.py::TestPerfectServicet::testServiceParallelRecursive [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                [ 84%][0m
+src/toil/test/src/jobTest.py::TestJob::testStatic [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                                     [ 84%][0m
+src/toil/test/src/jobTest.py::TestJob::testStatic2 [32mPASSED[0m[31m                                                                                                 [ 84%][0m
+src/toil/test/src/jobTest.py::TestJob::test_retry_backoff [32mPASSED[0m[31m                                                                                          [ 84%][0m
+src/toil/test/src/jobTest.py::TestJob::testTrivialDAGConsistency [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                      [ 84%][0m
+src/toil/test/src/jobTest.py::TestJob::testDAGConsistency [32mPASSED[0m[31m                                                                                          [ 84%][0m
+src/toil/test/src/jobTest.py::TestJob::testSiblingDAGConsistency [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                      [ 85%][0m
+src/toil/test/src/jobTest.py::TestJob::testDeadlockDetectionStatic [32mPASSED[0m[31m                                                                                 [ 85%][0m
+src/toil/test/src/jobTest.py::TestJob::testDeadlockDetection [33mXPASS[0m (Flaky test - see https://github.com/DataBiosphere/toil/issues/5354)[31m                   [ 85%][0m
+src/toil/test/src/jobTest.py::TestJob::testNewCheckpointIsLeafVertexNonRootCase [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                       [ 85%][0m
+src/toil/test/src/jobTest.py::TestJob::testNewCheckpointIsLeafVertexRootCase [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                          [ 85%][0m
+src/toil/test/src/jobTest.py::TestJob::testEvaluatingRandomDAG [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                        [ 85%][0m
+src/toil/test/src/jobTest.py::TestJob::test_cpu_usage [32mSUBPASSED[no warnings for non-positive runtime][0m[31m                                                     [ 86%][0m
+src/toil/test/src/jobTest.py::TestJob::test_cpu_usage [32mSUBPASSED[accepts 0 cores][0m[31m                                                                          [ 86%][0m
+src/toil/test/src/jobTest.py::TestJob::test_cpu_usage [32mSUBPASSED[threshold boundary does not warn][0m[31m                                                         [ 86%][0m
+src/toil/test/src/jobTest.py::TestJob::test_cpu_usage [32mSUBPASSED[just above threshold warns][0m[31m                                                               [ 86%][0m
+src/toil/test/src/jobTest.py::TestJob::test_cpu_usage [32mPASSED[0m[31m                                                                                              [ 86%][0m
+src/toil/test/src/miscTests.py::TestMisc::testIDStability [32mPASSED[0m[31m                                                                                          [ 86%][0m
+src/toil/test/src/miscTests.py::TestMisc::testGetSizeOfDirectoryWorks [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                 [ 86%][0m
+src/toil/test/src/miscTests.py::TestMisc::test_atomic_install [32mPASSED[0m[31m                                                                                      [ 86%][0m
+src/toil/test/src/miscTests.py::TestMisc::test_atomic_install_dev [32mPASSED[0m[31m                                                                                  [ 86%][0m
+src/toil/test/src/miscTests.py::TestMisc::test_atomic_context_ok [32mPASSED[0m[31m                                                                                   [ 86%][0m
+src/toil/test/src/miscTests.py::TestMisc::test_atomic_context_error [32mPASSED[0m[31m                                                                                [ 87%][0m
+src/toil/test/src/miscTests.py::TestMisc::test_call_command_ok [32mPASSED[0m[31m                                                                                     [ 87%][0m
+src/toil/test/src/miscTests.py::TestMisc::test_call_command_err [32mPASSED[0m[31m                                                                                    [ 87%][0m
+src/toil/test/src/miscTests.py::TestPanic::test_panic_by_hand [32mPASSED[0m[31m                                                                                      [ 87%][0m
+src/toil/test/src/miscTests.py::TestPanic::test_panic [32mPASSED[0m[31m                                                                                              [ 87%][0m
+src/toil/test/src/miscTests.py::TestPanic::test_panic_with_secondary [32mPASSED[0m[31m                                                                               [ 87%][0m
+src/toil/test/src/miscTests.py::TestPanic::test_nested_panic [32mPASSED[0m[31m                                                                                       [ 88%][0m
+src/toil/test/src/promisedRequirementTest.py::TestSingleMachinePromisedRequirements::testJobConcurrency [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "...)[31m [ 88%][0m
+src/toil/test/src/promisedRequirementTest.py::TestSingleMachinePromisedRequirements::test_omp_threads [32mPASSED[0m[31m                                              [ 88%][0m
+src/toil/test/src/promisedRequirementTest.py::TestSingleMachinePromisedRequirements::testConcurrencyDynamic [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK ...)[31m [ 88%][0m
+src/toil/test/src/promisedRequirementTest.py::TestSingleMachinePromisedRequirements::testConcurrencyStatic [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK i...)[31m [ 88%][0m
+src/toil/test/src/promisedRequirementTest.py::TestSingleMachinePromisedRequirements::testPromisesWithJobStoreFileObjects [32mPASSED[0m[31m                           [ 89%][0m
+src/toil/test/src/promisedRequirementTest.py::TestSingleMachinePromisedRequirements::testPromisesWithNonCachingFileStore [32mPASSED[0m[31m                           [ 89%][0m
+src/toil/test/src/promisedRequirementTest.py::TestSingleMachinePromisedRequirements::testPromiseRequirementRaceStatic [33mSKIPPED[0m (Skipped because TOIL_T...)[31m [ 89%][0m
+src/toil/test/src/promisedRequirementTest.py::TestMesosPromisedRequirements::testJobConcurrency [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m       [ 89%][0m
+src/toil/test/src/promisedRequirementTest.py::TestMesosPromisedRequirements::test_omp_threads [33mSKIPPED[0m (Install Mesos (and Toil with the 'mesos' extra...)[31m [ 89%][0m
+src/toil/test/src/promisedRequirementTest.py::TestMesosPromisedRequirements::testConcurrencyDynamic [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m   [ 89%][0m
+src/toil/test/src/promisedRequirementTest.py::TestMesosPromisedRequirements::testConcurrencyStatic [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m    [ 90%][0m
+src/toil/test/src/promisedRequirementTest.py::TestMesosPromisedRequirements::testPromisesWithJobStoreFileObjects [33mSKIPPED[0m (Install Mesos (and Toil wit...)[31m [ 90%][0m
+src/toil/test/src/promisedRequirementTest.py::TestMesosPromisedRequirements::testPromisesWithNonCachingFileStore [33mSKIPPED[0m (Install Mesos (and Toil wit...)[31m [ 90%][0m
+src/toil/test/src/promisedRequirementTest.py::TestMesosPromisedRequirements::testPromiseRequirementRaceStatic [33mSKIPPED[0m (Skipped because TOIL_TEST_QUIC...)[31m [ 90%][0m
+src/toil/test/src/promisesTest.py::CachedUnpicklingJobStoreTest::test [32mPASSED[0m[31m                                                                              [ 90%][0m
+src/toil/test/src/promisesTest.py::ChainedIndexedPromisesTest::test [32mPASSED[0m[31m                                                                                [ 90%][0m
+src/toil/test/src/promisesTest.py::PathIndexingPromiseTest::test [32mPASSED[0m[31m                                                                                   [ 91%][0m
+src/toil/test/src/realtimeLoggerTest.py::RealtimeLoggerTest::testRealtimeLogger [32mPASSED[0m[31m                                                                    [ 91%][0m
+src/toil/test/src/resourceTest.py::TestResource::testStandAlone [32mPASSED[0m[31m                                                                                    [ 91%][0m
+src/toil/test/src/resourceTest.py::TestResource::testPackage [32mPASSED[0m[31m                                                                                       [ 91%][0m
+src/toil/test/src/resourceTest.py::TestResource::testStandAloneInPackage [32mPASSED[0m[31m                                                                           [ 91%][0m
+src/toil/test/src/resourceTest.py::TestResource::testBuiltIn [32mPASSED[0m[31m                                                                                       [ 91%][0m
+src/toil/test/src/resourceTest.py::TestResource::testNonPyStandAlone [32mPASSED[0m[31m                                                                               [ 92%][0m
+src/toil/test/src/restartDAGTest.py::TestRestartDAG::testRestartedWorkflowSchedulesCorrectJobsOnFailedParent [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK...)[31m [ 92%][0m
+src/toil/test/src/restartDAGTest.py::TestRestartDAG::testRestartedWorkflowSchedulesCorrectJobsOnKilledParent [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK...)[31m [ 92%][0m
+src/toil/test/src/resumabilityTest.py::TestResumability::test [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                         [ 92%][0m
+src/toil/test/src/resumabilityTest.py::TestResumability::test_chaining [32mPASSED[0m[31m                                                                             [ 92%][0m
+src/toil/test/src/retainTempDirTest.py::TestCleanWorkDir::testNever [32mPASSED[0m[31m                                                                                [ 92%][0m
+src/toil/test/src/retainTempDirTest.py::TestCleanWorkDir::testAlways [32mPASSED[0m[31m                                                                               [ 93%][0m
+src/toil/test/src/retainTempDirTest.py::TestCleanWorkDir::testOnErrorWithError [32mPASSED[0m[31m                                                                     [ 93%][0m
+src/toil/test/src/retainTempDirTest.py::TestCleanWorkDir::testOnErrorWithNoError [32mPASSED[0m[31m                                                                   [ 93%][0m
+src/toil/test/src/retainTempDirTest.py::TestCleanWorkDir::testOnSuccessWithError [32mPASSED[0m[31m                                                                   [ 93%][0m
+src/toil/test/src/retainTempDirTest.py::TestCleanWorkDir::testOnSuccessWithSuccess [32mPASSED[0m[31m                                                                 [ 93%][0m
+src/toil/test/src/systemTest.py::TestSystem::testAtomicityOfNonEmptyDirectoryRenames [32mPASSED[0m[31m                                                               [ 93%][0m
+src/toil/test/src/threadingTest.py::TestThreading::testGlobalMutexOrdering [32mPASSED[0m[31m                                                                         [ 94%][0m
+src/toil/test/src/threadingTest.py::TestThreading::testLastProcessStanding [32mPASSED[0m[31m                                                                         [ 94%][0m
+src/toil/test/src/threadingTest.py::TestENOLCKSafeLocking::test_safe_lock_retries [32mPASSED[0m[31m                                                                  [ 94%][0m
+src/toil/test/src/threadingTest.py::TestENOLCKSafeLocking::test_safe_lock_fails_after_max_retries [32mPASSED[0m[31m                                                  [ 94%][0m
+src/toil/test/src/threadingTest.py::TestENOLCKSafeLocking::test_safe_unlock_and_close_swallows [32mPASSED[0m[31m                                                     [ 94%][0m
+src/toil/test/src/threadingTest.py::TestEIOSafeLocking::test_safe_lock_retries [32mPASSED[0m[31m                                                                     [ 95%][0m
+src/toil/test/src/threadingTest.py::TestEIOSafeLocking::test_safe_lock_fails_after_max_retries [32mPASSED[0m[31m                                                     [ 95%][0m
+src/toil/test/src/threadingTest.py::TestEIOSafeLocking::test_safe_unlock_and_close_swallows [32mPASSED[0m[31m                                                        [ 95%][0m
+src/toil/test/src/toilContextManagerTest.py::ToilContextManagerTest::testContextManger [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                [ 95%][0m
+src/toil/test/src/toilContextManagerTest.py::ToilContextManagerTest::testExportAfterFailedExport [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m      [ 95%][0m
+src/toil/test/src/toilContextManagerTest.py::ToilContextManagerTest::testNoContextManger [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m              [ 95%][0m
+src/toil/test/src/userDefinedJobArgTypeTest.py::UserDefinedJobArgTypeTest::testJobClass [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m               [ 96%][0m
+src/toil/test/src/userDefinedJobArgTypeTest.py::UserDefinedJobArgTypeTest::testJobClassFromMain [32mPASSED[0m[31m                                                    [ 96%][0m
+src/toil/test/src/userDefinedJobArgTypeTest.py::UserDefinedJobArgTypeTest::testJobFunction [32mPASSED[0m[31m                                                         [ 96%][0m
+src/toil/test/src/userDefinedJobArgTypeTest.py::UserDefinedJobArgTypeTest::testJobFunctionFromMain [32mPASSED[0m[31m                                                 [ 96%][0m
+src/toil/test/src/workerTest.py::WorkerTests::testNextChainable [32mPASSED[0m[31m                                                                                    [ 96%][0m
+src/toil/test/utils/toilDebugTest.py::testJobStoreContents [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                            [ 96%][0m
+src/toil/test/utils/toilDebugTest.py::testFetchJobStoreFiles [32mPASSED[0m[31m                                                                                       [ 97%][0m
+src/toil/test/utils/toilDebugTest.py::TestDebugJob::test_run_job [32mPASSED[0m[31m                                                                                   [ 97%][0m
+src/toil/test/utils/toilDebugTest.py::TestDebugJob::test_print_job_info [32mPASSED[0m[31m                                                                            [ 97%][0m
+src/toil/test/utils/toilDebugTest.py::TestDebugJob::test_retrieve_task_directory [33mSKIPPED[0m (Install Toil with the 'wdl' extra to include this test.)[31m        [ 97%][0m
+src/toil/test/utils/toilKillTest.py::TestToilKill::test_cwl_toil_kill [33mSKIPPED[0m (Install Toil with the 'cwl' extra to include this test.)[31m                   [ 97%][0m
+src/toil/test/utils/toilKillTest.py::TestToilKillWithAWSJobStore::test_cwl_toil_kill [33mSKIPPED[0m (Install Toil with the 'cwl' extra to include this test.)[31m    [ 97%][0m
+src/toil/test/utils/utilsTest.py::TestUtils::test_config_functionality [32mPASSED[0m[31m                                                                             [ 98%][0m
+src/toil/test/utils/utilsTest.py::TestUtils::testAWSProvisionerUtils [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                  [ 98%][0m
+src/toil/test/utils/utilsTest.py::TestUtils::testUtilsSort [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                            [ 98%][0m
+src/toil/test/utils/utilsTest.py::TestUtils::testUtilsStatsSort [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                                       [ 98%][0m
+src/toil/test/utils/utilsTest.py::TestUtils::testUnicodeSupport [32mPASSED[0m[31m                                                                                    [ 98%][0m
+src/toil/test/utils/utilsTest.py::TestUtils::testMultipleJobsPerWorkerStats [33mSKIPPED[0m (Skipped because TOIL_TEST_QUICK is "True")[31m                           [ 98%][0m
+src/toil/test/utils/utilsTest.py::TestUtils::testGetPIDStatus [32mPASSED[0m[31m                                                                                      [ 99%][0m
+src/toil/test/utils/utilsTest.py::TestUtils::testGetStatusFailedToilWF [32mPASSED[0m[31m                                                                             [ 99%][0m
+src/toil/test/utils/utilsTest.py::TestUtils::testGetStatusFailedCWLWF [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m                 [ 99%][0m
+src/toil/test/utils/utilsTest.py::TestUtils::testGetStatusSuccessfulCWLWF [33mSKIPPED[0m (Requested to skip docker test or docker is not installed.)[31m             [ 99%][0m
+src/toil/test/utils/utilsTest.py::TestUtils::testPrintJobLog [33mSKIPPED[0m (Install Toil with the 'cwl' extra to include this test.)[31m                            [ 99%][0m
+src/toil/test/utils/utilsTest.py::TestUtils::testRestartAttribute [32mPASSED[0m[31m                                                                                  [100%][0m
+
+=========================================================================== FAILURES ============================================================================
+[31m[1m____________________________________________________________ ToilDocumentationTest.testMultiplejobs _____________________________________________________________[0m
+Traceback (most recent call last):
+  File "/apps/gent/RHEL9/zen5-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/unittest/case.py", line 58, in testPartExecutor
+    yield
+  File "/apps/gent/RHEL9/zen5-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/unittest/case.py", line 651, in run
+    self._callTestMethod(testMethod)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/zen5-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/unittest/case.py", line 606, in _callTestMethod
+    if method() is not None:
+       ~~~~~~^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/docs/scriptsTest.py", line 113, in testMultiplejobs
+    self.checkExpectedPattern(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        "tutorial_multiplejobs.py",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        " I have a message: last",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/docs/scriptsTest.py", line 70, in checkExpectedPattern
+    self.assertNotEqual(n, None, f"Pattern:\n{expectedPattern}\nOutput:\n{outerr}")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/zen5-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/unittest/case.py", line 916, in assertNotEqual
+    raise self.failureException(msg)
+AssertionError: None == None : Pattern:
+Hello world, I have a message: first.*Hello world, I have a message: second or third.*Hello world, I have a message: second or third.*Hello world, I have a message: last
+Output:
+ [2026-11-20T16:24:46+0100] [MainThread] [I] [toil] Running Toil version 9.5.0-855577413b6e3ceb33a90b3ec415e7a3fc0badba on host node4402.skiddo.os.
+[2026-11-20T16:24:46+0100] [MainThread] [I] [toil.realtimeLogger] Starting real-time logging.
+[2026-11-20T16:24:46+0100] [MainThread] [I] [toil.leader] Issued job 'helloWorld' kind-helloWorld/instance-d4pwppui v1 with job batch system ID: 1 and disk: 2.0 Gi, memory: 2.0 Gi, cores: 1, accelerators: [], preemptible: False
+[2026-11-20T16:24:46+0100] [MainThread] [I] [toil.leader] 0 jobs are running, 0 jobs are issued and waiting to run
+[2026-11-20T16:24:46+0100] [MainThread] [I] [toil.leader] Issued job 'helloWorld' kind-helloWorld/instance-ab82uauh v1 with job batch system ID: 2 and disk: 2.0 Gi, memory: 2.0 Gi, cores: 1, accelerators: [], preemptible: False
+[2026-11-20T16:24:46+0100] [MainThread] [I] [toil.leader] Issued job 'helloWorld' kind-helloWorld/instance-s25w54bg v1 with job batch system ID: 3 and disk: 2.0 Gi, memory: 2.0 Gi, cores: 1, accelerators: [], preemptible: False
+[2026-11-20T16:24:46+0100] [Thread-4 (statsAndLoggingAggregator)] [I] [toil.statsAndLogging] Got message from job at time 11-20-2026 16:24:46: Hello world, I have a message: first
+[2026-11-20T16:24:46+0100] [MainThread] [I] [toil.leader] Issued job 'helloWorld' kind-helloWorld/instance-sdlhfma8 v1 with job batch system ID: 4 and disk: 2.0 Gi, memory: 2.0 Gi, cores: 1, accelerators: [], preemptible: False
+[2026-11-20T16:24:47+0100] [Thread-4 (statsAndLoggingAggregator)] [I] [toil.statsAndLogging] Got message from job at time 11-20-2026 16:24:47: Hello world, I have a message: second or third
+[2026-11-20T16:24:47+0100] [Thread-4 (statsAndLoggingAggregator)] [I] [toil.statsAndLogging] Got message from job at time 11-20-2026 16:24:47: Hello world, I have a message: last
+[2026-11-20T16:24:47+0100] [Thread-4 (statsAndLoggingAggregator)] [I] [toil.statsAndLogging] Got message from job at time 11-20-2026 16:24:47: Hello world, I have a message: second or third
+[2026-11-20T16:24:50+0100] [MainThread] [I] [toil.leader] Finished toil run successfully.
+[2026-11-20T16:24:50+0100] [MainThread] [I] [toil.realtimeLogger] Stopping real-time logging server.
+[2026-11-20T16:24:50+0100] [MainThread] [I] [toil.realtimeLogger] Joining real-time logging server thread.
+[2026-11-20T16:24:50+0100] [MainThread] [I] [toil.common] Successfully deleted the job store: FileJobStore(/tmp/vsc47063/eb-p0xi5fp8/toil-test-docs.scriptsTest.ToilDocumentationTest-jobstore-i0em00hz)
+
+--------------------------------------------------------------------- Captured stdout setup ---------------------------------------------------------------------
+
+
+[TEST] toil.test.docs.scriptsTest.ToilDocumentationTest:testMultiplejobs (Nov 20 2026 07:24:46:035801 PST)
+
+
+--------------------------------------------------------------------- Captured stderr call ----------------------------------------------------------------------
+[2026-11-20T16:24:46+0100] [MainThread] [I] [toil.test] Setting up toil.test.docs.scriptsTest.ToilDocumentationTest.testMultiplejobs ...
+----------------------------------------------------------------------- Captured log call -----------------------------------------------------------------------
+[32mINFO    [0m toil.test:__init__.py:137 Setting up toil.test.docs.scriptsTest.ToilDocumentationTest.testMultiplejobs ...
+[31m[1m____________________________________________________________ ToilDocumentationTest.testMultiplejobs2 ____________________________________________________________[0m
+Traceback (most recent call last):
+  File "/apps/gent/RHEL9/zen5-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/unittest/case.py", line 58, in testPartExecutor
+    yield
+  File "/apps/gent/RHEL9/zen5-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/unittest/case.py", line 651, in run
+    self._callTestMethod(testMethod)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/zen5-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/unittest/case.py", line 606, in _callTestMethod
+    if method() is not None:
+       ~~~~~~^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/docs/scriptsTest.py", line 121, in testMultiplejobs2
+    self.checkExpectedPattern(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        "tutorial_multiplejobs2.py",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        " I have a message: last",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/docs/scriptsTest.py", line 70, in checkExpectedPattern
+    self.assertNotEqual(n, None, f"Pattern:\n{expectedPattern}\nOutput:\n{outerr}")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/zen5-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/unittest/case.py", line 916, in assertNotEqual
+    raise self.failureException(msg)
+AssertionError: None == None : Pattern:
+Hello world, I have a message: first.*Hello world, I have a message: second or third.*Hello world, I have a message: second or third.*Hello world, I have a message: last
+Output:
+ [2026-11-20T16:24:51+0100] [MainThread] [I] [toil] Running Toil version 9.5.0-855577413b6e3ceb33a90b3ec415e7a3fc0badba on host node4402.skiddo.os.
+[2026-11-20T16:24:51+0100] [MainThread] [I] [toil.realtimeLogger] Starting real-time logging.
+[2026-11-20T16:24:51+0100] [MainThread] [I] [toil.leader] Issued job 'helloWorld' kind-helloWorld/instance-228y01qv v1 with job batch system ID: 1 and disk: 2.0 Gi, memory: 2.0 Gi, cores: 1, accelerators: [], preemptible: False
+[2026-11-20T16:24:51+0100] [MainThread] [I] [toil.leader] 0 jobs are running, 0 jobs are issued and waiting to run
+[2026-11-20T16:24:51+0100] [MainThread] [I] [toil.leader] Issued job 'helloWorld' kind-helloWorld/instance-s6tk5g68 v1 with job batch system ID: 2 and disk: 2.0 Gi, memory: 2.0 Gi, cores: 1, accelerators: [], preemptible: False
+[2026-11-20T16:24:51+0100] [MainThread] [I] [toil.leader] Issued job 'helloWorld' kind-helloWorld/instance-_2typ2j7 v1 with job batch system ID: 3 and disk: 2.0 Gi, memory: 2.0 Gi, cores: 1, accelerators: [], preemptible: False
+[2026-11-20T16:24:51+0100] [Thread-4 (statsAndLoggingAggregator)] [I] [toil.statsAndLogging] Got message from job at time 11-20-2026 16:24:51: Hello world, I have a message: first
+[2026-11-20T16:24:51+0100] [MainThread] [I] [toil.leader] Issued job 'helloWorld' kind-helloWorld/instance-16os3g31 v1 with job batch system ID: 4 and disk: 2.0 Gi, memory: 2.0 Gi, cores: 1, accelerators: [], preemptible: False
+[2026-11-20T16:24:52+0100] [Thread-4 (statsAndLoggingAggregator)] [I] [toil.statsAndLogging] Got message from job at time 11-20-2026 16:24:52: Hello world, I have a message: last
+[2026-11-20T16:24:52+0100] [Thread-4 (statsAndLoggingAggregator)] [I] [toil.statsAndLogging] Got message from job at time 11-20-2026 16:24:52: Hello world, I have a message: second or third
+[2026-11-20T16:24:52+0100] [Thread-4 (statsAndLoggingAggregator)] [I] [toil.statsAndLogging] Got message from job at time 11-20-2026 16:24:52: Hello world, I have a message: second or third
+[2026-11-20T16:24:55+0100] [MainThread] [I] [toil.leader] Finished toil run successfully.
+[2026-11-20T16:24:55+0100] [MainThread] [I] [toil.realtimeLogger] Stopping real-time logging server.
+[2026-11-20T16:24:55+0100] [MainThread] [I] [toil.realtimeLogger] Joining real-time logging server thread.
+[2026-11-20T16:24:55+0100] [MainThread] [I] [toil.common] Successfully deleted the job store: FileJobStore(/tmp/vsc47063/eb-p0xi5fp8/toil-test-docs.scriptsTest.ToilDocumentationTest-jobstore-0yokv479)
+
+--------------------------------------------------------------------- Captured stdout setup ---------------------------------------------------------------------
+
+
+[TEST] toil.test.docs.scriptsTest.ToilDocumentationTest:testMultiplejobs2 (Nov 20 2026 07:24:50:975316 PST)
+
+
+--------------------------------------------------------------------- Captured stderr call ----------------------------------------------------------------------
+[2026-11-20T16:24:50+0100] [MainThread] [I] [toil.test] Setting up toil.test.docs.scriptsTest.ToilDocumentationTest.testMultiplejobs2 ...
+----------------------------------------------------------------------- Captured log call -----------------------------------------------------------------------
+[32mINFO    [0m toil.test:__init__.py:137 Setting up toil.test.docs.scriptsTest.ToilDocumentationTest.testMultiplejobs2 ...
+[31m[1m____________________________________________________________ ToilDocumentationTest.testMultiplejobs3 ____________________________________________________________[0m
+Traceback (most recent call last):
+  File "/apps/gent/RHEL9/zen5-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/unittest/case.py", line 58, in testPartExecutor
+    yield
+  File "/apps/gent/RHEL9/zen5-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/unittest/case.py", line 651, in run
+    self._callTestMethod(testMethod)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/zen5-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/unittest/case.py", line 606, in _callTestMethod
+    if method() is not None:
+       ~~~~~~^^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/docs/scriptsTest.py", line 129, in testMultiplejobs3
+    self.checkExpectedPattern(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        "tutorial_multiplejobs3.py",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        " I have a message: last",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/test/docs/scriptsTest.py", line 70, in checkExpectedPattern
+    self.assertNotEqual(n, None, f"Pattern:\n{expectedPattern}\nOutput:\n{outerr}")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/gent/RHEL9/zen5-ib/software/Python/3.13.1-GCCcore-14.2.0/lib/python3.13/unittest/case.py", line 916, in assertNotEqual
+    raise self.failureException(msg)
+AssertionError: None == None : Pattern:
+Hello world, I have a message: first.*Hello world, I have a message: second or third.*Hello world, I have a message: second or third.*Hello world, I have a message: last
+Output:
+ [2026-11-20T16:24:56+0100] [MainThread] [I] [toil] Running Toil version 9.5.0-855577413b6e3ceb33a90b3ec415e7a3fc0badba on host node4402.skiddo.os.
+[2026-11-20T16:24:56+0100] [MainThread] [I] [toil.realtimeLogger] Starting real-time logging.
+[2026-11-20T16:24:56+0100] [MainThread] [I] [toil.leader] Issued job 'helloWorld' kind-helloWorld/instance-8udreqtt v1 with job batch system ID: 1 and disk: 2.0 Gi, memory: 2.0 Gi, cores: 1, accelerators: [], preemptible: False
+[2026-11-20T16:24:56+0100] [MainThread] [I] [toil.leader] 0 jobs are running, 0 jobs are issued and waiting to run
+[2026-11-20T16:24:56+0100] [MainThread] [I] [toil.leader] Issued job 'helloWorld' kind-helloWorld/instance-vomrv20d v1 with job batch system ID: 2 and disk: 2.0 Gi, memory: 2.0 Gi, cores: 1, accelerators: [], preemptible: False
+[2026-11-20T16:24:56+0100] [MainThread] [I] [toil.leader] Issued job 'helloWorld' kind-helloWorld/instance-cnu9ax72 v1 with job batch system ID: 3 and disk: 2.0 Gi, memory: 2.0 Gi, cores: 1, accelerators: [], preemptible: False
+[2026-11-20T16:24:56+0100] [Thread-4 (statsAndLoggingAggregator)] [I] [toil.statsAndLogging] Got message from job at time 11-20-2026 16:24:56: Hello world, I have a message: first
+[2026-11-20T16:24:56+0100] [MainThread] [I] [toil.leader] Issued job 'helloWorld' kind-helloWorld/instance-21j73kze v1 with job batch system ID: 4 and disk: 2.0 Gi, memory: 2.0 Gi, cores: 1, accelerators: [], preemptible: False
+[2026-11-20T16:24:57+0100] [Thread-4 (statsAndLoggingAggregator)] [I] [toil.statsAndLogging] Got message from job at time 11-20-2026 16:24:57: Hello world, I have a message: second or third
+[2026-11-20T16:24:57+0100] [Thread-4 (statsAndLoggingAggregator)] [I] [toil.statsAndLogging] Got message from job at time 11-20-2026 16:24:57: Hello world, I have a message: last
+[2026-11-20T16:24:57+0100] [Thread-4 (statsAndLoggingAggregator)] [I] [toil.statsAndLogging] Got message from job at time 11-20-2026 16:24:57: Hello world, I have a message: second or third
+[2026-11-20T16:25:02+0100] [MainThread] [I] [toil.leader] Finished toil run successfully.
+[2026-11-20T16:25:02+0100] [MainThread] [I] [toil.realtimeLogger] Stopping real-time logging server.
+[2026-11-20T16:25:02+0100] [MainThread] [I] [toil.realtimeLogger] Joining real-time logging server thread.
+[2026-11-20T16:25:02+0100] [MainThread] [I] [toil.common] Successfully deleted the job store: FileJobStore(/tmp/vsc47063/eb-p0xi5fp8/toil-test-docs.scriptsTest.ToilDocumentationTest-jobstore-fxovz33l)
+
+--------------------------------------------------------------------- Captured stdout setup ---------------------------------------------------------------------
+
+
+[TEST] toil.test.docs.scriptsTest.ToilDocumentationTest:testMultiplejobs3 (Nov 20 2026 07:24:55:911729 PST)
+
+
+--------------------------------------------------------------------- Captured stderr call ----------------------------------------------------------------------
+[2026-11-20T16:24:55+0100] [MainThread] [I] [toil.test] Setting up toil.test.docs.scriptsTest.ToilDocumentationTest.testMultiplejobs3 ...
+----------------------------------------------------------------------- Captured log call -----------------------------------------------------------------------
+[32mINFO    [0m toil.test:__init__.py:137 Setting up toil.test.docs.scriptsTest.ToilDocumentationTest.testMultiplejobs3 ...
+[33m======================================================================= warnings summary ========================================================================[0m
+src/toil/test/src/fileStoreTest.py: 16 warnings
+src/toil/test/src/importExportFileTest.py: 6 warnings
+  /tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/lib/compatibility.py:11: DeprecationWarning: WARNING: "importFile()" is deprecated.  Please use "import_file()" instead.
+    warnings.warn(
+
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::testWriteExportFileCompatibility
+src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::testWriteExportFileCompatibility
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testWriteExportFileCompatibility
+src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testWriteExportFileCompatibility
+src/toil/test/src/importExportFileTest.py::TestImportExportFile::test_import_export_restart_false
+src/toil/test/src/importExportFileTest.py::TestImportExportFile::test_basic_import_export
+src/toil/test/src/importExportFileTest.py::TestImportExportFile::test_basic_import_export
+src/toil/test/src/importExportFileTest.py::TestImportExportFile::test_basic_import_export
+  /tmp/vsc47063/easybuild/build/toil/9.5.0/foss-2025a-aws/toil/toil-9.5.0/src/toil/lib/compatibility.py:11: DeprecationWarning: WARNING: "exportFile()" is deprecated.  Please use "export_file()" instead.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+===================================================================== slowest 10 durations ======================================================================
+261.34s call     src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testSimultaneousReadsUncachedStream
+67.47s call     src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testImportReadFileCompatibility
+66.49s call     src/toil/test/docs/scriptsTest.py::ToilDocumentationTest::testServices
+65.90s call     src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::testImportReadFileCompatibility
+37.26s call     src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testWriteReadGlobalFilePermissions
+33.71s call     src/toil/test/src/fileStoreTest.py::NonCachingFileStoreTestWithFileJobStore::testWriteReadGlobalFilePermissions
+32.77s call     src/toil/test/batchSystems/batchSystemTest.py::TestSingleMachineBatchSystemJob::test_omp_threads
+28.08s call     src/toil/test/src/fileStoreTest.py::CachingFileStoreTestWithFileJobStore::testToilIsNotBroken
+27.37s call     src/toil/test/utils/utilsTest.py::TestUtils::testRestartAttribute
+25.69s call     src/toil/test/src/promisedRequirementTest.py::TestSingleMachinePromisedRequirements::test_omp_threads
+[36m[1m==================================================================== short test summary info ====================================================================[0m
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:356: Configure Kubernetes (~/.kube/config, $KUBECONFIG, or current pod) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:422: Configure Kubernetes (~/.kube/config, $KUBECONFIG, or current pod) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:200: Configure Kubernetes (~/.kube/config, $KUBECONFIG, or current pod) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:203: Configure Kubernetes (~/.kube/config, $KUBECONFIG, or current pod) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:283: Configure Kubernetes (~/.kube/config, $KUBECONFIG, or current pod) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:324: Configure Kubernetes (~/.kube/config, $KUBECONFIG, or current pod) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:657: Install Toil with the 'kubernetes' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:585: Install Toil with the 'kubernetes' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:356: Set TOIL_AWS_BATCH_JOB_ROLE_ARN to an IAM role ARN that grants S3 access to include this test.
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:422: Set TOIL_AWS_BATCH_JOB_ROLE_ARN to an IAM role ARN that grants S3 access to include this test.
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:200: Set TOIL_AWS_BATCH_JOB_ROLE_ARN to an IAM role ARN that grants S3 access to include this test.
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:203: Set TOIL_AWS_BATCH_JOB_ROLE_ARN to an IAM role ARN that grants S3 access to include this test.
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:283: Set TOIL_AWS_BATCH_JOB_ROLE_ARN to an IAM role ARN that grants S3 access to include this test.
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:324: Set TOIL_AWS_BATCH_JOB_ROLE_ARN to an IAM role ARN that grants S3 access to include this test.
+[33mSKIPPED[0m [6] src/toil/test/batchSystems/batchSystemTest.py:356: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:756: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [6] src/toil/test/batchSystems/batchSystemTest.py:422: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [6] src/toil/test/batchSystems/batchSystemTest.py:200: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [6] src/toil/test/batchSystems/batchSystemTest.py:203: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [6] src/toil/test/batchSystems/batchSystemTest.py:283: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [6] src/toil/test/batchSystems/batchSystemTest.py:324: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:994: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:1068: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [4] src/toil/test/batchSystems/batchSystemTest.py:500: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:1238: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/batchSystems/batchSystemTest.py:1297: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/batchSystems/batchSystemTest.py:533: Install Mesos (and Toil with the 'mesos' extra) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/cactus/test_cactus_integration.py:23: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [1] src/toil/test/docs/scriptsTest.py:159: Skipping docker test.
+[33mSKIPPED[0m [1] src/toil/test/lib/aws/test_iam.py:167: Configure AWS credentials to include this test.
+[33mSKIPPED[0m [1] src/toil/test/lib/aws/test_iam.py:70: Configure AWS credentials to include this test.
+[33mSKIPPED[0m [1] src/toil/test/lib/aws/test_s3.py:44: Configure AWS credentials to include this test.
+[33mSKIPPED[0m [1] src/toil/test/lib/aws/test_s3.py:75: Configure AWS credentials to include this test.
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:52: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:132: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:137: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:142: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:147: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:154: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:161: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:168: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:175: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:182: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:189: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:196: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:203: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:210: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:217: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:224: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:231: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:238: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:245: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:252: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:259: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:266: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:273: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:280: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:287: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:294: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:315: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:335: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:338: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:341: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:365: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:368: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/lib/dockerTest.py:371: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_ec2.py:38: Skipping online test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_ec2.py:45: Skipping online test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_ec2.py:52: Skipping online test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_ec2.py:98: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_ec2.py:69: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_trs.py:87: Skipping online test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_trs.py:101: Skipping online test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_trs.py:149: Skipping online test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_trs.py:142: Skipping online test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_trs.py:156: Skipping online test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_trs.py:57: Skipping online test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_trs.py:76: Skipping online test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_trs.py:135: Skipping online test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_trs.py:125: Skipping online test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_trs.py:130: Skipping online test.
+[33mSKIPPED[0m [1] src/toil/test/lib/test_trs.py:115: Skipping online test.
+[33mSKIPPED[0m [4] ../../../../../../../../../scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py:502: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [3] src/toil/test/provisioners/aws/awsProvisionerTest.py:393: Set TOIL_TEST_INTEGRATIVE=True to include this integration test, or run `make integration_test_local` to run all integration tests.
+[33mSKIPPED[0m [3] src/toil/test/provisioners/aws/awsProvisionerTest.py:400: Set TOIL_TEST_INTEGRATIVE=True to include this integration test, or run `make integration_test_local` to run all integration tests.
+[33mSKIPPED[0m [3] src/toil/test/provisioners/aws/awsProvisionerTest.py:407: Set TOIL_TEST_INTEGRATIVE=True to include this integration test, or run `make integration_test_local` to run all integration tests.
+[33mSKIPPED[0m [1] src/toil/test/provisioners/aws/awsProvisionerTest.py:592: Set TOIL_TEST_INTEGRATIVE=True to include this integration test, or run `make integration_test_local` to run all integration tests.
+[33mSKIPPED[0m [1] src/toil/test/provisioners/aws/awsProvisionerTest.py:679: Set TOIL_TEST_INTEGRATIVE=True to include this integration test, or run `make integration_test_local` to run all integration tests.
+[33mSKIPPED[0m [1] src/toil/test/provisioners/aws/awsProvisionerTest.py:701: Set TOIL_TEST_INTEGRATIVE=True to include this integration test, or run `make integration_test_local` to run all integration tests.
+[33mSKIPPED[0m [1] src/toil/test/provisioners/clusterScalerTest.py:773: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/provisioners/clusterScalerTest.py:806: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/provisioners/clusterScalerTest.py:884: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/provisioners/clusterTest.py:237: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [2] src/toil/test/provisioners/gceProvisionerTest.py:244: Set TOIL_GOOGLE_PROJECTID to a Google project ID to include this test.
+[33mSKIPPED[0m [2] src/toil/test/provisioners/gceProvisionerTest.py:252: Set TOIL_GOOGLE_PROJECTID to a Google project ID to include this test.
+[33mSKIPPED[0m [1] src/toil/test/provisioners/gceProvisionerTest.py:353: Set TOIL_GOOGLE_PROJECTID to a Google project ID to include this test.
+[33mSKIPPED[0m [1] src/toil/test/provisioners/gceProvisionerTest.py:419: Set TOIL_GOOGLE_PROJECTID to a Google project ID to include this test.
+[33mSKIPPED[0m [3] src/toil/test/server/serverTest.py:72: Install Toil with the 'server' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:221: Install Toil with the 'server' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:519: Install Toil with the 'server' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:513: Install Toil with the 'server' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:504: Install Toil with the 'server' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:751: Install Toil with the 'cwl' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:710: Install Toil with the 'cwl' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:625: Install Toil with the 'cwl' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:676: Install Toil with the 'cwl' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:685: Install Toil with the 'cwl' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:664: Install Toil with the 'cwl' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:655: Install Toil with the 'cwl' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:700: Install Toil with the 'cwl' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:598: Install Toil with the 'cwl' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:579: Install Toil with the 'cwl' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/server/serverTest.py:647: Install Toil with the 'cwl' extra to include this test.
+[33mSKIPPED[0m [2] src/toil/test/server/serverTest.py:751: Set TOIL_WES_BROKER_URL to a URL to a RabbitMQ broker for Celery to include this test.
+[33mSKIPPED[0m [2] src/toil/test/server/serverTest.py:710: Set TOIL_WES_BROKER_URL to a URL to a RabbitMQ broker for Celery to include this test.
+[33mSKIPPED[0m [2] src/toil/test/server/serverTest.py:625: Set TOIL_WES_BROKER_URL to a URL to a RabbitMQ broker for Celery to include this test.
+[33mSKIPPED[0m [2] src/toil/test/server/serverTest.py:676: Set TOIL_WES_BROKER_URL to a URL to a RabbitMQ broker for Celery to include this test.
+[33mSKIPPED[0m [2] src/toil/test/server/serverTest.py:685: Set TOIL_WES_BROKER_URL to a URL to a RabbitMQ broker for Celery to include this test.
+[33mSKIPPED[0m [2] src/toil/test/server/serverTest.py:664: Set TOIL_WES_BROKER_URL to a URL to a RabbitMQ broker for Celery to include this test.
+[33mSKIPPED[0m [2] src/toil/test/server/serverTest.py:655: Set TOIL_WES_BROKER_URL to a URL to a RabbitMQ broker for Celery to include this test.
+[33mSKIPPED[0m [2] src/toil/test/server/serverTest.py:700: Set TOIL_WES_BROKER_URL to a URL to a RabbitMQ broker for Celery to include this test.
+[33mSKIPPED[0m [2] src/toil/test/server/serverTest.py:598: Set TOIL_WES_BROKER_URL to a URL to a RabbitMQ broker for Celery to include this test.
+[33mSKIPPED[0m [2] src/toil/test/server/serverTest.py:579: Set TOIL_WES_BROKER_URL to a URL to a RabbitMQ broker for Celery to include this test.
+[33mSKIPPED[0m [2] src/toil/test/server/serverTest.py:647: Set TOIL_WES_BROKER_URL to a URL to a RabbitMQ broker for Celery to include this test.
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:204: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:198: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:314: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:268: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:213: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:240: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:260: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:252: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:245: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:275: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:331: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:230: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:223: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:295: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/sort/sortTest.py:284: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/autoDeploymentTest.py:228: Install Mesos (and Toil with the 'mesos' extra) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/autoDeploymentTest.py:341: Install Mesos (and Toil with the 'mesos' extra) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/autoDeploymentTest.py:51: Install Mesos (and Toil with the 'mesos' extra) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/autoDeploymentTest.py:101: Install Mesos (and Toil with the 'mesos' extra) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/autoDeploymentTest.py:173: Install Mesos (and Toil with the 'mesos' extra) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/checkpointTest.py:35: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/checkpointTest.py:51: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/deferredFunctionTest.py:109: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/deferredFunctionTest.py:145: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/dockerCheckTest.py:89: Skipping docker test.
+[33mSKIPPED[0m [1] src/toil/test/src/dockerCheckTest.py:80: Skipping docker test.
+[33mSKIPPED[0m [1] src/toil/test/src/dockerCheckTest.py:63: Skipping docker test.
+[33mSKIPPED[0m [1] src/toil/test/src/dockerCheckTest.py:57: Skipping docker test.
+[33mSKIPPED[0m [1] src/toil/test/src/dockerCheckTest.py:69: Skipping docker test.
+[33mSKIPPED[0m [1] src/toil/test/src/dockerCheckTest.py:32: Skipping docker test.
+[33mSKIPPED[0m [1] src/toil/test/src/dockerCheckTest.py:38: Skipping docker test.
+[33mSKIPPED[0m [1] src/toil/test/src/dockerCheckTest.py:75: Skipping docker test.
+[33mSKIPPED[0m [1] src/toil/test/src/dockerCheckTest.py:45: Skipping docker test.
+[33mSKIPPED[0m [1] src/toil/test/src/dockerCheckTest.py:26: Skipping docker test.
+[33mSKIPPED[0m [1] src/toil/test/src/dockerCheckTest.py:52: Skipping docker test.
+[33mSKIPPED[0m [4] src/toil/test/src/fileStoreTest.py:138: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [4] src/toil/test/src/fileStoreTest.py:189: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [3] src/toil/test/src/fileStoreTest.py:792: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [3] src/toil/test/src/fileStoreTest.py:580: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [3] src/toil/test/src/fileStoreTest.py:560: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [3] src/toil/test/src/fileStoreTest.py:570: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [3] src/toil/test/src/fileStoreTest.py:1411: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [3] src/toil/test/src/fileStoreTest.py:535: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [3] src/toil/test/src/fileStoreTest.py:1126: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [3] src/toil/test/src/fileStoreTest.py:995: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [3] src/toil/test/src/fileStoreTest.py:1005: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [3] src/toil/test/src/fileStoreTest.py:1481: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [3] src/toil/test/src/fileStoreTest.py:1474: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [3] src/toil/test/src/fileStoreTest.py:1134: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [3] src/toil/test/src/fileStoreTest.py:1151: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:138: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:189: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:375: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:411: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:124: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:345: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:299: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:498: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:471: Set TOIL_AWS_KEYNAME to an AWS-stored SSH key to include this test.
+[33mSKIPPED[0m [2] src/toil/test/src/fileStoreTest.py:1548: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/fileStoreTest.py:375: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/fileStoreTest.py:980: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/fileStoreTest.py:894: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/fileStoreTest.py:887: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/fileStoreTest.py:411: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/fileStoreTest.py:1615: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/fileStoreTest.py:124: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/fileStoreTest.py:345: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/fileStoreTest.py:877: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/fileStoreTest.py:864: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/fileStoreTest.py:299: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:1702: Google job store does not use file hints
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:1706: Google job store does not use file hints
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:138: Set TOIL_GOOGLE_PROJECTID to a Google project ID to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:189: Set TOIL_GOOGLE_PROJECTID to a Google project ID to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:375: Set TOIL_GOOGLE_PROJECTID to a Google project ID to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:411: Set TOIL_GOOGLE_PROJECTID to a Google project ID to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:124: Set TOIL_GOOGLE_PROJECTID to a Google project ID to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:345: Set TOIL_GOOGLE_PROJECTID to a Google project ID to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:299: Set TOIL_GOOGLE_PROJECTID to a Google project ID to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:1715: Google job store does not use file hints
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:1719: Google job store does not use file hints
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:498: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/fileStoreTest.py:471: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/importExportFileTest.py:103: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/jobFileStoreTest.py:85: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/jobServiceTest.py:41: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/jobServiceTest.py:60: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/jobServiceTest.py:80: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/jobServiceTest.py:126: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/jobServiceTest.py:154: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/jobTest.py:43: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/jobTest.py:158: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/jobTest.py:179: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/jobTest.py:393: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/jobTest.py:420: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/jobTest.py:535: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/miscTests.py:48: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/promisedRequirementTest.py:39: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/promisedRequirementTest.py:68: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [2] src/toil/test/src/promisedRequirementTest.py:151: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/promisedRequirementTest.py:124: Install Mesos (and Toil with the 'mesos' extra) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/promisedRequirementTest.py:148: Install Mesos (and Toil with the 'mesos' extra) to include this test.
+[33mSKIPPED[0m [1] src/toil/test/src/restartDAGTest.py:37: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/restartDAGTest.py:44: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/resumabilityTest.py:30: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/toilContextManagerTest.py:30: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/toilContextManagerTest.py:42: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/toilContextManagerTest.py:36: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/src/userDefinedJobArgTypeTest.py:41: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/utils/toilDebugTest.py:45: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/utils/toilDebugTest.py:259: Install Toil with the 'wdl' extra to include this test.
+[33mSKIPPED[0m [2] ../../../../../../../../../scratch/gent/vo/001/gvo00117/easybuild/RHEL9/zen5-ib/software/pytest/9.0.3-GCCcore-14.2.0/lib/python3.13/site-packages/_pytest/unittest.py:502: Install Toil with the 'cwl' extra to include this test.
+[33mSKIPPED[0m [1] src/toil/test/utils/utilsTest.py:121: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/utils/utilsTest.py:204: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/utils/utilsTest.py:287: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/utils/utilsTest.py:340: Skipped because TOIL_TEST_QUICK is "True"
+[33mSKIPPED[0m [1] src/toil/test/utils/utilsTest.py:465: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/utils/utilsTest.py:508: Requested to skip docker test or docker is not installed.
+[33mSKIPPED[0m [1] src/toil/test/utils/utilsTest.py:546: Install Toil with the 'cwl' extra to include this test.
+[31mFAILED[0m src/toil/test/docs/scriptsTest.py::[1mToilDocumentationTest::testMultiplejobs[0m - AssertionError: None == None : Pattern:
+[31mFAILED[0m src/toil/test/docs/scriptsTest.py::[1mToilDocumentationTest::testMultiplejobs2[0m - AssertionError: None == None : Pattern:
+[31mFAILED[0m src/toil/test/docs/scriptsTest.py::[1mToilDocumentationTest::testMultiplejobs3[0m - AssertionError: None == None : Pattern:
+[31m======================= [31m[1m3 failed[0m, [32m224 passed[0m, [33m355 skipped[0m, [33m1 deselected[0m, [33m1 xpassed[0m, [33m30 warnings[0m, [32m31 subtests passed[0m[31m in 1381.17s (0:23:01)[0m[31m =======================[0m

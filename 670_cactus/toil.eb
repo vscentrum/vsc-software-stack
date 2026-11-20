@@ -116,35 +116,26 @@ exts_list = [
     (name, version, {
         'use_pip_extras': 'aws',
         'testinstall': True,
-        'pretestopts': (
-            # Fix Python version in both the source and temporary test installation
-            "sed -i 's/^python = .*/python = \"python3.13\"/; "
-            "s/^exactPython = .*/exactPython = \"python3.13\"/' "
-            "src/toil/version.py "
-            "\"$(python -c 'import toil.version; print(toil.version.__file__)')\" && "
-            # Move CWL import into the test method
-            "sed -i '/^from toil.test.cwl.cwlTest import TestCWLv12Conformance$/d; "
-            "/        test_class = TestCWLv12Conformance/i\\"
-            "        from toil.test.cwl.cwlTest import TestCWLv12Conformance' "
-            "src/toil/test/provisioners/clusterTest.py && "
-        ),
-        # 'runtest': 'TOIL_TEST_QUICK=True pytest -v src/toil/test/sort/sortTest.py::SortTest::testSort',
-        # 'runtest': (
-        #     'TOIL_SKIP_ONLINE=true TOIL_TEST_QUICK=true TOIL_SKIP_DOCKER=true '
-        #     'TOIL_HISTORY=0 pytest -v --durations=10 src/toil/test'
-        # ),
+        'patches': ['toil-9.5.0-fix-python-and-cwl-import.patch'],
         'runtest': (
-            'TOIL_AWS_ZONE=us-west-2a '
-            'TOIL_SKIP_ONLINE=true TOIL_TEST_QUICK=true TOIL_SKIP_DOCKER=true '
-            'TOIL_HISTORY=0 pytest -v --durations=10 '
-            '-k "not testVirtualEnv" '
-            '--ignore=src/toil/test/cwl '
-            '--ignore=src/toil/test/wdl '
-            '--ignore=src/toil/test/jobStores/jobStoreTest.py '
-            '--ignore=src/toil/test/lib/test_url.py '
-            'src/toil/test'
+            'TOIL_AWS_ZONE=us-west-2a '  # Required for AWS test collection, even when cloud tests are skipped
+            'TOIL_SKIP_ONLINE=true '  # Skip tests requiring network access or cloud services
+            'TOIL_TEST_QUICK=true '  # Skip slow and resource-intensive tests
+            'TOIL_SKIP_DOCKER=true '  # Skip tests requiring Docker
+            'TOIL_HISTORY=0 '  # Disable Toil execution history during testing
+            'pytest -v --durations=10 '  # Verbose output and report the 10 slowest tests
+            '-k "not (testVirtualEnv or testMultiplejobs)" '  # Exclude virtualenv-specific and flaky log-order tests
+            '--ignore=src/toil/test/cwl '  # CWL extras are not installed
+            '--ignore=src/toil/test/wdl '  # WDL extras are not installed
+            '--ignore=src/toil/test/jobStores/jobStoreTest.py '  # Requires additional dependencies (stubserver, ..)
+            '--ignore=src/toil/test/lib/test_url.py '  # Requires pytest-httpserver
+            'src/toil/test'  # Run all remaining Toil tests, including Cactus and AWS tests
         ),
-        'checksums': ['dae9a12b0f277355170129be38406c831da47054758e64d6693e18d7e5b45d3f'],
+        'checksums': [
+            {'toil-9.5.0.tar.gz': 'dae9a12b0f277355170129be38406c831da47054758e64d6693e18d7e5b45d3f'},
+            {'toil-9.5.0-fix-python-and-cwl-import.patch':
+             '7f9ab4509e93eec85931429333c448cc6a3537b8d691dc0eeb6ef7adddcd2adb'},
+        ],
     }),
 ]
 
