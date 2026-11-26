@@ -33,9 +33,12 @@ dependencies = [
 
 # commit from cactus/build-tools/KegAlign.commit
 local_kegalign_commit = 'eaf02cf8bb25161bf1338f98b6b987aa4e3d12df'
+
 # KegAlign requires this exact tbb version (scripts/make-conda-env.bash)
 local_tbb_version = '2020.2'
+
 local_mbuffer_version = '20260511'
+
 components = [
     ('tbb', local_tbb_version, {
         'easyblock': 'EB_tbb',
@@ -97,23 +100,21 @@ components = [
 ]
 
 local_cactus_source_url = f'https://github.com/ComparativeGenomicsToolkit/cactus/releases/download/v{version}'
-local_cactus_download_filename = f'cactus-v{version}.tar.gz'
-local_cactus_source = f'cactus-{version}.tar.gz'
 local_cactus_checksum = 'b3253a324ee96721f287262070454a8ef0d23444d7a1403aece98141eea014d1'
 
 exts_list = [
     ('sonLib', '2.0', {
         'modulename': '%(name)s',
         'source_urls': [local_cactus_source_url],
-        'sources': [{'download_filename': local_cactus_download_filename, 'filename': local_cactus_source}],
+        'sources': [f'cactus-{version}.tar.gz'],
         'start_dir': 'submodules/%(name)s',
         'checksums': [local_cactus_checksum],
     }),
     ('%(namelower)s', version, {
         'source_urls': [local_cactus_source_url],
-        'sources': [{'download_filename': local_cactus_download_filename, 'filename': local_cactus_source}],
+        'sources': [f'cactus-{version}.tar.gz'],
         'preinstallopts': (
-            # Cactus pins NetworkX to <2.8.1, although later NetworkX 2.x releases
+            # Cactus pins NetworkX to <2.8.1, although later NetworkX releases
             # remain API-compatible for the functionality used by Cactus.
             "sed -i 's/networkx>=2,<2.8.1/networkx>=2/' setup.py && "
             # Build the native Cactus tools and bundled third-party components before installing the Python package
@@ -126,6 +127,8 @@ exts_list = [
             'CACTUS_BINARIES_MODE=local CACTUS_DOCKER_MODE=0 SONLIB_TEST_LENGTH=SHORT '
             'make PYTHONPATH="$PWD/submodules/sonLib/src:$PWD/submodules:$PWD/src:$PYTHONPATH" '
             'test testErrOut= && '
+            # Enable GPU acceleration by default, as in the upstream GPU Docker release.
+            "sed -i 's/gpu=\"0\"/gpu=\"all\"/g' src/cactus/cactus_progressive_config.xml && "
             # The Cactus build does not provide a conventional "make install": its Makefile
             # assembles the native runtime executables and libraries in the source-tree bin/
             # and lib/ directories. Copy these into the EasyBuild installation prefix.
@@ -160,5 +163,16 @@ sanity_check_commands = [
     'command -v faToTwoBit',
     'run_kegalign --help',
 ]
+
+
+modloadmsg = """
+GPU acceleration is enabled by default in this Cactus installation.
+
+When using Slurm as the Toil batch system (--batchSystem slurm),
+you must explicitly specify the number of GPUs per alignment job
+using --gpu N and the number of CPU cores using --lastzCores N.
+
+For CPU-only execution, explicitly specify --gpu 0.
+"""
 
 moduleclass = 'bio'
